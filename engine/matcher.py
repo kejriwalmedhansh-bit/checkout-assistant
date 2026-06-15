@@ -30,6 +30,21 @@ _SIZE_RE = re.compile(
 
 _FOREIGN_SOURCES = frozenset({"farfetch", "ssense", "net-a-porter", "mytheresa"})
 
+# Generic descriptor words stripped from both source and candidate token sets
+# before Jaccard similarity and subset checks.  These words are
+# merchant-specific labels that vary across retailers (e.g. Myntra says
+# "Leather Sneakers", AJIO says "Shoes", Amazon says "Running Shoes"), so
+# including them in similarity punishes cross-merchant matches unfairly.
+# "womens"/"mens" are the normalized forms of "Women's"/"Men's".
+_TOKEN_NOISE = frozenset({
+    "women", "womens", "men", "mens", "boys", "girls",
+    "casual", "running", "formal", "leather",
+    "wireless", "bluetooth", "truly", "tws",
+    "earbuds", "headphones", "sneakers", "shoes", "sandals",
+    "deal",  # "Deal:" prefix sometimes added to Amazon titles
+    "for",   # filler preposition common in candidate titles
+})
+
 # Strip feature-description suffixes before extracting submodel tags or
 # computing similarity. Cuts at the first comma, opening parenthesis, or
 # standalone "with" — all of which signal the start of spec copy rather than
@@ -107,6 +122,19 @@ def _is_refurbished(text: str) -> bool:
     return any(w in normalized for w in ["refurbished", "renewed", "open box", "used", "pre owned"])
 
 
+def _meaningful_tokens(text: str, extra_strip: frozenset = frozenset()) -> set[str]:
+    """Normalized token set with noise words and extra tokens removed.
+
+    Used for Jaccard similarity and subset checks so that merchant-specific
+    descriptors (shoe type, gender label, material) don't dominate distance.
+    Falls back to the full normalized set minus extras if stripping leaves
+    nothing (e.g. a product named only "Running Shoes").
+    """
+    tokens = set(_normalize(text).split())
+    stripped = tokens - _TOKEN_NOISE - extra_strip
+    return stripped if stripped else tokens - extra_strip
+
+
 def match_product(source_name: str, source_brand: str, candidate_title: str) -> MatchResult:
     source_norm = _normalize(source_name)
     candidate_norm = _normalize(candidate_title)
@@ -156,27 +184,35 @@ def match_product(source_name: str, source_brand: str, candidate_title: str) -> 
     size_conflict = bool(source_size and candidate_size and sorted(source_size) != sorted(candidate_size))
     size_notes = f"Size mismatch: {' / '.join(source_size)} vs {' / '.join(candidate_size)}" if size_conflict else ""
 
-    similarity = _token_similarity(source_name, candidate_title)
+    # Noise-stripped token sets for subset and similarity checks.
+    # Brand tokens are stripped too — brand presence is already enforced above,
+    # so keeping them here only penalises sources where the brand isn't part of
+    # the extracted product name (e.g. Myntra returns "Women Waffle Debut …"
+    # without "Nike" in the title).
+    brand_tokens = frozenset(_normalize(source_brand).split()) if source_brand else frozenset()
+    source_tokens = _meaningful_tokens(source_name, brand_tokens)
+    candidate_tokens = _meaningful_tokens(candidate_title, brand_tokens)
+
+    inter = source_tokens & candidate_tokens
+    union = source_tokens | candidate_tokens
+    similarity = len(inter) / len(union) if union else 0.0
+
     conflict_notes = " | ".join(filter(None, [submodel_notes, color_notes, storage_notes, size_notes]))
 
     if submodel_conflict or color_conflict or storage_conflict or size_conflict:
         return MatchResult(match_type="Similar Match", confidence=max(0.3, similarity - 0.2),
                            notes=conflict_notes or "Variant conflict", submodel_conflict=submodel_conflict)
 
-    source_tokens = set(_normalize(source_name).split())
-    candidate_tokens = set(_normalize(candidate_title).split())
-
-    # Forward subset: short source ⊆ long candidate (source is the brief name,
-    # candidate adds colour/spec words).
+    # Forward subset: source core tokens ⊆ candidate tokens (source is the
+    # brief name, candidate adds colour/spec/category words).
     if source_tokens and source_tokens.issubset(candidate_tokens):
         return MatchResult(match_type="Exact Match", confidence=1.0,
                            notes="Source tokens subset of candidate", submodel_conflict=False)
 
-    # Reverse subset: candidate tokens ⊆ source tokens, with a minimum of 3
-    # candidate tokens to avoid trivially short matches.  Handles long Amazon
-    # titles where the source name contains all the candidate's words (e.g.
-    # "Bose Noise Master Buds 2" is entirely contained in a long source title).
-    if len(candidate_tokens) >= 3 and candidate_tokens.issubset(source_tokens):
+    # Reverse subset: candidate tokens ⊆ source tokens (long Amazon source
+    # title that contains all of the short candidate's meaningful words).
+    # Minimum 2 tokens after noise-stripping to avoid trivial single-word hits.
+    if len(candidate_tokens) >= 2 and candidate_tokens.issubset(source_tokens):
         return MatchResult(match_type="Exact Match", confidence=1.0,
                            notes="Candidate tokens subset of source", submodel_conflict=False)
 
