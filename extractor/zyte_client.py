@@ -41,18 +41,69 @@ def _normalise_url(url: str) -> str:
     return url
 
 
+_AMAZON_TITLE_RE = re.compile(
+    r'<span[^>]+id=["\']productTitle["\'][^>]*>(.*?)</span>', re.DOTALL
+)
+_AMAZON_PRICE_RE = re.compile(
+    r'<span[^>]+class=["\'][^"\']*a-price-whole[^"\']*["\'][^>]*>([\d,]+)<'
+)
+_AMAZON_BRAND_RE = re.compile(
+    r'<a[^>]+id=["\']bylineInfo["\'][^>]*>(.*?)</a>', re.DOTALL
+)
+_TAG_RE = re.compile(r'<[^>]+>')
+
+
+def _amazon_html_fallback(url: str, partial: dict) -> dict:
+    """Fetch browser HTML and extract name/price/brand for Amazon pages when
+    structured extraction returns no name (probability too low)."""
+    try:
+        html = fetch_browser_html(url)
+    except Exception:
+        return partial
+
+    name_m = _AMAZON_TITLE_RE.search(html)
+    price_m = _AMAZON_PRICE_RE.search(html)
+    brand_m = _AMAZON_BRAND_RE.search(html)
+
+    name = _TAG_RE.sub("", name_m.group(1)).strip() if name_m else ""
+    raw_price = price_m.group(1).replace(",", "").strip() if price_m else ""
+    brand_text = _TAG_RE.sub("", brand_m.group(1)).strip() if brand_m else ""
+    # "Visit the Noise Store" → "Noise"
+    brand = re.sub(r'^(visit\s+the\s+|brand[:\s]+)', '', brand_text, flags=re.IGNORECASE).replace("Store", "").strip()
+
+    merged = dict(partial)
+    if name:
+        merged["name"] = name
+    if raw_price:
+        merged.setdefault("price", raw_price)
+        merged.setdefault("currency", "INR")
+    if brand:
+        merged.setdefault("brand", {"name": brand})
+    merged.setdefault("availability", "InStock")
+    return merged
+
+
 def extract_product(url: str) -> dict:
     """Call Zyte Extract API with Product data type. Returns the product dict.
 
     Response schema (flat, no 'offers' nesting):
       name, price (str), regularPrice (str), currency, sku, brand.name,
       mainImage.url, aggregateRating, metadata, ...
+
+    Falls back to browserHtml parsing for Amazon pages when structured
+    extraction returns no product name (probability too low).
     """
     url = _normalise_url(url)
     with httpx.Client(timeout=TIMEOUT) as client:
         resp = client.post(ZYTE_API_URL, json={"url": url, "product": True}, auth=_auth())
         resp.raise_for_status()
-    return resp.json().get("product") or {}
+    product = resp.json().get("product") or {}
+
+    if not product.get("name") and "amazon.in" in url:
+        print("  [Zyte] Structured extraction returned no name — falling back to browserHtml")
+        product = _amazon_html_fallback(url, product)
+
+    return product
 
 
 def extract_product_list(url: str) -> list[dict]:

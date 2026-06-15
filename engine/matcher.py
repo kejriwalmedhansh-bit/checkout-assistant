@@ -1,352 +1,182 @@
+"""
+matcher.py — Product matching with submodel conflict detection
+"""
+
 import re
-import difflib
+from dataclasses import dataclass
 
-
-# ── helpers ──────────────────────────────────────────────────────────────────
-
-def _normalise(text: str) -> str:
-    return re.sub(r"\s+", " ", text.lower().strip())
-
-
-_STORAGE_NORM_RE = re.compile(r"(\d+)\s*(gb|tb)", re.IGNORECASE)
-
-_REFURB_RE = re.compile(
-    r"\b(refurb(?:ished)?|renewed|open[- ]?box|pre[- ]?owned|second[- ]?hand|secondhand)\b",
-    re.IGNORECASE,
-)
-
-
-def detect_condition(product: dict) -> str:
-    """Return 'refurbished' if the product is clearly non-new, else 'new'."""
-    if _REFURB_RE.search(product.get("name") or ""):
-        return "refurbished"
-    for prop in (product.get("additionalProperties") or []):
-        key = (prop.get("name") or "").lower()
-        val = (prop.get("value") or "")
-        if "condition" in key:
-            if _REFURB_RE.search(val) or re.search(r"\bused\b", val, re.IGNORECASE):
-                return "refurbished"
-        if _REFURB_RE.search(val):
-            return "refurbished"
-    if _REFURB_RE.search(product.get("description") or ""):
-        return "refurbished"
-    return "new"
-
-
-def _apply_condition(result: dict, original: dict, candidate: dict) -> dict:
-    """Downgrade Exact Match to Similar Match when candidate is refurbished and original is new."""
-    if (result["match_type"] == "Exact Match"
-            and candidate.get("_condition") == "refurbished"
-            and original.get("_condition", "new") == "new"):
-        return {"match_type": "Similar Match", "variant_notes": "Refurbished listing"}
-    return result
-
-
-def _tokenize(name: str) -> list[str]:
-    """Split a product name into word tokens for similarity scoring.
-    Normalises '128 GB' → '128gb' so spacing differences don't split storage tokens.
-    """
-    s = _STORAGE_NORM_RE.sub(lambda m: m.group(1) + m.group(2).lower(), name.lower())
-    return [t for t in (re.sub(r"[^a-z0-9]", "", w) for w in s.split()) if t]
-
-
-def _brand(product: dict) -> str:
-    """
-    Extract brand from flat Zyte schema (brand.name) or from the product name
-    as a fallback when Zyte returns a spurious brand (e.g. 'Amazon Prime logo').
-    """
-    b = product.get("brand") or {}
-    raw = (b.get("name") or "") if isinstance(b, dict) else str(b)
-    # Filter out obviously wrong values injected by Zyte on Amazon pages
-    _noise = {"amazon prime", "amazon", "prime"}
-    if _normalise(raw).lower() in _noise or "logo" in raw.lower():
-        raw = ""
-    if raw:
-        return _normalise(raw)
-    # Fallback: check if a known brand appears in the product name
-    name = product.get("name") or ""
-    _known_brands = [
-        "apple", "samsung", "sony", "lg", "hp", "dell", "lenovo", "asus",
-        "acer", "microsoft", "google", "oneplus", "realme", "xiaomi", "oppo",
-        "vivo", "motorola", "nokia", "huawei", "canon", "nikon",
-    ]
-    lower = name.lower()
-    for brand in _known_brands:
-        if brand in lower:
-            return brand
-    return ""
-
-
-def _sku(product: dict) -> str:
-    """Return normalised SKU (Zyte uses 'sku' for ASIN / product code)."""
-    return _normalise(product.get("sku") or "")
-
-
-def _mpn(product: dict) -> str:
-    """Return normalised MPN — may be absent in Zyte flat schema."""
-    return _normalise(product.get("mpn") or "")
-
-
-def _gtins(product: dict) -> set[str]:
-    """Return GTIN values. Zyte flat schema doesn't emit these; kept for future."""
-    return {g.get("value", "") for g in (product.get("gtin") or [])} - {""}
-
-
-def get_price(product: dict) -> float | None:
-    """Price from Zyte flat schema ('price' key is a string like '110290.0')."""
-    raw = product.get("price")
-    if raw is not None:
-        try:
-            return float(raw)
-        except (ValueError, TypeError):
-            pass
-    return None
-
-
-def get_regular_price(product: dict) -> float | None:
-    raw = product.get("regularPrice")
-    if raw is not None:
-        try:
-            return float(raw)
-        except (ValueError, TypeError):
-            pass
-    return None
-
-
-def get_availability(product: dict) -> str:
-    """Zyte flat schema: 'availability' is a string or may be absent."""
-    return product.get("availability") or ""
-
-
-# ── spec extraction ───────────────────────────────────────────────────────────
-
-_COLOR_WORDS = [
-    "black", "white", "silver", "gold", "blue", "red", "green",
-    "pink", "grey", "gray", "yellow", "purple", "orange", "starlight",
-    "midnight", "sky", "coral", "teal", "lavender",
-    "obsidian", "porcelain", "hazel", "bay", "mint", "peony", "wintergreen",
-    "aloe", "charcoal", "sage", "linen", "ultramarine", "mocha", "jade",
+SUBMODEL_KEYWORDS = [
+    "pro", "anc", "elite", "gen 2", "gen2", "neo", "plus", "max",
+    "lite", "mini", "ultra", "prime", "sport",
+    "141x", "141 pro", "141 anc", "141 elite", "141 gen",
 ]
-_STORAGE_RE = re.compile(r"\b(\d+\s*(?:gb|tb))\b", re.IGNORECASE)
-_RAM_RE = re.compile(r"\b(\d+\s*gb)\s+(?:ram|memory|unified)\b", re.IGNORECASE)
-# Matches "13.6 inch", "15.3 inch", '13.6″', '13.6"'
-_SIZE_RE = re.compile(r"\b(\d+\.?\d*)\s*(?:inch|″|\")\b", re.IGNORECASE)
 
-# Apple part-number codes: e.g. MDHC4HN/A, MDV94HN/A, MXD13HN/A
-_APPLE_CODE_RE = re.compile(r"\b([A-Z]{2,5}\d{1,2}[A-Z]{2}(?:\/[A-Z])?)\b")
+COLOR_WORDS = [
+    "obsidian", "porcelain", "hazel", "bay", "mint", "coral", "peony",
+    "wintergreen", "aloe", "charcoal", "sage", "linen", "ultramarine",
+    "mocha", "jade", "black", "white", "blue", "red", "green", "pink",
+    "silver", "gold", "grey", "gray", "purple", "yellow",
+]
 
+STORAGE_PATTERN = re.compile(r'\b(\d+)\s*(gb|tb|mb)\b', re.IGNORECASE)
 
-def _extract_specs(name: str) -> dict:
-    lower = name.lower()
-    colors = [c for c in _COLOR_WORDS if c in lower]
-    storages = [m.group(1).lower().replace(" ", "") for m in _STORAGE_RE.finditer(lower)]
-    rams = [m.group(1).lower().replace(" ", "") for m in _RAM_RE.finditer(lower)]
-    sizes = [m.group(1) for m in _SIZE_RE.finditer(name)]
-    return {
-        "colors": set(colors),
-        "storages": set(storages),
-        "rams": set(rams),
-        "sizes": set(sizes),
-    }
+# Strip feature-description suffixes before extracting submodel tags or
+# computing similarity. Cuts at the first comma, opening parenthesis, or
+# standalone "with" — all of which signal the start of spec copy rather than
+# the product's model identity (e.g. "Noise Master Buds 2 with Sound by Bose
+# (2026),51dB Adaptive ANC..." → "Noise Master Buds 2").
+_CORE_STOP_RE = re.compile(r'\s*[,(]|\s+with\b', re.IGNORECASE)
 
 
-def _merge_product_specs(name_specs: dict, product: dict) -> dict:
-    """
-    Augment name-derived specs with values from Zyte additionalProperties.
+def _core_name(text: str) -> str:
+    m = _CORE_STOP_RE.search(text)
+    return text[:m.start()].strip() if m else text.strip()
 
-    Flipkart (and other merchants) often omit color/size from the product name
-    but expose them as structured properties ('selected color', 'variant', etc.).
-    Without this merge, conflicts are invisible to the matcher.
-    """
-    merged = {k: set(v) for k, v in name_specs.items()}
-    merged.setdefault("sizes", set())
 
-    for prop in (product.get("additionalProperties") or []):
-        if not isinstance(prop, dict):
+@dataclass
+class MatchResult:
+    match_type: str
+    confidence: float
+    notes: str
+    submodel_conflict: bool
+
+
+def _normalize(text: str) -> str:
+    return re.sub(r'[^a-z0-9\s]', '', text.lower()).strip()
+
+
+def _token_similarity(a: str, b: str) -> float:
+    tokens_a = set(_normalize(a).split())
+    tokens_b = set(_normalize(b).split())
+    if not tokens_a or not tokens_b:
+        return 0.0
+    intersection = tokens_a & tokens_b
+    union = tokens_a | tokens_b
+    return len(intersection) / len(union)
+
+
+def _extract_submodel_tags(text: str) -> set[str]:
+    # Scan only the core model name, not feature descriptions that follow commas
+    # or "with ..." clauses — prevents "Adaptive ANC" in a spec list from being
+    # mistaken for an ANC submodel variant.
+    normalized = _normalize(_core_name(text))
+    return {kw for kw in SUBMODEL_KEYWORDS if kw in normalized}
+
+
+def _extract_colors(text: str) -> set[str]:
+    normalized = _normalize(text)
+    return {c for c in COLOR_WORDS if c in normalized}
+
+
+def _extract_storage(text: str) -> list[str]:
+    return [m.group(0).lower().replace(' ', '') for m in STORAGE_PATTERN.finditer(text)]
+
+
+def _is_refurbished(text: str) -> bool:
+    normalized = _normalize(text)
+    return any(w in normalized for w in ["refurbished", "renewed", "open box", "used", "pre owned"])
+
+
+def match_product(source_name: str, source_brand: str, candidate_title: str) -> MatchResult:
+    source_norm = _normalize(source_name)
+    candidate_norm = _normalize(candidate_title)
+    brand_norm = _normalize(source_brand)
+
+    if brand_norm and brand_norm not in candidate_norm:
+        return MatchResult(match_type="No Match", confidence=0.0,
+                           notes=f"Different brand — source is '{source_brand}'",
+                           submodel_conflict=False)
+
+    source_is_refurb = _is_refurbished(source_name)
+    candidate_is_refurb = _is_refurbished(candidate_title)
+    if source_is_refurb != candidate_is_refurb:
+        note = "Candidate is refurbished, source is new" if candidate_is_refurb else "Source is refurbished, candidate is new"
+        return MatchResult(match_type="Similar Match", confidence=0.4,
+                           notes=note, submodel_conflict=True)
+
+    source_tags = _extract_submodel_tags(source_name)
+    candidate_tags = _extract_submodel_tags(candidate_title)
+    source_only = source_tags - candidate_tags
+    candidate_only = candidate_tags - source_tags
+    submodel_conflict = bool(source_only or candidate_only)
+    submodel_notes = ""
+    if source_only:
+        submodel_notes += f"Source has '{', '.join(source_only)}' not in candidate. "
+    if candidate_only:
+        submodel_notes += f"Candidate has '{', '.join(candidate_only)}' not in source."
+
+    source_colors = _extract_colors(source_name)
+    candidate_colors = _extract_colors(candidate_title)
+    color_conflict = bool(source_colors and candidate_colors and source_colors != candidate_colors)
+    color_notes = f"Color mismatch: {source_colors} vs {candidate_colors}" if color_conflict else ""
+
+    source_storage = _extract_storage(source_name)
+    candidate_storage = _extract_storage(candidate_title)
+    storage_conflict = bool(source_storage and candidate_storage and source_storage != candidate_storage)
+    storage_notes = f"Storage mismatch: {source_storage} vs {candidate_storage}" if storage_conflict else ""
+
+    similarity = _token_similarity(source_name, candidate_title)
+    conflict_notes = " | ".join(filter(None, [submodel_notes, color_notes, storage_notes]))
+
+    if submodel_conflict or color_conflict or storage_conflict:
+        return MatchResult(match_type="Similar Match", confidence=max(0.3, similarity - 0.2),
+                           notes=conflict_notes or "Variant conflict", submodel_conflict=submodel_conflict)
+
+    source_tokens = set(_normalize(source_name).split())
+    candidate_tokens = set(_normalize(candidate_title).split())
+
+    # Forward subset: short source ⊆ long candidate (source is the brief name,
+    # candidate adds colour/spec words).
+    if source_tokens and source_tokens.issubset(candidate_tokens):
+        return MatchResult(match_type="Exact Match", confidence=1.0,
+                           notes="Source tokens subset of candidate", submodel_conflict=False)
+
+    # Reverse subset: candidate tokens ⊆ source tokens, with a minimum of 3
+    # candidate tokens to avoid trivially short matches.  Handles long Amazon
+    # titles where the source name contains all the candidate's words (e.g.
+    # "Bose Noise Master Buds 2" is entirely contained in a long source title).
+    if len(candidate_tokens) >= 3 and candidate_tokens.issubset(source_tokens):
+        return MatchResult(match_type="Exact Match", confidence=1.0,
+                           notes="Candidate tokens subset of source", submodel_conflict=False)
+
+    if similarity >= 0.55:
+        return MatchResult(match_type="Exact Match", confidence=similarity,
+                           notes="", submodel_conflict=False)
+    elif similarity >= 0.35:
+        return MatchResult(match_type="Similar Match", confidence=similarity,
+                           notes=f"Low similarity ({similarity:.0%})", submodel_conflict=False)
+    else:
+        return MatchResult(match_type="No Match", confidence=similarity,
+                           notes=f"Too different ({similarity:.0%})", submodel_conflict=False)
+
+
+_BOX_RE = re.compile(r'\b(without\s+box|open\s*box|unboxed)\b', re.IGNORECASE)
+
+
+def filter_discovery_results(discovery_results: list[dict], source_name: str,
+                              source_brand: str, include_similar: bool = True) -> list[dict]:
+    annotated = []
+    for result in discovery_results:
+        title = result.get("title", "")
+        if not title:
             continue
-        key = (prop.get("name") or "").lower().strip()
-        val = (prop.get("value") or "").lower().strip()
+        if _BOX_RE.search(title):
+            continue
+        match = match_product(source_name, source_brand, title)
+        if match.match_type == "No Match":
+            continue
+        if match.match_type == "Similar Match" and not include_similar:
+            continue
+        annotated.append({
+            **result,
+            "match_type": match.match_type,
+            "match_confidence": round(match.confidence, 2),
+            "match_notes": match.notes,
+            "submodel_conflict": match.submodel_conflict,
+        })
 
-        if "color" in key or "colour" in key:
-            for c in _COLOR_WORDS:
-                if c in val:
-                    merged["colors"].add(c)
+    def sort_key(r):
+        return ({"Exact Match": 0, "Similar Match": 1}.get(r["match_type"], 2),
+                r.get("extracted_price", 9999))
 
-        m = re.search(r"(\d+\.?\d*)\s*inch", val)
-        if m:
-            merged["sizes"].add(m.group(1))
-
-    return merged
-
-
-def _apple_codes(product: dict) -> set[str]:
-    """
-    Extract Apple part-number codes (e.g. MDHC4HN/A) from name, MPN, and
-    additionalProperties.  Different codes mean different SKUs — never Exact Match.
-    """
-    texts = [product.get("name") or "", product.get("mpn") or ""]
-    for prop in (product.get("additionalProperties") or []):
-        if isinstance(prop, dict):
-            texts.append(prop.get("value") or "")
-    codes: set[str] = set()
-    for text in texts:
-        for m in _APPLE_CODE_RE.finditer(text.upper()):
-            codes.add(m.group(1))
-    return codes
-
-
-def _model_tokens(name: str) -> set[str]:
-    """Pull out model-like tokens (M4/M4 Pro/RTX 4090/i9-13900K etc.)."""
-    tokens: set[str] = set()
-
-    # Apple silicon: M1/M2/M3/M4 [Pro|Max|Ultra]
-    for m in re.finditer(r"\bm[1-9](?:\s+(?:pro|max|ultra))?\b", name, re.IGNORECASE):
-        tokens.add(m.group().lower().replace(" ", "-"))
-
-    # Generic alpha-numeric model codes: 2-3 letters + digits
-    for m in re.finditer(r"\b[A-Za-z]{1,3}\d{3,6}[A-Za-z0-9]*\b", name):
-        tokens.add(m.group().lower())
-
-    # Year tokens
-    for m in re.finditer(r"\b(202\d)\b", name):
-        tokens.add(m.group())
-
-    return tokens
-
-
-# ── main matching function ────────────────────────────────────────────────────
-
-def match_product(original: dict, candidate: dict) -> dict:
-    """
-    Compare *candidate* against *original* and return:
-      {"match_type": "Exact Match" | "Similar Match" | "No Match",
-       "variant_notes": str}
-    """
-    orig_name = original.get("name") or ""
-    cand_name = candidate.get("name") or ""
-
-    if not cand_name:
-        return {"match_type": "No Match", "variant_notes": "No product name"}
-
-    orig_brand = _brand(original)
-    cand_brand = _brand(candidate)
-    orig_mpn = _mpn(original)
-    cand_mpn = _mpn(candidate)
-    orig_sku = _sku(original)
-    cand_sku = _sku(candidate)
-    orig_gtins = _gtins(original)
-    cand_gtins = _gtins(candidate)
-
-    notes: list[str] = []
-
-    # ── Tier 1: SKU ──
-    sku_match = bool(orig_sku and cand_sku and orig_sku == cand_sku)
-    if sku_match:
-        return _apply_condition(
-            {"match_type": "Exact Match", "variant_notes": f"SKU {orig_sku}"},
-            original, candidate,
-        )
-
-    # ── Tier 2: MPN / GTIN ──
-    mpn_match = bool(orig_mpn and cand_mpn and orig_mpn == cand_mpn)
-    gtin_match = bool(orig_gtins & cand_gtins)
-
-    # ── brand ──
-    brand_match = bool(
-        orig_brand and cand_brand
-        and (orig_brand in cand_brand or cand_brand in orig_brand)
-    )
-
-    # ── name similarity (token-level) ──
-    sim = difflib.SequenceMatcher(
-        None, _tokenize(orig_name), _tokenize(cand_name)
-    ).ratio()
-
-    # ── model tokens ──
-    orig_models = _model_tokens(orig_name)
-    cand_models = _model_tokens(cand_name)
-    model_overlap = orig_models & cand_models
-    model_conflict = bool(orig_models and cand_models and not model_overlap)
-
-    # ── spec conflicts — merge name-based with additionalProperties ──
-    # Merchants like Flipkart omit color/size from the product name but expose
-    # them as structured properties; without this merge those conflicts are invisible.
-    orig_specs = _merge_product_specs(_extract_specs(orig_name), original)
-    cand_specs = _merge_product_specs(_extract_specs(cand_name), candidate)
-
-    color_conflict = bool(
-        orig_specs["colors"] and cand_specs["colors"]
-        and orig_specs["colors"] != cand_specs["colors"]
-    )
-    storage_conflict = bool(
-        orig_specs["storages"] and cand_specs["storages"]
-        and orig_specs["storages"] != cand_specs["storages"]
-    )
-    size_conflict = bool(
-        orig_specs["sizes"] and cand_specs["sizes"]
-        and orig_specs["sizes"] != cand_specs["sizes"]
-    )
-
-    if color_conflict:
-        notes.append(
-            f"Color: {'/'.join(sorted(orig_specs['colors']))} vs "
-            f"{'/'.join(sorted(cand_specs['colors']))}"
-        )
-    if storage_conflict:
-        notes.append(
-            f"Storage: {'/'.join(sorted(orig_specs['storages']))} vs "
-            f"{'/'.join(sorted(cand_specs['storages']))}"
-        )
-    if size_conflict:
-        notes.append(
-            f"Size: {'/'.join(sorted(orig_specs['sizes']))}\" vs "
-            f"{'/'.join(sorted(cand_specs['sizes']))}\" inch"
-        )
-    if model_conflict:
-        notes.append(
-            f"Model: {'/'.join(orig_models)} vs {'/'.join(cand_models)}"
-        )
-
-    # ── Apple part-number conflict ──
-    # MDHC4HN/A vs MDV94HN/A are different products; require exact code match
-    # when both sides expose a code.
-    orig_codes = _apple_codes(original)
-    cand_codes = _apple_codes(candidate)
-    if orig_codes and cand_codes and not (orig_codes & cand_codes):
-        notes.append(
-            f"Different variant/configuration "
-            f"({', '.join(sorted(orig_codes))} vs {', '.join(sorted(cand_codes))})"
-        )
-
-    has_variant_diff = bool(notes)
-
-    # ── Tier 2 classification ──
-    if mpn_match or gtin_match:
-        if has_variant_diff:
-            return {"match_type": "Similar Match", "variant_notes": "; ".join(notes)}
-        id_type = "MPN" if mpn_match else "GTIN"
-        return _apply_condition(
-            {"match_type": "Exact Match", "variant_notes": f"{id_type} verified"},
-            original, candidate,
-        )
-
-    if brand_match and (sim >= 0.78 or model_overlap) and not model_conflict:
-        if has_variant_diff:
-            return {"match_type": "Similar Match", "variant_notes": "; ".join(notes)}
-        tag = f"name sim {sim:.0%}"
-        if model_overlap:
-            tag += f"; model {', '.join(model_overlap)}"
-        return _apply_condition(
-            {"match_type": "Exact Match", "variant_notes": tag},
-            original, candidate,
-        )
-
-    if brand_match and sim >= 0.60:
-        notes.insert(0, f"name sim {sim:.0%}")
-        return {"match_type": "Similar Match", "variant_notes": "; ".join(notes)}
-
-    if sim >= 0.65:
-        notes.insert(0, f"name sim {sim:.0%}, brand differs")
-        return {"match_type": "Similar Match", "variant_notes": "; ".join(notes)}
-
-    return {"match_type": "No Match", "variant_notes": f"low similarity ({sim:.0%})"}
+    return sorted(annotated, key=sort_key)
