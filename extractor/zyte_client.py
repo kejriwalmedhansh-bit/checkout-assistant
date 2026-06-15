@@ -48,6 +48,57 @@ _AMAZON_BRAND_RE = re.compile(
     r'<a[^>]+id=["\']bylineInfo["\'][^>]*>(.*?)</a>', re.DOTALL
 )
 _TAG_RE = re.compile(r'<[^>]+>')
+_DEVICE_URL_RE = re.compile(r'\b(macbook|iphone|ipad|laptop|macmini|imac)\b', re.IGNORECASE)
+
+# Short acronyms that should be uppercased in slug-derived names.
+_ACRONYMS = {"cc", "bb", "spf", "uv", "hd", "sd", "aa", "usb", "led", "lcd"}
+
+
+def _slug_to_name(slug: str) -> str:
+    """Convert a URL slug to a display name.
+
+    Strips trailing 5+-digit IDs (e.g. '-37836'), uppercases known acronyms,
+    title-cases everything else.
+    """
+    slug = re.sub(r'-\d{5,}$', '', slug)
+    words = []
+    for w in slug.split("-"):
+        if not w:
+            continue
+        words.append(w.upper() if w.lower() in _ACRONYMS else w.title())
+    return " ".join(words)
+
+
+def _slug_fallback_nykaa(url: str) -> dict:
+    """Derive a product name from the Nykaa URL slug when Zyte extraction fails.
+
+    URL shape:  /slug/p/id  or  /brand/slug/p/id
+    We take the segment immediately before '/p/'.
+    """
+    parts = urlparse(url).path.strip("/").split("/")
+    try:
+        p_idx = parts.index("p")
+        slug = parts[p_idx - 1] if p_idx > 0 else parts[0]
+    except ValueError:
+        slug = parts[0]
+    name = _slug_to_name(slug)
+    return {"name": name} if name else {}
+
+
+def _slug_fallback_myntra(url: str) -> dict:
+    """Derive brand + product name from the Myntra URL slug when Zyte fails.
+
+    URL shape:  /category/brand/product-slug/id[/buy]
+    """
+    parts = urlparse(url).path.strip("/").split("/")
+    # Drop trailing 'buy' and numeric ID segments to reach the product slug.
+    clean = [p for p in parts if p and not p.isdigit() and p != "buy"]
+    # clean[0] = category, clean[1] = brand, clean[2] = product slug
+    if len(clean) < 3:
+        return {}
+    brand = _slug_to_name(clean[1])
+    name = _slug_to_name(clean[2])
+    return {"name": name, "brand": {"name": brand}} if name else {}
 
 
 def _amazon_html_fallback(url: str, partial: dict) -> dict:
@@ -59,14 +110,33 @@ def _amazon_html_fallback(url: str, partial: dict) -> dict:
         return partial
 
     name_m = _AMAZON_TITLE_RE.search(html)
-    price_m = _AMAZON_PRICE_RE.search(html)
     brand_m = _AMAZON_BRAND_RE.search(html)
 
     name = _TAG_RE.sub("", name_m.group(1)).strip() if name_m else ""
-    raw_price = price_m.group(1).replace(",", "").strip() if price_m else ""
     brand_text = _TAG_RE.sub("", brand_m.group(1)).strip() if brand_m else ""
-    # "Visit the Noise Store" → "Noise"
     brand = re.sub(r'^(visit\s+the\s+|brand[:\s]+)', '', brand_text, flags=re.IGNORECASE).replace("Store", "").strip()
+
+    # Price: search within corePriceDisplay_desktop_feature_div first — this
+    # avoids matching discount-badge elements ("₹179 off") that also use the
+    # a-price-whole class earlier in the page.
+    raw_price = ""
+    core_idx = html.find("corePriceDisplay_desktop_feature_div")
+    if core_idx != -1:
+        snippet = html[core_idx:core_idx + 3000]
+        core_m = _AMAZON_PRICE_RE.search(snippet)
+        if core_m:
+            candidate = core_m.group(1).replace(",", "")
+            if candidate.isdigit() and int(candidate) >= 1000:
+                raw_price = candidate
+    if not raw_price:
+        price_m = _AMAZON_PRICE_RE.search(html)
+        if price_m:
+            raw_price = price_m.group(1).replace(",", "").strip()
+    # For device URLs (MacBook, iPhone, iPad …) discard prices that look like
+    # discount amounts (< ₹1000) rather than actual retail prices.
+    if raw_price and _DEVICE_URL_RE.search(url):
+        if raw_price.isdigit() and int(raw_price) < 1000:
+            raw_price = ""
 
     merged = dict(partial)
     if name:
@@ -113,6 +183,15 @@ def extract_product(url: str) -> dict:
             retry_url = urlunparse(urlparse(url)._replace(path=path[:-4], query=""))
             print("  [Zyte] Myntra /buy returned no name — retrying without /buy")
             product = _zyte_product(retry_url)
+
+    # Slug-based fallbacks when Zyte returns no name at all.
+    if not product.get("name") and "myntra.com" in url:
+        print("  [Zyte] Using Myntra URL slug as product name")
+        product = {**product, **_slug_fallback_myntra(url)}
+
+    if not product.get("name") and "nykaa.com" in url:
+        print("  [Zyte] Using Nykaa URL slug as product name")
+        product = {**product, **_slug_fallback_nykaa(url)}
 
     if not product.get("name") and "amazon.in" in url:
         print("  [Zyte] Structured extraction returned no name — falling back to browserHtml")
