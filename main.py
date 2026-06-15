@@ -34,6 +34,9 @@ _KNOWN_BRANDS = [
     "boat", "noise", "apple", "samsung", "sony", "lg", "hp", "dell", "lenovo",
     "asus", "acer", "microsoft", "google", "oneplus", "realme", "xiaomi",
     "oppo", "vivo", "motorola", "nokia", "jbl", "bose",
+    "nike", "adidas", "puma", "reebok", "skechers", "fila", "asics",
+    "lakme", "mamaearth", "himalaya", "nivea", "dove", "loreal", "garnier",
+    "titan", "fastrack", "casio", "philips",
 ]
 
 
@@ -167,11 +170,11 @@ def step2_discover_and_match(source_product: dict) -> list[dict]:
 
 # ── step 3 — resolve direct URLs ─────────────────────────────────────────────
 
-def step3_resolve(matched: list[dict]) -> list[dict]:
+def step3_resolve(matched: list[dict], source_brand: str = "") -> list[dict]:
     print(f"\n{_sep('═')}")
     print("STEP 3  Resolve direct merchant URLs via SerpAPI immersive")
     print(_sep("═"))
-    enriched = get_direct_urls(matched)
+    enriched = get_direct_urls(matched, source_brand=source_brand)
     total_urls = sum(len(r.get("sellers", [])) for r in enriched)
     print(f"  Resolved {total_urls} direct URL(s) across {len(enriched)} result(s)")
     return enriched
@@ -223,7 +226,7 @@ def step4_output(enriched: list[dict]) -> None:
 def run(url: str) -> None:
     source_product = step1_extract(url)
     matched = step2_discover_and_match(source_product)
-    enriched = step3_resolve(matched)
+    enriched = step3_resolve(matched, source_brand=_brand(source_product))
     step4_output(enriched)
 
 

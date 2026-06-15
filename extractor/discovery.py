@@ -4,6 +4,7 @@ discovery.py — Cross-merchant product discovery via SerpAPI Google Shopping
 
 import os
 import re
+from urllib.parse import urlparse
 
 import requests
 from bs4 import BeautifulSoup
@@ -129,7 +130,41 @@ def resolve_single_source_url(product_link: str, immersive_api_url: str = "") ->
     return ""
 
 
-def get_direct_urls(results: list[dict]) -> list[dict]:
+# Well-known brand slugs used to detect mismatched product URLs in seller
+# listings (e.g. a JioMart URL pointing to a Garnier product for a Lakme query).
+# Only brands with 4+ character slugs are listed to avoid false positives.
+_BRAND_SLUGS = frozenset({
+    "garnier", "loreal", "maybelline", "revlon", "mamaearth", "biotique",
+    "himalaya", "patanjali", "dove", "nivea", "gillette", "pantene",
+    "tresemme", "adidas", "puma", "reebok", "asics", "skechers", "fila",
+    "boat", "noise", "apple", "samsung", "sony", "lenovo", "asus", "acer",
+    "oneplus", "realme", "xiaomi", "oppo", "vivo", "motorola", "nokia",
+    "bose", "lakme", "nike", "philips", "fastrack", "titan", "casio",
+})
+
+
+def _seller_url_conflicts(url: str, source_brand: str) -> bool:
+    """Return True if the seller URL path contains a brand other than source_brand.
+
+    Used to drop mis-linked sellers (e.g. a JioMart URL for a Garnier product
+    returned under a Lakme result).
+    """
+    if not source_brand or not url:
+        return False
+    source_slug = re.sub(r'[^a-z0-9]', '', source_brand.lower())
+    try:
+        path = urlparse(url).path.lower()
+    except Exception:
+        return False
+    for brand in _BRAND_SLUGS:
+        if brand == source_slug:
+            continue
+        if brand in path:
+            return True
+    return False
+
+
+def get_direct_urls(results: list[dict], source_brand: str = "") -> list[dict]:
     enriched = []
     for result in results:
         immersive = result.get("serpapi_immersive_product_api", "")
@@ -143,6 +178,8 @@ def get_direct_urls(results: list[dict]) -> list[dict]:
                 "extracted_price": result.get("extracted_price", 0),
                 "link": url,
             }] if url else []
+        if source_brand:
+            sellers = [s for s in sellers if not _seller_url_conflicts(s.get("link", ""), source_brand)]
         enriched.append({**result, "sellers": sellers})
     return enriched
 
