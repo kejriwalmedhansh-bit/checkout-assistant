@@ -28,7 +28,10 @@ _SIZE_RE = re.compile(
     re.IGNORECASE,
 )
 
-_FOREIGN_SOURCES = frozenset({"farfetch", "ssense", "net-a-porter", "mytheresa"})
+_FOREIGN_SOURCES = frozenset({
+    "farfetch", "ssense", "net-a-porter", "mytheresa",
+    "stockx", "kickscrew", "kicksonfire", "desertcart",
+})
 
 # Generic descriptor words stripped from both source and candidate token sets
 # before Jaccard similarity and subset checks.  These words are
