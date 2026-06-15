@@ -130,6 +130,23 @@ def resolve_single_source_url(product_link: str, immersive_api_url: str = "") ->
     return ""
 
 
+# Foreign marketplace domains filtered out of individual seller URLs returned
+# by the SerpAPI immersive endpoint. Mirrors _FOREIGN_SOURCES in matcher.py
+# which filters top-level discovery results.
+_FOREIGN_DOMAINS = frozenset({
+    "farfetch", "ssense", "net-a-porter", "mytheresa",
+    "stockx", "kickscrew", "kicksonfire", "desertcart",
+})
+
+
+def _is_foreign_seller(url: str) -> bool:
+    try:
+        domain = urlparse(url).netloc.lower()
+    except Exception:
+        return False
+    return any(name in domain for name in _FOREIGN_DOMAINS)
+
+
 # Well-known brand slugs used to detect mismatched product URLs in seller
 # listings (e.g. a JioMart URL pointing to a Garnier product for a Lakme query).
 # Only brands with 4+ character slugs are listed to avoid false positives.
@@ -180,26 +197,39 @@ def get_direct_urls(results: list[dict], source_brand: str = "") -> list[dict]:
             }] if url else []
         if source_brand:
             sellers = [s for s in sellers if not _seller_url_conflicts(s.get("link", ""), source_brand)]
+        sellers = [s for s in sellers if not _is_foreign_seller(s.get("link", ""))]
         enriched.append({**result, "sellers": sellers})
     return enriched
 
 
 _QUERY_STOP_RE = re.compile(r'\s*[,(]|\s+with\b', re.IGNORECASE)
 
+# Generic category/descriptor words that vary by merchant and dilute search
+# results when included in queries. Stripped before word-slicing so that
+# "Nike Women Waffle Debut Leather Sneakers" → "Nike Waffle Debut" rather
+# than "Nike Women Waffle Debut Leather" (which only matches Myntra's title).
+_QUERY_SKIP_WORDS = frozenset({
+    "women", "men", "boys", "girls", "casual", "running", "formal",
+    "leather", "wireless", "bluetooth", "truly", "tws", "in-ear",
+    "earbuds", "headphones", "sneakers", "shoes", "sandals",
+})
+
 
 def build_search_query(brand: str, name: str, model: str = "") -> str:
     if model:
         return f"{brand} {model}".strip()
 
-    # Strip feature-description suffixes (everything from the first comma,
-    # parenthesis, or " with ") before word-slicing, so a name like
-    # "Noise Master Buds 2 with Sound by Bose (2026),51dB Adaptive ANC..."
-    # produces the query "Noise Master Buds 2" rather than "Noise Master Buds 2 with".
+    # Strip feature-description suffixes (comma, parenthesis, " with ").
     m = _QUERY_STOP_RE.search(name)
     core = name[:m.start()].strip() if m else name.strip()
 
-    words = core.split()
-    short_name = " ".join(words[:5])
+    # Drop generic category/descriptor words so the query targets the model
+    # identity rather than merchant-specific category labels.
+    words = [w for w in core.split() if w.lower() not in _QUERY_SKIP_WORDS]
+    if not words:
+        words = core.split()  # fall back to full core if everything was stripped
+
+    short_name = " ".join(words[:4])
 
     if brand.lower() in short_name.lower():
         return short_name
