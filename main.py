@@ -79,6 +79,11 @@ _REFURB_RE = re.compile(
     re.IGNORECASE,
 )
 
+_ERROR_PAGE_RE = re.compile(
+    r"\b(oops|something went wrong|404|page not found|not found|access denied|forbidden)\b",
+    re.IGNORECASE,
+)
+
 
 def _condition(product: dict) -> str:
     if _REFURB_RE.search(product.get("name") or ""):
@@ -101,9 +106,20 @@ def step1_extract(url: str) -> dict:
     print(f"  URL: {url}\n")
 
     product = extract_product(url)
-    if not product:
-        print("  ✗  Zyte returned no product data.")
-        sys.exit(1)
+
+    name = (product.get("name") or "").strip()
+
+    if not name:
+        print("  ✗  Could not extract product from this URL.")
+        print("     Try the clean product URL without tracking parameters,")
+        print("     or paste the product name directly.")
+        sys.exit(0)
+
+    if _ERROR_PAGE_RE.search(name):
+        print(f"  ✗  Extraction returned an error page: '{name[:80]}'")
+        print("     The merchant's URL may require a login or blocks automated access.")
+        print("     Try the clean product URL without tracking parameters.")
+        sys.exit(0)
 
     price_raw = product.get("price")
     try:
@@ -111,7 +127,7 @@ def step1_extract(url: str) -> dict:
     except (ValueError, TypeError):
         price = None
 
-    print(f"  Name      : {product.get('name', '—')}")
+    print(f"  Name      : {name}")
     print(f"  Brand     : {_brand(product) or '—'}")
     print(f"  Price     : {_fmt_price(price)}")
     print(f"  Condition : {_condition(product).title()}")

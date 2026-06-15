@@ -19,24 +19,21 @@ def _auth() -> tuple[str, str]:
 
 
 def _normalise_url(url: str) -> str:
-    """
-    Apply locale fixes before passing a URL to Zyte.
-
-    Amazon India serves Hindi content by default when Zyte's IP resolves to IN.
-    Adding ?language=en_IN forces the English-India locale while keeping prices
-    and availability in INR — confirmed to return English product names and a
-    correct brand field.
-    """
     parsed = urlparse(url)
     host = parsed.netloc.lower()
 
     if "amazon.in" in host:
+        # Force English locale — Amazon India defaults to Hindi for Zyte IPs.
         qs = parse_qs(parsed.query, keep_blank_values=True)
         if "language" not in qs:
             qs["language"] = ["en_IN"]
             new_query = urlencode({k: v[0] for k, v in qs.items()})
             parsed = parsed._replace(query=new_query)
             url = urlunparse(parsed)
+
+    if "myntra.com" in host:
+        # Tracking params on Myntra /buy URLs trigger bot detection; strip them.
+        url = urlunparse(parsed._replace(query=""))
 
     return url
 
@@ -83,6 +80,18 @@ def _amazon_html_fallback(url: str, partial: dict) -> dict:
     return merged
 
 
+def _zyte_product(url: str) -> dict:
+    """POST to Zyte Extract with product:True. Returns {} on timeout or HTTP error."""
+    try:
+        with httpx.Client(timeout=TIMEOUT) as client:
+            resp = client.post(ZYTE_API_URL, json={"url": url, "product": True}, auth=_auth())
+            resp.raise_for_status()
+        return resp.json().get("product") or {}
+    except (httpx.ReadTimeout, httpx.HTTPError) as e:
+        print(f"  [Zyte] Request failed ({type(e).__name__}) — {e}")
+        return {}
+
+
 def extract_product(url: str) -> dict:
     """Call Zyte Extract API with Product data type. Returns the product dict.
 
@@ -94,10 +103,16 @@ def extract_product(url: str) -> dict:
     extraction returns no product name (probability too low).
     """
     url = _normalise_url(url)
-    with httpx.Client(timeout=TIMEOUT) as client:
-        resp = client.post(ZYTE_API_URL, json={"url": url, "product": True}, auth=_auth())
-        resp.raise_for_status()
-    product = resp.json().get("product") or {}
+    product = _zyte_product(url)
+
+    # Myntra retry: /buy URL (even without params) can time out or return no
+    # name; drop /buy from the path and try the canonical product URL.
+    if not product.get("name") and "myntra.com" in url:
+        path = urlparse(url).path.rstrip("/")
+        if path.endswith("/buy"):
+            retry_url = urlunparse(urlparse(url)._replace(path=path[:-4], query=""))
+            print("  [Zyte] Myntra /buy returned no name — retrying without /buy")
+            product = _zyte_product(retry_url)
 
     if not product.get("name") and "amazon.in" in url:
         print("  [Zyte] Structured extraction returned no name — falling back to browserHtml")
