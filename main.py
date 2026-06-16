@@ -1,6 +1,7 @@
 """
 Checkout Assistant — Indian e-commerce price comparison engine.
 Usage:  python main.py <product_url>
+        python main.py "<product name>"
 """
 
 import re
@@ -28,6 +29,10 @@ def _fmt_price(value) -> str:
 
 def _sep(char="─", width=115):
     return char * width
+
+
+def _is_url(text: str) -> bool:
+    return text.strip().lower().startswith(("http://", "https://"))
 
 
 _KNOWN_BRANDS = [
@@ -168,6 +173,21 @@ def step2_discover_and_match(source_product: dict) -> list[dict]:
     return matched
 
 
+# ── step 2b — discover only (text query, no source product) ──────────────────
+
+def step2_discover_only(query: str) -> list[dict]:
+    print(f"\n{_sep('═')}")
+    print("STEP 2  Discover via SerpAPI Google Shopping (text query)")
+    print(_sep("═"))
+    print(f"\n[Discovery] Searching: '{query}'")
+
+    raw_results = discover_merchants(query, max_results=15)
+    print(f"[Discovery] Got {len(raw_results)} results from Google Shopping")
+    print("[Matcher] Skipped — no source product to compare against; showing all results")
+
+    return sorted(raw_results, key=lambda r: r.get("extracted_price") or float("inf"))
+
+
 # ── step 3 — resolve direct URLs ─────────────────────────────────────────────
 
 def step3_resolve(matched: list[dict], source_brand: str = "") -> list[dict]:
@@ -223,15 +243,29 @@ def step4_output(enriched: list[dict]) -> None:
 
 # ── entry point ───────────────────────────────────────────────────────────────
 
-def run(url: str) -> None:
-    source_product = step1_extract(url)
-    matched = step2_discover_and_match(source_product)
-    enriched = step3_resolve(matched, source_brand=_brand(source_product))
+def run(input_str: str) -> None:
+    if _is_url(input_str):
+        source_product = step1_extract(input_str)
+        matched = step2_discover_and_match(source_product)
+        source_brand = _brand(source_product)
+    else:
+        query = input_str.strip()
+        source_brand = _brand({"name": query})
+
+        print(f"\n{_sep('═')}")
+        print("STEP 1  Skipped — input is a search query, not a URL")
+        print(_sep("═"))
+        print(f"  Query : {query}")
+        print(f"  Brand : {source_brand or '—'}")
+
+        matched = step2_discover_only(query)
+
+    enriched = step3_resolve(matched, source_brand=source_brand)
     step4_output(enriched)
 
 
 if __name__ == "__main__":
     if len(sys.argv) < 2:
-        print("Usage: python main.py <product_url>")
+        print("Usage: python main.py <product_url_or_name>")
         sys.exit(1)
     run(sys.argv[1])

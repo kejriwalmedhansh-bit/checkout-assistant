@@ -82,10 +82,20 @@ def get_merchant_sellers(immersive_api_url: str) -> list[dict]:
             "price": item.get("price", ""),
             "extracted_price": item.get("extracted_price", 0),
             "link": item.get("link", ""),
+            "availability": item.get("availability", ""),
             "delivery": " | ".join(item.get("details_and_offers", [])),
         })
 
     return sellers
+
+
+_OUT_OF_STOCK_PHRASES = ("out of stock", "unavailable", "sold out")
+
+
+def _is_out_of_stock(seller: dict) -> bool:
+    """Check a seller's availability/details_and_offers text for stock-out phrases."""
+    text = f"{seller.get('availability', '')} {seller.get('delivery', '')}".lower()
+    return any(phrase in text for phrase in _OUT_OF_STOCK_PHRASES)
 
 
 _GOOGLE_RE = re.compile(r'(google\.com|gstatic\.com|googleapis\.com)', re.IGNORECASE)
@@ -183,6 +193,7 @@ def _seller_url_conflicts(url: str, source_brand: str) -> bool:
 
 def get_direct_urls(results: list[dict], source_brand: str = "") -> list[dict]:
     enriched = []
+    excluded_oos = 0
     for result in results:
         immersive = result.get("serpapi_immersive_product_api", "")
         if result.get("multiple_sources"):
@@ -195,10 +206,17 @@ def get_direct_urls(results: list[dict], source_brand: str = "") -> list[dict]:
                 "extracted_price": result.get("extracted_price", 0),
                 "link": url,
             }] if url else []
+
+        before = len(sellers)
+        sellers = [s for s in sellers if not _is_out_of_stock(s)]
+        excluded_oos += before - len(sellers)
+
         if source_brand:
             sellers = [s for s in sellers if not _seller_url_conflicts(s.get("link", ""), source_brand)]
         sellers = [s for s in sellers if not _is_foreign_seller(s.get("link", ""))]
         enriched.append({**result, "sellers": sellers})
+
+    print(f"  Excluded {excluded_oos} out-of-stock seller(s)")
     return enriched
 
 
