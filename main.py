@@ -9,6 +9,7 @@ import sys
 
 from dotenv import load_dotenv
 
+from db.voucher_lookup import calculate_effective_price, get_best_voucher_deal, get_gyftr_voucher
 from engine.matcher import filter_discovery_results
 from extractor.discovery import build_search_query, discover_merchants, get_direct_urls
 from extractor.zyte_client import extract_product
@@ -241,6 +242,44 @@ def step4_output(enriched: list[dict]) -> None:
             print(f"       → {s_name:<23} {s_price:<10} {link}")
 
 
+# ── step 5 — Gyftr voucher opportunities ──────────────────────────────────────
+
+def step5_vouchers(enriched: list[dict]) -> None:
+    print(f"\n{_sep('═')}")
+    print("STEP 5  Gyftr Voucher Opportunities")
+    print(_sep("═"))
+
+    any_found = False
+    seen_merchants = set()
+    for r in enriched:
+        if r.get("match_type") != "Exact Match":
+            continue
+        merchant = r.get("source", "")
+        price = r.get("extracted_price") or 0
+        if not merchant or not price or merchant in seen_merchants:
+            continue
+        seen_merchants.add(merchant)
+
+        deal = get_best_voucher_deal(merchant, price)
+        if deal is None:
+            continue
+
+        voucher = get_gyftr_voucher(merchant)
+        card_deal = calculate_effective_price(price, voucher, "card")
+
+        any_found = True
+        print("\n  💡 VOUCHER AVAILABLE via Gyftr")
+        print(f"     Merchant: {merchant}")
+        print(f"     Buy voucher at: {deal['voucher_url']}")
+        print(f"     Discount: {deal['voucher_discount_pct']}% (UPI) / {card_deal['voucher_discount_pct']}% (Card)")
+        print(f"     Effective price: ₹{deal['effective_price']:,.0f} (instead of ₹{deal['original_price']:,.0f})")
+        print(f"     Redemption: {deal['redemption_type']}")
+        print(f"     Denominations: {deal['denominations']}")
+
+    if not any_found:
+        print("\n  No Gyftr vouchers found for Exact Match merchants in this run.")
+
+
 # ── entry point ───────────────────────────────────────────────────────────────
 
 def run(input_str: str) -> None:
@@ -262,6 +301,7 @@ def run(input_str: str) -> None:
 
     enriched = step3_resolve(matched, source_brand=source_brand)
     step4_output(enriched)
+    step5_vouchers(enriched)
 
 
 if __name__ == "__main__":
