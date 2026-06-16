@@ -267,13 +267,30 @@ def step5_vouchers(enriched: list[dict]) -> None:
         voucher = get_gyftr_voucher(merchant)
         card_deal = calculate_effective_price(price, voucher, "card")
 
+        upi_saving = deal["voucher_discount_amount"]
+        card_saving = card_deal["voucher_discount_amount"]
+        upi_pct = deal["voucher_discount_pct"]
+        card_pct = card_deal["voucher_discount_pct"]
+        pct_diff = round(upi_pct - card_pct, 1)
+        saving_diff = round(upi_saving - card_saving, 2)
+
         any_found = True
-        print("\n  💡 VOUCHER AVAILABLE via Gyftr")
-        print(f"     Merchant: {merchant}")
+        print(f"\n  💡 {merchant} — Buy via Gyftr voucher")
         print(f"     Buy voucher at: {deal['voucher_url']}")
-        print(f"     Discount: {deal['voucher_discount_pct']}% (UPI) / {card_deal['voucher_discount_pct']}% (Card)")
-        print(f"     Effective price: ₹{deal['effective_price']:,.0f} (instead of ₹{deal['original_price']:,.0f})")
-        print(f"     Redemption: {deal['redemption_type']}")
+
+        print(f"\n     Recommended: UPI ({upi_pct}%)")
+        voucher_line = f"Buy ₹{deal['voucher_amount']:,.0f} in vouchers"
+        if deal["remainder_at_checkout"]:
+            voucher_line += f" + pay ₹{deal['remainder_at_checkout']:,.0f} at checkout"
+        print(f"     {voucher_line}")
+        print(f"     You save ₹{upi_saving:,.0f}")
+        print(f"     Effective price: ₹{deal['effective_price']:,.0f}")
+
+        print(f"\n     Alternative: Credit Card ({card_pct}%)")
+        print(f"     You save ₹{card_saving:,.0f} — that's ₹{saving_diff:,.0f} less than UPI ({pct_diff}% difference)")
+        print(f"     💳 Credit card optimisation coming soon")
+
+        print(f"\n     Redemption: {deal['redemption_type']}")
         print(f"     Denominations: {deal['denominations']}")
 
     if not any_found:

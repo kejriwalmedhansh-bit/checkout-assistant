@@ -70,6 +70,36 @@ def get_gyftr_voucher(merchant_name: str) -> dict | None:
     return candidates[0][2]
 
 
+def _parse_denominations(voucher: dict) -> tuple[bool, list[int]]:
+    """Returns (is_custom, sorted_fixed_denoms).
+
+    is_custom=True when any product has a range (max_value > 0 and != mrp),
+    meaning the buyer can load any amount — apply discount to full price.
+    Otherwise all products are fixed-value vouchers and the greedy approach applies.
+    """
+    fixed = []
+    for p in voucher.get("products", []):
+        mrp = p.get("mrp")
+        max_value = p.get("max_value") or 0
+        if mrp is None:
+            continue
+        if max_value and max_value != mrp:
+            return True, []
+        fixed.append(int(mrp))
+    return False, sorted(set(fixed))
+
+
+def _greedy_voucher_amount(price: float, fixed_denoms: list[int]) -> int:
+    """Largest sum of denominations (with repetition) not exceeding price."""
+    remaining = int(price)
+    total = 0
+    for d in sorted(fixed_denoms, reverse=True):
+        count = remaining // d
+        total += count * d
+        remaining -= count * d
+    return total
+
+
 def _denominations(voucher: dict) -> str:
     values = []
     for p in voucher.get("products", []):
@@ -94,12 +124,25 @@ def _discount_pct(voucher: dict, payment_method: str) -> float:
 
 def calculate_effective_price(price: float, voucher: dict, payment_method: str = "upi") -> dict:
     discount_pct = _discount_pct(voucher, payment_method)
-    discount_amount = round(price * discount_pct / 100, 2)
+
+    is_custom, fixed_denoms = _parse_denominations(voucher)
+    if is_custom or not fixed_denoms:
+        voucher_amount = price
+        remainder = 0.0
+        is_custom = True
+    else:
+        voucher_amount = float(_greedy_voucher_amount(price, fixed_denoms))
+        remainder = round(price - voucher_amount, 2)
+
+    discount_amount = round(voucher_amount * discount_pct / 100, 2)
     effective_price = round(price - discount_amount, 2)
     redemption_type = voucher.get("redemption_type", "")
 
     return {
         "original_price": price,
+        "voucher_amount": voucher_amount,
+        "remainder_at_checkout": remainder,
+        "is_custom": is_custom,
         "voucher_discount_pct": discount_pct,
         "voucher_discount_amount": discount_amount,
         "effective_price": effective_price,
@@ -113,11 +156,13 @@ def calculate_effective_price(price: float, voucher: dict, payment_method: str =
 
 def get_best_voucher_deal(merchant_name: str, price: float) -> dict | None:
     """Return the UPI-rate voucher deal for merchant_name, or None if no
-    voucher exists or its UPI discount is 0."""
+    voucher exists, its UPI discount is 0, or price is below minimum denomination."""
     voucher = get_gyftr_voucher(merchant_name)
     if voucher is None:
         return None
     deal = calculate_effective_price(price, voucher, payment_method="upi")
     if not deal["voucher_discount_pct"]:
+        return None
+    if deal["voucher_amount"] == 0:
         return None
     return deal
