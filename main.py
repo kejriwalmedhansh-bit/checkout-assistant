@@ -186,6 +186,9 @@ def step2_discover_only(query: str) -> list[dict]:
     print(f"[Discovery] Got {len(raw_results)} results from Google Shopping")
     print("[Matcher] Skipped — no source product to compare against; showing all results")
 
+    for r in raw_results:
+        r["match_type"] = "Exact Match"
+
     return sorted(raw_results, key=lambda r: r.get("extracted_price") or float("inf"))
 
 
