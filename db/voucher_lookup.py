@@ -56,6 +56,8 @@ def get_gyftr_voucher(merchant_name: str) -> dict | None:
             continue
         if norm_brand == norm_merchant:
             rank = 0
+        elif len(norm_brand) < 3:
+            continue
         elif norm_merchant.startswith(norm_brand) or norm_brand.startswith(norm_merchant):
             rank = 1
         elif norm_brand in norm_merchant or norm_merchant in norm_brand:
