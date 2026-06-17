@@ -259,9 +259,10 @@ def step5_vouchers(enriched: list[dict]) -> None:
             continue
         merchant = r.get("source", "")
         price = r.get("extracted_price") or 0
-        if not merchant or not price or merchant in seen_merchants:
+        merchant_key = merchant.lower()
+        if not merchant or not price or merchant_key in seen_merchants:
             continue
-        seen_merchants.add(merchant)
+        seen_merchants.add(merchant_key)
 
         deal = get_best_voucher_deal(merchant, price)
         if deal is None:
