@@ -304,25 +304,33 @@ def step5_vouchers(enriched: list[dict]) -> None:
 # ── entry point ───────────────────────────────────────────────────────────────
 
 def run(input_str: str) -> None:
-    if _is_url(input_str):
-        source_product = step1_extract(input_str)
-        matched = step2_discover_and_match(source_product)
-        source_brand = _brand(source_product)
-    else:
-        query = input_str.strip()
-        source_brand = _brand({"name": query})
+    try:
+        if _is_url(input_str):
+            source_product = step1_extract(input_str)
+            matched = step2_discover_and_match(source_product)
+            source_brand = _brand(source_product)
+        else:
+            query = input_str.strip()
+            source_brand = _brand({"name": query})
 
+            print(f"\n{_sep('═')}")
+            print("STEP 1  Skipped — input is a search query, not a URL")
+            print(_sep("═"))
+            print(f"  Query : {query}")
+            print(f"  Brand : {source_brand or '—'}")
+
+            matched = step2_discover_only(query)
+
+        enriched = step3_resolve(matched, source_brand=source_brand)
+        step4_output(enriched)
+        step5_vouchers(enriched)
+    except SystemExit:
+        raise
+    except Exception as e:
         print(f"\n{_sep('═')}")
-        print("STEP 1  Skipped — input is a search query, not a URL")
+        print("  ✗  Something went wrong while processing this request.")
+        print(f"     ({type(e).__name__}: {e})")
         print(_sep("═"))
-        print(f"  Query : {query}")
-        print(f"  Brand : {source_brand or '—'}")
-
-        matched = step2_discover_only(query)
-
-    enriched = step3_resolve(matched, source_brand=source_brand)
-    step4_output(enriched)
-    step5_vouchers(enriched)
 
 
 if __name__ == "__main__":

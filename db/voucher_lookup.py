@@ -56,7 +56,7 @@ def get_gyftr_voucher(merchant_name: str) -> dict | None:
             continue
         if norm_brand == norm_merchant:
             rank = 0
-        elif len(norm_brand) < 3:
+        elif len(norm_brand) < 4:
             continue
         elif norm_merchant.startswith(norm_brand) or norm_brand.startswith(norm_merchant):
             rank = 1
@@ -75,20 +75,27 @@ def get_gyftr_voucher(merchant_name: str) -> dict | None:
 def _parse_denominations(voucher: dict) -> tuple[bool, list[int]]:
     """Returns (is_custom, sorted_fixed_denoms).
 
-    is_custom=True when any product has a range (max_value > 0 and != mrp),
-    meaning the buyer can load any amount — apply discount to full price.
-    Otherwise all products are fixed-value vouchers and the greedy approach applies.
+    is_custom=True only when every product is a custom range (max_value > 0
+    and != mrp) and there are no fixed-denomination products at all — i.e.
+    the only way to buy is to load an arbitrary amount onto the voucher.
+    When a voucher mixes fixed and custom-range products, the fixed
+    denominations are real purchase options and take priority over treating
+    the whole voucher as custom.
     """
     fixed = []
+    has_custom = False
     for p in voucher.get("products", []):
         mrp = p.get("mrp")
         max_value = p.get("max_value") or 0
         if mrp is None:
             continue
         if max_value and max_value != mrp:
-            return True, []
+            has_custom = True
+            continue
         fixed.append(int(mrp))
-    return False, sorted(set(fixed))
+    if fixed:
+        return False, sorted(set(fixed))
+    return has_custom, []
 
 
 def _greedy_voucher_amount(price: float, fixed_denoms: list[int]) -> int:

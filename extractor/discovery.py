@@ -18,7 +18,8 @@ SERPAPI_URL = "https://serpapi.com/search.json"
 
 def discover_merchants(query: str, max_results: int = 10) -> list[dict]:
     if not SERPAPI_KEY:
-        raise ValueError("SERPAPI_KEY not found in .env file")
+        print("[SerpAPI] SERPAPI_KEY not found in .env file")
+        return []
 
     params = {
         "engine": "google_shopping",
@@ -74,7 +75,7 @@ def get_merchant_sellers(immersive_api_url: str) -> list[dict]:
         print(f"[SerpAPI Immersive] Request failed: {e}")
         return []
 
-    stores = data.get("product_results", {}).get("stores", [])
+    stores = (data.get("product_results") or {}).get("stores", [])
     sellers = []
     for item in stores:
         sellers.append({
@@ -146,6 +147,7 @@ def resolve_single_source_url(product_link: str, immersive_api_url: str = "") ->
 _FOREIGN_DOMAINS = frozenset({
     "farfetch", "ssense", "net-a-porter", "mytheresa",
     "stockx", "kickscrew", "kicksonfire", "desertcart",
+    "ebay", "aliexpress", "amazon.com", "walmart", "asos", "zalando", "etsy",
 })
 
 

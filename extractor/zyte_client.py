@@ -101,6 +101,22 @@ def _slug_fallback_myntra(url: str) -> dict:
     return {"name": name, "brand": {"name": brand}} if name else {}
 
 
+def _slug_fallback_ajio(url: str) -> dict:
+    """Derive a product name from the AJIO URL slug when Zyte extraction fails.
+
+    URL shape:  /slug/p/id_variant  (e.g. /nike-waffle-debut/p/469258381_yellow)
+    We take the segment immediately before '/p/'.
+    """
+    parts = urlparse(url).path.strip("/").split("/")
+    try:
+        p_idx = parts.index("p")
+        slug = parts[p_idx - 1] if p_idx > 0 else parts[0]
+    except ValueError:
+        slug = parts[0]
+    name = _slug_to_name(slug)
+    return {"name": name} if name else {}
+
+
 def _amazon_html_fallback(url: str, partial: dict) -> dict:
     """Fetch browser HTML and extract name/price/brand for Amazon pages when
     structured extraction returns no name (probability too low)."""
@@ -151,13 +167,14 @@ def _amazon_html_fallback(url: str, partial: dict) -> dict:
 
 
 def _zyte_product(url: str) -> dict:
-    """POST to Zyte Extract with product:True. Returns {} on timeout or HTTP error."""
+    """POST to Zyte Extract with product:True. Returns {} on any failure
+    (timeout, HTTP error, malformed response body, or missing API key)."""
     try:
         with httpx.Client(timeout=TIMEOUT) as client:
             resp = client.post(ZYTE_API_URL, json={"url": url, "product": True}, auth=_auth())
             resp.raise_for_status()
         return resp.json().get("product") or {}
-    except (httpx.ReadTimeout, httpx.HTTPError) as e:
+    except (httpx.HTTPError, RuntimeError, ValueError) as e:
         print(f"  [Zyte] Request failed ({type(e).__name__}) — {e}")
         return {}
 
@@ -192,6 +209,10 @@ def extract_product(url: str) -> dict:
     if not product.get("name") and "nykaa.com" in url:
         print("  [Zyte] Using Nykaa URL slug as product name")
         product = {**product, **_slug_fallback_nykaa(url)}
+
+    if not product.get("name") and "ajio.com" in url:
+        print("  [Zyte] Using AJIO URL slug as product name")
+        product = {**product, **_slug_fallback_ajio(url)}
 
     if not product.get("name") and "amazon.in" in url:
         print("  [Zyte] Structured extraction returned no name — falling back to browserHtml")

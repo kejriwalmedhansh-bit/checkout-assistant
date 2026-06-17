@@ -88,7 +88,10 @@ def _extract_submodel_tags(text: str) -> set[str]:
     # or "with ..." clauses — prevents "Adaptive ANC" in a spec list from being
     # mistaken for an ANC submodel variant.
     normalized = _normalize(_core_name(text))
-    return {kw for kw in SUBMODEL_KEYWORDS if kw in normalized}
+    return {
+        kw for kw in SUBMODEL_KEYWORDS
+        if re.search(rf"\b{re.escape(kw)}\b", normalized)
+    }
 
 
 def _extract_colors(text: str) -> set[str]:
