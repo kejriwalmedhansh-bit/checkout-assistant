@@ -235,6 +235,17 @@ def extract_product(url: str) -> dict:
     url = _normalise_url(url)
     product = _zyte_product(url)
 
+    # Short-link retry: amzn.in (and similar Amazon short links) resolve via
+    # Zyte but rarely carry a usable "name" at low confidence — Zyte's
+    # response still includes the resolved canonical product URL, so retry
+    # structured extraction directly against that instead.
+    if not product.get("name") and "amzn.in" in url:
+        resolved = product.get("url") or ""
+        if resolved and "amazon.in" in resolved:
+            print("  [Zyte] amzn.in short link — retrying against resolved Amazon URL")
+            url = _normalise_url(resolved)
+            product = _zyte_product(url)
+
     # Myntra retry: /buy URL (even without params) can time out or return no
     # name; drop /buy from the path and try the canonical product URL.
     if not product.get("name") and "myntra.com" in url:
