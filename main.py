@@ -187,8 +187,22 @@ def step2_discover_only(query: str) -> list[dict]:
     print(f"[Discovery] Got {len(raw_results)} results from Google Shopping")
     print("[Matcher] Skipped — no source product to compare against; showing all results")
 
+    prices = [r.get("extracted_price") for r in raw_results if r.get("extracted_price")]
+    if len(prices) >= 4:
+        sorted_prices = sorted(prices)
+        n = len(sorted_prices)
+        mid = n // 2
+        median = sorted_prices[mid] if n % 2 else (sorted_prices[mid - 1] + sorted_prices[mid]) / 2
+        threshold = 0.4 * median
+
+        before = len(raw_results)
+        raw_results = [r for r in raw_results if (r.get("extracted_price") or 0) >= threshold or not r.get("extracted_price")]
+        removed = before - len(raw_results)
+        if removed:
+            print(f"[Filter] Removed {removed} outlier result(s) below ₹{threshold:,.0f} (40% of median ₹{median:,.0f})")
+
     for r in raw_results:
-        r["match_type"] = "Exact Match"
+        r["match_type"] = "Listed"
 
     return sorted(raw_results, key=lambda r: r.get("extracted_price") or float("inf"))
 
@@ -256,7 +270,7 @@ def step5_vouchers(enriched: list[dict]) -> None:
     any_found = False
     seen_merchants = set()
     for r in enriched:
-        if r.get("match_type") != "Exact Match":
+        if r.get("match_type") not in ("Exact Match", "Listed"):
             continue
         merchant = r.get("source", "")
         price = r.get("extracted_price") or 0
