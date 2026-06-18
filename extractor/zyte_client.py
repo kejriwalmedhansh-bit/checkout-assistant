@@ -1,7 +1,9 @@
+import json
 import os
 import re
 import httpx
 from urllib.parse import urlparse, urlencode, parse_qs, urlunparse
+from bs4 import BeautifulSoup
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -117,6 +119,47 @@ def _slug_fallback_ajio(url: str) -> dict:
     return {"name": name} if name else {}
 
 
+def _clean_price(raw: str) -> float | None:
+    cleaned = re.sub(r'[₹,\s]', '', raw)
+    try:
+        return float(cleaned)
+    except (TypeError, ValueError):
+        return None
+
+
+def _myntra_browser_price(url: str) -> float | None:
+    """Recover a Myntra product's price via browser-rendered HTML when
+    structured extraction has no price (e.g. slug-fallback ran)."""
+    try:
+        html = fetch_browser_html(url)
+    except Exception:
+        return None
+
+    soup = BeautifulSoup(html, "html.parser")
+
+    for selector in ("pdp-price", "pdp-mrp", "discounted-price"):
+        el = soup.find(class_=lambda c: c and selector in c)
+        if el and el.get_text(strip=True):
+            price = _clean_price(el.get_text(strip=True))
+            if price:
+                return price
+
+    for script in soup.find_all("script", type="application/ld+json"):
+        try:
+            data = json.loads(script.string or "")
+        except (TypeError, ValueError):
+            continue
+        items = data if isinstance(data, list) else [data]
+        for item in items:
+            if item.get("@type") == "Product":
+                offers = item.get("offers") or {}
+                price = offers.get("price") if isinstance(offers, dict) else None
+                if price:
+                    return _clean_price(str(price))
+
+    return None
+
+
 def _amazon_html_fallback(url: str, partial: dict) -> dict:
     """Fetch browser HTML and extract name/price/brand for Amazon pages when
     structured extraction returns no name (probability too low)."""
@@ -205,6 +248,14 @@ def extract_product(url: str) -> dict:
     if not product.get("name") and "myntra.com" in url:
         print("  [Zyte] Using Myntra URL slug as product name")
         product = {**product, **_slug_fallback_myntra(url)}
+
+    if product.get("name") and not product.get("price") and "myntra.com" in url:
+        price = _myntra_browser_price(url)
+        if price:
+            product = {**product, "price": str(price), "currency": "INR"}
+            print(f"  [Zyte] Recovered Myntra price via browser render: ₹{price:,.0f}")
+        else:
+            print("  [Zyte] Could not recover Myntra price — showing N/A")
 
     if not product.get("name") and "nykaa.com" in url:
         print("  [Zyte] Using Nykaa URL slug as product name")
