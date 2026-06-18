@@ -11,7 +11,7 @@ from dotenv import load_dotenv
 
 from db.cache import init_cache
 from db.voucher_lookup import calculate_effective_price, get_best_voucher_deal, get_gyftr_voucher
-from engine.matcher import filter_discovery_results
+from engine.matcher import _extract_size, filter_discovery_results
 from extractor.discovery import build_search_query, discover_merchants, get_direct_urls
 from extractor.zyte_client import extract_product
 
@@ -260,6 +260,73 @@ def step4_output(enriched: list[dict]) -> None:
             print(f"       → {s_name:<23} {s_price:<10} {link}")
 
 
+# ── step 4b — size/quantity comparison ────────────────────────────────────────
+
+_SIZE_TOKEN_RE = re.compile(r'^(\d+(?:\.\d+)?)(kg|mg|ml|l|g)$')
+
+
+def _normalize_size(qty: float, unit: str) -> tuple[float, str]:
+    if unit == "kg":
+        return qty * 1000, "g"
+    if unit == "l":
+        return qty * 1000, "ml"
+    if unit == "mg":
+        return qty / 1000, "g"
+    return qty, unit
+
+
+def step4b_size_comparison(enriched: list[dict]) -> None:
+    groups: dict[tuple[float, str], list[dict]] = {}
+    for r in enriched:
+        title = r.get("title") or ""
+        for raw_size in _extract_size(title):
+            m = _SIZE_TOKEN_RE.match(raw_size)
+            if not m:
+                continue
+            qty, unit = _normalize_size(float(m.group(1)), m.group(2))
+            groups.setdefault((qty, unit), []).append(r)
+            break
+
+    if len(groups) < 2:
+        return
+
+    rows_by_group: dict[tuple[float, str], list[tuple[dict, float]]] = {}
+    best_key = None
+    best_unit_price = None
+    for key, results in groups.items():
+        qty, unit = key
+        rows = []
+        for r in results:
+            price = r.get("extracted_price") or 0
+            if not price:
+                continue
+            unit_price = price / qty
+            rows.append((r, unit_price))
+            if best_unit_price is None or unit_price < best_unit_price:
+                best_unit_price = unit_price
+                best_key = key
+        rows_by_group[key] = rows
+
+    if best_key is None:
+        return
+
+    print("\n📊 SIZE COMPARISON")
+    print(_sep("─", 50))
+
+    for key in sorted(groups.keys()):
+        qty, unit = key
+        label = f"{qty:g}{unit}"
+        print(f"\n[{label} variants]")
+        for r, unit_price in rows_by_group[key]:
+            merchant = (r.get("source") or "—")[:20]
+            price = r.get("extracted_price") or 0
+            marker = f"  ← Best value per {unit}" if key == best_key else ""
+            print(f"  • {merchant:<20} ₹{price:,.0f}  →  ₹{unit_price:.2f}/{unit}{marker}")
+
+    best_label = f"{best_key[0]:g}{best_key[1]}"
+    print(f"\n💡 {best_label} gives better value per {best_key[1]}")
+
+
 # ── step 5 — Gyftr voucher opportunities ──────────────────────────────────────
 
 def step5_vouchers(enriched: list[dict]) -> None:
@@ -339,6 +406,7 @@ def run(input_str: str) -> None:
 
         enriched = step3_resolve(matched, source_brand=source_brand)
         step4_output(enriched)
+        step4b_size_comparison(enriched)
         step5_vouchers(enriched)
     except SystemExit:
         raise
