@@ -10,6 +10,8 @@ import requests
 from bs4 import BeautifulSoup
 from dotenv import load_dotenv
 
+from db.cache import get_cached, save_cache
+
 load_dotenv()
 
 SERPAPI_KEY = os.getenv("SERPAPI_KEY")
@@ -17,6 +19,11 @@ SERPAPI_URL = "https://serpapi.com/search.json"
 
 
 def discover_merchants(query: str, max_results: int = 10) -> list[dict]:
+    cached = get_cached(query)
+    if cached is not None:
+        print(f"[Cache] Returning cached results for '{query}'")
+        return cached
+
     if not SERPAPI_KEY:
         print("[SerpAPI] SERPAPI_KEY not found in .env file")
         return []
@@ -58,6 +65,7 @@ def discover_merchants(query: str, max_results: int = 10) -> list[dict]:
             "delivery": item.get("delivery", ""),
         })
 
+    save_cache(query, results)
     return results
 
 

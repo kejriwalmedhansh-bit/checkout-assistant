@@ -9,6 +9,7 @@ import sys
 
 from dotenv import load_dotenv
 
+from db.cache import init_cache
 from db.voucher_lookup import calculate_effective_price, get_best_voucher_deal, get_gyftr_voucher
 from engine.matcher import filter_discovery_results
 from extractor.discovery import build_search_query, discover_merchants, get_direct_urls
@@ -304,6 +305,7 @@ def step5_vouchers(enriched: list[dict]) -> None:
 # ── entry point ───────────────────────────────────────────────────────────────
 
 def run(input_str: str) -> None:
+    init_cache()
     try:
         if _is_url(input_str):
             source_product = step1_extract(input_str)
