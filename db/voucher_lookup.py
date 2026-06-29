@@ -64,6 +64,14 @@ def get_gyftr_voucher(merchant_name: str) -> dict | None:
             rank = 2
         else:
             continue
+
+        if rank >= 1:
+            brand_name_lower = voucher.get("brand_name", "").lower()
+            if any(w in brand_name_lower for w in (
+                "reseller", "authorised", "authorized", "premium",
+                "future world", "store", "electronics", "mobile",
+            )):
+                continue
         candidates.append((rank, len(norm_brand), voucher))
 
     if not candidates:
@@ -131,6 +139,12 @@ def _discount_pct(voucher: dict, payment_method: str) -> float:
     return voucher.get("defaut_pg_dis") or 0
 
 
+def _parse_redemption_instructions(voucher: dict) -> list[str]:
+    html = voucher.get("important_instruction") or ""
+    text = re.sub(r'<[^>]+>', '', html)
+    return [line.strip() for line in text.splitlines() if line.strip()]
+
+
 def calculate_effective_price(price: float, voucher: dict, payment_method: str = "upi") -> dict:
     discount_pct = _discount_pct(voucher, payment_method)
 
@@ -160,6 +174,7 @@ def calculate_effective_price(price: float, voucher: dict, payment_method: str =
         "voucher_url": f"https://www.gyftr.com/{voucher['slug']}",
         "redemption_type": REDEMPTION_LABELS.get(redemption_type, redemption_type),
         "denominations": _denominations(voucher),
+        "redemption_instructions": _parse_redemption_instructions(voucher),
     }
 
 
