@@ -139,10 +139,27 @@ def _discount_pct(voucher: dict, payment_method: str) -> float:
     return voucher.get("defaut_pg_dis") or 0
 
 
-def _parse_redemption_instructions(voucher: dict) -> list[str]:
-    html = voucher.get("important_instruction") or ""
+_INSTRUCTION_EXCLUDE = [
+    "also works at",
+    "also be used on",
+    "also accepted at",
+    "can also be used online on",
+    "can also be used at",
+]
+
+
+def _clean_instructions(html: str) -> list[str]:
     text = re.sub(r'<[^>]+>', '', html)
-    return [line.strip() for line in text.splitlines() if line.strip()]
+    result = []
+    for line in text.splitlines():
+        line = line.strip()
+        if not line:
+            continue
+        lower = line.lower()
+        if any(phrase in lower for phrase in _INSTRUCTION_EXCLUDE):
+            continue
+        result.append(line)
+    return result
 
 
 def calculate_effective_price(price: float, voucher: dict, payment_method: str = "upi") -> dict:
@@ -174,7 +191,7 @@ def calculate_effective_price(price: float, voucher: dict, payment_method: str =
         "voucher_url": f"https://www.gyftr.com/{voucher['slug']}",
         "redemption_type": REDEMPTION_LABELS.get(redemption_type, redemption_type),
         "denominations": _denominations(voucher),
-        "redemption_instructions": _parse_redemption_instructions(voucher),
+        "redemption_instructions": _clean_instructions(voucher.get("important_instruction") or ""),
     }
 
 

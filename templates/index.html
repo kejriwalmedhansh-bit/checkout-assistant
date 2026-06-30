@@ -98,6 +98,10 @@
     .how-text { font-size: 13px; color: var(--text-mid); line-height: 1.5; }
     .how-text a { color: var(--blue); text-decoration: none; font-weight: 500; }
     .how-note { font-size: 12px; color: var(--text-muted); font-style: italic; padding-left: 34px; margin-top: 4px; }
+    .before-you-buy { background: #fffbeb; border: 1.5px solid #fcd34d; border-radius: 10px; padding: 0.9rem 1.1rem; margin-top: 1rem; }
+    .bby-title { font-size: 13px; font-weight: 700; color: #92400e; margin-bottom: 0.5rem; }
+    .bby-list { padding-left: 1.25rem; margin: 0; }
+    .bby-list li { font-size: 13px; color: #78350f; line-height: 1.55; margin-bottom: 3px; }
     .final-row { display: flex; justify-content: space-between; align-items: center; background: var(--green-light); border: 1px solid var(--green-border); border-radius: 10px; padding: 1rem 1.25rem; }
     .final-left { display: flex; flex-direction: column; gap: 3px; }
     .final-label { font-size: 12px; color: var(--green); font-weight: 600; }
@@ -112,6 +116,7 @@
     .alt-sub { font-size: 12px; color: var(--text-dim); margin-top: 2px; }
     .alt-price { font-family: var(--mono); font-size: 16px; font-weight: 600; color: var(--text); }
     .error-box { background: var(--red-light); border: 1px solid #fca5a5; border-radius: 10px; padding: 1.25rem; color: var(--red); font-size: 14px; }
+    .alt-store-link { display: inline-block; margin-top: 5px; font-size: 11px; font-weight: 500; color: var(--blue); text-decoration: none; border: 1px solid var(--blue-mid); border-radius: 6px; padding: 2px 8px; background: var(--blue-light); }
   </style>
 </head>
 <body>
@@ -234,9 +239,14 @@
     if (!results.length) { body.innerHTML = '<div class="error-box">No results found. Try a different search.</div>'; return; }
 
     let best = null;
+    let bestFinalPrice = Infinity;
     for (const r of results) {
       const v = vouchers.find(v => v.merchant.toLowerCase() === (r.merchant||'').toLowerCase());
-      if (v) { best = {result: r, voucher: v}; break; }
+      const finalP = v ? v.upi.effective_price : (r.price || Infinity);
+      if (finalP < bestFinalPrice) {
+        bestFinalPrice = finalP;
+        best = {result: r, voucher: v || null};
+      }
     }
     if (!best) best = {result: results[0], voucher: null};
 
@@ -265,7 +275,10 @@
         `Add your item to your ${esc(r.merchant)} cart`,
         v.upi.remainder ? `Apply the voucher at checkout — pay the remaining ${fmt(v.upi.remainder)} with any method` : `Apply the voucher at checkout — your full order is covered`,
       ];
-      howHtml = `<div class="how-section"><div class="how-label">How to do it</div>${steps.map((s,i) => `<div class="how-step"><div class="how-num">${i+1}</div><div class="how-text">${s}</div></div>`).join('')}<p class="how-note">How to redeem on ${esc(r.merchant)}? Gyftr walks you through it step-by-step when you buy the voucher.</p></div>`;
+      const instrHtml = (v.redemption_instructions && v.redemption_instructions.length)
+        ? `<div class="before-you-buy"><div class="bby-title">⚠️ Before you buy</div><ul class="bby-list">${v.redemption_instructions.map(i => `<li>${esc(i)}</li>`).join('')}</ul></div>`
+        : '';
+      howHtml = `<div class="how-section"><div class="how-label">How to do it</div>${steps.map((s,i) => `<div class="how-step"><div class="how-num">${i+1}</div><div class="how-text">${s}</div></div>`).join('')}${instrHtml}</div>`;
     }
 
     const finalHtml = finalPrice ? `<div class="final-row"><div class="final-left"><div class="final-label">You pay</div>${originalPrice && saving ? `<div class="final-original">${fmt(originalPrice)} elsewhere</div>` : ''}</div><div class="final-price">${fmt(finalPrice)}</div></div>` : '';
@@ -276,7 +289,8 @@
     const altItemsHtml = alts.map(a => {
       const av = vouchers.find(v => v.merchant.toLowerCase() === (a.merchant||'').toLowerCase());
       const ap = av ? Math.round(av.upi.effective_price) : (a.price ? Math.round(a.price) : null);
-      return `<div class="alt-item"><div><div class="alt-merchant">${esc(a.merchant)}</div><div class="alt-sub">${av ? `With Gyftr voucher · ${av.upi.pct}% off` : 'Direct purchase · no voucher available'}</div></div><div class="alt-price">${fmt(ap)}</div></div>`;
+      const altLink = (a.sellers && a.sellers[0] && a.sellers[0].link) ? `<a class="alt-store-link" href="${esc(a.sellers[0].link)}" target="_blank" rel="noopener">Open store →</a>` : '';
+      return `<div class="alt-item"><div><div class="alt-merchant">${esc(a.merchant)}</div><div class="alt-sub">${av ? `With Gyftr voucher · ${av.upi.pct}% off` : 'Direct purchase · no voucher available'}</div>${altLink}</div><div class="alt-price">${fmt(ap)}</div></div>`;
     }).join('');
 
     const altHtml = alts.length ? `<button class="alt-btn" onclick="toggleAlt(this)">Recommended route not working for you? →</button><div class="alt-routes" id="alt-routes">${altItemsHtml}</div>` : '';

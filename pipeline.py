@@ -141,6 +141,45 @@ def _normalize_size(qty: float, unit: str) -> tuple[float, str]:
     return qty, unit
 
 
+_ACCESSORY_WORDS = {
+    "case", "cover", "silicone", "skin", "pouch", "strap",
+    "protector", "customized", "custom", "personalized", "engraved",
+}
+
+_MODEL_NUMBER_RE = re.compile(r'\b(\d{2,4})\b')
+
+
+def _product_relevance_filter(results: list[dict], query: str) -> list[dict]:
+    words = query.split()
+    model_number = None
+    product_line = None
+    for i, word in enumerate(words):
+        m = _MODEL_NUMBER_RE.fullmatch(word)
+        if m:
+            model_number = m.group(1)
+            if i > 0:
+                product_line = words[i - 1]
+            break
+
+    if model_number is None:
+        return results
+
+    model_re = re.compile(r'\b' + re.escape(model_number) + r'\b', re.IGNORECASE)
+
+    kept = []
+    for r in results:
+        title = r.get("title") or ""
+        title_lower = title.lower()
+        if not model_re.search(title):
+            continue
+        if product_line and product_line.lower() not in title_lower:
+            continue
+        if any(word in title_lower for word in _ACCESSORY_WORDS):
+            continue
+        kept.append(r)
+    return kept
+
+
 # ── step 1 — extract source product ──────────────────────────────────────────
 
 def step1_extract(url: str) -> dict:
@@ -176,6 +215,7 @@ def step2_discover_and_match(source_product: dict) -> dict:
     brand_str = get_brand(source_product)
     query = build_search_query(brand=brand_str, name=source_product.get("name", ""))
     raw_results = discover_merchants(query, max_results=50)
+    raw_results = _product_relevance_filter(raw_results, source_product.get("name", ""))
     matched = filter_discovery_results(
         raw_results,
         source_name=source_product.get("name", ""),
@@ -196,6 +236,7 @@ def step2_discover_and_match(source_product: dict) -> dict:
 
 def step2_discover_only(query: str) -> dict:
     raw_results = discover_merchants(query, max_results=50)
+    raw_results = _product_relevance_filter(raw_results, query)
 
     for r in raw_results:
         r["match_type"] = "Listed"
