@@ -6,8 +6,10 @@ main.py (CLI) calls these and formats output itself.
 api.py (FastAPI) calls these and returns JSON.
 """
 
+import json
 import re
 import sys
+from pathlib import Path
 
 from db.voucher_lookup import calculate_effective_price, get_best_voucher_deal, get_gyftr_voucher
 from engine.matcher import _extract_size, filter_discovery_results
@@ -141,12 +143,65 @@ def _normalize_size(qty: float, unit: str) -> tuple[float, str]:
     return qty, unit
 
 
+_MANUAL_TRUSTED = [
+    "Amazon", "Flipkart", "Myntra", "Nykaa", "AJIO", "Croma",
+    "Reliance Digital", "Vijay Sales", "Tata CLiQ", "BigBasket",
+    "Apple", "Samsung", "JioMart", "Pepperfry", "Lenskart",
+]
+
+_VOUCHERS_PATH = Path(__file__).resolve().parent / "db" / "gyftr_vouchers.json"
+_trusted_merchants_cache: set[str] | None = None
+
+
+def _norm(name: str) -> str:
+    return re.sub(r"[^a-z0-9]", "", name.lower())
+
+
+def _load_trusted_merchants() -> set[str]:
+    global _trusted_merchants_cache
+    if _trusted_merchants_cache is not None:
+        return _trusted_merchants_cache
+    whitelist = {_norm(n) for n in _MANUAL_TRUSTED}
+    try:
+        with open(_VOUCHERS_PATH) as f:
+            for voucher in json.load(f):
+                brand = voucher.get("brand_name") or ""
+                if brand:
+                    whitelist.add(_norm(brand))
+    except (OSError, json.JSONDecodeError):
+        pass
+    _trusted_merchants_cache = whitelist
+    return whitelist
+
+
+def _is_trusted_merchant(merchant_name: str, whitelist: set[str]) -> bool:
+    norm = _norm(merchant_name)
+    if not norm:
+        return False
+    if norm in whitelist:
+        return True
+    for entry in whitelist:
+        if len(entry) < 4:
+            continue
+        if norm.startswith(entry) or entry.startswith(norm) or entry in norm or norm in entry:
+            return True
+    return False
+
+
+def _filter_trusted_only(results: list[dict]) -> tuple[list[dict], bool]:
+    whitelist = _load_trusted_merchants()
+    filtered = [r for r in results if _is_trusted_merchant(r.get("source") or "", whitelist)]
+    if not filtered:
+        return results, True
+    return filtered, False
+
+
 _ACCESSORY_WORDS = {
     "case", "cover", "silicone", "skin", "pouch", "strap",
     "protector", "customized", "custom", "personalized", "engraved",
 }
 
-_MODEL_NUMBER_RE = re.compile(r'\b(\d{2,4})\b')
+_MODEL_NUMBER_RE = re.compile(r'\b([a-zA-Z]?\d{2,4}[a-zA-Z]?)\b')
 
 
 def _product_relevance_filter(results: list[dict], query: str) -> list[dict]:
@@ -216,6 +271,7 @@ def step2_discover_and_match(source_product: dict) -> dict:
     query = build_search_query(brand=brand_str, name=source_product.get("name", ""))
     raw_results = discover_merchants(query, max_results=50)
     raw_results = _product_relevance_filter(raw_results, source_product.get("name", ""))
+    raw_results, untrusted_warning = _filter_trusted_only(raw_results)
     matched = filter_discovery_results(
         raw_results,
         source_name=source_product.get("name", ""),
@@ -230,6 +286,7 @@ def step2_discover_and_match(source_product: dict) -> dict:
         "raw_count": len(raw_results),
         "matched_count": len(filtered),
         "removed_outliers": removed,
+        "untrusted_sellers_warning": untrusted_warning,
         "results": filtered,
     }
 
@@ -237,6 +294,7 @@ def step2_discover_and_match(source_product: dict) -> dict:
 def step2_discover_only(query: str) -> dict:
     raw_results = discover_merchants(query, max_results=50)
     raw_results = _product_relevance_filter(raw_results, query)
+    raw_results, untrusted_warning = _filter_trusted_only(raw_results)
 
     for r in raw_results:
         r["match_type"] = "Listed"
@@ -249,6 +307,7 @@ def step2_discover_only(query: str) -> dict:
         "query": query,
         "raw_count": len(raw_results) + removed,
         "removed_outliers": removed,
+        "untrusted_sellers_warning": untrusted_warning,
         "results": filtered,
     }
 
@@ -414,6 +473,7 @@ def run_pipeline(input_str: str) -> dict:
         "results": [],
         "size_comparison": None,
         "vouchers": [],
+        "untrusted_sellers_warning": False,
         "error": None,
     }
 
@@ -435,6 +495,7 @@ def run_pipeline(input_str: str) -> dict:
             s2 = step2_discover_only(query)
 
         output["discovery"] = s2
+        output["untrusted_sellers_warning"] = s2.get("untrusted_sellers_warning", False)
         s3 = step3_resolve(s2["results"], source_brand=source_brand)
         output["resolve"] = s3
         enriched = s3["results"]

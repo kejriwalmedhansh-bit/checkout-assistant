@@ -116,6 +116,10 @@
     .alt-sub { font-size: 12px; color: var(--text-dim); margin-top: 2px; }
     .alt-price { font-family: var(--mono); font-size: 16px; font-weight: 600; color: var(--text); }
     .error-box { background: var(--red-light); border: 1px solid #fca5a5; border-radius: 10px; padding: 1.25rem; color: var(--red); font-size: 14px; }
+    .unverified-warning { display: flex; align-items: flex-start; gap: 10px; background: #fff1f2; border: 1.5px solid #fda4af; border-radius: 12px; padding: 1rem 1.25rem; margin-bottom: 1rem; }
+    .unverified-warning-icon { font-size: 18px; line-height: 1.4; flex-shrink: 0; }
+    .unverified-warning-text { font-size: 13px; color: #9f1239; line-height: 1.55; }
+    .unverified-warning-text strong { display: block; font-size: 13px; font-weight: 700; margin-bottom: 2px; }
     .alt-store-link { display: inline-block; margin-top: 5px; font-size: 11px; font-weight: 500; color: var(--blue); text-decoration: none; border: 1px solid var(--blue-mid); border-radius: 6px; padding: 2px 8px; background: var(--blue-light); }
   </style>
 </head>
@@ -295,7 +299,11 @@
 
     const altHtml = alts.length ? `<button class="alt-btn" onclick="toggleAlt(this)">Recommended route not working for you? →</button><div class="alt-routes" id="alt-routes">${altItemsHtml}</div>` : '';
 
-    body.innerHTML = heroHtml + routeHtml + altHtml;
+    const unverifiedHtml = data.untrusted_sellers_warning
+      ? `<div class="unverified-warning"><div class="unverified-warning-icon">⚠️</div><div class="unverified-warning-text"><strong>Unverified sellers</strong>We couldn't verify these sellers — please do your own research before buying.</div></div>`
+      : '';
+
+    body.innerHTML = unverifiedHtml + heroHtml + routeHtml + altHtml;
   }
 
   function toggleAlt(btn) {
