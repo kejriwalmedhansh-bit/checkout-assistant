@@ -4,22 +4,20 @@ the effective price after applying the voucher's payment-method discount.
 """
 
 import json
+import math
 import re
 from pathlib import Path
 
-VOUCHERS_PATH = Path(__file__).resolve().parent / "gyftr_vouchers.json"
+VOUCHERS_PATH = Path(__file__).resolve().parent / "gyftr_master.json"
 
-REDEMPTION_LABELS = {"ON": "Online", "OFF": "Offline", "B": "Both"}
-
-# Maps the caller-facing payment_method argument to the pg_name(s) used in
-# the scraped pgdis[] data. "card" checks both Credit and Debit since Gyftr
-# rarely differentiates between them (only 1 of 379 brands does).
-PAYMENT_METHOD_TO_PG_NAMES = {
+# Maps the caller-facing payment_method argument to the keys used in the
+# discounts dict of gyftr_master.json.
+PAYMENT_METHOD_TO_DISCOUNT_KEYS = {
     "card": ["Credit Card", "Debit Card"],
     "netbanking": ["Net Banking"],
     "upi": ["UPI"],
-    "paytm_upi": ["PAYTM UPI"],
-    "amazon_pay": ["Amazon Pay"],
+    "paytm_upi": ["UPI"],
+    "amazon_pay": ["UPI"],
 }
 
 _vouchers_cache: list[dict] | None = None
@@ -29,7 +27,7 @@ def _load_vouchers() -> list[dict]:
     global _vouchers_cache
     if _vouchers_cache is None:
         with open(VOUCHERS_PATH) as f:
-            _vouchers_cache = json.load(f)
+            _vouchers_cache = list(json.load(f).values())
     return _vouchers_cache
 
 
@@ -83,60 +81,53 @@ def get_gyftr_voucher(merchant_name: str) -> dict | None:
 def _parse_denominations(voucher: dict) -> tuple[bool, list[int]]:
     """Returns (is_custom, sorted_fixed_denoms).
 
-    is_custom=True only when every product is a custom range (max_value > 0
-    and != mrp) and there are no fixed-denomination products at all — i.e.
-    the only way to buy is to load an arbitrary amount onto the voucher.
-    When a voucher mixes fixed and custom-range products, the fixed
-    denominations are real purchase options and take priority over treating
-    the whole voucher as custom.
+    is_custom=True when denominations is empty — the voucher has no fixed
+    face values and accepts an arbitrary load amount.
     """
-    fixed = []
-    has_custom = False
-    for p in voucher.get("products", []):
-        mrp = p.get("mrp")
-        max_value = p.get("max_value") or 0
-        if mrp is None:
-            continue
-        if max_value and max_value != mrp:
-            has_custom = True
-            continue
-        fixed.append(int(mrp))
-    if fixed:
-        return False, sorted(set(fixed))
-    return has_custom, []
+    denoms = sorted(set(int(d) for d in (voucher.get("denominations") or []) if d is not None))
+    if denoms:
+        return False, denoms
+    return True, []
 
 
-def _greedy_voucher_amount(price: float, fixed_denoms: list[int]) -> int:
-    """Largest sum of denominations (with repetition) not exceeding price."""
+def _greedy_voucher_amount(price: float, fixed_denoms: list[int], stack_limit: int | None = None, value_cap: float | None = None) -> int:
+    """Largest sum of denominations (with repetition) not exceeding price, stack_limit, and value_cap."""
     remaining = int(price)
     total = 0
+    count_used = 0
     for d in sorted(fixed_denoms, reverse=True):
-        count = remaining // d
+        if stack_limit is not None:
+            room_by_count = stack_limit - count_used
+            if room_by_count <= 0:
+                break
+        else:
+            room_by_count = float('inf')
+        if value_cap is not None:
+            room_by_value = value_cap - total
+            if room_by_value <= 0:
+                break
+            room_by_value_count = room_by_value // d
+        else:
+            room_by_value_count = float('inf')
+        count = min(remaining // d, room_by_count, room_by_value_count)
         total += count * d
         remaining -= count * d
+        count_used += count
     return total
 
 
 def _denominations(voucher: dict) -> str:
-    values = []
-    for p in voucher.get("products", []):
-        mrp, max_value = p.get("mrp"), p.get("max_value")
-        if max_value and max_value != mrp:
-            values.append(f"{mrp}-{max_value} (custom)")
-        elif mrp is not None:
-            values.append(str(mrp))
-    fixed = sorted({v for v in values if v.isdigit()}, key=int)
-    custom = list(dict.fromkeys(v for v in values if not v.replace(".", "", 1).isdigit()))
-    return " / ".join(fixed + custom)
+    denoms = sorted(set(int(d) for d in (voucher.get("denominations") or []) if d is not None))
+    return " / ".join(str(d) for d in denoms)
 
 
 def _discount_pct(voucher: dict, payment_method: str) -> float:
-    pg_names = PAYMENT_METHOD_TO_PG_NAMES.get(payment_method.lower(), [])
-    pg_map = {pg.get("pg_name"): pg.get("brand_pg_discount") for pg in voucher.get("pgdis", [])}
-    found = [pg_map[name] for name in pg_names if pg_map.get(name) is not None]
+    keys = PAYMENT_METHOD_TO_DISCOUNT_KEYS.get(payment_method.lower(), [])
+    discounts = voucher.get("discounts") or {}
+    found = [discounts[k] for k in keys if discounts.get(k) is not None]
     if found:
         return max(found)
-    return voucher.get("defaut_pg_dis") or 0
+    return 0
 
 
 _INSTRUCTION_EXCLUDE = [
@@ -171,13 +162,17 @@ def calculate_effective_price(price: float, voucher: dict, payment_method: str =
         remainder = 0.0
         is_custom = True
     else:
-        voucher_amount = float(_greedy_voucher_amount(price, fixed_denoms))
+        voucher_amount = float(_greedy_voucher_amount(
+            price, fixed_denoms,
+            stack_limit=voucher.get("stack_limit"),
+            value_cap=voucher.get("value_cap"),
+        ))
         remainder = round(price - voucher_amount, 2)
+
+    txns_needed = math.ceil(voucher_amount / voucher["purchase_cap_per_txn"]) if voucher.get("purchase_cap_per_txn") else 1
 
     discount_amount = round(voucher_amount * discount_pct / 100, 2)
     effective_price = round(price - discount_amount, 2)
-    redemption_type = voucher.get("redemption_type", "")
-
     return {
         "original_price": price,
         "voucher_amount": voucher_amount,
@@ -187,11 +182,12 @@ def calculate_effective_price(price: float, voucher: dict, payment_method: str =
         "voucher_discount_amount": discount_amount,
         "effective_price": effective_price,
         "payment_method": payment_method,
+        "txns_needed": txns_needed,
         "voucher_platform": "Gyftr",
         "voucher_url": f"https://www.gyftr.com/{voucher['slug']}",
-        "redemption_type": REDEMPTION_LABELS.get(redemption_type, redemption_type),
+        "redemption_type": voucher.get("redemption_type", ""),
         "denominations": _denominations(voucher),
-        "redemption_instructions": _clean_instructions(voucher.get("important_instruction") or ""),
+        "redemption_instructions": _clean_instructions(voucher.get("important_instructions_raw") or ""),
     }
 
 

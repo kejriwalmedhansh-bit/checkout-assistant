@@ -1,0 +1,3332 @@
+{
+  "archies-gallery": {
+    "slug": "archies-gallery",
+    "max_per_bill": null,
+    "limit_confidence": "unlimited_stated",
+    "can_club_with_offers": true,
+    "one_time_use": false,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "bata": {
+    "slug": "bata",
+    "max_per_bill": null,
+    "limit_confidence": "unknown",
+    "can_club_with_offers": null,
+    "one_time_use": false,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "tgif": {
+    "slug": "tgif",
+    "max_per_bill": null,
+    "limit_confidence": "unknown",
+    "can_club_with_offers": false,
+    "one_time_use": false,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "pizza-hut": {
+    "slug": "pizza-hut",
+    "max_per_bill": 1,
+    "limit_confidence": "explicit",
+    "can_club_with_offers": null,
+    "one_time_use": true,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "costa-coffee": {
+    "slug": "costa-coffee",
+    "max_per_bill": 1,
+    "limit_confidence": "explicit",
+    "can_club_with_offers": null,
+    "one_time_use": true,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "kfc": {
+    "slug": "kfc",
+    "max_per_bill": 1,
+    "limit_confidence": "explicit",
+    "can_club_with_offers": null,
+    "one_time_use": true,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "ferns-n-petals": {
+    "slug": "ferns-n-petals",
+    "max_per_bill": 1,
+    "limit_confidence": "explicit",
+    "can_club_with_offers": null,
+    "one_time_use": true,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "baskin-robbins": {
+    "slug": "baskin-robbins",
+    "max_per_bill": null,
+    "limit_confidence": "unknown",
+    "can_club_with_offers": null,
+    "one_time_use": false,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "hidesign": {
+    "slug": "hidesign",
+    "max_per_bill": null,
+    "limit_confidence": "unknown",
+    "can_club_with_offers": null,
+    "one_time_use": false,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "croma": {
+    "slug": "croma",
+    "max_per_bill": 1,
+    "limit_confidence": "explicit",
+    "can_club_with_offers": true,
+    "one_time_use": true,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "home-centre": {
+    "slug": "home-centre",
+    "max_per_bill": 1,
+    "limit_confidence": "explicit",
+    "can_club_with_offers": null,
+    "one_time_use": false,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "levis": {
+    "slug": "levis",
+    "max_per_bill": null,
+    "limit_confidence": "unknown",
+    "can_club_with_offers": true,
+    "one_time_use": false,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "pantaloons": {
+    "slug": "pantaloons",
+    "max_per_bill": 1,
+    "limit_confidence": "explicit",
+    "can_club_with_offers": true,
+    "one_time_use": true,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "the-raymond-shop": {
+    "slug": "the-raymond-shop",
+    "max_per_bill": null,
+    "limit_confidence": "unknown",
+    "can_club_with_offers": null,
+    "one_time_use": false,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "bobbi-brown": {
+    "slug": "bobbi-brown",
+    "max_per_bill": 1,
+    "limit_confidence": "explicit",
+    "can_club_with_offers": null,
+    "one_time_use": false,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "mac": {
+    "slug": "mac",
+    "max_per_bill": 1,
+    "limit_confidence": "explicit",
+    "can_club_with_offers": null,
+    "one_time_use": false,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "mainland-china": {
+    "slug": "mainland-china",
+    "max_per_bill": 1,
+    "limit_confidence": "explicit",
+    "can_club_with_offers": false,
+    "one_time_use": true,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "sigree": {
+    "slug": "sigree",
+    "max_per_bill": 1,
+    "limit_confidence": "explicit",
+    "can_club_with_offers": false,
+    "one_time_use": true,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "oh-calcutta": {
+    "slug": "oh-calcutta",
+    "max_per_bill": 1,
+    "limit_confidence": "explicit",
+    "can_club_with_offers": false,
+    "one_time_use": true,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "sweet-bengal": {
+    "slug": "sweet-bengal",
+    "max_per_bill": 1,
+    "limit_confidence": "explicit",
+    "can_club_with_offers": false,
+    "one_time_use": true,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "myntra": {
+    "slug": "myntra",
+    "max_per_bill": null,
+    "limit_confidence": "unknown",
+    "can_club_with_offers": null,
+    "one_time_use": false,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "titan": {
+    "slug": "titan",
+    "max_per_bill": 1,
+    "limit_confidence": "explicit",
+    "can_club_with_offers": null,
+    "one_time_use": false,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "fastrack": {
+    "slug": "fastrack",
+    "max_per_bill": 1,
+    "limit_confidence": "explicit",
+    "can_club_with_offers": null,
+    "one_time_use": true,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "westside": {
+    "slug": "westside",
+    "max_per_bill": null,
+    "limit_confidence": "unlimited_stated",
+    "can_club_with_offers": null,
+    "one_time_use": false,
+    "exclusions_raw": "food courts & cafes within the westside store. gv cannot be redeemed during online purchase.",
+    "has_source_text": true
+  },
+  "prestige": {
+    "slug": "prestige",
+    "max_per_bill": null,
+    "limit_confidence": "unknown",
+    "can_club_with_offers": null,
+    "one_time_use": false,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "william-penn": {
+    "slug": "william-penn",
+    "max_per_bill": 1,
+    "limit_confidence": "explicit",
+    "can_club_with_offers": null,
+    "one_time_use": true,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "woodland": {
+    "slug": "woodland",
+    "max_per_bill": null,
+    "limit_confidence": "unknown",
+    "can_club_with_offers": null,
+    "one_time_use": false,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "hush-puppies": {
+    "slug": "hush-puppies",
+    "max_per_bill": null,
+    "limit_confidence": "unknown",
+    "can_club_with_offers": null,
+    "one_time_use": false,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "lifestyle": {
+    "slug": "lifestyle",
+    "max_per_bill": 1,
+    "limit_confidence": "explicit",
+    "can_club_with_offers": null,
+    "one_time_use": false,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "shoppers-stop": {
+    "slug": "shoppers-stop",
+    "max_per_bill": null,
+    "limit_confidence": "unlimited_stated",
+    "can_club_with_offers": true,
+    "one_time_use": false,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "tanishq": {
+    "slug": "tanishq",
+    "max_per_bill": 1,
+    "limit_confidence": "explicit",
+    "can_club_with_offers": null,
+    "one_time_use": false,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "helios": {
+    "slug": "helios",
+    "max_per_bill": 1,
+    "limit_confidence": "explicit",
+    "can_club_with_offers": null,
+    "one_time_use": true,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "titan-eye-plus": {
+    "slug": "titan-eye-plus",
+    "max_per_bill": 1,
+    "limit_confidence": "explicit",
+    "can_club_with_offers": null,
+    "one_time_use": true,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "amazon": {
+    "slug": "amazon",
+    "max_per_bill": null,
+    "limit_confidence": "unlimited_stated",
+    "can_club_with_offers": null,
+    "one_time_use": false,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "fab-hotels": {
+    "slug": "fab-hotels",
+    "max_per_bill": 1,
+    "limit_confidence": "explicit",
+    "can_club_with_offers": true,
+    "one_time_use": true,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "flipkart": {
+    "slug": "flipkart",
+    "max_per_bill": null,
+    "limit_confidence": "unknown",
+    "can_club_with_offers": null,
+    "one_time_use": false,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "readers-digest": {
+    "slug": "readers-digest",
+    "max_per_bill": 1,
+    "limit_confidence": "explicit",
+    "can_club_with_offers": false,
+    "one_time_use": true,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "relaxo": {
+    "slug": "relaxo",
+    "max_per_bill": null,
+    "limit_confidence": "unknown",
+    "can_club_with_offers": null,
+    "one_time_use": false,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "crossword": {
+    "slug": "crossword",
+    "max_per_bill": null,
+    "limit_confidence": "unknown",
+    "can_club_with_offers": null,
+    "one_time_use": false,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "kalyan-gold-coins": {
+    "slug": "kalyan-gold-coins",
+    "max_per_bill": 1,
+    "limit_confidence": "explicit",
+    "can_club_with_offers": null,
+    "one_time_use": true,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "pc-jeweller-gold-coin": {
+    "slug": "pc-jeweller-gold-coin",
+    "max_per_bill": 1,
+    "limit_confidence": "explicit",
+    "can_club_with_offers": null,
+    "one_time_use": true,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "aurelia": {
+    "slug": "aurelia",
+    "max_per_bill": 1,
+    "limit_confidence": "explicit",
+    "can_club_with_offers": null,
+    "one_time_use": true,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "w": {
+    "slug": "w",
+    "max_per_bill": 1,
+    "limit_confidence": "explicit",
+    "can_club_with_offers": true,
+    "one_time_use": true,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "kalyan-gold-jewellery": {
+    "slug": "kalyan-gold-jewellery",
+    "max_per_bill": 1,
+    "limit_confidence": "explicit",
+    "can_club_with_offers": null,
+    "one_time_use": true,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "kalyan-diamond-jewellery": {
+    "slug": "kalyan-diamond-jewellery",
+    "max_per_bill": 1,
+    "limit_confidence": "explicit",
+    "can_club_with_offers": null,
+    "one_time_use": true,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "pc-jeweller-gold": {
+    "slug": "pc-jeweller-gold",
+    "max_per_bill": 1,
+    "limit_confidence": "explicit",
+    "can_club_with_offers": null,
+    "one_time_use": true,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "pc-jeweller-diamond": {
+    "slug": "pc-jeweller-diamond",
+    "max_per_bill": 1,
+    "limit_confidence": "explicit",
+    "can_club_with_offers": null,
+    "one_time_use": true,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "kama-ayurveda": {
+    "slug": "kama-ayurveda",
+    "max_per_bill": 1,
+    "limit_confidence": "explicit",
+    "can_club_with_offers": null,
+    "one_time_use": false,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "biba": {
+    "slug": "biba",
+    "max_per_bill": null,
+    "limit_confidence": "unknown",
+    "can_club_with_offers": null,
+    "one_time_use": false,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "pvr": {
+    "slug": "pvr",
+    "max_per_bill": 1,
+    "limit_confidence": "explicit",
+    "can_club_with_offers": true,
+    "one_time_use": true,
+    "exclusions_raw": "the \u2018app100\u2019 coupon code.",
+    "has_source_text": true
+  },
+  "gyftr-pay": {
+    "slug": "gyftr-pay",
+    "max_per_bill": null,
+    "limit_confidence": "unknown",
+    "can_club_with_offers": null,
+    "one_time_use": false,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "ola-cabs": {
+    "slug": "ola-cabs",
+    "max_per_bill": 1,
+    "limit_confidence": "explicit",
+    "can_club_with_offers": true,
+    "one_time_use": true,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "beer-cafe": {
+    "slug": "beer-cafe",
+    "max_per_bill": null,
+    "limit_confidence": "unknown",
+    "can_club_with_offers": false,
+    "one_time_use": false,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "puma": {
+    "slug": "puma",
+    "max_per_bill": 1,
+    "limit_confidence": "explicit",
+    "can_club_with_offers": null,
+    "one_time_use": true,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "points-for-good": {
+    "slug": "points-for-good",
+    "max_per_bill": 1,
+    "limit_confidence": "explicit",
+    "can_club_with_offers": null,
+    "one_time_use": true,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "apollo-pharmacy": {
+    "slug": "apollo-pharmacy",
+    "max_per_bill": 1,
+    "limit_confidence": "explicit",
+    "can_club_with_offers": false,
+    "one_time_use": true,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "luxe-gift-card": {
+    "slug": "luxe-gift-card",
+    "max_per_bill": 1,
+    "limit_confidence": "explicit",
+    "can_club_with_offers": null,
+    "one_time_use": true,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "the-body-shop": {
+    "slug": "the-body-shop",
+    "max_per_bill": 1,
+    "limit_confidence": "explicit",
+    "can_club_with_offers": null,
+    "one_time_use": false,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "bigbasket": {
+    "slug": "bigbasket",
+    "max_per_bill": 3,
+    "limit_confidence": "explicit",
+    "can_club_with_offers": true,
+    "one_time_use": true,
+    "exclusions_raw": "\u2022 purchase of gold or silver coins.",
+    "has_source_text": true
+  },
+  "uber": {
+    "slug": "uber",
+    "max_per_bill": null,
+    "limit_confidence": "unlimited_stated",
+    "can_club_with_offers": false,
+    "one_time_use": false,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "jockey": {
+    "slug": "jockey",
+    "max_per_bill": null,
+    "limit_confidence": "unknown",
+    "can_club_with_offers": null,
+    "one_time_use": false,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "ketan-diamonds-gold-jewellery": {
+    "slug": "ketan-diamonds-gold-jewellery",
+    "max_per_bill": 1,
+    "limit_confidence": "explicit",
+    "can_club_with_offers": null,
+    "one_time_use": true,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "ketan-diamonds-gold-coin": {
+    "slug": "ketan-diamonds-gold-coin",
+    "max_per_bill": 1,
+    "limit_confidence": "explicit",
+    "can_club_with_offers": null,
+    "one_time_use": true,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "luxe-gift-card-armani-exchange": {
+    "slug": "luxe-gift-card-armani-exchange",
+    "max_per_bill": 1,
+    "limit_confidence": "explicit",
+    "can_club_with_offers": null,
+    "one_time_use": true,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "luxe-gift-card-diesel": {
+    "slug": "luxe-gift-card-diesel",
+    "max_per_bill": 1,
+    "limit_confidence": "explicit",
+    "can_club_with_offers": null,
+    "one_time_use": true,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "luxe-gift-card-coach": {
+    "slug": "luxe-gift-card-coach",
+    "max_per_bill": 1,
+    "limit_confidence": "explicit",
+    "can_club_with_offers": null,
+    "one_time_use": true,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "luxe-gift-card-gas": {
+    "slug": "luxe-gift-card-gas",
+    "max_per_bill": 1,
+    "limit_confidence": "explicit",
+    "can_club_with_offers": null,
+    "one_time_use": true,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "luxe-gift-card-hamleys": {
+    "slug": "luxe-gift-card-hamleys",
+    "max_per_bill": 1,
+    "limit_confidence": "explicit",
+    "can_club_with_offers": null,
+    "one_time_use": true,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "luxe-gift-card-hugo-boss": {
+    "slug": "luxe-gift-card-hugo-boss",
+    "max_per_bill": 1,
+    "limit_confidence": "explicit",
+    "can_club_with_offers": null,
+    "one_time_use": true,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "luxe-gift-card-michael-kors": {
+    "slug": "luxe-gift-card-michael-kors",
+    "max_per_bill": 1,
+    "limit_confidence": "explicit",
+    "can_club_with_offers": null,
+    "one_time_use": true,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "luxe-gift-card-satya-paul": {
+    "slug": "luxe-gift-card-satya-paul",
+    "max_per_bill": 1,
+    "limit_confidence": "explicit",
+    "can_club_with_offers": null,
+    "one_time_use": true,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "luxe-gift-card-mothercare": {
+    "slug": "luxe-gift-card-mothercare",
+    "max_per_bill": 1,
+    "limit_confidence": "explicit",
+    "can_club_with_offers": null,
+    "one_time_use": true,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "luxe-gift-card-superdry": {
+    "slug": "luxe-gift-card-superdry",
+    "max_per_bill": 1,
+    "limit_confidence": "explicit",
+    "can_club_with_offers": null,
+    "one_time_use": true,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "luxe-gift-card-steve-madden": {
+    "slug": "luxe-gift-card-steve-madden",
+    "max_per_bill": 1,
+    "limit_confidence": "explicit",
+    "can_club_with_offers": null,
+    "one_time_use": true,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "zee5": {
+    "slug": "zee5",
+    "max_per_bill": 1,
+    "limit_confidence": "explicit",
+    "can_club_with_offers": false,
+    "one_time_use": true,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "the-man-company": {
+    "slug": "the-man-company",
+    "max_per_bill": null,
+    "limit_confidence": "unknown",
+    "can_club_with_offers": null,
+    "one_time_use": false,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "candere-gold-coin": {
+    "slug": "candere-gold-coin",
+    "max_per_bill": 1,
+    "limit_confidence": "explicit",
+    "can_club_with_offers": null,
+    "one_time_use": true,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "candere-gold-jewellery": {
+    "slug": "candere-gold-jewellery",
+    "max_per_bill": 1,
+    "limit_confidence": "explicit",
+    "can_club_with_offers": null,
+    "one_time_use": true,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "candere-diamond-jewellery": {
+    "slug": "candere-diamond-jewellery",
+    "max_per_bill": 1,
+    "limit_confidence": "explicit",
+    "can_club_with_offers": null,
+    "one_time_use": true,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "skullcandy": {
+    "slug": "skullcandy",
+    "max_per_bill": null,
+    "limit_confidence": "unknown",
+    "can_club_with_offers": null,
+    "one_time_use": false,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "netmeds": {
+    "slug": "netmeds",
+    "max_per_bill": null,
+    "limit_confidence": "unknown",
+    "can_club_with_offers": false,
+    "one_time_use": false,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "elleven": {
+    "slug": "elleven",
+    "max_per_bill": 1,
+    "limit_confidence": "explicit",
+    "can_club_with_offers": true,
+    "one_time_use": true,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "sonyliv": {
+    "slug": "sonyliv",
+    "max_per_bill": 1,
+    "limit_confidence": "explicit",
+    "can_club_with_offers": false,
+    "one_time_use": true,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "max": {
+    "slug": "max",
+    "max_per_bill": 1,
+    "limit_confidence": "explicit",
+    "can_club_with_offers": null,
+    "one_time_use": false,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "seniority": {
+    "slug": "seniority",
+    "max_per_bill": 1,
+    "limit_confidence": "explicit",
+    "can_club_with_offers": null,
+    "one_time_use": true,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "skechers": {
+    "slug": "skechers",
+    "max_per_bill": null,
+    "limit_confidence": "unknown",
+    "can_club_with_offers": null,
+    "one_time_use": false,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "decathlon": {
+    "slug": "decathlon",
+    "max_per_bill": null,
+    "limit_confidence": "unknown",
+    "can_club_with_offers": true,
+    "one_time_use": false,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "tata-cliq": {
+    "slug": "tata-cliq",
+    "max_per_bill": null,
+    "limit_confidence": "unlimited_stated",
+    "can_club_with_offers": null,
+    "one_time_use": false,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "docubay": {
+    "slug": "docubay",
+    "max_per_bill": 1,
+    "limit_confidence": "explicit",
+    "can_club_with_offers": null,
+    "one_time_use": true,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "malabar-gold-coin": {
+    "slug": "malabar-gold-coin",
+    "max_per_bill": 1,
+    "limit_confidence": "explicit",
+    "can_club_with_offers": null,
+    "one_time_use": true,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "luxe-gift-card-brooks-brothers": {
+    "slug": "luxe-gift-card-brooks-brothers",
+    "max_per_bill": 1,
+    "limit_confidence": "explicit",
+    "can_club_with_offers": null,
+    "one_time_use": true,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "luxe-gift-card-emporio-armani": {
+    "slug": "luxe-gift-card-emporio-armani",
+    "max_per_bill": 1,
+    "limit_confidence": "explicit",
+    "can_club_with_offers": null,
+    "one_time_use": true,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "luxe-gift-card-scotch-soda": {
+    "slug": "luxe-gift-card-scotch-soda",
+    "max_per_bill": 1,
+    "limit_confidence": "explicit",
+    "can_club_with_offers": null,
+    "one_time_use": true,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "luxe-gift-card---paul-smith": {
+    "slug": "luxe-gift-card---paul-smith",
+    "max_per_bill": 1,
+    "limit_confidence": "explicit",
+    "can_club_with_offers": null,
+    "one_time_use": true,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "luxe-gift-card---dune": {
+    "slug": "luxe-gift-card---dune",
+    "max_per_bill": 1,
+    "limit_confidence": "explicit",
+    "can_club_with_offers": null,
+    "one_time_use": true,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "ketan-diamonds-diamond-only": {
+    "slug": "ketan-diamonds-diamond-only",
+    "max_per_bill": 1,
+    "limit_confidence": "explicit",
+    "can_club_with_offers": null,
+    "one_time_use": true,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "euphoria-jewellery-gold-coin": {
+    "slug": "euphoria-jewellery-gold-coin",
+    "max_per_bill": 1,
+    "limit_confidence": "explicit",
+    "can_club_with_offers": null,
+    "one_time_use": true,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "lifestyle-online": {
+    "slug": "lifestyle-online",
+    "max_per_bill": null,
+    "limit_confidence": "unlimited_stated",
+    "can_club_with_offers": null,
+    "one_time_use": false,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "taneira": {
+    "slug": "taneira",
+    "max_per_bill": null,
+    "limit_confidence": "unknown",
+    "can_club_with_offers": null,
+    "one_time_use": false,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "swiggy-gv": {
+    "slug": "swiggy-gv",
+    "max_per_bill": null,
+    "limit_confidence": "unknown",
+    "can_club_with_offers": true,
+    "one_time_use": false,
+    "exclusions_raw": "minis orders.",
+    "has_source_text": true
+  },
+  "taj-hotels": {
+    "slug": "taj-hotels",
+    "max_per_bill": null,
+    "limit_confidence": "unlimited_stated",
+    "can_club_with_offers": true,
+    "one_time_use": false,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "vijay-sales": {
+    "slug": "vijay-sales",
+    "max_per_bill": 1,
+    "limit_confidence": "explicit",
+    "can_club_with_offers": null,
+    "one_time_use": false,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "healthians": {
+    "slug": "healthians",
+    "max_per_bill": null,
+    "limit_confidence": "unknown",
+    "can_club_with_offers": true,
+    "one_time_use": false,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "mia": {
+    "slug": "mia",
+    "max_per_bill": 1,
+    "limit_confidence": "explicit",
+    "can_club_with_offers": null,
+    "one_time_use": true,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "skinn": {
+    "slug": "skinn",
+    "max_per_bill": 5,
+    "limit_confidence": "explicit",
+    "can_club_with_offers": null,
+    "one_time_use": false,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "titan-minimals": {
+    "slug": "titan-minimals",
+    "max_per_bill": 5,
+    "limit_confidence": "explicit",
+    "can_club_with_offers": null,
+    "one_time_use": false,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "fastrack-bags": {
+    "slug": "fastrack-bags",
+    "max_per_bill": 1,
+    "limit_confidence": "explicit",
+    "can_club_with_offers": null,
+    "one_time_use": true,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "chumbak": {
+    "slug": "chumbak",
+    "max_per_bill": null,
+    "limit_confidence": "unknown",
+    "can_club_with_offers": null,
+    "one_time_use": false,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "hoichoi": {
+    "slug": "hoichoi",
+    "max_per_bill": 1,
+    "limit_confidence": "explicit",
+    "can_club_with_offers": false,
+    "one_time_use": true,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "reliance-my-jio-store": {
+    "slug": "reliance-my-jio-store",
+    "max_per_bill": 1,
+    "limit_confidence": "explicit",
+    "can_club_with_offers": null,
+    "one_time_use": true,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "reliance-digital": {
+    "slug": "reliance-digital",
+    "max_per_bill": 1,
+    "limit_confidence": "explicit",
+    "can_club_with_offers": null,
+    "one_time_use": true,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "reliance-trends-footwear": {
+    "slug": "reliance-trends-footwear",
+    "max_per_bill": 1,
+    "limit_confidence": "explicit",
+    "can_club_with_offers": null,
+    "one_time_use": true,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "reliance-trends": {
+    "slug": "reliance-trends",
+    "max_per_bill": 1,
+    "limit_confidence": "explicit",
+    "can_club_with_offers": null,
+    "one_time_use": true,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "reliance-smart-point": {
+    "slug": "reliance-smart-point",
+    "max_per_bill": 1,
+    "limit_confidence": "explicit",
+    "can_club_with_offers": null,
+    "one_time_use": true,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "reliance-smart": {
+    "slug": "reliance-smart",
+    "max_per_bill": 1,
+    "limit_confidence": "explicit",
+    "can_club_with_offers": null,
+    "one_time_use": true,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "barbeque-nation": {
+    "slug": "barbeque-nation",
+    "max_per_bill": 1,
+    "limit_confidence": "explicit",
+    "can_club_with_offers": true,
+    "one_time_use": false,
+    "exclusions_raw": "kolhapur. for the list of restaurants, please visit https://www.barbequenation.com/restaurants.",
+    "has_source_text": true
+  },
+  "organic-india": {
+    "slug": "organic-india",
+    "max_per_bill": null,
+    "limit_confidence": "unlimited_stated",
+    "can_club_with_offers": null,
+    "one_time_use": false,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "reliance-jewels": {
+    "slug": "reliance-jewels",
+    "max_per_bill": 1,
+    "limit_confidence": "explicit",
+    "can_club_with_offers": null,
+    "one_time_use": true,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "euphoria-jewellery-silver-coin": {
+    "slug": "euphoria-jewellery-silver-coin",
+    "max_per_bill": 1,
+    "limit_confidence": "explicit",
+    "can_club_with_offers": null,
+    "one_time_use": true,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "wildcraft": {
+    "slug": "wildcraft",
+    "max_per_bill": null,
+    "limit_confidence": "unknown",
+    "can_club_with_offers": null,
+    "one_time_use": false,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "cafe-delhi-heights": {
+    "slug": "cafe-delhi-heights",
+    "max_per_bill": null,
+    "limit_confidence": "unknown",
+    "can_club_with_offers": false,
+    "one_time_use": false,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "wow-momo": {
+    "slug": "wow-momo",
+    "max_per_bill": null,
+    "limit_confidence": "unknown",
+    "can_club_with_offers": true,
+    "one_time_use": false,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "wow-china": {
+    "slug": "wow-china",
+    "max_per_bill": null,
+    "limit_confidence": "unknown",
+    "can_club_with_offers": true,
+    "one_time_use": false,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "truefitt-&-hill": {
+    "slug": "truefitt-&-hill",
+    "max_per_bill": 1,
+    "limit_confidence": "explicit",
+    "can_club_with_offers": true,
+    "one_time_use": true,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "braingymjr": {
+    "slug": "braingymjr",
+    "max_per_bill": 1,
+    "limit_confidence": "explicit",
+    "can_club_with_offers": null,
+    "one_time_use": false,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "estele": {
+    "slug": "estele",
+    "max_per_bill": 1,
+    "limit_confidence": "explicit",
+    "can_club_with_offers": null,
+    "one_time_use": false,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "timezone": {
+    "slug": "timezone",
+    "max_per_bill": 1,
+    "limit_confidence": "explicit",
+    "can_club_with_offers": false,
+    "one_time_use": true,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "gaanaplus": {
+    "slug": "gaanaplus",
+    "max_per_bill": 1,
+    "limit_confidence": "explicit",
+    "can_club_with_offers": false,
+    "one_time_use": false,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "jiosaavn": {
+    "slug": "jiosaavn",
+    "max_per_bill": null,
+    "limit_confidence": "unknown",
+    "can_club_with_offers": null,
+    "one_time_use": false,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "wonderchef": {
+    "slug": "wonderchef",
+    "max_per_bill": null,
+    "limit_confidence": "unknown",
+    "can_club_with_offers": null,
+    "one_time_use": false,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "itc-hotels": {
+    "slug": "itc-hotels",
+    "max_per_bill": 1,
+    "limit_confidence": "explicit",
+    "can_club_with_offers": false,
+    "one_time_use": true,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "beyoung": {
+    "slug": "beyoung",
+    "max_per_bill": null,
+    "limit_confidence": "unknown",
+    "can_club_with_offers": null,
+    "one_time_use": false,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "hammer": {
+    "slug": "hammer",
+    "max_per_bill": 1,
+    "limit_confidence": "explicit",
+    "can_club_with_offers": null,
+    "one_time_use": false,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "veridicus": {
+    "slug": "veridicus",
+    "max_per_bill": null,
+    "limit_confidence": "unknown",
+    "can_club_with_offers": null,
+    "one_time_use": false,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "swiggy-instamart": {
+    "slug": "swiggy-instamart",
+    "max_per_bill": null,
+    "limit_confidence": "unknown",
+    "can_club_with_offers": null,
+    "one_time_use": false,
+    "exclusions_raw": "minis orders.",
+    "has_source_text": true
+  },
+  "behrouz-biryani": {
+    "slug": "behrouz-biryani",
+    "max_per_bill": null,
+    "limit_confidence": "unknown",
+    "can_club_with_offers": null,
+    "one_time_use": false,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "ovenstory-pizza": {
+    "slug": "ovenstory-pizza",
+    "max_per_bill": null,
+    "limit_confidence": "unknown",
+    "can_club_with_offers": null,
+    "one_time_use": false,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "eatsure": {
+    "slug": "eatsure",
+    "max_per_bill": null,
+    "limit_confidence": "unknown",
+    "can_club_with_offers": true,
+    "one_time_use": false,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "sweet-truth": {
+    "slug": "sweet-truth",
+    "max_per_bill": null,
+    "limit_confidence": "unknown",
+    "can_club_with_offers": true,
+    "one_time_use": false,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "daily-objects": {
+    "slug": "daily-objects",
+    "max_per_bill": 1,
+    "limit_confidence": "explicit",
+    "can_club_with_offers": true,
+    "one_time_use": true,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "auric": {
+    "slug": "auric",
+    "max_per_bill": 1,
+    "limit_confidence": "explicit",
+    "can_club_with_offers": false,
+    "one_time_use": true,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "hyperice": {
+    "slug": "hyperice",
+    "max_per_bill": 1,
+    "limit_confidence": "explicit",
+    "can_club_with_offers": null,
+    "one_time_use": true,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "amazon-shopping-voucher": {
+    "slug": "amazon-shopping-voucher",
+    "max_per_bill": null,
+    "limit_confidence": "unlimited_stated",
+    "can_club_with_offers": null,
+    "one_time_use": false,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "freecultr": {
+    "slug": "freecultr",
+    "max_per_bill": 1,
+    "limit_confidence": "explicit",
+    "can_club_with_offers": null,
+    "one_time_use": true,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "troll-beads": {
+    "slug": "troll-beads",
+    "max_per_bill": 1,
+    "limit_confidence": "explicit",
+    "can_club_with_offers": null,
+    "one_time_use": false,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "v-mart": {
+    "slug": "v-mart",
+    "max_per_bill": 1,
+    "limit_confidence": "explicit",
+    "can_club_with_offers": null,
+    "one_time_use": false,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "airtel-xstream": {
+    "slug": "airtel-xstream",
+    "max_per_bill": null,
+    "limit_confidence": "unknown",
+    "can_club_with_offers": false,
+    "one_time_use": false,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "wynk-music": {
+    "slug": "wynk-music",
+    "max_per_bill": null,
+    "limit_confidence": "unknown",
+    "can_club_with_offers": null,
+    "one_time_use": false,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "nykaa": {
+    "slug": "nykaa",
+    "max_per_bill": null,
+    "limit_confidence": "unknown",
+    "can_club_with_offers": true,
+    "one_time_use": false,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "fitpass": {
+    "slug": "fitpass",
+    "max_per_bill": 1,
+    "limit_confidence": "explicit",
+    "can_club_with_offers": true,
+    "one_time_use": true,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "zomato-gift-card": {
+    "slug": "zomato-gift-card",
+    "max_per_bill": null,
+    "limit_confidence": "unknown",
+    "can_club_with_offers": true,
+    "one_time_use": false,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "swiss-beauty": {
+    "slug": "swiss-beauty",
+    "max_per_bill": 1,
+    "limit_confidence": "explicit",
+    "can_club_with_offers": null,
+    "one_time_use": true,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "healthifyme-smart-plan-3-months": {
+    "slug": "healthifyme-smart-plan-3-months",
+    "max_per_bill": 1,
+    "limit_confidence": "explicit",
+    "can_club_with_offers": null,
+    "one_time_use": true,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "american-tourister": {
+    "slug": "american-tourister",
+    "max_per_bill": 1,
+    "limit_confidence": "explicit",
+    "can_club_with_offers": null,
+    "one_time_use": true,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "samsonite": {
+    "slug": "samsonite",
+    "max_per_bill": 1,
+    "limit_confidence": "explicit",
+    "can_club_with_offers": null,
+    "one_time_use": true,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "tanishq-gold-jewellery": {
+    "slug": "tanishq-gold-jewellery",
+    "max_per_bill": 1,
+    "limit_confidence": "explicit",
+    "can_club_with_offers": null,
+    "one_time_use": false,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "renee-cosmetics": {
+    "slug": "renee-cosmetics",
+    "max_per_bill": 1,
+    "limit_confidence": "explicit",
+    "can_club_with_offers": null,
+    "one_time_use": true,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "discovery-plus": {
+    "slug": "discovery-plus",
+    "max_per_bill": 1,
+    "limit_confidence": "explicit",
+    "can_club_with_offers": false,
+    "one_time_use": true,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "superbottoms": {
+    "slug": "superbottoms",
+    "max_per_bill": 1,
+    "limit_confidence": "explicit",
+    "can_club_with_offers": null,
+    "one_time_use": true,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "smile-foundation": {
+    "slug": "smile-foundation",
+    "max_per_bill": 1,
+    "limit_confidence": "explicit",
+    "can_club_with_offers": null,
+    "one_time_use": true,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "max-fashion-online": {
+    "slug": "max-fashion-online",
+    "max_per_bill": null,
+    "limit_confidence": "unknown",
+    "can_club_with_offers": null,
+    "one_time_use": false,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "cleartrip-hotel": {
+    "slug": "cleartrip-hotel",
+    "max_per_bill": null,
+    "limit_confidence": "unknown",
+    "can_club_with_offers": false,
+    "one_time_use": false,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "cleartrip-generic": {
+    "slug": "cleartrip-generic",
+    "max_per_bill": null,
+    "limit_confidence": "unknown",
+    "can_club_with_offers": false,
+    "one_time_use": false,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "healthkart": {
+    "slug": "healthkart",
+    "max_per_bill": 1,
+    "limit_confidence": "explicit",
+    "can_club_with_offers": null,
+    "one_time_use": true,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "the-skin-story": {
+    "slug": "the-skin-story",
+    "max_per_bill": null,
+    "limit_confidence": "unknown",
+    "can_club_with_offers": null,
+    "one_time_use": false,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "shiv-naresh": {
+    "slug": "shiv-naresh",
+    "max_per_bill": 1,
+    "limit_confidence": "explicit",
+    "can_club_with_offers": null,
+    "one_time_use": false,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "assembly": {
+    "slug": "assembly",
+    "max_per_bill": null,
+    "limit_confidence": "unknown",
+    "can_club_with_offers": null,
+    "one_time_use": false,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "tego": {
+    "slug": "tego",
+    "max_per_bill": 1,
+    "limit_confidence": "explicit",
+    "can_club_with_offers": null,
+    "one_time_use": true,
+    "exclusions_raw": "where required by law.",
+    "has_source_text": true
+  },
+  "nykaa-man": {
+    "slug": "nykaa-man",
+    "max_per_bill": null,
+    "limit_confidence": "unknown",
+    "can_club_with_offers": true,
+    "one_time_use": false,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "nykaa-fashion": {
+    "slug": "nykaa-fashion",
+    "max_per_bill": null,
+    "limit_confidence": "unknown",
+    "can_club_with_offers": true,
+    "one_time_use": false,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "chicago-pizza": {
+    "slug": "chicago-pizza",
+    "max_per_bill": 1,
+    "limit_confidence": "explicit",
+    "can_club_with_offers": null,
+    "one_time_use": true,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "giva-gold-jewellery": {
+    "slug": "giva-gold-jewellery",
+    "max_per_bill": null,
+    "limit_confidence": "unknown",
+    "can_club_with_offers": true,
+    "one_time_use": false,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "gv-irctc": {
+    "slug": "gv-irctc",
+    "max_per_bill": null,
+    "limit_confidence": "unlimited_stated",
+    "can_club_with_offers": null,
+    "one_time_use": false,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "swiggy-one-lite-membership": {
+    "slug": "swiggy-one-lite-membership",
+    "max_per_bill": null,
+    "limit_confidence": "unknown",
+    "can_club_with_offers": null,
+    "one_time_use": false,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "swiggy-food-discount-voucher": {
+    "slug": "swiggy-food-discount-voucher",
+    "max_per_bill": null,
+    "limit_confidence": "unknown",
+    "can_club_with_offers": null,
+    "one_time_use": false,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "wendy's": {
+    "slug": "wendy's",
+    "max_per_bill": null,
+    "limit_confidence": "unknown",
+    "can_club_with_offers": true,
+    "one_time_use": false,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "the-good-bowl": {
+    "slug": "the-good-bowl",
+    "max_per_bill": null,
+    "limit_confidence": "unknown",
+    "can_club_with_offers": true,
+    "one_time_use": false,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "hppay": {
+    "slug": "hppay",
+    "max_per_bill": null,
+    "limit_confidence": "unknown",
+    "can_club_with_offers": null,
+    "one_time_use": false,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "tata-cliq-luxury": {
+    "slug": "tata-cliq-luxury",
+    "max_per_bill": null,
+    "limit_confidence": "unlimited_stated",
+    "can_club_with_offers": null,
+    "one_time_use": false,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "igp": {
+    "slug": "igp",
+    "max_per_bill": 1,
+    "limit_confidence": "explicit",
+    "can_club_with_offers": null,
+    "one_time_use": true,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "makemytrip-e-pay": {
+    "slug": "makemytrip-e-pay",
+    "max_per_bill": 3,
+    "limit_confidence": "explicit",
+    "can_club_with_offers": false,
+    "one_time_use": false,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "makemytrip-holiday-e-pay": {
+    "slug": "makemytrip-holiday-e-pay",
+    "max_per_bill": 3,
+    "limit_confidence": "explicit",
+    "can_club_with_offers": false,
+    "one_time_use": false,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "makemytrip-hotel-e-pay": {
+    "slug": "makemytrip-hotel-e-pay",
+    "max_per_bill": 3,
+    "limit_confidence": "explicit",
+    "can_club_with_offers": false,
+    "one_time_use": false,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "reliance-jio-mart": {
+    "slug": "reliance-jio-mart",
+    "max_per_bill": 1,
+    "limit_confidence": "explicit",
+    "can_club_with_offers": null,
+    "one_time_use": true,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "cult-gift-card": {
+    "slug": "cult-gift-card",
+    "max_per_bill": 1,
+    "limit_confidence": "explicit",
+    "can_club_with_offers": false,
+    "one_time_use": true,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "mamaearth": {
+    "slug": "mamaearth",
+    "max_per_bill": null,
+    "limit_confidence": "unknown",
+    "can_club_with_offers": null,
+    "one_time_use": false,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "marks-&-spencer": {
+    "slug": "marks-&-spencer",
+    "max_per_bill": null,
+    "limit_confidence": "unknown",
+    "can_club_with_offers": null,
+    "one_time_use": false,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "fashion-factory": {
+    "slug": "fashion-factory",
+    "max_per_bill": null,
+    "limit_confidence": "unlimited_stated",
+    "can_club_with_offers": null,
+    "one_time_use": false,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "muthoot-gold-voucher": {
+    "slug": "muthoot-gold-voucher",
+    "max_per_bill": 1,
+    "limit_confidence": "explicit",
+    "can_club_with_offers": null,
+    "one_time_use": false,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "woggles": {
+    "slug": "woggles",
+    "max_per_bill": null,
+    "limit_confidence": "unknown",
+    "can_club_with_offers": null,
+    "one_time_use": false,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "intermiles": {
+    "slug": "intermiles",
+    "max_per_bill": null,
+    "limit_confidence": "unknown",
+    "can_club_with_offers": null,
+    "one_time_use": false,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "shopy-vision": {
+    "slug": "shopy-vision",
+    "max_per_bill": 1,
+    "limit_confidence": "explicit",
+    "can_club_with_offers": null,
+    "one_time_use": false,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "grt-jewellers": {
+    "slug": "grt-jewellers",
+    "max_per_bill": 1,
+    "limit_confidence": "explicit",
+    "can_club_with_offers": null,
+    "one_time_use": false,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "bakingo": {
+    "slug": "bakingo",
+    "max_per_bill": 1,
+    "limit_confidence": "explicit",
+    "can_club_with_offers": false,
+    "one_time_use": false,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "flower-aura": {
+    "slug": "flower-aura",
+    "max_per_bill": 1,
+    "limit_confidence": "explicit",
+    "can_club_with_offers": false,
+    "one_time_use": true,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "quick-heal": {
+    "slug": "quick-heal",
+    "max_per_bill": 1,
+    "limit_confidence": "explicit",
+    "can_club_with_offers": false,
+    "one_time_use": true,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "ixigo": {
+    "slug": "ixigo",
+    "max_per_bill": 1,
+    "limit_confidence": "explicit",
+    "can_club_with_offers": false,
+    "one_time_use": true,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "vrott": {
+    "slug": "vrott",
+    "max_per_bill": 1,
+    "limit_confidence": "explicit",
+    "can_club_with_offers": false,
+    "one_time_use": true,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "dpauls-travel-&-tours": {
+    "slug": "dpauls-travel-&-tours",
+    "max_per_bill": 1,
+    "limit_confidence": "explicit",
+    "can_club_with_offers": false,
+    "one_time_use": true,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "amazon-fresh": {
+    "slug": "amazon-fresh",
+    "max_per_bill": null,
+    "limit_confidence": "unlimited_stated",
+    "can_club_with_offers": null,
+    "one_time_use": false,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "campus": {
+    "slug": "campus",
+    "max_per_bill": null,
+    "limit_confidence": "unknown",
+    "can_club_with_offers": null,
+    "one_time_use": false,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "-bpcl-": {
+    "slug": "-bpcl-",
+    "max_per_bill": null,
+    "limit_confidence": "unknown",
+    "can_club_with_offers": null,
+    "one_time_use": false,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "amazon-prime-membership": {
+    "slug": "amazon-prime-membership",
+    "max_per_bill": 1,
+    "limit_confidence": "explicit",
+    "can_club_with_offers": null,
+    "one_time_use": false,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "aliste": {
+    "slug": "aliste",
+    "max_per_bill": 1,
+    "limit_confidence": "explicit",
+    "can_club_with_offers": false,
+    "one_time_use": true,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "cleartax": {
+    "slug": "cleartax",
+    "max_per_bill": 1,
+    "limit_confidence": "explicit",
+    "can_club_with_offers": null,
+    "one_time_use": true,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "spotify": {
+    "slug": "spotify",
+    "max_per_bill": 1,
+    "limit_confidence": "explicit",
+    "can_club_with_offers": false,
+    "one_time_use": true,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "jio-hotstar": {
+    "slug": "jio-hotstar",
+    "max_per_bill": 1,
+    "limit_confidence": "explicit",
+    "can_club_with_offers": false,
+    "one_time_use": true,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "planet-fashion-gift-voucher": {
+    "slug": "planet-fashion-gift-voucher",
+    "max_per_bill": 1,
+    "limit_confidence": "explicit",
+    "can_club_with_offers": null,
+    "one_time_use": true,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "oven-story": {
+    "slug": "oven-story",
+    "max_per_bill": null,
+    "limit_confidence": "unknown",
+    "can_club_with_offers": true,
+    "one_time_use": false,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "faasos": {
+    "slug": "faasos",
+    "max_per_bill": null,
+    "limit_confidence": "unknown",
+    "can_club_with_offers": true,
+    "one_time_use": false,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "lunch-box": {
+    "slug": "lunch-box",
+    "max_per_bill": null,
+    "limit_confidence": "unknown",
+    "can_club_with_offers": true,
+    "one_time_use": false,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "victoria's-secret-beauty": {
+    "slug": "victoria's-secret-beauty",
+    "max_per_bill": null,
+    "limit_confidence": "unknown",
+    "can_club_with_offers": null,
+    "one_time_use": false,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "victoria's-secret": {
+    "slug": "victoria's-secret",
+    "max_per_bill": null,
+    "limit_confidence": "unknown",
+    "can_club_with_offers": null,
+    "one_time_use": false,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "r&b": {
+    "slug": "r&b",
+    "max_per_bill": null,
+    "limit_confidence": "unknown",
+    "can_club_with_offers": null,
+    "one_time_use": false,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "inglot": {
+    "slug": "inglot",
+    "max_per_bill": null,
+    "limit_confidence": "unknown",
+    "can_club_with_offers": null,
+    "one_time_use": false,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "aldo": {
+    "slug": "aldo",
+    "max_per_bill": null,
+    "limit_confidence": "unknown",
+    "can_club_with_offers": null,
+    "one_time_use": false,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "bath-&-body-works": {
+    "slug": "bath-&-body-works",
+    "max_per_bill": null,
+    "limit_confidence": "unknown",
+    "can_club_with_offers": null,
+    "one_time_use": false,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "call-it-spring": {
+    "slug": "call-it-spring",
+    "max_per_bill": null,
+    "limit_confidence": "unknown",
+    "can_club_with_offers": null,
+    "one_time_use": false,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "beverly-hills-polo-club": {
+    "slug": "beverly-hills-polo-club",
+    "max_per_bill": null,
+    "limit_confidence": "unknown",
+    "can_club_with_offers": null,
+    "one_time_use": false,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "charles-&-keith": {
+    "slug": "charles-&-keith",
+    "max_per_bill": null,
+    "limit_confidence": "unknown",
+    "can_club_with_offers": null,
+    "one_time_use": false,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "pret-a-manger-luxe-gift-card": {
+    "slug": "pret-a-manger-luxe-gift-card",
+    "max_per_bill": 1,
+    "limit_confidence": "explicit",
+    "can_club_with_offers": null,
+    "one_time_use": true,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "adidas-kids-luxe-gift-card": {
+    "slug": "adidas-kids-luxe-gift-card",
+    "max_per_bill": 1,
+    "limit_confidence": "explicit",
+    "can_club_with_offers": null,
+    "one_time_use": true,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "bally-luxe-gift-card": {
+    "slug": "bally-luxe-gift-card",
+    "max_per_bill": 1,
+    "limit_confidence": "explicit",
+    "can_club_with_offers": null,
+    "one_time_use": true,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "canali--luxe-gift-card": {
+    "slug": "canali--luxe-gift-card",
+    "max_per_bill": 1,
+    "limit_confidence": "explicit",
+    "can_club_with_offers": null,
+    "one_time_use": true,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "ea-7--luxe-gift-card": {
+    "slug": "ea-7--luxe-gift-card",
+    "max_per_bill": 1,
+    "limit_confidence": "explicit",
+    "can_club_with_offers": null,
+    "one_time_use": true,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "giorgio-armani--luxe-gift-card": {
+    "slug": "giorgio-armani--luxe-gift-card",
+    "max_per_bill": 1,
+    "limit_confidence": "explicit",
+    "can_club_with_offers": null,
+    "one_time_use": true,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "hunkemoller--luxe-gift-card": {
+    "slug": "hunkemoller--luxe-gift-card",
+    "max_per_bill": 1,
+    "limit_confidence": "explicit",
+    "can_club_with_offers": null,
+    "one_time_use": true,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "kate-spade--luxe-gift-card": {
+    "slug": "kate-spade--luxe-gift-card",
+    "max_per_bill": 1,
+    "limit_confidence": "explicit",
+    "can_club_with_offers": null,
+    "one_time_use": true,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "la-martina--luxe-gift-card": {
+    "slug": "la-martina--luxe-gift-card",
+    "max_per_bill": 1,
+    "limit_confidence": "explicit",
+    "can_club_with_offers": null,
+    "one_time_use": true,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "pottery-barn--luxe-gift-card": {
+    "slug": "pottery-barn--luxe-gift-card",
+    "max_per_bill": 1,
+    "limit_confidence": "explicit",
+    "can_club_with_offers": null,
+    "one_time_use": true,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "malabar-diamonds": {
+    "slug": "malabar-diamonds",
+    "max_per_bill": 1,
+    "limit_confidence": "explicit",
+    "can_club_with_offers": null,
+    "one_time_use": true,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "malabar-jewellery": {
+    "slug": "malabar-jewellery",
+    "max_per_bill": 1,
+    "limit_confidence": "explicit",
+    "can_club_with_offers": null,
+    "one_time_use": true,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "easemytrip-holiday": {
+    "slug": "easemytrip-holiday",
+    "max_per_bill": null,
+    "limit_confidence": "unknown",
+    "can_club_with_offers": false,
+    "one_time_use": false,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "campus-sutra": {
+    "slug": "campus-sutra",
+    "max_per_bill": null,
+    "limit_confidence": "unknown",
+    "can_club_with_offers": null,
+    "one_time_use": false,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "tanishq-diamond-jewellery": {
+    "slug": "tanishq-diamond-jewellery",
+    "max_per_bill": 1,
+    "limit_confidence": "explicit",
+    "can_club_with_offers": null,
+    "one_time_use": false,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "surat-diamonds": {
+    "slug": "surat-diamonds",
+    "max_per_bill": null,
+    "limit_confidence": "unknown",
+    "can_club_with_offers": null,
+    "one_time_use": false,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "eazydiner": {
+    "slug": "eazydiner",
+    "max_per_bill": 1,
+    "limit_confidence": "explicit",
+    "can_club_with_offers": null,
+    "one_time_use": true,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "hindustan-times-premium": {
+    "slug": "hindustan-times-premium",
+    "max_per_bill": 1,
+    "limit_confidence": "explicit",
+    "can_club_with_offers": false,
+    "one_time_use": true,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "live-hindustan": {
+    "slug": "live-hindustan",
+    "max_per_bill": 1,
+    "limit_confidence": "explicit",
+    "can_club_with_offers": false,
+    "one_time_use": true,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "easybuy": {
+    "slug": "easybuy",
+    "max_per_bill": 1,
+    "limit_confidence": "explicit",
+    "can_club_with_offers": null,
+    "one_time_use": true,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "clovia": {
+    "slug": "clovia",
+    "max_per_bill": null,
+    "limit_confidence": "unknown",
+    "can_club_with_offers": null,
+    "one_time_use": false,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "wow-chicken": {
+    "slug": "wow-chicken",
+    "max_per_bill": null,
+    "limit_confidence": "unknown",
+    "can_club_with_offers": true,
+    "one_time_use": false,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "raymond---ready-to-wear": {
+    "slug": "raymond---ready-to-wear",
+    "max_per_bill": null,
+    "limit_confidence": "unknown",
+    "can_club_with_offers": null,
+    "one_time_use": false,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "park-avenue": {
+    "slug": "park-avenue",
+    "max_per_bill": null,
+    "limit_confidence": "unknown",
+    "can_club_with_offers": null,
+    "one_time_use": false,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "parx": {
+    "slug": "parx",
+    "max_per_bill": null,
+    "limit_confidence": "unknown",
+    "can_club_with_offers": null,
+    "one_time_use": false,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "colorplus": {
+    "slug": "colorplus",
+    "max_per_bill": null,
+    "limit_confidence": "unknown",
+    "can_club_with_offers": null,
+    "one_time_use": false,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "starbucks": {
+    "slug": "starbucks",
+    "max_per_bill": null,
+    "limit_confidence": "unknown",
+    "can_club_with_offers": null,
+    "one_time_use": false,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "future-world": {
+    "slug": "future-world",
+    "max_per_bill": null,
+    "limit_confidence": "unknown",
+    "can_club_with_offers": null,
+    "one_time_use": false,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "pigeon": {
+    "slug": "pigeon",
+    "max_per_bill": null,
+    "limit_confidence": "unknown",
+    "can_club_with_offers": null,
+    "one_time_use": false,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "shiva-organic": {
+    "slug": "shiva-organic",
+    "max_per_bill": null,
+    "limit_confidence": "unknown",
+    "can_club_with_offers": null,
+    "one_time_use": false,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "giva-silver-coin": {
+    "slug": "giva-silver-coin",
+    "max_per_bill": null,
+    "limit_confidence": "unknown",
+    "can_club_with_offers": true,
+    "one_time_use": false,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "foxtale": {
+    "slug": "foxtale",
+    "max_per_bill": null,
+    "limit_confidence": "unknown",
+    "can_club_with_offers": null,
+    "one_time_use": false,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "malabar-silver-coin": {
+    "slug": "malabar-silver-coin",
+    "max_per_bill": null,
+    "limit_confidence": "unknown",
+    "can_club_with_offers": null,
+    "one_time_use": false,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "rangriti": {
+    "slug": "rangriti",
+    "max_per_bill": null,
+    "limit_confidence": "unknown",
+    "can_club_with_offers": null,
+    "one_time_use": false,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "ssunsu": {
+    "slug": "ssunsu",
+    "max_per_bill": null,
+    "limit_confidence": "unknown",
+    "can_club_with_offers": null,
+    "one_time_use": false,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "fastrack-smartwatches": {
+    "slug": "fastrack-smartwatches",
+    "max_per_bill": 1,
+    "limit_confidence": "explicit",
+    "can_club_with_offers": null,
+    "one_time_use": true,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "titan-smartwatches": {
+    "slug": "titan-smartwatches",
+    "max_per_bill": 1,
+    "limit_confidence": "explicit",
+    "can_club_with_offers": null,
+    "one_time_use": false,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "lenskart": {
+    "slug": "lenskart",
+    "max_per_bill": null,
+    "limit_confidence": "unknown",
+    "can_club_with_offers": true,
+    "one_time_use": false,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "mediwheel": {
+    "slug": "mediwheel",
+    "max_per_bill": 1,
+    "limit_confidence": "explicit",
+    "can_club_with_offers": true,
+    "one_time_use": true,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "air-india": {
+    "slug": "air-india",
+    "max_per_bill": null,
+    "limit_confidence": "unlimited_stated",
+    "can_club_with_offers": true,
+    "one_time_use": false,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "cello": {
+    "slug": "cello",
+    "max_per_bill": null,
+    "limit_confidence": "unknown",
+    "can_club_with_offers": null,
+    "one_time_use": false,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "matrix": {
+    "slug": "matrix",
+    "max_per_bill": 1,
+    "limit_confidence": "explicit",
+    "can_club_with_offers": false,
+    "one_time_use": true,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "tattva-spa": {
+    "slug": "tattva-spa",
+    "max_per_bill": null,
+    "limit_confidence": "unknown",
+    "can_club_with_offers": false,
+    "one_time_use": false,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "zepto": {
+    "slug": "zepto",
+    "max_per_bill": null,
+    "limit_confidence": "unknown",
+    "can_club_with_offers": null,
+    "one_time_use": false,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "steam-wallet": {
+    "slug": "steam-wallet",
+    "max_per_bill": 1,
+    "limit_confidence": "explicit",
+    "can_club_with_offers": false,
+    "one_time_use": true,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "valorant": {
+    "slug": "valorant",
+    "max_per_bill": 1,
+    "limit_confidence": "explicit",
+    "can_club_with_offers": false,
+    "one_time_use": true,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "duroflex": {
+    "slug": "duroflex",
+    "max_per_bill": null,
+    "limit_confidence": "unknown",
+    "can_club_with_offers": null,
+    "one_time_use": false,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "nat-habit": {
+    "slug": "nat-habit",
+    "max_per_bill": null,
+    "limit_confidence": "unknown",
+    "can_club_with_offers": true,
+    "one_time_use": false,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "ikea": {
+    "slug": "ikea",
+    "max_per_bill": null,
+    "limit_confidence": "unlimited_stated",
+    "can_club_with_offers": true,
+    "one_time_use": false,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "frido": {
+    "slug": "frido",
+    "max_per_bill": null,
+    "limit_confidence": "unknown",
+    "can_club_with_offers": null,
+    "one_time_use": false,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "unipin": {
+    "slug": "unipin",
+    "max_per_bill": 1,
+    "limit_confidence": "explicit",
+    "can_club_with_offers": false,
+    "one_time_use": true,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "unipin-bgmi": {
+    "slug": "unipin-bgmi",
+    "max_per_bill": 1,
+    "limit_confidence": "explicit",
+    "can_club_with_offers": false,
+    "one_time_use": true,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "barbeque-nation-value-voucher": {
+    "slug": "barbeque-nation-value-voucher",
+    "max_per_bill": null,
+    "limit_confidence": "unknown",
+    "can_club_with_offers": null,
+    "one_time_use": false,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "apparel-group": {
+    "slug": "apparel-group",
+    "max_per_bill": null,
+    "limit_confidence": "unknown",
+    "can_club_with_offers": null,
+    "one_time_use": false,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "soch-apparels": {
+    "slug": "soch-apparels",
+    "max_per_bill": null,
+    "limit_confidence": "unknown",
+    "can_club_with_offers": null,
+    "one_time_use": false,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "femmella": {
+    "slug": "femmella",
+    "max_per_bill": null,
+    "limit_confidence": "unknown",
+    "can_club_with_offers": null,
+    "one_time_use": false,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "vinci-botanicals": {
+    "slug": "vinci-botanicals",
+    "max_per_bill": null,
+    "limit_confidence": "unknown",
+    "can_club_with_offers": null,
+    "one_time_use": false,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "adani-meet-and-greet": {
+    "slug": "adani-meet-and-greet",
+    "max_per_bill": null,
+    "limit_confidence": "unknown",
+    "can_club_with_offers": false,
+    "one_time_use": false,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "microsoft-xbox-game-pass-core": {
+    "slug": "microsoft-xbox-game-pass-core",
+    "max_per_bill": null,
+    "limit_confidence": "unknown",
+    "can_club_with_offers": null,
+    "one_time_use": false,
+    "exclusions_raw": "as required by law, codes are nonrefundable. subject to the microsoft services agreement (microsoft.com/msa).",
+    "has_source_text": true
+  },
+  "app-store-code": {
+    "slug": "app-store-code",
+    "max_per_bill": null,
+    "limit_confidence": "unknown",
+    "can_club_with_offers": null,
+    "one_time_use": false,
+    "exclusions_raw": "as required by law). data collection and use subject to apple\u2019s privacy policy; see apple.com/in/privacy. apple is not responsible for any loss or damage resulting from lost or stolen cards or for use without permission. your statutory rights are not affected. app store gift cards are issued and supplied by apple distribution international ltd. terms apply; see apple.com/in/go/legal/gc. content purchased from the apple media services is for personal lawful use only. \u00a92026 apple distribution international ltd. all rights reserved.",
+    "has_source_text": true
+  },
+  "tanishq-gold-coin": {
+    "slug": "tanishq-gold-coin",
+    "max_per_bill": 1,
+    "limit_confidence": "explicit",
+    "can_club_with_offers": null,
+    "one_time_use": false,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "typsy-beauty": {
+    "slug": "typsy-beauty",
+    "max_per_bill": null,
+    "limit_confidence": "unknown",
+    "can_club_with_offers": null,
+    "one_time_use": false,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "pure-home-living": {
+    "slug": "pure-home-living",
+    "max_per_bill": null,
+    "limit_confidence": "unknown",
+    "can_club_with_offers": null,
+    "one_time_use": false,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "reliance-smart-bazaar": {
+    "slug": "reliance-smart-bazaar",
+    "max_per_bill": 1,
+    "limit_confidence": "explicit",
+    "can_club_with_offers": null,
+    "one_time_use": true,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "nestasia": {
+    "slug": "nestasia",
+    "max_per_bill": null,
+    "limit_confidence": "unknown",
+    "can_club_with_offers": true,
+    "one_time_use": false,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "blissclub": {
+    "slug": "blissclub",
+    "max_per_bill": null,
+    "limit_confidence": "unknown",
+    "can_club_with_offers": null,
+    "one_time_use": false,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "sony-playstation": {
+    "slug": "sony-playstation",
+    "max_per_bill": 1,
+    "limit_confidence": "explicit",
+    "can_club_with_offers": null,
+    "one_time_use": true,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "yatra-voucher": {
+    "slug": "yatra-voucher",
+    "max_per_bill": 1,
+    "limit_confidence": "explicit",
+    "can_club_with_offers": false,
+    "one_time_use": true,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "speedo": {
+    "slug": "speedo",
+    "max_per_bill": 1,
+    "limit_confidence": "explicit",
+    "can_club_with_offers": null,
+    "one_time_use": true,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "shemaroome": {
+    "slug": "shemaroome",
+    "max_per_bill": 1,
+    "limit_confidence": "explicit",
+    "can_club_with_offers": false,
+    "one_time_use": true,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "taj-wellness-gift-card": {
+    "slug": "taj-wellness-gift-card",
+    "max_per_bill": 1,
+    "limit_confidence": "explicit",
+    "can_club_with_offers": null,
+    "one_time_use": true,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "ms-xbox-game-pass-ultimate": {
+    "slug": "ms-xbox-game-pass-ultimate",
+    "max_per_bill": null,
+    "limit_confidence": "unknown",
+    "can_club_with_offers": null,
+    "one_time_use": false,
+    "exclusions_raw": "as required by law, codes are nonrefundable. subject to the microsoft services agreement (microsoft.com/msa).",
+    "has_source_text": true
+  },
+  "microsoft-xbox-pc-game-pass": {
+    "slug": "microsoft-xbox-pc-game-pass",
+    "max_per_bill": null,
+    "limit_confidence": "unknown",
+    "can_club_with_offers": null,
+    "one_time_use": false,
+    "exclusions_raw": "as required by law, codes are nonrefundable. subject to the microsoft services agreement (microsoft.com/msa).",
+    "has_source_text": true
+  },
+  "ajio-luxe": {
+    "slug": "ajio-luxe",
+    "max_per_bill": 1,
+    "limit_confidence": "explicit",
+    "can_club_with_offers": null,
+    "one_time_use": true,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "tinder": {
+    "slug": "tinder",
+    "max_per_bill": 1,
+    "limit_confidence": "explicit",
+    "can_club_with_offers": false,
+    "one_time_use": true,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "manyavar": {
+    "slug": "manyavar",
+    "max_per_bill": null,
+    "limit_confidence": "unknown",
+    "can_club_with_offers": null,
+    "one_time_use": false,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "french-accent": {
+    "slug": "french-accent",
+    "max_per_bill": null,
+    "limit_confidence": "unknown",
+    "can_club_with_offers": true,
+    "one_time_use": false,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "haute-sauce": {
+    "slug": "haute-sauce",
+    "max_per_bill": null,
+    "limit_confidence": "unknown",
+    "can_club_with_offers": true,
+    "one_time_use": false,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "instafab-plus": {
+    "slug": "instafab-plus",
+    "max_per_bill": null,
+    "limit_confidence": "unknown",
+    "can_club_with_offers": true,
+    "one_time_use": false,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "urban-space": {
+    "slug": "urban-space",
+    "max_per_bill": null,
+    "limit_confidence": "unknown",
+    "can_club_with_offers": null,
+    "one_time_use": false,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "himalaya-wellness": {
+    "slug": "himalaya-wellness",
+    "max_per_bill": null,
+    "limit_confidence": "unknown",
+    "can_club_with_offers": true,
+    "one_time_use": false,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "liberty-online": {
+    "slug": "liberty-online",
+    "max_per_bill": null,
+    "limit_confidence": "unknown",
+    "can_club_with_offers": null,
+    "one_time_use": false,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "liberty": {
+    "slug": "liberty",
+    "max_per_bill": null,
+    "limit_confidence": "unknown",
+    "can_club_with_offers": null,
+    "one_time_use": false,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "charles-tyrwitt": {
+    "slug": "charles-tyrwitt",
+    "max_per_bill": 1,
+    "limit_confidence": "explicit",
+    "can_club_with_offers": null,
+    "one_time_use": true,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "maje": {
+    "slug": "maje",
+    "max_per_bill": 1,
+    "limit_confidence": "explicit",
+    "can_club_with_offers": null,
+    "one_time_use": true,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "paul-and-shark": {
+    "slug": "paul-and-shark",
+    "max_per_bill": 1,
+    "limit_confidence": "explicit",
+    "can_club_with_offers": null,
+    "one_time_use": true,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "sandro": {
+    "slug": "sandro",
+    "max_per_bill": 1,
+    "limit_confidence": "explicit",
+    "can_club_with_offers": null,
+    "one_time_use": true,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "superdry-sport": {
+    "slug": "superdry-sport",
+    "max_per_bill": 1,
+    "limit_confidence": "explicit",
+    "can_club_with_offers": null,
+    "one_time_use": true,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "the-white-crow": {
+    "slug": "the-white-crow",
+    "max_per_bill": 1,
+    "limit_confidence": "explicit",
+    "can_club_with_offers": null,
+    "one_time_use": true,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "bottega-veneta": {
+    "slug": "bottega-veneta",
+    "max_per_bill": 1,
+    "limit_confidence": "explicit",
+    "can_club_with_offers": null,
+    "one_time_use": true,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "jimmy-choo": {
+    "slug": "jimmy-choo",
+    "max_per_bill": 1,
+    "limit_confidence": "explicit",
+    "can_club_with_offers": null,
+    "one_time_use": true,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "tory-burch": {
+    "slug": "tory-burch",
+    "max_per_bill": 1,
+    "limit_confidence": "explicit",
+    "can_club_with_offers": null,
+    "one_time_use": true,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "valentino": {
+    "slug": "valentino",
+    "max_per_bill": 1,
+    "limit_confidence": "explicit",
+    "can_club_with_offers": null,
+    "one_time_use": true,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "versace": {
+    "slug": "versace",
+    "max_per_bill": 1,
+    "limit_confidence": "explicit",
+    "can_club_with_offers": null,
+    "one_time_use": true,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "h-by-hamleys": {
+    "slug": "h-by-hamleys",
+    "max_per_bill": 1,
+    "limit_confidence": "explicit",
+    "can_club_with_offers": null,
+    "one_time_use": true,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "rowan": {
+    "slug": "rowan",
+    "max_per_bill": 1,
+    "limit_confidence": "explicit",
+    "can_club_with_offers": null,
+    "one_time_use": true,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "muji": {
+    "slug": "muji",
+    "max_per_bill": 1,
+    "limit_confidence": "explicit",
+    "can_club_with_offers": null,
+    "one_time_use": true,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "villeroy-and-boch": {
+    "slug": "villeroy-and-boch",
+    "max_per_bill": 1,
+    "limit_confidence": "explicit",
+    "can_club_with_offers": null,
+    "one_time_use": true,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "west-elm": {
+    "slug": "west-elm",
+    "max_per_bill": 1,
+    "limit_confidence": "explicit",
+    "can_club_with_offers": null,
+    "one_time_use": true,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "tods": {
+    "slug": "tods",
+    "max_per_bill": 1,
+    "limit_confidence": "explicit",
+    "can_club_with_offers": null,
+    "one_time_use": true,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "ritu-kumar": {
+    "slug": "ritu-kumar",
+    "max_per_bill": 1,
+    "limit_confidence": "explicit",
+    "can_club_with_offers": null,
+    "one_time_use": true,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "abraham-and-thakore": {
+    "slug": "abraham-and-thakore",
+    "max_per_bill": 1,
+    "limit_confidence": "explicit",
+    "can_club_with_offers": null,
+    "one_time_use": true,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "ferragamo": {
+    "slug": "ferragamo",
+    "max_per_bill": 1,
+    "limit_confidence": "explicit",
+    "can_club_with_offers": null,
+    "one_time_use": true,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "tumi": {
+    "slug": "tumi",
+    "max_per_bill": 1,
+    "limit_confidence": "explicit",
+    "can_club_with_offers": null,
+    "one_time_use": true,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "sunglass-hut": {
+    "slug": "sunglass-hut",
+    "max_per_bill": 1,
+    "limit_confidence": "explicit",
+    "can_club_with_offers": null,
+    "one_time_use": true,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "me-n-moms": {
+    "slug": "me-n-moms",
+    "max_per_bill": null,
+    "limit_confidence": "unknown",
+    "can_club_with_offers": null,
+    "one_time_use": false,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "neemans": {
+    "slug": "neemans",
+    "max_per_bill": null,
+    "limit_confidence": "unknown",
+    "can_club_with_offers": null,
+    "one_time_use": false,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "absolute-barbeque": {
+    "slug": "absolute-barbeque",
+    "max_per_bill": null,
+    "limit_confidence": "unknown",
+    "can_club_with_offers": true,
+    "one_time_use": false,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "klook": {
+    "slug": "klook",
+    "max_per_bill": 1,
+    "limit_confidence": "explicit",
+    "can_club_with_offers": false,
+    "one_time_use": true,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "roblox": {
+    "slug": "roblox",
+    "max_per_bill": 1,
+    "limit_confidence": "explicit",
+    "can_club_with_offers": true,
+    "one_time_use": true,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "subway": {
+    "slug": "subway",
+    "max_per_bill": null,
+    "limit_confidence": "unknown",
+    "can_club_with_offers": true,
+    "one_time_use": false,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "citizen-watches": {
+    "slug": "citizen-watches",
+    "max_per_bill": null,
+    "limit_confidence": "unknown",
+    "can_club_with_offers": null,
+    "one_time_use": false,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "tim-hortons": {
+    "slug": "tim-hortons",
+    "max_per_bill": null,
+    "limit_confidence": "unknown",
+    "can_club_with_offers": true,
+    "one_time_use": false,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "nua-woman": {
+    "slug": "nua-woman",
+    "max_per_bill": null,
+    "limit_confidence": "unknown",
+    "can_club_with_offers": true,
+    "one_time_use": false,
+    "exclusions_raw": "the nua subscription.",
+    "has_source_text": true
+  },
+  "kimirica": {
+    "slug": "kimirica",
+    "max_per_bill": null,
+    "limit_confidence": "unknown",
+    "can_club_with_offers": true,
+    "one_time_use": false,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "flixbus": {
+    "slug": "flixbus",
+    "max_per_bill": 1,
+    "limit_confidence": "explicit",
+    "can_club_with_offers": false,
+    "one_time_use": true,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "clayco": {
+    "slug": "clayco",
+    "max_per_bill": null,
+    "limit_confidence": "unknown",
+    "can_club_with_offers": null,
+    "one_time_use": false,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "apollo-diagnostics": {
+    "slug": "apollo-diagnostics",
+    "max_per_bill": 1,
+    "limit_confidence": "explicit",
+    "can_club_with_offers": false,
+    "one_time_use": true,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "ixigo-hotel": {
+    "slug": "ixigo-hotel",
+    "max_per_bill": 1,
+    "limit_confidence": "explicit",
+    "can_club_with_offers": false,
+    "one_time_use": true,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "ajio": {
+    "slug": "ajio",
+    "max_per_bill": 1,
+    "limit_confidence": "explicit",
+    "can_club_with_offers": null,
+    "one_time_use": true,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "lions-gate": {
+    "slug": "lions-gate",
+    "max_per_bill": 1,
+    "limit_confidence": "explicit",
+    "can_club_with_offers": false,
+    "one_time_use": true,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "iocl": {
+    "slug": "iocl",
+    "max_per_bill": 1,
+    "limit_confidence": "explicit",
+    "can_club_with_offers": null,
+    "one_time_use": true,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "yatra-hotel-gift-card": {
+    "slug": "yatra-hotel-gift-card",
+    "max_per_bill": 1,
+    "limit_confidence": "explicit",
+    "can_club_with_offers": null,
+    "one_time_use": true,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "philips": {
+    "slug": "philips",
+    "max_per_bill": null,
+    "limit_confidence": "unknown",
+    "can_club_with_offers": null,
+    "one_time_use": false,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "zouk": {
+    "slug": "zouk",
+    "max_per_bill": null,
+    "limit_confidence": "unknown",
+    "can_club_with_offers": null,
+    "one_time_use": false,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "wellbeing-nutrition": {
+    "slug": "wellbeing-nutrition",
+    "max_per_bill": null,
+    "limit_confidence": "unknown",
+    "can_club_with_offers": null,
+    "one_time_use": false,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "dominos": {
+    "slug": "dominos",
+    "max_per_bill": 1,
+    "limit_confidence": "explicit",
+    "can_club_with_offers": true,
+    "one_time_use": false,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "milkbasket": {
+    "slug": "milkbasket",
+    "max_per_bill": null,
+    "limit_confidence": "unknown",
+    "can_club_with_offers": true,
+    "one_time_use": false,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "lohono-stays": {
+    "slug": "lohono-stays",
+    "max_per_bill": null,
+    "limit_confidence": "unknown",
+    "can_club_with_offers": true,
+    "one_time_use": false,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "next": {
+    "slug": "next",
+    "max_per_bill": null,
+    "limit_confidence": "unknown",
+    "can_club_with_offers": null,
+    "one_time_use": false,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "mango": {
+    "slug": "mango",
+    "max_per_bill": null,
+    "limit_confidence": "unknown",
+    "can_club_with_offers": null,
+    "one_time_use": false,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "zoomcar": {
+    "slug": "zoomcar",
+    "max_per_bill": 1,
+    "limit_confidence": "explicit",
+    "can_club_with_offers": true,
+    "one_time_use": true,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "style-bazaar": {
+    "slug": "style-bazaar",
+    "max_per_bill": null,
+    "limit_confidence": "unknown",
+    "can_club_with_offers": null,
+    "one_time_use": false,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "soulflower": {
+    "slug": "soulflower",
+    "max_per_bill": null,
+    "limit_confidence": "unknown",
+    "can_club_with_offers": null,
+    "one_time_use": false,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "elivaas": {
+    "slug": "elivaas",
+    "max_per_bill": null,
+    "limit_confidence": "unknown",
+    "can_club_with_offers": true,
+    "one_time_use": false,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "palmonas": {
+    "slug": "palmonas",
+    "max_per_bill": null,
+    "limit_confidence": "unknown",
+    "can_club_with_offers": null,
+    "one_time_use": false,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "columbia-sportswear": {
+    "slug": "columbia-sportswear",
+    "max_per_bill": null,
+    "limit_confidence": "unknown",
+    "can_club_with_offers": null,
+    "one_time_use": false,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "minus30": {
+    "slug": "minus30",
+    "max_per_bill": null,
+    "limit_confidence": "unknown",
+    "can_club_with_offers": null,
+    "one_time_use": false,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "pronto": {
+    "slug": "pronto",
+    "max_per_bill": null,
+    "limit_confidence": "unlimited_stated",
+    "can_club_with_offers": false,
+    "one_time_use": false,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "cordelia": {
+    "slug": "cordelia",
+    "max_per_bill": null,
+    "limit_confidence": "unknown",
+    "can_club_with_offers": true,
+    "one_time_use": false,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "kalki": {
+    "slug": "kalki",
+    "max_per_bill": null,
+    "limit_confidence": "unknown",
+    "can_club_with_offers": null,
+    "one_time_use": false,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "porter": {
+    "slug": "porter",
+    "max_per_bill": 1,
+    "limit_confidence": "explicit",
+    "can_club_with_offers": false,
+    "one_time_use": true,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "roblox-gift-card": {
+    "slug": "roblox-gift-card",
+    "max_per_bill": 1,
+    "limit_confidence": "explicit",
+    "can_club_with_offers": true,
+    "one_time_use": true,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "steam-gift-card": {
+    "slug": "steam-gift-card",
+    "max_per_bill": 1,
+    "limit_confidence": "explicit",
+    "can_club_with_offers": null,
+    "one_time_use": true,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "adventra": {
+    "slug": "adventra",
+    "max_per_bill": null,
+    "limit_confidence": "unknown",
+    "can_club_with_offers": null,
+    "one_time_use": false,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "nautica": {
+    "slug": "nautica",
+    "max_per_bill": null,
+    "limit_confidence": "unknown",
+    "can_club_with_offers": true,
+    "one_time_use": false,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "valorant-gift-card": {
+    "slug": "valorant-gift-card",
+    "max_per_bill": 1,
+    "limit_confidence": "explicit",
+    "can_club_with_offers": false,
+    "one_time_use": true,
+    "exclusions_raw": null,
+    "has_source_text": true
+  },
+  "air-india-fly-rajasthan": {
+    "slug": "air-india-fly-rajasthan",
+    "max_per_bill": null,
+    "limit_confidence": "unknown",
+    "can_club_with_offers": true,
+    "one_time_use": false,
+    "exclusions_raw": "where the offer is tied to a specific payment method).",
+    "has_source_text": true
+  },
+  "air-india-add-ons": {
+    "slug": "air-india-add-ons",
+    "max_per_bill": null,
+    "limit_confidence": "unknown",
+    "can_club_with_offers": true,
+    "one_time_use": false,
+    "exclusions_raw": "where the offer is tied to a specific payment method).",
+    "has_source_text": true
+  },
+  "giva-silver-jewellery": {
+    "slug": "giva-silver-jewellery",
+    "max_per_bill": null,
+    "limit_confidence": "unknown",
+    "can_club_with_offers": true,
+    "one_time_use": false,
+    "exclusions_raw": null,
+    "has_source_text": true
+  }
+}

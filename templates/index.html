@@ -77,6 +77,10 @@
     .savings-eyebrow { font-size: 11px; font-weight: 600; letter-spacing: 0.12em; color: rgba(255,255,255,0.7); text-transform: uppercase; margin-bottom: 6px; }
     .savings-amount { font-family: var(--mono); font-size: 52px; font-weight: 600; color: #fff; line-height: 1; margin-bottom: 6px; }
     .savings-context { font-size: 13px; color: rgba(255,255,255,0.75); }
+    .savings-bar { background: var(--green-light); border: 1px solid var(--green-border); border-radius: 10px; padding: 0.75rem 1.25rem; font-size: 14px; color: var(--text-mid); margin-bottom: 1rem; line-height: 1.6; }
+    .sb-orig { text-decoration: line-through; color: var(--text-dim); font-family: var(--mono); font-size: 13px; }
+    .sb-final { font-family: var(--mono); font-size: 13px; }
+    .sb-save { font-family: var(--mono); color: var(--green); font-size: 15px; }
     .route-card { background: var(--white); border: 1px solid var(--border); border-radius: 16px; padding: 1.5rem; margin-bottom: 1rem; box-shadow: var(--shadow); }
     .route-eyebrow { font-size: 11px; font-weight: 600; letter-spacing: 0.1em; color: var(--blue); text-transform: uppercase; margin-bottom: 1.5rem; display: flex; align-items: center; gap: 6px; }
     .journey { display: flex; align-items: flex-start; margin-bottom: 1.5rem; }
@@ -238,30 +242,24 @@
   function renderResults(data) {
     const body = document.getElementById('results-body');
     if (data.error) { body.innerHTML = `<div class="error-box">⚠ ${esc(data.error)}</div>`; return; }
-    const results = data.results || [];
-    const vouchers = data.vouchers || [];
-    if (!results.length) { body.innerHTML = '<div class="error-box">No results found. Try a different search.</div>'; return; }
+    const routes = data.routes || {};
+    const rec = routes.recommended;
+    if (!rec) { body.innerHTML = '<div class="error-box">No results found. Try a different search.</div>'; return; }
 
-    let best = null;
-    let bestFinalPrice = Infinity;
-    for (const r of results) {
-      const v = vouchers.find(v => v.merchant.toLowerCase() === (r.merchant||'').toLowerCase());
-      const finalP = v ? v.upi.effective_price : (r.price || Infinity);
-      if (finalP < bestFinalPrice) {
-        bestFinalPrice = finalP;
-        best = {result: r, voucher: v || null};
-      }
-    }
-    if (!best) best = {result: results[0], voucher: null};
-
-    const r = best.result;
-    const v = best.voucher;
+    const r = {merchant: rec.merchant, price: rec.listed_price, sellers: rec.sellers, match_type: rec.match_type, title: rec.title};
+    const v = rec.voucher || null;
     const sourcePrice = (data.mode === 'url' && data.source && data.source.price) ? Math.round(data.source.price) : null;
-    const listedPrice = r.price ? Math.round(r.price) : null;
+    const listedPrice = rec.listed_price ? Math.round(rec.listed_price) : null;
     const originalPrice = sourcePrice || listedPrice;
     const finalPrice = v ? Math.round(v.upi.effective_price) : listedPrice;
     const saving = (finalPrice && originalPrice && originalPrice > finalPrice) ? (originalPrice - finalPrice) : (v ? Math.round(v.upi.saving) : null);
-    const heroHtml = saving ? `<div class="savings-hero"><div class="savings-eyebrow">You're about to save</div><div class="savings-amount">${fmt(saving)}</div><div class="savings-context">${esc(r.merchant)} · Final price ${fmt(finalPrice)}</div></div>` : '';
+    const savingsBarHtml = (() => {
+      if (sourcePrice && finalPrice && sourcePrice > finalPrice)
+        return `<div class="savings-bar">You were paying <span class="sb-orig">${fmt(sourcePrice)}</span> → Now paying <span class="sb-final">${fmt(finalPrice)}</span> → Saved <strong class="sb-save">${fmt(sourcePrice - finalPrice)}</strong></div>`;
+      if (!sourcePrice && saving && saving > 0)
+        return `<div class="savings-bar">With voucher: pay <span class="sb-final">${fmt(finalPrice)}</span> instead of <span class="sb-orig">${fmt(listedPrice)}</span> → Saved <strong class="sb-save">${fmt(saving)}</strong></div>`;
+      return '';
+    })();
 
     const merchantLink = (r.sellers && r.sellers[0] && r.sellers[0].link) ? `<a class="j-link" href="${esc(r.sellers[0].link)}" target="_blank" rel="noopener">Open store →</a>` : '';
 
@@ -269,18 +267,24 @@
 
     const checkoutStep = v ? `<div class="j-connector"></div><div class="j-step"><div class="j-icon green"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#059669" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></div><div class="j-label">Checkout</div><div class="j-detail">${v.upi.remainder ? 'Pay '+fmt(v.upi.remainder)+' remaining' : 'Full order covered'}</div><div class="j-price">Done</div></div>` : '';
 
-    const journeyHtml = `<div class="journey"><div class="j-step"><div class="j-icon blue"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/></svg></div><div class="j-label">${esc(r.merchant)}</div><div class="j-detail">Listed at</div><div class="j-price">${fmt(originalPrice)}</div>${merchantLink}</div>${voucherStep}${checkoutStep}</div>`;
+    const journeyHtml = `<div class="journey"><div class="j-step"><div class="j-icon blue"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/></svg></div><div class="j-label">${esc(r.merchant)}</div><div class="j-detail">Listed at</div><div class="j-price">${fmt(listedPrice)}</div>${merchantLink}</div>${voucherStep}${checkoutStep}</div>`;
 
     let howHtml = '';
     if (v) {
       const paidForVoucher = Math.round(v.upi.voucher_amount * (1 - v.upi.pct/100));
+      const txnsNeeded = v.upi.txns_needed || 1;
       const steps = [
         `Buy a ${fmt(v.upi.voucher_amount)} ${esc(r.merchant)} voucher on <a href="${esc(v.voucher_url)}" target="_blank" rel="noopener">Gyftr</a> using UPI — you pay ${fmt(paidForVoucher)}`,
+        ...(txnsNeeded > 1 ? [`Buy in ${txnsNeeded} separate Gyftr transactions (${fmt(v.upi.purchase_cap_per_txn)} cap per transaction)`] : []),
         `Add your item to your ${esc(r.merchant)} cart`,
         v.upi.remainder ? `Apply the voucher at checkout — pay the remaining ${fmt(v.upi.remainder)} with any method` : `Apply the voucher at checkout — your full order is covered`,
       ];
-      const instrHtml = (v.redemption_instructions && v.redemption_instructions.length)
-        ? `<div class="before-you-buy"><div class="bby-title">⚠️ Before you buy</div><ul class="bby-list">${v.redemption_instructions.map(i => `<li>${esc(i)}</li>`).join('')}</ul></div>`
+      const cleanInstrs = (v.redemption_instructions || []).filter(i => {
+        const t = i.trim();
+        return t && !/Important Instructions\s*$/.test(t) && !/^[A-Z][A-Z\s&\/\-]+$/.test(t);
+      });
+      const instrHtml = cleanInstrs.length
+        ? `<div class="before-you-buy"><div class="bby-title">⚠️ Before you buy</div><ul class="bby-list">${cleanInstrs.map(i => `<li>${esc(i)}</li>`).join('')}</ul></div>`
         : '';
       howHtml = `<div class="how-section"><div class="how-label">How to do it</div>${steps.map((s,i) => `<div class="how-step"><div class="how-num">${i+1}</div><div class="how-text">${s}</div></div>`).join('')}${instrHtml}</div>`;
     }
@@ -289,10 +293,10 @@
 
     const routeHtml = `<div class="route-card"><div class="route-eyebrow">★ Recommended route</div>${journeyHtml}${howHtml}${finalHtml}</div>`;
 
-    const alts = results.filter(x => x.merchant !== r.merchant).slice(0, 3);
+    const alts = routes.alternatives || [];
     const altItemsHtml = alts.map(a => {
-      const av = vouchers.find(v => v.merchant.toLowerCase() === (a.merchant||'').toLowerCase());
-      const ap = av ? Math.round(av.upi.effective_price) : (a.price ? Math.round(a.price) : null);
+      const av = a.voucher || null;
+      const ap = Math.round(a.final_cost) || null;
       const altLink = (a.sellers && a.sellers[0] && a.sellers[0].link) ? `<a class="alt-store-link" href="${esc(a.sellers[0].link)}" target="_blank" rel="noopener">Open store →</a>` : '';
       return `<div class="alt-item"><div><div class="alt-merchant">${esc(a.merchant)}</div><div class="alt-sub">${av ? `With Gyftr voucher · ${av.upi.pct}% off` : 'Direct purchase · no voucher available'}</div>${altLink}</div><div class="alt-price">${fmt(ap)}</div></div>`;
     }).join('');
@@ -303,7 +307,7 @@
       ? `<div class="unverified-warning"><div class="unverified-warning-icon">⚠️</div><div class="unverified-warning-text"><strong>Unverified sellers</strong>We couldn't verify these sellers — please do your own research before buying.</div></div>`
       : '';
 
-    body.innerHTML = unverifiedHtml + heroHtml + routeHtml + altHtml;
+    body.innerHTML = unverifiedHtml + savingsBarHtml + routeHtml + altHtml;
   }
 
   function toggleAlt(btn) {

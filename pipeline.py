@@ -12,6 +12,7 @@ import sys
 from pathlib import Path
 
 from db.voucher_lookup import calculate_effective_price, get_best_voucher_deal, get_gyftr_voucher
+from engine.category_classifier import classify_product, restriction_mentions_category
 from engine.matcher import _extract_size, filter_discovery_results
 from extractor.discovery import build_search_query, discover_merchants, get_direct_urls
 from extractor.zyte_client import extract_product
@@ -149,7 +150,7 @@ _MANUAL_TRUSTED = [
     "Apple", "Samsung", "JioMart", "Pepperfry", "Lenskart",
 ]
 
-_VOUCHERS_PATH = Path(__file__).resolve().parent / "db" / "gyftr_vouchers.json"
+_VOUCHERS_PATH = Path(__file__).resolve().parent / "db" / "gyftr_master.json"
 _trusted_merchants_cache: set[str] | None = None
 
 
@@ -164,7 +165,7 @@ def _load_trusted_merchants() -> set[str]:
     whitelist = {_norm(n) for n in _MANUAL_TRUSTED}
     try:
         with open(_VOUCHERS_PATH) as f:
-            for voucher in json.load(f):
+            for voucher in json.load(f).values():
                 brand = voucher.get("brand_name") or ""
                 if brand:
                     whitelist.add(_norm(brand))
@@ -405,9 +406,14 @@ def step4b_size_comparison(enriched: list[dict]) -> dict | None:
 
 # ── step 5 — Gyftr voucher opportunities ─────────────────────────────────────
 
-def step5_vouchers(enriched: list[dict]) -> list[dict]:
+def step5_vouchers(enriched: list[dict], product_name: str = "") -> list[dict]:
     results = []
     seen_merchants = set()
+
+    try:
+        category = classify_product(product_name)
+    except Exception:
+        category = None
 
     for r in enriched:
         if r.get("match_type") not in ("Exact Match", "Listed"):
@@ -423,8 +429,16 @@ def step5_vouchers(enriched: list[dict]) -> list[dict]:
         if voucher is None:
             continue
 
+        try:
+            if category is not None and restriction_mentions_category(
+                voucher.get("redemption_restrictions", []), category
+            ):
+                continue
+        except Exception:
+            pass
+
         redemption_type_raw = voucher.get("redemption_type", "")
-        offline_only = redemption_type_raw == "OFF"
+        offline_only = redemption_type_raw == "Offline"
 
         # For offline vouchers, still include but flag them
         deal = get_best_voucher_deal(merchant, price)
@@ -444,6 +458,8 @@ def step5_vouchers(enriched: list[dict]) -> list[dict]:
                 "remainder": deal.get("remainder_at_checkout") or 0,
                 "saving": deal["voucher_discount_amount"],
                 "effective_price": deal["effective_price"],
+                "txns_needed": deal.get("txns_needed", 1),
+                "purchase_cap_per_txn": voucher.get("purchase_cap_per_txn"),
             },
             "card": {
                 "pct": card_deal["voucher_discount_pct"],
@@ -456,6 +472,52 @@ def step5_vouchers(enriched: list[dict]) -> list[dict]:
         })
 
     return results
+
+
+# ── route builder ────────────────────────────────────────────────────────────
+
+def _build_routes(results: list[dict], vouchers: list[dict]) -> dict:
+    """Merge results + vouchers into route objects sorted by final_cost.
+
+    Returns {"recommended": route | None, "alternatives": [route, ...]}.
+    Deduplicates routes that are literally identical (same merchant + final_cost).
+    """
+    voucher_map = {v["merchant"].lower(): v for v in vouchers}
+    routes = []
+    seen: set[tuple] = set()
+
+    for r in results:
+        merchant = r.get("merchant") or ""
+        listed_price = r.get("price")
+        v = voucher_map.get(merchant.lower())
+
+        if v:
+            final_cost = v["upi"]["effective_price"]
+        elif listed_price:
+            final_cost = listed_price
+        else:
+            continue  # no price, no voucher — unrankable, skip
+
+        key = (merchant.lower(), round(final_cost, 2))
+        if key in seen:
+            continue
+        seen.add(key)
+
+        routes.append({
+            "merchant": merchant,
+            "listed_price": listed_price,
+            "final_cost": final_cost,
+            "sellers": r.get("sellers") or [],
+            "match_type": r.get("match_type") or "",
+            "title": r.get("title") or "",
+            "voucher": v,
+        })
+
+    routes.sort(key=lambda x: x["final_cost"])
+
+    if not routes:
+        return {"recommended": None, "alternatives": []}
+    return {"recommended": routes[0], "alternatives": routes[1:4]}
 
 
 # ── main pipeline ─────────────────────────────────────────────────────────────
@@ -473,6 +535,7 @@ def run_pipeline(input_str: str) -> dict:
         "results": [],
         "size_comparison": None,
         "vouchers": [],
+        "routes": {"recommended": None, "alternatives": []},
         "untrusted_sellers_warning": False,
         "error": None,
     }
@@ -501,7 +564,8 @@ def run_pipeline(input_str: str) -> dict:
         enriched = s3["results"]
         output["results"] = step4_output(enriched)
         output["size_comparison"] = step4b_size_comparison(enriched)
-        output["vouchers"] = step5_vouchers(enriched)
+        output["vouchers"] = step5_vouchers(enriched, output["source"]["name"])
+        output["routes"] = _build_routes(output["results"], output["vouchers"])
 
     except SystemExit:
         raise
