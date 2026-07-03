@@ -206,6 +206,11 @@
     return String(s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
   }
 
+  function affiliateUrl(url) {
+    if (!url) return '#';
+    return 'https://linksredirect.com/?cid=297179&source=linkkit&url=' + encodeURIComponent(url);
+  }
+
   function show(id) {
     document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
     document.getElementById(id).classList.add('active');
@@ -261,7 +266,7 @@
       return '';
     })();
 
-    const merchantLink = (r.sellers && r.sellers[0] && r.sellers[0].link) ? `<a class="j-link" href="${esc(r.sellers[0].link)}" target="_blank" rel="noopener">Open store →</a>` : '';
+    const merchantLink = (r.sellers && r.sellers[0] && r.sellers[0].link) ? `<a class="j-link" href="${affiliateUrl(r.sellers[0].link)}" target="_blank" rel="noopener">Open store →</a>` : '';
 
     const voucherStep = v ? `<div class="j-connector"></div><div class="j-step"><div class="j-icon orange"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#ea580c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 9a3 3 0 0 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 0 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z"/><path d="M13 5v14"/></svg></div><div class="j-label">Gyftr voucher</div><div class="j-detail">Buy ${fmt(v.upi.voucher_amount)} via UPI</div><div class="j-price">${v.upi.pct}% off</div><a class="j-link" href="${esc(v.voucher_url)}" target="_blank" rel="noopener">Buy voucher →</a></div>` : '';
 
@@ -297,7 +302,7 @@
     const altItemsHtml = alts.map(a => {
       const av = a.voucher || null;
       const ap = Math.round(a.final_cost) || null;
-      const altLink = (a.sellers && a.sellers[0] && a.sellers[0].link) ? `<a class="alt-store-link" href="${esc(a.sellers[0].link)}" target="_blank" rel="noopener">Open store →</a>` : '';
+      const altLink = (a.sellers && a.sellers[0] && a.sellers[0].link) ? `<a class="alt-store-link" href="${affiliateUrl(a.sellers[0].link)}" target="_blank" rel="noopener">Open store →</a>` : '';
       return `<div class="alt-item"><div><div class="alt-merchant">${esc(a.merchant)}</div><div class="alt-sub">${av ? `With Gyftr voucher · ${av.upi.pct}% off` : 'Direct purchase · no voucher available'}</div>${altLink}</div><div class="alt-price">${fmt(ap)}</div></div>`;
     }).join('');
 
