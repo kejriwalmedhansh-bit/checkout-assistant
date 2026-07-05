@@ -1,0 +1,40 @@
+{
+  "SBI Cashback": {
+    "rate_online": 0.05,
+    "rate_offline": 0.01,
+    "merchant_overrides": {},
+    "earns_on_gyftr": true,
+    "gyftr_rate": 0.05,
+    "cap_amount": 2000,
+    "cap_period": "monthly",
+    "annual_fee": 999
+  },
+  "Flipkart Axis": {
+    "rate_online": 0.01,
+    "rate_offline": 0.01,
+    "merchant_overrides": {
+      "myntra": 0.075,
+      "flipkart": 0.05,
+      "cleartrip": 0.05,
+      "cult.fit": 0.04,
+      "pvr": 0.04,
+      "swiggy": 0.04,
+      "uber": 0.04
+    },
+    "earns_on_gyftr": false,
+    "gyftr_rate": 0,
+    "cap_amount": 4000,
+    "cap_period": "quarterly",
+    "annual_fee": 500
+  },
+  "BOB Cashback": {
+    "rate_online": 0.05,
+    "rate_offline": 0.01,
+    "merchant_overrides": {},
+    "earns_on_gyftr": true,
+    "gyftr_rate": 0.05,
+    "cap_amount": 1500,
+    "cap_period": "monthly",
+    "annual_fee": 499
+  }
+}

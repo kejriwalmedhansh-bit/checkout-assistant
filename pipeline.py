@@ -12,6 +12,7 @@ import sys
 from pathlib import Path
 
 from db.voucher_lookup import calculate_effective_price, get_best_voucher_deal, get_gyftr_voucher
+from db.card_lookup import best_card_for_purchase
 from engine.category_classifier import classify_product, restriction_mentions_category
 from engine.matcher import _extract_size, filter_discovery_results
 from extractor.discovery import build_search_query, discover_merchants, get_direct_urls
@@ -517,7 +518,26 @@ def _build_routes(results: list[dict], vouchers: list[dict]) -> dict:
 
     if not routes:
         return {"recommended": None, "alternatives": []}
-    return {"recommended": routes[0], "alternatives": routes[1:4]}
+
+    recommended = routes[0]
+
+    # ── L3: best cashback card for the recommended route ─────────────────────
+    card_fomo = best_card_for_purchase(
+        merchant=recommended["merchant"],
+        purchase_amount=recommended["final_cost"],
+    )
+    if card_fomo:
+        recommended["card_fomo"] = {
+            "card_name": card_fomo["card_name"],
+            "actual_saving": card_fomo["actual_saving"],
+            "final_cost_with_card": round(recommended["final_cost"] - card_fomo["actual_saving"], 2),
+            "cap_amount": card_fomo["cap_amount"],
+            "cap_period": card_fomo["cap_period"],
+        }
+    else:
+        recommended["card_fomo"] = None
+
+    return {"recommended": recommended, "alternatives": routes[1:4]}
 
 
 # ── main pipeline ─────────────────────────────────────────────────────────────
