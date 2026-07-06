@@ -4,6 +4,7 @@ import asyncio
 from fastapi import APIRouter, Request, HTTPException
 from fastapi.responses import PlainTextResponse
 from whatsapp.classifier import classify_input
+from whatsapp.formatter import format_recommended, format_alternative
 from whatsapp.session_store import SessionStore
 
 router = APIRouter()
@@ -95,47 +96,13 @@ async def handle_alternatives(phone):
         msg += format_alternative(i, alt)
     await send_text(phone, msg.strip())
 
-def format_recommended(route):
-    lines = ["*Best way to buy this* ⭐\n"]
-    if route.get("merchant"):
-        lines.append(f"🏪 {route['merchant']}")
-    if route.get("final_cost"):
-        lines.append(f"💰 Final cost: ₹{route['final_cost']:,.0f}")
-    if route.get("original_price") and route.get("final_cost"):
-        savings = route["original_price"] - route["final_cost"]
-        if savings > 0:
-            lines.append(f"✅ You save: ₹{savings:,.0f}")
-    if route.get("steps"):
-        lines.append("\n*What to do:*")
-        for step in route["steps"]:
-            lines.append(f"• {step}")
-    if route.get("card_fomo"):
-        fomo = route["card_fomo"]
-        lines.append(f"\n💳 Have a {fomo.get('card_name')} card? You'd save an extra ₹{fomo.get('actual_saving'):,.0f} at checkout.")
-    return "\n".join(lines)
-
-def format_alternative(index, route):
-    lines = [f"*Option {index}*"]
-    if route.get("merchant"):
-        lines.append(f"🏪 {route['merchant']}")
-    if route.get("final_cost"):
-        lines.append(f"💰 Final cost: ₹{route['final_cost']:,.0f}")
-    if route.get("original_price") and route.get("final_cost"):
-        savings = route["original_price"] - route["final_cost"]
-        if savings > 0:
-            lines.append(f"✅ You save: ₹{savings:,.0f}")
-    if route.get("reason"):
-        lines.append(f"ℹ️ {route['reason']}")
-    if route.get("steps"):
-        lines.append("*What to do:*")
-        for step in route["steps"]:
-            lines.append(f"• {step}")
-    return "\n".join(lines) + "\n\n"
-
 async def send_text(phone, text):
     payload = {"messaging_product": "whatsapp", "to": phone, "type": "text", "text": {"body": text}}
+    def _headers():
+        return {"Authorization": f"Bearer {os.environ['WHATSAPP_ACCESS_TOKEN']}", "Content-Type": "application/json"}
     async with httpx.AsyncClient() as client:
-        await client.post(API_URL, headers=HEADERS, json=payload)
+        r = await client.post(API_URL, headers=_get_headers(), json=payload)
+        print(f"[WhatsApp Send] Status: {r.status_code} | Body: {r.text}")
 
 async def send_with_alternatives_button(phone, text):
     payload = {
@@ -145,8 +112,17 @@ async def send_with_alternatives_button(phone, text):
         "interactive": {
             "type": "button",
             "body": {"text": text},
-            "action": {"buttons": [{"type": "reply", "reply": {"id": "see_alternatives", "title": "See other ways to buy"}}]}
+            "action": {"buttons": [{"type": "reply", "reply": {"id": "see_alternatives", "title": "See other routes"}}]}
         }
     }
+    def _headers():
+        return {"Authorization": f"Bearer {os.environ['WHATSAPP_ACCESS_TOKEN']}", "Content-Type": "application/json"}
     async with httpx.AsyncClient() as client:
-        await client.post(API_URL, headers=HEADERS, json=payload)
+        r = await client.post(API_URL, headers=_get_headers(), json=payload)
+        print(f"[WhatsApp Send] Status: {r.status_code} | Body: {r.text}")
+
+def _get_headers():
+    return {
+        "Authorization": f"Bearer {os.environ['WHATSAPP_ACCESS_TOKEN']}",
+        "Content-Type": "application/json",
+    }
