@@ -16,6 +16,8 @@ load_dotenv()
 from pipeline import run_pipeline
 
 app = FastAPI(title="Checkout Assistant")
+from whatsapp.webhook import router as whatsapp_router
+app.include_router(whatsapp_router)
 templates = Jinja2Templates(directory="templates")
 
 
