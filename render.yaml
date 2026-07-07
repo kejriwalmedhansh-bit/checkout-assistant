@@ -1,0 +1,38 @@
+# Render Blueprint — auto-deploys on every push to the connected branch.
+# Setup (one time):
+#   1. Push this file to GitHub.
+#   2. Render Dashboard → New → Blueprint → connect this repo.
+#   3. When prompted, paste your ZYTE_API_KEY and SERPAPI_KEY (kept as secrets).
+# After that, every push to `main` redeploys automatically.
+services:
+  - type: web
+    name: checkout-assistant
+    runtime: python
+    plan: free
+    branch: main
+    autoDeploy: true
+    # uv is the project's package manager (uv.lock); --frozen installs the
+    # locked versions exactly. Falls back to nothing else — deterministic build.
+    buildCommand: "pip install uv && uv sync --frozen"
+    # $PORT is injected by Render; uvicorn must bind to it and to 0.0.0.0.
+    startCommand: "uv run uvicorn api:app --host 0.0.0.0 --port $PORT"
+    healthCheckPath: /health
+    envVars:
+      # Project requires Python >=3.11 (pyproject.toml). Pin explicitly so
+      # Render doesn't fall back to an older default.
+      - key: PYTHON_VERSION
+        value: "3.12.7"
+      # sync: false → NOT stored in the repo. Render prompts for these on the
+      # first Blueprint deploy and keeps them as encrypted secrets.
+      - key: ZYTE_API_KEY
+        sync: false
+      - key: SERPAPI_KEY
+        sync: false
+      # Supabase. Project URL is public (safe to commit); the DB connection
+      # string and keys are secrets entered in the Render dashboard.
+      - key: SUPABASE_URL
+        value: "https://lppwfxrkgepowctuyoge.supabase.co"
+      - key: SUPABASE_PUBLISHABLE_KEY
+        sync: false
+      - key: DATABASE_URL
+        sync: false
