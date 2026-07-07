@@ -1,0 +1,41 @@
+name: Deploy frontend to GitHub Pages
+
+# Publishes the static frontend (templates/index.html) to GitHub Pages on every
+# push to main. The page calls the Render backend for /search (see API_BASE in
+# index.html), so this is a UI-only deploy — the backend still lives on Render.
+on:
+  push:
+    branches: [main]
+    paths:
+      - templates/index.html
+      - .github/workflows/pages.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Allow one concurrent deploy; don't cancel an in-progress run.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Assemble static site
+        run: |
+          mkdir -p _site
+          cp templates/index.html _site/index.html
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+      - id: deployment
+        uses: actions/deploy-pages@v4
