@@ -1,54 +1,149 @@
-# checkout-assistant
+# Dealo (Checkout Assistant)
 
-A price comparison engine for Indian e-commerce. Give it any product URL from a supported merchant; it finds the same product on other Indian retailers and returns a ranked price table.
+Pre-checkout purchase optimization engine for Indian e-commerce. Give it a product URL or a text query; it answers **"What's the smartest way to buy this right now?"** by combining cross-merchant price discovery, Gyftr gift-voucher stacking, and cashback card recommendations into ranked purchase routes.
 
-## How it works
+The engine returns one **Recommended Route** (lowest final cost, always executable without any credit card) plus up to 3 **Alternative Routes**. Users see final cost, savings, and what to do — never the backend math.
 
-- **Step 1 — Extract:** Zyte API scrapes the source URL and returns structured product data (name, price, brand, SKU, availability, condition)
-- **Step 2 — Discover:** Builds a clean `brand + model` search query, fetches Google Shopping price signals, then searches Flipkart, Croma, Reliance Digital, TataCLiQ, and Vijay Sales directly for verifiable product URLs
-- **Step 3 — Verify:** Runs Zyte product extraction on each candidate URL (up to 8) to get live prices and availability
-- **Step 4 — Match:** Token-level name similarity + spec conflict detection (color, storage, screen size, model number) classifies each result as Exact Match, Similar Match, or No Match
-- **Step 5 — Output:** Prints a ranked price table sorted cheapest first; saves results to SQLite with a 30-minute cache
+## Architecture
 
-## Usage
+Three optimization layers feed a route builder, served through two interfaces.
+
+```
+Input (URL or text query)
+        │
+  pipeline.py — run_pipeline()          pure compute, no printing
+        │
+  ┌─ L1: Price discovery ──────────────────────────────────┐
+  │  step1_extract        Zyte Extract API + per-site      │
+  │                       fallbacks (extractor/zyte_client) │
+  │  step2_discover_*     SerpAPI Google Shopping           │
+  │                       (extractor/discovery, 24h SQLite  │
+  │                       cache in db/cache.py)             │
+  │                       + relevance/trusted/outlier       │
+  │                       filters, matcher (engine/matcher) │
+  │  step3_resolve        Direct seller URLs via SerpAPI    │
+  │                       immersive API; drops OOS/foreign/ │
+  │                       brand-conflicting sellers         │
+  │  step4 / step4b       Ranked table + unit-price size    │
+  │                       comparison                        │
+  └──────────────────────────────────────────────────────────┘
+  ┌─ L2: Gyftr vouchers ───────────────────────────────────┐
+  │  step5_vouchers       Matches merchants to 379 Gyftr    │
+  │                       brands (db/gyftr_master.json via  │
+  │                       db/voucher_lookup.py).            │
+  │                       Denomination-aware greedy fill,   │
+  │                       stack limits, per-txn caps,       │
+  │                       category-restriction filtering    │
+  │                       (engine/category_classifier.py)   │
+  └──────────────────────────────────────────────────────────┘
+  ┌─ L3: Cashback cards ───────────────────────────────────┐
+  │  _build_routes        Best single card by actual saving │
+  │                       after cap (db/card_lookup.py +    │
+  │                       db/cashback_cards.json), shown as │
+  │                       a "card FOMO" row on the          │
+  │                       recommended route only            │
+  └──────────────────────────────────────────────────────────┘
+        │
+  routes: {recommended, alternatives[≤3]}
+        │
+   ├── Web UI      api.py (FastAPI) + templates/index.html
+   └── WhatsApp    whatsapp/ (Meta Cloud API webhook)
+```
+
+### Route rules
+
+- Recommended Route = lowest `final_cost` (voucher-discounted UPI price when a voucher exists, otherwise listed price). Always card-free.
+- Card savings never affect ranking; they appear only as an optional extra-savings row.
+- Similar Match results never receive voucher suggestions — vouchers apply only to Exact Match / Listed results.
+- Routes identical in merchant + final cost are deduplicated.
+
+## Repository structure
+
+```
+api.py                      FastAPI app: /  /search  /health, mounts WhatsApp router
+pipeline.py                 Compute layer — all pipeline steps + run_pipeline()
+templates/index.html        Single-file web frontend (vanilla JS, no framework)
+engine/
+  matcher.py                Product matching: brand gate, refurb/submodel/color/
+                            storage/size conflict detection, token similarity,
+                            subset matching, foreign-marketplace filter
+  category_classifier.py    Keyword product categorization + voucher
+                            category-restriction check
+extractor/
+  zyte_client.py            Zyte Extract wrapper + per-site fallback chains
+                            (Amazon browserHtml, amzn.in resolution, Myntra
+                            /buy retry + slug + browser price, Nykaa/AJIO slugs)
+  discovery.py              SerpAPI Google Shopping + immersive seller
+                            resolution + search query builder + seller filters
+db/
+  cache.py                  SQLite cache for SerpAPI results (cache.db, 24h TTL)
+  voucher_lookup.py         Gyftr brand matching + effective-price math
+  gyftr_master.json         379-brand Gyftr voucher database
+  card_lookup.py            L3 card selection (rate, cap, best card)
+  cashback_cards.json       Card definitions: SBI Cashback, Flipkart Axis,
+                            BOB Cashback
+whatsapp/
+  webhook.py                Meta Cloud API webhook (verify + receive),
+                            async pipeline dispatch, alternatives button
+  classifier.py             Input triage: url / product_name / unparseable
+  session_store.py          SQLite-backed sessions, 10-min sliding TTL per phone
+  formatter.py              WhatsApp message formatting
+.env                        API keys and WhatsApp credentials (never commit)
+```
+
+## Setup
+
+Requires Python 3.11 (`/usr/local/bin/python3.11` on the dev machine — the system `python3` is 3.9 and will not work).
 
 ```bash
-uv run python main.py <product_url>
+pip3.11 install fastapi uvicorn jinja2 httpx requests beautifulsoup4 python-dotenv pydantic
 ```
 
-Example:
+`.env` in the repo root:
+
+```
+ZYTE_API_KEY=...
+SERPAPI_KEY=...
+WHATSAPP_PHONE_NUMBER_ID=...
+WHATSAPP_ACCESS_TOKEN=...        # 24h dev token; regenerate daily until production
+WHATSAPP_VERIFY_TOKEN=dealo_webhook_2026
+```
+
+## Running
 
 ```bash
-uv run python main.py "https://www.amazon.in/dp/B0CS6XNBZN"
+cd ~/checkout-assistant
+uvicorn api:app --host 0.0.0.0 --port 8000
 ```
 
-## Output
+- Web UI: http://localhost:8000
+- API: `POST /search` with `{"query": "<url or product name>"}` → full pipeline JSON
+- WhatsApp: expose the webhook with `ngrok http 8000`, then point the Meta app's webhook to `<ngrok-url>/webhook` (the ngrok URL changes on every restart and must be re-registered).
 
-```
-  #   Merchant                            Price Match            Condition    Avail    Name
-  ---------------------------------------------------------------------------------------------------------------------------------
-  1   Fonezone                        ₹    27,699 Exact Match      Refurbished   ✓       Google Pixel 8A 128GB 8GB Ram Obsidian
-  2   Flipkart                     ₹    49,999 (-6%) Exact Match      New           ✓       Google Pixel 8a (Obsidian, 128 GB) (8 GB RAM)
-  3   Flipkart                     ₹    49,999 (-6%) Similar Match    New           ✓       Google Pixel 8a (Porcelain, 128 GB) (8 GB RAM)
-  4   Flipkart                     ₹    49,999 (-6%) Similar Match    New           ✓       Google Pixel 8a (Aloe, 128 GB) (8 GB RAM)
+Start the server from the repo root — `whatsapp/webhook.py` opens `db/whatsapp_sessions.db` via a relative path.
 
-  ──────────────────────────────────────────────────
-  ★  Cheapest: Fonezone  at  ₹    27,699
-```
+## External services
 
-## Current limitations
+| Service | Use | Notes |
+|---|---|---|
+| Zyte Extract API | Source-product extraction from URLs | Per-site fallback chains in `zyte_client.py` |
+| SerpAPI | Google Shopping discovery + seller resolution | $25/mo, 1,000 credits; 24h cache reduces spend |
+| Gyftr public API | Voucher DB source (`api.gyftr.com/gyftrapi/api`) | No auth; scraped into `gyftr_master.json` |
+| Meta Cloud API | WhatsApp messaging | Graph API v20.0 |
+| Cuelinks | Affiliate link wrapping (web UI only) | `cid=297179`; approval pending. Gyftr "Buy voucher" links intentionally not wrapped |
 
-- **Google Shopping has no verifiable URLs** — Zyte's `productList` extractor returns empty `url` fields for Google Shopping results; discovery uses it for price signals only, not as a source of merchant links
-- **Merchant search coverage is sparse** — of the five configured merchants, only Flipkart returns reliable results for most queries; Croma, Reliance Digital, and Vijay Sales frequently return zero results; TataCLiQ sometimes falls back to unrelated categories (caught and dropped automatically)
-- **Refurbished detection is opportunistic** — condition is inferred from product name, `additionalProperties`, and description text; listings that don't expose a structured condition field may be misclassified as new
+## Known issues
 
-## Tech stack
+Verified against the code as of 2026-07-07:
 
-| Component | Tool |
-|---|---|
-| Runtime | Python 3.14, [uv](https://github.com/astral-sh/uv) |
-| Scraping | [Zyte API](https://www.zyte.com/zyte-api/) (`product`, `productList`, `browserHtml`) |
-| Matching | `difflib.SequenceMatcher` (token-level) |
-| Storage | SQLite via `sqlite3` |
-| HTTP | `httpx` |
-| HTML parsing | `beautifulsoup4` |
+1. **WhatsApp voucher block renders empty values.** `whatsapp/formatter.py` reads `voucher.brand` / `best_discount` / `recommended_denomination` / `gyftr_url`, but pipeline voucher objects expose `merchant` / `upi.pct` / `upi.voucher_amount` / `voucher_url`. WhatsApp users with a voucher route see "Buy ₹0 voucher at 0% off" and no link. Final cost is unaffected. The web UI uses the correct keys.
+2. **L3 ignores `earns_on_gyftr`.** `card_lookup.py` never reads the field, so a card that doesn't earn on Gyftr purchases (Flipkart Axis) can be recommended on a Gyftr-voucher route at its retail-merchant override rate.
+3. **Card FOMO has no display threshold.** Shows for any saving > ₹0 (an intended ₹200-or-3% minimum was never implemented).
+4. **Cap periods not normalized.** Monthly and quarterly `cap_amount` values are compared raw when picking the best card.
+5. **Text-query mode has no identity verification.** The matcher only runs in URL mode; the price-outlier filter (drop < 40% of median) catches gross mismatches only.
+6. **WhatsApp access token is a 24h dev token** — manual regeneration required; permanent token deferred to production.
+7. **Only `amzn.in` short links are resolved.** `fkrt.co`, `bit.ly`, etc. will fail extraction.
+8. **WhatsApp links skip Cuelinks wrapping** (web wraps merchant links; WhatsApp sends raw URLs).
+9. **Dead code** in `whatsapp/webhook.py`: unused inner `_headers()` definitions inside both send functions.
+10. **No automated tests.** All verification is manual against a fixed product set.
+11. **`refresh_gyftr.py`** voucher-staleness checker not yet built — `gyftr_master.json` is a point-in-time scrape.
