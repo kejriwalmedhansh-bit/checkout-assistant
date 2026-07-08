@@ -1,0 +1,10 @@
+{% extends "_base.html" %}
+{% block title %}Dealo V2 — Search{% endblock %}
+{% block body %}
+  <h1>Find a product</h1>
+  <p class="muted">Type a product name to see live shopping results and vendor pricing.</p>
+  <form method="post" action="/v2/search" style="margin-top:20px;">
+    <input type="text" name="query" placeholder="e.g. boat airdopes" autofocus required>
+    <button type="submit">Search</button>
+  </form>
+{% endblock %}

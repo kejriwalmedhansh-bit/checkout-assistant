@@ -28,6 +28,8 @@ app.add_middleware(
 )
 from whatsapp.webhook import router as whatsapp_router
 app.include_router(whatsapp_router)
+from v2.routes import router as v2_router
+app.include_router(v2_router)
 templates = Jinja2Templates(directory="templates")
 
 
