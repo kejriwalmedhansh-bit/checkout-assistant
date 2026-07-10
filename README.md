@@ -4,6 +4,74 @@ Pre-checkout purchase optimization engine for Indian e-commerce. Give it a produ
 
 The engine returns one **Recommended Route** (lowest final cost, always executable without any credit card) plus up to 3 **Alternative Routes**. Users see final cost, savings, and what to do — never the backend math.
 
+## Repository layout
+
+The project is split into two independently runnable parts:
+
+- **`src/`** — the FastAPI backend (stateless CRUD-style REST API). Product/price detection runs on the SearchApi.io engine; Gyftr vouchers, cashback cards, route-building and the WhatsApp webhook sit on top.
+- **`react/`** — the public React dashboard (Vite + React + Chakra UI). Talks to the backend over HTTP.
+
+## Local development
+
+Run the backend and the frontend in **two separate terminals**.
+
+### Backend (FastAPI, port 8000)
+
+From the repository root:
+
+```bash
+# 1. Create and activate a virtual environment (Python 3.11+)
+python3.11 -m venv .venv
+source .venv/bin/activate
+
+# 2. Install dependencies
+pip install -r requirements.txt
+
+# 3. Run the API (auto-reload for development)
+uvicorn src.application:app --reload --port 8000
+```
+
+Verify it's up:
+
+```bash
+curl http://localhost:8000/health      # -> {"status":"ok"}
+curl http://localhost:8000/            # -> lists the available endpoints
+```
+
+Configuration is loaded via `pydantic-settings`. The SearchApi.io key ships with a
+working default, so **no `.env` is required** to run locally. To override a value,
+create a `.env` in the repo root (see `.env.example`):
+
+```
+SEARCHAPI_KEY=...              # overrides the built-in default
+WHATSAPP_PHONE_NUMBER_ID=...   # only needed for the WhatsApp webhook
+WHATSAPP_ACCESS_TOKEN=...
+WHATSAPP_VERIFY_TOKEN=dealo_webhook_2026
+```
+
+### Frontend (React + Vite, port 5173)
+
+In a second terminal:
+
+```bash
+cd react
+npm install
+npm run dev        # -> http://localhost:5173
+```
+
+The frontend reads its backend URL from `VITE_API_BASE_URL`, which **defaults to
+`http://localhost:8000`** — so with the backend running on port 8000, no extra
+config is needed. To point at a different backend, create `react/.env`:
+
+```
+VITE_API_BASE_URL=http://localhost:8000
+```
+
+> Note: Vite only reads `.env` at startup — restart `npm run dev` after changing it.
+> The backend must be running for search and voucher pages to return data.
+
+Production build: `npm run build` (outputs to `react/dist/`).
+
 ## Architecture
 
 Three optimization layers feed a route builder, served through two interfaces.
