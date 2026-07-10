@@ -2,20 +2,18 @@
 # Setup (one time):
 #   1. Push this file to GitHub.
 #   2. Render Dashboard → New → Blueprint → connect this repo.
-#   3. When prompted, paste your ZYTE_API_KEY and SERPAPI_KEY (kept as secrets).
-# After that, every push to `main` redeploys automatically.
+#   3. When prompted, paste SEARCHAPI_KEY and the WHATSAPP_* secrets.
+# After that, every push to the connected branch redeploys automatically.
 services:
   - type: web
-    name: checkout-assistant
+    name: dealo-backend
     runtime: python
     plan: free
     branch: main
     autoDeploy: true
-    # uv is the project's package manager (uv.lock); --frozen installs the
-    # locked versions exactly. Falls back to nothing else — deterministic build.
-    buildCommand: "pip install uv && uv sync --frozen"
+    buildCommand: "pip install -r requirements.txt"
     # $PORT is injected by Render; uvicorn must bind to it and to 0.0.0.0.
-    startCommand: "uv run uvicorn api:app --host 0.0.0.0 --port $PORT"
+    startCommand: "uvicorn src.application:app --host 0.0.0.0 --port $PORT"
     healthCheckPath: /health
     envVars:
       # Project requires Python >=3.11 (pyproject.toml). Pin explicitly so
@@ -24,15 +22,11 @@ services:
         value: "3.12.7"
       # sync: false → NOT stored in the repo. Render prompts for these on the
       # first Blueprint deploy and keeps them as encrypted secrets.
-      - key: ZYTE_API_KEY
+      - key: SEARCHAPI_KEY
         sync: false
-      - key: SERPAPI_KEY
+      - key: WHATSAPP_PHONE_NUMBER_ID
         sync: false
-      # Supabase. Project URL is public (safe to commit); the DB connection
-      # string and keys are secrets entered in the Render dashboard.
-      - key: SUPABASE_URL
-        value: "https://lppwfxrkgepowctuyoge.supabase.co"
-      - key: SUPABASE_PUBLISHABLE_KEY
+      - key: WHATSAPP_ACCESS_TOKEN
         sync: false
-      - key: DATABASE_URL
+      - key: WHATSAPP_VERIFY_TOKEN
         sync: false
