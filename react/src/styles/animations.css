@@ -1,0 +1,22 @@
+/* Animated conic-gradient border (available for the search prompt bar).
+   A registered custom property lets us animate the gradient's *angle* smoothly —
+   only the angle changes, so the element stays put and corners never clip. */
+@property --prompt-angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: true;
+}
+
+@keyframes promptBorderSpin {
+  to {
+    --prompt-angle: 360deg;
+  }
+}
+
+/* Respect users who prefer reduced motion — hold a static gradient. */
+@media (prefers-reduced-motion: reduce) {
+  .prompt-animated-border,
+  .prompt-animated-border::before {
+    animation: none !important;
+  }
+}
