@@ -116,43 +116,6 @@ def format_recommended(route: dict) -> str:
     return "\n".join(lines) + "\n"
 
 
-def format_alternative(index: int, route: dict) -> str:
-    lines = []
-
-    title = route.get("title", "")
-    merchant = route.get("merchant", "")
-    listed_price = route.get("listed_price", 0)
-    final_cost = route.get("final_cost", 0)
-    voucher = route.get("voucher")
-    sellers = route.get("sellers", [])
-
-    lines.append(f"*Option {index} — {title}*")
-    lines.append(f"🏪 {merchant}")
-
-    if listed_price and final_cost and final_cost < listed_price:
-        savings = listed_price - final_cost
-        lines.append(f"💰 ₹{final_cost:,.0f} _(save ₹{savings:,.0f})_")
-    else:
-        lines.append(f"💰 ₹{final_cost:,.0f}")
-
-    if sellers:
-        link = sellers[0].get("link", "")
-        delivery = sellers[0].get("delivery", "")
-        if delivery:
-            lines.append(f"🚚 {str(delivery)[:60]}")
-        if link:
-            lines.append(f"🔗 {link}")
-
-    if voucher:
-        brand = voucher.get("merchant", "")
-        upi = voucher.get("upi", {})
-        discount = upi.get("pct", 0)
-        denomination = upi.get("voucher_amount", 0)
-        lines.append(f"🎟 Use {brand} Gyftr voucher — buy ₹{denomination:,.0f} at {discount}% off")
-
-    return "\n".join(lines) + "\n"
-
-
 # ── Meta Graph send helpers (R7: settings read lazily) ───────────────────────────
 
 def _graph_config() -> tuple[str, dict]:
@@ -202,26 +165,101 @@ async def send_with_alternatives_button(phone: str, text: str) -> None:
         print(f"[WhatsApp Send] Status: {r.status_code} | Body: {r.text}")
 
 
+def _truncate(s: str, n: int) -> str:
+    s = s or ""
+    return s if len(s) <= n else s[: n - 1] + "…"
+
+
+async def send_list_message(phone: str, body_text: str, button_text: str, rows: list[dict]) -> None:
+    """Meta interactive List Message — up to 10 rows, each {id, title, description}.
+    The tapped row's id comes back as msg["interactive"]["list_reply"]["id"]."""
+    api_url, headers = _graph_config()
+    payload = {
+        "messaging_product": "whatsapp",
+        "to": phone,
+        "type": "interactive",
+        "interactive": {
+            "type": "list",
+            "body": {"text": body_text},
+            "action": {
+                "button": button_text,
+                "sections": [{"title": "Options", "rows": rows}],
+            },
+        },
+    }
+    async with httpx.AsyncClient() as client:
+        r = await client.post(api_url, headers=headers, json=payload)
+        print(f"[WhatsApp Send] Status: {r.status_code} | Body: {r.text}")
+
+
 # ── dispatch ─────────────────────────────────────────────────────────────────────
 
+async def _send_routes_for_token(phone: str, product_token: str, query: str) -> None:
+    result = await asyncio.to_thread(search_service.build_routes_for_token, product_token, query)
+    routes = result.get("routes", {})
+    recommended = routes.get("recommended")
+    if not recommended:
+        await send_text(phone, WHATSAPP_DEAD_END_MSG)
+        return
+    session_store.set_session(phone, {"routes": routes})
+    msg = format_recommended(recommended)
+    if routes.get("alternatives"):
+        await send_with_alternatives_button(phone, msg)
+    else:
+        await send_text(phone, msg)
+
+
 async def process_and_respond(phone: str, classification: dict) -> None:
+    """Step 1: search candidates and ask the user to confirm the exact
+    product (same picker the web two-step flow uses) — same pattern as
+    handle_alternative_selection, just one step earlier in the flow."""
     try:
         query = classification.get("query") or classification.get("url")
-        result = await asyncio.to_thread(search_service.search, query)
-        routes = result.get("routes", {})
-        recommended = routes.get("recommended")
-        if not recommended:
+        listing = await asyncio.to_thread(search_service.search_candidates, query)
+        products = listing.get("products") or []
+        if not products:
             await send_text(phone, WHATSAPP_DEAD_END_MSG)
             return
-        session_store.set_session(phone, {"routes": routes})
-        msg = format_recommended(recommended)
-        if routes.get("alternatives"):
-            await send_with_alternatives_button(phone, msg)
-        else:
-            await send_text(phone, msg)
+
+        if len(products) == 1:
+            await _send_routes_for_token(phone, products[0]["product_token"], query)
+            return
+
+        session_store.set_session(phone, {"candidates": products, "query": query})
+        rows = []
+        for i, p in enumerate(products[:10]):
+            price = p.get("price")
+            desc = f"₹{price:,.0f}" if price else (p.get("source") or "")
+            rows.append({
+                "id": f"prod_{i}",
+                "title": _truncate(p.get("title") or f"Option {i + 1}", 24),
+                "description": _truncate(desc, 72),
+            })
+        await send_list_message(
+            phone,
+            body_text="Which one is it? Tap to confirm the exact product:",
+            button_text="Select product",
+            rows=rows,
+        )
     except Exception as e:
         await send_text(phone, WHATSAPP_DEAD_END_MSG)
         print(f"[Webhook] Error for {phone}: {e}")
+
+
+async def handle_product_selection(phone: str, reply_id: str) -> None:
+    session = session_store.get_session(phone)
+    if not session:
+        await send_text(phone, WHATSAPP_SESSION_EXPIRED_MSG)
+        return
+    candidates = session.get("candidates", [])
+    query = session.get("query", "")
+    try:
+        idx = int(reply_id.split("_", 1)[1])
+        chosen = candidates[idx]
+    except (ValueError, IndexError):
+        await send_text(phone, WHATSAPP_DEAD_END_MSG)
+        return
+    await _send_routes_for_token(phone, chosen["product_token"], query)
 
 
 async def handle_alternatives(phone: str) -> None:
@@ -233,10 +271,42 @@ async def handle_alternatives(phone: str) -> None:
     if not alternatives:
         await send_text(phone, WHATSAPP_NO_ALTERNATIVES_MSG)
         return
-    msg = "Other ways to buy this:\n\n"
-    for i, alt in enumerate(alternatives[:3], 1):
-        msg += format_alternative(i, alt)
-    await send_text(phone, msg.strip())
+    rows = []
+    for i, alt in enumerate(alternatives[:3]):
+        final_cost = alt.get("final_cost")
+        desc = f"₹{final_cost:,.0f}" if final_cost else ""
+        voucher = alt.get("voucher")
+        if voucher:
+            desc += f" · Gyftr voucher {voucher['upi']['pct']}% off"
+        rows.append({
+            "id": f"alt_{i}",
+            "title": _truncate(alt.get("merchant") or f"Option {i + 1}", 24),
+            "description": _truncate(desc, 72),
+        })
+    await send_list_message(
+        phone,
+        body_text="Other ways to buy this — pick one to see the full route:",
+        button_text="View options",
+        rows=rows,
+    )
+
+
+async def handle_alternative_selection(phone: str, reply_id: str) -> None:
+    """A picked alternative is promoted to the same full detail the
+    recommended route gets — rendered through format_recommended(), not the
+    brief format_alternative() summary."""
+    session = session_store.get_session(phone)
+    if not session:
+        await send_text(phone, WHATSAPP_SESSION_EXPIRED_MSG)
+        return
+    alternatives = session.get("routes", {}).get("alternatives", [])
+    try:
+        idx = int(reply_id.split("_", 1)[1])
+        chosen = alternatives[idx]
+    except (ValueError, IndexError):
+        await send_text(phone, WHATSAPP_NO_ALTERNATIVES_MSG)
+        return
+    await send_text(phone, format_recommended(chosen))
 
 
 async def handle_incoming(body: dict) -> None:
@@ -251,9 +321,18 @@ async def handle_incoming(body: dict) -> None:
         msg_type = msg.get("type")
 
         if msg_type == "interactive":
-            reply_id = msg["interactive"]["button_reply"]["id"]
-            if reply_id == "see_alternatives":
-                asyncio.create_task(handle_alternatives(phone))
+            interactive = msg.get("interactive", {})
+            itype = interactive.get("type")
+            if itype == "button_reply":
+                reply_id = interactive["button_reply"]["id"]
+                if reply_id == "see_alternatives":
+                    asyncio.create_task(handle_alternatives(phone))
+            elif itype == "list_reply":
+                reply_id = interactive["list_reply"]["id"]
+                if reply_id.startswith("alt_"):
+                    asyncio.create_task(handle_alternative_selection(phone, reply_id))
+                elif reply_id.startswith("prod_"):
+                    asyncio.create_task(handle_product_selection(phone, reply_id))
             return
 
         if msg_type != "text":

@@ -263,7 +263,18 @@ for slug, brand in api_brands.items():
     best_method, best_disc = best_payment(merged_map)
 
     products = brand.get("products", [])
-    denominations = sorted([p.get("mrp") for p in products if p.get("mrp")])
+    # Gyftr uses max_value=0 as its own sentinel for "no custom range" (a fixed
+    # denomination SKU). A real custom-amount range has max_value truthy and
+    # different from min_value.
+    custom_rows = [
+        p for p in products
+        if p.get("max_value") and p.get("min_value") is not None and p["max_value"] != p["min_value"]
+    ]
+    fixed_rows = [p for p in products if p not in custom_rows]
+    denominations = sorted([p.get("mrp") for p in fixed_rows if p.get("mrp")])
+    is_custom_denom = bool(custom_rows)
+    custom_min = min((p["min_value"] for p in custom_rows), default=None)
+    custom_max = max((p["max_value"] for p in custom_rows), default=None)
 
     scrape_data = scraped.get(slug, {})
     rule_data = rules.get(slug, {})
@@ -305,6 +316,9 @@ for slug, brand in api_brands.items():
         "slug": slug,
         "redemption_type": redemption_type,
         "denominations": denominations,
+        "is_custom_denom": is_custom_denom,
+        "custom_min": custom_min,
+        "custom_max": custom_max,
         "discounts": discounts,
         "best_payment_method": best_method,
         "best_discount_pct": best_disc,

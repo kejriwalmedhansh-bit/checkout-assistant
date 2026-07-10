@@ -8,7 +8,7 @@ import AltItem from './AltItem';
  * "Recommended route not working for you?" — hidden by default. Reveals up to 3
  * alternatives. There are deliberately no "Fastest" / "Max savings" buckets.
  */
-export default function AlternativesToggle({ alternatives = [] }) {
+export default function AlternativesToggle({ alternatives = [], onSelect, selectedMerchant }) {
   const [open, setOpen] = useState(false);
   const alts = alternatives.slice(0, 3);
   if (alts.length === 0) return null;
@@ -33,7 +33,12 @@ export default function AlternativesToggle({ alternatives = [] }) {
       <Collapse in={open} animateOpacity>
         <Flex direction="column" gap="8px" mt="10px">
           {alts.map((a, i) => (
-            <AltItem key={`${a.merchant}-${i}`} alt={a} />
+            <AltItem
+              key={`${a.merchant}-${i}`}
+              alt={a}
+              onSelect={onSelect}
+              isSelected={selectedMerchant === a.merchant}
+            />
           ))}
         </Flex>
       </Collapse>

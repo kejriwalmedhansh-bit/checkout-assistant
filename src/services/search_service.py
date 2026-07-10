@@ -171,21 +171,67 @@ def _build_candidates(detail: dict) -> list[dict]:
 
 # ── route builder (ported from pipeline._build_routes) ──────────────────────────
 
+def _card_fomo_for_route(route: dict) -> dict | None:
+    card_fomo = card_service.best_card_for_purchase(
+        merchant=route["merchant"],
+        purchase_amount=route["final_cost"],
+        has_voucher=route.get("voucher") is not None,
+    )
+    if not card_fomo:
+        return None
+    return {
+        "card_name": card_fomo["card_name"],
+        "actual_saving": card_fomo["actual_saving"],
+        "final_cost_with_card": round(route["final_cost"] - card_fomo["actual_saving"], 2),
+        "cap_amount": card_fomo["cap_amount"],
+        "cap_period": card_fomo["cap_period"],
+    }
+
+
 def _build_routes(results: list[dict], vouchers: list[dict]) -> dict:
     """Merge results + vouchers into route objects sorted by final_cost.
 
     final_cost = voucher UPI effective price when a voucher exists, else the
     listed price (skip if neither). Dedups on (merchant, round(final_cost, 2)).
-    Attaches the best cashback card to the recommended route only.
+    An offline-only voucher can't be redeemed at its merchant's online listing,
+    so it's surfaced as a separate "{merchant} (in-store)" route instead of
+    decorating the online one. Attaches the best cashback card to every route
+    actually returned (recommended + alternatives) — never affects sort order.
     """
     voucher_map = {v["merchant"].lower(): v for v in vouchers}
     routes = []
     seen: set[tuple] = set()
 
+    def add_route(merchant, listed_price, final_cost, sellers, match_type, title, voucher):
+        key = (merchant.lower(), round(final_cost, 2))
+        if key in seen:
+            return
+        seen.add(key)
+        routes.append({
+            "merchant": merchant,
+            "listed_price": listed_price,
+            "final_cost": final_cost,
+            "sellers": sellers,
+            "match_type": match_type,
+            "title": title,
+            "voucher": voucher,
+            "card_fomo": None,
+        })
+
     for r in results:
         merchant = r.get("merchant") or ""
         listed_price = r.get("price")
+        title = r.get("title") or ""
         v = voucher_map.get(merchant.lower())
+
+        if v and v.get("offline_only"):
+            # In-store price isn't independently known — the online listing's
+            # price is the best available proxy.
+            add_route(
+                f"{merchant} (in-store)", listed_price, v["upi"]["effective_price"],
+                [], "Listed", title, v,
+            )
+            v = None  # don't attach an in-store-only voucher to the online listing
 
         if v:
             final_cost = v["upi"]["effective_price"]
@@ -194,44 +240,182 @@ def _build_routes(results: list[dict], vouchers: list[dict]) -> dict:
         else:
             continue  # no price, no voucher — unrankable
 
-        key = (merchant.lower(), round(final_cost, 2))
-        if key in seen:
-            continue
-        seen.add(key)
-
-        routes.append({
-            "merchant": merchant,
-            "listed_price": listed_price,
-            "final_cost": final_cost,
-            "sellers": r.get("sellers") or [],
-            "match_type": r.get("match_type") or "",
-            "title": r.get("title") or "",
-            "voucher": v,
-            "card_fomo": None,
-        })
+        add_route(merchant, listed_price, final_cost, r.get("sellers") or [], r.get("match_type") or "", title, v)
 
     routes.sort(key=lambda x: x["final_cost"])
 
     if not routes:
         return {"recommended": None, "alternatives": []}
 
-    recommended = routes[0]
+    shown = routes[:4]
+    for route in shown:
+        card_fomo = _card_fomo_for_route(route)
+        if card_fomo:
+            route["card_fomo"] = card_fomo
 
-    card_fomo = card_service.best_card_for_purchase(
-        merchant=recommended["merchant"],
-        purchase_amount=recommended["final_cost"],
-        has_voucher=recommended.get("voucher") is not None,
+    return {"recommended": shown[0], "alternatives": shown[1:4]}
+
+
+# ── candidate filtering + variant grouping (revives engine/matcher.py-style
+#    identity signals, applied at the picker stage instead of per-result) ───────
+
+_ACCESSORY_KEYWORDS = [
+    "case", "cover", "protector", "tempered glass", "screen guard", "screenguard",
+    "skin", "sticker", "charger", "charging cable", "cable", "adapter",
+    "pouch", "holder", "stand", "mount", "bumper", "shell", "wallet",
+]
+
+_BULK_LISTING_KEYWORDS = [
+    "pieces", "pcs", "pack of", "combo", "set of", "pair of",
+]
+
+_QUERY_STOPWORDS = {
+    "buy", "price", "online", "best", "new", "latest", "india", "offer",
+    "offers", "deal", "deals", "for", "the", "a", "an", "with", "and",
+}
+
+_MAX_CANDIDATES = 8  # keep the picker scannable even when grouping can't fully dedup
+
+# Generic spec/marketing words that don't identify a distinct product/variant —
+# used to find the words a title has *beyond* the query, so different sellers'
+# phrasing of the exact same model (spec dumps, "for men", strap material...)
+# collapses into one picker card instead of one row per seller.
+_MARKETING_FILLER_WORDS = {
+    "with", "for", "and", "the", "true", "truly", "wireless", "earbuds", "earbud",
+    "bluetooth", "headphones", "buds", "tws", "smartwatch", "smartwatches",
+    "smart", "watch", "watches", "display", "amoled", "battery", "charge",
+    "charging", "fast", "playback", "mode", "tech", "quad", "mics", "mic",
+    "resistance", "water", "low", "latency", "beast", "signature", "sound",
+    "support", "app", "music", "ad", "free", "stream", "via", "type", "usb",
+    "faces", "calling", "wellness", "ai", "coach", "premium", "design",
+    "functional", "crown", "enx", "iwp", "asap", "active", "noise",
+    "cancellation", "cancelling", "in", "ear", "over", "beats", "genuine",
+    "original", "official", "new", "latest", "compatible", "silicone",
+    "dial", "unisex", "men", "women", "girls", "boys", "bt", "dp",
+    "strap", "leather", "steel", "mesh", "rubber", "metal", "band",
+}
+
+# Number+unit phrases (screen size, battery life, ANC depth, etc.) stripped as
+# a whole phrase before tokenizing, so "1.93inch" doesn't leak a bare "1".
+_SPEC_PHRASE_RE = re.compile(
+    r"\b\d+(?:\.\d+)?\s*(?:mm|cm|inch|in|hz|khz|mhz|db|ms|dpi|mp|mah|hrs|hr|hours|hour|h|v|w|nits)\b"
+)
+
+_COLOR_WORDS = [
+    "black", "white", "blue", "red", "green", "yellow", "purple", "pink",
+    "gold", "silver", "grey", "gray", "titanium", "graphite", "midnight",
+    "starlight", "rose", "orange", "beige", "brown", "teal", "navy", "coral",
+]
+
+
+def _norm_title(s: str) -> str:
+    return re.sub(r"[^a-z0-9\s]", " ", (s or "").lower())
+
+
+def _is_accessory(title: str) -> bool:
+    normalized = _norm_title(title)
+    return any(kw in normalized for kw in _ACCESSORY_KEYWORDS)
+
+
+def _is_bulk_listing(title: str) -> bool:
+    normalized = _norm_title(title)
+    return any(kw in normalized for kw in _BULK_LISTING_KEYWORDS)
+
+
+def _is_latin_dominant(title: str) -> bool:
+    letters = [c for c in (title or "") if c.isalpha()]
+    if not letters:
+        return True
+    latin = sum(1 for c in letters if c.isascii())
+    return latin / len(letters) >= 0.5
+
+
+def _required_tokens(query: str) -> list[str]:
+    """Query tokens the candidate title must contain, minus brand names and
+    generic stopwords — e.g. "Boat Airdopes 141" -> ["airdopes", "141"]."""
+    tokens = re.findall(r"[a-z0-9]+", (query or "").lower())
+    return [t for t in tokens if t not in KNOWN_BRANDS and t not in _QUERY_STOPWORDS]
+
+
+def _matches_required_tokens(title: str, tokens: list[str]) -> bool:
+    normalized = _norm_title(title)
+    return all(t in normalized for t in tokens)
+
+
+def _distinguishing_words(title: str, exclude: set) -> frozenset:
+    """Words in the title beyond the query's own tokens, known brand names,
+    and generic spec/marketing filler. If nothing distinguishing survives,
+    different sellers' phrasing of the same base product shares this same
+    (empty) key and collapses into one picker card."""
+    # Strip spec phrases (e.g. "1.93inch") from the raw text before _norm_title
+    # destroys the decimal point — otherwise "1.93inch" splits into a bare "1"
+    # that the regex can no longer recognize as part of a unit phrase.
+    stripped_raw = _SPEC_PHRASE_RE.sub(" ", (title or "").lower())
+    words = re.findall(r"[a-z0-9]+", _norm_title(stripped_raw))
+    return frozenset(
+        w for w in words
+        # keep single-digit tokens (real model-version numbers like "Smart 4"
+        # vs "Smart 3") but drop stray single-letter fragments (leftover "c"
+        # from a stripped "USB C", etc.)
+        if (len(w) > 1 or w.isdigit()) and w not in exclude and w not in _MARKETING_FILLER_WORDS
     )
-    if card_fomo:
-        recommended["card_fomo"] = {
-            "card_name": card_fomo["card_name"],
-            "actual_saving": card_fomo["actual_saving"],
-            "final_cost_with_card": round(recommended["final_cost"] - card_fomo["actual_saving"], 2),
-            "cap_amount": card_fomo["cap_amount"],
-            "cap_period": card_fomo["cap_period"],
-        }
 
-    return {"recommended": recommended, "alternatives": routes[1:4]}
+
+def _extract_variant_signature(title: str, exclude: set) -> tuple:
+    normalized = _norm_title(title)
+    storage_m = re.search(r"\b(\d+)\s?(gb|tb)\b", normalized)
+    storage = f"{storage_m.group(1)}{storage_m.group(2)}" if storage_m else None
+    color = next((c for c in _COLOR_WORDS if re.search(rf"\b{re.escape(c)}\b", normalized)), None)
+    extra_words = _distinguishing_words(title, exclude | {storage, color} - {None})
+    return (extra_words, storage, color)
+
+
+def _filter_and_group_candidates(candidates: list[dict], query: str) -> list[dict]:
+    """Drop accessories/bulk-listings/wrong-model/non-English junk, then group
+    same-variant listings from different sellers into one picker card each.
+
+    Grouping is on an exact signature match (distinguishing words beyond the
+    query + storage + color) — not fuzzy similarity — so a title with a real
+    extra identifier (a submodel/product-line name the query didn't mention)
+    gets its own group rather than risking a false merge into the wrong
+    variant. Titles with nothing extra beyond generic spec/marketing filler
+    share the same signature and collapse into one card, so different
+    sellers' phrasing of the exact same model doesn't read as a vendor list.
+    Falls back to the unfiltered candidate list if filtering would wipe out
+    everything (a degraded-but-honest result beats a false "nothing found").
+    """
+    tokens = _required_tokens(query)
+    exclude = set(tokens) | set(KNOWN_BRANDS)
+    survivors = [
+        c for c in candidates
+        if c.get("title")
+        and not _is_accessory(c["title"])
+        and not _is_bulk_listing(c["title"])
+        and _is_latin_dominant(c["title"])
+        and (not tokens or _matches_required_tokens(c["title"], tokens))
+    ]
+    # Defense-in-depth against accessory-keyword gaps (e.g. a phone "wallet"
+    # case priced at half the phone's cost) — same 40%-of-median threshold
+    # already used for L1 route results in _outlier_filter.
+    survivors, _ = _outlier_filter(survivors)
+    if not survivors:
+        return candidates
+
+    groups: dict = {}
+    order: list = []
+    for c in survivors:
+        key = _extract_variant_signature(c["title"], exclude)
+        if key not in groups:
+            groups[key] = c
+            order.append(key)
+        else:
+            existing = groups[key]
+            if c.get("price") is not None and (existing.get("price") is None or c["price"] < existing["price"]):
+                groups[key] = c
+
+    grouped = [groups[k] for k in order]
+    grouped.sort(key=lambda c: c.get("price") if c.get("price") is not None else float("inf"))
+    return grouped[:_MAX_CANDIDATES]
 
 
 # ── source brand inference (best-effort, for the identity box) ───────────────────
@@ -291,6 +475,7 @@ def search_candidates(query: str) -> dict:
             for p in raw.get("shopping_results", [])
             if p.get("product_token")
         ]
+        products = _filter_and_group_candidates(products, query)
         if not products:
             out["error"] = "No products found for that search."
             return out

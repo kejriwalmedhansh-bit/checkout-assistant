@@ -63,6 +63,10 @@ def _greedy_voucher_amount(
 
 
 def _denominations_str(voucher: dict) -> str:
+    if voucher.get("is_custom_denom"):
+        lo, hi = voucher.get("custom_min"), voucher.get("custom_max")
+        if lo and hi:
+            return f"Custom (₹{lo}–₹{hi})"
     denoms = sorted(set(int(d) for d in (voucher.get("denominations") or []) if d is not None))
     return " / ".join(str(d) for d in denoms)
 
@@ -101,25 +105,48 @@ def _clean_instructions(html: str) -> list[str]:
 
 def calculate_effective_price(price: float, voucher: dict, payment_method: str = "upi") -> dict:
     discount_pct = _discount_pct(voucher, payment_method)
+    custom_txns_needed = None
 
-    is_custom, fixed_denoms = _parse_denominations(voucher)
-    if is_custom or not fixed_denoms:
-        voucher_amount = price
-        remainder = 0.0
-        is_custom = True
-    else:
-        voucher_amount = float(_greedy_voucher_amount(
-            price, fixed_denoms,
-            stack_limit=voucher.get("stack_limit"),
-            value_cap=voucher.get("value_cap"),
-        ))
+    if voucher.get("is_custom_denom"):
+        # Real custom-amount range (e.g. Titan: any exact amount ₹100-10,000).
+        # Always preferred over any fixed denominations the brand also lists —
+        # it covers the purchase price more precisely. max_value is a per-voucher
+        # cap; up to stack_limit vouchers can be combined in one bill.
+        custom_max = voucher.get("custom_max") or 0
+        stack_limit = voucher.get("stack_limit")
+        if stack_limit is not None:
+            total_cap = custom_max * stack_limit
+        elif voucher.get("stack_limit_confidence") == "unlimited_stated":
+            # No stated per-bill count cap — bounded by the purchase price
+            # itself, not an arbitrary vouchers-per-bill number.
+            total_cap = price
+        else:
+            # Unknown — conservative default of a single voucher.
+            total_cap = custom_max
+        voucher_amount = min(price, total_cap) if custom_max else 0.0
         remainder = round(price - voucher_amount, 2)
+        is_custom = True
+        custom_txns_needed = math.ceil(voucher_amount / custom_max) if custom_max and voucher_amount else 0
+    else:
+        is_custom, fixed_denoms = _parse_denominations(voucher)
+        if is_custom or not fixed_denoms:
+            voucher_amount = price
+            remainder = 0.0
+            is_custom = True
+        else:
+            voucher_amount = float(_greedy_voucher_amount(
+                price, fixed_denoms,
+                stack_limit=voucher.get("stack_limit"),
+                value_cap=voucher.get("value_cap"),
+            ))
+            remainder = round(price - voucher_amount, 2)
 
-    txns_needed = (
-        math.ceil(voucher_amount / voucher["purchase_cap_per_txn"])
-        if voucher.get("purchase_cap_per_txn")
-        else 1
-    )
+    if voucher.get("purchase_cap_per_txn"):
+        txns_needed = math.ceil(voucher_amount / voucher["purchase_cap_per_txn"])
+    elif custom_txns_needed is not None:
+        txns_needed = custom_txns_needed
+    else:
+        txns_needed = 1
 
     discount_amount = round(voucher_amount * discount_pct / 100, 2)
     effective_price = round(price - discount_amount, 2)

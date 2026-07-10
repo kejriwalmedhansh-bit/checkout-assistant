@@ -9,7 +9,7 @@ import { fmt } from '@/utils/format';
  * Clicking it commits the product_token and kicks off the route build.
  */
 export default function ProductCandidateCard({ product, onSelect, isSelecting }) {
-  const { title, price, thumbnail, source, product_token: token } = product;
+  const { title, price, thumbnail, product_token: token } = product;
 
   return (
     <Card
@@ -49,17 +49,12 @@ export default function ProductCandidateCard({ product, onSelect, isSelecting })
           <Text fontSize="13.5px" fontWeight={600} color="text" noOfLines={2} lineHeight={1.35}>
             {title || 'Product'}
           </Text>
-          {source && (
-            <Text fontSize="12px" color="text3" mt="3px" noOfLines={1}>
-              {source}
-            </Text>
-          )}
         </Box>
 
         <Box flex="0 0 auto" textAlign="right">
           {price != null && (
             <Text fontFamily="mono" fontSize="14px" fontWeight={600} color="text">
-              {fmt(price)}
+              from {fmt(price)}
             </Text>
           )}
           <Box color="text3" display="inline-flex" mt="4px">

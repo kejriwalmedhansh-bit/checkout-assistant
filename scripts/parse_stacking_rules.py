@@ -21,6 +21,17 @@ NO_STACK_PATTERNS = [
     r'only\s+one\s+(?:gift\s+)?voucher\s+can\s+be\s+used',
 ]
 
+# "Cannot be used multiple times" / "single use" describe an individual voucher
+# being non-reusable, NOT a per-bill stacking cap — brands routinely say both
+# "up to N vouchers can be used in one bill" AND "[each] voucher cannot be used
+# multiple times" in the same T&C. Check for an explicit multi-voucher count
+# first so NO_STACK_PATTERNS doesn't wrongly collapse a real N-voucher stacking
+# allowance down to 1.
+UP_TO_N_PATTERNS = [
+    r'up\s*to\s+(\d+)\s*(?:gift\s+)?vouchers?\s+can\s+be\s+used',
+    r'\(?up\s*to\s+(\d+)\)?\s+can\s+be\s+used',
+]
+
 MULTI_OK_PATTERNS = [
     r'multiple\s+gift\s+vouchers?\s+can\s+be\s+used',
     r'multiple\s+gvs?\s+can\s+be\s+used',
@@ -49,6 +60,15 @@ def find_limit(text_lower):
 def any_match(patterns, text_lower):
     return any(re.search(p, text_lower) for p in patterns)
 
+def find_up_to_n(text_lower):
+    for pat in UP_TO_N_PATTERNS:
+        m = re.search(pat, text_lower)
+        if m:
+            n = int(m.group(1))
+            if n <= 20:  # sanity bound — real per-bill voucher counts are small
+                return n
+    return None
+
 def parse_brand(slug, data):
     ii = (data.get("Important Instructions") or "").lower()
     tc = (data.get("Terms & Conditions") or "").lower()
@@ -58,15 +78,23 @@ def parse_brand(slug, data):
     result = {"slug": slug}
 
     limit = find_limit(combined)
+    up_to_n = find_up_to_n(combined)
     if limit is not None:
         result["max_per_bill"] = limit
         result["limit_confidence"] = "explicit"
+    elif up_to_n is not None:
+        result["max_per_bill"] = up_to_n
+        result["limit_confidence"] = "explicit"
+    elif any_match(MULTI_OK_PATTERNS, combined):
+        # Checked before NO_STACK_PATTERNS: "multiple vouchers can be used" is
+        # an affirmative stacking statement and must win over a same-brand
+        # "voucher cannot be used multiple times" disclaimer, which describes
+        # single-voucher reuse (a different question), not a per-bill cap.
+        result["max_per_bill"] = None
+        result["limit_confidence"] = "unlimited_stated"
     elif any_match(NO_STACK_PATTERNS, combined):
         result["max_per_bill"] = 1
         result["limit_confidence"] = "explicit"
-    elif any_match(MULTI_OK_PATTERNS, combined):
-        result["max_per_bill"] = None
-        result["limit_confidence"] = "unlimited_stated"
     else:
         result["max_per_bill"] = None
         result["limit_confidence"] = "unknown"

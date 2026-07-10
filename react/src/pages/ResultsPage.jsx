@@ -96,6 +96,7 @@ export default function ResultsPage() {
   const runSearch = useSearchStore((s) => s.runSearch);
 
   const scrollRef = useRef(null);
+  const [selectedAlt, setSelectedAlt] = useState(null);
 
   const loading = status === 'loading';
 
@@ -105,9 +106,20 @@ export default function ResultsPage() {
   if (!result && status !== 'error') return <Navigate to={ROUTES.home} replace />;
 
   const rec = result?.routes?.recommended || null;
+  // A picked alternative is promoted here in full — same detail as the
+  // recommended route — instead of expanding inline where it'd require
+  // scrolling down to see.
+  const activeRoute = selectedAlt || rec;
+
+  const selectAlt = (alt) => {
+    setSelectedAlt(alt);
+    scrollRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  };
+  const backToRecommended = () => setSelectedAlt(null);
 
   // "Search again" starts a fresh candidate search → back to the picker.
   const rerun = (q) => {
+    setSelectedAlt(null);
     runSearch(q);
     navigate(ROUTES.select);
   };
@@ -136,13 +148,22 @@ export default function ResultsPage() {
           <ProductIdentity name={productName} sourceUrl={sourceUrl} />
           {result.untrusted_sellers_warning && <UnverifiedWarning />}
           <SavingsBar
-            originalPrice={calcOriginal(result, rec)}
-            finalPrice={calcFinal(rec)}
-            saving={calcSaving(result, rec)}
+            originalPrice={calcOriginal(result, activeRoute)}
+            finalPrice={calcFinal(activeRoute)}
+            saving={calcSaving(result, activeRoute)}
           />
-          <RouteCard result={result} rec={rec} />
-          <CardFomo cardFomo={rec.card_fomo} />
-          <AlternativesToggle alternatives={result.routes?.alternatives} />
+          <RouteCard
+            result={result}
+            rec={activeRoute}
+            isAlt={!!selectedAlt}
+            onBack={backToRecommended}
+          />
+          <CardFomo cardFomo={activeRoute.card_fomo} />
+          <AlternativesToggle
+            alternatives={result.routes?.alternatives}
+            onSelect={selectAlt}
+            selectedMerchant={selectedAlt?.merchant}
+          />
         </Flex>
       )}
     </Box>
