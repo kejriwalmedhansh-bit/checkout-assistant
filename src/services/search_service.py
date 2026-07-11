@@ -1,11 +1,17 @@
 """Search orchestration — the decomposed run_pipeline for the SearchApi.io engine.
 
-Two-call flow:
-  1. search_products(query)      -> pick the best product_token
-  2. get_product(product_token)  -> build route candidates from its offers
+Two-step flow:
+  1. search_candidates(query) -> Product Picker: grouped variant rows from one
+     cheap google_shopping search.
+  2. build_routes_for_token(token, query, title) -> a second, focused
+     google_shopping search scoped to the selected variant's own title (not
+     the original broad query), filtered to trusted/sane candidates, then
+     get_product() on a small capped number of the cheapest survivors —
+     merging their offers rather than trusting whatever sellers Google
+     associated with one representative listing.
 
 Then apply the ported L1 guards, build Gyftr voucher deals, assemble routes, and
-attach the best cashback card to the recommended route only.
+attach the best cashback card to every route shown (never affects ranking).
 
 The output dict preserves the exact contract the frontend + WhatsApp depend on.
 URL mode is gone, so mode is always "text".
@@ -73,16 +79,12 @@ def _is_trusted_merchant(merchant_name: str, whitelist: set[str]) -> bool:
     return False
 
 
-def _filter_trusted_only(results: list[dict]) -> tuple[list[dict], bool]:
-    """Keep only whitelisted merchants. Returns (filtered, untrusted_warning).
-
-    If nothing survives, returns the originals with untrusted_warning=True.
-    """
+def _filter_trusted_only(results: list[dict]) -> list[dict]:
+    """Keep only whitelisted merchants. If nothing survives, returns an empty
+    list — an untrusted-only result set is treated as no route found rather
+    than shown with a warning (trust is the core product value)."""
     whitelist = _load_trusted_merchants()
-    filtered = [r for r in results if _is_trusted_merchant(r.get("merchant") or "", whitelist)]
-    if not filtered:
-        return results, True
-    return filtered, False
+    return [r for r in results if _is_trusted_merchant(r.get("merchant") or "", whitelist)]
 
 
 def _outlier_filter(results: list[dict]) -> tuple[list[dict], int]:
@@ -185,6 +187,7 @@ def _card_fomo_for_route(route: dict) -> dict | None:
         "final_cost_with_card": round(route["final_cost"] - card_fomo["actual_saving"], 2),
         "cap_amount": card_fomo["cap_amount"],
         "cap_period": card_fomo["cap_period"],
+        "apply_url": card_fomo.get("apply_url"),
     }
 
 
@@ -338,8 +341,12 @@ def _required_tokens(query: str) -> list[str]:
 
 
 def _matches_required_tokens(title: str, tokens: list[str]) -> bool:
+    """Word-boundary match (not raw substring) — a required token like "17e"
+    must not be satisfied by "17" appearing inside an unrelated word, and a
+    different-but-similar product (e.g. "iPhone 16e" against a required "17e"
+    token) must not slip through."""
     normalized = _norm_title(title)
-    return all(t in normalized for t in tokens)
+    return all(re.search(rf"\b{re.escape(t)}\b", normalized) for t in tokens)
 
 
 def _distinguishing_words(title: str, exclude: set) -> frozenset:
@@ -485,11 +492,58 @@ def search_candidates(query: str) -> dict:
     return out
 
 
-def build_routes_for_token(product_token: str, query: str = "") -> dict:
-    """Step 2 of the two-step flow: google_product on a chosen token → routes.
+# Bounded number of get_product() detail calls per selected variant — keeps
+# route resolution comprehensive without letting cost scale with however many
+# listings Google happens to catalog for a given product.
+_ROUTE_TOKEN_CAP = 2
 
-    Also the shared core used by the single-call ``search`` (WhatsApp). Never
-    raises — errors come back in the ``error`` field."""
+
+def _refined_variant_candidates(variant_query: str) -> list[dict]:
+    """A fresh, focused google_shopping search for the exact selected variant
+    (not the original broad query) — surfaces the real set of sellers for
+    that specific product, not just whatever Google associated with one
+    representative listing. Cheap: same call the Product Picker's first
+    search already uses. Returns lightweight {product_token, title, merchant,
+    price} entries for filtering — no offer/link data yet, that's the
+    expensive part. `title` is required here (not just for display) so the
+    caller can identity-verify each candidate before ever fetching it."""
+    raw = searchapi_repository.search_products(variant_query)
+    if raw.get("error"):
+        return []
+    out = []
+    for p in raw.get("shopping_results", []):
+        token = p.get("product_token")
+        if not token:
+            continue
+        price = None
+        for numeric_key in ("extracted_price", "price_extracted"):
+            val = p.get(numeric_key)
+            if isinstance(val, (int, float)):
+                price = float(val)
+                break
+        if price is None:
+            price = parse_price(p.get("price"))
+        out.append({
+            "product_token": token,
+            "title": p.get("title") or "",
+            "merchant": p.get("seller") or p.get("source") or p.get("store") or "",
+            "price": price,
+        })
+    return out
+
+
+def build_routes_for_token(product_token: str, query: str = "", title: str = "") -> dict:
+    """Step 2 of the two-step flow: resolve routes for a chosen Product Picker
+    selection. Never raises — errors come back in the ``error`` field.
+
+    Comprehensive route resolution: rather than trusting whatever sellers
+    Google associated with the one representative `product_token`, runs a
+    fresh focused search for the exact variant (`title`, when given — falls
+    back to `query`), filters to trusted/sane candidates, and fetches real
+    offers from a small capped number (`_ROUTE_TOKEN_CAP`) of the cheapest
+    survivors — merging their offers into one candidate pool. Falls back to
+    the originally selected token alone if the refined search comes up empty.
+    """
     query = (query or "").strip()
     output = {
         "input": query,
@@ -499,7 +553,6 @@ def build_routes_for_token(product_token: str, query: str = "") -> dict:
         "size_comparison": None,
         "vouchers": [],
         "routes": {"recommended": None, "alternatives": []},
-        "untrusted_sellers_warning": False,
         "error": None,
     }
     if not product_token:
@@ -507,52 +560,69 @@ def build_routes_for_token(product_token: str, query: str = "") -> dict:
         return output
 
     try:
-        detail = searchapi_repository.get_product(product_token)
-        if detail.get("error"):
-            output["error"] = detail["error"]
-            return output
+        variant_query = (title or query).strip()
+        tokens_to_fetch: list[str] = []
+        if variant_query:
+            refined = _refined_variant_candidates(variant_query)
+            # Same protections the Product Picker already has — a refined
+            # search can surface accessories, bulk listings, and different-
+            # but-similar products just as easily as the original search did,
+            # and none of that should ever be fetched/merged just because
+            # it's from a trusted seller at a plausible price.
+            refined = [
+                c for c in refined
+                if c.get("title") and not _is_accessory(c["title"]) and not _is_bulk_listing(c["title"])
+                and _is_latin_dominant(c["title"])
+            ]
+            required = _required_tokens(variant_query)
+            if required:
+                refined = [c for c in refined if _matches_required_tokens(c["title"], required)]
+            refined = _filter_trusted_only(refined)
+            refined, _ = _outlier_filter(refined)
+            refined.sort(key=lambda c: c.get("price") if c.get("price") is not None else float("inf"))
+            tokens_to_fetch = [c["product_token"] for c in refined[:_ROUTE_TOKEN_CAP]]
+        if not tokens_to_fetch:
+            tokens_to_fetch = [product_token]
 
-        # Prefer the picked product's real title over the raw query.
-        product = detail.get("product") or {}
-        title = product.get("title") or detail.get("title") or ""
-        if title:
-            output["source"]["name"] = title
-            output["source"]["brand"] = _infer_brand(title) or output["source"]["brand"]
+        candidates: list[dict] = []
+        display_title = ""
+        for token in tokens_to_fetch:
+            detail = searchapi_repository.get_product(token)
+            if detail.get("error"):
+                continue
+            product = detail.get("product") or {}
+            display_title = display_title or product.get("title") or detail.get("title") or ""
+            candidates.extend(_build_candidates(detail))
 
-        candidates = _build_candidates(detail)
+        if not candidates:
+            # Refined search came up empty or every fetch failed — fall back
+            # to the originally selected token alone.
+            detail = searchapi_repository.get_product(product_token)
+            if detail.get("error"):
+                output["error"] = detail["error"]
+                return output
+            product = detail.get("product") or {}
+            display_title = product.get("title") or detail.get("title") or ""
+            candidates = _build_candidates(detail)
+
+        if display_title:
+            output["source"]["name"] = display_title
+            output["source"]["brand"] = _infer_brand(display_title) or output["source"]["brand"]
 
         # L1 guards.
-        candidates, untrusted_warning = _filter_trusted_only(candidates)
+        candidates = _filter_trusted_only(candidates)
         candidates, _removed = _outlier_filter(candidates)
         candidates = _dedup_by_merchant(candidates)
         candidates = _priority_sort(candidates)
 
-        output["untrusted_sellers_warning"] = untrusted_warning
         output["results"] = candidates
-        output["vouchers"] = voucher_service.build_deals(candidates, product_name=query or title)
+        output["vouchers"] = voucher_service.build_deals(candidates, product_name=query or display_title)
         output["routes"] = _build_routes(candidates, output["vouchers"])
 
     except Exception as e:  # never leak a stack trace to the router
         output["error"] = f"{type(e).__name__}: {e}"
 
     return output
-
-
-def search(query: str) -> dict:
-    """Single-call flow (used by WhatsApp): auto-pick the first product, then
-    build routes. The web UI uses the two-step search_candidates + build_routes_for_token."""
-    query = (query or "").strip()
-    if not query:
-        return {**build_routes_for_token("", query), "error": "Empty query."}
-
-    listing = search_candidates(query)
-    if listing.get("error"):
-        base = build_routes_for_token("", query)
-        base["error"] = listing["error"]
-        return base
-
-    token = listing["products"][0]["product_token"]
-    return build_routes_for_token(token, query)
 
 
 def get_product_detail(product_token: str) -> dict:

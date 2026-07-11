@@ -84,6 +84,7 @@ def best_card_for_purchase(
             "cap_amount": card_data["cap_amount"],
             "cap_period": card_data["cap_period"],
             "annual_fee": card_data["annual_fee"],
+            "apply_url": card_data.get("apply_url"),
         }
         if best is None or saving > best["actual_saving"]:
             best = candidate

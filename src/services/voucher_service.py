@@ -89,12 +89,22 @@ _INSTRUCTION_EXCLUDE = [
 ]
 
 
+_ALL_CAPS_HEADER_RE = re.compile(r"^[A-Z][A-Z\s&/-]+$")
+_TRAILING_IMPORTANT_INSTRUCTIONS_RE = re.compile(r"important instructions\s*$", re.IGNORECASE)
+
+
 def _clean_instructions(html: str) -> list[str]:
+    """Strip HTML tags, cross-redemption mentions, and Gyftr page-navigation
+    noise (all-caps tab labels like "TERMS & CONDITIONS" / "HOW TO USE", and
+    "{Brand} Important Instructions" section headers) — the single source of
+    truth for both web and WhatsApp, which both display this list as-is."""
     text = re.sub(r"<[^>]+>", "", html)
     result = []
     for line in text.splitlines():
         line = line.strip()
         if not line:
+            continue
+        if _TRAILING_IMPORTANT_INSTRUCTIONS_RE.search(line) or _ALL_CAPS_HEADER_RE.match(line):
             continue
         lower = line.lower()
         if any(phrase in lower for phrase in _INSTRUCTION_EXCLUDE):

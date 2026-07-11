@@ -49,8 +49,8 @@ export default function ProductSelectPage() {
 
   const rerun = (q) => runSearch(q);
 
-  const handleSelect = (token) => {
-    selectProduct(token); // fire-and-forget; ResultsPage shows its own loader
+  const handleSelect = (token, title) => {
+    selectProduct(token, title); // fire-and-forget; ResultsPage shows its own loader
     navigate(ROUTES.results);
   };
 

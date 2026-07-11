@@ -11,11 +11,14 @@ export const searchApi = {
     return data;
   },
 
-  /** Step 2 — build routes for a chosen product_token. Returns the result object. */
-  routes: async (productToken, query = '') => {
+  /** Step 2 — build routes for a chosen product_token. `title` (the picked
+   * candidate's own title) drives a focused re-search for that exact variant
+   * server-side — pass it whenever available. Returns the result object. */
+  routes: async (productToken, query = '', title = '') => {
     const { data } = await apiClient.post('/routes', {
       product_token: productToken,
       query,
+      title,
     });
     return data;
   },

@@ -15,7 +15,7 @@ export default function ProductCandidateCard({ product, onSelect, isSelecting })
     <Card
       as="button"
       type="button"
-      onClick={() => onSelect(token)}
+      onClick={() => onSelect(token, title)}
       disabled={isSelecting}
       textAlign="left"
       w="100%"

@@ -6,7 +6,6 @@ import Card from '@/components/common/Card';
 import SearchBox from '@/components/common/SearchBox';
 import { I } from '@/components/common/icons';
 import ProductIdentity from '@/components/dashboard/ProductIdentity';
-import UnverifiedWarning from '@/components/dashboard/UnverifiedWarning';
 import SavingsBar from '@/components/dashboard/SavingsBar';
 import RouteCard from '@/components/dashboard/RouteCard';
 import CardFomo from '@/components/dashboard/CardFomo';
@@ -146,7 +145,6 @@ export default function ResultsPage() {
       ) : (
         <Flex direction="column" gap="14px">
           <ProductIdentity name={productName} sourceUrl={sourceUrl} />
-          {result.untrusted_sellers_warning && <UnverifiedWarning />}
           <SavingsBar
             originalPrice={calcOriginal(result, activeRoute)}
             finalPrice={calcFinal(activeRoute)}

@@ -1,12 +1,12 @@
 import { Box, Flex, Link, ListItem, Text, UnorderedList } from '@chakra-ui/react';
 
 import Eyebrow from '@/components/common/Eyebrow';
-import { fmt, paidForVoucher, cleanInstructions } from '@/utils/format';
+import { fmt, paidForVoucher } from '@/utils/format';
 
 /**
  * Numbered "How to do it" steps for a voucher route, plus an optional
- * "Before you buy" list built from cleaned Gyftr redemption instructions.
- * Renders nothing when the route has no voucher.
+ * "Before you buy" list from the (already backend-cleaned) Gyftr redemption
+ * instructions. Renders nothing when the route has no voucher.
  */
 export default function HowToSteps({ rec }) {
   const v = rec.voucher || null;
@@ -36,7 +36,7 @@ export default function HowToSteps({ rec }) {
       : 'Apply the voucher at checkout — your full order is covered',
   ];
 
-  const instructions = cleanInstructions(v.redemption_instructions);
+  const instructions = v.redemption_instructions || [];
 
   return (
     <Box bg="surface2" border="1px solid" borderColor="border" borderRadius="sm" p="14px 18px">

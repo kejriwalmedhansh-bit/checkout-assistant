@@ -35,6 +35,7 @@ class SearchCandidatesResponse(BaseModel):
 class RoutesRequest(BaseModel):
     product_token: str
     query: str = ""
+    title: str = ""
 
 
 class VoucherUpi(BaseModel):
@@ -71,6 +72,7 @@ class CardFomo(BaseModel):
     final_cost_with_card: float
     cap_amount: float | None = None
     cap_period: str | None = None
+    apply_url: str | None = None
 
 
 class Seller(BaseModel):
@@ -109,7 +111,6 @@ class SearchResultsResponse(BaseModel):
     size_comparison: dict[str, Any] | None = None
     vouchers: list[VoucherDeal] = []
     routes: RoutesModel = RoutesModel()
-    untrusted_sellers_warning: bool = False
     error: str | None = None
 
 

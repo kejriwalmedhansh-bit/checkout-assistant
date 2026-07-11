@@ -47,12 +47,14 @@ export const useSearchStore = create(
         }
       },
 
-      // Step 2 — build routes for a chosen product token.
-      selectProduct: async (token) => {
+      // Step 2 — build routes for a chosen product token. `title` (the
+      // candidate's own title) drives a focused re-search for that exact
+      // variant server-side, rather than trusting just this one listing.
+      selectProduct: async (token, title = '') => {
         if (!token) return;
         set({ selectedToken: token, result: null, status: 'loading', error: null });
         try {
-          const result = await searchApi.routes(token, get().query);
+          const result = await searchApi.routes(token, get().query, title);
           set({ result, status: 'success', error: null });
         } catch (err) {
           set({ result: null, status: 'error', error: extractErrorMessage(err) });

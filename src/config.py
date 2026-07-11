@@ -20,8 +20,10 @@ class Settings(BaseSettings):
     )
 
     # --- SearchApi.io ---
-    # Hardcoded default so the app works without a .env; override via env if rotated.
-    SEARCHAPI_KEY: str = "HU8Ssr9HHCjBBLHh9tH44FhC"
+    # No hardcoded fallback — a live API key doesn't belong in source/git
+    # history. Must be set in .env; searchapi_repository already errors
+    # gracefully (not a crash) if it's missing.
+    SEARCHAPI_KEY: str = ""
     SEARCHAPI_TIMEOUT: int = 30
 
     # --- WhatsApp (Meta Graph API) — all optional so the app boots unconfigured ---

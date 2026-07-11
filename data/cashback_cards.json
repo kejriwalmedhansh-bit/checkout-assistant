@@ -7,7 +7,8 @@
     "gyftr_rate": 0.05,
     "cap_amount": 2000,
     "cap_period": "monthly",
-    "annual_fee": 999
+    "annual_fee": 999,
+    "apply_url": "https://bitli.in/vW4iKjM"
   },
   "Flipkart Axis": {
     "rate_online": 0.01,
@@ -25,7 +26,8 @@
     "gyftr_rate": 0,
     "cap_amount": 4000,
     "cap_period": "quarterly",
-    "annual_fee": 500
+    "annual_fee": 500,
+    "apply_url": "https://bitli.in/TL2Z8XL"
   },
   "BOB Cashback": {
     "rate_online": 0.05,
@@ -35,6 +37,7 @@
     "gyftr_rate": 0.05,
     "cap_amount": 1500,
     "cap_period": "monthly",
-    "annual_fee": 499
+    "annual_fee": 499,
+    "apply_url": "https://bitli.in/lsHBdls"
   }
 }

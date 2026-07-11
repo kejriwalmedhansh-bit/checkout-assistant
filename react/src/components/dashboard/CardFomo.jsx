@@ -1,13 +1,14 @@
-import { Box, Flex, Text } from '@chakra-ui/react';
+import { Box, Flex, Link, Text } from '@chakra-ui/react';
 
 import Card from '@/components/common/Card';
 import { I } from '@/components/common/icons';
 import { fmt } from '@/utils/format';
 
 /**
- * Optional card-savings nudge, shown ONLY on the recommended route and ONLY when
- * the backend supplies `card_fomo` (it gates the display threshold — we never
- * re-derive it). Card savings never affect ranking.
+ * Optional card-savings nudge, shown on whichever route is currently active
+ * (recommended, or a picked alternative) and only when the backend supplies
+ * `card_fomo` (it gates the display threshold — we never re-derive it).
+ * Card savings never affect ranking.
  */
 export default function CardFomo({ cardFomo }) {
   if (!cardFomo?.card_name) return null;
@@ -30,7 +31,7 @@ export default function CardFomo({ cardFomo }) {
         >
           <I.zap size={20} />
         </Flex>
-        <Box>
+        <Box flex="1" minW={0}>
           <Text fontSize="15px" fontWeight={700} color="green">
             Save {fmt(cardFomo.actual_saving)} more
           </Text>
@@ -41,6 +42,25 @@ export default function CardFomo({ cardFomo }) {
             Final price: {fmt(cardFomo.final_cost_with_card)}
           </Text>
         </Box>
+        {cardFomo.apply_url && (
+          <Link
+            href={cardFomo.apply_url}
+            isExternal
+            flex="0 0 auto"
+            fontSize="12px"
+            fontWeight={600}
+            color="orangeText"
+            bg="orangeSoft"
+            border="1px solid"
+            borderColor="orange"
+            borderRadius="6px"
+            px="10px"
+            py="6px"
+            _hover={{ textDecoration: 'none', bg: 'orangeSoft2' }}
+          >
+            Apply →
+          </Link>
+        )}
       </Flex>
     </Card>
   );

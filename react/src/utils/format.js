@@ -42,9 +42,12 @@ export function paidForVoucher(v) {
 }
 
 /**
- * Clean the raw Gyftr redemption instructions for the "Before you buy" list:
- * drop empties, drop trailing "Important Instructions" headers, and drop
- * all-caps heading lines.
+ * Clean raw Gyftr redemption instructions: drop empties, trailing "Important
+ * Instructions" headers, and all-caps heading lines. Only still needed for
+ * VoucherDetailPage, which reads straight from voucher_repository (raw data)
+ * — the route-building path (HowToSteps) gets pre-cleaned data straight from
+ * voucher_service.py::_clean_instructions() now, the single source of truth
+ * for both web and WhatsApp there.
  */
 export function cleanInstructions(list) {
   return (list || []).filter((i) => {
@@ -53,10 +56,16 @@ export function cleanInstructions(list) {
   });
 }
 
+// Cuelinks publisher cid (approved, live) — mirrors CUELINKS_BASE/CUELINKS_CID
+// in src/constants.py + src/config.py. Not a secret: this id is already
+// public in the wrapped URLs themselves.
+const CUELINKS_CID = '297179';
+
 /**
- * Affiliate wrapper. Identity passthrough for now — the single place to add
- * Cuelinks wrapping later (deliberately not applied to Gyftr voucher links).
+ * Affiliate wrapper for merchant store links — deliberately NOT applied to
+ * Gyftr voucher links (callers should pass those through unwrapped).
  */
 export function affiliateUrl(link) {
-  return link || '#';
+  if (!link) return '#';
+  return `https://linksredirect.com/?cid=${CUELINKS_CID}&source=linkkit&url=${encodeURIComponent(link)}`;
 }
