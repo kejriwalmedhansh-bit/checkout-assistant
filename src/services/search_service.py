@@ -79,12 +79,28 @@ def _is_trusted_merchant(merchant_name: str, whitelist: set[str]) -> bool:
     return False
 
 
-def _filter_trusted_only(results: list[dict]) -> list[dict]:
+def _filter_trusted_only(results: list[dict], merchant_key: str = "merchant") -> list[dict]:
     """Keep only whitelisted merchants. If nothing survives, returns an empty
     list — an untrusted-only result set is treated as no route found rather
     than shown with a warning (trust is the core product value)."""
     whitelist = _load_trusted_merchants()
-    return [r for r in results if _is_trusted_merchant(r.get("merchant") or "", whitelist)]
+    return [r for r in results if _is_trusted_merchant(r.get(merchant_key) or "", whitelist)]
+
+
+_PRIORITY_MERCHANTS_NORM = {_norm(m) for m in PRIORITY_MERCHANTS}
+
+
+def _priority_merchant_anchor(results: list[dict], merchant_key: str = "merchant") -> float | None:
+    """Highest price quoted by one of the small `PRIORITY_MERCHANTS` set (our
+    highest-confidence retailers) among these results, if any. Used to anchor
+    the outlier check on a real reference price instead of the survivor
+    pool's own median — which a majority of clone listings can otherwise skew
+    low enough that no clone reads as an outlier relative to the others."""
+    prices = [
+        r.get("price") for r in results
+        if r.get("price") and _norm(r.get(merchant_key) or "") in _PRIORITY_MERCHANTS_NORM
+    ]
+    return max(prices) if prices else None
 
 
 def _outlier_filter(results: list[dict]) -> tuple[list[dict], int]:
@@ -310,6 +326,14 @@ _COLOR_WORDS = [
     "starlight", "rose", "orange", "beige", "brown", "teal", "navy", "coral",
 ]
 
+_STORAGE_RE = re.compile(r"\b(\d+)\s?(gb|tb)\b")
+
+# A seller listing can bundle two different SKUs behind one slash (e.g. a
+# WooCommerce variant page titled "AirPods Pro 3/AirPods 3") — split on it so
+# each half can be checked independently instead of letting the other half's
+# words paper over a mismatch.
+_SEGMENT_SPLIT_RE = re.compile(r"\s*/\s*")
+
 
 def _norm_title(s: str) -> str:
     return re.sub(r"[^a-z0-9\s]", " ", (s or "").lower())
@@ -340,13 +364,47 @@ def _required_tokens(query: str) -> list[str]:
     return [t for t in tokens if t not in KNOWN_BRANDS and t not in _QUERY_STOPWORDS]
 
 
+def _is_bare_modifier_segment(segment: str) -> bool:
+    """True if a "/"-separated title segment is just a trailing storage/color/
+    bare-number continuation of the previous segment (e.g. the "512GB" in
+    "256GB/512GB"), not an independent product-name claim."""
+    normalized = _norm_title(segment)
+    stripped = _STORAGE_RE.sub(" ", normalized)
+    words = stripped.split()
+    return all(w.isdigit() or w in _COLOR_WORDS for w in words)
+
+
+def _token_pattern(token: str) -> str:
+    """A bare generation/model number like "2" must also match its ordinal
+    form in a listing title ("2nd Generation") — sellers routinely phrase the
+    same product differently, and rejecting the ordinal phrasing would
+    incorrectly filter out genuine listings while admitting sloppier ones
+    that happen to repeat the bare digit instead."""
+    if token.isdigit():
+        return rf"\b{re.escape(token)}(?:st|nd|rd|th)?\b"
+    return rf"\b{re.escape(token)}\b"
+
+
 def _matches_required_tokens(title: str, tokens: list[str]) -> bool:
     """Word-boundary match (not raw substring) — a required token like "17e"
     must not be satisfied by "17" appearing inside an unrelated word, and a
     different-but-similar product (e.g. "iPhone 16e" against a required "17e"
-    token) must not slip through."""
-    normalized = _norm_title(title)
-    return all(re.search(rf"\b{re.escape(t)}\b", normalized) for t in tokens)
+    token) must not slip through.
+
+    A title with multiple "/"-separated segments (e.g. a seller listing
+    bundling two SKUs as "AirPods Pro 3/AirPods 3") must have every
+    non-modifier segment independently satisfy the required tokens — otherwise
+    a listing that also names a different, non-matching product would still
+    pass just because the *other* half happens to mention the right words.
+    """
+    def _segment_matches(text: str) -> bool:
+        normalized = _norm_title(text)
+        return all(re.search(_token_pattern(t), normalized) for t in tokens)
+
+    segments = _SEGMENT_SPLIT_RE.split(title or "")
+    if len(segments) <= 1:
+        return _segment_matches(title)
+    return all(_segment_matches(seg) for seg in segments if not _is_bare_modifier_segment(seg))
 
 
 def _distinguishing_words(title: str, exclude: set) -> frozenset:
@@ -370,7 +428,7 @@ def _distinguishing_words(title: str, exclude: set) -> frozenset:
 
 def _extract_variant_signature(title: str, exclude: set) -> tuple:
     normalized = _norm_title(title)
-    storage_m = re.search(r"\b(\d+)\s?(gb|tb)\b", normalized)
+    storage_m = _STORAGE_RE.search(normalized)
     storage = f"{storage_m.group(1)}{storage_m.group(2)}" if storage_m else None
     color = next((c for c in _COLOR_WORDS if re.search(rf"\b{re.escape(c)}\b", normalized)), None)
     extra_words = _distinguishing_words(title, exclude | {storage, color} - {None})
@@ -401,12 +459,37 @@ def _filter_and_group_candidates(candidates: list[dict], query: str) -> list[dic
         and _is_latin_dominant(c["title"])
         and (not tokens or _matches_required_tokens(c["title"], tokens))
     ]
-    # Defense-in-depth against accessory-keyword gaps (e.g. a phone "wallet"
-    # case priced at half the phone's cost) — same 40%-of-median threshold
-    # already used for L1 route results in _outlier_filter.
-    survivors, _ = _outlier_filter(survivors)
     if not survivors:
         return candidates
+
+    # Drop listings from sellers outside the trusted-merchant whitelist — the
+    # same check already applied at the route-building stage, now applied here
+    # too so counterfeit/clone listings (e.g. generic marketplace sellers
+    # undercutting a genuine product by 10x) never reach the picker at all.
+    # No fallback to the unfiltered list on this stage: an untrusted-only
+    # result set means no trustworthy candidate exists, which is a better
+    # outcome than surfacing a counterfeit (see _filter_trusted_only's
+    # docstring / CLAUDE.md rule #1 — a wrong result is worse than none).
+    survivors = _filter_trusted_only(survivors, merchant_key="source")
+
+    # If one of our small set of highest-confidence retailers (PRIORITY_MERCHANTS)
+    # quoted a price here, anchor the price-sanity check on that instead of the
+    # survivor pool's own median — clone listings routinely outnumber the one
+    # genuine listing for a query, which otherwise drags the median low enough
+    # that no clone reads as an outlier relative to the others. No anchor means
+    # no priority merchant showed up for this query — falls back to the median
+    # check below unchanged.
+    anchor = _priority_merchant_anchor(survivors, merchant_key="source")
+    if anchor is not None:
+        threshold = 0.4 * anchor
+        survivors = [c for c in survivors if (c.get("price") or 0) >= threshold or not c.get("price")]
+
+    # Defense-in-depth against price anomalies within the now-trusted set (e.g.
+    # a stale/broken scrape price) — same 40%-of-median threshold already used
+    # for L1 route results.
+    survivors, _ = _outlier_filter(survivors)
+    if not survivors:
+        return []
 
     groups: dict = {}
     order: list = []
