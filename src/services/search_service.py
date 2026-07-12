@@ -87,18 +87,29 @@ def _filter_trusted_only(results: list[dict], merchant_key: str = "merchant") ->
     return [r for r in results if _is_trusted_merchant(r.get(merchant_key) or "", whitelist)]
 
 
-_PRIORITY_MERCHANTS_NORM = {_norm(m) for m in PRIORITY_MERCHANTS}
+# Platforms that host third-party sellers under their own storefront name —
+# a price attributed to them can be a genuine sale or an unrelated reseller's
+# listing (see CLAUDE.md known-bug #7), so they're fine to *show* (still
+# trusted) but not reliable enough to *anchor* a price check.
+_MARKETPLACE_MERCHANTS = {"flipkart", "amazon"}
 
 
 def _priority_merchant_anchor(results: list[dict], merchant_key: str = "merchant") -> float | None:
-    """Highest price quoted by one of the small `PRIORITY_MERCHANTS` set (our
-    highest-confidence retailers) among these results, if any. Used to anchor
-    the outlier check on a real reference price instead of the survivor
-    pool's own median — which a majority of clone listings can otherwise skew
-    low enough that no clone reads as an outlier relative to the others."""
+    """Highest price quoted by a trusted, non-marketplace merchant among these
+    results, if any. Used to anchor the outlier check on a real reference
+    price instead of the survivor pool's own median — which a majority of
+    clone listings can otherwise skew low enough that no clone reads as an
+    outlier relative to the others. Marketplace platforms (Flipkart, Amazon)
+    are excluded from anchoring since a price attributed to them isn't
+    necessarily the platform's own — it can be any third-party seller's.
+
+    Reuses `_is_trusted_merchant`'s fuzzy substring match (not exact-name
+    comparison) — real listings say "JioMart Electronics", not bare
+    "JioMart", and an exact match would silently never anchor on them."""
+    whitelist = _load_trusted_merchants() - _MARKETPLACE_MERCHANTS
     prices = [
         r.get("price") for r in results
-        if r.get("price") and _norm(r.get(merchant_key) or "") in _PRIORITY_MERCHANTS_NORM
+        if r.get("price") and _is_trusted_merchant(r.get(merchant_key) or "", whitelist)
     ]
     return max(prices) if prices else None
 
@@ -472,13 +483,12 @@ def _filter_and_group_candidates(candidates: list[dict], query: str) -> list[dic
     # docstring / CLAUDE.md rule #1 — a wrong result is worse than none).
     survivors = _filter_trusted_only(survivors, merchant_key="source")
 
-    # If one of our small set of highest-confidence retailers (PRIORITY_MERCHANTS)
-    # quoted a price here, anchor the price-sanity check on that instead of the
-    # survivor pool's own median — clone listings routinely outnumber the one
-    # genuine listing for a query, which otherwise drags the median low enough
-    # that no clone reads as an outlier relative to the others. No anchor means
-    # no priority merchant showed up for this query — falls back to the median
-    # check below unchanged.
+    # If a trusted, non-marketplace merchant quoted a price here, anchor the
+    # price-sanity check on that instead of the survivor pool's own median —
+    # clone listings routinely outnumber the one genuine listing for a query,
+    # which otherwise drags the median low enough that no clone reads as an
+    # outlier relative to the others. No anchor means no such merchant showed
+    # up for this query — falls back to the median check below unchanged.
     anchor = _priority_merchant_anchor(survivors, merchant_key="source")
     if anchor is not None:
         threshold = 0.4 * anchor
@@ -661,11 +671,26 @@ def build_routes_for_token(product_token: str, query: str = "", title: str = "")
             if required:
                 refined = [c for c in refined if _matches_required_tokens(c["title"], required)]
             refined = _filter_trusted_only(refined)
+
+            # Same priority-merchant price anchor as the Product Picker: this
+            # narrower, freshly-searched pool can just as easily be dominated
+            # by clones as the picker's own pool was, so the plain median
+            # filter below isn't enough on its own.
+            anchor = _priority_merchant_anchor(refined)
+            if anchor is not None:
+                threshold = 0.4 * anchor
+                refined = [c for c in refined if (c.get("price") or 0) >= threshold or not c.get("price")]
+
             refined, _ = _outlier_filter(refined)
             refined.sort(key=lambda c: c.get("price") if c.get("price") is not None else float("inf"))
             tokens_to_fetch = [c["product_token"] for c in refined[:_ROUTE_TOKEN_CAP]]
-        if not tokens_to_fetch:
-            tokens_to_fetch = [product_token]
+
+        # The originally-selected token was already vetted against the full
+        # Product Picker candidate pool (including its own trust/price
+        # checks) — a narrower refined search finding something else is not
+        # grounds to drop it, only to potentially outrank it later.
+        if product_token not in tokens_to_fetch:
+            tokens_to_fetch.append(product_token)
 
         candidates: list[dict] = []
         display_title = ""
@@ -694,6 +719,16 @@ def build_routes_for_token(product_token: str, query: str = "", title: str = "")
 
         # L1 guards.
         candidates = _filter_trusted_only(candidates)
+
+        # Anchor on priority-merchant pricing here too — this is the pool
+        # final routes get built from, so it's the last and most important
+        # place to keep a merged-in clone from outranking the genuine,
+        # already-vetted pick on price alone.
+        anchor = _priority_merchant_anchor(candidates)
+        if anchor is not None:
+            threshold = 0.4 * anchor
+            candidates = [c for c in candidates if (c.get("price") or 0) >= threshold or not c.get("price")]
+
         candidates, _removed = _outlier_filter(candidates)
         candidates = _dedup_by_merchant(candidates)
         candidates = _priority_sort(candidates)
