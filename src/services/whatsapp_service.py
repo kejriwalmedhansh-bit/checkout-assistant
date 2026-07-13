@@ -343,8 +343,14 @@ async def _send_route_message(
         await send_cta_url(phone, body_text, button_label, url)
 
 
-async def _send_routes_for_token(phone: str, product_token: str, query: str, title: str = "") -> None:
-    result = await asyncio.to_thread(search_service.build_routes_for_token, product_token, query, title)
+async def _send_routes_for_token(
+    phone: str, product_token: str, query: str, title: str = "",
+    picked_price: float | None = None, picked_source: str = "",
+) -> None:
+    result = await asyncio.to_thread(
+        search_service.build_routes_for_token, product_token, query, title,
+        picked_price, picked_source,
+    )
     routes = result.get("routes", {})
     recommended = routes.get("recommended")
     if not recommended:
@@ -367,7 +373,11 @@ async def process_and_respond(phone: str, classification: dict) -> None:
             return
 
         if len(products) == 1:
-            await _send_routes_for_token(phone, products[0]["product_token"], query, products[0].get("title", ""))
+            only = products[0]
+            await _send_routes_for_token(
+                phone, only["product_token"], query, only.get("title", ""),
+                only.get("price"), only.get("source", ""),
+            )
             return
 
         session_store.set_session(phone, {"candidates": products, "query": query})
@@ -405,7 +415,10 @@ async def handle_product_selection(phone: str, reply_id: str) -> None:
     except (ValueError, IndexError):
         await send_text(phone, WHATSAPP_DEAD_END_MSG)
         return
-    await _send_routes_for_token(phone, chosen["product_token"], query, chosen.get("title", ""))
+    await _send_routes_for_token(
+        phone, chosen["product_token"], query, chosen.get("title", ""),
+        chosen.get("price"), chosen.get("source", ""),
+    )
 
 
 async def handle_alternatives(phone: str) -> None:
