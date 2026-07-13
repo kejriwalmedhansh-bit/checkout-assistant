@@ -14,10 +14,21 @@ export default function HowToSteps({ rec }) {
 
   const paid = paidForVoucher(v);
   const txnsNeeded = v.upi?.txns_needed || 1;
+  const breakdown = v.upi?.denomination_breakdown || [];
+
+  // Gyftr only sells fixed denominations — a customer can't buy one voucher
+  // for the full total when more than one denomination is needed, so this
+  // must say exactly what to buy, not just the total amount. Singular,
+  // natural phrasing when it's just one voucher (the common case).
+  const singleVoucher = breakdown.length === 1 && breakdown[0].count === 1;
+  const buyLabel =
+    breakdown.length > 0 && !singleVoucher
+      ? breakdown.map((b) => `${b.count} × ${fmt(b.denom)}`).join(' + ') + ` in ${rec.merchant} vouchers`
+      : `a ${fmt(v.upi?.voucher_amount)} ${rec.merchant} voucher`;
 
   const steps = [
     <>
-      Buy a {fmt(v.upi?.voucher_amount)} {rec.merchant} voucher on{' '}
+      Buy {buyLabel} on{' '}
       <Link href={v.voucher_url} isExternal color="orangeText" fontWeight={500}>
         Gyftr
       </Link>{' '}

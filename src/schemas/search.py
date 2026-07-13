@@ -46,6 +46,11 @@ class RoutesRequest(BaseModel):
     source: str = ""
 
 
+class DenominationPurchase(BaseModel):
+    denom: int
+    count: int
+
+
 class VoucherUpi(BaseModel):
     pct: float = 0
     voucher_amount: float = 0
@@ -54,6 +59,11 @@ class VoucherUpi(BaseModel):
     effective_price: float = 0
     txns_needed: int = 1
     purchase_cap_per_txn: int | None = None
+    # What to actually buy on Gyftr — a customer can't purchase one voucher
+    # for `voucher_amount` directly when it's the sum of several fixed
+    # denominations; this is the real, executable breakdown.
+    denomination_breakdown: list[DenominationPurchase] = []
+    purchase_breakdown: str = ""
 
 
 class VoucherCard(BaseModel):

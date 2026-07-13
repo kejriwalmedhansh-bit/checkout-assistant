@@ -36,11 +36,16 @@ def _greedy_voucher_amount(
     fixed_denoms: list[int],
     stack_limit: int | None = None,
     value_cap: float | None = None,
-) -> int:
-    """Largest sum of denominations (with repetition) within price, stack_limit, and value_cap."""
+) -> tuple[int, list[dict]]:
+    """Largest sum of denominations (with repetition) within price, stack_limit,
+    and value_cap. Returns (total, breakdown) — breakdown is the actual list of
+    {denom, count} purchases that sum to `total`, since Gyftr only sells fixed
+    denominations and a customer can't literally buy one voucher for the total
+    amount; they need to know exactly which/how-many denominations to buy."""
     remaining = int(price)
     total = 0
     count_used = 0
+    breakdown: list[dict] = []
     for d in sorted(fixed_denoms, reverse=True):
         if stack_limit is not None:
             room_by_count = stack_limit - count_used
@@ -56,10 +61,20 @@ def _greedy_voucher_amount(
         else:
             room_by_value_count = float("inf")
         count = min(remaining // d, room_by_count, room_by_value_count)
+        if count > 0:
+            breakdown.append({"denom": d, "count": int(count)})
         total += count * d
         remaining -= count * d
         count_used += count
-    return total
+    return total, breakdown
+
+
+def _format_breakdown(breakdown: list[dict]) -> str:
+    """'8x Rs 5,000 + 1x Rs 2,000' style summary for how-to-buy copy — or just
+    'Rs 2,000' for the common single-voucher case, not '1x Rs 2,000'."""
+    if len(breakdown) == 1 and breakdown[0]["count"] == 1:
+        return f"₹{breakdown[0]['denom']:,}"
+    return " + ".join(f"{b['count']}×₹{b['denom']:,}" for b in breakdown)
 
 
 def _denominations_str(voucher: dict) -> str:
@@ -116,6 +131,7 @@ def _clean_instructions(html: str) -> list[str]:
 def calculate_effective_price(price: float, voucher: dict, payment_method: str = "upi") -> dict:
     discount_pct = _discount_pct(voucher, payment_method)
     custom_txns_needed = None
+    denomination_breakdown: list[dict] = []
 
     if voucher.get("is_custom_denom"):
         # Real custom-amount range (e.g. Titan: any exact amount ₹100-10,000).
@@ -146,11 +162,12 @@ def calculate_effective_price(price: float, voucher: dict, payment_method: str =
             remainder = 0.0
             is_custom = True
         else:
-            voucher_amount = float(_greedy_voucher_amount(
+            amount, denomination_breakdown = _greedy_voucher_amount(
                 price, fixed_denoms,
                 stack_limit=voucher.get("stack_limit"),
                 value_cap=voucher.get("value_cap"),
-            ))
+            )
+            voucher_amount = float(amount)
             remainder = round(price - voucher_amount, 2)
 
     if voucher.get("purchase_cap_per_txn"):
@@ -162,6 +179,24 @@ def calculate_effective_price(price: float, voucher: dict, payment_method: str =
 
     discount_amount = round(voucher_amount * discount_pct / 100, 2)
     effective_price = round(price - discount_amount, 2)
+
+    # What the customer actually needs to buy — Gyftr only sells fixed
+    # denominations (or, for custom-amount/wallet brands, up to `custom_max`
+    # per voucher), so "buy a voucher worth the full total" is never
+    # literally purchasable when more than one voucher is needed. Surfacing
+    # the real breakdown here (rather than just the total) is what makes the
+    # how-to-buy copy actually executable instead of misleading.
+    if denomination_breakdown:
+        purchase_breakdown = _format_breakdown(denomination_breakdown)
+    elif is_custom and voucher.get("is_custom_denom") and txns_needed and voucher.get("custom_max"):
+        custom_max = voucher["custom_max"]
+        if txns_needed > 1:
+            purchase_breakdown = f"{txns_needed}×up to ₹{custom_max:,.0f}"
+        else:
+            purchase_breakdown = f"₹{voucher_amount:,.0f}"
+    else:
+        purchase_breakdown = f"₹{voucher_amount:,.0f}" if voucher_amount else ""
+
     return {
         "original_price": price,
         "voucher_amount": voucher_amount,
@@ -176,6 +211,8 @@ def calculate_effective_price(price: float, voucher: dict, payment_method: str =
         "voucher_url": f"https://www.gyftr.com/{voucher['slug']}",
         "redemption_type": voucher.get("redemption_type", ""),
         "denominations": _denominations_str(voucher),
+        "denomination_breakdown": denomination_breakdown,
+        "purchase_breakdown": purchase_breakdown,
         "redemption_instructions": _clean_instructions(voucher.get("important_instructions_raw") or ""),
     }
 
@@ -252,6 +289,8 @@ def build_deals(results: list[dict], product_name: str = "") -> list[dict]:
                 "effective_price": deal["effective_price"],
                 "txns_needed": deal.get("txns_needed", 1),
                 "purchase_cap_per_txn": voucher.get("purchase_cap_per_txn"),
+                "denomination_breakdown": deal.get("denomination_breakdown") or [],
+                "purchase_breakdown": deal.get("purchase_breakdown") or "",
             },
             "card": {
                 "pct": card_deal["voucher_discount_pct"],

@@ -31,7 +31,7 @@ export default function Journey({ rec }) {
             tone="voucher"
             icon={I.ticket}
             label="Gyftr voucher"
-            detail={`Buy ${fmt(v.upi?.voucher_amount)} via UPI`}
+            detail={`Buy ${v.upi?.purchase_breakdown || fmt(v.upi?.voucher_amount)} via UPI`}
             price={`${v.upi?.pct}% off`}
             link={v.voucher_url ? { href: v.voucher_url, label: 'Buy voucher →' } : undefined}
           />

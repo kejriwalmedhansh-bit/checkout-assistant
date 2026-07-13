@@ -122,7 +122,13 @@ def format_recommended(route: dict, label: str = "RECOMMENDED ROUTE") -> str:
         discount = upi.get("pct", 0)
         denomination = upi.get("voucher_amount", 0)
         remainder = upi.get("remainder", 0)
-        lines.append(f"1. Buy ₹{denomination:,.0f} {brand} voucher → UPI → {discount}% off")
+        # Gyftr only sells fixed denominations — show the real breakdown
+        # (e.g. "8x Rs 5,000 + 1x Rs 2,000") when more than one voucher is
+        # needed, since "buy a Rs X voucher" isn't literally purchasable.
+        denom_breakdown = upi.get("denomination_breakdown") or []
+        voucher_word = "voucher" if sum(b.get("count", 0) for b in denom_breakdown) <= 1 else "vouchers"
+        breakdown = upi.get("purchase_breakdown") or f"₹{denomination:,.0f}"
+        lines.append(f"1. Buy {breakdown} {brand} {voucher_word} → UPI → {discount}% off")
         if in_store:
             lines.append(f"2. Head to nearest {merchant} store")
             lines.append(
@@ -169,7 +175,12 @@ def _route_links(route: dict) -> list[tuple[str, str, str]]:
         txns = upi.get("txns_needed", 1)
         denomination = upi.get("voucher_amount", 0)
         cap_per_txn = upi.get("purchase_cap_per_txn")
-        body_lines = [f"Buy a ₹{denomination:,.0f} {voucher_brand} voucher on Gyftr using UPI."]
+        # Same reasoning as the web UI: Gyftr only sells fixed denominations,
+        # so show the real breakdown rather than implying one lump-sum voucher.
+        denom_breakdown = upi.get("denomination_breakdown") or []
+        voucher_word = "voucher" if sum(b.get("count", 0) for b in denom_breakdown) <= 1 else "vouchers"
+        breakdown = upi.get("purchase_breakdown") or f"₹{denomination:,.0f}"
+        body_lines = [f"Buy {breakdown} {voucher_brand} {voucher_word} on Gyftr using UPI."]
         if txns > 1:
             cap_text = f" (₹{cap_per_txn:,.0f} max per transaction)" if cap_per_txn else ""
             body_lines.append(f"You'll need {txns} separate Gyftr purchases{cap_text}.")
