@@ -128,8 +128,10 @@ def calculate_effective_price(price: float, voucher: dict, payment_method: str =
             total_cap = custom_max * stack_limit
         elif voucher.get("stack_limit_confidence") == "unlimited_stated":
             # No stated per-bill count cap — bounded by the purchase price
-            # itself, not an arbitrary vouchers-per-bill number.
-            total_cap = price
+            # itself (or a real value_cap, if the brand's terms separately
+            # state one), not an arbitrary vouchers-per-bill number.
+            value_cap = voucher.get("value_cap")
+            total_cap = min(price, value_cap) if value_cap else price
         else:
             # Unknown — conservative default of a single voucher.
             total_cap = custom_max

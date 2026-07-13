@@ -16,10 +16,18 @@ LIMIT_PATTERNS = [
 
 NO_STACK_PATTERNS = [
     r'cannot\s+be\s+used\s+multiple\s+times',
-    r'one[\s-]time\s+use',
-    r'single\s+use',
     r'only\s+one\s+(?:gift\s+)?voucher\s+can\s+be\s+used',
 ]
+
+# NOTE: 'one-time use' / 'single use' were deliberately removed from
+# NO_STACK_PATTERNS above. That boilerplate describes a single voucher CODE
+# being non-reusable (can't redeem the same code twice) — it says nothing
+# about whether MULTIPLE DIFFERENT vouchers can be stacked in one bill, and
+# appears on almost every brand's T&C regardless of actual stacking policy.
+# Treating it as a stacking cap was the root cause of dozens of brands
+# (AJIO, Nykaa, Steam, etc.) being wrongly capped at 1 voucher. The
+# `one_time_use` field below still tracks this phrase for its own (correct)
+# purpose. Do not add these patterns back here.
 
 # "Cannot be used multiple times" / "single use" describe an individual voucher
 # being non-reusable, NOT a per-bill stacking cap — brands routinely say both
