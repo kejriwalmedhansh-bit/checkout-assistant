@@ -9,13 +9,13 @@ import { fmt } from '@/utils/format';
  * Clicking it commits the product_token and kicks off the route build.
  */
 export default function ProductCandidateCard({ product, onSelect, isSelecting }) {
-  const { title, price, thumbnail, product_token: token } = product;
+  const { title, price, thumbnail, source, product_token: token } = product;
 
   return (
     <Card
       as="button"
       type="button"
-      onClick={() => onSelect(token, title)}
+      onClick={() => onSelect(token, title, price, source)}
       disabled={isSelecting}
       textAlign="left"
       w="100%"

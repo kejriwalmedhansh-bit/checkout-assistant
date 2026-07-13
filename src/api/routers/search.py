@@ -33,7 +33,10 @@ def search(payload: SearchRequest) -> dict:
 @router.post("/routes", response_model=SearchResultsResponse)
 def routes(payload: RoutesRequest) -> dict:
     """Step 2: build routes/vouchers/cards for a chosen product_token."""
-    return search_service.build_routes_for_token(payload.product_token, payload.query, payload.title)
+    return search_service.build_routes_for_token(
+        payload.product_token, payload.query, payload.title,
+        picked_price=payload.price, picked_source=payload.source,
+    )
 
 
 @router.get("/products/{product_token}", response_model=ProductDetailResponse)

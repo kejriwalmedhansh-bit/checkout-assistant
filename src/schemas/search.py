@@ -36,6 +36,14 @@ class RoutesRequest(BaseModel):
     product_token: str
     query: str = ""
     title: str = ""
+    # The exact price/seller the Product Picker displayed for this token, so
+    # the route builder can pin it as a verified candidate instead of
+    # silently trusting whatever a broader downstream lookup returns for the
+    # same merchant (which is a different data source and isn't guaranteed
+    # to describe the same listing). Optional so older frontend builds still
+    # validate — falling back to prior (unpinned) behavior, not breaking.
+    price: float | None = None
+    source: str = ""
 
 
 class VoucherUpi(BaseModel):

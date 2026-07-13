@@ -132,14 +132,21 @@ def _outlier_filter(results: list[dict]) -> tuple[list[dict], int]:
 
 
 def _dedup_by_merchant(results: list[dict]) -> list[dict]:
-    """Per merchant, keep only the lowest-priced result."""
+    """Per merchant, keep only the lowest-priced result — except a `_pinned`
+    entry (the exact listing the user selected on the Product Picker) always
+    wins its merchant slot outright, regardless of price. That entry was
+    already verified once at picker time; a broader downstream search
+    finding a different price for the same merchant name is not grounds to
+    silently swap it out from under a selection the user already made."""
     seen: dict[str, dict] = {}
     for r in results:
         key = (r.get("merchant") or "").lower()
         if not key:
             continue
+        if seen.get(key, {}).get("_pinned"):
+            continue
         price = r.get("price") or float("inf")
-        if key not in seen or price < (seen[key].get("price") or float("inf")):
+        if r.get("_pinned") or key not in seen or price < (seen[key].get("price") or float("inf")):
             seen[key] = r
     return list(seen.values())
 
@@ -625,7 +632,43 @@ def _refined_variant_candidates(variant_query: str) -> list[dict]:
     return out
 
 
-def build_routes_for_token(product_token: str, query: str = "", title: str = "") -> dict:
+def _pinned_candidate(title: str, price: float | None, source: str, sellers: list[dict] | None = None) -> dict:
+    """Build a candidate dict, in the same shape `_build_candidates` produces,
+    for the exact listing the user selected on the Product Picker — tagged
+    `_pinned` so `_dedup_by_merchant` keeps it regardless of what a broader
+    downstream search finds for the same merchant. `sellers` carries a real
+    purchase link when one could be recovered (see `_find_seller_link`
+    below); the Product Picker's own cheap search never has a deep link on
+    its own, only a price/title/source."""
+    return {
+        "merchant": source,
+        "price": price,
+        "title": title,
+        "sellers": sellers or [],
+        "match_type": "Listed",
+        "_pinned": True,
+    }
+
+
+def _find_seller_link(candidates: list[dict], source: str) -> list[dict]:
+    """Best-effort recovery of a real seller link for `source` from a
+    candidate pool that may include merchants the trust filter would
+    otherwise strip — used only to attach a working link to an already-
+    pinned, already-priced candidate, never to admit an untrusted merchant
+    as a route on its own."""
+    norm_source = _norm(source)
+    if not norm_source:
+        return []
+    for c in candidates:
+        if _norm(c.get("merchant") or "") == norm_source and c.get("sellers"):
+            return c["sellers"]
+    return []
+
+
+def build_routes_for_token(
+    product_token: str, query: str = "", title: str = "",
+    picked_price: float | None = None, picked_source: str = "",
+) -> dict:
     """Step 2 of the two-step flow: resolve routes for a chosen Product Picker
     selection. Never raises — errors come back in the ``error`` field.
 
@@ -717,6 +760,16 @@ def build_routes_for_token(product_token: str, query: str = "", title: str = "")
             output["source"]["name"] = display_title
             output["source"]["brand"] = _infer_brand(display_title) or output["source"]["brand"]
 
+        # Kept from before the trust filter runs, purely so the pinned
+        # candidate below can recover a real seller link for the exact
+        # merchant the user picked — that merchant's own offer (fetched
+        # above for `product_token`, which is always included in
+        # tokens_to_fetch) may not be on the trust whitelist even when the
+        # listing itself is genuine, and a price with no way to reach it
+        # fails the "executable by anyone" requirement for a route just as
+        # much as a wrong price would.
+        pre_filter_candidates = candidates
+
         # L1 guards.
         candidates = _filter_trusted_only(candidates)
 
@@ -730,6 +783,20 @@ def build_routes_for_token(product_token: str, query: str = "", title: str = "")
             candidates = [c for c in candidates if (c.get("price") or 0) >= threshold or not c.get("price")]
 
         candidates, _removed = _outlier_filter(candidates)
+
+        # Pin the exact listing the user selected on the Product Picker —
+        # added AFTER trust/anchor/outlier filtering (it was already vetted
+        # once at picker time, so it shouldn't be re-subjected to the same
+        # checks) but BEFORE dedup, so it wins its merchant slot instead of
+        # being silently replaced by whatever this broader search found for
+        # that merchant, which is a different data source with no guarantee
+        # of describing the same listing.
+        if picked_price is not None and picked_source:
+            recovered_sellers = _find_seller_link(pre_filter_candidates, picked_source)
+            candidates.append(_pinned_candidate(
+                display_title or title or query, picked_price, picked_source, recovered_sellers,
+            ))
+
         candidates = _dedup_by_merchant(candidates)
         candidates = _priority_sort(candidates)
 
