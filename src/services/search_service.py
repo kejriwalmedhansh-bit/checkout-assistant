@@ -668,6 +668,7 @@ def _find_seller_link(candidates: list[dict], source: str) -> list[dict]:
 def build_routes_for_token(
     product_token: str, query: str = "", title: str = "",
     picked_price: float | None = None, picked_source: str = "",
+    picked_thumbnail: str | None = None,
 ) -> dict:
     """Step 2 of the two-step flow: resolve routes for a chosen Product Picker
     selection. Never raises — errors come back in the ``error`` field.
@@ -679,12 +680,19 @@ def build_routes_for_token(
     offers from a small capped number (`_ROUTE_TOKEN_CAP`) of the cheapest
     survivors — merging their offers into one candidate pool. Falls back to
     the originally selected token alone if the refined search comes up empty.
+
+    `picked_thumbnail` is the Product Picker candidate's own image — carried
+    through as-is (not re-derived per merchant) since it identifies the
+    product itself, independent of which merchant's route ends up winning.
     """
     query = (query or "").strip()
     output = {
         "input": query,
         "mode": "text",
-        "source": {"name": query, "brand": _infer_brand(query), "price": None, "condition": None},
+        "source": {
+            "name": query, "brand": _infer_brand(query), "price": None,
+            "condition": None, "image": picked_thumbnail,
+        },
         "results": [],
         "size_comparison": None,
         "vouchers": [],

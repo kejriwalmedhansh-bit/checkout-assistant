@@ -11,6 +11,7 @@ dependencies = [
     "pydantic-settings>=2.0.0",
     "python-dotenv>=1.0.0",
     "httpx>=0.27.0",
+    "Pillow>=10.0.0",
 ]
 
 # Dependencies used only by the offline Gyftr scrape scripts (scripts/), not the

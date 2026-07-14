@@ -1,33 +1,35 @@
 """WhatsApp business logic — input classification, pipeline dispatch, message
 formatting, and Meta Graph send calls.
 
-Consolidates the old whatsapp/{classifier,formatter,webhook,session_store}.py.
-
-Fixes applied during the port:
-  - Bug #1: the formatter now reads the pipeline voucher schema
-    (voucher["merchant"], voucher["upi"]["pct"/"voucher_amount"],
-    voucher["voucher_url"]) instead of the stale brand/best_discount/... keys.
-  - Bug #5: the dead inner _headers() helpers are gone.
-  - R7: WhatsApp settings are read lazily via get_settings() inside the send
-    helpers, so the app boots even without WhatsApp configured.
+Message architecture (redesigned 2026-07-14 for a less chatty flow): every
+reply is "one message = one job" — a typing indicator while the search runs
+(no "checking..." text bubble), then a compact photo+numbers result, then one
+short step message per required action (each with its own CTA-URL button,
+since WhatsApp never tells us whether a URL button was tapped), then a single
+message with the two things a user can actually do next as trackable native
+reply buttons ("Other route" / "Need help" — list/button taps DO trigger a
+webhook, unlike CTA-URL taps).
 """
 from __future__ import annotations
 
 import asyncio
+import io
 import re
 from urllib.parse import quote
 
 import httpx
+from PIL import Image
 
 from ..cache import session_store
 from ..config import get_settings
 from ..constants import (
     CUELINKS_BASE,
     KNOWN_BRANDS,
-    WHATSAPP_CHECKING_MSG,
     WHATSAPP_DEAD_END_MSG,
     WHATSAPP_GRAPH_BASE,
     WHATSAPP_GRAPH_VERSION,
+    WHATSAPP_MORE_OPTIONS_MSG,
+    WHATSAPP_MULTI_MATCH_MSG,
     WHATSAPP_NO_ALTERNATIVES_MSG,
     WHATSAPP_NUDGE_MSG,
     WHATSAPP_ONBOARDING_MSG,
@@ -43,6 +45,7 @@ def _affiliate_url(link: str) -> str:
         return link
     settings = get_settings()
     return CUELINKS_BASE.format(cid=settings.CUELINKS_CID, url=quote(link, safe=""))
+
 
 # ── input classification (ported from whatsapp/classifier.py) ───────────────────
 
@@ -75,133 +78,158 @@ def classify_input(text: str) -> dict:
     return {"type": "product_name", "query": cleaned}
 
 
-# ── formatting (bug #1 fixed to the pipeline voucher schema) ─────────────────────
+# ── result formatting ─────────────────────────────────────────────────────────
 
-def format_recommended(route: dict, label: str = "RECOMMENDED ROUTE") -> str:
-    """Text body only — no raw URLs. Store/voucher links go out as separate
-    tappable CTA buttons (see _route_links + send_cta_url) instead of pasted
-    text, so they read as clean buttons rather than a chaotic long link.
-    Emoji kept only where they mark a distinct section (voucher/card), not as
-    decoration on every line — bold/structure carries the "eye-catching" job.
-    `label` lets a promoted alternative say "ALTERNATIVE ROUTE #N" instead of
-    "RECOMMENDED ROUTE" (see handle_alternative_selection)."""
-    lines = []
-
+def _build_result_caption(route: dict) -> str:
+    """Compact result text — title, best route, price, and a prominent
+    savings line. The savings figure is deliberately voucher/price-only
+    (listed price vs. the actual route cost) — it must never include a
+    credit-card cashback, since that's conditional on owning one specific
+    card and isn't available to everyone (see CLAUDE.md rule: card savings
+    never affect ranking, users may not have premium cards). Card cashback
+    is shown as its own clearly-optional callout below, with an apply link,
+    never blended into the headline number."""
     title = route.get("title", "")
-    merchant = route.get("merchant", "")
-    listed_price = route.get("listed_price", 0)
-    final_cost = route.get("final_cost", 0)
+    merchant = route.get("merchant") or "—"
     voucher = route.get("voucher")
     card_fomo = route.get("card_fomo")
-    in_store = bool(voucher and voucher.get("offline_only"))
-    if in_store:
-        # search_service tags the merchant "{name} (in-store)" to keep it
-        # distinct from the online listing — redundant here since the steps
-        # below already say "in-store" explicitly.
-        merchant = merchant.replace(" (in-store)", "")
+    listed_price = route.get("listed_price")
+    final_cost = route.get("final_cost") or 0
 
-    lines.append(f"*{title}*")
-    lines.append(f"*{label}*")
-    lines.append("")
-    lines.append(f"*{merchant}*")
+    # In-store routes already carry "(in-store)" baked into route["merchant"]
+    # (see search_service._build_routes) — only online vouchers get "+ Gyftr"
+    # appended, so an in-store route doesn't read as "X (in-store) + Gyftr".
+    if voucher and not voucher.get("offline_only"):
+        best_route = f"{merchant} + Gyftr"
+    else:
+        best_route = merchant
 
-    if listed_price and final_cost and final_cost < listed_price:
+    lines = [
+        f"*{title}*",
+        f"Best route: {best_route}",
+        f"Price: ₹{final_cost:,.0f}",
+    ]
+
+    if listed_price:
         savings = listed_price - final_cost
-        pct = round((savings / listed_price) * 100) if listed_price else 0
-        lines.append(f"Final cost: *₹{final_cost:,.0f}* ~₹{listed_price:,.0f}~")
-        lines.append("")
-        lines.append(f"*YOU SAVE ₹{savings:,.0f} ({pct}% OFF)* ✅")
-    else:
-        lines.append(f"Final cost: *₹{final_cost:,.0f}*")
-
-    lines.append("")
-    lines.append("*How to buy:*")
-    if voucher:
-        brand = voucher.get("merchant") or merchant
-        upi = voucher.get("upi", {})
-        discount = upi.get("pct", 0)
-        denomination = upi.get("voucher_amount", 0)
-        remainder = upi.get("remainder", 0)
-        # Gyftr only sells fixed denominations — show the real breakdown
-        # (e.g. "8x Rs 5,000 + 1x Rs 2,000") when more than one voucher is
-        # needed, since "buy a Rs X voucher" isn't literally purchasable.
-        denom_breakdown = upi.get("denomination_breakdown") or []
-        voucher_word = "voucher" if sum(b.get("count", 0) for b in denom_breakdown) <= 1 else "vouchers"
-        breakdown = upi.get("purchase_breakdown") or f"₹{denomination:,.0f}"
-        lines.append(f"1. Buy {breakdown} {brand} {voucher_word} → UPI → {discount}% off")
-        if in_store:
-            lines.append(f"2. Head to nearest {merchant} store")
-            lines.append(
-                f"3. Show voucher at checkout → pay remaining ₹{remainder:,.0f} in-store"
-                if remainder else "3. Show voucher at checkout → full order covered"
-            )
-        else:
-            lines.append(f"2. Add item to {merchant} cart")
-            lines.append(
-                f"3. Apply voucher → pay remaining ₹{remainder:,.0f}"
-                if remainder else "3. Apply voucher → full order covered"
-            )
-    elif in_store:
-        lines.append(f"1. Buy in-store at {merchant}")
-    else:
-        lines.append(f"1. Buy directly from {merchant} — link below")
+        if savings > 0:
+            pct = round((savings / listed_price) * 100)
+            lines.append(f"*YOU SAVE ₹{savings:,.0f} ({pct}% off)* 🎉")
 
     if card_fomo:
         card_name = card_fomo.get("card_name", "")
         extra_saving = card_fomo.get("actual_saving", 0)
-        final_with_card = card_fomo.get("final_cost_with_card", 0)
-        apply_url = card_fomo.get("apply_url", "")
+        apply_url = card_fomo.get("apply_url") or ""
         lines.append("")
-        lines.append(f"💳 Have a *{card_name}* card?")
-        lines.append(f"Pay with it at checkout to save an extra ₹{extra_saving:,.0f}")
-        lines.append(f"Your final cost: ₹{final_with_card:,.0f}")
+        lines.append(f"💳 Have an {card_name} card? Save an extra ₹{extra_saving:,.0f} paying with it.")
         if apply_url:
             lines.append(f"Don't have it? Apply: {apply_url}")
 
-    return "\n".join(lines) + "\n"
+    return "\n".join(lines)
 
 
-def _route_links(route: dict) -> list[tuple[str, str, str]]:
-    """(body_text, button_label, url) for each CTA button to send after the
-    route's text — voucher link first (buy it before checkout), then the
-    store link (skipped for in-store routes, which have no online seller
-    link). Cuelinks-wraps only the store link, per the existing rule."""
-    links = []
+def _voucher_word(denom_breakdown: list[dict]) -> str:
+    return "voucher" if sum(b.get("count", 0) for b in denom_breakdown) <= 1 else "vouchers"
+
+
+async def _send_voucher_steps(phone: str, route: dict) -> None:
+    """Step 1: buy the voucher (its own CTA button). Step 2: redeem it — a
+    CTA button to the merchant when there's a real online link, plain text
+    when the voucher is in-store only (there's nothing to link a button to).
+    Gyftr only sells fixed denominations, so Step 1 always states the exact
+    amount to buy — and when a per-transaction cap forces multiple separate
+    purchases, that requirement is folded into the same message rather than
+    dropped, since skipping it risks a purchase failing with no explanation."""
+    voucher = route["voucher"]
+    merchant = (route.get("merchant") or "the store").replace(" (in-store)", "")
+    in_store = bool(voucher.get("offline_only"))
+    upi = voucher.get("upi", {})
+
+    denom_breakdown = upi.get("denomination_breakdown") or []
+    voucher_word = _voucher_word(denom_breakdown)
+    voucher_brand = voucher.get("merchant") or merchant
+    discount_pct = upi.get("pct", 0)
+
+    if len(denom_breakdown) > 1:
+        # A single inline "2×₹10,000 + 1×₹3,000 + 3×₹500" string reads as a
+        # cramped run-on when it's more than one or two items — a short
+        # bulleted list is much easier to actually follow while shopping.
+        breakdown_lines = "\n".join(f"• {b['count']} × ₹{b['denom']:,}" for b in denom_breakdown)
+        step1_text = (
+            f"*Step 1 of 2*\n\n"
+            f"Buy these {voucher_brand} {voucher_word} on Gyftr ({discount_pct}% off via UPI):\n"
+            f"{breakdown_lines}"
+        )
+    else:
+        breakdown = upi.get("purchase_breakdown") or f"₹{upi.get('voucher_amount', 0):,.0f}"
+        step1_text = (
+            f"*Step 1 of 2*\n\n"
+            f"Buy exactly {breakdown} {voucher_brand} {voucher_word} on Gyftr first "
+            f"({discount_pct}% off via UPI)."
+        )
+    txns = upi.get("txns_needed", 1)
+    if txns > 1:
+        cap = upi.get("purchase_cap_per_txn")
+        cap_text = f", ₹{cap:,.0f} max per transaction" if cap else ""
+        step1_text += f"\n\nYou'll need to do this {txns} separate times{cap_text}."
+    await send_cta_url(phone, step1_text, "1. Buy Voucher", voucher["voucher_url"])
+
+    remainder = upi.get("remainder", 0)
+    if in_store:
+        step2_text = f"*Step 2 of 2*\n\nHead to your nearest {merchant} store and show the voucher at checkout."
+        step2_text += f"\nPay the remaining ₹{remainder:,.0f}." if remainder else "\nIt covers the full order."
+        await send_text(phone, step2_text)
+    else:
+        step2_text = f"*Step 2 of 2*\n\nOpen {merchant}, add the item to cart, and apply the voucher."
+        step2_text += f"\nPay the remaining ₹{remainder:,.0f}." if remainder else "\nIt covers the full order."
+        sellers = route.get("sellers") or []
+        link = sellers[0].get("link") if sellers else None
+        if link:
+            await send_cta_url(phone, step2_text, "2. Open Store", _affiliate_url(link))
+        else:
+            await send_text(phone, step2_text)
+
+
+async def _send_direct_cta(phone: str, route: dict) -> None:
+    """No-voucher flow: one merchant CTA message, no step framing — skipped
+    entirely (falls straight through to the follow-up buttons) if there's no
+    recoverable seller link at all."""
     merchant = route.get("merchant") or "the store"
-    voucher = route.get("voucher")
-    if voucher and voucher.get("voucher_url"):
-        voucher_brand = voucher.get("merchant") or merchant
-        upi = voucher.get("upi", {})
-        txns = upi.get("txns_needed", 1)
-        denomination = upi.get("voucher_amount", 0)
-        cap_per_txn = upi.get("purchase_cap_per_txn")
-        # Same reasoning as the web UI: Gyftr only sells fixed denominations,
-        # so show the real breakdown rather than implying one lump-sum voucher.
-        denom_breakdown = upi.get("denomination_breakdown") or []
-        voucher_word = "voucher" if sum(b.get("count", 0) for b in denom_breakdown) <= 1 else "vouchers"
-        breakdown = upi.get("purchase_breakdown") or f"₹{denomination:,.0f}"
-        body_lines = [f"Buy {breakdown} {voucher_brand} {voucher_word} on Gyftr using UPI."]
-        if txns > 1:
-            cap_text = f" (₹{cap_per_txn:,.0f} max per transaction)" if cap_per_txn else ""
-            body_lines.append(f"You'll need {txns} separate Gyftr purchases{cap_text}.")
-        terms = (voucher.get("redemption_instructions") or [])[:2]
-        if terms:
-            body_lines.append("")
-            body_lines.append("Key terms:")
-            body_lines.extend(f"• {t}" for t in terms)
-        links.append((
-            "\n".join(body_lines),
-            "🎟 Buy Gyftr Voucher",
-            voucher["voucher_url"],
-        ))
     sellers = route.get("sellers") or []
-    if sellers and sellers[0].get("link"):
-        links.append((
-            f"Ready to buy from {merchant}?",
-            f"Open {merchant}",
-            _affiliate_url(sellers[0]["link"]),
-        ))
-    return links
+    link = sellers[0].get("link") if sellers else None
+    if link:
+        await send_cta_url(phone, f"Ready to buy from {merchant}?", f"Open {merchant}", _affiliate_url(link))
+
+
+async def _send_result_message(phone: str, image_url: str | None, caption: str) -> None:
+    """Photo + caption when a real image URL is available and Meta accepts
+    it; falls back to a plain text bubble otherwise, so the image is never
+    required for the result to be understandable."""
+    sent = False
+    if image_url and image_url.startswith("http"):
+        sent = await send_image(phone, image_url, caption)
+    if not sent:
+        await send_text(phone, caption)
+
+
+async def _send_followup_buttons(phone: str) -> None:
+    await send_reply_buttons(
+        phone, WHATSAPP_MORE_OPTIONS_MSG,
+        [("see_alternatives", "Other route")],
+    )
+
+
+async def _send_success_flow(phone: str, route: dict, image_url: str | None) -> None:
+    """The full 3-4 message success reply, shared by every path that ends in
+    showing a route: a fresh recommended route, a no-voucher route, and a
+    promoted alternative all render identically through here."""
+    caption = _build_result_caption(route)
+    await _send_result_message(phone, image_url, caption)
+    if route.get("voucher"):
+        await _send_voucher_steps(phone, route)
+    else:
+        await _send_direct_cta(phone, route)
+    await _send_followup_buttons(phone)
 
 
 # ── Meta Graph send helpers (R7: settings read lazily) ───────────────────────────
@@ -232,10 +260,94 @@ async def send_text(phone: str, text: str) -> None:
         print(f"[WhatsApp Send] Status: {r.status_code} | Body: {r.text}")
 
 
+async def send_typing_indicator(message_id: str | None) -> None:
+    """Marks the triggering message read and shows WhatsApp's native typing
+    indicator (visible up to 25s, or until we send a reply) — replaces the
+    old "Checking prices..." text bubble with no chat message spent at all.
+    Never raises: a missed typing indicator must not block the real search."""
+    if not message_id:
+        return
+    api_url, headers = _graph_config()
+    payload = {
+        "messaging_product": "whatsapp",
+        "status": "read",
+        "message_id": message_id,
+        "typing_indicator": {"type": "text"},
+    }
+    try:
+        async with httpx.AsyncClient() as client:
+            r = await client.post(api_url, headers=headers, json=payload)
+            print(f"[WhatsApp Send] Status: {r.status_code} | Body: {r.text}")
+    except Exception as e:
+        print(f"[WhatsApp Send] typing indicator failed: {e}")
+
+
+async def _fetch_and_convert_to_jpeg(image_url: str) -> bytes | None:
+    """Downloads a product thumbnail and converts it to JPEG in memory.
+    Required, not defensive: every thumbnail this app's search source serves
+    (Google's shopping tbn proxy) is WebP (confirmed via Content-Type), and
+    WhatsApp's Cloud API rejects WebP outright ("WebP image uploads are not
+    currently supported") — sending the original link always fails."""
+    try:
+        async with httpx.AsyncClient(timeout=10.0) as client:
+            r = await client.get(image_url)
+            if r.status_code >= 400 or not r.content:
+                return None
+        img = Image.open(io.BytesIO(r.content)).convert("RGB")
+        buf = io.BytesIO()
+        img.save(buf, format="JPEG", quality=85)
+        return buf.getvalue()
+    except Exception as e:
+        print(f"[WhatsApp Image] convert failed: {e}")
+        return None
+
+
+async def _upload_media(jpeg_bytes: bytes) -> str | None:
+    """Uploads image bytes to Meta's media endpoint; returns a media id for
+    a subsequent image message, or None on failure."""
+    settings = get_settings()
+    api_url = f"{WHATSAPP_GRAPH_BASE}/{WHATSAPP_GRAPH_VERSION}/{settings.WHATSAPP_PHONE_NUMBER_ID}/media"
+    headers = {"Authorization": f"Bearer {settings.WHATSAPP_ACCESS_TOKEN}"}
+    files = {"file": ("product.jpg", jpeg_bytes, "image/jpeg")}
+    data = {"messaging_product": "whatsapp", "type": "image/jpeg"}
+    async with httpx.AsyncClient(timeout=15.0) as client:
+        r = await client.post(api_url, headers=headers, data=data, files=files)
+        print(f"[WhatsApp Send] Media upload status: {r.status_code} | Body: {r.text}")
+        if r.status_code >= 400:
+            return None
+        return r.json().get("id")
+
+
+async def send_image(phone: str, image_url: str, caption: str) -> bool:
+    """Downloads + converts the thumbnail to JPEG and uploads it to Meta as
+    media, then sends it by media id — sending by link doesn't work here
+    since the source is always WebP (see _fetch_and_convert_to_jpeg).
+    Returns True only once the final send itself is accepted; callers fall
+    back to send_text on False (download, conversion, upload, or send — any
+    stage failing lands here)."""
+    jpeg_bytes = await _fetch_and_convert_to_jpeg(image_url)
+    if not jpeg_bytes:
+        return False
+    media_id = await _upload_media(jpeg_bytes)
+    if not media_id:
+        return False
+    api_url, headers = _graph_config()
+    payload = {
+        "messaging_product": "whatsapp",
+        "to": phone,
+        "type": "image",
+        "image": {"id": media_id, "caption": caption},
+    }
+    async with httpx.AsyncClient() as client:
+        r = await client.post(api_url, headers=headers, json=payload)
+        print(f"[WhatsApp Send] Status: {r.status_code} | Body: {r.text}")
+        return r.status_code < 400
+
+
 async def send_cta_url(phone: str, body_text: str, button_text: str, url: str) -> None:
     """Meta interactive CTA-URL message — a proper tappable button with a
     clean label, instead of pasting a raw (possibly long, Cuelinks-wrapped)
-    link into message text."""
+    link into message text. Meta never tells us whether this gets tapped."""
     api_url, headers = _graph_config()
     payload = {
         "messaging_product": "whatsapp",
@@ -255,7 +367,9 @@ async def send_cta_url(phone: str, body_text: str, button_text: str, url: str) -
         print(f"[WhatsApp Send] Status: {r.status_code} | Body: {r.text}")
 
 
-async def send_with_alternatives_button(phone: str, text: str) -> None:
+async def send_reply_buttons(phone: str, text: str, buttons: list[tuple[str, str]]) -> None:
+    """Native WhatsApp reply buttons (max 3) — along with list rows, the only
+    interactive element whose tap triggers a webhook event back to us."""
     api_url, headers = _graph_config()
     payload = {
         "messaging_product": "whatsapp",
@@ -266,7 +380,8 @@ async def send_with_alternatives_button(phone: str, text: str) -> None:
             "body": {"text": text},
             "action": {
                 "buttons": [
-                    {"type": "reply", "reply": {"id": "see_alternatives", "title": "Check alternatives"}}
+                    {"type": "reply", "reply": {"id": button_id, "title": title}}
+                    for button_id, title in buttons
                 ]
             },
         },
@@ -328,36 +443,23 @@ async def send_list_message(phone: str, body_text: str, button_text: str, rows: 
 
 # ── dispatch ─────────────────────────────────────────────────────────────────────
 
-async def _send_route_message(
-    phone: str, route: dict, with_alt_button: bool, label: str = "RECOMMENDED ROUTE"
-) -> None:
-    """Full route detail: text body, then a CTA-URL button per link
-    (voucher, then store) — shared by the recommended-route send and by a
-    promoted alternative, so both render identically."""
-    msg = format_recommended(route, label=label)
-    if with_alt_button:
-        await send_with_alternatives_button(phone, msg)
-    else:
-        await send_text(phone, msg)
-    for body_text, button_label, url in _route_links(route):
-        await send_cta_url(phone, body_text, button_label, url)
-
-
 async def _send_routes_for_token(
     phone: str, product_token: str, query: str, title: str = "",
     picked_price: float | None = None, picked_source: str = "",
+    picked_thumbnail: str | None = None,
 ) -> None:
     result = await asyncio.to_thread(
         search_service.build_routes_for_token, product_token, query, title,
-        picked_price, picked_source,
+        picked_price, picked_source, picked_thumbnail,
     )
     routes = result.get("routes", {})
     recommended = routes.get("recommended")
     if not recommended:
         await send_text(phone, WHATSAPP_DEAD_END_MSG)
         return
-    session_store.set_session(phone, {"routes": routes})
-    await _send_route_message(phone, recommended, with_alt_button=bool(routes.get("alternatives")))
+    image_url = result.get("source", {}).get("image") or picked_thumbnail
+    session_store.set_session(phone, {"routes": routes, "image": image_url})
+    await _send_success_flow(phone, recommended, image_url)
 
 
 async def process_and_respond(phone: str, classification: dict) -> None:
@@ -376,7 +478,7 @@ async def process_and_respond(phone: str, classification: dict) -> None:
             only = products[0]
             await _send_routes_for_token(
                 phone, only["product_token"], query, only.get("title", ""),
-                only.get("price"), only.get("source", ""),
+                only.get("price"), only.get("source", ""), only.get("thumbnail"),
             )
             return
 
@@ -391,9 +493,10 @@ async def process_and_respond(phone: str, classification: dict) -> None:
                 "title": _truncate(_short_title(full_title, query), 24),
                 "description": _truncate(desc, 72),
             })
+        await send_text(phone, WHATSAPP_MULTI_MATCH_MSG)
         await send_list_message(
             phone,
-            body_text="Which one is it? Tap to confirm the exact product:",
+            body_text="Select the exact product:",
             button_text="Select product",
             rows=rows,
         )
@@ -417,7 +520,7 @@ async def handle_product_selection(phone: str, reply_id: str) -> None:
         return
     await _send_routes_for_token(
         phone, chosen["product_token"], query, chosen.get("title", ""),
-        chosen.get("price"), chosen.get("source", ""),
+        chosen.get("price"), chosen.get("source", ""), chosen.get("thumbnail"),
     )
 
 
@@ -449,11 +552,11 @@ async def handle_alternatives(phone: str) -> None:
 
 
 async def handle_alternative_selection(phone: str, reply_id: str) -> None:
-    """A picked alternative is promoted to the same full detail the
-    recommended route gets — rendered through format_recommended(), labeled
-    "ALTERNATIVE ROUTE #N" (N = how many times an alternative has been picked
-    this session, so re-picking reads as a distinct choice, not a demotion of
-    "recommended") instead of "RECOMMENDED ROUTE"."""
+    """A picked alternative gets the exact same full success flow the
+    original recommended route did (image, numbers, steps, follow-up
+    buttons) — reusing the product image already stored in the session
+    rather than re-fetching it, since the image identifies the product, not
+    the specific merchant route."""
     session = session_store.get_session(phone)
     if not session:
         await send_text(phone, WHATSAPP_SESSION_EXPIRED_MSG)
@@ -465,13 +568,14 @@ async def handle_alternative_selection(phone: str, reply_id: str) -> None:
     except (ValueError, IndexError):
         await send_text(phone, WHATSAPP_NO_ALTERNATIVES_MSG)
         return
-    alt_count = session.get("alt_count", 0) + 1
-    session_store.set_session(phone, {**session, "alt_count": alt_count})
-    await _send_route_message(phone, chosen, with_alt_button=False, label=f"ALTERNATIVE ROUTE #{alt_count}")
+    await _send_success_flow(phone, chosen, session.get("image"))
 
 
 async def handle_incoming(body: dict) -> None:
-    """Parse a Meta webhook payload and dispatch. Swallows malformed payloads."""
+    """Parse a Meta webhook payload and dispatch. Swallows malformed payloads
+    and any Graph-API-call failures — Meta expects a 200 ack regardless, and
+    an uncaught exception here would surface as a 500 in the webhook route,
+    risking Meta's retry/backoff behavior on an already-processed message."""
     try:
         entry = body["entry"][0]["changes"][0]["value"]
         messages = entry.get("messages")
@@ -479,6 +583,7 @@ async def handle_incoming(body: dict) -> None:
             return
         msg = messages[0]
         phone = msg["from"]
+        msg_id = msg.get("id")
         msg_type = msg.get("type")
 
         if msg_type == "interactive":
@@ -491,8 +596,11 @@ async def handle_incoming(body: dict) -> None:
             elif itype == "list_reply":
                 reply_id = interactive["list_reply"]["id"]
                 if reply_id.startswith("alt_"):
+                    # Resolves from the already-cached session, not a fresh
+                    # pipeline call — no typing indicator needed, it's instant.
                     asyncio.create_task(handle_alternative_selection(phone, reply_id))
                 elif reply_id.startswith("prod_"):
+                    await send_typing_indicator(msg_id)
                     asyncio.create_task(handle_product_selection(phone, reply_id))
             return
 
@@ -511,7 +619,9 @@ async def handle_incoming(body: dict) -> None:
                 await send_text(phone, WHATSAPP_NUDGE_MSG)
             return
 
-        await send_text(phone, WHATSAPP_CHECKING_MSG)
+        await send_typing_indicator(msg_id)
         asyncio.create_task(process_and_respond(phone, classification))
     except (KeyError, IndexError):
         pass
+    except Exception as e:
+        print(f"[Webhook] handle_incoming error: {e}")

@@ -7678,13 +7678,13 @@
     "custom_min": null,
     "custom_max": null,
     "discounts": {
-      "Credit Card": 0,
-      "Debit Card": 0,
-      "Net Banking": 0,
-      "UPI": 0
+      "Credit Card": 5,
+      "Debit Card": 5,
+      "Net Banking": 5,
+      "UPI": 5
     },
     "best_payment_method": "UPI",
-    "best_discount_pct": 0,
+    "best_discount_pct": 5,
     "stack_limit": 1,
     "stack_limit_confidence": "explicit",
     "value_cap": null,
@@ -7701,8 +7701,8 @@
     "full_terms_and_conditions": "TERMS & CONDITIONS\nIMPORTANT INSTRUCTIONS\nHOW TO USE\nShopy Vision Terms & Conditions\n1. This is a Shopy Vision Gift Voucher (GV) / Gift Card (GC) and would only be accepted on the website https://www.shopyvision.com/ \n2. The person who has the GV / GC Code is deemed to be the beneficiary.\n3. GV / GC cannot be redeemed for cash or credit and cannot be reloaded.\n4. No credit note/refund for the unused balance amount of the GV / GC will be given.\n5. More than one GV/GC cannot be clubbed in a single order.\n6. GV/GC once purchased are non-refundable.\n7. Shopy Vision & GyFTR is not responsible if the GV / GC is lost, stolen, or used without permission.\n8. GV/GC cannot be clubbed with any other coupon or voucher.\n9. GV / GC cannot be revalidated once expired or canceled under any situations.\n10. Any dispute should be referred to the company from where the GV/GC has been received, the decision of the company shall be final.\n11. You can write to www.gvhelpdesk.com for any query related to GV/GC",
     "important_instructions_raw": "TERMS & CONDITIONS\nIMPORTANT INSTRUCTIONS\nHOW TO USE\nShopy Vision Important Instructions\nGift Vouchers CAN only be used on the Shopy Vision website.\nGift Vouchers CANNOT be used to buy discounted products.\nOnly one Gift Voucher CAN be used per bill.\nGift Voucher CANNOT be used multiple times.",
     "status": "active",
-    "notes": "",
-    "last_scraped": "2026-07-02"
+    "notes": "Discount manually corrected 2026-07-14 (was stale 0% from 2026-07-02 scrape; live site confirmed 5% across all payment methods).",
+    "last_scraped": "2026-07-14"
   },
   "grt-jewellers": {
     "brand_name": "GRT Jewellers",

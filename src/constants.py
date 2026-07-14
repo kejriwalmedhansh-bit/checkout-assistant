@@ -61,8 +61,9 @@ WHATSAPP_DEAD_END_MSG = (
     "Couldn't find a reliable route for that one yet. "
     "Try a different product or paste the link directly."
 )
-WHATSAPP_CHECKING_MSG = "Checking the best way to buy this — one sec ⏳"
 WHATSAPP_SESSION_EXPIRED_MSG = (
     "Session expired — send the product again and I'll re-check."
 )
 WHATSAPP_NO_ALTERNATIVES_MSG = "No alternative routes found for this one."
+WHATSAPP_MULTI_MATCH_MSG = "I found multiple matches. Pick the exact product."
+WHATSAPP_MORE_OPTIONS_MSG = "Not the right fit?"
