@@ -51,19 +51,23 @@ KNOWN_BRANDS = [
 # --- WhatsApp user-facing copy ---
 WHATSAPP_ONBOARDING_MSG = (
     "Hi! I'm Dealo 👋\n\n"
-    "Send me a product name or paste a link and I'll find the cheapest way to buy it.\n\n"
-    "Examples:\n• boAt Airdopes 141\n• https://www.amazon.in/dp/B0ABC123"
+    "Tell me what you want to buy.\n"
+    "I'll find the smartest way to pay for it.\n\n"
+    "Vouchers, card offers, best price — all in 20 seconds.\n\n"
+    "Try:\n• boAt Airdopes 141\n• amazon.in/dp/B09XYZ (any product link)"
 )
 WHATSAPP_NUDGE_MSG = (
-    "Send a product name (e.g. 'Samsung Galaxy S24') or paste a product link."
+    "Send me a product name and I'll find the best deal — "
+    "like 'boAt Airdopes 141' or 'Nike Air Force 1'."
 )
 WHATSAPP_DEAD_END_MSG = (
-    "Couldn't find a reliable route for that one yet. "
-    "Try a different product or paste the link directly."
+    "Couldn't find a good deal for that one. Try a more specific product name."
 )
 WHATSAPP_SESSION_EXPIRED_MSG = (
-    "Session expired — send the product again and I'll re-check."
+    "It's been a while — send the product name again and I'll look it up fresh."
 )
-WHATSAPP_NO_ALTERNATIVES_MSG = "No alternative routes found for this one."
-WHATSAPP_MULTI_MATCH_MSG = "I found multiple matches. Pick the exact product."
-WHATSAPP_MORE_OPTIONS_MSG = "Not the right fit?"
+WHATSAPP_NO_ALTERNATIVES_MSG = "This one only has one route available."
+WHATSAPP_MULTI_MATCH_MSG = (
+    "Got a few options. Tap the right one — product photo and details will show up right after."
+)
+WHATSAPP_MORE_OPTIONS_MSG = "Not what you were looking for?"

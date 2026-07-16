@@ -81,31 +81,26 @@ def classify_input(text: str) -> dict:
 # ── result formatting ─────────────────────────────────────────────────────────
 
 def _build_result_caption(route: dict) -> str:
-    """Compact result text — title, best route, price, and a prominent
-    savings line. The savings figure is deliberately voucher/price-only
-    (listed price vs. the actual route cost) — it must never include a
-    credit-card cashback, since that's conditional on owning one specific
-    card and isn't available to everyone (see CLAUDE.md rule: card savings
-    never affect ranking, users may not have premium cards). Card cashback
-    is shown as its own clearly-optional callout below, with an apply link,
-    never blended into the headline number."""
+    """Compact result text — title, route, and price/savings. Card cashback
+    is sent separately by _send_card_fomo, after the redemption steps —
+    never blended into this headline (see CLAUDE.md rule: card savings
+    never affect ranking, users may not have premium cards)."""
     title = route.get("title", "")
     merchant = route.get("merchant") or "—"
     voucher = route.get("voucher")
-    card_fomo = route.get("card_fomo")
     listed_price = route.get("listed_price")
     final_cost = route.get("final_cost") or 0
 
     # In-store routes already carry "(in-store)" baked into route["merchant"]
     # (see search_service._build_routes) — only online vouchers get the
-    # "+ Gift Voucher" suffix, so an in-store route doesn't read as
-    # "X (in-store) + Gift Voucher". "Gyftr" by name is deliberately kept
+    # "+ gift voucher" suffix, so an in-store route doesn't read as
+    # "X (in-store) + gift voucher". "Gyftr" by name is deliberately kept
     # out of this summary line (and the alternatives list) — it's meaningless
     # to a customer who's never heard of it; it only appears in the Step 1
     # instruction text, where naming the actual site orients them right
     # before they're sent there.
     if voucher and not voucher.get("offline_only"):
-        best_route = f"{merchant} + Gift Voucher"
+        best_route = f"{merchant} + gift voucher"
     else:
         best_route = merchant
 
@@ -114,23 +109,14 @@ def _build_result_caption(route: dict) -> str:
 
     lines = [
         f"*{title}*",
-        f"Best route: {best_route}",
+        best_route,
     ]
     if has_discount:
-        lines.append(f"Price: ~₹{listed_price:,.0f}~ *₹{final_cost:,.0f}*")
+        lines.append(f"₹{listed_price:,.0f} → *₹{final_cost:,.0f}*")
         pct = round((savings / listed_price) * 100)
-        lines.append(f"*YOU SAVE ₹{savings:,.0f} ({pct}% off)* 🎉")
+        lines.append(f"You save ₹{savings:,.0f} ({pct}% off) 🎉👇")
     else:
         lines.append(f"Price: ₹{final_cost:,.0f}")
-
-    if card_fomo:
-        card_name = card_fomo.get("card_name", "")
-        extra_saving = card_fomo.get("actual_saving", 0)
-        apply_url = card_fomo.get("apply_url") or ""
-        lines.append("")
-        lines.append(f"💳 Have an {card_name} card? Save an extra ₹{extra_saving:,.0f} paying with it.")
-        if apply_url:
-            lines.append(f"Don't have it? Apply: {apply_url}")
 
     return "\n".join(lines)
 
@@ -186,7 +172,7 @@ async def _send_voucher_steps(phone: str, route: dict) -> None:
         cap = upi.get("purchase_cap_per_txn")
         cap_text = f", ₹{cap:,.0f} max per transaction" if cap else ""
         step1_text += f"\n\nYou'll need to do this {txns} separate times{cap_text}."
-    await send_cta_url(phone, step1_text, "1. Buy Voucher", voucher["voucher_url"])
+    await send_cta_url(phone, step1_text, "Buy Now", voucher["voucher_url"])
     await asyncio.sleep(_MESSAGE_PACE_SECONDS)
 
     remainder = upi.get("remainder", 0)
@@ -201,7 +187,7 @@ async def _send_voucher_steps(phone: str, route: dict) -> None:
         sellers = route.get("sellers") or []
         link = sellers[0].get("link") if sellers else None
         if link:
-            await send_cta_url(phone, step2_text, "2. Open Store", _affiliate_url(link))
+            await send_cta_url(phone, step2_text, f"Open {merchant}", _affiliate_url(link))
         else:
             await send_text(phone, step2_text)
 
@@ -231,15 +217,35 @@ async def _send_result_message(phone: str, image_url: str | None, caption: str) 
 async def _send_followup_buttons(phone: str) -> None:
     await send_reply_buttons(
         phone, WHATSAPP_MORE_OPTIONS_MSG,
-        [("see_alternatives", "Other route")],
+        [("see_alternatives", "Other route"), ("pick_again", "Go back to list")],
     )
+
+
+async def _send_card_fomo(phone: str, route: dict) -> None:
+    """Optional standalone bubble for the credit-card cashback callout —
+    kept out of the main result caption (see _build_result_caption) and
+    sent after the redemption steps instead. Only fires when there's an
+    actual positive saving to show."""
+    card_fomo = route.get("card_fomo")
+    if not card_fomo:
+        return
+    card_saving = card_fomo.get("actual_saving", 0)
+    if not card_saving or card_saving <= 0:
+        return
+    card_name = card_fomo.get("card_name", "")
+    apply_url = card_fomo.get("apply_url") or ""
+    text = (
+        f"💳 Have an {card_name} card? You could save an extra ₹{card_saving:,.0f} on this order.\n"
+        f"Don't have one? Apply here: {apply_url}"
+    )
+    await send_text(phone, text)
 
 
 _MESSAGE_PACE_SECONDS = 2  # Breathing room between bubbles so a fast reply doesn't arrive as one dense burst.
 
 
 async def _send_success_flow(phone: str, route: dict, image_url: str | None) -> None:
-    """The full 3-4 message success reply, shared by every path that ends in
+    """The full message success reply, shared by every path that ends in
     showing a route: a fresh recommended route, a no-voucher route, and a
     promoted alternative all render identically through here. A short pause
     between each bubble keeps it readable as a sequence instead of a burst —
@@ -252,6 +258,8 @@ async def _send_success_flow(phone: str, route: dict, image_url: str | None) -> 
         await _send_voucher_steps(phone, route)
     else:
         await _send_direct_cta(phone, route)
+    await asyncio.sleep(_MESSAGE_PACE_SECONDS)
+    await _send_card_fomo(phone, route)
     await asyncio.sleep(_MESSAGE_PACE_SECONDS)
     await _send_followup_buttons(phone)
 
@@ -488,7 +496,7 @@ async def send_list_message(phone: str, body_text: str, button_text: str, rows: 
 async def _send_routes_for_token(
     phone: str, product_token: str, query: str, title: str = "",
     picked_price: float | None = None, picked_source: str = "",
-    picked_thumbnail: str | None = None,
+    picked_thumbnail: str | None = None, candidates: list[dict] | None = None,
 ) -> None:
     result = await asyncio.to_thread(
         search_service.build_routes_for_token, product_token, query, title,
@@ -500,7 +508,12 @@ async def _send_routes_for_token(
         await send_text(phone, WHATSAPP_DEAD_END_MSG)
         return
     image_url = result.get("source", {}).get("image") or picked_thumbnail
-    session_store.set_session(phone, {"routes": routes, "image": image_url})
+    session_store.set_session(phone, {
+        "routes": routes,
+        "image": image_url,
+        "candidates": candidates or [],
+        "query": query,
+    })
     await _send_success_flow(phone, recommended, image_url)
 
 
@@ -521,6 +534,7 @@ async def process_and_respond(phone: str, classification: dict) -> None:
             await _send_routes_for_token(
                 phone, only["product_token"], query, only.get("title", ""),
                 only.get("price"), only.get("source", ""), only.get("thumbnail"),
+                candidates=products,
             )
             return
 
@@ -564,6 +578,7 @@ async def handle_product_selection(phone: str, reply_id: str) -> None:
     await _send_routes_for_token(
         phone, chosen["product_token"], query, chosen.get("title", ""),
         chosen.get("price"), chosen.get("source", ""), chosen.get("thumbnail"),
+        candidates=candidates,
     )
 
 
@@ -578,18 +593,19 @@ async def handle_alternatives(phone: str) -> None:
         return
     rows = []
     for i, alt in enumerate(alternatives[:3]):
+        merchant_name = alt.get("merchant") or f"Option {i + 1}"
         final_cost = alt.get("final_cost")
-        path = "Gift Voucher → Buy" if alt.get("voucher") else "Direct Buy"
-        desc = f"{path} · ₹{final_cost:,.0f}" if final_cost else path
+        path = "Via gift card" if alt.get("voucher") else "Direct"
+        desc = f"{merchant_name} · {path} · ₹{final_cost:,.0f}" if final_cost else f"{merchant_name} · {path}"
         rows.append({
             "id": f"alt_{i}",
-            "title": _truncate(alt.get("merchant") or f"Option {i + 1}", 24),
+            "title": _truncate(merchant_name, 24),
             "description": _truncate(desc, 72),
         })
     await send_list_message(
         phone,
-        body_text="Other ways to buy this — pick one to see the full route:",
-        button_text="View options",
+        body_text="Want a different route? Pick one:",
+        button_text="See options",
         rows=rows,
     )
 
@@ -612,6 +628,35 @@ async def handle_alternative_selection(phone: str, reply_id: str) -> None:
         await send_text(phone, WHATSAPP_NO_ALTERNATIVES_MSG)
         return
     await _send_success_flow(phone, chosen, session.get("image"))
+
+
+async def handle_pick_again(phone: str) -> None:
+    session = session_store.get_session(phone)
+    if not session:
+        await send_text(phone, WHATSAPP_SESSION_EXPIRED_MSG)
+        return
+    candidates = session.get("candidates", [])
+    query = session.get("query", "")
+    if not candidates:
+        await send_text(phone, WHATSAPP_DEAD_END_MSG)
+        return
+    rows = []
+    for i, p in enumerate(candidates[:10]):
+        full_title = p.get("title") or f"Option {i + 1}"
+        price = p.get("price")
+        desc = f"{full_title} · ₹{price:,.0f}" if price else full_title
+        rows.append({
+            "id": f"prod_{i}",
+            "title": _truncate(_short_title(full_title, query), 24),
+            "description": _truncate(desc, 72),
+        })
+    await send_text(phone, WHATSAPP_MULTI_MATCH_MSG)
+    await send_list_message(
+        phone,
+        body_text="Select the exact product:",
+        button_text="Select product",
+        rows=rows,
+    )
 
 
 async def handle_incoming(body: dict) -> None:
@@ -637,6 +682,8 @@ async def handle_incoming(body: dict) -> None:
                 if reply_id == "see_alternatives":
                     await send_typing_indicator(msg_id)
                     asyncio.create_task(handle_alternatives(phone))
+                elif reply_id == "pick_again":
+                    asyncio.create_task(handle_pick_again(phone))
             elif itype == "list_reply":
                 reply_id = interactive["list_reply"]["id"]
                 if reply_id.startswith("alt_"):
