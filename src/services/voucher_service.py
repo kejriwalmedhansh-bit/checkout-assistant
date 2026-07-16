@@ -300,6 +300,7 @@ def build_deals(results: list[dict], product_name: str = "") -> list[dict]:
             "redemption_type": deal["redemption_type"],
             "denominations": deal["denominations"],
             "redemption_instructions": deal.get("redemption_instructions", []),
+            "how_to_redeem_short": voucher.get("how_to_redeem_short"),
         })
 
     return deals

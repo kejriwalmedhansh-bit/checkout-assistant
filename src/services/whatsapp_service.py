@@ -97,24 +97,31 @@ def _build_result_caption(route: dict) -> str:
     final_cost = route.get("final_cost") or 0
 
     # In-store routes already carry "(in-store)" baked into route["merchant"]
-    # (see search_service._build_routes) — only online vouchers get "+ Gyftr"
-    # appended, so an in-store route doesn't read as "X (in-store) + Gyftr".
+    # (see search_service._build_routes) — only online vouchers get the
+    # "+ Gift Voucher" suffix, so an in-store route doesn't read as
+    # "X (in-store) + Gift Voucher". "Gyftr" by name is deliberately kept
+    # out of this summary line (and the alternatives list) — it's meaningless
+    # to a customer who's never heard of it; it only appears in the Step 1
+    # instruction text, where naming the actual site orients them right
+    # before they're sent there.
     if voucher and not voucher.get("offline_only"):
-        best_route = f"{merchant} + Gyftr"
+        best_route = f"{merchant} + Gift Voucher"
     else:
         best_route = merchant
+
+    savings = (listed_price - final_cost) if listed_price else 0
+    has_discount = savings > 0
 
     lines = [
         f"*{title}*",
         f"Best route: {best_route}",
-        f"Price: ₹{final_cost:,.0f}",
     ]
-
-    if listed_price:
-        savings = listed_price - final_cost
-        if savings > 0:
-            pct = round((savings / listed_price) * 100)
-            lines.append(f"*YOU SAVE ₹{savings:,.0f} ({pct}% off)* 🎉")
+    if has_discount:
+        lines.append(f"Price: ~₹{listed_price:,.0f}~ *₹{final_cost:,.0f}*")
+        pct = round((savings / listed_price) * 100)
+        lines.append(f"*YOU SAVE ₹{savings:,.0f} ({pct}% off)* 🎉")
+    else:
+        lines.append(f"Price: ₹{final_cost:,.0f}")
 
     if card_fomo:
         card_name = card_fomo.get("card_name", "")
@@ -150,6 +157,8 @@ async def _send_voucher_steps(phone: str, route: dict) -> None:
     voucher_brand = voucher.get("merchant") or merchant
     discount_pct = upi.get("pct", 0)
 
+    txns = upi.get("txns_needed", 1)
+
     if len(denom_breakdown) > 1:
         # A single inline "2×₹10,000 + 1×₹3,000 + 3×₹500" string reads as a
         # cramped run-on when it's more than one or two items — a short
@@ -160,6 +169,12 @@ async def _send_voucher_steps(phone: str, route: dict) -> None:
             f"Buy these {voucher_brand} {voucher_word} on Gyftr ({discount_pct}% off via UPI):\n"
             f"{breakdown_lines}"
         )
+        # Multiple denominations reads like multiple separate trips to
+        # Gyftr, which is demotivating and usually wrong — Gyftr has a cart,
+        # so unless a real per-transaction cap forces separate purchases
+        # (handled below), all of these go in one cart, one checkout.
+        if txns <= 1:
+            step1_text += "\n\nAdd all of these to your Gyftr cart — one checkout covers it."
     else:
         breakdown = upi.get("purchase_breakdown") or f"₹{upi.get('voucher_amount', 0):,.0f}"
         step1_text = (
@@ -167,20 +182,21 @@ async def _send_voucher_steps(phone: str, route: dict) -> None:
             f"Buy exactly {breakdown} {voucher_brand} {voucher_word} on Gyftr first "
             f"({discount_pct}% off via UPI)."
         )
-    txns = upi.get("txns_needed", 1)
     if txns > 1:
         cap = upi.get("purchase_cap_per_txn")
         cap_text = f", ₹{cap:,.0f} max per transaction" if cap else ""
         step1_text += f"\n\nYou'll need to do this {txns} separate times{cap_text}."
     await send_cta_url(phone, step1_text, "1. Buy Voucher", voucher["voucher_url"])
+    await asyncio.sleep(_MESSAGE_PACE_SECONDS)
 
     remainder = upi.get("remainder", 0)
+    redeem_instruction = voucher.get("how_to_redeem_short")
     if in_store:
-        step2_text = f"*Step 2 of 2*\n\nHead to your nearest {merchant} store and show the voucher at checkout."
+        step2_text = f"*Step 2 of 2*\n\nHead to your nearest {merchant} store. {redeem_instruction or 'Show the voucher at checkout.'}"
         step2_text += f"\nPay the remaining ₹{remainder:,.0f}." if remainder else "\nIt covers the full order."
         await send_text(phone, step2_text)
     else:
-        step2_text = f"*Step 2 of 2*\n\nOpen {merchant}, add the item to cart, and apply the voucher."
+        step2_text = f"*Step 2 of 2*\n\nOpen {merchant}, add the item to cart. {redeem_instruction or 'Apply the voucher.'}"
         step2_text += f"\nPay the remaining ₹{remainder:,.0f}." if remainder else "\nIt covers the full order."
         sellers = route.get("sellers") or []
         link = sellers[0].get("link") if sellers else None
@@ -219,16 +235,24 @@ async def _send_followup_buttons(phone: str) -> None:
     )
 
 
+_MESSAGE_PACE_SECONDS = 2  # Breathing room between bubbles so a fast reply doesn't arrive as one dense burst.
+
+
 async def _send_success_flow(phone: str, route: dict, image_url: str | None) -> None:
     """The full 3-4 message success reply, shared by every path that ends in
     showing a route: a fresh recommended route, a no-voucher route, and a
-    promoted alternative all render identically through here."""
+    promoted alternative all render identically through here. A short pause
+    between each bubble keeps it readable as a sequence instead of a burst —
+    without it, everything can land within the same second once the search
+    itself is done."""
     caption = _build_result_caption(route)
     await _send_result_message(phone, image_url, caption)
+    await asyncio.sleep(_MESSAGE_PACE_SECONDS)
     if route.get("voucher"):
         await _send_voucher_steps(phone, route)
     else:
         await _send_direct_cta(phone, route)
+    await asyncio.sleep(_MESSAGE_PACE_SECONDS)
     await _send_followup_buttons(phone)
 
 
@@ -280,6 +304,24 @@ async def send_typing_indicator(message_id: str | None) -> None:
             print(f"[WhatsApp Send] Status: {r.status_code} | Body: {r.text}")
     except Exception as e:
         print(f"[WhatsApp Send] typing indicator failed: {e}")
+
+
+_TYPING_REFRESH_SECONDS = 20  # Meta's indicator expires after 25s — refresh before that.
+
+
+async def _run_with_typing_keepalive(msg_id: str | None, work) -> None:
+    """Runs a background reply coroutine while re-firing the typing
+    indicator every ~20s for as long as it's still running. The external
+    pricing search this wraps can occasionally take 20-30+ seconds (real,
+    observed third-party API latency) — without this, WhatsApp's typing
+    indicator silently expires partway through the wait, leaving dead
+    silence right before the reply finally lands."""
+    task = asyncio.create_task(work)
+    while not task.done():
+        done, _ = await asyncio.wait({task}, timeout=_TYPING_REFRESH_SECONDS)
+        if not done:
+            await send_typing_indicator(msg_id)
+    await task
 
 
 async def _fetch_and_convert_to_jpeg(image_url: str) -> bytes | None:
@@ -494,6 +536,7 @@ async def process_and_respond(phone: str, classification: dict) -> None:
                 "description": _truncate(desc, 72),
             })
         await send_text(phone, WHATSAPP_MULTI_MATCH_MSG)
+        await asyncio.sleep(_MESSAGE_PACE_SECONDS)
         await send_list_message(
             phone,
             body_text="Select the exact product:",
@@ -536,7 +579,7 @@ async def handle_alternatives(phone: str) -> None:
     rows = []
     for i, alt in enumerate(alternatives[:3]):
         final_cost = alt.get("final_cost")
-        path = "Gyftr → Buy" if alt.get("voucher") else "Direct Buy"
+        path = "Gift Voucher → Buy" if alt.get("voucher") else "Direct Buy"
         desc = f"{path} · ₹{final_cost:,.0f}" if final_cost else path
         rows.append({
             "id": f"alt_{i}",
@@ -592,16 +635,24 @@ async def handle_incoming(body: dict) -> None:
             if itype == "button_reply":
                 reply_id = interactive["button_reply"]["id"]
                 if reply_id == "see_alternatives":
+                    await send_typing_indicator(msg_id)
                     asyncio.create_task(handle_alternatives(phone))
             elif itype == "list_reply":
                 reply_id = interactive["list_reply"]["id"]
                 if reply_id.startswith("alt_"):
-                    # Resolves from the already-cached session, not a fresh
-                    # pipeline call — no typing indicator needed, it's instant.
-                    asyncio.create_task(handle_alternative_selection(phone, reply_id))
+                    # Not a fresh pricing search, but still a real wait —
+                    # the image download/convert/upload + several message
+                    # sends take noticeable time, so this gets the typing
+                    # indicator too rather than assuming "cached = instant".
+                    await send_typing_indicator(msg_id)
+                    asyncio.create_task(
+                        _run_with_typing_keepalive(msg_id, handle_alternative_selection(phone, reply_id))
+                    )
                 elif reply_id.startswith("prod_"):
                     await send_typing_indicator(msg_id)
-                    asyncio.create_task(handle_product_selection(phone, reply_id))
+                    asyncio.create_task(
+                        _run_with_typing_keepalive(msg_id, handle_product_selection(phone, reply_id))
+                    )
             return
 
         if msg_type != "text":
@@ -620,7 +671,7 @@ async def handle_incoming(body: dict) -> None:
             return
 
         await send_typing_indicator(msg_id)
-        asyncio.create_task(process_and_respond(phone, classification))
+        asyncio.create_task(_run_with_typing_keepalive(msg_id, process_and_respond(phone, classification)))
     except (KeyError, IndexError):
         pass
     except Exception as e:
