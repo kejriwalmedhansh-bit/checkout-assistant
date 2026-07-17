@@ -1,29 +1,26 @@
 /**
- * Type system — native system font stack (apple-system first) for body text.
- *
- * `LABEL_FONT` controls the font for prices, small uppercase labels, table
- * headers, and stat numbers (everything that uses `fontFamily="mono"`, e.g.
- * <Eyebrow>, <Chip>, <DataTable> headers, price displays). Set to MONO_FONT
- * so numbers read as precise/tabular — fits Dealo's exact-savings positioning.
- * Requires the JetBrains Mono <link> in index.html.
+ * Type system — "Ledger" pairing: Hanken Grotesk for UI/headings (warm,
+ * humanist, not corporate), IBM Plex Mono for every rupee/percent value
+ * (real tabular figures, reads as audited rather than terminal-flavored).
+ * Requires the Hanken Grotesk + IBM Plex Mono <link> in index.html.
  */
-const SYSTEM_STACK =
+const SYSTEM_FALLBACK =
   "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif";
+const MONO_FALLBACK = 'ui-monospace, SFMono-Regular, Menlo, Consolas, monospace';
 
-const MONO_FONT = "'JetBrains Mono', ui-monospace, SFMono-Regular, monospace";
-
-const LABEL_FONT = MONO_FONT;
+const UI_FONT = `'Hanken Grotesk', ${SYSTEM_FALLBACK}`;
+const MONO_FONT = `'IBM Plex Mono', ${MONO_FALLBACK}`;
 
 export const fonts = {
-  heading: SYSTEM_STACK,
-  body: SYSTEM_STACK,
-  mono: LABEL_FONT,
+  heading: UI_FONT,
+  body: UI_FONT,
+  mono: MONO_FONT,
 };
 
 export const radii = {
   xs: '8px',
   sm: '12px',
-  md: '16px',
-  lg: '22px',
+  md: '14px',
+  lg: '20px',
   pill: '999px',
 };
