@@ -51,10 +51,9 @@ KNOWN_BRANDS = [
 # --- WhatsApp user-facing copy ---
 WHATSAPP_ONBOARDING_MSG = (
     "Hi! I'm Dealo 👋\n\n"
-    "Tell me what you want to buy.\n"
-    "I'll find the smartest way to pay for it.\n\n"
-    "Vouchers, card offers, best price — all in 20 seconds.\n\n"
-    "Try:\n• boAt Airdopes 141\n• amazon.in/dp/B09XYZ (any product link)"
+    "Send me a product name or link and I'll find the smartest way to pay — "
+    "vouchers, card offers, best price.\n\n"
+    "Try: boAt Airdopes 141"
 )
 WHATSAPP_NUDGE_MSG = (
     "Send me a product name and I'll find the best deal — "

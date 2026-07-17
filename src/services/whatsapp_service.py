@@ -149,7 +149,7 @@ async def _send_voucher_steps(phone: str, route: dict) -> None:
         # A single inline "2×₹10,000 + 1×₹3,000 + 3×₹500" string reads as a
         # cramped run-on when it's more than one or two items — a short
         # bulleted list is much easier to actually follow while shopping.
-        breakdown_lines = "\n".join(f"• {b['count']} × ₹{b['denom']:,}" for b in denom_breakdown)
+        breakdown_lines = "\n".join(f"• *{b['count']} × ₹{b['denom']:,}*" for b in denom_breakdown)
         step1_text = (
             f"*Step 1 of 2*\n\n"
             f"Buy these {voucher_brand} {voucher_word} on Gyftr ({discount_pct}% off via UPI):\n"
@@ -173,17 +173,17 @@ async def _send_voucher_steps(phone: str, route: dict) -> None:
         cap_text = f", ₹{cap:,.0f} max per transaction" if cap else ""
         step1_text += f"\n\nYou'll need to do this {txns} separate times{cap_text}."
     await send_cta_url(phone, step1_text, "Buy Now", voucher["voucher_url"])
-    await asyncio.sleep(_MESSAGE_PACE_SECONDS)
+    await asyncio.sleep(_VOUCHER_STEP_GAP_SECONDS)
 
     remainder = upi.get("remainder", 0)
     redeem_instruction = voucher.get("how_to_redeem_short")
     if in_store:
         step2_text = f"*Step 2 of 2*\n\nHead to your nearest {merchant} store. {redeem_instruction or 'Show the voucher at checkout.'}"
-        step2_text += f"\nPay the remaining ₹{remainder:,.0f}." if remainder else "\nIt covers the full order."
+        step2_text += f"\nPay the remaining *₹{remainder:,.0f}*." if remainder else "\nIt covers the full order."
         await send_text(phone, step2_text)
     else:
         step2_text = f"*Step 2 of 2*\n\nOpen {merchant}, add the item to cart. {redeem_instruction or 'Apply the voucher.'}"
-        step2_text += f"\nPay the remaining ₹{remainder:,.0f}." if remainder else "\nIt covers the full order."
+        step2_text += f"\nPay the remaining *₹{remainder:,.0f}*." if remainder else "\nIt covers the full order."
         sellers = route.get("sellers") or []
         link = sellers[0].get("link") if sellers else None
         if link:
@@ -242,6 +242,7 @@ async def _send_card_fomo(phone: str, route: dict) -> None:
 
 
 _MESSAGE_PACE_SECONDS = 2  # Breathing room between bubbles so a fast reply doesn't arrive as one dense burst.
+_VOUCHER_STEP_GAP_SECONDS = 10  # Longer pause before Step 2 — gives the user real time to finish buying the voucher in Step 1 first.
 
 
 async def _send_success_flow(phone: str, route: dict, image_url: str | None) -> None:
@@ -549,11 +550,9 @@ async def process_and_respond(phone: str, classification: dict) -> None:
                 "title": _truncate(_short_title(full_title, query), 24),
                 "description": _truncate(desc, 72),
             })
-        await send_text(phone, WHATSAPP_MULTI_MATCH_MSG)
-        await asyncio.sleep(_MESSAGE_PACE_SECONDS)
         await send_list_message(
             phone,
-            body_text="Select the exact product:",
+            body_text=WHATSAPP_MULTI_MATCH_MSG,
             button_text="Select product",
             rows=rows,
         )
@@ -650,10 +649,9 @@ async def handle_pick_again(phone: str) -> None:
             "title": _truncate(_short_title(full_title, query), 24),
             "description": _truncate(desc, 72),
         })
-    await send_text(phone, WHATSAPP_MULTI_MATCH_MSG)
     await send_list_message(
         phone,
-        body_text="Select the exact product:",
+        body_text=WHATSAPP_MULTI_MATCH_MSG,
         button_text="Select product",
         rows=rows,
     )
@@ -683,6 +681,7 @@ async def handle_incoming(body: dict) -> None:
                     await send_typing_indicator(msg_id)
                     asyncio.create_task(handle_alternatives(phone))
                 elif reply_id == "pick_again":
+                    await send_typing_indicator(msg_id)
                     asyncio.create_task(handle_pick_again(phone))
             elif itype == "list_reply":
                 reply_id = interactive["list_reply"]["id"]

@@ -1,0 +1,493 @@
+<title>Dealo — WhatsApp Message Templates</title>
+<style>
+  :root {
+    --bg: #F4F6F4;
+    --surface: #FFFFFF;
+    --surface-alt: #EAEFEA;
+    --text: #1B2320;
+    --text-muted: #5C6B63;
+    --accent: #1F6E52;
+    --accent-soft: #DCEEE5;
+    --accent-line: #B8DCC9;
+    --placeholder: #9A5B06;
+    --placeholder-bg: #FBEBD2;
+    --border: #D8DED9;
+    --shadow: 0 1px 2px rgba(20, 30, 25, 0.06), 0 6px 20px rgba(20, 30, 25, 0.05);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #12160F;
+      --surface: #191F19;
+      --surface-alt: #202721;
+      --text: #E9EEE9;
+      --text-muted: #97A69C;
+      --accent: #56B78D;
+      --accent-soft: #1D3B2E;
+      --accent-line: #2C5442;
+      --placeholder: #E0A63C;
+      --placeholder-bg: #362A11;
+      --border: #2A312B;
+      --shadow: 0 1px 2px rgba(0, 0, 0, 0.3), 0 8px 24px rgba(0, 0, 0, 0.35);
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #12160F; --surface: #191F19; --surface-alt: #202721; --text: #E9EEE9;
+    --text-muted: #97A69C; --accent: #56B78D; --accent-soft: #1D3B2E;
+    --accent-line: #2C5442; --placeholder: #E0A63C; --placeholder-bg: #362A11;
+    --border: #2A312B; --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 8px 24px rgba(0,0,0,0.35);
+  }
+  :root[data-theme="light"] {
+    --bg: #F4F6F4; --surface: #FFFFFF; --surface-alt: #EAEFEA; --text: #1B2320;
+    --text-muted: #5C6B63; --accent: #1F6E52; --accent-soft: #DCEEE5;
+    --accent-line: #B8DCC9; --placeholder: #9A5B06; --placeholder-bg: #FBEBD2;
+    --border: #D8DED9; --shadow: 0 1px 2px rgba(20,30,25,0.06), 0 6px 20px rgba(20,30,25,0.05);
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 900px; margin: 0 auto; padding: 56px 24px 120px; }
+
+  h1, h2, h3 {
+    font-family: 'Iowan Old Style', 'Palatino Linotype', Palatino, Georgia, serif;
+    font-weight: 600;
+    text-wrap: balance;
+    margin: 0;
+  }
+
+  header.intro { margin-bottom: 56px; }
+  header.intro .eyebrow {
+    font-size: 12.5px; letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--accent); font-weight: 600; margin-bottom: 10px;
+  }
+  header.intro h1 { font-size: 34px; margin-bottom: 14px; }
+  header.intro p { max-width: 62ch; color: var(--text-muted); font-size: 15.5px; }
+  header.intro .meta {
+    margin-top: 18px; font-size: 13px; color: var(--text-muted);
+    display: flex; gap: 18px; flex-wrap: wrap;
+  }
+  header.intro .meta code {
+    font-family: 'SF Mono', Menlo, Consolas, 'Liberation Mono', monospace;
+    background: var(--surface-alt); padding: 2px 6px; border-radius: 4px; font-size: 12px;
+  }
+
+  .timing-note {
+    background: var(--surface); border: 1px solid var(--border); border-radius: 10px;
+    padding: 18px 20px; margin-bottom: 56px; box-shadow: var(--shadow);
+  }
+  .timing-note h3 { font-size: 14.5px; margin-bottom: 8px; }
+  .timing-note p { margin: 0; font-size: 14px; color: var(--text-muted); max-width: 68ch; }
+  .timing-note p + p { margin-top: 8px; }
+
+  section.flow { margin-bottom: 64px; }
+  section.flow .flow-head { margin-bottom: 24px; }
+  section.flow .flow-eyebrow {
+    font-size: 12px; letter-spacing: 0.07em; text-transform: uppercase;
+    color: var(--text-muted); font-weight: 600; margin-bottom: 6px;
+  }
+  section.flow h2 { font-size: 24px; }
+  section.flow .flow-desc { color: var(--text-muted); font-size: 14px; margin-top: 6px; max-width: 68ch; }
+
+  .msg-card {
+    display: grid; grid-template-columns: 300px 1fr; gap: 24px;
+    padding: 22px 0; border-top: 1px solid var(--border);
+  }
+  .msg-card:first-of-type { border-top: 1px solid var(--border); }
+  @media (max-width: 720px) {
+    .msg-card { grid-template-columns: 1fr; }
+  }
+
+  .bubble-frame {
+    background: var(--surface-alt); border-radius: 14px; padding: 16px;
+  }
+  .bubble {
+    background: var(--accent-soft); border: 1px solid var(--accent-line);
+    border-radius: 12px 12px 3px 12px; padding: 12px 13px;
+    font-size: 14px; white-space: pre-wrap; color: var(--text);
+  }
+  .bubble img.thumb {
+    display: block; width: 100%; border-radius: 8px; margin-bottom: 8px;
+    border: 1px solid var(--accent-line);
+  }
+  .bubble .btn-row {
+    margin-top: 10px; padding-top: 8px; border-top: 1px solid var(--accent-line);
+    text-align: center; color: var(--accent); font-weight: 600; font-size: 13.5px;
+  }
+  .bubble .btn-row + .btn-row { margin-top: 6px; padding-top: 6px; }
+  .bubble .list-row {
+    margin-top: 8px; padding: 8px 10px; background: var(--surface);
+    border-radius: 8px; font-size: 13px;
+  }
+  .bubble .list-row .rt { font-weight: 600; }
+  .bubble .list-row .rd { color: var(--text-muted); font-size: 12px; margin-top: 2px; }
+
+  .msg-meta { display: flex; flex-direction: column; gap: 10px; }
+  .msg-type {
+    display: inline-flex; align-self: flex-start; align-items: center; gap: 6px;
+    font-size: 11.5px; font-weight: 600; letter-spacing: 0.03em; text-transform: uppercase;
+    background: var(--surface); border: 1px solid var(--border); border-radius: 999px;
+    padding: 4px 10px; color: var(--accent);
+  }
+  .msg-trigger { font-size: 13px; color: var(--text-muted); }
+  .msg-trigger b { color: var(--text); font-weight: 600; }
+
+  .template {
+    font-family: 'SF Mono', Menlo, Consolas, 'Liberation Mono', monospace;
+    font-size: 12.5px; line-height: 1.6; background: var(--surface);
+    border: 1px solid var(--border); border-radius: 8px; padding: 12px 14px;
+    white-space: pre-wrap; overflow-x: auto; color: var(--text);
+  }
+  .template .ph {
+    background: var(--placeholder-bg); color: var(--placeholder);
+    padding: 0 3px; border-radius: 3px; font-weight: 600;
+  }
+  .template .cond { color: var(--text-muted); font-style: italic; }
+
+  .fallback-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 14px;
+  }
+  .fallback-card {
+    background: var(--surface); border: 1px solid var(--border); border-radius: 10px;
+    padding: 16px; box-shadow: var(--shadow);
+  }
+  .fallback-card .ft { font-size: 13px; font-weight: 600; color: var(--accent); margin-bottom: 6px; }
+  .fallback-card .fb {
+    background: var(--accent-soft); border: 1px solid var(--accent-line);
+    border-radius: 10px; padding: 10px 12px; font-size: 13.5px; margin-bottom: 8px;
+  }
+  .fallback-card .fw { font-size: 12.5px; color: var(--text-muted); }
+
+  footer {
+    margin-top: 72px; padding-top: 20px; border-top: 1px solid var(--border);
+    font-size: 12.5px; color: var(--text-muted);
+  }
+</style>
+
+<div class="wrap">
+
+  <header class="intro">
+    <div class="eyebrow">Reference · Not synced automatically</div>
+    <h1>Every message Dealo sends on WhatsApp</h1>
+    <p>Exact wording, pulled straight from <code style="font-family: 'SF Mono', Menlo, monospace; background: var(--surface-alt); padding: 2px 6px; border-radius: 4px; font-size: 13px;">src/services/whatsapp_service.py</code> and <code style="font-family: 'SF Mono', Menlo, monospace; background: var(--surface-alt); padding: 2px 6px; border-radius: 4px; font-size: 13px;">src/constants.py</code> as they exist right now. Left side is roughly how it renders in the chat; right side is the raw template with the parts that change highlighted. When you want to rework any wording, point at the message by name and describe the new version — I'll update the code and refresh this page to match.</p>
+    <div class="meta">
+      <span>Snapshot: 14 Jul 2026</span>
+      <span>Source: <code>src/services/whatsapp_service.py</code></span>
+      <span>Real example data: AirPods Pro 3 · Croma + Gyftr, and Zepto direct-buy</span>
+    </div>
+  </header>
+
+  <div class="timing-note">
+    <h3>Pacing, not just wording</h3>
+    <p>Before any reply that takes real time, WhatsApp's native <b>typing…</b> indicator shows — and re-fires every ~20s for as long as the wait continues, since Meta's own indicator otherwise expires after 25s.</p>
+    <p>Once a reply is ready, messages go out <b>2 seconds apart</b> rather than in one burst, so a fast response still reads as a paced conversation instead of five bubbles landing at once.</p>
+  </div>
+
+  <!-- ONBOARDING -->
+  <section class="flow">
+    <div class="flow-head">
+      <div class="flow-eyebrow">First contact</div>
+      <h2>Onboarding</h2>
+      <div class="flow-desc">Sent once — the very first time a phone number ever messages Dealo. Never repeats after that, for the life of the running server.</div>
+    </div>
+    <div class="msg-card">
+      <div class="bubble-frame">
+        <div class="bubble">Hi! I'm Dealo 👋
+
+Send me a product name or paste a link and I'll find the cheapest way to buy it.
+
+Examples:
+• boAt Airdopes 141
+• https://www.amazon.in/dp/B0ABC123</div>
+      </div>
+      <div class="msg-meta">
+        <span class="msg-type">Text</span>
+        <div class="msg-trigger">Fires when: <b>first-ever message</b> from a phone number, before anything else is processed.</div>
+        <div class="template">Hi! I'm Dealo 👋
+
+Send me a product name or paste a link and I'll find the cheapest way to buy it.
+
+Examples:
+• boAt Airdopes 141
+• https://www.amazon.in/dp/B0ABC123</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- AMBIGUOUS MATCH -->
+  <section class="flow">
+    <div class="flow-head">
+      <div class="flow-eyebrow">When more than one product matches</div>
+      <h2>Ambiguous match → picker</h2>
+      <div class="flow-desc">Short heads-up text, then a tap-to-choose list of up to 10 candidates. Row text is trimmed to fit WhatsApp's 24-character title limit — brand and query words are stripped first so the distinguishing part (color, size, variant) survives the cut.</div>
+    </div>
+
+    <div class="msg-card">
+      <div class="bubble-frame">
+        <div class="bubble">I found multiple matches. Pick the exact product.</div>
+      </div>
+      <div class="msg-meta">
+        <span class="msg-type">Text</span>
+        <div class="msg-trigger">Fires when: the search returns <b>more than one</b> plausible product.</div>
+        <div class="template">I found multiple matches. Pick the exact product.</div>
+      </div>
+    </div>
+
+    <div class="msg-card">
+      <div class="bubble-frame">
+        <div class="bubble">Select the exact product:
+          <div class="list-row"><div class="rt">Airdopes 141 Pro Buds</div><div class="rd">boAt Airdopes 141 Pro Buds · ₹899</div></div>
+          <div class="list-row"><div class="rt">141 Elite ANC</div><div class="rd">boAt Airdopes 141 Elite ANC Earbuds · ₹1,259</div></div>
+          <div class="btn-row">▾ Select product</div>
+        </div>
+      </div>
+      <div class="msg-meta">
+        <span class="msg-type">List message</span>
+        <div class="msg-trigger">Row tap comes back to us — <b>this is one of only two interactive types Meta actually tells us about.</b></div>
+        <div class="template">body: "Select the exact product:"
+button: "Select product"
+rows[i]: {
+  title: <span class="ph">{short_title, ≤24 chars}</span>,
+  description: <span class="ph">{title}</span> · ₹<span class="ph">{price}</span>
+}</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SUCCESS: VOUCHER -->
+  <section class="flow">
+    <div class="flow-head">
+      <div class="flow-eyebrow">A product is confirmed, and a Gift Voucher deal beats the plain price</div>
+      <h2>Success flow — voucher deal</h2>
+      <div class="flow-desc">Four bubbles, 2 seconds apart. Real example below: AirPods Pro 3 via Croma, stacked with a 3-denomination Gyftr voucher and an optional SBI Cashback card.</div>
+    </div>
+
+    <div class="msg-card">
+      <div class="bubble-frame">
+        <div class="bubble">
+          <img class="thumb" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='280' height='170'%3E%3Crect width='280' height='170' fill='%23e4e9e4'/%3E%3Ctext x='50%25' y='50%25' text-anchor='middle' dy='.3em' font-family='sans-serif' font-size='13' fill='%23879088'%3Eproduct photo%3C/text%3E%3C/svg%3E" alt="product photo placeholder" />
+          <b>Apple AirPods Pro 3</b>
+Best route: Croma + Gift Voucher
+Price: <s>₹24,990</s> <b>₹24,500</b>
+<b>YOU SAVE ₹490 (2% off)</b> 🎉
+
+💳 Have an SBI Cashback card? Save an extra ₹1,225 paying with it.
+Don't have it? Apply: https://bitli.in/vW4iKjM
+        </div>
+      </div>
+      <div class="msg-meta">
+        <span class="msg-type">Image + caption</span>
+        <div class="msg-trigger">Falls back to <b>text-only</b> automatically if the photo fails to send.</div>
+        <div class="template">*<span class="ph">{title}</span>*
+Best route: <span class="ph">{merchant}</span> + Gift Voucher
+<span class="cond">— if there's a real discount —</span>
+Price: ~₹<span class="ph">{listed_price}</span>~ *₹<span class="ph">{final_cost}</span>*
+*YOU SAVE ₹<span class="ph">{savings}</span> (<span class="ph">{pct}</span>% off)* 🎉
+<span class="cond">— else —</span>
+Price: ₹<span class="ph">{final_cost}</span>
+
+<span class="cond">— only if a card genuinely helps (clears ₹200 / 3% floor) —</span>
+💳 Have an <span class="ph">{card_name}</span> card? Save an extra ₹<span class="ph">{card_saving}</span> paying with it.
+Don't have it? Apply: <span class="ph">{apply_url}</span></div>
+      </div>
+    </div>
+
+    <div class="msg-card">
+      <div class="bubble-frame">
+        <div class="bubble"><b>Step 1 of 2</b>
+
+Buy these Croma vouchers on Gyftr (2% off via UPI):
+• 2 × ₹10,000
+• 1 × ₹3,000
+• 3 × ₹500
+
+Add all of these to your Gyftr cart — one checkout covers it.
+          <div class="btn-row">🔗 1. Buy Voucher</div>
+        </div>
+      </div>
+      <div class="msg-meta">
+        <span class="msg-type">CTA-URL button</span>
+        <div class="msg-trigger">Links straight to the Gyftr voucher page. Tap is <b>not observable</b> — Meta doesn't report URL-button taps.</div>
+        <div class="template">*Step 1 of 2*
+
+<span class="cond">— single denomination —</span>
+Buy exactly <span class="ph">{amount}</span> <span class="ph">{brand}</span> voucher on Gyftr first (<span class="ph">{pct}</span>% off via UPI).
+<span class="cond">— multiple denominations —</span>
+Buy these <span class="ph">{brand}</span> vouchers on Gyftr (<span class="ph">{pct}</span>% off via UPI):
+• <span class="ph">{count}</span> × ₹<span class="ph">{denom}</span>  ...
+
+<span class="cond">— single checkout is enough —</span>
+Add all of these to your Gyftr cart — one checkout covers it.
+<span class="cond">— a real per-transaction cap forces multiple trips —</span>
+You'll need to do this <span class="ph">{n}</span> separate times, ₹<span class="ph">{cap}</span> max per transaction.
+
+button: "1. Buy Voucher" → <span class="ph">{voucher_url}</span></div>
+      </div>
+    </div>
+
+    <div class="msg-card">
+      <div class="bubble-frame">
+        <div class="bubble"><b>Step 2 of 2</b>
+
+Open Croma, add the item to cart, and apply the voucher.
+Pay the remaining ₹490.
+          <div class="btn-row">🔗 2. Open Store</div>
+        </div>
+      </div>
+      <div class="msg-meta">
+        <span class="msg-type">CTA-URL button <span style="font-weight:400; text-transform:none;">(or plain text)</span></span>
+        <div class="msg-trigger">Becomes plain text with <b>no button</b> when the voucher is redeemable only in-store — there's no online link to attach.</div>
+        <div class="template"><span class="cond">— online —</span>
+*Step 2 of 2*
+
+Open <span class="ph">{merchant}</span>, add the item to cart, and apply the voucher.
+Pay the remaining ₹<span class="ph">{remainder}</span>.
+button: "2. Open Store" → <span class="ph">{merchant_link}</span>
+
+<span class="cond">— in-store only —</span>
+Head to your nearest <span class="ph">{merchant}</span> store and show the voucher at checkout.
+Pay the remaining ₹<span class="ph">{remainder}</span>.</div>
+      </div>
+    </div>
+
+    <div class="msg-card">
+      <div class="bubble-frame">
+        <div class="bubble">Not the right fit?
+          <div class="btn-row">Other route</div>
+        </div>
+      </div>
+      <div class="msg-meta">
+        <span class="msg-type">Reply button</span>
+        <div class="msg-trigger">Tap <b>is</b> observable — this is the other of the two trackable interactive types.</div>
+        <div class="template">body: "Not the right fit?"
+buttons: ["Other route"]</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SUCCESS: NO VOUCHER -->
+  <section class="flow">
+    <div class="flow-head">
+      <div class="flow-eyebrow">A product is confirmed, and no voucher beats the plain listed price</div>
+      <h2>Success flow — direct buy</h2>
+      <div class="flow-desc">Same photo+numbers bubble, then one plain buy button instead of two numbered steps — nothing to sequence when there's only one action. Real example: AirPods Pro 3 via Zepto, no voucher, only the card callout applies.</div>
+    </div>
+
+    <div class="msg-card">
+      <div class="bubble-frame">
+        <div class="bubble">
+          <img class="thumb" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='280' height='170'%3E%3Crect width='280' height='170' fill='%23e4e9e4'/%3E%3Ctext x='50%25' y='50%25' text-anchor='middle' dy='.3em' font-family='sans-serif' font-size='13' fill='%23879088'%3Eproduct photo%3C/text%3E%3C/svg%3E" alt="product photo placeholder" />
+          <b>Apple AirPods Pro 3</b>
+Best route: Zepto
+Price: ₹24,099
+
+💳 Have an SBI Cashback card? Save an extra ₹1,205 paying with it.
+Don't have it? Apply: https://bitli.in/vW4iKjM
+        </div>
+      </div>
+      <div class="msg-meta">
+        <span class="msg-type">Image + caption</span>
+        <div class="msg-trigger">Same template as the voucher flow above — no "YOU SAVE" line here since <span class="ph">final_cost</span> equals <span class="ph">listed_price</span> with nothing stacked on top.</div>
+        <div class="template">(identical caption template — see voucher flow above)</div>
+      </div>
+    </div>
+
+    <div class="msg-card">
+      <div class="bubble-frame">
+        <div class="bubble">Ready to buy from Zepto?
+          <div class="btn-row">🔗 Open Zepto</div>
+        </div>
+      </div>
+      <div class="msg-meta">
+        <span class="msg-type">CTA-URL button</span>
+        <div class="msg-trigger">Skipped entirely (no message sent) if there's no recoverable seller link at all.</div>
+        <div class="template">Ready to buy from <span class="ph">{merchant}</span>?
+button: "Open <span class="ph">{merchant}</span>" → <span class="ph">{merchant_link}</span></div>
+      </div>
+    </div>
+
+    <div class="msg-card">
+      <div class="bubble-frame">
+        <div class="bubble">Not the right fit?
+          <div class="btn-row">Other route</div>
+        </div>
+      </div>
+      <div class="msg-meta">
+        <span class="msg-type">Reply button</span>
+        <div class="msg-trigger">Same follow-up message as every success flow.</div>
+        <div class="template">body: "Not the right fit?"
+buttons: ["Other route"]</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ALTERNATIVES -->
+  <section class="flow">
+    <div class="flow-head">
+      <div class="flow-eyebrow">Tapping "Other route"</div>
+      <h2>Alternatives</h2>
+      <div class="flow-desc">Up to 3 other merchants, cheapest-first. Picking one re-enters the exact same success flow above (photo, numbers, steps, follow-up) for that route — it isn't a separate, shorter version.</div>
+    </div>
+    <div class="msg-card">
+      <div class="bubble-frame">
+        <div class="bubble">Other ways to buy this — pick one to see the full route:
+          <div class="list-row"><div class="rt">Apple</div><div class="rd">Direct Buy · ₹25,900</div></div>
+          <div class="list-row"><div class="rt">Croma</div><div class="rd">Gift Voucher → Buy · ₹24,500</div></div>
+          <div class="btn-row">▾ View options</div>
+        </div>
+      </div>
+      <div class="msg-meta">
+        <span class="msg-type">List message</span>
+        <div class="msg-trigger">Says <b>"Gift Voucher → Buy"</b>, never "Gyftr" — the brand name means nothing to a customer who's never heard of it.</div>
+        <div class="template">body: "Other ways to buy this — pick one to see the full route:"
+button: "View options"
+rows[i]: {
+  title: <span class="ph">{merchant}</span>,
+  description: <span class="cond">{"Gift Voucher → Buy" if voucher else "Direct Buy"}</span> · ₹<span class="ph">{final_cost}</span>
+}</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FALLBACKS -->
+  <section class="flow">
+    <div class="flow-head">
+      <div class="flow-eyebrow">Nothing found, or things timed out</div>
+      <h2>Fallback messages</h2>
+      <div class="flow-desc">Static, no placeholders. Each fires from a different edge case.</div>
+    </div>
+    <div class="fallback-grid">
+      <div class="fallback-card">
+        <div class="ft">Not a text or recognizable input</div>
+        <div class="fb">Send a product name (e.g. 'Samsung Galaxy S24') or paste a product link.</div>
+        <div class="fw">Non-text message type, or unparseable text from a returning user.</div>
+      </div>
+      <div class="fallback-card">
+        <div class="ft">No route could be built</div>
+        <div class="fb">Couldn't find a reliable route for that one yet. Try a different product or paste the link directly.</div>
+        <div class="fw">Zero search results, or no trusted candidate survived filtering.</div>
+      </div>
+      <div class="fallback-card">
+        <div class="ft">Picker/alternatives tapped too late</div>
+        <div class="fb">Session expired — send the product again and I'll re-check.</div>
+        <div class="fw">10-minute sliding session window has lapsed.</div>
+      </div>
+      <div class="fallback-card">
+        <div class="ft">"Other route" with nothing to show</div>
+        <div class="fb">No alternative routes found for this one.</div>
+        <div class="fw">Only one viable merchant existed in the first place.</div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    This page is a manually-taken snapshot, not a live view — if the code changes, ask for it to be refreshed. Amber highlights mark values that change per search; everything else is fixed wording.
+  </footer>
+
+</div>
