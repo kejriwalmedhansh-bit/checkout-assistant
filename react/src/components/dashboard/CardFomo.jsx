@@ -49,14 +49,14 @@ export default function CardFomo({ cardFomo }) {
             flex="0 0 auto"
             fontSize="12px"
             fontWeight={600}
-            color="orangeText"
-            bg="orangeSoft"
+            color="brandText"
+            bg="brandSoft"
             border="1px solid"
-            borderColor="orange"
+            borderColor="brand"
             borderRadius="6px"
             px="10px"
             py="6px"
-            _hover={{ textDecoration: 'none', bg: 'orangeSoft2' }}
+            _hover={{ textDecoration: 'none', bg: 'brandSoft2' }}
           >
             Apply →
           </Link>

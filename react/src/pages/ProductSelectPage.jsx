@@ -14,7 +14,7 @@ function ErrorBox({ message }) {
     <Flex
       align="flex-start"
       gap="10px"
-      bg="orangeSoft2"
+      bg="brandSoft2"
       border="1px solid"
       borderColor="danger"
       borderRadius="sm"
@@ -68,17 +68,30 @@ export default function ProductSelectPage() {
 
       {searchStatus === 'loading' && (
         <Flex justify="center" py="48px">
-          <Spinner color="orange" size="lg" thickness="3px" />
+          <Spinner color="brand" size="lg" thickness="3px" />
         </Flex>
       )}
 
       {searchStatus === 'error' && <ErrorBox message={error || 'Search failed.'} />}
 
       {searchStatus === 'success' && candidates.length === 0 && (
-        <Card p="22px">
-          <Text fontSize="14px" color="text2">
-            No products found. Try a different search.
-          </Text>
+        <Card p="32px 22px">
+          <Flex direction="column" align="center" gap="10px" textAlign="center">
+            <Flex
+              w="44px"
+              h="44px"
+              borderRadius="12px"
+              bg="surface3"
+              color="text3"
+              align="center"
+              justify="center"
+            >
+              <I.search size={20} />
+            </Flex>
+            <Text fontSize="14px" color="text2">
+              No products found. Try a different search.
+            </Text>
+          </Flex>
         </Card>
       )}
 

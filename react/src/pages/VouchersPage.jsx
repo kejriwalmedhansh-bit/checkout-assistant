@@ -48,7 +48,7 @@ export default function VouchersPage() {
 
       {status === 'loading' && (
         <Flex justify="center" py="48px">
-          <Spinner color="orange" size="lg" thickness="3px" />
+          <Spinner color="brand" size="lg" thickness="3px" />
         </Flex>
       )}
 

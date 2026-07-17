@@ -29,7 +29,7 @@ export default function HowToSteps({ rec }) {
   const steps = [
     <>
       Buy {buyLabel} on{' '}
-      <Link href={v.voucher_url} isExternal color="orangeText" fontWeight={500}>
+      <Link href={v.voucher_url} isExternal color="brandText" fontWeight={500}>
         Gyftr
       </Link>{' '}
       using UPI — you pay {fmt(paid)}
@@ -60,7 +60,7 @@ export default function HowToSteps({ rec }) {
               h="22px"
               flex="0 0 auto"
               borderRadius="50%"
-              bg="orange"
+              bg="brand"
               color="white"
               align="center"
               justify="center"

@@ -4,7 +4,7 @@ import { gradients } from '@/theme/foundations/colors';
 import { SoloMark } from './icons';
 
 /**
- * Dealo wordmark + gradient tile. The wordmark's accent uses the `orange` token,
+ * Dealo wordmark + gradient tile. The wordmark's accent uses the `brand` token,
  * which the theme resolves to Dealo green.
  */
 export default function Logo({ size = 30, wordmark = true, shadow = true }) {
@@ -34,7 +34,7 @@ export default function Logo({ size = 30, wordmark = true, shadow = true }) {
           <Box as="span" color="text">
             Deal
           </Box>
-          <Box as="span" color="orange">
+          <Box as="span" color="brand">
             o
           </Box>
         </Text>

@@ -57,7 +57,7 @@ export default function VoucherDetailPage() {
 
       {status === 'loading' && (
         <Flex justify="center" py="48px">
-          <Spinner color="orange" size="lg" thickness="3px" />
+          <Spinner color="brand" size="lg" thickness="3px" />
         </Flex>
       )}
 
@@ -80,8 +80,8 @@ export default function VoucherDetailPage() {
                 w="46px"
                 h="46px"
                 borderRadius="12px"
-                bg="orangeSoft"
-                color="orange"
+                bg="brandSoft"
+                color="brand"
                 align="center"
                 justify="center"
                 flex="0 0 auto"

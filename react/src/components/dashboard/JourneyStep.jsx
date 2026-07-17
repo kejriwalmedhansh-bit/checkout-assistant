@@ -2,7 +2,7 @@ import { Box, Flex, Link, Text } from '@chakra-ui/react';
 
 /** Tone → soft circle background + accent color (semantic tokens). */
 const TONES = {
-  brand: { bg: 'orangeSoft', color: 'orange', border: 'orange' },
+  brand: { bg: 'brandSoft', color: 'brand', border: 'brand' },
   voucher: { bg: 'amberSoft', color: 'amber', border: 'amber' },
   checkout: { bg: 'greenSoft', color: 'green', border: 'green' },
 };
@@ -15,7 +15,14 @@ export default function JourneyStep({ tone = 'brand', icon: Ico, label, detail, 
   const t = TONES[tone] || TONES.brand;
 
   return (
-    <Flex direction="column" align="center" gap="7px" flex={1} minW="90px" textAlign="center">
+    <Flex
+      direction="column"
+      align="center"
+      gap="7px"
+      flex={1}
+      minW={{ base: '72px', md: '90px' }}
+      textAlign="center"
+    >
       <Flex
         w="52px"
         h="52px"
@@ -48,14 +55,14 @@ export default function JourneyStep({ tone = 'brand', icon: Ico, label, detail, 
           isExternal
           fontSize="11px"
           fontWeight={500}
-          color="orangeText"
-          bg="orangeSoft"
+          color="brandText"
+          bg="brandSoft"
           border="1px solid"
-          borderColor="orange"
+          borderColor="brand"
           borderRadius="6px"
           px="8px"
           py="3px"
-          _hover={{ textDecoration: 'none', bg: 'orangeSoft2' }}
+          _hover={{ textDecoration: 'none', bg: 'brandSoft2' }}
         >
           {link.label}
         </Link>
@@ -70,7 +77,7 @@ export function JourneyConnector() {
     <Box
       alignSelf="flex-start"
       mt="25px"
-      flex="0 0 20px"
+      flex={{ base: '0 0 10px', md: '0 0 20px' }}
       h="1.5px"
       bg="borderStrong"
       position="relative"
@@ -80,7 +87,7 @@ export function JourneyConnector() {
         right: '-4px',
         top: '-3.5px',
         border: '4px solid transparent',
-        borderLeftColor: 'var(--chakra-colors-borderStrong)',
+        borderLeftColor: 'borderStrong',
       }}
     />
   );

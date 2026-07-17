@@ -9,6 +9,7 @@ const Card = forwardRef((props, ref) => (
     borderColor="border"
     borderRadius="md"
     boxShadow="sm"
+    _focusVisible={{ boxShadow: 'ring', borderColor: 'brand', outline: 'none' }}
     {...props}
   />
 ));

@@ -56,16 +56,16 @@ function NavItem({ to, end, icon: Ico, label, onNavigate, collapsed }) {
       borderRadius={active ? '9px' : '11px'}
       fontSize="13px"
       fontWeight={600}
-      color={active ? 'orangeText' : 'text2'}
-      bg={active ? 'orangeSoft' : 'transparent'}
+      color={active ? 'brandText' : 'text2'}
+      bg={active ? 'brandSoft' : 'transparent'}
       _hover={{
         textDecoration: 'none',
-        bg: active ? 'orangeSoft' : 'surface3',
-        color: active ? 'orangeText' : 'text',
+        bg: active ? 'brandSoft' : 'surface3',
+        color: active ? 'brandText' : 'text',
       }}
     >
       {active && (
-        <Box position="absolute" left="-10px" top="10px" bottom="10px" w="3px" borderRadius="99px" bg="orange" />
+        <Box position="absolute" left="-10px" top="10px" bottom="10px" w="3px" borderRadius="99px" bg="brand" />
       )}
       <Tooltip label={label} placement="right" hasArrow openDelay={250} borderRadius="8px" isDisabled={!collapsed}>
         <IconSlot>
@@ -99,7 +99,7 @@ export default function SidebarContent({ onNavigate, collapsed = false }) {
           <Box as="span" color="text">
             Deal
           </Box>
-          <Box as="span" color="orange">
+          <Box as="span" color="brand">
             o
           </Box>
         </Text>

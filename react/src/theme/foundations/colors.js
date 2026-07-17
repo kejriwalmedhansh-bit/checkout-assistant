@@ -6,9 +6,6 @@
  * correct value for the active color mode automatically — so flipping the theme
  * toggle re-themes the whole app with no per-component conditionals.
  *
- * NOTE: the brand token NAMES are kept as `orange*` (so shared components can be
- * mirrored verbatim), but the VALUES are Dealo green. This keeps the theme the
- * single place to re-skin the brand.
  */
 export const semanticColors = {
   // warm whites / blacks — content canvas is white; the sidebar reads as a
@@ -25,12 +22,12 @@ export const semanticColors = {
   text2: { default: '#6C665E', _dark: '#A49C90' },
   text3: { default: '#9E978D', _dark: '#756E63' },
 
-  // brand — green (token names kept as orange* for mirrored components)
-  orange: { default: '#1A9E63', _dark: '#34C57E' },
-  orangeHover: { default: '#158652', _dark: '#4FD693' },
-  orangeSoft: { default: '#E2F4EB', _dark: '#14301F' },
-  orangeSoft2: { default: '#F1FAF5', _dark: '#0F241A' },
-  orangeText: { default: '#147A4C', _dark: '#5FD99C' },
+  // brand — Dealo green
+  brand: { default: '#1A9E63', _dark: '#34C57E' },
+  brandHover: { default: '#158652', _dark: '#4FD693' },
+  brandSoft: { default: '#E2F4EB', _dark: '#14301F' },
+  brandSoft2: { default: '#F1FAF5', _dark: '#0F241A' },
+  brandText: { default: '#147A4C', _dark: '#5FD99C' },
 
   // secondary accents
   cyan: { default: '#14ACBC', _dark: '#2BC6D6' },
@@ -51,9 +48,9 @@ export const semanticColors = {
  * constant still lives in the theme layer. All recolored to Dealo green.
  */
 export const gradients = {
-  logoMark: 'linear-gradient(150deg, #34C57E, var(--chakra-colors-orange))',
-  brandAvatar: 'linear-gradient(135deg, #34C57E, var(--chakra-colors-orange))',
-  usageBar: 'linear-gradient(90deg, #34C57E, var(--chakra-colors-orange))',
+  logoMark: 'linear-gradient(150deg, #34C57E, var(--chakra-colors-brand))',
+  brandAvatar: 'linear-gradient(135deg, #34C57E, var(--chakra-colors-brand))',
+  usageBar: 'linear-gradient(90deg, #34C57E, var(--chakra-colors-brand))',
 
   // "search hero" glow — a soft, minimal green glow that fades in from the top of
   // the screen. Built on transparent stops so it washes over the page background

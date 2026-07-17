@@ -61,7 +61,7 @@ export default function SearchPage() {
           color="text"
         >
           The smartest way to{' '}
-          <Box as="span" color="orange">
+          <Box as="span" color="brand">
             buy
           </Box>
         </Text>

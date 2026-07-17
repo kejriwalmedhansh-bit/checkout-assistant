@@ -3,7 +3,7 @@ import { Flex } from '@chakra-ui/react';
 /** Tone presets → soft background + accent text color (semantic tokens). */
 const TONES = {
   green: { bg: 'greenSoft', color: 'green' },
-  orange: { bg: 'orangeSoft', color: 'orangeText' },
+  brand: { bg: 'brandSoft', color: 'brandText' },
   cyan: { bg: 'cyanSoft', color: 'cyan' },
   amber: { bg: 'amberSoft', color: 'amber' },
   violet: { bg: 'violetSoft', color: 'violet' },

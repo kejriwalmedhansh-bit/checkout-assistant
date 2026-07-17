@@ -29,11 +29,11 @@ export const buttonTheme = {
   },
   variants: {
     primary: {
-      bg: 'orange',
+      bg: 'brand',
       color: 'white',
       boxShadow: 'none',
-      _hover: { bg: 'orangeHover', _disabled: { bg: 'orange' } },
-      _active: { bg: 'orangeHover' },
+      _hover: { bg: 'brandHover', _disabled: { bg: 'brand' } },
+      _active: { bg: 'brandHover' },
     },
     ghost: {
       bg: 'surface',

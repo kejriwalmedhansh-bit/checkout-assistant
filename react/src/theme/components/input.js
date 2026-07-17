@@ -12,8 +12,8 @@ const fieldStyles = {
   color: 'text',
   _placeholder: { color: 'text3', fontSize: '13.5px' },
   _hover: { borderColor: 'borderStrong' },
-  _focus: { borderColor: 'orange', boxShadow: 'ring', bg: 'surface' },
-  _focusVisible: { borderColor: 'orange', boxShadow: 'ring', bg: 'surface' },
+  _focus: { borderColor: 'brand', boxShadow: 'ring', bg: 'surface' },
+  _focusVisible: { borderColor: 'brand', boxShadow: 'ring', bg: 'surface' },
 };
 
 export const inputTheme = {

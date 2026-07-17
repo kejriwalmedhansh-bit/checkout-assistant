@@ -41,7 +41,7 @@ function LoadingCard() {
                 w="10px"
                 h="10px"
                 borderRadius="50%"
-                bg="orange"
+                bg="brand"
                 sx={{
                   animation: 'dealoPulse 1.2s ease-in-out infinite',
                   animationDelay: `${i * 0.2}s`,
@@ -67,7 +67,7 @@ function ErrorBox({ message }) {
     <Flex
       align="flex-start"
       gap="10px"
-      bg="orangeSoft2"
+      bg="brandSoft2"
       border="1px solid"
       borderColor="danger"
       borderRadius="sm"

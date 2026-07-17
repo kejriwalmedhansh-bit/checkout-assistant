@@ -14,7 +14,13 @@ export default function Journey({ rec }) {
   const sellerLink = rec.sellers?.[0]?.link;
 
   return (
-    <Flex align="flex-start" justify="center" flexWrap="wrap" gap="4px" mb="4px">
+    <Flex
+      align="flex-start"
+      justify="center"
+      flexWrap="wrap"
+      gap={{ base: '2px', md: '4px' }}
+      mb="4px"
+    >
       <JourneyStep
         tone="brand"
         icon={I.store}

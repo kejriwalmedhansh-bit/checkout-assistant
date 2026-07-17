@@ -22,12 +22,12 @@ export default function FinalPriceRow({ finalPrice, originalPrice, saving }) {
           You pay
         </Text>
         {originalPrice && saving ? (
-          <Text fontSize="11px" color="text3" textDecoration="line-through">
+          <Text fontFamily="mono" fontSize="11px" color="text3" textDecoration="line-through">
             {fmt(originalPrice)} elsewhere
           </Text>
         ) : null}
       </Box>
-      <Text fontSize="28px" fontWeight={700} color="green" lineHeight={1}>
+      <Text fontFamily="mono" fontSize="28px" fontWeight={700} color="green" lineHeight={1}>
         {fmt(finalPrice)}
       </Text>
     </Flex>

@@ -15,8 +15,8 @@ export default function ProductIdentity({ name, sourceUrl }) {
           w="40px"
           h="40px"
           borderRadius="10px"
-          bg="orangeSoft"
-          color="orange"
+          bg="brandSoft"
+          color="brand"
           align="center"
           justify="center"
           flex="0 0 auto"
@@ -29,7 +29,7 @@ export default function ProductIdentity({ name, sourceUrl }) {
           </Text>
           <Text fontSize="15px" fontWeight={700} color="text" noOfLines={2}>
             {sourceUrl ? (
-              <Link href={sourceUrl} isExternal color="orangeText">
+              <Link href={sourceUrl} isExternal color="brandText">
                 {name}
               </Link>
             ) : (

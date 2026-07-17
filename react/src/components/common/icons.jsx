@@ -3,7 +3,7 @@
  *
  * Each icon is a chakra <svg> so it accepts Chakra style props — notably `color`
  * (which flows into `stroke="currentColor"`) and `boxSize`. Pass `size` for px,
- * or any color token via `color="orange"`.
+ * or any color token via `color="brand"`.
  */
 import { chakra } from '@chakra-ui/react';
 

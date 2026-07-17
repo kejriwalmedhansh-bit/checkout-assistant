@@ -24,7 +24,7 @@ export default function SavingsBar({ originalPrice, finalPrice, saving }) {
       borderRadius="md"
       px="20px"
       py="16px"
-      boxShadow="0 1px 0 rgba(26,158,99,.08)"
+      boxShadow="savingsHairline"
     >
       <Flex
         w="44px"
@@ -41,12 +41,20 @@ export default function SavingsBar({ originalPrice, finalPrice, saving }) {
 
       <Box flex="1" minW={0}>
         <Flex align="baseline" gap="10px" flexWrap="wrap">
-          <Text fontSize="24px" fontWeight={800} color="green" lineHeight={1.1} letterSpacing="-.01em">
+          <Text
+            fontFamily="mono"
+            fontSize="24px"
+            fontWeight={800}
+            color="green"
+            lineHeight={1.1}
+            letterSpacing="-.01em"
+          >
             You save {fmt(saving)}
           </Text>
           {pct != null && pct > 0 && (
             <Box
               as="span"
+              fontFamily="mono"
               bg="green"
               color="white"
               fontSize="12px"
@@ -61,11 +69,11 @@ export default function SavingsBar({ originalPrice, finalPrice, saving }) {
           )}
         </Flex>
         <Flex align="center" gap="6px" mt="2px" fontSize="13px" color="text2">
-          <Text as="span" textDecoration="line-through" color="text3">
+          <Text as="span" fontFamily="mono" textDecoration="line-through" color="text3">
             {fmt(originalPrice)}
           </Text>
           <Text as="span">→</Text>
-          <Text as="span" fontWeight={600} color="text">
+          <Text as="span" fontFamily="mono" fontWeight={600} color="text">
             {fmt(finalPrice)}
           </Text>
         </Flex>

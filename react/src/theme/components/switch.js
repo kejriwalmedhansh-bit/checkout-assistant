@@ -5,7 +5,7 @@ export const switchTheme = {
   baseStyle: {
     track: {
       bg: 'borderStrong',
-      _checked: { bg: 'orange' },
+      _checked: { bg: 'brand' },
       _focusVisible: { boxShadow: 'ring' },
     },
   },

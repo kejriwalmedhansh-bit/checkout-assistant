@@ -1,17 +1,18 @@
 /**
- * Type system — native system font stack (apple-system first) for everything.
+ * Type system — native system font stack (apple-system first) for body text.
  *
- * CONFIG: `LABEL_FONT` controls the font for the small uppercase labels, table
+ * `LABEL_FONT` controls the font for prices, small uppercase labels, table
  * headers, and stat numbers (everything that uses `fontFamily="mono"`, e.g.
- * <Eyebrow>, <Chip>, <DataTable> headers). It currently uses the normal system
- * font. To restore the original monospaced look, set it to MONO_FONT below.
+ * <Eyebrow>, <Chip>, <DataTable> headers, price displays). Set to MONO_FONT
+ * so numbers read as precise/tabular — fits Dealo's exact-savings positioning.
+ * Requires the JetBrains Mono <link> in index.html.
  */
 const SYSTEM_STACK =
   "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif";
 
 const MONO_FONT = "'JetBrains Mono', ui-monospace, SFMono-Regular, monospace";
 
-const LABEL_FONT = SYSTEM_STACK; // ← switch to MONO_FONT to bring monospace back
+const LABEL_FONT = MONO_FONT;
 
 export const fonts = {
   heading: SYSTEM_STACK,
