@@ -152,6 +152,7 @@ export default function ResultsPage() {
             saving={calcSaving(result, activeRoute)}
           />
           <RouteCard
+            key={`${activeRoute.merchant}-${activeRoute.final_cost ?? ''}`}
             result={result}
             rec={activeRoute}
             isAlt={!!selectedAlt}

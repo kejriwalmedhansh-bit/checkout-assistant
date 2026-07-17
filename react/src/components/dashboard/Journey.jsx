@@ -18,8 +18,17 @@ export default function Journey({ rec }) {
   const v = rec.voucher || null;
   const sellerLink = rec.sellers?.[0]?.link;
   const [checked, setChecked] = useState({ store: false, voucher: false });
+  const [pending, setPending] = useState({ store: false, voucher: false });
 
-  const check = (key) => () => setChecked((c) => ({ ...c, [key]: true }));
+  // A brief "pending" beat before the checkmark lands — an instant flip is
+  // easy to miss; this makes the confirmation a moment you actually notice.
+  const check = (key) => () => {
+    setPending((p) => ({ ...p, [key]: true }));
+    setTimeout(() => {
+      setPending((p) => ({ ...p, [key]: false }));
+      setChecked((c) => ({ ...c, [key]: true }));
+    }, 550);
+  };
 
   return (
     <Flex direction="column" mb="4px">
@@ -30,6 +39,7 @@ export default function Journey({ rec }) {
         detail={`Listed at ${fmt(rec.listed_price ? Math.round(rec.listed_price) : null)}`}
         link={sellerLink ? { href: affiliateUrl(sellerLink), label: 'Open store' } : undefined}
         checked={checked.store}
+        pending={pending.store}
         onCheck={check('store')}
       />
 
@@ -43,6 +53,7 @@ export default function Journey({ rec }) {
             detail={`${v.upi?.purchase_breakdown || fmt(v.upi?.voucher_amount)} — ${v.upi?.pct}% off`}
             link={v.voucher_url ? { href: v.voucher_url, label: 'Get voucher' } : undefined}
             checked={checked.voucher}
+            pending={pending.voucher}
             onCheck={check('voucher')}
           />
           <JourneyConnector />

@@ -15,69 +15,74 @@ export default function SavingsBar({ originalPrice, finalPrice, saving }) {
   const pct = originalPrice ? Math.round((saving / originalPrice) * 100) : null;
 
   return (
-    <Flex
-      align="center"
-      gap="14px"
+    <Box
       bg="greenSoft"
       border="1.5px solid"
       borderColor="green"
       borderRadius="md"
       px="20px"
-      py="16px"
+      py="22px"
       boxShadow="savingsHairline"
+      textAlign="center"
     >
-      <Flex
-        w="44px"
-        h="44px"
-        flex="0 0 auto"
-        borderRadius="12px"
-        bg="green"
-        color="white"
-        align="center"
-        justify="center"
-      >
-        <I.trendUp size={22} />
+      <Flex align="center" justify="center" gap="8px" mb="2px">
+        <Flex
+          w="30px"
+          h="30px"
+          flex="0 0 auto"
+          borderRadius="9px"
+          bg="green"
+          color="white"
+          align="center"
+          justify="center"
+        >
+          <I.trendUp size={17} />
+        </Flex>
+        <Text fontSize="13px" fontWeight={700} color="green" letterSpacing=".01em">
+          You save
+        </Text>
       </Flex>
 
-      <Box flex="1" minW={0}>
-        <Flex align="baseline" gap="10px" flexWrap="wrap">
-          <Text
-            fontFamily="mono"
-            fontSize="24px"
-            fontWeight={800}
-            color="green"
-            lineHeight={1.1}
-            letterSpacing="-.01em"
-          >
-            You save {fmt(saving)}
-          </Text>
-          {pct != null && pct > 0 && (
-            <Box
-              as="span"
-              fontFamily="mono"
-              bg="green"
-              color="white"
-              fontSize="12px"
-              fontWeight={700}
-              borderRadius="999px"
-              px="8px"
-              py="2px"
-              lineHeight={1.6}
-            >
-              -{pct}%
-            </Box>
-          )}
-        </Flex>
-        <Flex align="center" gap="6px" mt="2px" fontSize="13px" color="text2">
-          <Text as="span" fontFamily="mono" textDecoration="line-through" color="text3">
-            {fmt(originalPrice)}
-          </Text>
-          <Text as="span">→</Text>
-          <Text as="span" fontFamily="mono" fontWeight={600} color="text">
-            {fmt(finalPrice)}
-          </Text>
-        </Flex>
-      </Box>
-    </Flex>
+      <Text
+        fontFamily="mono"
+        fontSize={{ base: '38px', md: '46px' }}
+        fontWeight={800}
+        color="green"
+        lineHeight={1.05}
+        letterSpacing="-.02em"
+      >
+        {fmt(saving)}
+      </Text>
+
+      {pct != null && pct > 0 && (
+        <Box
+          as="span"
+          display="inline-block"
+          mt="8px"
+          fontFamily="mono"
+          bg="green"
+          color="white"
+          fontSize="12.5px"
+          fontWeight={700}
+          borderRadius="999px"
+          px="10px"
+          py="3px"
+        >
+          {pct}% less than usual
+        </Box>
+      )}
+
+      <Flex align="center" justify="center" gap="8px" mt="12px" fontSize="14px" color="text2">
+        <Text as="span" fontFamily="mono" textDecoration="line-through" color="text3">
+          {fmt(originalPrice)}
+        </Text>
+        <Text as="span" color="text3">
+          →
+        </Text>
+        <Text as="span" fontFamily="mono" fontWeight={700} color="text">
+          {fmt(finalPrice)}
+        </Text>
+      </Flex>
+    </Box>
   );
 }

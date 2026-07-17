@@ -39,6 +39,7 @@ export default function JourneyStep({
   link,
   checked = false,
   ready = false,
+  pending = false,
   onCheck,
 }) {
   const t = TONES[tone] || TONES.brand;
@@ -54,10 +55,23 @@ export default function JourneyStep({
         bg={filled ? 'brand' : t.bg}
         color={filled ? 'white' : t.color}
         border="2px solid"
-        borderColor={filled ? 'brand' : t.border}
+        borderColor={pending ? 'brand' : filled ? 'brand' : t.border}
         align="center"
         justify="center"
-        transition="background .2s, border-color .2s"
+        transition="background .25s ease, border-color .25s ease"
+        sx={{
+          '@keyframes dealoStepPulse': { '0%, 100%': { opacity: 0.55 }, '50%': { opacity: 1 } },
+          '@keyframes dealoStepPop': {
+            '0%': { transform: 'scale(.7)' },
+            '60%': { transform: 'scale(1.15)' },
+            '100%': { transform: 'scale(1)' },
+          },
+          animation: pending
+            ? 'dealoStepPulse .6s ease-in-out infinite'
+            : checked
+              ? 'dealoStepPop .35s cubic-bezier(.34,1.56,.64,1)'
+              : 'none',
+        }}
       >
         {checked ? <CheckIcon /> : Ico ? <Ico size={16} /> : null}
       </Flex>
@@ -78,6 +92,7 @@ export default function JourneyStep({
           href={link.href}
           isExternal
           onClick={onCheck}
+          pointerEvents={pending ? 'none' : 'auto'}
           fontSize="11.5px"
           fontWeight={700}
           color={checked ? 'white' : 'brandText'}
@@ -89,9 +104,10 @@ export default function JourneyStep({
           py="7px"
           flex="0 0 auto"
           whiteSpace="nowrap"
+          transition="background .2s"
           _hover={{ textDecoration: 'none', bg: checked ? 'brandHover' : 'brandSoft2' }}
         >
-          {checked ? '✓ Done' : link.label}
+          {checked ? '✓ Done' : pending ? 'Confirming…' : link.label}
         </Link>
       )}
     </Flex>

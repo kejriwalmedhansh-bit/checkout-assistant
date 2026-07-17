@@ -1,8 +1,35 @@
 import { Box, Flex, Link, Text } from '@chakra-ui/react';
 
 import Card from '@/components/common/Card';
-import { I } from '@/components/common/icons';
 import { fmt } from '@/utils/format';
+
+/**
+ * A generic illustrated card graphic (not a scan of any real bank's card —
+ * avoids reproducing bank/network trademarks) so the nudge has a visual
+ * anchor instead of just a generic icon. The bank name is shown as text
+ * alongside it, not baked into the graphic.
+ */
+function CardVisual() {
+  return (
+    <Box
+      w="58px"
+      h="38px"
+      flex="0 0 auto"
+      borderRadius="7px"
+      bgGradient="linear(to-br, brand, brandHover)"
+      position="relative"
+      overflow="hidden"
+      boxShadow="0 3px 8px -2px rgba(10,107,65,.45)"
+    >
+      <Box position="absolute" top="8px" left="7px" w="12px" h="9px" borderRadius="2px" bg="brassSoft" opacity={0.9} />
+      <Flex position="absolute" bottom="7px" left="7px" gap="2.5px">
+        {[0, 1, 2].map((i) => (
+          <Box key={i} w="3px" h="3px" borderRadius="50%" bg="whiteAlpha.700" />
+        ))}
+      </Flex>
+    </Box>
+  );
+}
 
 /**
  * Optional card-savings nudge, shown on whichever route is currently active
@@ -19,18 +46,7 @@ export default function CardFomo({ cardFomo }) {
         Save more with a card
       </Text>
       <Flex align="center" gap="14px">
-        <Flex
-          w="40px"
-          h="40px"
-          borderRadius="10px"
-          bg="greenSoft"
-          color="green"
-          align="center"
-          justify="center"
-          flex="0 0 auto"
-        >
-          <I.zap size={20} />
-        </Flex>
+        <CardVisual />
         <Box flex="1" minW={0}>
           <Text fontSize="15px" fontWeight={700} color="green">
             Save {fmt(cardFomo.actual_saving)} more
