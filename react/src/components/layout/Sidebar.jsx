@@ -91,11 +91,11 @@ export default function SidebarContent({ onNavigate, collapsed = false }) {
   return (
     <Flex direction="column" h="100%" w="264px" p="14px" bg="sidebar">
       {/* logo */}
-      <Flex align="center" pt="6px" pb="14px">
+      <Flex align="center" pt="6px" pb="16px">
         <IconSlot>
-          <Logo size={28} wordmark={false} shadow={false} />
+          <Logo size={34} wordmark={false} shadow />
         </IconSlot>
-        <Text as="span" sx={fx} fontSize="16.5px" fontWeight={800} letterSpacing="-.02em" lineHeight={1}>
+        <Text as="span" sx={fx} fontSize="21px" fontWeight={800} letterSpacing="-.015em" lineHeight={1} ml="2px">
           <Box as="span" color="text">
             Deal
           </Box>

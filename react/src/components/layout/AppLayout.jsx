@@ -124,7 +124,7 @@ export default function AppLayout() {
           >
             <I.menu size={20} />
           </Button>
-          <Logo size={26} />
+          <Logo size={32} />
           <ThemeToggle size={40} variant="iconSubtle" borderRadius="10px" />
         </Flex>
 

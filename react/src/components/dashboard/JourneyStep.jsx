@@ -7,88 +7,105 @@ const TONES = {
   checkout: { bg: 'greenSoft', color: 'green', border: 'green' },
 };
 
+function CheckIcon(props) {
+  return (
+    <Box
+      as="svg"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="3"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      w="14px"
+      h="14px"
+      {...props}
+    >
+      <path d="M5 13l4 4L19 7" />
+    </Box>
+  );
+}
+
 /**
- * One node in the recommended-route journey: a colored icon circle, a label, a
- * detail line, a price line, and an optional external link button.
+ * One row in the vertical recommended-route checklist: a status dot (outline
+ * → filled checkmark once done), a label + detail line, and an optional
+ * action button that opens the real external link and marks the step done.
  */
-export default function JourneyStep({ tone = 'brand', icon: Ico, label, detail, price, link }) {
+export default function JourneyStep({
+  tone = 'brand',
+  icon: Ico,
+  label,
+  detail,
+  link,
+  checked = false,
+  ready = false,
+  onCheck,
+}) {
   const t = TONES[tone] || TONES.brand;
+  const filled = checked || ready;
 
   return (
-    <Flex
-      direction="column"
-      align="center"
-      gap="7px"
-      flex={1}
-      minW={{ base: '72px', md: '90px' }}
-      textAlign="center"
-    >
+    <Flex align="center" gap="14px" py="11px">
       <Flex
-        w="52px"
-        h="52px"
+        w="34px"
+        h="34px"
+        flex="0 0 34px"
         borderRadius="50%"
-        bg={t.bg}
-        color={t.color}
-        border="1.5px solid"
-        borderColor={t.border}
+        bg={filled ? 'brand' : t.bg}
+        color={filled ? 'white' : t.color}
+        border="2px solid"
+        borderColor={filled ? 'brand' : t.border}
         align="center"
         justify="center"
+        transition="background .2s, border-color .2s"
       >
-        {Ico && <Ico size={22} />}
+        {checked ? <CheckIcon /> : Ico ? <Ico size={16} /> : null}
       </Flex>
-      <Text fontSize="12px" fontWeight={600} color="text">
-        {label}
-      </Text>
-      {detail && (
-        <Text fontSize="11px" color="text2" lineHeight={1.4}>
-          {detail}
+
+      <Box flex="1" minW={0}>
+        <Text fontSize="13px" fontWeight={700} color="text">
+          {label}
         </Text>
-      )}
-      {price && (
-        <Text fontSize="13px" fontWeight={600} color={t.color}>
-          {price}
-        </Text>
-      )}
+        {detail && (
+          <Text fontSize="11.5px" color="text2" fontFamily="mono" mt="1px">
+            {detail}
+          </Text>
+        )}
+      </Box>
+
       {link?.href && (
         <Link
           href={link.href}
           isExternal
-          fontSize="11px"
-          fontWeight={500}
-          color="brandText"
-          bg="brandSoft"
+          onClick={onCheck}
+          fontSize="11.5px"
+          fontWeight={700}
+          color={checked ? 'white' : 'brandText'}
+          bg={checked ? 'brand' : 'brandSoft'}
           border="1px solid"
           borderColor="brand"
-          borderRadius="6px"
-          px="8px"
-          py="3px"
-          _hover={{ textDecoration: 'none', bg: 'brandSoft2' }}
+          borderRadius="99px"
+          px="13px"
+          py="7px"
+          flex="0 0 auto"
+          whiteSpace="nowrap"
+          _hover={{ textDecoration: 'none', bg: checked ? 'brandHover' : 'brandSoft2' }}
         >
-          {link.label}
+          {checked ? '✓ Done' : link.label}
         </Link>
       )}
     </Flex>
   );
 }
 
-/** Small arrow connector between journey nodes. */
+/** Vertical connector line between checklist rows, aligned under the dots. */
 export function JourneyConnector() {
   return (
-    <Box
-      alignSelf="flex-start"
-      mt="25px"
-      flex={{ base: '0 0 10px', md: '0 0 20px' }}
-      h="1.5px"
-      bg="borderStrong"
-      position="relative"
-      _after={{
-        content: '""',
-        position: 'absolute',
-        right: '-4px',
-        top: '-3.5px',
-        border: '4px solid transparent',
-        borderLeftColor: 'borderStrong',
-      }}
-    />
+    <Flex align="center" gap="14px">
+      <Flex w="34px" flex="0 0 34px" justify="center">
+        <Box w="2px" h="16px" bg="borderStrong" />
+      </Flex>
+      <Box flex="1" />
+    </Flex>
   );
 }

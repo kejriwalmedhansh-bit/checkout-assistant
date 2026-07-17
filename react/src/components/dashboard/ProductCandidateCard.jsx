@@ -15,7 +15,7 @@ export default function ProductCandidateCard({ product, onSelect, isSelecting })
     <Card
       as="button"
       type="button"
-      onClick={() => onSelect(token, title, price, source)}
+      onClick={() => onSelect(token, title, price, source, thumbnail)}
       disabled={isSelecting}
       textAlign="left"
       w="100%"
@@ -27,20 +27,22 @@ export default function ProductCandidateCard({ product, onSelect, isSelecting })
     >
       <Flex align="center" gap="14px">
         <Flex
-          w="60px"
-          h="60px"
+          w="76px"
+          h="76px"
           flex="0 0 auto"
-          borderRadius="10px"
+          borderRadius="12px"
           bg="surface3"
+          border="1px solid"
+          borderColor="border"
           align="center"
           justify="center"
           overflow="hidden"
         >
           {thumbnail ? (
-            <Image src={thumbnail} alt="" maxW="100%" maxH="100%" objectFit="contain" />
+            <Image src={thumbnail} alt="" maxW="88%" maxH="88%" objectFit="contain" />
           ) : (
             <Box color="text3">
-              <I.cart size={22} />
+              <I.cart size={26} />
             </Box>
           )}
         </Flex>

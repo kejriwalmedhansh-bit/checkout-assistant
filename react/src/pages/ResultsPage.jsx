@@ -90,6 +90,7 @@ export default function ResultsPage() {
   const navigate = useNavigate();
   const query = useSearchStore((s) => s.query);
   const result = useSearchStore((s) => s.result);
+  const selectedThumbnail = useSearchStore((s) => s.selectedThumbnail);
   const status = useSearchStore((s) => s.status);
   const error = useSearchStore((s) => s.error);
   const runSearch = useSearchStore((s) => s.runSearch);
@@ -144,7 +145,7 @@ export default function ResultsPage() {
         <ErrorBox message="No results found. Try a different search." />
       ) : (
         <Flex direction="column" gap="14px">
-          <ProductIdentity name={productName} sourceUrl={sourceUrl} />
+          <ProductIdentity name={productName} sourceUrl={sourceUrl} thumbnail={selectedThumbnail} />
           <SavingsBar
             originalPrice={calcOriginal(result, activeRoute)}
             finalPrice={calcFinal(activeRoute)}

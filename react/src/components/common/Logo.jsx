@@ -15,7 +15,7 @@ export default function Logo({ size = 30, wordmark = true, shadow = true }) {
         h={`${size}px`}
         borderRadius={`${size * 0.3}px`}
         bg={gradients.logoMark}
-        boxShadow={shadow ? '0 4px 12px -3px rgba(26,158,99,.55)' : 'none'}
+        boxShadow={shadow ? '0 4px 12px -3px rgba(10,107,65,.55)' : 'none'}
         display="grid"
         placeItems="center"
         flex="0 0 auto"

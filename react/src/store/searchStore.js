@@ -17,6 +17,7 @@ export const useSearchStore = create(
       query: '',
       candidates: [],
       selectedToken: null,
+      selectedThumbnail: null,
       result: null,
       searchStatus: 'idle', // step 1: 'idle' | 'loading' | 'success' | 'error'
       status: 'idle', // step 2: 'idle' | 'loading' | 'success' | 'error'
@@ -50,9 +51,9 @@ export const useSearchStore = create(
       // Step 2 — build routes for a chosen product token. `title` (the
       // candidate's own title) drives a focused re-search for that exact
       // variant server-side, rather than trusting just this one listing.
-      selectProduct: async (token, title = '', price = null, source = '') => {
+      selectProduct: async (token, title = '', price = null, source = '', thumbnail = null) => {
         if (!token) return;
-        set({ selectedToken: token, result: null, status: 'loading', error: null });
+        set({ selectedToken: token, selectedThumbnail: thumbnail, result: null, status: 'loading', error: null });
         try {
           const result = await searchApi.routes(token, get().query, title, price, source);
           set({ result, status: 'success', error: null });
@@ -66,6 +67,7 @@ export const useSearchStore = create(
           query: '',
           candidates: [],
           selectedToken: null,
+          selectedThumbnail: null,
           result: null,
           searchStatus: 'idle',
           status: 'idle',
@@ -79,6 +81,7 @@ export const useSearchStore = create(
         query: s.query,
         candidates: s.candidates,
         selectedToken: s.selectedToken,
+        selectedThumbnail: s.selectedThumbnail,
         result: s.result,
       }),
     },
