@@ -2,7 +2,6 @@ import { Box, Flex, Link, Text, Tooltip } from '@chakra-ui/react';
 import { Link as RouterLink, useMatch } from 'react-router-dom';
 
 import Eyebrow from '@/components/common/Eyebrow';
-import Logo from '@/components/common/Logo';
 import ThemeToggle from '@/components/common/ThemeToggle';
 import { I } from '@/components/common/icons';
 import { ROUTES } from '@/routes/paths';
@@ -87,17 +86,23 @@ export default function SidebarContent({ onNavigate, collapsed = false }) {
 
   return (
     <Flex direction="column" h="100%" w="264px" p="14px" bg="sidebar">
-      {/* logo */}
+      {/* logo — the "D" lives in the fixed icon slot (always visible, even
+          collapsed); the rest of the wordmark fades with the other labels
+          rather than the whole thing snapping in/out, matching how nav
+          labels behave on collapse. */}
       <Flex align="center" pt="6px" pb="16px">
-        <IconSlot>
-          <Logo size={34} wordmark={false} shadow />
-        </IconSlot>
-        <Text as="span" sx={fx} fontSize="21px" fontWeight={800} letterSpacing="-.015em" lineHeight={1} ml="2px">
+        <Text as="span" fontSize="22px" fontWeight={800} color="brand" lineHeight={1}>
+          D
+        </Text>
+        <Text as="span" sx={fx} fontSize="21px" fontWeight={800} letterSpacing="-.015em" lineHeight={1}>
           <Box as="span" color="text">
-            Deal
+            eal
           </Box>
           <Box as="span" color="brand">
             o
+          </Box>
+          <Box as="span" color="brass">
+            .
           </Box>
         </Text>
       </Flex>

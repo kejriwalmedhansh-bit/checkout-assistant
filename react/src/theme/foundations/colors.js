@@ -53,7 +53,6 @@ export const semanticColors = {
  * constant still lives in the theme layer. All recolored to Dealo green.
  */
 export const gradients = {
-  logoMark: 'linear-gradient(150deg, #39B57C, var(--chakra-colors-brand))',
   brandAvatar: 'linear-gradient(135deg, #39B57C, var(--chakra-colors-brand))',
   usageBar: 'linear-gradient(90deg, #39B57C, var(--chakra-colors-brand))',
 

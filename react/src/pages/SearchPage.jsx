@@ -56,7 +56,7 @@ export default function SearchPage() {
         zIndex={1}
       >
         <Box mb={{ base: '22px', md: '28px' }}>
-          <Logo size={40} />
+          <Logo size={38} />
         </Box>
 
         <Text

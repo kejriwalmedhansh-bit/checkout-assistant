@@ -27,12 +27,8 @@ export const semanticShadows = {
     default: '0 1px 0 rgba(10,107,65,.08)',
     _dark: '0 1px 0 rgba(57,181,124,.10)',
   },
-  // Tight brand-green glows for small elements (logo tile, card-visual chip).
+  // Tight brand-green glow for small elements (the card-visual chip).
   // `brand` above is a looser glow sized for larger surfaces.
-  brandGlowLogo: {
-    default: '0 4px 12px -3px rgba(10,107,65,.55)',
-    _dark: '0 4px 12px -3px rgba(57,181,124,.48)',
-  },
   brandGlowCard: {
     default: '0 3px 8px -2px rgba(10,107,65,.45)',
     _dark: '0 3px 8px -2px rgba(57,181,124,.38)',

@@ -192,23 +192,3 @@ export const I = {
     </BaseIcon>
   ),
 };
-
-/** Brand glyph: an open ring with an arrow launching out to the top-right. */
-export const SoloMark = ({ size = 16, color = '#fff' }) => (
-  <svg
-    width={size}
-    height={size}
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke={color}
-    strokeWidth="2.6"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-  >
-    {/* open ring (gap at the top-right where the arrow exits) */}
-    <path d="M12 5 A7 7 0 1 0 16.9 7" />
-    {/* arrow shaft + head pointing up-right */}
-    <path d="M10 14 L15.4 8.6" />
-    <path d="M11.7 8.6 L15.4 8.6 L15.4 12.3" />
-  </svg>
-);
