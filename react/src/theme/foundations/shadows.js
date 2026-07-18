@@ -27,4 +27,20 @@ export const semanticShadows = {
     default: '0 1px 0 rgba(10,107,65,.08)',
     _dark: '0 1px 0 rgba(57,181,124,.10)',
   },
+  // Tight brand-green glows for small elements (logo tile, card-visual chip).
+  // `brand` above is a looser glow sized for larger surfaces.
+  brandGlowLogo: {
+    default: '0 4px 12px -3px rgba(10,107,65,.55)',
+    _dark: '0 4px 12px -3px rgba(57,181,124,.48)',
+  },
+  brandGlowCard: {
+    default: '0 3px 8px -2px rgba(10,107,65,.45)',
+    _dark: '0 3px 8px -2px rgba(57,181,124,.38)',
+  },
+  // Ink-colored photo drop-shadow (ProductIdentity's hero image). Dark mode uses
+  // flat black, matching the sm/md/lg pattern, not the (near-white) dark `text` hex.
+  photoDrop: {
+    default: '0 8px 14px rgba(18,21,26,.14)',
+    _dark: '0 8px 14px rgba(0,0,0,.45)',
+  },
 };

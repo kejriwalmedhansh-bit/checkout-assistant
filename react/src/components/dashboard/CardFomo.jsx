@@ -19,7 +19,7 @@ function CardVisual() {
       bgGradient="linear(to-br, brand, brandHover)"
       position="relative"
       overflow="hidden"
-      boxShadow="0 3px 8px -2px rgba(10,107,65,.45)"
+      boxShadow="brandGlowCard"
     >
       <Box position="absolute" top="8px" left="7px" w="12px" h="9px" borderRadius="2px" bg="brassSoft" opacity={0.9} />
       <Flex position="absolute" bottom="7px" left="7px" gap="2.5px">

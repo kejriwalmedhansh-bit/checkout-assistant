@@ -54,7 +54,7 @@ export default function ProductIdentity({ name, sourceUrl, thumbnail }) {
             maxW="55%"
             maxH="100%"
             objectFit="contain"
-            filter="drop-shadow(0 8px 14px rgba(18,21,26,.14))"
+            filter="drop-shadow(var(--chakra-shadows-photoDrop))"
           />
         </Flex>
         <Box p="14px 18px">

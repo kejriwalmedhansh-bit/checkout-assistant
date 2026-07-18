@@ -11,7 +11,7 @@ export const semanticColors = {
   // "Ledger" palette — cool paper canvas (precision/audit-trail feel, not a
   // cozy cream), white cards, near-black ink text.
   bg: { default: '#F1F2EE', _dark: '#121311' },
-  bgGrid: { default: '#E7E8E2', _dark: '#1A1B17' },
+  bgGrid: { default: '#D7DAD1', _dark: '#262920' },
   sidebar: { default: '#F7F7F4', _dark: '#171812' },
   surface: { default: '#FFFFFF', _dark: '#1A1C18' },
   surface2: { default: '#FBFBF9', _dark: '#1F211B' },

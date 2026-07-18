@@ -33,9 +33,9 @@ export default function AppLayout() {
     <Flex
       minH="100vh"
       bg="bg"
-      bgImage="radial-gradient(var(--chakra-colors-bgGrid) 1px, transparent 1px)"
-      bgSize="28px 28px"
-      bgPosition="-14px -14px"
+      bgImage="radial-gradient(circle, var(--chakra-colors-bgGrid) 1.5px, transparent 1.6px)"
+      bgSize="26px 26px"
+      bgPosition="-13px -13px"
     >
       {/* desktop rail */}
       <Box
