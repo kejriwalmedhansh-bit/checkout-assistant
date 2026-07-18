@@ -6,6 +6,4 @@ export const ROUTES = {
   home: '/',
   select: '/select',
   results: '/results',
-  vouchers: '/vouchers',
-  voucherDetail: '/vouchers/:slug',
 };
