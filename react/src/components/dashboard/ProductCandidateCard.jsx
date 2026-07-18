@@ -22,8 +22,8 @@ export default function ProductCandidateCard({ product, onSelect, isSelecting })
       p="14px 16px"
       cursor={isSelecting ? 'wait' : 'pointer'}
       opacity={isSelecting ? 0.6 : 1}
-      transition="border-color .12s, box-shadow .12s"
-      _hover={{ borderColor: 'brand', boxShadow: 'md' }}
+      transition="border-color .15s ease, box-shadow .15s ease, transform .15s ease"
+      _hover={{ borderColor: 'brand', boxShadow: 'md', transform: 'translateY(-1px)' }}
     >
       <Flex align="center" gap="14px">
         <Flex
