@@ -20,7 +20,7 @@ export default function VoucherDetailPage() {
   const [error, setError] = useState(null);
 
   const name = voucher?.brand || voucher?.merchant || voucher?.name || slug;
-  usePageTitle(name || 'Voucher');
+  usePageTitle(name || 'Gift Voucher');
 
   useEffect(() => {
     let alive = true;
@@ -51,7 +51,7 @@ export default function VoucherDetailPage() {
     <Box>
       <Topbar title={name}>
         <Button variant="ghost" leftIcon={<I.arrowLeft size={16} />} onClick={() => navigate(ROUTES.vouchers)}>
-          All vouchers
+          All gift vouchers
         </Button>
       </Topbar>
 
@@ -64,7 +64,7 @@ export default function VoucherDetailPage() {
       {status === 'error' && (
         <Card p="22px">
           <Text fontSize="14px" fontWeight={600} color="text" mb="4px">
-            Couldn&apos;t load this voucher
+            Couldn&apos;t load this gift voucher
           </Text>
           <Text fontSize="13px" color="text2">
             {error}
@@ -94,7 +94,7 @@ export default function VoucherDetailPage() {
                 </Text>
                 {pct != null && (
                   <Chip tone="green" mono={false} mt="6px">
-                    {pct}% off via UPI
+                    {pct}% off
                   </Chip>
                 )}
               </Box>
@@ -104,7 +104,7 @@ export default function VoucherDetailPage() {
           {terms.length > 0 && (
             <Card p="20px">
               <Text fontSize="13px" fontWeight={700} color="text" mb="10px">
-                Terms &amp; redemption
+                How to use it
               </Text>
               <UnorderedList spacing="6px" pl="18px" m={0}>
                 {terms.map((t, i) => (

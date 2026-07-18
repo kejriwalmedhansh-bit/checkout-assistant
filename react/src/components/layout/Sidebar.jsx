@@ -12,7 +12,7 @@ const ICON_SLOT = 34;
 
 const NAV = [
   { to: ROUTES.home, icon: I.search, label: 'Search', end: true },
-  { to: ROUTES.vouchers, icon: I.ticket, label: 'Vouchers' },
+  { to: ROUTES.vouchers, icon: I.ticket, label: 'Gift Vouchers' },
 ];
 
 /**

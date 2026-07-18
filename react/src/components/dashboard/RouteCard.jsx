@@ -22,7 +22,7 @@ export default function RouteCard({ result, rec, isAlt = false, onBack }) {
     <Card p={{ base: '18px', md: '22px' }}>
       <Flex align="center" justify="space-between" mb="18px">
         <Eyebrow color="brandText" display="block">
-          {isAlt ? `Selected route — ${rec.merchant}` : '★ Recommended route'}
+          {isAlt ? `Selected: ${rec.merchant}` : '★ Best way to buy this'}
         </Eyebrow>
         {isAlt && (
           <Button

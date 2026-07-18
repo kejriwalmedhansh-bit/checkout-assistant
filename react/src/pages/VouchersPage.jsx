@@ -18,7 +18,7 @@ function toList(data) {
 }
 
 export default function VouchersPage() {
-  usePageTitle('Vouchers');
+  usePageTitle('Gift Vouchers');
   const [status, setStatus] = useState('loading'); // 'loading' | 'success' | 'error'
   const [vouchers, setVouchers] = useState([]);
   const [error, setError] = useState(null);
@@ -44,7 +44,7 @@ export default function VouchersPage() {
 
   return (
     <Box>
-      <Topbar title="Vouchers" meta="Gyftr voucher brands with UPI discounts." />
+      <Topbar title="Gift Vouchers" meta="Real store gift cards, sold at a discount." />
 
       {status === 'loading' && (
         <Flex justify="center" py="48px">
@@ -55,7 +55,7 @@ export default function VouchersPage() {
       {status === 'error' && (
         <Card p="22px">
           <Text fontSize="14px" fontWeight={600} color="text" mb="4px">
-            Vouchers aren&apos;t available right now
+            Gift vouchers aren&apos;t available right now
           </Text>
           <Text fontSize="13px" color="text2">
             {error}
@@ -66,7 +66,7 @@ export default function VouchersPage() {
       {status === 'success' && vouchers.length === 0 && (
         <Card p="22px">
           <Text fontSize="14px" color="text2">
-            No vouchers to show yet.
+            No gift vouchers to show yet.
           </Text>
         </Card>
       )}

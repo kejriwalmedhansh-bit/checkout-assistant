@@ -5,7 +5,7 @@ import { I } from '@/components/common/icons';
 import AltItem from './AltItem';
 
 /**
- * "Recommended route not working for you?" — hidden by default. Reveals up to 3
+ * "This one not working for you?" — hidden by default. Reveals up to 3
  * alternatives. There are deliberately no "Fastest" / "Max savings" buckets.
  */
 export default function AlternativesToggle({ alternatives = [], onSelect, selectedMerchant }) {
@@ -28,7 +28,7 @@ export default function AlternativesToggle({ alternatives = [], onSelect, select
         color="text2"
         fontWeight={500}
       >
-        {open ? 'Hide alternatives' : 'Recommended route not working for you?'}
+        {open ? 'Hide other options' : 'This one not working for you?'}
       </Button>
       <Collapse in={open} animateOpacity>
         <Flex direction="column" gap="8px" mt="10px">

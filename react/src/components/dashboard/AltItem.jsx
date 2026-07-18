@@ -5,10 +5,10 @@ import { I } from '@/components/common/icons';
 import { fmt } from '@/utils/format';
 
 /**
- * One alternative route row. Clicking it promotes the alternative to the
- * primary route card at the top of the page (same full detail the
- * recommended route gets) — handled by the parent via onSelect, so the user
- * never has to scroll down to see it.
+ * One alternative option row. Clicking it promotes the alternative to the
+ * primary card at the top of the page (same full detail the recommended
+ * option gets) — handled by the parent via onSelect, so the user never has
+ * to scroll down to see it.
  */
 export default function AltItem({ alt, onSelect, isSelected }) {
   const v = alt.voucher || null;
@@ -37,7 +37,7 @@ export default function AltItem({ alt, onSelect, isSelected }) {
               {alt.merchant}
             </Text>
             <Text fontSize="12px" color="text2" mt="2px">
-              {v ? `With Gyftr voucher · ${v.upi?.pct}% off` : 'Direct purchase · no voucher available'}
+              {v ? `With a Gift Voucher · ${v.upi?.pct}% off` : 'Buy directly · no discount available'}
             </Text>
           </Box>
         </Flex>

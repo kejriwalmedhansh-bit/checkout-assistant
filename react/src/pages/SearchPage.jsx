@@ -9,9 +9,9 @@ import { ROUTES } from '@/routes/paths';
 import { useSearchStore } from '@/store/searchStore';
 
 const PILLARS = [
-  { label: 'Best price', desc: 'Compared across trusted merchants' },
-  { label: 'Voucher stacks', desc: 'Gyftr UPI discounts applied' },
-  { label: 'One clear route', desc: 'Card-free, executable by anyone' },
+  { label: 'Best price', desc: 'Compared across trusted stores' },
+  { label: 'Gift Voucher discounts', desc: 'Real discounts, applied for you' },
+  { label: 'One simple way to buy', desc: 'No credit card needed, works for anyone' },
 ];
 
 export default function SearchPage() {
@@ -66,8 +66,8 @@ export default function SearchPage() {
           </Box>
         </Text>
         <Text fontSize={{ base: '14px', md: '15px' }} color="text2" mt="10px" maxW="440px" lineHeight={1.6}>
-          Paste a product link or type what you want. We&apos;ll find the lowest final cost — one
-          clear route, no cards required.
+          Paste a product link or type what you want. We&apos;ll find the lowest price and show
+          you exactly how to get it — no credit card required.
         </Text>
 
         <Box w="100%" mt="32px">

@@ -23,28 +23,29 @@ export default function HowToSteps({ rec }) {
   const singleVoucher = breakdown.length === 1 && breakdown[0].count === 1;
   const buyLabel =
     breakdown.length > 0 && !singleVoucher
-      ? breakdown.map((b) => `${b.count} × ${fmt(b.denom)}`).join(' + ') + ` in ${rec.merchant} vouchers`
-      : `a ${fmt(v.upi?.voucher_amount)} ${rec.merchant} voucher`;
+      ? breakdown.map((b) => `${b.count} × ${fmt(b.denom)}`).join(' + ') +
+        ` in ${rec.merchant} Gift Vouchers`
+      : `a ${fmt(v.upi?.voucher_amount)} ${rec.merchant} Gift Voucher`;
 
   const steps = [
     <>
-      Buy {buyLabel} on{' '}
+      Buy {buyLabel} from{' '}
       <Link href={v.voucher_url} isExternal color="brandText" fontWeight={500}>
-        Gyftr
+        our voucher partner
       </Link>{' '}
-      using UPI — you pay {fmt(paid)}
+      — you pay {fmt(paid)}
     </>,
     ...(txnsNeeded > 1
       ? [
-          `Buy in ${txnsNeeded} separate Gyftr transactions (${fmt(
+          `You'll need to buy this in ${txnsNeeded} separate purchases (up to ${fmt(
             v.upi?.purchase_cap_per_txn,
-          )} cap per transaction)`,
+          )} each time)`,
         ]
       : []),
     `Add your item to your ${rec.merchant} cart`,
     v.upi?.remainder
-      ? `Apply the voucher at checkout — pay the remaining ${fmt(v.upi.remainder)} with any method`
-      : 'Apply the voucher at checkout — your full order is covered',
+      ? `Use the Gift Voucher at checkout — pay the remaining ${fmt(v.upi.remainder)} any way you like`
+      : 'Use the Gift Voucher at checkout — it covers your full order',
   ];
 
   const instructions = v.redemption_instructions || [];

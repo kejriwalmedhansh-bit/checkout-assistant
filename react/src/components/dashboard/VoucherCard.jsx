@@ -12,7 +12,7 @@ import { ROUTES } from '@/routes/paths';
  * likely key names and degrades gracefully when fields are missing.
  */
 export default function VoucherCard({ voucher }) {
-  const name = voucher.brand_name || voucher.brand || voucher.merchant || voucher.name || 'Voucher';
+  const name = voucher.brand_name || voucher.brand || voucher.merchant || voucher.name || 'Gift Voucher';
   const slug = voucher.slug || voucher.id || encodeURIComponent(name);
   const pct =
     voucher.best_discount_pct ??
@@ -58,7 +58,7 @@ export default function VoucherCard({ voucher }) {
       </Flex>
       {pct != null && (
         <Chip tone="green" mono={false}>
-          {pct}% off via UPI
+          {pct}% off
         </Chip>
       )}
     </Card>

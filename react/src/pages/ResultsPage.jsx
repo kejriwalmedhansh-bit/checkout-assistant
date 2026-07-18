@@ -17,9 +17,9 @@ import { finalPrice as calcFinal, originalPrice as calcOriginal, saving as calcS
 
 const LOADING_MSGS = [
   'Finding the best price...',
-  'Checking deals across merchants...',
-  'Looking up voucher stacks...',
-  'Building your route...',
+  'Checking deals across stores...',
+  'Looking for gift voucher discounts...',
+  'Working out the cheapest way to buy it...',
   'Almost there...',
 ];
 
