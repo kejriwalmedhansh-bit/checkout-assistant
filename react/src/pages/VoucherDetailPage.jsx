@@ -77,16 +77,16 @@ export default function VoucherDetailPage() {
           <Card p="20px">
             <Flex align="center" gap="14px">
               <Flex
-                w="46px"
-                h="46px"
-                borderRadius="12px"
+                w="52px"
+                h="52px"
+                borderRadius="13px"
                 bg="brandSoft"
                 color="brand"
                 align="center"
                 justify="center"
                 flex="0 0 auto"
               >
-                <I.ticket size={22} />
+                <I.ticket size={25} />
               </Flex>
               <Box>
                 <Text fontSize="18px" fontWeight={700} color="text">
@@ -102,8 +102,8 @@ export default function VoucherDetailPage() {
           </Card>
 
           {terms.length > 0 && (
-            <Card p="20px">
-              <Text fontSize="13px" fontWeight={700} color="text" mb="10px">
+            <Box bg="amberSoft" border="1px solid" borderColor="amber" borderRadius="sm" p="16px 18px">
+              <Text fontSize="13px" fontWeight={700} color="amber" mb="8px">
                 How to use it
               </Text>
               <UnorderedList spacing="6px" pl="18px" m={0}>
@@ -113,7 +113,7 @@ export default function VoucherDetailPage() {
                   </ListItem>
                 ))}
               </UnorderedList>
-            </Card>
+            </Box>
           )}
         </Flex>
       )}

@@ -4,9 +4,38 @@ import { Box, SimpleGrid, Spinner, Text, Flex } from '@chakra-ui/react';
 import Card from '@/components/common/Card';
 import Topbar from '@/components/layout/Topbar';
 import VoucherCard from '@/components/dashboard/VoucherCard';
+import { I } from '@/components/common/icons';
 import { vouchersApi } from '@/api/vouchers.api';
 import { usePageTitle } from '@/hooks/usePageTitle';
 import { extractErrorMessage } from '@/utils/errors';
+
+function StateCard({ icon, title, subtitle, tone = 'text2' }) {
+  return (
+    <Card p="32px 22px">
+      <Flex direction="column" align="center" gap="10px" textAlign="center">
+        <Flex
+          w="44px"
+          h="44px"
+          borderRadius="12px"
+          bg="surface3"
+          color={tone}
+          align="center"
+          justify="center"
+        >
+          {icon}
+        </Flex>
+        {title && (
+          <Text fontSize="14px" fontWeight={600} color="text">
+            {title}
+          </Text>
+        )}
+        <Text fontSize="14px" color="text2">
+          {subtitle}
+        </Text>
+      </Flex>
+    </Card>
+  );
+}
 
 /** Normalize whatever the (in-progress) backend returns into an array. */
 function toList(data) {
@@ -53,22 +82,16 @@ export default function VouchersPage() {
       )}
 
       {status === 'error' && (
-        <Card p="22px">
-          <Text fontSize="14px" fontWeight={600} color="text" mb="4px">
-            Gift vouchers aren&apos;t available right now
-          </Text>
-          <Text fontSize="13px" color="text2">
-            {error}
-          </Text>
-        </Card>
+        <StateCard
+          icon={<I.alert size={20} />}
+          tone="danger"
+          title="Gift vouchers aren't available right now"
+          subtitle={error}
+        />
       )}
 
       {status === 'success' && vouchers.length === 0 && (
-        <Card p="22px">
-          <Text fontSize="14px" color="text2">
-            No gift vouchers to show yet.
-          </Text>
-        </Card>
+        <StateCard icon={<I.ticket size={20} />} subtitle="No gift vouchers to show yet." />
       )}
 
       {status === 'success' && vouchers.length > 0 && (

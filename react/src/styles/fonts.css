@@ -1,0 +1,50 @@
+/**
+ * Self-hosted fonts — Hanken Grotesk (UI/headings) + IBM Plex Mono (numbers).
+ *
+ * Deliberately NOT a Google Fonts CDN link. A live third-party font request
+ * is silently blocked by many ad-blockers and privacy extensions, in which
+ * case the browser falls back to the system font stack with no error and no
+ * visible warning — the page still "works," it just quietly stops looking
+ * like Dealo. Self-hosting removes that failure mode entirely: the fonts
+ * ship with the app and always render, regardless of the visitor's browser
+ * extensions or network.
+ */
+@font-face {
+  font-family: 'Hanken Grotesk';
+  font-style: normal;
+  font-weight: 500 800;
+  font-display: swap;
+  src: url('/fonts/hanken-grotesk-variable.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/ibm-plex-mono-400.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url('/fonts/ibm-plex-mono-500.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url('/fonts/ibm-plex-mono-600.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('/fonts/ibm-plex-mono-700.woff2') format('woff2');
+}

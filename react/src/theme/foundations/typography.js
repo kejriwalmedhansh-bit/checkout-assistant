@@ -2,7 +2,8 @@
  * Type system — "Ledger" pairing: Hanken Grotesk for UI/headings (warm,
  * humanist, not corporate), IBM Plex Mono for every rupee/percent value
  * (real tabular figures, reads as audited rather than terminal-flavored).
- * Requires the Hanken Grotesk + IBM Plex Mono <link> in index.html.
+ * Self-hosted (not a Google Fonts CDN link — ad-blockers silently break
+ * those) via @font-face declarations in src/styles/fonts.css.
  */
 const SYSTEM_FALLBACK =
   "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif";

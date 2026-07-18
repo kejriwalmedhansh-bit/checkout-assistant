@@ -34,16 +34,16 @@ export default function VoucherCard({ voucher }) {
     >
       <Flex align="center" gap="12px" mb="10px">
         <Flex
-          w="38px"
-          h="38px"
-          borderRadius="10px"
+          w="44px"
+          h="44px"
+          borderRadius="11px"
           bg="brandSoft"
           color="brand"
           align="center"
           justify="center"
           flex="0 0 auto"
         >
-          <I.ticket size={19} />
+          <I.ticket size={21} />
         </Flex>
         <Box minW={0}>
           <Text fontSize="14px" fontWeight={700} color="text" noOfLines={1}>
