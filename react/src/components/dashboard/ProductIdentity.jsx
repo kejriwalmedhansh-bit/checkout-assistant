@@ -40,18 +40,18 @@ export default function ProductIdentity({ name, sourceUrl, thumbnail }) {
     return (
       <Card p="0" overflow="hidden">
         <Flex
-          bg="bgGrid"
+          bg="surface2"
           borderBottom="1px solid"
           borderColor="border"
           justify="center"
           align="center"
-          h="150px"
-          p="14px"
+          h={{ base: '190px', md: '230px' }}
+          p="20px"
         >
           <Image
             src={thumbnail}
             alt=""
-            maxW="55%"
+            maxW="82%"
             maxH="100%"
             objectFit="contain"
             filter="drop-shadow(var(--chakra-shadows-photoDrop))"
