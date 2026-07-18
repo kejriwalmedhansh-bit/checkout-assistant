@@ -1,7 +1,9 @@
 import { Box, Flex, Text } from '@chakra-ui/react';
 import { useNavigate } from 'react-router-dom';
 
+import Logo from '@/components/common/Logo';
 import SearchBox from '@/components/common/SearchBox';
+import { I } from '@/components/common/icons';
 import { gradients } from '@/theme/foundations/colors';
 import { usePageTitle } from '@/hooks/usePageTitle';
 import { useColorModeValue } from '@chakra-ui/react';
@@ -9,9 +11,9 @@ import { ROUTES } from '@/routes/paths';
 import { useSearchStore } from '@/store/searchStore';
 
 const PILLARS = [
-  { label: 'Best price', desc: 'Compared across trusted stores' },
-  { label: 'Gift Voucher discounts', desc: 'Real discounts, applied for you' },
-  { label: 'One simple way to buy', desc: 'No credit card needed, works for anyone' },
+  { icon: 'trendUp', label: 'Best price', desc: 'Compared across trusted stores' },
+  { icon: 'ticket', label: 'Gift Voucher discounts', desc: 'Real discounts, applied for you' },
+  { icon: 'checkCircle', label: 'One simple way to buy', desc: 'No credit card needed, works for anyone' },
 ];
 
 export default function SearchPage() {
@@ -49,15 +51,19 @@ export default function SearchPage() {
         textAlign="center"
         maxW="640px"
         mx="auto"
-        pt={{ base: '40px', md: '76px' }}
+        pt={{ base: '32px', md: '64px' }}
         position="relative"
         zIndex={1}
       >
+        <Box mb={{ base: '22px', md: '28px' }}>
+          <Logo size={40} />
+        </Box>
+
         <Text
-          fontSize={{ base: '28px', md: '40px' }}
+          fontSize={{ base: '30px', md: '44px' }}
           fontWeight={800}
           letterSpacing="-.03em"
-          lineHeight={1.15}
+          lineHeight={1.12}
           color="text"
         >
           The smartest way to{' '}
@@ -65,36 +71,66 @@ export default function SearchPage() {
             buy
           </Box>
         </Text>
-        <Text fontSize={{ base: '14px', md: '15px' }} color="text2" mt="10px" maxW="440px" lineHeight={1.6}>
+        <Text fontSize={{ base: '14px', md: '15px' }} color="text2" mt="12px" maxW="440px" lineHeight={1.6}>
           Paste a product link or type what you want. We&apos;ll find the lowest price and show
           you exactly how to get it — no credit card required.
         </Text>
 
-        <Box w="100%" mt="32px">
+        <Box
+          w="100%"
+          mt="36px"
+          bg="surface"
+          border="1px solid"
+          borderColor="border"
+          borderRadius="lg"
+          boxShadow="lg"
+          p={{ base: '14px', md: '18px' }}
+        >
           <SearchBox initialValue={query} onSubmit={handleSubmit} />
         </Box>
 
         <Flex gap="12px" mt="28px" w="100%" flexWrap="wrap">
-          {PILLARS.map((p) => (
-            <Box
-              key={p.label}
-              flex="1 1 160px"
-              bg="surface"
-              border="1px solid"
-              borderColor="border"
-              borderRadius="sm"
-              boxShadow="sm"
-              p="14px 16px"
-              textAlign="left"
-            >
-              <Text fontSize="13px" fontWeight={700} color="text">
-                {p.label}
-              </Text>
-              <Text fontSize="12px" color="text3" mt="2px" lineHeight={1.5}>
-                {p.desc}
-              </Text>
-            </Box>
-          ))}
+          {PILLARS.map((p) => {
+            const Icon = I[p.icon];
+            return (
+              <Flex
+                key={p.label}
+                flex="1 1 160px"
+                bg="surface"
+                border="1px solid"
+                borderColor="border"
+                borderRadius="md"
+                boxShadow="sm"
+                p="16px"
+                textAlign="left"
+                gap="10px"
+                align="flex-start"
+                transition="transform .15s ease, box-shadow .15s ease"
+                _hover={{ transform: 'translateY(-2px)', boxShadow: 'md' }}
+              >
+                <Flex
+                  flex="0 0 auto"
+                  w="30px"
+                  h="30px"
+                  borderRadius="9px"
+                  bg="brandSoft"
+                  color="brand"
+                  align="center"
+                  justify="center"
+                >
+                  <Icon size={16} />
+                </Flex>
+                <Box>
+                  <Text fontSize="13px" fontWeight={700} color="text">
+                    {p.label}
+                  </Text>
+                  <Text fontSize="12px" color="text3" mt="2px" lineHeight={1.5}>
+                    {p.desc}
+                  </Text>
+                </Box>
+              </Flex>
+            );
+          })}
         </Flex>
       </Flex>
     </Box>

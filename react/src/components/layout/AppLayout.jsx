@@ -30,7 +30,13 @@ export default function AppLayout() {
   const toggleSidebar = useUiStore((s) => s.toggleSidebar);
 
   return (
-    <Flex minH="100vh" bg="bg">
+    <Flex
+      minH="100vh"
+      bg="bg"
+      bgImage="radial-gradient(var(--chakra-colors-bgGrid) 1px, transparent 1px)"
+      bgSize="28px 28px"
+      bgPosition="-14px -14px"
+    >
       {/* desktop rail */}
       <Box
         display={{ base: 'none', lg: 'block' }}
