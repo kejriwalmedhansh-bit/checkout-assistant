@@ -1,4 +1,5 @@
-import { Box, Flex, Image, Link, Text } from '@chakra-ui/react';
+import { Box, Flex, Image, Link, Text, useColorModeValue } from '@chakra-ui/react';
+import { motion, useReducedMotion } from 'framer-motion';
 
 import Card from '@/components/common/Card';
 import { I } from '@/components/common/icons';
@@ -36,10 +37,14 @@ function NameBlock({ name, sourceUrl }) {
  * icon row when there's no photo.
  */
 export default function ProductIdentity({ name, sourceUrl, thumbnail }) {
+  const prefersReduced = useReducedMotion();
+  const groundShadow = useColorModeValue('rgba(18,21,26,.22)', 'rgba(0,0,0,.55)');
+
   if (thumbnail) {
     return (
       <Card p="0" overflow="hidden">
         <Flex
+          position="relative"
           bg="surface2"
           borderBottom="1px solid"
           borderColor="border"
@@ -48,14 +53,32 @@ export default function ProductIdentity({ name, sourceUrl, thumbnail }) {
           h={{ base: '190px', md: '230px' }}
           p="20px"
         >
-          <Image
-            src={thumbnail}
-            alt=""
-            maxW="82%"
-            maxH="100%"
-            objectFit="contain"
-            filter="drop-shadow(var(--chakra-shadows-photoDrop))"
+          {/* studio-style contact shadow, grounds the product instead of letting
+              it float unanchored against the flat backdrop */}
+          <Box
+            position="absolute"
+            bottom={{ base: '22px', md: '28px' }}
+            w="46%"
+            h="20px"
+            borderRadius="50%"
+            bg={`radial-gradient(closest-side, ${groundShadow}, transparent 75%)`}
+            filter="blur(4px)"
           />
+          <motion.div
+            style={{ maxWidth: '82%', maxHeight: '100%', display: 'flex', position: 'relative' }}
+            initial={prefersReduced ? false : { opacity: 0, y: 14, scale: 0.94 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
+          >
+            <Image
+              src={thumbnail}
+              alt=""
+              maxW="100%"
+              maxH="100%"
+              objectFit="contain"
+              filter="drop-shadow(var(--chakra-shadows-photoDrop)) drop-shadow(var(--chakra-shadows-photoDropSoft))"
+            />
+          </motion.div>
         </Flex>
         <Box p="14px 18px">
           <NameBlock name={name} sourceUrl={sourceUrl} />

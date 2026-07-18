@@ -39,8 +39,15 @@ export const semanticShadows = {
   },
   // Ink-colored photo drop-shadow (ProductIdentity's hero image). Dark mode uses
   // flat black, matching the sm/md/lg pattern, not the (near-white) dark `text` hex.
+  // Two layers stacked (tight + soft) read as a real studio product shot rather
+  // than a flat cutout: `photoDrop` hugs the product, `photoDropSoft` is the
+  // larger, fainter ambient falloff beneath it.
   photoDrop: {
     default: '0 8px 14px rgba(18,21,26,.14)',
     _dark: '0 8px 14px rgba(0,0,0,.45)',
+  },
+  photoDropSoft: {
+    default: '0 22px 30px rgba(18,21,26,.08)',
+    _dark: '0 22px 30px rgba(0,0,0,.35)',
   },
 };
