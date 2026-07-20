@@ -28,6 +28,7 @@ export default function ProductSelectPage() {
   const navigate = useNavigate();
   const query = useSearchStore((s) => s.query);
   const candidates = useSearchStore((s) => s.candidates);
+  const approximate = useSearchStore((s) => s.approximate);
   const searchStatus = useSearchStore((s) => s.searchStatus);
   const status = useSearchStore((s) => s.status);
   const selectedToken = useSearchStore((s) => s.selectedToken);
@@ -107,6 +108,32 @@ export default function ProductSelectPage() {
 
         {searchStatus === 'success' && candidates.length > 0 && (
           <>
+            {/* Nothing matched the search exactly — say so plainly rather than
+                presenting near-misses as the thing that was asked for. */}
+            {approximate && (
+              <Flex
+                mb="12px"
+                gap="10px"
+                align="flex-start"
+                bg="amberSoft"
+                border="1px solid"
+                borderColor="amber"
+                borderRadius="sm"
+                p="12px 14px"
+              >
+                <Box color="amber" flex="0 0 auto" mt="1px">
+                  <I.info size={16} />
+                </Box>
+                <Box>
+                  <Text fontSize="13px" fontWeight={700} color="amber">
+                    No exact match for &ldquo;{query}&rdquo;
+                  </Text>
+                  <Text fontSize="13px" color="text2" mt="2px" lineHeight={1.5}>
+                    These are the closest products we trust. Check the name carefully before you buy.
+                  </Text>
+                </Box>
+              </Flex>
+            )}
             <Text fontSize="13px" color="text3" mb="12px">
               Select the exact product you want — we&apos;ll find the cheapest way to buy it.
             </Text>

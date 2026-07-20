@@ -30,6 +30,10 @@ class SearchCandidatesResponse(BaseModel):
     query: str
     products: list[ProductCandidate] = []
     error: str | None = None
+    # True when nothing matched the query exactly and these are the closest
+    # trustworthy matches instead (e.g. "AirPods Pro Max", which isn't a real
+    # product). Defaults False so older frontend builds still validate.
+    approximate: bool = False
 
 
 class RoutesRequest(BaseModel):

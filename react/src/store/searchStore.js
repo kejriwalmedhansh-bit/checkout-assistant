@@ -16,6 +16,11 @@ export const useSearchStore = create(
     (set, get) => ({
       query: '',
       candidates: [],
+      // True when nothing matched the search exactly and these are the closest
+      // trustworthy matches instead (e.g. "AirPods Pro Max", which isn't a real
+      // product). The picker says so rather than passing them off as the thing
+      // that was asked for.
+      approximate: false,
       selectedToken: null,
       selectedThumbnail: null,
       result: null,
@@ -30,6 +35,7 @@ export const useSearchStore = create(
         set({
           query: q,
           candidates: [],
+          approximate: false,
           selectedToken: null,
           result: null,
           searchStatus: 'loading',
@@ -41,7 +47,12 @@ export const useSearchStore = create(
           if (data.error) {
             set({ searchStatus: 'error', error: data.error });
           } else {
-            set({ candidates: data.products || [], searchStatus: 'success', error: null });
+            set({
+              candidates: data.products || [],
+              approximate: Boolean(data.approximate),
+              searchStatus: 'success',
+              error: null,
+            });
           }
         } catch (err) {
           set({ searchStatus: 'error', error: extractErrorMessage(err) });
@@ -66,6 +77,7 @@ export const useSearchStore = create(
         set({
           query: '',
           candidates: [],
+          approximate: false,
           selectedToken: null,
           selectedThumbnail: null,
           result: null,
@@ -80,6 +92,7 @@ export const useSearchStore = create(
       partialize: (s) => ({
         query: s.query,
         candidates: s.candidates,
+        approximate: s.approximate,
         selectedToken: s.selectedToken,
         selectedThumbnail: s.selectedThumbnail,
         result: s.result,

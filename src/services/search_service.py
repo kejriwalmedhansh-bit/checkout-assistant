@@ -94,6 +94,14 @@ def _filter_trusted_only(results: list[dict], merchant_key: str = "merchant") ->
 _MARKETPLACE_MERCHANTS = {"flipkart", "amazon"}
 
 
+def _is_marketplace_merchant(name: str) -> bool:
+    """True when a merchant name belongs to a third-party marketplace platform.
+    Substring match on the *name*, so "Amazon.in" and "Flipkart SmartBuy" are
+    both caught."""
+    lowered = (name or "").lower()
+    return any(m in lowered for m in _MARKETPLACE_MERCHANTS)
+
+
 def _priority_merchant_anchor(results: list[dict], merchant_key: str = "merchant") -> float | None:
     """Highest price quoted by a trusted, non-marketplace merchant among these
     results, if any. Used to anchor the outlier check on a real reference
@@ -105,11 +113,20 @@ def _priority_merchant_anchor(results: list[dict], merchant_key: str = "merchant
 
     Reuses `_is_trusted_merchant`'s fuzzy substring match (not exact-name
     comparison) — real listings say "JioMart Electronics", not bare
-    "JioMart", and an exact match would silently never anchor on them."""
-    whitelist = _load_trusted_merchants() - _MARKETPLACE_MERCHANTS
+    "JioMart", and an exact match would silently never anchor on them.
+
+    The marketplace exclusion is applied to the *merchant name*, not by
+    subtracting entries from the whitelist. Subtracting only removes the exact
+    strings "amazon"/"flipkart", but the Gyftr brand list also contains
+    `amazonfresh`, `amazonprimemembership` and `amazonshoppingvoucher` — and
+    against a fuzzy substring match a listing from "Amazon" matches those and
+    anchors anyway, defeating the exclusion entirely."""
+    whitelist = _load_trusted_merchants()
     prices = [
         r.get("price") for r in results
-        if r.get("price") and _is_trusted_merchant(r.get(merchant_key) or "", whitelist)
+        if r.get("price")
+        and not _is_marketplace_merchant(r.get(merchant_key) or "")
+        and _is_trusted_merchant(r.get(merchant_key) or "", whitelist)
     ]
     return max(prices) if prices else None
 
@@ -311,6 +328,22 @@ _QUERY_STOPWORDS = {
     "offers", "deal", "deals", "for", "the", "a", "an", "with", "and",
 }
 
+# Generic model-tier words. These identify a variant ("iPhone 17 Pro" is not
+# "iPhone 17"), so they stay REQUIRED in the normal strict match — they are
+# only ever softened by the zero-result fallback in `_filter_and_group_candidates`,
+# where a query has already been shown to name no real product.
+#
+# Why this matters: shoppers routinely conflate two product lines into a name
+# that doesn't exist ("AirPods Pro Max" — Apple sells AirPods *Pro* and AirPods
+# *Max*, never both). Requiring every word then drops all 22 genuine AirPods Max
+# listings, and counterfeit sellers who *do* use the conflated name are the only
+# survivors. Worse, removing the genuine listings also removes the trusted
+# merchants the price anchor needs, so the junk filter is left with nothing to
+# measure against.
+_QUALIFIER_TOKENS = frozenset({
+    "pro", "max", "plus", "ultra", "mini", "air", "lite", "se",
+})
+
 _MAX_CANDIDATES = 8  # keep the picker scannable even when grouping can't fully dedup
 
 # Generic spec/marketing words that don't identify a distinct product/variant —
@@ -425,6 +458,27 @@ def _matches_required_tokens(title: str, tokens: list[str]) -> bool:
     return all(_segment_matches(seg) for seg in segments if not _is_bare_modifier_segment(seg))
 
 
+def _matches_relaxed_tokens(title: str, strong: list[str], qualifiers: list[str]) -> bool:
+    """Looser sibling of `_matches_required_tokens`, used only by the zero-result
+    fallback. Every identifying token must still be present; the model-tier
+    qualifiers are satisfied by *any one* of them rather than all.
+
+    So "airpods pro max" still requires "airpods", but accepts a title carrying
+    either "pro" or "max" — surfacing both real product lines and letting the
+    user pick, instead of returning nothing. A query with nothing but
+    qualifiers keeps the strict all-of behaviour, since there is no identity
+    left to anchor on.
+    """
+    if not strong:
+        return False
+    normalized = _norm_title(title)
+    if not all(re.search(_token_pattern(t), normalized) for t in strong):
+        return False
+    if not qualifiers:
+        return True
+    return any(re.search(_token_pattern(t), normalized) for t in qualifiers)
+
+
 def _distinguishing_words(title: str, exclude: set) -> frozenset:
     """Words in the title beyond the query's own tokens, known brand names,
     and generic spec/marketing filler. If nothing distinguishing survives,
@@ -453,7 +507,7 @@ def _extract_variant_signature(title: str, exclude: set) -> tuple:
     return (extra_words, storage, color)
 
 
-def _filter_and_group_candidates(candidates: list[dict], query: str) -> list[dict]:
+def _filter_and_group_candidates(candidates: list[dict], query: str) -> tuple[list[dict], bool]:
     """Drop accessories/bulk-listings/wrong-model/non-English junk, then group
     same-variant listings from different sellers into one picker card each.
 
@@ -466,47 +520,90 @@ def _filter_and_group_candidates(candidates: list[dict], query: str) -> list[dic
     sellers' phrasing of the exact same model doesn't read as a vendor list.
     Falls back to the unfiltered candidate list if filtering would wipe out
     everything (a degraded-but-honest result beats a false "nothing found").
+
+    Returns ``(candidates, approximate)`` — ``approximate`` is True when the
+    exact-name match found nothing and the relaxed qualifier fallback below
+    supplied the results instead, so the caller can label them as a closest
+    match rather than passing them off as exactly what was asked for.
     """
     tokens = _required_tokens(query)
     exclude = set(tokens) | set(KNOWN_BRANDS)
-    survivors = [
+    hygienic = [
         c for c in candidates
         if c.get("title")
         and not _is_accessory(c["title"])
         and not _is_bulk_listing(c["title"])
         and _is_latin_dominant(c["title"])
-        and (not tokens or _matches_required_tokens(c["title"], tokens))
     ]
+    def _vet(pool: list[dict]) -> list[dict]:
+        """Trust + price sanity. Runs identically on the strict pool and on the
+        relaxed fallback pool, so the fallback is held to exactly the same
+        standard — it widens *what counts as the product*, never what counts as
+        a trustworthy seller or a believable price."""
+        # Drop listings from sellers outside the trusted-merchant whitelist —
+        # the same check already applied at the route-building stage, applied
+        # here too so counterfeit/clone listings (e.g. generic marketplace
+        # sellers undercutting a genuine product by 10x) never reach the picker
+        # at all. No fallback to the unfiltered list on this stage: an
+        # untrusted-only result set means no trustworthy candidate exists,
+        # which is a better outcome than surfacing a counterfeit (see
+        # _filter_trusted_only's docstring / CLAUDE.md rule #1 — a wrong result
+        # is worse than none).
+        pool = _filter_trusted_only(pool, merchant_key="source")
+
+        # If a trusted, non-marketplace merchant quoted a price here, anchor
+        # the price-sanity check on that instead of the survivor pool's own
+        # median — clone listings routinely outnumber the one genuine listing
+        # for a query, which otherwise drags the median low enough that no
+        # clone reads as an outlier relative to the others. No anchor means no
+        # such merchant showed up — falls back to the median check unchanged.
+        anchor = _priority_merchant_anchor(pool, merchant_key="source")
+        if anchor is not None:
+            threshold = 0.4 * anchor
+            pool = [c for c in pool if (c.get("price") or 0) >= threshold or not c.get("price")]
+
+        # Defense-in-depth against price anomalies within the now-trusted set
+        # (e.g. a stale/broken scrape price) — same 40%-of-median threshold
+        # already used for L1 route results.
+        pool, _ = _outlier_filter(pool)
+        return pool
+
+    strict = [
+        c for c in hygienic
+        if not tokens or _matches_required_tokens(c["title"], tokens)
+    ]
+    survivors = _vet(strict) if strict else []
+
+    # Nothing survived. Usually this means the query names a product that does
+    # not exist — two product lines conflated into one name ("AirPods Pro Max").
+    # Requiring every word then keeps only the counterfeit sellers who use that
+    # invented name, and removing the genuine listings also removes the trusted
+    # merchants the price anchor needs, so the junk filter has nothing to
+    # measure against and the whole result is either junk or empty.
+    #
+    # Retry once with the model-tier qualifiers softened. Deliberately gated on
+    # a wiped-out result rather than applied by default: unconditionally, it
+    # would inflate "puma skyrocket lite 2" from 8 results to 20 by admitting
+    # non-Lite variants. Gated, every query that currently works is untouched.
+    approximate = False
+    if not survivors and tokens:
+        strong = [t for t in tokens if t not in _QUALIFIER_TOKENS]
+        qualifiers = [t for t in tokens if t in _QUALIFIER_TOKENS]
+        if strong and qualifiers:
+            relaxed = _vet([
+                c for c in hygienic
+                if _matches_relaxed_tokens(c["title"], strong, qualifiers)
+            ])
+            if relaxed:
+                survivors = relaxed
+                approximate = True
+
     if not survivors:
-        return candidates
-
-    # Drop listings from sellers outside the trusted-merchant whitelist — the
-    # same check already applied at the route-building stage, now applied here
-    # too so counterfeit/clone listings (e.g. generic marketplace sellers
-    # undercutting a genuine product by 10x) never reach the picker at all.
-    # No fallback to the unfiltered list on this stage: an untrusted-only
-    # result set means no trustworthy candidate exists, which is a better
-    # outcome than surfacing a counterfeit (see _filter_trusted_only's
-    # docstring / CLAUDE.md rule #1 — a wrong result is worse than none).
-    survivors = _filter_trusted_only(survivors, merchant_key="source")
-
-    # If a trusted, non-marketplace merchant quoted a price here, anchor the
-    # price-sanity check on that instead of the survivor pool's own median —
-    # clone listings routinely outnumber the one genuine listing for a query,
-    # which otherwise drags the median low enough that no clone reads as an
-    # outlier relative to the others. No anchor means no such merchant showed
-    # up for this query — falls back to the median check below unchanged.
-    anchor = _priority_merchant_anchor(survivors, merchant_key="source")
-    if anchor is not None:
-        threshold = 0.4 * anchor
-        survivors = [c for c in survivors if (c.get("price") or 0) >= threshold or not c.get("price")]
-
-    # Defense-in-depth against price anomalies within the now-trusted set (e.g.
-    # a stale/broken scrape price) — same 40%-of-median threshold already used
-    # for L1 route results.
-    survivors, _ = _outlier_filter(survivors)
-    if not survivors:
-        return []
+        # Only hand back the unfiltered pool when the *title* match found
+        # nothing at all. If titles matched but trust/price vetting rejected
+        # every one of them, that rejection is the answer — surfacing them
+        # anyway would parade untrusted listings as results.
+        return (candidates, False) if not strict else ([], False)
 
     groups: dict = {}
     order: list = []
@@ -522,7 +619,7 @@ def _filter_and_group_candidates(candidates: list[dict], query: str) -> list[dic
 
     grouped = [groups[k] for k in order]
     grouped.sort(key=lambda c: c.get("price") if c.get("price") is not None else float("inf"))
-    return grouped[:_MAX_CANDIDATES]
+    return grouped[:_MAX_CANDIDATES], approximate
 
 
 # ── source brand inference (best-effort, for the identity box) ───────────────────
@@ -566,9 +663,13 @@ def search_candidates(query: str) -> dict:
     """Step 1 of the two-step flow: google_shopping search only.
 
     Returns the list of candidate products the user picks from — does NOT run
-    the (slow) google_product call. Never raises."""
+    the (slow) google_product call. Never raises.
+
+    ``approximate`` is True when nothing matched the query exactly and these
+    are the closest trustworthy matches instead — the caller should say so
+    rather than presenting them as the thing that was asked for."""
     query = (query or "").strip()
-    out = {"query": query, "products": [], "error": None}
+    out = {"query": query, "products": [], "error": None, "approximate": False}
     if not query:
         out["error"] = "Empty query."
         return out
@@ -582,11 +683,12 @@ def search_candidates(query: str) -> dict:
             for p in raw.get("shopping_results", [])
             if p.get("product_token")
         ]
-        products = _filter_and_group_candidates(products, query)
+        products, approximate = _filter_and_group_candidates(products, query)
         if not products:
             out["error"] = "No products found for that search."
             return out
         out["products"] = products
+        out["approximate"] = approximate
     except Exception as e:  # never leak a stack trace
         out["error"] = f"{type(e).__name__}: {e}"
     return out
