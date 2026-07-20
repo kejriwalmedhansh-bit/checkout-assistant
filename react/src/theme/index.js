@@ -19,7 +19,13 @@ import { inputTheme, textareaTheme } from './components/input';
 import { switchTheme } from './components/switch';
 
 const config = {
-  initialColorMode: 'light',
+  // Dark is the default look. Anyone who has already used ThemeToggle keeps their
+  // stored choice — this only sets what a first-time visitor sees.
+  //
+  // Note: `ColorModeScript` in main.jsx does NOT run before first paint in this
+  // client-rendered Vite app, so the pre-paint canvas colour is handled by the
+  // inline style + script in index.html. Change both together.
+  initialColorMode: 'dark',
   useSystemColorMode: false,
 };
 
