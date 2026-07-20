@@ -1,6 +1,5 @@
 import { Box, Flex, Link, ListItem, Text, UnorderedList } from '@chakra-ui/react';
 
-import Eyebrow from '@/components/common/Eyebrow';
 import { fmt, paidForVoucher } from '@/utils/format';
 
 /**
@@ -51,9 +50,26 @@ export default function HowToSteps({ rec }) {
   const instructions = v.redemption_instructions || [];
 
   return (
-    <Box bg="surface2" border="1px solid" borderColor="border" borderRadius="sm" p="14px 18px">
-      <Eyebrow>How to do it</Eyebrow>
-      <Flex direction="column" gap="10px" mt="12px">
+    // This is the block the customer actually works from while spending money,
+    // so it carries a brand-tinted ground and an accent rail rather than
+    // sitting in the same neutral surface as everything around it. Amber stays
+    // reserved for the "Before you buy" caution below — two accents for two
+    // different kinds of important.
+    <Box
+      bg="brandSoft2"
+      border="1px solid"
+      borderColor="brandSoft"
+      borderLeft="3px solid"
+      borderLeftColor="brand"
+      borderRadius="sm"
+      p="16px 18px"
+    >
+      {/* A real heading, not the 11px uppercase eyebrow used for card titles —
+          the instructions were getting lost against the surrounding text. */}
+      <Text fontSize="15px" fontWeight={700} color="brandText" letterSpacing="-.01em">
+        How to do it
+      </Text>
+      <Flex direction="column" gap="11px" mt="12px">
         {steps.map((s, i) => (
           <Flex key={i} gap="12px" align="flex-start">
             <Flex
@@ -62,7 +78,7 @@ export default function HowToSteps({ rec }) {
               flex="0 0 auto"
               borderRadius="50%"
               bg="brand"
-              color="white"
+              color="onBrand"
               align="center"
               justify="center"
               fontSize="11px"
@@ -71,7 +87,7 @@ export default function HowToSteps({ rec }) {
             >
               {i + 1}
             </Flex>
-            <Text fontSize="13px" color="text2" lineHeight={1.5}>
+            <Text fontSize="13.5px" color="text" lineHeight={1.55}>
               {s}
             </Text>
           </Flex>

@@ -29,6 +29,14 @@ export const semanticColors = {
   brandSoft2: { default: '#F1F7F3', _dark: '#0F241A' },
   brandText: { default: '#084F31', _dark: '#5FD99C' },
 
+  // Foreground for anything sitting ON a brand/green fill — primary buttons,
+  // the numbered step circles, the savings pill. White is right on the deep
+  // light-mode green (6.6:1) but fails badly on the brighter dark-mode green
+  // (2.6:1, against a 4.5:1 requirement), so dark mode flips to near-black
+  // (7.2:1). Never hardcode `color="white"` over a brand fill — it silently
+  // breaks in one theme.
+  onBrand: { default: '#FFFFFF', _dark: '#0B1410' },
+
   // brass — the one deliberate rich accent, used sparingly (verification/
   // confirmation moments only, not general UI)
   brass: { default: '#B9852E', _dark: '#D9A748' },

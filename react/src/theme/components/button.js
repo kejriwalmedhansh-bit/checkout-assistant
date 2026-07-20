@@ -30,7 +30,7 @@ export const buttonTheme = {
   variants: {
     primary: {
       bg: 'brand',
-      color: 'white',
+      color: 'onBrand',
       boxShadow: 'none',
       _hover: { bg: 'brandHover', _disabled: { bg: 'brand' } },
       _active: { bg: 'brandHover' },

@@ -53,7 +53,7 @@ export default function JourneyStep({
         flex="0 0 34px"
         borderRadius="50%"
         bg={filled ? 'brand' : t.bg}
-        color={filled ? 'white' : t.color}
+        color={filled ? 'onBrand' : t.color}
         border="2px solid"
         borderColor={pending ? 'brand' : filled ? 'brand' : t.border}
         align="center"
@@ -95,7 +95,7 @@ export default function JourneyStep({
           pointerEvents={pending ? 'none' : 'auto'}
           fontSize="11.5px"
           fontWeight={700}
-          color={checked ? 'white' : 'brandText'}
+          color={checked ? 'onBrand' : 'brandText'}
           bg={checked ? 'brand' : 'brandSoft'}
           border="1px solid"
           borderColor="brand"

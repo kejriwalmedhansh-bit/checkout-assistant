@@ -9,7 +9,7 @@ export const styles = {
       WebkitFontSmoothing: 'antialiased',
       textRendering: 'optimizeLegibility',
     },
-    '::selection': { bg: 'brand', color: 'white' },
+    '::selection': { bg: 'brand', color: 'onBrand' },
     '*::-webkit-scrollbar': { width: '10px', height: '10px' },
     '*::-webkit-scrollbar-thumb': {
       background: 'var(--chakra-colors-borderStrong)',

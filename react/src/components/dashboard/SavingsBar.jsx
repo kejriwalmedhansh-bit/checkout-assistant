@@ -32,7 +32,7 @@ export default function SavingsBar({ originalPrice, finalPrice, saving }) {
           flex="0 0 auto"
           borderRadius="9px"
           bg="green"
-          color="white"
+          color="onBrand"
           align="center"
           justify="center"
         >
@@ -61,7 +61,7 @@ export default function SavingsBar({ originalPrice, finalPrice, saving }) {
           mt="8px"
           fontFamily="mono"
           bg="green"
-          color="white"
+          color="onBrand"
           fontSize="12.5px"
           fontWeight={700}
           borderRadius="999px"
