@@ -1,10 +1,11 @@
-import { Box, Flex, Link, Text, Tooltip } from '@chakra-ui/react';
+import { Box, Flex, Link, Switch, Text, Tooltip } from '@chakra-ui/react';
 import { Link as RouterLink, useMatch } from 'react-router-dom';
 
 import Eyebrow from '@/components/common/Eyebrow';
 import ThemeToggle from '@/components/common/ThemeToggle';
 import { I } from '@/components/common/icons';
 import { ROUTES } from '@/routes/paths';
+import { useUiStore } from '@/store/uiStore';
 
 /** Fixed icon-slot width — keeps every icon on one vertical center line. */
 const ICON_SLOT = 34;
@@ -83,6 +84,8 @@ function NavItem({ to, end, icon: Ico, label, onNavigate, collapsed }) {
  */
 export default function SidebarContent({ onNavigate, collapsed = false }) {
   const fx = fade(collapsed);
+  const hintsEnabled = useUiStore((s) => s.hintsEnabled);
+  const toggleHints = useUiStore((s) => s.toggleHints);
 
   return (
     <Flex direction="column" h="100%" w="264px" p="14px" bg="sidebar">
@@ -118,6 +121,23 @@ export default function SidebarContent({ onNavigate, collapsed = false }) {
 
       <Flex mt="auto" direction="column" gap="10px">
         <Box h="1px" bg="border" />
+
+        {/* Durable off-switch for the results-page step hints. They show on
+            every visit by default, so someone who finds them repetitive needs
+            a real way out — not just the per-visit "Hide" on the bubble. */}
+        <Flex align="center" justify="space-between" p="4px 0" sx={fx}>
+          <Text as="label" htmlFor="hints-toggle" fontSize="12px" color="text2" cursor="pointer">
+            Step hints
+          </Text>
+          <Switch
+            id="hints-toggle"
+            size="sm"
+            isChecked={hintsEnabled}
+            onChange={toggleHints}
+            aria-label="Show step-by-step hints on the results page"
+          />
+        </Flex>
+
         <Flex align="center" justify="space-between" p="4px 0">
           <Box sx={fx}>
             <Text fontSize="12px" color="text3">

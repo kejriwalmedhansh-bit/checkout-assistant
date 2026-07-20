@@ -40,6 +40,7 @@ export default function JourneyStep({
   checked = false,
   ready = false,
   pending = false,
+  hinted = false,
   onCheck,
 }) {
   const t = TONES[tone] || TONES.brand;
@@ -105,7 +106,36 @@ export default function JourneyStep({
           flex="0 0 auto"
           whiteSpace="nowrap"
           transition="background .2s"
+          position="relative"
           _hover={{ textDecoration: 'none', bg: checked ? 'brandHover' : 'brandSoft2' }}
+          // Attention ring for the step the hint is pointing at. Pulses exactly
+          // three times and stops — an endlessly animating control reads as a
+          // game, which is the wrong feeling right before someone spends money.
+          // Suppressed entirely under reduced-motion.
+          sx={
+            hinted
+              ? {
+                  '@keyframes dealoHintRing': {
+                    '0%': { opacity: 0.85, transform: 'scale(1)' },
+                    '70%': { opacity: 0, transform: 'scale(1.22)' },
+                    '100%': { opacity: 0, transform: 'scale(1.22)' },
+                  },
+                  '&::before': {
+                    content: '""',
+                    position: 'absolute',
+                    inset: '-4px',
+                    borderRadius: '99px',
+                    border: '2px solid',
+                    borderColor: 'brand',
+                    pointerEvents: 'none',
+                    animation: 'dealoHintRing 1s cubic-bezier(.3,.7,.4,1) 3',
+                  },
+                  '@media (prefers-reduced-motion: reduce)': {
+                    '&::before': { animation: 'none', opacity: 0.85 },
+                  },
+                }
+              : undefined
+          }
         >
           {checked ? '✓ Done' : pending ? 'Confirming…' : link.label}
         </Link>
