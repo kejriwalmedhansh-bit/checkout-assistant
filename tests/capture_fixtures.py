@@ -23,6 +23,11 @@ from src.repositories import searchapi_repository  # noqa: E402
 # exist" case (`airpods pro max`) and its two real counterparts.
 QUERIES = [
     "airpods pro max",
+    # The same product spelled with a space. It is a genuinely different search
+    # — different tokens, different listings — and it used to fall through
+    # every filter into a raw unvetted dump of counterfeits. Kept as its own
+    # fixture so that can't come back unnoticed.
+    "air pods pro max",
     "airpods max",
     "boat airdopes 141",
     "apple iphone 17 256gb",

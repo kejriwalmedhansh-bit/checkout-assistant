@@ -53,7 +53,12 @@ export default function Journey({ rec }) {
 
   const paid = v ? paidForVoucher(v) : null;
   const HINT_TEXT = {
-    store: `Open ${rec.merchant} and put your item in the basket. Don't pay yet — the voucher comes next.`,
+    // On a direct buy there is no second step, so "don't pay yet" would be
+    // actively wrong — paying is the whole thing. Only a voucher route gets
+    // told to hold off.
+    store: v
+      ? `Open ${rec.merchant} and put your item in the basket. Don't pay yet — the voucher comes next.`
+      : `Open ${rec.merchant} and buy it there — this is already the cheapest way we found.`,
     voucher: `Buy the gift voucher now. You pay ${fmt(paid)} for ${fmt(v?.upi?.voucher_amount)} of ${rec.merchant} credit.`,
     pay: v?.upi?.remainder
       ? `Use the voucher at checkout, then pay the last ${fmt(v.upi.remainder)} any way you like.`

@@ -340,9 +340,33 @@ _QUERY_STOPWORDS = {
 # survivors. Worse, removing the genuine listings also removes the trusted
 # merchants the price anchor needs, so the junk filter is left with nothing to
 # measure against.
+#
+# "air" is deliberately NOT in this list. It reads like a tier but carries
+# identity: AirPods, MacBook Air, Air Max, Airdopes. Softening it collapses
+# "air pods pro max" down to the single word "pods", which matches every
+# generic earbud clone sold ("Swiss Military Pods Pro Max" and friends).
 _QUALIFIER_TOKENS = frozenset({
-    "pro", "max", "plus", "ultra", "mini", "air", "lite", "se",
+    "pro", "max", "plus", "ultra", "mini", "lite", "se",
 })
+
+
+def _token_variants(tokens: list[str]) -> list[list[str]]:
+    """The query's own tokens, then each way of merging one adjacent pair.
+
+    Shoppers space out compound product names — "air pods" for AirPods, "power
+    bank" for powerbank, "smart watch" for smartwatch. Word-boundary matching
+    treats those as unrelated to the listings ("\\bpods\\b" does not match
+    "AirPods", and "\\bairpods\\b" does not match "Air Pods"), so *nothing*
+    matches and the search falls through to its last-resort behaviour.
+
+    Merging adjacent pairs recovers the intended product without an alias table
+    for any particular brand. Bounded at n-1 extra attempts, and only ever used
+    to widen a search that already found nothing.
+    """
+    variants = [tokens]
+    for i in range(len(tokens) - 1):
+        variants.append(tokens[:i] + [tokens[i] + tokens[i + 1]] + tokens[i + 2:])
+    return variants
 
 _MAX_CANDIDATES = 8  # keep the picker scannable even when grouping can't fully dedup
 
@@ -568,28 +592,52 @@ def _filter_and_group_candidates(candidates: list[dict], query: str) -> tuple[li
         pool, _ = _outlier_filter(pool)
         return pool
 
-    strict = [
-        c for c in hygienic
-        if not tokens or _matches_required_tokens(c["title"], tokens)
-    ]
-    survivors = _vet(strict) if strict else []
-
-    # Nothing survived. Usually this means the query names a product that does
-    # not exist — two product lines conflated into one name ("AirPods Pro Max").
-    # Requiring every word then keeps only the counterfeit sellers who use that
-    # invented name, and removing the genuine listings also removes the trusted
-    # merchants the price anchor needs, so the junk filter has nothing to
-    # measure against and the whole result is either junk or empty.
+    # Widening ladder. Each rung loosens what counts as *the product*; none of
+    # them ever loosens what counts as a trustworthy seller or a believable
+    # price, because every rung goes through `_vet`.
     #
-    # Retry once with the model-tier qualifiers softened. Deliberately gated on
-    # a wiped-out result rather than applied by default: unconditionally, it
-    # would inflate "puma skyrocket lite 2" from 8 results to 20 by admitting
-    # non-Lite variants. Gated, every query that currently works is untouched.
+    #   1. every query word present, as typed
+    #   2. every query word present, with one adjacent pair merged
+    #      ("air pods pro max" -> "airpods pro max")
+    #   3. identifying words present, model-tier qualifiers softened
+    #      (for names that don't exist, like "AirPods Pro Max")
+    #   4. nothing product-specific matched — vetted raw pool, then empty
+    #
+    # Rungs 2-4 only run when everything above them came back empty, so any
+    # query that already works keeps its exact current results.
+    variants = _token_variants(tokens) if tokens else [[]]
     approximate = False
-    if not survivors and tokens:
-        strong = [t for t in tokens if t not in _QUALIFIER_TOKENS]
-        qualifiers = [t for t in tokens if t in _QUALIFIER_TOKENS]
-        if strong and qualifiers:
+    survivors: list[dict] = []
+    matched_titles = False
+
+    # Rung 1 + 2 — exact word match, then spacing variants.
+    for variant in variants:
+        exact = [
+            c for c in hygienic
+            if not variant or _matches_required_tokens(c["title"], variant)
+        ]
+        if not exact:
+            continue
+        matched_titles = True
+        survivors = _vet(exact)
+        if survivors:
+            break
+
+    # Rung 3 — the query probably names a product that doesn't exist: two
+    # product lines conflated into one name. Requiring every word then keeps
+    # only the counterfeit sellers who use the invented name, and removing the
+    # genuine listings also removes the trusted merchants the price anchor
+    # needs, so the junk filter has nothing to measure against.
+    #
+    # Deliberately gated on a wiped-out result rather than applied by default:
+    # unconditionally it would inflate "puma skyrocket lite 2" from 8 results
+    # to 20 by admitting non-Lite variants.
+    if not survivors:
+        for variant in variants:
+            strong = [t for t in variant if t not in _QUALIFIER_TOKENS]
+            qualifiers = [t for t in variant if t in _QUALIFIER_TOKENS]
+            if not (strong and qualifiers):
+                continue
             relaxed = _vet([
                 c for c in hygienic
                 if _matches_relaxed_tokens(c["title"], strong, qualifiers)
@@ -597,13 +645,25 @@ def _filter_and_group_candidates(candidates: list[dict], query: str) -> tuple[li
             if relaxed:
                 survivors = relaxed
                 approximate = True
+                break
+
+    # Rung 4 — nothing product-specific matched at all. Show the vetted pool
+    # rather than the raw one.
+    #
+    # This used to `return candidates` outright: no trusted-merchant check, no
+    # price anchor, no outlier filter. That is what put ₹650 "Airpods Pro Max"
+    # listings in front of customers searching for a ₹60,000 product, and it
+    # contradicts CLAUDE.md rule #1 — a wrong result is worse than no result.
+    # Vetting it keeps the original intent (something beats a bare "nothing
+    # found") without ever parading an untrusted seller at an absurd price.
+    if not survivors and not matched_titles:
+        vetted_raw = _vet(hygienic)
+        if vetted_raw:
+            survivors = vetted_raw
+            approximate = True
 
     if not survivors:
-        # Only hand back the unfiltered pool when the *title* match found
-        # nothing at all. If titles matched but trust/price vetting rejected
-        # every one of them, that rejection is the answer — surfacing them
-        # anyway would parade untrusted listings as results.
-        return (candidates, False) if not strict else ([], False)
+        return [], False
 
     groups: dict = {}
     order: list = []
