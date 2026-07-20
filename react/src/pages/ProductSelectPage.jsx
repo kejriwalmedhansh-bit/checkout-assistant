@@ -2,6 +2,7 @@ import { Box, Flex, Text, useColorModeValue } from '@chakra-ui/react';
 import { motion, useReducedMotion } from 'framer-motion';
 import { Navigate, useNavigate } from 'react-router-dom';
 
+import BackButton from '@/components/common/BackButton';
 import Card from '@/components/common/Card';
 import ErrorBox from '@/components/common/ErrorBox';
 import LoadingCard from '@/components/common/LoadingCard';
@@ -61,6 +62,10 @@ export default function ProductSelectPage() {
       />
 
       <Box maxW="680px" mx="auto" position="relative" zIndex={1}>
+        <Box mb="10px" ml="-10px">
+          <BackButton fallback={ROUTES.home} label="Back to search" />
+        </Box>
+
         <Box mb="20px">
           <Text fontSize="11px" color="text3" fontWeight={500} letterSpacing=".06em" textTransform="uppercase">
             {searchStatus === 'loading'

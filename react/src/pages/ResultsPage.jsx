@@ -2,6 +2,7 @@ import { useRef, useState } from 'react';
 import { Box, Flex } from '@chakra-ui/react';
 import { Navigate, useNavigate } from 'react-router-dom';
 
+import BackButton from '@/components/common/BackButton';
 import ErrorBox from '@/components/common/ErrorBox';
 import LoadingCard from '@/components/common/LoadingCard';
 import SearchBox from '@/components/common/SearchBox';
@@ -68,6 +69,10 @@ export default function ResultsPage() {
 
   return (
     <Box ref={scrollRef} maxW="640px" mx="auto">
+      <Box mb="10px" ml="-10px">
+        <BackButton fallback={ROUTES.select} label="Back to products" />
+      </Box>
+
       <Box mb="18px">
         <SearchBox
           initialValue={query}
