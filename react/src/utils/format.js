@@ -3,6 +3,7 @@
  * render logic. Keeping the money math here means the route components read the
  * /search contract keys directly and never re-derive backend mechanics.
  */
+import { API_BASE_URL } from '@/config';
 
 /** Format a number as INR: '₹' + thousands-separated, rounded. `—` when empty. */
 export function fmt(n) {
@@ -56,16 +57,16 @@ export function cleanInstructions(list) {
   });
 }
 
-// Cuelinks publisher cid (approved, live) — mirrors CUELINKS_BASE/CUELINKS_CID
-// in src/constants.py + src/config.py. Not a secret: this id is already
-// public in the wrapped URLs themselves.
-const CUELINKS_CID = '297179';
-
 /**
  * Affiliate wrapper for merchant store links — deliberately NOT applied to
  * Gyftr voucher links (callers should pass those through unwrapped).
+ *
+ * Routes through our own backend (/go, see src/api/routers/redirect.py)
+ * instead of linking straight to linksredirect.com, so hovering the link
+ * shows our domain, not an unfamiliar third-party tracking redirect. The
+ * backend does the actual Cuelinks wrap and 302s onward.
  */
 export function affiliateUrl(link) {
   if (!link) return '#';
-  return `https://linksredirect.com/?cid=${CUELINKS_CID}&source=linkkit&url=${encodeURIComponent(link)}`;
+  return `${API_BASE_URL}/go?url=${encodeURIComponent(link)}`;
 }

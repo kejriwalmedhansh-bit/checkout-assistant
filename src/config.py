@@ -43,6 +43,12 @@ class Settings(BaseSettings):
     # --- Cuelinks affiliate ---
     CUELINKS_CID: str = "297179"
 
+    # --- This backend's own public URL, no trailing slash ---
+    # Used to build /go redirect links (see api/routers/redirect.py) so
+    # WhatsApp buttons point at our own domain instead of linksredirect.com
+    # directly. Render URL in prod, ngrok URL for local WhatsApp testing.
+    PUBLIC_BASE_URL: str = "http://localhost:8000"
+
     # --- CORS — comma-separated list of allowed origins ---
     CORS_ORIGINS: str = ",".join(_DEFAULT_CORS_ORIGINS)
 

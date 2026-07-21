@@ -23,7 +23,6 @@ from PIL import Image
 from ..cache import session_store
 from ..config import get_settings
 from ..constants import (
-    CUELINKS_BASE,
     KNOWN_BRANDS,
     WHATSAPP_DEAD_END_MSG,
     WHATSAPP_GRAPH_BASE,
@@ -40,11 +39,17 @@ from . import search_service
 
 def _affiliate_url(link: str) -> str:
     """Cuelinks wrapper for merchant store links — mirrors the web frontend's
-    affiliateUrl(). Deliberately NOT applied to Gyftr voucher links."""
+    affiliateUrl(). Deliberately NOT applied to Gyftr voucher links.
+
+    Routes through our own /go redirect (see api/routers/redirect.py)
+    instead of linksredirect.com directly, so the WhatsApp button's URL —
+    visible to Meta's link scanner and, briefly, in-browser on tap — shows
+    our own domain rather than an unfamiliar third-party tracking redirect.
+    """
     if not link:
         return link
     settings = get_settings()
-    return CUELINKS_BASE.format(cid=settings.CUELINKS_CID, url=quote(link, safe=""))
+    return f"{settings.PUBLIC_BASE_URL}/go?url={quote(link, safe='')}"
 
 
 # ── input classification (ported from whatsapp/classifier.py) ───────────────────
