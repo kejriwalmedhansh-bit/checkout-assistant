@@ -26,6 +26,11 @@ class Settings(BaseSettings):
     SEARCHAPI_KEY: str = ""
     SEARCHAPI_TIMEOUT: int = 30
 
+    # Timeout (seconds) for the lightweight og:title fetch used to recognise a
+    # pasted product link. Kept short — it runs inline on every URL search and a
+    # failure just falls through to slug extraction.
+    LINK_TITLE_TIMEOUT: int = 5
+
     # --- WhatsApp (Meta Graph API) — all optional so the app boots unconfigured ---
     WHATSAPP_PHONE_NUMBER_ID: str = ""
     WHATSAPP_ACCESS_TOKEN: str = ""

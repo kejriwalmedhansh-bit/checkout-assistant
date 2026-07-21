@@ -18,9 +18,18 @@ URL mode is gone, so mode is always "text".
 """
 from __future__ import annotations
 
+import html
+import logging
 import re
-from urllib.parse import unquote, urlsplit
+from urllib.parse import unquote, urlsplit, urlunsplit
 
+import httpx
+
+# Attach to uvicorn's configured logger so these lines show in the server
+# console (the app defines no logging config of its own).
+logger = logging.getLogger("uvicorn.error")
+
+from ..config import get_settings
 from ..constants import KNOWN_BRANDS, MANUAL_TRUSTED_MERCHANTS, PRIORITY_MERCHANTS
 from ..repositories import searchapi_repository, voucher_repository
 from . import card_service, voucher_service
@@ -710,8 +719,11 @@ def _filter_and_group_candidates(candidates: list[dict], query: str) -> tuple[li
             if c.get("price") is not None and (existing.get("price") is None or c["price"] < existing["price"]):
                 groups[key] = c
 
+    # Keep Google's own relevance order — the genuine product ranks near the
+    # top there. Sorting the picker by price instead floats the cheapest
+    # listing up, which is usually a refurb/clone/wrong-variant, so the wrong
+    # product leads the list.
     grouped = [groups[k] for k in order]
-    grouped.sort(key=lambda c: c.get("price") if c.get("price") is not None else float("inf"))
     return grouped[:_MAX_CANDIDATES], approximate
 
 
@@ -794,6 +806,115 @@ def _query_from_url(url: str) -> str | None:
     return " ".join(best_words)
 
 
+# Realistic browser UA — bare httpx/python UAs get bot-walled by most stores.
+_TITLE_FETCH_HEADERS = {
+    "User-Agent": (
+        "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 "
+        "(KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36"
+    ),
+    "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+    "Accept-Language": "en-IN,en;q=0.9",
+}
+
+# Product-name sources in the page head, best first. Each returns the name in
+# group 1. og:title/twitter:title support both attribute orders (content before
+# or after the property/name attribute).
+_META_TITLE_RES = [
+    re.compile(
+        r"""<meta[^>]+(?:property|name)=["']og:title["'][^>]+content=["']([^"']+)["']""",
+        re.IGNORECASE,
+    ),
+    re.compile(
+        r"""<meta[^>]+content=["']([^"']+)["'][^>]+(?:property|name)=["']og:title["']""",
+        re.IGNORECASE,
+    ),
+    re.compile(
+        r"""<meta[^>]+(?:property|name)=["']twitter:title["'][^>]+content=["']([^"']+)["']""",
+        re.IGNORECASE,
+    ),
+    re.compile(
+        r"""<meta[^>]+content=["']([^"']+)["'][^>]+(?:property|name)=["']twitter:title["']""",
+        re.IGNORECASE,
+    ),
+    re.compile(r"<title[^>]*>(.*?)</title>", re.IGNORECASE | re.DOTALL),
+]
+
+# Titles that mean "we didn't get the product page" — bot walls, error pages, or
+# a bare store name. Lower-cased substring match; any hit rejects the title so
+# the caller falls through to slug extraction instead of searching junk.
+_BAD_TITLE_MARKERS = (
+    "robot check",
+    "access denied",
+    "attention required",
+    "are you a human",
+    "just a moment",
+    "captcha",
+    "page not found",
+    "404",
+    "error",
+    "sign in",
+    "log in",
+)
+_BARE_STORE_TITLES = frozenset(
+    {"amazon.in", "amazon", "flipkart", "flipkart.com", "myntra", "nykaa", "ajio"}
+)
+
+
+def _title_from_url(url: str) -> str | None:
+    """The product name from a pasted link's own page title — the one source
+    that's present on virtually every product page, including short links and
+    bare /dp/ASIN links that carry no words in the URL itself.
+
+    One lightweight GET (follow_redirects resolves short links to the canonical
+    page), reading only og:title -> twitter:title -> <title>. NOT a price/spec
+    parse. Returns None on any failure (non-200, timeout, missing/junk title) so
+    the caller falls through to slug extraction — never raises."""
+    try:
+        timeout = float(get_settings().LINK_TITLE_TIMEOUT)
+        with httpx.Client(
+            timeout=timeout, follow_redirects=True, headers=_TITLE_FETCH_HEADERS
+        ) as client:
+            resp = client.get(url)
+        logger.info(
+            "[url-search] title-fetch %s -> final=%s status=%s",
+            url, resp.url, resp.status_code,
+        )
+        if resp.status_code != 200:
+            return None
+        # The title lives in <head>, early in the document; cap the text we scan
+        # so a huge product page doesn't turn into a huge regex pass.
+        markup = resp.text[:200_000]
+    except (httpx.HTTPError, ValueError) as exc:
+        logger.info("[url-search] title-fetch failed for %s: %s", url, exc)
+        return None
+
+    for pattern in _META_TITLE_RES:
+        m = pattern.search(markup)
+        if not m:
+            continue
+        title = re.sub(r"\s+", " ", html.unescape(m.group(1))).strip()
+        if len(title) < 3:
+            continue
+        low = title.lower()
+        if low in _BARE_STORE_TITLES or any(b in low for b in _BAD_TITLE_MARKERS):
+            logger.info("[url-search] rejected page title %r (bot-wall/bare store)", title)
+            continue
+        logger.info("[url-search] using page title: %r", title)
+        return title
+    logger.info("[url-search] no usable title found in page")
+    return None
+
+
+def _clean_url_for_search(url: str) -> str:
+    """Strip query params and fragment from a link, leaving scheme+host+path.
+
+    The last-resort fallback when neither the page title nor the slug yields a
+    product name: searching the bare URL is weak, but at least tracking params
+    (?tag=…&ref=…) shouldn't pollute the search string."""
+    parts = urlsplit(url)
+    return urlunsplit((parts.scheme, parts.netloc, parts.path, "", "")) or url
+
+
 def search_candidates(query: str) -> dict:
     """Step 1 of the two-step flow: google_shopping search only.
 
@@ -808,30 +929,77 @@ def search_candidates(query: str) -> dict:
     if not query:
         out["error"] = "Empty query."
         return out
-    # A pasted link is searched by its slug words when it has them; the
-    # response still echoes the original input in ``query``. A slugless link
-    # (short link, bare /dp/ASIN) keeps the old raw-URL search, which is now
-    # safe: it lands in the trust-only pool and gets labeled approximate.
+    # A pasted link is turned into a search query without scraping the product:
+    # its page title first, then its slug words, then the bare link. The
+    # response still echoes the original input in ``query``. A link that yields
+    # nothing better than the bare URL lands in the trust-only pool and gets
+    # labeled approximate.
     effective_query = query
-    if _URL_QUERY_RE.match(query):
-        effective_query = _query_from_url(query) or query
+    is_url = bool(_URL_QUERY_RE.match(query))
+    if is_url:
+        # Three-layer link recognition, cheapest-reliable first:
+        #   1. the page's own og:title (handles short/ID-only links),
+        #   2. words from the URL slug,
+        #   3. the bare link with tracking params stripped.
+        logger.info("[url-search] input is a link: %s", query)
+        effective_query = _title_from_url(query)
+        layer = "page-title"
+        if not effective_query:
+            effective_query = _query_from_url(query)
+            layer = "url-slug"
+        if not effective_query:
+            effective_query = _clean_url_for_search(query)
+            layer = "raw-link"
+        logger.info(
+            "[url-search] searching via %s -> query=%r", layer, effective_query
+        )
     try:
         raw = searchapi_repository.search_products(effective_query)
         if raw.get("error"):
+            if is_url:
+                logger.info("[url-search] google api error: %s", raw["error"])
             out["error"] = raw["error"]
             return out
+        shopping_results = raw.get("shopping_results", [])
+        if is_url:
+            logger.info(
+                "[url-search] google api returned %d raw result(s):",
+                len(shopping_results),
+            )
+            for r in shopping_results:
+                logger.info(
+                    "[url-search]   raw: %r | %s | %s | token=%s",
+                    r.get("title"),
+                    r.get("seller") or r.get("source") or r.get("store"),
+                    r.get("price"),
+                    "yes" if r.get("product_token") else "no",
+                )
         products = [
             _product_candidate(p)
-            for p in raw.get("shopping_results", [])
+            for p in shopping_results
             if p.get("product_token")
         ]
         products, approximate = _filter_and_group_candidates(products, effective_query)
         if not products:
+            if is_url:
+                logger.info("[url-search] no candidates after filtering")
             out["error"] = "No products found for that search."
             return out
         out["products"] = products
         out["approximate"] = approximate
+        if is_url:
+            logger.info(
+                "[url-search] %d candidate(s)%s:",
+                len(products), " (approximate)" if approximate else "",
+            )
+            for p in products:
+                logger.info(
+                    "[url-search]   - %r | %s | %s",
+                    p.get("title"), p.get("source"), p.get("price"),
+                )
     except Exception as e:  # never leak a stack trace
+        if is_url:
+            logger.info("[url-search] search error: %s: %s", type(e).__name__, e)
         out["error"] = f"{type(e).__name__}: {e}"
     return out
 
