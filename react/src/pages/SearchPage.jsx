@@ -1,12 +1,11 @@
-import { Box, Flex, Text } from '@chakra-ui/react';
-import { useNavigate } from 'react-router-dom';
+import { Box, Flex, Link, Text } from '@chakra-ui/react';
+import { Link as RouterLink, useNavigate } from 'react-router-dom';
 
 import Logo from '@/components/common/Logo';
 import SearchBox from '@/components/common/SearchBox';
 import { I } from '@/components/common/icons';
 import { gradients } from '@/theme/foundations/colors';
 import { usePageTitle } from '@/hooks/usePageTitle';
-import { useColorModeValue } from '@chakra-ui/react';
 import { ROUTES } from '@/routes/paths';
 import { useSearchStore } from '@/store/searchStore';
 
@@ -22,7 +21,7 @@ export default function SearchPage() {
   const runSearch = useSearchStore((s) => s.runSearch);
   const query = useSearchStore((s) => s.query);
 
-  const heroGlow = useColorModeValue(gradients.promptHeroLight, gradients.promptHeroDark);
+  const heroGlow = gradients.promptHero;
 
   const handleSubmit = (q) => {
     runSearch(q); // fire-and-forget; ProductSelectPage subscribes to the store
@@ -56,7 +55,9 @@ export default function SearchPage() {
         zIndex={1}
       >
         <Box mb={{ base: '22px', md: '28px' }}>
-          <Logo size={38} />
+          <Link as={RouterLink} to={ROUTES.home} _hover={{ textDecoration: 'none' }}>
+            <Logo size={38} />
+          </Link>
         </Box>
 
         <Text

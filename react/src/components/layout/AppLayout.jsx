@@ -6,13 +6,14 @@ import {
   DrawerContent,
   DrawerOverlay,
   Flex,
+  Link,
   useDisclosure,
 } from '@chakra-ui/react';
-import { Outlet } from 'react-router-dom';
+import { Link as RouterLink, Outlet } from 'react-router-dom';
 
 import Logo from '@/components/common/Logo';
-import ThemeToggle from '@/components/common/ThemeToggle';
 import { I } from '@/components/common/icons';
+import { ROUTES } from '@/routes/paths';
 import { useUiStore } from '@/store/uiStore';
 import SidebarContent from './Sidebar';
 
@@ -130,8 +131,12 @@ export default function AppLayout() {
           >
             <I.menu size={20} />
           </Button>
-          <Logo size={22} />
-          <ThemeToggle size={40} variant="iconSubtle" borderRadius="10px" />
+          <Link as={RouterLink} to={ROUTES.home} _hover={{ textDecoration: 'none' }}>
+            <Logo size={22} />
+          </Link>
+          {/* spacer matching the menu button's width, keeping the logo visually
+              centered now that there's no theme toggle to balance it */}
+          <Box w="40px" h="40px" flex="0 0 auto" />
         </Flex>
 
         <Box

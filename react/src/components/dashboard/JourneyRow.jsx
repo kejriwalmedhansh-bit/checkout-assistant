@@ -1,6 +1,4 @@
-import { Box, Collapse, Flex, Link, Text } from '@chakra-ui/react';
-
-import { I } from '@/components/common/icons';
+import { Box, Flex, Link, Text } from '@chakra-ui/react';
 
 /** Tone → soft circle background + accent color (semantic tokens). */
 const TONES = {
@@ -46,21 +44,19 @@ export function JourneyConnector({ done = false }) {
 }
 
 /**
- * One accordion row: a header (icon dot, label, a one-line status, a chevron)
- * that's always visible and always clickable, so every step's existence and
- * rough state is visible at a glance — that's the "connected" part. Only the
- * open row expands into the full detail (the real amounts, the action
- * button, the dismissible hint) — that's what keeps "what do I do right now"
- * to one focused answer instead of three rows all shouting at once. Opening
- * a row is independent of completing it: any row can be inspected regardless
- * of order, it just won't have anything to do until its own turn.
+ * One always-visible row in the checklist: icon dot, label, and the action
+ * button side by side, with the real facts (price / voucher amounts) and a
+ * dismissible hint always shown beneath — nothing is hidden behind a
+ * dropdown, since every step's information matters regardless of which step
+ * is currently active. Once a step is done, the whole row washes to a soft
+ * green rather than only the icon dot changing — deliberately slow (see the
+ * `background` transition below) so it reads as a gentle confirmation, not
+ * a jarring flip.
  */
 export default function JourneyRow({
-  id,
   tone = 'brand',
   icon: Ico,
   label,
-  compactStatus,
   facts,
   caption,
   link,
@@ -68,8 +64,6 @@ export default function JourneyRow({
   ready = false,
   pending = false,
   onCheck,
-  isOpen,
-  onToggle,
   hintText,
   hintVisible,
   onHideHint,
@@ -78,24 +72,14 @@ export default function JourneyRow({
   const filled = checked || ready;
 
   return (
-    <Box>
-      <Flex
-        as="button"
-        type="button"
-        onClick={onToggle}
-        id={`journey-header-${id}`}
-        aria-expanded={isOpen}
-        aria-controls={`journey-panel-${id}`}
-        w="100%"
-        align="center"
-        gap="14px"
-        py="11px"
-        textAlign="left"
-        borderRadius="xs"
-        transition="background .15s"
-        _hover={{ bg: 'surface2' }}
-        _focusVisible={{ outline: '2px solid', outlineColor: 'brand', outlineOffset: '2px' }}
-      >
+    <Box
+      bg={filled ? 'brandSoft' : 'transparent'}
+      borderRadius="10px"
+      px={filled ? '11px' : '0'}
+      mx={filled ? '-11px' : '0'}
+      transition="background 1.4s ease, padding .3s ease, margin .3s ease"
+    >
+      <Flex align="center" gap="14px" py="11px">
         <Flex
           w="34px"
           h="34px"
@@ -125,97 +109,80 @@ export default function JourneyRow({
           {checked ? <CheckIcon /> : Ico ? <Ico size={16} /> : null}
         </Flex>
 
-        <Text fontSize="13.5px" fontWeight={700} color="text" flex="1" minW={0} noOfLines={1}>
+        <Text fontSize="13.5px" fontWeight={700} color="text" flex="1" minW={0}>
           {label}
         </Text>
 
-        <Text fontSize="11.5px" color="text2" fontFamily="mono" flex="0 0 auto" display={{ base: 'none', sm: 'block' }}>
-          {compactStatus}
-        </Text>
-
-        <Box as="span" flex="0 0 auto" color="text3" transform={isOpen ? 'rotate(180deg)' : 'none'} transition="transform .2s">
-          <I.chevDown size={16} />
-        </Box>
+        {link?.href && (
+          <Link
+            href={link.href}
+            isExternal
+            onClick={onCheck}
+            pointerEvents={pending ? 'none' : 'auto'}
+            fontSize="11.5px"
+            fontWeight={700}
+            color={checked ? 'onBrand' : 'brandText'}
+            bg={checked ? 'brand' : 'brandSoft'}
+            border="1px solid"
+            borderColor="brand"
+            borderRadius="99px"
+            px="13px"
+            py="7px"
+            flex="0 0 auto"
+            whiteSpace="nowrap"
+            transition="background .2s"
+            _hover={{ textDecoration: 'none', bg: checked ? 'brandHover' : 'brandSoft2' }}
+          >
+            {checked ? '✓ Done' : pending ? 'Confirming…' : link.label}
+          </Link>
+        )}
       </Flex>
 
-      <Collapse in={isOpen} animateOpacity>
-        <Box id={`journey-panel-${id}`} pl="48px" pb="14px">
-          <Box display={{ base: 'block', sm: 'none' }} mb="6px">
-            <Text fontSize="11.5px" color="text2" fontFamily="mono">
-              {compactStatus}
-            </Text>
-          </Box>
+      <Box pl="48px" pb="11px">
+        {facts}
 
-          {facts}
+        {caption && (
+          <Text fontSize="11px" color="text3" mt="6px">
+            {caption}
+          </Text>
+        )}
 
-          {caption && (
-            <Text fontSize="11px" color="text3" mt="6px">
-              {caption}
-            </Text>
-          )}
-
-          {link?.href && (
-            <Flex mt="12px">
-              <Link
-                href={link.href}
-                isExternal
-                onClick={onCheck}
-                pointerEvents={pending ? 'none' : 'auto'}
-                fontSize="11.5px"
-                fontWeight={700}
-                color={checked ? 'onBrand' : 'brandText'}
-                bg={checked ? 'brand' : 'brandSoft'}
-                border="1px solid"
-                borderColor="brand"
-                borderRadius="99px"
-                px="13px"
-                py="7px"
-                whiteSpace="nowrap"
-                transition="background .2s"
-                _hover={{ textDecoration: 'none', bg: checked ? 'brandHover' : 'brandSoft2' }}
-              >
-                {checked ? '✓ Done' : pending ? 'Confirming…' : link.label}
-              </Link>
-            </Flex>
-          )}
-
-          {hintVisible && (
-            <Flex
-              mt="10px"
-              bg="surface2"
-              border="1px solid"
-              borderColor="border"
-              borderRadius="xs"
-              px="12px"
-              py="9px"
-              gap="10px"
-              align="flex-start"
-              justify="space-between"
-              fontSize="12px"
-              color="text2"
-              lineHeight={1.45}
+        {hintVisible && (
+          <Flex
+            mt="10px"
+            bg="brassSoft"
+            border="1px solid"
+            borderColor="brass"
+            borderRadius="xs"
+            px="12px"
+            py="9px"
+            gap="10px"
+            align="flex-start"
+            justify="space-between"
+            fontSize="12px"
+            color="text"
+            lineHeight={1.45}
+          >
+            <Text>{hintText}</Text>
+            <Box
+              as="button"
+              type="button"
+              onClick={onHideHint}
+              flex="0 0 auto"
+              fontSize="11px"
+              fontWeight={700}
+              opacity={0.85}
+              textDecoration="underline"
+              whiteSpace="nowrap"
+              color="brass"
+              _hover={{ opacity: 1 }}
+              _focusVisible={{ outline: '2px solid currentColor', outlineOffset: '2px', borderRadius: '4px' }}
             >
-              <Text>{hintText}</Text>
-              <Box
-                as="button"
-                type="button"
-                onClick={onHideHint}
-                flex="0 0 auto"
-                fontSize="11px"
-                fontWeight={600}
-                opacity={0.75}
-                textDecoration="underline"
-                whiteSpace="nowrap"
-                color="text2"
-                _hover={{ opacity: 1 }}
-                _focusVisible={{ outline: '2px solid currentColor', outlineOffset: '2px', borderRadius: '4px' }}
-              >
-                Hide
-              </Box>
-            </Flex>
-          )}
-        </Box>
-      </Collapse>
+              Hide
+            </Box>
+          </Flex>
+        )}
+      </Box>
     </Box>
   );
 }

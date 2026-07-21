@@ -65,6 +65,13 @@ This is meant to be run by actually using the product — no code, no technical 
 - [ ] Confirm the final step's hint says to "apply its code at [store]'s checkout" instead of a vaguer "use it at checkout"
 - [ ] Confirm this on a route with NO voucher too (a direct-buy route) — it should just show the single "Buy at [store]" row, always open, no connecting line
 
+### Checks added after the 2026-07-22 polish round
+- [ ] Confirm there is no theme toggle anywhere (sidebar, mobile top bar) — the app should always be dark, with no flash of a light background on load
+- [ ] Tap the Dealo logo from the results page, the product picker, and the home page itself — each should take you to the home screen
+- [ ] Confirm the hint bubble on all 3 buying steps is gold/brass colored, not grey
+- [ ] Confirm all 3 buying steps are ALWAYS fully visible (chips, price, hint) with no dropdown/collapse hiding anything, and the "Open store"/"Get voucher" buttons sit on the right side of each step's title row
+- [ ] Complete a step and confirm the WHOLE step's box slowly washes to green (not just the small circle) — it should feel like a gentle fade, not an instant snap
+
 ## What this checklist doesn't cover (a later, more technical step)
 
 Turning this into something that checks itself automatically every time the app is changed — instead of you needing to manually run through it — is possible, but it's a separate, more technical undertaking (it involves writing extra code whose only job is to check the real code). Worth considering once this manual checklist has been run a few times and you're confident about what "correct" looks like.

@@ -1,4 +1,4 @@
-import { Box, Flex, Image, Link, Text, useColorModeValue } from '@chakra-ui/react';
+import { Box, Flex, Image, Link, Text } from '@chakra-ui/react';
 import { motion, useReducedMotion } from 'framer-motion';
 
 import Card from '@/components/common/Card';
@@ -38,7 +38,7 @@ function NameBlock({ name, sourceUrl }) {
  */
 export default function ProductIdentity({ name, sourceUrl, thumbnail }) {
   const prefersReduced = useReducedMotion();
-  const groundShadow = useColorModeValue('rgba(18,21,26,.22)', 'rgba(0,0,0,.55)');
+  const groundShadow = 'rgba(0,0,0,.55)';
 
   if (thumbnail) {
     return (

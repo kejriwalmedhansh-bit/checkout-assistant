@@ -1,4 +1,4 @@
-import { Box, Flex, Text, useColorModeValue } from '@chakra-ui/react';
+import { Box, Flex, Text } from '@chakra-ui/react';
 import { motion, useReducedMotion } from 'framer-motion';
 import { Navigate, useNavigate } from 'react-router-dom';
 
@@ -24,7 +24,7 @@ const LOADING_MSGS = [
 export default function ProductSelectPage() {
   usePageTitle('Select a product');
   const prefersReduced = useReducedMotion();
-  const heroGlow = useColorModeValue(gradients.promptHeroLight, gradients.promptHeroDark);
+  const heroGlow = gradients.promptHero;
 
   const navigate = useNavigate();
   const query = useSearchStore((s) => s.query);

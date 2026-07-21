@@ -2,7 +2,6 @@ import { Box, Flex, Link, Switch, Text, Tooltip } from '@chakra-ui/react';
 import { Link as RouterLink, useMatch } from 'react-router-dom';
 
 import Eyebrow from '@/components/common/Eyebrow';
-import ThemeToggle from '@/components/common/ThemeToggle';
 import { I } from '@/components/common/icons';
 import { ROUTES } from '@/routes/paths';
 import { useUiStore } from '@/store/uiStore';
@@ -89,11 +88,11 @@ export default function SidebarContent({ onNavigate, collapsed = false }) {
 
   return (
     <Flex direction="column" h="100%" w="264px" p="14px" bg="sidebar">
-      {/* logo — the "D" lives in the fixed icon slot (always visible, even
-          collapsed); the rest of the wordmark fades with the other labels
-          rather than the whole thing snapping in/out, matching how nav
-          labels behave on collapse. */}
-      <Flex align="center" pt="6px" pb="16px">
+      {/* logo — links home from anywhere in the app. The "D" lives in the
+          fixed icon slot (always visible, even collapsed); the rest of the
+          wordmark fades with the other labels rather than the whole thing
+          snapping in/out, matching how nav labels behave on collapse. */}
+      <Flex as={RouterLink} to={ROUTES.home} align="center" pt="6px" pb="16px" _hover={{ textDecoration: 'none' }}>
         <Text as="span" fontSize="22px" fontWeight={800} color="brand" lineHeight={1}>
           D
         </Text>
@@ -138,14 +137,11 @@ export default function SidebarContent({ onNavigate, collapsed = false }) {
           />
         </Flex>
 
-        <Flex align="center" justify="space-between" p="4px 0">
-          <Box sx={fx}>
-            <Text fontSize="12px" color="text3">
-              The smartest way to buy
-            </Text>
-          </Box>
-          <ThemeToggle size={32} variant="iconSubtle" borderRadius="9px" title="Toggle theme" />
-        </Flex>
+        <Box p="4px 0" sx={fx}>
+          <Text fontSize="12px" color="text3">
+            The smartest way to buy
+          </Text>
+        </Box>
       </Flex>
     </Flex>
   );

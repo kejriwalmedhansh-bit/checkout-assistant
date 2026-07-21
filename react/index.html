@@ -10,27 +10,12 @@
       First-paint canvas colour. Chakra only applies the `bg` token once the JS
       bundle has loaded and React has rendered, so without this the browser
       paints its default white first — a visible flash before the dark theme
-      lands. These two hex values must stay in sync with the `bg` token in
+      lands. Must stay in sync with the `bg` token in
       src/theme/foundations/colors.js.
     -->
     <style>
       html { background-color: #121311; }
-      html[data-initial-color-mode='light'] { background-color: #F1F2EE; }
     </style>
-    <script>
-      // Mirror the stored Chakra colour mode onto <html> before first paint.
-      // Defaults to dark, matching `initialColorMode` in src/theme/index.js.
-      (function () {
-        try {
-          var stored = localStorage.getItem('chakra-ui-color-mode');
-          if (stored === 'light') {
-            document.documentElement.setAttribute('data-initial-color-mode', 'light');
-          }
-        } catch (e) {
-          /* private mode / storage disabled — keep the dark default */
-        }
-      })();
-    </script>
   </head>
   <body>
     <div id="root"></div>

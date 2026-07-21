@@ -8,15 +8,12 @@ import JourneyRow, { JourneyConnector } from './JourneyRow';
 
 /**
  * The recommended-route checklist: buy at the merchant → [buy a Gift
- * Voucher] → pay & done, as an accordion. Every row's header (icon, label,
- * a one-line status) is always visible and joined by a connecting line that
- * fills in as steps complete — so the three actions read as one connected
- * path, not independent buttons. Only one row is open at a time, showing the
- * real amounts, the action button, and the dismissible hint — that's what
- * keeps "what do I do right now" to one focused answer instead of three
- * rows all showing full detail at once. Opening a row is independent of
- * completing it — any row can be inspected regardless of order — it just
- * defaults to following whichever step is next.
+ * Voucher] → pay & done. Every row is always fully visible — no dropdown
+ * hides anything, since the amounts, the action button, and the hint all
+ * matter regardless of which step is next — joined by a connecting line
+ * that fills in as steps complete, so the three actions read as one
+ * connected path rather than independent buttons. Either step can be done
+ * first; only the dismissible hint follows whichever step is next.
  */
 export default function Journey({ rec }) {
   const v = rec.voucher || null;
@@ -26,10 +23,6 @@ export default function Journey({ rec }) {
   // "Hide" silences hints for this visit only; the sidebar switch is the
   // durable off. Two different intentions, so two separate controls.
   const [dismissed, setDismissed] = useState(false);
-  // null = follow the current step automatically; a key = the user picked a
-  // row to look at themselves, so stop auto-following until real progress
-  // happens (see check(), which clears this back to null).
-  const [manualOpen, setManualOpen] = useState(null);
   const hintsEnabled = useUiStore((s) => s.hintsEnabled);
 
   const nextStep = (() => {
@@ -39,9 +32,6 @@ export default function Journey({ rec }) {
     return 'pay';
   })();
 
-  const openKey = manualOpen ?? nextStep;
-  const toggle = (key) => () => setManualOpen(openKey === key ? null : key);
-
   // A brief "pending" beat before the checkmark lands — an instant flip is
   // easy to miss; this makes the confirmation a moment you actually notice.
   const check = (key) => () => {
@@ -49,7 +39,6 @@ export default function Journey({ rec }) {
     setTimeout(() => {
       setPending((p) => ({ ...p, [key]: false }));
       setChecked((c) => ({ ...c, [key]: true }));
-      setManualOpen(null);
     }, 550);
   };
 
@@ -69,11 +58,9 @@ export default function Journey({ rec }) {
 
   const storeRow = (
     <JourneyRow
-      id="store"
       tone="brand"
       icon={I.store}
       label={`1. Buy at ${rec.merchant}`}
-      compactStatus={checked.store ? '✓ Done' : `Listed at ${fmt(rec.listed_price ? Math.round(rec.listed_price) : null)}`}
       facts={
         <Text fontSize="11.5px" color="text2" fontFamily="mono">
           Listed at {fmt(rec.listed_price ? Math.round(rec.listed_price) : null)}
@@ -83,17 +70,14 @@ export default function Journey({ rec }) {
       checked={checked.store}
       pending={pending.store}
       onCheck={check('store')}
-      isOpen={!v || openKey === 'store'}
-      onToggle={toggle('store')}
       hintText={HINT_TEXT.store}
       hintVisible={hintVisible('store')}
       onHideHint={hideHint}
     />
   );
 
-  // Direct-buy route: one row, no rail, no framing line, always open —
-  // mirrors the old single-row behaviour exactly (stays visible, no
-  // collapsing when there's nothing else to look at).
+  // Direct-buy route: one row, no rail, no framing line — mirrors the old
+  // single-row behaviour exactly (stays visible, just flips to done).
   if (!v) return storeRow;
 
   const breakdown = v.upi?.denomination_breakdown || [];
@@ -112,11 +96,9 @@ export default function Journey({ rec }) {
         <JourneyConnector done={checked.store} />
 
         <JourneyRow
-          id="voucher"
           tone="voucher"
           icon={I.ticket}
           label="2. Buy a Gift Voucher"
-          compactStatus={checked.voucher ? '✓ Done' : `${v.upi?.pct}% off — ${fmt(paid)}`}
           facts={
             <>
               {singleVoucher ? (
@@ -155,8 +137,6 @@ export default function Journey({ rec }) {
           checked={checked.voucher}
           pending={pending.voucher}
           onCheck={check('voucher')}
-          isOpen={openKey === 'voucher'}
-          onToggle={toggle('voucher')}
           hintText={HINT_TEXT.voucher}
           hintVisible={hintVisible('voucher')}
           onHideHint={hideHint}
@@ -165,19 +145,15 @@ export default function Journey({ rec }) {
         <JourneyConnector done={checked.voucher} />
 
         <JourneyRow
-          id="pay"
           tone="checkout"
           icon={I.checkCircle}
           label="3. Pay & done"
-          compactStatus={v.upi?.remainder ? `Pay ${fmt(v.upi.remainder)} remaining` : 'Full order covered'}
           facts={
             <Text fontSize="11.5px" color="text2" fontFamily="mono">
               {v.upi?.remainder ? `Pay ${fmt(v.upi.remainder)} remaining` : 'Full order covered'}
             </Text>
           }
           ready={checked.voucher}
-          isOpen={openKey === 'pay'}
-          onToggle={toggle('pay')}
           hintText={HINT_TEXT.pay}
           hintVisible={hintVisible('pay')}
           onHideHint={hideHint}
