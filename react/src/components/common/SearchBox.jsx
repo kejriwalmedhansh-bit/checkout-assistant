@@ -41,13 +41,20 @@ export default function SearchBox({
   return (
     <Flex
       as="form"
+      // Side-by-side on every screen used to mean the button (fixed width,
+      // set by its own icon+label) claimed a much bigger share of a narrow
+      // phone screen than of a wide desktop one — the input was left with
+      // whatever sliver remained, sometimes narrower than the button itself.
+      // Stacking on mobile gives the input the full width on its own line
+      // regardless of device size.
+      direction={{ base: 'column', md: 'row' }}
       gap="8px"
       onSubmit={(e) => {
         e.preventDefault();
         submit();
       }}
     >
-      <InputGroup flex={1}>
+      <InputGroup flex={1} minW={0}>
         <Input
           ref={inputRef}
           value={value}
@@ -85,6 +92,8 @@ export default function SearchBox({
         variant="primary"
         h={h}
         px="22px"
+        w={{ base: '100%', md: 'auto' }}
+        flex={{ base: 'none', md: '0 0 auto' }}
         isDisabled={isLoading || !value.trim()}
         leftIcon={<I.search size={17} />}
       >

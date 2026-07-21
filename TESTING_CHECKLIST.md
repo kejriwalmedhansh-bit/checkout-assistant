@@ -56,6 +56,7 @@ This is meant to be run by actually using the product — no code, no technical 
 - [ ] Confirm the green "do this next" bubble stretches the full width of the card, directly under its step
 - [ ] Type something in the search bar, press the X, and confirm it clears on all three pages (home, product list, results)
 - [ ] WhatsApp: send the same product link and fused model name ("Tissot PR100") there too and confirm the same behavior — WhatsApp shares the same search engine, but confirm it live
+- [ ] On your phone, check the search bar on the home page, product picker, and results page — the typing box should now take the full width with the button sitting below it, not squeezed next to it
 
 ## What this checklist doesn't cover (a later, more technical step)
 
