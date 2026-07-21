@@ -57,11 +57,13 @@ This is meant to be run by actually using the product — no code, no technical 
 - [ ] Type something in the search bar, press the X, and confirm it clears on all three pages (home, product list, results)
 - [ ] WhatsApp: send the same product link and fused model name ("Tissot PR100") there too and confirm the same behavior — WhatsApp shares the same search engine, but confirm it live
 - [ ] On your phone, check the search bar on the home page, product picker, and results page — the typing box should now take the full width with the button sitting below it, not squeezed next to it
-- [ ] On a route with a Gift Voucher, confirm all 3 buying steps are visible at once, joined by a connecting line that turns green as you complete each one (not a wizard that hides steps ahead of you)
-- [ ] Confirm the voucher amounts show as a clean list (e.g. "6 × ₹5,000") with the discount stated separately ("5% off — you pay ₹X"), not packed into one dense line
-- [ ] Confirm there's now a line at the top saying it's a two-stop process, and a small note on the voucher step saying it opens a different site (not the store) — this is meant to stop people being confused when clicking "Get voucher" takes them somewhere unexpected
-- [ ] Confirm the final step's hint now says to "apply its code at [store]'s checkout" instead of the vaguer old "use it at checkout"
-- [ ] Confirm this on a route with NO voucher too (a direct-buy route) — it should just show the single "Buy at [store]" row with no connecting line, same as before
+- [ ] On a route with a Gift Voucher, confirm all 3 step titles are always visible (with a short status like "5% off — ₹31,350" next to each), joined by a connecting line that turns green as you complete each one
+- [ ] Confirm only one step opens up at a time (like an FAQ accordion) showing the full details/button, and it automatically opens the next relevant step once you finish the current one
+- [ ] Confirm you can still manually tap a step you haven't reached yet to peek at it, without it forcing you to do things in order
+- [ ] Confirm the voucher amounts show as separate rounded chips (e.g. "6 × ₹5,000", "1 × ₹2,000") with the discount stated separately below ("5% off — you pay ₹X")
+- [ ] Confirm there's a line at the top saying it's a two-stop process, and a small note on the voucher step saying it opens a different site (not the store)
+- [ ] Confirm the final step's hint says to "apply its code at [store]'s checkout" instead of a vaguer "use it at checkout"
+- [ ] Confirm this on a route with NO voucher too (a direct-buy route) — it should just show the single "Buy at [store]" row, always open, no connecting line
 
 ## What this checklist doesn't cover (a later, more technical step)
 

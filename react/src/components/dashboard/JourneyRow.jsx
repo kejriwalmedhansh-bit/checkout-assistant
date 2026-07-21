@@ -1,24 +1,6 @@
-import { Box, Flex, Link, Text } from '@chakra-ui/react';
+import { Box, Collapse, Flex, Link, Text } from '@chakra-ui/react';
 
-/**
- * Vertical connector between two rows, aligned under the icon dots. Colors
- * in once the row above is done — a real, growing green line rather than a
- * neutral divider — so the whole checklist reads as one path being walked
- * rather than three independent rows. Implemented per-gap (not one giant
- * absolutely-positioned line behind everything) because row heights vary
- * with their content (a voucher's denomination list, an active hint), so
- * there's no single percentage that reliably lines up with the next icon.
- */
-export function JourneyConnector({ done = false }) {
-  return (
-    <Flex align="center" gap="14px">
-      <Flex w="34px" flex="0 0 34px" justify="center">
-        <Box w="2px" h="16px" bg={done ? 'brand' : 'borderStrong'} transition="background .3s" />
-      </Flex>
-      <Box flex="1" />
-    </Flex>
-  );
-}
+import { I } from '@/components/common/icons';
 
 /** Tone → soft circle background + accent color (semantic tokens). */
 const TONES = {
@@ -47,18 +29,38 @@ function CheckIcon(props) {
 }
 
 /**
- * One row in the always-visible checklist: an icon dot (fills in once done),
- * a label + optional action button, the real facts (price / voucher amounts),
- * a small "heads up" caption when the button leaves the current site, and a
- * dismissible instructional hint. All rows render at once — completing one
- * doesn't hide the others — so the connecting rail behind them (drawn by the
- * parent) reads as one continuous, always-visible path rather than a wizard
- * that reveals steps one at a time.
+ * Vertical connector between two rows, aligned under the icon dots. Colors
+ * in once the row above is done — a real, growing green line rather than a
+ * neutral divider — so the checklist reads as one path being walked rather
+ * than three independent rows.
+ */
+export function JourneyConnector({ done = false }) {
+  return (
+    <Flex align="center" gap="14px">
+      <Flex w="34px" flex="0 0 34px" justify="center">
+        <Box w="2px" h="12px" bg={done ? 'brand' : 'borderStrong'} transition="background .3s" />
+      </Flex>
+      <Box flex="1" />
+    </Flex>
+  );
+}
+
+/**
+ * One accordion row: a header (icon dot, label, a one-line status, a chevron)
+ * that's always visible and always clickable, so every step's existence and
+ * rough state is visible at a glance — that's the "connected" part. Only the
+ * open row expands into the full detail (the real amounts, the action
+ * button, the dismissible hint) — that's what keeps "what do I do right now"
+ * to one focused answer instead of three rows all shouting at once. Opening
+ * a row is independent of completing it: any row can be inspected regardless
+ * of order, it just won't have anything to do until its own turn.
  */
 export default function JourneyRow({
+  id,
   tone = 'brand',
   icon: Ico,
   label,
+  compactStatus,
   facts,
   caption,
   link,
@@ -66,6 +68,8 @@ export default function JourneyRow({
   ready = false,
   pending = false,
   onCheck,
+  isOpen,
+  onToggle,
   hintText,
   hintVisible,
   onHideHint,
@@ -74,112 +78,144 @@ export default function JourneyRow({
   const filled = checked || ready;
 
   return (
-    <Flex align="flex-start" gap="14px" py="11px" position="relative">
+    <Box>
       <Flex
-        w="34px"
-        h="34px"
-        flex="0 0 34px"
-        borderRadius="50%"
-        bg={filled ? 'brand' : t.bg}
-        color={filled ? 'onBrand' : t.color}
-        border="2px solid"
-        borderColor={pending ? 'brand' : filled ? 'brand' : t.border}
+        as="button"
+        type="button"
+        onClick={onToggle}
+        id={`journey-header-${id}`}
+        aria-expanded={isOpen}
+        aria-controls={`journey-panel-${id}`}
+        w="100%"
         align="center"
-        justify="center"
-        transition="background .25s ease, border-color .25s ease"
-        position="relative"
-        zIndex={1}
-        sx={{
-          '@keyframes dealoStepPulse': { '0%, 100%': { opacity: 0.55 }, '50%': { opacity: 1 } },
-          '@keyframes dealoStepPop': {
-            '0%': { transform: 'scale(.7)' },
-            '60%': { transform: 'scale(1.15)' },
-            '100%': { transform: 'scale(1)' },
-          },
-          animation: pending
-            ? 'dealoStepPulse .6s ease-in-out infinite'
-            : checked
-              ? 'dealoStepPop .35s cubic-bezier(.34,1.56,.64,1)'
-              : 'none',
-        }}
+        gap="14px"
+        py="11px"
+        textAlign="left"
+        borderRadius="xs"
+        transition="background .15s"
+        _hover={{ bg: 'surface2' }}
+        _focusVisible={{ outline: '2px solid', outlineColor: 'brand', outlineOffset: '2px' }}
       >
-        {checked ? <CheckIcon /> : Ico ? <Ico size={16} /> : null}
-      </Flex>
-
-      <Box flex="1" minW={0} pt="2px">
-        <Flex align="center" justify="space-between" gap="10px">
-          <Text fontSize="13.5px" fontWeight={700} color="text">
-            {label}
-          </Text>
-          {link?.href && (
-            <Link
-              href={link.href}
-              isExternal
-              onClick={onCheck}
-              pointerEvents={pending ? 'none' : 'auto'}
-              fontSize="11.5px"
-              fontWeight={700}
-              color={checked ? 'onBrand' : 'brandText'}
-              bg={checked ? 'brand' : 'brandSoft'}
-              border="1px solid"
-              borderColor="brand"
-              borderRadius="99px"
-              px="13px"
-              py="7px"
-              flex="0 0 auto"
-              whiteSpace="nowrap"
-              transition="background .2s"
-              _hover={{ textDecoration: 'none', bg: checked ? 'brandHover' : 'brandSoft2' }}
-            >
-              {checked ? '✓ Done' : pending ? 'Confirming…' : link.label}
-            </Link>
-          )}
+        <Flex
+          w="34px"
+          h="34px"
+          flex="0 0 34px"
+          borderRadius="50%"
+          bg={filled ? 'brand' : t.bg}
+          color={filled ? 'onBrand' : t.color}
+          border="2px solid"
+          borderColor={pending ? 'brand' : filled ? 'brand' : t.border}
+          align="center"
+          justify="center"
+          transition="background .25s ease, border-color .25s ease"
+          sx={{
+            '@keyframes dealoStepPulse': { '0%, 100%': { opacity: 0.55 }, '50%': { opacity: 1 } },
+            '@keyframes dealoStepPop': {
+              '0%': { transform: 'scale(.7)' },
+              '60%': { transform: 'scale(1.15)' },
+              '100%': { transform: 'scale(1)' },
+            },
+            animation: pending
+              ? 'dealoStepPulse .6s ease-in-out infinite'
+              : checked
+                ? 'dealoStepPop .35s cubic-bezier(.34,1.56,.64,1)'
+                : 'none',
+          }}
+        >
+          {checked ? <CheckIcon /> : Ico ? <Ico size={16} /> : null}
         </Flex>
 
-        <Box mt="4px">{facts}</Box>
+        <Text fontSize="13.5px" fontWeight={700} color="text" flex="1" minW={0} noOfLines={1}>
+          {label}
+        </Text>
 
-        {caption && (
-          <Text fontSize="11px" color="text3" mt="4px">
-            {caption}
-          </Text>
-        )}
+        <Text fontSize="11.5px" color="text2" fontFamily="mono" flex="0 0 auto" display={{ base: 'none', sm: 'block' }}>
+          {compactStatus}
+        </Text>
 
-        {hintVisible && (
-          <Flex
-            mt="10px"
-            bg="surface2"
-            border="1px solid"
-            borderColor="border"
-            borderRadius="xs"
-            px="12px"
-            py="9px"
-            gap="10px"
-            align="flex-start"
-            justify="space-between"
-            fontSize="12px"
-            color="text2"
-            lineHeight={1.45}
-          >
-            <Text>{hintText}</Text>
-            <Box
-              as="button"
-              type="button"
-              onClick={onHideHint}
-              flex="0 0 auto"
-              fontSize="11px"
-              fontWeight={600}
-              opacity={0.75}
-              textDecoration="underline"
-              whiteSpace="nowrap"
+        <Box as="span" flex="0 0 auto" color="text3" transform={isOpen ? 'rotate(180deg)' : 'none'} transition="transform .2s">
+          <I.chevDown size={16} />
+        </Box>
+      </Flex>
+
+      <Collapse in={isOpen} animateOpacity>
+        <Box id={`journey-panel-${id}`} pl="48px" pb="14px">
+          <Box display={{ base: 'block', sm: 'none' }} mb="6px">
+            <Text fontSize="11.5px" color="text2" fontFamily="mono">
+              {compactStatus}
+            </Text>
+          </Box>
+
+          {facts}
+
+          {caption && (
+            <Text fontSize="11px" color="text3" mt="6px">
+              {caption}
+            </Text>
+          )}
+
+          {link?.href && (
+            <Flex mt="12px">
+              <Link
+                href={link.href}
+                isExternal
+                onClick={onCheck}
+                pointerEvents={pending ? 'none' : 'auto'}
+                fontSize="11.5px"
+                fontWeight={700}
+                color={checked ? 'onBrand' : 'brandText'}
+                bg={checked ? 'brand' : 'brandSoft'}
+                border="1px solid"
+                borderColor="brand"
+                borderRadius="99px"
+                px="13px"
+                py="7px"
+                whiteSpace="nowrap"
+                transition="background .2s"
+                _hover={{ textDecoration: 'none', bg: checked ? 'brandHover' : 'brandSoft2' }}
+              >
+                {checked ? '✓ Done' : pending ? 'Confirming…' : link.label}
+              </Link>
+            </Flex>
+          )}
+
+          {hintVisible && (
+            <Flex
+              mt="10px"
+              bg="surface2"
+              border="1px solid"
+              borderColor="border"
+              borderRadius="xs"
+              px="12px"
+              py="9px"
+              gap="10px"
+              align="flex-start"
+              justify="space-between"
+              fontSize="12px"
               color="text2"
-              _hover={{ opacity: 1 }}
-              _focusVisible={{ outline: '2px solid currentColor', outlineOffset: '2px', borderRadius: '4px' }}
+              lineHeight={1.45}
             >
-              Hide
-            </Box>
-          </Flex>
-        )}
-      </Box>
-    </Flex>
+              <Text>{hintText}</Text>
+              <Box
+                as="button"
+                type="button"
+                onClick={onHideHint}
+                flex="0 0 auto"
+                fontSize="11px"
+                fontWeight={600}
+                opacity={0.75}
+                textDecoration="underline"
+                whiteSpace="nowrap"
+                color="text2"
+                _hover={{ opacity: 1 }}
+                _focusVisible={{ outline: '2px solid currentColor', outlineOffset: '2px', borderRadius: '4px' }}
+              >
+                Hide
+              </Box>
+            </Flex>
+          )}
+        </Box>
+      </Collapse>
+    </Box>
   );
 }
