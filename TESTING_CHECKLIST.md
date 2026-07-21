@@ -57,9 +57,11 @@ This is meant to be run by actually using the product — no code, no technical 
 - [ ] Type something in the search bar, press the X, and confirm it clears on all three pages (home, product list, results)
 - [ ] WhatsApp: send the same product link and fused model name ("Tissot PR100") there too and confirm the same behavior — WhatsApp shares the same search engine, but confirm it live
 - [ ] On your phone, check the search bar on the home page, product picker, and results page — the typing box should now take the full width with the button sitting below it, not squeezed next to it
-- [ ] On a route with a Gift Voucher, confirm the buying steps now show as one connected progress bar (a small circle for each step, joined by a line) with only the current step expanded into a card, and finished steps collapsing to a short "✓ done" line
+- [ ] On a route with a Gift Voucher, confirm all 3 buying steps are visible at once, joined by a connecting line that turns green as you complete each one (not a wizard that hides steps ahead of you)
 - [ ] Confirm the voucher amounts show as a clean list (e.g. "6 × ₹5,000") with the discount stated separately ("5% off — you pay ₹X"), not packed into one dense line
-- [ ] Confirm this on a route with NO voucher too (a direct-buy route) — it should just show the single "Buy at [store]" card with no progress bar, same as before
+- [ ] Confirm there's now a line at the top saying it's a two-stop process, and a small note on the voucher step saying it opens a different site (not the store) — this is meant to stop people being confused when clicking "Get voucher" takes them somewhere unexpected
+- [ ] Confirm the final step's hint now says to "apply its code at [store]'s checkout" instead of the vaguer old "use it at checkout"
+- [ ] Confirm this on a route with NO voucher too (a direct-buy route) — it should just show the single "Buy at [store]" row with no connecting line, same as before
 
 ## What this checklist doesn't cover (a later, more technical step)
 
