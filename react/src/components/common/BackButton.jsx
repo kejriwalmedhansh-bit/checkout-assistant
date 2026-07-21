@@ -18,8 +18,12 @@ import { I } from './icons';
  * its position in `window.history.state.idx`; index 0 (or a missing state, as
  * on a cold load) means nothing of ours is behind us, so we navigate to
  * `fallback` instead.
+ *
+ * An explicit `onClick` replaces the history walk — for pages where "back"
+ * must first unwind in-page state (leaving an alternative route on the
+ * results page) before it means leaving the page.
  */
-export default function BackButton({ fallback, label = 'Back', ...props }) {
+export default function BackButton({ fallback, label = 'Back', onClick, ...props }) {
   const navigate = useNavigate();
 
   const goBack = () => {
@@ -34,7 +38,7 @@ export default function BackButton({ fallback, label = 'Back', ...props }) {
   return (
     <Button
       variant="iconSubtle"
-      onClick={goBack}
+      onClick={onClick || goBack}
       aria-label={label}
       h="32px"
       px="10px"

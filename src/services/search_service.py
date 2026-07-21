@@ -19,6 +19,7 @@ URL mode is gone, so mode is always "text".
 from __future__ import annotations
 
 import re
+from urllib.parse import unquote, urlsplit
 
 from ..constants import KNOWN_BRANDS, MANUAL_TRUSTED_MERCHANTS, PRIORITY_MERCHANTS
 from ..repositories import searchapi_repository, voucher_repository
@@ -54,29 +55,53 @@ def _norm(name: str) -> str:
 _trusted_merchants_cache: set[str] | None = None
 
 
+# Words a genuine storefront appends to its brand name ("Croma Retail",
+# "JioMart Electronics", "Amazon.in", "AJIO Luxe") — ignored when comparing a
+# listing's merchant name against the whitelist. Deliberately excludes any
+# word a counterfeit seller uses to piggyback on a brand ("first", "copy",
+# "replica"): a name is trusted only when NOTHING beyond the whitelisted
+# brand itself and these words is left over. "Titan Store" passes; "Titan
+# First Copy Watches" does not.
+_GENERIC_MERCHANT_WORDS = frozenset({
+    "store", "stores", "shop", "shopping", "official", "online", "retail",
+    "outlet", "india", "in", "com", "co", "the", "electronics", "fashion",
+    "luxury", "luxe", "watch", "watches", "boutique", "boutiques",
+})
+
+
+def _brand_signature(name: str) -> str:
+    """The brand identity left after stripping generic storefront words,
+    fused ("Ethos Watch Boutiques" -> "ethos", "Tata CLiQ Luxury" ->
+    "tatacliq"). Falls back to the full fused name when stripping would
+    leave nothing (e.g. a brand actually named "The Luxury Store")."""
+    words = re.findall(r"[a-z0-9]+", (name or "").lower())
+    core = [w for w in words if w not in _GENERIC_MERCHANT_WORDS]
+    return "".join(core or words)
+
+
 def _load_trusted_merchants() -> set[str]:
     global _trusted_merchants_cache
     if _trusted_merchants_cache is not None:
         return _trusted_merchants_cache
-    whitelist = {_norm(n) for n in MANUAL_TRUSTED_MERCHANTS}
-    for brand in voucher_repository.brand_names():
-        whitelist.add(_norm(brand))
+    whitelist: set[str] = set()
+    for name in list(MANUAL_TRUSTED_MERCHANTS) + list(voucher_repository.brand_names()):
+        whitelist.add(_norm(name))
+        whitelist.add(_brand_signature(name))
+    whitelist.discard("")
     _trusted_merchants_cache = whitelist
     return whitelist
 
 
 def _is_trusted_merchant(merchant_name: str, whitelist: set[str]) -> bool:
+    """Exact match on the fused name or on its brand signature — never a bare
+    substring check. The old bidirectional substring match let any seller
+    whose name merely *contained* a whitelisted brand through ("Titan First
+    Copy Watches" matched the Gyftr brand "titan"), which is how counterfeit
+    storefronts reached the picker."""
     norm = _norm(merchant_name)
     if not norm:
         return False
-    if norm in whitelist:
-        return True
-    for entry in whitelist:
-        if len(entry) < 4:
-            continue
-        if norm.startswith(entry) or entry.startswith(norm) or entry in norm or norm in entry:
-            return True
-    return False
+    return norm in whitelist or _brand_signature(merchant_name) in whitelist
 
 
 def _filter_trusted_only(results: list[dict], merchant_key: str = "merchant") -> list[dict]:
@@ -111,16 +136,15 @@ def _priority_merchant_anchor(results: list[dict], merchant_key: str = "merchant
     are excluded from anchoring since a price attributed to them isn't
     necessarily the platform's own — it can be any third-party seller's.
 
-    Reuses `_is_trusted_merchant`'s fuzzy substring match (not exact-name
+    Reuses `_is_trusted_merchant`'s brand-signature match (not exact-name
     comparison) — real listings say "JioMart Electronics", not bare
     "JioMart", and an exact match would silently never anchor on them.
 
     The marketplace exclusion is applied to the *merchant name*, not by
-    subtracting entries from the whitelist. Subtracting only removes the exact
-    strings "amazon"/"flipkart", but the Gyftr brand list also contains
-    `amazonfresh`, `amazonprimemembership` and `amazonshoppingvoucher` — and
-    against a fuzzy substring match a listing from "Amazon" matches those and
-    anchors anyway, defeating the exclusion entirely."""
+    subtracting entries from the whitelist — the Gyftr brand list also
+    contains `amazonfresh` and `amazonprimemembership`, so removing the one
+    string "amazon" wouldn't reliably keep Amazon-attributed listings from
+    anchoring."""
     whitelist = _load_trusted_merchants()
     prices = [
         r.get("price") for r in results
@@ -454,9 +478,18 @@ def _token_pattern(token: str) -> str:
     form in a listing title ("2nd Generation") — sellers routinely phrase the
     same product differently, and rejecting the ordinal phrasing would
     incorrectly filter out genuine listings while admitting sloppier ones
-    that happen to repeat the bare digit instead."""
+    that happen to repeat the bare digit instead.
+
+    A fused alphanumeric model name like "pr100" must also match its spaced
+    phrasing ("Tissot PR 100") — `_token_variants` merges spaced query words
+    into fused ones but nothing splits a fused query word back apart, so
+    without this a "PR100" search can never match the sellers who write
+    "PR 100" and the whole search collapses to zero results."""
     if token.isdigit():
         return rf"\b{re.escape(token)}(?:st|nd|rd|th)?\b"
+    parts = re.findall(r"[a-z]+|\d+", token)
+    if len(parts) > 1:
+        return r"\b" + r"\s?".join(re.escape(p) for p in parts) + r"\b"
     return rf"\b{re.escape(token)}\b"
 
 
@@ -719,6 +752,48 @@ def _product_candidate(p: dict) -> dict:
     }
 
 
+_URL_QUERY_RE = re.compile(r"^https?://\S+$", re.IGNORECASE)
+
+# Path segments that are store routing machinery, not product words.
+_URL_ROUTING_SEGMENTS = frozenset({"dp", "gp", "product", "p", "d", "b", "s", "itm", "buy", "ip"})
+
+
+def _query_from_url(url: str) -> str | None:
+    """Human-readable product words from a store URL's slug ("…/Titan-Neo-
+    Analog-Watch-Men/dp/B0ABC12345" -> "Titan Neo Analog Watch Men"), or None
+    when the URL carries none (short links, bare /dp/ASIN paths).
+
+    A pasted link used to go through token matching as-is, and its tokens
+    ("https", "www", "dp", the ASIN…) appear in no listing title — so the
+    identity rungs could never match and every link search fell through to
+    the last-resort trust-only pool, with no check that results were even the
+    linked product. Searching by the slug words instead puts link input on
+    exactly the same footing as typed text."""
+    segments = [unquote(s) for s in urlsplit(url).path.split("/") if s]
+    best_words: list[str] = []
+    best_score = 0
+    for seg in segments:
+        seg = seg.lower()
+        if seg in _URL_ROUTING_SEGMENTS or seg.startswith("ref="):
+            continue
+        words = [
+            w for w in re.findall(r"[a-z0-9]+", seg)
+            # Opaque ids (ASINs like "b0abc12345", Flipkart "itm…" ids) carry
+            # no product words — a long token mixing letters and digits is an
+            # id, not a model name like "pr100".
+            if not (len(w) >= 9 and any(ch.isdigit() for ch in w))
+        ]
+        score = sum(1 for w in words if not w.isdigit() and len(w) >= 3)
+        if score > best_score:
+            best_score = score
+            best_words = words
+    # One real word could just be a brand/category path segment ("/titan/");
+    # require two before trusting the slug as a product name.
+    if best_score < 2:
+        return None
+    return " ".join(best_words)
+
+
 def search_candidates(query: str) -> dict:
     """Step 1 of the two-step flow: google_shopping search only.
 
@@ -733,8 +808,15 @@ def search_candidates(query: str) -> dict:
     if not query:
         out["error"] = "Empty query."
         return out
+    # A pasted link is searched by its slug words when it has them; the
+    # response still echoes the original input in ``query``. A slugless link
+    # (short link, bare /dp/ASIN) keeps the old raw-URL search, which is now
+    # safe: it lands in the trust-only pool and gets labeled approximate.
+    effective_query = query
+    if _URL_QUERY_RE.match(query):
+        effective_query = _query_from_url(query) or query
     try:
-        raw = searchapi_repository.search_products(query)
+        raw = searchapi_repository.search_products(effective_query)
         if raw.get("error"):
             out["error"] = raw["error"]
             return out
@@ -743,7 +825,7 @@ def search_candidates(query: str) -> dict:
             for p in raw.get("shopping_results", [])
             if p.get("product_token")
         ]
-        products, approximate = _filter_and_group_candidates(products, query)
+        products, approximate = _filter_and_group_candidates(products, effective_query)
         if not products:
             out["error"] = "No products found for that search."
             return out

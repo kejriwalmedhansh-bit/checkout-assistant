@@ -70,7 +70,14 @@ export default function ResultsPage() {
   return (
     <Box ref={scrollRef} maxW="640px" mx="auto">
       <Box mb="10px" ml="-10px">
-        <BackButton fallback={ROUTES.select} label="Back to products" />
+        {/* Viewing an alternative is page state, not a navigation — real
+            history's previous entry is the picker. Back must still mean one
+            screen: first leave the alternative, only then leave the page. */}
+        <BackButton
+          fallback={ROUTES.select}
+          label={selectedAlt ? 'Back to recommended' : 'Back to products'}
+          onClick={selectedAlt ? backToRecommended : undefined}
+        />
       </Box>
 
       <Box mb="18px">

@@ -33,6 +33,7 @@ MANUAL_TRUSTED_MERCHANTS = [
     "Amazon", "Flipkart", "Myntra", "Nykaa", "AJIO", "Croma",
     "Reliance Digital", "Vijay Sales", "Tata CLiQ", "BigBasket",
     "Apple", "Samsung", "JioMart", "Pepperfry", "Lenskart",
+    "Ethos", "Helios",  # authorized watch chains — approved 2026-07-21
 ]
 
 PRIORITY_MERCHANTS = [

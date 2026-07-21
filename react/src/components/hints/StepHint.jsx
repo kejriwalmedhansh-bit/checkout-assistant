@@ -31,9 +31,9 @@ export default function StepHint({ text, onHide }) {
         duration: prefersReduced ? 0.12 : 0.24,
         ease: [0.16, 1, 0.3, 1],
       }}
-      // Aligned past the 34px status dot + 14px gap so the bubble sits under
-      // the step's text rather than under its number.
-      ml={{ base: '0', sm: '48px' }}
+      // Full width of the card, so the bubble reads as a row of the checklist
+      // attached under its step — indenting it under the step's text made it
+      // look like a side note floating off to one side.
       mb="4px"
       position="relative"
       role="status"

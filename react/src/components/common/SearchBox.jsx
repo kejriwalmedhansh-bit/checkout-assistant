@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { Button, Flex, Input } from '@chakra-ui/react';
+import { useRef, useState } from 'react';
+import { Box, Button, Flex, Input, InputGroup, InputRightElement } from '@chakra-ui/react';
 
 import { I } from './icons';
 
@@ -23,11 +23,17 @@ export default function SearchBox({
   size = 'lg',
 }) {
   const [value, setValue] = useState(initialValue);
+  const inputRef = useRef(null);
 
   const submit = () => {
     const q = value.trim();
     if (!q || isLoading) return;
     onSubmit?.(q);
+  };
+
+  const clear = () => {
+    setValue('');
+    inputRef.current?.focus();
   };
 
   const h = size === 'lg' ? '52px' : '44px';
@@ -41,15 +47,39 @@ export default function SearchBox({
         submit();
       }}
     >
-      <Input
-        value={value}
-        onChange={(e) => setValue(e.target.value)}
-        placeholder={placeholder}
-        h={h}
-        flex={1}
-        autoComplete="off"
-        aria-label="Search for a product"
-      />
+      <InputGroup flex={1}>
+        <Input
+          ref={inputRef}
+          value={value}
+          onChange={(e) => setValue(e.target.value)}
+          placeholder={placeholder}
+          h={h}
+          pr={value ? '38px' : undefined}
+          autoComplete="off"
+          aria-label="Search for a product"
+        />
+        {value && (
+          <InputRightElement h={h} w="38px">
+            <Box
+              as="button"
+              type="button"
+              onClick={clear}
+              aria-label="Clear search"
+              display="inline-flex"
+              alignItems="center"
+              justifyContent="center"
+              w="24px"
+              h="24px"
+              borderRadius="50%"
+              color="text2"
+              _hover={{ color: 'text', bg: 'borderStrong' }}
+              _focusVisible={{ outline: '2px solid currentColor', outlineOffset: '2px' }}
+            >
+              <I.x size={15} />
+            </Box>
+          </InputRightElement>
+        )}
+      </InputGroup>
       <Button
         type="submit"
         variant="primary"

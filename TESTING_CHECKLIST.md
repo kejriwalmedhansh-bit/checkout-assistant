@@ -49,6 +49,14 @@ This is meant to be run by actually using the product — no code, no technical 
 - [ ] Click all the way through: search → see results → pick a product → see the recommended deal → see voucher details — on both a phone browser and a computer browser
 - [ ] Do two searches back-to-back and confirm the second one doesn't show leftover results from the first
 
+### Checks added after the 2026-07-21 fixes (re-run these on both web AND WhatsApp)
+- [ ] Paste a product link and confirm every store shown in the picker is one you'd genuinely trust — no lookalike/"first copy" sites (the trust check was tightened; a link search is now matched by the product words in the link, same as a typed search)
+- [ ] Search a model name written without the space (e.g. "Tissot PR100") and confirm real results appear even though stores write it "PR 100"
+- [ ] On the results page: open an "other option", press the top Back button — it should return to the recommended deal first, and only a second press should go back to the product list
+- [ ] Confirm the green "do this next" bubble stretches the full width of the card, directly under its step
+- [ ] Type something in the search bar, press the X, and confirm it clears on all three pages (home, product list, results)
+- [ ] WhatsApp: send the same product link and fused model name ("Tissot PR100") there too and confirm the same behavior — WhatsApp shares the same search engine, but confirm it live
+
 ## What this checklist doesn't cover (a later, more technical step)
 
 Turning this into something that checks itself automatically every time the app is changed — instead of you needing to manually run through it — is possible, but it's a separate, more technical undertaking (it involves writing extra code whose only job is to check the real code). Worth considering once this manual checklist has been run a few times and you're confident about what "correct" looks like.
