@@ -867,6 +867,16 @@ _BAD_TITLE_MARKERS = (
     "error",
     "sign in",
     "log in",
+    # Myntra serves this placeholder instead of the real page to some
+    # server-side/data-center IPs (confirmed against the production
+    # deployment 2026-07-22 — works fine from a normal residential
+    # connection, but every Myntra link failed the same way from the
+    # deployed backend). Rejecting it here means the caller falls through to
+    # slug extraction, which reads the pasted URL's own words directly and
+    # doesn't depend on what Myntra's server chooses to return — so a link
+    # with a descriptive slug still resolves correctly even while the
+    # underlying IP-block persists. See CLAUDE.md's vendor-coverage note.
+    "site maintenance",
 )
 _BARE_STORE_TITLES = frozenset(
     {"amazon.in", "amazon", "flipkart", "flipkart.com", "myntra", "nykaa", "ajio"}
