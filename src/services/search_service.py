@@ -242,7 +242,12 @@ def _offer_price(offer: dict) -> float | None:
     return parse_price(offer.get("price") or offer.get("total_price"))
 
 
-def _build_candidates(detail: dict) -> list[dict]:
+def _build_candidates(detail: dict, source_token: str | None = None) -> list[dict]:
+    """`source_token` (internal-only, not exposed to the frontend — same
+    pattern as `_pinned`) records which product_token this candidate's
+    get_product() call came from, so a later step can find "the real,
+    already-fetched offer for exactly the listing the user picked" rather
+    than matching on merchant name alone (see _find_pdp_candidate)."""
     product = detail.get("product") or {}
     title = product.get("title") or detail.get("title") or ""
     candidates = []
@@ -258,6 +263,7 @@ def _build_candidates(detail: dict) -> list[dict]:
                 "delivery": offer.get("delivery_price") or offer.get("delivery"),
             }],
             "match_type": "Listed",
+            "_source_token": source_token,
         })
     return candidates
 
@@ -1279,14 +1285,65 @@ def _find_seller_link(candidates: list[dict], source: str) -> list[dict]:
     candidate pool that may include merchants the trust filter would
     otherwise strip — used only to attach a working link to an already-
     pinned, already-priced candidate, never to admit an untrusted merchant
-    as a route on its own."""
-    norm_source = _norm(source)
-    if not norm_source:
+    as a route on its own. Fallback path only — see _find_pdp_candidate,
+    which is tried first and is more precise (it verifies the candidate came
+    from the exact picked listing's own product-detail fetch, not just a
+    matching merchant name).
+
+    Matches on `_brand_signature`, not a plain string/`_norm` equality — the
+    picker's search endpoint and this function's own candidate pool (from
+    the product-detail endpoint) can name the same store differently
+    ("Amazon" vs "Amazon.in"); the fallback needs to recognize those as the
+    same merchant just as much as `_dedup_by_merchant`/`_find_pdp_candidate`
+    already do, or it silently returns no link at all for a store it should
+    have found one for."""
+    sig = _brand_signature(source)
+    if not sig:
         return []
     for c in candidates:
-        if _norm(c.get("merchant") or "") == norm_source and c.get("sellers"):
+        if _brand_signature(c.get("merchant") or "") == sig and c.get("sellers"):
             return c["sellers"]
     return []
+
+
+def _find_pdp_candidate(
+    candidates: list[dict], source_token: str, picked_source: str,
+) -> dict | None:
+    """Among candidates fetched from `product_token`'s own get_product() call
+    (tagged `_source_token == source_token` by _build_candidates), return the
+    one whose merchant identity matches `picked_source` — i.e. the real,
+    already-fetched price+link pair for the exact listing the user picked,
+    when one exists. Preferred over the picker's `picked_price` + a
+    name-matched link (`_find_seller_link`): both fields here come from the
+    same offer object, so they're guaranteed to describe the same listing,
+    which the picked_price/_find_seller_link combination never guaranteed.
+
+    Matches on `_brand_signature`, not `_norm` — this feeds the same
+    merchant-slot identity `_dedup_by_merchant` keys on (also
+    `_brand_signature`, so "Amazon" and "Amazon.in" are recognized as the
+    same store here too), not a raw string-equality lookup like
+    `_find_seller_link`'s. Requires a parsed price; when product_token's own
+    fetch legitimately returned more than one offer under this merchant
+    (different sellers/conditions), the lowest-priced one wins — the same
+    tie-break `_dedup_by_merchant` already applies to ordinary candidates.
+
+    For a live-price token (Amazon/Myntra link-paste, bug 1), `source_token`
+    never matches any candidate's `_source_token` by construction — those
+    tokens are never passed to get_product at all — so this always returns
+    None for that path and callers fall straight through to the existing
+    picked_price/_find_seller_link fallback, unchanged."""
+    sig = _brand_signature(picked_source)
+    if not sig:
+        return None
+    matches = [
+        c for c in candidates
+        if c.get("_source_token") == source_token
+        and c.get("price") is not None
+        and _brand_signature(c.get("merchant") or "") == sig
+    ]
+    if not matches:
+        return None
+    return min(matches, key=lambda c: c["price"])
 
 
 def build_routes_for_token(
@@ -1345,6 +1402,25 @@ def build_routes_for_token(
             required = _required_tokens(variant_query)
             if required:
                 refined = [c for c in refined if _matches_required_tokens(c["title"], required)]
+
+            # Require the same variant identity as the item actually picked
+            # (storage/color/any other distinguishing word beyond the query's
+            # own tokens and known brands) — the same signature check the
+            # Product Picker itself uses to keep two different variants from
+            # being treated as one product (_filter_and_group_candidates),
+            # applied here to keep this broader re-search from merging a
+            # different variant back in once the user has already told us
+            # which one they picked. _matches_required_tokens above only
+            # checks that the right words are present ("right brand/model"),
+            # not that nothing extra/different distinguishes this listing
+            # from the one picked — this closes that gap.
+            variant_exclude = set(required) | set(KNOWN_BRANDS)
+            picked_signature = _extract_variant_signature(variant_query, variant_exclude)
+            refined = [
+                c for c in refined
+                if _extract_variant_signature(c["title"], variant_exclude) == picked_signature
+            ]
+
             refined = _filter_trusted_only(refined)
 
             # Same priority-merchant price anchor as the Product Picker: this
@@ -1363,9 +1439,12 @@ def build_routes_for_token(
         # The originally-selected token was already vetted against the full
         # Product Picker candidate pool (including its own trust/price
         # checks) — a narrower refined search finding something else is not
-        # grounds to drop it, only to potentially outrank it later.
-        if product_token not in tokens_to_fetch:
-            tokens_to_fetch.append(product_token)
+        # grounds to drop it, only to potentially outrank it later. Placed
+        # FIRST, not appended: the fetch loop below claims `display_title`
+        # from whichever token's fetch succeeds first, and the user's own
+        # pick must win that claim whenever its own fetch succeeds — not
+        # whichever refined-search token happened to load first.
+        tokens_to_fetch = [product_token] + [t for t in tokens_to_fetch if t != product_token]
 
         candidates: list[dict] = []
         display_title = ""
@@ -1382,7 +1461,7 @@ def build_routes_for_token(
                 continue
             product = detail.get("product") or {}
             display_title = display_title or product.get("title") or detail.get("title") or ""
-            candidates.extend(_build_candidates(detail))
+            candidates.extend(_build_candidates(detail, source_token=token))
 
         if not candidates and not product_token.startswith(_LIVE_PRICE_TOKEN_PREFIX):
             # Refined search came up empty or every fetch failed — fall back
@@ -1393,7 +1472,7 @@ def build_routes_for_token(
                 return output
             product = detail.get("product") or {}
             display_title = product.get("title") or detail.get("title") or ""
-            candidates = _build_candidates(detail)
+            candidates = _build_candidates(detail, source_token=product_token)
 
         # A live-fetched candidate with no other real candidates found has no
         # SearchApi.io title to display — fall back to the picker's own title
@@ -1405,11 +1484,11 @@ def build_routes_for_token(
             output["source"]["name"] = display_title
             output["source"]["brand"] = _infer_brand(display_title) or output["source"]["brand"]
 
-        # Kept from before the trust filter runs, purely so the pinned
-        # candidate below can recover a real seller link for the exact
-        # merchant the user picked — that merchant's own offer (fetched
-        # above for `product_token`, which is always included in
-        # tokens_to_fetch) may not be on the trust whitelist even when the
+        # Kept from before the trust filter runs, purely so the pin block
+        # below can find the exact merchant the user picked even if the
+        # trust whitelist would otherwise strip it — that merchant's own
+        # offer (fetched above for `product_token`, which is always included
+        # in tokens_to_fetch) may not be on the trust whitelist even when the
         # listing itself is genuine, and a price with no way to reach it
         # fails the "executable by anyone" requirement for a route just as
         # much as a wrong price would.
@@ -1436,11 +1515,31 @@ def build_routes_for_token(
         # being silently replaced by whatever this broader search found for
         # that merchant, which is a different data source with no guarantee
         # of describing the same listing.
+        #
+        # Prefer the real, already-fetched price+link pair for this exact
+        # listing (_find_pdp_candidate) when it exists — both fields there
+        # come from the same offer, so they're guaranteed to describe the
+        # same thing, unlike picked_price (the picker's own, earlier number)
+        # glued to a link recovered only by matching merchant NAME
+        # (_find_seller_link), which can point at a different listing under
+        # that same store. Only fall back to that older combination when no
+        # PDP-fetched offer for this exact pick survived (e.g. product_token's
+        # own get_product() call failed, or it's a live-price token from the
+        # Amazon/Myntra link-paste feature, which never has one by design).
         if picked_price is not None and picked_source:
-            recovered_sellers = _find_seller_link(pre_filter_candidates, picked_source)
-            candidates.append(_pinned_candidate(
-                display_title or title or query, picked_price, picked_source, recovered_sellers,
-            ))
+            pdp_candidate = _find_pdp_candidate(pre_filter_candidates, product_token, picked_source)
+            if pdp_candidate is not None:
+                candidates.append(_pinned_candidate(
+                    display_title or title or query,
+                    pdp_candidate["price"],
+                    picked_source,
+                    pdp_candidate.get("sellers") or [],
+                ))
+            else:
+                recovered_sellers = _find_seller_link(pre_filter_candidates, picked_source)
+                candidates.append(_pinned_candidate(
+                    display_title or title or query, picked_price, picked_source, recovered_sellers,
+                ))
 
         candidates = _dedup_by_merchant(candidates)
         candidates = _priority_sort(candidates)
