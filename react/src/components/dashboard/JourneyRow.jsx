@@ -7,6 +7,71 @@ const TONES = {
   checkout: { bg: 'greenSoft', color: 'green', border: 'green' },
 };
 
+/**
+ * Attention cue for an unfinished CTA: three chevrons fall toward the button
+ * in sequence, and two rings expand outward from it below — same mechanic
+ * on every row, colored to that row's own tone. Offset timings (chevrons
+ * 1.6s, rings 2s + a 0.65s stagger between the two rings) so the two
+ * motions don't lock into a mechanical-looking sync.
+ */
+function TapCue({ color }) {
+  return (
+    <Box position="absolute" top="-17px" left="50%" transform="translateX(-50%)" pointerEvents="none">
+      {[0, 1, 2].map((i) => (
+        <Box
+          key={i}
+          as="svg"
+          viewBox="0 0 22 11"
+          w="18px"
+          h="9px"
+          mt={i === 0 ? 0 : '-4px'}
+          display="block"
+          sx={{
+            '@keyframes dealoChevronFall': {
+              '0%': { opacity: 0, transform: 'translateY(-3px)' },
+              '35%': { opacity: 1, transform: 'translateY(0)' },
+              '65%': { opacity: 1, transform: 'translateY(2px)' },
+              '100%': { opacity: 0, transform: 'translateY(6px)' },
+            },
+            animation: `dealoChevronFall 1.6s ease-in-out infinite`,
+            animationDelay: `${i * 0.18}s`,
+            '@media (prefers-reduced-motion: reduce)': { animation: 'none', opacity: 1 },
+          }}
+        >
+          <path d="M2 2l9 7 9-7" fill="none" stroke={color} strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" />
+        </Box>
+      ))}
+    </Box>
+  );
+}
+
+function PingRings({ borderColor }) {
+  return (
+    <>
+      {[0, 1].map((i) => (
+        <Box
+          key={i}
+          position="absolute"
+          inset="0"
+          borderRadius="99px"
+          border="1.5px solid"
+          borderColor={borderColor}
+          pointerEvents="none"
+          sx={{
+            '@keyframes dealoPing': {
+              '0%': { opacity: 0.7, transform: 'scale(1)' },
+              '100%': { opacity: 0, transform: 'scale(1.45)' },
+            },
+            animation: `dealoPing 2s cubic-bezier(0,.5,.5,1) infinite`,
+            animationDelay: i === 1 ? '0.65s' : '0s',
+            '@media (prefers-reduced-motion: reduce)': { animation: 'none', display: 'none' },
+          }}
+        />
+      ))}
+    </>
+  );
+}
+
 function CheckIcon(props) {
   return (
     <Box
@@ -114,27 +179,32 @@ export default function JourneyRow({
         </Text>
 
         {link?.href && (
-          <Link
-            href={link.href}
-            isExternal
-            onClick={onCheck}
-            pointerEvents={pending ? 'none' : 'auto'}
-            fontSize="11.5px"
-            fontWeight={700}
-            color={checked ? 'onBrand' : 'brandText'}
-            bg={checked ? 'brand' : 'brandSoft'}
-            border="1px solid"
-            borderColor="brand"
-            borderRadius="99px"
-            px="13px"
-            py="7px"
-            flex="0 0 auto"
-            whiteSpace="nowrap"
-            transition="background .2s"
-            _hover={{ textDecoration: 'none', bg: checked ? 'brandHover' : 'brandSoft2' }}
-          >
-            {checked ? '✓ Done' : pending ? 'Confirming…' : link.label}
-          </Link>
+          <Box position="relative" flex="0 0 auto">
+            {!checked && <TapCue color={`var(--chakra-colors-${t.color})`} />}
+            {!checked && <PingRings borderColor={t.color} />}
+            <Link
+              href={link.href}
+              isExternal
+              onClick={onCheck}
+              pointerEvents={pending ? 'none' : 'auto'}
+              position="relative"
+              fontSize="12.5px"
+              fontWeight={700}
+              color="onBrand"
+              bg={checked ? 'brand' : t.color}
+              border="1.5px solid"
+              borderColor={checked ? 'brand' : t.color}
+              borderRadius="99px"
+              px="14px"
+              py="8px"
+              whiteSpace="nowrap"
+              boxShadow={checked ? 'none' : `0 2px 10px -2px var(--chakra-colors-${t.color})`}
+              transition="background .2s"
+              _hover={{ textDecoration: 'none', bg: checked ? 'brandHover' : t.color }}
+            >
+              {checked ? '✓ Done' : pending ? 'Confirming…' : link.label}
+            </Link>
+          </Box>
         )}
       </Flex>
 

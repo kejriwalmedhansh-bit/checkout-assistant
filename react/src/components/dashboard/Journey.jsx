@@ -133,7 +133,7 @@ export default function Journey({ rec }) {
             </>
           }
           caption={`Opens our voucher partner's site — not ${rec.merchant}.`}
-          link={v.voucher_url ? { href: v.voucher_url, label: 'Get voucher' } : undefined}
+          link={v.voucher_url ? { href: v.voucher_url, label: 'Buy gift voucher' } : undefined}
           checked={checked.voucher}
           pending={pending.voucher}
           onCheck={check('voucher')}
