@@ -54,6 +54,22 @@ Dealo is a pre-checkout purchase optimization engine for Indian e-commerce. Inpu
 10. WhatsApp links are not Cuelinks-wrapped (web links are). Decide whether that's intentional before production.
 11. No automated tests. Regression set is manual: boAt Airdopes 141, Myntra Nike sneakers URL, Ray-Ban Meta Wayfarer Gen 2, Lakme CC Cream, amzn.in short link.
 
+## Live price-on-paste vendor coverage (for Karan — flagged 2026-07-22)
+
+Bug: pasting a merchant link only ever searched Google's Shopping index by title/slug — the real price on the page you're looking at could be missing, stale, or simply never offered as a picker option, so the "Recommended Route" could end up pricier than the page you pasted (hit in testing: an Amazon link at ₹336 recommended Myntra at ₹500). Root cause: the react migration deleted the old Zyte-based live-page scraper and nothing replaced it. Fixed for two vendors so far, in `src/services/search_service.py` (`_fetch_url_page` / `_extract_amazon_price` / `_extract_jsonld_price`) — each pasted link's real price, when readable, is read once (same request that already fetches the page title) and pinned so it can never lose to a stale index entry.
+
+**Live now, hand-verified against real product pages, not just "a request succeeded":**
+- **Amazon** (`amazon.in`/`amazon.com`) — hand-rolled regex on the page's own buybox markup (Amazon doesn't expose a standard price tag). Confirmed the matched element's own CSS class is literally `priceToPay`, not the struck-through MRP.
+- **Myntra** (`myntra.com`) — reads the page's own schema.org `Product` → `offers.price` structured data (the same block search engines use for rich results — a standard field, not custom scraping). Confirmed the value matched the page's own `discountedPrice` field (₹1,289), not its `mrp` field (₹1,499).
+
+**Scoped but not built — needs your call: Tata CLiQ.** Its product pages load fine (200 OK, not blocked), but they're an empty JS shell — the price only appears after the page runs its own JavaScript, which a plain page fetch can't do. This is a *free* fix (no paid service, just more engineering): run a real but invisible browser on our own server (e.g. Playwright — open-source, no subscription) to open the page, let it load, and read the price the way a person would. Tradeoffs: meaningfully more code than the regex/JSON-LD approach above, slower per lookup (a few seconds instead of well under one), and a bigger server footprint (an actual browser has to run in the background for every one of these lookups). Worth doing, but bigger than what's shipped so far — didn't want to build it without your sign-off given the footprint/deploy impact.
+
+**Can't be fixed for free — needs a real decision, not more engineering time:**
+- **Flipkart** — its product pages specifically return 403 (forbidden) to a plain fetch, even though its homepage loads fine.
+- **Nykaa, AJIO, Croma** — block every page tested, including their homepages.
+
+All three/four look like IP- or network-level bot detection (the kind that checks whether a request is coming from a real residential internet connection vs. a data-center server), not something a better user-agent string or extra headers reliably gets around. The only real fix is routing requests through a paid proxy/scraping service — which is exactly the category of tool the old, deleted Zyte integration was. That's a budget decision, not a code one — flagging it here rather than silently deciding either way.
+
 ## Pending work
 
 - Fix bugs 1–4 above (1 and 2 are user-facing correctness — highest priority).

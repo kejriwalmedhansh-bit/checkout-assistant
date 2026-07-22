@@ -20,6 +20,7 @@ from __future__ import annotations
 
 import hashlib
 import html
+import json
 import logging
 import re
 from urllib.parse import unquote, urlsplit, urlunsplit
@@ -920,20 +921,77 @@ def _extract_amazon_price(markup: str, *urls: str) -> float | None:
     return price
 
 
-def _fetch_url_page(url: str) -> tuple[str | None, float | None]:
+# ── live price read for other vendors, via schema.org structured data ──────────
+#
+# Amazon needed hand-rolled markup regex above because it doesn't reliably
+# expose a standard price field. Most other storefronts DO embed a
+# schema.org "Product" block (the same JSON-LD search engines read for rich
+# results) with a real, current offer price — a generic, vendor-agnostic
+# read, not a per-site scraper. Each host below has been individually
+# fetched and hand-verified (price checked against the page's own
+# MRP/discount fields, not just "a number was found") before being added —
+# see CLAUDE.md's "Live price-on-paste vendor coverage" note for the current
+# status of every vendor NOT in this dict and why.
+_JSONLD_MERCHANT_HOSTS = {
+    # Verified 2026-07-22: myntra.com's JSON-LD offers.price matched its own
+    # page's `discountedPrice` field exactly (not `mrp`) on a real product.
+    "myntra.com": "Myntra",
+}
+
+_LDJSON_BLOCK_RE = re.compile(
+    r'<script[^>]+type=["\']application/ld\+json["\'][^>]*>(.*?)</script>',
+    re.IGNORECASE | re.DOTALL,
+)
+
+
+def _jsonld_host_merchant(host: str) -> str | None:
+    host = (host or "").lower()
+    for suffix, name in _JSONLD_MERCHANT_HOSTS.items():
+        if host == suffix or host.endswith("." + suffix):
+            return name
+    return None
+
+
+def _extract_jsonld_price(markup: str) -> float | None:
+    """The first schema.org Product -> Offer price in a page's own structured
+    data, or None. Standard, vendor-agnostic — unlike _extract_amazon_price,
+    no per-site markup knowledge needed, because the site itself is already
+    labeling this number as "the offer price" for search engines to read."""
+    for block in _LDJSON_BLOCK_RE.findall(markup):
+        try:
+            data = json.loads(block)
+        except (json.JSONDecodeError, ValueError):
+            continue
+        nodes = data if isinstance(data, list) else [data]
+        for node in nodes:
+            if not isinstance(node, dict) or node.get("@type") != "Product":
+                continue
+            offers = node.get("offers")
+            if isinstance(offers, list):
+                offers = offers[0] if offers else None
+            if isinstance(offers, dict):
+                price = parse_price(offers.get("price"))
+                if price is not None:
+                    return price
+    return None
+
+
+def _fetch_url_page(url: str) -> tuple[str | None, float | None, str | None]:
     """One GET for a pasted link (redirects resolved — amzn.in -> amazon.in).
-    Returns (title, live_price).
+    Returns (title, live_price, live_merchant).
 
     title: og:title -> twitter:title -> <title>, scanned over the first
     200_000 chars, rejected via _BAD_TITLE_MARKERS/_BARE_STORE_TITLES exactly
-    as _title_from_url always did.
+    as this function's original title-only version always did.
 
-    live_price: Amazon buybox price via _extract_amazon_price, checked against
-    the full response body (the price block can sit past the 200_000-char
-    title-scan cap on a large page), and only when the final, redirect-
-    resolved host is amazon.in/amazon.com — None for every other merchant and
-    None on any failure. Never raises; a failure here must fall straight back
-    to today's title/slug-only search, not break it.
+    live_price/live_merchant: a verified live price and its merchant name,
+    read via _extract_amazon_price (Amazon's own hand-rolled markup — see
+    that function) or _extract_jsonld_price (every other host currently in
+    _JSONLD_MERCHANT_HOSTS, via each page's own schema.org structured data).
+    Checked against the full response body (the price block can sit past the
+    200_000-char title-scan cap on a large page). (None, None) for every
+    host not covered and on any failure — never raises; a failure here must
+    fall straight back to today's title/slug-only search, not break it.
     """
     try:
         timeout = float(get_settings().LINK_TITLE_TIMEOUT)
@@ -946,7 +1004,7 @@ def _fetch_url_page(url: str) -> tuple[str | None, float | None]:
             url, resp.url, resp.status_code,
         )
         if resp.status_code != 200:
-            return None, None
+            return None, None, None
         full_markup = resp.text
         # The title lives in <head>, early in the document; cap the text we
         # scan for it so a huge product page doesn't turn into a huge regex
@@ -955,7 +1013,7 @@ def _fetch_url_page(url: str) -> tuple[str | None, float | None]:
         markup = full_markup[:200_000]
     except (httpx.HTTPError, ValueError) as exc:
         logger.info("[url-search] page-fetch failed for %s: %s", url, exc)
-        return None, None
+        return None, None, None
 
     title = None
     for pattern in _META_TITLE_RES:
@@ -975,42 +1033,55 @@ def _fetch_url_page(url: str) -> tuple[str | None, float | None]:
     if title is None:
         logger.info("[url-search] no usable title found in page")
 
+    host = (resp.url.host or "").lower()
     price = None
-    if _is_amazon_host(resp.url.host):
+    merchant = None
+    if _is_amazon_host(host):
         price = _extract_amazon_price(full_markup, url, str(resp.url))
+        merchant = "Amazon"
         logger.info("[url-search] amazon live price: %s", price)
+    else:
+        jsonld_merchant = _jsonld_host_merchant(host)
+        if jsonld_merchant:
+            price = _extract_jsonld_price(full_markup)
+            merchant = jsonld_merchant
+            logger.info("[url-search] %s live price: %s", jsonld_merchant, price)
+    if price is None:
+        merchant = None
 
-    return title, price
+    return title, price, merchant
 
 
 # Prefix marking a candidate's product_token as synthetic (not a real
 # SearchApi.io token) — used both to build the token and, in
 # build_routes_for_token, to recognize and skip a get_product() lookup that
 # would otherwise waste a paid SearchApi call on an ID nothing can resolve.
-_LIVE_AMAZON_TOKEN_PREFIX = "live-amazon:"
+_LIVE_PRICE_TOKEN_PREFIX = "live-price:"
 
 
-def _amazon_live_candidate(url: str, title: str | None, price: float) -> dict:
-    """Shape a live-fetched Amazon price like `_product_candidate`'s output,
-    so it can sit in the same picker list as any ordinary candidate.
+def _live_price_candidate(url: str, title: str | None, price: float, source: str) -> dict:
+    """Shape a live-fetched price (Amazon's hand-rolled read or another
+    vendor's structured-data read) like `_product_candidate`'s output, so it
+    can sit in the same picker list as any ordinary candidate.
 
-    `source` is deliberately the plain "Amazon" — not decorated with
-    "verified"/"your link" text. Once picked, this string becomes the
-    merchant key for the Gyftr voucher lookup, the cashback card lookup, the
-    priority-merchant sort, and the per-merchant dedup in
+    `source` is deliberately the plain merchant name ("Amazon", "Myntra") —
+    not decorated with "verified"/"your link" text. Once picked, this string
+    becomes the merchant key for the Gyftr voucher lookup, the cashback card
+    lookup, the priority-merchant sort, and the per-merchant dedup in
     build_routes_for_token — all exact/prefix matches on this string, not a
     fuzzy one. A decorated string would silently break those and could let a
-    second, differently-priced "Amazon" row reappear alongside this one,
-    reintroducing a version of the bug this candidate exists to prevent. The
-    "this one is verified" signal is carried in `product_token` instead."""
-    token = _LIVE_AMAZON_TOKEN_PREFIX + hashlib.sha1(url.encode("utf-8")).hexdigest()[:16]
+    second, differently-priced row for the same merchant reappear alongside
+    this one, reintroducing a version of the bug this candidate exists to
+    prevent. The "this one is verified" signal is carried in `product_token`
+    instead."""
+    token = _LIVE_PRICE_TOKEN_PREFIX + hashlib.sha1(url.encode("utf-8")).hexdigest()[:16]
     return {
         "product_token": token,
-        "title": title or _query_from_url(url) or "Amazon product",
+        "title": title or _query_from_url(url) or f"{source} product",
         "price": price,
         "price_raw": f"₹{price:,.0f}",
         "thumbnail": None,
-        "source": "Amazon",
+        "source": source,
         "rating": None,
         "reviews": None,
     }
@@ -1053,10 +1124,10 @@ def search_candidates(query: str) -> dict:
         #   1. the page's own og:title (handles short/ID-only links),
         #   2. words from the URL slug,
         #   3. the bare link with tracking params stripped.
-        # The same fetch also recovers a live Amazon price when the link is
-        # an Amazon page — see _fetch_url_page / _amazon_live_candidate.
+        # The same fetch also recovers a live price when the link is a page
+        # we know how to read — see _fetch_url_page / _live_price_candidate.
         logger.info("[url-search] input is a link: %s", query)
-        page_title, live_price = _fetch_url_page(query)
+        page_title, live_price, live_merchant = _fetch_url_page(query)
         effective_query = page_title
         layer = "page-title"
         if not effective_query:
@@ -1068,9 +1139,9 @@ def search_candidates(query: str) -> dict:
         logger.info(
             "[url-search] searching via %s -> query=%r", layer, effective_query
         )
-        if live_price is not None:
-            live_candidate = _amazon_live_candidate(query, page_title, live_price)
-            logger.info("[url-search] live Amazon price captured: %s", live_price)
+        if live_price is not None and live_merchant:
+            live_candidate = _live_price_candidate(query, page_title, live_price, live_merchant)
+            logger.info("[url-search] live %s price captured: %s", live_merchant, live_price)
     try:
         raw = searchapi_repository.search_products(effective_query)
         if raw.get("error"):
@@ -1304,7 +1375,7 @@ def build_routes_for_token(
             # product_token to look up — skip it here rather than spending a
             # paid SearchApi call on an ID nothing can resolve. It still
             # reaches the route via the picked_price/picked_source pin below.
-            if token.startswith(_LIVE_AMAZON_TOKEN_PREFIX):
+            if token.startswith(_LIVE_PRICE_TOKEN_PREFIX):
                 continue
             detail = searchapi_repository.get_product(token)
             if detail.get("error"):
@@ -1313,7 +1384,7 @@ def build_routes_for_token(
             display_title = display_title or product.get("title") or detail.get("title") or ""
             candidates.extend(_build_candidates(detail))
 
-        if not candidates and not product_token.startswith(_LIVE_AMAZON_TOKEN_PREFIX):
+        if not candidates and not product_token.startswith(_LIVE_PRICE_TOKEN_PREFIX):
             # Refined search came up empty or every fetch failed — fall back
             # to the originally selected token alone.
             detail = searchapi_repository.get_product(product_token)
@@ -1328,7 +1399,7 @@ def build_routes_for_token(
         # SearchApi.io title to display — fall back to the picker's own title
         # for it (same fallback the pin block below already uses for the
         # route's own title) rather than showing the raw pasted URL.
-        display_title = display_title or (title if product_token.startswith(_LIVE_AMAZON_TOKEN_PREFIX) else "")
+        display_title = display_title or (title if product_token.startswith(_LIVE_PRICE_TOKEN_PREFIX) else "")
 
         if display_title:
             output["source"]["name"] = display_title

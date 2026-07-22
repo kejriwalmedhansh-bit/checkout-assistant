@@ -12,8 +12,8 @@ export default function ProductCandidateCard({ product, onSelect, isSelecting })
   const { title, price, thumbnail, source, product_token: token } = product;
   // Backend marks a live-fetched price (read straight off the page the user
   // pasted, not Google's index) with this product_token prefix — see
-  // _amazon_live_candidate in src/services/search_service.py.
-  const isVerifiedLive = token?.startsWith('live-amazon:');
+  // _live_price_candidate in src/services/search_service.py.
+  const isVerifiedLive = token?.startsWith('live-price:');
 
   return (
     <Card
