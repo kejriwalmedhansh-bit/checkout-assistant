@@ -21,8 +21,11 @@ export default function Journey({ rec }) {
   const [checked, setChecked] = useState({ store: false, voucher: false });
   const [pending, setPending] = useState({ store: false, voucher: false });
   // "Hide" silences hints for this visit only; the sidebar switch is the
-  // durable off. Two different intentions, so two separate controls.
-  const [dismissed, setDismissed] = useState(false);
+  // durable off. Two different intentions, so two separate controls. Kept
+  // per-step (not one shared flag) — hiding the store hint shouldn't also
+  // silence the voucher and pay hints, since they're about different
+  // actions the user hasn't seen yet.
+  const [dismissed, setDismissed] = useState({ store: false, voucher: false, pay: false });
   const hintsEnabled = useUiStore((s) => s.hintsEnabled);
 
   const nextStep = (() => {
@@ -53,8 +56,8 @@ export default function Journey({ rec }) {
     }.`,
   };
 
-  const hintVisible = (step) => hintsEnabled && !dismissed && nextStep === step;
-  const hideHint = () => setDismissed(true);
+  const hintVisible = (step) => hintsEnabled && !dismissed[step] && nextStep === step;
+  const hideHint = (step) => () => setDismissed((d) => ({ ...d, [step]: true }));
 
   const storeRow = (
     <JourneyRow
@@ -72,7 +75,7 @@ export default function Journey({ rec }) {
       onCheck={check('store')}
       hintText={HINT_TEXT.store}
       hintVisible={hintVisible('store')}
-      onHideHint={hideHint}
+      onHideHint={hideHint('store')}
     />
   );
 
@@ -139,7 +142,7 @@ export default function Journey({ rec }) {
           onCheck={check('voucher')}
           hintText={HINT_TEXT.voucher}
           hintVisible={hintVisible('voucher')}
-          onHideHint={hideHint}
+          onHideHint={hideHint('voucher')}
         />
 
         <JourneyConnector done={checked.voucher} />
@@ -156,7 +159,7 @@ export default function Journey({ rec }) {
           ready={checked.voucher}
           hintText={HINT_TEXT.pay}
           hintVisible={hintVisible('pay')}
-          onHideHint={hideHint}
+          onHideHint={hideHint('pay')}
         />
       </Box>
     </Box>
