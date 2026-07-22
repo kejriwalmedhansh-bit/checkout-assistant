@@ -23,7 +23,7 @@ import html
 import json
 import logging
 import re
-from urllib.parse import unquote, urlsplit, urlunsplit
+from urllib.parse import unquote, urlsplit
 
 import httpx
 
@@ -1103,16 +1103,6 @@ def _live_price_candidate(url: str, title: str | None, price: float, source: str
     }
 
 
-def _clean_url_for_search(url: str) -> str:
-    """Strip query params and fragment from a link, leaving scheme+host+path.
-
-    The last-resort fallback when neither the page title nor the slug yields a
-    product name: searching the bare URL is weak, but at least tracking params
-    (?tag=…&ref=…) shouldn't pollute the search string."""
-    parts = urlsplit(url)
-    return urlunsplit((parts.scheme, parts.netloc, parts.path, "", "")) or url
-
-
 def search_candidates(query: str) -> dict:
     """Step 1 of the two-step flow: google_shopping search only.
 
@@ -1128,18 +1118,15 @@ def search_candidates(query: str) -> dict:
         out["error"] = "Empty query."
         return out
     # A pasted link is turned into a search query without scraping the product:
-    # its page title first, then its slug words, then the bare link. The
-    # response still echoes the original input in ``query``. A link that yields
-    # nothing better than the bare URL lands in the trust-only pool and gets
-    # labeled approximate.
+    # its page title first, then its slug words. The response still echoes
+    # the original input in ``query``.
     effective_query = query
     is_url = bool(_URL_QUERY_RE.match(query))
     live_candidate = None
     if is_url:
-        # Three-layer link recognition, cheapest-reliable first:
+        # Two-layer link recognition, cheapest-reliable first:
         #   1. the page's own og:title (handles short/ID-only links),
-        #   2. words from the URL slug,
-        #   3. the bare link with tracking params stripped.
+        #   2. words from the URL slug.
         # The same fetch also recovers a live price when the link is a page
         # we know how to read — see _fetch_url_page / _live_price_candidate.
         logger.info("[url-search] input is a link: %s", query)
@@ -1149,15 +1136,29 @@ def search_candidates(query: str) -> dict:
         if not effective_query:
             effective_query = _query_from_url(query)
             layer = "url-slug"
-        if not effective_query:
-            effective_query = _clean_url_for_search(query)
-            layer = "raw-link"
-        logger.info(
-            "[url-search] searching via %s -> query=%r", layer, effective_query
-        )
         if live_price is not None and live_merchant:
             live_candidate = _live_price_candidate(query, page_title, live_price, live_merchant)
             logger.info("[url-search] live %s price captured: %s", live_merchant, live_price)
+        if not effective_query:
+            # Neither the page's own title nor its URL slug named a product.
+            # The old third layer searched the bare link text itself as a
+            # last resort — that's nonsense as a search query and returns
+            # unrelated junk instead of an honest "couldn't find this". A
+            # live-fetched price still stands on its own here (possible,
+            # though rare, if the title was rejected as a blocked-page
+            # placeholder while the price read separately still succeeded).
+            if live_candidate:
+                out["products"] = [live_candidate]
+                return out
+            logger.info("[url-search] no product identifiable from link")
+            out["error"] = (
+                "Couldn't find a product on that page — try pasting the "
+                "product's own page link, or search by name instead."
+            )
+            return out
+        logger.info(
+            "[url-search] searching via %s -> query=%r", layer, effective_query
+        )
     try:
         raw = searchapi_repository.search_products(effective_query)
         if raw.get("error"):
