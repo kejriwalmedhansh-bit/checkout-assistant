@@ -18,6 +18,7 @@ URL mode is gone, so mode is always "text".
 """
 from __future__ import annotations
 
+import hashlib
 import html
 import logging
 import re
@@ -187,10 +188,15 @@ def _dedup_by_merchant(results: list[dict]) -> list[dict]:
     wins its merchant slot outright, regardless of price. That entry was
     already verified once at picker time; a broader downstream search
     finding a different price for the same merchant name is not grounds to
-    silently swap it out from under a selection the user already made."""
+    silently swap it out from under a selection the user already made.
+
+    Keyed on `_brand_signature`, not the raw merchant string: the picker's
+    search endpoint and the route-builder's product-detail endpoint can name
+    the same store differently ("Amazon" vs "Amazon.in") — an exact-string
+    key would let both through as two separate "routes" for one merchant."""
     seen: dict[str, dict] = {}
     for r in results:
-        key = (r.get("merchant") or "").lower()
+        key = _brand_signature(r.get("merchant") or "")
         if not key:
             continue
         if seen.get(key, {}).get("_pinned"):
@@ -859,16 +865,76 @@ _BARE_STORE_TITLES = frozenset(
     {"amazon.in", "amazon", "flipkart", "flipkart.com", "myntra", "nykaa", "ajio"}
 )
 
+# ── live Amazon price read (Amazon only — see search_service module docstring
+#    for why the react-migration removed live page price extraction entirely,
+#    and CLAUDE.md bug 1) ──────────────────────────────────────────────────────
 
-def _title_from_url(url: str) -> str | None:
-    """The product name from a pasted link's own page title — the one source
-    that's present on virtually every product page, including short links and
-    bare /dp/ASIN links that carry no words in the URL itself.
+_AMAZON_HOST_RE = re.compile(r"(?:^|\.)amazon\.(?:in|com)$", re.IGNORECASE)
 
-    One lightweight GET (follow_redirects resolves short links to the canonical
-    page), reading only og:title -> twitter:title -> <title>. NOT a price/spec
-    parse. Returns None on any failure (non-200, timeout, missing/junk title) so
-    the caller falls through to slug extraction — never raises."""
+# Amazon's buybox price block. Scoping the price regex to a window starting
+# here (rather than searching the whole page) is the guard against matching
+# the wrong number — the page also shows the crossed-out MRP and a "₹X off"
+# badge, both of which can reuse the same "a-price-whole" CSS class elsewhere
+# on the page. Ported from the deleted extractor/zyte_client.py, which had to
+# solve the exact same problem.
+_AMAZON_PRICE_ANCHOR = "corePriceDisplay_desktop_feature_div"
+_AMAZON_PRICE_WINDOW = 3000
+_AMAZON_PRICE_RE = re.compile(r'class="[^"]*a-price-whole[^"]*"[^>]*>([\d,]+)<')
+
+# For these categories only, a matched price under ₹1000 is almost certainly a
+# discount amount, not the real price — never apply this floor generally, or
+# a genuinely cheap item gets its real price thrown out.
+_AMAZON_DEVICE_URL_RE = re.compile(
+    r"\b(macbook|iphone|ipad|laptop|macmini|imac)\b", re.IGNORECASE
+)
+
+
+def _is_amazon_host(host: str) -> bool:
+    return bool(_AMAZON_HOST_RE.search((host or "").lower()))
+
+
+def _extract_amazon_price(markup: str, *urls: str) -> float | None:
+    """Amazon buybox ("pay now") price from plain page HTML, or None.
+
+    Two-stage regex, same approach the deleted zyte_client._amazon_html_fallback
+    used: scoped first to a window right after the buybox block so a "₹X off"
+    badge or the struck-through MRP elsewhere on the page can't match instead,
+    falling back to an unscoped search only if that block isn't present at all.
+    """
+    m = None
+    anchor_idx = markup.find(_AMAZON_PRICE_ANCHOR)
+    if anchor_idx != -1:
+        m = _AMAZON_PRICE_RE.search(
+            markup[anchor_idx:anchor_idx + _AMAZON_PRICE_WINDOW]
+        )
+    if not m:
+        m = _AMAZON_PRICE_RE.search(markup)
+    if not m:
+        return None
+    raw = m.group(1).replace(",", "")
+    if not raw.isdigit():
+        return None
+    price = float(raw)
+    if price < 1000 and any(_AMAZON_DEVICE_URL_RE.search(u or "") for u in urls):
+        return None
+    return price
+
+
+def _fetch_url_page(url: str) -> tuple[str | None, float | None]:
+    """One GET for a pasted link (redirects resolved — amzn.in -> amazon.in).
+    Returns (title, live_price).
+
+    title: og:title -> twitter:title -> <title>, scanned over the first
+    200_000 chars, rejected via _BAD_TITLE_MARKERS/_BARE_STORE_TITLES exactly
+    as _title_from_url always did.
+
+    live_price: Amazon buybox price via _extract_amazon_price, checked against
+    the full response body (the price block can sit past the 200_000-char
+    title-scan cap on a large page), and only when the final, redirect-
+    resolved host is amazon.in/amazon.com — None for every other merchant and
+    None on any failure. Never raises; a failure here must fall straight back
+    to today's title/slug-only search, not break it.
+    """
     try:
         timeout = float(get_settings().LINK_TITLE_TIMEOUT)
         with httpx.Client(
@@ -876,33 +942,78 @@ def _title_from_url(url: str) -> str | None:
         ) as client:
             resp = client.get(url)
         logger.info(
-            "[url-search] title-fetch %s -> final=%s status=%s",
+            "[url-search] page-fetch %s -> final=%s status=%s",
             url, resp.url, resp.status_code,
         )
         if resp.status_code != 200:
-            return None
-        # The title lives in <head>, early in the document; cap the text we scan
-        # so a huge product page doesn't turn into a huge regex pass.
-        markup = resp.text[:200_000]
+            return None, None
+        full_markup = resp.text
+        # The title lives in <head>, early in the document; cap the text we
+        # scan for it so a huge product page doesn't turn into a huge regex
+        # pass. The price block can sit further down, so it's read from the
+        # full body below instead.
+        markup = full_markup[:200_000]
     except (httpx.HTTPError, ValueError) as exc:
-        logger.info("[url-search] title-fetch failed for %s: %s", url, exc)
-        return None
+        logger.info("[url-search] page-fetch failed for %s: %s", url, exc)
+        return None, None
 
+    title = None
     for pattern in _META_TITLE_RES:
         m = pattern.search(markup)
         if not m:
             continue
-        title = re.sub(r"\s+", " ", html.unescape(m.group(1))).strip()
-        if len(title) < 3:
+        candidate = re.sub(r"\s+", " ", html.unescape(m.group(1))).strip()
+        if len(candidate) < 3:
             continue
-        low = title.lower()
+        low = candidate.lower()
         if low in _BARE_STORE_TITLES or any(b in low for b in _BAD_TITLE_MARKERS):
-            logger.info("[url-search] rejected page title %r (bot-wall/bare store)", title)
+            logger.info("[url-search] rejected page title %r (bot-wall/bare store)", candidate)
             continue
+        title = candidate
         logger.info("[url-search] using page title: %r", title)
-        return title
-    logger.info("[url-search] no usable title found in page")
-    return None
+        break
+    if title is None:
+        logger.info("[url-search] no usable title found in page")
+
+    price = None
+    if _is_amazon_host(resp.url.host):
+        price = _extract_amazon_price(full_markup, url, str(resp.url))
+        logger.info("[url-search] amazon live price: %s", price)
+
+    return title, price
+
+
+# Prefix marking a candidate's product_token as synthetic (not a real
+# SearchApi.io token) — used both to build the token and, in
+# build_routes_for_token, to recognize and skip a get_product() lookup that
+# would otherwise waste a paid SearchApi call on an ID nothing can resolve.
+_LIVE_AMAZON_TOKEN_PREFIX = "live-amazon:"
+
+
+def _amazon_live_candidate(url: str, title: str | None, price: float) -> dict:
+    """Shape a live-fetched Amazon price like `_product_candidate`'s output,
+    so it can sit in the same picker list as any ordinary candidate.
+
+    `source` is deliberately the plain "Amazon" — not decorated with
+    "verified"/"your link" text. Once picked, this string becomes the
+    merchant key for the Gyftr voucher lookup, the cashback card lookup, the
+    priority-merchant sort, and the per-merchant dedup in
+    build_routes_for_token — all exact/prefix matches on this string, not a
+    fuzzy one. A decorated string would silently break those and could let a
+    second, differently-priced "Amazon" row reappear alongside this one,
+    reintroducing a version of the bug this candidate exists to prevent. The
+    "this one is verified" signal is carried in `product_token` instead."""
+    token = _LIVE_AMAZON_TOKEN_PREFIX + hashlib.sha1(url.encode("utf-8")).hexdigest()[:16]
+    return {
+        "product_token": token,
+        "title": title or _query_from_url(url) or "Amazon product",
+        "price": price,
+        "price_raw": f"₹{price:,.0f}",
+        "thumbnail": None,
+        "source": "Amazon",
+        "rating": None,
+        "reviews": None,
+    }
 
 
 def _clean_url_for_search(url: str) -> str:
@@ -936,13 +1047,17 @@ def search_candidates(query: str) -> dict:
     # labeled approximate.
     effective_query = query
     is_url = bool(_URL_QUERY_RE.match(query))
+    live_candidate = None
     if is_url:
         # Three-layer link recognition, cheapest-reliable first:
         #   1. the page's own og:title (handles short/ID-only links),
         #   2. words from the URL slug,
         #   3. the bare link with tracking params stripped.
+        # The same fetch also recovers a live Amazon price when the link is
+        # an Amazon page — see _fetch_url_page / _amazon_live_candidate.
         logger.info("[url-search] input is a link: %s", query)
-        effective_query = _title_from_url(query)
+        page_title, live_price = _fetch_url_page(query)
+        effective_query = page_title
         layer = "page-title"
         if not effective_query:
             effective_query = _query_from_url(query)
@@ -953,9 +1068,18 @@ def search_candidates(query: str) -> dict:
         logger.info(
             "[url-search] searching via %s -> query=%r", layer, effective_query
         )
+        if live_price is not None:
+            live_candidate = _amazon_live_candidate(query, page_title, live_price)
+            logger.info("[url-search] live Amazon price captured: %s", live_price)
     try:
         raw = searchapi_repository.search_products(effective_query)
         if raw.get("error"):
+            # A live Amazon price stands on its own even if the broader
+            # Google Shopping search is down — don't lose it to an
+            # unrelated API failure.
+            if live_candidate:
+                out["products"] = [live_candidate]
+                return out
             if is_url:
                 logger.info("[url-search] google api error: %s", raw["error"])
             out["error"] = raw["error"]
@@ -980,6 +1104,23 @@ def search_candidates(query: str) -> dict:
             if p.get("product_token")
         ]
         products, approximate = _filter_and_group_candidates(products, effective_query)
+        if live_candidate:
+            # Added after filtering, not before: this candidate is the exact
+            # page the user pasted, already "vetted" by the fact that it's
+            # what they're looking at, so it shouldn't be at risk of getting
+            # dropped by the trust/anchor/outlier checks the way an
+            # unverified listing would be. Supersedes rather than duplicates
+            # any (possibly stale) Amazon row the broader search also
+            # surfaced under a differently-formatted name ("Amazon.in" vs
+            # "Amazon") — _brand_signature already exists to recognize those
+            # as the same merchant, so there's never two conflicting Amazon
+            # prices shown.
+            live_sig = _brand_signature(live_candidate["source"])
+            products = [live_candidate] + [
+                p for p in products
+                if _brand_signature(p.get("source") or "") != live_sig
+            ]
+            approximate = False
         if not products:
             if is_url:
                 logger.info("[url-search] no candidates after filtering")
@@ -1158,6 +1299,13 @@ def build_routes_for_token(
         candidates: list[dict] = []
         display_title = ""
         for token in tokens_to_fetch:
+            # A live-fetched candidate (e.g. an Amazon price read straight off
+            # a pasted link) never came from SearchApi.io, so it has no real
+            # product_token to look up — skip it here rather than spending a
+            # paid SearchApi call on an ID nothing can resolve. It still
+            # reaches the route via the picked_price/picked_source pin below.
+            if token.startswith(_LIVE_AMAZON_TOKEN_PREFIX):
+                continue
             detail = searchapi_repository.get_product(token)
             if detail.get("error"):
                 continue
@@ -1165,7 +1313,7 @@ def build_routes_for_token(
             display_title = display_title or product.get("title") or detail.get("title") or ""
             candidates.extend(_build_candidates(detail))
 
-        if not candidates:
+        if not candidates and not product_token.startswith(_LIVE_AMAZON_TOKEN_PREFIX):
             # Refined search came up empty or every fetch failed — fall back
             # to the originally selected token alone.
             detail = searchapi_repository.get_product(product_token)
@@ -1175,6 +1323,12 @@ def build_routes_for_token(
             product = detail.get("product") or {}
             display_title = product.get("title") or detail.get("title") or ""
             candidates = _build_candidates(detail)
+
+        # A live-fetched candidate with no other real candidates found has no
+        # SearchApi.io title to display — fall back to the picker's own title
+        # for it (same fallback the pin block below already uses for the
+        # route's own title) rather than showing the raw pasted URL.
+        display_title = display_title or (title if product_token.startswith(_LIVE_AMAZON_TOKEN_PREFIX) else "")
 
         if display_title:
             output["source"]["name"] = display_title

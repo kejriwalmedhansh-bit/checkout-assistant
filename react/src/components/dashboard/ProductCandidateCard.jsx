@@ -10,6 +10,10 @@ import { fmt } from '@/utils/format';
  */
 export default function ProductCandidateCard({ product, onSelect, isSelecting }) {
   const { title, price, thumbnail, source, product_token: token } = product;
+  // Backend marks a live-fetched price (read straight off the page the user
+  // pasted, not Google's index) with this product_token prefix — see
+  // _amazon_live_candidate in src/services/search_service.py.
+  const isVerifiedLive = token?.startsWith('live-amazon:');
 
   return (
     <Card
@@ -51,6 +55,11 @@ export default function ProductCandidateCard({ product, onSelect, isSelecting })
           <Text fontSize="13.5px" fontWeight={600} color="text" noOfLines={2} lineHeight={1.35}>
             {title || 'Product'}
           </Text>
+          {isVerifiedLive && (
+            <Text fontSize="11px" fontWeight={600} color="green.500" mt="2px">
+              Verified from your link
+            </Text>
+          )}
         </Box>
 
         <Box flex="0 0 auto" textAlign="right">
