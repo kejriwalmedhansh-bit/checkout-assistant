@@ -49,8 +49,16 @@ def _get(params: dict) -> dict:
 
 
 def search_products(query: str) -> dict:
-    """google_shopping search. Result products live under `shopping_results`."""
-    return _get({"engine": "google_shopping", "q": query})
+    """google_shopping search. Result products live under `shopping_results`.
+
+    Case/whitespace-normalized before dispatch — the cache key and the text
+    sent to Google are both derived from this, so "Tissot PRX", "tissot prx"
+    etc. hit the same cache entry and get identical results, instead of each
+    variant separately querying Google and getting back whatever different
+    listings it happens to return for that exact string.
+    """
+    normalized = " ".join((query or "").split()).lower()
+    return _get({"engine": "google_shopping", "q": normalized})
 
 
 def get_product(product_token: str) -> dict:
