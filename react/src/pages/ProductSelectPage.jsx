@@ -8,6 +8,7 @@ import ErrorBox from '@/components/common/ErrorBox';
 import LoadingCard from '@/components/common/LoadingCard';
 import SearchBox from '@/components/common/SearchBox';
 import { I } from '@/components/common/icons';
+import ApproximateNotice from '@/components/dashboard/ApproximateNotice';
 import ProductCandidateCard from '@/components/dashboard/ProductCandidateCard';
 import { usePageTitle } from '@/hooks/usePageTitle';
 import { gradients } from '@/theme/foundations/colors';
@@ -29,6 +30,7 @@ export default function ProductSelectPage() {
   const navigate = useNavigate();
   const query = useSearchStore((s) => s.query);
   const candidates = useSearchStore((s) => s.candidates);
+  const approximate = useSearchStore((s) => s.approximate);
   const searchStatus = useSearchStore((s) => s.searchStatus);
   const status = useSearchStore((s) => s.status);
   const selectedToken = useSearchStore((s) => s.selectedToken);
@@ -112,6 +114,7 @@ export default function ProductSelectPage() {
 
         {searchStatus === 'success' && candidates.length > 0 && (
           <>
+            {approximate && <ApproximateNotice variant="picker" />}
             <Text fontSize="13px" color="text3" mb="12px">
               Select the exact product you want — we&apos;ll find the cheapest way to buy it.
             </Text>

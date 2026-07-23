@@ -6,6 +6,7 @@ import BackButton from '@/components/common/BackButton';
 import ErrorBox from '@/components/common/ErrorBox';
 import LoadingCard from '@/components/common/LoadingCard';
 import SearchBox from '@/components/common/SearchBox';
+import ApproximateNotice from '@/components/dashboard/ApproximateNotice';
 import ProductIdentity from '@/components/dashboard/ProductIdentity';
 import SavingsBar from '@/components/dashboard/SavingsBar';
 import RouteCard from '@/components/dashboard/RouteCard';
@@ -30,6 +31,7 @@ export default function ResultsPage() {
   const navigate = useNavigate();
   const query = useSearchStore((s) => s.query);
   const result = useSearchStore((s) => s.result);
+  const approximate = useSearchStore((s) => s.approximate);
   const selectedThumbnail = useSearchStore((s) => s.selectedThumbnail);
   const status = useSearchStore((s) => s.status);
   const error = useSearchStore((s) => s.error);
@@ -96,6 +98,7 @@ export default function ResultsPage() {
         <ErrorBox message="No results found. Try a different search." />
       ) : (
         <Flex direction="column" gap="14px">
+          {approximate && <ApproximateNotice variant="results" />}
           <ProductIdentity name={productName} sourceUrl={sourceUrl} thumbnail={selectedThumbnail} />
           <SavingsBar
             originalPrice={calcOriginal(result, activeRoute)}
