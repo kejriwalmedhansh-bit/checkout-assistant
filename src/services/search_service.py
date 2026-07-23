@@ -1291,15 +1291,21 @@ def _pinned_candidate(title: str, price: float | None, source: str, sellers: lis
     }
 
 
-def _find_seller_link(candidates: list[dict], source: str) -> list[dict]:
+def _find_seller_link(candidates: list[dict], source: str) -> dict | None:
     """Best-effort recovery of a real seller link for `source` from a
     candidate pool that may include merchants the trust filter would
     otherwise strip — used only to attach a working link to an already-
-    pinned, already-priced candidate, never to admit an untrusted merchant
-    as a route on its own. Fallback path only — see _find_pdp_candidate,
-    which is tried first and is more precise (it verifies the candidate came
-    from the exact picked listing's own product-detail fetch, not just a
-    matching merchant name).
+    pinned candidate, never to admit an untrusted merchant as a route on its
+    own. Fallback path only — see _find_pdp_candidate, which is tried first
+    and is more precise (it verifies the candidate came from the exact
+    picked listing's own product-detail fetch, not just a matching merchant
+    name).
+
+    Returns the whole matching candidate (not just its `sellers`) so the
+    caller can take its price too — the price and the link this recovers
+    always come from the same object, never the earlier, possibly-stale
+    `picked_price` glued onto a different listing's link (the exact "price
+    doesn't match the merchant page" bug this replaced).
 
     Matches on `_brand_signature`, not a plain string/`_norm` equality — the
     picker's search endpoint and this function's own candidate pool (from
@@ -1310,11 +1316,11 @@ def _find_seller_link(candidates: list[dict], source: str) -> list[dict]:
     have found one for."""
     sig = _brand_signature(source)
     if not sig:
-        return []
+        return None
     for c in candidates:
         if _brand_signature(c.get("merchant") or "") == sig and c.get("sellers"):
-            return c["sellers"]
-    return []
+            return c
+    return None
 
 
 def _find_pdp_candidate(
@@ -1547,9 +1553,12 @@ def build_routes_for_token(
                     pdp_candidate.get("sellers") or [],
                 ))
             else:
-                recovered_sellers = _find_seller_link(pre_filter_candidates, picked_source)
+                recovered = _find_seller_link(pre_filter_candidates, picked_source)
                 candidates.append(_pinned_candidate(
-                    display_title or title or query, picked_price, picked_source, recovered_sellers,
+                    display_title or title or query,
+                    recovered["price"] if recovered and recovered.get("price") is not None else picked_price,
+                    picked_source,
+                    recovered["sellers"] if recovered else [],
                 ))
 
         candidates = _dedup_by_merchant(candidates)
