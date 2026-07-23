@@ -28,13 +28,6 @@ export default function Journey({ rec }) {
   const [dismissed, setDismissed] = useState({ store: false, voucher: false, pay: false });
   const hintsEnabled = useUiStore((s) => s.hintsEnabled);
 
-  const nextStep = (() => {
-    if (!checked.store) return 'store';
-    if (!v) return null;
-    if (!checked.voucher) return 'voucher';
-    return 'pay';
-  })();
-
   // A brief "pending" beat before the checkmark lands — an instant flip is
   // easy to miss; this makes the confirmation a moment you actually notice.
   const check = (key) => () => {
@@ -56,7 +49,10 @@ export default function Journey({ rec }) {
     }.`,
   };
 
-  const hintVisible = (step) => hintsEnabled && !dismissed[step] && nextStep === step;
+  // All three hints show at once, each under its own step — not just
+  // whichever step is next. Matches the row itself: nothing about a step is
+  // hidden just because you haven't reached it yet.
+  const hintVisible = (step) => hintsEnabled && !dismissed[step];
   const hideHint = (step) => () => setDismissed((d) => ({ ...d, [step]: true }));
 
   const storeRow = (
