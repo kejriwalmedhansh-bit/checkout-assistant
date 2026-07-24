@@ -7,6 +7,7 @@ import ErrorBox from '@/components/common/ErrorBox';
 import LoadingCard from '@/components/common/LoadingCard';
 import SearchBox from '@/components/common/SearchBox';
 import ApproximateNotice from '@/components/dashboard/ApproximateNotice';
+import BestPriceConfirmed from '@/components/dashboard/BestPriceConfirmed';
 import ProductIdentity from '@/components/dashboard/ProductIdentity';
 import SavingsBar from '@/components/dashboard/SavingsBar';
 import RouteCard from '@/components/dashboard/RouteCard';
@@ -100,11 +101,15 @@ export default function ResultsPage() {
         <Flex direction="column" gap="14px">
           {approximate && <ApproximateNotice variant="results" />}
           <ProductIdentity name={productName} sourceUrl={sourceUrl} thumbnail={selectedThumbnail} />
-          <SavingsBar
-            originalPrice={calcOriginal(result, activeRoute)}
-            finalPrice={calcFinal(activeRoute)}
-            saving={calcSaving(result, activeRoute)}
-          />
+          {calcSaving(result, activeRoute) > 0 ? (
+            <SavingsBar
+              originalPrice={calcOriginal(result, activeRoute)}
+              finalPrice={calcFinal(activeRoute)}
+              saving={calcSaving(result, activeRoute)}
+            />
+          ) : (
+            <BestPriceConfirmed comparedCount={result?.routes?.compared_count} />
+          )}
           <RouteCard
             key={`${activeRoute.merchant}-${activeRoute.final_cost ?? ''}`}
             result={result}

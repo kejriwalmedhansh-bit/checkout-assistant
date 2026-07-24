@@ -389,7 +389,7 @@ def _build_routes(results: list[dict], vouchers: list[dict]) -> dict:
     routes.sort(key=lambda x: x["final_cost"])
 
     if not routes:
-        return {"recommended": None, "alternatives": []}
+        return {"recommended": None, "alternatives": [], "compared_count": 0}
 
     shown = routes[:4]
     for route in shown:
@@ -397,7 +397,7 @@ def _build_routes(results: list[dict], vouchers: list[dict]) -> dict:
         if card_fomo:
             route["card_fomo"] = card_fomo
 
-    return {"recommended": shown[0], "alternatives": shown[1:4]}
+    return {"recommended": shown[0], "alternatives": shown[1:4], "compared_count": len(routes)}
 
 
 # ── candidate filtering + variant grouping (revives engine/matcher.py-style

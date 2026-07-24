@@ -127,6 +127,10 @@ class RouteModel(BaseModel):
 class RoutesModel(BaseModel):
     recommended: RouteModel | None = None
     alternatives: list[RouteModel] = []
+    # Exact count of distinct, rankable merchant routes considered before
+    # slicing to recommended + top 3 alternatives — powers the "checked N
+    # stores" trust copy when there's no positive saving to show instead.
+    compared_count: int = 0
 
 
 class SourceModel(BaseModel):
