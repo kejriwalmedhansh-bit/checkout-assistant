@@ -10,6 +10,8 @@ from typing import Any
 
 from pydantic import BaseModel
 
+from .vouchers import VoucherDetailOut
+
 
 class SearchRequest(BaseModel):
     query: str
@@ -24,6 +26,9 @@ class ProductCandidate(BaseModel):
     source: str = ""
     rating: float | None = None
     reviews: int | None = None
+    # True when `source` matches a Gyftr brand — an instant, no-API-call check
+    # (voucher_repository.get_by_merchant) done once per candidate server-side.
+    has_voucher: bool = False
 
 
 class SearchCandidatesResponse(BaseModel):
@@ -34,6 +39,12 @@ class SearchCandidatesResponse(BaseModel):
     # trustworthy matches instead (e.g. "AirPods Pro Max", which isn't a real
     # product). Defaults False so older frontend builds still validate.
     approximate: bool = False
+    # "products" (normal picker flow) or "brand_voucher" (the query named a
+    # Gyftr brand directly — L1 price discovery is skipped entirely since it
+    # can't price flights/hotels/experiences and the brand match is itself
+    # the useful signal). Only `voucher` is populated in the latter case.
+    mode: str = "products"
+    voucher: VoucherDetailOut | None = None
 
 
 class RoutesRequest(BaseModel):

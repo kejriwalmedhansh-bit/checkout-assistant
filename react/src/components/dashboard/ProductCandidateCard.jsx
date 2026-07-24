@@ -8,6 +8,17 @@ import { fmt } from '@/utils/format';
  * One candidate product in the selection grid (step 1 of the two-step flow).
  * Clicking it commits the product_token and kicks off the route build.
  */
+// Standard-tier hover lift (confirmed over both a barely-there nudge and a
+// bouncier spring): a real rise + shadow, no overshoot. Transform/opacity
+// only so it stays on the compositor thread, and fully off under
+// prefers-reduced-motion.
+const REDUCED_MOTION_SX = {
+  '@media (prefers-reduced-motion: reduce)': {
+    transition: 'none !important',
+    '&:hover': { transform: 'none !important' },
+  },
+};
+
 export default function ProductCandidateCard({ product, onSelect, isSelecting }) {
   const { title, price, thumbnail, source, product_token: token } = product;
   // Backend marks a live-fetched price (read straight off the page the user
@@ -19,6 +30,7 @@ export default function ProductCandidateCard({ product, onSelect, isSelecting })
     <Card
       as="button"
       type="button"
+      role="group"
       onClick={() => onSelect(token, title, price, source, thumbnail)}
       disabled={isSelecting}
       textAlign="left"
@@ -26,8 +38,9 @@ export default function ProductCandidateCard({ product, onSelect, isSelecting })
       p="14px 16px"
       cursor={isSelecting ? 'wait' : 'pointer'}
       opacity={isSelecting ? 0.6 : 1}
-      transition="border-color .15s ease, box-shadow .15s ease, transform .15s ease"
-      _hover={{ borderColor: 'brand', boxShadow: 'md', transform: 'translateY(-1px)' }}
+      transition="transform .25s cubic-bezier(.16,.68,.32,1), box-shadow .25s cubic-bezier(.16,.68,.32,1), border-color .25s ease"
+      _hover={{ borderColor: 'brand', boxShadow: '0 20px 36px rgba(0,0,0,.35)', transform: 'translateY(-6px) scale(1.02)' }}
+      sx={REDUCED_MOTION_SX}
     >
       <Flex align="center" gap="14px">
         <Flex
@@ -64,13 +77,42 @@ export default function ProductCandidateCard({ product, onSelect, isSelecting })
 
         <Box flex="0 0 auto" textAlign="right">
           {price != null && (
-            <Text fontFamily="mono" fontSize="14px" fontWeight={600} color="text">
-              from {fmt(price)}
+            <Text
+              fontFamily="mono"
+              fontSize="12.5px"
+              fontWeight={500}
+              color="text3"
+              transition="opacity .18s ease"
+              _groupHover={{ opacity: 0.5 }}
+            >
+              <Box as="span" fontSize="10px" textTransform="uppercase" letterSpacing=".05em" mr="4px">
+                Listed
+              </Box>
+              {fmt(price)}
             </Text>
           )}
-          <Box color="text3" display="inline-flex" mt="4px">
-            <I.chevRight size={16} />
-          </Box>
+          <Flex
+            align="center"
+            justify="flex-end"
+            gap="4px"
+            mt="4px"
+            color="brand"
+            fontSize="12.5px"
+            fontWeight={700}
+            whiteSpace="nowrap"
+            transition="color .18s ease"
+            _groupHover={{ color: 'brandHover' }}
+          >
+            Better price
+            <Box
+              display="inline-flex"
+              transition="transform .18s cubic-bezier(.16,.68,.32,1)"
+              _groupHover={{ transform: 'translateX(6px)' }}
+              sx={REDUCED_MOTION_SX}
+            >
+              <I.chevRight size={13} />
+            </Box>
+          </Flex>
         </Box>
       </Flex>
     </Card>

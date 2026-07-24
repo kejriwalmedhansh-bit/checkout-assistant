@@ -9,6 +9,7 @@ import LoadingCard from '@/components/common/LoadingCard';
 import SearchBox from '@/components/common/SearchBox';
 import { I } from '@/components/common/icons';
 import ApproximateNotice from '@/components/dashboard/ApproximateNotice';
+import BrandVoucherCard from '@/components/dashboard/BrandVoucherCard';
 import ProductCandidateCard from '@/components/dashboard/ProductCandidateCard';
 import { usePageTitle } from '@/hooks/usePageTitle';
 import { gradients } from '@/theme/foundations/colors';
@@ -31,6 +32,8 @@ export default function ProductSelectPage() {
   const query = useSearchStore((s) => s.query);
   const candidates = useSearchStore((s) => s.candidates);
   const approximate = useSearchStore((s) => s.approximate);
+  const mode = useSearchStore((s) => s.mode);
+  const voucher = useSearchStore((s) => s.voucher);
   const searchStatus = useSearchStore((s) => s.searchStatus);
   const status = useSearchStore((s) => s.status);
   const selectedToken = useSearchStore((s) => s.selectedToken);
@@ -94,7 +97,11 @@ export default function ProductSelectPage() {
 
         {searchStatus === 'error' && <ErrorBox message={error || 'Search failed.'} />}
 
-        {searchStatus === 'success' && candidates.length === 0 && (
+        {searchStatus === 'success' && mode === 'brand_voucher' && voucher && (
+          <BrandVoucherCard voucher={voucher} />
+        )}
+
+        {searchStatus === 'success' && mode !== 'brand_voucher' && candidates.length === 0 && (
           <Card p="36px 22px">
             <Flex direction="column" align="center" gap="12px" textAlign="center">
               <Flex w="48px" h="48px" borderRadius="12px" bg="brandSoft" color="brand" align="center" justify="center">
@@ -112,7 +119,7 @@ export default function ProductSelectPage() {
           </Card>
         )}
 
-        {searchStatus === 'success' && candidates.length > 0 && (
+        {searchStatus === 'success' && mode !== 'brand_voucher' && candidates.length > 0 && (
           <>
             {approximate && <ApproximateNotice variant="picker" />}
             <Text fontSize="13px" color="text3" mb="12px">

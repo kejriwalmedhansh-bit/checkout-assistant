@@ -21,6 +21,10 @@ export const useSearchStore = create(
       // product). The picker says so rather than passing them off as the thing
       // that was asked for.
       approximate: false,
+      // 'products' (normal picker) or 'brand_voucher' (query named a Gyftr
+      // brand directly — L1 is skipped, `voucher` is the brand's raw deal).
+      mode: 'products',
+      voucher: null,
       selectedToken: null,
       selectedThumbnail: null,
       result: null,
@@ -36,6 +40,8 @@ export const useSearchStore = create(
           query: q,
           candidates: [],
           approximate: false,
+          mode: 'products',
+          voucher: null,
           selectedToken: null,
           result: null,
           searchStatus: 'loading',
@@ -50,6 +56,8 @@ export const useSearchStore = create(
             set({
               candidates: data.products || [],
               approximate: Boolean(data.approximate),
+              mode: data.mode || 'products',
+              voucher: data.voucher || null,
               searchStatus: 'success',
               error: null,
             });
@@ -78,6 +86,8 @@ export const useSearchStore = create(
           query: '',
           candidates: [],
           approximate: false,
+          mode: 'products',
+          voucher: null,
           selectedToken: null,
           selectedThumbnail: null,
           result: null,
@@ -93,6 +103,8 @@ export const useSearchStore = create(
         query: s.query,
         candidates: s.candidates,
         approximate: s.approximate,
+        mode: s.mode,
+        voucher: s.voucher,
         selectedToken: s.selectedToken,
         selectedThumbnail: s.selectedThumbnail,
         result: s.result,

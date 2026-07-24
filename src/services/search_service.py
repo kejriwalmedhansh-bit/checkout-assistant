@@ -64,6 +64,50 @@ def _norm(name: str) -> str:
 
 
 _trusted_merchants_cache: set[str] | None = None
+_brand_voucher_index_cache: dict[str, dict] | None = None
+
+
+def _load_brand_voucher_index() -> dict[str, dict]:
+    """Maps a normalized, spaceless full Gyftr brand name ("Tata CLiQ" ->
+    "tatacliq") to its raw voucher record, for exact whole-phrase query
+    matching in `_match_brand_voucher`. Cached — 380 brands, loaded once."""
+    global _brand_voucher_index_cache
+    if _brand_voucher_index_cache is not None:
+        return _brand_voucher_index_cache
+    index: dict[str, dict] = {}
+    for voucher in voucher_repository.all_vouchers():
+        key = _norm(voucher.get("brand_name", ""))
+        if key:
+            index[key] = voucher
+    _brand_voucher_index_cache = index
+    return index
+
+
+# Longest brand_name in gyftr_master.json is 6 words (e.g. multi-word jewelry
+# brands) — bounds the query word-window scan below.
+_MAX_BRAND_WORDS = 6
+
+
+def _match_brand_voucher(query: str) -> dict | None:
+    """Whole-phrase, exact match only — never a substring check. A query word
+    window (1 to `_MAX_BRAND_WORDS` consecutive words) must normalize to
+    exactly equal a Gyftr brand's full normalized name. Deliberately stricter
+    than `_is_trusted_merchant`'s substring/signature matching: that function
+    matches an already-identified merchant name, but this scans raw free text,
+    where a substring check risks false positives (e.g. a short brand name
+    matching a piece of an unrelated word) — the kind of over-eager pattern
+    matching CLAUDE.md rule 1 warns against."""
+    words = re.findall(r"[a-z0-9]+", (query or "").lower())
+    if not words:
+        return None
+    index = _load_brand_voucher_index()
+    for start in range(len(words)):
+        for length in range(1, min(_MAX_BRAND_WORDS, len(words) - start) + 1):
+            window = "".join(words[start:start + length])
+            voucher = index.get(window)
+            if voucher:
+                return voucher
+    return None
 
 
 # Words a genuine storefront appends to its brand name ("Croma Retail",
@@ -765,15 +809,17 @@ def _product_candidate(p: dict) -> dict:
             break
     if price is None:
         price = parse_price(p.get("price"))
+    source = p.get("seller") or p.get("source") or p.get("store") or ""
     return {
         "product_token": p.get("product_token"),
         "title": p.get("title") or "",
         "price": price,
         "price_raw": p.get("price"),
         "thumbnail": p.get("thumbnail") or p.get("image"),
-        "source": p.get("seller") or p.get("source") or p.get("store") or "",
+        "source": source,
         "rating": p.get("rating"),
         "reviews": p.get("reviews"),
+        "has_voucher": voucher_repository.get_by_merchant(source) is not None if source else False,
     }
 
 
@@ -1116,6 +1162,15 @@ def search_candidates(query: str) -> dict:
     out = {"query": query, "products": [], "error": None, "approximate": False}
     if not query:
         out["error"] = "Empty query."
+        return out
+    # A brand-name query (e.g. "myntra gift card") can't be priced by L1 at
+    # all — Dealo doesn't price flights/hotels/experiences, and the brand
+    # match is itself the useful signal — so skip URL/SerpAPI/candidate
+    # search entirely and go straight to the Gyftr voucher.
+    matched_voucher = _match_brand_voucher(query)
+    if matched_voucher:
+        out["mode"] = "brand_voucher"
+        out["voucher"] = matched_voucher
         return out
     # A pasted link is turned into a search query without scraping the product:
     # its page title first, then its slug words. The response still echoes
