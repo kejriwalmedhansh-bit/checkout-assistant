@@ -106,6 +106,7 @@ export default function ResultsPage() {
               originalPrice={calcOriginal(result, activeRoute)}
               finalPrice={calcFinal(activeRoute)}
               saving={calcSaving(result, activeRoute)}
+              voucherRequired={!!activeRoute.voucher}
             />
           ) : (
             <BestPriceConfirmed comparedCount={result?.routes?.compared_count} />

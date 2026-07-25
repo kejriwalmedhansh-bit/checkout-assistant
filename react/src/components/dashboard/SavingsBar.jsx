@@ -8,8 +8,12 @@ import { fmt } from '@/utils/format';
  * strongest visual treatment on the page: a large "You save ₹X" headline
  * with a percentage badge, was/now price as supporting detail underneath.
  * Renders nothing when there is no positive saving to show.
+ *
+ * `voucherRequired` adds a small qualifier under the headline for
+ * voucher routes — without it, this number reads as already-applied the
+ * moment someone sees it, before they've bought anything.
  */
-export default function SavingsBar({ originalPrice, finalPrice, saving }) {
+export default function SavingsBar({ originalPrice, finalPrice, saving, voucherRequired = false }) {
   if (!saving || saving <= 0) return null;
 
   const pct = originalPrice ? Math.round((saving / originalPrice) * 100) : null;
@@ -83,6 +87,12 @@ export default function SavingsBar({ originalPrice, finalPrice, saving }) {
           {fmt(finalPrice)}
         </Text>
       </Flex>
+
+      {voucherRequired && (
+        <Text fontSize="11px" color="text3" mt="8px">
+          once you complete both steps below
+        </Text>
+      )}
     </Box>
   );
 }

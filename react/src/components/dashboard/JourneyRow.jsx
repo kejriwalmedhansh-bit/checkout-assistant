@@ -95,13 +95,28 @@ function CheckIcon(props) {
  * Vertical connector between two rows, aligned under the icon dots. Colors
  * in once the row above is done — a real, growing green line rather than a
  * neutral divider — so the checklist reads as one path being walked rather
- * than three independent rows.
+ * than three independent rows. A small "then" chevron always shows on the
+ * line (not just once done) — a static divider reads as a boundary between
+ * unrelated facts; the chevron is what makes it read as a sequence you're
+ * meant to walk through in order.
  */
 export function JourneyConnector({ done = false }) {
   return (
     <Flex align="center" gap="14px">
-      <Flex w="34px" flex="0 0 34px" justify="center">
-        <Box w="2px" h="12px" bg={done ? 'brand' : 'borderStrong'} transition="background .3s" />
+      <Flex w="34px" flex="0 0 34px" direction="column" align="center" gap="1px">
+        <Box w="2px" h="10px" bg={done ? 'brand' : 'borderStrong'} transition="background .3s" />
+        <Box
+          as="svg"
+          viewBox="0 0 12 7"
+          w="10px"
+          h="6px"
+          color={done ? 'brand' : 'text3'}
+          opacity={done ? 1 : 0.7}
+          transition="color .3s"
+        >
+          <path d="M1 1l5 5 5-5" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+        </Box>
+        <Box w="2px" h="10px" bg={done ? 'brand' : 'borderStrong'} transition="background .3s" />
       </Flex>
       <Box flex="1" />
     </Flex>
@@ -124,10 +139,13 @@ export default function JourneyRow({
   label,
   facts,
   caption,
+  badge,
   link,
   checked = false,
   ready = false,
   pending = false,
+  emphasized = false,
+  current = false,
   onCheck,
   hintText,
   hintVisible,
@@ -135,14 +153,58 @@ export default function JourneyRow({
 }) {
   const t = TONES[tone] || TONES.brand;
   const filled = checked || ready;
+  // Nothing is ever hidden — every step stays fully visible and fully
+  // readable regardless of progress (that shell was tried twice before and
+  // reverted both times for hiding info the user considered important). The
+  // "flow" feeling instead comes from contrast: the step that's next gets a
+  // glow and full opacity, everything else (not yet reached, and not done)
+  // sits quieter — a look difference, not an information difference.
+  const quiet = !filled && !current;
+
+  // When a step becomes current, it pops in (a quick scale-up, not just a
+  // fade) and then breathes gently in place — the same "something needs you"
+  // language as the button's own TapCue/PingRings, just on the whole card
+  // this time, since asking someone to notice a color change alone (even
+  // glowing) is easy to miss on a page they're skimming.
+  const currentActive = current && !filled;
 
   return (
     <Box
-      bg={filled ? 'brandSoft' : 'transparent'}
+      bg={filled ? 'brandSoft' : emphasized ? t.bg : 'transparent'}
+      border={(emphasized || current) && !filled ? '1.5px solid' : '1.5px solid transparent'}
+      borderColor={(emphasized || current) && !filled ? t.border : 'transparent'}
       borderRadius="10px"
-      px={filled ? '11px' : '0'}
-      mx={filled ? '-11px' : '0'}
-      transition="background 1.4s ease, padding .3s ease, margin .3s ease"
+      px={filled || emphasized || current ? '13px' : '0'}
+      mx={filled || emphasized || current ? '-13px' : '0'}
+      opacity={quiet ? 0.6 : 1}
+      transition="background 1.4s ease, padding .3s ease, margin .3s ease, border-color .3s ease, opacity .35s ease"
+      sx={{
+        '@keyframes dealoCurrentArrive': {
+          '0%': { transform: 'scale(.97)', boxShadow: '0 0 0 0 transparent' },
+          '40%': { transform: 'scale(1.008)' },
+          '100%': { transform: 'scale(1)' },
+        },
+        '@keyframes dealoCurrentGlow': {
+          '0%, 100%': {
+            boxShadow: `0 0 0 1px var(--chakra-colors-${t.color}), 0 0 14px -6px var(--chakra-colors-${t.color})`,
+          },
+          '50%': {
+            boxShadow: `0 0 0 1.5px var(--chakra-colors-${t.color}), 0 0 28px -5px var(--chakra-colors-${t.color})`,
+          },
+        },
+        boxShadow: currentActive
+          ? `0 0 0 1px var(--chakra-colors-${t.color}), 0 0 14px -6px var(--chakra-colors-${t.color})`
+          : 'none',
+        animation: currentActive
+          ? 'dealoCurrentArrive .45s cubic-bezier(.34,1.2,.64,1), dealoCurrentGlow 2.4s ease-in-out .45s infinite'
+          : 'none',
+        '@media (prefers-reduced-motion: reduce)': {
+          animation: 'none',
+          boxShadow: currentActive
+            ? `0 0 0 1.5px var(--chakra-colors-${t.color})`
+            : 'none',
+        },
+      }}
     >
       <Flex align="center" gap="14px" py="11px">
         <Flex
@@ -174,9 +236,28 @@ export default function JourneyRow({
           {checked ? <CheckIcon /> : Ico ? <Ico size={16} /> : null}
         </Flex>
 
-        <Text fontSize="13.5px" fontWeight={700} color="text" flex="1" minW={0}>
-          {label}
-        </Text>
+        <Box flex="1" minW={0}>
+          <Text fontSize="13.5px" fontWeight={700} color="text">
+            {label}
+          </Text>
+          {badge && !filled && (
+            <Text
+              display="inline-block"
+              mt="3px"
+              fontSize="10.5px"
+              fontWeight={700}
+              color={t.color}
+              bg={t.bg}
+              border="1px solid"
+              borderColor={t.border}
+              borderRadius="99px"
+              px="8px"
+              py="1px"
+            >
+              {badge}
+            </Text>
+          )}
+        </Box>
 
         {link?.href && (
           <Box position="relative" flex="0 0 auto">
