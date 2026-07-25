@@ -16,7 +16,7 @@ import AlternativesToggle from '@/components/dashboard/AlternativesToggle';
 import { usePageTitle } from '@/hooks/usePageTitle';
 import { ROUTES } from '@/routes/paths';
 import { useSearchStore } from '@/store/searchStore';
-import { finalPrice as calcFinal, originalPrice as calcOriginal, saving as calcSaving } from '@/utils/format';
+import { affiliateUrl, finalPrice as calcFinal, originalPrice as calcOriginal, saving as calcSaving } from '@/utils/format';
 
 const LOADING_MSGS = [
   'Finding the best price...',
@@ -68,7 +68,14 @@ export default function ResultsPage() {
   };
 
   const productName = result?.source?.name || rec?.title || query;
-  const sourceUrl = result?.mode === 'url' ? query : null;
+  // The exact vendor product page — the URL the user pasted, when they
+  // pasted one, or otherwise the recommended (or picked-alternative)
+  // route's own merchant link. Either way, this is "click through and see
+  // the real listing," not just a name string — the photo and product name
+  // both link here so someone can verify it's the right item before buying
+  // a voucher for it.
+  const vendorLink = activeRoute?.sellers?.[0]?.link;
+  const sourceUrl = result?.mode === 'url' ? query : vendorLink ? affiliateUrl(vendorLink) : null;
 
   return (
     <Box ref={scrollRef} maxW="640px" mx="auto">

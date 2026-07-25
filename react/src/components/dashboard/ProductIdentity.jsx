@@ -33,14 +33,35 @@ function NameBlock({ name, sourceUrl }) {
  * the source URL when the search was a URL. When a real product photo is
  * available (carried over from the candidate the user picked), it gets a
  * full-width banner treatment — the point is to make this look like a
- * specific, real item, not a generic placeholder. Falls back to a compact
- * icon row when there's no photo.
+ * specific, real item, not a generic placeholder. The photo itself links to
+ * the exact vendor product page too (not just the name below it) — someone
+ * should be able to click the picture and land on the real listing to
+ * confirm it's the right item before buying a voucher for it. Falls back to
+ * a compact icon row when there's no photo.
  */
 export default function ProductIdentity({ name, sourceUrl, thumbnail }) {
   const prefersReduced = useReducedMotion();
   const groundShadow = 'rgba(0,0,0,.55)';
 
   if (thumbnail) {
+    const photo = (
+      <motion.div
+        style={{ maxWidth: '82%', maxHeight: '100%', display: 'flex', position: 'relative' }}
+        initial={prefersReduced ? false : { opacity: 0, y: 14, scale: 0.94 }}
+        animate={{ opacity: 1, y: 0, scale: 1 }}
+        transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
+      >
+        <Image
+          src={thumbnail}
+          alt=""
+          maxW="100%"
+          maxH="100%"
+          objectFit="contain"
+          filter="drop-shadow(var(--chakra-shadows-photoDrop)) drop-shadow(var(--chakra-shadows-photoDropSoft))"
+        />
+      </motion.div>
+    );
+
     return (
       <Card p="0" overflow="hidden">
         <Flex
@@ -64,21 +85,23 @@ export default function ProductIdentity({ name, sourceUrl, thumbnail }) {
             bg={`radial-gradient(closest-side, ${groundShadow}, transparent 75%)`}
             filter="blur(4px)"
           />
-          <motion.div
-            style={{ maxWidth: '82%', maxHeight: '100%', display: 'flex', position: 'relative' }}
-            initial={prefersReduced ? false : { opacity: 0, y: 14, scale: 0.94 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
-          >
-            <Image
-              src={thumbnail}
-              alt=""
-              maxW="100%"
-              maxH="100%"
-              objectFit="contain"
-              filter="drop-shadow(var(--chakra-shadows-photoDrop)) drop-shadow(var(--chakra-shadows-photoDropSoft))"
-            />
-          </motion.div>
+          {sourceUrl ? (
+            <Link
+              href={sourceUrl}
+              isExternal
+              display="flex"
+              alignItems="center"
+              justifyContent="center"
+              w="100%"
+              h="100%"
+              position="relative"
+              _hover={{ opacity: 0.92 }}
+            >
+              {photo}
+            </Link>
+          ) : (
+            photo
+          )}
         </Flex>
         <Box p="14px 18px">
           <NameBlock name={name} sourceUrl={sourceUrl} />
