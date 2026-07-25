@@ -72,7 +72,10 @@ export default function CardFomo({ cardFomo }) {
             borderRadius="6px"
             px="10px"
             py="6px"
+            transition="transform .16s ease-out, background .16s ease"
             _hover={{ textDecoration: 'none', bg: 'brandSoft2' }}
+            _active={{ transform: 'scale(0.96)' }}
+            sx={{ '@media (prefers-reduced-motion: reduce)': { transition: 'background .16s ease', '&:active': { transform: 'none' } } }}
           >
             Apply →
           </Link>

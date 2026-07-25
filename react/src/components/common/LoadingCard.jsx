@@ -1,15 +1,19 @@
 import { useEffect, useState } from 'react';
 import { Box, Flex, Text } from '@chakra-ui/react';
+import { AnimatePresence, motion, useReducedMotion } from 'framer-motion';
 
 import Card from './Card';
 
 /**
  * Centered card with pulsing dots + a rotating reassurance message. Shared by
  * any page that waits on a real network call long enough to need one
- * (ResultsPage building routes, ProductSelectPage fetching candidates).
+ * (ResultsPage building routes, ProductSelectPage fetching candidates). The
+ * message crossfades between lines instead of jump-cutting — small, but it's
+ * the one piece of this card that changes every few seconds without saying so.
  */
 export default function LoadingCard({ messages }) {
   const [idx, setIdx] = useState(0);
+  const prefersReduced = useReducedMotion();
   useEffect(() => {
     const t = setInterval(() => setIdx((i) => Math.min(i + 1, messages.length - 1)), 3000);
     return () => clearInterval(t);
@@ -38,9 +42,27 @@ export default function LoadingCard({ messages }) {
               />
             ))}
           </Flex>
-          <Text fontSize="14px" color="text2" fontWeight={500}>
-            {messages[idx]}
-          </Text>
+          <Box position="relative" minH="20px" w="100%" textAlign="center">
+            {prefersReduced ? (
+              <Text fontSize="14px" color="text2" fontWeight={500}>
+                {messages[idx]}
+              </Text>
+            ) : (
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={idx}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.2 }}
+                >
+                  <Text fontSize="14px" color="text2" fontWeight={500}>
+                    {messages[idx]}
+                  </Text>
+                </motion.div>
+              </AnimatePresence>
+            )}
+          </Box>
         </Flex>
       </Card>
     </Flex>

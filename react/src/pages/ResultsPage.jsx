@@ -1,5 +1,6 @@
 import { useRef, useState } from 'react';
 import { Box, Flex } from '@chakra-ui/react';
+import { motion, useReducedMotion } from 'framer-motion';
 import { Navigate, useNavigate } from 'react-router-dom';
 
 import BackButton from '@/components/common/BackButton';
@@ -30,6 +31,7 @@ export default function ResultsPage() {
   usePageTitle('Results');
 
   const navigate = useNavigate();
+  const prefersReduced = useReducedMotion();
   const query = useSearchStore((s) => s.query);
   const result = useSearchStore((s) => s.result);
   const approximate = useSearchStore((s) => s.approximate);
@@ -105,33 +107,43 @@ export default function ResultsPage() {
       ) : !rec ? (
         <ErrorBox message="No results found. Try a different search." />
       ) : (
-        <Flex direction="column" gap="14px">
-          {approximate && <ApproximateNotice variant="results" />}
-          <ProductIdentity name={productName} sourceUrl={sourceUrl} thumbnail={selectedThumbnail} />
-          {calcSaving(result, activeRoute) > 0 ? (
-            <SavingsBar
-              originalPrice={calcOriginal(result, activeRoute)}
-              finalPrice={calcFinal(activeRoute)}
-              saving={calcSaving(result, activeRoute)}
-              voucherRequired={!!activeRoute.voucher}
+        // The loader (pulsing dots) unmounts and this whole block mounts in
+        // its place the instant a search resolves — without this, that's a
+        // hard cut on every single search, the most-repeated moment in the
+        // product. A quick fade + rise bridges it instead of snapping.
+        <motion.div
+          initial={prefersReduced ? false : { opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+        >
+          <Flex direction="column" gap="14px">
+            {approximate && <ApproximateNotice variant="results" />}
+            <ProductIdentity name={productName} sourceUrl={sourceUrl} thumbnail={selectedThumbnail} />
+            {calcSaving(result, activeRoute) > 0 ? (
+              <SavingsBar
+                originalPrice={calcOriginal(result, activeRoute)}
+                finalPrice={calcFinal(activeRoute)}
+                saving={calcSaving(result, activeRoute)}
+                voucherRequired={!!activeRoute.voucher}
+              />
+            ) : (
+              <BestPriceConfirmed comparedCount={result?.routes?.compared_count} />
+            )}
+            <RouteCard
+              key={`${activeRoute.merchant}-${activeRoute.final_cost ?? ''}`}
+              result={result}
+              rec={activeRoute}
+              isAlt={!!selectedAlt}
+              onBack={backToRecommended}
             />
-          ) : (
-            <BestPriceConfirmed comparedCount={result?.routes?.compared_count} />
-          )}
-          <RouteCard
-            key={`${activeRoute.merchant}-${activeRoute.final_cost ?? ''}`}
-            result={result}
-            rec={activeRoute}
-            isAlt={!!selectedAlt}
-            onBack={backToRecommended}
-          />
-          <CardFomo cardFomo={activeRoute.card_fomo} />
-          <AlternativesToggle
-            alternatives={result.routes?.alternatives}
-            onSelect={selectAlt}
-            selectedMerchant={selectedAlt?.merchant}
-          />
-        </Flex>
+            <CardFomo cardFomo={activeRoute.card_fomo} />
+            <AlternativesToggle
+              alternatives={result.routes?.alternatives}
+              onSelect={selectAlt}
+              selectedMerchant={selectedAlt?.merchant}
+            />
+          </Flex>
+        </motion.div>
       )}
     </Box>
   );

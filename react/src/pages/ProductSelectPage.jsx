@@ -98,25 +98,37 @@ export default function ProductSelectPage() {
         {searchStatus === 'error' && <ErrorBox message={error || 'Search failed.'} />}
 
         {searchStatus === 'success' && mode === 'brand_voucher' && voucher && (
-          <BrandVoucherCard voucher={voucher} />
+          <motion.div
+            initial={prefersReduced ? false : { opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+          >
+            <BrandVoucherCard voucher={voucher} />
+          </motion.div>
         )}
 
         {searchStatus === 'success' && mode !== 'brand_voucher' && candidates.length === 0 && (
-          <Card p="36px 22px">
-            <Flex direction="column" align="center" gap="12px" textAlign="center">
-              <Flex w="48px" h="48px" borderRadius="12px" bg="brandSoft" color="brand" align="center" justify="center">
-                <I.search size={22} />
+          <motion.div
+            initial={prefersReduced ? false : { opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+          >
+            <Card p="36px 22px">
+              <Flex direction="column" align="center" gap="12px" textAlign="center">
+                <Flex w="48px" h="48px" borderRadius="12px" bg="brandSoft" color="brand" align="center" justify="center">
+                  <I.search size={22} />
+                </Flex>
+                <Box>
+                  <Text fontSize="14px" fontWeight={600} color="text">
+                    No products found
+                  </Text>
+                  <Text fontSize="13px" color="text3" mt="2px">
+                    Try a shorter or more general search term.
+                  </Text>
+                </Box>
               </Flex>
-              <Box>
-                <Text fontSize="14px" fontWeight={600} color="text">
-                  No products found
-                </Text>
-                <Text fontSize="13px" color="text3" mt="2px">
-                  Try a shorter or more general search term.
-                </Text>
-              </Box>
-            </Flex>
-          </Card>
+            </Card>
+          </motion.div>
         )}
 
         {searchStatus === 'success' && mode !== 'brand_voucher' && candidates.length > 0 && (

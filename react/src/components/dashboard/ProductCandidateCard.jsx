@@ -40,6 +40,10 @@ export default function ProductCandidateCard({ product, onSelect, isSelecting })
       opacity={isSelecting ? 0.6 : 1}
       transition="transform .25s cubic-bezier(.16,.68,.32,1), box-shadow .25s cubic-bezier(.16,.68,.32,1), border-color .25s ease"
       _hover={{ borderColor: 'brand', boxShadow: '0 20px 36px rgba(0,0,0,.35)', transform: 'translateY(-6px) scale(1.02)' }}
+      // Press feedback — the hover lift only reaches people with a mouse;
+      // on a phone (most of this product's traffic) a tap gave no visible
+      // response at all until the isSelecting dim kicked in ~300ms later.
+      _active={{ transform: 'translateY(-2px) scale(0.99)', boxShadow: '0 10px 20px rgba(0,0,0,.3)' }}
       sx={REDUCED_MOTION_SX}
     >
       <Flex align="center" gap="14px">
