@@ -9,8 +9,13 @@ import { Box, Text } from '@chakra-ui/react';
  * this" signal.
  */
 export default function Logo({ size = 24 }) {
+  // `size` is normally a plain number (px), but accepts a Chakra responsive
+  // object (e.g. `{ base: '48px', md: '68px' }`) for hero-scale usage where
+  // the wordmark itself needs to scale with the viewport like the headline
+  // next to it does.
+  const fontSize = typeof size === 'number' ? `${size}px` : size;
   return (
-    <Text as="span" fontSize={`${size}px`} fontWeight={800} letterSpacing="-.02em" lineHeight={1} whiteSpace="nowrap">
+    <Text as="span" fontSize={fontSize} fontWeight={800} letterSpacing="-.02em" lineHeight={1} whiteSpace="nowrap">
       <Box as="span" color="brand">
         D
       </Box>
