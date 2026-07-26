@@ -13023,8 +13023,8 @@
           7500
         ],
         "custom_amount": true,
-        "custom_amount_min": null,
-        "custom_amount_max": null,
+        "custom_amount_min": 100,
+        "custom_amount_max": 10000,
         "quantity_cap_per_order": 4,
         "discounts": {
           "UPI": {
@@ -25382,8 +25382,8 @@
           2000
         ],
         "custom_amount": true,
-        "custom_amount_min": null,
-        "custom_amount_max": null,
+        "custom_amount_min": 100,
+        "custom_amount_max": 10000,
         "quantity_cap_per_order": 4,
         "discounts": {
           "UPI": {

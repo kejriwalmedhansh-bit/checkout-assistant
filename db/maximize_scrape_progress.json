@@ -12083,8 +12083,8 @@
     "can_club_with_offers": true,
     "cards_stackable": true,
     "logged_in": true,
-    "custom_amount_min": null,
-    "custom_amount_max": null,
+    "custom_amount_min": 100,
+    "custom_amount_max": 10000,
     "discounts": {
       "UPI": {
         "instant_discount_pct": 7.0,
@@ -23647,8 +23647,8 @@
     "can_club_with_offers": false,
     "cards_stackable": true,
     "logged_in": true,
-    "custom_amount_min": null,
-    "custom_amount_max": null,
+    "custom_amount_min": 100,
+    "custom_amount_max": 10000,
     "discounts": {
       "UPI": {
         "instant_discount_pct": 10.25,
