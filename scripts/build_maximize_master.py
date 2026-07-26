@@ -51,6 +51,8 @@ def build():
                 "redemption_type": rec.get("redemption_type"),
                 "denominations": rec.get("denominations", []),
                 "custom_amount": rec.get("custom_amount", False),
+                "custom_amount_min": rec.get("custom_amount_min"),
+                "custom_amount_max": rec.get("custom_amount_max"),
                 "quantity_cap_per_order": rec.get("quantity_cap_per_order"),
                 "discounts": rec.get("discounts", {}),
                 "best_payment_method": rec.get("best_payment_method"),

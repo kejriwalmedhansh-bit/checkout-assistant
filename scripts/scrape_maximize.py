@@ -52,6 +52,13 @@ def parse_denominations(text):
     return denoms, custom
 
 
+def parse_custom_range(text):
+    m = re.search(r"Amount should be between\s*([\d,]+)\s*and\s*([\d,]+)", text)
+    if not m:
+        return None, None
+    return int(m.group(1).replace(",", "")), int(m.group(2).replace(",", ""))
+
+
 def parse_baseline_fields(text):
     fields = {}
     lines = [l.strip() for l in text.split("\n") if l.strip()]
@@ -137,17 +144,35 @@ def scrape_product(page, url):
     result.update(parse_baseline_fields(baseline_text))
     result["logged_in"] = "Sign In" not in baseline_text
 
+    if result.get("custom_amount"):
+        try:
+            page.get_by_text("Custom", exact=True).first.evaluate("el => el.click()")
+            page.wait_for_timeout(700)
+            amount_input = page.locator('input[type="number"], input[type="text"]').first
+            amount_input.fill("999999999", timeout=3000)
+            page.wait_for_timeout(600)
+            custom_text = page.inner_text("body")
+            lo, hi = parse_custom_range(custom_text)
+            result["custom_amount_min"] = lo
+            result["custom_amount_max"] = hi
+        except Exception:
+            result["custom_amount_min"] = None
+            result["custom_amount_max"] = None
+
     # per-payment-mode discount/earn rates
     discounts = {}
     if "Select Your Payment Mode" in baseline_text:
         for mode in PAYMENT_MODES:
-            try:
-                page.get_by_text(mode, exact=True).first.click(timeout=3000)
-                page.wait_for_timeout(900)
-                mode_text = page.inner_text("body")
-                discounts[mode] = parse_current_rate(mode_text)
-            except Exception:
-                discounts[mode] = None
+            for attempt in range(2):
+                try:
+                    page.get_by_text(mode, exact=True).first.click(timeout=6000)
+                    page.wait_for_timeout(900)
+                    mode_text = page.inner_text("body")
+                    discounts[mode] = parse_current_rate(mode_text)
+                    break
+                except Exception:
+                    discounts[mode] = None
+                    page.wait_for_timeout(500)
     result["discounts"] = discounts
 
     if discounts:

@@ -29,7 +29,7 @@ def main():
         writer = csv.writer(f)
         writer.writerow([
             "Brand Group", "Product Name", "Maximize ID", "URL", "Status",
-            "Redemption Type", "Denominations", "Custom Amount", "Qty Cap/Order",
+            "Redemption Type", "Denominations", "Custom Amount", "Custom Range", "Qty Cap/Order",
             *[f"Discount ({m})" for m in PAYMENT_MODES],
             "Best Method", "Best Discount %",
             "Multi-Use", "Can Club w/ Offers", "Cards Stackable", "Validity",
@@ -48,6 +48,7 @@ def main():
                     v.get("redemption_type", ""),
                     " / ".join(str(d) for d in v.get("denominations", [])),
                     "Yes" if v.get("custom_amount") else "No",
+                    f"{v.get('custom_amount_min', '')}-{v.get('custom_amount_max', '')}" if v.get("custom_amount") and v.get("custom_amount_min") else "",
                     v.get("quantity_cap_per_order", ""),
                     *[discount_col(v.get("discounts"), m) for m in PAYMENT_MODES],
                     v.get("best_payment_method", ""),
