@@ -71,3 +71,9 @@ WHATSAPP_MULTI_MATCH_MSG = (
     "Got a few options. Tap the right one — product photo and details will show up right after."
 )
 WHATSAPP_MORE_OPTIONS_MSG = "Not what you were looking for?"
+
+# Technical identifiers for the WhatsApp Flow-based photo picker — must
+# exactly match the screen id / RadioButtonsGroup field name set in the
+# Flow JSON published in Meta's WhatsApp Manager. Not user-visible copy.
+WHATSAPP_FLOW_SCREEN_ID = "PRODUCT_PICKER"
+WHATSAPP_FLOW_FIELD_NAME = "selected_product"

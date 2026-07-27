@@ -30,3 +30,5 @@ services:
         sync: false
       - key: WHATSAPP_VERIFY_TOKEN
         sync: false
+      - key: WHATSAPP_FLOW_ID
+        sync: false

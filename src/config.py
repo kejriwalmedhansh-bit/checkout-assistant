@@ -35,6 +35,7 @@ class Settings(BaseSettings):
     WHATSAPP_PHONE_NUMBER_ID: str = ""
     WHATSAPP_ACCESS_TOKEN: str = ""
     WHATSAPP_VERIFY_TOKEN: str = "dealo_webhook_2026"
+    WHATSAPP_FLOW_ID: str = ""  # empty = photo picker falls back to the text list
 
     # --- Caching / sessions (stateless, in-memory) ---
     SEARCH_CACHE_TTL_SECONDS: int = 86400  # 24h — protects the SearchApi budget

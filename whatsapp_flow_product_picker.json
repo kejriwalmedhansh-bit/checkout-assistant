@@ -1,0 +1,52 @@
+{
+  "version": "6.3",
+  "screens": [
+    {
+      "id": "PRODUCT_PICKER",
+      "title": "Select a product",
+      "terminal": true,
+      "data": {
+        "products": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": { "type": "string" },
+              "title": { "type": "string" },
+              "description": { "type": "string" },
+              "image": { "type": "string" }
+            }
+          }
+        }
+      },
+      "layout": {
+        "type": "SingleColumnLayout",
+        "children": [
+          {
+            "type": "Form",
+            "name": "picker_form",
+            "children": [
+              {
+                "type": "RadioButtonsGroup",
+                "name": "selected_product",
+                "label": "Options",
+                "required": true,
+                "data-source": "${data.products}"
+              },
+              {
+                "type": "Footer",
+                "label": "Continue",
+                "on-click-action": {
+                  "name": "complete",
+                  "payload": {
+                    "selected_product": "${form.selected_product}"
+                  }
+                }
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

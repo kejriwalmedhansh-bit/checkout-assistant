@@ -13,7 +13,9 @@ webhook, unlike CTA-URL taps).
 from __future__ import annotations
 
 import asyncio
+import base64
 import io
+import json
 import re
 from urllib.parse import quote
 
@@ -25,6 +27,8 @@ from ..config import get_settings
 from ..constants import (
     KNOWN_BRANDS,
     WHATSAPP_DEAD_END_MSG,
+    WHATSAPP_FLOW_FIELD_NAME,
+    WHATSAPP_FLOW_SCREEN_ID,
     WHATSAPP_GRAPH_BASE,
     WHATSAPP_GRAPH_VERSION,
     WHATSAPP_MORE_OPTIONS_MSG,
@@ -147,6 +151,7 @@ async def _send_voucher_steps(phone: str, route: dict) -> None:
     voucher_word = _voucher_word(denom_breakdown)
     voucher_brand = voucher.get("merchant") or merchant
     discount_pct = upi.get("pct", 0)
+    platform_label = "Maximize" if voucher.get("voucher_source") == "maximize" else "Gyftr"
 
     txns = upi.get("txns_needed", 1)
 
@@ -157,20 +162,20 @@ async def _send_voucher_steps(phone: str, route: dict) -> None:
         breakdown_lines = "\n".join(f"• *{b['count']} × ₹{b['denom']:,}*" for b in denom_breakdown)
         step1_text = (
             f"*Step 1 of 2*\n\n"
-            f"Buy these {voucher_brand} {voucher_word} on Gyftr ({discount_pct}% off via UPI):\n"
+            f"Buy these {voucher_brand} {voucher_word} on {platform_label} ({discount_pct}% off via UPI):\n"
             f"{breakdown_lines}"
         )
-        # Multiple denominations reads like multiple separate trips to
-        # Gyftr, which is demotivating and usually wrong — Gyftr has a cart,
-        # so unless a real per-transaction cap forces separate purchases
-        # (handled below), all of these go in one cart, one checkout.
+        # Multiple denominations reads like multiple separate trips to the
+        # platform, which is demotivating and usually wrong — both sources
+        # have a cart, so unless a real per-transaction cap forces separate
+        # purchases (handled below), all of these go in one cart, one checkout.
         if txns <= 1:
-            step1_text += "\n\nAdd all of these to your Gyftr cart — one checkout covers it."
+            step1_text += f"\n\nAdd all of these to your {platform_label} cart — one checkout covers it."
     else:
         breakdown = upi.get("purchase_breakdown") or f"₹{upi.get('voucher_amount', 0):,.0f}"
         step1_text = (
             f"*Step 1 of 2*\n\n"
-            f"Buy exactly {breakdown} {voucher_brand} {voucher_word} on Gyftr first "
+            f"Buy exactly {breakdown} {voucher_brand} {voucher_word} on {platform_label} first "
             f"({discount_pct}% off via UPI)."
         )
     if txns > 1:
@@ -358,6 +363,54 @@ async def _fetch_and_convert_to_jpeg(image_url: str) -> bytes | None:
         return None
 
 
+_FLOW_IMAGE_MAX_BYTES = 90_000  # margin under Meta's 100KB-per-photo Flow image cap
+_FLOW_IMAGE_STEPS = [(480, 80), (360, 70), (240, 60), (160, 50)]  # (width, JPEG quality), largest first
+
+
+async def _fetch_and_convert_for_flow(image_url: str) -> str | None:
+    """Downloads a product thumbnail and step-down compresses it to fit inside
+    a WhatsApp Flow RadioButtonsGroup image field (100KB cap). Distinct from
+    _fetch_and_convert_to_jpeg (built for the media-upload endpoint, no resize,
+    no size ceiling) — this returns a base64 string for direct inline
+    embedding in the Flow's JSON payload, sized down since Flow images render
+    as small list thumbnails rather than full chat-width photos."""
+    try:
+        async with httpx.AsyncClient(timeout=10.0) as client:
+            r = await client.get(image_url)
+            if r.status_code >= 400 or not r.content:
+                return None
+        img = Image.open(io.BytesIO(r.content)).convert("RGB")
+        for width, quality in _FLOW_IMAGE_STEPS:
+            resized = img if img.width <= width else img.resize(
+                (width, round(img.height * width / img.width)), Image.LANCZOS
+            )
+            buf = io.BytesIO()
+            resized.save(buf, format="JPEG", quality=quality)
+            data = buf.getvalue()
+            if len(data) <= _FLOW_IMAGE_MAX_BYTES:
+                return base64.b64encode(data).decode("ascii")
+        return None  # even the smallest/lowest-quality step didn't fit
+    except Exception as e:
+        print(f"[WhatsApp Flow Image] convert failed: {e}")
+        return None
+
+
+_flow_placeholder_cache: str | None = None
+
+
+def _flow_placeholder_image() -> str:
+    """Lazily builds a flat neutral-gray JPEG (once, cached) used when a
+    specific product's thumbnail fails to download/compress — so one bad
+    image never blocks that option from appearing in the picker."""
+    global _flow_placeholder_cache
+    if _flow_placeholder_cache is None:
+        img = Image.new("RGB", (240, 240), (230, 230, 230))
+        buf = io.BytesIO()
+        img.save(buf, format="JPEG", quality=70)
+        _flow_placeholder_cache = base64.b64encode(buf.getvalue()).decode("ascii")
+    return _flow_placeholder_cache
+
+
 async def _upload_media(jpeg_bytes: bytes) -> str | None:
     """Uploads image bytes to Meta's media endpoint; returns a media id for
     a subsequent image message, or None on failure."""
@@ -497,7 +550,95 @@ async def send_list_message(phone: str, body_text: str, button_text: str, rows: 
         print(f"[WhatsApp Send] Status: {r.status_code} | Body: {r.text}")
 
 
+async def send_product_flow(phone: str, body_text: str, flow_cta: str, query: str, products: list[dict]) -> bool:
+    """Sends the multi-candidate picker as a WhatsApp Flow (a native screen
+    with one real photo per option) instead of send_list_message's text-only
+    rows. Returns False on any failure — missing WHATSAPP_FLOW_ID, no
+    products, or a non-2xx send — so callers fall back to send_list_message.
+    Must never raise past its own boundary; a broken photo picker should
+    never be able to break the whole search reply."""
+    settings = get_settings()
+    if not settings.WHATSAPP_FLOW_ID:
+        return False
+
+    items = []
+    for i, p in enumerate(products[:10]):  # same 10-item cap as the list-message picker
+        full_title = p.get("title") or f"Option {i + 1}"
+        price = p.get("price")
+        thumbnail = p.get("thumbnail")
+        image_b64 = await _fetch_and_convert_for_flow(thumbnail) if thumbnail else None
+        items.append({
+            "id": f"prod_{i}",
+            "title": _truncate(_short_title(full_title, query), 24),
+            "description": f"₹{price:,.0f}" if price else "",
+            "image": image_b64 or _flow_placeholder_image(),
+        })
+    if not items:
+        return False
+
+    api_url, headers = _graph_config()
+    payload = {
+        "messaging_product": "whatsapp",
+        "to": phone,
+        "type": "interactive",
+        "interactive": {
+            "type": "flow",
+            "body": {"text": body_text},
+            "action": {
+                "name": "flow",
+                "parameters": {
+                    "flow_message_version": "3",
+                    "flow_id": settings.WHATSAPP_FLOW_ID,
+                    "flow_cta": flow_cta,
+                    "flow_action": "navigate",
+                    "flow_action_payload": {
+                        "screen": WHATSAPP_FLOW_SCREEN_ID,
+                        "data": {"products": items},
+                    },
+                },
+            },
+        },
+    }
+    try:
+        async with httpx.AsyncClient(timeout=15.0) as client:
+            r = await client.post(api_url, headers=headers, json=payload)
+            print(f"[WhatsApp Send] Flow status: {r.status_code} | Body: {r.text}")
+            return r.status_code < 400
+    except Exception as e:
+        print(f"[WhatsApp Send] Flow send failed: {e}")
+        return False
+
+
 # ── dispatch ─────────────────────────────────────────────────────────────────────
+
+async def _send_product_picker(phone: str, query: str, products: list[dict]) -> None:
+    """Shared by process_and_respond and handle_pick_again — both are the
+    same picker moment (initial search vs. re-showing the same candidates).
+    Tries the photo-carrying Flow first; falls back to the original text-only
+    list message unchanged if the Flow isn't configured or fails to send, so
+    a broken/unset Flow never breaks the picker outright."""
+    flow_sent = await send_product_flow(
+        phone, WHATSAPP_MULTI_MATCH_MSG, "Select product", query, products,
+    )
+    if flow_sent:
+        return
+    rows = []
+    for i, p in enumerate(products[:10]):
+        full_title = p.get("title") or f"Option {i + 1}"
+        price = p.get("price")
+        desc = f"{full_title} · ₹{price:,.0f}" if price else full_title
+        rows.append({
+            "id": f"prod_{i}",
+            "title": _truncate(_short_title(full_title, query), 24),
+            "description": _truncate(desc, 72),
+        })
+    await send_list_message(
+        phone,
+        body_text=WHATSAPP_MULTI_MATCH_MSG,
+        button_text="Select product",
+        rows=rows,
+    )
+
 
 async def _send_routes_for_token(
     phone: str, product_token: str, query: str, title: str = "",
@@ -545,22 +686,7 @@ async def process_and_respond(phone: str, classification: dict) -> None:
             return
 
         session_store.set_session(phone, {"candidates": products, "query": query})
-        rows = []
-        for i, p in enumerate(products[:10]):
-            full_title = p.get("title") or f"Option {i + 1}"
-            price = p.get("price")
-            desc = f"{full_title} · ₹{price:,.0f}" if price else full_title
-            rows.append({
-                "id": f"prod_{i}",
-                "title": _truncate(_short_title(full_title, query), 24),
-                "description": _truncate(desc, 72),
-            })
-        await send_list_message(
-            phone,
-            body_text=WHATSAPP_MULTI_MATCH_MSG,
-            button_text="Select product",
-            rows=rows,
-        )
+        await _send_product_picker(phone, query, products)
     except Exception as e:
         await send_text(phone, WHATSAPP_DEAD_END_MSG)
         print(f"[Webhook] Error for {phone}: {e}")
@@ -644,22 +770,7 @@ async def handle_pick_again(phone: str) -> None:
     if not candidates:
         await send_text(phone, WHATSAPP_DEAD_END_MSG)
         return
-    rows = []
-    for i, p in enumerate(candidates[:10]):
-        full_title = p.get("title") or f"Option {i + 1}"
-        price = p.get("price")
-        desc = f"{full_title} · ₹{price:,.0f}" if price else full_title
-        rows.append({
-            "id": f"prod_{i}",
-            "title": _truncate(_short_title(full_title, query), 24),
-            "description": _truncate(desc, 72),
-        })
-    await send_list_message(
-        phone,
-        body_text=WHATSAPP_MULTI_MATCH_MSG,
-        button_text="Select product",
-        rows=rows,
-    )
+    await _send_product_picker(phone, query, candidates)
 
 
 async def handle_incoming(body: dict) -> None:
@@ -700,6 +811,22 @@ async def handle_incoming(body: dict) -> None:
                         _run_with_typing_keepalive(msg_id, handle_alternative_selection(phone, reply_id))
                     )
                 elif reply_id.startswith("prod_"):
+                    await send_typing_indicator(msg_id)
+                    asyncio.create_task(
+                        _run_with_typing_keepalive(msg_id, handle_product_selection(phone, reply_id))
+                    )
+            elif itype == "nfm_reply":
+                # A completed WhatsApp Flow (the photo picker) — same
+                # destination as a list_reply's "prod_" branch above, just
+                # arriving through the Flow's own response shape instead of
+                # a plain interactive id.
+                raw_response = interactive.get("nfm_reply", {}).get("response_json")
+                try:
+                    response = json.loads(raw_response) if raw_response else {}
+                except (TypeError, ValueError):
+                    response = {}
+                reply_id = response.get(WHATSAPP_FLOW_FIELD_NAME)
+                if reply_id and reply_id.startswith("prod_"):
                     await send_typing_indicator(msg_id)
                     asyncio.create_task(
                         _run_with_typing_keepalive(msg_id, handle_product_selection(phone, reply_id))
