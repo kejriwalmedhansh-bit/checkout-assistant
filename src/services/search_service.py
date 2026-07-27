@@ -1124,6 +1124,17 @@ _JSONLD_MERCHANT_HOSTS = {
     # to also check that nested offer (see its docstring) — not a per-site
     # scraper, still reading a field the site itself already labels.
     "ikea.com": "IKEA",
+    # Verified 2026-07-28: an American Tourister backpack's offers.price
+    # (₹1,925) matched the price embedded in the page's own product data
+    # consistently across every occurrence on the page.
+    "americantourister.in": "American Tourister",
+    # Verified 2026-07-28: lifestylestores.com's JSON-LD is HTML-entity-
+    # encoded in its raw markup (&quot; instead of ") — invalid JSON until
+    # unescaped, which is why the generic html.unescape() step above was
+    # added rather than a per-site fix. Once decoded, a Minimalist body
+    # lotion's offers.price (₹269) matched the page's own displayed price
+    # exactly.
+    "lifestylestores.com": "Lifestyle",
 }
 
 _LDJSON_BLOCK_RE = re.compile(
@@ -1147,7 +1158,10 @@ def _extract_jsonld_price(markup: str) -> float | None:
     labeling this number as "the offer price" for search engines to read."""
     for block in _LDJSON_BLOCK_RE.findall(markup):
         try:
-            data = json.loads(block)
+            # Some storefronts (found on lifestylestores.com) HTML-entity-
+            # encode their own JSON-LD (&quot; instead of ") — harmless
+            # no-op unescape on the (much more common) already-valid case.
+            data = json.loads(html.unescape(block))
         except (json.JSONDecodeError, ValueError):
             continue
         nodes = data if isinstance(data, list) else [data]
