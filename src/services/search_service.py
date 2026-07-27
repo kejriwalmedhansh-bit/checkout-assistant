@@ -1107,6 +1107,23 @@ _JSONLD_MERCHANT_HOSTS = {
     # (₹699) matched the page's own "selling-price" field exactly, not its
     # ₹1,199 struck-through MRP.
     "decathlon.in": "Decathlon",
+    # Verified 2026-07-28: a PUMA sneaker's offers.price (₹4,949) matched the
+    # page's own "item-sale-price-pdp" element exactly.
+    "in.puma.com": "PUMA",
+    # Verified 2026-07-28: a Chumbak mug's offers.price (₹664) matched 3
+    # independent internal data points on the same page (Shopify variant
+    # price, analytics payload, product JSON) — the visible DOM price wasn't
+    # a reliable single check here since the page also renders a "you may
+    # also like" carousel with other products' prices nearby.
+    "chumbak.com": "Chumbak",
+    # Verified 2026-07-28: IKEA's AggregateOffer only has lowPrice/highPrice
+    # at the top level (a range across sibling color variants), but nests a
+    # real single Offer for this exact page's own SKU underneath — its price
+    # (₹10,990) matched the page's own displayed "pipcom-price__integer"
+    # exactly. Required a small, generic addition to _extract_jsonld_price
+    # to also check that nested offer (see its docstring) — not a per-site
+    # scraper, still reading a field the site itself already labels.
+    "ikea.com": "IKEA",
 }
 
 _LDJSON_BLOCK_RE = re.compile(
@@ -1142,6 +1159,18 @@ def _extract_jsonld_price(markup: str) -> float | None:
                 offers = offers[0] if offers else None
             if isinstance(offers, dict):
                 price = parse_price(offers.get("price"))
+                if price is None:
+                    # An AggregateOffer (lowPrice/highPrice spanning sibling
+                    # variants, e.g. Apple's color options) can still nest a
+                    # real single Offer for THIS exact page's own SKU under
+                    # its own "offers" list (seen on IKEA) — only trust that,
+                    # never lowPrice/highPrice itself, which is a range, not
+                    # this product's actual price.
+                    nested = offers.get("offers")
+                    if isinstance(nested, list):
+                        nested = nested[0] if nested else None
+                    if isinstance(nested, dict):
+                        price = parse_price(nested.get("price"))
                 if price is not None:
                     return price
     return None
