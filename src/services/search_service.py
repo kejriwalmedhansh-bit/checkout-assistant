@@ -1141,6 +1141,19 @@ _JSONLD_MERCHANT_HOSTS = {
     # Verified 2026-07-28: a GIVA pendant set's offers.price (₹5,999)
     # matched the site's own internal variant price (599900 paise) exactly.
     "giva.co": "GIVA",
+    # Verified 2026-07-28: a Westside knitted top's offers.price (₹799)
+    # matched the page's own displayed price exactly.
+    "westside.com": "Westside",
+    # Verified 2026-07-28: a Himalaya baby lotion's offers.price (₹210)
+    # matched the page's own "product__price" element exactly.
+    "himalayawellness.in": "Himalaya Wellness",
+    # Verified 2026-07-28: a Wonderchef juicer's offers.price (₹12,099)
+    # matched the site's own internal variant price (1209900 paise) exactly.
+    "wonderchef.com": "Wonderchef",
+    # Verified 2026-07-28: a W for Woman dupatta's offers.price (₹1,000)
+    # matched the site's own internal variant price (100000 paise) exactly,
+    # with no compare-at/MRP set (no discount active at verification time).
+    "wforwoman.com": "W for Woman",
 }
 
 _LDJSON_BLOCK_RE = re.compile(
