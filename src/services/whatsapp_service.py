@@ -89,13 +89,30 @@ def classify_input(text: str) -> dict:
 
 # ── result formatting ─────────────────────────────────────────────────────────
 
+def _display_merchant(route: dict) -> str:
+    """Prefer the voucher database's own clean brand name (e.g. "AJIO Luxe")
+    over the raw merchant string a search result reports for this listing —
+    that raw string is sometimes a bare domain like "luxe.ajio.com" rather
+    than a display name, since it's passed through verbatim from whatever
+    the search source called the seller. Falls back to route["merchant"]
+    when there's no voucher, or the voucher has no clean name to prefer.
+    Preserves the "(in-store)" suffix search_service.py bakes into
+    route["merchant"] for offline-only voucher routes."""
+    raw = route.get("merchant") or "the store"
+    voucher = route.get("voucher")
+    if voucher and voucher.get("brand_name"):
+        suffix = " (in-store)" if raw.endswith(" (in-store)") else ""
+        return voucher["brand_name"] + suffix
+    return raw
+
+
 def _build_result_caption(route: dict) -> str:
     """Compact result text — title, route, and price/savings. Card cashback
     is sent separately by _send_card_fomo, after the redemption steps —
     never blended into this headline (see CLAUDE.md rule: card savings
     never affect ranking, users may not have premium cards)."""
     title = route.get("title", "")
-    merchant = route.get("merchant") or "—"
+    merchant = _display_merchant(route)
     voucher = route.get("voucher")
     listed_price = route.get("listed_price")
     final_cost = route.get("final_cost") or 0
@@ -143,13 +160,13 @@ async def _send_voucher_steps(phone: str, route: dict) -> None:
     purchases, that requirement is folded into the same message rather than
     dropped, since skipping it risks a purchase failing with no explanation."""
     voucher = route["voucher"]
-    merchant = (route.get("merchant") or "the store").replace(" (in-store)", "")
+    merchant = _display_merchant(route).replace(" (in-store)", "")
     in_store = bool(voucher.get("offline_only"))
     upi = voucher.get("upi", {})
 
     denom_breakdown = upi.get("denomination_breakdown") or []
     voucher_word = _voucher_word(denom_breakdown)
-    voucher_brand = voucher.get("merchant") or merchant
+    voucher_brand = voucher.get("brand_name") or voucher.get("merchant") or merchant
     discount_pct = upi.get("pct", 0)
     platform_label = "Maximize" if voucher.get("voucher_source") == "maximize" else "Gyftr"
 
