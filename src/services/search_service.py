@@ -1135,6 +1135,12 @@ _JSONLD_MERCHANT_HOSTS = {
     # lotion's offers.price (₹269) matched the page's own displayed price
     # exactly.
     "lifestylestores.com": "Lifestyle",
+    # Verified 2026-07-28: a Titan eyeglasses listing's offers.price (₹6,300)
+    # matched the page's own "qa__current-price" element exactly.
+    "titaneyeplus.com": "Titan Eye+",
+    # Verified 2026-07-28: a GIVA pendant set's offers.price (₹5,999)
+    # matched the site's own internal variant price (599900 paise) exactly.
+    "giva.co": "GIVA",
 }
 
 _LDJSON_BLOCK_RE = re.compile(
