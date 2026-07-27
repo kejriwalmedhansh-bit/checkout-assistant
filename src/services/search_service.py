@@ -1103,6 +1103,10 @@ _JSONLD_MERCHANT_HOSTS = {
     # "no live price" rather than guessing — confirmed safe on 2 range pages
     # (MacBook Air, iPhone 17) before adding this entry.
     "apple.com": "Apple",
+    # Verified 2026-07-28: a women's hiking shorts listing's offers.price
+    # (₹699) matched the page's own "selling-price" field exactly, not its
+    # ₹1,199 struck-through MRP.
+    "decathlon.in": "Decathlon",
 }
 
 _LDJSON_BLOCK_RE = re.compile(
