@@ -183,7 +183,7 @@ async def _send_voucher_steps(phone: str, route: dict) -> None:
         cap_text = f", ₹{cap:,.0f} max per transaction" if cap else ""
         step1_text += f"\n\nYou'll need to do this {txns} separate times{cap_text}."
     voucher_url = voucher["voucher_url"]
-    if not await send_cta_url(phone, step1_text, "Buy Now", voucher_url):
+    if not await send_cta_url(phone, step1_text, "Buy Gift Voucher Now", voucher_url):
         await send_text(phone, f"{step1_text}\n{voucher_url}")
     await asyncio.sleep(_VOUCHER_STEP_GAP_SECONDS)
 
