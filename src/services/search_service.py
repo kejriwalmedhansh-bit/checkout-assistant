@@ -1154,6 +1154,28 @@ _JSONLD_MERCHANT_HOSTS = {
     # matched the site's own internal variant price (100000 paise) exactly,
     # with no compare-at/MRP set (no discount active at verification time).
     "wforwoman.com": "W for Woman",
+    # Verified 2026-07-28: a BIBA lehenga set's offers.price (₹9,995) matched
+    # the page's own internal "price"/"mrp" fields exactly (equal — no
+    # discount active at verification time).
+    "biba.in": "BIBA",
+    # Verified 2026-07-28: a Home Centre sofa cushion's offers.price (₹7,267)
+    # matched the price already surfaced in the page's own title/meta tags.
+    "homecentre.in": "Home Centre",
+    # Verified 2026-07-28: a Titan watch's offers.price (₹14,555) matched
+    # the price embedded in the page's own product data exactly.
+    "titan.co.in": "Titan",
+    # Verified 2026-07-28: a Fastrack watch's offers.price (₹1,650) matched
+    # the price embedded in the page's own product data exactly.
+    "fastrack.in": "Fastrack",
+    # Verified 2026-07-28: a Tanishq necklace's offers.price (₹45,290)
+    # matched the price embedded in the page's own product data exactly.
+    "tanishq.co.in": "Tanishq",
+    # Verified 2026-07-28: a Jockey brief's offers.price (₹449) matched the
+    # site's own internal variant price (44900 paise) exactly.
+    "jockey.in": "Jockey",
+    # Verified 2026-07-28: a Skechers shoe's offers.price (₹8,999) matched
+    # the price embedded in the page's own product data exactly.
+    "skechers.in": "Skechers",
 }
 
 _LDJSON_BLOCK_RE = re.compile(
