@@ -1086,6 +1086,23 @@ _JSONLD_MERCHANT_HOSTS = {
     # Verified 2026-07-22: myntra.com's JSON-LD offers.price matched its own
     # page's `discountedPrice` field exactly (not `mrp`) on a real product.
     "myntra.com": "Myntra",
+    # Verified 2026-07-28 on 2 real products (PS5 Slim console ₹49,990 and a
+    # Samsung microSD card ₹1,049) — offers.price matched the page's own
+    # displayed selling price exactly on both.
+    "reliancedigital.in": "Reliance Digital",
+    # Verified 2026-07-28: a vivo T5 Lite listing's offers.price (₹19,999,
+    # inside an AggregateOffer but with a real single `price` field, not just
+    # a lowPrice/highPrice range) matched the page's own regularPrice/
+    # finalPrice fields exactly (no discount active at verification time).
+    "vijaysales.com": "Vijay Sales",
+    # Verified 2026-07-28: apple.com/in only exposes a single offers.price
+    # on a specific-model buy link (e.g. a configured MacBook Air SKU, ₹149,900
+    # — matched the page's own displayed price exactly). Its family/range
+    # pages (e.g. the general "buy Mac" page) only expose lowPrice/highPrice
+    # with no `price` field, which this dict's extractor already treats as
+    # "no live price" rather than guessing — confirmed safe on 2 range pages
+    # (MacBook Air, iPhone 17) before adding this entry.
+    "apple.com": "Apple",
 }
 
 _LDJSON_BLOCK_RE = re.compile(
