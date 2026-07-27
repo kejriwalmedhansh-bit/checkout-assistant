@@ -7,9 +7,9 @@ slug lookup for the /vouchers endpoints.
 from __future__ import annotations
 
 import json
-import re
 
 from ..constants import DATA_DIR
+from ._brand_matching import find_best_match
 
 _VOUCHERS_PATH = DATA_DIR / "gyftr_master.json"
 
@@ -25,10 +25,6 @@ def _load() -> None:
         data = json.load(f)
     _vouchers_by_slug = dict(data)
     _vouchers_list = list(data.values())
-
-
-def _normalize(name: str) -> str:
-    return re.sub(r"[^a-z0-9]", "", name.lower())
 
 
 def all_vouchers() -> list[dict]:
@@ -48,39 +44,7 @@ def get_by_merchant(merchant_name: str) -> dict | None:
     Prefers the closest/shortest match over more specific sub-brand vouchers,
     and excludes reseller / authorised-store style entries.
     """
-    norm_merchant = _normalize(merchant_name)
-    if not norm_merchant:
-        return None
-
-    candidates = []
-    for voucher in all_vouchers():
-        norm_brand = _normalize(voucher.get("brand_name", ""))
-        if not norm_brand:
-            continue
-        if norm_brand == norm_merchant:
-            rank = 0
-        elif len(norm_brand) < 4:
-            continue
-        elif norm_merchant.startswith(norm_brand) or norm_brand.startswith(norm_merchant):
-            rank = 1
-        elif norm_brand in norm_merchant or norm_merchant in norm_brand:
-            rank = 2
-        else:
-            continue
-
-        if rank >= 1:
-            brand_name_lower = voucher.get("brand_name", "").lower()
-            if any(w in brand_name_lower for w in (
-                "reseller", "authorised", "authorized", "premium",
-                "future world", "store", "electronics", "mobile",
-            )):
-                continue
-        candidates.append((rank, len(norm_brand), voucher))
-
-    if not candidates:
-        return None
-    candidates.sort(key=lambda c: (c[0], c[1]))
-    return candidates[0][2]
+    return find_best_match(merchant_name, all_vouchers())
 
 
 def get_by_slug(slug: str) -> dict | None:

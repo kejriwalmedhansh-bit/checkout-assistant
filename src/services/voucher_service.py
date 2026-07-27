@@ -10,12 +10,17 @@ import math
 import re
 
 from ..category_classifier import classify_product, restriction_mentions_category
-from ..repositories import voucher_repository
+from ..repositories import maximize_repository, voucher_repository
 
 # Maps the caller-facing payment_method argument to the keys used in the
-# discounts dict of gyftr_master.json.
+# discounts dict of gyftr_master.json / maximize_master.json. "card" means
+# Credit Card specifically, not "whichever of Credit/Debit is higher" — every
+# cashback card this app knows about is a credit card, and Maximize's Debit
+# Card rate is sometimes higher than its Credit Card rate (the opposite of
+# Gyftr), so mixing them in would misrepresent what that specific card path
+# actually pays.
 PAYMENT_METHOD_TO_DISCOUNT_KEYS = {
-    "card": ["Credit Card", "Debit Card"],
+    "card": ["Credit Card"],
     "netbanking": ["Net Banking"],
     "upi": ["UPI"],
     "paytm_upi": ["UPI"],
@@ -207,13 +212,15 @@ def calculate_effective_price(price: float, voucher: dict, payment_method: str =
         "effective_price": effective_price,
         "payment_method": payment_method,
         "txns_needed": txns_needed,
-        "voucher_platform": "Gyftr",
-        "voucher_url": f"https://www.gyftr.com/{voucher['slug']}",
+        "voucher_platform": voucher.get("voucher_platform", "Gyftr"),
+        "voucher_url": voucher.get("voucher_url") or f"https://www.gyftr.com/{voucher['slug']}",
         "redemption_type": voucher.get("redemption_type", ""),
         "denominations": _denominations_str(voucher),
         "denomination_breakdown": denomination_breakdown,
         "purchase_breakdown": purchase_breakdown,
-        "redemption_instructions": _clean_instructions(voucher.get("important_instructions_raw") or ""),
+        "redemption_instructions": voucher.get("redemption_instructions")
+        if voucher.get("redemption_instructions") is not None
+        else _clean_instructions(voucher.get("important_instructions_raw") or ""),
     }
 
 
@@ -231,11 +238,47 @@ def get_best_voucher_deal(merchant_name: str, price: float) -> dict | None:
     return deal
 
 
-def build_deals(results: list[dict], product_name: str = "") -> list[dict]:
-    """Build per-merchant Gyftr voucher deals for the given route candidates.
+def _best_tier_deal(price: float, tiers: list[dict], payment_method: str = "upi") -> tuple[dict, dict] | None:
+    """Runs calculate_effective_price per tier (unchanged) and keeps whichever
+    tier yields the lowest effective_price among tiers with a real discount
+    and a non-zero voucher_amount — same guard get_best_voucher_deal uses,
+    just tried once per tier since a Maximize brand can have more than one
+    genuine denomination size (e.g. BigBasket's custom-up-to-10k vs its
+    fixed-up-to-2k listing)."""
+    best_deal = None
+    best_tier = None
+    for tier in tiers:
+        deal = calculate_effective_price(price, tier, payment_method)
+        if not deal["voucher_discount_pct"] or deal["voucher_amount"] == 0:
+            continue
+        if best_deal is None or deal["effective_price"] < best_deal["effective_price"]:
+            best_deal = deal
+            best_tier = tier
+    if best_deal is None:
+        return None
+    return best_deal, best_tier
 
-    Ported from pipeline.step5_vouchers. Skips vouchers whose redemption
-    restrictions exclude the product's category. UPI is the recommendation rate.
+
+def get_best_maximize_deal(merchant_name: str, price: float) -> tuple[dict, dict] | None:
+    """Maximize equivalent of get_best_voucher_deal — returns (deal, tier)
+    since the caller needs the winning tier dict for redemption_type/
+    offline_only/how_to_redeem_short, the same way it uses the Gyftr voucher
+    dict directly."""
+    record = maximize_repository.get_by_merchant(merchant_name)
+    if record is None:
+        return None
+    return _best_tier_deal(price, record.get("tiers") or [], payment_method="upi")
+
+
+def build_deals(results: list[dict], product_name: str = "") -> list[dict]:
+    """Build per-merchant voucher deals for the given route candidates,
+    checking both Gyftr and Maximize and keeping whichever gives the lower
+    final price — this is Dealo's "always show the cheaper source" rule.
+
+    Ported from pipeline.step5_vouchers. Skips a *source* whose redemption
+    restrictions exclude the product's category (not the whole merchant —
+    a Gyftr category restriction must not hide a valid Maximize deal for the
+    same merchant, and vice versa). UPI is the recommendation rate.
     """
     deals: list[dict] = []
     seen_merchants: set[str] = set()
@@ -244,6 +287,12 @@ def build_deals(results: list[dict], product_name: str = "") -> list[dict]:
         category = classify_product(product_name)
     except Exception:
         category = None
+
+    def _category_blocked(restrictions: list[str]) -> bool:
+        try:
+            return category is not None and restriction_mentions_category(restrictions, category)
+        except Exception:
+            return False
 
     for r in results:
         if r.get("match_type") not in ("Exact Match", "Listed"):
@@ -255,24 +304,30 @@ def build_deals(results: list[dict], product_name: str = "") -> list[dict]:
             continue
         seen_merchants.add(merchant_key)
 
-        voucher = voucher_repository.get_by_merchant(merchant)
-        if voucher is None:
+        gyftr_voucher = voucher_repository.get_by_merchant(merchant)
+        gyftr_deal = None
+        if gyftr_voucher is not None and not _category_blocked(gyftr_voucher.get("redemption_restrictions", [])):
+            gyftr_deal = get_best_voucher_deal(merchant, price)
+
+        # Maximize tiers carry no redemption_restrictions field yet (Gyftr's
+        # scrape captured category rules from free-text T&Cs; Maximize's
+        # structured fields don't expose an equivalent) — category filtering
+        # simply doesn't apply to Maximize deals until that data exists.
+        maximize_result = get_best_maximize_deal(merchant, price)
+        maximize_deal, maximize_tier = maximize_result if maximize_result else (None, None)
+
+        if gyftr_deal is None and maximize_deal is None:
             continue
 
-        try:
-            if category is not None and restriction_mentions_category(
-                voucher.get("redemption_restrictions", []), category
-            ):
-                continue
-        except Exception:
-            pass
+        if maximize_deal is not None and (
+            gyftr_deal is None or maximize_deal["effective_price"] < gyftr_deal["effective_price"]
+        ):
+            deal, voucher, voucher_source = maximize_deal, maximize_tier, "maximize"
+        else:
+            deal, voucher, voucher_source = gyftr_deal, gyftr_voucher, "gyftr"
 
         redemption_type_raw = voucher.get("redemption_type", "")
         offline_only = redemption_type_raw == "Offline"
-
-        deal = get_best_voucher_deal(merchant, price)
-        if deal is None:
-            continue
 
         card_deal = calculate_effective_price(price, voucher, "card")
 
@@ -280,6 +335,7 @@ def build_deals(results: list[dict], product_name: str = "") -> list[dict]:
             "merchant": merchant,
             "product_price": price,
             "voucher_url": deal["voucher_url"],
+            "voucher_source": voucher_source,
             "offline_only": offline_only,
             "upi": {
                 "pct": deal["voucher_discount_pct"],

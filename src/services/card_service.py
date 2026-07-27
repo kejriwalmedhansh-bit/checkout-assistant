@@ -98,3 +98,69 @@ def best_card_for_purchase(
                 best = candidate
 
     return best
+
+
+def get_voucher_cashback_rate(card_name: str, voucher_source: str) -> float:
+    """Cashback rate this card earns when funding a voucher purchase from the
+    given source ("gyftr" or "maximize"), or 0 if the card doesn't earn on
+    that source at all."""
+    card = card_repository.get(card_name)
+    if not card:
+        return 0.0
+    if voucher_source == "maximize":
+        if not card.get("earns_on_maximize"):
+            return 0.0
+        return card.get("maximize_rate", 0.0)
+    if not card.get("earns_on_gyftr"):
+        return 0.0
+    return card.get("gyftr_rate", 0.0)
+
+
+def best_card_for_voucher_purchase(
+    merchant: str, card_rate_price: float, recommended_price: float, voucher_source: str
+) -> dict | None:
+    """Best cashback card for funding this voucher purchase directly with the
+    card (instead of Dealo's recommended, card-free route), comparing the
+    whole alternative honestly.
+
+    `card_rate_price` is what the voucher actually costs at this card's own
+    payment-method rate (already lower than the recommended UPI rate — see
+    calculate_effective_price's "card" path) — cashback is earned on top of
+    that price, never on the UPI-rate price the customer wouldn't actually
+    have paid by using a card. Only qualifies if the combined total (card-rate
+    price minus cashback) genuinely beats `recommended_price` by the usual
+    ₹200/3% floor; otherwise returns None, same as the no-voucher path — no
+    card is ever shown as a reason to abandon the card-free recommendation."""
+    min_threshold = max(_MIN_SAVING_FLOOR, recommended_price * _MIN_SAVING_PCT)
+
+    best = None
+    for card_name, card_data in card_repository.all_cards().items():
+        rate = get_voucher_cashback_rate(card_name, voucher_source)
+        if not rate:
+            continue
+        cashback = min(round(card_rate_price * rate, 2), card_data.get("cap_amount", 0))
+        card_path_total = round(card_rate_price - cashback, 2)
+        saving = round(recommended_price - card_path_total, 2)
+        if saving < min_threshold:
+            continue
+        candidate = {
+            "card_name": card_name,
+            "rate": rate,
+            "actual_saving": saving,
+            "cap_amount": card_data["cap_amount"],
+            "cap_period": card_data["cap_period"],
+            "annual_fee": card_data["annual_fee"],
+            "apply_url": card_data.get("apply_url"),
+        }
+        if best is None or saving > best["actual_saving"]:
+            best = candidate
+        elif saving == best["actual_saving"]:
+            if _tie_break_rank(card_name) < _tie_break_rank(best["card_name"]):
+                best = candidate
+            elif (
+                _tie_break_rank(card_name) == _tie_break_rank(best["card_name"])
+                and card_data["annual_fee"] < best["annual_fee"]
+            ):
+                best = candidate
+
+    return best

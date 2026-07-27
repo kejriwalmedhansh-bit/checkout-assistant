@@ -19,6 +19,7 @@ import JourneyRow, { JourneyConnector } from './JourneyRow';
  */
 export default function Journey({ rec }) {
   const v = rec.voucher || null;
+  const sourceLabel = v?.voucher_source === 'maximize' ? 'Maximize' : 'Gyftr';
   const sellerLink = rec.sellers?.[0]?.link;
   const [checked, setChecked] = useState({ store: false, voucher: false });
   const [pending, setPending] = useState({ store: false, voucher: false });
@@ -42,7 +43,7 @@ export default function Journey({ rec }) {
 
   const paid = v ? paidForVoucher(v) : null;
   const HINT_TEXT = {
-    voucher: `Buy the voucher now on Gyftr — this is the step that actually saves you money. You pay ${fmt(paid)} for ${fmt(v?.upi?.voucher_amount)} of ${rec.merchant} credit.`,
+    voucher: `Buy the voucher now on ${sourceLabel} — this is the step that actually saves you money. You pay ${fmt(paid)} for ${fmt(v?.upi?.voucher_amount)} of ${rec.merchant} credit.`,
     store: v
       ? `You've got the voucher — now open ${rec.merchant} and add your item to the basket. You'll pay with the code next.`
       : `Open ${rec.merchant} and buy it there — this is already the cheapest way we found.`,
@@ -92,7 +93,7 @@ export default function Journey({ rec }) {
   return (
     <Box>
       <Text fontSize="12px" color="text2" mb="14px">
-        Two stops: buy a discounted Gyftr voucher first, then use it to pay at {rec.merchant}.
+        Two stops: buy a discounted {sourceLabel} voucher first, then use it to pay at {rec.merchant}.
       </Text>
 
       <Box>
@@ -100,7 +101,7 @@ export default function Journey({ rec }) {
           tone="voucher"
           icon={I.ticket}
           label="1. Buy a Gift Voucher"
-          badge={`This is where you save ${fmt((v.upi?.voucher_amount ?? 0) - (paid ?? 0))}`}
+          badge={`via ${sourceLabel} · saves ${fmt((v.upi?.voucher_amount ?? 0) - (paid ?? 0))}`}
           emphasized
           current={currentStep === 'voucher'}
           facts={
@@ -156,7 +157,7 @@ export default function Journey({ rec }) {
                     </Box>
                   </Flex>
                   <Text fontSize="10.5px" color="text3" mt="4px">
-                    Gyftr sells fixed sizes — these add up to your total
+                    {sourceLabel} sells fixed sizes — these add up to your total
                     {v.upi?.txns_needed > 1 ? `, in ${v.upi.txns_needed} separate purchases` : ''}.
                   </Text>
                 </>
@@ -166,8 +167,8 @@ export default function Journey({ rec }) {
               </Text>
             </>
           }
-          caption="Opens Gyftr in a new tab."
-          link={v.voucher_url ? { href: v.voucher_url, label: 'Buy on Gyftr' } : undefined}
+          caption={`Opens ${sourceLabel} in a new tab.`}
+          link={v.voucher_url ? { href: v.voucher_url, label: `Buy on ${sourceLabel}` } : undefined}
           checked={checked.voucher}
           pending={pending.voucher}
           onCheck={check('voucher')}

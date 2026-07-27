@@ -17,6 +17,8 @@ class VoucherSummaryOut(BaseModel):
 class VoucherDetailOut(BaseModel):
     brand_name: str
     slug: str
+    voucher_source: str = "gyftr"
+    voucher_url: str | None = None
     redemption_type: str = ""
     denominations: list[int] = []
     discounts: dict[str, Any] = {}

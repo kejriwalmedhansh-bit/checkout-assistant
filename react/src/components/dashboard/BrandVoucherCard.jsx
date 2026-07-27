@@ -14,6 +14,8 @@ import { fmt } from '@/utils/format';
 export default function BrandVoucherCard({ voucher }) {
   const denominations = voucher.denominations || [];
   const method = voucher.best_payment_method || 'UPI';
+  const sourceLabel = voucher.voucher_source === 'maximize' ? 'Maximize' : 'Gyftr';
+  const link = voucher.voucher_url || `https://www.gyftr.com/${voucher.slug}`;
 
   return (
     <Card p="22px 20px">
@@ -29,7 +31,7 @@ export default function BrandVoucherCard({ voucher }) {
             {voucher.brand_name} Gift Voucher
           </Text>
           <Text fontSize="12px" color="text3" mt="1px">
-            via Gyftr
+            via {sourceLabel}
           </Text>
         </Box>
       </Flex>
@@ -66,7 +68,7 @@ export default function BrandVoucherCard({ voucher }) {
       )}
 
       <Link
-        href={`https://www.gyftr.com/${voucher.slug}`}
+        href={link}
         isExternal
         display="inline-flex"
         alignItems="center"
@@ -81,7 +83,7 @@ export default function BrandVoucherCard({ voucher }) {
         py="12px"
         _hover={{ textDecoration: 'none', opacity: 0.92 }}
       >
-        Buy voucher on Gyftr
+        Buy voucher on {sourceLabel}
         <I.arrowRight size={15} />
       </Link>
     </Card>

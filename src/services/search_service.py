@@ -33,7 +33,7 @@ logger = logging.getLogger("uvicorn.error")
 
 from ..config import get_settings
 from ..constants import KNOWN_BRANDS, MANUAL_TRUSTED_MERCHANTS, PRIORITY_MERCHANTS
-from ..repositories import searchapi_repository, voucher_repository
+from ..repositories import maximize_repository, searchapi_repository, voucher_repository
 from . import card_service, voucher_service
 
 # ── price parsing ──────────────────────────────────────────────────────────────
@@ -65,6 +65,43 @@ def _norm(name: str) -> str:
 
 _trusted_merchants_cache: set[str] | None = None
 _brand_voucher_index_cache: dict[str, dict] | None = None
+_maximize_brand_index_cache: dict[str, dict] | None = None
+
+
+def _gyftr_voucher_to_output_shape(voucher: dict) -> dict:
+    out = dict(voucher)
+    out["voucher_source"] = "gyftr"
+    out["voucher_url"] = f"https://www.gyftr.com/{voucher.get('slug')}"
+    return out
+
+
+def _maximize_brand_to_output_shape(record: dict) -> dict:
+    """Picks the brand's best-headline-rate tier and reshapes it to the same
+    flat fields the Gyftr voucher dict already has, so one schema
+    (VoucherDetailOut) and one frontend component serve both. There's no
+    product price in this flow (it's a direct brand-name shortcut, skipping
+    product search entirely), so — unlike the priced search flow, which picks
+    by actual final cost — the tier is picked by headline discount rate, the
+    same quick-compare number Dealo already surfaces elsewhere without a
+    price in hand."""
+    tiers = record.get("tiers") or []
+    best_tier = max(tiers, key=lambda t: t.get("best_discount_pct") or 0, default={})
+    return {
+        "brand_name": record.get("brand_name"),
+        "slug": record.get("slug"),
+        "voucher_source": "maximize",
+        "voucher_url": best_tier.get("voucher_url"),
+        "redemption_type": best_tier.get("redemption_type", ""),
+        "denominations": best_tier.get("denominations") or [],
+        "discounts": best_tier.get("discounts") or {},
+        "best_payment_method": best_tier.get("best_payment_method"),
+        "best_discount_pct": best_tier.get("best_discount_pct"),
+        "stack_limit": best_tier.get("stack_limit"),
+        "value_cap": best_tier.get("value_cap"),
+        "purchase_cap_per_txn": best_tier.get("purchase_cap_per_txn"),
+        "redemption_restrictions": [],
+        "how_to_redeem_steps": best_tier.get("redemption_instructions") or [],
+    }
 
 
 def _load_brand_voucher_index() -> dict[str, dict]:
@@ -83,7 +120,21 @@ def _load_brand_voucher_index() -> dict[str, dict]:
     return index
 
 
-# Longest brand_name in gyftr_master.json is 6 words (e.g. multi-word jewelry
+def _load_maximize_brand_index() -> dict[str, dict]:
+    """Same idea as `_load_brand_voucher_index`, over Maximize brands."""
+    global _maximize_brand_index_cache
+    if _maximize_brand_index_cache is not None:
+        return _maximize_brand_index_cache
+    index: dict[str, dict] = {}
+    for record in maximize_repository.all_brands():
+        key = _norm(record.get("brand_name", ""))
+        if key:
+            index[key] = record
+    _maximize_brand_index_cache = index
+    return index
+
+
+# Longest brand_name across both sources is 6 words (e.g. multi-word jewelry
 # brands) — bounds the query word-window scan below.
 _MAX_BRAND_WORDS = 6
 
@@ -91,22 +142,37 @@ _MAX_BRAND_WORDS = 6
 def _match_brand_voucher(query: str) -> dict | None:
     """Whole-phrase, exact match only — never a substring check. A query word
     window (1 to `_MAX_BRAND_WORDS` consecutive words) must normalize to
-    exactly equal a Gyftr brand's full normalized name. Deliberately stricter
-    than `_is_trusted_merchant`'s substring/signature matching: that function
-    matches an already-identified merchant name, but this scans raw free text,
-    where a substring check risks false positives (e.g. a short brand name
-    matching a piece of an unrelated word) — the kind of over-eager pattern
-    matching CLAUDE.md rule 1 warns against."""
+    exactly equal a brand's full normalized name, checked against both Gyftr
+    and Maximize. Deliberately stricter than `_is_trusted_merchant`'s
+    substring/signature matching: that function matches an already-identified
+    merchant name, but this scans raw free text, where a substring check
+    risks false positives (e.g. a short brand name matching a piece of an
+    unrelated word) — the kind of over-eager pattern matching CLAUDE.md rule
+    1 warns against.
+
+    If a window matches on both sides, the one with the better headline rate
+    wins — there's no product price in this flow to compare actual final
+    cost with, so headline rate is the honest best available signal."""
     words = re.findall(r"[a-z0-9]+", (query or "").lower())
     if not words:
         return None
-    index = _load_brand_voucher_index()
+    gyftr_index = _load_brand_voucher_index()
+    maximize_index = _load_maximize_brand_index()
     for start in range(len(words)):
         for length in range(1, min(_MAX_BRAND_WORDS, len(words) - start) + 1):
             window = "".join(words[start:start + length])
-            voucher = index.get(window)
-            if voucher:
-                return voucher
+            gyftr_voucher = gyftr_index.get(window)
+            maximize_record = maximize_index.get(window)
+            if gyftr_voucher is None and maximize_record is None:
+                continue
+            if gyftr_voucher is None:
+                return _maximize_brand_to_output_shape(maximize_record)
+            if maximize_record is None:
+                return _gyftr_voucher_to_output_shape(gyftr_voucher)
+            maximize_shaped = _maximize_brand_to_output_shape(maximize_record)
+            if (maximize_shaped.get("best_discount_pct") or 0) > (gyftr_voucher.get("best_discount_pct") or 0):
+                return maximize_shaped
+            return _gyftr_voucher_to_output_shape(gyftr_voucher)
     return None
 
 
@@ -139,7 +205,8 @@ def _load_trusted_merchants() -> set[str]:
     if _trusted_merchants_cache is not None:
         return _trusted_merchants_cache
     whitelist: set[str] = set()
-    for name in list(MANUAL_TRUSTED_MERCHANTS) + list(voucher_repository.brand_names()):
+    all_names = list(MANUAL_TRUSTED_MERCHANTS) + list(voucher_repository.brand_names()) + list(maximize_repository.brand_names())
+    for name in all_names:
         whitelist.add(_norm(name))
         whitelist.add(_brand_signature(name))
     whitelist.discard("")
@@ -315,11 +382,29 @@ def _build_candidates(detail: dict, source_token: str | None = None) -> list[dic
 # ── route builder (ported from pipeline._build_routes) ──────────────────────────
 
 def _card_fomo_for_route(route: dict) -> dict | None:
-    card_fomo = card_service.best_card_for_purchase(
-        merchant=route["merchant"],
-        purchase_amount=route["final_cost"],
-        has_voucher=route.get("voucher") is not None,
-    )
+    """The recommended route is always card-free — this only adds an optional
+    "by the way" aside for someone who already owns a qualifying card. Never
+    affects ranking, never a reason to apply for a card to get Dealo's main
+    price (see CardFomo.jsx)."""
+    voucher = route.get("voucher")
+    if voucher is None:
+        card_fomo = card_service.best_card_for_purchase(
+            merchant=route["merchant"],
+            purchase_amount=route["final_cost"],
+            has_voucher=False,
+        )
+    else:
+        # A card path means paying the voucher at THIS card's own rate (Credit
+        # Card discount — already computed and sitting in voucher["card"]),
+        # not the UPI rate Dealo recommends; cashback is earned on top of that
+        # lower-discount price, never layered on the UPI-rate price the
+        # customer wouldn't actually have paid by using a card instead.
+        card_fomo = card_service.best_card_for_voucher_purchase(
+            merchant=route["merchant"],
+            card_rate_price=voucher["card"]["effective_price"],
+            recommended_price=route["final_cost"],
+            voucher_source=voucher.get("voucher_source", "gyftr"),
+        )
     if not card_fomo:
         return None
     return {
@@ -819,7 +904,10 @@ def _product_candidate(p: dict) -> dict:
         "source": source,
         "rating": p.get("rating"),
         "reviews": p.get("reviews"),
-        "has_voucher": voucher_repository.get_by_merchant(source) is not None if source else False,
+        "has_voucher": bool(source) and (
+            voucher_repository.get_by_merchant(source) is not None
+            or maximize_repository.get_by_merchant(source) is not None
+        ),
     }
 
 

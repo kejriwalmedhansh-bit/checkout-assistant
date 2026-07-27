@@ -91,12 +91,14 @@ class VoucherDeal(BaseModel):
     merchant: str
     product_price: float
     voucher_url: str
+    voucher_source: str = "gyftr"
     offline_only: bool = False
     upi: VoucherUpi
     card: VoucherCard
     redemption_type: str = ""
     denominations: str = ""
     redemption_instructions: list[str] = []
+    how_to_redeem_short: str | None = None
 
 
 class CardFomo(BaseModel):
