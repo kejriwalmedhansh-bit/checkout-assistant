@@ -259,15 +259,20 @@ def _best_tier_deal(price: float, tiers: list[dict], payment_method: str = "upi"
     return best_deal, best_tier
 
 
-def get_best_maximize_deal(merchant_name: str, price: float) -> tuple[dict, dict] | None:
-    """Maximize equivalent of get_best_voucher_deal — returns (deal, tier)
-    since the caller needs the winning tier dict for redemption_type/
-    offline_only/how_to_redeem_short, the same way it uses the Gyftr voucher
-    dict directly."""
+def get_best_maximize_deal(merchant_name: str, price: float) -> tuple[dict, dict, str | None] | None:
+    """Maximize equivalent of get_best_voucher_deal — returns (deal, tier,
+    brand_name). brand_name is the catalog's own clean display name (e.g.
+    "AJIO Luxe") — the tier dict itself doesn't carry it, and callers need
+    it for display instead of the raw seller string a search result reports
+    for this merchant (sometimes a bare domain like "luxe.ajio.com")."""
     record = maximize_repository.get_by_merchant(merchant_name)
     if record is None:
         return None
-    return _best_tier_deal(price, record.get("tiers") or [], payment_method="upi")
+    result = _best_tier_deal(price, record.get("tiers") or [], payment_method="upi")
+    if result is None:
+        return None
+    deal, tier = result
+    return deal, tier, record.get("brand_name")
 
 
 def build_deals(results: list[dict], product_name: str = "") -> list[dict]:
@@ -314,7 +319,7 @@ def build_deals(results: list[dict], product_name: str = "") -> list[dict]:
         # structured fields don't expose an equivalent) — category filtering
         # simply doesn't apply to Maximize deals until that data exists.
         maximize_result = get_best_maximize_deal(merchant, price)
-        maximize_deal, maximize_tier = maximize_result if maximize_result else (None, None)
+        maximize_deal, maximize_tier, maximize_brand_name = maximize_result if maximize_result else (None, None, None)
 
         if gyftr_deal is None and maximize_deal is None:
             continue
@@ -323,8 +328,10 @@ def build_deals(results: list[dict], product_name: str = "") -> list[dict]:
             gyftr_deal is None or maximize_deal["effective_price"] < gyftr_deal["effective_price"]
         ):
             deal, voucher, voucher_source = maximize_deal, maximize_tier, "maximize"
+            brand_name = maximize_brand_name
         else:
             deal, voucher, voucher_source = gyftr_deal, gyftr_voucher, "gyftr"
+            brand_name = gyftr_voucher.get("brand_name")
 
         redemption_type_raw = voucher.get("redemption_type", "")
         offline_only = redemption_type_raw == "Offline"
@@ -333,6 +340,7 @@ def build_deals(results: list[dict], product_name: str = "") -> list[dict]:
 
         deals.append({
             "merchant": merchant,
+            "brand_name": brand_name or merchant,
             "product_price": price,
             "voucher_url": deal["voucher_url"],
             "voucher_source": voucher_source,

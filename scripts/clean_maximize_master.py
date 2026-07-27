@@ -10,12 +10,28 @@ brand-by-brand reasoning; this file just encodes the conclusions.
 
 Run: .venv/bin/python scripts/clean_maximize_master.py
 """
+import html
 import json
+import re
 from pathlib import Path
+from urllib.parse import unquote
 
 ROOT = Path(__file__).resolve().parent.parent
 IN_PATH = ROOT / "db" / "maximize_master.json"
 OUT_PATH = ROOT / "data" / "maximize_master.json"
+
+
+def clean_name(name: str | None) -> str | None:
+    """The scrape picked up a few brand/product names with leftover HTML
+    entities or URL-encoding baked in as literal text (e.g. "Marks &amp;
+    Spencer", "Muscle%20Blaze") — decode those back to plain text so nothing
+    customer-facing shows the raw markup."""
+    if not name:
+        return name
+    name = unquote(name)
+    name = html.unescape(name)
+    name = name.replace("\xa0", " ")
+    return re.sub(r"\s+", " ", name).strip()
 
 # Listings that are a different product entirely, not a pricing choice —
 # excluded outright rather than treated as a tier.
@@ -93,7 +109,7 @@ def clean():
 
             tiers.append({
                 "maximize_product_id": var.get("maximize_product_id"),
-                "product_name": var.get("product_name"),
+                "product_name": clean_name(var.get("product_name")),
                 "voucher_platform": "Maximize",
                 "voucher_url": var.get("url"),
                 "redemption_type": normalize_redemption(var.get("redemption_type")),
@@ -118,7 +134,7 @@ def clean():
             continue
 
         out[slug] = {
-            "brand_name": brand.get("brand_name"),
+            "brand_name": clean_name(brand.get("brand_name")),
             "slug": slug,
             "tiers": tiers,
         }
