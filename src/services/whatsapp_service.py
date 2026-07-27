@@ -182,7 +182,9 @@ async def _send_voucher_steps(phone: str, route: dict) -> None:
         cap = upi.get("purchase_cap_per_txn")
         cap_text = f", ₹{cap:,.0f} max per transaction" if cap else ""
         step1_text += f"\n\nYou'll need to do this {txns} separate times{cap_text}."
-    await send_cta_url(phone, step1_text, "Buy Now", voucher["voucher_url"])
+    voucher_url = voucher["voucher_url"]
+    if not await send_cta_url(phone, step1_text, "Buy Now", voucher_url):
+        await send_text(phone, f"{step1_text}\n{voucher_url}")
     await asyncio.sleep(_VOUCHER_STEP_GAP_SECONDS)
 
     remainder = upi.get("remainder", 0)
@@ -197,7 +199,9 @@ async def _send_voucher_steps(phone: str, route: dict) -> None:
         sellers = route.get("sellers") or []
         link = sellers[0].get("link") if sellers else None
         if link:
-            await send_cta_url(phone, step2_text, f"Open {merchant}", _affiliate_url(link))
+            affiliate_link = _affiliate_url(link)
+            if not await send_cta_url(phone, step2_text, f"Open {merchant}", affiliate_link):
+                await send_text(phone, f"{step2_text}\n{affiliate_link}")
         else:
             await send_text(phone, step2_text)
 
@@ -210,7 +214,10 @@ async def _send_direct_cta(phone: str, route: dict) -> None:
     sellers = route.get("sellers") or []
     link = sellers[0].get("link") if sellers else None
     if link:
-        await send_cta_url(phone, f"Ready to buy from {merchant}?", f"Open {merchant}", _affiliate_url(link))
+        affiliate_link = _affiliate_url(link)
+        body_text = f"Ready to buy from {merchant}?"
+        if not await send_cta_url(phone, body_text, f"Open {merchant}", affiliate_link):
+            await send_text(phone, f"{body_text}\n{affiliate_link}")
 
 
 async def _send_result_message(phone: str, image_url: str | None, caption: str) -> None:
@@ -453,10 +460,14 @@ async def send_image(phone: str, image_url: str, caption: str) -> bool:
         return r.status_code < 400
 
 
-async def send_cta_url(phone: str, body_text: str, button_text: str, url: str) -> None:
+async def send_cta_url(phone: str, body_text: str, button_text: str, url: str) -> bool:
     """Meta interactive CTA-URL message — a proper tappable button with a
     clean label, instead of pasting a raw (possibly long, Cuelinks-wrapped)
-    link into message text. Meta never tells us whether this gets tapped."""
+    link into message text. Meta never tells us whether this gets tapped.
+    Returns True only on a 2xx response — Meta rejects some button messages
+    outright (e.g. a malformed link) with no exception raised on our side,
+    so callers must check this and fall back to plain text rather than let
+    the whole step silently vanish for the user."""
     api_url, headers = _graph_config()
     payload = {
         "messaging_product": "whatsapp",
@@ -474,6 +485,7 @@ async def send_cta_url(phone: str, body_text: str, button_text: str, url: str) -
     async with httpx.AsyncClient() as client:
         r = await client.post(api_url, headers=headers, json=payload)
         print(f"[WhatsApp Send] Status: {r.status_code} | Body: {r.text}")
+        return r.status_code < 400
 
 
 async def send_reply_buttons(phone: str, text: str, buttons: list[tuple[str, str]]) -> None:
