@@ -97,24 +97,29 @@ export default function ProductCandidateCard({ product, onSelect, isSelecting })
           )}
           <Flex
             align="center"
-            justify="flex-end"
-            gap="4px"
-            mt="4px"
+            justify="center"
+            gap="5px"
+            mt="6px"
+            bg="brandSoft"
             color="brand"
-            fontSize="12.5px"
-            fontWeight={700}
+            fontSize="12px"
+            fontWeight={800}
             whiteSpace="nowrap"
-            transition="color .18s ease"
-            _groupHover={{ color: 'brandHover' }}
+            borderRadius="999px"
+            px="10px"
+            py="5px"
+            transition="background .18s ease, color .18s ease"
+            _groupHover={{ bg: 'brand', color: 'onBrand' }}
           >
+            <I.trendUp size={13} />
             Better price
             <Box
               display="inline-flex"
               transition="transform .18s cubic-bezier(.16,.68,.32,1)"
-              _groupHover={{ transform: 'translateX(6px)' }}
+              _groupHover={{ transform: 'translateX(4px)' }}
               sx={REDUCED_MOTION_SX}
             >
-              <I.chevRight size={13} />
+              <I.chevRight size={12} />
             </Box>
           </Flex>
         </Box>

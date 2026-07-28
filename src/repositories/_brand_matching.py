@@ -13,9 +13,28 @@ _RESELLER_WORDS = (
     "future world", "store", "electronics", "mobile",
 )
 
+# Generic trailing words a merchant's *display* name routinely carries that
+# its brand record never does (e.g. search results show "Hamleys India",
+# gyftr_master.json has "Hamleys-Luxe Gift Card") — stripped from the END of
+# the merchant name only, word-by-word, before matching. Never applied to
+# brand_name itself, which is curated data, not a raw store listing.
+_GENERIC_MERCHANT_SUFFIX_WORDS = {
+    "india", "in", "com", "official", "store", "shop", "online", "in.",
+}
+
 
 def normalize(name: str) -> str:
     return re.sub(r"[^a-z0-9]", "", name.lower())
+
+
+def _strip_generic_suffix_words(name: str) -> str:
+    """Drop trailing generic words ("Hamleys India" -> "Hamleys"). Stops at
+    the first non-generic word from the end, so a real brand word is never
+    removed. Falls back to the original name if stripping would empty it."""
+    words = name.strip().split()
+    while words and re.sub(r"[^a-z0-9]", "", words[-1].lower()) in _GENERIC_MERCHANT_SUFFIX_WORDS:
+        words.pop()
+    return " ".join(words) if words else name
 
 
 def find_best_match(merchant_name: str, records: list[dict], name_key: str = "brand_name") -> dict | None:
@@ -23,9 +42,12 @@ def find_best_match(merchant_name: str, records: list[dict], name_key: str = "br
 
     Case-insensitive; partial match OK (e.g. "amazon.in" matches "Amazon").
     Prefers the closest/shortest match over more specific sub-brand entries,
-    and excludes reseller / authorised-store style entries.
+    and excludes reseller / authorised-store style entries. Generic trailing
+    words on the merchant's own display name ("Hamleys India") are stripped
+    before matching so they don't break an otherwise-genuine prefix match
+    against the brand record ("Hamleys-Luxe Gift Card").
     """
-    norm_merchant = normalize(merchant_name)
+    norm_merchant = normalize(_strip_generic_suffix_words(merchant_name))
     if not norm_merchant:
         return None
 

@@ -528,6 +528,17 @@ _BULK_LISTING_KEYWORDS = [
     "pieces", "pcs", "pack of", "combo", "set of", "pair of",
 ]
 
+# A seller title can bundle two different appliances joined by a bare "&"
+# without ever using the word "combo" (e.g. "...Mixer Grinder... & Prestige
+# PIC 20 1600W Induction Cooktop...") — the keyword list above misses this
+# entirely. Two independent wattage specs in one title is a strong, rarely-
+# false-positive signal that two different appliances are being described,
+# not one product's own spec repeated — a single genuine product doesn't
+# carry two different wattage numbers. Deliberately requires "&" (not "+",
+# which real listings also use benignly for included accessories within ONE
+# product, e.g. "3 SS Jars + 1 Juicer Jar").
+_WATTAGE_RE = re.compile(r"\b(\d+)\s?(?:w|watt|watts)\b")
+
 _QUERY_STOPWORDS = {
     "buy", "price", "online", "best", "new", "latest", "india", "offer",
     "offers", "deal", "deals", "for", "the", "a", "an", "with", "and",
@@ -613,6 +624,15 @@ _COLOR_WORDS = [
 
 _STORAGE_RE = re.compile(r"\b(\d+)\s?(gb|tb)\b")
 
+# Screen size (TVs, monitors, laptops) — unlike battery life or ANC depth,
+# this genuinely defines a different, differently-priced product (a 55" and
+# a 65" TV are not the same item), so it's tracked as its own variant
+# attribute rather than left to _SPEC_PHRASE_RE's generic "non-distinguishing
+# spec filler" strip below. Matched on the already-normalized (lowercase,
+# punctuation-stripped) title, so "65-inch" / "65 Inch" / "65\"" all read the
+# same once _norm_title has run.
+_SIZE_RE = re.compile(r"\b(\d+(?:\.\d+)?)\s?inch\b")
+
 # A seller listing can bundle two different SKUs behind one slash (e.g. a
 # WooCommerce variant page titled "AirPods Pro 3/AirPods 3") — split on it so
 # each half can be checked independently instead of letting the other half's
@@ -631,7 +651,12 @@ def _is_accessory(title: str) -> bool:
 
 def _is_bulk_listing(title: str) -> bool:
     normalized = _norm_title(title)
-    return any(kw in normalized for kw in _BULK_LISTING_KEYWORDS)
+    if any(kw in normalized for kw in _BULK_LISTING_KEYWORDS):
+        return True
+    # Two-appliances-joined-by-"&" case — see _WATTAGE_RE comment above.
+    if "&" in (title or "") and len(set(_WATTAGE_RE.findall(normalized))) >= 2:
+        return True
+    return False
 
 
 def _is_latin_dominant(title: str) -> bool:
@@ -745,9 +770,11 @@ def _extract_variant_signature(title: str, exclude: set) -> tuple:
     normalized = _norm_title(title)
     storage_m = _STORAGE_RE.search(normalized)
     storage = f"{storage_m.group(1)}{storage_m.group(2)}" if storage_m else None
+    size_m = _SIZE_RE.search(normalized)
+    size = f"{size_m.group(1)}inch" if size_m else None
     color = next((c for c in _COLOR_WORDS if re.search(rf"\b{re.escape(c)}\b", normalized)), None)
-    extra_words = _distinguishing_words(title, exclude | {storage, color} - {None})
-    return (extra_words, storage, color)
+    extra_words = _distinguishing_words(title, exclude | {storage, size, color} - {None})
+    return (extra_words, storage, size, color)
 
 
 def _filter_and_group_candidates(candidates: list[dict], query: str) -> tuple[list[dict], bool]:
@@ -1612,6 +1639,7 @@ def _find_seller_link(candidates: list[dict], source: str) -> dict | None:
 
 def _find_pdp_candidate(
     candidates: list[dict], source_token: str, picked_source: str,
+    picked_price: float | None = None,
 ) -> dict | None:
     """Among candidates fetched from `product_token`'s own get_product() call
     (tagged `_source_token == source_token` by _build_candidates), return the
@@ -1626,10 +1654,19 @@ def _find_pdp_candidate(
     merchant-slot identity `_dedup_by_merchant` keys on (also
     `_brand_signature`, so "Amazon" and "Amazon.in" are recognized as the
     same store here too), not a raw string-equality lookup like
-    `_find_seller_link`'s. Requires a parsed price; when product_token's own
-    fetch legitimately returned more than one offer under this merchant
-    (different sellers/conditions), the lowest-priced one wins — the same
-    tie-break `_dedup_by_merchant` already applies to ordinary candidates.
+    `_find_seller_link`'s. Requires a parsed price.
+
+    When product_token's own fetch returns more than one offer under this
+    merchant, prefers whichever price is CLOSEST to `picked_price` — the
+    number the user actually saw and clicked on the Product Picker — rather
+    than blindly the lowest. Confirmed live (Samsung 65" QLED case): Google's
+    own shopping data can attach two genuinely different real prices (almost
+    certainly two different screen sizes) to what it treats as one merged
+    product token/merchant pair. Picking "whichever is cheapest" there
+    silently swaps the user's actual pick for a different, cheaper item they
+    never chose — the opposite of what a "pin the exact listing" mechanism
+    is for. Falls back to lowest-price (the old behavior) when
+    `picked_price` isn't available.
 
     For a live-price token (Amazon/Myntra link-paste, bug 1), `source_token`
     never matches any candidate's `_source_token` by construction — those
@@ -1647,6 +1684,8 @@ def _find_pdp_candidate(
     ]
     if not matches:
         return None
+    if picked_price is not None:
+        return min(matches, key=lambda c: abs(c["price"] - picked_price))
     return min(matches, key=lambda c: c["price"])
 
 
@@ -1706,6 +1745,25 @@ def build_routes_for_token(
             required = _required_tokens(variant_query)
             if required:
                 refined = [c for c in refined if _matches_required_tokens(c["title"], required)]
+
+            # The picked candidate's own title can drop a size the user's
+            # ORIGINAL query stated (e.g. the Product Picker fell back to a
+            # generic "Samsung Q80A QLED 4K Smart TV" match with no size in
+            # it at all) — `required`/the variant-signature check below only
+            # ever look at `variant_query` (title-first), so neither would
+            # catch this. Pull size from the raw `query` directly and, if the
+            # user actually stated one, require every refined candidate to
+            # state that same size explicitly — a cheaper, unverified-size
+            # listing should never be able to win "Recommended" just because
+            # neither title happens to mention its size in a comparable way.
+            query_size_m = _SIZE_RE.search(_norm_title(query))
+            if query_size_m:
+                required_size = f"{query_size_m.group(1)}inch"
+                refined = [
+                    c for c in refined
+                    if (m := _SIZE_RE.search(_norm_title(c["title"])))
+                    and f"{m.group(1)}inch" == required_size
+                ]
 
             # Require the same variant identity as the item actually picked
             # (storage/color/any other distinguishing word beyond the query's
@@ -1841,7 +1899,7 @@ def build_routes_for_token(
         # own get_product() call failed, or it's a live-price token from the
         # Amazon/Myntra link-paste feature, which never has one by design).
         if picked_price is not None and picked_source:
-            pdp_candidate = _find_pdp_candidate(pre_filter_candidates, product_token, picked_source)
+            pdp_candidate = _find_pdp_candidate(pre_filter_candidates, product_token, picked_source, picked_price)
             if pdp_candidate is not None:
                 candidates.append(_pinned_candidate(
                     display_title or title or query,
