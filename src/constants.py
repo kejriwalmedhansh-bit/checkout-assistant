@@ -40,6 +40,15 @@ PRIORITY_MERCHANTS = [
     "croma", "vijay sales", "reliance digital", "tata cliq", "flipkart", "amazon",
 ]
 
+# Hyperlocal/quick-commerce apps — kept last priority everywhere a route or
+# candidate gets ranked (2026-07-28, flagged by the user from real usage).
+# Their stock and delivery coverage is pincode-specific in a way this
+# pipeline has no way to check, so a route through one of these can
+# recommend something the user's location literally can't get. Never
+# excluded outright — still shown if nothing else is available — just never
+# allowed to outrank a normal listing on price alone.
+HYPERLOCAL_MERCHANTS = ["blinkit", "zepto", "swiggy", "zomato"]
+
 KNOWN_BRANDS = [
     "boat", "noise", "apple", "samsung", "sony", "lg", "hp", "dell", "lenovo",
     "asus", "acer", "microsoft", "google", "oneplus", "realme", "xiaomi",

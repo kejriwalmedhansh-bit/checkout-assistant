@@ -32,7 +32,7 @@ import httpx
 logger = logging.getLogger("uvicorn.error")
 
 from ..config import get_settings
-from ..constants import KNOWN_BRANDS, MANUAL_TRUSTED_MERCHANTS, PRIORITY_MERCHANTS
+from ..constants import HYPERLOCAL_MERCHANTS, KNOWN_BRANDS, MANUAL_TRUSTED_MERCHANTS, PRIORITY_MERCHANTS
 from ..repositories import maximize_repository, searchapi_repository, voucher_repository
 from . import card_service, voucher_service
 
@@ -331,14 +331,27 @@ def _dedup_by_merchant(results: list[dict]) -> list[dict]:
     return list(seen.values())
 
 
+def _is_hyperlocal(merchant: str) -> bool:
+    """True for quick-commerce apps (Blinkit/Zepto/Swiggy/Zomato) whose stock
+    and delivery coverage is pincode-specific in a way we can't verify — see
+    HYPERLOCAL_MERCHANTS in constants.py for why these get ranked last."""
+    src = (merchant or "").lower()
+    return any(m in src for m in HYPERLOCAL_MERCHANTS)
+
+
 def _priority_sort(results: list[dict]) -> list[dict]:
-    """Priority merchants first (in declared order), then rest sorted by price."""
+    """Priority merchants first (in declared order), then normal results
+    sorted by price, then hyperlocal apps last (also by price among
+    themselves) — never excluded, just never allowed to outrank a normal
+    listing."""
     def _key(r: dict) -> tuple:
         src = (r.get("merchant") or "").lower()
         for i, m in enumerate(PRIORITY_MERCHANTS):
             if m.lower() in src:
-                return (i, 0.0)
-        return (len(PRIORITY_MERCHANTS), r.get("price") or float("inf"))
+                return (0, i, 0.0)
+        if _is_hyperlocal(src):
+            return (2, 0.0, r.get("price") or float("inf"))
+        return (1, 0.0, r.get("price") or float("inf"))
     return sorted(results, key=_key)
 
 
@@ -483,7 +496,12 @@ def _build_routes(results: list[dict], vouchers: list[dict]) -> dict:
 
         add_route(merchant, listed_price, final_cost, r.get("sellers") or [], r.get("match_type") or "", title, v)
 
-    routes.sort(key=lambda x: x["final_cost"])
+    # Hyperlocal apps (Blinkit/Zepto/Swiggy/Zomato) sort after every normal
+    # route regardless of price — see HYPERLOCAL_MERCHANTS in constants.py.
+    # Otherwise a route through one of these could win "Recommended" on
+    # price alone despite delivery/stock we can't actually confirm for the
+    # user's location.
+    routes.sort(key=lambda x: (_is_hyperlocal(x["merchant"]), x["final_cost"]))
 
     if not routes:
         return {"recommended": None, "alternatives": [], "compared_count": 0}
@@ -1719,7 +1737,17 @@ def build_routes_for_token(
                 refined = [c for c in refined if (c.get("price") or 0) >= threshold or not c.get("price")]
 
             refined, _ = _outlier_filter(refined)
-            refined.sort(key=lambda c: c.get("price") if c.get("price") is not None else float("inf"))
+            # Hyperlocal apps sort last here too — otherwise a cheap
+            # Blinkit/Zepto/etc. listing could claim one of the limited
+            # fetch slots below ahead of a normal, location-independent
+            # merchant, before _build_routes even gets a chance to prefer
+            # the latter.
+            refined.sort(
+                key=lambda c: (
+                    _is_hyperlocal(c.get("merchant") or ""),
+                    c.get("price") if c.get("price") is not None else float("inf"),
+                )
+            )
             tokens_to_fetch = [c["product_token"] for c in refined[:_ROUTE_TOKEN_CAP]]
 
         # The originally-selected token was already vetted against the full
