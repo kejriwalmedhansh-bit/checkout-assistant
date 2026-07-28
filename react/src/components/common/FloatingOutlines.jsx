@@ -59,12 +59,44 @@ const ICON_PATHS = {
 // Muted, varied colors for the objects themselves — see comment above.
 const MUTED = ['#8A97A6', '#B08A72', '#8FA089', '#A98B9A', '#7E9C9A'];
 
+// Desktop values (top/left/size) are unchanged from the original design.
+// mTop/mLeft/mSize are phone-only overrides — only needed for the 3 icons
+// that sit in the page's top zone (logo/headline/subtext), which has no
+// card behind it on mobile the way it does everywhere else on the page.
+// sneaker/watch sit low enough to already be hidden behind the opaque
+// "how it works" card on phone widths, so they just get scaled down a
+// little defensively rather than repositioned.
 const ITEMS = [
-  { icon: 'phone', top: '10%', left: '8%', size: 74, anim: 'heroDrift1', dur: '40s', delay: '0s' },
-  { icon: 'headphones', top: '18%', left: '88%', size: 82, anim: 'heroDrift2', dur: '46s', delay: '1.3s' },
-  { icon: 'sneaker', top: '70%', left: '80%', size: 90, anim: 'heroDrift3', dur: '52s', delay: '2.6s' },
-  { icon: 'watch', top: '78%', left: '10%', size: 62, anim: 'heroDrift1', dur: '36s', delay: '3.9s' },
-  { icon: 'bag', top: '40%', left: '4%', size: 64, anim: 'heroDrift2', dur: '44s', delay: '5.2s' },
+  {
+    icon: 'phone',
+    top: '10%', left: '8%', size: 74,
+    mTop: '4%', mLeft: '2%', mSize: 32,
+    anim: 'heroDrift1', dur: '40s', delay: '0s',
+  },
+  {
+    icon: 'headphones',
+    top: '18%', left: '88%', size: 82,
+    mTop: '12%', mLeft: '84%', mSize: 34,
+    anim: 'heroDrift2', dur: '46s', delay: '1.3s',
+  },
+  {
+    icon: 'sneaker',
+    top: '70%', left: '80%', size: 90,
+    mTop: '70%', mLeft: '80%', mSize: 44,
+    anim: 'heroDrift3', dur: '52s', delay: '2.6s',
+  },
+  {
+    icon: 'watch',
+    top: '78%', left: '10%', size: 62,
+    mTop: '78%', mLeft: '10%', mSize: 30,
+    anim: 'heroDrift1', dur: '36s', delay: '3.9s',
+  },
+  {
+    icon: 'bag',
+    top: '40%', left: '4%', size: 64,
+    mTop: '30%', mLeft: '1%', mSize: 28,
+    anim: 'heroDrift2', dur: '44s', delay: '5.2s',
+  },
 ];
 
 export default function FloatingOutlines({ opacity = 0.14 }) {
@@ -77,12 +109,12 @@ export default function FloatingOutlines({ opacity = 0.14 }) {
           className="hero-floater"
           viewBox="0 0 64 64"
           position="absolute"
-          top={it.top}
-          left={it.left}
-          w={`${it.size}px`}
-          h={`${it.size}px`}
+          top={{ base: it.mTop, md: it.top }}
+          left={{ base: it.mLeft, md: it.left }}
+          w={{ base: `${it.mSize}px`, md: `${it.size}px` }}
+          h={{ base: `${it.mSize}px`, md: `${it.size}px` }}
           color={MUTED[i % MUTED.length]}
-          opacity={opacity}
+          opacity={{ base: opacity * 0.55, md: opacity }}
           sx={{ animationName: it.anim, animationDuration: it.dur, animationDelay: it.delay }}
         >
           {ICON_PATHS[it.icon]}
