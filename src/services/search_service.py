@@ -138,17 +138,26 @@ def _load_maximize_brand_index() -> dict[str, dict]:
 # brands) — bounds the query word-window scan below.
 _MAX_BRAND_WORDS = 6
 
+# Words that can sit alongside a brand name without turning the query into a
+# real product search ("Levi's gift card", "Myntra e-gift voucher"). Anything
+# else left over after the brand's own words are removed means the user named
+# an actual product ("Levi's denim jacket") — that must go to L1 product
+# search, never the brand-only voucher shortcut.
+_BRAND_VOUCHER_FILLER_WORDS = frozenset({
+    "gift", "card", "cards", "voucher", "vouchers", "gc", "egift", "epay",
+})
+
 
 def _match_brand_voucher(query: str) -> dict | None:
-    """Whole-phrase, exact match only — never a substring check. A query word
-    window (1 to `_MAX_BRAND_WORDS` consecutive words) must normalize to
+    """Whole-query match only — the entire search must be just the brand name
+    (optionally plus filler words like "gift card"/"voucher"), never a brand
+    name appearing anywhere inside a longer, more specific search. A query
+    word window (1 to `_MAX_BRAND_WORDS` consecutive words) must normalize to
     exactly equal a brand's full normalized name, checked against both Gyftr
-    and Maximize. Deliberately stricter than `_is_trusted_merchant`'s
-    substring/signature matching: that function matches an already-identified
-    merchant name, but this scans raw free text, where a substring check
-    risks false positives (e.g. a short brand name matching a piece of an
-    unrelated word) — the kind of over-eager pattern matching CLAUDE.md rule
-    1 warns against.
+    and Maximize — and every word outside that window must be pure filler,
+    or this isn't a brand-only lookup, it's a real product search that
+    happens to mention the brand ("Levi's denim jacket for men" must be
+    priced via L1, not short-circuited to the Levi's voucher).
 
     If a window matches on both sides, the one with the better headline rate
     wins — there's no product price in this flow to compare actual final
@@ -164,6 +173,9 @@ def _match_brand_voucher(query: str) -> dict | None:
             gyftr_voucher = gyftr_index.get(window)
             maximize_record = maximize_index.get(window)
             if gyftr_voucher is None and maximize_record is None:
+                continue
+            leftover = words[:start] + words[start + length:]
+            if any(w not in _BRAND_VOUCHER_FILLER_WORDS for w in leftover):
                 continue
             if gyftr_voucher is None:
                 return _maximize_brand_to_output_shape(maximize_record)
@@ -501,6 +513,11 @@ _BULK_LISTING_KEYWORDS = [
 _QUERY_STOPWORDS = {
     "buy", "price", "online", "best", "new", "latest", "india", "offer",
     "offers", "deal", "deals", "for", "the", "a", "an", "with", "and",
+    # Category words a shopper adds to say *what kind* of thing they want,
+    # not part of the product's own name — real listing titles routinely
+    # omit them ("The Alchemist by Paulo Coelho" has no "book" in it),
+    # so requiring them verbatim rejects genuine matches.
+    "book", "books",
 }
 
 # Generic model-tier words. These identify a variant ("iPhone 17 Pro" is not
@@ -792,7 +809,6 @@ def _filter_and_group_candidates(candidates: list[dict], query: str) -> tuple[li
     variants = _token_variants(tokens) if tokens else [[]]
     approximate = False
     survivors: list[dict] = []
-    matched_titles = False
 
     # Rung 1 + 2 — exact word match, then spacing variants.
     for variant in variants:
@@ -802,7 +818,6 @@ def _filter_and_group_candidates(candidates: list[dict], query: str) -> tuple[li
         ]
         if not exact:
             continue
-        matched_titles = True
         survivors = _vet(exact)
         if survivors:
             break
@@ -831,8 +846,10 @@ def _filter_and_group_candidates(candidates: list[dict], query: str) -> tuple[li
                 approximate = True
                 break
 
-    # Rung 4 — nothing product-specific matched at all. Show the vetted pool
-    # rather than the raw one.
+    # Rung 4 — either nothing product-specific matched at all, or the only
+    # title(s) that did match got rejected for a *different* reason (untrusted
+    # seller, bad price) — not because the product itself couldn't be found.
+    # Show the vetted pool rather than the raw one either way.
     #
     # This used to `return candidates` outright: no trusted-merchant check, no
     # price anchor, no outlier filter. That is what put ₹650 "Airpods Pro Max"
@@ -840,7 +857,7 @@ def _filter_and_group_candidates(candidates: list[dict], query: str) -> tuple[li
     # contradicts CLAUDE.md rule #1 — a wrong result is worse than no result.
     # Vetting it keeps the original intent (something beats a bare "nothing
     # found") without ever parading an untrusted seller at an absurd price.
-    if not survivors and not matched_titles:
+    if not survivors:
         vetted_raw = _vet(hygienic)
         if vetted_raw:
             survivors = vetted_raw
@@ -1356,11 +1373,16 @@ def search_candidates(query: str) -> dict:
     if not query:
         out["error"] = "Empty query."
         return out
+    is_url = bool(_URL_QUERY_RE.match(query))
     # A brand-name query (e.g. "myntra gift card") can't be priced by L1 at
     # all — Dealo doesn't price flights/hotels/experiences, and the brand
     # match is itself the useful signal — so skip URL/SerpAPI/candidate
-    # search entirely and go straight to the Gyftr voucher.
-    matched_voucher = _match_brand_voucher(query)
+    # search entirely and go straight to the Gyftr voucher. Never applies to
+    # a pasted link: a URL always names one specific product page, so it
+    # must go through L1 price discovery, never the brand-only shortcut
+    # (a brand's name showing up inside a URL's path/slug is not the same
+    # signal as a user typing just that brand name).
+    matched_voucher = None if is_url else _match_brand_voucher(query)
     if matched_voucher:
         out["mode"] = "brand_voucher"
         out["voucher"] = matched_voucher
@@ -1369,7 +1391,6 @@ def search_candidates(query: str) -> dict:
     # its page title first, then its slug words. The response still echoes
     # the original input in ``query``.
     effective_query = query
-    is_url = bool(_URL_QUERY_RE.match(query))
     live_candidate = None
     if is_url:
         # Two-layer link recognition, cheapest-reliable first:
