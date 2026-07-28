@@ -20,3 +20,33 @@
     animation: none !important;
   }
 }
+
+/* Homepage hero — faint floating product-outline background (see
+   FloatingOutlines.jsx). Slow drifts, three variants so icons don't move in
+   lockstep; a slow dash-crawl on the two "route" connector lines, echoing
+   the logo icon's own dashed stroke. */
+@keyframes heroDrift1 {
+  0%, 100% { transform: translate(0, 0) rotate(0deg); }
+  50% { transform: translate(14px, -18px) rotate(4deg); }
+}
+@keyframes heroDrift2 {
+  0%, 100% { transform: translate(0, 0) rotate(0deg); }
+  50% { transform: translate(-16px, 16px) rotate(-5deg); }
+}
+@keyframes heroDrift3 {
+  0%, 100% { transform: translate(0, 0) rotate(0deg); }
+  50% { transform: translate(10px, 20px) rotate(3deg); }
+}
+@keyframes heroDashMove {
+  to { stroke-dashoffset: -200; }
+}
+.hero-floater {
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-floater,
+  .hero-connector path {
+    animation: none !important;
+  }
+}

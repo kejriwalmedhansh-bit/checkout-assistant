@@ -1,6 +1,7 @@
 import { Box, Flex, Link, Text } from '@chakra-ui/react';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
 
+import FloatingOutlines from '@/components/common/FloatingOutlines';
 import Logo from '@/components/common/Logo';
 import SearchBox from '@/components/common/SearchBox';
 import { gradients } from '@/theme/foundations/colors';
@@ -55,6 +56,12 @@ export default function SearchPage() {
         pointerEvents="none"
         zIndex={0}
       />
+
+      {/* faint floating product outlines — "Recall" background from the
+          2026-07-28 homepage redesign, homepage-only (not used on data-dense
+          pages like results/product-picker, where it would compete with
+          real content) */}
+      <FloatingOutlines />
 
       <Flex
         direction="column"

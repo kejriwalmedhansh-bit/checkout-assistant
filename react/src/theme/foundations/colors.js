@@ -1,70 +1,74 @@
 /**
  * Semantic color tokens — the single source of truth for the palette.
  *
- * Dark is the only mode Dealo ships, so each token is a single flat value
- * (no `default`/`_dark` pair) — components still reference these names
- * (e.g. `bg="surface"`, `color="text2"`) exactly as before.
+ * Flat values, no `default`/`_dark` pair — components reference these names
+ * (e.g. `bg="surface"`, `color="text2"`) exactly as before regardless of
+ * which palette lives here.
  */
 export const semanticColors = {
-  // "Ledger" palette — cool paper canvas (precision/audit-trail feel, not a
-  // cozy cream), white cards, near-black ink text.
-  bg: '#121311',
-  bgGrid: '#262920',
-  sidebar: '#171812',
-  surface: '#1A1C18',
-  surface2: '#1F211B',
-  surface3: '#232019',
-  border: '#2C2E27',
-  borderStrong: '#3A3D33',
-  text: '#EFEEE8',
-  text2: '#A5A99F',
-  text3: '#787D72',
+  // "Ink & Copper" palette — white/off-white paper canvas, white cards, deep
+  // navy-ink text. Replaces the earlier dark-only "Ledger" green palette
+  // (2026-07-28 homepage redesign) — chosen over the docs' other two
+  // directions (plain teal-from-logo, and the Brand Kit's green+gold) after
+  // side-by-side mockup review.
+  bg: '#FAFAF7',
+  bgGrid: '#EDEBE3',
+  sidebar: '#F3F1EA',
+  surface: '#FFFFFF',
+  surface2: '#FBFAF7',
+  surface3: '#EFEDE5',
+  border: '#E4E1D6',
+  borderStrong: '#CFCBBB',
+  text: '#16202B',
+  text2: '#5B655F',
+  text3: '#8A9089',
 
-  // brand — deep ledger-green (darker/more serious than the old brand green)
-  brand: '#39B57C',
-  brandHover: '#4FD693',
-  brandSoft: '#193226',
-  brandSoft2: '#0F241A',
-  brandText: '#5FD99C',
+  // brand — deep navy (trust/finance-coded, not the old green)
+  brand: '#1F3A5F',
+  brandHover: '#16304E',
+  brandSoft: '#E7EDF3',
+  brandSoft2: '#EFF3F7',
+  brandText: '#1F3A5F',
 
-  // Foreground for anything sitting ON a brand/green fill — primary buttons,
-  // the numbered step circles, the savings pill. Near-black rather than
-  // white: white only clears contrast against the deeper light-mode green
-  // Dealo no longer uses — against this brighter dark-mode green, near-black
-  // is what actually passes (7.2:1 vs white's 2.6:1). Never hardcode
-  // `color="white"` over a brand fill.
-  onBrand: '#0B1410',
+  // Foreground for anything sitting ON a brand/navy fill — primary buttons,
+  // the numbered step circles, the savings pill. Near-white rather than
+  // near-black: the brand fill itself is now dark, so light text is what
+  // actually passes contrast (unlike the old bright-green fill, which needed
+  // near-black text). Never hardcode `color="white"` over a brand fill —
+  // use this token so it keeps tracking whatever `brand` is.
+  onBrand: '#F7F5EF',
 
-  // brass — the one deliberate rich accent, used sparingly (verification/
-  // confirmation moments only, not general UI)
-  brass: '#D9A748',
-  brassSoft: '#2E2617',
+  // brass/copper — the one deliberate rich accent, used sparingly
+  // (verification/confirmation moments only, not general UI)
+  brass: '#C1712F',
+  brassSoft: '#F5E4D3',
 
   // secondary accents
-  cyan: '#2BC6D6',
-  cyanSoft: '#16323A',
-  green: '#39B57C',
-  greenSoft: '#193226',
-  amber: '#E0A93B',
-  amberSoft: '#322611',
-  violet: '#A48BEC',
-  violetSoft: '#251C3A',
+  cyan: '#1E8FA0',
+  cyanSoft: '#E3F1F3',
+  green: '#1F7A52',
+  greenSoft: '#E6F1EA',
+  amber: '#B8842A',
+  amberSoft: '#F7ECD6',
+  violet: '#6B4FB8',
+  violetSoft: '#F0EBFB',
 
   // danger
-  danger: '#E0685A',
+  danger: '#B23A2E',
 };
 
 /**
  * Multi-stop gradients that don't fit the token model. Kept here so every visual
- * constant still lives in the theme layer. All recolored to Dealo green.
+ * constant still lives in the theme layer. Recolored to navy/copper.
  */
 export const gradients = {
-  brandAvatar: 'linear-gradient(135deg, #39B57C, var(--chakra-colors-brand))',
-  usageBar: 'linear-gradient(90deg, #39B57C, var(--chakra-colors-brand))',
+  brandAvatar: 'linear-gradient(135deg, var(--chakra-colors-brandHover), var(--chakra-colors-brand))',
+  usageBar: 'linear-gradient(90deg, var(--chakra-colors-brandHover), var(--chakra-colors-brand))',
 
-  // "search hero" glow — a soft, minimal green glow that fades in from the
-  // top of the screen. Built on transparent stops so it washes over the
-  // page background without introducing a hard surface.
+  // "search hero" wash — a soft, minimal copper warmth fading in from the
+  // top of the screen. Much lower alpha than the old dark-mode glow: a
+  // saturated color reads far heavier at the same opacity against white
+  // than it did against near-black.
   promptHero:
-    'radial-gradient(72% 60% at 50% -12%, rgba(57,181,124,.20) 0%, rgba(57,181,124,0) 68%)',
+    'radial-gradient(72% 60% at 50% -12%, rgba(193,113,47,.10) 0%, rgba(193,113,47,0) 68%)',
 };

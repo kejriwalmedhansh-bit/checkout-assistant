@@ -2,8 +2,9 @@
  * theme.js — the app-wide Chakra theme.
  *
  * This is the maintainable single source for design tokens and component looks.
- * Dealo ships dark-only — the tokens in `foundations/*` are flat values, not
- * light/dark pairs, so there's nothing left to branch on.
+ * Dealo ships one mode only — the tokens in `foundations/*` are flat values,
+ * not light/dark pairs, so there's nothing left to branch on. (Was dark
+ * green until 2026-07-28; now light "Ink & Copper".)
  *
  * To re-skin the product, edit `foundations/*` — not individual components.
  */
@@ -18,7 +19,7 @@ import { inputTheme, textareaTheme } from './components/input';
 import { switchTheme } from './components/switch';
 
 const config = {
-  initialColorMode: 'dark',
+  initialColorMode: 'light',
   useSystemColorMode: false,
 };
 
