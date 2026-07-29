@@ -4,6 +4,7 @@ import { Box, Flex, Text } from '@chakra-ui/react';
 import { I } from '@/components/common/icons';
 import { fmt, affiliateUrl, paidForVoucher } from '@/utils/format';
 import { useUiStore } from '@/store/uiStore';
+import { track } from '@/utils/analytics';
 import JourneyRow, { JourneyConnector } from './JourneyRow';
 
 /**
@@ -34,6 +35,7 @@ export default function Journey({ rec }) {
   // A brief "pending" beat before the checkmark lands — an instant flip is
   // easy to miss; this makes the confirmation a moment you actually notice.
   const check = (key) => () => {
+    track('Clicked Buy Link', { step: key, merchant: rec.merchant, has_voucher: Boolean(v) });
     setPending((p) => ({ ...p, [key]: true }));
     setTimeout(() => {
       setPending((p) => ({ ...p, [key]: false }));

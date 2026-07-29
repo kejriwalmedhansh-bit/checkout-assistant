@@ -10,6 +10,7 @@ import { persist, createJSONStorage } from 'zustand/middleware';
 
 import { searchApi } from '@/api/search.api';
 import { extractErrorMessage } from '@/utils/errors';
+import { track } from '@/utils/analytics';
 
 export const useSearchStore = create(
   persist(
@@ -61,6 +62,11 @@ export const useSearchStore = create(
               searchStatus: 'success',
               error: null,
             });
+            track('Searched', {
+              query: q,
+              mode: data.mode || 'products',
+              result_count: (data.products || []).length,
+            });
           }
         } catch (err) {
           set({ searchStatus: 'error', error: extractErrorMessage(err) });
@@ -73,9 +79,20 @@ export const useSearchStore = create(
       selectProduct: async (token, title = '', price = null, source = '', thumbnail = null) => {
         if (!token) return;
         set({ selectedToken: token, selectedThumbnail: thumbnail, result: null, status: 'loading', error: null });
+        track('Selected Product', { query: get().query, title, source });
         try {
           const result = await searchApi.routes(token, get().query, title, price, source);
           set({ result, status: 'success', error: null });
+          const rec = result?.routes?.recommended;
+          if (rec) {
+            track('Viewed Deal', {
+              query: get().query,
+              merchant: rec.merchant,
+              has_voucher: Boolean(rec.voucher),
+              final_cost: rec.final_cost ?? null,
+              alternatives_count: result?.routes?.alternatives?.length ?? 0,
+            });
+          }
         } catch (err) {
           set({ result: null, status: 'error', error: extractErrorMessage(err) });
         }

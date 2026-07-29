@@ -1,5 +1,7 @@
 import { Box, Link, Tooltip } from '@chakra-ui/react';
 
+import { track } from '@/utils/analytics';
+
 // Dealo's live WhatsApp number (+91 98744 00045), in the digits-only
 // international format wa.me requires — no spaces, no leading "+".
 const WHATSAPP_NUMBER = '919874400045';
@@ -20,6 +22,7 @@ export default function WhatsAppButton() {
       <Link
         href={href}
         isExternal
+        onClick={() => track('Clicked WhatsApp Button')}
         aria-label="Chat with Dealo on WhatsApp"
         position="fixed"
         right={{ base: '16px', md: '28px' }}
