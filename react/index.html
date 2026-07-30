@@ -7,6 +7,32 @@
     <title>Dealo</title>
 
     <!--
+      Legacy-host auto-redirect. Dealo moved off the geobuild.in subdomain to
+      getdealo.in; anyone still landing on the old host is sent straight over.
+
+      Inline and first in <head> on purpose: it runs before the ~350 kB (gzipped)
+      module bundle is even requested, so the old domain never paints a frame of
+      the app. Doing this from main.jsx instead would mean downloading and
+      booting the whole SPA first, which shows a visible flash on mobile.
+
+      Sends everyone to "/" rather than the equivalent path: verified 2026-07-30
+      that deep links 404 on both hosts (getdealo.in/results → 301 → 404) because
+      the S3/CloudFront distribution has no SPA fallback rewrite. Once that
+      rewrite exists, append location.pathname + location.search + location.hash.
+
+      location.replace, not assign: it leaves no history entry, so the back
+      button returns the user to wherever they came from instead of bouncing them
+      onto the old host and straight through this redirect again.
+    -->
+    <script>
+      (function () {
+        if (window.location.hostname === 'dealo.geobuild.in') {
+          window.location.replace('https://getdealo.in/');
+        }
+      })();
+    </script>
+
+    <!--
       First-paint canvas colour. Chakra only applies the `bg` token once the JS
       bundle has loaded and React has rendered, so without this the browser
       paints its default white first — a visible flash before the dark theme
