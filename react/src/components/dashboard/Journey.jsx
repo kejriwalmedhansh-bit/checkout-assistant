@@ -216,9 +216,25 @@ export default function Journey({ rec }) {
           icon={I.store}
           label={`Buy at ${rec.merchant}`}
           facts={
-            <Text fontSize="11.5px" color="text2" fontFamily="mono">
-              Listed at {fmt(rec.listed_price ? Math.round(rec.listed_price) : null)}
-            </Text>
+            <>
+              <Text fontSize="11.5px" color="text2" fontFamily="mono">
+                Listed at {fmt(rec.listed_price ? Math.round(rec.listed_price) : null)}
+              </Text>
+              {v.offline_only && (
+                <Flex gap="6px" align="flex-start" mt="8px" bg="amberSoft" border="1px solid" borderColor="amber" borderRadius="xs" px="10px" py="8px">
+                  <Flex color="amber" flex="0 0 auto" mt="1px">
+                    <I.alert size={13} />
+                  </Flex>
+                  <Text fontSize="11px" color="text" lineHeight={1.4}>
+                    <Text as="span" fontWeight={700}>
+                      In-store only
+                    </Text>{' '}
+                    — accepted at listed {rec.merchant.replace(/\s*\(in-store\)\s*$/i, '')} outlets, not
+                    online.{v.how_to_redeem_short ? ` ${v.how_to_redeem_short}` : ''}
+                  </Text>
+                </Flex>
+              )}
+            </>
           }
           link={sellerLink ? { href: affiliateUrl(sellerLink), label: 'Open store' } : undefined}
           checked={checked.store}
