@@ -71,18 +71,24 @@ export default function SearchPage() {
         textAlign="center"
         maxW="640px"
         mx="auto"
-        pt={{ base: '32px', md: '64px' }}
+        pt={{ base: '12px', md: '64px' }}
         position="relative"
         zIndex={1}
       >
-        <Box mb={{ base: '18px', md: '22px' }}>
+        {/* On mobile, AppLayout's own sticky topbar already shows a small
+            "dealo" wordmark right above this page — this bigger hero logo
+            repeats it, so the gap between them (pt above + mb below) needs
+            to stay tight on phones specifically, not match the generous
+            desktop spacing, or it reads as a large empty gap between two
+            copies of the same logo. */}
+        <Box mb={{ base: '10px', md: '22px' }}>
           <Link as={RouterLink} to={ROUTES.home} _hover={{ textDecoration: 'none' }}>
-            <Logo size={{ base: '48px', md: '68px' }} />
+            <Logo size={{ base: '40px', md: '68px' }} />
           </Link>
         </Box>
 
         <Text
-          fontSize={{ base: '30px', md: '44px' }}
+          fontSize={{ base: '26px', md: '44px' }}
           fontWeight={800}
           letterSpacing="-.03em"
           lineHeight={1.12}
@@ -93,7 +99,7 @@ export default function SearchPage() {
             Just search.
           </Box>
         </Text>
-        <Text fontSize={{ base: '14px', md: '15px' }} color="text2" mt="12px" maxW="440px" lineHeight={1.6}>
+        <Text fontSize={{ base: '13px', md: '15px' }} color="text2" mt={{ base: '8px', md: '12px' }} maxW="440px" lineHeight={1.5}>
           Paste any product link, or type what you want to buy. We check every store and every
           gift-voucher discount, then show you the cheapest way to actually pay — no credit card
           needed.
@@ -101,7 +107,7 @@ export default function SearchPage() {
 
         <Box
           w="100%"
-          mt="36px"
+          mt={{ base: '18px', md: '36px' }}
           bg="surface"
           border="1.5px solid"
           borderColor="brand"
@@ -129,7 +135,7 @@ export default function SearchPage() {
 
         <Box
           w="100%"
-          mt="28px"
+          mt={{ base: '14px', md: '28px' }}
           bg="surface"
           border="1px solid"
           borderColor="border"
@@ -174,7 +180,7 @@ export default function SearchPage() {
 
         <Flex
           w="100%"
-          mt="12px"
+          mt={{ base: '10px', md: '12px' }}
           gap="9px"
           align="flex-start"
           bg="amberSoft"
