@@ -1,6 +1,7 @@
-import { Flex, Text } from '@chakra-ui/react';
+import { Flex } from '@chakra-ui/react';
 
 import { I } from '@/components/common/icons';
+import InfoNote from '@/components/common/InfoNote';
 
 /**
  * A voucher route was already checked against Gyftr's stacking, denomination
@@ -21,10 +22,13 @@ export default function HowToSteps({ rec }) {
       <Flex color="amber" flex="0 0 auto" mt="1px">
         <I.alert size={15} />
       </Flex>
-      <Text fontSize="12.5px" color="text" lineHeight={1.5}>
-        We've already checked this voucher works for your order. Worth a quick skim of Gyftr's own
-        terms before you pay — takes a few seconds.
-      </Text>
+      <InfoNote
+        short="Verified for your order — worth a quick skim of Gyftr's terms."
+        full="We've already checked this voucher works for your order. It's still worth a quick skim of Gyftr's own terms before you pay — takes a few seconds."
+        fontSize="12.5px"
+        color="text"
+        mt="0"
+      />
     </Flex>
   );
 }

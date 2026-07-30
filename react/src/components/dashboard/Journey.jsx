@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { Box, Flex, Text } from '@chakra-ui/react';
 
 import { I } from '@/components/common/icons';
+import InfoNote from '@/components/common/InfoNote';
 import { fmt, affiliateUrl, paidForVoucher } from '@/utils/format';
 import { useUiStore } from '@/store/uiStore';
 import { track } from '@/utils/analytics';
@@ -33,12 +34,15 @@ export default function Journey({ rec }) {
   const sellerLink = rec.sellers?.[0]?.link;
   const [checked, setChecked] = useState({ store: false, voucher: false });
   const [pending, setPending] = useState({ store: false, voucher: false });
-  // "Hide" silences hints for this visit only; the sidebar switch is the
+  // "Hide" silences a hint for this visit only; the sidebar switch is the
   // durable off. Two different intentions, so two separate controls. Kept
-  // per-step (not one shared flag) — hiding the voucher hint shouldn't also
-  // silence the store and pay hints, since they're about different actions
-  // the user hasn't seen yet.
-  const [dismissed, setDismissed] = useState({ store: false, voucher: false, pay: false });
+  // per-step (not one shared flag) — hiding the store hint shouldn't also
+  // silence the pay hint, since they're about different actions the user
+  // hasn't seen yet. The voucher step has no dismissible hint of its own —
+  // its "why this helps" explanation lives behind the discount line's own
+  // InfoNote instead (see HINT_DETAIL below), since it's tied to a specific
+  // number rather than a general nudge.
+  const [dismissed, setDismissed] = useState({ store: false, pay: false });
   const hintsEnabled = useUiStore((s) => s.hintsEnabled);
 
   // A brief "pending" beat before the checkmark lands — an instant flip is
@@ -53,8 +57,14 @@ export default function Journey({ rec }) {
   };
 
   const paid = v ? paidForVoucher(v) : null;
+  // Short line shown by default; DETAIL is the original full sentence, one
+  // tap away behind the row's own InfoNote toggle — same content as before,
+  // just not all of it on screen at once.
   const HINT_TEXT = {
-    voucher: `Buy the voucher now on ${sourceLabel} — this is the step that actually saves you money. You pay ${fmt(paid)} for ${fmt(v?.upi?.voucher_amount)} of ${rec.merchant} credit.`,
+    store: v ? 'Pay with the voucher code next.' : 'This is the cheapest price we found.',
+    pay: v?.upi?.remainder ? `Enter the code, then pay ${fmt(v.upi.remainder)} the usual way.` : 'Enter the code at checkout.',
+  };
+  const HINT_DETAIL = {
     store: v
       ? `You've got the voucher — now open ${rec.merchant} and add your item to the basket. You'll pay with the code next.`
       : `Open ${rec.merchant} and buy it there — this is already the cheapest way we found.`,
@@ -103,6 +113,7 @@ export default function Journey({ rec }) {
         current
         onCheck={check('store')}
         hintText={HINT_TEXT.store}
+        hintDetail={HINT_DETAIL.store}
         hintVisible={hintVisible('store')}
         onHideHint={hideHint('store')}
       />
@@ -190,25 +201,35 @@ export default function Journey({ rec }) {
                       {fmt(v.upi?.voucher_amount)}
                     </Box>
                   </Flex>
-                  <Text fontSize="10.5px" color="text3" mt="4px">
-                    {sourceLabel} sells fixed sizes — these add up to your total
-                    {v.upi?.txns_needed > 1 ? `, in ${v.upi.txns_needed} separate purchases` : ''}.
-                  </Text>
+                  <InfoNote
+                    short={
+                      v.upi?.txns_needed > 1
+                        ? `${v.upi.txns_needed} separate purchases, totaling ${fmt(v.upi?.voucher_amount)}.`
+                        : `Add up to your total of ${fmt(v.upi?.voucher_amount)}.`
+                    }
+                    full={`${sourceLabel} sells fixed sizes — these add up to your total${
+                      v.upi?.txns_needed > 1 ? `, in ${v.upi.txns_needed} separate purchases` : ''
+                    }.`}
+                    fontSize="10.5px"
+                    mt="4px"
+                  />
                 </>
               )}
-              <Text fontSize="11.5px" color="amber" fontWeight={700} mt="8px">
-                {v.upi?.pct}% off — you pay {fmt(paid)}
-              </Text>
+              <InfoNote
+                short={`${v.upi?.pct}% off — you pay ${fmt(paid)}`}
+                full={`This is the step that actually saves you money — you pay ${fmt(paid)} for ${fmt(v.upi?.voucher_amount)} of ${rec.merchant} credit.`}
+                fontSize="11.5px"
+                color="amber"
+                fontWeight={700}
+                mt="8px"
+              />
             </>
           }
-          caption={`Opens ${sourceLabel} in a new tab.`}
+          caption={`Opens ${sourceLabel}.`}
           link={v.voucher_url ? { href: v.voucher_url, label: `Buy on ${sourceLabel}` } : undefined}
           checked={checked.voucher}
           pending={pending.voucher}
           onCheck={check('voucher')}
-          hintText={HINT_TEXT.voucher}
-          hintVisible={hintVisible('voucher')}
-          onHideHint={hideHint('voucher')}
         />,
         <JourneyRow
           key="store"
@@ -242,6 +263,7 @@ export default function Journey({ rec }) {
           current={currentStep === 'store'}
           onCheck={check('store')}
           hintText={HINT_TEXT.store}
+          hintDetail={HINT_DETAIL.store}
           hintVisible={hintVisible('store')}
           onHideHint={hideHint('store')}
         />,
@@ -258,6 +280,7 @@ export default function Journey({ rec }) {
           ready={checked.store}
           current={currentStep === 'pay'}
           hintText={HINT_TEXT.pay}
+          hintDetail={HINT_DETAIL.pay}
           hintVisible={hintVisible('pay')}
           onHideHint={hideHint('pay')}
         />,

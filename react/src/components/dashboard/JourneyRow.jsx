@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { Box, Flex, Link, Text } from '@chakra-ui/react';
 
 /** Tone → soft circle background + accent color (semantic tokens). */
@@ -148,9 +149,11 @@ export default function JourneyRow({
   current = false,
   onCheck,
   hintText,
+  hintDetail,
   hintVisible,
   onHideHint,
 }) {
+  const [detailOpen, setDetailOpen] = useState(false);
   const t = TONES[tone] || TONES.brand;
   const filled = checked || ready;
   // Nothing is ever hidden — every step stays fully visible and fully
@@ -314,7 +317,45 @@ export default function JourneyRow({
             color="text"
             lineHeight={1.45}
           >
-            <Text>{hintText}</Text>
+            <Box flex="1" minW={0}>
+              <Flex align="baseline" gap="6px">
+                <Text>{hintText}</Text>
+                {hintDetail && (
+                  <Box
+                    as="button"
+                    type="button"
+                    onClick={() => setDetailOpen((o) => !o)}
+                    aria-expanded={detailOpen}
+                    aria-label="More detail"
+                    flex="0 0 auto"
+                    w="15px"
+                    h="15px"
+                    borderRadius="50%"
+                    border="1px solid"
+                    borderColor="brass"
+                    bg={detailOpen ? 'brass' : 'transparent'}
+                    color={detailOpen ? 'onBrand' : 'brass'}
+                    fontSize="9.5px"
+                    fontWeight={700}
+                    fontStyle="italic"
+                    fontFamily="serif"
+                    display="inline-flex"
+                    alignItems="center"
+                    justifyContent="center"
+                    lineHeight="1"
+                    transition="background .12s ease, color .12s ease"
+                    _focusVisible={{ outline: '2px solid', outlineColor: 'brass', outlineOffset: '2px' }}
+                  >
+                    i
+                  </Box>
+                )}
+              </Flex>
+              {hintDetail && detailOpen && (
+                <Text mt="6px" fontSize="11.5px" color="text2">
+                  {hintDetail}
+                </Text>
+              )}
+            </Box>
             <Box
               as="button"
               type="button"
