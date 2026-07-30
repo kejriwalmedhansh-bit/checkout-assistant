@@ -53,17 +53,23 @@ export default function ProductSelectPage() {
 
   return (
     <Box position="relative">
-      <Box
-        position="absolute"
-        top="-120px"
-        left="50%"
-        transform="translateX(-50%)"
-        w="min(900px, 130%)"
-        h="320px"
-        bgImage={heroGlow}
-        pointerEvents="none"
-        zIndex={0}
-      />
+      {/* Same fix as SearchPage.jsx's hero glow: this decorative div is
+          deliberately 130% wide (bleeds past the edges on wide screens), so
+          it needs its own clipped, pointer-events-none layer — otherwise it
+          creates real horizontal page overflow on any phone-width viewport
+          (confirmed: a 595px-wide element on a 500px viewport here, the
+          "weird black rectangle" on the right edge users reported). */}
+      <Box position="absolute" inset={0} overflow="hidden" pointerEvents="none" zIndex={0}>
+        <Box
+          position="absolute"
+          top="-120px"
+          left="50%"
+          transform="translateX(-50%)"
+          w="min(900px, 130%)"
+          h="320px"
+          bgImage={heroGlow}
+        />
+      </Box>
 
       <Box maxW="680px" mx="auto" position="relative" zIndex={1}>
         <Box mb="10px" ml="-10px">
