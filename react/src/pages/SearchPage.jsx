@@ -1,3 +1,4 @@
+import { Fragment } from 'react';
 import { Box, Flex, Link, Text } from '@chakra-ui/react';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
 
@@ -36,30 +37,32 @@ export default function SearchPage() {
   };
 
   return (
-    <Box position="relative" overflow="hidden">
-      {/* green hero glow washing in from the top — deliberately wider than
-          the page (up to 130%) so it bleeds past the edges on wide screens;
-          this Box clips that bleed instead of letting it become real
-          horizontal page overflow, which is what was making the whole page
-          shift/scroll sideways on phones (confirmed: a single 744px-wide
-          element on a 614px viewport, this one, nothing else). */}
-      <Box
-        position="absolute"
-        top="-140px"
-        left="50%"
-        transform="translateX(-50%)"
-        w="min(1100px, 130%)"
-        h="420px"
-        bgImage={heroGlow}
-        pointerEvents="none"
-        zIndex={0}
-      />
+    <Box position="relative">
+      {/* Decorative layer only, clipped on its own — this Box (not the page
+          content below) is what has overflow="hidden", since clipping the
+          whole page also clipped the search box's own glow/shadow at the
+          edges on narrow screens, cutting it off oddly. Isolating the clip
+          to just this absolutely-positioned, pointer-events-none layer
+          fixes the horizontal page-scroll bug without touching real UI. */}
+      <Box position="absolute" inset={0} overflow="hidden" pointerEvents="none" zIndex={0}>
+        {/* green hero glow washing in from the top — deliberately wider than
+            the page (up to 130%) so it bleeds past the edges on wide screens */}
+        <Box
+          position="absolute"
+          top="-140px"
+          left="50%"
+          transform="translateX(-50%)"
+          w="min(1100px, 130%)"
+          h="420px"
+          bgImage={heroGlow}
+        />
 
-      {/* faint floating product outlines — "Recall" background from the
-          2026-07-28 homepage redesign, homepage-only (not used on data-dense
-          pages like results/product-picker, where it would compete with
-          real content) */}
-      <FloatingOutlines />
+        {/* faint floating product outlines — "Recall" background from the
+            2026-07-28 homepage redesign, homepage-only (not used on data-dense
+            pages like results/product-picker, where it would compete with
+            real content) */}
+        <FloatingOutlines />
+      </Box>
 
       <Flex
         direction="column"
@@ -133,10 +136,16 @@ export default function SearchPage() {
           borderRadius="lg"
           p={{ base: '14px 10px', md: '16px 14px' }}
         >
-          <Flex align="center" justify="space-between">
+          {/* Grid, not flex — three genuinely equal-width columns (1fr each)
+              with the two arrows in their own fixed-width columns between
+              them. The earlier flex version gave the icons uneven visual
+              spacing because the columns' widths depended on how long each
+              label's text happened to be; a grid keeps every icon centered
+              in an equal slice of the row regardless of label length. */}
+          <Box display="grid" gridTemplateColumns="1fr auto 1fr auto 1fr" alignItems="center">
             {HOW_IT_WORKS.map((step, i) => (
-              <Flex key={step.label} align="center" flex={i === HOW_IT_WORKS.length - 1 ? '0 0 auto' : '1'}>
-                <Flex direction="column" align="center" gap="6px" flex="1" minW="0" px="4px">
+              <Fragment key={step.label}>
+                <Flex direction="column" align="center" gap="6px" minW="0" px="4px">
                   <Flex
                     w="38px"
                     h="38px"
@@ -154,13 +163,13 @@ export default function SearchPage() {
                   </Text>
                 </Flex>
                 {i < HOW_IT_WORKS.length - 1 && (
-                  <Box color="border" flex="0 0 auto">
+                  <Box color="border" px="4px">
                     <I.chevRight size={16} />
                   </Box>
                 )}
-              </Flex>
+              </Fragment>
             ))}
-          </Flex>
+          </Box>
         </Box>
 
         <Flex
