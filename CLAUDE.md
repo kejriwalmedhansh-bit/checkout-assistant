@@ -79,6 +79,8 @@ All of the above look like IP- or network-level bot detection (the kind that che
 - `refresh_gyftr.py` staleness checker for `gyftr_master.json`.
 - L1 matching fine-tune (dedicated replanning session).
 - Gyftr partnership: ongoing meetings with Simran / Anjali (SVP); demo-led framing since Dealo is pre-revenue.
+- **Mobile layout bug on live site (getdlow.in), reported 2026-07-30, not yet diagnosed:** on phone, focusing the search input shifts/moves the whole search bar to the left instead of staying centered/full-width — site doesn't "fit to scale" on mobile. Not yet reproduced or root-caused; likely candidates to check first: iOS Safari's auto-zoom-on-focus behavior for inputs with `font-size` under 16px, a fixed/absolute-positioned element reacting badly when the on-screen keyboard opens, or horizontal overflow somewhere in the search page layout. Needs reproduction on a real phone (or device emulation) against the live site before attempting a fix.
+- **Loading-screen legitimacy/hygiene tips, requested 2026-07-30, not yet designed:** after the user submits a search and picks a product (the "Finding the best price… / Checking deals across stores… / Almost there…" rotating-message loading state before `/routes` returns), add rotating tips about safe/legitimate voucher practices during that dead time — directly serves `PRODUCT.md`'s "the real trust gap is that gift vouchers are an unfamiliar concept" finding. Needs: (1) research on how comparable apps handle loading-screen educational tips, (2) drafting the actual tip copy (grounded in real Gyftr/voucher facts, not invented ones — same trust bar as everything else in this file), (3) deciding where the rotating-message logic actually lives in the frontend before touching it.
 
 ## Environment
 
