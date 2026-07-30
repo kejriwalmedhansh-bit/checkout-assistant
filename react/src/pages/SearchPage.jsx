@@ -36,8 +36,13 @@ export default function SearchPage() {
   };
 
   return (
-    <Box position="relative">
-      {/* green hero glow washing in from the top */}
+    <Box position="relative" overflow="hidden">
+      {/* green hero glow washing in from the top — deliberately wider than
+          the page (up to 130%) so it bleeds past the edges on wide screens;
+          this Box clips that bleed instead of letting it become real
+          horizontal page overflow, which is what was making the whole page
+          shift/scroll sideways on phones (confirmed: a single 744px-wide
+          element on a 614px viewport, this one, nothing else). */}
       <Box
         position="absolute"
         top="-140px"
