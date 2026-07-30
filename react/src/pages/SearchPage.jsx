@@ -4,29 +4,22 @@ import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import FloatingOutlines from '@/components/common/FloatingOutlines';
 import Logo from '@/components/common/Logo';
 import SearchBox from '@/components/common/SearchBox';
+import { I } from '@/components/common/icons';
 import { gradients } from '@/theme/foundations/colors';
 import { usePageTitle } from '@/hooks/usePageTitle';
 import { ROUTES } from '@/routes/paths';
 import { useSearchStore } from '@/store/searchStore';
 
-// What actually happens, in the order it happens — replaces the old 3
-// disconnected feature badges (Best price / Gift Voucher discounts / One
-// simple way to buy) with the same numbered-step shape used on the results
-// page, so "why am I typing this" gets answered as a sequence, not a list
-// of separate claims.
+// What actually happens, in the order it happens, said as pictures instead
+// of sentences — per PRODUCT.md, design for the lower end of reading
+// comfort by default. Replaces the earlier numbered 1-2-3 sentence list;
+// the "Heads up" line below it exists because PRODUCT.md's real trust gap
+// isn't online payment, it's that buying a gift voucher is an unfamiliar
+// concept — naming it here means it's never a surprise on the results page.
 const HOW_IT_WORKS = [
-  {
-    title: 'Tell us what you want',
-    desc: 'A product name, or paste any store link — whatever’s easier.',
-  },
-  {
-    title: 'We check prices + gift vouchers',
-    desc: 'Every trusted store, plus discounted gift vouchers that stack on top.',
-  },
-  {
-    title: 'You get the cheapest way to buy',
-    desc: 'One recommended route, no credit card required, works for anyone.',
-  },
+  { icon: I.link, label: 'Paste a link' },
+  { icon: I.ticket, label: 'Buy a small voucher' },
+  { icon: I.pay, label: 'Pay less' },
 ];
 
 export default function SearchPage() {
@@ -133,45 +126,59 @@ export default function SearchPage() {
           border="1px solid"
           borderColor="border"
           borderRadius="lg"
-          p={{ base: '16px 18px', md: '18px 22px' }}
+          p={{ base: '14px 10px', md: '16px 14px' }}
+        >
+          <Flex align="center" justify="space-between">
+            {HOW_IT_WORKS.map((step, i) => (
+              <Flex key={step.label} align="center" flex={i === HOW_IT_WORKS.length - 1 ? '0 0 auto' : '1'}>
+                <Flex direction="column" align="center" gap="6px" flex="1" minW="0" px="4px">
+                  <Flex
+                    w="38px"
+                    h="38px"
+                    flex="0 0 38px"
+                    borderRadius="12px"
+                    align="center"
+                    justify="center"
+                    bg={i === HOW_IT_WORKS.length - 1 ? 'greenSoft' : 'amberSoft'}
+                    color={i === HOW_IT_WORKS.length - 1 ? 'green' : 'amber'}
+                  >
+                    <step.icon size={20} />
+                  </Flex>
+                  <Text fontSize="11px" fontWeight={700} color="text" textAlign="center" lineHeight={1.25}>
+                    {step.label}
+                  </Text>
+                </Flex>
+                {i < HOW_IT_WORKS.length - 1 && (
+                  <Box color="border" flex="0 0 auto">
+                    <I.chevRight size={16} />
+                  </Box>
+                )}
+              </Flex>
+            ))}
+          </Flex>
+        </Box>
+
+        <Flex
+          w="100%"
+          mt="12px"
+          gap="9px"
+          align="flex-start"
+          bg="amberSoft"
+          borderRadius="md"
+          p="11px 12px"
           textAlign="left"
         >
-          {HOW_IT_WORKS.map((step, i) => (
-            <Box key={step.title}>
-              <Flex gap="14px" align="flex-start" py="10px">
-                <Flex
-                  w="28px"
-                  h="28px"
-                  flex="0 0 28px"
-                  borderRadius="50%"
-                  bg="brandSoft"
-                  color="brandText"
-                  border="1.5px solid"
-                  borderColor="brand"
-                  align="center"
-                  justify="center"
-                  fontSize="12.5px"
-                  fontWeight={800}
-                >
-                  {i + 1}
-                </Flex>
-                <Box>
-                  <Text fontSize="13.5px" fontWeight={700} color="text">
-                    {step.title}
-                  </Text>
-                  <Text fontSize="12px" color="text3" mt="2px" lineHeight={1.5}>
-                    {step.desc}
-                  </Text>
-                </Box>
-              </Flex>
-              {i < HOW_IT_WORKS.length - 1 && (
-                <Flex pl="13px">
-                  <Box w="2px" h="10px" bg="borderStrong" />
-                </Flex>
-              )}
-            </Box>
-          ))}
-        </Box>
+          <Box color="amber" mt="1px" flex="0 0 auto">
+            <I.info size={15} />
+          </Box>
+          <Text fontSize="12px" color="text" lineHeight={1.45}>
+            <Text as="span" fontWeight={700}>
+              Heads up:
+            </Text>{' '}
+            step 2 is buying a small voucher yourself. Takes 30 seconds — that's how the discount
+            works.
+          </Text>
+        </Flex>
       </Flex>
     </Box>
   );

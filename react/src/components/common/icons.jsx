@@ -137,6 +137,13 @@ export const I = {
       <path d="m8.5 12 2.5 2.5 4.5-5" />
     </BaseIcon>
   ),
+  pay: (p) => (
+    <BaseIcon {...p}>
+      <rect x="2" y="6" width="20" height="12" rx="2" />
+      <circle cx="12" cy="12" r="2" />
+      <path d="M6 12h.01M18 12h.01" />
+    </BaseIcon>
+  ),
   alert: (p) => (
     <BaseIcon {...p}>
       <path d="M12 3 2.5 19.5h19L12 3Z" />
