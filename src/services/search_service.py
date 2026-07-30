@@ -591,6 +591,12 @@ def _token_variants(tokens: list[str]) -> list[list[str]]:
 
 _MAX_CANDIDATES = 8  # keep the picker scannable even when grouping can't fully dedup
 
+# Below this many post-filter candidates, a brand-qualified search ("Apple
+# AirPods") is treated as suspiciously thin and worth re-checking against the
+# same search with the brand word removed ("AirPods") — see
+# `_maybe_widen_brand_query`.
+_THIN_RESULT_THRESHOLD = 3
+
 # Generic spec/marketing words that don't identify a distinct product/variant —
 # used to find the words a title has *beyond* the query, so different sellers'
 # phrasing of the exact same model (spec dumps, "for men", strap material...)
@@ -672,6 +678,21 @@ def _required_tokens(query: str) -> list[str]:
     generic stopwords — e.g. "Boat Airdopes 141" -> ["airdopes", "141"]."""
     tokens = re.findall(r"[a-z0-9]+", (query or "").lower())
     return [t for t in tokens if t not in KNOWN_BRANDS and t not in _QUERY_STOPWORDS]
+
+
+def _strip_known_brands(query: str) -> str | None:
+    """Remove any `KNOWN_BRANDS` word from the query text itself (not just the
+    internal token-matching step, which already ignores brand words) —
+    "Apple AirPods" -> "AirPods", "Sony headphones" -> "headphones".
+
+    Returns None when no brand word was actually present, so a caller can
+    tell "nothing to strip" apart from "stripping left an empty string"."""
+    words = (query or "").split()
+    kept = [w for w in words if w.lower() not in KNOWN_BRANDS]
+    if len(kept) == len(words):
+        return None
+    stripped = " ".join(kept).strip()
+    return stripped or None
 
 
 def _is_bare_modifier_segment(segment: str) -> bool:
@@ -777,7 +798,9 @@ def _extract_variant_signature(title: str, exclude: set) -> tuple:
     return (extra_words, storage, size, color)
 
 
-def _filter_and_group_candidates(candidates: list[dict], query: str) -> tuple[list[dict], bool]:
+def _filter_and_group_candidates(
+    candidates: list[dict], query: str, tag: str = "[search]"
+) -> tuple[list[dict], bool]:
     """Drop accessories/bulk-listings/wrong-model/non-English junk, then group
     same-variant listings from different sellers into one picker card each.
 
@@ -805,6 +828,16 @@ def _filter_and_group_candidates(candidates: list[dict], query: str) -> tuple[li
         and not _is_bulk_listing(c["title"])
         and _is_latin_dominant(c["title"])
     ]
+    for c in candidates:
+        if not c.get("title"):
+            continue
+        if _is_accessory(c["title"]):
+            logger.info("%s   dropped (accessory): %r", tag, c["title"])
+        elif _is_bulk_listing(c["title"]):
+            logger.info("%s   dropped (bulk listing): %r", tag, c["title"])
+        elif not _is_latin_dominant(c["title"]):
+            logger.info("%s   dropped (non-Latin title): %r", tag, c["title"])
+
     def _vet(pool: list[dict]) -> list[dict]:
         """Trust + price sanity. Runs identically on the strict pool and on the
         relaxed fallback pool, so the fallback is held to exactly the same
@@ -819,7 +852,11 @@ def _filter_and_group_candidates(candidates: list[dict], query: str) -> tuple[li
         # which is a better outcome than surfacing a counterfeit (see
         # _filter_trusted_only's docstring / CLAUDE.md rule #1 — a wrong result
         # is worse than none).
-        pool = _filter_trusted_only(pool, merchant_key="source")
+        trusted = _filter_trusted_only(pool, merchant_key="source")
+        for c in pool:
+            if c not in trusted:
+                logger.info("%s   dropped (untrusted seller %r): %r", tag, c.get("source"), c.get("title"))
+        pool = trusted
 
         # If a trusted, non-marketplace merchant quoted a price here, anchor
         # the price-sanity check on that instead of the survivor pool's own
@@ -827,16 +864,53 @@ def _filter_and_group_candidates(candidates: list[dict], query: str) -> tuple[li
         # for a query, which otherwise drags the median low enough that no
         # clone reads as an outlier relative to the others. No anchor means no
         # such merchant showed up — falls back to the median check unchanged.
-        anchor = _priority_merchant_anchor(pool, merchant_key="source")
-        if anchor is not None:
-            threshold = 0.4 * anchor
-            pool = [c for c in pool if (c.get("price") or 0) >= threshold or not c.get("price")]
+        #
+        # Anchored and outlier-filtered *per variant group*, not across the
+        # whole pool — a query like "AirPods" can match both real AirPods and
+        # the much pricier AirPods Max in the same token-matched pool, and
+        # they aren't clones of each other, just two different real products.
+        # Grouping first (same signature the final dedup step already uses)
+        # means Max's price only ever anchors other Max listings, never the
+        # cheaper AirPods line's own sanity check.
+        by_variant: dict[tuple, list[dict]] = {}
+        for c in pool:
+            by_variant.setdefault(_extract_variant_signature(c["title"], exclude), []).append(c)
 
-        # Defense-in-depth against price anomalies within the now-trusted set
-        # (e.g. a stale/broken scrape price) — same 40%-of-median threshold
-        # already used for L1 route results.
-        pool, _ = _outlier_filter(pool)
-        return pool
+        # Floor anchor computed across the *whole* matched pool — used only
+        # when a variant group has no trusted price of its own to anchor on.
+        # Without this, a group that's just an odd wording of a known clone
+        # (a seller-name prefix, a typo) and happens to have no genuine
+        # listing of its own exact wording would get zero price-sanity check
+        # at all, since a lone/marketplace-only group has nothing internal to
+        # compare against.
+        pool_wide_anchor = _priority_merchant_anchor(pool, merchant_key="source")
+
+        vetted: list[dict] = []
+        for group in by_variant.values():
+            own_anchor = _priority_merchant_anchor(group, merchant_key="source")
+            anchor = own_anchor if own_anchor is not None else pool_wide_anchor
+            if anchor is not None:
+                threshold = 0.4 * anchor
+                above = [c for c in group if (c.get("price") or 0) >= threshold or not c.get("price")]
+                for c in group:
+                    if c not in above:
+                        logger.info(
+                            "%s   dropped (price %s below %s anchor threshold %.0f): %r",
+                            tag, c.get("price"),
+                            "same-variant" if own_anchor is not None else "pool-wide fallback",
+                            threshold, c.get("title"),
+                        )
+                group = above
+
+            # Defense-in-depth against price anomalies within the now-trusted
+            # set (e.g. a stale/broken scrape price) — same 40%-of-median
+            # threshold already used for L1 route results, same per-variant
+            # scoping as the anchor check above.
+            group, removed_count = _outlier_filter(group)
+            if removed_count:
+                logger.info("%s   dropped %d listing(s) as same-variant price outliers", tag, removed_count)
+            vetted.extend(group)
+        return vetted
 
     # Widening ladder. Each rung loosens what counts as *the product*; none of
     # them ever loosens what counts as a trustworthy seller or a believable
@@ -861,6 +935,7 @@ def _filter_and_group_candidates(candidates: list[dict], query: str) -> tuple[li
             c for c in hygienic
             if not variant or _matches_required_tokens(c["title"], variant)
         ]
+        logger.info("%s rung 1/2 (exact tokens %r): %d candidate(s) matched", tag, variant, len(exact))
         if not exact:
             continue
         survivors = _vet(exact)
@@ -877,15 +952,18 @@ def _filter_and_group_candidates(candidates: list[dict], query: str) -> tuple[li
     # unconditionally it would inflate "puma skyrocket lite 2" from 8 results
     # to 20 by admitting non-Lite variants.
     if not survivors:
+        logger.info("%s rung 1/2 produced nothing — trying rung 3 (relaxed qualifiers)", tag)
         for variant in variants:
             strong = [t for t in variant if t not in _QUALIFIER_TOKENS]
             qualifiers = [t for t in variant if t in _QUALIFIER_TOKENS]
             if not (strong and qualifiers):
                 continue
-            relaxed = _vet([
+            relaxed_pool = [
                 c for c in hygienic
                 if _matches_relaxed_tokens(c["title"], strong, qualifiers)
-            ])
+            ]
+            logger.info("%s rung 3 (strong=%r, qualifiers=%r): %d candidate(s) matched", tag, strong, qualifiers, len(relaxed_pool))
+            relaxed = _vet(relaxed_pool)
             if relaxed:
                 survivors = relaxed
                 approximate = True
@@ -903,12 +981,14 @@ def _filter_and_group_candidates(candidates: list[dict], query: str) -> tuple[li
     # Vetting it keeps the original intent (something beats a bare "nothing
     # found") without ever parading an untrusted seller at an absurd price.
     if not survivors:
+        logger.info("%s rungs 1-3 produced nothing — falling back to rung 4 (vetted raw pool)", tag)
         vetted_raw = _vet(hygienic)
         if vetted_raw:
             survivors = vetted_raw
             approximate = True
 
     if not survivors:
+        logger.info("%s no survivors at any rung", tag)
         return [], False
 
     groups: dict = {}
@@ -921,7 +1001,16 @@ def _filter_and_group_candidates(candidates: list[dict], query: str) -> tuple[li
         else:
             existing = groups[key]
             if c.get("price") is not None and (existing.get("price") is None or c["price"] < existing["price"]):
+                logger.info(
+                    "%s   %r (%s) replaces cheaper duplicate %r (%s) in same group",
+                    tag, c.get("title"), c.get("price"), existing.get("title"), existing.get("price"),
+                )
                 groups[key] = c
+            else:
+                logger.info(
+                    "%s   %r (%s) dropped as duplicate of %r (%s)",
+                    tag, c.get("title"), c.get("price"), existing.get("title"), existing.get("price"),
+                )
 
     # Keep Google's own relevance order — the genuine product ranks near the
     # top there. Sorting the picker by price instead floats the cheapest
@@ -1404,6 +1493,71 @@ def _live_price_candidate(url: str, title: str | None, price: float, source: str
     }
 
 
+def _maybe_widen_brand_query(
+    effective_query: str,
+    is_url: bool,
+    shopping_results: list[dict],
+    products: list[dict],
+    approximate: bool,
+    tag: str,
+) -> tuple[list[dict], bool]:
+    """If a brand-qualified search (e.g. "Apple AirPods") came back thin, also
+    try the same search with the brand word removed (e.g. "AirPods") and merge
+    in whatever new candidates that turns up, then re-run the exact same
+    filter/vet pipeline over the combined pool.
+
+    General rule, not a per-product special case: it only fires when a
+    recognized brand word is actually present in the query AND the first pass
+    is thin — a healthy brand-qualified search (e.g. "Sony headphones"
+    already returning plenty of real Sony listings) never triggers this, so
+    it can't accidentally pull in other brands' products.
+
+    Never applied to pasted links (`is_url`) — there, `effective_query` is a
+    page title/slug already describing one specific product, not a typed
+    brand+product phrase.
+    """
+    if is_url or len(products) >= _THIN_RESULT_THRESHOLD:
+        return products, approximate
+    widened_query = _strip_known_brands(effective_query)
+    if not widened_query:
+        return products, approximate
+    logger.info(
+        "%s thin result (%d) for %r — widening with brand-stripped query %r",
+        tag, len(products), effective_query, widened_query,
+    )
+    raw2 = searchapi_repository.search_products(widened_query)
+    if raw2.get("error"):
+        logger.info("%s widened query failed: %s", tag, raw2["error"])
+        return products, approximate
+    shopping_results2 = raw2.get("shopping_results", [])
+    seen_tokens = {r.get("product_token") for r in shopping_results if r.get("product_token")}
+    new_raw = [
+        r for r in shopping_results2
+        if r.get("product_token") and r.get("product_token") not in seen_tokens
+    ]
+    if not new_raw:
+        logger.info("%s widened query returned no new candidates", tag)
+        return products, approximate
+    logger.info("%s widened query returned %d new raw result(s)", tag, len(new_raw))
+    combined_raw = [
+        _product_candidate(p) for p in shopping_results if p.get("product_token")
+    ]
+    for p in new_raw:
+        candidate = _product_candidate(p)
+        candidate["_widened"] = True
+        combined_raw.append(candidate)
+    widened_products, widened_approximate = _filter_and_group_candidates(
+        combined_raw, effective_query, tag=tag
+    )
+    if len(widened_products) > len(products):
+        logger.info(
+            "%s widened from %d to %d candidate(s) using brand-stripped query",
+            tag, len(products), len(widened_products),
+        )
+        return widened_products, widened_approximate
+    return products, approximate
+
+
 def search_candidates(query: str) -> dict:
     """Step 1 of the two-step flow: google_shopping search only.
 
@@ -1419,6 +1573,10 @@ def search_candidates(query: str) -> dict:
         out["error"] = "Empty query."
         return out
     is_url = bool(_URL_QUERY_RE.match(query))
+    # Shared log prefix for this call — lets a plain typed search show the
+    # same step-by-step detail a pasted link already gets, instead of only
+    # ever logging for links.
+    tag = "[url-search]" if is_url else "[search]"
     # A brand-name query (e.g. "myntra gift card") can't be priced by L1 at
     # all — Dealo doesn't price flights/hotels/experiences, and the brand
     # match is itself the useful signal — so skip URL/SerpAPI/candidate
@@ -1474,6 +1632,7 @@ def search_candidates(query: str) -> dict:
             "[url-search] searching via %s -> query=%r", layer, effective_query
         )
     try:
+        logger.info("%s query sent to SearchApi: %r", tag, effective_query)
         raw = searchapi_repository.search_products(effective_query)
         if raw.get("error"):
             # A live Amazon price stands on its own even if the broader
@@ -1482,30 +1641,32 @@ def search_candidates(query: str) -> dict:
             if live_candidate:
                 out["products"] = [live_candidate]
                 return out
-            if is_url:
-                logger.info("[url-search] google api error: %s", raw["error"])
+            logger.info("%s google api error: %s", tag, raw["error"])
             out["error"] = raw["error"]
             return out
         shopping_results = raw.get("shopping_results", [])
-        if is_url:
+        logger.info(
+            "%s google api returned %d raw result(s):",
+            tag, len(shopping_results),
+        )
+        for r in shopping_results:
             logger.info(
-                "[url-search] google api returned %d raw result(s):",
-                len(shopping_results),
+                "%s   raw: %r | %s | %s | token=%s",
+                tag,
+                r.get("title"),
+                r.get("seller") or r.get("source") or r.get("store"),
+                r.get("price"),
+                "yes" if r.get("product_token") else "no",
             )
-            for r in shopping_results:
-                logger.info(
-                    "[url-search]   raw: %r | %s | %s | token=%s",
-                    r.get("title"),
-                    r.get("seller") or r.get("source") or r.get("store"),
-                    r.get("price"),
-                    "yes" if r.get("product_token") else "no",
-                )
         products = [
             _product_candidate(p)
             for p in shopping_results
             if p.get("product_token")
         ]
-        products, approximate = _filter_and_group_candidates(products, effective_query)
+        products, approximate = _filter_and_group_candidates(products, effective_query, tag=tag)
+        products, approximate = _maybe_widen_brand_query(
+            effective_query, is_url, shopping_results, products, approximate, tag
+        )
         if live_candidate:
             # Added after filtering, not before: this candidate is the exact
             # page the user pasted, already "vetted" by the fact that it's
@@ -1524,25 +1685,23 @@ def search_candidates(query: str) -> dict:
             ]
             approximate = False
         if not products:
-            if is_url:
-                logger.info("[url-search] no candidates after filtering")
+            logger.info("%s no candidates after filtering", tag)
             out["error"] = "No products found for that search."
             return out
         out["products"] = products
         out["approximate"] = approximate
-        if is_url:
+        logger.info(
+            "%s %d candidate(s)%s:",
+            tag, len(products), " (approximate)" if approximate else "",
+        )
+        for p in products:
             logger.info(
-                "[url-search] %d candidate(s)%s:",
-                len(products), " (approximate)" if approximate else "",
+                "%s   - %r | %s | %s%s",
+                tag, p.get("title"), p.get("source"), p.get("price"),
+                " [widened-in]" if p.get("_widened") else "",
             )
-            for p in products:
-                logger.info(
-                    "[url-search]   - %r | %s | %s",
-                    p.get("title"), p.get("source"), p.get("price"),
-                )
     except Exception as e:  # never leak a stack trace
-        if is_url:
-            logger.info("[url-search] search error: %s: %s", type(e).__name__, e)
+        logger.info("%s search error: %s: %s", tag, type(e).__name__, e)
         out["error"] = f"{type(e).__name__}: {e}"
     return out
 
