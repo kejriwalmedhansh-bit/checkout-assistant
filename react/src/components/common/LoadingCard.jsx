@@ -3,25 +3,32 @@ import { Box, Flex, Text } from '@chakra-ui/react';
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion';
 
 import Card from './Card';
+import { I } from './icons';
 
 /**
- * Centered card with pulsing dots + a rotating reassurance message. Shared by
- * any page that waits on a real network call long enough to need one
- * (ResultsPage building routes, ProductSelectPage fetching candidates). The
- * message crossfades between lines instead of jump-cutting — small, but it's
- * the one piece of this card that changes every few seconds without saying so.
+ * Centered card with pulsing dots + a rotating tip. Shared by any page that
+ * waits on a real network call long enough to need one (ResultsPage building
+ * routes, ProductSelectPage fetching candidates). No separate "Finding the
+ * best price... / Almost there..." status line — the dots alone carry
+ * "something is happening," freeing the text for something worth reading:
+ * Dealo's core trust gap is that gift vouchers are an unfamiliar concept
+ * (see PRODUCT.md), so this dead time is spent on that instead of restating
+ * the obvious. Tips loop (unlike the old status line, which froze on its
+ * last message) since there's no "final" tip to land on.
  */
-export default function LoadingCard({ messages }) {
+export default function LoadingCard({ tips }) {
   const [idx, setIdx] = useState(0);
   const prefersReduced = useReducedMotion();
   useEffect(() => {
-    const t = setInterval(() => setIdx((i) => Math.min(i + 1, messages.length - 1)), 3000);
+    const t = setInterval(() => setIdx((i) => (i + 1) % tips.length), 5000);
     return () => clearInterval(t);
-  }, [messages]);
+  }, [tips]);
+
+  const tip = tips[idx];
 
   return (
     <Flex justify="center" pt={{ base: '32px', md: '64px' }}>
-      <Card p="40px 48px" maxW="360px" w="100%">
+      <Card p={{ base: '28px 20px', md: '36px 40px' }} maxW="360px" w="100%">
         <Flex direction="column" align="center" gap="18px">
           <Flex gap="8px">
             {[0, 1, 2].map((i) => (
@@ -42,27 +49,40 @@ export default function LoadingCard({ messages }) {
               />
             ))}
           </Flex>
-          <Box position="relative" minH="20px" w="100%" textAlign="center">
-            {prefersReduced ? (
-              <Text fontSize="14px" color="text2" fontWeight={500}>
-                {messages[idx]}
-              </Text>
-            ) : (
-              <AnimatePresence mode="wait">
-                <motion.div
-                  key={idx}
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                  transition={{ duration: 0.2 }}
-                >
-                  <Text fontSize="14px" color="text2" fontWeight={500}>
-                    {messages[idx]}
-                  </Text>
-                </motion.div>
-              </AnimatePresence>
-            )}
-          </Box>
+          <Flex
+            gap="8px"
+            align="flex-start"
+            bg="brandSoft"
+            borderRadius="xs"
+            px="12px"
+            py="10px"
+            w="100%"
+          >
+            <Flex color="brand" flex="0 0 auto" mt="1px">
+              <I.bulb size={15} />
+            </Flex>
+            <Box position="relative" flex="1">
+              {prefersReduced ? (
+                <Text fontSize="12.5px" color="text" lineHeight={1.5}>
+                  {tip}
+                </Text>
+              ) : (
+                <AnimatePresence mode="wait">
+                  <motion.div
+                    key={idx}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.2 }}
+                  >
+                    <Text fontSize="12.5px" color="text" lineHeight={1.5}>
+                      {tip}
+                    </Text>
+                  </motion.div>
+                </AnimatePresence>
+              )}
+            </Box>
+          </Flex>
         </Flex>
       </Card>
     </Flex>

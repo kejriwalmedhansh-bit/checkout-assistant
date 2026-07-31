@@ -198,4 +198,11 @@ export const I = {
       <path d="M18 6 6 18M6 6l12 12" />
     </BaseIcon>
   ),
+  bulb: (p) => (
+    <BaseIcon {...p}>
+      <path d="M9 18h6" />
+      <path d="M10 22h4" />
+      <path d="M12 2a7 7 0 0 0-4 12.7c.6.5 1 1.2 1 2.05V17h6v-.25c0-.85.4-1.55 1-2.05A7 7 0 0 0 12 2Z" />
+    </BaseIcon>
+  ),
 };

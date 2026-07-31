@@ -15,11 +15,10 @@ import { gradients } from '@/theme/foundations/colors';
 import { ROUTES } from '@/routes/paths';
 import { useSearchStore } from '@/store/searchStore';
 
-const LOADING_MSGS = [
-  'Looking that up...',
-  'Checking what is actually in stock...',
-  'Matching the exact product...',
-  'Almost there...',
+// Shown while candidates are being fetched, before the picker appears.
+const PICKER_TIPS = [
+  'Pick the exact match — it decides your price.',
+  'Not right? Add the brand name and search again.',
 ];
 
 export default function ProductSelectPage() {
@@ -97,7 +96,7 @@ export default function ProductSelectPage() {
           />
         </Box>
 
-        {searchStatus === 'loading' && <LoadingCard messages={LOADING_MSGS} />}
+        {searchStatus === 'loading' && <LoadingCard tips={PICKER_TIPS} />}
 
         {searchStatus === 'error' && <ErrorBox message={error || 'Search failed.'} />}
 

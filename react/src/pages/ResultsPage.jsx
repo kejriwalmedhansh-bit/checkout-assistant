@@ -20,12 +20,16 @@ import { ROUTES } from '@/routes/paths';
 import { useSearchStore } from '@/store/searchStore';
 import { affiliateUrl, finalPrice as calcFinal, originalPrice as calcOriginal, saving as calcSaving } from '@/utils/format';
 
-const LOADING_MSGS = [
-  'Finding the best price...',
-  'Checking deals across stores...',
-  'Looking for gift voucher discounts...',
-  'Working out the cheapest way to buy it...',
-  'Almost there...',
+// Shown one at a time while the route is being built — this is Dealo's real
+// trust gap (buying a gift voucher is an unfamiliar concept to most users,
+// per PRODUCT.md), so the wait is spent addressing that instead of a generic
+// "please wait" status line.
+const ROUTE_TIPS = [
+  'Vouchers are real store credit — not a trick.',
+  "We're not the seller. We just find your best deal.",
+  "Read the gift voucher site's redemption steps first.",
+  'Follow the steps in order for the full discount.',
+  'In-store? Ask the cashier if they take vouchers first.',
 ];
 
 export default function ResultsPage() {
@@ -50,7 +54,7 @@ export default function ResultsPage() {
 
   const loading = status === 'loading';
 
-  if (loading) return <LoadingCard messages={LOADING_MSGS} />;
+  if (loading) return <LoadingCard tips={ROUTE_TIPS} />;
 
   // No result and nothing in flight → send the user back to search.
   if (!result && status !== 'error') return <Navigate to={ROUTES.home} replace />;
