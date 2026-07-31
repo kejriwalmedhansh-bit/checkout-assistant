@@ -22,8 +22,11 @@ import { I } from './icons';
  * An explicit `onClick` replaces the history walk — for pages where "back"
  * must first unwind in-page state (leaving an alternative route on the
  * results page) before it means leaving the page.
+ *
+ * `iconOnly` drops the text label (kept as `aria-label` for a11y) for tight
+ * header rows — the results page's compact top bar being the current case.
  */
-export default function BackButton({ fallback, label = 'Back', onClick, ...props }) {
+export default function BackButton({ fallback, label = 'Back', onClick, iconOnly = false, ...props }) {
   const navigate = useNavigate();
 
   const goBack = () => {
@@ -41,7 +44,9 @@ export default function BackButton({ fallback, label = 'Back', onClick, ...props
       onClick={onClick || goBack}
       aria-label={label}
       h="32px"
-      px="10px"
+      px={iconOnly ? '0' : '10px'}
+      w={iconOnly ? '32px' : undefined}
+      flex={iconOnly ? '0 0 auto' : undefined}
       fontSize="13px"
       fontWeight={600}
       gap="6px"
@@ -50,7 +55,7 @@ export default function BackButton({ fallback, label = 'Back', onClick, ...props
       <Box as="span" display="inline-flex" transform="rotate(180deg)">
         <I.chevRight size={16} />
       </Box>
-      {label}
+      {!iconOnly && label}
     </Button>
   );
 }

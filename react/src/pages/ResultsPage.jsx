@@ -7,10 +7,12 @@ import BackButton from '@/components/common/BackButton';
 import ErrorBox from '@/components/common/ErrorBox';
 import LoadingCard from '@/components/common/LoadingCard';
 import SearchBox from '@/components/common/SearchBox';
+import { I } from '@/components/common/icons';
 import ApproximateNotice from '@/components/dashboard/ApproximateNotice';
 import BestPriceConfirmed from '@/components/dashboard/BestPriceConfirmed';
 import ProductIdentity from '@/components/dashboard/ProductIdentity';
 import SavingsBar from '@/components/dashboard/SavingsBar';
+import RouteWire from '@/components/dashboard/RouteWire';
 import RouteCard from '@/components/dashboard/RouteCard';
 import CardFomo from '@/components/dashboard/CardFomo';
 import AlternativesToggle from '@/components/dashboard/AlternativesToggle';
@@ -42,6 +44,11 @@ export default function ResultsPage() {
 
   const scrollRef = useRef(null);
   const [selectedAlt, setSelectedAlt] = useState(null);
+  // Collapsed by default: on a phone, the back button + full search box
+  // used to stack into ~100px of chrome above the fold on every single
+  // visit, even though re-running a search from here is rare. Opening it is
+  // one tap away; nothing about the ability to search again is lost.
+  const [searchOpen, setSearchOpen] = useState(false);
 
   const loading = status === 'loading';
 
@@ -81,7 +88,7 @@ export default function ResultsPage() {
 
   return (
     <Box ref={scrollRef} maxW="640px" mx="auto">
-      <Box mb="10px" ml="-10px">
+      <Flex align="center" gap="6px" mb={searchOpen ? '8px' : '14px'}>
         {/* Viewing an alternative is page state, not a navigation — real
             history's previous entry is the picker. Back must still mean one
             screen: first leave the alternative, only then leave the page. */}
@@ -89,18 +96,56 @@ export default function ResultsPage() {
           fallback={ROUTES.select}
           label={selectedAlt ? 'Back to recommended' : 'Back to products'}
           onClick={selectedAlt ? backToRecommended : undefined}
+          iconOnly
         />
-      </Box>
+        {!searchOpen && (
+          <Box
+            as="button"
+            type="button"
+            onClick={() => setSearchOpen(true)}
+            display="flex"
+            alignItems="center"
+            gap="6px"
+            h="32px"
+            px="10px"
+            flex={1}
+            minW={0}
+            borderRadius="xs"
+            color="text2"
+            fontSize="12.5px"
+            fontWeight={600}
+            _hover={{ bg: 'surface3' }}
+          >
+            <I.search size={14} />
+            Search again
+          </Box>
+        )}
+      </Flex>
 
-      <Box mb="18px">
-        <SearchBox
-          initialValue={query}
-          onSubmit={rerun}
-          isLoading={loading}
-          size="md"
-          buttonLabel="Search again"
-        />
-      </Box>
+      {searchOpen && (
+        <Box mb="18px">
+          <Flex justify="flex-end" mb="6px">
+            <Box
+              as="button"
+              type="button"
+              onClick={() => setSearchOpen(false)}
+              fontSize="12px"
+              fontWeight={600}
+              color="text2"
+              _hover={{ color: 'text' }}
+            >
+              Cancel
+            </Box>
+          </Flex>
+          <SearchBox
+            initialValue={query}
+            onSubmit={rerun}
+            isLoading={loading}
+            size="md"
+            buttonLabel="Search again"
+          />
+        </Box>
+      )}
 
       {error || result?.error ? (
         <ErrorBox message={error || result.error} />
@@ -119,23 +164,32 @@ export default function ResultsPage() {
           <Flex direction="column" gap="14px">
             {approximate && <ApproximateNotice variant="results" />}
             <ProductIdentity name={productName} sourceUrl={sourceUrl} thumbnail={selectedThumbnail} />
-            {calcSaving(result, activeRoute) > 0 ? (
-              <SavingsBar
-                originalPrice={calcOriginal(result, activeRoute)}
-                finalPrice={calcFinal(activeRoute)}
-                saving={calcSaving(result, activeRoute)}
-                voucherRequired={!!activeRoute.voucher}
+            {/* Savings node + wire + step card render as one continuous
+                unit (zero gap) — the reward is the first stop on the same
+                route the steps below continue, not a separate block a
+                user has to scroll past to find what to do. */}
+            <Flex direction="column" gap={0}>
+              {calcSaving(result, activeRoute) > 0 ? (
+                <>
+                  <SavingsBar
+                    originalPrice={calcOriginal(result, activeRoute)}
+                    finalPrice={calcFinal(activeRoute)}
+                    saving={calcSaving(result, activeRoute)}
+                    voucherRequired={!!activeRoute.voucher}
+                  />
+                  <RouteWire animated={!prefersReduced} />
+                </>
+              ) : (
+                <BestPriceConfirmed comparedCount={result?.routes?.compared_count} />
+              )}
+              <RouteCard
+                key={`${activeRoute.merchant}-${activeRoute.final_cost ?? ''}`}
+                result={result}
+                rec={activeRoute}
+                isAlt={!!selectedAlt}
+                onBack={backToRecommended}
               />
-            ) : (
-              <BestPriceConfirmed comparedCount={result?.routes?.compared_count} />
-            )}
-            <RouteCard
-              key={`${activeRoute.merchant}-${activeRoute.final_cost ?? ''}`}
-              result={result}
-              rec={activeRoute}
-              isAlt={!!selectedAlt}
-              onBack={backToRecommended}
-            />
+            </Flex>
             <CardFomo cardFomo={activeRoute.card_fomo} />
             <AlternativesToggle
               alternatives={result.routes?.alternatives}
