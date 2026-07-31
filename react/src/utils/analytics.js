@@ -42,6 +42,13 @@ mixpanel.init(MIXPANEL_TOKEN, {
   track_pageview: false,
   persistence: 'localStorage',
 
+  // This Mixpanel project uses EU data residency. Without this, the SDK's
+  // default host (api-js.mixpanel.com) silently drops every event for an
+  // EU-residency token instead of rejecting it — it still returns a
+  // deceptive-looking success response, so nothing about it looks broken
+  // except that events never actually show up in the dashboard.
+  api_host: 'https://api-eu.mixpanel.com',
+
   // Session replay: record every session. Dealo's traffic is low enough that
   // sampling would just mean missing the one session that went wrong.
   record_sessions_percent: 100,
