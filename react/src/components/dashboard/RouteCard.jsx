@@ -21,9 +21,9 @@ export default function RouteCard({ result, rec, isAlt = false, onBack }) {
   const saving = calcSaving(result, rec);
 
   return (
-    <Card p={{ base: '18px', md: '22px' }}>
-      <Flex align="center" justify="space-between" mb="18px">
-        <Text fontSize="20px" fontWeight={800} color="text" letterSpacing="-.01em">
+    <Card p={{ base: '14px', md: '18px' }}>
+      <Flex align="center" justify="space-between" mb="12px">
+        <Text fontSize="18px" fontWeight={800} color="text" letterSpacing="-.01em">
           {isAlt ? `Selected: ${rec.merchant}` : 'Best way to buy this'}
         </Text>
         {isAlt && (
@@ -38,7 +38,7 @@ export default function RouteCard({ result, rec, isAlt = false, onBack }) {
           </Button>
         )}
       </Flex>
-      <Flex direction="column" gap="18px">
+      <Flex direction="column" gap="12px">
         <Journey rec={rec} />
         <HowToSteps rec={rec} />
         <FinalPriceRow finalPrice={finalPrice} originalPrice={originalPrice} saving={saving} />

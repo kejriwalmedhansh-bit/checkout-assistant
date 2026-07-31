@@ -8,7 +8,6 @@ import ErrorBox from '@/components/common/ErrorBox';
 import LoadingCard from '@/components/common/LoadingCard';
 import SearchBox from '@/components/common/SearchBox';
 import { I } from '@/components/common/icons';
-import ApproximateNotice from '@/components/dashboard/ApproximateNotice';
 import BrandVoucherCard from '@/components/dashboard/BrandVoucherCard';
 import ProductCandidateCard from '@/components/dashboard/ProductCandidateCard';
 import { usePageTitle } from '@/hooks/usePageTitle';
@@ -31,7 +30,6 @@ export default function ProductSelectPage() {
   const navigate = useNavigate();
   const query = useSearchStore((s) => s.query);
   const candidates = useSearchStore((s) => s.candidates);
-  const approximate = useSearchStore((s) => s.approximate);
   const mode = useSearchStore((s) => s.mode);
   const voucher = useSearchStore((s) => s.voucher);
   const searchStatus = useSearchStore((s) => s.searchStatus);
@@ -139,7 +137,6 @@ export default function ProductSelectPage() {
 
         {searchStatus === 'success' && mode !== 'brand_voucher' && candidates.length > 0 && (
           <>
-            {approximate && <ApproximateNotice variant="picker" />}
             <Text fontSize="13px" color="text3" mb="12px">
               Select the exact product you want — we&apos;ll find the cheapest way to buy it.
             </Text>

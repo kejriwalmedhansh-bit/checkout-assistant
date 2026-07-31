@@ -125,7 +125,7 @@ export default function Journey({ rec }) {
 
   return (
     <Box>
-      <Text fontSize="12px" color="text2" mb="14px">
+      <Text fontSize="11px" color="text2" mb="9px">
         Two stops: buy a discounted {sourceLabel} voucher first, then use it to pay at {rec.merchant}.
       </Text>
 

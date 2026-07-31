@@ -8,7 +8,6 @@ import ErrorBox from '@/components/common/ErrorBox';
 import LoadingCard from '@/components/common/LoadingCard';
 import SearchBox from '@/components/common/SearchBox';
 import { I } from '@/components/common/icons';
-import ApproximateNotice from '@/components/dashboard/ApproximateNotice';
 import BestPriceConfirmed from '@/components/dashboard/BestPriceConfirmed';
 import ProductIdentity from '@/components/dashboard/ProductIdentity';
 import SavingsBar from '@/components/dashboard/SavingsBar';
@@ -36,7 +35,6 @@ export default function ResultsPage() {
   const prefersReduced = useReducedMotion();
   const query = useSearchStore((s) => s.query);
   const result = useSearchStore((s) => s.result);
-  const approximate = useSearchStore((s) => s.approximate);
   const selectedThumbnail = useSearchStore((s) => s.selectedThumbnail);
   const status = useSearchStore((s) => s.status);
   const error = useSearchStore((s) => s.error);
@@ -162,7 +160,6 @@ export default function ResultsPage() {
           transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
         >
           <Flex direction="column" gap="14px">
-            {approximate && <ApproximateNotice variant="results" />}
             <ProductIdentity name={productName} sourceUrl={sourceUrl} thumbnail={selectedThumbnail} />
             {/* Savings node + wire + step card render as one continuous
                 unit (zero gap) — the reward is the first stop on the same

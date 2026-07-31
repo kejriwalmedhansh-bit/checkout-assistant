@@ -14,8 +14,8 @@ export default function FinalPriceRow({ finalPrice, originalPrice, saving }) {
       border="1px solid"
       borderColor="green"
       borderRadius="sm"
-      px="18px"
-      py="14px"
+      px="16px"
+      py="11px"
     >
       <Box>
         <Text fontSize="12px" fontWeight={600} color="green">
