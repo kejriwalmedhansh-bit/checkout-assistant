@@ -3,6 +3,7 @@ import mixpanel from 'mixpanel-browser';
 import { MIXPANEL_TOKEN } from '@/config';
 
 const USER_ID_KEY = 'dealo_user_id';
+const INTERNAL_TESTER_KEY = 'dealo_internal_tester';
 
 /** Fallback id holder for browsers where localStorage throws (Safari private mode). */
 let memoryUserId = null;
@@ -36,6 +37,23 @@ export function getUserId() {
     memoryUserId = newId();
   }
   return memoryUserId;
+}
+
+/**
+ * True once this browser has ever loaded the site with ?internal=1 — the
+ * one-time link the team uses to mark their own devices. Set once, then
+ * remembered forever on that browser, so every later visit (even through
+ * the normal link) keeps tagging events as internal, not real traffic.
+ */
+function getIsInternalTester() {
+  try {
+    if (new URLSearchParams(window.location.search).get('internal') === '1') {
+      window.localStorage.setItem(INTERNAL_TESTER_KEY, '1');
+    }
+    return window.localStorage.getItem(INTERNAL_TESTER_KEY) === '1';
+  } catch {
+    return false;
+  }
 }
 
 mixpanel.init(MIXPANEL_TOKEN, {
@@ -80,6 +98,11 @@ mixpanel.register({ dealo_user_id: userId });
 // live domain — localhost, preview builds, etc.), so dashboards/funnels can
 // filter to "production" and never need to guess which visits were us.
 mixpanel.register({ environment: window.location.hostname === 'getdealo.in' ? 'production' : 'development' });
+
+// Marks the team's own devices even when testing on the real live site (see
+// getIsInternalTester above) — the environment flag alone can't catch that,
+// since it looks identical to a real visitor there.
+mixpanel.register({ is_internal_tester: getIsInternalTester() });
 
 // Fired once per page load, at module scope rather than in a component so
 // StrictMode's double-mount can't double-count it. Without this, a visitor who
