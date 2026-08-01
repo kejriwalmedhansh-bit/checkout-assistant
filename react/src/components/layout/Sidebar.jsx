@@ -4,6 +4,7 @@ import { Link as RouterLink, useMatch } from 'react-router-dom';
 import Eyebrow from '@/components/common/Eyebrow';
 import { I } from '@/components/common/icons';
 import LogoIcon from '@/components/common/LogoIcon';
+import WhatsAppButton from '@/components/common/WhatsAppButton';
 import { ROUTES } from '@/routes/paths';
 import { useUiStore } from '@/store/uiStore';
 
@@ -115,6 +116,10 @@ export default function SidebarContent({ onNavigate, collapsed = false }) {
       </Flex>
 
       <Flex mt="auto" direction="column" gap="10px">
+        <Box h="1px" bg="border" />
+
+        <WhatsAppButton collapsed={collapsed} />
+
         <Box h="1px" bg="border" />
 
         {/* Durable off-switch for the results-page step hints. They show on

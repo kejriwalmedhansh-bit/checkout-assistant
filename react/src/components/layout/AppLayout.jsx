@@ -12,7 +12,6 @@ import {
 import { Link as RouterLink, Outlet } from 'react-router-dom';
 
 import Logo from '@/components/common/Logo';
-import WhatsAppButton from '@/components/common/WhatsAppButton';
 import { I } from '@/components/common/icons';
 import { ROUTES } from '@/routes/paths';
 import { useUiStore } from '@/store/uiStore';
@@ -152,9 +151,6 @@ export default function AppLayout() {
           <Outlet />
         </Box>
       </Flex>
-
-      {/* fixed, rendered once, visible on every page regardless of route */}
-      <WhatsAppButton />
     </Flex>
   );
 }
