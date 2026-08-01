@@ -76,6 +76,11 @@ mixpanel.identify(userId);
 // survives a move off Mixpanel entirely.
 mixpanel.register({ dealo_user_id: userId });
 
+// Marks every event as real traffic vs. our own testing (anything not on the
+// live domain — localhost, preview builds, etc.), so dashboards/funnels can
+// filter to "production" and never need to guess which visits were us.
+mixpanel.register({ environment: window.location.hostname === 'getdealo.in' ? 'production' : 'development' });
+
 // Fired once per page load, at module scope rather than in a component so
 // StrictMode's double-mount can't double-count it. Without this, a visitor who
 // lands and leaves without searching would produce no events at all.
