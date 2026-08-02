@@ -6,6 +6,8 @@ Read this before doing anything. It replaces HANDOFF.md, which described the pre
 
 Dealo is a pre-checkout purchase optimization engine for Indian e-commerce. Input: product URL or text query. Output: the smartest way to buy — one Recommended Route plus up to 3 alternatives. It is NOT a cashback platform, coupon site, or credit card business. It generates **routes, not discounts**.
 
+**For any frontend/UI/visual task**, read `design-system/dealo/MASTER.md` (and its `references/` folder, if it has files) before proposing anything. It's the source of truth for colors, type, shape, component patterns, and copy rules.
+
 ## Non-negotiable product rules
 
 1. **Trust is the core product value.** A wrong result is worse than no result. Prefer targeted, high-confidence fixes over broad pattern matchers. Regex-based soft-signal parsing hits diminishing returns fast — know when to stop patching.

@@ -118,6 +118,17 @@ this (see commit history on `design/ledger-implementation`):
   never leave that mechanic unexplained, it reads as a scam pattern
   otherwise.
 
+## Adding references
+
+`design-system/dealo/references/` holds screenshots of components or apps
+that show a look/feel worth matching (not necessarily Dealo-specific — a
+progress bar from a payment app, a card layout from a banking app, etc).
+Name files descriptively (e.g. `stripe-checkout-progress-bar.png`, not
+`Screenshot 2026-08-02.png`). When you want a reference incorporated: drop
+the file here, then point Claude at the path and say specifically what you
+like about it — that turns into a proposed addition to this file, reviewed
+before anything gets built.
+
 ## History
 
 - Three directions were mocked up (Ledger / Signal / Trust Mark) as
