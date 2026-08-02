@@ -55,7 +55,8 @@ export default function JourneyPanels({ activeIndex, onChangeIndex, children }) 
   return (
     <Box
       ref={containerRef}
-      overflow="hidden"
+      overflowX="hidden"
+      overflowY="visible"
       borderRadius="12px"
       border="1px solid"
       borderColor="border"
