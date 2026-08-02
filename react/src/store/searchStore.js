@@ -98,6 +98,9 @@ export const useSearchStore = create(
               original_price: originalPrice(result, rec),
               final_price: finalPrice(rec),
               discount: saving(result, rec),
+              // Same source label Journey.jsx shows the user ("via Maximize" /
+              // "via Gyftr"); null when the route has no voucher at all.
+              voucher_aggregator: rec.voucher ? (rec.voucher.voucher_source === 'maximize' ? 'Maximize' : 'Gyftr') : null,
             });
           }
         } catch (err) {
