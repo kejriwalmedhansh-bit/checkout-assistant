@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { Box, Flex, Link, Text } from '@chakra-ui/react';
 
+import { I } from '@/components/common/icons';
+
 /** Tone → soft circle background + accent color (semantic tokens). */
 const TONES = {
   brand: { bg: 'brandSoft', color: 'brand', border: 'brand' },
@@ -46,7 +48,14 @@ function TapCue({ color }) {
   );
 }
 
-function PingRings({ borderColor }) {
+/**
+ * Grows as a fixed-pixel box-shadow ring rather than a scaled-up box —
+ * scaling the whole element worked when the button was a small pill, but on
+ * the new full-width button a 1.45x scale of a ~550px-wide box overflowed
+ * ~120px past the card's edge. A box-shadow spread expands by the same
+ * absolute amount regardless of how wide the button is.
+ */
+function PingRings({ color }) {
   return (
     <>
       {[0, 1].map((i) => (
@@ -55,13 +64,11 @@ function PingRings({ borderColor }) {
           position="absolute"
           inset="0"
           borderRadius="99px"
-          border="1.5px solid"
-          borderColor={borderColor}
           pointerEvents="none"
           sx={{
             '@keyframes dealoPing': {
-              '0%': { opacity: 0.7, transform: 'scale(1)' },
-              '100%': { opacity: 0, transform: 'scale(1.45)' },
+              '0%': { boxShadow: `0 0 0 0px ${color}`, opacity: 0.7 },
+              '100%': { boxShadow: `0 0 0 10px ${color}`, opacity: 0 },
             },
             animation: `dealoPing 2s cubic-bezier(0,.5,.5,1) infinite`,
             animationDelay: i === 1 ? '0.65s' : '0s',
@@ -125,14 +132,15 @@ export function JourneyConnector({ done = false }) {
 }
 
 /**
- * One always-visible row in the checklist: icon dot, label, and the action
- * button side by side, with the real facts (price / voucher amounts) and a
- * dismissible hint always shown beneath — nothing is hidden behind a
- * dropdown, since every step's information matters regardless of which step
- * is currently active. Once a step is done, the whole row washes to a soft
- * green rather than only the icon dot changing — deliberately slow (see the
- * `background` transition below) so it reads as a gentle confirmation, not
- * a jarring flip.
+ * One step, rendered as its own self-contained card — always the only thing
+ * on screen inside JourneyPanels' one-at-a-time viewport, so it doesn't need
+ * to compete visually with neighboring steps (that's what the "quiet
+ * unselected row" dimming used to do; it no longer applies here since there
+ * are no visible neighbors to dim relative to). Redesigned from an earlier
+ * horizontal icon+label+button row after user testing showed the CTA
+ * reading as "just another piece of information" rather than the one thing
+ * to tap — everything here is centered and stacked so the button is the
+ * single dominant element, not sharing a row with the label and icon.
  */
 export default function JourneyRow({
   tone = 'brand',
@@ -145,8 +153,11 @@ export default function JourneyRow({
   checked = false,
   ready = false,
   pending = false,
-  emphasized = false,
   current = false,
+  stepNumber,
+  totalSteps,
+  nextLabel,
+  preCheck,
   onCheck,
   hintText,
   hintDetail,
@@ -156,35 +167,26 @@ export default function JourneyRow({
   const [detailOpen, setDetailOpen] = useState(false);
   const t = TONES[tone] || TONES.brand;
   const filled = checked || ready;
-  // Nothing is ever hidden — every step stays fully visible and fully
-  // readable regardless of progress (that shell was tried twice before and
-  // reverted both times for hiding info the user considered important). The
-  // "flow" feeling instead comes from contrast: the step that's next gets a
-  // glow and full opacity, everything else (not yet reached, and not done)
-  // sits quieter — a look difference, not an information difference.
-  const quiet = !filled && !current;
 
-  // When a step becomes current, it pops in (a quick scale-up, not just a
-  // fade) and then breathes gently in place — the same "something needs you"
-  // language as the button's own TapCue/PingRings, just on the whole card
-  // this time, since asking someone to notice a color change alone (even
-  // glowing) is easy to miss on a page they're skimming.
+  // The step actually next in line (not just the one being looked at) still
+  // gets a glow — that distinction matters when someone swipes ahead to
+  // preview a later step without having done the current one yet.
   const currentActive = current && !filled;
 
   return (
     <Box
-      bg={filled ? 'brandSoft' : emphasized ? t.bg : 'transparent'}
-      border={(emphasized || current) && !filled ? '1.5px solid' : '1.5px solid transparent'}
-      borderColor={(emphasized || current) && !filled ? t.border : 'transparent'}
-      borderRadius="10px"
-      px={filled || emphasized || current ? '13px' : '0'}
-      mx={filled || emphasized || current ? '-13px' : '0'}
-      opacity={quiet ? 0.6 : 1}
-      transition="background 1.4s ease, padding .3s ease, margin .3s ease, border-color .3s ease, opacity .35s ease"
+      bg={filled ? 'brandSoft' : 'surface'}
+      border="1.5px solid"
+      borderColor={filled ? 'brand' : t.border}
+      borderRadius="16px"
+      px={{ base: '20px', md: '26px' }}
+      py={{ base: '26px', md: '30px' }}
+      textAlign="center"
+      position="relative"
+      transition="background 1.4s ease, border-color .3s ease"
       sx={{
         '@keyframes dealoCurrentArrive': {
           '0%': { transform: 'scale(.97)', boxShadow: '0 0 0 0 transparent' },
-          '40%': { transform: 'scale(1.008)' },
           '100%': { transform: 'scale(1)' },
         },
         '@keyframes dealoCurrentGlow': {
@@ -199,7 +201,7 @@ export default function JourneyRow({
           ? `0 0 0 1px var(--chakra-colors-${t.color}), 0 0 14px -6px var(--chakra-colors-${t.color})`
           : 'none',
         animation: currentActive
-          ? 'dealoCurrentArrive .45s cubic-bezier(.34,1.2,.64,1), dealoCurrentGlow 2.4s ease-in-out .45s infinite'
+          ? 'dealoCurrentArrive .45s cubic-bezier(.16,1,.3,1), dealoCurrentGlow 2.4s ease-in-out .45s infinite'
           : 'none',
         '@media (prefers-reduced-motion: reduce)': {
           animation: 'none',
@@ -209,172 +211,231 @@ export default function JourneyRow({
         },
       }}
     >
-      <Flex align="center" gap="14px" py="11px">
-        <Flex
-          w="34px"
-          h="34px"
-          flex="0 0 34px"
-          borderRadius="50%"
-          bg={filled ? 'brand' : t.bg}
-          color={filled ? 'onBrand' : t.color}
-          border="2px solid"
-          borderColor={pending ? 'brand' : filled ? 'brand' : t.border}
-          align="center"
-          justify="center"
-          transition="background .25s ease, border-color .25s ease"
-          sx={{
-            '@keyframes dealoStepPulse': { '0%, 100%': { opacity: 0.55 }, '50%': { opacity: 1 } },
-            '@keyframes dealoStepPop': {
-              '0%': { transform: 'scale(.7)' },
-              '60%': { transform: 'scale(1.15)' },
-              '100%': { transform: 'scale(1)' },
-            },
-            animation: pending
-              ? 'dealoStepPulse .6s ease-in-out infinite'
-              : checked
-                ? 'dealoStepPop .35s cubic-bezier(.34,1.56,.64,1)'
-                : 'none',
-          }}
-        >
-          {checked ? <CheckIcon /> : Ico ? <Ico size={16} /> : null}
-        </Flex>
-
-        <Box flex="1" minW={0}>
-          <Text fontSize="13.5px" fontWeight={700} color="text">
-            {label}
-          </Text>
-          {badge && !filled && (
-            <Text
-              display="inline-block"
-              mt="3px"
-              fontSize="10.5px"
-              fontWeight={700}
-              color={t.color}
-              bg={t.bg}
-              border="1px solid"
-              borderColor={t.border}
-              borderRadius="99px"
-              px="8px"
-              py="1px"
-            >
-              {badge}
-            </Text>
-          )}
-        </Box>
-
-        {link?.href && (
-          <Box position="relative" flex="0 0 auto">
-            {!checked && <TapCue color={`var(--chakra-colors-${t.color})`} />}
-            {!checked && <PingRings borderColor={t.color} />}
-            <Link
-              href={link.href}
-              isExternal
-              onClick={onCheck}
-              pointerEvents={pending ? 'none' : 'auto'}
-              position="relative"
-              fontSize="12.5px"
-              fontWeight={700}
-              color="onBrand"
-              bg={checked ? 'brand' : t.color}
-              border="1.5px solid"
-              borderColor={checked ? 'brand' : t.color}
-              borderRadius="99px"
-              px="14px"
-              py="8px"
-              whiteSpace="nowrap"
-              boxShadow={checked ? 'none' : `0 2px 10px -2px var(--chakra-colors-${t.color})`}
-              transition="background .2s"
-              _hover={{ textDecoration: 'none', bg: checked ? 'brandHover' : t.color }}
-            >
-              {checked ? '✓ Done' : pending ? 'Confirming…' : link.label}
-            </Link>
-          </Box>
-        )}
-      </Flex>
-
-      <Box pl="48px" pb="11px">
-        {facts}
-
-        {caption && (
-          <Text fontSize="11px" color="text3" mt="6px">
-            {caption}
-          </Text>
-        )}
-
-        {hintVisible && (
+      {stepNumber && totalSteps && (
+        <Flex justify="center" align="center" gap="7px" mb="12px">
           <Flex
-            mt="10px"
-            bg="brassSoft"
-            border="1px solid"
-            borderColor="brass"
-            borderRadius="xs"
-            px="12px"
-            py="9px"
-            gap="10px"
-            align="flex-start"
-            justify="space-between"
-            fontSize="12px"
-            color="text"
-            lineHeight={1.45}
+            w="26px"
+            h="26px"
+            flex="0 0 26px"
+            borderRadius="50%"
+            bg={filled ? 'brand' : t.bg}
+            color={filled ? 'onBrand' : t.color}
+            border="2px solid"
+            borderColor={pending ? 'brand' : filled ? 'brand' : t.border}
+            align="center"
+            justify="center"
+            transition="background .25s ease, border-color .25s ease"
+            sx={{
+              '@keyframes dealoStepPulse': { '0%, 100%': { opacity: 0.55 }, '50%': { opacity: 1 } },
+              '@keyframes dealoStepPop': {
+                '0%': { transform: 'scale(.7)' },
+                '100%': { transform: 'scale(1)' },
+              },
+              animation: pending
+                ? 'dealoStepPulse .6s ease-in-out infinite'
+                : checked
+                  ? 'dealoStepPop .35s cubic-bezier(.16,1,.3,1)'
+                  : 'none',
+            }}
           >
-            <Box flex="1" minW={0}>
-              <Flex align="baseline" gap="6px">
-                <Text>{hintText}</Text>
-                {hintDetail && (
-                  <Box
-                    as="button"
-                    type="button"
-                    onClick={() => setDetailOpen((o) => !o)}
-                    aria-expanded={detailOpen}
-                    aria-label="More detail"
-                    flex="0 0 auto"
-                    w="15px"
-                    h="15px"
-                    borderRadius="50%"
-                    border="1px solid"
-                    borderColor="brass"
-                    bg={detailOpen ? 'brass' : 'transparent'}
-                    color={detailOpen ? 'onBrand' : 'brass'}
-                    fontSize="9.5px"
-                    fontWeight={700}
-                    fontStyle="italic"
-                    fontFamily="serif"
-                    display="inline-flex"
-                    alignItems="center"
-                    justifyContent="center"
-                    lineHeight="1"
-                    transition="background .12s ease, color .12s ease"
-                    _focusVisible={{ outline: '2px solid', outlineColor: 'brass', outlineOffset: '2px' }}
-                  >
-                    i
-                  </Box>
-                )}
-              </Flex>
-              {hintDetail && detailOpen && (
-                <Text mt="6px" fontSize="11.5px" color="text2">
-                  {hintDetail}
-                </Text>
-              )}
-            </Box>
-            <Box
-              as="button"
-              type="button"
-              onClick={onHideHint}
-              flex="0 0 auto"
-              fontSize="11px"
-              fontWeight={700}
-              opacity={0.85}
-              textDecoration="underline"
-              whiteSpace="nowrap"
-              color="brass"
-              _hover={{ opacity: 1 }}
-              _focusVisible={{ outline: '2px solid currentColor', outlineOffset: '2px', borderRadius: '4px' }}
-            >
-              Hide
-            </Box>
+            {checked ? <CheckIcon /> : Ico ? <Ico size={13} /> : null}
           </Flex>
-        )}
-      </Box>
+          <Text fontSize="11px" fontWeight={800} letterSpacing=".04em" textTransform="uppercase" color={t.color}>
+            Step {stepNumber} of {totalSteps}
+          </Text>
+        </Flex>
+      )}
+
+      <Text fontSize="18px" fontWeight={800} color="text" letterSpacing="-.01em">
+        {label}
+      </Text>
+
+      {badge && !filled && (
+        <Text
+          display="inline-block"
+          mt="8px"
+          fontSize="10.5px"
+          fontWeight={700}
+          color={t.color}
+          bg={t.bg}
+          border="1px solid"
+          borderColor={t.border}
+          borderRadius="99px"
+          px="10px"
+          py="2px"
+        >
+          {badge}
+        </Text>
+      )}
+
+      <Box mt="16px">{facts}</Box>
+
+      {caption && (
+        <Text fontSize="11px" color="text3" mt="8px">
+          {caption}
+        </Text>
+      )}
+
+      {preCheck?.href && !checked && (
+        <Flex
+          mt="16px"
+          bg="amberSoft"
+          border="1px solid"
+          borderColor="amber"
+          borderRadius="xs"
+          px="12px"
+          py="10px"
+          gap="10px"
+          align="center"
+          justify="space-between"
+          textAlign="left"
+        >
+          <Flex align="center" gap="8px" flex="1" minW={0}>
+            <Box color="amber" flex="0 0 auto">
+              <I.alert size={13} />
+            </Box>
+            <Text fontSize="12px" fontWeight={700} color="text" lineHeight={1.3}>
+              Double-check size & price first.
+            </Text>
+          </Flex>
+          <Link
+            href={preCheck.href}
+            isExternal
+            flex="0 0 auto"
+            fontSize="11.5px"
+            fontWeight={700}
+            color="amber"
+            border="1.5px solid"
+            borderColor="amber"
+            borderRadius="99px"
+            px="10px"
+            py="5px"
+            whiteSpace="nowrap"
+            _hover={{ textDecoration: 'none', bg: 'amber', color: 'onBrand' }}
+          >
+            Check {preCheck.merchantName} →
+          </Link>
+        </Flex>
+      )}
+
+      {link?.href && (
+        <Box position="relative" mt="22px">
+          {!checked && <TapCue color={`var(--chakra-colors-${t.color})`} />}
+          {!checked && <PingRings color={`var(--chakra-colors-${t.color})`} />}
+          <Link
+            href={link.href}
+            isExternal
+            onClick={onCheck}
+            pointerEvents={pending ? 'none' : 'auto'}
+            position="relative"
+            display="block"
+            w="100%"
+            fontSize="15px"
+            fontWeight={800}
+            color="onBrand"
+            bg={checked ? 'brand' : t.color}
+            border="1.5px solid"
+            borderColor={checked ? 'brand' : t.color}
+            borderRadius="99px"
+            px="20px"
+            py="14px"
+            boxShadow={checked ? 'none' : `0 4px 16px -4px var(--chakra-colors-${t.color})`}
+            transition="background .2s"
+            _hover={{ textDecoration: 'none', bg: checked ? 'brandHover' : t.color }}
+          >
+            {checked ? '✓ Done' : pending ? 'Confirming…' : link.label}
+          </Link>
+        </Box>
+      )}
+
+      {hintVisible && (
+        <Flex
+          mt="16px"
+          bg="brassSoft"
+          border="1px solid"
+          borderColor="brass"
+          borderRadius="xs"
+          px="12px"
+          py="9px"
+          gap="10px"
+          align="flex-start"
+          justify="space-between"
+          fontSize="12px"
+          color="text"
+          lineHeight={1.45}
+          textAlign="left"
+        >
+          <Box flex="1" minW={0}>
+            <Flex align="baseline" gap="6px">
+              <Text>{hintText}</Text>
+              {hintDetail && (
+                <Box
+                  as="button"
+                  type="button"
+                  onClick={() => setDetailOpen((o) => !o)}
+                  aria-expanded={detailOpen}
+                  aria-label="More detail"
+                  flex="0 0 auto"
+                  w="15px"
+                  h="15px"
+                  borderRadius="50%"
+                  border="1px solid"
+                  borderColor="brass"
+                  bg={detailOpen ? 'brass' : 'transparent'}
+                  color={detailOpen ? 'onBrand' : 'brass'}
+                  fontSize="9.5px"
+                  fontWeight={700}
+                  fontStyle="italic"
+                  fontFamily="serif"
+                  display="inline-flex"
+                  alignItems="center"
+                  justifyContent="center"
+                  lineHeight="1"
+                  transition="background .12s ease, color .12s ease"
+                  _focusVisible={{ outline: '2px solid', outlineColor: 'brass', outlineOffset: '2px' }}
+                >
+                  i
+                </Box>
+              )}
+            </Flex>
+            {hintDetail && detailOpen && (
+              <Text mt="6px" fontSize="11.5px" color="text2">
+                {hintDetail}
+              </Text>
+            )}
+          </Box>
+          <Box
+            as="button"
+            type="button"
+            onClick={onHideHint}
+            flex="0 0 auto"
+            fontSize="11px"
+            fontWeight={700}
+            opacity={0.85}
+            textDecoration="underline"
+            whiteSpace="nowrap"
+            color="brass"
+            _hover={{ opacity: 1 }}
+            _focusVisible={{ outline: '2px solid currentColor', outlineOffset: '2px', borderRadius: '4px' }}
+          >
+            Hide
+          </Box>
+        </Flex>
+      )}
+
+      {nextLabel && (
+        <Flex mt="18px" justify="center" align="center" gap="5px" opacity={0.55}>
+          <Text fontSize="10px" fontWeight={700} color="text3" textTransform="uppercase" letterSpacing=".03em">
+            Up next
+          </Text>
+          <Text fontSize="11px" color="text2" fontWeight={600}>
+            {nextLabel}
+          </Text>
+          <Box color="text3" w="9px" h="9px">
+            <I.chevRight size={9} />
+          </Box>
+        </Flex>
+      )}
     </Box>
   );
 }

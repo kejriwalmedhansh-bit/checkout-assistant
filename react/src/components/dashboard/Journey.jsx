@@ -122,6 +122,10 @@ export default function Journey({ rec }) {
 
   const breakdown = v.upi?.denomination_breakdown || [];
   const singleVoucher = breakdown.length <= 1;
+  // The literal instruction, stated as a plain sentence rather than left to
+  // be inferred from a row of number pills — this is the exact detail user
+  // testing showed people missing ("how many denominations do I even buy?").
+  const denominationSentence = `Buy a ${fmt(v.upi?.voucher_amount)} Gift Voucher`;
 
   return (
     <Box>
@@ -147,73 +151,46 @@ export default function Journey({ rec }) {
           icon={I.ticket}
           label="Buy a Gift Voucher"
           badge={`via ${sourceLabel} · saves ${fmt((v.upi?.voucher_amount ?? 0) - (paid ?? 0))}`}
-          emphasized
           current={currentStep === 'voucher'}
+          stepNumber={1}
+          totalSteps={3}
+          nextLabel={`Step 2 — Buy at ${rec.merchant}`}
+          preCheck={sellerLink ? { href: affiliateUrl(sellerLink), merchantName: rec.merchant } : undefined}
           facts={
             <>
               {singleVoucher ? (
-                <Text fontSize="11.5px" color="text2" fontFamily="mono">
-                  {fmt(v.upi?.voucher_amount)} Gift Voucher
+                <Text fontSize="17px" color="text" fontWeight={800} fontFamily="mono">
+                  {denominationSentence}
                 </Text>
               ) : (
-                <>
-                  <Flex wrap="wrap" align="center" gap="6px">
-                    {breakdown.map((b, i) => (
-                      <Flex key={i} align="center" gap="6px">
-                        <Box
-                          fontFamily="mono"
-                          fontSize="12.5px"
-                          fontWeight={700}
-                          bg="surface3"
-                          border="1px solid"
-                          borderColor="border"
-                          color="text"
-                          px="9px"
-                          py="4px"
-                          borderRadius="pill"
-                          whiteSpace="nowrap"
-                        >
-                          {b.count} × {fmt(b.denom)}
-                        </Box>
-                        {i < breakdown.length - 1 && (
-                          <Text color="text3" fontSize="12px" fontWeight={700}>
-                            +
-                          </Text>
-                        )}
-                      </Flex>
-                    ))}
-                    <Text color="text3" fontSize="12px" fontWeight={700}>
-                      =
-                    </Text>
-                    <Box
+                <Box maxW="240px" mx="auto">
+                  {breakdown.map((b, i) => (
+                    <Flex
+                      key={i}
+                      justify="space-between"
                       fontFamily="mono"
-                      fontSize="12.5px"
+                      fontSize="14px"
                       fontWeight={700}
-                      bg="amberSoft"
-                      border="1px solid"
-                      borderColor="amber"
-                      color="amber"
-                      px="9px"
-                      py="4px"
-                      borderRadius="pill"
-                      whiteSpace="nowrap"
+                      color="text"
+                      py="5px"
+                      borderBottom="1px dashed"
+                      borderColor="border"
                     >
-                      {fmt(v.upi?.voucher_amount)}
-                    </Box>
+                      <Text>{b.count} ×</Text>
+                      <Text>{fmt(b.denom)} voucher</Text>
+                    </Flex>
+                  ))}
+                  <Flex justify="space-between" fontFamily="mono" fontSize="15px" fontWeight={800} color="amber" pt="6px">
+                    <Text>Total</Text>
+                    <Text>{fmt(v.upi?.voucher_amount)}</Text>
                   </Flex>
                   <InfoNote
-                    short={
-                      v.upi?.txns_needed > 1
-                        ? `${v.upi.txns_needed} separate purchases, totaling ${fmt(v.upi?.voucher_amount)}.`
-                        : `Add up to your total of ${fmt(v.upi?.voucher_amount)}.`
-                    }
-                    full={`${sourceLabel} sells fixed sizes — these add up to your total${
-                      v.upi?.txns_needed > 1 ? `, in ${v.upi.txns_needed} separate purchases` : ''
-                    }.`}
+                    short="No need for separate purchases — one cart."
+                    full={`Add all ${breakdown.length} vouchers to your ${sourceLabel} cart and check out once — you don't need to buy them one at a time.`}
                     fontSize="10.5px"
-                    mt="4px"
+                    mt="6px"
                   />
-                </>
+                </Box>
               )}
               <InfoNote
                 short={`${v.upi?.pct}% off — you pay ${fmt(paid)}`}
@@ -261,6 +238,9 @@ export default function Journey({ rec }) {
           checked={checked.store}
           pending={pending.store}
           current={currentStep === 'store'}
+          stepNumber={2}
+          totalSteps={3}
+          nextLabel="Step 3 — Pay & done"
           onCheck={check('store')}
           hintText={HINT_TEXT.store}
           hintDetail={HINT_DETAIL.store}
@@ -273,12 +253,14 @@ export default function Journey({ rec }) {
           icon={I.pay}
           label="Pay & done"
           facts={
-            <Text fontSize="11.5px" color="text2" fontFamily="mono">
+            <Text fontSize="17px" color="text" fontWeight={800} fontFamily="mono">
               {v.upi?.remainder ? `Pay ${fmt(v.upi.remainder)} remaining` : 'Full order covered'}
             </Text>
           }
           ready={checked.store}
           current={currentStep === 'pay'}
+          stepNumber={3}
+          totalSteps={3}
           hintText={HINT_TEXT.pay}
           hintDetail={HINT_DETAIL.pay}
           hintVisible={hintVisible('pay')}
