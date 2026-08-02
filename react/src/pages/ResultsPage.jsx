@@ -90,7 +90,7 @@ export default function ResultsPage() {
 
   return (
     <Box ref={scrollRef} maxW="640px" mx="auto">
-      <Flex align="center" gap="6px" mb={searchOpen ? '8px' : '14px'}>
+      <Flex align="center" gap="6px" mb="8px">
         {/* Viewing an alternative is page state, not a navigation — real
             history's previous entry is the picker. Back must still mean one
             screen: first leave the alternative, only then leave the page. */}

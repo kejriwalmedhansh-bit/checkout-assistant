@@ -88,10 +88,15 @@ Mono 400–700).
   — no artificial locking between steps. A ~550ms "Confirming…" pending
   state precedes the checkmark landing so the confirmation is noticed, not
   missed.
-- **`ProductIdentity` / `ProductCandidateCard`** — when a real product
-  photo is available, it gets a full-width banner treatment (`ProductIdentity`)
-  or a large (76px) square thumbnail (`ProductCandidateCard`) — never a
-  small icon when a real photo exists. Icon fallback only when no photo.
+- **`ProductIdentity` / `ProductCandidateCard`** — `ProductIdentity` (results
+  page) is a compact single row: a 52px square thumbnail beside the product
+  name, not a full-width banner above it. Changed from an earlier full-width
+  banner treatment (~190px tall) after live mobile testing (iPhone 16 Pro)
+  showed it pushed the primary action button below the fold — getting the
+  next step on screen without scrolling outranks a large product photo here.
+  `ProductCandidateCard` (the picker page, not space-constrained the same
+  way) keeps its larger 76px square thumbnail. Icon fallback only when no
+  photo, on both.
 - **`CardFomo`** — an illustrated, generic card graphic (not a scan of any
   real bank's card — avoids reproducing bank/card-network trademarks). The
   card brand name is shown as text next to the graphic, not baked into it.

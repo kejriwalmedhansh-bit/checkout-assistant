@@ -179,8 +179,8 @@ export default function JourneyRow({
       border="1.5px solid"
       borderColor={filled ? 'brand' : t.border}
       borderRadius="16px"
-      px={{ base: '20px', md: '26px' }}
-      py={{ base: '26px', md: '30px' }}
+      px={{ base: '18px', md: '26px' }}
+      py={{ base: '18px', md: '22px' }}
       textAlign="center"
       position="relative"
       transition="background 1.4s ease, border-color .3s ease"
@@ -212,7 +212,7 @@ export default function JourneyRow({
       }}
     >
       {stepNumber && totalSteps && (
-        <Flex justify="center" align="center" gap="7px" mb="12px">
+        <Flex justify="center" align="center" gap="7px" mb="8px">
           <Flex
             w="26px"
             h="26px"
@@ -253,7 +253,7 @@ export default function JourneyRow({
       {badge && !filled && (
         <Text
           display="inline-block"
-          mt="8px"
+          mt="6px"
           fontSize="10.5px"
           fontWeight={700}
           color={t.color}
@@ -268,17 +268,17 @@ export default function JourneyRow({
         </Text>
       )}
 
-      <Box mt="16px">{facts}</Box>
+      <Box mt="12px">{facts}</Box>
 
       {caption && (
-        <Text fontSize="11px" color="text3" mt="8px">
+        <Text fontSize="11px" color="text3" mt="6px">
           {caption}
         </Text>
       )}
 
       {preCheck?.href && !checked && (
         <Flex
-          mt="16px"
+          mt="12px"
           bg="amberSoft"
           border="1px solid"
           borderColor="amber"
@@ -319,7 +319,7 @@ export default function JourneyRow({
       )}
 
       {link?.href && (
-        <Box position="relative" mt="22px">
+        <Box position="relative" mt="16px">
           {!checked && <TapCue color={`var(--chakra-colors-${t.color})`} />}
           {!checked && <PingRings color={`var(--chakra-colors-${t.color})`} />}
           <Link
@@ -338,7 +338,7 @@ export default function JourneyRow({
             borderColor={checked ? 'brand' : t.color}
             borderRadius="99px"
             px="20px"
-            py="14px"
+            py="12px"
             boxShadow={checked ? 'none' : `0 4px 16px -4px var(--chakra-colors-${t.color})`}
             transition="background .2s"
             _hover={{ textDecoration: 'none', bg: checked ? 'brandHover' : t.color }}
@@ -350,7 +350,7 @@ export default function JourneyRow({
 
       {hintVisible && (
         <Flex
-          mt="16px"
+          mt="12px"
           bg="brassSoft"
           border="1px solid"
           borderColor="brass"
@@ -424,7 +424,7 @@ export default function JourneyRow({
       )}
 
       {nextLabel && (
-        <Flex mt="18px" justify="center" align="center" gap="5px" opacity={0.55}>
+        <Flex mt="12px" justify="center" align="center" gap="5px" opacity={0.55}>
           <Text fontSize="10px" fontWeight={700} color="text3" textTransform="uppercase" letterSpacing=".03em">
             Up next
           </Text>

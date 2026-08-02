@@ -29,102 +29,46 @@ function NameBlock({ name, sourceUrl }) {
 }
 
 /**
- * Product identity box — what we're pricing. Shows the product name, linked to
- * the source URL when the search was a URL. When a real product photo is
- * available (carried over from the candidate the user picked), it gets a
- * full-width banner treatment — the point is to make this look like a
- * specific, real item, not a generic placeholder. The photo itself links to
- * the exact vendor product page too (not just the name below it) — someone
- * should be able to click the picture and land on the real listing to
- * confirm it's the right item before buying a voucher for it. Falls back to
- * a compact icon row when there's no photo.
+ * Product identity box — what we're pricing. Shows the product name, linked
+ * to the source URL when the search was a URL. A compact single row —
+ * thumbnail beside the name, not a full-width banner above it — so the
+ * primary action lower on the page doesn't need a scroll to reach on a phone
+ * (a real photo used to get a ~190px banner treatment; that pushed the CTA
+ * below the fold on an iPhone 16 Pro in testing). The photo still links to
+ * the exact vendor product page — someone should be able to tap the picture
+ * and land on the real listing to confirm it's the right item before buying
+ * a voucher for it. Falls back to a generic icon when there's no photo.
  */
 export default function ProductIdentity({ name, sourceUrl, thumbnail }) {
   const prefersReduced = useReducedMotion();
-  const groundShadow = 'rgba(0,0,0,.55)';
 
-  if (thumbnail) {
-    const photo = (
-      <motion.div
-        style={{ maxWidth: '82%', maxHeight: '100%', display: 'flex', position: 'relative' }}
-        initial={prefersReduced ? false : { opacity: 0, y: 14, scale: 0.94 }}
-        animate={{ opacity: 1, y: 0, scale: 1 }}
-        transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
-      >
-        <Image
-          src={thumbnail}
-          alt=""
-          maxW="100%"
-          maxH="100%"
-          objectFit="contain"
-          filter="drop-shadow(var(--chakra-shadows-photoDrop)) drop-shadow(var(--chakra-shadows-photoDropSoft))"
-        />
-      </motion.div>
-    );
-
-    return (
-      <Card p="0" overflow="hidden">
-        <Flex
-          position="relative"
-          bg="surface2"
-          borderBottom="1px solid"
-          borderColor="border"
-          justify="center"
-          align="center"
-          h={{ base: '190px', md: '230px' }}
-          p="20px"
-        >
-          {/* studio-style contact shadow, grounds the product instead of letting
-              it float unanchored against the flat backdrop */}
-          <Box
-            position="absolute"
-            bottom={{ base: '22px', md: '28px' }}
-            w="46%"
-            h="20px"
-            borderRadius="50%"
-            bg={`radial-gradient(closest-side, ${groundShadow}, transparent 75%)`}
-            filter="blur(4px)"
-          />
-          {sourceUrl ? (
-            <Link
-              href={sourceUrl}
-              isExternal
-              display="flex"
-              alignItems="center"
-              justifyContent="center"
-              w="100%"
-              h="100%"
-              position="relative"
-              _hover={{ opacity: 0.92 }}
-            >
-              {photo}
-            </Link>
-          ) : (
-            photo
-          )}
-        </Flex>
-        <Box p="14px 18px">
-          <NameBlock name={name} sourceUrl={sourceUrl} />
-        </Box>
-      </Card>
-    );
-  }
+  const thumb = thumbnail ? (
+    <motion.div
+      style={{ width: '100%', height: '100%', display: 'flex' }}
+      initial={prefersReduced ? false : { opacity: 0, scale: 0.9 }}
+      animate={{ opacity: 1, scale: 1 }}
+      transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+    >
+      <Image src={thumbnail} alt="" w="100%" h="100%" objectFit="cover" borderRadius="10px" />
+    </motion.div>
+  ) : (
+    <Flex w="100%" h="100%" align="center" justify="center" color="brand">
+      <I.cart size={22} />
+    </Flex>
+  );
 
   return (
-    <Card p="16px 18px">
-      <Flex align="center" gap="14px">
-        <Flex
-          w="52px"
-          h="52px"
-          borderRadius="12px"
-          bg="brandSoft"
-          color="brand"
-          align="center"
-          justify="center"
-          flex="0 0 auto"
-        >
-          <I.cart size={24} />
-        </Flex>
+    <Card p="12px 16px">
+      <Flex align="center" gap="12px">
+        <Box w="52px" h="52px" flex="0 0 auto" borderRadius="10px" bg="surface2" border="1px solid" borderColor="border" overflow="hidden">
+          {sourceUrl ? (
+            <Link href={sourceUrl} isExternal display="flex" w="100%" h="100%" _hover={{ opacity: 0.85 }}>
+              {thumb}
+            </Link>
+          ) : (
+            thumb
+          )}
+        </Box>
         <NameBlock name={name} sourceUrl={sourceUrl} />
       </Flex>
     </Card>

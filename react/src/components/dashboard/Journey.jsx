@@ -129,10 +129,6 @@ export default function Journey({ rec }) {
 
   return (
     <Box>
-      <Text fontSize="11px" color="text2" mb="9px">
-        Two stops: buy a discounted {sourceLabel} voucher first, then use it to pay at {rec.merchant}.
-      </Text>
-
       <JourneyChips
         steps={[
           { key: 'voucher', icon: I.ticket, label: 'Voucher', done: checked.voucher },

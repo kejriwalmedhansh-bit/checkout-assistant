@@ -7,13 +7,14 @@ import FinalPriceRow from './FinalPriceRow';
 import { finalPrice as calcFinal, originalPrice as calcOriginal, saving as calcSaving } from '@/utils/format';
 
 /**
- * The primary route card: heading → journey → how-to steps → final price row.
- * The heading is a real title, not the small uppercase Eyebrow label used
- * elsewhere — this line anchors the whole step flow below it, so it needs
- * the visual weight to actually draw the eye down into the steps.
- * Shows the recommended route by default, or a picked alternative (promoted
- * here in full, same detail level) when isAlt is true — onBack returns to
- * the recommended route.
+ * The primary route card: [heading →] journey → how-to steps → final price
+ * row. The heading only renders when viewing a picked alternative (its
+ * "Selected: {merchant}" + back control are load-bearing there) — the
+ * default recommended-route view skips it entirely. It used to always show
+ * a generic "Best way to buy this" label, but each step card now states its
+ * own "STEP X OF 3 / action" directly, making the outer label redundant
+ * weight above the fold (removed after live mobile testing showed the CTA
+ * needed to fit on screen without scrolling).
  */
 export default function RouteCard({ result, rec, isAlt = false, onBack }) {
   const finalPrice = calcFinal(rec);
@@ -22,11 +23,11 @@ export default function RouteCard({ result, rec, isAlt = false, onBack }) {
 
   return (
     <Card p={{ base: '14px', md: '18px' }}>
-      <Flex align="center" justify="space-between" mb="12px">
-        <Text fontSize="18px" fontWeight={800} color="text" letterSpacing="-.01em">
-          {isAlt ? `Selected: ${rec.merchant}` : 'Best way to buy this'}
-        </Text>
-        {isAlt && (
+      {isAlt && (
+        <Flex align="center" justify="space-between" mb="12px">
+          <Text fontSize="18px" fontWeight={800} color="text" letterSpacing="-.01em">
+            Selected: {rec.merchant}
+          </Text>
           <Button
             variant="ghost"
             size="xs"
@@ -36,8 +37,8 @@ export default function RouteCard({ result, rec, isAlt = false, onBack }) {
           >
             ← Back to recommended
           </Button>
-        )}
-      </Flex>
+        </Flex>
+      )}
       <Flex direction="column" gap="12px">
         <Journey rec={rec} />
         <HowToSteps rec={rec} />
