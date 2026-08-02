@@ -11,6 +11,7 @@ import { persist, createJSONStorage } from 'zustand/middleware';
 import { searchApi } from '@/api/search.api';
 import { extractErrorMessage } from '@/utils/errors';
 import { track } from '@/utils/analytics';
+import { originalPrice, finalPrice, saving } from '@/utils/format';
 
 export const useSearchStore = create(
   persist(
@@ -85,12 +86,18 @@ export const useSearchStore = create(
           set({ result, status: 'success', error: null });
           const rec = result?.routes?.recommended;
           if (rec) {
+            // Same original/final/discount math the results page itself
+            // displays (utils/format.js), so this event always matches
+            // exactly what the user was shown on screen.
             track('Viewed Deal', {
               query: get().query,
               merchant: rec.merchant,
               has_voucher: Boolean(rec.voucher),
               final_cost: rec.final_cost ?? null,
               alternatives_count: result?.routes?.alternatives?.length ?? 0,
+              original_price: originalPrice(result, rec),
+              final_price: finalPrice(rec),
+              discount: saving(result, rec),
             });
           }
         } catch (err) {

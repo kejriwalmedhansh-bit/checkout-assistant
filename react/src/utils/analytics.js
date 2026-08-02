@@ -75,7 +75,14 @@ mixpanel.init(MIXPANEL_TOKEN, {
   // or a merchant URL — never a password, email, or card number (checkout
   // happens on the merchant's site, not here). Masking it would hide the single
   // most useful thing in a replay: what the user actually typed.
-  record_mask_inputs: false,
+  //
+  // record_mask_inputs (below) is NOT a real option the recorder reads — it's
+  // a leftover from an older SDK version and is silently ignored. The actual
+  // keys are record_mask_all_inputs / record_mask_all_text, and since neither
+  // was ever set, replays were masking every input *and* all on-screen text
+  // by default (that's the "Dealo" showing as asterisks everywhere).
+  record_mask_all_inputs: false,
+  record_mask_all_text: false,
 
   // The SDK blocks img/video/audio by default. Dealo's UI is product cards, so
   // blocking images leaves replays as unreadable grey boxes. Audio/video stay
