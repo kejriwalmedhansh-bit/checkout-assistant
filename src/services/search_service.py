@@ -549,46 +549,6 @@ _QUERY_STOPWORDS = {
     "book", "books",
 }
 
-# Generic model-tier words. These identify a variant ("iPhone 17 Pro" is not
-# "iPhone 17"), so they stay REQUIRED in the normal strict match — they are
-# only ever softened by the zero-result fallback in `_filter_and_group_candidates`,
-# where a query has already been shown to name no real product.
-#
-# Why this matters: shoppers routinely conflate two product lines into a name
-# that doesn't exist ("AirPods Pro Max" — Apple sells AirPods *Pro* and AirPods
-# *Max*, never both). Requiring every word then drops all 22 genuine AirPods Max
-# listings, and counterfeit sellers who *do* use the conflated name are the only
-# survivors. Worse, removing the genuine listings also removes the trusted
-# merchants the price anchor needs, so the junk filter is left with nothing to
-# measure against.
-#
-# "air" is deliberately NOT in this list. It reads like a tier but carries
-# identity: AirPods, MacBook Air, Air Max, Airdopes. Softening it collapses
-# "air pods pro max" down to the single word "pods", which matches every
-# generic earbud clone sold ("Swiss Military Pods Pro Max" and friends).
-_QUALIFIER_TOKENS = frozenset({
-    "pro", "max", "plus", "ultra", "mini", "lite", "se",
-})
-
-
-def _token_variants(tokens: list[str]) -> list[list[str]]:
-    """The query's own tokens, then each way of merging one adjacent pair.
-
-    Shoppers space out compound product names — "air pods" for AirPods, "power
-    bank" for powerbank, "smart watch" for smartwatch. Word-boundary matching
-    treats those as unrelated to the listings ("\\bpods\\b" does not match
-    "AirPods", and "\\bairpods\\b" does not match "Air Pods"), so *nothing*
-    matches and the search falls through to its last-resort behaviour.
-
-    Merging adjacent pairs recovers the intended product without an alias table
-    for any particular brand. Bounded at n-1 extra attempts, and only ever used
-    to widen a search that already found nothing.
-    """
-    variants = [tokens]
-    for i in range(len(tokens) - 1):
-        variants.append(tokens[:i] + [tokens[i] + tokens[i + 1]] + tokens[i + 2:])
-    return variants
-
 _MAX_CANDIDATES = 8  # keep the picker scannable even when grouping can't fully dedup
 
 # Below this many post-filter candidates, a brand-qualified search ("Apple
@@ -713,10 +673,9 @@ def _token_pattern(token: str) -> str:
     that happen to repeat the bare digit instead.
 
     A fused alphanumeric model name like "pr100" must also match its spaced
-    phrasing ("Tissot PR 100") — `_token_variants` merges spaced query words
-    into fused ones but nothing splits a fused query word back apart, so
-    without this a "PR100" search can never match the sellers who write
-    "PR 100" and the whole search collapses to zero results."""
+    phrasing ("Tissot PR 100") — nothing else splits a fused query word back
+    apart, so without this a "PR100" search can never match the sellers who
+    write "PR 100" and the whole search collapses to zero results."""
     if token.isdigit():
         return rf"\b{re.escape(token)}(?:st|nd|rd|th)?\b"
     parts = re.findall(r"[a-z]+|\d+", token)
@@ -745,27 +704,6 @@ def _matches_required_tokens(title: str, tokens: list[str]) -> bool:
     if len(segments) <= 1:
         return _segment_matches(title)
     return all(_segment_matches(seg) for seg in segments if not _is_bare_modifier_segment(seg))
-
-
-def _matches_relaxed_tokens(title: str, strong: list[str], qualifiers: list[str]) -> bool:
-    """Looser sibling of `_matches_required_tokens`, used only by the zero-result
-    fallback. Every identifying token must still be present; the model-tier
-    qualifiers are satisfied by *any one* of them rather than all.
-
-    So "airpods pro max" still requires "airpods", but accepts a title carrying
-    either "pro" or "max" — surfacing both real product lines and letting the
-    user pick, instead of returning nothing. A query with nothing but
-    qualifiers keeps the strict all-of behaviour, since there is no identity
-    left to anchor on.
-    """
-    if not strong:
-        return False
-    normalized = _norm_title(title)
-    if not all(re.search(_token_pattern(t), normalized) for t in strong):
-        return False
-    if not qualifiers:
-        return True
-    return any(re.search(_token_pattern(t), normalized) for t in qualifiers)
 
 
 def _distinguishing_words(title: str, exclude: set) -> frozenset:
@@ -801,39 +739,33 @@ def _extract_variant_signature(title: str, exclude: set) -> tuple:
 def _filter_and_group_candidates(
     candidates: list[dict], query: str, tag: str = "[search]"
 ) -> tuple[list[dict], bool]:
-    """Drop accessories/bulk-listings/wrong-model/non-English junk, then group
-    same-variant listings from different sellers into one picker card each.
+    """Drop bulk-listings/non-English junk, then group same-variant listings
+    from different sellers into one picker card each.
 
-    Grouping is on an exact signature match (distinguishing words beyond the
-    query + storage + color) — not fuzzy similarity — so a title with a real
-    extra identifier (a submodel/product-line name the query didn't mention)
-    gets its own group rather than risking a false merge into the wrong
-    variant. Titles with nothing extra beyond generic spec/marketing filler
-    share the same signature and collapse into one card, so different
-    sellers' phrasing of the exact same model doesn't read as a vendor list.
-    Falls back to the unfiltered candidate list if filtering would wipe out
-    everything (a degraded-but-honest result beats a false "nothing found").
+    No title-matching or accessory filtering happens here — every listing
+    that passes the bulk/non-Latin checks goes straight to `_vet` (trusted
+    seller + price sanity), so an accessory search ("iPhone case") isn't
+    suppressed just because its own title says "case". Trade-off: nothing
+    here checks that a listing's title actually names the searched product,
+    so unrelated results can surface on a query that only matches on
+    trust/price signals.
 
-    Returns ``(candidates, approximate)`` — ``approximate`` is True when the
-    exact-name match found nothing and the relaxed qualifier fallback below
-    supplied the results instead, so the caller can label them as a closest
-    match rather than passing them off as exactly what was asked for.
+    Returns ``(candidates, approximate)`` — ``approximate`` is always False
+    now that there's no relaxed-match fallback tier; kept in the return shape
+    so callers don't need to change.
     """
     tokens = _required_tokens(query)
     exclude = set(tokens) | set(KNOWN_BRANDS)
     hygienic = [
         c for c in candidates
         if c.get("title")
-        and not _is_accessory(c["title"])
         and not _is_bulk_listing(c["title"])
         and _is_latin_dominant(c["title"])
     ]
     for c in candidates:
         if not c.get("title"):
             continue
-        if _is_accessory(c["title"]):
-            logger.info("%s   dropped (accessory): %r", tag, c["title"])
-        elif _is_bulk_listing(c["title"]):
+        if _is_bulk_listing(c["title"]):
             logger.info("%s   dropped (bulk listing): %r", tag, c["title"])
         elif not _is_latin_dominant(c["title"]):
             logger.info("%s   dropped (non-Latin title): %r", tag, c["title"])
@@ -912,83 +844,13 @@ def _filter_and_group_candidates(
             vetted.extend(group)
         return vetted
 
-    # Widening ladder. Each rung loosens what counts as *the product*; none of
-    # them ever loosens what counts as a trustworthy seller or a believable
-    # price, because every rung goes through `_vet`.
-    #
-    #   1. every query word present, as typed
-    #   2. every query word present, with one adjacent pair merged
-    #      ("air pods pro max" -> "airpods pro max")
-    #   3. identifying words present, model-tier qualifiers softened
-    #      (for names that don't exist, like "AirPods Pro Max")
-    #   4. nothing product-specific matched — vetted raw pool, then empty
-    #
-    # Rungs 2-4 only run when everything above them came back empty, so any
-    # query that already works keeps its exact current results.
-    variants = _token_variants(tokens) if tokens else [[]]
+    # No title-matching step: every hygienic (non-bulk, Latin-dominant)
+    # listing goes straight through trust + price vetting.
     approximate = False
-    survivors: list[dict] = []
-
-    # Rung 1 + 2 — exact word match, then spacing variants.
-    for variant in variants:
-        exact = [
-            c for c in hygienic
-            if not variant or _matches_required_tokens(c["title"], variant)
-        ]
-        logger.info("%s rung 1/2 (exact tokens %r): %d candidate(s) matched", tag, variant, len(exact))
-        if not exact:
-            continue
-        survivors = _vet(exact)
-        if survivors:
-            break
-
-    # Rung 3 — the query probably names a product that doesn't exist: two
-    # product lines conflated into one name. Requiring every word then keeps
-    # only the counterfeit sellers who use the invented name, and removing the
-    # genuine listings also removes the trusted merchants the price anchor
-    # needs, so the junk filter has nothing to measure against.
-    #
-    # Deliberately gated on a wiped-out result rather than applied by default:
-    # unconditionally it would inflate "puma skyrocket lite 2" from 8 results
-    # to 20 by admitting non-Lite variants.
-    if not survivors:
-        logger.info("%s rung 1/2 produced nothing — trying rung 3 (relaxed qualifiers)", tag)
-        for variant in variants:
-            strong = [t for t in variant if t not in _QUALIFIER_TOKENS]
-            qualifiers = [t for t in variant if t in _QUALIFIER_TOKENS]
-            if not (strong and qualifiers):
-                continue
-            relaxed_pool = [
-                c for c in hygienic
-                if _matches_relaxed_tokens(c["title"], strong, qualifiers)
-            ]
-            logger.info("%s rung 3 (strong=%r, qualifiers=%r): %d candidate(s) matched", tag, strong, qualifiers, len(relaxed_pool))
-            relaxed = _vet(relaxed_pool)
-            if relaxed:
-                survivors = relaxed
-                approximate = True
-                break
-
-    # Rung 4 — either nothing product-specific matched at all, or the only
-    # title(s) that did match got rejected for a *different* reason (untrusted
-    # seller, bad price) — not because the product itself couldn't be found.
-    # Show the vetted pool rather than the raw one either way.
-    #
-    # This used to `return candidates` outright: no trusted-merchant check, no
-    # price anchor, no outlier filter. That is what put ₹650 "Airpods Pro Max"
-    # listings in front of customers searching for a ₹60,000 product, and it
-    # contradicts CLAUDE.md rule #1 — a wrong result is worse than no result.
-    # Vetting it keeps the original intent (something beats a bare "nothing
-    # found") without ever parading an untrusted seller at an absurd price.
-    if not survivors:
-        logger.info("%s rungs 1-3 produced nothing — falling back to rung 4 (vetted raw pool)", tag)
-        vetted_raw = _vet(hygienic)
-        if vetted_raw:
-            survivors = vetted_raw
-            approximate = True
+    survivors = _vet(hygienic)
 
     if not survivors:
-        logger.info("%s no survivors at any rung", tag)
+        logger.info("%s no survivors after trust/price vetting", tag)
         return [], False
 
     groups: dict = {}
