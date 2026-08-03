@@ -94,9 +94,9 @@ export default function SearchPage() {
           lineHeight={1.12}
           color="text"
         >
-          Never pay full price.{' '}
+          Never pay full price,{' '}
           <Box as="span" color="brand">
-            Just search.
+            just search the product.
           </Box>
         </Text>
         <Text fontSize={{ base: '13px', md: '15px' }} color="text2" mt={{ base: '8px', md: '12px' }} maxW="440px" lineHeight={1.5}>
@@ -124,7 +124,7 @@ export default function SearchPage() {
             letterSpacing=".05em"
             mb="8px"
           >
-            Type here
+            Type product name or paste link here
           </Text>
           <SearchBox
             initialValue={query}

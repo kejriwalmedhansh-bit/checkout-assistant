@@ -19,8 +19,12 @@ const REDUCED_MOTION_SX = {
   },
 };
 
-export default function ProductCandidateCard({ product, onSelect, isSelecting }) {
+const TITLE_LIMIT = 100;
+
+export default function ProductCandidateCard({ product, onSelect, onEnlarge, isSelecting }) {
   const { title, price, thumbnail, source, product_token: token } = product;
+  const displayTitle =
+    title && title.length > TITLE_LIMIT ? `${title.slice(0, TITLE_LIMIT).trimEnd()}…` : title;
   // Backend marks a live-fetched price (read straight off the page the user
   // pasted, not Google's index) with this product_token prefix — see
   // _live_price_candidate in src/services/search_service.py.
@@ -48,6 +52,28 @@ export default function ProductCandidateCard({ product, onSelect, isSelecting })
     >
       <Flex align="center" gap="14px">
         <Flex
+          role={onEnlarge ? 'button' : undefined}
+          tabIndex={onEnlarge ? 0 : undefined}
+          aria-label={onEnlarge ? 'Enlarge photo' : undefined}
+          onClick={
+            onEnlarge
+              ? (e) => {
+                  e.stopPropagation();
+                  onEnlarge();
+                }
+              : undefined
+          }
+          onKeyDown={
+            onEnlarge
+              ? (e) => {
+                  if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    onEnlarge();
+                  }
+                }
+              : undefined
+          }
           w="76px"
           h="76px"
           flex="0 0 auto"
@@ -58,6 +84,11 @@ export default function ProductCandidateCard({ product, onSelect, isSelecting })
           align="center"
           justify="center"
           overflow="hidden"
+          cursor={onEnlarge ? 'zoom-in' : undefined}
+          transition="transform .18s cubic-bezier(.16,.68,.32,1)"
+          _hover={onEnlarge ? { transform: 'scale(1.08)' } : undefined}
+          _focusVisible={onEnlarge ? { outline: '2px solid', outlineColor: 'brand', outlineOffset: '2px' } : undefined}
+          sx={REDUCED_MOTION_SX}
         >
           {thumbnail ? (
             <Image src={thumbnail} alt="" maxW="88%" maxH="88%" objectFit="contain" />
@@ -69,8 +100,8 @@ export default function ProductCandidateCard({ product, onSelect, isSelecting })
         </Flex>
 
         <Box minW={0} flex="1">
-          <Text fontSize="13.5px" fontWeight={600} color="text" noOfLines={2} lineHeight={1.35}>
-            {title || 'Product'}
+          <Text fontSize="13.5px" fontWeight={600} color="text" lineHeight={1.35}>
+            {displayTitle || 'Product'}
           </Text>
           {isVerifiedLive && (
             <Text fontSize="11px" fontWeight={600} color="green.500" mt="2px">

@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { Box, Flex, Text } from '@chakra-ui/react';
 import { motion, useReducedMotion } from 'framer-motion';
 import { Navigate, useNavigate } from 'react-router-dom';
@@ -10,6 +11,7 @@ import SearchBox from '@/components/common/SearchBox';
 import { I } from '@/components/common/icons';
 import BrandVoucherCard from '@/components/dashboard/BrandVoucherCard';
 import ProductCandidateCard from '@/components/dashboard/ProductCandidateCard';
+import ProductQuickView from '@/components/dashboard/ProductQuickView';
 import { usePageTitle } from '@/hooks/usePageTitle';
 import { gradients } from '@/theme/foundations/colors';
 import { ROUTES } from '@/routes/paths';
@@ -37,6 +39,7 @@ export default function ProductSelectPage() {
   const error = useSearchStore((s) => s.error);
   const runSearch = useSearchStore((s) => s.runSearch);
   const selectProduct = useSearchStore((s) => s.selectProduct);
+  const [quickViewIndex, setQuickViewIndex] = useState(null);
 
   // Direct load with no search in flight → back to home.
   if (searchStatus === 'idle') return <Navigate to={ROUTES.home} replace />;
@@ -150,12 +153,23 @@ export default function ProductSelectPage() {
                   <ProductCandidateCard
                     product={p}
                     onSelect={handleSelect}
+                    onEnlarge={() => setQuickViewIndex(i)}
                     isSelecting={status === 'loading' && selectedToken === p.product_token}
                   />
                 </motion.div>
               ))}
             </Flex>
           </>
+        )}
+
+        {quickViewIndex != null && (
+          <ProductQuickView
+            products={candidates}
+            index={quickViewIndex}
+            onIndexChange={setQuickViewIndex}
+            onSelect={handleSelect}
+            onClose={() => setQuickViewIndex(null)}
+          />
         )}
       </Box>
     </Box>

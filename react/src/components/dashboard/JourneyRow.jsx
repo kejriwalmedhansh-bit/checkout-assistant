@@ -212,7 +212,7 @@ export default function JourneyRow({
       }}
     >
       {stepNumber && totalSteps && (
-        <Flex justify="center" align="center" gap="7px" mb="8px">
+        <Flex justify="center" align="center" mb="8px">
           <Flex
             w="26px"
             h="26px"
@@ -240,9 +240,6 @@ export default function JourneyRow({
           >
             {checked ? <CheckIcon /> : Ico ? <Ico size={13} /> : null}
           </Flex>
-          <Text fontSize="11px" fontWeight={800} letterSpacing=".04em" textTransform="uppercase" color={t.color}>
-            Step {stepNumber} of {totalSteps}
-          </Text>
         </Flex>
       )}
 

@@ -1,67 +1,81 @@
 import { Box, Flex, Image, Link, Text } from '@chakra-ui/react';
-import { motion, useReducedMotion } from 'framer-motion';
 
 import Card from '@/components/common/Card';
 import { I } from '@/components/common/icons';
 
 /**
- * Product identity — a big, real photo (what we're pricing), with the name
- * wrapped directly onto it as a caption instead of stacked in a separate row
- * below. Wrapping the name onto the photo keeps this a genuinely large image
- * (unlike an earlier version that shrank to a 52px thumbnail to save space)
- * while paying for only one block's worth of height, not two — needed after
- * live mobile testing showed the primary action button had to fit on screen
- * without scrolling. The photo still links to the exact vendor product page
- * — someone should be able to tap it and land on the real listing to confirm
- * it's the right item before buying a voucher for it. Falls back to a
- * generic icon tile when there's no photo.
+ * Product identity — a small thumbnail + name row (shrunk from an earlier
+ * full-width banner photo so the how-to steps below fit on screen without
+ * scrolling). Hovering the thumbnail on desktop floats a bigger version of
+ * the same photo right there — no click needed — so the "is this the right
+ * item" check the old big photo gave doesn't disappear just because the
+ * resting size got smaller. The whole row still links to the exact vendor
+ * product page, same as the old photo did. Falls back to a generic icon
+ * tile when there's no photo.
  */
 export default function ProductIdentity({ name, sourceUrl, thumbnail }) {
-  const prefersReduced = useReducedMotion();
-
-  const content = (
-    <Flex position="relative" bg="surface2" justify="center" align="center" h={{ base: '150px', md: '190px' }}>
+  const thumb = (
+    <Box
+      position="relative"
+      role="group"
+      w="44px"
+      h="44px"
+      flex="0 0 auto"
+      borderRadius="10px"
+      bg="surface3"
+      border="1px solid"
+      borderColor="border"
+      overflow="hidden"
+    >
       {thumbnail ? (
-        <motion.div
-          style={{ width: '100%', height: '100%', display: 'flex' }}
-          initial={prefersReduced ? false : { opacity: 0, scale: 0.95 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-        >
-          <Image src={thumbnail} alt="" w="100%" h="100%" objectFit="cover" />
-        </motion.div>
+        <Image src={thumbnail} alt="" w="100%" h="100%" objectFit="contain" />
       ) : (
         <Flex w="100%" h="100%" align="center" justify="center" color="brand" bg="brandSoft">
-          <I.cart size={28} />
+          <I.cart size={18} />
         </Flex>
       )}
 
-      <Box
-        position="absolute"
-        left={0}
-        right={0}
-        bottom={0}
-        px="14px"
-        py="10px"
-        bgImage="linear-gradient(to top, rgba(0,0,0,.72), transparent)"
-      >
-        <Text
-          fontSize="15px"
-          fontWeight={700}
-          color="white"
-          noOfLines={1}
-          sx={{ textShadow: '0 1px 4px rgba(0,0,0,.5)' }}
+      {/* Floats above the small resting thumbnail on hover — desktop-only in
+          practice, since touch devices don't sustain a hover state. */}
+      {thumbnail && (
+        <Box
+          position="absolute"
+          left="52px"
+          top="-8px"
+          w="150px"
+          h="150px"
+          borderRadius="14px"
+          bg="surface2"
+          border="1px solid"
+          borderColor="borderStrong"
+          boxShadow="0 20px 36px rgba(0,0,0,.28)"
+          opacity={0}
+          transform="scale(.92) translateY(4px)"
+          transition="opacity .15s ease, transform .15s ease"
+          pointerEvents="none"
+          zIndex={5}
+          overflow="hidden"
+          _groupHover={{ opacity: 1, transform: 'scale(1) translateY(0)' }}
         >
-          {name}
-        </Text>
-      </Box>
+          <Image src={thumbnail} alt="" w="100%" h="100%" objectFit="contain" />
+        </Box>
+      )}
+    </Box>
+  );
+
+  const content = (
+    <Flex align="center" gap="12px" p="12px 14px">
+      {thumb}
+      <Text fontSize="14px" fontWeight={700} color="text" noOfLines={2} lineHeight={1.3}>
+        {name}
+      </Text>
     </Flex>
   );
 
   return (
-    <Card p="0" overflow="hidden">
+    <Card p="0" overflow="visible">
       {sourceUrl ? (
-        <Link href={sourceUrl} isExternal display="block" _hover={{ opacity: 0.93 }}>
+        <Link href={sourceUrl} isExternal display="block" _hover={{ bg: 'surface2' }} borderRadius="md">
           {content}
         </Link>
       ) : (

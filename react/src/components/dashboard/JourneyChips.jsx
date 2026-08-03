@@ -22,10 +22,9 @@ import { I } from '@/components/common/icons';
  */
 export default function JourneyChips({ steps, activeIndex, onSelect }) {
   return (
-    <Flex align="center" gap="2px" mb="7px">
+    <Flex align="center" gap="2px" mb="10px">
       {steps.map((s, i) => {
         const active = i === activeIndex;
-        const tone = s.done ? 'green' : active ? 'amber' : 'text3';
         return (
           <Flex key={s.key} align="center" gap="2px" flex={i === steps.length - 1 ? '0 0 auto' : '1'}>
             <Box
@@ -34,21 +33,33 @@ export default function JourneyChips({ steps, activeIndex, onSelect }) {
               onClick={() => onSelect(i)}
               display="flex"
               alignItems="center"
-              gap="4px"
-              px="6px"
-              py="5px"
+              gap="6px"
+              px="8px"
+              py="6px"
               flex="1"
               minW="0"
-              borderRadius="8px"
-              opacity={active || s.done ? 1 : 0.55}
-              transition="opacity .2s ease"
+              borderRadius="10px"
+              bg={active ? 'amberSoft' : 'transparent'}
+              opacity={active || s.done ? 1 : 0.75}
+              transition="opacity .2s ease, background .2s ease"
               _active={{ transform: 'scale(.97)' }}
               _focusVisible={{ outline: '2px solid', outlineColor: 'brand', outlineOffset: '2px' }}
             >
-              <Box w="13px" h="13px" color={tone} flex="0 0 auto">
-                {s.done ? <I.check size={13} /> : <s.icon size={13} />}
-              </Box>
-              <Text fontSize="9.5px" fontWeight={700} color={s.done ? 'green' : active ? 'text2' : 'text3'} whiteSpace="nowrap">
+              <Flex
+                w="20px"
+                h="20px"
+                flex="0 0 20px"
+                borderRadius="50%"
+                align="center"
+                justify="center"
+                bg={s.done ? 'greenSoft' : active ? 'amber' : 'surface3'}
+                color={s.done ? 'green' : active ? 'onBrand' : 'text3'}
+                border="1.5px solid"
+                borderColor={s.done ? 'green' : active ? 'amber' : 'border'}
+              >
+                {s.done ? <I.check size={11} /> : <s.icon size={11} />}
+              </Flex>
+              <Text fontSize="11.5px" fontWeight={800} color={s.done ? 'green' : active ? 'text' : 'text2'} whiteSpace="nowrap">
                 {i + 1} · {s.label}
               </Text>
             </Box>
