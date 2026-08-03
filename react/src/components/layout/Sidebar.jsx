@@ -83,7 +83,7 @@ function NavItem({ to, end, icon: Ico, label, onNavigate, collapsed }) {
  * mobile drawer (`collapsed` is always false). `onNavigate` closes the mobile
  * drawer on nav clicks.
  */
-export default function SidebarContent({ onNavigate, collapsed = false }) {
+export default function SidebarContent({ onNavigate, collapsed = false, onOpenOnboarding }) {
   const fx = fade(collapsed);
   const hintsEnabled = useUiStore((s) => s.hintsEnabled);
   const toggleHints = useUiStore((s) => s.toggleHints);
@@ -121,6 +121,34 @@ export default function SidebarContent({ onNavigate, collapsed = false }) {
         <WhatsAppButton collapsed={collapsed} />
 
         <Box h="1px" bg="border" />
+
+        {/* Replays the first-visit walkthrough on demand — the walkthrough
+            itself only ever auto-shows once per browser, so this is the only
+            way back into it afterward. */}
+        <Tooltip label="How it works" placement="right" hasArrow openDelay={250} isDisabled={!collapsed}>
+          <Box
+            as="button"
+            type="button"
+            onClick={onOpenOnboarding}
+            display="flex"
+            alignItems="center"
+            w="100%"
+            p="9px 0"
+            pr="11px"
+            borderRadius="11px"
+            fontSize="13px"
+            fontWeight={600}
+            color="text2"
+            _hover={{ bg: 'surface3', color: 'text' }}
+          >
+            <IconSlot>
+              <I.info size={17} />
+            </IconSlot>
+            <Box as="span" flex={1} textAlign="left" sx={fx}>
+              How it works
+            </Box>
+          </Box>
+        </Tooltip>
 
         {/* Durable off-switch for the results-page step hints. They show on
             every visit by default, so someone who finds them repetitive needs

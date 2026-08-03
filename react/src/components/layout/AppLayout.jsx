@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
   Box,
   Button,
@@ -14,8 +14,10 @@ import { Link as RouterLink, Outlet } from 'react-router-dom';
 
 import Logo from '@/components/common/Logo';
 import { I } from '@/components/common/icons';
+import OnboardingOverlay from '@/components/onboarding/OnboardingOverlay';
 import { PageHeaderContext } from '@/hooks/usePageHeader';
 import { ROUTES } from '@/routes/paths';
+import { track } from '@/utils/analytics';
 import { useUiStore } from '@/store/uiStore';
 import SidebarContent from './Sidebar';
 
@@ -29,11 +31,36 @@ import SidebarContent from './Sidebar';
  */
 export default function AppLayout() {
   const drawer = useDisclosure();
+  const onboarding = useDisclosure();
   const collapsed = useUiStore((s) => s.sidebarCollapsed);
   const toggleSidebar = useUiStore((s) => s.toggleSidebar);
+  const onboardingSeen = useUiStore((s) => s.onboardingSeen);
+  const markOnboardingSeen = useUiStore((s) => s.markOnboardingSeen);
   // A page can replace the mobile bar's menu/logo/spacer slots with its own
   // controls (see usePageHeader) — null means the default shown below.
   const [pageHeader, setPageHeader] = useState(null);
+
+  // First-visit walkthrough: auto-opens once per browser (persisted flag),
+  // regardless of which route someone first lands on. Reopening it later
+  // from the sidebar's "How it works" link goes through openOnboarding
+  // below and doesn't touch this effect.
+  useEffect(() => {
+    if (!onboardingSeen) {
+      track('Onboarding Auto Shown');
+      onboarding.onOpen();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const dismissOnboarding = () => {
+    onboarding.onClose();
+    markOnboardingSeen();
+  };
+
+  const openOnboarding = () => {
+    track('Onboarding Reopened From Sidebar');
+    onboarding.onOpen();
+  };
 
   return (
     <Flex
@@ -63,7 +90,7 @@ export default function AppLayout() {
           borderRight="1px solid"
           borderColor="border"
         >
-          <SidebarContent collapsed={collapsed} />
+          <SidebarContent collapsed={collapsed} onOpenOnboarding={openOnboarding} />
         </Box>
 
         {/* floating collapse/expand toggle on the seam */}
@@ -104,10 +131,18 @@ export default function AppLayout() {
         <DrawerOverlay bg="blackAlpha.600" backdropFilter="blur(2px)" />
         <DrawerContent maxW="280px" bg="sidebar">
           <DrawerBody p={0}>
-            <SidebarContent onNavigate={drawer.onClose} />
+            <SidebarContent
+              onNavigate={drawer.onClose}
+              onOpenOnboarding={() => {
+                drawer.onClose();
+                openOnboarding();
+              }}
+            />
           </DrawerBody>
         </DrawerContent>
       </Drawer>
+
+      {onboarding.isOpen && <OnboardingOverlay onDismiss={dismissOnboarding} />}
 
       <Flex direction="column" flex={1} minW={0}>
         {/* mobile top bar */}

@@ -18,6 +18,12 @@ export const useUiStore = create(
       // the honest answer to that rather than making them sit through it.
       hintsEnabled: true,
       toggleHints: () => set({ hintsEnabled: !get().hintsEnabled }),
+
+      // First-visit walkthrough (see components/onboarding). Persisted so it
+      // auto-shows exactly once per browser, ever — reopening it later from
+      // the sidebar's "How it works" link doesn't touch this flag.
+      onboardingSeen: false,
+      markOnboardingSeen: () => set({ onboardingSeen: true }),
     }),
     {
       name: 'dealo-ui',
