@@ -148,9 +148,8 @@ export default function ProductQuickView({ products, index, onIndexChange, onSel
                   left="8px"
                   top="50%"
                   transform="translateY(-50%) rotate(180deg)"
-                  color="rgba(255,255,255,.85)"
-                  filter="drop-shadow(0 1px 3px rgba(0,0,0,.4))"
-                  _hover={{ color: 'white' }}
+                  color="brand"
+                  _hover={{ color: 'brandHover' }}
                   _active={{ transform: 'translateY(-50%) rotate(180deg) scale(0.9)' }}
                   transition="color .15s ease, transform .12s ease"
                 >
@@ -165,9 +164,8 @@ export default function ProductQuickView({ products, index, onIndexChange, onSel
                   right="8px"
                   top="50%"
                   transform="translateY(-50%)"
-                  color="rgba(255,255,255,.85)"
-                  filter="drop-shadow(0 1px 3px rgba(0,0,0,.4))"
-                  _hover={{ color: 'white' }}
+                  color="brand"
+                  _hover={{ color: 'brandHover' }}
                   _active={{ transform: 'translateY(-50%) scale(0.9)' }}
                   transition="color .15s ease, transform .12s ease"
                 >
