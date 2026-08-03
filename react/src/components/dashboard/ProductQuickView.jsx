@@ -235,7 +235,7 @@ export default function ProductQuickView({ products, index, onIndexChange, onSel
                 _hover={{ bg: 'brand', color: 'onBrand' }}
               >
                 <I.trendUp size={13} />
-                Better price
+                Find Better Price
                 <I.chevRight size={12} />
               </Flex>
             </Flex>

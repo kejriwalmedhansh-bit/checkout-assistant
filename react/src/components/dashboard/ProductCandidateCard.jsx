@@ -143,7 +143,7 @@ export default function ProductCandidateCard({ product, onSelect, onEnlarge, isS
             _groupHover={{ bg: 'brand', color: 'onBrand' }}
           >
             <I.trendUp size={13} />
-            Better price
+            Find Better Price
             <Box
               display="inline-flex"
               transition="transform .18s cubic-bezier(.16,.68,.32,1)"
