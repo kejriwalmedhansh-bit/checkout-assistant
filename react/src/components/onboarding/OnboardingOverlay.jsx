@@ -86,7 +86,7 @@ export default function OnboardingOverlay({ onDismiss }) {
         initial={prefersReduced ? false : { opacity: 0, scale: 0.96 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.2, ease: [0.16, 1, 0.3, 1] }}
-        style={{ width: '100%', maxWidth: '380px' }}
+        style={{ width: '100%', maxWidth: '540px' }}
       >
         <Box bg="surface" borderRadius="20px" overflow="hidden" boxShadow="0 40px 80px rgba(0,0,0,.4)" position="relative">
           <Box
@@ -112,7 +112,7 @@ export default function OnboardingOverlay({ onDismiss }) {
 
           <Box
             position="relative"
-            h="220px"
+            h="320px"
             bg="surface2"
             display="flex"
             alignItems="center"
@@ -188,20 +188,20 @@ export default function OnboardingOverlay({ onDismiss }) {
             ))}
           </Flex>
 
-          <Box p="16px">
-            <Text fontSize="15px" fontWeight={700} color="text" lineHeight={1.35}>
+          <Box p="24px">
+            <Text fontSize="19px" fontWeight={700} color="text" lineHeight={1.35}>
               {current.title}
             </Text>
-            <Text fontSize="13px" color="text2" lineHeight={1.5} mt="4px">
+            <Text fontSize="15px" color="text2" lineHeight={1.55} mt="6px">
               {current.caption}
             </Text>
 
-            <Flex align="center" justify="space-between" mt="16px">
+            <Flex align="center" justify="space-between" mt="22px">
               <Box
                 as="button"
                 type="button"
                 onClick={() => dismiss('skip')}
-                fontSize="12.5px"
+                fontSize="13.5px"
                 fontWeight={600}
                 color="text3"
                 _hover={{ color: 'text2' }}
@@ -214,15 +214,15 @@ export default function OnboardingOverlay({ onDismiss }) {
                 onClick={() => (isLast ? dismiss('completed') : step(1))}
                 align="center"
                 justify="center"
-                gap="5px"
+                gap="6px"
                 bg="brand"
                 color="onBrand"
-                fontSize="13px"
+                fontSize="14px"
                 fontWeight={800}
                 whiteSpace="nowrap"
                 borderRadius="999px"
-                px="16px"
-                py="9px"
+                px="20px"
+                py="11px"
                 transition="background .18s ease"
                 _hover={{ bg: 'brandHover' }}
               >
