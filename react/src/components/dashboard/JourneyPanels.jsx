@@ -28,7 +28,12 @@ export default function JourneyPanels({ activeIndex, onChangeIndex, children }) 
     if (active) setHeight(active.scrollHeight);
   }, [activeIndex, children]);
 
+  // A press that starts on a link or button is that control's, not the
+  // panel's: capturing the pointer here would retarget the follow-up click
+  // to this container, so the CTA never navigated at all. Swiping still
+  // works from anywhere else on the card.
   const onPointerDown = (e) => {
+    if (e.target?.closest?.('a, button, input, select, textarea, [role="button"]')) return;
     setDragging(true);
     startX.current = e.clientX;
     setDragDelta(0);
