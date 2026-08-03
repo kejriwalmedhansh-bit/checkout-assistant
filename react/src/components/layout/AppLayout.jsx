@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import {
   Box,
   Button,
@@ -13,6 +14,7 @@ import { Link as RouterLink, Outlet } from 'react-router-dom';
 
 import Logo from '@/components/common/Logo';
 import { I } from '@/components/common/icons';
+import { PageHeaderContext } from '@/hooks/usePageHeader';
 import { ROUTES } from '@/routes/paths';
 import { useUiStore } from '@/store/uiStore';
 import SidebarContent from './Sidebar';
@@ -29,6 +31,9 @@ export default function AppLayout() {
   const drawer = useDisclosure();
   const collapsed = useUiStore((s) => s.sidebarCollapsed);
   const toggleSidebar = useUiStore((s) => s.toggleSidebar);
+  // A page can replace the mobile bar's menu/logo/spacer slots with its own
+  // controls (see usePageHeader) — null means the default shown below.
+  const [pageHeader, setPageHeader] = useState(null);
 
   return (
     <Flex
@@ -119,24 +124,28 @@ export default function AppLayout() {
           borderBottom="1px solid"
           borderColor="border"
         >
-          <Button
-            variant="iconSubtle"
-            onClick={drawer.onOpen}
-            aria-label="Open menu"
-            w="40px"
-            h="40px"
-            minW="40px"
-            p={0}
-            borderRadius="10px"
-          >
-            <I.menu size={20} />
-          </Button>
+          {pageHeader?.left || (
+            <Button
+              variant="iconSubtle"
+              onClick={drawer.onOpen}
+              aria-label="Open menu"
+              w="40px"
+              h="40px"
+              minW="40px"
+              p={0}
+              borderRadius="10px"
+            >
+              <I.menu size={20} />
+            </Button>
+          )}
           <Link as={RouterLink} to={ROUTES.home} _hover={{ textDecoration: 'none' }}>
             <Logo size={22} />
           </Link>
-          {/* spacer matching the menu button's width, keeping the logo visually
-              centered now that there's no theme toggle to balance it */}
-          <Box w="40px" h="40px" flex="0 0 auto" />
+          {pageHeader?.right || (
+            // spacer matching the menu button's width, keeping the logo
+            // visually centered now that there's no theme toggle to balance it
+            <Box w="40px" h="40px" flex="0 0 auto" />
+          )}
         </Flex>
 
         <Box
@@ -148,7 +157,9 @@ export default function AppLayout() {
           mx="auto"
           p={{ base: '16px 16px 56px', md: '22px 34px 60px' }}
         >
-          <Outlet />
+          <PageHeaderContext.Provider value={setPageHeader}>
+            <Outlet />
+          </PageHeaderContext.Provider>
         </Box>
       </Flex>
     </Flex>

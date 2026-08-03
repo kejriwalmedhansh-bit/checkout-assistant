@@ -1,5 +1,5 @@
 import { useRef, useState } from 'react';
-import { Box, Flex } from '@chakra-ui/react';
+import { Box, Button, Flex } from '@chakra-ui/react';
 import { motion, useReducedMotion } from 'framer-motion';
 import { Navigate, useNavigate } from 'react-router-dom';
 
@@ -15,6 +15,7 @@ import RouteWire from '@/components/dashboard/RouteWire';
 import RouteCard from '@/components/dashboard/RouteCard';
 import CardFomo from '@/components/dashboard/CardFomo';
 import AlternativesToggle from '@/components/dashboard/AlternativesToggle';
+import { usePageHeader } from '@/hooks/usePageHeader';
 import { usePageTitle } from '@/hooks/usePageTitle';
 import { ROUTES } from '@/routes/paths';
 import { useSearchStore } from '@/store/searchStore';
@@ -51,6 +52,40 @@ export default function ResultsPage() {
   // visit, even though re-running a search from here is rare. Opening it is
   // one tap away; nothing about the ability to search again is lost.
   const [searchOpen, setSearchOpen] = useState(false);
+  const backToRecommended = () => setSelectedAlt(null);
+
+  const backControl = (
+    <BackButton
+      fallback={ROUTES.select}
+      label={selectedAlt ? 'Back to recommended' : 'Back to products'}
+      onClick={selectedAlt ? backToRecommended : undefined}
+      iconOnly
+    />
+  );
+  const searchControl = (
+    <Button
+      variant="iconSubtle"
+      onClick={() => setSearchOpen((o) => !o)}
+      aria-label="Search again"
+      w="40px"
+      h="40px"
+      minW="40px"
+      p={0}
+      borderRadius="10px"
+      color={searchOpen ? 'brand' : undefined}
+    >
+      <I.search size={18} />
+    </Button>
+  );
+
+  // Below `lg`, these live in AppLayout's mobile top bar instead of a
+  // duplicate in-page row — that row was measured to cost ~40px a phone
+  // screen couldn't spare (see the results-page fold fix). At `lg` and
+  // above the mobile top bar itself is hidden (there's a sidebar instead),
+  // so the same controls render in-page there — see the `lg`-only Flex
+  // below. Hook called unconditionally, before the early returns, since
+  // hooks can't be conditional.
+  usePageHeader({ left: backControl, right: searchControl });
 
   const loading = status === 'loading';
 
@@ -69,7 +104,6 @@ export default function ResultsPage() {
     setSelectedAlt(alt);
     scrollRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
   };
-  const backToRecommended = () => setSelectedAlt(null);
 
   // "Search again" starts a fresh candidate search → back to the picker.
   const rerun = (q) => {
@@ -90,38 +124,11 @@ export default function ResultsPage() {
 
   return (
     <Box ref={scrollRef} maxW="640px" mx="auto">
-      <Flex align="center" gap="6px" mb="8px">
-        {/* Viewing an alternative is page state, not a navigation — real
-            history's previous entry is the picker. Back must still mean one
-            screen: first leave the alternative, only then leave the page. */}
-        <BackButton
-          fallback={ROUTES.select}
-          label={selectedAlt ? 'Back to recommended' : 'Back to products'}
-          onClick={selectedAlt ? backToRecommended : undefined}
-          iconOnly
-        />
-        {!searchOpen && (
-          <Box
-            as="button"
-            type="button"
-            onClick={() => setSearchOpen(true)}
-            display="flex"
-            alignItems="center"
-            gap="6px"
-            h="32px"
-            px="10px"
-            flex={1}
-            minW={0}
-            borderRadius="xs"
-            color="text2"
-            fontSize="12.5px"
-            fontWeight={600}
-            _hover={{ bg: 'surface3' }}
-          >
-            <I.search size={14} />
-            Search again
-          </Box>
-        )}
+      {/* `lg`+ only — below that, the mobile top bar carries these instead
+          (see usePageHeader above); it has no equivalent above `lg`. */}
+      <Flex display={{ base: 'none', lg: 'flex' }} align="center" gap="6px" mb="14px">
+        {backControl}
+        {searchControl}
       </Flex>
 
       {searchOpen && (
