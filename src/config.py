@@ -42,7 +42,9 @@ class Settings(BaseSettings):
     WHATSAPP_SESSION_TTL_SECONDS: int = 600  # 10-min sliding TTL per phone
 
     # --- Cuelinks affiliate ---
-    CUELINKS_CID: str = "297179"
+    # Dealo channel (getdealo.in), not the old placeholder "My Channel" (297179)
+    # that Cuelinks auto-created from the pre-rebrand Lovable app URL.
+    CUELINKS_CID: str = "307742"
 
     # --- This backend's own public URL, no trailing slash ---
     # Used to build /go redirect links (see api/routers/redirect.py) so

@@ -53,7 +53,7 @@ Dealo is a pre-checkout purchase optimization engine for Indian e-commerce. Inpu
 7. **Marketplace-attributed clones — largely mitigated 2026-07-13 via price anchor.** Google Shopping attributes third-party marketplace listings to the platform ("Flipkart"), not the actual seller, so a merchant-whitelist check alone can't catch a clone sold *through* a trusted platform. Fix: `_filter_and_group_candidates` now anchors the price-outlier check on the highest price quoted by any of the small `PRIORITY_MERCHANTS` set (Croma, Vijay Sales, Reliance Digital, Tata CLiQ, Flipkart, Amazon) when one is present, instead of the survivor pool's own median — verified this drops all 39 clone/junk listings for "Apple Airpods Pro 2" down to the single genuine Reliance Digital ₹18,900 listing. Residual gap: if a query has **no** priority-merchant listing at all (only JioMart/Zepto/Apple/Myntra/Nykaa/AJIO/BigBasket/Pepperfry/Lenskart), there's no anchor and the weaker median-based filter is all that applies — don't attempt to close this with title-keyword heuristics ("Oem", "king edition", etc.), that's the kind of ad hoc special-casing rule #1 warns against.
 8. `_KNOWN_BRANDS` (pipeline.py) and `_BRAND_SLUGS` (discovery.py) are small hardcoded lists — brands outside them weaken brand inference and conflict filtering.
 9. Only `amzn.in` short links resolve; `fkrt.co` / `bit.ly` will fail extraction.
-10. WhatsApp links are not Cuelinks-wrapped (web links are). Decide whether that's intentional before production.
+10. ~~WhatsApp links are not Cuelinks-wrapped (web links are).~~ Resolved — verified 2026-08-04: `whatsapp_service._affiliate_url` wraps merchant links via `/go` (`redirect.py`) exactly like the web frontend; Gyftr voucher links are correctly left unwrapped per rule #6/design intent. This note was stale.
 11. No automated tests. Regression set is manual: boAt Airdopes 141, Myntra Nike sneakers URL, Ray-Ban Meta Wayfarer Gen 2, Lakme CC Cream, amzn.in short link.
 
 ## Live price-on-paste vendor coverage (for Karan — flagged 2026-07-22)
@@ -77,7 +77,7 @@ All of the above look like IP- or network-level bot detection (the kind that che
 
 - Fix bugs 1–4 above (1 and 2 are user-facing correctness — highest priority).
 - Deploy web interface (Railway or Render); permanent WhatsApp access token at that point.
-- Cuelinks approval pending (publisher 256146, cid 297179) — links are pre-wired.
+- Cuelinks: publisher 256146. Switched 2026-08-04 from the placeholder "My Channel" (cid 297179, auto-created from the old Lovable app URL) to the real "Dealo" channel (cid 307742, getdealo.in — now set as the Cuelinks account default too). Merchant coverage as of 2026-08-04: Croma, Reliance Digital, Vijay Sales, Tata CLiQ, Pepperfry, and Nykaa (nykaa.com only, not nykaa.in) are live/auto-approved; Myntra is applied and pending Cuelinks approval; Flipkart and AJIO have never been applied for (currently $0 commission on those); Amazon India, BigBasket, JioMart, Lenskart, Apple, and Samsung are not offered on Cuelinks at all (no affiliate program available through this network for those).
 - `refresh_gyftr.py` staleness checker for `gyftr_master.json`.
 - L1 matching fine-tune (dedicated replanning session).
 - Gyftr partnership: ongoing meetings with Simran / Anjali (SVP); demo-led framing since Dealo is pre-revenue.
