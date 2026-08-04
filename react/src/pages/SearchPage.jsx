@@ -1,4 +1,4 @@
-import { Fragment } from 'react';
+import { Fragment, useEffect } from 'react';
 import { Box, Flex, Link, Text } from '@chakra-ui/react';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
 
@@ -10,6 +10,7 @@ import { gradients } from '@/theme/foundations/colors';
 import { usePageTitle } from '@/hooks/usePageTitle';
 import { ROUTES } from '@/routes/paths';
 import { useSearchStore } from '@/store/searchStore';
+import { useUiStore } from '@/store/uiStore';
 
 // What actually happens, in the order it happens, said as pictures instead
 // of sentences — per PRODUCT.md, design for the lower end of reading
@@ -28,10 +29,23 @@ export default function SearchPage() {
   const navigate = useNavigate();
   const runSearch = useSearchStore((s) => s.runSearch);
   const query = useSearchStore((s) => s.query);
+  const onboardingSeen = useUiStore((s) => s.onboardingSeen);
+  const tourActive = useUiStore((s) => s.tourActive);
+  const startTour = useUiStore((s) => s.startTour);
+  const advanceTour = useUiStore((s) => s.advanceTour);
 
   const heroGlow = gradients.promptHero;
 
+  // First-ever visit: arm the live guided tour here, not in AppLayout —
+  // its first step targets this page's own search box, so it only makes
+  // sense to start once this page is actually on screen.
+  useEffect(() => {
+    if (!onboardingSeen && !tourActive) startTour();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   const handleSubmit = (q) => {
+    if (tourActive) advanceTour();
     runSearch(q); // fire-and-forget; ProductSelectPage subscribes to the store
     navigate(ROUTES.select);
   };
@@ -106,6 +120,7 @@ export default function SearchPage() {
         </Text>
 
         <Box
+          data-tour="search-box"
           w="100%"
           mt={{ base: '18px', md: '36px' }}
           bg="surface"

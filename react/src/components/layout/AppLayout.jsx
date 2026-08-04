@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import {
   Box,
   Button,
@@ -10,11 +10,11 @@ import {
   Link,
   useDisclosure,
 } from '@chakra-ui/react';
-import { Link as RouterLink, Outlet } from 'react-router-dom';
+import { Link as RouterLink, Outlet, useNavigate } from 'react-router-dom';
 
 import Logo from '@/components/common/Logo';
 import { I } from '@/components/common/icons';
-import OnboardingOverlay from '@/components/onboarding/OnboardingOverlay';
+import Spotlight from '@/components/onboarding/Spotlight';
 import { PageHeaderContext } from '@/hooks/usePageHeader';
 import { ROUTES } from '@/routes/paths';
 import { track } from '@/utils/analytics';
@@ -31,35 +31,25 @@ import SidebarContent from './Sidebar';
  */
 export default function AppLayout() {
   const drawer = useDisclosure();
-  const onboarding = useDisclosure();
+  const navigate = useNavigate();
   const collapsed = useUiStore((s) => s.sidebarCollapsed);
   const toggleSidebar = useUiStore((s) => s.toggleSidebar);
-  const onboardingSeen = useUiStore((s) => s.onboardingSeen);
-  const markOnboardingSeen = useUiStore((s) => s.markOnboardingSeen);
+  const startTour = useUiStore((s) => s.startTour);
   // A page can replace the mobile bar's menu/logo/spacer slots with its own
   // controls (see usePageHeader) — null means the default shown below.
   const [pageHeader, setPageHeader] = useState(null);
 
-  // First-visit walkthrough: auto-opens once per browser (persisted flag),
-  // regardless of which route someone first lands on. Reopening it later
-  // from the sidebar's "How it works" link goes through openOnboarding
-  // below and doesn't touch this effect.
-  useEffect(() => {
-    if (!onboardingSeen) {
-      track('Onboarding Auto Shown');
-      onboarding.onOpen();
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  const dismissOnboarding = () => {
-    onboarding.onClose();
-    markOnboardingSeen();
-  };
-
+  // First-visit auto-start lives on SearchPage itself, not here — the tour's
+  // first step targets the search box, so it only makes sense to start once
+  // that page is actually on screen (see SearchPage.jsx). This handler is
+  // just the manual replay from the sidebar's "How it works" link, which
+  // sends the user back to the search page and re-arms the tour from step 1
+  // — a live tour can't "replay" in place the way the old screenshot modal
+  // could, since each step is tied to a real action on a real page.
   const openOnboarding = () => {
     track('Onboarding Reopened From Sidebar');
-    onboarding.onOpen();
+    navigate(ROUTES.home);
+    startTour();
   };
 
   return (
@@ -142,7 +132,7 @@ export default function AppLayout() {
         </DrawerContent>
       </Drawer>
 
-      {onboarding.isOpen && <OnboardingOverlay onDismiss={dismissOnboarding} />}
+      <Spotlight />
 
       <Flex direction="column" flex={1} minW={0}>
         {/* mobile top bar */}

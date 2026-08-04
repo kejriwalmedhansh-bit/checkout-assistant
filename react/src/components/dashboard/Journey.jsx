@@ -48,11 +48,20 @@ export default function Journey({ rec }) {
   // number rather than a general nudge.
   const [dismissed, setDismissed] = useState({ checkout: false });
   const hintsEnabled = useUiStore((s) => s.hintsEnabled);
+  const tourActive = useUiStore((s) => s.tourActive);
+  const tourStep = useUiStore((s) => s.tourStep);
+  const advanceTour = useUiStore((s) => s.advanceTour);
+  // Tour steps 2 and 3 (see tourSteps.js) target this component's own
+  // voucher-buy and checkout-open buttons — advancing here, at the same
+  // click that already checks the step off, keeps the tour tied to the
+  // real action instead of a separate "next" tap.
+  const TOUR_STEP_FOR_KEY = { voucher: 2, checkout: 3 };
 
   // A brief "pending" beat before the checkmark lands — an instant flip is
   // easy to miss; this makes the confirmation a moment you actually notice.
   const check = (key) => () => {
     track('Clicked Buy Link', { step: key, merchant: rec.merchant, has_voucher: Boolean(v) });
+    if (tourActive && tourStep === TOUR_STEP_FOR_KEY[key]) advanceTour();
     setPending((p) => ({ ...p, [key]: true }));
     setTimeout(() => {
       setPending((p) => ({ ...p, [key]: false }));
@@ -100,6 +109,15 @@ export default function Journey({ rec }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentStep]);
 
+  // A route with no voucher has nothing for the tour's "buy the voucher"
+  // step (2) to point at — without this it would sit polling forever for an
+  // element that never appears. Skip straight to step 3, whose target
+  // (checkout-open) the direct-buy row below still provides.
+  useEffect(() => {
+    if (!v && tourActive && tourStep === 2) advanceTour();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [v, tourActive, tourStep]);
+
   // Direct-buy route (no voucher available): one row, no rail, no framing
   // line, no numbering — mirrors the old single-row behaviour exactly.
   if (!v) {
@@ -107,6 +125,7 @@ export default function Journey({ rec }) {
       <JourneyRow
         tone="brand"
         icon={I.store}
+        tourId="checkout-open"
         label={`Buy at ${rec.merchant}`}
         facts={
           <Text fontSize="11.5px" color="text2" fontFamily="mono">
@@ -150,6 +169,7 @@ export default function Journey({ rec }) {
           key="voucher"
           tone="voucher"
           icon={I.ticket}
+          tourId="voucher-buy"
           label="Buy a Gift Voucher"
           badge={`via ${sourceLabel} · saves ${fmt((v.upi?.voucher_amount ?? 0) - (paid ?? 0))}`}
           current={currentStep === 'voucher'}
@@ -213,6 +233,7 @@ export default function Journey({ rec }) {
           key="checkout"
           tone="checkout"
           icon={I.cart}
+          tourId="checkout-open"
           label={`Checkout at ${rec.merchant}`}
           facts={
             <>

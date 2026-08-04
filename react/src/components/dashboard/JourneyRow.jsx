@@ -163,6 +163,7 @@ export default function JourneyRow({
   hintDetail,
   hintVisible,
   onHideHint,
+  tourId,
 }) {
   const [detailOpen, setDetailOpen] = useState(false);
   const t = TONES[tone] || TONES.brand;
@@ -175,6 +176,7 @@ export default function JourneyRow({
 
   return (
     <Box
+      data-tour={tourId}
       bg={filled ? 'brandSoft' : 'surface'}
       border="1.5px solid"
       borderColor={filled ? 'brand' : t.border}
