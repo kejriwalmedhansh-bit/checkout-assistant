@@ -12,12 +12,13 @@ export const TOUR_STEPS = [
     text: "Paste a product link, or type what you're looking for.",
   },
   {
-    id: 'picker-list',
-    // No dim/ring here — every listing is tappable, so highlighting only
-    // the first one would wrongly suggest the rest aren't (see Spotlight's
-    // `noDim` handling).
-    noDim: true,
-    text: "Tap the exact listing that's yours — any of these work. Tap a photo to see it up close and swipe between listings to compare.",
+    id: 'picker-first-thumbnail',
+    // Rings the first card's photo specifically, but skips the full-page
+    // dim (see Spotlight's `dim: false` handling) — a ring on one small
+    // thumbnail reads as "here's an example," not "only this card works,"
+    // the way dimming every other card did before.
+    dim: false,
+    text: "Tap any photo like this one to see it up close and swipe between listings. Any of these work — pick the exact one that's yours.",
   },
   {
     id: 'voucher-buy',

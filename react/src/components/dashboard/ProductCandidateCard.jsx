@@ -27,7 +27,7 @@ const REDUCED_MOTION_SX = {
 // instead of always on screen.
 const TITLE_LIMIT = 40;
 
-export default function ProductCandidateCard({ product, onSelect, onEnlarge, isSelecting }) {
+export default function ProductCandidateCard({ product, onSelect, onEnlarge, isSelecting, tourId }) {
   const { title, price, thumbnail, source, product_token: token } = product;
   const isTruncated = Boolean(title && title.length > TITLE_LIMIT);
   const displayTitle = isTruncated ? title.slice(0, TITLE_LIMIT).trimEnd() : title;
@@ -58,6 +58,7 @@ export default function ProductCandidateCard({ product, onSelect, onEnlarge, isS
     >
       <Flex align="center" gap="14px">
         <Flex
+          data-tour={tourId}
           role={onEnlarge ? 'button' : undefined}
           tabIndex={onEnlarge ? 0 : undefined}
           aria-label={onEnlarge ? 'Enlarge photo' : undefined}
