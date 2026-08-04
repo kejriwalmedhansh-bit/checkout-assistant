@@ -16,6 +16,7 @@ import { usePageTitle } from '@/hooks/usePageTitle';
 import { gradients } from '@/theme/foundations/colors';
 import { ROUTES } from '@/routes/paths';
 import { useSearchStore } from '@/store/searchStore';
+import { useUiStore } from '@/store/uiStore';
 
 // Shown while candidates are being fetched, before the picker appears.
 const PICKER_TIPS = [
@@ -40,6 +41,8 @@ export default function ProductSelectPage() {
   const runSearch = useSearchStore((s) => s.runSearch);
   const selectProduct = useSearchStore((s) => s.selectProduct);
   const [quickViewIndex, setQuickViewIndex] = useState(null);
+  const tourActive = useUiStore((s) => s.tourActive);
+  const advanceTour = useUiStore((s) => s.advanceTour);
 
   // Direct load with no search in flight → back to home.
   if (searchStatus === 'idle') return <Navigate to={ROUTES.home} replace />;
@@ -47,6 +50,7 @@ export default function ProductSelectPage() {
   const rerun = (q) => runSearch(q);
 
   const handleSelect = (token, title, price, source, thumbnail) => {
+    if (tourActive) advanceTour();
     selectProduct(token, title, price, source, thumbnail); // fire-and-forget; ResultsPage shows its own loader
     navigate(ROUTES.results);
   };
@@ -142,7 +146,7 @@ export default function ProductSelectPage() {
             <Text fontSize="13px" color="text3" mb="12px">
               Select the exact product you want — we&apos;ll find the cheapest way to buy it.
             </Text>
-            <Flex direction="column" gap="10px">
+            <Flex direction="column" gap="10px" data-tour="picker-list">
               {candidates.map((p, i) => (
                 <motion.div
                   key={p.product_token || i}

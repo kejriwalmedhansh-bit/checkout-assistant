@@ -5,6 +5,8 @@
 import { create } from 'zustand';
 import { persist, createJSONStorage } from 'zustand/middleware';
 
+import { TOUR_STEPS } from '@/components/onboarding/tourSteps';
+
 export const useUiStore = create(
   persist(
     (set, get) => ({
@@ -19,15 +21,37 @@ export const useUiStore = create(
       hintsEnabled: true,
       toggleHints: () => set({ hintsEnabled: !get().hintsEnabled }),
 
-      // First-visit walkthrough (see components/onboarding). Persisted so it
-      // auto-shows exactly once per browser, ever — reopening it later from
-      // the sidebar's "How it works" link doesn't touch this flag.
+      // Live guided tour (see components/onboarding/Spotlight + tourSteps).
+      // Deliberately NOT persisted (see partialize below) — a reload should
+      // never resume mid-tour in a stale state; it just quietly stops.
       onboardingSeen: false,
       markOnboardingSeen: () => set({ onboardingSeen: true }),
+      tourActive: false,
+      tourStep: 0,
+      startTour: () => set({ tourActive: true, tourStep: 0 }),
+      advanceTour: () => {
+        const next = get().tourStep + 1;
+        if (next >= TOUR_STEPS.length) {
+          set({ tourActive: false, tourStep: 0 });
+          get().markOnboardingSeen();
+        } else {
+          set({ tourStep: next });
+        }
+      },
+      skipTour: () => {
+        set({ tourActive: false, tourStep: 0 });
+        get().markOnboardingSeen();
+      },
     }),
     {
       name: 'dealo-ui',
       storage: createJSONStorage(() => localStorage),
+      // Tour state is intentionally excluded — see the comment above.
+      partialize: (state) => ({
+        sidebarCollapsed: state.sidebarCollapsed,
+        hintsEnabled: state.hintsEnabled,
+        onboardingSeen: state.onboardingSeen,
+      }),
     },
   ),
 );

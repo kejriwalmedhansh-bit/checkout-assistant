@@ -19,12 +19,18 @@ const REDUCED_MOTION_SX = {
   },
 };
 
-const TITLE_LIMIT = 100;
+// Was 100 — measurably too long for a one-line picker row on a phone (the
+// title wrapped or got clipped mid-word by the container instead of by this
+// limit). Cut to 40; the "…" itself is a real, separately clickable control
+// (see below) that opens the same quick-view detail modal as the thumbnail,
+// so nothing about the full title is actually lost — it's one tap away
+// instead of always on screen.
+const TITLE_LIMIT = 40;
 
 export default function ProductCandidateCard({ product, onSelect, onEnlarge, isSelecting }) {
   const { title, price, thumbnail, source, product_token: token } = product;
-  const displayTitle =
-    title && title.length > TITLE_LIMIT ? `${title.slice(0, TITLE_LIMIT).trimEnd()}…` : title;
+  const isTruncated = Boolean(title && title.length > TITLE_LIMIT);
+  const displayTitle = isTruncated ? title.slice(0, TITLE_LIMIT).trimEnd() : title;
   // Backend marks a live-fetched price (read straight off the page the user
   // pasted, not Google's index) with this product_token prefix — see
   // _live_price_candidate in src/services/search_service.py.
@@ -102,6 +108,32 @@ export default function ProductCandidateCard({ product, onSelect, onEnlarge, isS
         <Box minW={0} flex="1">
           <Text fontSize="13.5px" fontWeight={600} color="text" lineHeight={1.35}>
             {displayTitle || 'Product'}
+            {isTruncated && onEnlarge && (
+              <Box
+                as="span"
+                role="button"
+                tabIndex={0}
+                aria-label="See full product details"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  onEnlarge();
+                }}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    onEnlarge();
+                  }
+                }}
+                color="brand"
+                fontWeight={800}
+                ml="2px"
+                _hover={{ textDecoration: 'underline' }}
+                _focusVisible={{ outline: '2px solid', outlineColor: 'brand', outlineOffset: '2px', borderRadius: '2px' }}
+              >
+                …
+              </Box>
+            )}
           </Text>
           {isVerifiedLive && (
             <Text fontSize="11px" fontWeight={600} color="green.500" mt="2px">
