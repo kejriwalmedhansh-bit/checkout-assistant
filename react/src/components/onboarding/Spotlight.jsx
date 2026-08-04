@@ -112,9 +112,18 @@ export default function Spotlight() {
           h={`${height}px`}
           borderRadius={rect.radius && rect.radius !== '0px' ? rect.radius : '12px'}
           boxShadow="0 0 0 9999px rgba(10,12,10,.6)"
-          transition="top .25s ease, left .25s ease, width .25s ease, height .25s ease"
         />
       )}
+      {/* No CSS transition on position/size here (deliberately removed) —
+          this box is already repositioned every animation frame by the
+          polling loop above, which is its own smooth, 60fps "animation."
+          A separate CSS transition on top of that was chasing a
+          continuously-updating target (worse yet, one that's sometimes
+          itself mid-animation, e.g. the results page's own step-switch
+          slide or a card's entrance scale), and two independent
+          animations racing each other is exactly what read as a jittery,
+          unstable border. Snapping instantly to each frame's real
+          measurement tracks the true position with zero lag instead. */}
       <Box
         position="fixed"
         zIndex={201}
@@ -126,7 +135,6 @@ export default function Spotlight() {
         borderRadius={rect.radius && rect.radius !== '0px' ? rect.radius : '12px'}
         border="2px solid"
         borderColor="brass"
-        transition="top .25s ease, left .25s ease, width .25s ease, height .25s ease"
         sx={{
           '@keyframes dealoSpotlightPulse': {
             '0%, 100%': { boxShadow: '0 0 0 0px var(--chakra-colors-brass)' },
