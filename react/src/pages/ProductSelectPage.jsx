@@ -146,7 +146,7 @@ export default function ProductSelectPage() {
             <Text fontSize="13px" color="text3" mb="12px">
               Select the exact product you want — we&apos;ll find the cheapest way to buy it.
             </Text>
-            <Flex direction="column" gap="10px" data-tour="picker-list">
+            <Flex direction="column" gap="10px">
               {candidates.map((p, i) => (
                 <motion.div
                   key={p.product_token || i}
@@ -158,6 +158,7 @@ export default function ProductSelectPage() {
                     product={p}
                     onSelect={handleSelect}
                     onEnlarge={() => setQuickViewIndex(i)}
+                    tourId={i === 0 ? 'picker-first-thumbnail' : undefined}
                     isSelecting={status === 'loading' && selectedToken === p.product_token}
                   />
                 </motion.div>
