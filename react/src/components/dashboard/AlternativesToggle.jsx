@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Box, Button, Collapse, Flex } from '@chakra-ui/react';
 
 import { I } from '@/components/common/icons';
+import { track } from '@/utils/analytics';
 import AltItem from './AltItem';
 
 /**
@@ -19,7 +20,10 @@ export default function AlternativesToggle({ alternatives = [], onSelect, select
         variant="ghost"
         w="100%"
         justifyContent="space-between"
-        onClick={() => setOpen((v) => !v)}
+        onClick={() => {
+          if (!open) track('Clicked Alternatives Toggle');
+          setOpen((v) => !v);
+        }}
         rightIcon={
           <Box as="span" transform={open ? 'rotate(180deg)' : 'none'} transition="transform .2s">
             <I.chevDown size={16} />
