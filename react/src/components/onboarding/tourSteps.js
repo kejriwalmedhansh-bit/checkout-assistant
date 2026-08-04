@@ -18,7 +18,7 @@ export const TOUR_STEPS = [
     // thumbnail reads as "here's an example," not "only this card works,"
     // the way dimming every other card did before.
     dim: false,
-    text: "Tap any photo like this one to see it up close and swipe between listings. Any of these work — pick the exact one that's yours.",
+    text: 'Tap a photo for a closer look. Any listing works — pick yours.',
   },
   {
     id: 'voucher-buy',
