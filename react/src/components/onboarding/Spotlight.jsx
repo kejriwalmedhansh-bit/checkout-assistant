@@ -11,10 +11,12 @@ const PAD = 8; // gap between the highlighted ring and the real element's edge
 
 /**
  * The live, first-search guided tour. Unlike the old screenshot-carousel
- * modal, this doesn't show a picture of the app — it dims the real page and
- * puts a highlighted ring around the actual element the user should tap
- * next (found live via `document.querySelector('[data-tour="<id>"]')`), with
- * a short instruction bubble beside it. It never blocks input: the dim
+ * modal, this doesn't show a picture of the app — it puts a highlighted
+ * ring around the actual element the user should tap next (found live via
+ * `document.querySelector('[data-tour="<id>"]')`), with the explanation
+ * text in a bar fixed to the bottom of the screen (see AppLayout's matching
+ * reserved padding) rather than floating next to the target, so it can
+ * never end up covering real page content. It never blocks input: the dim
  * layer and ring are `pointer-events: none`, so the real button underneath
  * still works exactly as normal — the tour is just narration, not a gate.
  *
@@ -27,6 +29,7 @@ export default function Spotlight() {
   const tourActive = useUiStore((s) => s.tourActive);
   const tourStep = useUiStore((s) => s.tourStep);
   const skipTour = useUiStore((s) => s.skipTour);
+  const sidebarCollapsed = useUiStore((s) => s.sidebarCollapsed);
   const prefersReduced = useReducedMotion();
 
   const [rect, setRect] = useState(null);
@@ -86,12 +89,6 @@ export default function Spotlight() {
   const width = rect.width + PAD * 2;
   const height = rect.height + PAD * 2;
 
-  // Tooltip below the target by default; flips above if there isn't enough
-  // room underneath (e.g. a target near the bottom of the viewport).
-  const spaceBelow = window.innerHeight - (top + height);
-  const placeAbove = spaceBelow < 140;
-  const tooltipTop = placeAbove ? top - 12 : top + height + 12;
-
   return createPortal(
     <>
       {/* Steps can set `dim: false` (e.g. the product picker, ringing just
@@ -139,41 +136,58 @@ export default function Spotlight() {
         }}
       />
 
+      {/* The explanatory text used to float right next to the target,
+          wherever that happened to land — which meant it could (and did)
+          land on top of real page content (the home page's "how it works"
+          row, the heads-up banner) with no way to predict or avoid it for
+          every page/target combination. Pinned to the bottom edge instead:
+          always the same place, so nothing is ever covered by surprise.
+          AppLayout reserves matching bottom padding on `main` while the
+          tour is active, so even scrolled to the very end of a page,
+          there's blank reserved space behind the bar, not real content. */}
       <Box
         position="fixed"
         zIndex={202}
-        top={`${tooltipTop}px`}
-        left={`${Math.min(Math.max(left, 12), window.innerWidth - 292)}px`}
-        transform={placeAbove ? 'translateY(-100%)' : 'none'}
-        w="280px"
+        bottom={0}
+        // Matches AppLayout's own sidebar width logic (only present at `lg`
+        // and up — below that it's a drawer, not permanent chrome) so the
+        // bar spans exactly the main content column, never overlapping the
+        // sidebar's own bottom content (e.g. the "Step hints" toggle).
+        left={{ base: 0, lg: sidebarCollapsed ? '76px' : '264px' }}
+        right={0}
         bg="surface"
-        border="1.5px solid"
+        borderTop="1.5px solid"
         borderColor="brass"
-        borderRadius="14px"
-        boxShadow="0 12px 32px -8px rgba(10,12,10,.35)"
-        p="14px 16px"
+        boxShadow="0 -10px 28px -10px rgba(10,12,10,.3)"
+        px={{ base: '16px', md: '24px' }}
+        py="14px"
       >
-        <Text fontSize="10px" fontWeight={700} color="text3" textTransform="uppercase" letterSpacing=".05em" mb="4px">
-          Step {tourStep + 1} of {TOUR_STEPS.length}
-        </Text>
-        <Text fontSize="13.5px" color="text" lineHeight={1.45} fontWeight={600}>
-          {step.text}
-        </Text>
-        <Box
-          as="button"
-          type="button"
-          onClick={() => {
-            track('Tour Skipped', { step_index: tourStep, step_id: step.id });
-            skipTour();
-          }}
-          mt="10px"
-          fontSize="11.5px"
-          fontWeight={700}
-          color="text3"
-          textDecoration="underline"
-          _hover={{ color: 'text2' }}
-        >
-          Skip tour
+        <Box maxW="640px" mx="auto" display="flex" alignItems="center" gap="16px">
+          <Box flex="1" minW={0}>
+            <Text fontSize="10px" fontWeight={700} color="text3" textTransform="uppercase" letterSpacing=".05em" mb="4px">
+              Step {tourStep + 1} of {TOUR_STEPS.length}
+            </Text>
+            <Text fontSize="13.5px" color="text" lineHeight={1.45} fontWeight={600}>
+              {step.text}
+            </Text>
+          </Box>
+          <Box
+            as="button"
+            type="button"
+            onClick={() => {
+              track('Tour Skipped', { step_index: tourStep, step_id: step.id });
+              skipTour();
+            }}
+            flex="0 0 auto"
+            fontSize="11.5px"
+            fontWeight={700}
+            color="text3"
+            textDecoration="underline"
+            whiteSpace="nowrap"
+            _hover={{ color: 'text2' }}
+          >
+            Skip tour
+          </Box>
         </Box>
       </Box>
     </>,

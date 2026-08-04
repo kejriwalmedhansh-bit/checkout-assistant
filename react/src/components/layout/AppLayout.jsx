@@ -35,6 +35,7 @@ export default function AppLayout() {
   const collapsed = useUiStore((s) => s.sidebarCollapsed);
   const toggleSidebar = useUiStore((s) => s.toggleSidebar);
   const startTour = useUiStore((s) => s.startTour);
+  const tourActive = useUiStore((s) => s.tourActive);
   // A page can replace the mobile bar's menu/logo/spacer slots with its own
   // controls (see usePageHeader) — null means the default shown below.
   const [pageHeader, setPageHeader] = useState(null);
@@ -181,6 +182,12 @@ export default function AppLayout() {
           maxW="1340px"
           mx="auto"
           p={{ base: '16px 16px 56px', md: '22px 34px 60px' }}
+          // Spotlight's tour bar is fixed to the bottom of the screen — this
+          // reserves matching blank space so scrolling all the way down
+          // never puts real content behind it either, not just the parts
+          // visible without scrolling.
+          pb={tourActive ? { base: '150px', md: '110px' } : undefined}
+          transition="padding-bottom .2s ease"
         >
           <PageHeaderContext.Provider value={setPageHeader}>
             <Outlet />
