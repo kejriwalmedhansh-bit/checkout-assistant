@@ -6,7 +6,9 @@ import { fmt } from '@/utils/format';
 
 /**
  * One candidate product in the selection grid (step 1 of the two-step flow).
- * Clicking it commits the product_token and kicks off the route build.
+ * Tapping the card body opens the quick-view detail modal (browsing-first,
+ * safe default) — only the explicit "Find Better Price" pill commits the
+ * product_token and kicks off the route build.
  */
 // Standard-tier hover lift (confirmed over both a barely-there nudge and a
 // bouncier spring): a real rise + shadow, no overshoot. Transform/opacity
@@ -21,10 +23,9 @@ const REDUCED_MOTION_SX = {
 
 // Was 100 — measurably too long for a one-line picker row on a phone (the
 // title wrapped or got clipped mid-word by the container instead of by this
-// limit). Cut to 40; the "…" itself is a real, separately clickable control
-// (see below) that opens the same quick-view detail modal as the thumbnail,
-// so nothing about the full title is actually lost — it's one tap away
-// instead of always on screen.
+// limit). Cut to 40; nothing about the full title is actually lost, since
+// tapping anywhere on the card (see below) opens the same quick-view detail
+// modal — the full, untruncated title is one tap away.
 const TITLE_LIMIT = 40;
 
 export default function ProductCandidateCard({ product, onSelect, onEnlarge, isSelecting, tourId }) {
@@ -41,7 +42,7 @@ export default function ProductCandidateCard({ product, onSelect, onEnlarge, isS
       as="button"
       type="button"
       role="group"
-      onClick={() => onSelect(token, title, price, source, thumbnail)}
+      onClick={() => onEnlarge?.()}
       disabled={isSelecting}
       textAlign="left"
       w="100%"
@@ -59,28 +60,6 @@ export default function ProductCandidateCard({ product, onSelect, onEnlarge, isS
       <Flex align="center" gap="14px">
         <Flex
           data-tour={tourId}
-          role={onEnlarge ? 'button' : undefined}
-          tabIndex={onEnlarge ? 0 : undefined}
-          aria-label={onEnlarge ? 'Enlarge photo' : undefined}
-          onClick={
-            onEnlarge
-              ? (e) => {
-                  e.stopPropagation();
-                  onEnlarge();
-                }
-              : undefined
-          }
-          onKeyDown={
-            onEnlarge
-              ? (e) => {
-                  if (e.key === 'Enter' || e.key === ' ') {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    onEnlarge();
-                  }
-                }
-              : undefined
-          }
           w="76px"
           h="76px"
           flex="0 0 auto"
@@ -91,10 +70,8 @@ export default function ProductCandidateCard({ product, onSelect, onEnlarge, isS
           align="center"
           justify="center"
           overflow="hidden"
-          cursor={onEnlarge ? 'zoom-in' : undefined}
           transition="transform .18s cubic-bezier(.16,.68,.32,1)"
-          _hover={onEnlarge ? { transform: 'scale(1.08)' } : undefined}
-          _focusVisible={onEnlarge ? { outline: '2px solid', outlineColor: 'brand', outlineOffset: '2px' } : undefined}
+          _groupHover={{ transform: 'scale(1.08)' }}
           sx={REDUCED_MOTION_SX}
         >
           {thumbnail ? (
@@ -109,29 +86,8 @@ export default function ProductCandidateCard({ product, onSelect, onEnlarge, isS
         <Box minW={0} flex="1">
           <Text fontSize="13.5px" fontWeight={600} color="text" lineHeight={1.35}>
             {displayTitle || 'Product'}
-            {isTruncated && onEnlarge && (
-              <Box
-                as="span"
-                role="button"
-                tabIndex={0}
-                aria-label="See full product details"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  onEnlarge();
-                }}
-                onKeyDown={(e) => {
-                  if (e.key === 'Enter' || e.key === ' ') {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    onEnlarge();
-                  }
-                }}
-                color="brand"
-                fontWeight={800}
-                ml="2px"
-                _hover={{ textDecoration: 'underline' }}
-                _focusVisible={{ outline: '2px solid', outlineColor: 'brand', outlineOffset: '2px', borderRadius: '2px' }}
-              >
+            {isTruncated && (
+              <Box as="span" color="brand" fontWeight={800} ml="2px">
                 …
               </Box>
             )}
@@ -160,6 +116,20 @@ export default function ProductCandidateCard({ product, onSelect, onEnlarge, isS
             </Text>
           )}
           <Flex
+            role="button"
+            tabIndex={0}
+            aria-label="Find better price for this product"
+            onClick={(e) => {
+              e.stopPropagation();
+              onSelect(token, title, price, source, thumbnail);
+            }}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                e.stopPropagation();
+                onSelect(token, title, price, source, thumbnail);
+              }
+            }}
             align="center"
             justify="center"
             gap="5px"
@@ -172,8 +142,10 @@ export default function ProductCandidateCard({ product, onSelect, onEnlarge, isS
             borderRadius="999px"
             px="10px"
             py="5px"
+            cursor="pointer"
             transition="background .18s ease, color .18s ease"
-            _groupHover={{ bg: 'brand', color: 'onBrand' }}
+            _hover={{ bg: 'brand', color: 'onBrand' }}
+            _focusVisible={{ outline: '2px solid', outlineColor: 'brand', outlineOffset: '2px' }}
           >
             <I.trendUp size={13} />
             Find Better Price
