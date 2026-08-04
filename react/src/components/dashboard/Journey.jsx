@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react';
-import { Box, Flex, Text } from '@chakra-ui/react';
+import { useEffect, useRef, useState } from 'react';
+import { Box, Flex, Text, useToast } from '@chakra-ui/react';
 
 import { I } from '@/components/common/icons';
 import InfoNote from '@/components/common/InfoNote';
@@ -51,6 +51,7 @@ export default function Journey({ rec }) {
   const tourActive = useUiStore((s) => s.tourActive);
   const tourStep = useUiStore((s) => s.tourStep);
   const advanceTour = useUiStore((s) => s.advanceTour);
+  const toast = useToast();
   // Tour steps 2 and 3 (see tourSteps.js) target this component's own
   // voucher-buy and checkout-open buttons — advancing here, at the same
   // click that already checks the step off, keeps the tour tied to the
@@ -62,12 +63,58 @@ export default function Journey({ rec }) {
   const check = (key) => () => {
     track('Clicked Buy Link', { step: key, merchant: rec.merchant, has_voucher: Boolean(v) });
     if (tourActive && tourStep === TOUR_STEP_FOR_KEY[key]) advanceTour();
+    if (key === 'voucher' && v) {
+      toast({
+        title: `Opened ${sourceLabel} in a new tab`,
+        description: `Come back here once you've got the voucher — you'll pay the rest at ${rec.merchant}.`,
+        status: 'info',
+        duration: 6000,
+        isClosable: true,
+        position: 'bottom',
+      });
+    }
     setPending((p) => ({ ...p, [key]: true }));
     setTimeout(() => {
       setPending((p) => ({ ...p, [key]: false }));
       setChecked((c) => ({ ...c, [key]: true }));
     }, 550);
   };
+
+  // "Welcome back" nudge: fires once, the first time the tab regains focus
+  // after the voucher was bought but before checkout is done — the same
+  // return-detection Spotlight.jsx uses, for the same reason (Gyftr opens
+  // in a new tab and backgrounds this one). Applies to every user, not just
+  // those mid-tour, since the "come back here" gap is universal. Guarded by
+  // a ref (not state) so it can't itself trigger a re-render loop, and
+  // reset whenever the voucher gets checked again (a fresh alternate route,
+  // for instance) so it's armed for the next return.
+  const welcomedBackRef = useRef(false);
+  useEffect(() => {
+    welcomedBackRef.current = false;
+  }, [checked.voucher]);
+  useEffect(() => {
+    if (!v) return undefined;
+    const onReturn = () => {
+      if (document.visibilityState !== 'visible') return;
+      if (checked.voucher && !checked.checkout && !welcomedBackRef.current) {
+        welcomedBackRef.current = true;
+        toast({
+          title: 'Welcome back',
+          description: `Continue to Step 2 — pay at ${rec.merchant}.`,
+          status: 'info',
+          duration: 5000,
+          isClosable: true,
+          position: 'bottom',
+        });
+      }
+    };
+    window.addEventListener('focus', onReturn);
+    document.addEventListener('visibilitychange', onReturn);
+    return () => {
+      window.removeEventListener('focus', onReturn);
+      document.removeEventListener('visibilitychange', onReturn);
+    };
+  }, [v, checked.voucher, checked.checkout, rec.merchant, toast]);
 
   const paid = v ? paidForVoucher(v) : null;
   // Short line shown by default; DETAIL is the original full sentence, one

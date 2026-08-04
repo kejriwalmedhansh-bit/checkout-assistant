@@ -86,49 +86,60 @@ export default function Spotlight() {
   const width = rect.width + PAD * 2;
   const height = rect.height + PAD * 2;
 
-  // Tooltip below the target by default; flips above if there isn't enough
-  // room underneath (e.g. a target near the bottom of the viewport).
-  const spaceBelow = window.innerHeight - (top + height);
-  const placeAbove = spaceBelow < 140;
-  const tooltipTop = placeAbove ? top - 12 : top + height + 12;
+  // Steps flagged `noDim` (e.g. the product picker, where every card is
+  // tappable — dimming the rest would wrongly suggest otherwise) skip the
+  // dim/ring entirely and just anchor the tooltip above the target's own
+  // top edge, unconditionally — there's no ring to avoid overlapping, and
+  // targets like the whole candidate list can be far taller than the
+  // viewport, so the below-target placement math doesn't apply.
+  const tooltipTop = step.noDim ? top - 12 : (() => {
+    const spaceBelow = window.innerHeight - (top + height);
+    return spaceBelow < 140 ? top - 12 : top + height + 12;
+  })();
+  const placeAbove = step.noDim ? true : window.innerHeight - (top + height) < 140;
 
   return createPortal(
     <>
-      {/* Dim layer with a cutout: a box positioned exactly over the target
-          whose box-shadow covers the rest of the viewport. Pointer-events
-          are off throughout — the real element underneath stays clickable. */}
-      <Box
-        position="fixed"
-        zIndex={200}
-        pointerEvents="none"
-        top={`${top}px`}
-        left={`${left}px`}
-        w={`${width}px`}
-        h={`${height}px`}
-        borderRadius={rect.radius && rect.radius !== '0px' ? rect.radius : '12px'}
-        boxShadow="0 0 0 9999px rgba(10,12,10,.6)"
-        transition="top .25s ease, left .25s ease, width .25s ease, height .25s ease"
-      />
-      <Box
-        position="fixed"
-        zIndex={201}
-        pointerEvents="none"
-        top={`${top}px`}
-        left={`${left}px`}
-        w={`${width}px`}
-        h={`${height}px`}
-        borderRadius={rect.radius && rect.radius !== '0px' ? rect.radius : '12px'}
-        border="2px solid"
-        borderColor="brass"
-        transition="top .25s ease, left .25s ease, width .25s ease, height .25s ease"
-        sx={{
-          '@keyframes dealoSpotlightPulse': {
-            '0%, 100%': { boxShadow: '0 0 0 0px var(--chakra-colors-brass)' },
-            '50%': { boxShadow: '0 0 0 5px transparent' },
-          },
-          animation: prefersReduced ? 'none' : 'dealoSpotlightPulse 1.8s ease-in-out infinite',
-        }}
-      />
+      {!step.noDim && (
+        <>
+          {/* Dim layer with a cutout: a box positioned exactly over the
+              target whose box-shadow covers the rest of the viewport.
+              Pointer-events are off throughout — the real element
+              underneath stays clickable. */}
+          <Box
+            position="fixed"
+            zIndex={200}
+            pointerEvents="none"
+            top={`${top}px`}
+            left={`${left}px`}
+            w={`${width}px`}
+            h={`${height}px`}
+            borderRadius={rect.radius && rect.radius !== '0px' ? rect.radius : '12px'}
+            boxShadow="0 0 0 9999px rgba(10,12,10,.6)"
+            transition="top .25s ease, left .25s ease, width .25s ease, height .25s ease"
+          />
+          <Box
+            position="fixed"
+            zIndex={201}
+            pointerEvents="none"
+            top={`${top}px`}
+            left={`${left}px`}
+            w={`${width}px`}
+            h={`${height}px`}
+            borderRadius={rect.radius && rect.radius !== '0px' ? rect.radius : '12px'}
+            border="2px solid"
+            borderColor="brass"
+            transition="top .25s ease, left .25s ease, width .25s ease, height .25s ease"
+            sx={{
+              '@keyframes dealoSpotlightPulse': {
+                '0%, 100%': { boxShadow: '0 0 0 0px var(--chakra-colors-brass)' },
+                '50%': { boxShadow: '0 0 0 5px transparent' },
+              },
+              animation: prefersReduced ? 'none' : 'dealoSpotlightPulse 1.8s ease-in-out infinite',
+            }}
+          />
+        </>
+      )}
 
       <Box
         position="fixed"

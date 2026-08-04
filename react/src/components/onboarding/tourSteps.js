@@ -12,12 +12,16 @@ export const TOUR_STEPS = [
     text: "Paste a product link, or type what you're looking for.",
   },
   {
-    id: 'picker-first-card',
-    text: "Tap the exact listing that's yours — it decides your price.",
+    id: 'picker-list',
+    // No dim/ring here — every listing is tappable, so highlighting only
+    // the first one would wrongly suggest the rest aren't (see Spotlight's
+    // `noDim` handling).
+    noDim: true,
+    text: "Tap the exact listing that's yours — any of these work. Tap a photo to see it up close and swipe between listings to compare.",
   },
   {
     id: 'voucher-buy',
-    text: 'Buy the voucher here — this is where the saving actually happens.',
+    text: "This isn't Dealo selling anything — you're buying a real Gift Voucher from our trusted partner, for less than its value. You'll use it to pay in the next step.",
   },
   {
     id: 'checkout-open',

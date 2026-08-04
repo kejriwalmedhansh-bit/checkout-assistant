@@ -146,11 +146,10 @@ export default function ProductSelectPage() {
             <Text fontSize="13px" color="text3" mb="12px">
               Select the exact product you want — we&apos;ll find the cheapest way to buy it.
             </Text>
-            <Flex direction="column" gap="10px">
+            <Flex direction="column" gap="10px" data-tour="picker-list">
               {candidates.map((p, i) => (
                 <motion.div
                   key={p.product_token || i}
-                  data-tour={i === 0 ? 'picker-first-card' : undefined}
                   initial={prefersReduced ? false : { opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.35, delay: Math.min(i * 0.045, 0.4), ease: [0.16, 1, 0.3, 1] }}
