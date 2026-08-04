@@ -63,7 +63,13 @@ export default function Journey({ rec }) {
   const check = (key) => () => {
     track('Clicked Buy Link', { step: key, merchant: rec.merchant, has_voucher: Boolean(v) });
     if (tourActive && tourStep === TOUR_STEP_FOR_KEY[key]) advanceTour();
-    if (key === 'voucher' && v) {
+    // Skipped during the live tour — its own fixed bottom bar already
+    // explains this exact moment, and a Chakra toast at the same
+    // position='bottom' visually collided with it (looked like the tour
+    // tooltip was "stuck" showing stale text, since the toast sat on top
+    // of/overlapping the bar underneath it). Outside the tour, still fires
+    // normally — that's the only place this messaging exists for those users.
+    if (key === 'voucher' && v && !tourActive) {
       toast({
         title: `Opened ${sourceLabel} in a new tab`,
         description: `Come back here once you've got the voucher — you'll pay the rest at ${rec.merchant}.`,
@@ -83,11 +89,14 @@ export default function Journey({ rec }) {
   // "Welcome back" nudge: fires once, the first time the tab regains focus
   // after the voucher was bought but before checkout is done — the same
   // return-detection Spotlight.jsx uses, for the same reason (Gyftr opens
-  // in a new tab and backgrounds this one). Applies to every user, not just
-  // those mid-tour, since the "come back here" gap is universal. Guarded by
-  // a ref (not state) so it can't itself trigger a re-render loop, and
-  // reset whenever the voucher gets checked again (a fresh alternate route,
-  // for instance) so it's armed for the next return.
+  // in a new tab and backgrounds this one). Skipped while the live tour is
+  // active, same reason as the toast in check() above — the tour's own
+  // fixed bottom bar already covers this exact moment, and the two
+  // collided visually (a Chakra toast at position='bottom' landing on top
+  // of the tour bar looked like a stuck/stale tooltip). Guarded by a ref
+  // (not state) so it can't itself trigger a re-render loop, and reset
+  // whenever the voucher gets checked again (a fresh alternate route, for
+  // instance) so it's armed for the next return.
   const welcomedBackRef = useRef(false);
   useEffect(() => {
     welcomedBackRef.current = false;
@@ -96,7 +105,7 @@ export default function Journey({ rec }) {
     if (!v) return undefined;
     const onReturn = () => {
       if (document.visibilityState !== 'visible') return;
-      if (checked.voucher && !checked.checkout && !welcomedBackRef.current) {
+      if (checked.voucher && !checked.checkout && !welcomedBackRef.current && !tourActive) {
         welcomedBackRef.current = true;
         toast({
           title: 'Welcome back',
@@ -114,7 +123,7 @@ export default function Journey({ rec }) {
       window.removeEventListener('focus', onReturn);
       document.removeEventListener('visibilitychange', onReturn);
     };
-  }, [v, checked.voucher, checked.checkout, rec.merchant, toast]);
+  }, [v, checked.voucher, checked.checkout, rec.merchant, toast, tourActive]);
 
   const paid = v ? paidForVoucher(v) : null;
   // Short line shown by default; DETAIL is the original full sentence, one
