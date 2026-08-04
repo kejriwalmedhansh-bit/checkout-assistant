@@ -81,13 +81,17 @@ Mono 400–700).
   figure (36–46px), with the was→now price line below as supporting
   detail. This is the dominant visual element on the results page; nothing
   should compete with it in size.
-- **`Journey` / `JourneyStep`** — vertical checklist (merchant → gift
-  voucher → checkout), not horizontal. Each step: an outline dot that fills
-  to a checkmark on click, a label + detail line, and an action button on
-  the right that opens the real external link. Deliberately not sequenced
-  — no artificial locking between steps. A ~550ms "Confirming…" pending
-  state precedes the checkmark landing so the confirmation is noticed, not
-  missed.
+- **`Journey`** — a two-step route: **Voucher → Checkout**. A persistent,
+  arrow-linked chip strip (`JourneyChips`) sits above a single-step detail
+  view (`JourneyPanels`) that shows one step at a time, swipeable or
+  tappable via the chips. Only two steps, not three — "add to cart" and
+  "pay" were merged into one `Checkout at [Merchant]` step, since the user
+  does both in one continuous visit to the merchant and never returns to
+  Dealo in between; splitting them was UI sequencing, not a real signal.
+  Completing a step auto-advances the view to the next one. Each step: an
+  icon, a label + detail line, and an action button that opens the real
+  external link. A ~550ms "Confirming…" pending state precedes the
+  checkmark landing so the confirmation is noticed, not missed.
 - **`ProductIdentity` / `ProductCandidateCard`** — `ProductIdentity` (results
   page) is a compact single row: a 52px square thumbnail beside the product
   name, not a full-width banner above it. Changed from an earlier full-width
