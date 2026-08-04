@@ -28,7 +28,6 @@ export default function SearchPage() {
   usePageTitle('Search');
   const navigate = useNavigate();
   const runSearch = useSearchStore((s) => s.runSearch);
-  const query = useSearchStore((s) => s.query);
   const onboardingSeen = useUiStore((s) => s.onboardingSeen);
   const tourActive = useUiStore((s) => s.tourActive);
   const startTour = useUiStore((s) => s.startTour);
@@ -142,7 +141,7 @@ export default function SearchPage() {
             Type product name or paste link here
           </Text>
           <SearchBox
-            initialValue={query}
+            initialValue=""
             onSubmit={handleSubmit}
             placeholder={'e.g. "Onitsuka Tiger Mexico 66" or paste a link'}
           />

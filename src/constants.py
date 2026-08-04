@@ -34,6 +34,7 @@ MANUAL_TRUSTED_MERCHANTS = [
     "Reliance Digital", "Vijay Sales", "Tata CLiQ", "BigBasket",
     "Apple", "Samsung", "JioMart", "Pepperfry", "Lenskart",
     "Ethos", "Helios",  # authorized watch chains — approved 2026-07-21
+    "Boat",  # approved 2026-08-04
 ]
 
 PRIORITY_MERCHANTS = [

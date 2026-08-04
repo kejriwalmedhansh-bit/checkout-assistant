@@ -9,6 +9,11 @@
 export const TOUR_STEPS = [
   {
     id: 'search-box',
+    // The home page has a lot around the search box (logo, headline, the
+    // "how it works" icons, the heads-up banner) — dimming all of it to
+    // black made the whole page feel like it "vanished" for one box that
+    // already has its own strong brand-colored border/glow. Ring only.
+    dim: false,
     text: "Paste a product link, or type what you're looking for.",
   },
   {
