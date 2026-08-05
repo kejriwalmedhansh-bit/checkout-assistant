@@ -44,6 +44,16 @@ export default function Spotlight() {
 
     let cancelled = false;
     const measureOnce = () => {
+      // A full-screen modal (e.g. the picker's own photo quick-view —
+      // opened by doing exactly what this tour step tells you to do) can
+      // cover the real target without removing it from the DOM. Without
+      // this check the ring keeps tracking it anyway and renders on top
+      // of the modal — a stray empty box, since the modal itself sits at
+      // a lower z-index. See ProductQuickView.jsx for the other half.
+      if (document.body.hasAttribute('data-modal-open')) {
+        setRect(null);
+        return;
+      }
       const el = document.querySelector(`[data-tour="${step.id}"]`);
       if (el) {
         const r = el.getBoundingClientRect();
