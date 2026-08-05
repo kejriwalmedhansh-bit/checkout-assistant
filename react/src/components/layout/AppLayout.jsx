@@ -55,7 +55,14 @@ export default function AppLayout() {
 
   return (
     <Flex
-      minH="100vh"
+      // 100dvh, not 100vh -- vh is sized against the browser's largest
+      // possible viewport (address bar hidden), not what's actually
+      // visible. On mobile, the address bar showing/hiding during
+      // ordinary scrolling shifts the real layout under a 100vh page;
+      // dvh tracks the actual current viewport instead. This was a real
+      // contributor to the tour ring appearing to "move around" on a
+      // phone -- the underlying page itself was shifting, not the ring.
+      minH="100dvh"
       bg="bg"
       bgImage="radial-gradient(circle, var(--chakra-colors-bgGrid) 1.5px, transparent 1.6px)"
       bgSize="26px 26px"
@@ -66,7 +73,7 @@ export default function AppLayout() {
         display={{ base: 'none', lg: 'block' }}
         position="sticky"
         top={0}
-        h="100vh"
+        h="100dvh"
         flex="0 0 auto"
         zIndex={16}
         w={collapsed ? '76px' : '264px'}
