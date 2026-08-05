@@ -43,6 +43,41 @@ export default function Spotlight() {
     }
 
     let cancelled = false;
+    // Tracked outside React state so every frame's measurement can be
+    // compared against the last *applied* value without waiting on a
+    // render round-trip. On a real phone, ordinary things (the address
+    // bar showing/hiding as the page scrolls, sub-pixel measurement
+    // noise, async image/font loads settling in) produce a constant
+    // stream of tiny, meaningless position deltas that this session's
+    // desktop testing never surfaced. Only committing a change once it
+    // clears a real threshold is what stops that noise from reading as
+    // "the ring keeps moving around" — the previous version called
+    // setRect on every single frame regardless, so any of that noise
+    // triggered a full re-render and repaint immediately.
+    let applied = null;
+    const CHANGE_THRESHOLD_PX = 1;
+
+    const apply = (next) => {
+      if (
+        applied &&
+        Math.abs(next.top - applied.top) < CHANGE_THRESHOLD_PX &&
+        Math.abs(next.left - applied.left) < CHANGE_THRESHOLD_PX &&
+        Math.abs(next.width - applied.width) < CHANGE_THRESHOLD_PX &&
+        Math.abs(next.height - applied.height) < CHANGE_THRESHOLD_PX &&
+        next.radius === applied.radius
+      ) {
+        return;
+      }
+      applied = next;
+      setRect(next);
+    };
+    const clear = () => {
+      if (applied !== null) {
+        applied = null;
+        setRect(null);
+      }
+    };
+
     const measureOnce = () => {
       // A full-screen modal (e.g. the picker's own photo quick-view —
       // opened by doing exactly what this tour step tells you to do) can
@@ -51,23 +86,37 @@ export default function Spotlight() {
       // of the modal — a stray empty box, since the modal itself sits at
       // a lower z-index. See ProductQuickView.jsx for the other half.
       if (document.body.hasAttribute('data-modal-open')) {
-        setRect(null);
+        clear();
         return;
       }
       const el = document.querySelector(`[data-tour="${step.id}"]`);
-      if (el) {
-        const r = el.getBoundingClientRect();
-        setRect({ top: r.top, left: r.left, width: r.width, height: r.height, radius: getComputedStyle(el).borderRadius });
-      } else {
-        setRect(null);
+      if (!el) {
+        clear();
+        return;
       }
+      const r = el.getBoundingClientRect();
+      apply({ top: r.top, left: r.left, width: r.width, height: r.height, radius: getComputedStyle(el).borderRadius });
     };
+
+    // Still polls every frame — cheap (just a DOM read) and the only way
+    // to track a target that's moving via its own CSS transform/animation
+    // (the results page's panel-slide, a card's entrance scale), which
+    // doesn't fire a resize/scroll event on its own. The threshold gate
+    // above is what makes this safe to run continuously without the
+    // jitter that caused this bug in the first place.
     const loop = () => {
       if (cancelled) return;
       measureOnce();
       rafRef.current = requestAnimationFrame(loop);
     };
     loop();
+
+    // Explicit listeners so a real, meaningful change (the page actually
+    // scrolling, the viewport actually resizing/rotating) is picked up
+    // the instant it happens rather than waiting up to one rAF tick.
+    window.addEventListener('scroll', measureOnce, true);
+    window.addEventListener('resize', measureOnce);
+    window.addEventListener('orientationchange', measureOnce);
 
     // rAF is throttled/paused while the tab is backgrounded — and this
     // tour's own step 3 (buy the voucher) opens Gyftr in a new tab, which
@@ -82,6 +131,9 @@ export default function Spotlight() {
     return () => {
       cancelled = true;
       if (rafRef.current) cancelAnimationFrame(rafRef.current);
+      window.removeEventListener('scroll', measureOnce, true);
+      window.removeEventListener('resize', measureOnce);
+      window.removeEventListener('orientationchange', measureOnce);
       window.removeEventListener('focus', measureOnce);
       document.removeEventListener('visibilitychange', measureOnce);
     };
