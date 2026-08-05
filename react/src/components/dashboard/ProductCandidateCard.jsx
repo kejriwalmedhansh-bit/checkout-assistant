@@ -1,6 +1,8 @@
 import { Box, Flex, Image, Text } from '@chakra-ui/react';
 
 import Card from '@/components/common/Card';
+import TourRing from '@/components/onboarding/TourRing';
+import { useTourHighlight } from '@/components/onboarding/useTourHighlight';
 import { I } from '@/components/common/icons';
 import { fmt } from '@/utils/format';
 
@@ -36,6 +38,7 @@ export default function ProductCandidateCard({ product, onSelect, onEnlarge, isS
   // pasted, not Google's index) with this product_token prefix — see
   // _live_price_candidate in src/services/search_service.py.
   const isVerifiedLive = token?.startsWith('live-price:');
+  const { active: thumbnailHighlighted, dim: thumbnailDim } = useTourHighlight(tourId);
 
   return (
     <Card
@@ -58,30 +61,40 @@ export default function ProductCandidateCard({ product, onSelect, onEnlarge, isS
       sx={REDUCED_MOTION_SX}
     >
       <Flex align="center" gap="14px">
-        <Flex
-          data-tour={tourId}
-          w="76px"
-          h="76px"
+        {/* Outer wrapper carries the tour ring — it must sit outside the
+            inner box's overflow:hidden (which clips the image to its
+            rounded corners), since the ring extends past the edges via a
+            negative inset and would otherwise be clipped along with it. */}
+        <Box
+          position="relative"
+          zIndex={thumbnailHighlighted && thumbnailDim ? 201 : undefined}
           flex="0 0 auto"
           borderRadius="12px"
-          bg="surface3"
-          border="1px solid"
-          borderColor="border"
-          align="center"
-          justify="center"
-          overflow="hidden"
-          transition="transform .18s cubic-bezier(.16,.68,.32,1)"
-          _groupHover={{ transform: 'scale(1.08)' }}
-          sx={REDUCED_MOTION_SX}
         >
-          {thumbnail ? (
-            <Image src={thumbnail} alt="" maxW="88%" maxH="88%" objectFit="contain" />
-          ) : (
-            <Box color="text3">
-              <I.cart size={26} />
-            </Box>
-          )}
-        </Flex>
+          {thumbnailHighlighted && <TourRing />}
+          <Flex
+            w="76px"
+            h="76px"
+            borderRadius="12px"
+            bg="surface3"
+            border="1px solid"
+            borderColor="border"
+            align="center"
+            justify="center"
+            overflow="hidden"
+            transition="transform .18s cubic-bezier(.16,.68,.32,1)"
+            _groupHover={{ transform: 'scale(1.08)' }}
+            sx={REDUCED_MOTION_SX}
+          >
+            {thumbnail ? (
+              <Image src={thumbnail} alt="" maxW="88%" maxH="88%" objectFit="contain" />
+            ) : (
+              <Box color="text3">
+                <I.cart size={26} />
+              </Box>
+            )}
+          </Flex>
+        </Box>
 
         <Box minW={0} flex="1">
           <Text fontSize="13.5px" fontWeight={600} color="text" lineHeight={1.35}>

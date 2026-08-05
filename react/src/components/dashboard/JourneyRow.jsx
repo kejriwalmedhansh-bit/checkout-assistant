@@ -2,6 +2,8 @@ import { useState } from 'react';
 import { Box, Flex, Link, Text } from '@chakra-ui/react';
 
 import { I } from '@/components/common/icons';
+import TourRing from '@/components/onboarding/TourRing';
+import { useTourHighlight } from '@/components/onboarding/useTourHighlight';
 
 /** Tone → soft circle background + accent color (semantic tokens). */
 const TONES = {
@@ -168,6 +170,7 @@ export default function JourneyRow({
   const [detailOpen, setDetailOpen] = useState(false);
   const t = TONES[tone] || TONES.brand;
   const filled = checked || ready;
+  const { active: tourHighlighted, dim: tourDim } = useTourHighlight(tourId);
 
   // The step actually next in line (not just the one being looked at) still
   // gets a glow — that distinction matters when someone swipes ahead to
@@ -176,7 +179,7 @@ export default function JourneyRow({
 
   return (
     <Box
-      data-tour={tourId}
+      zIndex={tourHighlighted && tourDim ? 201 : undefined}
       bg={filled ? 'brandSoft' : 'surface'}
       border="1.5px solid"
       borderColor={filled ? 'brand' : t.border}
@@ -213,6 +216,7 @@ export default function JourneyRow({
         },
       }}
     >
+      {tourHighlighted && <TourRing />}
       {stepNumber && totalSteps && (
         <Flex justify="center" align="center" mb="8px">
           <Flex

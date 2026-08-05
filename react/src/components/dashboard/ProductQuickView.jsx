@@ -27,17 +27,6 @@ export default function ProductQuickView({ products, index, onIndexChange, onSel
     containerRef.current?.focus();
   }, []);
 
-  // Marks that a full-screen modal is covering the page — Spotlight.jsx
-  // checks this so its tour ring doesn't keep pointing at (and rendering
-  // on top of) an element that's now hidden underneath this modal. Real
-  // bug hit live: the picker tour step's own instruction is "tap a photo
-  // for a closer look," which opens this exact modal — doing the thing
-  // the tour asks left a stray empty ring box floating over it.
-  useEffect(() => {
-    document.body.setAttribute('data-modal-open', 'true');
-    return () => document.body.removeAttribute('data-modal-open');
-  }, []);
-
   useEffect(() => {
     const onKey = (e) => {
       if (e.key === 'Escape') onClose();
