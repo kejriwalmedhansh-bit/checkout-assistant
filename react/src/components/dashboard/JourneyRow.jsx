@@ -281,23 +281,31 @@ export default function JourneyRow({
 
       {preCheck?.href && !checked && (
         <Flex
-          mt="12px"
+          mt="14px"
           bg="amberSoft"
-          border="1px solid"
+          border="1.5px solid"
           borderColor="amber"
-          borderRadius="xs"
-          px="12px"
-          py="10px"
+          borderRadius="sm"
+          px="16px"
+          py="14px"
           gap="10px"
           align="center"
           justify="space-between"
           textAlign="left"
+          sx={{
+            '@keyframes dealoPrecheckGlow': {
+              '0%, 100%': { boxShadow: '0 0 0 0px rgba(184,132,42,.35)' },
+              '50%': { boxShadow: '0 0 0 7px rgba(184,132,42,0)' },
+            },
+            animation: 'dealoPrecheckGlow 1.8s ease-in-out infinite',
+            '@media (prefers-reduced-motion: reduce)': { animation: 'none' },
+          }}
         >
-          <Flex align="center" gap="8px" flex="1" minW={0}>
+          <Flex align="center" gap="9px" flex="1" minW={0}>
             <Box color="amber" flex="0 0 auto">
-              <I.alert size={13} />
+              <I.alert size={16} />
             </Box>
-            <Text fontSize="12px" fontWeight={700} color="text" lineHeight={1.3}>
+            <Text fontSize="13.5px" fontWeight={800} color="text" lineHeight={1.3}>
               Double-check size & price first.
             </Text>
           </Flex>
@@ -305,16 +313,18 @@ export default function JourneyRow({
             href={preCheck.href}
             isExternal
             flex="0 0 auto"
-            fontSize="11.5px"
-            fontWeight={700}
-            color="amber"
+            fontSize="13px"
+            fontWeight={800}
+            color="onBrand"
+            bg="amber"
             border="1.5px solid"
             borderColor="amber"
             borderRadius="99px"
-            px="10px"
-            py="5px"
+            px="14px"
+            py="8px"
             whiteSpace="nowrap"
-            _hover={{ textDecoration: 'none', bg: 'amber', color: 'onBrand' }}
+            boxShadow="0 4px 14px -4px var(--chakra-colors-amber)"
+            _hover={{ textDecoration: 'none', bg: 'brassSoft', color: 'amber' }}
           >
             Check {preCheck.merchantName} →
           </Link>
