@@ -5,6 +5,8 @@ import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import FloatingOutlines from '@/components/common/FloatingOutlines';
 import Logo from '@/components/common/Logo';
 import SearchBox from '@/components/common/SearchBox';
+import TourRing from '@/components/onboarding/TourRing';
+import { useTourHighlight } from '@/components/onboarding/useTourHighlight';
 import { I } from '@/components/common/icons';
 import { gradients } from '@/theme/foundations/colors';
 import { usePageTitle } from '@/hooks/usePageTitle';
@@ -32,6 +34,7 @@ export default function SearchPage() {
   const tourActive = useUiStore((s) => s.tourActive);
   const startTour = useUiStore((s) => s.startTour);
   const advanceTour = useUiStore((s) => s.advanceTour);
+  const { active: searchBoxHighlighted, dim: searchBoxDim } = useTourHighlight('search-box');
 
   const heroGlow = gradients.promptHero;
 
@@ -119,7 +122,8 @@ export default function SearchPage() {
         </Text>
 
         <Box
-          data-tour="search-box"
+          position="relative"
+          zIndex={searchBoxHighlighted && searchBoxDim ? 201 : undefined}
           w="100%"
           mt={{ base: '18px', md: '36px' }}
           bg="surface"
@@ -130,6 +134,7 @@ export default function SearchPage() {
           p={{ base: '14px', md: '18px' }}
           textAlign="left"
         >
+          {searchBoxHighlighted && <TourRing />}
           <Text
             fontSize="10.5px"
             fontWeight={700}

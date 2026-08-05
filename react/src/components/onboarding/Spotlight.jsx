@@ -1,210 +1,51 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import { Box, Text } from '@chakra-ui/react';
-import { useReducedMotion } from 'framer-motion';
 
 import { useUiStore } from '@/store/uiStore';
 import { track } from '@/utils/analytics';
 import { TOUR_STEPS } from './tourSteps';
 
-const PAD = 8; // gap between the highlighted ring and the real element's edge
-
 /**
- * The live, first-search guided tour. Unlike the old screenshot-carousel
- * modal, this doesn't show a picture of the app — it puts a highlighted
- * ring around the actual element the user should tap next (found live via
- * `document.querySelector('[data-tour="<id>"]')`), with the explanation
- * text in a bar fixed to the bottom of the screen (see AppLayout's matching
- * reserved padding) rather than floating next to the target, so it can
- * never end up covering real page content. It never blocks input: the dim
- * layer and ring are `pointer-events: none`, so the real button underneath
- * still works exactly as normal — the tour is just narration, not a gate.
+ * The live, first-search guided tour's full-page dim and the explanation
+ * bar. The ring itself is no longer rendered here — each target (the
+ * search box, a picker card's photo, a Journey step) renders its own via
+ * TourRing.jsx, positioned with plain CSS relative to itself (see
+ * useTourHighlight.js for why: computing an element's on-screen position in
+ * JS and rendering a separate matching box elsewhere was fragile on real
+ * phones). This component only needs to know *whether* to dim the page
+ * (steps can opt out via `dim: false`, e.g. the picker, where dimming every
+ * other card would wrongly suggest only one is tappable) and what to say in
+ * the bottom bar — neither needs any target measurement at all.
  *
  * Steps advance when the user does the real thing (see tourSteps.js and the
  * `advanceTour()` calls at each page's own submit/select/click handler),
- * never on a timer. If a step's target isn't in the DOM yet (e.g. search
- * results still loading), this polls until it appears rather than giving up.
+ * never on a timer.
  */
 export default function Spotlight() {
   const tourActive = useUiStore((s) => s.tourActive);
   const tourStep = useUiStore((s) => s.tourStep);
   const skipTour = useUiStore((s) => s.skipTour);
   const sidebarCollapsed = useUiStore((s) => s.sidebarCollapsed);
-  const prefersReduced = useReducedMotion();
-
-  const [rect, setRect] = useState(null);
-  const rafRef = useRef(null);
   const step = TOUR_STEPS[tourStep];
-
-  useEffect(() => {
-    if (!tourActive || !step) {
-      setRect(null);
-      return undefined;
-    }
-
-    let cancelled = false;
-    // Tracked outside React state so every frame's measurement can be
-    // compared against the last *applied* value without waiting on a
-    // render round-trip. On a real phone, ordinary things (the address
-    // bar showing/hiding as the page scrolls, sub-pixel measurement
-    // noise, async image/font loads settling in) produce a constant
-    // stream of tiny, meaningless position deltas that this session's
-    // desktop testing never surfaced. Only committing a change once it
-    // clears a real threshold is what stops that noise from reading as
-    // "the ring keeps moving around" — the previous version called
-    // setRect on every single frame regardless, so any of that noise
-    // triggered a full re-render and repaint immediately.
-    let applied = null;
-    const CHANGE_THRESHOLD_PX = 1;
-
-    const apply = (next) => {
-      if (
-        applied &&
-        Math.abs(next.top - applied.top) < CHANGE_THRESHOLD_PX &&
-        Math.abs(next.left - applied.left) < CHANGE_THRESHOLD_PX &&
-        Math.abs(next.width - applied.width) < CHANGE_THRESHOLD_PX &&
-        Math.abs(next.height - applied.height) < CHANGE_THRESHOLD_PX &&
-        next.radius === applied.radius
-      ) {
-        return;
-      }
-      applied = next;
-      setRect(next);
-    };
-    const clear = () => {
-      if (applied !== null) {
-        applied = null;
-        setRect(null);
-      }
-    };
-
-    const measureOnce = () => {
-      // A full-screen modal (e.g. the picker's own photo quick-view —
-      // opened by doing exactly what this tour step tells you to do) can
-      // cover the real target without removing it from the DOM. Without
-      // this check the ring keeps tracking it anyway and renders on top
-      // of the modal — a stray empty box, since the modal itself sits at
-      // a lower z-index. See ProductQuickView.jsx for the other half.
-      if (document.body.hasAttribute('data-modal-open')) {
-        clear();
-        return;
-      }
-      const el = document.querySelector(`[data-tour="${step.id}"]`);
-      if (!el) {
-        clear();
-        return;
-      }
-      const r = el.getBoundingClientRect();
-      apply({ top: r.top, left: r.left, width: r.width, height: r.height, radius: getComputedStyle(el).borderRadius });
-    };
-
-    // Still polls every frame — cheap (just a DOM read) and the only way
-    // to track a target that's moving via its own CSS transform/animation
-    // (the results page's panel-slide, a card's entrance scale), which
-    // doesn't fire a resize/scroll event on its own. The threshold gate
-    // above is what makes this safe to run continuously without the
-    // jitter that caused this bug in the first place.
-    const loop = () => {
-      if (cancelled) return;
-      measureOnce();
-      rafRef.current = requestAnimationFrame(loop);
-    };
-    loop();
-
-    // Explicit listeners so a real, meaningful change (the page actually
-    // scrolling, the viewport actually resizing/rotating) is picked up
-    // the instant it happens rather than waiting up to one rAF tick.
-    window.addEventListener('scroll', measureOnce, true);
-    window.addEventListener('resize', measureOnce);
-    window.addEventListener('orientationchange', measureOnce);
-
-    // rAF is throttled/paused while the tab is backgrounded — and this
-    // tour's own step 3 (buy the voucher) opens Gyftr in a new tab, which
-    // backgrounds this one mid-loop. Without this, the highlight can freeze
-    // on whatever rect it last measured (sometimes mid-transition) and stay
-    // wrong even after the loop resumes, since resuming doesn't imply an
-    // immediate frame. Force one fresh measurement the instant focus/
-    // visibility changes, on top of the regular loop.
-    window.addEventListener('focus', measureOnce);
-    document.addEventListener('visibilitychange', measureOnce);
-
-    return () => {
-      cancelled = true;
-      if (rafRef.current) cancelAnimationFrame(rafRef.current);
-      window.removeEventListener('scroll', measureOnce, true);
-      window.removeEventListener('resize', measureOnce);
-      window.removeEventListener('orientationchange', measureOnce);
-      window.removeEventListener('focus', measureOnce);
-      document.removeEventListener('visibilitychange', measureOnce);
-    };
-  }, [tourActive, tourStep, step]);
 
   useEffect(() => {
     if (tourActive && step) track('Tour Step Shown', { step_index: tourStep, step_id: step.id });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [tourActive, tourStep]);
 
-  if (!tourActive || !step || !rect) return null;
-
-  const top = rect.top - PAD;
-  const left = rect.left - PAD;
-  const width = rect.width + PAD * 2;
-  const height = rect.height + PAD * 2;
+  if (!tourActive || !step) return null;
 
   return createPortal(
     <>
-      {/* Steps can set `dim: false` (e.g. the product picker, ringing just
-          the first card's photo as a demo) to skip the full-page dim layer
-          while still showing the ring — a ring alone on a small target
-          reads as "here's an example," not "only this works," so it
-          doesn't have the old "why is everything else faded" problem that
-          dimming the whole list did. */}
       {step.dim !== false && (
-        /* Dim layer with a cutout: a box positioned exactly over the
-           target whose box-shadow covers the rest of the viewport.
-           Pointer-events are off throughout — the real element
-           underneath stays clickable. */
-        <Box
-          position="fixed"
-          zIndex={200}
-          pointerEvents="none"
-          top={`${top}px`}
-          left={`${left}px`}
-          w={`${width}px`}
-          h={`${height}px`}
-          borderRadius={rect.radius && rect.radius !== '0px' ? rect.radius : '12px'}
-          boxShadow="0 0 0 9999px rgba(10,12,10,.6)"
-        />
+        // A plain full-viewport dim — no target-shaped cutout, no
+        // coordinate math. The highlighted target rises above this via its
+        // own locally-elevated z-index (see useTourHighlight.js's `dim`
+        // return value, applied by each target) instead of a box-shadow
+        // "hole" punched at a JS-computed position.
+        <Box position="fixed" inset={0} zIndex={200} pointerEvents="none" bg="rgba(10,12,10,.6)" />
       )}
-      {/* No CSS transition on position/size here (deliberately removed) —
-          this box is already repositioned every animation frame by the
-          polling loop above, which is its own smooth, 60fps "animation."
-          A separate CSS transition on top of that was chasing a
-          continuously-updating target (worse yet, one that's sometimes
-          itself mid-animation, e.g. the results page's own step-switch
-          slide or a card's entrance scale), and two independent
-          animations racing each other is exactly what read as a jittery,
-          unstable border. Snapping instantly to each frame's real
-          measurement tracks the true position with zero lag instead. */}
-      <Box
-        position="fixed"
-        zIndex={201}
-        pointerEvents="none"
-        top={`${top}px`}
-        left={`${left}px`}
-        w={`${width}px`}
-        h={`${height}px`}
-        borderRadius={rect.radius && rect.radius !== '0px' ? rect.radius : '12px'}
-        border="2px solid"
-        borderColor="brass"
-        sx={{
-          '@keyframes dealoSpotlightPulse': {
-            '0%, 100%': { boxShadow: '0 0 0 0px var(--chakra-colors-brass)' },
-            '50%': { boxShadow: '0 0 0 5px transparent' },
-          },
-          animation: prefersReduced ? 'none' : 'dealoSpotlightPulse 1.8s ease-in-out infinite',
-        }}
-      />
 
       {/* The explanatory text used to float right next to the target,
           wherever that happened to land — which meant it could (and did)
