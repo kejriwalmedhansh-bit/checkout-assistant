@@ -8148,12 +8148,16 @@
     "can_club_with_offers": null,
     "one_time_use": false,
     "redemption_restrictions": [],
-    "how_to_redeem_steps": null,
-    "full_terms_and_conditions": null,
-    "important_instructions_raw": "<ul>\r\n\r\n<li>This is an Aditya Birla Fashion Retail Limited Allen Solly Gift Voucher (GV) / Gift Card (GC) and would be accepted at listed outlets. </li>\r\n\r\n<li> Multiple Gift Vouchers CAN be used in one bill at the Stores.</li>\r\n\r\n<li> This GV / GC CAN be used during sale.</li>\r\n\r\n<li> The GV / GC CANNOT be used online.</li>\r\n\r\n</ul>",
-    "status": "not_scraped",
+    "how_to_redeem_steps": [
+      "Use the outlet locator to locate the nearest outlet that accepts this Gift Voucher.",
+      "Select your choice of product",
+      "Share your Gift Voucher with the cashier at the time of billing & pay the remaining amount by cash or card if required."
+    ],
+    "full_terms_and_conditions": "TERMS & CONDITIONS\nIMPORTANT INSTRUCTIONS\nHOW TO USE\nSTORE LOCATOR\nAllen Solly Gift Voucher Terms & Conditions\n1. This is an Allen Solly Gift Voucher (GV) / Gift Card (GC), and it’s redeemable at all the listed stores.\n2. The person having the GV/GC is deemed to be the beneficiary.\n3. This is a one-time use GV/GC.\n4. The GV/GC can be clubbed with the existing offers.\n5. Multiple GV/GC can be used against one bill.\n6. The GV/GC is not a legal tender or replacement for a debit/credit card.\n7. The offer is valid for all the products available on the Allen Solly store.\n8. GV/GCs are non-refundable, may not be exchanged, transferred, or resold, and may not be redeemed for cash.\n9. Do inform the cashier that you plan to use the GV/GC to make payments before billing.\n10. Customers can only redeem if they are registered as loyalty members. Non-CRM customers need to register before the voucher can be redeemed.\n11. Allen Solly/GyFTR reserves the right to change, cancel, or update any of the terms and conditions of this offer, and may add or remove a listed outlet without giving any prior notice.\n12. The offer is valid for all the products available at the listed Allen Solly stores. In case the value of the merchandise exceeds the value of the GV/GC, the difference must be paid by cash, credit card, or debit card\n13. No Credit note/Refund for the unused amount of the GV/GC will be given.\n14. This GV/GC CANNOT be revalidated once it expires.\n15. GV/GC cannot be redeemed on specific block-out dates. Allen Solly may add or delete any date at its sole discretion.\n16. Allen Solly/GyFTR is not responsible for lost, damaged, or stolen GV/GCs. Any dispute related to the GV/GC should be referred to the issuing company, and the decision of the issuing company shall be final.\n17. Allen Solly makes full efforts to accept GV/GC, but on account of any technical/administrative reasons, an outlet may refuse to accept the same.\n18. If GV/GC gets blocked on account of a technical issue, it will get enabled in 72 hours.\n19. For any questions or issues related to GV/GC, raise a request at www.gvhelpdesk.com.",
+    "important_instructions_raw": "TERMS & CONDITIONS\nIMPORTANT INSTRUCTIONS\nHOW TO USE\nSTORE LOCATOR\nAllen Solly Gift Voucher Important Instructions\nGift Vouchers are ACCEPTED at Listed Stores only.\nGift Vouchers CANNOT be used Online.\nMultiple Gift Vouchers CAN be used in one bill.\nGift Vouchers CAN be used to buy discounted products.\nGift Voucher CANNOT be used multiple times.",
+    "status": "active",
     "notes": "",
-    "last_scraped": null
+    "last_scraped": "2026-08-05"
   },
   "american-eagle-gift-voucher": {
     "brand_name": "American Eagle Gift Voucher",
@@ -8188,12 +8192,16 @@
     "can_club_with_offers": null,
     "one_time_use": false,
     "redemption_restrictions": [],
-    "how_to_redeem_steps": null,
-    "full_terms_and_conditions": null,
-    "important_instructions_raw": "<ul>\r\n\r\n\r\n<li>This is an Aditya Birla Fashion Retail Limited American Eagle Gift Voucher (GV) / Gift Card (GC) and would be accepted at listed outlets. </li>\r\n\r\n\r\n<li> Multiple Gift Vouchers CAN be used in one bill at the Stores.</li>\r\n\r\n\r\n<li> This GV / GC CAN be used during sale.</li>\r\n\r\n\r\n<li> The GV / GC CANNOT be used online.</li>\r\n\r\n\r\n</ul>",
-    "status": "not_scraped",
+    "how_to_redeem_steps": [
+      "Use the outlet locator to locate the nearest outlet that accepts this Gift Voucher.",
+      "Select your choice of product.",
+      "Share your Gift Voucher with the cashier at the time of billing & pay the remaining amount by cash or card if required."
+    ],
+    "full_terms_and_conditions": "TERMS & CONDITIONS\nIMPORTANT INSTRUCTIONS\nHOW TO USE\nSTORE LOCATOR\nAmerican Eagle Gift Voucher Terms & Conditions\n1. This is an American Eagle Gift Voucher (GV)/Gift Card (GC) and would be accepted at listed outlets.\n2. The person who has the American Eagle GV/GC Code is deemed to be the beneficiary.\n3. Do inform the cashier that you plan to use the GV/GC to make payments before billing.\n4. Customer can only redeem if they are registered as loyalty members. Non-CRM customers need to register before the voucher can be redeemed.\n5. Only the listed American Eagle outlets at its sole discretion accept the GV/GC. American Eagle may add or remove an outlet without giving any prior notice.\n6. In case the value of the merchandise exceeds the value of the GV/GC, the difference must be paid by cash, credit card, or debit card.\n7. More than one GV/GC can be used in one bill.\n8. This is a one-time use GV/GC.\n9. No Credit note/Refund for the unused amount of the GV/GC will be given.\n10. This GV/GC CANNOT be revalidated once expired or canceled under any circumstances.\n11. This GV/GC can be used during sale.\n12. GV/GC cannot be redeemed on specific block-out dates. American Eagle may add or delete any date at its sole discretion.\n13. Any dispute related to the GV/GC should be referred to the issuing company and the decision of the issuing company shall be final.\n14. American Eagle makes full efforts to accept GV/GC, but on account of any technical/administrative reasons, an outlet may refuse to accept the same.\n15. If GV/GC gets blocked on account of a technical issue, it will be enabled in 72 hours.\n16. For any queries/issues related to GV/GC, raise a request at www.gvhelpdesk.com.",
+    "important_instructions_raw": "TERMS & CONDITIONS\nIMPORTANT INSTRUCTIONS\nHOW TO USE\nSTORE LOCATOR\nAmerican Eagle Gift Voucher Important Instructions\nGift Vouchers are ACCEPTED at Listed Outlets only.\nGift Vouchers CANNOT be used Online.\nMultiple Gift Vouchers CAN be used in one bill.\nGift Vouchers CAN be used during Sale.\nGift Vouchers CAN be used to buy discounted products.\nGift Voucher CANNOT be used multiple times.",
+    "status": "active",
     "notes": "",
-    "last_scraped": null
+    "last_scraped": "2026-08-05"
   },
   "peter-england-gift-voucher": {
     "brand_name": "Peter England Gift Voucher",
@@ -8221,19 +8229,23 @@
     "best_payment_method": "UPI",
     "best_discount_pct": 2,
     "stack_limit": null,
-    "stack_limit_confidence": "unknown",
+    "stack_limit_confidence": "unlimited_stated",
     "value_cap": null,
     "value_cap_period": null,
     "purchase_cap_per_txn": null,
     "can_club_with_offers": null,
     "one_time_use": false,
     "redemption_restrictions": [],
-    "how_to_redeem_steps": null,
-    "full_terms_and_conditions": null,
-    "important_instructions_raw": "Gift Vouchers are <b><span style=\"\"color:green;\"\"> ACCEPTED </span></b> at Listed Outlets only\r\nGift Vouchers <b><span style=\"\"color:red;\"\"> CANNOT </span></b> be used Online\r\nGift Vouchers <b><span style=\"\"color:green;\"\"> CAN </span></b> be used to buy discounted products\r\nMultiple Gift Vouchers <b><span style=\"\"color:green;\"\"> CAN </span></b> be used in one bill\r\nGift Voucher <b><span style=\"\"color:red;\"\"> CANNOT </span></b> be used multiple times",
-    "status": "not_scraped",
+    "how_to_redeem_steps": [
+      "Use the outlet locator to locate the nearest outlet that accepts this Gift Voucher.",
+      "Select your choice of product.",
+      "Share your Gift Voucher with the cashier at the time of billing & pay the remaining amount by cash or card if required."
+    ],
+    "full_terms_and_conditions": "TERMS & CONDITIONS\nIMPORTANT INSTRUCTIONS\nHOW TO USE\nSTORE LOCATOR\nPeter England Gift Voucher Terms & Conditions\n1. This is a Peter England Gift Voucher (GV)/Gift Card (GC) and would be accepted at the listed outlets.\n2. The person who has the Peter England GV/GC is deemed to be the beneficiary.\n3. This is a one-time use GV/GC. The remaining balance in the GV/GC will be forfeited once the card is redeemed.\n4. The GV/GC can be clubbed with the existing offers.\n5. Multiple GV/GC can be used against one bill.\n6. Do inform the cashier that you plan to use the GV/GC to make payments before billing.\n7. Customers can only redeem if they are registered as loyalty members. Non-CRM customers need to register before the voucher can be redeemed\n8. The GV/GC is not a legal tender or replacement for a debit/credit card.\n9. The offer is valid for all the products available in Peter England stores.\n10. GV/GCs are non-refundable, may not be exchanged, transferred, or resold, and may not be redeemed for cash.\n11. Peter England/GyFTR reserves the right to change, cancel, or update any of the terms and conditions of this offer and add or remove an outlet from the listed outlets at any time without giving any prior notice.\n12. In case the value of the merchandise exceeds the value of the GV/GC, the difference must be paid by cash, credit card, or debit card\n13. No Credit note/Refund for the unused amount of the GV/GC will be given.\n14. This GV/GC CANNOT be revalidated once it expires.\n15. GV/GC cannot be redeemed on specific block-out dates. Peter England may add or delete any date at its sole discretion.\n16. Any dispute related to the GV/GC should be referred to the issuing company, and the decision of the issuing company shall be final.\n17. Peter England makes full efforts to accept GV/GC, but on account of any technical/administrative reasons, an outlet may refuse to accept the same.\n18. Peter England may choose not to honor the offer if there is any suspicion of misuse or abuse of the offer, and we are not required to explain such cases.\n19. Peter England/GyFTR is not responsible for lost, damaged, or stolen GV/GCs.\n20. If GV/GC gets blocked on account of a technical issue, it will get enabled in 3 working days.\n21. For any questions or issues related to GV/GC, raise a request at www.gvhelpdesk.com.",
+    "important_instructions_raw": "TERMS & CONDITIONS\nIMPORTANT INSTRUCTIONS\nHOW TO USE\nSTORE LOCATOR\nPeter England Gift Voucher Important Instructions\nGift Vouchers are ACCEPTED at Listed Outlets only.\nGift Vouchers CANNOT be used Online.\nGift Vouchers CAN be used to buy discounted products.\nMultiple Gift Vouchers CAN be used in one bill.\nGift Voucher CANNOT be used multiple times.",
+    "status": "active",
     "notes": "",
-    "last_scraped": null
+    "last_scraped": "2026-08-05"
   },
   "planet-fashion-gift-voucher": {
     "brand_name": "Planet Fashion Gift Voucher",
@@ -8312,12 +8324,16 @@
     "can_club_with_offers": null,
     "one_time_use": false,
     "redemption_restrictions": [],
-    "how_to_redeem_steps": null,
-    "full_terms_and_conditions": null,
-    "important_instructions_raw": "<ul>\r\n\r\n\r\n<li>This is an Aditya Birla Fashion Retail Limited Louis Philippe Gift Voucher (GV) / Gift Card (GC) and would be accepted at listed outlets. </li>\r\n\r\n\r\n<li> Multiple Gift Vouchers CAN be used in one bill at the Stores.</li>\r\n\r\n\r\n<li> This GV / GC CAN be used during sale.</li>\r\n\r\n\r\n<li> The GV / GC CANNOT be used online.</li>\r\n\r\n\r\n</ul>",
-    "status": "not_scraped",
+    "how_to_redeem_steps": [
+      "Use the outlet locator to locate the nearest outlet that accepts this Gift Voucher.",
+      "Select your choice of product.",
+      "Share your Gift Voucher with the cashier at the time of billing & pay the remaining amount by cash or card if required."
+    ],
+    "full_terms_and_conditions": "TERMS & CONDITIONS\nIMPORTANT INSTRUCTIONS\nHOW TO USE\nSTORE LOCATOR\nLouis Philippe Gift Voucher Terms & Conditions\n1. This is a Louis Philippe Gift Voucher (GV)/Gift Card (GC) and would be accepted at the listed outlets.\n2. The person who has the Louis Philippe GV/GC Code is deemed to be the beneficiary.\n3. This is a one-time use GV/GC. The remaining balance in the GV/GC will be forfeited once the card is redeemed.\n4. The GV/GC can be clubbed with the existing offers.\n5. Multiple GV/GC can be used against one bill.\n6. Do inform the cashier that you plan to use the GV/GC to make payments before billing.\n7. Customers can only redeem if they are registered as loyalty members. Non-CRM customers need to register before the voucher can be redeemed\n8. The GV/GC is not a legal tender or replacement for a debit/credit card.\n9. The offer is valid for all the products available in Louis Philippe stores.\n10. GV/GCs are non-refundable, may not be exchanged, transferred, or resold, and may not be redeemed for cash.\n11. Louis Philippe/GyFTR reserves the right to change, cancel, or update any of the terms and conditions of this offer and add or remove an outlet from the listed outlets at any time without giving any prior notice.\n12. In case the value of the merchandise exceeds the value of the GV/GC, the difference must be paid by cash, credit card, or debit card\n13. No Credit note/Refund for the unused amount of the GV/GC will be given.\n14. This GV/GC CANNOT be revalidated once it expires.\n15. GV/GC cannot be redeemed on specific block-out dates. Louis Philippe may add or delete any date at its sole discretion.\n16. Any dispute related to the GV/GC should be referred to the issuing company, and the decision of the issuing company shall be final.\n17. Louis Philippe makes full efforts to accept GV/GC, but on account of any technical/administrative reasons, an outlet may refuse to accept the same.\n18. Louis Philippe may choose not to honor the offer if there is any suspicion of misuse or abuse of the offer, and we are not required to explain such cases.\n19. Louis Philippe/GyFTR is not responsible for lost, damaged, or stolen GV/GCs.\n20. If GV/GC gets blocked on account of a technical issue, it will get enabled in 3 working days.\n21. For any questions or issues related to GV/GC, raise a request at www.gvhelpdesk.com.",
+    "important_instructions_raw": "TERMS & CONDITIONS\nIMPORTANT INSTRUCTIONS\nHOW TO USE\nSTORE LOCATOR\nLouis Philippe Gift Voucher Important Instructions\nGift Vouchers are ACCEPTED at Listed Louis Philippe Outlets only.\nGift Vouchers CANNOT be used Online.\nGift Vouchers CAN be used to buy discounted products.\nMultiple Gift Vouchers CAN be used in one bill.\nGift Voucher CANNOT be used multiple times.",
+    "status": "active",
     "notes": "",
-    "last_scraped": null
+    "last_scraped": "2026-08-05"
   },
   "van-heusen-gift-voucher": {
     "brand_name": "Van Heusen Gift Voucher",
@@ -8352,12 +8368,16 @@
     "can_club_with_offers": null,
     "one_time_use": false,
     "redemption_restrictions": [],
-    "how_to_redeem_steps": null,
-    "full_terms_and_conditions": null,
-    "important_instructions_raw": "<ul>\r\n\r\n\r\n<li>This is an Aditya Birla Fashion Retail Limited Van Heusen Gift Voucher (GV) / Gift Card (GC) and would be accepted at listed outlets. </li>\r\n\r\n\r\n<li> Multiple Gift Vouchers CAN be used in one bill at the Stores.</li>\r\n\r\n\r\n<li> This GV / GC CAN be used during sale.</li>\r\n\r\n\r\n<li> The GV / GC CANNOT be used online.</li>\r\n\r\n\r\n</ul>",
-    "status": "not_scraped",
+    "how_to_redeem_steps": [
+      "Use the outlet locator to locate the nearest outlet that accepts this Gift Voucher.",
+      "Select your choice of product.",
+      "Share your Gift Voucher with the cashier at the time of billing & pay the remaining amount by cash or card if required."
+    ],
+    "full_terms_and_conditions": "TERMS & CONDITIONS\nIMPORTANT INSTRUCTIONS\nHOW TO USE\nSTORE LOCATOR\nVan Heusen Gift Voucher Terms & Conditions\n1. This is a Van Heusen GV/GC (Gift Voucher/GiftCard), and it's redeemable at all the listed stores.\n2. The person having the GV/GC is deemed to be the beneficiary.\n3. Do inform the cashier that you plan to use the GV/GC to make payments before billing.\n4. Customers can only redeem if they are registered as loyalty members. Non-CRM customers need to register before the GV/GC can be redeemed.\n5. This is a one-time use GV/GC. The remaining balance in the GV/GC will be forfeited once the card is redeemed.\n6. The GV/GC can be clubbed with the existing offers and sales.\n7. Multiple GV/GC can be used against one bill.\n8. The GV/GC is not a legal tender or replacement for a debit/credit card.\n9. The offer is valid for all the products available on the Van Heusen store.\n10. GV/GCs are non-refundable, may not be exchanged, transferred, or resold, and may not be redeemed for cash.\n11. Van Heusen/GyFTR reserves the right to change, cancel, or update any of the terms and conditions of this offer at any time without prior notice.\n12. Only the listed Van Heusen outlets, at its sole discretion, accept the GV/GC. Van Heusen may add or remove an outlet without giving any prior notice.\n13. In case the value of the merchandise exceeds the value of the GV/GC, the difference must be paid by cash, credit card, or debit card\n14. GV/GC cannot be redeemed on specific block-out dates. Van Heusen may add or delete any date at its sole discretion.\n15. Van Heusen may choose not to honor the offer if there is any suspicion of misuse or abuse of the offer, and we are not required to explain such cases.\n16. Van Heusen/GyFTR is not responsible for lost, damaged, or stolen GV/GCs.\n17. For any questions or issues related to GV/GC, raise a request at www.gvhelpdesk.com.",
+    "important_instructions_raw": "TERMS & CONDITIONS\nIMPORTANT INSTRUCTIONS\nHOW TO USE\nSTORE LOCATOR\nVan Heusen Gift Voucher Important Instructions\nGift Vouchers are ACCEPTED at Listed Outlets only.\nGift Vouchers CANNOT be used Online.\nGift Vouchers CAN be used during the sale.\nGift Vouchers CAN be used to buy discounted products.\nMultiple Gift Vouchers CAN be used in one bill.\nGift Voucher CANNOT be used multiple times.",
+    "status": "active",
     "notes": "",
-    "last_scraped": null
+    "last_scraped": "2026-08-05"
   },
   "simon-carter-gift-voucher": {
     "brand_name": "Simon Carter Gift Voucher",
@@ -8392,12 +8412,16 @@
     "can_club_with_offers": null,
     "one_time_use": false,
     "redemption_restrictions": [],
-    "how_to_redeem_steps": null,
-    "full_terms_and_conditions": null,
-    "important_instructions_raw": "<ul>\r\n\r\n\r\n<li>This is an Aditya Birla Fashion Retail Limited Simon Carter Gift Voucher (GV) / Gift Card (GC) and would be accepted at listed outlets. </li>\r\n\r\n\r\n<li> Multiple Gift Vouchers CAN be used in one bill at the Stores.</li>\r\n\r\n\r\n<li> This GV / GC CAN be used during sale.</li>\r\n\r\n\r\n<li> The GV / GC CANNOT be used online.</li>\r\n\r\n\r\n</ul>",
-    "status": "not_scraped",
+    "how_to_redeem_steps": [
+      "Use the outlet locator to locate the nearest outlet that accepts this Gift Voucher.",
+      "Select your choice of product.",
+      "Share your Gift Voucher with the cashier at the time of billing & pay the remaining amount by cash or card if required."
+    ],
+    "full_terms_and_conditions": "TERMS & CONDITIONS\nIMPORTANT INSTRUCTIONS\nHOW TO USE\nSTORE LOCATOR\nSimon Carter Gift Voucher Terms & Conditions\n1. This is a Simon Carter Gift Voucher (GV)/Gift Card (GC) and would be accepted at the listed outlets.\n2. The person who has the Simon Carter GV/GC is deemed to be the beneficiary.\n3. This is a one-time use GV/GC. The remaining balance in the GV/GC will be forfeited once the card is redeemed.\n4. The GV/GC can be clubbed with the existing offers.\n5. Multiple GV/GC can be used against one bill.\n6. Do inform the cashier that you plan to use the GV/GC to make payments before billing.\n7. Customers can only redeem if they are registered as loyalty members. Non-CRM customers need to register before the voucher can be redeemed\n8. The GV/GC is not a legal tender or replacement for a debit/credit card.\n9. The offer is valid for all the products available in Simon Carter stores.\n10. GV/GCs are non-refundable, may not be exchanged, transferred, or resold, and may not be redeemed for cash.\n11. Simon Carter/GyFTR reserves the right to change, cancel, or update any of the terms and conditions of this offer and add or remove an outlet from the listed outlets at any time without giving any prior notice.\n12. In case the value of the merchandise exceeds the value of the GV/GC, the difference must be paid by cash, credit card, or debit card\n13. No Credit note/Refund for the unused amount of the GV/GC will be given.\n14. This GV/GC CANNOT be revalidated once it expires.\n15. GV/GC cannot be redeemed on specific block-out dates. Simon Carter may add or delete any date at its sole discretion.\n16. Any dispute related to the GV/GC should be referred to the issuing company, and the decision of the issuing company shall be final.\n17. Simon Carter makes full efforts to accept GV/GC, but on account of any technical/administrative reasons, an outlet may refuse to accept the same.\n18. Simon Carter may choose not to honor the offer if there is any suspicion of misuse or abuse of the offer, and we are not required to explain such cases.\n19. Simon Carter/GyFTR is not responsible for lost, damaged, or stolen GV/GCs.\n20. If GV/GC gets blocked on account of a technical issue, it will get enabled in 3 working days.\n21. For any questions or issues related to GV/GC, raise a request at www.gvhelpdesk.com.",
+    "important_instructions_raw": "TERMS & CONDITIONS\nIMPORTANT INSTRUCTIONS\nHOW TO USE\nSTORE LOCATOR\nSimon Carter Gift Voucher Important Instructions\nGift Vouchers are ACCEPTED at Listed Outlets only.\nGift Vouchers CANNOT be used Online.\nGift Vouchers CAN be used to buy discounted products.\nMultiple Gift Vouchers CAN be used in one bill.\nGift Voucher CANNOT be used multiple times.",
+    "status": "active",
     "notes": "",
-    "last_scraped": null
+    "last_scraped": "2026-08-05"
   },
   "oven-story": {
     "brand_name": "Oven Story",
@@ -9471,19 +9495,23 @@
     "best_payment_method": "UPI",
     "best_discount_pct": 12,
     "stack_limit": null,
-    "stack_limit_confidence": "unknown",
+    "stack_limit_confidence": "unlimited_stated",
     "value_cap": null,
     "value_cap_period": null,
-    "purchase_cap_per_txn": null,
+    "purchase_cap_per_txn": 35000,
     "can_club_with_offers": null,
     "one_time_use": false,
     "redemption_restrictions": [],
-    "how_to_redeem_steps": null,
-    "full_terms_and_conditions": null,
-    "important_instructions_raw": "<ul>\r\n<li>The GV/GC <span>CAN</span> be used Online at <a href=\"https://campussutra.com/\"  target=\"_blank\">campussutra.com</a></li>\r\n<li>Multiple Gift Vouchers <span>CAN</span> be combined & added to the e-Pay balance.</li>\r\n<li>The GV/GC <span>CAN</span> be clubbed with ongoing sales.</li>\r\n</ul>",
-    "status": "not_scraped",
+    "how_to_redeem_steps": [
+      "Visit cahoot.in and select your desired product.",
+      "Add the product to your cart and proceed to checkout.",
+      "Select Add balance to your e-pay, enter your GyFTR Voucher Code, and complete the purchase."
+    ],
+    "full_terms_and_conditions": "TERMS & CONDITIONS\nIMPORTANT INSTRUCTIONS\nHOW TO USE\nCAHOOT Terms & Conditions\n1. This is a Cahoot GV (Gift Voucher)/e-Pay and will be accepted only on the Cahoot website at https://cahoot.in.\n2. The person who has the GV/e-Pay is deemed to be the beneficiary.\n3. The GV/e-Pay can be clubbed with existing offers.\n4. The GV/e-Pay can be used during EOSS or sale.\n5. The GV can be converted into e-Pay as per the convenience of the holder.\n6. The GV/e-Pay balance cannot be transferred to another e-Pay account, exchanged for cash, or converted into any other form of currency.\n7. The e-Pay balance must be linked to the registered mobile number.\n8. After conversion into e-Pay balance, this GV is valid for partial redemption. The balance would remain in the e-Pay balance and can be used for multiple transactions within the validity period. Multiple GVs can be combined and added to the e-Pay balance.\n9. The GV/e-Pay can be used for all purchases of products at the Cahoot website.\n10. Only valid GV/e-Pay at the sole discretion of Cahoot shall be accepted for redemption.\n11. The GV/e-Pay CANNOT be revalidated once expired or cancelled under any circumstances.\n12. Cahoot/GyFTR is not responsible if the GV/e-Pay is lost, stolen, or used without permission.\n13. If the GV/e-Pay gets blocked on account of a technical issue, it will be enabled within 72 hours.\n14. Any dispute should be referred to the company from which the GV/e-Pay has been received, and the company's decision shall be final.\n15. Cahoot/GyFTR reserves the right to withdraw, modify, cancel, or change the offer at any point without prior notice and at its sole discretion.\n16. For any queries or issues related to the GV/e-Pay, kindly raise a request at www.gvhelpdesk.com.",
+    "important_instructions_raw": "TERMS & CONDITIONS\nIMPORTANT INSTRUCTIONS\nHOW TO USE\nCAHOOT Important Instructions\nGift Vouchers/e-Pay CAN only be used on the Cahoot website.\nGift Vouchers/e-Pay CAN be used to buy discounted products.\nGift Vouchers/e-Pay CAN be used during EOSS or sale.\nGift Voucher CAN be used multiple times once converted to e-Pay balance.\nMultiple Gift Vouchers CAN be combined & added to e-Pay balance.",
+    "status": "active",
     "notes": "",
-    "last_scraped": null
+    "last_scraped": "2026-08-05"
   },
   "tanishq-diamond-jewellery": {
     "brand_name": "Tanishq Diamond Jewellery",
@@ -10676,19 +10704,23 @@
     "best_payment_method": "UPI",
     "best_discount_pct": 8,
     "stack_limit": null,
-    "stack_limit_confidence": "unknown",
+    "stack_limit_confidence": "unlimited_stated",
     "value_cap": null,
     "value_cap_period": null,
     "purchase_cap_per_txn": null,
     "can_club_with_offers": null,
     "one_time_use": false,
     "redemption_restrictions": [],
-    "how_to_redeem_steps": null,
-    "full_terms_and_conditions": null,
-    "important_instructions_raw": null,
-    "status": "not_scraped",
+    "how_to_redeem_steps": [
+      "Visit the Home Centre website/app, add your preferred product to the cart, and proceed to checkout.",
+      "On the payment page, select Have a Gift Card? to redeem your voucher.",
+      "Enter your 16-digit gift card number and PIN, then click Apply to complete the payment."
+    ],
+    "full_terms_and_conditions": "TERMS & CONDITIONS\nIMPORTANT INSTRUCTIONS\nHOW TO USE\nHome Centre Online Terms & Conditions\n1. This is a Home Centre Online GV/GC (Gift Voucher/Gift Card) and will be accepted only online on the mobile app and website at www.homecentre.in.\n2. The person having the GV/GC is deemed to be the beneficiary.\n3. The GV/GC can be clubbed with existing offers.\n4. The GV/GC can be used during EOSS or sale.\n5. The GV/GC is valid for partial redemption and can be used multiple times till the balance exists in the GV/GC.\n6. Multiple GV/GCs can be used in one bill.\n7. The GV/GC is not redeemable at the physical/brick-and-mortar stores of Home Centre.\n8. In case the value of the merchandise exceeds the value of the GV/GC, the differential amount shall be paid by the customer.\n9. The GV/GC is not a legal tender or replacement for a debit/credit card.\n10. The GV/GC number and PIN are required for redemption.\n11. GV/GCs are non-refundable, non-transferable, may not be exchanged or resold, and may not be redeemed for cash.\n12. No replacement or compensation is permissible for lost or damaged GV/GCs.\n13. Once the GV/GC is issued, it cannot be cancelled under any circumstances.\n14. The GV/GC CANNOT be revalidated once expired or cancelled under any circumstances.\n15. If the GV/GC gets blocked on account of a technical issue, it will be reactivated within 72 hours.\n16. Landmark Online India Private Limited/GyFTR reserves the right to amend, withdraw, change, cancel, or update the GV/GC services and terms at its discretion without prior notice.\n17. Landmark Online India Private Limited shall not assume any liability if the GV/GC PIN gets stolen or compromised due to fraud, data theft, negligence, phishing, or any other illegal activity.\n18. GV/GC redemption is provided on an \"as-is\" and \"as-available\" basis.\n19. The total liability of Landmark Online India Private Limited for all claims shall be limited to the value of the GV/GC issued to the customer.\n20. All grievances shall be referred to Landmark Online India Private Limited, and the decision of the company shall be final and binding.\n21. All disputes are subject to the exclusive jurisdiction of the Bangalore Courts.\n22. GV/GCs are normally delivered instantly, but due to system issues, delivery can be delayed up to 24-48 hours.\n23. For balance enquiry, visit www.homecentre.in. For any assistance, please call customer care at 18001231555.\n24. For any queries related to GV/GC, raise a request at www.gvhelpdesk.com.",
+    "important_instructions_raw": "TERMS & CONDITIONS\nIMPORTANT INSTRUCTIONS\nHOW TO USE\nHome Centre Online Important Instructions\nGift Vouchers CAN be used on the Home Centre website and app.\nGift Vouchers CANNOT be used at Home Centre offline stores.\nGift Vouchers CAN be used to buy discounted products.\nGift Vouchers CAN be used during EOSS or sale.\nMultiple Gift Vouchers CAN be used in one bill.\nGift Voucher CAN be used multiple times.",
+    "status": "active",
     "notes": "",
-    "last_scraped": null
+    "last_scraped": "2026-08-05"
   },
   "steam-wallet": {
     "brand_name": "Steam Wallet",
@@ -14979,12 +15011,16 @@
     "can_club_with_offers": null,
     "one_time_use": false,
     "redemption_restrictions": [],
-    "how_to_redeem_steps": null,
-    "full_terms_and_conditions": null,
-    "important_instructions_raw": "<ul>\r\n<li>Gift Vouchers are ACCEPTED at the listed outlets.</li>\r\n<li>Gift Vouchers CANNOT be used online.</li>\r\n<li>Gift Voucher CANNOT be used multiple times.</li>\r\n<li>Gift Vouchers CAN be clubbed with existing offers.</li>\r\n<li>Multiple Gift Vouchers CAN be used for one bill.</li>\r\n</ul>",
-    "status": "not_scraped",
+    "how_to_redeem_steps": [
+      "Use the outlet locator to locate the nearest outlet that accepts this Gift Voucher.",
+      "Select your choice of product.",
+      "Share your Gift Voucher with the cashier at the time of billing & pay the remaining amount by cash or card if required."
+    ],
+    "full_terms_and_conditions": "TERMS & CONDITIONS\nIMPORTANT INSTRUCTIONS\nHOW TO USE\nSTORE LOCATOR\nTasva Terms & Conditions\n1. This is a Tasva GV/GC (Gift Voucher/GiftCard), and it’s redeemable only at the listed stores.\n2. The person having the GV/GC is deemed to be the beneficiary.\n3. Do inform the cashier that you plan to use the GV/GC to make payments before billing.\n4. Only the listed Tasva outlets, at its sole discretion, accept the GV/GC. Tasva may add or remove an outlet without giving any prior notice.\n5. This is a one-time use GV/GC. The remaining balance in the GV/GC will be forfeited once the card is redeemed. No Credit note/Refund for the unused amount of the GV/GC will be given.\n6. In case the value of the merchandise exceeds the value of the GV/GC, the difference must be paid by cash, credit card, or debit card.\n7. The GV/GC can be clubbed with the existing offers.\n8. Multiple GV/GCs can be used against one bill.\n9. This GV/GC CANNOT be revalidated once it expires.\n10. The GV/GC is not a legal tender or replacement for a debit/credit card.\n11. The GV/GC is valid for all the products available in the listed Tasva stores.\n12. The GV/GC is non-refundable, may not be exchanged, transferred, or resold, and may not be redeemed for cash.\n13. Tasva/GyFTR reserves the right to change, cancel, or update any of the terms and conditions of this offer at any time without prior notice.\n14. Tasva may choose not to honor the offer if there is any suspicion of misuse or abuse of the offer, and we are not required to explain such cases.\n15. Any dispute related to the GV/GC should be referred to the issuing company, and the decision of the issuing company shall be final.\n16. Tasva makes full efforts to accept GV/GC, but on account of any technical/administrative reasons, an outlet may refuse to accept the same.\n17. If GV/GC gets blocked on account of a technical issue, it will get enabled in 3 working days.\n18. Tasva/GyFTR is not responsible for lost, damaged, or stolen GV/GCs.\n19. For any questions or issues related to GV/GC, raise a request at www.gvhelpdesk.com.",
+    "important_instructions_raw": "TERMS & CONDITIONS\nIMPORTANT INSTRUCTIONS\nHOW TO USE\nSTORE LOCATOR\nTasva Important Instructions\nGift Vouchers are ACCEPTED at the listed outlets.\nGift Vouchers CANNOT be used online.\nGift Voucher CANNOT be used multiple times.\nGift Vouchers CAN be clubbed with existing offers.\nMultiple Gift Vouchers CAN be used for one bill.",
+    "status": "active",
     "notes": "",
-    "last_scraped": null
+    "last_scraped": "2026-08-05"
   },
   "nautica": {
     "brand_name": "Nautica",
@@ -15090,19 +15126,23 @@
     "best_payment_method": "UPI",
     "best_discount_pct": 2.5,
     "stack_limit": null,
-    "stack_limit_confidence": "unknown",
+    "stack_limit_confidence": "unlimited_stated",
     "value_cap": null,
     "value_cap_period": null,
     "purchase_cap_per_txn": null,
     "can_club_with_offers": null,
     "one_time_use": false,
     "redemption_restrictions": [],
-    "how_to_redeem_steps": null,
-    "full_terms_and_conditions": null,
-    "important_instructions_raw": null,
-    "status": "not_scraped",
+    "how_to_redeem_steps": [
+      "Go to Blinkit App & Click on Blinkit Money icon.",
+      "Click on Claim Gift Card.",
+      "Enter the 16 digit card number and 6 digit pin and tap on claim"
+    ],
+    "full_terms_and_conditions": "TERMS & CONDITIONS\nIMPORTANT INSTRUCTIONS\nHOW TO USE\nWATCH VIDEO\nBlinkit Gift Card Terms & Conditions\n1. This is a Blinkit Gift Voucher (GV)/Gift Card (GC) and will be accepted only online on the Blinkit mobile application.\n2. Blinkit GV/GC are issued by Razorpay Technologies Private Limited (\"Razorpay\"), an entity incorporated in accordance with the laws of India (“Razorpay”) for your (“User”) use, and Razorpay is authorized by the Reserve Bank of India (“RBI”) under the Master Directions on Prepaid Payment Instruments (“PPI Master Directions”) to issue GV/GC.\n3. The person having the GV/GC is deemed to be the beneficiary.\n4. This is a one-time use GV/GC. Once the GV/GC is added to the Blinkit Wallet, you can partially redeem the balance as per your convenience\n5. GV/GC redemptions are limited to Rs 25,000 per user, per calendar month.\n6. The GV/GC can be clubbed with the existing offers.\n7. The GV/GC can be redeemed only towards the purchase of eligible products on the Blinkit Platform. It cannot be used to buy other Gift Cards or Vouchers.\n8. Multiple GV/GC can be used against one bill.\n9. The GV/GC balance is added to the user’s Blinkit Account (Blinkit Money) in case of cancellations.\n10. Blinkit reserves the right to deny or block a GV/GC if it suspects duplicity, fraud, or unlawful use.\n11. Blinkit reserves the right to void the GV/GC, close the user’s account, and recover payment from alternative sources if:\n(a) the GV/GC is fraudulently or unlawfully obtained; or\n(b) The beneficiary/KYC details as per RBI guidelines are found to be incorrect or insufficient.\n12. Credit and debit cards issued outside India cannot be used to purchase a Blinkit GV/GC.\n13. The GV/GC is not a legal tender or replacement for a debit/credit card.\n14. The GV/GC CANNOT be revalidated once expired or canceled under any circumstances.\n15. The offer is valid for all the products available on the Blinkit Mobile App.\n16. GV/GCs are non-refundable, may not be exchanged, transferred, or resold, and may not be redeemed for cash.\n17. Neither Blinkit nor Razorpay makes any express or implied warranties regarding the GV/GC, including but not limited to warranties of merchantability or fitness for a particular purpose.\n18. Blinkit/GyFTR reserves the right to change, cancel, or update any of the terms and conditions of this offer at any time without prior notice.\n19. Blinkit reserves the right to modify these terms and conditions at any time, without prior notice. Continued use of the GV/GC constitutes acceptance of the updated terms.\n20. Blinkit may choose not to honor the offer if there is any suspicion of misuse or abuse of the offer, and we are not required to explain such cases.\n21. Blinkit/GyFTR is not responsible for lost, damaged, or stolen GV/GCs.\n22. The courts at New Delhi shall have exclusive jurisdiction for any disputes arising in relation to GV/GC.\n23. For any questions or issues related to GV/GC, raise a request at www.gvhelpdesk.com or write to info@blinkit.com.",
+    "important_instructions_raw": "TERMS & CONDITIONS\nIMPORTANT INSTRUCTIONS\nHOW TO USE\nWATCH VIDEO\nBlinkit Gift Card Important Instructions\nGift Vouchers CAN only be used Online only on the Blinkit mobile app.\nGift Vouchers CAN be clubbed with the existing offers.\nGift Vouchers CANNOT be used to buy other Gift Vouchers on Blinkit.\nGift Vouchers CAN be used multiple times once added to the Blinkit wallet.\nMultiple Gift Vouchers CAN be redeemed up to Rs.25,000 per user, per calendar month.",
+    "status": "active",
     "notes": "",
-    "last_scraped": null
+    "last_scraped": "2026-08-05"
   },
   "air-india-fly-rajasthan": {
     "brand_name": "Air India Fly Rajasthan",
@@ -15208,19 +15248,23 @@
     "best_payment_method": "UPI",
     "best_discount_pct": 3,
     "stack_limit": null,
-    "stack_limit_confidence": "unknown",
+    "stack_limit_confidence": "unlimited_stated",
     "value_cap": null,
     "value_cap_period": null,
-    "purchase_cap_per_txn": null,
+    "purchase_cap_per_txn": 71250,
     "can_club_with_offers": null,
     "one_time_use": false,
     "redemption_restrictions": [],
-    "how_to_redeem_steps": null,
-    "full_terms_and_conditions": null,
-    "important_instructions_raw": null,
-    "status": "not_scraped",
+    "how_to_redeem_steps": [
+      "Visit ea.com/redeem, sign in, and enter your Gift Voucher code.",
+      "Review the details and click Confirm.",
+      "Launch EA SPORTS FC™ 26 to receive your FC Points. Your FC Points should appear automatically in-game."
+    ],
+    "full_terms_and_conditions": "TERMS & CONDITIONS\nIMPORTANT INSTRUCTIONS\nHOW TO USE\nEA SPORTS FC 26 Terms & Conditions\n1. This is an EA SPORTS FC 26 Gift Voucher (GV)/Gift Card (GC) and can be redeemed only on the website at https://www.ea.com/redeem.\n2. The person who has the GV/GC is deemed to be the beneficiary.\n3. The GV/GC can be used to purchase in-game currency (such as FC Points) or eligible digital content equivalent to its denomination on https://www.ea.com/redeem.\n4. Once the GV/GC balance is converted into FC Points it does not expire.\n5. The GV/GC is not redeemable inside the FC Mobile app.\n6. The GV/GC requires an EA account linked to FC Mobile.\n7. Rewards are delivered only to the FC Mobile game account.\n8. The GV/GC cannot be used for the purchase of physical products, merchandise, electronics, gift cards, subscription services, real-world goods, cash or cash equivalents.\n9. GV/GC can be used multiple times once added to the EA Account.\n10. Multiple GV/GC can be combined & added to the EA Account.\n11. The GV/GC is valid for one-time use only. No credit note will be issued for any unused balance remaining after redemption.\n12. The GV/GC can be used during sale periods.\n13. The GV/GC cannot be clubbed with any existing offers.\n14. The GV/GC is non-refundable, non-transferable, non-exchangeable, and cannot be redeemed for cash or credit.\n15. EA SPORTS FC 26/GyFTR is not responsible if the GV/GC is lost, stolen, or used without permission.\n16. If GV/GC gets blocked on account of a technical issue, it will be enabled in 72 hours. In case of transaction failures after GV/GC is applied, the amount would be automatically refunded to the same cards within 48 hours.\n17. EA SPORTS FC 26/GyFTR reserves the right to withdraw, modify, cancel, or change the offer at any point without prior notice and at its sole discretion.\n18. The GV/GC CANNOT be revalidated once expired or cancelled under any circumstances.\n19. For any queries/issues related to GV/GC, raise a request at www.gvhelpdesk.com.",
+    "important_instructions_raw": "TERMS & CONDITIONS\nIMPORTANT INSTRUCTIONS\nHOW TO USE\nEA SPORTS FC 26 Important Instructions\nGift Vouchers CAN only be redeemed on https://www.ea.com/redeem.\nGift Vouchers CANNOT be redeemed on FC Mobile app.\nGift Vouchers require an EA account linked to FC Mobile.\nGift Vouchers CAN only be used to obtain in-game currency.\nGift Vouchers CAN be used during the sale.\nGift Vouchers CANNOT be clubbed with existing offers.\nGift Voucher CAN be used multiple times once added to the EA Account.\nMultiple Gift Vouchers CAN be combined & added to the EA Account.",
+    "status": "active",
     "notes": "",
-    "last_scraped": null
+    "last_scraped": "2026-08-05"
   },
   "discord": {
     "brand_name": "Discord",
@@ -15248,12 +15292,16 @@
     "can_club_with_offers": null,
     "one_time_use": false,
     "redemption_restrictions": [],
-    "how_to_redeem_steps": null,
-    "full_terms_and_conditions": null,
-    "important_instructions_raw": null,
-    "status": "not_scraped",
+    "how_to_redeem_steps": [
+      "Go to posa.mintroute.com and select Discord. Choose your Nitro subscription plan, enter your Gift Voucher code and email address. Then click on ‘Redeem’.",
+      "You'll see a \"You've been gifted Nitro\" screen — click Woo! Accept Gift to activate.",
+      "Order Completed Successfully! Your order is complete, and the Discord Nitro activation link will be sent to your email address."
+    ],
+    "full_terms_and_conditions": "TERMS & CONDITIONS\nIMPORTANT INSTRUCTIONS\nHOW TO USE\nDiscord Terms & Conditions\n1. This is a Discord Gift Voucher (GV)/Gift Card (GC) and can be redeemed only on the Discord website at http://posa.mintroute.com/ or app.\n2. The person who has the GV/GC is deemed to be the beneficiary.\n3. The GV/GC can only be used for Discord Nitro Subscription.\n4. The GV/GC can be used during sale periods.\n5. The GV/GC cannot be clubbed with any existing offers.\n6. The GV/GC cannot be used multiple times.\n7. The GV/GC must not be used on an active subscription.\n8. The GV/GC is valid for one-time use only. Any unused balance will not be credited or carried forward.\n9. The GV/GC is non-refundable, non-transferable, non-exchangeable, and cannot be redeemed for cash or credit.\n10. Discord/GyFTR is not responsible if the GV/GC is lost, stolen, or used without permission.\n11. If GV/GC gets blocked on account of a technical issue, it will be enabled in 72 hours. In case of transaction failures after GV/GC is applied, the amount would be automatically refunded to the same cards within 48 hours.\n12. The GV/GC CANNOT be revalidated once expired or cancelled under any circumstances.\n14. Discord Nitro subscriptions are valid only for the subscription period purchased (Monthly, Quarterly, or Annual), commencing upon activation. No additional maintenance or inactivity fees are associated with the subscription.\n15. Discord/GyFTR reserves the right to withdraw, modify, cancel, or change the offer at any point without prior notice and at its sole discretion.\n16. Any dispute should be referred to the company from which the GV/GC has been received, and the company's decision shall be final.\n17. The GV/GC cannot be redeemed through offline channels or outside the supported region/platform.\n18. For any queries/issues related to GV/GC, raise a request at www.gvhelpdesk.com.",
+    "important_instructions_raw": "TERMS & CONDITIONS\nIMPORTANT INSTRUCTIONS\nHOW TO USE\nDiscord Important Instructions\nGift Vouchers CAN only be used on the Discord website or app.\nGift Vouchers CAN only be used to obtain in-game currency, items, or rewards.\nGift Vouchers CAN be used during the sale.\nGift Vouchers CANNOT be clubbed with existing offers.\nGift Voucher CANNOT be used multiple times.",
+    "status": "active",
     "notes": "",
-    "last_scraped": null
+    "last_scraped": "2026-08-05"
   },
   "yalla-ludo": {
     "brand_name": "Yalla Ludo",
@@ -15277,19 +15325,23 @@
     "best_payment_method": "UPI",
     "best_discount_pct": 1.5,
     "stack_limit": null,
-    "stack_limit_confidence": "unknown",
+    "stack_limit_confidence": "unlimited_stated",
     "value_cap": null,
     "value_cap_period": null,
-    "purchase_cap_per_txn": null,
+    "purchase_cap_per_txn": 39900,
     "can_club_with_offers": null,
     "one_time_use": false,
     "redemption_restrictions": [],
-    "how_to_redeem_steps": null,
-    "full_terms_and_conditions": null,
-    "important_instructions_raw": null,
-    "status": "not_scraped",
+    "how_to_redeem_steps": [
+      "Visit https://www.yallaludo.com or app, and log in, then tap the ‘Recharge’ button on the home screen.",
+      "Complete Your Details: Enter your User ID for verification, Select Gift Card as your preferred Payment Method, Choose an Item (denomination of your choice), then Enter your 16-digit PIN Code.",
+      "Recharge Successful! Once confirmed, you'll see a Recharge Succeeded screen. Your Golds will be credited to your account within 1 hour."
+    ],
+    "full_terms_and_conditions": "TERMS & CONDITIONS\nIMPORTANT INSTRUCTIONS\nHOW TO USE\nYalla Ludo Terms & Conditions\n1. This is a Yalla Ludo Gift Voucher (GV)/Gift Card (GC) and can be redeemed only on the Yalla Ludo website at https://www.yallaludo.com/ or the Yalla Ludo app.\n2. The person who has the GV/GC is deemed to be the beneficiary.\n3. The GV/GC can only be used for Yalla Ludo in-game currency, items, or rewards, and cannot be used for any other product or service.\n4. The GV/GC can be used during sale periods.\n5. The GV/GC cannot be clubbed with any existing offers.\n6. The GV/GC balance will be added to Yalla Ludo Account and can be used for multiple transactions until the balance is exhausted.\n7. Multiple GV/GCs can be added to a single Yalla Ludo Account.\n8. The GV/GC is valid for one-time use only. Any unused balance will not be credited or carried forward.\n9. The GV/GC is non-refundable, non-transferable, non-exchangeable, and cannot be redeemed for cash or credit.\n10. Yalla Ludo /GyFTR is not responsible if the GV/GC is lost, stolen, or used without permission.\n11. If GV/GC gets blocked on account of a technical issue, it will be enabled in 72 hours. In case of transaction failures after GV/GC is applied, the amount would be automatically refunded to the same cards within 48 hours.\n12. The GV/GC CANNOT be revalidated once expired or cancelled under any circumstances.\n13. Once the GV/GC is converted into in-game currency, it does not expire.\n14. Yalla Ludo/GyFTR reserves the right to withdraw, modify, cancel, or change the offer at any point without prior notice and at its sole discretion.\n15. Any dispute should be referred to the company from which the GV/GC has been received, and the company's decision shall be final.\n16. The GV/GC cannot be redeemed through offline channels or outside the supported region/platform.\n17. For any queries/issues related to GV/GC, raise a request at www.gvhelpdesk.com.",
+    "important_instructions_raw": "TERMS & CONDITIONS\nIMPORTANT INSTRUCTIONS\nHOW TO USE\nYalla Ludo Important Instructions\nGift Vouchers CAN only be used on the Yalla Ludo website or app.\nGift Vouchers CAN only be used to obtain in-game currency, items, or rewards.\nGift Vouchers CAN be used during the sale.\nGift Vouchers CANNOT be clubbed with existing offers.\nGift Voucher CAN be used multiple times once added to the Yalla Ludo Account.\nMultiple Gift Vouchers CAN be combined & added to the Yalla Ludo Account.",
+    "status": "active",
     "notes": "",
-    "last_scraped": null
+    "last_scraped": "2026-08-05"
   },
   "nintendo-eshop-voucher": {
     "brand_name": "Nintendo eShop Voucher",
@@ -15308,19 +15360,23 @@
     "best_payment_method": "UPI",
     "best_discount_pct": 5,
     "stack_limit": null,
-    "stack_limit_confidence": "unknown",
+    "stack_limit_confidence": "unlimited_stated",
     "value_cap": null,
     "value_cap_period": null,
     "purchase_cap_per_txn": null,
     "can_club_with_offers": null,
     "one_time_use": false,
     "redemption_restrictions": [],
-    "how_to_redeem_steps": null,
-    "full_terms_and_conditions": null,
-    "important_instructions_raw": null,
-    "status": "not_scraped",
+    "how_to_redeem_steps": [
+      "Visit Nintendo redemption page at https://ec.nintendo.com/redeem, sign in with your existing account or create a new one.",
+      "Enter Your Code On the \"Redeem a Code\" screen, enter your 16-digit code and click Next to complete redemption.",
+      "Now, Confirm Funds To Be Added, scroll to the bottom and click ‘Add Funds’ to confirm. Your updated Nintendo Account Balance will reflect instantly."
+    ],
+    "full_terms_and_conditions": "TERMS & CONDITIONS\nIMPORTANT INSTRUCTIONS\nHOW TO USE\nNintendo eShop Voucher Terms & Conditions\n1. This is a Nintendo GV/GC (Gift Voucher/Gift Card) issued by Worldflux Payment Solutions Private Limited, and it will be accepted only online on the Nintendo redemption website at https://ec.nintendo.com/redeem and on the Nintendo Switch Console.\n2. The holder of the GV/GC is deemed to be the beneficiary.\n3. The GV/GC can only be used to purchase games and other digital content on Nintendo eShop and other Nintendo shopping services. It cannot be used to purchase any goods or services outside Nintendo eShop or Nintendo shopping services.\n4. The GV/GC balance will be added to a Nintendo Account and can be used for multiple transactions until the balance is exhausted.\n5. Multiple GV/GCs can be added to a single Nintendo Account.\n6. The GV/GC can be used during sale periods on Nintendo eShop or Nintendo shopping services.\n7. The GV/GC cannot be clubbed with any existing offers on Nintendo eShop or Nintendo shopping services.\n8. This is a one-time use GV/GC. Once redeemed, the GV/GC balance will be added to the Nintendo Account, and the GV/GC code itself cannot be used again.\n9. Once the GV/GC balance is added to a Nintendo Account, it is non-transferable to any other Nintendo Account or any other form of currency.\n10. The GV/GC balance can only be used on a single Nintendo eShop account.\n11. Once the GV/GC is converted into Nintendo eShop credit, it does not expire.\n12. The GV/GC is non-reloadable. The GV/GC, once redeemed, cannot be reloaded with additional funds.\n13. The GV/GC is non-refundable and cannot be exchanged, transferred, resold, or redeemed for cash unless required by law.\n14. Redemption of the GV/GC requires internet access and acceptance of the Nintendo Account User Agreement. Please review the User Agreement at support.nintendo.com before redemption.\n15. Compatible accessories and games may be required to use certain downloaded content and are sold separately.\n16. Nintendo/GyFTR is not responsible if the GV/GC is lost, stolen, or used without permission. The GV/GC balance will not be replaced by Nintendo or the retailer in such cases.\n17. The maximum unused balance that may be stored on a single Nintendo Account is subject to limits set by Nintendo, and the GV/GC may, as a result, be temporarily unredeemable.\n18. The GV/GC CANNOT be revalidated once cancelled under any circumstances.\n19. Nintendo/GyFTR reserves the right to withdraw, modify, cancel, or change the offer at any point without prior notice and at its sole discretion.\n20. Any dispute related to the GV/GC should be referred to the issuing company, and the decision of the issuing company shall be final.\n21. For any queries/issues related to the GV/GC, raise a request at www.gvhelpdesk.com.",
+    "important_instructions_raw": "TERMS & CONDITIONS\nIMPORTANT INSTRUCTIONS\nHOW TO USE\nNintendo eShop Voucher Important Instructions\nGift Vouchers CAN only be used on https://ec.nintendo.com/redeem and the Nintendo Switch Console.\nGift Vouchers CAN be used to buy games and digital content.\nGift Vouchers CANNOT be used outside Nintendo eShop.\nGift Vouchers CAN be used during Nintendo sale.\nGift Vouchers CANNOT be clubbed with existing offers.\nGift Voucher CAN be used multiple times once added to the Nintendo Account.\nMultiple Gift Vouchers CAN be combined & added to the Nintendo Account.",
+    "status": "active",
     "notes": "",
-    "last_scraped": null
+    "last_scraped": "2026-08-05"
   },
   "moba-legends-5v5": {
     "brand_name": "Moba Legends 5v5",
@@ -15344,19 +15400,23 @@
     "best_payment_method": "UPI",
     "best_discount_pct": 7,
     "stack_limit": null,
-    "stack_limit_confidence": "unknown",
+    "stack_limit_confidence": "unlimited_stated",
     "value_cap": null,
     "value_cap_period": null,
-    "purchase_cap_per_txn": null,
+    "purchase_cap_per_txn": 20300,
     "can_club_with_offers": null,
     "one_time_use": false,
     "redemption_restrictions": [],
-    "how_to_redeem_steps": null,
-    "full_terms_and_conditions": null,
-    "important_instructions_raw": null,
-    "status": "not_scraped",
+    "how_to_redeem_steps": [
+      "Visit https://www.redeemcodenow.com, enter your Gift Voucher code and click on ‘Redeem’.",
+      "Fill your account details - User ID, Zone ID, and email ID then Click on ‘Claim Item’.",
+      "Once confirmed, you'll see the ‘Item Claimed Successfully’ screen. Your Gaming Credits will be credited to your account."
+    ],
+    "full_terms_and_conditions": "TERMS & CONDITIONS\nIMPORTANT INSTRUCTIONS\nHOW TO USE\nMoba Legends 5v5 Terms & Conditions\n1. This is a Moba Legends Gift Voucher (GV)/Gift Card (GC) and can be redeemed only on the website at https://www.redeemcodenow.com.\n2. The person who has the GV/GC is deemed to be the beneficiary.\n3. To redeem, the beneficiary must enter their valid User ID and Zone ID. The GV/GC is region-locked and may only be redeemed in the region for which it was issued.\n4. The GV/GC can only be used to obtain in-game currency (diamonds) in Mobile Legends and cannot be used for any other product or service.\n5. The GV/GC can be used during sale periods.\n6. The GV/GC cannot be clubbed with any existing offers.\n7. The GV/GC balance will be added to Moba Legends Account and can be used for multiple transactions until the balance is exhausted.\n8. Multiple GV/GCs can be added to a single Moba Legends Account.\n9. The GV/GC is valid for one-time use only. No credit note will be issued for any unused balance. Once redeemed, the diamonds credited to the account do not expire.\n10. The GV/GC is non-refundable, non-transferable, non-exchangeable, and cannot be redeemed for cash or credit.\n11. Moba Legends/GyFTR is not responsible if the GV/GC is lost, stolen, or used without permission.\n12. If GV/GC gets blocked on account of a technical issue, it will be enabled in 72 hours. In case of transaction failures after GV/GC is applied, the amount would be automatically refunded to the same cards within 48 hours.\n13. The GV/GC CANNOT be revalidated once expired or cancelled under any circumstances.\n14. Moba Legends/GyFTR reserves the right to withdraw, modify, cancel, or change the offer at any point without prior notice and at its sole discretion.\n15. Any dispute should be referred to the company from which the GV/GC has been received, and the company's decision shall be final.\n16. For any queries/issues related to GV/GC, raise a request at www.gvhelpdesk.com.",
+    "important_instructions_raw": "TERMS & CONDITIONS\nIMPORTANT INSTRUCTIONS\nHOW TO USE\nMoba Legends 5v5 Important Instructions\nGift Vouchers CAN only be used on https://www.redeemcodenow.com.\nGift Vouchers CAN only be used to obtain in-game currency.\nGift Vouchers CAN be used during the sale.\nGift Vouchers CANNOT be clubbed with existing offers.\nGift Voucher CAN be used multiple times once added to the Moba Legends Account.\nMultiple Gift Vouchers CAN be combined & added to the Moba Legends Account.",
+    "status": "active",
     "notes": "",
-    "last_scraped": null
+    "last_scraped": "2026-08-05"
   },
   "snitch": {
     "brand_name": "Snitch",
@@ -15382,19 +15442,23 @@
     "best_payment_method": "UPI",
     "best_discount_pct": 7,
     "stack_limit": null,
-    "stack_limit_confidence": "unknown",
+    "stack_limit_confidence": "unlimited_stated",
     "value_cap": null,
     "value_cap_period": null,
-    "purchase_cap_per_txn": null,
+    "purchase_cap_per_txn": 127500,
     "can_club_with_offers": null,
     "one_time_use": false,
     "redemption_restrictions": [],
-    "how_to_redeem_steps": null,
-    "full_terms_and_conditions": null,
-    "important_instructions_raw": null,
-    "status": "not_scraped",
+    "how_to_redeem_steps": [
+      "Browse the Snitch app, pick your favourites, and tap ‘Add to Bag’.",
+      "Tap on ‘View Coupons and Gift Cards’. And click on’Have a Gift Card? Add to Wallet’",
+      "Now, enter your Gift Card Number and PIN, then tap ‘Redeem’. Once your Gift Card value is added to your Snitch Wallet, it’s ready to use."
+    ],
+    "full_terms_and_conditions": "TERMS & CONDITIONS\nIMPORTANT INSTRUCTIONS\nHOW TO USE\nSTORE LOCATOR\nSnitch Terms & Conditions\n1.This is a Snitch GV (Gift Voucher)/GC (Gift Card) and would be accepted at the listed Snitch outlets, Snitch website at snitch.com, and app.\n2. This is a one-time use GV/GC.\n3. GV/GC balance CAN be added to the Snitch wallet using the redemption link: www.snitch.com/gift-card/redeem by entering the 16-digit Gift Card code and 4-digit PIN; once added, the balance CAN be used at Snitch stores, app, and website.\n4. The holder of the GV/GC is deemed to be the beneficiary.\n5. Multiple GV/GCs can be used for one bill.\n6. GV/GC CAN be clubbed with other offers on the website, app, and stores.\n7. No refund/credit note shall be issued for unused parts of the GV/GC.\n8. The GV/GC is non-refundable, may not be exchanged, transferred, or resold, and may not be redeemed for cash.\n9. Snitch GV/GC CANNOT be revalidated once expired or canceled under any circumstances.\n10. The GV/GC is valid for use during sales.\n11. The GV/GC can be used for all purchases of products at the Snitch website, app, and stores.\n12. Any dispute related to the GV/GC should be referred to the issuing company, and the decision of the issuing company shall be final.\n13. Snitch makes full efforts to accept GV/GC, but on account of any technical/administrative reasons, an outlet may refuse to accept the same.\n14. Snitch/GyFTR is not responsible if the GV/GC is lost, stolen, or used without permission.\n15. If GV/GC gets blocked on account of a technical issue, it will be enabled in 72 hours.\n16. Snitch/GyFTR reserves the right to withdraw, modify, cancel, or change the offer at any point without prior notice and at its sole discretion.\n17. For any queries/issues related to GV/GC, raise a request at www.gvhelpdesk.com.",
+    "important_instructions_raw": "TERMS & CONDITIONS\nIMPORTANT INSTRUCTIONS\nHOW TO USE\nSTORE LOCATOR\nSnitch Important Instructions\nGift Vouchers CAN be used on the Snitch website, app, and outlets.\nGift Vouchers CAN be added to Snitch wallet only via redemption link.\nGift Vouchers CAN be used to buy discounted products.\nGift Voucher CAN be used multiple times once added to the Snitch wallet.\nMultiple Gift Vouchers CAN be used for one bill.",
+    "status": "active",
     "notes": "",
-    "last_scraped": null
+    "last_scraped": "2026-08-05"
   },
   "whats-up-wellness": {
     "brand_name": "What's Up Wellness",
@@ -15419,19 +15483,23 @@
     "best_payment_method": "UPI",
     "best_discount_pct": 15,
     "stack_limit": null,
-    "stack_limit_confidence": "unknown",
+    "stack_limit_confidence": "unlimited_stated",
     "value_cap": null,
     "value_cap_period": null,
-    "purchase_cap_per_txn": null,
+    "purchase_cap_per_txn": 62500,
     "can_club_with_offers": null,
     "one_time_use": false,
     "redemption_restrictions": [],
-    "how_to_redeem_steps": null,
-    "full_terms_and_conditions": null,
-    "important_instructions_raw": null,
-    "status": "not_scraped",
+    "how_to_redeem_steps": [
+      "Visit www.whatsupwellness.in, open the menu, click Login, enter your mobile number, and verify with OTP.",
+      "Browse products, select the item you want, and click Add to Cart.",
+      "At checkout, choose “Add Balance to your GyFTR e-Pay & Use”, enter the voucher code, click Add, then Apply to redeem the voucher balance."
+    ],
+    "full_terms_and_conditions": "TERMS & CONDITIONS\nIMPORTANT INSTRUCTIONS\nHOW TO USE\nWhat's Up Wellness Terms & Conditions\n1. This is a What's Up Wellness GV (Gift Voucher)/e-Pay that will be accepted on the What's Up Wellness website at https://www.whatsupwellness.in/.\n2. The person who has the GV/e-Pay is deemed to be the beneficiary.\n3. It cannot be cancelled/blocked once issued under any circumstances.\n4. The GV/e-Pay can be used over and above any discounts offered by the brand on its website. However, only one code can be redeemed, either a Gift Voucher or a promo code, along with a Brand offer.\n5. The GV/e-Pay can be used for all purchases of products and services at the What's Up Wellness website.\n6. The GV/e-Pay can be converted into e-Pay as per the holder's convenience.\n7. The GV/e-Pay balance cannot be transferred to another e-Pay account, exchanged for cash, or converted into any other form of currency.\n8. The e-Pay balance must be linked to the registered mobile number.\n9. After conversion into e-Pay balance, this GV is valid for partial redemption. The balance would remain in the e-Pay balance and can be used for multiple transactions within the validity period.\n10. Only valid GV/e-Pay at the sole discretion of What's Up Wellness shall be accepted for redemption.\n11. The GV/e-Pay CANNOT be revalidated once expired or cancelled under any circumstances.\n12. What's Up Wellness /GyFTR is not responsible if the GV/e-Pay is lost, stolen, or used without permission.\n13. If GV/e-Pay gets blocked on account of a technical issue, it will be enabled in 72 hours.\n14. Any dispute should be referred to the company from which the GV/e-Pay has been received, and the company's decision shall be final.\n15. What's Up Wellness /GyFTR reserves the right to withdraw, modify, cancel, or change the offer at any point without prior notice and at its sole discretion.\n16. What's Up Wellness, GyFTR, or its affiliates shall not be responsible if the beneficiary shares the GV code number, pin, or account credentials, resulting in unauthorized use of the GV/e-Pay balance.\n17. For any queries or issues related to GV/e-Pay, raise a request at www.gvhelpdesk.com.",
+    "important_instructions_raw": "TERMS & CONDITIONS\nIMPORTANT INSTRUCTIONS\nHOW TO USE\nWhat's Up Wellness Important Instructions\nGift Vouchers/e-Pay CAN be used only on What's Up Wellness website.\nGift Vouchers/e-Pay CAN be used to buy discounted products.\nGift Voucher CAN be used multiple times once converted to e-Pay balance.\nMultiple Gift Vouchers CAN be combined & added to e-Pay balance.",
+    "status": "active",
     "notes": "",
-    "last_scraped": null
+    "last_scraped": "2026-08-05"
   },
   "hoora": {
     "brand_name": "Hoora",
@@ -15455,20 +15523,24 @@
     },
     "best_payment_method": "UPI",
     "best_discount_pct": 16,
-    "stack_limit": null,
-    "stack_limit_confidence": "unknown",
+    "stack_limit": 1,
+    "stack_limit_confidence": "text_extracted",
     "value_cap": null,
     "value_cap_period": null,
     "purchase_cap_per_txn": null,
     "can_club_with_offers": null,
     "one_time_use": false,
     "redemption_restrictions": [],
-    "how_to_redeem_steps": null,
-    "full_terms_and_conditions": null,
-    "important_instructions_raw": null,
-    "status": "not_scraped",
+    "how_to_redeem_steps": [
+      "Open the Hoora app, select your vehicle type, brand, and model. Then choose your preferred service, date, and time slot, and proceed to checkout.",
+      "Tap Apply Coupons/Gift Vouchers, enter your Hoora Voucher Code, and tap Apply. Review the payment summary, then click on Pay Now.",
+      "Once the voucher is applied, review the payment summary and tap Pay Now to complete the booking."
+    ],
+    "full_terms_and_conditions": "TERMS & CONDITIONS\nIMPORTANT INSTRUCTIONS\nHOW TO USE\nHoora Terms & Conditions\n1. This is a Hoora GV/GC (Gift Voucher/Gift Card) and can be redeemed only on the Hoora App.\n2. The person who has the GV/GC is deemed to be the beneficiary.\n3. The GV/GC applies only to eligible Hoora Car Wash services.\n4. The GV/GC cannot be used on services other than eligible Hoora Car Wash services.\n5. Multiple GV/GCs cannot be redeemed in a single booking/order.\n6. The GV/GC is valid for one-time use only. Any unused balance will not be carried forward, credited, or issued as a credit note.\n7. The GV/GC can be clubbed with any one of the existing offers, and it’s valid during sale periods.\n8. The GV/GC is non-refundable, non-transferable, non-exchangeable, and cannot be redeemed for cash or credit.\n9. Hoora/GyFTR is not responsible if the GV/GC is lost, stolen, or used without permission.\n10. If GV/GC gets blocked on account of a technical issue, it will be enabled in 72 hours. In case of transaction failures after GV/GC is applied, the amount would be automatically refunded to the same cards within 48 hours.\n11. The GV/GC CANNOT be revalidated once expired or cancelled under any circumstances.\n12. Hoora/GyFTR reserves the right to withdraw, modify, cancel, or change the offer at any point without prior notice and at its sole discretion.\n13. For any queries/issues related to GV/GC, raise a request at www.gvhelpdesk.com.",
+    "important_instructions_raw": "TERMS & CONDITIONS\nIMPORTANT INSTRUCTIONS\nHOW TO USE\nHoora Important Instructions\nGift Vouchers CAN be used on the Hoora App.\nGift Vouchers CAN be used only on eligible Hoora Car Wash services.\nGift Vouchers CANNOT be used on services other than eligible Hoora Car Wash services.\nGift Vouchers CANNOT be used multiple times.\nGift Vouchers CAN be clubbed with any one existing offer.\nMultiple Gift Vouchers CANNOT be used in a single booking.",
+    "status": "active",
     "notes": "",
-    "last_scraped": null
+    "last_scraped": "2026-08-05"
   },
   "rainbow-six-mobile": {
     "brand_name": "Rainbow Six Mobile",
@@ -15492,19 +15564,23 @@
     "best_payment_method": "UPI",
     "best_discount_pct": 11,
     "stack_limit": null,
-    "stack_limit_confidence": "unknown",
+    "stack_limit_confidence": "unlimited_stated",
     "value_cap": null,
     "value_cap_period": null,
-    "purchase_cap_per_txn": null,
+    "purchase_cap_per_txn": 21920,
     "can_club_with_offers": null,
     "one_time_use": false,
     "redemption_restrictions": [],
-    "how_to_redeem_steps": null,
-    "full_terms_and_conditions": null,
-    "important_instructions_raw": null,
-    "status": "not_scraped",
+    "how_to_redeem_steps": [
+      "Visit https://www.redeemnow.com or Rainbow Six app, enter your Voucher Code, and click on ‘Redeem’.",
+      "Now, fill your Gamer Username and Email Address, and click Redeem.",
+      "Gold Credited! Your Gaming Credits will be instantly received and added to your Rainbow Six account."
+    ],
+    "full_terms_and_conditions": "TERMS & CONDITIONS\nIMPORTANT INSTRUCTIONS\nHOW TO USE\nRainbow Six Mobile Terms & Conditions\n1. This is a Rainbow Six Mobile Gift Voucher (GV)/Gift Card (GC) and can be redeemed only on the  Rainbow Six at https://www.redeemnow.com or the Rainbow Six app.\n2. The person who has the GV/GC is deemed to be the beneficiary.\n3. The GV/GC can only be used for Rainbow Six in-game currency, items, or rewards, and cannot be used for any other product or service.\n4. The GV/GC can be used during sale periods.\n5. The GV/GC cannot be clubbed with any existing offers.\n6. The GV/GC balance will be added to Rainbow Six Account and can be used for multiple transactions until the balance is exhausted.\n7. Multiple GV/GCs can be added to a single Rainbow Six Account.\n8. The GV/GC is valid for one-time use only. Any unused balance will not be credited or carried forward.\n9. The GV/GC is non-refundable, non-transferable, non-exchangeable, and cannot be redeemed for cash or credit.\n10. Rainbow Six/GyFTR is not responsible if the GV/GC is lost, stolen, or used without permission.\n11. If GV/GC gets blocked on account of a technical issue, it will be enabled in 72 hours. In case of transaction failures after GV/GC is applied, the amount would be automatically refunded to the same cards within 48 hours.\n12. The GV/GC CANNOT be revalidated once expired or cancelled under any circumstances.\n13. Once the GV/GC is converted into in-game currency, it does not expire.\n14. Rainbow Six/GyFTR reserves the right to withdraw, modify, cancel, or change the offer at any point without prior notice and at its sole discretion.\n15. Any dispute should be referred to the company from which the GV/GC has been received, and the company's decision shall be final.\n16. The GV/GC cannot be redeemed through offline channels or outside the supported region/platform.\n17. For any queries/issues related to GV/GC, raise a request at www.gvhelpdesk.com.",
+    "important_instructions_raw": "TERMS & CONDITIONS\nIMPORTANT INSTRUCTIONS\nHOW TO USE\nRainbow Six Mobile Important Instructions\nGift Vouchers CAN only be used on https://www.redeemnow.com or the Rainbow Six app.\nGift Vouchers CAN only be used to obtain in-game currency, items, or rewards.\nGift Vouchers CAN be used during the sale.\nGift Vouchers CANNOT be clubbed with existing offers.\nGift Voucher CAN be used multiple times once added to the Rainbow Six Account.\nMultiple Gift Vouchers CAN be combined & added to the Rainbow Six Account.",
+    "status": "active",
     "notes": "",
-    "last_scraped": null
+    "last_scraped": "2026-08-05"
   },
   "exitlag": {
     "brand_name": "ExitLag",
@@ -15533,12 +15609,16 @@
     "can_club_with_offers": null,
     "one_time_use": false,
     "redemption_restrictions": [],
-    "how_to_redeem_steps": null,
-    "full_terms_and_conditions": null,
-    "important_instructions_raw": null,
-    "status": "not_scraped",
+    "how_to_redeem_steps": [
+      "Visit https://www.exitlag.com/ or ExitLag app & log in. Click on your profile name at the top, and select My Account from the dropdown.",
+      "Navigate to Prepaid Codes, Enter Your Prepaid Code (Gift Voucher) in the given field, and click Redeem.",
+      "Prepaid Code Redeemed Successfully! Your subscription plan will show as Active with your device coverage (Desktop & Mobile), along with expiration date details."
+    ],
+    "full_terms_and_conditions": "TERMS & CONDITIONS\nIMPORTANT INSTRUCTIONS\nHOW TO USE\nExitLag Terms & Conditions\n1. This is an ExitLag Gift Voucher (GV)/Gift Card (GC) and can be redeemed only on the ExitLag website at https://www.exitlag.com/ or app.\n2. The person who has the GV/GC is deemed to be the beneficiary.\n3. The GV/GC can only be used for ExitLag in-game currency, items, or rewards, and cannot be used for any other product or service.\n4. The GV/GC can be used during sale periods.\n5. The GV/GC cannot be clubbed with any existing offers.\n6. The GV/GC cannot be used multiple times.\n7. The GV/GC must not be used on an active subscription.\n8. The GV/GC is valid for one-time use only. Any unused balance will not be credited or carried forward.\n9. The GV/GC is non-refundable, non-transferable, non-exchangeable, and cannot be redeemed for cash or credit.\n10. ExitLag/GyFTR is not responsible if the GV/GC is lost, stolen, or used without permission.\n11. If GV/GC gets blocked on account of a technical issue, it will be enabled in 72 hours. In case of transaction failures after GV/GC is applied, the amount would be automatically refunded to the same cards within 48 hours.\n12. The GV/GC CANNOT be revalidated once expired or cancelled under any circumstances.\n14. ExitLag subscriptions are valid only for the subscription period purchased (Monthly, Quarterly, or Annual), commencing upon activation. No additional maintenance or inactivity fees are associated with the subscription.\n15. ExitLag/GyFTR reserves the right to withdraw, modify, cancel, or change the offer at any point without prior notice and at its sole discretion.\n16. Any dispute should be referred to the company from which the GV/GC has been received, and the company's decision shall be final.\n17. The GV/GC cannot be redeemed through offline channels or outside the supported region/platform.\n18. For any queries/issues related to GV/GC, raise a request at www.gvhelpdesk.com.",
+    "important_instructions_raw": "TERMS & CONDITIONS\nIMPORTANT INSTRUCTIONS\nHOW TO USE\nExitLag Important Instructions\nGift Vouchers CAN only be used on the ExitLag website or app.\nGift Vouchers CAN only be used for ExitLag subscriptions.\nGift Vouchers CAN be used during the sale.\nGift Vouchers CANNOT be clubbed with existing offers.\nGift Voucher CANNOT be used multiple times.",
+    "status": "active",
     "notes": "",
-    "last_scraped": null
+    "last_scraped": "2026-08-05"
   },
   "cinepolis": {
     "brand_name": "Cinepolis",
@@ -15561,19 +15641,23 @@
     "best_payment_method": "UPI",
     "best_discount_pct": 14,
     "stack_limit": null,
-    "stack_limit_confidence": "unknown",
+    "stack_limit_confidence": "unlimited_stated",
     "value_cap": null,
     "value_cap_period": null,
-    "purchase_cap_per_txn": null,
+    "purchase_cap_per_txn": 35000,
     "can_club_with_offers": null,
     "one_time_use": false,
     "redemption_restrictions": [],
-    "how_to_redeem_steps": null,
-    "full_terms_and_conditions": null,
-    "important_instructions_raw": null,
-    "status": "not_scraped",
+    "how_to_redeem_steps": [
+      "Visit cinepolisindia.com and select your city, cinema, movie, date, and show time. Then, choose your preferred seats.",
+      "Review the booking details and click Proceed to Pay.",
+      "On the payment page, select the GYFTR Voucher section to pay using your Gift Voucher/e-Pay."
+    ],
+    "full_terms_and_conditions": "TERMS & CONDITIONS\nIMPORTANT INSTRUCTIONS\nHOW TO USE\nCinepolis Terms & Conditions\n1. This is a Cinepolis GV (Gift Voucher)/e-Pay and will be accepted on the website at cinepolisindia.com and on the Cinepolis app.\n2. The person who has the GV/e-Pay is deemed to be the beneficiary.\n3. The GV/e-Pay cannot be used offline at the box office.\n4. The GV/e-Pay can be clubbed with existing offers.\n5. The GV can be converted into e-Pay as per the convenience of the holder.\n6. The GV/e-Pay balance cannot be transferred to another e-Pay account, exchanged for cash, or converted into any other form of currency.\n7. The e-Pay balance must be linked to the registered mobile number.\n8. After conversion into e-Pay balance, this GV is valid for partial redemption. The balance would remain in the e-Pay balance and can be used for multiple transactions within the validity period. Multiple GVs can be combined and added to the e-Pay balance.\n9. The GV/e-Pay can be used for all purchases of products and services on the Cinepolis website and app.\n10. Only valid GV/e-Pay at the sole discretion of Cinepolis shall be accepted for redemption.\n11. The GV/e-Pay CANNOT be revalidated once expired or cancelled under any circumstances.\n12. Cinepolis/GyFTR is not responsible if the GV/e-Pay is lost, stolen, or used without permission.\n13. If the GV/e-Pay gets blocked on account of a technical issue, it will be enabled within 72 hours.\n14. Any dispute should be referred to the company from which the GV/e-Pay has been received, and the company's decision shall be final.\n15. Cinepolis/GyFTR reserves the right to withdraw, modify, cancel, or change the offer at any point without prior notice and at its sole discretion.\n16. For any queries or issues related to the GV/e-Pay, kindly raise a request at www.gvhelpdesk.com.",
+    "important_instructions_raw": "TERMS & CONDITIONS\nIMPORTANT INSTRUCTIONS\nHOW TO USE\nCinepolis Important Instructions\nGift Vouchers/e-Pay CAN be used on the Cinepolis website and app.\nGift Vouchers/e-Pay CANNOT be used offline at the box office.\nGift Vouchers/e-Pay CAN be clubbed with existing offers.\nGift Voucher CAN be used multiple times once converted to e-Pay balance.\nMultiple Gift Vouchers CAN be combined & added to e-Pay balance.",
+    "status": "active",
     "notes": "",
-    "last_scraped": null
+    "last_scraped": "2026-08-05"
   },
   "air-india-domestic-gift-card": {
     "brand_name": "Air India Domestic Gift Card",
@@ -15597,20 +15681,24 @@
     },
     "best_payment_method": "UPI",
     "best_discount_pct": 9.5,
-    "stack_limit": null,
-    "stack_limit_confidence": "unknown",
+    "stack_limit": 3,
+    "stack_limit_confidence": "text_extracted",
     "value_cap": null,
     "value_cap_period": null,
     "purchase_cap_per_txn": null,
     "can_club_with_offers": null,
     "one_time_use": false,
     "redemption_restrictions": [],
-    "how_to_redeem_steps": null,
-    "full_terms_and_conditions": null,
-    "important_instructions_raw": null,
-    "status": "not_scraped",
+    "how_to_redeem_steps": [
+      "Select your preferred location.",
+      "Choose your flight preference.",
+      "Log in to your Air India Wallet account, enter your gift card number and PIN, click “Add,” and the card value will instantly reflect in your Wallet balance."
+    ],
+    "full_terms_and_conditions": "TERMS & CONDITIONS\nIMPORTANT INSTRUCTIONS\nHOW TO USE\nAir India Domestic Gift Card Terms & Conditions\n1. This is an Air India Domestic GV/GC (Gift Voucher/Gift Card) issued by Air India Limited, and it will be accepted only online on the mobile app and on the website at www.airindia.com.\n2. The holder of the GV/GC is deemed to be the beneficiary.\n3. The GV/GC is valid only for Air India flights and ancillary services including seat selection and baggage, and cannot be used for any third-party services including travel insurance or partner offerings.\n4. The GV/GC is not applicable on Air India Express flights (AI 9XXX series).\n5. The GV/GC is not applicable for bookings to, from, or via Srinagar (SXR) and Leh (IXL).\n6. The GV/GC cannot be used for group bookings.\n7. The GV/GC cannot be used for flight upgrades.\n8. The GV/GC cannot be redeemed via offline channels including call centres, airport ticket counters, or customer service centres.\n9. The GV/GC can be clubbed with existing offers on the Air India website and app.\n10. A maximum of 3 GV/GCs can be used in one transaction.\n11. The GV/GC is valid for partial redemption. The balance would remain on the GV/GC and can be used for multiple transactions within the validity period.\n12. The maximum value of a single GV/GC purchase is INR 2,00,000.\n13. The GV/GC balance cannot be transferred, exchanged for cash, or converted into any other form of currency.\n14. Only valid Air India GV/GC at the sole discretion of Air India shall be accepted for redemption.\n15. The GV/GC CANNOT be revalidated once expired or cancelled under any circumstances.\n16. Air India/GyFTR is not responsible if the GV/GC is lost, stolen, or used without permission.\n17. Air India/GyFTR is not responsible if the GV/GC is redeemed on account of the beneficiary sharing the GV/GC number or account credentials with another person.\n18. If the GV/GC gets blocked on account of a technical issue, it will be enabled in 72 hours.\n19. Any dispute should be referred to the company from which the Air India GV/GC has been received, and the company's decision shall be final.\n20. Air India/GyFTR reserves the right to withdraw, modify, cancel, or change the offer at any point without prior notice and at its sole discretion.\n21. For any queries or issues related to GV/GC, raise a request at www.gvhelpdesk.com.",
+    "important_instructions_raw": "TERMS & CONDITIONS\nIMPORTANT INSTRUCTIONS\nHOW TO USE\nAir India Domestic Gift Card Important Instructions\nGift Vouchers CAN be used on the Air India website and app.\nGift Vouchers CAN only be used for Air India flights and ancillary services.\nGift Vouchers CANNOT be used on Air India Express flights.\nGift Vouchers CANNOT be used for bookings to, from, or via Srinagar and Leh.\nGift Vouchers CANNOT be used for group bookings or flight upgrades.\nGift Vouchers CAN be clubbed with existing offers.\nUp to 3 Gift Vouchers CAN be used in one bill when the entire order value is paid using Gift Vouchers.\nUp to 2 Gift Vouchers CAN be used in one bill along with another payment method.\nGift Voucher CAN be used multiple times.",
+    "status": "active",
     "notes": "",
-    "last_scraped": null
+    "last_scraped": "2026-08-05"
   },
   "microsoft-office": {
     "brand_name": "Microsoft Office",
@@ -15632,20 +15720,24 @@
     },
     "best_payment_method": "UPI",
     "best_discount_pct": 0,
-    "stack_limit": null,
-    "stack_limit_confidence": "unknown",
+    "stack_limit": 1,
+    "stack_limit_confidence": "text_extracted",
     "value_cap": null,
     "value_cap_period": null,
     "purchase_cap_per_txn": null,
     "can_club_with_offers": null,
     "one_time_use": false,
     "redemption_restrictions": [],
-    "how_to_redeem_steps": null,
-    "full_terms_and_conditions": null,
-    "important_instructions_raw": null,
-    "status": "not_scraped",
+    "how_to_redeem_steps": [
+      "Visit Office.com/setup and sign in with your Microsoft account. If you do not have one, create a new account and save your login details.",
+      "Enter the 25-character product key received on your email/voucher and proceed to review your Microsoft 365 subscription.",
+      "Confirm your order, download OfficeSetup.exe, and click Install Office to complete the installation."
+    ],
+    "full_terms_and_conditions": "TERMS & CONDITIONS\nIMPORTANT INSTRUCTIONS\nHOW TO USE\nMicrosoft Office Terms & Conditions\n1. This is a Microsoft 365 subscription GV/GC (Gift Voucher/Gift Card) that will be accepted online at Office.com/setup.\n2. For detailed terms and conditions, visit https://www.microsoft.com/cardterms.\n3. The person with the GV/GC is deemed the beneficiary.\n4. This is a one-time use GV/GC with an expiration date.\n5. Only one GV/GC can be used for one subscription.\n6. The GV/GC cannot be clubbed with any existing offers.\n7. App availability varies by device/language. Features vary by platform.\n8. AI usage limits apply. Learn more at https://go.microsoft.com/fwlink/?linkid=2280151.\n9. Copilot in Excel requires AutoSave to be enabled, meaning the file must be saved to OneDrive. It does not function with unsaved files.\n10. Copilot features in Outlook apply to accounts with @outlook.com, @hotmail.com, @live.com, or @msn.com email addresses, and are available in Outlook.com, Outlook built into Windows, Outlook on Mac, and Outlook iOS and Android apps.\n11. Microsoft 365 Personal or Family subscription required. AI features are only available to the subscription owner and cannot be shared. Usage limits apply.\n12. The GV/GC is non-refundable, non-transferable, may not be exchanged or resold, and may not be redeemed for cash.\n13. The GV/GC CANNOT be revalidated once expired or cancelled under any circumstances.\n14. Microsoft/GyFTR is not responsible for lost, damaged, or stolen GV/GCs.\n15. For any concerns or issues related to the GV/GC, raise a request at www.gvhelpdesk.com.",
+    "important_instructions_raw": "TERMS & CONDITIONS\nIMPORTANT INSTRUCTIONS\nHOW TO USE\nMicrosoft Office Important Instructions\nGift Vouchers CAN only be used on https://redeem.microsoft.com.\nGift Vouchers CANNOT be clubbed with existing offers.\nOnly one Gift Voucher CAN be used per subscription.\nGift Voucher CANNOT be used multiple times.",
+    "status": "active",
     "notes": "",
-    "last_scraped": null
+    "last_scraped": "2026-08-05"
   },
   "giva-gold-jewellery": {
     "brand_name": "Giva-Gold Jewellery",
@@ -15793,19 +15885,23 @@
     "best_payment_method": "UPI",
     "best_discount_pct": 10,
     "stack_limit": null,
-    "stack_limit_confidence": "unknown",
+    "stack_limit_confidence": "unlimited_stated",
     "value_cap": null,
     "value_cap_period": null,
-    "purchase_cap_per_txn": null,
+    "purchase_cap_per_txn": 143750,
     "can_club_with_offers": null,
     "one_time_use": false,
     "redemption_restrictions": [],
-    "how_to_redeem_steps": null,
-    "full_terms_and_conditions": null,
-    "important_instructions_raw": null,
-    "status": "not_scraped",
+    "how_to_redeem_steps": [
+      "Login to swag.gg/bgmi and enter your BGMI User ID.",
+      "Under “Have a BGMI Gift Voucher Code?”, enter your Voucher Code and 6-digit PIN.",
+      "Once the Gift Voucher is applied, click on Redeem Now to complete the redemption."
+    ],
+    "full_terms_and_conditions": "TERMS & CONDITIONS\nIMPORTANT INSTRUCTIONS\nHOW TO USE\nBGMI UC Official Voucher Terms & Conditions\n1. This is a BGMI UC Official Voucher GV/GC (Gift Voucher/Gift Card) that will be accepted only online at https://www.swag.gg/bgmi.\n2. The person having the GV/GC is deemed to be the beneficiary.\n3. Upon redemption, the GV/GC will be converted into Unknown Cash (UC) and credited directly to the beneficiary's BGMI (Battlegrounds Mobile India) account.\n4. This is a one-time use GV/GC. The remaining balance in the GV/GC will be forfeited once the card is redeemed.\n5. The GV/GC can only be used to purchase Unknown Cash (UC) in BGMI and cannot be used for any other in-game or third-party services.\n6. The GV/GC cannot be clubbed with any existing offers or promotions.\n7. A valid BGMI account is required to redeem the GV/GC. Upon redemption, the UC will be permanently associated with the BGMI account used and cannot be transferred to another account.\n8. GV/GCs are non-refundable, non-transferable, may not be exchanged or resold, and may not be redeemed for cash.\n9. The GV/GC CANNOT be revalidated once expired or cancelled under any circumstances.\n10. If the GV/GC gets blocked on account of a technical issue, it will be reactivated within 72 hours.\n11. White Martech Solutions/GyFTR is not responsible if the GV/GC is lost, stolen, or used without permission.\n12. In case of any suspicion of misuse or abuse of the offer, the company reserves the right to deny the GV/GC without providing any explanation.\n13. White Martech Solutions/GyFTR reserves the right to change, cancel, or update any of the terms and conditions of this offer at any time without prior notice.\n14. Any dispute related to the GV/GC should be referred to the issuing company, and the decision of the issuing company shall be final.\n15. For any queries or issues related to the GV/GC, raise a request at www.gvhelpdesk.com.",
+    "important_instructions_raw": "TERMS & CONDITIONS\nIMPORTANT INSTRUCTIONS\nHOW TO USE\nBGMI UC Official Voucher Important Instructions\nGift Vouchers CAN only be used on swag.gg/bgmi.\nGift Vouchers CAN only be used to buy BGMI Unknown Cash (UC).\nGift Vouchers CANNOT be clubbed with existing offers.\nGift Voucher CAN be used multiple times once added to BGMI UC balance.\nMultiple Gift Vouchers CAN be combined & added to BGMI UC balance.",
+    "status": "active",
     "notes": "",
-    "last_scraped": null
+    "last_scraped": "2026-08-05"
   },
   "firstcry": {
     "brand_name": "FirstCry",
@@ -15829,20 +15925,25 @@
     },
     "best_payment_method": "UPI",
     "best_discount_pct": 5,
-    "stack_limit": null,
-    "stack_limit_confidence": "unknown",
+    "stack_limit": 1,
+    "stack_limit_confidence": "text_extracted",
     "value_cap": null,
     "value_cap_period": null,
     "purchase_cap_per_txn": null,
     "can_club_with_offers": null,
     "one_time_use": false,
     "redemption_restrictions": [],
-    "how_to_redeem_steps": null,
-    "full_terms_and_conditions": null,
-    "important_instructions_raw": null,
-    "status": "not_scraped",
+    "how_to_redeem_steps": [
+      "Log in to the FirstCry app or website and choose the products you wish to purchase.",
+      "Add the products to your cart and proceed to checkout.",
+      "Select “Have a Gift Certificate?”, enter the voucher code and click “Apply.”",
+      "For store redemption, use the outlet locator to find the nearest store accepting the voucher. Select your product and share your Gift Voucher with the cashier at checkout. Pay any remaining balance with cash or card, if needed."
+    ],
+    "full_terms_and_conditions": "TERMS & CONDITIONS\nIMPORTANT INSTRUCTIONS\nHOW TO USE\nSTORE LOCATOR\nFirstCry Terms & Conditions\n1. This is a FirstCry GV/GC (Gift Voucher/Gift Card) and will be accepted at the listed FirstCry retail outlets, on the FirstCry website at www.firstcry.com, and on the FirstCry mobile app.\n2. The person having the GV/GC is deemed to be the beneficiary.\n3. The GV/GC can be clubbed with existing offers.\n4. The GV/GC can be used during EOSS or sale.\n5. The GV/GC is valid for partial redemption and can be used multiple times till the balance exists in the GV/GC.\n6. Only one GV/GC can be used per bill.\n7. In case the value of the merchandise exceeds the value of the GV/GC, the differential amount shall be paid by the customer.\n8. The GV/GC is not a legal tender or replacement for a debit/credit card.\n9. GV/GCs are non-refundable, non-transferable, may not be exchanged or resold, and may not be redeemed for cash.\n10. The GV/GC CANNOT be revalidated once expired or cancelled under any circumstances.\n11. If the GV/GC gets blocked on account of a technical issue, it will be reactivated within 72 hours.\n12. Only valid FirstCry GV/GC at the sole discretion of FirstCry shall be accepted for redemption.\n13. FirstCry/GyFTR is not responsible if the GV/GC is lost, stolen, or used without permission.\n14. In case of any suspicion of misuse or abuse of the offer, FirstCry reserves the right to deny the GV/GC without providing any explanation.\n15. Brainbees Solutions Limited/GyFTR reserves the right to change, cancel, or update any of the terms and conditions of this offer at any time without prior notice.\n16. Any dispute related to the GV/GC should be referred to the issuing company, and the decision of the issuing company shall be final.\n17. For any queries or issues related to the GV/GC, raise a request at www.gvhelpdesk.com.",
+    "important_instructions_raw": "TERMS & CONDITIONS\nIMPORTANT INSTRUCTIONS\nHOW TO USE\nSTORE LOCATOR\nFirstCry Important Instructions\nGift Vouchers CAN be used at Listed Outlets.\nGift Vouchers CAN also be used on the FirstCry website, and the FirstCry app.\nGift Vouchers CAN be used to buy discounted products.\nGift Vouchers CAN be used during EOSS or sale.\nOnly one Gift Voucher CAN be used per bill.\nGift Voucher CAN be used multiple times.",
+    "status": "active",
     "notes": "",
-    "last_scraped": null
+    "last_scraped": "2026-08-05"
   },
   "luzo": {
     "brand_name": "Luzo",
@@ -15869,19 +15970,23 @@
     "best_payment_method": "UPI",
     "best_discount_pct": 9,
     "stack_limit": null,
-    "stack_limit_confidence": "unknown",
+    "stack_limit_confidence": "unlimited_stated",
     "value_cap": null,
     "value_cap_period": null,
-    "purchase_cap_per_txn": null,
+    "purchase_cap_per_txn": 207500,
     "can_club_with_offers": null,
     "one_time_use": false,
     "redemption_restrictions": [],
-    "how_to_redeem_steps": null,
-    "full_terms_and_conditions": null,
-    "important_instructions_raw": null,
-    "status": "not_scraped",
+    "how_to_redeem_steps": [
+      "Download the LUZO app and sign up. Gift Voucher Redemption Link: https://luzo.app/giftcard/claim",
+      "Go to Account then click on Claim Gift Card, enter your Gift Card code, and tap Claim Gift Card to add the balance to your LUZO Wallet.",
+      "Book your appointment on the LUZO app. After your service, pay via LUZO and select Use Gift Card on the payment page to redeem your balance."
+    ],
+    "full_terms_and_conditions": "TERMS & CONDITIONS\nIMPORTANT INSTRUCTIONS\nHOW TO USE\nLuzo Terms & Conditions\n1. This is a Luzo GV/GC (Gift Voucher/Gift Card) issued by Salonsurf Ventures Pvt Ltd, and it will be accepted only on the Luzo app.\n2. The person having the GV/GC is deemed to be the beneficiary.\n3. To redeem the GV/GC, the beneficiary must download the Luzo app, sign up, and add the GV/GC balance to their Luzo wallet through the \"Claim Gift Card\" option in the account section.\n4. The GV/GC can be used for salon, spa, and clinic services booked through the Luzo app at partner outlets.\n5. The GV/GC can be clubbed with existing offers.\n6. The GV/GC can be used during a sale.\n7. Once added, the GV/GC balance is credited to the beneficiary's Luzo wallet and can be used across multiple transactions until the balance is exhausted.\n8. Multiple GV/GCs can be added to the Luzo wallet. There is no limit on the number of GV/GCs that can be added.\n9. To redeem the balance, the beneficiary must book an appointment via the Luzo app, receive confirmation, visit the salon/spa/clinic, and after service, select \"Use Gift Card\" on the payment page.\n10. If the purchase value exceeds the Luzo wallet balance, the remaining amount must be paid through another available payment mode.\n11. The GV/GC balance cannot be transferred, exchanged for cash, or converted into any other form of currency.\n12. GV/GCs are non-refundable, non-transferable, may not be exchanged or resold, and may not be redeemed for cash.\n13. The GV/GC CANNOT be revalidated once expired or cancelled under any circumstances.\n14. Salonsurf Ventures Pvt Ltd/GyFTR is not responsible for lost, damaged, or stolen GV/GCs.\n15. If the GV/GC gets blocked on account of a technical issue, it will be reactivated within 72 hours.\n16. Salonsurf Ventures Pvt Ltd/GyFTR reserves the right to change, cancel, or update any of the terms and conditions of this offer at any time without prior notice.\n17. Any dispute related to the GV/GC should be referred to Salonsurf Ventures Pvt Ltd, and the decision of the company shall be final.\n18. For any queries or issues related to the GV/GC, raise a request at www.gvhelpdesk.com.",
+    "important_instructions_raw": "TERMS & CONDITIONS\nIMPORTANT INSTRUCTIONS\nHOW TO USE\nLuzo Important Instructions\nGift Vouchers CAN only be used on the Luzo app\nGift Vouchers CAN be used for salon, spa, and clinic services\nGift Vouchers CAN be clubbed with existing offers\nGift Vouchers CAN be used during the sale\nGift Voucher CAN be used multiple times once added to Luzo wallet\nMultiple Gift Vouchers CAN be combined & added to Luzo wallet",
+    "status": "active",
     "notes": "",
-    "last_scraped": null
+    "last_scraped": "2026-08-05"
   },
   "health-and-glow": {
     "brand_name": "Health & Glow",
@@ -15906,19 +16011,23 @@
     "best_payment_method": "UPI",
     "best_discount_pct": 8,
     "stack_limit": null,
-    "stack_limit_confidence": "unknown",
+    "stack_limit_confidence": "unlimited_stated",
     "value_cap": null,
     "value_cap_period": null,
-    "purchase_cap_per_txn": null,
+    "purchase_cap_per_txn": 185000,
     "can_club_with_offers": null,
     "one_time_use": false,
     "redemption_restrictions": [],
-    "how_to_redeem_steps": null,
-    "full_terms_and_conditions": null,
-    "important_instructions_raw": null,
-    "status": "not_scraped",
+    "how_to_redeem_steps": [
+      "Share the registered mobile number with the cashier, once products are scanned for invoicing by the cashier. Cashier to inform the available Gift Voucher and its balance.",
+      "Customer to confirm the amount to be used for redemption and proceed further for balance payment, if any.",
+      "Cashier to proceed with invoicing."
+    ],
+    "full_terms_and_conditions": "TERMS & CONDITIONS\nIMPORTANT INSTRUCTIONS\nHOW TO USE\nSTORE LOCATOR\nHealth & Glow Terms & Conditions\n1. This is a Health & Glow GV (Gift Voucher)/e-Pay that will be accepted at the listed retail stores/outlets.\n2. The person who has the GV/e-Pay is deemed to be the beneficiary.\n3. The GV/e-Pay can be clubbed with the existing offers.\n4. The GV can be converted into e-Pay as per the convenience of the holder.\n5. The GV/e-Pay balance cannot be transferred to another e-Pay account, exchanged for cash, or converted into any other form of currency.\n6. The e-Pay balance must be linked to the registered mobile number.\n7. After conversion into e-Pay balance, this GV is valid for partial redemption. The balance would remain in the e-Pay balance and can be used for multiple transactions within the validity period.\n8. The GV/e-Pay can be used for all purchases of products and services at Health & Glow retail stores.\n9. Only valid Health & Glow GV/e-Pay at the sole discretion of Health & Glow shall be accepted for redemption.\n10. The GV/e-Pay CANNOT be revalidated once expired or cancelled under any circumstances.\n11. Health & Glow/GyFTR is not responsible if the GV/e-Pay is lost, stolen, or used without permission.\n12. If GV/e-Pay gets blocked on account of a technical issue, it will be enabled in 72 hours.\n13. Any dispute should be referred to the company from which the Health & Glow GV/e-Pay has been received, and the company's decision shall be final.\n14. Health & Glow/GyFTR reserves the right to withdraw, modify, cancel, or change the offer at any point without prior notice and at its sole discretion.\n15. For any queries or issues related to GV/e-Pay, raise a request at www.gvhelpdesk.com.",
+    "important_instructions_raw": "TERMS & CONDITIONS\nIMPORTANT INSTRUCTIONS\nHOW TO USE\nSTORE LOCATOR\nHealth & Glow Important Instructions\nGift Vouchers/e-Pay are ACCEPTED at Listed Outlets only.\nGift Vouchers/e-Pay CANNOT be used Online.\nGift Vouchers/e-Pay CAN be used to buy discounted products.\nGift Voucher CAN be used multiple times once converted to e-Pay balance.\nMultiple Gift Vouchers CAN be combined & added to e-Pay balance.",
+    "status": "active",
     "notes": "",
-    "last_scraped": null
+    "last_scraped": "2026-08-05"
   },
   "solara": {
     "brand_name": "Solara",
@@ -15944,19 +16053,23 @@
     "best_payment_method": "UPI",
     "best_discount_pct": 0,
     "stack_limit": null,
-    "stack_limit_confidence": "unknown",
+    "stack_limit_confidence": "unlimited_stated",
     "value_cap": null,
     "value_cap_period": null,
-    "purchase_cap_per_txn": null,
+    "purchase_cap_per_txn": 290000,
     "can_club_with_offers": null,
     "one_time_use": false,
     "redemption_restrictions": [],
-    "how_to_redeem_steps": null,
-    "full_terms_and_conditions": null,
-    "important_instructions_raw": null,
-    "status": "not_scraped",
+    "how_to_redeem_steps": [
+      "Log in to the Solara website at solara.in, choose the products of your choice, and proceed to checkout.",
+      "At the checkout page, click on “Add balance to your GyFTR E-Pay & Use”, enter the Voucher Code & click Add",
+      "The Voucher amount will be added to your e-Pay balance."
+    ],
+    "full_terms_and_conditions": "TERMS & CONDITIONS\nIMPORTANT INSTRUCTIONS\nHOW TO USE\nSolara Terms & Conditions\n1. This is a SOLARA GV (Gift Voucher)/e-Pay that will be accepted on the mobile app and on the website at www.solara.in.\n2. The person who has the GV/e-Pay is deemed to be the beneficiary.\n3. The GV/e-Pay can be clubbed with the existing offers.\n4. The GV/e-Pay can be used for all purchases of products and services at the SOLARA website.\n5. The GV can be converted into e-Pay as per the holder's convenience.\n6. The GV/e-Pay balance cannot be transferred to another e-Pay account, exchanged for cash, or converted into any other form of currency.\n7. The e-Pay balance must be linked to the registered mobile number.\n8. After conversion into e-Pay balance, this GV is valid for partial redemption. The balance would remain in the e-Pay balance and can be used for multiple transactions within the validity period.\n9. Only valid SOLARA GV/e-Pay at the sole discretion of SOLARA shall be accepted for redemption.\n10. The GV/e-Pay CANNOT be revalidated once expired or cancelled under any circumstances.\n11. SOLARA/GyFTR is not responsible if the GV/e-Pay is lost, stolen, or used without permission.\n12. If GV/e-Pay gets blocked on account of a technical issue, it will be enabled in 72 hours.\n13. Any dispute should be referred to the company from which the SOLARA GV/e-Pay has been received, and the company's decision shall be final.\n14. SOLARA/GyFTR reserves the right to withdraw, modify, cancel, or change the offer at any point without prior notice and at its sole discretion.\n15. For any queries or issues related to GV/e-Pay, raise a request at www.gvhelpdesk.com.",
+    "important_instructions_raw": "TERMS & CONDITIONS\nIMPORTANT INSTRUCTIONS\nHOW TO USE\nSolara Important Instructions\nGift Vouchers/e-Pay CAN only be used on the SOLARA website.\nGift Vouchers/e-Pay CAN be used to buy discounted products.\nGift Voucher CAN be used multiple times once converted to e-Pay balance.\nMultiple Gift Vouchers CAN be combined & added to e-Pay balance.",
+    "status": "active",
     "notes": "",
-    "last_scraped": null
+    "last_scraped": "2026-08-05"
   },
   "libas": {
     "brand_name": "Libas",
@@ -15983,18 +16096,22 @@
     "best_payment_method": "UPI",
     "best_discount_pct": 0,
     "stack_limit": null,
-    "stack_limit_confidence": "unknown",
+    "stack_limit_confidence": "unlimited_stated",
     "value_cap": null,
     "value_cap_period": null,
-    "purchase_cap_per_txn": null,
+    "purchase_cap_per_txn": 212500,
     "can_club_with_offers": null,
     "one_time_use": false,
     "redemption_restrictions": [],
-    "how_to_redeem_steps": null,
-    "full_terms_and_conditions": null,
-    "important_instructions_raw": null,
-    "status": "not_scraped",
+    "how_to_redeem_steps": [
+      "Visit the Libas website at Libas.in, choose the products of your choice, proceed to checkout, and log in.",
+      "At the checkout page, click on “Add balance to your GyFTR E-Pay & Use”, enter the Voucher Code & click Add",
+      "The Voucher amount will be added to your e-Pay balance."
+    ],
+    "full_terms_and_conditions": "TERMS & CONDITIONS\nIMPORTANT INSTRUCTIONS\nHOW TO USE\nLibas Terms & Conditions",
+    "important_instructions_raw": "TERMS & CONDITIONS\nIMPORTANT INSTRUCTIONS\nHOW TO USE\nLibas Important Instructions\nGift Vouchers/e-Pay are ACCEPTED on the official Libas website.\nGift Vouchers/e-Pay CAN be used to buy discounted products.\nGift Voucher CAN be used multiple times once converted to e-Pay balance.\nMultiple Gift Vouchers CAN be combined & added to e-Pay balance.",
+    "status": "active",
     "notes": "",
-    "last_scraped": null
+    "last_scraped": "2026-08-05"
   }
 }
