@@ -18,6 +18,7 @@ import InfoNote from '@/components/common/InfoNote';
 export default function HowToSteps({ rec }) {
   const v = rec.voucher || null;
   if (!v) return null;
+  const sourceLabel = v.voucher_source === 'maximize' ? 'Maximize' : 'Gyftr';
 
   return (
     <Flex gap="6px" align="baseline">
@@ -25,8 +26,8 @@ export default function HowToSteps({ rec }) {
         <I.alert size={12} />
       </Flex>
       <InfoNote
-        short="Verified for your order — worth a quick skim of Gyftr's terms."
-        full="We've already checked this voucher works for your order. It's still worth a quick skim of Gyftr's own terms before you pay — takes a few seconds."
+        short={`Verified for your order — worth a quick skim of ${sourceLabel}'s terms.`}
+        full={`We've already checked this voucher works for your order. It's still worth a quick skim of ${sourceLabel}'s own terms before you pay — takes a few seconds.`}
         fontSize="11px"
         color="text3"
         mt="0"
