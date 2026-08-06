@@ -89,23 +89,33 @@ def _maximize_brand_to_output_shape(record: dict) -> dict:
     by actual final cost — the tier is picked by headline discount rate, the
     same quick-compare number Dealo already surfaces elsewhere without a
     price in hand."""
-    tiers = record.get("tiers") or []
-    best_tier = max(tiers, key=lambda t: t.get("best_discount_pct") or 0, default={})
+    # Canonical schema's actual key is "products" (same as Gyftr), not
+    # "tiers" — always read an empty list, so this shortcut fell through to
+    # every field below defaulting empty/null. voucher_url was also reading
+    # a field name ("voucher_url") that doesn't exist on a Maximize product
+    # (it's "source_url") — always None, so the frontend's own fallback
+    # built a gyftr.com link for what is actually a Maximize deal.
+    # how_to_redeem_steps lives on the brand record, not per-product.
+    products = record.get("products") or []
+    best_tier = max(products, key=lambda t: t.get("best_discount_pct") or 0, default={})
     return {
         "brand_name": record.get("brand_name"),
         "slug": record.get("slug"),
         "voucher_source": "maximize",
-        "voucher_url": best_tier.get("voucher_url"),
+        "voucher_url": best_tier.get("source_url"),
         "redemption_type": best_tier.get("redemption_type", ""),
         "denominations": best_tier.get("denominations") or [],
+        "is_custom_denom": best_tier.get("is_custom_denom", False),
+        "custom_min": best_tier.get("custom_min"),
+        "custom_max": best_tier.get("custom_max"),
         "discounts": best_tier.get("discounts") or {},
         "best_payment_method": best_tier.get("best_payment_method"),
         "best_discount_pct": best_tier.get("best_discount_pct"),
         "stack_limit": best_tier.get("stack_limit"),
         "value_cap": best_tier.get("value_cap"),
         "purchase_cap_per_txn": best_tier.get("purchase_cap_per_txn"),
-        "redemption_restrictions": [],
-        "how_to_redeem_steps": best_tier.get("redemption_instructions") or [],
+        "redemption_restrictions": record.get("redemption_restrictions") or [],
+        "how_to_redeem_steps": record.get("how_to_redeem_steps") or [],
     }
 
 

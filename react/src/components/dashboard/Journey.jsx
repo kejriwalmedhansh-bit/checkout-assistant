@@ -63,22 +63,6 @@ export default function Journey({ rec }) {
   const check = (key) => () => {
     track('Clicked Buy Link', { step: key, merchant: rec.merchant, has_voucher: Boolean(v) });
     if (tourActive && tourStep === TOUR_STEP_FOR_KEY[key]) advanceTour();
-    // Skipped during the live tour — its own fixed bottom bar already
-    // explains this exact moment, and a Chakra toast at the same
-    // position='bottom' visually collided with it (looked like the tour
-    // tooltip was "stuck" showing stale text, since the toast sat on top
-    // of/overlapping the bar underneath it). Outside the tour, still fires
-    // normally — that's the only place this messaging exists for those users.
-    if (key === 'voucher' && v && !tourActive) {
-      toast({
-        title: `Opened ${sourceLabel} in a new tab`,
-        description: `Come back here once you've got the voucher — you'll pay the rest at ${rec.merchant}.`,
-        status: 'info',
-        duration: 6000,
-        isClosable: true,
-        position: 'bottom',
-      });
-    }
     setPending((p) => ({ ...p, [key]: true }));
     setTimeout(() => {
       setPending((p) => ({ ...p, [key]: false }));

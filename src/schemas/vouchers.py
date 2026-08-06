@@ -21,6 +21,9 @@ class VoucherDetailOut(BaseModel):
     voucher_url: str | None = None
     redemption_type: str = ""
     denominations: list[int] = []
+    is_custom_denom: bool = False
+    custom_min: int | None = None
+    custom_max: int | None = None
     discounts: dict[str, Any] = {}
     best_payment_method: str | None = None
     best_discount_pct: float | None = None
