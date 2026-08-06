@@ -227,9 +227,18 @@ def calculate_effective_price(price: float, voucher: dict, payment_method: str =
 def get_best_voucher_deal(merchant_name: str, price: float) -> dict | None:
     """UPI-rate voucher deal for merchant_name, or None if no voucher, 0% UPI
     discount, or price below the minimum denomination."""
-    voucher = voucher_repository.get_by_merchant(merchant_name)
-    if voucher is None:
+    record = voucher_repository.get_by_merchant(merchant_name)
+    if record is None:
         return None
+    products = record.get("products") or []
+    if not products:
+        return None
+    # Gyftr's canonical schema nests the actual rate/denomination/stack_limit
+    # fields calculate_effective_price needs inside products[0] (brand-level
+    # keys like important_instructions_raw/stack_limit_confidence stay on
+    # `record`) — always exactly one product per Gyftr brand, unlike
+    # Maximize's multi-tier records. Flatten before calculating.
+    voucher = {**record, **products[0]}
     deal = calculate_effective_price(price, voucher, payment_method="upi")
     if not deal["voucher_discount_pct"]:
         return None
