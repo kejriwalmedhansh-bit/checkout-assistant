@@ -721,6 +721,26 @@ def _matches_required_tokens(title: str, tokens: list[str]) -> bool:
     return all(_segment_matches(seg) for seg in segments if not _is_bare_modifier_segment(seg))
 
 
+def _matches_any_required_token(title: str, tokens: list[str]) -> bool:
+    """Permissive relevance gate for the picker (see bug #6 in CLAUDE.md):
+    at least one required query token must appear in the title — not every
+    token, the way `_matches_required_tokens` requires for route-building.
+    Empty `tokens` (a query that's entirely brand words/stopwords) always
+    passes, since there's nothing meaningful left to require.
+
+    Deliberately permissive rather than reviving the old all-tokens picker
+    check that was removed on 2026-08-03 for wrongly rejecting real listings
+    (e.g. "Buds4 Pro" against a required "4" token, no space before the
+    digit). Requiring only one token to land anywhere in the title is far
+    harder to trip on a genuine listing's own phrasing, while still
+    rejecting the case that actually motivated this: gibberish input
+    ("asdkjhaskjdh 1234 ??!!") matching nothing at all in a real title."""
+    if not tokens:
+        return True
+    normalized = _norm_title(title or "")
+    return any(re.search(_token_pattern(t), normalized) for t in tokens)
+
+
 def _distinguishing_words(title: str, exclude: set) -> frozenset:
     """Words in the title beyond the query's own tokens, known brand names,
     and generic spec/marketing filler. If nothing distinguishing survives,
@@ -757,13 +777,15 @@ def _filter_and_group_candidates(
     """Drop bulk-listings/non-English junk, then group same-variant listings
     from different sellers into one picker card each.
 
-    No title-matching or accessory filtering happens here — every listing
-    that passes the bulk/non-Latin checks goes straight to `_vet` (trusted
-    seller + price sanity), so an accessory search ("iPhone case") isn't
-    suppressed just because its own title says "case". Trade-off: nothing
-    here checks that a listing's title actually names the searched product,
-    so unrelated results can surface on a query that only matches on
-    trust/price signals.
+    No accessory filtering happens here — every listing that passes the
+    bulk/non-Latin checks and the permissive any-token relevance gate
+    (`_matches_any_required_token`) goes straight to `_vet` (trusted seller +
+    price sanity), so an accessory search ("iPhone case") isn't suppressed
+    just because its own title says "case". The relevance gate only rejects
+    a listing that matches NONE of the query's required tokens — it does not
+    require every token to match (that stricter all-tokens rule was tried
+    and reverted on 2026-08-03 for false negatives; see CLAUDE.md bug #6),
+    so unrelated-but-token-overlapping results can still surface.
 
     Returns ``(candidates, approximate)`` — ``approximate`` is always False
     now that there's no relaxed-match fallback tier; kept in the return shape
@@ -784,6 +806,17 @@ def _filter_and_group_candidates(
             logger.info("%s   dropped (bulk listing): %r", tag, c["title"])
         elif not _is_latin_dominant(c["title"]):
             logger.info("%s   dropped (non-Latin title): %r", tag, c["title"])
+
+    # Relevance gate (2026-08-06, re-added — see CLAUDE.md bug #6): reject a
+    # listing only when it matches NONE of the query's required tokens, not
+    # when it fails to match all of them. Catches gibberish/unrelated queries
+    # returning a confident wrong "match" while staying far more permissive
+    # than the all-tokens check removed on 2026-08-03.
+    relevant = [c for c in hygienic if _matches_any_required_token(c["title"], tokens)]
+    for c in hygienic:
+        if c not in relevant:
+            logger.info("%s   dropped (matches none of the required tokens %r): %r", tag, tokens, c["title"])
+    hygienic = relevant
 
     def _vet(pool: list[dict]) -> list[dict]:
         """Trust + price sanity. Runs identically on the strict pool and on the
@@ -859,8 +892,8 @@ def _filter_and_group_candidates(
             vetted.extend(group)
         return vetted
 
-    # No title-matching step: every hygienic (non-bulk, Latin-dominant)
-    # listing goes straight through trust + price vetting.
+    # hygienic is already gated to bulk/non-Latin/no-token-overlap survivors
+    # above; everything left goes straight through trust + price vetting.
     approximate = False
     survivors = _vet(hygienic)
 
@@ -1563,7 +1596,7 @@ def search_candidates(query: str) -> dict:
             approximate = False
         if not products:
             logger.info("%s no candidates after filtering", tag)
-            out["error"] = "No products found for that search."
+            out["error"] = "No products found — try adding the brand name, or search with different words."
             return out
         out["products"] = products
         out["approximate"] = approximate

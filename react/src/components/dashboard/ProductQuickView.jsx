@@ -128,7 +128,7 @@ export default function ProductQuickView({ products, index, onIndexChange, onSel
                 style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
               >
                 {thumbnail ? (
-                  <Image src={thumbnail} alt="" maxW="80%" maxH="80%" objectFit="contain" draggable={false} />
+                  <Image src={thumbnail} alt={displayTitle || 'Product photo'} maxW="80%" maxH="80%" objectFit="contain" draggable={false} />
                 ) : (
                   <Flex w="100%" h="100%" align="center" justify="center" color="brand" bg="brandSoft">
                     <I.cart size={40} />

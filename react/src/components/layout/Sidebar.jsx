@@ -122,9 +122,12 @@ export default function SidebarContent({ onNavigate, collapsed = false, onOpenOn
 
         <Box h="1px" bg="border" />
 
-        {/* Replays the first-visit walkthrough on demand — the walkthrough
-            itself only ever auto-shows once per browser, so this is the only
-            way back into it afterward. */}
+        {/* Jumps into the live guided tour at whichever step belongs to the
+            current page (see AppLayout.jsx's openOnboarding) — never a
+            navigation to the homepage, so it never drops an in-progress
+            checkout on /select or /results. Also reachable from the mobile
+            header, since the sidebar itself is hidden behind a drawer
+            there. */}
         <Tooltip label="How it works" placement="right" hasArrow openDelay={250} isDisabled={!collapsed}>
           <Box
             as="button"

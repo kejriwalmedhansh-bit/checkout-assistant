@@ -4,6 +4,12 @@
  *   Step 2 (selectProduct) -> full route result; tracked by `status`.
  * query + candidates + selectedToken + result are persisted (so reloads keep
  * the view); the two status fields and error are transient.
+ *
+ * Persisted state also carries `persistedAt` (set on every successful
+ * search/select) and is discarded on rehydration once it's older than
+ * STALE_AFTER_MS — a reload seconds or minutes later still keeps your place
+ * (the original intent), but reopening a genuinely old tab/session no longer
+ * silently resurfaces a stale product with no fresh search behind it.
  */
 import { create } from 'zustand';
 import { persist, createJSONStorage } from 'zustand/middleware';
@@ -12,6 +18,8 @@ import { searchApi } from '@/api/search.api';
 import { extractErrorMessage } from '@/utils/errors';
 import { track } from '@/utils/analytics';
 import { originalPrice, finalPrice, saving } from '@/utils/format';
+
+const STALE_AFTER_MS = 45 * 60 * 1000; // 45 minutes
 
 export const useSearchStore = create(
   persist(
@@ -33,6 +41,7 @@ export const useSearchStore = create(
       searchStatus: 'idle', // step 1: 'idle' | 'loading' | 'success' | 'error'
       status: 'idle', // step 2: 'idle' | 'loading' | 'success' | 'error'
       error: null,
+      persistedAt: null, // Date.now() of the last successful search/select; see STALE_AFTER_MS above
 
       // Step 1 — fetch candidate products for a query.
       runSearch: async (query) => {
@@ -62,6 +71,7 @@ export const useSearchStore = create(
               voucher: data.voucher || null,
               searchStatus: 'success',
               error: null,
+              persistedAt: Date.now(),
             });
             track('Searched', {
               query: q,
@@ -83,7 +93,7 @@ export const useSearchStore = create(
         track('Selected Product', { query: get().query, title, source });
         try {
           const result = await searchApi.routes(token, get().query, title, price, source);
-          set({ result, status: 'success', error: null });
+          set({ result, status: 'success', error: null, persistedAt: Date.now() });
           const rec = result?.routes?.recommended;
           if (rec) {
             // Same original/final/discount math the results page itself
@@ -121,6 +131,7 @@ export const useSearchStore = create(
           searchStatus: 'idle',
           status: 'idle',
           error: null,
+          persistedAt: null,
         }),
     }),
     {
@@ -135,7 +146,18 @@ export const useSearchStore = create(
         selectedToken: s.selectedToken,
         selectedThumbnail: s.selectedThumbnail,
         result: s.result,
+        persistedAt: s.persistedAt,
       }),
+      // A rehydrated `result`/`candidates` older than STALE_AFTER_MS is
+      // reset immediately, before any page can render it — status fields
+      // aren't persisted (see file header), so without this an old session
+      // reopened after a long gap would otherwise render a stale product
+      // with searchStatus/status back at 'idle', no fresh search behind it.
+      onRehydrateStorage: () => (state) => {
+        if (state?.persistedAt && Date.now() - state.persistedAt > STALE_AFTER_MS) {
+          state.reset();
+        }
+      },
     },
   ),
 );

@@ -66,7 +66,7 @@ export default function ProductIdentity({ name, sourceUrl, thumbnail }) {
   const content = (
     <Flex align="center" gap="12px" p="12px 14px">
       {thumb}
-      <Text fontSize="14px" fontWeight={700} color="text" noOfLines={2} lineHeight={1.3}>
+      <Text as="h1" fontSize="14px" fontWeight={700} color="text" noOfLines={2} lineHeight={1.3} m={0}>
         {name}
       </Text>
     </Flex>

@@ -88,7 +88,7 @@ export default function ProductSelectPage() {
                 ? 'Here is what we found for'
                 : 'You searched for'}
           </Text>
-          <Text fontSize={{ base: '20px', md: '24px' }} fontWeight={800} letterSpacing="-.02em" color="text" noOfLines={1}>
+          <Text as="h1" fontSize={{ base: '20px', md: '24px' }} fontWeight={800} letterSpacing="-.02em" color="text" noOfLines={1} m={0}>
             {query}
           </Text>
         </Box>
@@ -133,7 +133,7 @@ export default function ProductSelectPage() {
                     No products found
                   </Text>
                   <Text fontSize="13px" color="text3" mt="2px">
-                    Try a shorter or more general search term.
+                    Try adding the brand name, or search with different words.
                   </Text>
                 </Box>
               </Flex>

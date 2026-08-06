@@ -24,7 +24,11 @@ export const buttonTheme = {
     transitionProperty: 'common',
     transitionDuration: 'fast',
     _active: { transform: 'translateY(1px) scale(0.99)' },
-    _focusVisible: { boxShadow: 'ring' },
+    // boxShadow: 'ring' is the primary visual focus cue everywhere in the
+    // app (see file header), but it isn't reflected in computed `outline`,
+    // so a real outline sits alongside it as a keyboard-focus fallback that
+    // doesn't depend on box-shadow rendering/being overridden correctly.
+    _focusVisible: { boxShadow: 'ring', outline: '2px solid', outlineColor: 'brand', outlineOffset: '2px' },
     _disabled: { opacity: 0.55, cursor: 'not-allowed', boxShadow: 'none' },
   },
   variants: {

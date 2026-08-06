@@ -249,7 +249,7 @@ export default function JourneyRow({
         </Flex>
       )}
 
-      <Text fontSize="18px" fontWeight={800} color="text" letterSpacing="-.01em">
+      <Text as="h2" fontSize="18px" fontWeight={800} color="text" letterSpacing="-.01em" m={0}>
         {label}
       </Text>
 
@@ -356,7 +356,12 @@ export default function JourneyRow({
             transition="background .2s"
             _hover={{ textDecoration: 'none', bg: checked ? 'brandHover' : t.color }}
           >
-            {checked ? '✓ Done' : pending ? 'Confirming…' : link.label}
+            {/* Stays as the real action label even once checked — "Done"
+                read as confusing/final to users, as if the button itself
+                had changed meaning. The card's own background/border and
+                the step circle's checkmark (above) already communicate
+                completion; the button doesn't need to repeat it. */}
+            {pending ? 'Confirming…' : link.label}
           </Link>
         </Box>
       )}
