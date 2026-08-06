@@ -91,7 +91,12 @@ export default function ResultsPage() {
 
   if (loading) return <LoadingCard tips={ROUTE_TIPS} />;
 
-  // No result and nothing in flight → send the user back to search.
+  // `result` alone is a safe guard again now that searchStore expires
+  // persisted state older than STALE_AFTER_MS on rehydration (see
+  // searchStore.js) — a genuinely stale `result` is already reset to null
+  // before this ever renders, so a fresh, recent reload can still
+  // legitimately pass this check with `status` back at its non-persisted
+  // 'idle' default. No result and nothing in flight → back to search.
   if (!result && status !== 'error') return <Navigate to={ROUTES.home} replace />;
 
   const rec = result?.routes?.recommended || null;

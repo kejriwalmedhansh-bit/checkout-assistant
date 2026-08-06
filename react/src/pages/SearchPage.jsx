@@ -5,6 +5,7 @@ import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import FloatingOutlines from '@/components/common/FloatingOutlines';
 import Logo from '@/components/common/Logo';
 import SearchBox from '@/components/common/SearchBox';
+import { HOW_IT_WORKS } from '@/components/onboarding/tourSteps';
 import TourRing from '@/components/onboarding/TourRing';
 import { useTourHighlight } from '@/components/onboarding/useTourHighlight';
 import { I } from '@/components/common/icons';
@@ -14,22 +15,11 @@ import { ROUTES } from '@/routes/paths';
 import { useSearchStore } from '@/store/searchStore';
 import { useUiStore } from '@/store/uiStore';
 
-// What actually happens, in the order it happens, said as pictures instead
-// of sentences — per PRODUCT.md, design for the lower end of reading
-// comfort by default. Replaces the earlier numbered 1-2-3 sentence list;
-// the "Heads up" line below it exists because PRODUCT.md's real trust gap
-// isn't online payment, it's that buying a gift voucher is an unfamiliar
-// concept — naming it here means it's never a surprise on the results page.
-const HOW_IT_WORKS = [
-  { icon: I.link, label: 'Paste a link' },
-  { icon: I.ticket, label: 'Buy a small voucher' },
-  { icon: I.pay, label: 'Pay less' },
-];
-
 export default function SearchPage() {
   usePageTitle('Search');
   const navigate = useNavigate();
   const runSearch = useSearchStore((s) => s.runSearch);
+  const query = useSearchStore((s) => s.query);
   const onboardingSeen = useUiStore((s) => s.onboardingSeen);
   const tourActive = useUiStore((s) => s.tourActive);
   const startTour = useUiStore((s) => s.startTour);
@@ -104,11 +94,13 @@ export default function SearchPage() {
         </Box>
 
         <Text
+          as="h1"
           fontSize={{ base: '26px', md: '44px' }}
           fontWeight={800}
           letterSpacing="-.03em"
           lineHeight={1.12}
           color="text"
+          m={0}
         >
           Never pay full price,{' '}
           <Box as="span" color="brand">
@@ -146,7 +138,7 @@ export default function SearchPage() {
             Type product name or paste link here
           </Text>
           <SearchBox
-            initialValue=""
+            initialValue={query}
             onSubmit={handleSubmit}
             placeholder={'e.g. "Onitsuka Tiger Mexico 66" or paste a link'}
           />

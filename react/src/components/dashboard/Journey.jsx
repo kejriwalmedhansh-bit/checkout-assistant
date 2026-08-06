@@ -254,17 +254,38 @@ export default function Journey({ rec }) {
                 </Box>
               )}
               <InfoNote
-                short={`${v.upi?.pct}% off — you pay ${fmt(paid)}`}
-                full={`This is the step that actually saves you money — you pay ${fmt(paid)} for ${fmt(v.upi?.voucher_amount)} of ${rec.merchant} credit.`}
+                short={
+                  v.upi?.remainder
+                    ? `${v.upi?.pct}% off — voucher costs ${fmt(paid)} + ${fmt(v.upi.remainder)} at checkout`
+                    : `${v.upi?.pct}% off — voucher costs ${fmt(paid)}`
+                }
+                full={
+                  v.upi?.remainder
+                    ? `Buying the voucher costs ${fmt(paid)} for ${fmt(v.upi?.voucher_amount)} of ${rec.merchant} credit. The vouchers don't quite cover the full price, so you'll pay ${fmt(v.upi.remainder)} more at checkout — your total comes to ${fmt(paid + v.upi.remainder)}, matching the "You pay" total above.`
+                    : `This is the step that actually saves you money — you pay ${fmt(paid)} for ${fmt(v.upi?.voucher_amount)} of ${rec.merchant} credit, which covers your whole order.`
+                }
                 fontSize="11.5px"
                 color="amber"
                 fontWeight={700}
                 mt="8px"
               />
+              <InfoNote
+                short={`Why ${sourceLabel}?`}
+                full={`${sourceLabel} is one of the trusted voucher partners Dealo checks — we compare all of them and route you to whichever has the best deal for ${rec.merchant} right now, so which partner shows up can change from product to product.`}
+                fontSize="10.5px"
+                color="text3"
+                mt="6px"
+              />
             </>
           }
           caption={`Opens ${sourceLabel}.`}
-          link={v.voucher_url ? { href: v.voucher_url, label: `Buy on ${sourceLabel}` } : undefined}
+          // Deliberately not "Buy on {sourceLabel}" — the partner name
+          // (Gyftr/Maximize) means nothing to a first-time user at the one
+          // moment they most need confidence, and reads as an unexplained
+          // third party. The partner is still named just above (the "via
+          // {sourceLabel}" badge and "Why {sourceLabel}?" note), for anyone
+          // who wants to know before they tap.
+          link={v.voucher_url ? { href: v.voucher_url, label: 'Buy Gift Voucher' } : undefined}
           checked={checked.voucher}
           pending={pending.voucher}
           onCheck={check('voucher')}

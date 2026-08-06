@@ -29,6 +29,11 @@ export const useUiStore = create(
       tourActive: false,
       tourStep: 0,
       startTour: () => set({ tourActive: true, tourStep: 0 }),
+      // "How it works" from the sidebar/header jumps straight to whichever
+      // tour step belongs to the page the user is already on (see
+      // AppLayout.jsx), instead of always restarting from step 0 on the
+      // homepage — this is what keeps it contextual rather than a detour.
+      startTourAtStep: (index) => set({ tourActive: true, tourStep: index }),
       advanceTour: () => {
         const next = get().tourStep + 1;
         if (next >= TOUR_STEPS.length) {

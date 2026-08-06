@@ -87,7 +87,7 @@ export default function ProductCandidateCard({ product, onSelect, onEnlarge, isS
             sx={REDUCED_MOTION_SX}
           >
             {thumbnail ? (
-              <Image src={thumbnail} alt="" maxW="88%" maxH="88%" objectFit="contain" />
+              <Image src={thumbnail} alt={title || 'Product photo'} maxW="88%" maxH="88%" objectFit="contain" />
             ) : (
               <Box color="text3">
                 <I.cart size={26} />

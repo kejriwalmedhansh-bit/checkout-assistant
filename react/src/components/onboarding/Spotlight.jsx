@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { createPortal } from 'react-dom';
+import { useLocation } from 'react-router-dom';
 import { Box, Text } from '@chakra-ui/react';
 
 import { useUiStore } from '@/store/uiStore';
@@ -28,13 +29,20 @@ export default function Spotlight() {
   const skipTour = useUiStore((s) => s.skipTour);
   const sidebarCollapsed = useUiStore((s) => s.sidebarCollapsed);
   const step = TOUR_STEPS[tourStep];
+  const location = useLocation();
+  // The current route not matching this step's own page means `tourStep`
+  // and what's actually on screen have fallen out of sync (stale route,
+  // browser back/forward, a direct link) — stay silent rather than show
+  // instructions for a step that isn't the one visible. Not a terminal
+  // skip: navigating back to the right page brings the bar back correctly.
+  const onExpectedPage = !step?.page || location.pathname === step.page;
 
   useEffect(() => {
-    if (tourActive && step) track('Tour Step Shown', { step_index: tourStep, step_id: step.id });
+    if (tourActive && step && onExpectedPage) track('Tour Step Shown', { step_index: tourStep, step_id: step.id });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [tourActive, tourStep]);
+  }, [tourActive, tourStep, onExpectedPage]);
 
-  if (!tourActive || !step) return null;
+  if (!tourActive || !step || !onExpectedPage) return null;
 
   return createPortal(
     <>
