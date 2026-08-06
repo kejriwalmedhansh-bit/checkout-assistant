@@ -11,7 +11,10 @@ import { useUiStore } from '@/store/uiStore';
 /** Fixed icon-slot width — keeps every icon on one vertical center line. */
 const ICON_SLOT = 34;
 
-const NAV = [{ to: ROUTES.home, icon: I.search, label: 'Search', end: true }];
+const NAV = [
+  { to: ROUTES.home, icon: I.search, label: 'Search', end: true },
+  { to: ROUTES.howItWorks, icon: I.doc, label: 'What we do', end: true },
+];
 
 /**
  * Fade-only style for "collapse-hidden" elements (labels, wordmark, controls).
