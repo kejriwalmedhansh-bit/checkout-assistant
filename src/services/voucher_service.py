@@ -277,7 +277,18 @@ def get_best_maximize_deal(merchant_name: str, price: float) -> tuple[dict, dict
     record = maximize_repository.get_by_merchant(merchant_name)
     if record is None:
         return None
-    result = _best_tier_deal(price, record.get("tiers") or [], payment_method="upi")
+    # Canonical schema's actual key is "products" (same as Gyftr), not
+    # "tiers" — this was reading an empty list for every single Maximize
+    # brand, so Maximize deals never once won the price comparison against
+    # Gyftr, regardless of actual rate. Each product also needs its own
+    # source_url/platform label flattened in (Maximize's field is
+    # source_url, not voucher_url — calculate_effective_price's generic
+    # "gyftr.com/{slug}" fallback is only correct for actual Gyftr vouchers).
+    tiers = [
+        {**record, **p, "voucher_platform": "Maximize", "voucher_url": p.get("source_url")}
+        for p in (record.get("products") or [])
+    ]
+    result = _best_tier_deal(price, tiers, payment_method="upi")
     if result is None:
         return None
     deal, tier = result

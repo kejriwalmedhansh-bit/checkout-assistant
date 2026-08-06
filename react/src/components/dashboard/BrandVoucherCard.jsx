@@ -15,7 +15,10 @@ export default function BrandVoucherCard({ voucher }) {
   const denominations = voucher.denominations || [];
   const method = voucher.best_payment_method || 'UPI';
   const sourceLabel = voucher.voucher_source === 'maximize' ? 'Maximize' : 'Gyftr';
-  const link = voucher.voucher_url || `https://www.gyftr.com/${voucher.slug}`;
+  // Never fabricate a store link — a guessed gyftr.com/{slug} URL is wrong
+  // whenever this voucher actually came from Maximize (or the backend just
+  // didn't have a real URL for this brand). Trust > a confident wrong link.
+  const link = voucher.voucher_url || null;
 
   return (
     <Card p="22px 20px">
@@ -67,25 +70,45 @@ export default function BrandVoucherCard({ voucher }) {
         </Box>
       )}
 
-      <Link
-        href={link}
-        isExternal
-        display="inline-flex"
-        alignItems="center"
-        justifyContent="center"
-        gap="6px"
-        w="100%"
-        bg="amber"
-        color="onBrand"
-        fontSize="13.5px"
-        fontWeight={700}
-        borderRadius="10px"
-        py="12px"
-        _hover={{ textDecoration: 'none', opacity: 0.92 }}
-      >
-        Buy voucher on {sourceLabel}
-        <I.arrowRight size={15} />
-      </Link>
+      {denominations.length === 0 && voucher.is_custom_denom && voucher.custom_min != null && voucher.custom_max != null && (
+        <Box mb="18px">
+          <Text fontSize="11px" color="text3" fontWeight={600} letterSpacing=".04em" textTransform="uppercase" mb="8px">
+            Voucher amount
+          </Text>
+          <Box
+            display="inline-block" bg="surface2" border="1px solid" borderColor="border" borderRadius="8px"
+            px="10px" py="4px" fontFamily="mono" fontSize="12.5px" fontWeight={600} color="text2"
+          >
+            Any amount, {fmt(voucher.custom_min)}–{fmt(voucher.custom_max)}
+          </Box>
+        </Box>
+      )}
+
+      {link ? (
+        <Link
+          href={link}
+          isExternal
+          display="inline-flex"
+          alignItems="center"
+          justifyContent="center"
+          gap="6px"
+          w="100%"
+          bg="amber"
+          color="onBrand"
+          fontSize="13.5px"
+          fontWeight={700}
+          borderRadius="10px"
+          py="12px"
+          _hover={{ textDecoration: 'none', opacity: 0.92 }}
+        >
+          Buy voucher on {sourceLabel}
+          <I.arrowRight size={15} />
+        </Link>
+      ) : (
+        <Text fontSize="12px" color="text3" textAlign="center">
+          Store link unavailable right now — search for {voucher.brand_name} on {sourceLabel} directly.
+        </Text>
+      )}
     </Card>
   );
 }
