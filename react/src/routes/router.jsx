@@ -4,6 +4,7 @@ import AppLayout from '@/components/layout/AppLayout';
 import SearchPage from '@/pages/SearchPage';
 import ProductSelectPage from '@/pages/ProductSelectPage';
 import ResultsPage from '@/pages/ResultsPage';
+import HowItWorksPage from '@/pages/HowItWorksPage';
 import { ROUTES } from './paths';
 
 // Public dashboard — no ProtectedRoute / GuestRoute.
@@ -14,6 +15,7 @@ export const router = createBrowserRouter([
       { path: ROUTES.home, element: <SearchPage /> },
       { path: ROUTES.select, element: <ProductSelectPage /> },
       { path: ROUTES.results, element: <ResultsPage /> },
+      { path: ROUTES.howItWorks, element: <HowItWorksPage /> },
     ],
   },
   { path: '*', element: <Navigate to={ROUTES.home} replace /> },
