@@ -3,6 +3,8 @@ import { createPortal } from 'react-dom';
 import { useLocation } from 'react-router-dom';
 import { Box, Text } from '@chakra-ui/react';
 
+import { ROUTES } from '@/routes/paths';
+import { useSearchStore } from '@/store/searchStore';
 import { useUiStore } from '@/store/uiStore';
 import { track } from '@/utils/analytics';
 import { TOUR_STEPS } from './tourSteps';
@@ -30,19 +32,28 @@ export default function Spotlight() {
   const sidebarCollapsed = useUiStore((s) => s.sidebarCollapsed);
   const step = TOUR_STEPS[tourStep];
   const location = useLocation();
+  const pickerStatus = useSearchStore((s) => s.searchStatus);
+  const resultStatus = useSearchStore((s) => s.status);
   // The current route not matching this step's own page means `tourStep`
   // and what's actually on screen have fallen out of sync (stale route,
   // browser back/forward, a direct link) — stay silent rather than show
   // instructions for a step that isn't the one visible. Not a terminal
   // skip: navigating back to the right page brings the bar back correctly.
   const onExpectedPage = !step?.page || location.pathname === step.page;
+  // The route alone isn't enough on /select and /results — both show a
+  // loading skeleton on that same route before their real target (a
+  // picker card, the Journey step) exists, and the bar was popping up
+  // over that skeleton with instructions for content not on screen yet.
+  const targetReady =
+    step?.page === ROUTES.select ? pickerStatus === 'success' : step?.page === ROUTES.results ? resultStatus === 'success' : true;
+  const visible = tourActive && step && onExpectedPage && targetReady;
 
   useEffect(() => {
-    if (tourActive && step && onExpectedPage) track('Tour Step Shown', { step_index: tourStep, step_id: step.id });
+    if (visible) track('Tour Step Shown', { step_index: tourStep, step_id: step.id });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [tourActive, tourStep, onExpectedPage]);
+  }, [visible, tourStep]);
 
-  if (!tourActive || !step || !onExpectedPage) return null;
+  if (!visible) return null;
 
   return createPortal(
     <>
