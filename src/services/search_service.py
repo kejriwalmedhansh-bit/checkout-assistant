@@ -69,7 +69,12 @@ _maximize_brand_index_cache: dict[str, dict] | None = None
 
 
 def _gyftr_voucher_to_output_shape(voucher: dict) -> dict:
-    out = dict(voucher)
+    # Canonical schema nests the actual rate/denomination fields inside
+    # products[0] (brand-level keys like redemption_restrictions stay on
+    # `voucher`) — same flattening voucher_service.get_best_voucher_deal
+    # does; always exactly one product per Gyftr brand.
+    products = voucher.get("products") or [{}]
+    out = {**voucher, **products[0]}
     out["voucher_source"] = "gyftr"
     out["voucher_url"] = f"https://www.gyftr.com/{voucher.get('slug')}"
     return out
