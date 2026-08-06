@@ -112,6 +112,11 @@ def _maximize_brand_to_output_shape(record: dict) -> dict:
         "best_payment_method": best_tier.get("best_payment_method"),
         "best_discount_pct": best_tier.get("best_discount_pct"),
         "stack_limit": best_tier.get("stack_limit"),
+        # Maximize doesn't track this separately (always None in the data) —
+        # a real numeric stack_limit here is still a confirmed scraped cap,
+        # just without the "unlimited_stated" language Gyftr's parser derives
+        # from its own T&C text.
+        "stack_limit_confidence": record.get("stack_limit_confidence"),
         "value_cap": best_tier.get("value_cap"),
         "purchase_cap_per_txn": best_tier.get("purchase_cap_per_txn"),
         "redemption_restrictions": record.get("redemption_restrictions") or [],
@@ -162,6 +167,89 @@ _BRAND_VOUCHER_FILLER_WORDS = frozenset({
     "gift", "card", "cards", "voucher", "vouchers", "gc", "egift", "epay",
 })
 
+# Hand-verified pairs where Gyftr and Maximize sell the genuinely same real
+# voucher under different names (2026-08 audit) — normal exact-name matching
+# below would never connect these, so each side would only ever compete
+# against itself. Every pair here was checked individually (redemption
+# mechanism, restrictions, stack limits), not assumed from the naming
+# pattern alone — a same-ish name does NOT always mean the same product (see
+# Yatra and MakeMyTrip below, which is exactly why this isn't a generic
+# fuzzy-match rule). Key: normalized query words (start:start+length,
+# joined) that should resolve to this pair. Value: (gyftr_slug, maximize_slug)
+# — either may be None if only one platform genuinely sells it.
+_MANUAL_VOUCHER_MATCHES: dict[str, tuple[str | None, str | None]] = {
+    # Maximize sells 6+ distinct Yatra products under near-identical names:
+    # fixed-denomination single-use flight vouchers (Yatra 500/1000/1500/2000,
+    # 25-85% off — a different, narrower product, deliberately NOT mapped
+    # here) versus the general-purpose, stackable "Yatra Hotel" gift card
+    # that's the actual Gyftr equivalent. A bare "Yatra" search must resolve
+    # to the Hotel product on both sides, never the single-use family or
+    # Gyftr's separate near-dead "Yatra Voucher" (0%, a different listing).
+    "yatra": ("yatra-hotel-gift-card", "yatra-hotel"),
+    "yatrahotel": ("yatra-hotel-gift-card", "yatra-hotel"),
+    "yatrahotels": ("yatra-hotel-gift-card", "yatra-hotel"),
+    # Maximize separately sells a plain "MakeMyTrip" gift card (PIN-redeemed,
+    # no OTP/wallet) alongside "MakeMyTrip E-Pay" (OTP-verified wallet
+    # top-up) — genuinely different redemption mechanisms, not a naming
+    # variant. A bare "MakeMyTrip" search must resolve to e-Pay (what Gyftr
+    # actually sells), not silently fall through to Maximize's separate,
+    # cheaper plain gift card.
+    "makemytrip": ("makemytrip-e-pay", "makemytrip-e-pay"),
+    "makemytripepay": ("makemytrip-e-pay", "makemytrip-e-pay"),
+    "superdryluxe": ("luxe-gift-card-superdry", "superdry-luxe"),
+    "armaniexchangeluxe": ("luxe-gift-card-armani-exchange", "armani-exchange-luxe"),
+    "hugobossluxe": ("luxe-gift-card-hugo-boss", "hugo-boss-luxe"),
+    "gasluxe": ("luxe-gift-card-gas", "gas-luxe"),
+    "brooksbrothersluxe": ("luxe-gift-card-brooks-brothers", "brooks-brothers-luxe"),
+    "michaelkorsluxe": ("luxe-gift-card-michael-kors", "michael-kors-luxe"),
+    "satyapaulluxe": ("luxe-gift-card-satya-paul", "satya-paul-luxe"),
+    "tumiluxe": ("tumi", "tumi-luxe"),
+    "katespadeluxe": ("kate-spade--luxe-gift-card", "kate-spade-luxe"),
+    "hamleysluxe": ("luxe-gift-card-hamleys", "hamleys-luxe"),
+    "braingymjr": ("braingymjr", "braingymjr-gift-voucher"),
+    "unipinbgmi": ("unipin-bgmi", "unipin-bgmi-voucher"),
+    "peterengland": ("peter-england-gift-voucher", "peter-england"),
+    "americaneagle": ("american-eagle-gift-voucher", "american-eagle"),
+    "planetfashion": ("planet-fashion-gift-voucher", "planet-fashion"),
+    "allensolly": ("allen-solly-gift-voucher", "allen-solly"),
+    "vanheusen": ("van-heusen-gift-voucher", "van-heusen"),
+    "simoncarter": ("simon-carter-gift-voucher", "simon-carter"),
+    "blinkit": ("blinkit-gift-card", "blinkit"),
+    "zomato": ("zomato-gift-card", "zomato"),
+    "cult": ("cult-gift-card", None),
+    "louisphilippe": ("louis-philippe-gift-voucher", "louis-philippe"),
+    "bpclsmartdrivefuel": ("-bpcl-", "bpcl-smartdrive-fuel"),
+}
+
+
+def _pick_better_voucher(gyftr_shaped: dict | None, maximize_shaped: dict | None) -> dict | None:
+    """Whichever has the higher headline discount wins. On an exact tie,
+    default to Gyftr (simpler checkout flow) — UNLESS one side's stack limit
+    is clearly better (no stated cap beats a numeric cap; a higher numeric
+    cap beats a lower one), in which case that side wins instead."""
+    if gyftr_shaped is None:
+        return maximize_shaped
+    if maximize_shaped is None:
+        return gyftr_shaped
+    g_pct = gyftr_shaped.get("best_discount_pct") or 0
+    m_pct = maximize_shaped.get("best_discount_pct") or 0
+    if g_pct != m_pct:
+        return maximize_shaped if m_pct > g_pct else gyftr_shaped
+
+    def _stack_rank(shaped: dict) -> int:
+        limit = shaped.get("stack_limit")
+        confidence = shaped.get("stack_limit_confidence")
+        if limit is None and confidence == "unlimited_stated":
+            return 10**9  # explicitly no cap
+        if limit is None:
+            return -1  # genuinely unconfirmed — worst, not "unlimited"
+        return limit
+
+    g_rank, m_rank = _stack_rank(gyftr_shaped), _stack_rank(maximize_shaped)
+    if m_rank > g_rank:
+        return maximize_shaped
+    return gyftr_shaped
+
 
 def _match_brand_voucher(query: str) -> dict | None:
     """Whole-query match only — the entire search must be just the brand name
@@ -185,6 +273,24 @@ def _match_brand_voucher(query: str) -> dict | None:
     for start in range(len(words)):
         for length in range(1, min(_MAX_BRAND_WORDS, len(words) - start) + 1):
             window = "".join(words[start:start + length])
+
+            # Hand-verified cross-platform pairs take priority over each
+            # platform's own name index — these exist specifically because
+            # the two platforms' own brand names don't line up, so the
+            # generic exact-name lookup below would never connect them.
+            override = _MANUAL_VOUCHER_MATCHES.get(window)
+            if override is not None:
+                leftover = words[:start] + words[start + length:]
+                if any(w not in _BRAND_VOUCHER_FILLER_WORDS for w in leftover):
+                    continue
+                g_slug, m_slug = override
+                g_shaped = _gyftr_voucher_to_output_shape(voucher_repository.get_by_slug(g_slug)) if g_slug else None
+                m_shaped = _maximize_brand_to_output_shape(maximize_repository.get_by_slug(m_slug)) if m_slug else None
+                result = _pick_better_voucher(g_shaped, m_shaped)
+                if result is not None:
+                    return result
+                continue
+
             gyftr_voucher = gyftr_index.get(window)
             maximize_record = maximize_index.get(window)
             if gyftr_voucher is None and maximize_record is None:
@@ -192,14 +298,9 @@ def _match_brand_voucher(query: str) -> dict | None:
             leftover = words[:start] + words[start + length:]
             if any(w not in _BRAND_VOUCHER_FILLER_WORDS for w in leftover):
                 continue
-            if gyftr_voucher is None:
-                return _maximize_brand_to_output_shape(maximize_record)
-            if maximize_record is None:
-                return _gyftr_voucher_to_output_shape(gyftr_voucher)
-            maximize_shaped = _maximize_brand_to_output_shape(maximize_record)
-            if (maximize_shaped.get("best_discount_pct") or 0) > (gyftr_voucher.get("best_discount_pct") or 0):
-                return maximize_shaped
-            return _gyftr_voucher_to_output_shape(gyftr_voucher)
+            g_shaped = _gyftr_voucher_to_output_shape(gyftr_voucher) if gyftr_voucher else None
+            m_shaped = _maximize_brand_to_output_shape(maximize_record) if maximize_record else None
+            return _pick_better_voucher(g_shaped, m_shaped)
     return None
 
 
