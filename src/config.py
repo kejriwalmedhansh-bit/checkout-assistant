@@ -26,6 +26,11 @@ class Settings(BaseSettings):
     SEARCHAPI_KEY: str = ""
     SEARCHAPI_TIMEOUT: int = 30
 
+    # --- Apify (anti-bot fallback for Myntra/Flipkart/AJIO/Nykaa) ---
+    # Same no-hardcoded-fallback convention as SEARCHAPI_KEY above.
+    APIFY_TOKEN: str = ""
+    APIFY_TIMEOUT: int = 60
+
     # Timeout (seconds) for the lightweight og:title fetch used to recognise a
     # pasted product link. Kept short — it runs inline on every URL search and a
     # failure just falls through to slug extraction.

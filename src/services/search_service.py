@@ -33,7 +33,7 @@ logger = logging.getLogger("uvicorn.error")
 
 from ..config import get_settings
 from ..constants import HYPERLOCAL_MERCHANTS, KNOWN_BRANDS, MANUAL_TRUSTED_MERCHANTS, PRIORITY_MERCHANTS
-from ..repositories import maximize_repository, searchapi_repository, voucher_repository
+from ..repositories import apify_repository, maximize_repository, searchapi_repository, voucher_repository
 from . import card_service, voucher_service
 
 # ── price parsing ──────────────────────────────────────────────────────────────
@@ -1354,6 +1354,44 @@ def _jsonld_host_merchant(host: str) -> str | None:
     return None
 
 
+# Anti-bot fallback (2026-08-06): these hosts block or reject Dealo's plain
+# direct fetch above outright (Myntra only from our deployed server; the
+# other 3 everywhere) — see CLAUDE.md's "Live price-on-paste vendor
+# coverage". Apify's official web-scraper actor (apify_repository.
+# fetch_rendered_html) fetches the real page past the block; the price is
+# then read via the same trusted _extract_jsonld_price used below for the
+# free path, not a third-party actor's own parsing. Each host verified
+# 2026-08-06 against a real pasted product link, cross-checked against an
+# independent price source: Flipkart (₹1,099, matched the page's own
+# schema.org offers.price), Nykaa (₹1,899, matched an independent Apify
+# actor's reading of the same product), AJIO (₹2,587, matched an
+# independent Apify actor's reading — also required extending
+# _extract_jsonld_price to accept AJIO's "ProductGroup" schema type, not
+# just "Product"). Myntra: not yet added — its block is Render-specific and
+# untested from this environment; add once verified the same way.
+_APIFY_MERCHANT_HOSTS = {
+    "flipkart.com": "Flipkart",
+    "ajio.com": "AJIO",
+    "nykaa.com": "Nykaa",
+}
+
+
+def _apify_render_and_extract(url: str, merchant_name: str) -> tuple[float | None, str | None]:
+    html_markup = apify_repository.fetch_rendered_html(url)
+    if not html_markup:
+        return None, None
+    price = _extract_jsonld_price(html_markup)
+    return (price, merchant_name) if price is not None else (None, None)
+
+
+def _apify_host_fetch(host: str):
+    host = (host or "").lower()
+    for suffix, merchant_name in _APIFY_MERCHANT_HOSTS.items():
+        if host == suffix or host.endswith("." + suffix):
+            return lambda url, _name=merchant_name: _apify_render_and_extract(url, _name)
+    return None
+
+
 def _extract_jsonld_price(markup: str) -> float | None:
     """The first schema.org Product -> Offer price in a page's own structured
     data, or None. Standard, vendor-agnostic — unlike _extract_amazon_price,
@@ -1369,7 +1407,16 @@ def _extract_jsonld_price(markup: str) -> float | None:
             continue
         nodes = data if isinstance(data, list) else [data]
         for node in nodes:
-            if not isinstance(node, dict) or node.get("@type") != "Product":
+            if not isinstance(node, dict):
+                continue
+            # AJIO (verified 2026-08-06) labels its top-level product block
+            # "ProductGroup" rather than "Product" — schema.org's own
+            # variant-group type, distinct from Product but structured the
+            # same way here: a top-level offers.price sitting alongside a
+            # hasVariant list of individual sized options. Confirmed real:
+            # its price (₹2,587) matched an independent check on the same
+            # product exactly.
+            if node.get("@type") not in ("Product", "ProductGroup"):
                 continue
             offers = node.get("offers")
             if isinstance(offers, list):
@@ -1409,7 +1456,27 @@ def _fetch_url_page(url: str) -> tuple[str | None, float | None, str | None]:
     200_000-char title-scan cap on a large page). (None, None) for every
     host not covered and on any failure — never raises; a failure here must
     fall straight back to today's title/slug-only search, not break it.
+
+    Apify anti-bot fallback (2026-08-06): Flipkart/AJIO/Nykaa reject this
+    plain fetch outright (non-200 or a connection error), so that fallback
+    is checked from *both* early-exit paths below, not just after a
+    successful fetch with no readable price — the earlier version of this
+    hook only checked the latter, which meant it never actually fired for
+    the exact "blocked outright" case it was built for.
     """
+    apify_host = (urlsplit(url).hostname or "").lower()
+    apify_fetch = _apify_host_fetch(apify_host)
+
+    def _try_apify() -> tuple[float | None, str | None]:
+        if not apify_fetch:
+            return None, None
+        apify_price, apify_merchant = apify_fetch(url)
+        if apify_price is not None:
+            logger.info("[url-search] %s live price via Apify: %s", apify_merchant, apify_price)
+        else:
+            logger.info("[url-search] Apify fallback found no price for %s", apify_host)
+        return apify_price, apify_merchant
+
     try:
         timeout = float(get_settings().LINK_TITLE_TIMEOUT)
         with httpx.Client(
@@ -1421,7 +1488,8 @@ def _fetch_url_page(url: str) -> tuple[str | None, float | None, str | None]:
             url, resp.url, resp.status_code,
         )
         if resp.status_code != 200:
-            return None, None, None
+            price, merchant = _try_apify()
+            return None, price, merchant
         full_markup = resp.text
         # The title lives in <head>, early in the document; cap the text we
         # scan for it so a huge product page doesn't turn into a huge regex
@@ -1430,7 +1498,8 @@ def _fetch_url_page(url: str) -> tuple[str | None, float | None, str | None]:
         markup = full_markup[:200_000]
     except (httpx.HTTPError, ValueError) as exc:
         logger.info("[url-search] page-fetch failed for %s: %s", url, exc)
-        return None, None, None
+        price, merchant = _try_apify()
+        return None, price, merchant
 
     title = None
     for pattern in _META_TITLE_RES:
@@ -1463,6 +1532,10 @@ def _fetch_url_page(url: str) -> tuple[str | None, float | None, str | None]:
             price = _extract_jsonld_price(full_markup)
             merchant = jsonld_merchant
             logger.info("[url-search] %s live price: %s", jsonld_merchant, price)
+
+    if price is None:
+        price, merchant = _try_apify()
+
     if price is None:
         merchant = None
 
