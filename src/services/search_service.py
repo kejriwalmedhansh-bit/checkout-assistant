@@ -1367,12 +1367,16 @@ def _jsonld_host_merchant(host: str) -> str | None:
 # actor's reading of the same product), AJIO (₹2,587, matched an
 # independent Apify actor's reading — also required extending
 # _extract_jsonld_price to accept AJIO's "ProductGroup" schema type, not
-# just "Product"). Myntra: not yet added — its block is Render-specific and
-# untested from this environment; add once verified the same way.
+# just "Product"), Myntra (₹759, matched an independent Apify actor's
+# reading of the same product — the render+extract mechanism itself is
+# confirmed working; the actual Render-server block that motivated this
+# entry couldn't be reproduced from this local environment, so this is
+# proven-correct-if-triggered rather than reproduced-and-fixed).
 _APIFY_MERCHANT_HOSTS = {
     "flipkart.com": "Flipkart",
     "ajio.com": "AJIO",
     "nykaa.com": "Nykaa",
+    "myntra.com": "Myntra",
 }
 
 
