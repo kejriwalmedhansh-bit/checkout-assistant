@@ -74,7 +74,7 @@ export default function AppLayout() {
       bgSize="26px 26px"
       bgPosition="-13px -13px"
     >
-      {/* desktop rail */}
+      {/* desktop rail — always expanded on lg and up */}
       <Box
         display={{ base: 'none', lg: 'block' }}
         position="sticky"
@@ -82,10 +82,9 @@ export default function AppLayout() {
         h="100dvh"
         flex="0 0 auto"
         zIndex={16}
-        w={collapsed ? '76px' : '264px'}
-        transition="width .22s cubic-bezier(.4, 0, .2, 1)"
+        w="264px"
       >
-        {/* clip window — shrinks with the rail and clips the fixed-width content */}
+        {/* clip window — full width, never collapses */}
         <Box
           position="absolute"
           inset={0}
@@ -94,40 +93,8 @@ export default function AppLayout() {
           borderRight="1px solid"
           borderColor="border"
         >
-          <SidebarContent collapsed={collapsed} onOpenOnboarding={openOnboarding} />
+          <SidebarContent collapsed={false} onOpenOnboarding={openOnboarding} />
         </Box>
-
-        {/* floating collapse/expand toggle on the seam */}
-        <Button
-          onClick={toggleSidebar}
-          aria-label={collapsed ? 'Expand sidebar' : 'Collapse sidebar'}
-          position="absolute"
-          top="22px"
-          right="-13px"
-          zIndex={3}
-          w="26px"
-          h="26px"
-          minW="26px"
-          p={0}
-          borderRadius="99px"
-          bg="surface"
-          border="1px solid"
-          borderColor="borderStrong"
-          boxShadow="sm"
-          color="text2"
-          display="grid"
-          placeItems="center"
-          _hover={{ bg: 'surface3', color: 'text' }}
-        >
-          <Box
-            as="span"
-            display="inline-flex"
-            transform={collapsed ? 'none' : 'rotate(180deg)'}
-            transition="transform .2s"
-          >
-            <I.chevRight size={14} />
-          </Box>
-        </Button>
       </Box>
 
       {/* mobile drawer */}

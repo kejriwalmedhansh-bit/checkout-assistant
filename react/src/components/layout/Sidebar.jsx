@@ -39,6 +39,128 @@ function IconSlot({ children }) {
   );
 }
 
+/** Dealo-themed WhatsApp logo — classic speech bubble with tail. */
+function WhatsAppIcon({ size = 17 }) {
+  return (
+    <Box as="svg" viewBox="0 0 24 24" w={`${size}px`} h={`${size}px`} fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M12 2C6.5 2 2 6.5 2 12c0 2 .6 3.8 1.5 5.3L2 22l5.3-1.5C10.2 21.4 11 22 12 22c5.5 0 10-4.5 10-10S17.5 2 12 2Z" />
+    </Box>
+  );
+}
+
+/** Dealo-styled How It Works icon — lightbulb. */
+function HowItWorksIcon({ size = 17 }) {
+  return (
+    <Box as="svg" viewBox="0 0 24 24" w={`${size}px`} h={`${size}px`} fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M9 18h6" />
+      <path d="M10 22h4" />
+      <path d="M12 2a7 7 0 0 0-4 12.7c.6.5 1 1.2 1 2.05V17h6v-.25c0-.85.4-1.55 1-2.05A7 7 0 0 0 12 2Z" />
+    </Box>
+  );
+}
+
+/** Dealo-styled What We Do icon — document/ledger. */
+function WhatWeDoIcon({ size = 17 }) {
+  return (
+    <Box as="svg" viewBox="0 0 24 24" w={`${size}px`} h={`${size}px`} fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8l-5-5Z" />
+      <path d="M14 3v5h5" />
+      <path d="M9 13h6M9 16.5h6" />
+    </Box>
+  );
+}
+
+function SidebarFooterItem({ icon: Icon, label, onClick, href, isExternal, onNavigate, collapsed }) {
+  const fx = fade(collapsed);
+
+  const content = (
+    <>
+      <Tooltip label={label} placement="right" hasArrow openDelay={250} isDisabled={!collapsed}>
+        <IconSlot>
+          <Icon />
+        </IconSlot>
+      </Tooltip>
+      <Box as="span" flex={1} textAlign="left" sx={fx} fontSize="13px" fontWeight={600}>
+        {label}
+      </Box>
+    </>
+  );
+
+  if (href) {
+    return (
+      <Link
+        href={href}
+        isExternal={isExternal}
+        onClick={onClick}
+        display="flex"
+        alignItems="center"
+        w="100%"
+        p="9px 0"
+        pr="11px"
+        borderRadius="11px"
+        color="text2"
+        _hover={{ textDecoration: 'none', bg: 'surface3', color: 'text' }}
+      >
+        {content}
+      </Link>
+    );
+  }
+
+  return (
+    <Box
+      as="button"
+      type="button"
+      onClick={() => {
+        onClick?.();
+        onNavigate?.();
+      }}
+      display="flex"
+      alignItems="center"
+      w="100%"
+      p="9px 0"
+      pr="11px"
+      borderRadius="11px"
+      color="text2"
+      _hover={{ bg: 'surface3', color: 'text' }}
+    >
+      {content}
+    </Box>
+  );
+}
+
+function SidebarFooter({ onNavigate, collapsed, onOpenOnboarding }) {
+  const WHATSAPP_NUMBER = '919874400045';
+  const DEFAULT_MESSAGE = "Hi! I'd like to try Dealo on WhatsApp.";
+  const whatsappHref = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(DEFAULT_MESSAGE)}`;
+
+  return (
+    <Flex direction="column" gap="3px">
+      <SidebarFooterItem
+        icon={WhatsAppIcon}
+        label="Chat on WhatsApp"
+        href={whatsappHref}
+        isExternal
+        onClick={() => window.__dealo?.track?.('Clicked WhatsApp Button')}
+        collapsed={collapsed}
+      />
+      <SidebarFooterItem
+        icon={HowItWorksIcon}
+        label="How it works"
+        onClick={onOpenOnboarding}
+        onNavigate={onNavigate}
+        collapsed={collapsed}
+      />
+      <SidebarFooterItem
+        icon={WhatWeDoIcon}
+        label="What we do"
+        href={ROUTES.howItWorks}
+        onClick={onNavigate}
+        collapsed={collapsed}
+      />
+    </Flex>
+  );
+}
+
 function NavItem({ to, end, icon: Ico, label, onNavigate, collapsed }) {
   const active = Boolean(useMatch({ path: to, end: Boolean(end) }));
   const fx = fade(collapsed);
@@ -121,41 +243,6 @@ export default function SidebarContent({ onNavigate, collapsed = false, onOpenOn
       <Flex mt="auto" direction="column" gap="10px">
         <Box h="1px" bg="border" />
 
-        <WhatsAppButton collapsed={collapsed} />
-
-        <Box h="1px" bg="border" />
-
-        {/* Jumps into the live guided tour at whichever step belongs to the
-            current page (see AppLayout.jsx's openOnboarding) — never a
-            navigation to the homepage, so it never drops an in-progress
-            checkout on /select or /results. Also reachable from the mobile
-            header, since the sidebar itself is hidden behind a drawer
-            there. */}
-        <Tooltip label="How it works" placement="right" hasArrow openDelay={250} isDisabled={!collapsed}>
-          <Box
-            as="button"
-            type="button"
-            onClick={onOpenOnboarding}
-            display="flex"
-            alignItems="center"
-            w="100%"
-            p="9px 0"
-            pr="11px"
-            borderRadius="11px"
-            fontSize="13px"
-            fontWeight={600}
-            color="text2"
-            _hover={{ bg: 'surface3', color: 'text' }}
-          >
-            <IconSlot>
-              <I.info size={17} />
-            </IconSlot>
-            <Box as="span" flex={1} textAlign="left" sx={fx}>
-              How it works
-            </Box>
-          </Box>
-        </Tooltip>
-
         {/* Durable off-switch for the results-page step hints. They show on
             every visit by default, so someone who finds them repetitive needs
             a real way out — not just the per-visit "Hide" on the bubble. */}
@@ -177,6 +264,10 @@ export default function SidebarContent({ onNavigate, collapsed = false, onOpenOn
             The smartest way to buy
           </Text>
         </Box>
+
+        <Box h="1px" bg="border" mt="12px" />
+
+        <SidebarFooter onNavigate={onNavigate} collapsed={collapsed} onOpenOnboarding={onOpenOnboarding} />
       </Flex>
     </Flex>
   );
