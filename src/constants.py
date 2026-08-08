@@ -42,6 +42,12 @@ MANUAL_TRUSTED_MERCHANTS = [
     # after confirming in the backend logs that this exact seller was found
     # and then dropped as "untrusted" on a live search (2026-08-08).
     "boAt Lifestyle", "boat-lifestyle.com",
+    # Same class of bug, found by auditing the logs for the same pattern
+    # (2026-08-08): both are the parent brand's own storefront under a
+    # sub-brand suffix _brand_signature doesn't recognize as generic —
+    # "MNow" (Myntra's own quick-delivery arm) and "Jewellery" (Tata CLiQ's
+    # jewelry vertical) — confirmed dropped as "untrusted" on live searches.
+    "Myntra - MNow", "Tata CLiQ Jewellery",
 ]
 
 PRIORITY_MERCHANTS = [
