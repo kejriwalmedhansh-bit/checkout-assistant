@@ -35,6 +35,13 @@ MANUAL_TRUSTED_MERCHANTS = [
     "Apple", "Samsung", "JioMart", "Pepperfry", "Lenskart",
     "Ethos", "Helios",  # authorized watch chains — approved 2026-07-21
     "Boat",  # approved 2026-08-04
+    # "Boat" alone never catches this seller: Google Shopping lists boAt's
+    # own store as "boat-lifestyle.com" / "boAt Lifestyle", and "lifestyle"
+    # isn't a generic storefront word _brand_signature strips (rightly so —
+    # "Lifestyle" is itself a real, separate retail brand) — added directly
+    # after confirming in the backend logs that this exact seller was found
+    # and then dropped as "untrusted" on a live search (2026-08-08).
+    "boAt Lifestyle", "boat-lifestyle.com",
 ]
 
 PRIORITY_MERCHANTS = [

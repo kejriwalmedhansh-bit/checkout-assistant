@@ -8,6 +8,9 @@ import json
 import sys
 from pathlib import Path
 
+sys.path.insert(0, str(Path(__file__).parent))
+from clean_maximize_master import EXCLUDE_PRODUCT_IDS  # noqa: E402
+
 GYFTR_RAW = Path(__file__).parent.parent / "data" / "gyftr_master.json"
 MAXIMIZE_RAW = Path(__file__).parent.parent / "db" / "maximize_master.json"
 MAXIMIZE_CLEANED = Path(__file__).parent.parent / "data" / "maximize_master.json"
@@ -67,6 +70,17 @@ def normalize_maximize(raw_data: dict) -> dict:
         products = []
 
         for variant in brand.get("variants", []):
+            # Same manually-verified exclusions clean_maximize_master.py
+            # applies (e.g. Amazon Prime Lite/Shopping Edition/membership —
+            # subscription top-ups, not spendable shopping credit) — this
+            # script reads straight from the raw scrape, so without this it
+            # silently reintroduces every listing that override table exists
+            # to drop, including into the live data/ file (found 2026-08-08:
+            # Prime Lite's inflated 15% headline rate was winning "best
+            # tier" over the real ~1.25-1.5% Amazon Pay gift card).
+            if str(variant.get("maximize_product_id")) in EXCLUDE_PRODUCT_IDS:
+                continue
+
             # Restore full_terms_and_conditions from raw data
             tnc = variant.get("full_terms_and_conditions") or variant.get("tnc", {})
             if isinstance(tnc, dict):
@@ -96,8 +110,22 @@ def normalize_maximize(raw_data: dict) -> dict:
                 "last_scraped": variant.get("last_scraped"),
             })
 
-        # Get first variant's T&Cs (they should be the same for all variants of a brand)
-        first_variant = brand.get("variants", [{}])[0]
+        if not products:
+            # Every variant was an excluded subscription/different-product
+            # listing (e.g. a brand that's Maximize-only for a top-up type
+            # we don't treat as a voucher) — nothing left to offer.
+            continue
+
+        # Get first *kept* variant's T&Cs/description (they should be the
+        # same for all real variants of a brand) — must skip excluded
+        # variants here too, or an excluded one sitting first in the raw
+        # list (as Amazon's Prime Lite did) leaks its own description/T&Cs
+        # onto the brand record even after its own tier was dropped above.
+        first_variant = next(
+            (v for v in brand.get("variants", [])
+             if str(v.get("maximize_product_id")) not in EXCLUDE_PRODUCT_IDS),
+            {},
+        )
         tnc = first_variant.get("full_terms_and_conditions") or first_variant.get("tnc", {})
         if isinstance(tnc, dict):
             tnc_text = tnc.get("content")

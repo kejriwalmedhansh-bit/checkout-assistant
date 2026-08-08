@@ -193,87 +193,6 @@
     "products": [
       {
         "product_name": "Amazon",
-        "source_url": "https://www.maximize.money/gift-cards/Amazon/547",
-        "redemption_type": "Online",
-        "denominations": [
-          799,
-          799
-        ],
-        "is_custom_denom": false,
-        "custom_min": null,
-        "custom_max": null,
-        "discounts": {
-          "UPI": 15.0,
-          "Debit Card": 13.75,
-          "Credit Card": 13.1,
-          "CC on UPI": 12.65,
-          "Diners Club": 12.75,
-          "Amex": 12.75
-        },
-        "best_payment_method": "UPI",
-        "best_discount_pct": 15.0,
-        "stack_limit": null,
-        "value_cap": null,
-        "purchase_cap_per_txn": null,
-        "status": "active",
-        "last_scraped": "2026-07-26"
-      },
-      {
-        "product_name": "Amazon",
-        "source_url": "https://www.maximize.money/gift-cards/Amazon/548",
-        "redemption_type": "Online",
-        "denominations": [
-          399,
-          399
-        ],
-        "is_custom_denom": false,
-        "custom_min": null,
-        "custom_max": null,
-        "discounts": {
-          "UPI": 15.0,
-          "Debit Card": 13.75,
-          "Credit Card": 13.1,
-          "CC on UPI": 12.65,
-          "Diners Club": 12.75,
-          "Amex": 12.75
-        },
-        "best_payment_method": "UPI",
-        "best_discount_pct": 15.0,
-        "stack_limit": null,
-        "value_cap": null,
-        "purchase_cap_per_txn": null,
-        "status": "active",
-        "last_scraped": "2026-07-26"
-      },
-      {
-        "product_name": "Amazon",
-        "source_url": "https://www.maximize.money/gift-cards/Amazon/549",
-        "redemption_type": "Online",
-        "denominations": [
-          1499,
-          1499
-        ],
-        "is_custom_denom": false,
-        "custom_min": null,
-        "custom_max": null,
-        "discounts": {
-          "UPI": 15.0,
-          "Debit Card": 13.75,
-          "Credit Card": 13.1,
-          "CC on UPI": 12.65,
-          "Diners Club": 12.75,
-          "Amex": 12.75
-        },
-        "best_payment_method": "UPI",
-        "best_discount_pct": 15.0,
-        "stack_limit": null,
-        "value_cap": null,
-        "purchase_cap_per_txn": null,
-        "status": "active",
-        "last_scraped": "2026-07-26"
-      },
-      {
-        "product_name": "Amazon",
         "source_url": "https://www.maximize.money/gift-cards/Amazon/1084",
         "redemption_type": "Online",
         "denominations": [
@@ -294,33 +213,6 @@
         "best_payment_method": "UPI",
         "best_discount_pct": 1.25,
         "stack_limit": 3,
-        "value_cap": null,
-        "purchase_cap_per_txn": null,
-        "status": "active",
-        "last_scraped": "2026-07-26"
-      },
-      {
-        "product_name": "Amazon",
-        "source_url": "https://www.maximize.money/gift-cards/Amazon/448",
-        "redemption_type": "Online",
-        "denominations": [
-          200,
-          500,
-          1000,
-          2000,
-          5000,
-          10000
-        ],
-        "is_custom_denom": true,
-        "custom_min": 100,
-        "custom_max": 10000,
-        "discounts": {
-          "UPI": 1.5,
-          "Debit Card": 0.25
-        },
-        "best_payment_method": "UPI",
-        "best_discount_pct": 1.5,
-        "stack_limit": 4,
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
@@ -353,19 +245,20 @@
         "last_scraped": "2026-07-26"
       }
     ],
-    "description": "Prime Lite- Get Free unlimited Same-day/1-day delivery, \u00a0access to HD quality movies & shows on Prime Video on one device of your choice (mobile/TV), early access to deals and shopping events. All of this and more only at 799/year.",
+    "description": "The Amazon Shopping Voucher is a perfect gift for anyone who loves shopping on Amazon. It can be redeemed across a wide range of products available on Amazon\u2019s platform. Whether it\u2019s electronics, books, fashion, or home goods, this voucher provides complete flexibility, letting the recipient choose exactly what they want.",
     "important_instructions_raw": null,
     "how_to_redeem_steps": [
-      "Visit https://www.amazon.in/vouchers",
-      "Enter the voucher code in 'Add new' section.",
-      "Click on 'Add button' to add voucher."
+      "Log in to your Amazon account.",
+      "Go to the 'Add Gift Card' section.",
+      "Enter the Gift Card code and click 'Add to Account.'",
+      "The balance will be added to your account for future purchases."
     ],
-    "full_terms_and_conditions": "Amazon Prime Voucher is issued by Pine Labs Private Limited (Qwikcilver) with Amazon Pay and can be used for Amazon Prime memberships (3/12 months, Prime Lite, Prime Shopping edition) or Amazon Pay Anytime Gift Cards (zero value) on Amazon.in.\nThe voucher has a validity of 12 months from the date of activation and cannot be transferred or cancelled once issued.\nAmazon Prime Voucher cannot be used on Amazon Business accounts.\nCredit and Debit Cards issued outside India cannot be used to purchase Amazon Prime Voucher.\nThe voucher is valid only for new users subscribing to Amazon Prime for the first time.\nAmazon Prime Voucher cannot be used for physical or digital products, Global Store items, recharges, bill payments, ticket bookings, financial products, Amazon Pay gift cards, or mixed orders with ineligible items.\nCustomers with Prime activated via telecom providers (Airtel, Jio, VI, etc.) or Google Play subscriptions are not eligible to redeem this voucher.\nBeneficiary can redeem the voucher on https://www.amazon.in/vouchers by applying the 13-digit numeric code, with a maximum balance addition of \u20b91799 per voucher.\nAmazon Prime Voucher can be redeemed only once per customer, is non-refundable, non-cancellable, and cannot be redeemed for cash or transferred for value.\nPine Labs or Amazon are not responsible if the voucher is lost, stolen, or misused, and terms may be changed anytime; e-gift card delivery may take up to 24 hours, and no returns/refunds are allowed",
+    "full_terms_and_conditions": "Redeemable only on Amazon.in.\nCannot be redeemed for cash or combined with other gift cards.\nValid for a specified period from the date of issuance.\nNon-transferable and can only be used by the registered account holder.\nAny unused balance remains valid until the card expires.",
     "redemption_restrictions": null,
     "notes": null,
     "stack_limit_confidence": null,
-    "can_club_with_offers": false,
-    "one_time_use": true
+    "can_club_with_offers": true,
+    "one_time_use": false
   },
   "hp-pay": {
     "brand_name": "HP Pay",
@@ -474,34 +367,6 @@
         },
         "best_payment_method": "UPI",
         "best_discount_pct": 5.0,
-        "stack_limit": 4,
-        "value_cap": null,
-        "purchase_cap_per_txn": null,
-        "status": "active",
-        "last_scraped": "2026-07-26"
-      },
-      {
-        "product_name": "Air India",
-        "source_url": "https://www.maximize.money/gift-cards/Air India/1089",
-        "redemption_type": "Online",
-        "denominations": [
-          1000,
-          2000,
-          5000
-        ],
-        "is_custom_denom": true,
-        "custom_min": 500,
-        "custom_max": 5000,
-        "discounts": {
-          "UPI": 18.0,
-          "Debit Card": 16.75,
-          "Credit Card": 16.1,
-          "CC on UPI": 15.65,
-          "Diners Club": 15.75,
-          "Amex": 15.75
-        },
-        "best_payment_method": "UPI",
-        "best_discount_pct": 18.0,
         "stack_limit": 4,
         "value_cap": null,
         "purchase_cap_per_txn": null,
@@ -6089,36 +5954,6 @@
         },
         "best_payment_method": "UPI",
         "best_discount_pct": 13.75,
-        "stack_limit": 4,
-        "value_cap": null,
-        "purchase_cap_per_txn": null,
-        "status": "active",
-        "last_scraped": "2026-07-26"
-      },
-      {
-        "product_name": "Wonderchef",
-        "source_url": "https://www.maximize.money/gift-cards/Wonderchef/471",
-        "redemption_type": "Online",
-        "denominations": [
-          1000,
-          2000,
-          5000,
-          10000,
-          20000
-        ],
-        "is_custom_denom": true,
-        "custom_min": 500,
-        "custom_max": 20000,
-        "discounts": {
-          "UPI": 13.25,
-          "Debit Card": 12.0,
-          "Credit Card": 11.35,
-          "CC on UPI": 10.9,
-          "Diners Club": 11.0,
-          "Amex": 11.0
-        },
-        "best_payment_method": "UPI",
-        "best_discount_pct": 13.25,
         "stack_limit": 4,
         "value_cap": null,
         "purchase_cap_per_txn": null,
@@ -11748,23 +11583,6 @@
     "products": [
       {
         "product_name": "Dominos",
-        "source_url": "https://www.maximize.money/gift-cards/Dominos/507",
-        "redemption_type": null,
-        "denominations": [],
-        "is_custom_denom": false,
-        "custom_min": null,
-        "custom_max": null,
-        "discounts": {},
-        "best_payment_method": null,
-        "best_discount_pct": null,
-        "stack_limit": null,
-        "value_cap": null,
-        "purchase_cap_per_txn": null,
-        "status": "not_scraped",
-        "last_scraped": "2026-07-26"
-      },
-      {
-        "product_name": "Dominos",
         "source_url": "https://www.maximize.money/gift-cards/Dominos/1017",
         "redemption_type": "Online",
         "denominations": [
@@ -11794,14 +11612,24 @@
         "last_scraped": "2026-07-26"
       }
     ],
-    "description": null,
+    "description": "Domino's is an American pizza restaurant chain founded. Domino's offers lip-smacking vegetarian and non-vegetarian pizza options. Plus, there is a host of side-dishes to choose from. Buy Domino's Gift Cards and Gift Vouchers for amazing food experience.",
     "important_instructions_raw": null,
-    "how_to_redeem_steps": null,
-    "full_terms_and_conditions": null,
+    "how_to_redeem_steps": [
+      "Log on to Dominos App.",
+      "Add the items in the cart and proceed to checkout.",
+      "Click on E Vouchers Tab to add the Gift Cards. Enter Gift Card PIN Only and click on submit.",
+      "Pay balance amount at the time of delivery.",
+      "Alternative way to redeem -",
+      "Open the GyFTR ePay app, add the voucher to your ePay balance, tap Redeem ePay, enter the amount, and confirm the redemption.",
+      "Your unique custom ePay code will be generated.",
+      "Open the Domino's app, select your product and add it to the cart, go to the cart to view payment options, and choose Gift Card/e-Voucher to enter the voucher code.",
+      "If any balance remains after applying the voucher, select Pay in Cash to complete the payment."
+    ],
+    "full_terms_and_conditions": "This is a Domino\u2019s Pizza GV (Gift Voucher)/e-Pay that will be accepted only on the Domino's India Mobile APP. GV/e-Pay cannot be redeemed directly at the Domino\u2019s outlet.\nThe person who has the GV/e-Pay is deemed to be the beneficiary.\nMultiple GVs cannot be used in one bill/transaction, however you can convert multiple GVs to a single GV via the Gyftr E-Pay app.\nOnce added to the e-Pay balance, it can be used until exhausted or expired. - https://brandpts.com/dominos\nOnce the GV gets added to the e-Pay balance, it can be utilized till the balance gets exhausted or expires. No credit note or refund for the unused balance amount will be given.\nPartial activation is not allowed. This GV/e-Pay can be activated only once & is not reloadable/cannot be revalidated.\nIn case the value of the product/items exceeds the value of GV/e-Pay, the difference shall be paid by the customer.\nGV/e-Pay cannot be exchanged for cash/gift cards/credit notes.\nGV/e-Pay cannot be combined with existing offers and with Domino\u2019s wallet balance. GV/e-Pay cannot be redeemed on specific block-out dates as may be intimated/updated by Jubilant FoodWorks Ltd./Domino\u2019s on its website from time to time.\nThe GV can be converted into e-Pay as per the holder's convenience.\nThe GV/e-Pay balance cannot be transferred to another e-Pay account, exchanged for cash, or converted into any other form of currency.\nThe e-Pay balance must be linked to the registered mobile number.\nAfter conversion into e-Pay balance, this GV is valid for partial redemption. The balance would remain in the e-Pay balance and can be used for multiple transactions within the validity period.\nJubilant FoodWorks Ltd./Domino's may add or delete any date(s)/period(s) at its sole discretion without any liability.\nAny dispute related to the GV/e-Pay should be referred to Jubilant FoodWorks Ltd./Domino\u2019s, and the decision of Jubilant FoodWorks Ltd./Domino\u2019s shall be final. In case of any legal disputes, the courts in Delhi shall have the exclusive jurisdiction.\nJubilant FoodWorks Ltd./Domino\u2019s shall, on a best effort basis, attempt to accept GV/e-Pay, but on account of any technical reason or for any reason beyond its control, Domino\u2019s GV/e-Pay may not get accepted on the website, and Domino\u2019s shall have no liability for the same.\nIf a GV/e-Pay gets blocked on account of a technical issue, it would get enabled in 72 hours. In case of transaction failures after GV/e-Pay is applied, the amount would be automatically refunded to the same cards within 48 hours.\nJubilant FoodWorks Ltd./Domino\u2019s reserves the right to edit/change the terms and conditions for the GV/e-Pay at any time without any notice or liability.\nJubilant FoodWorks Ltd./Domino\u2019s has the final authority on the interpretation of these rules.\nJubilant FoodWorks Ltd./Domino\u2019s reserves the right to withdraw the GV/e-Pay scheme/offer before the completion of the validity period without any notice or liability at its sole discretion.\nJubilant FoodWorks Ltd./Domino\u2019s reserves the right to deny accepting any GV/e-Pay if it suspects that there is duplicity of cards.\nIn no event shall the liability of Jubilant FoodWorks Ltd./Domino\u2019s for any claims exceed the value of the GV/e-Pay in dispute.\nJubilant FoodWorks Ltd./Domino's is not responsible if the GV is lost, stolen, or used without permission.\nThe GV/e-Pay CANNOT be revalidated once expired or canceled under any circumstances.\nFor any queries or issues related to GV/e-Pay, raise a request at https://www.gvhelpdesk.com.",
     "redemption_restrictions": null,
     "notes": null,
     "stack_limit_confidence": null,
-    "can_club_with_offers": false,
+    "can_club_with_offers": true,
     "one_time_use": true
   },
   "ta-iserveu-gift-card-max-variant": {
