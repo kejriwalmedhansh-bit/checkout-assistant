@@ -75,6 +75,12 @@ MANUAL_TRUSTED_MERCHANTS = [
     "playstation.com", "store.steampowered.com", "stevemadden.in",
     "swiggy.com", "tego.fit", "playvalorant.com", "veridicushealthcares.com",
     "westelm.in", "woodlandworldwide.com", "wynk.in", "zeptonow.com",
+    # Follow-up pass on the same audit (2026-08-08) — search budget ran out
+    # mid-pass the first time, these are the gaps that surfaced once the
+    # remaining brands got properly verified.
+    "getfrenchaccent.com", "libertyshoes.com", "luzo.app",
+    "matrixprofessional.in", "miraggiolife.com", "muji.in",
+    "pointsforgood.org", "razorpay.com", "resonate.store",
 ]
 
 PRIORITY_MERCHANTS = [
