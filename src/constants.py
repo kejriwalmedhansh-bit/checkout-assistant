@@ -92,6 +92,15 @@ MANUAL_TRUSTED_MERCHANTS = [
     # proven this way (found in real search results, not guessed) belong
     # here — see CLAUDE.md rule #1.
     "Levi Strauss India",
+    # Systematic follow-up (2026-08-08): ran a real test search for every
+    # one of the 69 remaining newly-verified brands and checked the logs for
+    # the same failure pattern as Levi's. 4 more real, live-confirmed gaps —
+    # "TTK PrestigeLimited" alone was the seller on 31 of the Prestige
+    # pressure-cooker results in one test search, i.e. the domain fix
+    # (ttkprestige.com) would have missed nearly all of Prestige's own
+    # listings without this.
+    "TTK PrestigeLimited", "Judge by Prestige",
+    "Liberty Leathers", "Pottery Barn Kids",
 ]
 
 PRIORITY_MERCHANTS = [
