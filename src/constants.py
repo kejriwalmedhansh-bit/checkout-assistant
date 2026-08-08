@@ -48,6 +48,33 @@ MANUAL_TRUSTED_MERCHANTS = [
     # "MNow" (Myntra's own quick-delivery arm) and "Jewellery" (Tata CLiQ's
     # jewelry vertical) — confirmed dropped as "untrusted" on live searches.
     "Myntra - MNow", "Tata CLiQ Jewellery",
+    # Full-catalog audit (2026-08-08): every online-redeemable Gyftr/Maximize
+    # brand's real official domain was verified via live search, then checked
+    # against the existing whitelist logic. These 61 are the ones that
+    # wouldn't already be recognized as trusted — same root cause as boAt:
+    # the real seller domain doesn't reduce to the same signature as the
+    # brand's own voucher-listing name (a sub-brand suffix, an unrelated TLD,
+    # a platform name that differs from the storefront name, etc.). See
+    # audits/brand_website_matching.csv for the full brand→domain mapping,
+    # including the ~275 domains that were verified but already covered and
+    # so needed no change here.
+    "adanione.com", "adventrasports.com", "alistetechnologies.com",
+    "appyhigh.com", "archiesonline.com", "assemblytravel.com", "theauric.com",
+    "battlegroundsmobileindia.com", "campusshoes.com", "candere.com",
+    "celloworld.com", "cinepolisindia.com", "cult.fit", "dieselindia.com",
+    "duroflexworld.com", "ea.com", "euphoriajewellery.in", "fnp.com",
+    "myfrido.com", "futureworldindia.in", "gasjeans.com", "giva.co",
+    "goibibo.com", "gyftr.com", "hammeronline.in", "hindustantimes.com",
+    "hoichoi.tv", "hunkemoller.in", "pvrcinemas.com", "kalkifashion.com",
+    "ketandiamonds.com", "levi.in", "libertyshoesonline.com",
+    "lifestylestores.com", "lohono.com", "malabargoldanddiamonds.com",
+    "marksandspencer.in", "maxfashion.in", "microsoft.com", "xbox.com",
+    "mobilelegends.com", "muscleblaze.com", "potterybarn.com",
+    "ttkprestige.com", "purehomeandliving.com", "ubisoft.com", "razer.com",
+    "riotgames.com", "ritukumar.com", "smilefoundationindia.org",
+    "playstation.com", "store.steampowered.com", "stevemadden.in",
+    "swiggy.com", "tego.fit", "playvalorant.com", "veridicushealthcares.com",
+    "westelm.in", "woodlandworldwide.com", "wynk.in", "zeptonow.com",
 ]
 
 PRIORITY_MERCHANTS = [

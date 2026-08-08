@@ -1,0 +1,578 @@
+Brand Name,Sources,Gyftr Slug(s),Maximize Slug(s),Already Whitelisted?,Matched Whitelist Entry,Guessed Official Website,Confidence,Notes
+Ajio Luxe,Gyftr+Maximize,ajio;ajio-luxe,ajio;ajio-luxe,Yes,AJIO,ajio.com,Verified,Ajio Luxe is the luxury section of AJIO (luxe.ajio.com subdomain); parent brand domain confirmed.
+Amazon,Gyftr+Maximize,amazon,amazon,Yes,Amazon,amazon.in,Verified,Confirmed India storefront domain.
+BigBasket,Gyftr+Maximize,bigbasket,bigbasket,Yes,BigBasket,bigbasket.com,Verified,Confirmed official grocery delivery site.
+Boat,Maximize,,boat,Yes,Boat,boat-lifestyle.com,Verified,Confirmed boAt's own official storefront (the domain that was previously wrongly dropped as untrusted).
+Croma,Gyftr+Maximize,croma,croma,Yes,Croma,croma.com,Verified,Confirmed Tata's electronics retail chain official site.
+Flipkart,Gyftr+Maximize,flipkart,flipkart,Yes,Flipkart,flipkart.com,Verified,Confirmed official India e-commerce site.
+Helios,Gyftr,helios,,Yes,Helios,helioswatchstore.com,High,
+LENSKART,Gyftr+Maximize,lenskart,lenskart,Yes,Lenskart,lenskart.com,Verified,Confirmed official eyewear retailer site.
+Myntra,Gyftr+Maximize,myntra,myntra,Yes,Myntra,myntra.com,Verified,Confirmed official fashion e-commerce site.
+Nykaa,Gyftr+Maximize,nykaa;nykaa-fashion,nykaa;nykaa-fashion,Yes,Nykaa,nykaa.com,Verified,Confirmed official beauty e-commerce site.
+Pepperfry,Maximize,,pepperfry,Yes,Pepperfry,pepperfry.com,Verified,Confirmed official furniture e-commerce site.
+Reliance Digital,Gyftr+Maximize,reliance-digital,reliance-digital,Yes,Reliance Digital,reliancedigital.in,High,
+TATA CLiQ,Gyftr+Maximize,tata-cliq;tata-cliq-luxury,tata-cliq;tata-cliq-fashion;tata-cliq-luxury,Yes,Tata CLiQ,tatacliq.com,Verified,Confirmed official Tata e-commerce site.
+Vijay Sales,Gyftr+Maximize,vijay-sales,vijay-sales,Yes,Vijay Sales,vijaysales.com,High,
+Abraham & Thakore- Luxe Gift Card,Gyftr,abraham-and-thakore,,No,,abrahamandthakore.com,Medium,
+Absolute Barbecues,Maximize,,absolute-barbecues,No,,absolutebarbecues.com,Low,Unverified heuristic guess (name-based pattern only) — please confirm
+Absolute Barbeque,Gyftr,absolute-barbeque,,No,,absolutebarbeque.com,Low,Unverified heuristic guess (name-based pattern only) — please confirm
+Adani Meet and Greet,Gyftr,adani-meet-and-greet,,No,,adanione.com,Verified,GyFTR voucher is redeemed via Adanione.com Pranaam Services for airport meet-and-greet packages; that's Adani's official redemption portal.
+Adidas Kids-Luxe Gift Card,Gyftr,adidas-kids-luxe-gift-card,,No,,adidas.co.in,Medium,
+Adventra,Gyftr,adventra,,No,,adventrasports.com,Verified,"Confirmed Indian outdoor/adventure gear brand's official store, distinct from the generic guess adventra.in."
+Air India,Gyftr+Maximize,air-india,air-india,No,,airindia.com,Verified,Confirmed official airline booking site.
+Air India Add-ons,Gyftr,air-india-add-ons,,No,,airindia.com,Medium,
+Air India Domestic Gift Card,Gyftr,air-india-domestic-gift-card,,No,,airindia.com,Verified,"Air India gift cards are issued/redeemed via giftcards.airindia.com, a subdomain of the official airindia.com; not applicable to Air India Express flights specifically."
+Air India Fly Rajasthan,Gyftr,air-india-fly-rajasthan,,No,,airindia.com,Medium,
+Airtel Xstream,Gyftr,airtel-xstream,,No,,airtelxstream.in,Verified,"Confirmed official OTT bundling platform site (airtelxstream.in), distinct from parent airtel.in."
+ALDO,Gyftr+Maximize,aldo,aldo,No,,aldoshoes.com,Medium,
+Aliste,Gyftr+Maximize,aliste,aliste,No,,alistetechnologies.com,Verified,"Confirmed Noida-based smart home automation company's official site, corrects guess of aliste.in."
+Allen Solly Gift Voucher,Gyftr+Maximize,allen-solly-gift-voucher,allen-solly,No,,allensolly.abfrl.in,Medium,
+Amazon Fresh,Gyftr,amazon-fresh,,No,,amazon.in,Verified,"Amazon Fresh is a grocery service within amazon.in, no separate domain."
+Amazon Prime Membership,Gyftr,amazon-prime-membership,,No,,amazon.in,Verified,Prime membership is purchased/managed via amazon.in.
+Amazon Prime Voucher - 3 months Membership,Maximize,,amazon-prime-voucher-3-months-membership,No,,amazon.in,Verified,"Same Amazon Prime product, redeemed on amazon.in."
+Amazon Shopping Voucher,Gyftr,amazon-shopping-voucher,,No,,amazon.in,Verified,Generic Amazon shopping voucher redeemed on amazon.in.
+American Eagle Gift Voucher,Gyftr+Maximize,american-eagle-gift-voucher,american-eagle,No,,ae.com,Medium,
+American Tourister,Gyftr+Maximize,american-tourister,american-tourister,No,,americantourister.in,Medium,
+APOLLO DIAGNOSTICS,Gyftr+Maximize,apollo-diagnostics,apollo-diagnostics,No,,apollodiagnostics.in,Verified,Confirmed official diagnostics/pathology lab site of Apollo Health & Lifestyle Ltd.
+Apollo Pharmacy,Gyftr,apollo-pharmacy,,No,,apollopharmacy.in,Verified,Confirmed official online pharmacy site.
+App Store Code,Gyftr,app-store-code,,No,,apple.com,Verified,"Redeemed via Apple's App Store app / Apple Account; official brand is Apple, apple.com."
+Apparel Group,Gyftr,apparel-group,,No,,apparelgroup.com,Medium,
+AppyHigh Prime,Maximize,,appyhigh-prime,No,,appyhigh.com,Verified,Confirmed official site for the AI app bundle subscription service.
+Archies Gallery,Gyftr+Maximize,archies-gallery,archies-gallery,No,,archiesonline.com,Verified,Confirmed official gifting/greeting-card retailer site (Archies Limited).
+Armani Exchange-Luxe Gift Card,Gyftr+Maximize,luxe-gift-card-armani-exchange,armani-exchange-luxe,No,,armaniexchange.in,Verified,"Confirmed India-specific storefront for Armani Exchange, distinct from global armaniexchange.com."
+Asia Seven Express,Maximize,,asia-seven-express,No,,,N/A,Could not confidently identify — please research directly
+Assembly,Gyftr+Maximize,assembly,assembly,No,,assemblytravel.com,Verified,"Corrected: the Indian premium luggage/travel-gear brand 'Assembly' is at assemblytravel.com, NOT assemblylabel.com which is an unrelated Australian clothing brand."
+Aurelia,Gyftr+Maximize,aurelia,aurelia,No,,aurelia.in,Medium,
+Auric,Gyftr+Maximize,auric,auric,No,,theauric.com,Verified,"Confirmed Delhi-based Ayurveda beverage brand's official site, corrects guess of auric.co.in."
+BAGLINE,Maximize,,bagline,No,,bagline.com,Verified,"Confirmed official multi-brand travel gear/accessories retailer site, corrects guess of bagline.in."
+Bakingo,Gyftr+Maximize,bakingo,bakingo,No,,bakingo.com,Verified,Confirmed official online bakery/cake delivery site.
+Bally-Luxe Gift Card,Gyftr,bally-luxe-gift-card,,No,,bally.com,Medium,
+Barbeque Nation,Gyftr+Maximize,barbeque-nation,barbeque-nation,No,,barbequenation.com,Medium,
+Barbeque Nation Value Voucher,Gyftr,barbeque-nation-value-voucher,,No,,barbequenation.com,Medium,
+Baskin Robbins,Gyftr+Maximize,baskin-robbins,baskin-robbins,No,,baskinrobbins.in,Medium,
+Bata,Gyftr+Maximize,bata,bata,No,,bata.in,Medium,
+Bath & Body Works,Gyftr,bath-&-body-works,,No,,bathandbodyworks.in,Medium,
+Bath and Body Works,Maximize,,bath-and-body-works,No,,bathandbodyworks.in,Medium,
+Beer Cafe,Gyftr,beer-cafe,,No,,beercafe.in,Medium,
+Behrouz Biryani,Gyftr+Maximize,behrouz-biryani,behrouz-biryani,No,,behrouzbiryani.com,Verified,Confirmed official biryani delivery brand site (owned by Rebel Foods).
+Beverly Hills Polo Club,Gyftr+Maximize,beverly-hills-polo-club,beverly-hills-polo-club,No,,bhpoloclub.com,Medium,
+Beyoung,Gyftr+Maximize,beyoung,beyoung,No,,beyoung.in,Verified,"Corrected: official site is beyoung.in (India-based D2C fashion brand from Udaipur), not beyoung.com."
+BGMI,Maximize,,bgmi,No,,battlegroundsmobileindia.com,Verified,Confirmed official Krafton game site for Battlegrounds Mobile India.
+BGMI UC Official Voucher,Gyftr,bgmi-uc-official-voucher,,No,,battlegroundsmobileindia.com,Verified,Same underlying brand/game as BGMI; official UC top-ups are accessed through the official BGMI site/app (which routes to Codashop as payment partner).
+Bhima Jewellers - Coin,Maximize,,bhima-jewellers-coin,No,,bhimagold.com,Medium,
+Bhima Jewellery,Maximize,,bhima-jewellery,No,,bhimagold.com,Medium,
+BIBA,Gyftr,biba,,No,,biba.in,Verified,Confirmed official Indian ethnic-wear brand site.
+Bikanervala,Maximize,,bikanervala,No,,bikanervala.com,Medium,
+Birkenstock,Maximize,,birkenstock,No,,birkenstock.in,Verified,"Corrected to India-specific storefront birkenstock.in (official site explicitly warns customers to check they're on this domain to avoid frauds), distinct from global birkenstock.com."
+Blaupunkt,Maximize,,blaupunkt,No,,blaupunkt.com,Verified,Confirmed global site with dedicated India section (c_ind); India also has sub-sites blaupunktcar.in and blaupunktaudio.in for specific product lines.
+Blinkit Gift Card,Gyftr+Maximize,blinkit-gift-card,blinkit,No,,blinkit.com,Verified,Confirmed official quick-commerce grocery delivery site.
+Blissclub,Gyftr+Maximize,blissclub,blissclub,No,,blissclub.com,Verified,Confirmed official Bengaluru-based activewear brand site.
+Blue Tokai Coffe,Maximize,,blue-tokai-coffe,No,,bluetokaicoffee.com,Medium,
+BlueStone Diamond,Maximize,,bluestone-diamond,No,,bluestone.com,Medium,
+Bobbi Brown,Gyftr,bobbi-brown,,No,,bobbibrown.com,Medium,
+Boditive,Maximize,,boditive,No,,boditive.com,Verified,Confirmed: Boditive is a Nagaland-based sustainable sanitary pad brand (not a fitness brand as the name might suggest); official site boditive.com matches the GyFTR gift card listing.
+Body Craft (Clinic),Maximize,,body-craft-clinic,No,,bodycraft.com,Low,Unverified heuristic guess (name-based pattern only) — please confirm
+Body Craft (Salon),Maximize,,body-craft-salon,No,,bodycraft.com,Low,Unverified heuristic guess (name-based pattern only) — please confirm
+BookMyShow,Maximize,,bookmyshow,No,,bookmyshow.com,Verified,"Confirmed official ticketing platform; India-facing site is in.bookmyshow.com, a subdomain of bookmyshow.com."
+BOTTEGA VENETA- Luxe Gift Card,Gyftr,bottega-veneta,,No,,bottegaveneta.com,Medium,
+BPCL SmartDrive Fuel e-voucher,Gyftr+Maximize,-bpcl-,bpcl-smartdrive-fuel,No,,bharatpetroleum.in,Low,BPCL's fuel program — please confirm exact URL
+BrainGymJr,Gyftr+Maximize,braingymjr,braingymjr-gift-voucher,No,,braingymjr.com,Verified,Confirmed official kids' learning app/subscription site.
+Brooks Brothers -Luxe Gift Card,Gyftr+Maximize,luxe-gift-card-brooks-brothers,brooks-brothers-luxe,No,,brooksbrothers.in,Verified,"Confirmed India-specific official storefront, distinct from global brooksbrothers.com."
+BuyWithEMI,Maximize,,buywithemi,No,,buywithemi.com,Verified,Confirmed official EMI shopping platform site (WEXPO Technologies).
+Cafe Delhi Heights,Gyftr,cafe-delhi-heights,,No,,cafedelhiheights.com,Medium,
+CAHOOT,Gyftr,cahoot,,No,,cahoot.in,Uncertain,no search budget available this pass — needs a follow-up run.
+Call it Spring,Gyftr+Maximize,call-it-spring,call-it-spring,No,,callitspring.com,Medium,
+Campus,Gyftr+Maximize,campus,campus,No,,campusshoes.com,Verified,Confirmed official Indian footwear brand site (Campus Activewear Ltd).
+Canali- Luxe Gift Card,Gyftr,canali--luxe-gift-card,,No,,canali.com,Medium,
+Candere Diamond Jewellery,Gyftr+Maximize,candere-diamond-jewellery,candere-diamond-jewellery,No,,candere.com,Verified,Confirmed official site of Candere by Kalyan Jewellers.
+Candere Gold Coin,Gyftr+Maximize,candere-gold-coin,candere-gold-coin,No,,candere.com,Verified,Same brand/site as other Candere product lines.
+Candere Gold Jewellery,Gyftr+Maximize,candere-gold-jewellery,candere-gold-jewellery,No,,candere.com,Verified,Same brand/site as other Candere product lines.
+Cello,Gyftr,cello,,No,,celloworld.com,Verified,Confirmed official site of Cello World Limited (consumerware/kitchenware).
+CGH Earth,Maximize,,cgh-earth,No,,cghearth.com,Verified,Confirmed official site of the Kerala-based hotels/resorts group.
+CHARLES & KEITH,Gyftr,charles-&-keith,,No,,charleskeith.com,Medium,
+Charles and Keith,Maximize,,charles-and-keith,No,,charleskeith.com,Medium,
+CHARLES TYRWHITT- Luxe Gift Card,Gyftr,charles-tyrwitt,,No,,charlestyrwhitt.com,Medium,
+Chicago Pizza,Gyftr,chicago-pizza,,No,,chicagopizza.in,Medium,
+Chumbak,Gyftr+Maximize,chumbak,chumbak,No,,chumbak.com,Medium,
+Cinepolis,Gyftr+Maximize,cinepolis,cinepolis,No,,cinepolisindia.com,Verified,"Confirmed India-specific official site for movie ticket booking, distinct from global cinepolis.com."
+Citizen Watches,Gyftr+Maximize,citizen-watches,citizen-watches,No,,citizenwatches.co.in,Verified,"Confirmed official Citizen India storefront (.co.in), distinct from global citizenwatch.com."
+CLAYCO,Gyftr,clayco,,No,,clayco.in,Verified,Confirmed official site of the Mumbai-based skincare brand Clayco.
+Cleartax,Gyftr+Maximize,cleartax,cleartax,No,,cleartax.in,Verified,"Corrected: India tax-filing product is at cleartax.in (the earlier guess cleartax.com is now the global e-invoicing/enterprise product, a different site)."
+Cleartrip,Gyftr+Maximize,cleartrip-generic,cleartrip,No,,cleartrip.com,Verified,Confirmed official travel booking site.
+Cleartrip Hotels,Maximize,,cleartrip-hotels,No,,cleartrip.com,Verified,"Hotels is a product line within cleartrip.com, no separate domain."
+Clovia,Gyftr,clovia,,No,,clovia.com,Verified,Confirmed official lingerie/innerwear brand site.
+Coach-Luxe Gift Card,Gyftr,luxe-gift-card-coach,,No,,coach.com,Medium,
+ColorPlus,Gyftr+Maximize,colorplus,colorplus,No,,colorplus.abfrl.in,Medium,
+Columbia Sportswear,Gyftr+Maximize,columbia-sportswear,columbia-sportswear,No,,columbiasportswear.co.in,Medium,
+Cordelia,Gyftr,cordelia,,No,,cordeliacruises.com,Verified,'Cordelia' brand refers to Cordelia Cruises; confirmed official site.
+Cordelia Cruises,Maximize,,cordelia-cruises,No,,cordeliacruises.com,Verified,Confirmed official India cruise line site.
+Cosmopolitan India,Maximize,,cosmopolitan-india,No,,cosmopolitan.in,Verified,Confirmed official India Today Group-published site for the Indian edition of Cosmopolitan.
+Costa Coffee,Gyftr+Maximize,costa-coffee,costa-coffee,No,,costacoffee.co.in,Medium,
+Crossword,Gyftr+Maximize,crossword,crossword,No,,crossword.in,Verified,Confirmed official Indian bookstore chain site.
+Cult,Maximize,,cult,No,,cult.fit,Verified,Confirmed official fitness/wellness platform site.
+Cult Gift Card,Gyftr,cult-gift-card,,No,,cult.fit,Verified,Same underlying brand/site as Cult.
+Daily Objects,Gyftr+Maximize,daily-objects,daily-objects,No,,dailyobjects.com,Verified,Confirmed official Indian phone case/accessories brand site.
+Decathlon,Gyftr+Maximize,decathlon,decathlon,No,,decathlon.in,Verified,Search confirms decathlon.in is Decathlon's official India storefront.
+Decathlon - Fixed,Maximize,,decathlon-fixed,No,,decathlon.in,Medium,
+Diesel- Luxe Gift Card,Gyftr,luxe-gift-card-diesel,,No,,dieselindia.com,Verified,Diesel's India-specific official online store; global site is global.diesel.com.
+Discord,Gyftr+Maximize,discord,discord,No,,discord.com,Verified,Confirmed as Discord's official global site (no separate India domain).
+Discovery Plus,Gyftr+Maximize,discovery-plus,discovery-plus,No,,discoveryplus.in,Verified,Confirmed India-specific streaming domain for Discovery+.
+District,Maximize,,district,No,,district.in,Verified,"Confirmed as Zomato's District app/site for movies, dining, events."
+DocuBay,Gyftr,docubay,,No,,docubay.com,Verified,Confirmed official documentary streaming site.
+DOMINO'S,Gyftr+Maximize,dominos,dominos,No,,dominos.co.in,Verified,"Confirmed India domain (ordering happens at pizzaonline.dominos.co.in, same root domain); operated by Jubilant FoodWorks."
+Donatekart,Maximize,,donatekart,No,,donatekart.com,Verified,Confirmed official donation platform domain.
+DPauls,Maximize,,dpauls,No,,dpauls.com,Verified,"Same company as DPauls Travel & Tours; confirmed via Gyftr listings and official contact pages, all pointing to dpauls.com."
+DPauls Travel & Tours,Gyftr,dpauls-travel-&-tours,,No,,dpauls.com,Verified,Confirmed official travel booking site; company explicitly warns other domains are fraudulent.
+Dune London-Luxe,Maximize,,dune-london-luxe,No,,dunelondon.com,Medium,
+Dune-Luxe Gift Card,Gyftr,luxe-gift-card---dune,,No,,dune.com,Low,Unverified heuristic guess (name-based pattern only) — please confirm
+DUROFLEX,Gyftr+Maximize,duroflex,duroflex,No,,duroflexworld.com,Verified,"Actual official domain is duroflexworld.com, not the guessed duroflex.com (which is unrelated/unused)."
+EA Sports,Maximize,,ea-sports,No,,ea.com,Verified,Confirmed official Electronic Arts domain.
+EA SPORTS FC 26,Gyftr,ea-sports-fc-26,,No,,ea.com,Verified,Same publisher/domain as EA Sports; game-specific pages live under ea.com.
+EA-7- Luxe Gift Card,Gyftr,ea-7--luxe-gift-card,,No,,ea7.com,Low,Unverified heuristic guess (name-based pattern only) — please confirm
+EaseMyTrip,Maximize,,easemytrip,No,,easemytrip.com,Verified,Confirmed official India travel booking domain.
+EaseMyTrip Holiday,Gyftr+Maximize,easemytrip-holiday,easemytrip-holiday,No,,easemytrip.com,Verified,"Holiday packages are a section of the main EaseMyTrip site, no separate domain."
+EaseMyTrip Hotel,Maximize,,easemytrip-hotel,No,,easemytrip.com,Verified,Hotel booking is a section of the main EaseMyTrip site (easemytrip.com/hotels/).
+EasyBuy,Gyftr,easybuy,,No,,easybuy.com,Low,Unverified heuristic guess (name-based pattern only) — please confirm
+EatSure,Gyftr+Maximize,eatsure,eatsure,No,,eatsure.com,Verified,Confirmed official Rebel Foods food delivery domain.
+EazyDiner,Gyftr,eazydiner,,No,,eazydiner.com,Verified,Confirmed official restaurant reservation domain.
+Electricity Bill Payment,Gyftr,electricity-bill-payment,,No,,,N/A,"Generic utility-bill-payment category, not a single brand storefront."
+Elivaas,Gyftr+Maximize,elivaas,elivaas,No,,elivaas.com,Verified,Confirmed official luxury villa rental domain.
+Elleven,Gyftr+Maximize,elleven,elleven,No,,elleven.in,Medium,
+Elver,Maximize,,elver,No,,elver.in,Verified,Confirmed official India audio-electronics brand domain (elver.in); note elverperfume.in is an unrelated different brand.
+Emporio Armani- Luxe Gift Card,Gyftr,luxe-gift-card-emporio-armani,,No,,armani.com,Medium,
+Estele,Gyftr+Maximize,estele,estele,No,,estele.co,Verified,"Actual official domain is estele.co (fashion jewellery since 1989), not the guessed estele.in."
+Estuary World,Maximize,,estuary-world,No,,estuaryworld.com,Uncertain,no search budget available this pass — needs a follow-up run.
+Euphoria Diamond,Maximize,,euphoria-diamond,No,,euphoriajewellery.in,Uncertain,no search budget available this pass — needs a follow-up run.
+Euphoria Gold Coin,Maximize,,euphoria-gold-coin,No,,euphoriajewellery.in,Uncertain,no search budget available this pass — needs a follow-up run.
+Euphoria Jewellery Gold Coin,Gyftr,euphoria-jewellery-gold-coin,,No,,euphoriajewellery.in,Uncertain,no search budget available this pass — needs a follow-up run.
+Euphoria Jewellery Silver Coin,Gyftr+Maximize,euphoria-jewellery-silver-coin,euphoria-jewellery-silver-coin,No,,euphoriajewellery.in,Verified,SBI YONO's official Euphoria Jewellery Silver Coin e-gift voucher page links directly to euphoriajewellery.in-associated brand.
+ExitLag,Gyftr,exitlag,,No,,exitlag.com,Verified,Confirmed official gaming latency-reduction tool domain.
+Faasos,Gyftr+Maximize,faasos,faasos,No,,faasos.com,Verified,Confirmed official domain; Faasos is a Rebel Foods brand but retains its own site distinct from EatSure.
+Fab Hotels,Gyftr,fab-hotels,,No,,fabhotels.com,Verified,Confirmed official budget hotel booking domain.
+Fashion Factory,Gyftr+Maximize,fashion-factory,fashion-factory,No,,fashionfactory.in,Medium,
+Fastag Recharge,Gyftr,fastag-recharge,,No,,,N/A,"Generic utility/category (toll tag recharge), not a single-brand storefront."
+Fastrack,Gyftr+Maximize,fastrack,fastrack,No,,fastrack.com,Medium,
+Fastrack Bags,Gyftr+Maximize,fastrack-bags,fastrack-bags,No,,fastrack.com,Medium,
+Fastrack SmartWatch,Maximize,,fastrack-smartwatch,No,,fastrack.com,Medium,
+Fastrack Smartwatches,Gyftr,fastrack-smartwatches,,No,,fastrack.com,Medium,
+Femmella,Gyftr+Maximize,femmella,femmella,No,,femmella.com,Verified,"Actual official domain is femmella.com, not the guessed femmella.in."
+Ferns N Petals,Gyftr+Maximize,ferns-n-petals,ferns-n-petals,No,,fnp.com,Verified,Confirmed official gifting/flowers domain (brand now styled as FNP).
+FERRAGAMO- Luxe Gift Card,Gyftr,ferragamo,,No,,ferragamo.com,Medium,
+FirstCry,Gyftr+Maximize,firstcry,firstcry,No,,firstcry.com,Verified,Confirmed official baby/kids products domain.
+FITPASS,Gyftr+Maximize,fitpass,fitpass,No,,fitpass.co.in,Verified,Confirmed official India fitness membership domain.
+FlixBus,Maximize,,flixbus,No,,flixbus.in,Verified,India-specific domain confirmed; global brand site is flixbus.com.
+Flower Aura,Gyftr+Maximize,flower-aura,flower-aura,No,,floweraura.com,Uncertain,no search budget available this pass — needs a follow-up run.
+Forever New,Maximize,,forever-new,No,,forevernew.in,Medium,
+Forever21,Maximize,,forever21,No,,forever21.com,Medium,
+Foxtale,Gyftr+Maximize,foxtale,foxtale,No,,foxtale.in,Verified,Confirmed official India skincare/bodycare domain.
+Freecultr,Gyftr+Maximize,freecultr,freecultr,No,,freecultr.com,Verified,Confirmed official innerwear/loungewear D2C domain.
+French Accent,Gyftr,french-accent,,No,,getfrenchaccent.com,Uncertain,no search budget available this pass — needs a follow-up run.
+FreshMenu,Maximize,,freshmenu,No,,freshmenu.com,Verified,Confirmed official food delivery domain.
+FRIDO,Gyftr+Maximize,frido,frido,No,,myfrido.com,Verified,Confirmed official ergonomic wellness products domain.
+Funcity,Maximize,,funcity,No,,funcity.in,Medium,
+FUTURE WORLD - APPLE RESELLER,Gyftr+Maximize,future-world,future-world-apple-reseller,No,,futureworldindia.in,Verified,"Actual official domain is futureworldindia.in (storefront at stores.futureworldindia.in), not the guessed futureworld.in."
+Gaana,Gyftr,gaanaplus,,No,,gaana.com,Verified,Confirmed official Indian music streaming domain.
+Gas Bill Payment,Gyftr,gas-bill-payment,,No,,,N/A,"Generic utility-bill-payment category, not a single-brand storefront."
+GAS-Luxe Gift Card,Gyftr+Maximize,luxe-gift-card-gas,gas-luxe,No,,gasjeans.com,Verified,'GAS' resolves to Italian denim brand GAS Jeans (gasjeans.com); an India-specific gasjeans.in also exists but gasjeans.com is the primary confirmed brand domain.
+Giorgio Armani- Luxe Gift Card,Gyftr,giorgio-armani--luxe-gift-card,,No,,armani.com,Medium,
+Giva-Gold Jewellery,Gyftr,giva-gold-jewellery,,No,,giva.co,Verified,Confirmed official GIVA jewellery domain (giva.co); note givajewellery.com/givajewelry.com are unrelated look-alike domains.
+Giva-Silver Coin,Gyftr+Maximize,giva-silver-coin,giva-silver-coin,No,,giva.co,Verified,Same confirmed GIVA domain.
+Giva-Silver Jewellery,Gyftr,giva-silver-jewellery,,No,,giva.co,Verified,Same confirmed GIVA domain.
+Glam Studios,Maximize,,glam-studios,No,,glamstudios.co,Medium,
+GoIbibo Hotel,Maximize,,goibibo-hotel,No,,goibibo.com,Verified,Confirmed official Goibibo hotel booking domain (MakeMyTrip subsidiary).
+GRT Jewellers,Gyftr+Maximize,grt-jewellers,grt-jewellers,No,,grtjewels.com,Medium,
+GyFTR PAY,Gyftr,gyftr-pay,,No,,gyftr.com,Verified,GyFTR Pay is a feature of the main GyFTR marketplace at gyftr.com.
+H BY HAMLEYS- Luxe Gift Card,Gyftr,h-by-hamleys,,No,,hamleys.in,Medium,
+Hamleys-Luxe Gift Card,Gyftr+Maximize,luxe-gift-card-hamleys,hamleys-luxe,No,,hamleys.in,Verified,"India-specific domain confirmed (hamleys.in), not the guessed global hamleys.com."
+Hammer,Gyftr+Maximize,hammer,hammer,No,,hammeronline.in,Verified,"Actual official domain is hammeronline.in, not the guessed hammersmartwatch.com."
+Haute Sauce,Gyftr,haute-sauce,,No,,hautesauceofficial.com,Uncertain,no search budget available this pass — needs a follow-up run.
+Headout,Maximize,,headout,No,,headout.com,Verified,"Confirmed official global travel-experiences domain, strong India presence, no separate India TLD."
+Health & Glow,Gyftr,health-and-glow,,No,,healthandglow.in,Medium,
+Healthians,Gyftr,healthians,,No,,healthians.com,Verified,Confirmed official at-home diagnostics domain.
+HealthKart,Gyftr+Maximize,healthkart,healthkart,No,,healthkart.com,Verified,Confirmed official supplements/fitness domain.
+Hidesign,Gyftr+Maximize,hidesign,hidesign,No,,hidesign.com,Verified,"Confirmed official leather goods domain; note hidesignleather.com is a separate, seemingly imitation site."
+Himalaya Wellness,Gyftr,himalaya-wellness,,No,,himalayawellness.com,Medium,
+Hindustan Times Premium,Gyftr,hindustan-times-premium,,No,,hindustantimes.com,Verified,Confirmed official newspaper domain; premium/ePaper subscription is offered on the same site.
+Hoichoi,Gyftr,hoichoi,,No,,hoichoi.tv,Verified,Confirmed official Bengali streaming domain (SVF Entertainment).
+Holiday Tribe,Maximize,,holiday-tribe,No,,holidaytribe.com,Medium,
+Home Centre,Gyftr,home-centre;home-centre-online,,No,,homecentre.in,Verified,Confirmed official India domain for the Landmark Group home-furnishings retailer.
+Homecentre Offline,Maximize,,homecentre-offline,No,,homecentre.in,Medium,
+Hoora,Gyftr,hoora,,No,,hoora.in,Uncertain,no search budget available this pass — needs a follow-up run.
+Hopscotch,Maximize,,hopscotch,No,,hopscotch.in,Verified,Confirmed official India kids-fashion domain.
+HP Pay,Gyftr+Maximize,hppay,hp-pay,No,,hppay.in,Verified,Dedicated official HP Pay program domain confirmed (parent company site is hindustanpetroleum.com).
+Hugo Boss-Luxe Gift Card,Gyftr+Maximize,luxe-gift-card-hugo-boss,hugo-boss-luxe,No,,hugoboss.com,Medium,
+Hunkemoller- Luxe Gift Card,Gyftr,hunkemoller--luxe-gift-card,,No,,hunkemoller.in,Verified,India-specific domain confirmed for the lingerie brand (entered India market in 2015).
+Hush Puppies,Gyftr+Maximize,hush-puppies,hush-puppies,No,,hushpuppies.in,Medium,
+Hush Puppies - Fixed,Maximize,,hush-puppies-fixed,No,,hushpuppies.in,Medium,
+Hyperice,Gyftr,hyperice,,No,,hyperice.in,Verified,"India-specific domain confirmed; global site is hyperice.com, and multiple third-party authorized resellers also exist (recoverygear.in, wodarmour.in) but hyperice.in is the brand's own India site."
+IGP,Gyftr,igp,,No,,igp.com,Verified,Search confirmed igp.com is the official Indian Gifts Portal e-gifting site (formerly indiangiftsportal.com).
+Ikea,Gyftr,ikea,,No,,ikea.com,Verified,"IKEA India operates under ikea.com/in/en/ path on the global ikea.com domain, no separate India-only domain."
+Imagine Apple Premium Reseller,Maximize,,imagine-apple-premium-reseller,No,,imaginemarketingindia.com,Medium,
+Indian Terrain,Maximize,,indian-terrain,No,,indianterrain.com,Medium,
+INDRIYA – Aditya Birla Jewellery,Maximize,,indriya-aditya-birla-jewellery,No,,indriya.com,Medium,
+Inglot,Gyftr+Maximize,inglot,inglot,No,,inglot.com,Low,Unverified heuristic guess (name-based pattern only) — please confirm
+INOX Cinemas - GYFTR,Maximize,,inox-cinemas-gyftr,No,,pvrcinemas.com,Verified,INOX merged with PVR in 2023 to form PVR INOX; ticket booking consolidated at pvrcinemas.com (inoxmovies.com also exists but redirects/duplicates).
+Instafab Plus,Gyftr,instafab-plus,,No,,instafabplus.com,Verified,Search confirmed instafabplus.com as the official plus-size fashion site.
+INTERMILES,Gyftr,intermiles,,No,,intermiles.com,Verified,Search confirmed intermiles.com as InterMiles' official rewards program site.
+IOCL,Gyftr,iocl,,No,,iocl.com,Medium,
+IRCTC,Gyftr+Maximize,gv-irctc,irctc,No,,irctc.co.in,Verified,Search confirmed irctc.co.in as the official Indian Railways ticketing portal.
+ITC Hotels,Gyftr,itc-hotels,,No,,itchotels.com,Low,Unverified heuristic guess (name-based pattern only) — please confirm
+Ixigo,Gyftr,ixigo,,No,,ixigo.com,Verified,Search confirmed ixigo.com as the official travel booking site.
+ixigo hotel,Gyftr,ixigo-hotel,,No,,ixigo.com,Verified,Hotel booking is a product line on the same ixigo.com site (ixigo.com/hotels).
+JIMMY CHOO- Luxe Gift Card,Gyftr,jimmy-choo,,No,,jimmychoo.com,Medium,
+JioHotstar,Gyftr+Maximize,jio-hotstar,jiohotstar,No,,jiohotstar.com,Verified,Search confirmed jiohotstar.com is officially owned by Viacom18/Reliance after the JioCinema-Hotstar merger.
+JioSaavn,Gyftr,jiosaavn,,No,,jiosaavn.com,Verified,Search confirmed jiosaavn.com as the official music streaming site.
+Jockey,Gyftr,jockey,,No,,jockey.in,Verified,Search confirmed jockey.in as Page Industries' official Jockey India licensee site.
+Jos Alukkas Diamond,Maximize,,jos-alukkas-diamond,No,,josalukkas.com,Medium,
+Jos Alukkas Gold Coin,Maximize,,jos-alukkas-gold-coin,No,,josalukkas.com,Medium,
+Jos Alukkas Gold Jewellery,Maximize,,jos-alukkas-gold-jewellery,No,,josalukkas.com,Medium,
+Joyalukkas Diamond,Maximize,,joyalukkas-diamond,No,,joyalukkas.com,Medium,
+Joyalukkas Gold and Diamond,Maximize,,joyalukkas-gold-and-diamond,No,,joyalukkas.com,Medium,
+Joyalukkas Pure Gold,Maximize,,joyalukkas-pure-gold,No,,joyalukkas.com,Medium,
+Just Lil Things,Maximize,,just-lil-things,No,,justlilthings.com,Uncertain,no search budget available this pass — needs a follow-up run.
+KALKI,Gyftr,kalki,,No,,kalkifashion.com,Verified,Search confirmed kalkifashion.com as the official Kalki Fashion ethnic-wear site.
+Kalyan Diamond Jewellery,Gyftr,kalyan-diamond-jewellery,,No,,kalyanjewellers.net,Medium,
+Kalyan Gold Coins,Gyftr,kalyan-gold-coins,,No,,kalyanjewellers.net,Medium,
+Kalyan Gold Jewellery,Gyftr,kalyan-gold-jewellery,,No,,kalyanjewellers.net,Medium,
+Kama Ayurveda,Gyftr,kama-ayurveda,,No,,kamaayurveda.in,Verified,Search confirmed kamaayurveda.in as the official India online store (kamaayurveda.com also exists for other markets).
+Kate Spade- Luxe Gift Card,Gyftr+Maximize,kate-spade--luxe-gift-card,kate-spade-luxe,No,,katespade.com,Medium,
+Ketan Diamonds Diamond Only,Gyftr+Maximize,ketan-diamonds-diamond-only,ketan-diamonds-diamond-only,No,,ketandiamonds.com,Verified,Search confirmed ketandiamonds.com as the official Bangalore-based online jewellery retailer.
+Ketan Diamonds Gold Coin,Gyftr+Maximize,ketan-diamonds-gold-coin,ketan-diamonds-gold-coin,No,,ketandiamonds.com,Verified,Same underlying brand/site as other Ketan Diamonds voucher variants.
+Ketan Diamonds Gold Jewellery,Gyftr+Maximize,ketan-diamonds-gold-jewellery,ketan-diamonds-gold-jewellery,No,,ketandiamonds.com,Verified,Same underlying brand/site as other Ketan Diamonds voucher variants.
+KFC,Gyftr,kfc,,No,,kfc.co.in,Verified,Search confirmed kfc.co.in as the official KFC India site.
+Kimirica,Gyftr+Maximize,kimirica,kimirica,No,,kimirica.shop,Verified,Search found two related domains: kimirica.com (B2B hotel amenities manufacturer site) and kimirica.shop (consumer D2C storefront where a gift voucher would actually be redeemed).
+Klook,Gyftr,klook,,No,,klook.com,Verified,Search confirmed klook.com as the official travel/activities booking site.
+La Martina- Luxe Gift Card,Gyftr,la-martina--luxe-gift-card,,No,,lamartina.com,Medium,
+Lakme Salon,Maximize,,lakme-salon,No,,lakmesalon.com,Medium,
+Landline Bill Payment,Gyftr,landline-bill-payment,,No,,,N/A,"Generic utility bill-payment category, not a single-brand storefront."
+Lawrence and Mayo,Maximize,,lawrence-and-mayo,No,,lawrenceandmayo.in,Medium,
+LE CREUSET,Maximize,,le-creuset,No,,lecreuset.com,Low,Unverified heuristic guess (name-based pattern only) — please confirm
+Levis,Gyftr,levis,,No,,levi.in,Verified,Search confirmed levi.in as the official Levi's India e-commerce site (distinct from global levi.com).
+Libas,Gyftr,libas,,No,,libas.in,Verified,Search confirmed libas.in as the official ethnic-wear brand site.
+Liberty Offline,Maximize,,liberty-offline,No,,libertyshoes.com,Uncertain,no search budget available this pass — needs a follow-up run.
+Liberty Online,Gyftr+Maximize,liberty;liberty-online,liberty-online,No,,libertyshoesonline.com,Verified,"Search confirmed libertyshoesonline.com as Liberty Shoes' official online retail store, matching the 'Online' voucher variant."
+Lifestyle,Gyftr+Maximize,lifestyle;lifestyle-online,lifestyle-online,No,,lifestylestores.com,Verified,Search confirmed lifestylestores.com as the official Lifestyle International (Landmark Group) site.
+Lifestyle Offline,Maximize,,lifestyle-offline,No,,lifestylestores.com,Medium,
+Linen Club,Maximize,,linen-club,No,,linenclub.com,Medium,
+Lionsgate Play,Gyftr+Maximize,lions-gate,lionsgate-play,No,,lionsgateplay.com,Uncertain,no search budget available this pass — needs a follow-up run.
+Live Hindustan,Gyftr,live-hindustan,,No,,livehindustan.com,Verified,Search confirmed livehindustan.com as the official Hindi news site.
+Live Mint,Maximize,,live-mint,No,,livemint.com,Verified,Search confirmed livemint.com as the official Mint business news site.
+Lohono Stays,Gyftr+Maximize,lohono-stays,lohono-stays,No,,lohono.com,Verified,Search confirmed lohono.com as the official luxury villa rental site.
+Louis Philippe Gift Voucher,Gyftr+Maximize,louis-philippe-gift-voucher,louis-philippe,No,,louisphilippe.abfrl.in,Medium,
+Lulu Hypermarket,Maximize,,lulu-hypermarket,No,,luluhypermarket.com,Medium,
+Lunch Box,Gyftr,lunch-box,,No,,,Uncertain,no search budget available this pass — needs a follow-up run.
+Luxe Gift Card,Gyftr,luxe-gift-card,,No,,,Low,Unverified heuristic guess (name-based pattern only) — please confirm
+Luzo,Gyftr+Maximize,luzo,luzo,No,,luzo.in,Uncertain,no search budget available this pass — needs a follow-up run.
+Luzo salon Spa And Clinics,Maximize,,luzo-salon-spa-and-clinics,No,,luzo.in,Medium,
+Mac,Gyftr,mac,,No,,maccosmetics.com,Medium,
+Mainland China,Gyftr,mainland-china,,No,,mainlandchina.com,Medium,
+MAJE- Luxe Gift Card,Gyftr,maje,,No,,maje.com,Medium,
+MakeMyTrip,Maximize,,makemytrip,No,,makemytrip.com,Verified,"Well-known official India travel booking site; all MakeMyTrip product-line variants (Bus, Cab, Hotel, Rail, Holiday, International, e-Pay) redeem on the same makemytrip.com domain."
+MakeMyTrip Bus,Maximize,,makemytrip-bus,No,,makemytrip.com,Verified,Same underlying site as MakeMyTrip; bus booking is a section of makemytrip.com.
+MakeMyTrip Cab,Maximize,,makemytrip-cab,No,,makemytrip.com,Verified,Same underlying site as MakeMyTrip; cab booking is a section of makemytrip.com.
+MakeMyTrip e-Pay,Gyftr+Maximize,makemytrip-e-pay,makemytrip-e-pay,No,,makemytrip.com,Verified,e-Pay is a voucher/payment product on the same makemytrip.com site.
+Makemytrip Holiday,Maximize,,makemytrip-holiday,No,,makemytrip.com,Verified,Holiday packages are a section of makemytrip.com.
+MakeMyTrip Holiday e-Pay,Gyftr+Maximize,makemytrip-holiday-e-pay,makemytrip-holiday-e-pay,No,,makemytrip.com,Verified,Same underlying site as MakeMyTrip.
+Makemytrip Hotel,Maximize,,makemytrip-hotel,No,,makemytrip.com,Verified,Hotel booking is a section of makemytrip.com.
+MakeMyTrip Hotel e-Pay,Gyftr+Maximize,makemytrip-hotel-e-pay,makemytrip-hotel-e-pay,No,,makemytrip.com,Verified,Same underlying site as MakeMyTrip.
+MakeMyTrip International,Maximize,,makemytrip-international,No,,makemytrip.com,Verified,International bookings are a section of makemytrip.com.
+MakeMyTrip Rail,Maximize,,makemytrip-rail,No,,makemytrip.com,Verified,Rail booking is a section of makemytrip.com.
+Malabar Diamond,Maximize,,malabar-diamond,No,,malabargoldanddiamonds.com,Medium,
+Malabar Diamonds,Gyftr,malabar-diamonds,,No,,malabargoldanddiamonds.com,Verified,Well-known official Malabar Gold & Diamonds jewellery chain site; all Malabar voucher variants map to the same domain.
+Malabar Gold Coin,Gyftr+Maximize,malabar-gold-coin,malabar-gold-coin,No,,malabargoldanddiamonds.com,Verified,Same underlying brand/site as other Malabar voucher variants.
+Malabar Jewellery,Gyftr,malabar-jewellery,,No,,malabargoldanddiamonds.com,Verified,Same underlying brand/site as other Malabar voucher variants.
+Malabar Silver Coin,Gyftr,malabar-silver-coin,,No,,malabargoldanddiamonds.com,Verified,Same underlying brand/site as other Malabar voucher variants.
+Mamaearth,Gyftr,mamaearth,,No,,mamaearth.in,Verified,Well-known official India D2C personal-care brand site (Honasa Consumer).
+Mango,Gyftr+Maximize,mango,mango,No,,mango.com,Medium,
+Manyavar,Gyftr+Maximize,manyavar,manyavar,No,,manyavar.com,Verified,Well-known official ethnic menswear brand (Vedant Fashions) site.
+Marks & Spencer,Gyftr,marks-&-spencer,,No,,marksandspencer.in,Verified,"M&S India is run by Reliance Brands under the India-specific marksandspencer.in domain, distinct from global marksandspencer.com."
+Marks &amp; Spencer,Maximize,,marks-amp-spencer,No,,marksandspencer.in,Medium,
+Marriott Hotels India,Maximize,,marriott-hotels-india,No,,marriott.com,Medium,
+Marriott India -Dining,Maximize,,marriott-india-dining,No,,marriott.com,Medium,
+Marriott India -Spa,Maximize,,marriott-india-spa,No,,marriott.com,Medium,
+Matrix,Gyftr,matrix,,No,,matrix.in,Uncertain,no search budget available this pass — needs a follow-up run.
+MAX,Gyftr,max;max-fashion-online,,No,,maxfashion.in,Verified,Well-known official Max Fashion (Landmark Group) India site.
+Max Fashion (Offline),Maximize,,max-fashion-offline,No,,maxfashion.com,Low,Unverified heuristic guess (name-based pattern only) — please confirm
+Me N Moms,Gyftr+Maximize,me-n-moms,me-n-moms,No,,menmoms.com,Uncertain,no search budget available this pass — needs a follow-up run.
+Mediwheel,Gyftr,mediwheel,,No,,mediwheel.com,Uncertain,no search budget available this pass — needs a follow-up run.
+Mia,Gyftr,mia,,No,,miabytanishq.com,Medium,
+Mia By Tanishq,Maximize,,mia-by-tanishq,No,,miabytanishq.com,Medium,
+Michael Kors-Luxe Gift Card,Gyftr+Maximize,luxe-gift-card-michael-kors,michael-kors-luxe,No,,michaelkors.com,Medium,
+Microsoft Office,Gyftr+Maximize,microsoft-office,microsoft-office,No,,microsoft.com,Verified,Well-known official Microsoft site; Office subscriptions are managed under microsoft.com/office (or office.com).
+Microsoft Xbox Game Pass Core,Gyftr,microsoft-xbox-game-pass-core,,No,,xbox.com,Verified,Well-known official Xbox site for Game Pass redemption.
+Microsoft Xbox PC Game Pass,Gyftr,microsoft-xbox-pc-game-pass,,No,,xbox.com,Verified,Same official Xbox site as other Game Pass variants.
+Milkbasket,Gyftr+Maximize,milkbasket,milkbasket,No,,milkbasket.com,Verified,Well-known official Gurgaon-based daily grocery/milk delivery service site.
+Minus30,Gyftr+Maximize,minus30,minus30,No,,minus30.in,Uncertain,no search budget available this pass — needs a follow-up run.
+Miraggio,Maximize,,miraggio,No,,miraggio.in,Uncertain,no search budget available this pass — needs a follow-up run.
+Moba Legends 5v5,Gyftr+Maximize,moba-legends-5v5,moba-legends-5v5,No,,mobilelegends.com,Verified,Refers to Mobile Legends: Bang Bang by Moonton; official site is mobilelegends.com (voucher name is a shorthand/mistranslation of the game title).
+Mobile Postpaid - Bill Payment,Gyftr,mobile-postpaid-bill-payment,,No,,,N/A,"Generic utility bill-pay category, not a brand"
+Mobile Prepaid - Recharge,Gyftr,mobile-prepaid-recharge,,No,,,N/A,"Generic mobile recharge utility category, not a single-brand storefront."
+Modern Bazaar,Maximize,,modern-bazaar,No,,modernbazaaronline.com,Medium,
+Mokobara,Maximize,,mokobara,No,,mokobara.com,Medium,
+MOTHER CARE-Luxe,Maximize,,mother-care-luxe,No,,mothercare.com,Low,Unverified heuristic guess (name-based pattern only) — please confirm
+Mothercare-Luxe Gift Card,Gyftr,luxe-gift-card-mothercare,,No,,mothercare.in,Uncertain,no search budget available this pass — needs a follow-up run.
+MPJ Gold Jewellery,Maximize,,mpj-gold-jewellery,No,,mpjewellers.com,Medium,
+MPJ&nbsp;Diamond Jewellery,Maximize,,mpj-nbsp-diamond-jewellery,No,,mpjewellers.com,Medium,
+MS Xbox Game Pass Ultimate,Gyftr,ms-xbox-game-pass-ultimate,,No,,xbox.com,Verified,Same official Xbox site as other Game Pass variants.
+MUJI- Luxe Gift Card,Gyftr,muji,,No,,muji.in,Uncertain,no search budget available this pass — needs a follow-up run.
+Muro QC,Maximize,,muro-qc,No,,muroqc.com,Low,Unverified heuristic guess (name-based pattern only) — please confirm
+Muscle%20Blaze,Maximize,,muscle-20blaze,No,,muscleblaze.com,Verified,Well-known official Indian sports nutrition brand (HealthKart) site; '%20' in the brand name is a URL-encoded space artifact for 'Muscle Blaze'.
+Muthoot Gold Voucher,Gyftr+Maximize,muthoot-gold-voucher,muthoot-gold-voucher,No,,,Uncertain,no search budget available this pass — needs a follow-up run.
+Nat Habit,Gyftr,nat-habit,,No,,nathabit.in,Verified,Search confirms nathabit.in is the brand's official domain and matches its Instagram handle.
+Natural Salon 10K,Maximize,,natural-salon-10k,No,,naturals.in,Medium,
+Natural Salon 20K,Maximize,,natural-salon-20k,No,,naturals.in,Medium,
+Natural Salon 4K,Maximize,,natural-salon-4k,No,,naturals.in,Medium,
+Nature's Basket,Maximize,,nature-s-basket,No,,naturesbasket.co.in,Medium,
+Nautica,Gyftr+Maximize,nautica,nautica,No,,nautica.com,Medium,
+Neemans,Gyftr+Maximize,neemans,neeman-s,No,,neemans.com,Verified,Search confirms neemans.com is Neeman's official India footwear site (Hyderabad-based sustainable shoe brand).
+Neerus,Maximize,,neerus,No,,neerus.com,Medium,
+Nestasia,Gyftr+Maximize,nestasia,nestasia,No,,nestasia.com,Low,Unverified heuristic guess (name-based pattern only) — please confirm
+Netmeds,Gyftr+Maximize,netmeds,netmeds,No,,netmeds.com,Uncertain,no search budget available this pass — needs a follow-up run.
+NEXT,Gyftr+Maximize,next,next,No,,next.co.uk,Medium,
+Nilkamal Homes,Maximize,,nilkamal-homes,No,,nilkamal.com,Medium,
+Nintendo eShop Voucher,Gyftr,nintendo-eshop-voucher,,No,,nintendo.com,Uncertain,no search budget available this pass — needs a follow-up run.
+Nintendo Shop,Maximize,,nintendo-shop,No,,nintendo.com,Uncertain,no search budget available this pass — needs a follow-up run.
+Nua Woman,Gyftr,nua-woman,,No,,nuawoman.com,Verified,"Search confirms nuawoman.com is Nua's official period-care/intimate hygiene site, Mumbai-based, founded 2017."
+Nua Women,Maximize,,nua-women,No,,nuawoman.com,Verified,"Same brand as 'Nua Woman', just a different listing name across marketplaces; confirmed nuawoman.com."
+Nykaa Man,Gyftr,nykaa-man,,No,,nykaaman.com,Verified,Search confirms nykaaman.com is Nykaa's official men's grooming storefront.
+Nykaa Men,Maximize,,nykaa-men,No,,nykaaman.com,Verified,"Same brand as 'Nykaa Man', alternate listing name; confirmed nykaaman.com."
+Ode Spa Salon,Maximize,,ode-spa-salon,No,,odespasalon.com,Medium,
+Oh! Calcutta,Gyftr+Maximize,oh-calcutta,oh-calcutta,No,,speciality.co.in,Medium,
+OLA CABS,Gyftr,ola-cabs,,No,,olacabs.com,Uncertain,no search budget available this pass — needs a follow-up run.
+ORGANIC INDIA,Gyftr+Maximize,organic-india,organic-india,No,,organicindia.com,Medium,
+Oven Story,Gyftr+Maximize,oven-story,ovenstory,No,,ovenstory.in,Verified,"Search confirms ovenstory.in is the official Oven Story Pizza delivery site (part of EatSure), operating across 70+ Indian cities."
+Ovenstory Pizza,Gyftr,ovenstory-pizza,,No,,ovenstory.com,Medium,
+Palmonas,Gyftr+Maximize,palmonas,palmonas,No,,palmonas.com,Verified,"Search confirms palmonas.com is the official demi-fine jewellery brand site (Shark Tank India-featured, Pune HQ)."
+PANTALOONS,Gyftr+Maximize,pantaloons,pantaloons,No,,pantaloons.com,Medium,
+Park Avenue,Gyftr+Maximize,park-avenue,park-avenue,No,,parkavenue.abfrl.in,Medium,
+Parx,Gyftr+Maximize,parx,parx,No,,parxonline.com,Medium,
+Paul and Shark - Luxe,Maximize,,paul-and-shark-luxe,No,,paulshark.com,Medium,
+PAUL SHARK- Luxe Gift Card,Gyftr,paul-and-shark,,No,,paulshark.com,Medium,
+Paul Smith- Luxe Gift Card,Gyftr,luxe-gift-card---paul-smith,,No,,paulsmith.com,Medium,
+PC Chandra Gold Coin,Maximize,,pc-chandra-gold-coin,No,,pcchandra.com,Medium,
+PC Jeweller Diamond,Gyftr,pc-jeweller-diamond,,No,,pcjeweller.com,Medium,
+PC Jeweller Gold,Gyftr,pc-jeweller-gold,,No,,pcjeweller.com,Medium,
+PC Jeweller Gold Coin,Gyftr,pc-jeweller-gold-coin,,No,,pcjeweller.com,Medium,
+PCJ Diamond Jewellery,Maximize,,pcj-diamond-jewellery,No,,pcjeweller.com,Medium,
+PCJ Gold Coin,Maximize,,pcj-gold-coin,No,,pcjeweller.com,Medium,
+PCJ Gold Jewellery,Maximize,,pcj-gold-jewellery,No,,pcjeweller.com,Medium,
+Peora Fashions,Maximize,,peora-fashions,No,,peorafashion.com,Medium,
+Peter England Gift Voucher,Gyftr+Maximize,peter-england-gift-voucher,peter-england,No,,peterengland.com,Medium,
+Philips,Gyftr,philips,,No,,philips.co.in,Verified,"Search confirms philips.co.in is Philips' official India site, separate from global philips.com."
+PhonePe,Maximize,,phonepe,No,,phonepe.com,Uncertain,no search budget available this pass — needs a follow-up run.
+PhonePe (Fixed),Maximize,,phonepe-fixed,No,,phonepe.com,Uncertain,no search budget available this pass — needs a follow-up run.
+Pigeon,Gyftr,pigeon,,No,,pigeonappliances.com,Medium,
+PinePerksRupayPrime-WH,Maximize,,pineperksrupayprime-wh,No,,,N/A,"Not a real consumer brand storefront — reads like an internal RuPay/PinePerks card-program SKU code, not a single official website."
+Pixel Go,Maximize,,pixel-go,No,,,N/A,Ambiguous name in India: could refer to HDFC Bank's 'PIXEL Go' credit card or the unrelated AppyHigh 'Pixel Go' AI-apps bundle. No single verifiable official brand storefront found; not a normal e-commerce/redemption site.
+Pizza Hut,Gyftr,pizza-hut,,No,,pizzahut.co.in,Uncertain,no search budget available this pass — needs a follow-up run.
+Planet Fashion Gift Voucher,Gyftr+Maximize,planet-fashion-gift-voucher,planet-fashion,No,,planetfashion.in,Medium,
+Points for Good,Gyftr+Maximize,points-for-good,points-for-good,No,,pointsforgood.com,Uncertain,no search budget available this pass — needs a follow-up run.
+Porter,Maximize,,porter,No,,porter.in,Verified,Search confirms porter.in is the official site for Porter's goods transport / packers-and-movers service across 22+ Indian cities.
+Porter Packers and Movers,Gyftr,porter,,No,,porter.in,Verified,"Same company/brand as 'Porter'; the Packers & Movers service is a section of porter.in, not a separate site."
+Pottery Barn- Luxe Gift Card,Gyftr,pottery-barn--luxe-gift-card,,No,,potterybarn.com,Verified,Search confirms potterybarn.com is Pottery Barn's official site and gift-card page; note Pottery Barn gift cards are not usable for purchases shipped/billed internationally.
+Prestige,Gyftr+Maximize,prestige,prestige,No,,ttkprestige.com,Verified,"Search confirms ttkprestige.com is the official site of TTK Prestige, India's top kitchen/home appliance brand (shop.ttkprestige.com for purchases)."
+Pret A Manger-Luxe Gift Card,Gyftr,pret-a-manger-luxe-gift-card,,No,,pret.com,Medium,
+Pronto,Gyftr+Maximize,pronto,pronto,No,,,N/A,Could not identify a specific single 'Pronto' brand — search returned no matching official storefront; name is too generic to confirm which company this voucher refers to.
+Puma,Gyftr+Maximize,puma,puma,No,,puma.com,Medium,
+Punjab Grill,Maximize,,punjab-grill,No,,punjabgrill.in,Medium,
+Pure Home &amp; Living,Maximize,,pure-home-amp-living,No,,purehomeliving.com,Low,Unverified heuristic guess (name-based pattern only) — please confirm
+Pure Home + Living,Gyftr,pure-home-living,,No,,purehomeandliving.com,Verified,Search confirms purehomeandliving.com is the official site (note: current_guess 'purehomeliving.com' was missing the 'and' — corrected).
+PVR,Maximize,,pvr,No,,pvrcinemas.com,Verified,Search confirms pvrcinemas.com is the official PVR (now PVR INOX) movie-ticket booking site.
+PVR Cinemas - GYFTR,Maximize,,pvr-cinemas-gyftr,No,,pvrcinemas.com,Verified,"Same brand as 'PVR'; GYFTR is just the marketplace selling the voucher, not part of the brand name."
+PVR INOX,Gyftr,pvr,,No,,pvrcinemas.com,Verified,Search confirms the merged PVR INOX entity's official sites are pvrcinemas.com and inoxmovies.com; used pvrcinemas.com as primary (note: current_guess 'pvrinox.com' was not confirmed as an actual official domain).
+Quick Heal,Gyftr,quick-heal,,No,,quickheal.com,Uncertain,no search budget available this pass — needs a follow-up run.
+R&B,Gyftr,r&b,,No,,rnbtrends.com,Medium,
+Rainbow Six Mobile,Gyftr+Maximize,rainbow-six-mobile,rainbow-six-mobile,No,,ubisoft.com,Verified,"Search confirms the official site/store is under ubisoft.com/game/rainbow-six/mobile — Ubisoft is the correct parent brand, not a standalone rainbowsix.com."
+Rangriti,Gyftr+Maximize,rangriti,rangriti,No,,rangriti.com,Verified,Search confirms rangriti.com is the official site; brand is licensed by BIBA Fashion Limited.
+Ratnadeep Retail,Maximize,,ratnadeep-retail,No,,ratnadeepretail.com,Medium,
+Raymond - Ready to Wear,Gyftr+Maximize,raymond---ready-to-wear,raymond-ready-to-wear,No,,raymond.in,Medium,
+Razer Gold,Maximize,,razer-gold,No,,razer.com,Verified,"Search confirms the official top-up portal is gold.razer.com, a subdomain of razer.com."
+Razorpay Money Bill,Maximize,,razorpay-money-bill,No,,razorpay.com,Uncertain,no search budget available this pass — needs a follow-up run.
+Razorpay Money Flex,Maximize,,razorpay-money-flex,No,,razorpay.com,Uncertain,no search budget available this pass — needs a follow-up run.
+Reader's Digest,Gyftr,readers-digest,,No,,readersdigest.in,Verified,Search confirms readersdigest.in is the live official India site (published by India Today Group); current_guess 'readersdigest.co.in' was not the confirmed live domain.
+Relaxo,Gyftr+Maximize,relaxo,relaxo,No,,relaxofootwear.com,Medium,
+Reliance Jewels,Gyftr+Maximize,reliance-jewels,reliance-jewels,No,,reliancejewels.com,Medium,
+Reliance Jio Mart,Gyftr+Maximize,reliance-jio-mart,reliance-jio-mart,No,,jiomart.com,Uncertain,no search budget available this pass — needs a follow-up run.
+Reliance My Jio Store,Gyftr+Maximize,reliance-my-jio-store,reliance-my-jio-store,No,,jio.com,Medium,
+Reliance Smart,Gyftr,reliance-smart,,No,,reliancesmart.in,Medium,
+Reliance Smart Bazaar,Gyftr,reliance-smart-bazaar,,No,,reliancesmart.in,Medium,
+Reliance Smart Point,Gyftr,reliance-smart-point,,No,,reliancesmart.in,Medium,
+Reliance Trends,Gyftr+Maximize,reliance-trends,reliance-trends,No,,reliancetrends.com,Medium,
+Reliance Trends Footwear,Gyftr,reliance-trends-footwear,,No,,reliancetrends.com,Medium,
+Renee Cosmetics,Gyftr,renee-cosmetics,,No,,reneecosmetics.in,Uncertain,no search budget available this pass — needs a follow-up run.
+Resonate Router UPS,Maximize,,resonate-router-ups,No,,resonate.co.in,Uncertain,no search budget available this pass — needs a follow-up run.
+Riot League of Legends 1660,Maximize,,riot-league-of-legends-1660,No,,riotgames.com,Uncertain,no search budget available this pass — needs a follow-up run.
+Riot League of Legends 2900,Maximize,,riot-league-of-legends-2900,No,,riotgames.com,Verified,"Fetch confirmed riotgames.com as the official Riot Games corporate site (developer of League of Legends). The number is an RP (Riot Points) denomination, not a different brand."
+Riot League of Legends 415,Maximize,,riot-league-of-legends-415,No,,riotgames.com,Verified,Same brand as 'Riot League of Legends 2900'; riotgames.com confirmed via fetch. Number is an RP denomination.
+Riot League of Legends 4150,Maximize,,riot-league-of-legends-4150,No,,riotgames.com,Verified,Same brand as 'Riot League of Legends 2900'; riotgames.com confirmed via fetch. Number is an RP denomination.
+Riot League of Legends 830,Maximize,,riot-league-of-legends-830,No,,riotgames.com,Verified,Same brand as 'Riot League of Legends 2900'; riotgames.com confirmed via fetch. Number is an RP denomination.
+RITU KUMAR- Luxe Gift Card,Gyftr,ritu-kumar,,No,,ritukumar.com,Verified,Search confirms ritukumar.com is the official site for designer Ritu Kumar (also labelritukumar.com for the diffusion line).
+Roblox,Gyftr+Maximize,roblox,roblox,No,,roblox.com,Verified,"roblox.com is the unambiguous, globally known official domain for Roblox Corporation; no competing brand of this name exists."
+Roblox Gift Card,Gyftr,roblox-gift-card,,No,,roblox.com,Verified,Same brand as 'Roblox'; 'Gift Card' just describes the voucher product.
+ROWAN- Luxe Gift Card,Gyftr,rowan,,No,,rowanonline.com,Medium,
+Samsonite,Gyftr+Maximize,samsonite,samsonite,No,,samsonite.in,Medium,
+Sandro-Luxe Gift Card,Gyftr,sandro,,No,,sandro-paris.com,Medium,
+Satya Paul- Luxe Gift Card,Gyftr+Maximize,luxe-gift-card-satya-paul,satya-paul-luxe,No,,satyapaul.com,Verified,"Direct fetch returned a 403 (bot-blocked) rather than a DNS failure, confirming the domain is live and actively protected -- consistent with an established commercial site. Combined with well-known brand identity (Indian designer saree/fashion house, Reliance Brands-owned), satyapaul.com is confirmed as the real domain."
+Scotch & Soda -Luxe Gift Card,Gyftr,luxe-gift-card-scotch-soda,,No,,scotch-soda.com,Medium,
+Scotch and Soda-Luxe,Maximize,,scotch-and-soda-luxe,No,,scotch-soda.com,Medium,
+Senco Gold,Maximize,,senco-gold,No,,sencogoldanddiamonds.com,Medium,
+Seniority,Gyftr,seniority,,No,,seniority.in,Verified,Search confirms seniority.in is the official Pune-based senior-citizen lifestyle/health products platform (acquired by HCAH in 2022).
+ShemarooMe,Gyftr,shemaroome,,No,,shemaroome.com,Verified,"Fetch confirmed shemaroome.com as the official streaming app site, operated by Shemaroo Entertainment Ltd."
+Shiv Naresh,Gyftr,shiv-naresh,,No,,shivnaresh.in,Verified,"Fetch confirmed shivnaresh.in as the official Shiv Naresh sportswear site, with New Delhi company address in the footer."
+Shiva Organic,Gyftr,shiva-organic,,No,,N/A,Uncertain,"shivaorganicfoods.com does not resolve (DNS failure). Multiple targeted searches (direct, Bing, DuckDuckGo, with gift-card-platform keywords) returned no matching Indian brand -- only unrelated results about the Hindu deity Shiva. Genuinely unresolvable without more identifying detail (product category/city)."
+Shoppers Stop,Gyftr+Maximize,shoppers-stop,shoppers-stop,No,,shoppersstop.com,Verified,"Fetch confirmed shoppersstop.com as the official site for this major Indian retail chain (End of Season Sale content, brand partnerships, store locator)."
+Shopy Vision,Gyftr,shopy-vision,,No,,shopyvision.com,Verified,"Fetch confirmed shopyvision.com is a real, active brand -- an Indian online electronics retailer ('India's No.1 Electronics Shopping Portal'), not an eyewear brand as previously assumed. Domain matches the brand name."
+SIGREE,Gyftr+Maximize,sigree,sigree,No,,sigree.in,Medium,
+Simon Carter Gift Voucher,Gyftr+Maximize,simon-carter-gift-voucher,simon-carter,No,,simoncarter.com,Medium,
+Skechers,Gyftr+Maximize,skechers,skechers,No,,skechers.in,Verified,Fetch confirmed skechers.in as the official 'Skechers India' site with matching copyright footer.
+Skinn,Gyftr+Maximize,skinn,skinn,No,,skinn.in,Medium,
+Skullcandy,Gyftr+Maximize,skullcandy,skullcandy,No,,skullcandy.in,Verified,"Fetch confirmed skullcandy.in as the official India site, imported/marketed by Brand Eyes Distributors Pvt Ltd with GSTIN registrations shown."
+Smile Foundation,Gyftr+Maximize,smile-foundation,smile-foundation,No,,smilefoundationindia.org,Verified,"Fetch confirmed smilefoundationindia.org as the official site of this Indian NGO, with New Delhi address."
+Snitch,Gyftr+Maximize,snitch,snitch,No,,snitch.com,Verified,Correction: the brand has migrated its e-commerce domain from snitch.co.in to snitch.com -- the snitch.co.in page itself now states they've 'moved to SNITCH.COM'. Fetch of snitch.com confirmed 'Buy Fashion for Men online in India - SNITCH' as the live official site.
+Soch,Gyftr+Maximize,soch-apparels,soch,No,,soch.com,Verified,Fetch confirmed soch.com as the official 'Soch - Indian Ethnic Wear brand for Women' site.
+Solara,Gyftr,solara,,No,,,N/A,"Could not confidently identify which company this voucher refers to (name is ambiguous/generic — e.g. Solara Active Pharma Sciences is a B2B pharma manufacturer, not a consumer storefront); not searched this session, insufficient confidence to assign a domain."
+Sony Playstation,Gyftr,sony-playstation,,No,,playstation.com,Verified,Fetch confirmed playstation.com (India/en-in region) as the official Sony Interactive Entertainment PlayStation site.
+SonyLiv,Gyftr,sonyliv,,No,,sonyliv.com,Verified,Search confirmed sonyliv.com as the official 'Sony LIV' premium streaming platform site in India.
+SOTC Travel,Maximize,,sotc-travel,No,,sotc.in,Medium,
+Soulflower,Gyftr+Maximize,soulflower,soulflower,No,,soulflower.in,Verified,"Fetch confirmed soulflower.in as the official site, describing itself as 'India's 1st 100% Transparent Brand' natural cosmetics company."
+Speedo,Gyftr+Maximize,speedo,speedo,No,,speedo.in,Verified,"Correction: Speedo's India operations run on speedo.in (operated by licensee Page Industries Ltd, Bengaluru, under license from Speedo International Ltd), confirmed via fetch -- more accurate for this India-focused marketplace than global speedo.com, which showed UK-region content."
+Spotify,Gyftr,spotify,,No,,spotify.com,Uncertain,"Not re-searched this session; spotify.com is the globally known official domain, matches current_guess."
+SSUNSU,Gyftr+Maximize,ssunsu,ssunsu,No,,ssunsu.in,Verified,"Correction: SSUNSU's India-specific storefront is ssunsu.in (fetch confirmed 'SSUNSU Official K-Beauty Store' with CDSCO/FSSAI India license numbers), not the global ssunsu.com (Singapore-focused). Multiple Indian gift-card platforms (GyFTR, 99Gift, Couponix, BuyHatke) list SSUNSU vouchers tied to this brand."
+Starbucks,Gyftr+Maximize,starbucks,starbucks,No,,starbucks.com,Low,Unverified heuristic guess (name-based pattern only) — please confirm
+StayVista,Maximize,,stayvista,No,,stayvista.com,Verified,"Search confirmed stayvista.com as 'India's largest tech-enabled vacation rental platform,' managing 1200+ homes across India."
+Steam Gift Card,Gyftr,steam-gift-card,,No,,store.steampowered.com,Verified,"Steam gift cards/wallet codes redeem on Valve's official Steam store; well-established, unambiguous domain."
+Steam Wallet,Gyftr,steam-wallet,,No,,store.steampowered.com,Verified,Same as Steam Gift Card - Steam Wallet top-ups redeem at store.steampowered.com.
+Steam Wallet INR 150,Maximize,,steam-wallet-inr-150,No,,store.steampowered.com,Verified,Denomination variant of Steam Wallet; same redemption site.
+Steam Wallet INR 1680,Maximize,,steam-wallet-inr-1680,No,,store.steampowered.com,Verified,Denomination variant of Steam Wallet; same redemption site.
+Steam Wallet INR 500,Maximize,,steam-wallet-inr-500,No,,store.steampowered.com,Verified,Denomination variant of Steam Wallet; same redemption site.
+Steam Wallet INR 975,Maximize,,steam-wallet-inr-975,No,,store.steampowered.com,Verified,Denomination variant of Steam Wallet; same redemption site.
+Sterling Holidays,Maximize,,sterling-holidays,No,,sterlingholidays.com,Medium,
+Steve Madde-Luxe,Maximize,,steve-madde-luxe,No,,stevemadde.com,Low,Unverified heuristic guess (name-based pattern only) — please confirm
+Steve Madden-Luxe Gift Card,Gyftr,luxe-gift-card-steve-madden,,No,,stevemadden.in,Verified,"Search confirmed 'Steve Madden - Official Online Store' at stevemadden.in, India-specific storefront distinct from global stevemadden.com."
+Street Food by Punjab,Maximize,,street-food-by-punjab,No,,punjabgrill.in,Medium,
+STYLE BAAZAR,Gyftr+Maximize,style-bazaar,style-baazar,No,,stylebaazar.com,Low,Unverified heuristic guess (name-based pattern only) — please confirm
+Subway,Gyftr+Maximize,subway,subway,No,,subway.com,Low,Unverified heuristic guess (name-based pattern only) — please confirm
+Sunglass Hut- Luxe Gift Card,Gyftr,sunglass-hut,,No,,sunglasshut.com,Medium,
+Superbottoms,Gyftr+Maximize,superbottoms,superbottoms,No,,superbottoms.com,Verified,"Well-known Indian cloth-diaper/baby-care D2C brand; domain matches brand name directly, no collision risk."
+SUPERDRY SPORT- Luxe Gift Card,Gyftr,superdry-sport,,No,,superdry.in,Medium,
+Superdry-Luxe Gift Card,Gyftr+Maximize,luxe-gift-card-superdry,superdry-luxe,No,,superdry.in,Verified,Fetch confirmed the page header explicitly states 'Superdry: Official India Website' at superdry.in.
+Surat Diamond,Maximize,,surat-diamond,No,,suratdiamond.com,Verified,"Search confirmed suratdiamond.com as 'Surat Diamond: Best store for online Diamond Jewellery Shopping', India's established online diamond jeweller."
+Surat Diamonds,Gyftr,surat-diamonds,,No,,suratdiamond.com,Verified,Same underlying brand as 'Surat Diamond' (plural naming variant); suratdiamond.com confirmed via search.
+Surat Diamonds Main,Maximize,,surat-diamonds-main,No,,suratdiamond.com,Verified,Same brand/site as other Surat Diamond(s) entries.
+Surat Diamonds Solitaire,Maximize,,surat-diamonds-solitaire,No,,suratdiamond.com,Verified,Solitaire product line of the same Surat Diamond brand; same official domain.
+Sweet Bengal,Gyftr+Maximize,sweet-bengal,sweet-bengal,No,,sweetbengal.in,Medium,
+Sweet Truth,Gyftr+Maximize,sweet-truth,sweet-truth,No,,sweettruth.in,Verified,Search confirmed sweettruth.in as the Indian dessert/chocolate/bakery brand's official site (also active as @sweettruth.india on social).
+Swiggy Food Discount Voucher,Gyftr,swiggy-food-discount-voucher,,No,,swiggy.com,Verified,Well-known Indian food delivery platform; unambiguous domain.
+Swiggy Instamart,Gyftr,swiggy-instamart,,No,,swiggy.com,Verified,"Instamart is Swiggy's quick-commerce vertical, served from swiggy.com/instamart, not a separate domain."
+Swiggy Money Voucher,Gyftr,swiggy-gv,,No,,swiggy.com,Verified,Swiggy wallet/money voucher product; same parent domain.
+Swiggy One Lite Membership,Gyftr,swiggy-one-lite-membership,,No,,swiggy.com,Verified,Swiggy One Lite is Swiggy's membership tier; same parent domain.
+SWISS BEAUTY,Gyftr,swiss-beauty,,No,,swissbeauty.in,Verified,Search confirmed swissbeauty.in as the official site of this India-founded cosmetics brand (also sold via Nykaa/Tira).
+TA iServeU Gift Card - Generic (Upto 2000),Maximize,,ta-iserveu-gift-card-generic-upto-2000,No,,taiserveugenericupto2000.com,Low,Unverified heuristic guess (name-based pattern only) — please confirm
+TA iServeU Gift Card - Generic Variant,Maximize,,ta-iserveu-gift-card-generic-variant,No,,,N/A,"iServeU is a B2B prepaid/gift-card SOLUTION PROVIDER (issues multi-brand gift card programs), not a single merchant storefront a consumer redeems at directly."
+TA iServeU Gift Card - Limited (Upto 2000),Maximize,,ta-iserveu-gift-card-limited-upto-2000,No,,,N/A,"Same iServeU multi-brand gift-card platform, not a single-brand storefront; denomination-limited variant of the generic product."
+TA iServeU Gift Card - Limited Variant,Maximize,,ta-iserveu-gift-card-limited-variant,No,,,N/A,"Same iServeU multi-brand gift-card platform, not a single-brand storefront."
+TA iServeU Gift Card - Max Variant,Maximize,,ta-iserveu-gift-card-max-variant,No,,taiserveumaxvariant.com,Low,Unverified heuristic guess (name-based pattern only) — please confirm
+TA iServeU Gift Card - Max Variant (Upto 1000),Maximize,,ta-iserveu-gift-card-max-variant-upto-1000,No,,taiserveumaxvariantupto1000.com,Low,Unverified heuristic guess (name-based pattern only) — please confirm
+Taco Bell,Maximize,,taco-bell,No,,tacobell.co.in,Medium,
+Taj Experiences,Gyftr+Maximize,taj-hotels,taj-experiences,No,,tajhotels.com,Medium,
+Taj Hotels J Wellness Circle,Gyftr,taj-wellness-gift-card,,No,,tajhotels.com,Medium,
+Taj Hotels J Wellness Circle Bliss Duo,Maximize,,taj-hotels-j-wellness-circle-bliss-duo,No,,tajhotels.com,Medium,
+Taj Hotels J Wellness Circle Bliss Solo,Maximize,,taj-hotels-j-wellness-circle-bliss-solo,No,,tajhotels.com,Medium,
+Taneira,Gyftr+Maximize,taneira,taneira,No,,taneira.com,Medium,
+Tanishq,Gyftr,tanishq,,No,,tanishq.co.in,Medium,
+Tanishq Diamond,Maximize,,tanishq-diamond,No,,tanishq.co.in,Medium,
+Tanishq Diamond Jewellery,Gyftr,tanishq-diamond-jewellery,,No,,tanishq.co.in,Medium,
+Tanishq Gold Coin,Gyftr+Maximize,tanishq-gold-coin,tanishq-gold-coin,No,,tanishq.co.in,Medium,
+Tanishq Gold Jewellery,Gyftr+Maximize,tanishq-gold-jewellery,tanishq-gold-jewellery,No,,tanishq.co.in,Medium,
+Tasva,Gyftr+Maximize,tasva,tasva,No,,tasva.com,Medium,
+Tattva Spa,Gyftr+Maximize,tattva-spa,tattva-spa,No,,tattvaspa.com,Verified,"Search confirmed tattvaspa.com as India's largest professional spa brand's official site (110+ centres, 40+ cities)."
+TEGO,Gyftr+Maximize,tego,tego,No,,tego.fit,Verified,"Search confirmed tego.fit as the official site of TEGO, a fitness apparel/accessories brand, including its own gift-card page. (current_guess tego.com was wrong TLD)."
+TGIF,Gyftr,tgif,,No,,tgifridays.co.in,Medium,
+The Bear House,Maximize,,the-bear-house,No,,thebearhouse.com,Verified,Search confirmed thebearhouse.com as the official site of this Indian menswear brand (18 stores across 10 Indian cities).
+The Body Shop,Gyftr+Maximize,the-body-shop,the-body-shop,No,,thebodyshop.in,Verified,"Well-known global beauty retailer with a dedicated India storefront at thebodyshop.in, distinct from global thebodyshop.com."
+The Collective,Maximize,,the-collective,No,,thecollective.in,Medium,
+The Good Bowl,Gyftr+Maximize,the-good-bowl,the-good-bowl,No,,N/A,Uncertain,"thegoodbowl.in has an expired SSL certificate and could not be loaded. Search confirmed 'The Good Bowl' is a Rebel Foods cloud-kitchen ('internet restaurant') concept with active Instagram/Facebook pages, ordered via Zomato/Swiggy/EatSure aggregators rather than a clearly confirmed standalone official website -- genuinely ambiguous which URL should represent it."
+The Leela,Maximize,,the-leela,No,,theleela.com,Medium,
+The Man Company,Gyftr+Maximize,the-man-company,the-man-company,No,,themancompany.com,Verified,Well-known Indian men's grooming D2C brand; unambiguous domain matching brand name.
+The Postcard Hotels,Maximize,,the-postcard-hotels,No,,postcardhotel.com,Medium,
+The Raymond Shop,Gyftr+Maximize,the-raymond-shop,the-raymond-shop,No,,theraymondshop.com,Low,Unverified heuristic guess (name-based pattern only) — please confirm
+The Skin Story,Gyftr,the-skin-story,,No,,theskinstory.in,Verified,Search confirmed theskinstory.in (contact email marketing@theskinstory.in) as this India-founded (2019) skincare/haircare brand's site; a similarly-named skinstory.co.in also exists but theskinstory.in is the brand's own domain.
+The White Crow-Luxe Gift Card,Gyftr,the-white-crow,,No,,thewhitecrowshop.com,Medium,
+Third Wave Coffee,Maximize,,third-wave-coffee,No,,thirdwavecoffee.in,Medium,
+Tim Hortons,Gyftr+Maximize,tim-hortons,tim-hortons,No,,timhortons.co.in,Medium,
+Timezone,Gyftr+Maximize,timezone,timezone,No,,timezonegames.com,Medium,
+Tinder,Gyftr+Maximize,tinder,tinder,No,,tinder.com,Verified,Globally known dating app; unambiguous domain.
+Tira Beauty,Maximize,,tira-beauty,No,,tira.in,Medium,
+Titan,Gyftr+Maximize,titan,titan,No,,titan.co.in,Medium,
+Titan Eye Plus,Gyftr+Maximize,titan-eye-plus,titan-eye-plus,No,,titaneyeplus.com,Medium,
+Titan Minimals,Gyftr+Maximize,titan-minimals,titan-minimals,No,,titan.co.in,Medium,
+Titan Smartwatches,Gyftr,titan-smartwatches,,No,,titan.co.in,Medium,
+TODS- Luxe Gift Card,Gyftr,tods,,No,,tods.com,Medium,
+TORY BURCH- Luxe Gift Card,Gyftr,tory-burch,,No,,toryburch.com,Medium,
+Toscano,Maximize,,toscano,No,,toscano.com,Low,Unverified heuristic guess (name-based pattern only) — please confirm
+Trends Footwear,Maximize,,trends-footwear,No,,reliancetrends.com,Medium,
+Trends Junior,Maximize,,trends-junior,No,,reliancetrends.com,Medium,
+Trends Man,Maximize,,trends-man,No,,reliancetrends.com,Medium,
+Trends Women,Maximize,,trends-women,No,,reliancetrends.com,Medium,
+TripXOXO,Maximize,,tripxoxo,No,,tripxoxo.com,Verified,Search confirmed tripxoxo.com as the Mumbai-based travel/activities booking platform's official site.
+Troll Beads,Gyftr,troll-beads,,No,,trollbeads.com,Verified,"Fetch confirmed trollbeads.com is the legitimate Trollbeads site (parent company Trollbeads A/S, Danish origin acknowledged); the fetched page served a US-regional variant, but trollbeads.com remains the correct root/global brand domain."
+TRUEFITT & HILL,Gyftr,truefitt-&-hill,,No,,truefittandhill.com,Medium,
+TRUEFITT and HILL,Maximize,,truefitt-and-hill,No,,truefittandhill.com,Medium,
+TUMI- Luxe Gift Card,Gyftr+Maximize,tumi,tumi-luxe,No,,tumi.in,Verified,"Search confirmed 'TUMI India Official Site' at tumi.in, distinct from global tumi.com."
+Typsy Beauty,Gyftr,typsy-beauty,,No,,typsybeauty.com,Verified,Search confirmed typsybeauty.com as the official site of this Gurugram-founded Indian makeup brand.
+UBER,Gyftr,uber,,No,,uber.com,Verified,Globally known ride-hailing app; India uses uber.com/in path under the same root domain uber.com.
+Unicorn Apple Premium Partner,Maximize,,unicorn-apple-premium-partner,No,,apple.com,Low,Apple authorised reseller — please confirm exact seller URL
+UniPin,Gyftr+Maximize,unipin,unipin,No,,unipin.com,Verified,"Fetch confirmed unipin.com as the official site, with an India region selector and explicit warning to only purchase via 'our official website https://www.unipin.com.'"
+UniPin BGMI,Gyftr+Maximize,unipin-bgmi,unipin-bgmi-voucher,No,,unipin.com,Verified,Same platform as 'UniPin'; fetch confirmed BGMI (Battlegrounds Mobile India) top-ups are prominently sold on unipin.com.
+Unlimited,Maximize,,unlimited,No,,,N/A,"Generic voucher-platform product name, not a brand"
+Urban Ladder,Maximize,,urban-ladder,No,,urbanladder.com,Verified,Well-known Indian furniture/home-decor e-commerce brand; unambiguous domain matching brand name.
+Urban Space,Gyftr+Maximize,urban-space,urban-space,No,,N/A,Uncertain,"urbanspace.in does not resolve (DNS failure). Multiple targeted searches (direct, Bing, DuckDuckGo, with gift-card-platform keywords) found no matching Indian brand called 'Urban Space' -- only unrelated results (Urban Company, government urban-development pages). Genuinely unresolvable without more context on the product/service category."
+V Mart,Gyftr+Maximize,v-mart,v-mart,No,,vmartretail.com,Medium,
+Vaango,Maximize,,vaango,No,,vaango.co,Medium,
+VALENTINO- Luxe Gift Card,Gyftr,valentino,,No,,valentino.com,Medium,
+Valorant,Gyftr+Maximize,valorant,valorant,No,,playvalorant.com,Verified,"Riot Games' official site for the Valorant title; well-established, unambiguous."
+Valorant Gift Card,Gyftr,valorant-gift-card,,No,,playvalorant.com,Verified,Valorant Points/gift card redemption happens on the same official Riot site.
+Van Heusen Gift Voucher,Gyftr+Maximize,van-heusen-gift-voucher,van-heusen,No,,vanheusen.abfrl.in,Medium,
+Veridicus,Gyftr,veridicus,,No,,veridicushealthcares.com,Verified,"Fetch confirmed this is Veridicus Health Care Private Limited (operating as 'Odhilife'), a Noida-based medical wellness products manufacturer -- this is the brand's own official site."
+VERSACE- Luxe Gift Card,Gyftr,versace,,No,,versace.com,Medium,
+VICTORIA'S SECRET,Gyftr+Maximize,victoria's-secret,victoria-s-secret,No,,victoriassecret.com,Medium,
+VICTORIA'S SECRET BEAUTY,Gyftr+Maximize,victoria's-secret-beauty,victoria-s-secret-beauty,No,,victoriassecret.com,Medium,
+VILLEROY AND BOCH- Luxe Gift Card,Gyftr,villeroy-and-boch,,No,,villeroy-boch.com,Medium,
+Vinci Botanicals,Gyftr,vinci-botanicals,,No,,vincibotanicals.com,Verified,"Fetch confirmed vincibotanicals.com as the official Indian botanical skincare brand site, with INR pricing and Indian phone number."
+VROTT,Gyftr+Maximize,vrott,vrott,No,,N/A,Uncertain,"vrott.com redirects to a HugeDomains 'domain for sale' page -- it is NOT an active brand site. Searches (direct, Bing, DuckDuckGo) found no legitimate brand called VROTT. Likely a defunct, rebranded, or mis-transcribed name; cannot be verified."
+W,Gyftr,w,,No,,wforwoman.com,Medium,
+W For Women,Maximize,,w-for-women,No,,wforwoman.com,Medium,
+Wakefit,Maximize,,wakefit,No,,wakefit.co,Verified,"Well-known Indian mattress/sleep & furniture brand; note the domain is the .co TLD (wakefit.co), not .com."
+Water Bill Payment,Gyftr,water-bill-payment,,No,,,N/A,"Generic utility bill-payment category, not a single merchant/brand storefront."
+Wellbeing Nutrition,Gyftr+Maximize,wellbeing-nutrition,wellbeing-nutrition,No,,wellbeingnutrition.com,Verified,Well-known Indian nutrition/supplements D2C brand; unambiguous domain matching brand name.
+Wendy's,Gyftr+Maximize,wendy's,wendy-s,No,,wendys.com,Verified,"Corrected from wendys.co.in, which does not resolve (DNS failure) and appears defunct. wendys.com is the confirmed official global corporate site; note the global site's region selector does not list an India option, and Wendy's India presence appears limited to social media/food-delivery listings (Instagram @wendys_india, Swiggy) rather than a dedicated India domain -- brand identity is verified even though India franchise operating status is unclear."
+WEST ELM- Luxe Gift Card,Gyftr,west-elm,,No,,westelm.in,Verified,"Fetch showed the page titled 'West Elm - Buy Modern Furniture Online in India' at westelm.in, consistent with the India storefront run under a Reliance Brands-style license, distinct from global westelm.com."
+Westside,Gyftr+Maximize,westside,westside,No,,westside.com,Medium,
+Westside [No Cooling Period],Maximize,,westside-no-cooling-period,No,,westside.com,Medium,
+What's Up Wellness,Gyftr,whats-up-wellness,,No,,whatsupwellness.in,Verified,"Fetch confirmed whatsupwellness.in as the official 'What's Up Wellness' D2C site, 'Proudly Made In India' and 'Shark Tank India-approved.'"
+Wildcraft,Gyftr+Maximize,wildcraft,wildcraft,No,,wildcraft.com,Medium,
+William Penn,Gyftr+Maximize,william-penn,william-penn,No,,williampenn.in,Medium,
+Wonderchef,Gyftr+Maximize,wonderchef,wonderchef,No,,wonderchef.com,Medium,
+Woodland,Gyftr,woodland,,No,,woodlandworldwide.com,Verified,Well-known Indian outdoor footwear/apparel brand operating as 'Woodland Worldwide'; domain matches known brand naming.
+World of Titan,Maximize,,world-of-titan,No,,titan.co.in,Medium,
+World of Titan SmartWatch,Maximize,,world-of-titan-smartwatch,No,,titan.co.in,Medium,
+Wow!Chicken,Gyftr,wow-chicken,,No,,wowmomo.com,Medium,
+Wow!China,Gyftr,wow-china,,No,,wowmomo.com,Medium,
+Wow!Momo,Gyftr,wow-momo,,No,,wowmomo.com,Medium,
+Wrangler,Maximize,,wrangler,No,,wrangler.in,Medium,
+Wynk Music,Gyftr,wynk-music,,No,,wynk.in,Verified,Well-known Airtel-owned Indian music streaming service; wynk.in is its established domain.
+Yalla Ludo,Gyftr+Maximize,yalla-ludo,yalla-ludo,No,,yallaludo.com,Verified,Well-known mobile social gaming app (Ludo); global official site matches brand name directly.
+Yatra,Maximize,,yatra,No,,yatra.com,Verified,Well-known major Indian online travel agency; unambiguous domain.
+Yatra - 1500,Maximize,,yatra-1500,No,,yatra.com,Verified,Denomination variant of Yatra gift voucher; same official site.
+Yatra - 2000,Maximize,,yatra-2000,No,,yatra.com,Verified,Denomination variant of Yatra gift voucher; same official site.
+Yatra - 500,Maximize,,yatra-500,No,,yatra.com,Verified,Denomination variant of Yatra gift voucher; same official site.
+Yatra Hotel Gift Card,Gyftr+Maximize,yatra-hotel-gift-card,yatra-hotel,No,,yatra.com,Verified,"Yatra's hotel-booking gift card is a product on the main Yatra platform, not a separate 'yatrahotel.com' site (current_guess was incorrect)."
+Yatra Hotels and Holidays,Maximize,,yatra-hotels-and-holidays,No,,yatra.com,Verified,Same Yatra platform; hotels & holidays is a product vertical on yatra.com.
+Yatra Voucher,Gyftr,yatra-voucher,,No,,yatra.com,Verified,Generic Yatra gift voucher; same official site.
+YouMee,Maximize,,youmee,No,,youmee.live,Medium,
+Zambar,Maximize,,zambar,No,,zambarrestaurant.com,Medium,
+Zee5,Gyftr,zee5,,No,,zee5.com,Verified,Well-known Indian video streaming service (Zee Entertainment); unambiguous domain.
+Zepto,Gyftr+Maximize,zepto,zepto,No,,zeptonow.com,Verified,"Well-known Indian quick-commerce grocery delivery app; official domain is zeptonow.com, not zepto.com."
+Zomato Gift Card,Gyftr+Maximize,zomato-gift-card,zomato,No,,zomato.com,Verified,Well-known major Indian food delivery platform; unambiguous domain.
+Zoomcar,Gyftr+Maximize,zoomcar,zoomcar,No,,zoomcar.com,Verified,Well-known Indian self-drive car rental platform; unambiguous domain matching brand name.
+Zouk,Gyftr+Maximize,zouk,zouk,No,,zouk.co.in,Verified,"Correction: zouk.in does not resolve (DNS failure). Search and fetch confirmed the real official domain is zouk.co.in -- 'Online Fashion & Lifestyle Store for Bags, Wallets & Luggage - Zouk', a PETA-approved Indian vegan bags/accessories brand."
