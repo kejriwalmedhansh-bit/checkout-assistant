@@ -81,6 +81,17 @@ MANUAL_TRUSTED_MERCHANTS = [
     "getfrenchaccent.com", "libertyshoes.com", "luzo.app",
     "matrixprofessional.in", "miraggiolife.com", "muji.in",
     "pointsforgood.org", "razorpay.com", "resonate.store",
+    # Live spot-check (2026-08-08) of the domains above surfaced a deeper
+    # pattern: a verified domain doesn't guarantee a match, because Google
+    # Shopping often attributes a listing to the seller's legal/corporate
+    # name rather than its consumer brand name — "levi.in" was already
+    # whitelisted, but a real search for "Levis jeans men" returned the
+    # seller as "Levi Strauss India", which reduces to a different
+    # signature ("levistrauss" vs "levi") and got dropped as untrusted
+    # anyway. Confirmed in this exact test run's logs. Only entries actually
+    # proven this way (found in real search results, not guessed) belong
+    # here — see CLAUDE.md rule #1.
+    "Levi Strauss India",
 ]
 
 PRIORITY_MERCHANTS = [
