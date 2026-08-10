@@ -167,9 +167,20 @@ def calculate_effective_price(price: float, voucher: dict, payment_method: str =
             remainder = 0.0
             is_custom = True
         else:
+            # A missing stack_limit means "no stacking data found," not
+            # "unlimited" — only a confirmed unlimited_stated confidence
+            # (e.g. a wallet/e-Pay brand like Bata) should be passed through
+            # as truly uncapped. Same conservative-default-of-1 rule the
+            # is_custom_denom branch above already applies; without this,
+            # brands we simply never found stacking text for (Swiggy
+            # Instamart, Lenskart, Max Fashion Online, ...) were silently
+            # treated the same as a confirmed-unlimited wallet brand.
+            stack_limit = voucher.get("stack_limit")
+            if stack_limit is None and voucher.get("stack_limit_confidence") != "unlimited_stated":
+                stack_limit = 1
             amount, denomination_breakdown = _greedy_voucher_amount(
                 price, fixed_denoms,
-                stack_limit=voucher.get("stack_limit"),
+                stack_limit=stack_limit,
                 value_cap=voucher.get("value_cap"),
             )
             voucher_amount = float(amount)
