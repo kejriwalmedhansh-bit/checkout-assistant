@@ -31,6 +31,21 @@ _UP_TO_N_PATTERNS = [
     r'\(?up\s*to\s+(\d+)\)?\s+can\s+be\s+used',
 ]
 
+# An explicit "multiple vouchers CAN be used/combined" statement, with no
+# number given. Found (2026-08-10) contradicting Maximize's own multi_use=False
+# flag for 21 real brands (Tasva, HealthKart, Vijay Sales, PVR/INOX, etc.) —
+# the structured flag isn't reliable enough to trust blindly over the brand's
+# own stated terms when the two disagree this explicitly.
+_MULTI_OK_PATTERNS = [
+    r'multiple\s+(?:gift\s+)?vouchers?\s+can\s+be\s+(?:used|combined)',
+    r'vouchers?\s+can\s+be\s+combined',
+]
+
+
+def _text_says_multi_voucher_ok(text):
+    text_lower = (text or "").lower()
+    return any(re.search(pat, text_lower) for pat in _MULTI_OK_PATTERNS)
+
 
 def _extract_stated_voucher_limit(text):
     """Best-effort read of an explicit per-bill voucher count from a brand's
@@ -137,24 +152,25 @@ def normalize_maximize(raw_data: dict) -> dict:
             # one order) — quantity_cap_per_order is the latter and the two
             # regularly differ (Daily Objects: can buy 4, but its own T&C says
             # "Multiple vouchers cannot be used against one bill", i.e. 1).
-            # multi_use is the structured signal Maximize's own page already
-            # gives us for this, so it takes priority: multi_use=False means
-            # redemption is capped at 1 regardless of the purchase cap. When
-            # multi_use=True, try to read a specific stated count out of the
-            # brand's own terms text (e.g. "up to 3 vouchers can be used");
-            # if none is found, fall back to the purchase cap as the best
-            # remaining stand-in (unchanged from prior behavior).
-            if one_time_use:
+            # multi_use is the structured signal Maximize's own page gives us
+            # for this and is checked first, but it's not perfectly reliable —
+            # 21 brands (Tasva, HealthKart, Vijay Sales, PVR/INOX, etc.) have
+            # multi_use=False while their own T&C explicitly says "multiple
+            # vouchers can be used in a single bill". An explicit statement in
+            # the brand's own terms is stronger evidence than the flag, so it
+            # wins whenever the two disagree — a specific number (e.g. "up to
+            # 3", "maximum of 5") always wins outright; a plain affirmation
+            # with no number just lifts the multi_use=False single-voucher cap.
+            purchase_cap = variant.get("quantity_cap_per_order")
+            stated_limit = _extract_stated_voucher_limit(tnc_text)
+            text_says_multi_ok = _text_says_multi_voucher_ok(tnc_text)
+
+            if stated_limit is not None:
+                stack_limit = min(stated_limit, purchase_cap) if purchase_cap is not None else stated_limit
+            elif one_time_use and not text_says_multi_ok:
                 stack_limit = 1
             else:
-                stated_limit = _extract_stated_voucher_limit(variant.get("full_terms_and_conditions"))
-                purchase_cap = variant.get("quantity_cap_per_order")
-                if stated_limit is not None and purchase_cap is not None:
-                    stack_limit = min(stated_limit, purchase_cap)
-                elif stated_limit is not None:
-                    stack_limit = stated_limit
-                else:
-                    stack_limit = purchase_cap
+                stack_limit = purchase_cap
 
             products.append({
                 "product_name": variant.get("product_name"),

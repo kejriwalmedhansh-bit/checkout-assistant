@@ -42,6 +42,13 @@ class Settings(BaseSettings):
     WHATSAPP_VERIFY_TOKEN: str = "dealo_webhook_2026"
     WHATSAPP_FLOW_ID: str = ""  # empty = photo picker falls back to the text list
 
+    # --- Mixpanel (server-side, WhatsApp) ---
+    # Same public project token the website hardcodes in react/src/config.js —
+    # a project token is a write-only public identifier, not a secret, so
+    # reusing it here needs no new credential. Overridable via env if the
+    # project token ever changes.
+    MIXPANEL_TOKEN: str = "5dcefbba60138d48545e132490cd1e4d"
+
     # --- Caching / sessions (stateless, in-memory) ---
     SEARCH_CACHE_TTL_SECONDS: int = 86400  # 24h — protects the SearchApi budget
     WHATSAPP_SESSION_TTL_SECONDS: int = 600  # 10-min sliding TTL per phone

@@ -38,7 +38,13 @@ from ..constants import (
     WHATSAPP_ONBOARDING_MSG,
     WHATSAPP_SESSION_EXPIRED_MSG,
 )
-from . import search_service
+from . import analytics_service, search_service
+
+
+def _track(event: str, phone: str, **properties) -> None:
+    """Fire-and-forget wrapper around analytics_service.track — creates a
+    background task so a slow/down Mixpanel never delays a WhatsApp reply."""
+    asyncio.create_task(analytics_service.track(event, phone, properties))
 
 
 def _affiliate_url(link: str) -> str:
@@ -202,6 +208,11 @@ async def _send_voucher_steps(phone: str, route: dict) -> None:
     voucher_url = voucher["voucher_url"]
     if not await send_cta_url(phone, step1_text, "Buy Gift Voucher Now", voucher_url):
         await send_text(phone, f"{step1_text}\n{voucher_url}")
+    _track(
+        "WhatsApp Buy Step Shown", phone,
+        step="voucher", platform=platform_label, merchant=merchant,
+        discount_pct=discount_pct,
+    )
     await asyncio.sleep(_VOUCHER_STEP_GAP_SECONDS)
 
     remainder = upi.get("remainder", 0)
@@ -235,6 +246,7 @@ async def _send_direct_cta(phone: str, route: dict) -> None:
         body_text = f"Ready to buy from {merchant}?"
         if not await send_cta_url(phone, body_text, f"Open {merchant}", affiliate_link):
             await send_text(phone, f"{body_text}\n{affiliate_link}")
+        _track("WhatsApp Buy Step Shown", phone, step="direct", platform="none", merchant=merchant)
 
 
 async def _send_result_message(phone: str, image_url: str | None, caption: str) -> None:
@@ -288,6 +300,24 @@ async def _send_success_flow(phone: str, route: dict, image_url: str | None) -> 
     itself is done."""
     caption = _build_result_caption(route)
     await _send_result_message(phone, image_url, caption)
+
+    voucher = route.get("voucher")
+    listed_price = route.get("listed_price") or 0
+    final_cost = route.get("final_cost") or 0
+    savings = (listed_price - final_cost) if listed_price else 0
+    voucher_platform = "none"
+    if voucher:
+        voucher_platform = "Maximize" if voucher.get("voucher_source") == "maximize" else "Gyftr"
+    _track(
+        "WhatsApp Recommendation Shown", phone,
+        title=route.get("title", ""),
+        vendor=_display_merchant(route),
+        voucher_platform=voucher_platform,
+        listed_price=listed_price,
+        final_cost=final_cost,
+        discount_amount=savings,
+        discount_pct=round((savings / listed_price) * 100) if listed_price and savings > 0 else 0,
+    )
     await asyncio.sleep(_MESSAGE_PACE_SECONDS)
     if route.get("voucher"):
         await _send_voucher_steps(phone, route)
@@ -682,6 +712,7 @@ async def _send_routes_for_token(
     recommended = routes.get("recommended")
     if not recommended:
         await send_text(phone, WHATSAPP_DEAD_END_MSG)
+        _track("WhatsApp Dead End", phone, stage="no_route", query=query)
         return
     image_url = result.get("source", {}).get("image") or picked_thumbnail
     session_store.set_session(phone, {
@@ -703,6 +734,7 @@ async def process_and_respond(phone: str, classification: dict) -> None:
         products = listing.get("products") or []
         if not products:
             await send_text(phone, WHATSAPP_DEAD_END_MSG)
+            _track("WhatsApp Dead End", phone, stage="no_candidates", query=query)
             return
 
         if len(products) == 1:
@@ -718,6 +750,7 @@ async def process_and_respond(phone: str, classification: dict) -> None:
         await _send_product_picker(phone, query, products)
     except Exception as e:
         await send_text(phone, WHATSAPP_DEAD_END_MSG)
+        _track("WhatsApp Dead End", phone, stage="exception", query=str(e)[:200])
         print(f"[Webhook] Error for {phone}: {e}")
 
 
@@ -725,6 +758,7 @@ async def handle_product_selection(phone: str, reply_id: str) -> None:
     session = session_store.get_session(phone)
     if not session:
         await send_text(phone, WHATSAPP_SESSION_EXPIRED_MSG)
+        _track("WhatsApp Session Expired", phone, at="product_selection")
         return
     candidates = session.get("candidates", [])
     query = session.get("query", "")
@@ -733,7 +767,9 @@ async def handle_product_selection(phone: str, reply_id: str) -> None:
         chosen = candidates[idx]
     except (ValueError, IndexError):
         await send_text(phone, WHATSAPP_DEAD_END_MSG)
+        _track("WhatsApp Dead End", phone, stage="bad_selection_id", query=query)
         return
+    _track("WhatsApp Product Selected", phone, title=chosen.get("title", ""), price=chosen.get("price"))
     await _send_routes_for_token(
         phone, chosen["product_token"], query, chosen.get("title", ""),
         chosen.get("price"), chosen.get("source", ""), chosen.get("thumbnail"),
@@ -745,11 +781,13 @@ async def handle_alternatives(phone: str) -> None:
     session = session_store.get_session(phone)
     if not session:
         await send_text(phone, WHATSAPP_SESSION_EXPIRED_MSG)
+        _track("WhatsApp Session Expired", phone, at="alternatives")
         return
     alternatives = session.get("routes", {}).get("alternatives", [])
     if not alternatives:
         await send_text(phone, WHATSAPP_NO_ALTERNATIVES_MSG)
         return
+    _track("WhatsApp Alternatives Requested", phone, count=len(alternatives))
     rows = []
     for i, alt in enumerate(alternatives[:3]):
         merchant_name = alt.get("merchant") or f"Option {i + 1}"
@@ -778,6 +816,7 @@ async def handle_alternative_selection(phone: str, reply_id: str) -> None:
     session = session_store.get_session(phone)
     if not session:
         await send_text(phone, WHATSAPP_SESSION_EXPIRED_MSG)
+        _track("WhatsApp Session Expired", phone, at="alternative_selection")
         return
     alternatives = session.get("routes", {}).get("alternatives", [])
     try:
@@ -786,6 +825,7 @@ async def handle_alternative_selection(phone: str, reply_id: str) -> None:
     except (ValueError, IndexError):
         await send_text(phone, WHATSAPP_NO_ALTERNATIVES_MSG)
         return
+    _track("WhatsApp Alternative Selected", phone, merchant=chosen.get("merchant", ""))
     await _send_success_flow(phone, chosen, session.get("image"))
 
 
@@ -793,11 +833,13 @@ async def handle_pick_again(phone: str) -> None:
     session = session_store.get_session(phone)
     if not session:
         await send_text(phone, WHATSAPP_SESSION_EXPIRED_MSG)
+        _track("WhatsApp Session Expired", phone, at="pick_again")
         return
     candidates = session.get("candidates", [])
     query = session.get("query", "")
     if not candidates:
         await send_text(phone, WHATSAPP_DEAD_END_MSG)
+        _track("WhatsApp Dead End", phone, stage="pick_again_empty", query=query)
         return
     await _send_product_picker(phone, query, candidates)
 
@@ -816,6 +858,7 @@ async def handle_incoming(body: dict) -> None:
         phone = msg["from"]
         msg_id = msg.get("id")
         msg_type = msg.get("type")
+        _track("WhatsApp Message Received", phone, msg_type=msg_type)
 
         if msg_type == "interactive":
             interactive = msg.get("interactive", {})
@@ -864,19 +907,23 @@ async def handle_incoming(body: dict) -> None:
 
         if msg_type != "text":
             await send_text(phone, WHATSAPP_NUDGE_MSG)
+            _track("WhatsApp Nudge Sent", phone, reason=f"non_text:{msg_type}")
             return
 
         text = msg["text"]["body"]
         is_new = session_store.is_new_user(phone)
         if is_new:
             await send_text(phone, WHATSAPP_ONBOARDING_MSG)
+            _track("WhatsApp Onboarded", phone)
 
         classification = classify_input(text)
         if classification["type"] == "unparseable":
             if not is_new:
                 await send_text(phone, WHATSAPP_NUDGE_MSG)
+                _track("WhatsApp Nudge Sent", phone, reason=classification.get("reason", ""), text=text)
             return
 
+        _track("WhatsApp Search", phone, query=text, input_type=classification["type"])
         await send_typing_indicator(msg_id)
         asyncio.create_task(_run_with_typing_keepalive(msg_id, process_and_respond(phone, classification)))
     except (KeyError, IndexError):
