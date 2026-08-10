@@ -1075,6 +1075,30 @@ def _product_candidate(p: dict) -> dict:
 
 _URL_QUERY_RE = re.compile(r"^https?://\S+$", re.IGNORECASE)
 
+# A link shared from a store app arrives with the app's own blurb attached:
+# "https://dl.flipkart.com/s/!A4VgYNNNN Take a look at this … on Flipkart".
+# The blurb is marketing copy, not the product name, and it makes the input
+# fail _URL_QUERY_RE — so the link gets searched as text instead of being
+# resolved as the specific page it points at. Pull the link out and drop
+# everything else.
+_EMBEDDED_URL_RE = re.compile(r"https?://\S+", re.IGNORECASE)
+
+# Sentence punctuation that can end up glued to a link ("…/p/itm123."). '!'
+# is deliberately absent — Flipkart's own short links contain it.
+_URL_TRAILING_PUNCT = ".,;:'\"“”‘’>)]}"
+
+
+def _extract_pasted_url(text: str) -> str | None:
+    """The first http(s) link inside a message, or None if there isn't one.
+
+    Position-independent: the blurb can precede the link as easily as follow
+    it, depending on which app did the sharing."""
+    match = _EMBEDDED_URL_RE.search(text)
+    if not match:
+        return None
+    url = match.group(0).rstrip(_URL_TRAILING_PUNCT)
+    return url or None
+
 # Path segments that are store routing machinery, not product words.
 _URL_ROUTING_SEGMENTS = frozenset({"dp", "gp", "product", "p", "d", "b", "s", "itm", "buy", "ip"})
 
@@ -1380,19 +1404,33 @@ _APIFY_MERCHANT_HOSTS = {
 }
 
 
-def _apify_render_and_extract(url: str, merchant_name: str) -> tuple[float | None, str | None]:
-    html_markup = apify_repository.fetch_rendered_html(url)
-    if not html_markup:
-        return None, None
-    price = _extract_jsonld_price(html_markup)
-    return (price, merchant_name) if price is not None else (None, None)
-
-
-def _apify_host_fetch(host: str):
+def _apify_merchant_for_host(host: str) -> str | None:
     host = (host or "").lower()
     for suffix, merchant_name in _APIFY_MERCHANT_HOSTS.items():
         if host == suffix or host.endswith("." + suffix):
-            return lambda url, _name=merchant_name: _apify_render_and_extract(url, _name)
+            return merchant_name
+    return None
+
+
+def _extract_page_title(markup: str) -> str | None:
+    """og:title -> twitter:title -> <title> from a page's markup, with the
+    bot-wall/bare-store rejections applied, or None if none is usable.
+
+    Split out of _fetch_url_page so the Apify-rendered HTML goes through the
+    exact same trusted title logic as a direct fetch — a title read past a
+    bot wall gets no weaker vetting than one read without it."""
+    for pattern in _META_TITLE_RES:
+        m = pattern.search(markup)
+        if not m:
+            continue
+        candidate = re.sub(r"\s+", " ", html.unescape(m.group(1))).strip()
+        if len(candidate) < 3:
+            continue
+        low = candidate.lower()
+        if low in _BARE_STORE_TITLES or any(b in low for b in _BAD_TITLE_MARKERS):
+            logger.info("[url-search] rejected page title %r (bot-wall/bare store)", candidate)
+            continue
+        return candidate
     return None
 
 
@@ -1467,19 +1505,58 @@ def _fetch_url_page(url: str) -> tuple[str | None, float | None, str | None]:
     successful fetch with no readable price — the earlier version of this
     hook only checked the latter, which meant it never actually fired for
     the exact "blocked outright" case it was built for.
+
+    Title via Apify (2026-08-10): the fallback used to read only a price out
+    of the rendered page and throw the rest away, so a blocked link still
+    came back nameless and fell through to slug words — which for a short
+    link (dl.flipkart.com/s/<code>) are an opaque code, not a product. It now
+    reads the title from that same render, for *any* host, which is what
+    makes a blocked or JS-only page searchable at all. Price stays gated on
+    _APIFY_MERCHANT_HOSTS; see _try_apify for why the two differ.
     """
     apify_host = (urlsplit(url).hostname or "").lower()
-    apify_fetch = _apify_host_fetch(apify_host)
+    apify_merchant_name = _apify_merchant_for_host(apify_host)
 
-    def _try_apify() -> tuple[float | None, str | None]:
-        if not apify_fetch:
-            return None, None
-        apify_price, apify_merchant = apify_fetch(url)
+    def _try_apify(need_title: bool = True) -> tuple[str | None, float | None, str | None]:
+        """Render the page through Apify's browser+residential proxy and read
+        a title (any host) and, where we already trust the host's structured
+        data, a price. Returns (title, price, merchant).
+
+        One render serves both: the actor is the expensive part, so a page
+        fetched for its title reads its price from the same HTML for free.
+        Skipped entirely when there's nothing left to recover.
+        """
+        need_price = apify_merchant_name is not None
+        if not need_title and not need_price:
+            return None, None, None
+        markup = apify_repository.fetch_rendered_html(url)
+        if not markup:
+            logger.info("[url-search] Apify render returned nothing for %s", apify_host)
+            return None, None, None
+
+        apify_title = _extract_page_title(markup) if need_title else None
+        if apify_title:
+            logger.info("[url-search] title via Apify: %r", apify_title)
+        elif need_title:
+            logger.info("[url-search] Apify render had no usable title for %s", apify_host)
+
+        # Price stays gated on the host list: _extract_jsonld_price is
+        # generic, but "which hosts' structured data has been hand-checked
+        # against the page's real selling price" is not — an unverified host
+        # could be handing us an MRP or a range. A title is a name; a price
+        # is a promise, and only the second one needs the whitelist.
+        apify_price = _extract_jsonld_price(markup) if need_price else None
         if apify_price is not None:
-            logger.info("[url-search] %s live price via Apify: %s", apify_merchant, apify_price)
-        else:
+            logger.info(
+                "[url-search] %s live price via Apify: %s", apify_merchant_name, apify_price
+            )
+        elif need_price:
             logger.info("[url-search] Apify fallback found no price for %s", apify_host)
-        return apify_price, apify_merchant
+        return (
+            apify_title,
+            apify_price,
+            apify_merchant_name if apify_price is not None else None,
+        )
 
     try:
         timeout = float(get_settings().LINK_TITLE_TIMEOUT)
@@ -1492,8 +1569,7 @@ def _fetch_url_page(url: str) -> tuple[str | None, float | None, str | None]:
             url, resp.url, resp.status_code,
         )
         if resp.status_code != 200:
-            price, merchant = _try_apify()
-            return None, price, merchant
+            return _try_apify()
         full_markup = resp.text
         # The title lives in <head>, early in the document; cap the text we
         # scan for it so a huge product page doesn't turn into a huge regex
@@ -1502,25 +1578,12 @@ def _fetch_url_page(url: str) -> tuple[str | None, float | None, str | None]:
         markup = full_markup[:200_000]
     except (httpx.HTTPError, ValueError) as exc:
         logger.info("[url-search] page-fetch failed for %s: %s", url, exc)
-        price, merchant = _try_apify()
-        return None, price, merchant
+        return _try_apify()
 
-    title = None
-    for pattern in _META_TITLE_RES:
-        m = pattern.search(markup)
-        if not m:
-            continue
-        candidate = re.sub(r"\s+", " ", html.unescape(m.group(1))).strip()
-        if len(candidate) < 3:
-            continue
-        low = candidate.lower()
-        if low in _BARE_STORE_TITLES or any(b in low for b in _BAD_TITLE_MARKERS):
-            logger.info("[url-search] rejected page title %r (bot-wall/bare store)", candidate)
-            continue
-        title = candidate
+    title = _extract_page_title(markup)
+    if title:
         logger.info("[url-search] using page title: %r", title)
-        break
-    if title is None:
+    else:
         logger.info("[url-search] no usable title found in page")
 
     host = (resp.url.host or "").lower()
@@ -1537,8 +1600,13 @@ def _fetch_url_page(url: str) -> tuple[str | None, float | None, str | None]:
             merchant = jsonld_merchant
             logger.info("[url-search] %s live price: %s", jsonld_merchant, price)
 
-    if price is None:
-        price, merchant = _try_apify()
+    # A 200 that yielded neither a name nor a price is a soft block (a shell
+    # page, or a bot wall that didn't bother with a 403) — worth one render.
+    if price is None or title is None:
+        apify_title, apify_price, apify_merchant = _try_apify(need_title=title is None)
+        title = title or apify_title
+        if apify_price is not None:
+            price, merchant = apify_price, apify_merchant
 
     if price is None:
         merchant = None
@@ -1656,6 +1724,14 @@ def search_candidates(query: str) -> dict:
     are the closest trustworthy matches instead — the caller should say so
     rather than presenting them as the thing that was asked for."""
     query = (query or "").strip()
+    if not _URL_QUERY_RE.match(query):
+        pasted_url = _extract_pasted_url(query)
+        if pasted_url:
+            logger.info(
+                "[url-search] stripped shared-link blurb, searching the link only: %s",
+                pasted_url,
+            )
+            query = pasted_url
     out = {"query": query, "products": [], "error": None, "approximate": False}
     if not query:
         out["error"] = "Empty query."

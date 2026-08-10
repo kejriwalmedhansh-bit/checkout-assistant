@@ -28,11 +28,15 @@ search_service._APIFY_MERCHANT_HOSTS).
 from __future__ import annotations
 
 import json
+import logging
+import time
 
 import httpx
 
 from ..cache import search_cache
 from ..config import get_settings
+
+logger = logging.getLogger("uvicorn.error")
 
 APIFY_RUN_SYNC_BASE = "https://api.apify.com/v2/acts/{actor_id}/run-sync-get-dataset-items"
 
@@ -49,6 +53,11 @@ _RENDER_PAGE_FUNCTION = (
 def _run_actor(actor_id: str, run_input: dict) -> list[dict] | None:
     settings = get_settings()
     if not settings.APIFY_TOKEN:
+        # Silent-by-default here cost real debugging time: with no token, this
+        # returned None instantly and the caller logged "found no price",
+        # which reads as "Apify tried and the page had none" rather than
+        # "Apify never ran". Every exit below says which one it was.
+        logger.info("[apify] no APIFY_TOKEN configured — actor %s not run", actor_id)
         return None
 
     # run_input can contain nested dicts/lists (startUrls, proxyConfiguration),
@@ -59,19 +68,40 @@ def _run_actor(actor_id: str, run_input: dict) -> list[dict] | None:
         return cached
 
     url = APIFY_RUN_SYNC_BASE.format(actor_id=actor_id)
+    started = time.monotonic()
     try:
         with httpx.Client(timeout=float(settings.APIFY_TIMEOUT)) as client:
             resp = client.post(
                 url, params={"token": settings.APIFY_TOKEN}, json=run_input
             )
         if resp.status_code >= 300:
+            # Body carries Apify's own reason (quota exhausted, actor not
+            # permitted, bad input) — worth surfacing, it's the difference
+            # between "top up the account" and "fix the request".
+            logger.info(
+                "[apify] actor %s failed: HTTP %s after %.1fs — %s",
+                actor_id, resp.status_code, time.monotonic() - started, resp.text[:300],
+            )
             return None
         items = resp.json()
-    except (httpx.HTTPError, ValueError):
+    except httpx.TimeoutException:
+        # The usual one: a real browser render regularly needs ~30s and can
+        # exceed APIFY_TIMEOUT under load. Distinct from a hard failure —
+        # the run itself may well have succeeded on Apify's side.
+        logger.info(
+            "[apify] actor %s timed out after %.1fs (APIFY_TIMEOUT=%ss)",
+            actor_id, time.monotonic() - started, settings.APIFY_TIMEOUT,
+        )
+        return None
+    except (httpx.HTTPError, ValueError) as exc:
+        logger.info("[apify] actor %s errored: %s: %s", actor_id, type(exc).__name__, exc)
         return None
 
     if not isinstance(items, list) or not items:
+        logger.info("[apify] actor %s returned an empty dataset", actor_id)
         return None
+
+    logger.info("[apify] actor %s ok in %.1fs", actor_id, time.monotonic() - started)
 
     search_cache.set(cache_key, items)
     return items

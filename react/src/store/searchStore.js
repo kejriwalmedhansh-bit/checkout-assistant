@@ -16,6 +16,7 @@ import { persist, createJSONStorage } from 'zustand/middleware';
 
 import { searchApi } from '@/api/search.api';
 import { extractErrorMessage } from '@/utils/errors';
+import { normalizeSearchInput } from '@/utils/query';
 import { track } from '@/utils/analytics';
 import { originalPrice, finalPrice, saving } from '@/utils/format';
 
@@ -45,7 +46,9 @@ export const useSearchStore = create(
 
       // Step 1 — fetch candidate products for a query.
       runSearch: async (query) => {
-        const q = (query || '').trim();
+        // A pasted share-link keeps only the link: it's what gets searched,
+        // so it's also what the header and the search box must show.
+        const q = normalizeSearchInput(query);
         if (!q) return;
         set({
           query: q,
