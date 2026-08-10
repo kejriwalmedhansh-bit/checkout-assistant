@@ -5,11 +5,51 @@ For Maximize, restores dropped fields from the raw db/maximize_master.json.
 """
 
 import json
+import re
 import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent))
 from clean_maximize_master import EXCLUDE_PRODUCT_IDS  # noqa: E402
+
+# Same patterns/word list parse_stacking_rules.py uses for Gyftr's T&C text —
+# copied rather than imported since that script runs its own top-level
+# scrape-file read and file write as a side effect of being imported.
+_NUMBER_WORDS = {"one": 1, "two": 2, "three": 3, "four": 4, "five": 5}
+
+_LIMIT_PATTERNS = [
+    r'only\s+(\d+)\s+gift\s+vouchers?\s+can\s+be\s+clubbed',
+    r'only\s+(\d+)\s+(?:gift\s+)?vouchers?\s+(?:can\s+be\s+used|per\s+(?:bill|day|transaction))',
+    r'(?:maximum|max)\s+(?:of\s+)?(\d+)\s+(?:gift\s+)?vouchers?',
+    r'(\d+)\s+(?:gift\s+)?vouchers?\s+per\s+(?:bill|day|transaction)',
+    r'limit\s+of\s+(\d+)\s+gv',
+    r'only\s+(one|two|three|four|five)\s+(?:gift\s+)?vouchers?\s+can',
+]
+
+_UP_TO_N_PATTERNS = [
+    r'up\s*to\s+(\d+)\s*(?:gift\s+)?vouchers?\s+can\s+be\s+used',
+    r'\(?up\s*to\s+(\d+)\)?\s+can\s+be\s+used',
+]
+
+
+def _extract_stated_voucher_limit(text):
+    """Best-effort read of an explicit per-bill voucher count from a brand's
+    own terms text (e.g. "up to 3 vouchers can be used", "maximum of 12
+    vouchers"). Returns None if no such statement is found — callers should
+    fall back to another signal, not treat None as "unlimited"."""
+    text_lower = (text or "").lower()
+    for pat in _LIMIT_PATTERNS:
+        m = re.search(pat, text_lower)
+        if m:
+            val = m.group(1)
+            return _NUMBER_WORDS.get(val, int(val) if val.isdigit() else None)
+    for pat in _UP_TO_N_PATTERNS:
+        m = re.search(pat, text_lower)
+        if m:
+            n = int(m.group(1))
+            if n <= 20:  # sanity bound — real per-bill voucher counts are small
+                return n
+    return None
 
 GYFTR_RAW = Path(__file__).parent.parent / "data" / "gyftr_master.json"
 MAXIMIZE_RAW = Path(__file__).parent.parent / "db" / "maximize_master.json"
@@ -92,6 +132,30 @@ def normalize_maximize(raw_data: dict) -> dict:
             can_club = variant.get("can_club_with_offers")
             one_time_use = not variant.get("multi_use", False)  # inverse of multi_use
 
+            # stack_limit is a REDEMPTION cap (how many vouchers can be used
+            # against one bill), not a purchase cap (how many can be bought in
+            # one order) — quantity_cap_per_order is the latter and the two
+            # regularly differ (Daily Objects: can buy 4, but its own T&C says
+            # "Multiple vouchers cannot be used against one bill", i.e. 1).
+            # multi_use is the structured signal Maximize's own page already
+            # gives us for this, so it takes priority: multi_use=False means
+            # redemption is capped at 1 regardless of the purchase cap. When
+            # multi_use=True, try to read a specific stated count out of the
+            # brand's own terms text (e.g. "up to 3 vouchers can be used");
+            # if none is found, fall back to the purchase cap as the best
+            # remaining stand-in (unchanged from prior behavior).
+            if one_time_use:
+                stack_limit = 1
+            else:
+                stated_limit = _extract_stated_voucher_limit(variant.get("full_terms_and_conditions"))
+                purchase_cap = variant.get("quantity_cap_per_order")
+                if stated_limit is not None and purchase_cap is not None:
+                    stack_limit = min(stated_limit, purchase_cap)
+                elif stated_limit is not None:
+                    stack_limit = stated_limit
+                else:
+                    stack_limit = purchase_cap
+
             products.append({
                 "product_name": variant.get("product_name"),
                 "source_url": variant.get("url"),
@@ -103,7 +167,7 @@ def normalize_maximize(raw_data: dict) -> dict:
                 "discounts": normalize_maximize_discounts(variant.get("discounts")),
                 "best_payment_method": variant.get("best_payment_method"),
                 "best_discount_pct": variant.get("best_discount_pct"),
-                "stack_limit": variant.get("quantity_cap_per_order"),
+                "stack_limit": stack_limit,
                 "value_cap": variant.get("value_cap"),
                 "purchase_cap_per_txn": None,
                 "status": variant.get("status", "active"),
