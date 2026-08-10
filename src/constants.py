@@ -101,6 +101,16 @@ MANUAL_TRUSTED_MERCHANTS = [
     # listings without this.
     "TTK PrestigeLimited", "Judge by Prestige",
     "Liberty Leathers", "Pottery Barn Kids",
+    # Second sweep (2026-08-10): live-tested the remaining 205 brands whose
+    # own trust status had never been checked (the domain-signature match
+    # said they were already fine — the same shortcut that had missed the
+    # Levi's and Prestige gaps). 7 more confirmed real gaps; a handful of
+    # signature-substring "hits" on "Mi.com" (Xiaomi) and "Vi" (Vodafone
+    # Idea) were correctly excluded as false positives — those are real,
+    # unrelated companies, not sub-brands of anything in this list.
+    "Nykaa Now", "Blaupunkt Audio", "Crossword Bookstores",
+    "Decathlon Sports India", "Nua", "Philips Domestic Appliances",
+    "Shiv Naresh Sports",
 ]
 
 PRIORITY_MERCHANTS = [
