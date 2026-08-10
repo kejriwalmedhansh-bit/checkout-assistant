@@ -51,7 +51,7 @@ def _extract_stated_voucher_limit(text):
                 return n
     return None
 
-GYFTR_RAW = Path(__file__).parent.parent / "data" / "gyftr_master.json"
+GYFTR_RAW = Path(__file__).parent.parent / "db" / "gyftr_master.json"
 MAXIMIZE_RAW = Path(__file__).parent.parent / "db" / "maximize_master.json"
 MAXIMIZE_CLEANED = Path(__file__).parent.parent / "data" / "maximize_master.json"
 
