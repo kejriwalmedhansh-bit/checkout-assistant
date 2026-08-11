@@ -963,6 +963,24 @@ def _matches_any_required_token(title: str, tokens: list[str]) -> bool:
     return any(re.search(_token_pattern(t), normalized) for t in tokens)
 
 
+def _is_category_only_query(query: str, tokens: list[str]) -> bool:
+    """True when a query names no specific product to verify against — just
+    a category of thing to browse ("smartphones", "TVs under 15000"), with
+    no known brand and no model-number-style digit anywhere in it. There's
+    no single product identity here for a listing's title to confirm or
+    deny (unlike "boAt Airdopes 141", where the title must actually say
+    "Airdopes 141" to be trusted), and real listings phrase a category too
+    inconsistently for a literal-word match to be the right tool — a phone
+    listing just as often says "5G Mobile Phone" as "Smartphone". `tokens`
+    is the already brand/stopword/budget-stripped required-token list, so a
+    leftover digit in it is a genuine model number, never a budget figure
+    (that's parsed and excluded separately by `_required_tokens`)."""
+    raw_words = re.findall(r"[a-z0-9]+", (query or "").lower())
+    has_known_brand = any(w in KNOWN_BRANDS for w in raw_words)
+    has_model_number = any(t.isdigit() for t in tokens)
+    return not has_known_brand and not has_model_number
+
+
 def _distinguishing_words(title: str, exclude: set) -> frozenset:
     """Words in the title beyond the query's own tokens, known brand names,
     and generic spec/marketing filler. If nothing distinguishing survives,
@@ -1034,10 +1052,21 @@ def _filter_and_group_candidates(
     # when it fails to match all of them. Catches gibberish/unrelated queries
     # returning a confident wrong "match" while staying far more permissive
     # than the all-tokens check removed on 2026-08-03.
-    relevant = [c for c in hygienic if _matches_any_required_token(c["title"], tokens)]
-    for c in hygienic:
-        if c not in relevant:
-            logger.info("%s   dropped (matches none of the required tokens %r): %r", tag, tokens, c["title"])
+    #
+    # Skipped entirely for a category-only query ("smartphones", "TVs under
+    # 15000") — there's no specific product name here for a title to
+    # confirm, so requiring literal word overlap only ever throws away real,
+    # trusted listings that phrase the category differently ("5G Mobile
+    # Phone" for a "smartphones" search). Trust + price vetting below still
+    # runs unchanged either way — that's what actually keeps junk out here.
+    if _is_category_only_query(query, tokens):
+        logger.info("%s category-only query %r — skipping literal-word relevance gate", tag, query)
+        relevant = hygienic
+    else:
+        relevant = [c for c in hygienic if _matches_any_required_token(c["title"], tokens)]
+        for c in hygienic:
+            if c not in relevant:
+                logger.info("%s   dropped (matches none of the required tokens %r): %r", tag, tokens, c["title"])
     hygienic = relevant
 
     def _vet(pool: list[dict]) -> list[dict]:
