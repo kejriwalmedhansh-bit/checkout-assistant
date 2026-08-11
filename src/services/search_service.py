@@ -665,7 +665,7 @@ _QUERY_STOPWORDS = {
     "book", "books",
 }
 
-_MAX_CANDIDATES = 8  # keep the picker scannable even when grouping can't fully dedup
+_MAX_CANDIDATES = 32  # picker paginates 8/page (ProductSelectPage.jsx); this is the total pool
 
 # Below this many post-filter candidates, a brand-qualified search ("Apple
 # AirPods") is treated as suspiciously thin and worth re-checking against the
