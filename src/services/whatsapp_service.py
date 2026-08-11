@@ -22,11 +22,13 @@ from urllib.parse import quote
 import httpx
 from PIL import Image
 
+from .. import message_log
 from ..cache import session_store
 from ..config import get_settings
 from ..constants import (
     KNOWN_BRANDS,
     WHATSAPP_DEAD_END_MSG,
+    WHATSAPP_FIRST_TIME_NUDGE_MSG,
     WHATSAPP_FLOW_FIELD_NAME,
     WHATSAPP_FLOW_SCREEN_ID,
     WHATSAPP_GRAPH_BASE,
@@ -36,6 +38,7 @@ from ..constants import (
     WHATSAPP_NO_ALTERNATIVES_MSG,
     WHATSAPP_NUDGE_MSG,
     WHATSAPP_ONBOARDING_MSG,
+    WHATSAPP_PICK_REMINDER_MSG,
     WHATSAPP_SESSION_EXPIRED_MSG,
 )
 from . import analytics_service, search_service
@@ -263,7 +266,7 @@ async def _send_result_message(phone: str, image_url: str | None, caption: str) 
 async def _send_followup_buttons(phone: str) -> None:
     await send_reply_buttons(
         phone, WHATSAPP_MORE_OPTIONS_MSG,
-        [("see_alternatives", "Other route"), ("pick_again", "Go back to list")],
+        [("see_alternatives", "See other route"), ("pick_again", "Different product")],
     )
 
 
@@ -345,6 +348,7 @@ def _graph_config() -> tuple[str, dict]:
 
 
 async def send_text(phone: str, text: str) -> None:
+    message_log.record(phone, "out", text)
     api_url, headers = _graph_config()
     payload = {
         "messaging_product": "whatsapp",
@@ -494,6 +498,7 @@ async def send_image(phone: str, image_url: str, caption: str) -> bool:
     media_id = await _upload_media(jpeg_bytes)
     if not media_id:
         return False
+    message_log.record(phone, "out", f"[photo] {caption}")
     api_url, headers = _graph_config()
     payload = {
         "messaging_product": "whatsapp",
@@ -515,6 +520,7 @@ async def send_cta_url(phone: str, body_text: str, button_text: str, url: str) -
     outright (e.g. a malformed link) with no exception raised on our side,
     so callers must check this and fall back to plain text rather than let
     the whole step silently vanish for the user."""
+    message_log.record(phone, "out", f"{body_text} [{button_text}]")
     api_url, headers = _graph_config()
     payload = {
         "messaging_product": "whatsapp",
@@ -538,6 +544,8 @@ async def send_cta_url(phone: str, body_text: str, button_text: str, url: str) -
 async def send_reply_buttons(phone: str, text: str, buttons: list[tuple[str, str]]) -> None:
     """Native WhatsApp reply buttons (max 3) — along with list rows, the only
     interactive element whose tap triggers a webhook event back to us."""
+    button_labels = " / ".join(title for _id, title in buttons)
+    message_log.record(phone, "out", f"{text} [{button_labels}]")
     api_url, headers = _graph_config()
     payload = {
         "messaging_product": "whatsapp",
@@ -590,6 +598,8 @@ def _short_title(title: str, query: str) -> str:
 async def send_list_message(phone: str, body_text: str, button_text: str, rows: list[dict]) -> None:
     """Meta interactive List Message — up to 10 rows, each {id, title, description}.
     The tapped row's id comes back as msg["interactive"]["list_reply"]["id"]."""
+    row_titles = ", ".join(row["title"] for row in rows)
+    message_log.record(phone, "out", f"{body_text} [list: {row_titles}]")
     api_url, headers = _graph_config()
     payload = {
         "messaging_product": "whatsapp",
@@ -635,6 +645,7 @@ async def send_product_flow(phone: str, body_text: str, flow_cta: str, query: st
     if not items:
         return False
 
+    message_log.record(phone, "out", f"{body_text} [flow: {len(items)} products]")
     api_url, headers = _graph_config()
     payload = {
         "messaging_product": "whatsapp",
@@ -675,7 +686,14 @@ async def _send_product_picker(phone: str, query: str, products: list[dict]) -> 
     same picker moment (initial search vs. re-showing the same candidates).
     Tries the photo-carrying Flow first; falls back to the original text-only
     list message unchanged if the Flow isn't configured or fails to send, so
-    a broken/unset Flow never breaks the picker outright."""
+    a broken/unset Flow never breaks the picker outright.
+
+    Always (re)records candidates/query and marks the session as waiting on
+    a product pick — this is what lets a confused reply while this picker is
+    up get redirected back here instead of going unanswered (see
+    _send_state_aware_nudge)."""
+    session = session_store.get_session(phone) or {}
+    session_store.set_session(phone, {**session, "candidates": products, "query": query, "state": "awaiting_product_pick"})
     flow_sent = await send_product_flow(
         phone, WHATSAPP_MULTI_MATCH_MSG, "Select product", query, products,
     )
@@ -746,7 +764,6 @@ async def process_and_respond(phone: str, classification: dict) -> None:
             )
             return
 
-        session_store.set_session(phone, {"candidates": products, "query": query})
         await _send_product_picker(phone, query, products)
     except Exception as e:
         await send_text(phone, WHATSAPP_DEAD_END_MSG)
@@ -799,6 +816,10 @@ async def handle_alternatives(phone: str) -> None:
             "title": _truncate(merchant_name, 24),
             "description": _truncate(desc, 72),
         })
+    # Marks the session as waiting on an alternative pick, mirroring
+    # _send_product_picker — lets a confused reply here get redirected back
+    # to this list instead of going unanswered.
+    session_store.set_session(phone, {**session, "state": "awaiting_alternative_pick"})
     await send_list_message(
         phone,
         body_text="Want a different route? Pick one:",
@@ -844,6 +865,31 @@ async def handle_pick_again(phone: str) -> None:
     await _send_product_picker(phone, query, candidates)
 
 
+async def _send_state_aware_nudge(phone: str, is_new: bool = False) -> None:
+    """Gentle redirect for anything that doesn't make sense right now —
+    free text or a non-text message that isn't a valid reply. Never tries to
+    guess what the user meant; it only re-surfaces whatever the bot is
+    actually waiting on, so a confused reply never gets silence. If nothing
+    is currently pending, falls back to the general how-to-use nudge (a
+    softer, first-time-friendly one for a brand-new user's first message,
+    instead of no reply at all)."""
+    session = session_store.get_session(phone)
+    state = (session or {}).get("state")
+    if state == "awaiting_product_pick":
+        candidates = (session or {}).get("candidates") or []
+        if candidates:
+            await send_text(phone, WHATSAPP_PICK_REMINDER_MSG)
+            await _send_product_picker(phone, session.get("query", ""), candidates)
+            return
+    elif state == "awaiting_alternative_pick":
+        alternatives = (session or {}).get("routes", {}).get("alternatives") or []
+        if alternatives:
+            await send_text(phone, WHATSAPP_PICK_REMINDER_MSG)
+            await handle_alternatives(phone)
+            return
+    await send_text(phone, WHATSAPP_FIRST_TIME_NUDGE_MSG if is_new else WHATSAPP_NUDGE_MSG)
+
+
 async def handle_incoming(body: dict) -> None:
     """Parse a Meta webhook payload and dispatch. Swallows malformed payloads
     and any Graph-API-call failures — Meta expects a 200 ack regardless, and
@@ -865,6 +911,8 @@ async def handle_incoming(body: dict) -> None:
             itype = interactive.get("type")
             if itype == "button_reply":
                 reply_id = interactive["button_reply"]["id"]
+                reply_title = interactive["button_reply"].get("title", reply_id)
+                message_log.record(phone, "in", f"[tapped] {reply_title}")
                 if reply_id == "see_alternatives":
                     await send_typing_indicator(msg_id)
                     asyncio.create_task(handle_alternatives(phone))
@@ -873,6 +921,8 @@ async def handle_incoming(body: dict) -> None:
                     asyncio.create_task(handle_pick_again(phone))
             elif itype == "list_reply":
                 reply_id = interactive["list_reply"]["id"]
+                reply_title = interactive["list_reply"].get("title", reply_id)
+                message_log.record(phone, "in", f"[tapped] {reply_title}")
                 if reply_id.startswith("alt_"):
                     # Not a fresh pricing search, but still a real wait —
                     # the image download/convert/upload + several message
@@ -898,6 +948,7 @@ async def handle_incoming(body: dict) -> None:
                 except (TypeError, ValueError):
                     response = {}
                 reply_id = response.get(WHATSAPP_FLOW_FIELD_NAME)
+                message_log.record(phone, "in", f"[flow pick] {reply_id or 'unknown'}")
                 if reply_id and reply_id.startswith("prod_"):
                     await send_typing_indicator(msg_id)
                     asyncio.create_task(
@@ -906,11 +957,13 @@ async def handle_incoming(body: dict) -> None:
             return
 
         if msg_type != "text":
-            await send_text(phone, WHATSAPP_NUDGE_MSG)
+            message_log.record(phone, "in", f"[{msg_type} message]")
+            await _send_state_aware_nudge(phone)
             _track("WhatsApp Nudge Sent", phone, reason=f"non_text:{msg_type}")
             return
 
         text = msg["text"]["body"]
+        message_log.record(phone, "in", text)
         is_new = session_store.is_new_user(phone)
         if is_new:
             await send_text(phone, WHATSAPP_ONBOARDING_MSG)
@@ -918,9 +971,8 @@ async def handle_incoming(body: dict) -> None:
 
         classification = classify_input(text)
         if classification["type"] == "unparseable":
-            if not is_new:
-                await send_text(phone, WHATSAPP_NUDGE_MSG)
-                _track("WhatsApp Nudge Sent", phone, reason=classification.get("reason", ""), text=text)
+            await _send_state_aware_nudge(phone, is_new=is_new)
+            _track("WhatsApp Nudge Sent", phone, reason=classification.get("reason", ""), text=text)
             return
 
         _track("WhatsApp Search", phone, query=text, input_type=classification["type"])

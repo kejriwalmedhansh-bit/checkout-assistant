@@ -67,6 +67,11 @@ class Settings(BaseSettings):
     # --- CORS — comma-separated list of allowed origins ---
     CORS_ORIGINS: str = ",".join(_DEFAULT_CORS_ORIGINS)
 
+    # --- Admin conversation viewer (see api/routers/conversations.py) ---
+    # Empty = the viewer is disabled entirely (returns 404), not just
+    # unlocked with an empty password — must be set explicitly to turn it on.
+    ADMIN_PASSWORD: str = ""
+
     @property
     def cors_origins_list(self) -> list[str]:
         return [o.strip() for o in self.CORS_ORIGINS.split(",") if o.strip()]

@@ -138,8 +138,8 @@ KNOWN_BRANDS = [
 # --- WhatsApp user-facing copy ---
 WHATSAPP_ONBOARDING_MSG = (
     "Hi! I'm Dealo 👋\n\n"
-    "Send me a product name or link and I'll find the smartest way to pay — "
-    "vouchers, card offers, best price.\n\n"
+    "Send me a product name or a link and I'll find the cheapest legit way to buy it — "
+    "vouchers, card offers, best price, all in one place.\n\n"
     "Try: boAt Airdopes 141"
 )
 WHATSAPP_NUDGE_MSG = (
@@ -147,16 +147,21 @@ WHATSAPP_NUDGE_MSG = (
     "like 'boAt Airdopes 141' or 'Nike Air Force 1'."
 )
 WHATSAPP_DEAD_END_MSG = (
-    "Couldn't find a good deal for that one. Try a more specific product name."
+    "Couldn't find that one. Try adding the brand or model — "
+    "like 'boAt Airdopes 141' instead of just 'earphones'."
 )
 WHATSAPP_SESSION_EXPIRED_MSG = (
     "It's been a while — send the product name again and I'll look it up fresh."
 )
-WHATSAPP_NO_ALTERNATIVES_MSG = "This one only has one route available."
-WHATSAPP_MULTI_MATCH_MSG = (
-    "Got a few options. Tap the right one — product photo and details will show up right after."
+WHATSAPP_NO_ALTERNATIVES_MSG = (
+    "This is the only route we found for this one — it's already your best option."
 )
-WHATSAPP_MORE_OPTIONS_MSG = "Not what you were looking for?"
+WHATSAPP_MULTI_MATCH_MSG = "Found a few matches — tap the right one below 👇"
+WHATSAPP_MORE_OPTIONS_MSG = "Want a different way to buy this — or a different product altogether?"
+WHATSAPP_FIRST_TIME_NUDGE_MSG = (
+    "I didn't catch a product there — send me a name or link, like 'boAt Airdopes 141'."
+)
+WHATSAPP_PICK_REMINDER_MSG = "Tap one of the options above 👆"
 
 # Technical identifiers for the WhatsApp Flow-based photo picker — must
 # exactly match the screen id / RadioButtonsGroup field name set in the
