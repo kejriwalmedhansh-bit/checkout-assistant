@@ -23,7 +23,7 @@ import httpx
 from PIL import Image
 
 from .. import message_log
-from ..cache import session_store
+from ..cache import TTLCache, session_store
 from ..config import get_settings
 from ..constants import (
     KNOWN_BRANDS,
@@ -115,12 +115,28 @@ def _display_merchant(route: dict) -> str:
     return raw
 
 
+_RESULT_TITLE_MAX_CHARS = 70
+
+
+def _clean_result_title(title: str) -> str:
+    """Scraped titles are frequently SEO-stuffed with every spec/feature
+    ("... Dimmmable Light Electric ... with 2 Bulbs, ... Premium Scented
+    Jar") — bolding the whole thing in a chat bubble reads as a wall of
+    text, not a product name. Trims to a clean word boundary rather than a
+    hard character cut, so it never ends mid-word."""
+    title = (title or "").strip()
+    if len(title) <= _RESULT_TITLE_MAX_CHARS:
+        return title
+    cut = title[:_RESULT_TITLE_MAX_CHARS].rsplit(" ", 1)[0]
+    return (cut or title[:_RESULT_TITLE_MAX_CHARS]).rstrip(",.-") + "…"
+
+
 def _build_result_caption(route: dict) -> str:
     """Compact result text — title, route, and price/savings. Card cashback
     is sent separately by _send_card_fomo, after the redemption steps —
     never blended into this headline (see CLAUDE.md rule: card savings
     never affect ranking, users may not have premium cards)."""
-    title = route.get("title", "")
+    title = _clean_result_title(route.get("title", ""))
     merchant = _display_merchant(route)
     voucher = route.get("voucher")
     listed_price = route.get("listed_price")
@@ -149,7 +165,10 @@ def _build_result_caption(route: dict) -> str:
     if has_discount:
         lines.append(f"₹{listed_price:,.0f} → *₹{final_cost:,.0f}*")
         pct = round((savings / listed_price) * 100)
-        lines.append(f"You save ₹{savings:,.0f} ({pct}% off) 🎉👇")
+        # A party emoji on a 1% saving reads as fake enthusiasm — reserve
+        # the celebration for a discount actually worth celebrating.
+        celebration = " 🎉" if pct >= 10 else ""
+        lines.append(f"You save ₹{savings:,.0f} ({pct}% off){celebration}")
     else:
         lines.append(f"Price: ₹{final_cost:,.0f}")
 
@@ -191,13 +210,16 @@ async def _send_voucher_steps(phone: str, route: dict) -> None:
         affiliate_link = _affiliate_url(link)
         check_text = (
             f"*Step {step_n} of {total_steps}*\n\n"
-            f"Before you buy: quickly check the {merchant} page to make sure the price and specs are still right — "
-            f"and keep an eye out for any store coupon we might've missed."
+            f"Quick check — is everything still right on {merchant}?"
         )
         if not await send_cta_url(phone, check_text, f"View on {merchant}", affiliate_link):
             await send_text(phone, f"{check_text}\n{affiliate_link}")
         step_n += 1
-        await asyncio.sleep(_MESSAGE_PACE_SECONDS)
+        # Longer pause here on purpose — this is the one step that sends the
+        # user away from the chat to actually look at something, so it gets
+        # real breathing room before the buy/redeem steps land, unlike the
+        # short beat used between every other bubble pair in this flow.
+        await asyncio.sleep(_CHECK_PAGE_GAP_SECONDS)
 
     denom_breakdown = upi.get("denomination_breakdown") or []
     voucher_word = _voucher_word(denom_breakdown)
@@ -227,12 +249,12 @@ async def _send_voucher_steps(phone: str, route: dict) -> None:
         breakdown = upi.get("purchase_breakdown") or f"₹{upi.get('voucher_amount', 0):,.0f}"
         step1_text = (
             f"*Step {step_n} of {total_steps}*\n\n"
-            f"Buy exactly {breakdown} {voucher_brand} {voucher_word} on {platform_label} first "
+            f"Buy exactly *{breakdown}* {voucher_brand} {voucher_word} on {platform_label} first "
             f"({discount_pct}% off via UPI)."
         )
     if txns > 1:
         cap = upi.get("purchase_cap_per_txn")
-        cap_text = f", ₹{cap:,.0f} max per transaction" if cap else ""
+        cap_text = f", *₹{cap:,.0f}* max per transaction" if cap else ""
         step1_text += f"\n\nYou'll need to do this {txns} separate times{cap_text}."
     voucher_url = voucher["voucher_url"]
     if not await send_cta_url(phone, step1_text, "Buy Gift Voucher Now", voucher_url):
@@ -246,14 +268,23 @@ async def _send_voucher_steps(phone: str, route: dict) -> None:
     await asyncio.sleep(_MESSAGE_PACE_SECONDS)
 
     remainder = upi.get("remainder", 0)
+    remainder_line = f"Pay the remaining *₹{remainder:,.0f}*." if remainder else "It covers the full order."
     redeem_instruction = voucher.get("how_to_redeem_short")
     if in_store:
-        step2_text = f"*Step {step_n} of {total_steps}*\n\nHead to your nearest {merchant} store. {redeem_instruction or 'Show the voucher at checkout.'}"
-        step2_text += f"\nPay the remaining *₹{remainder:,.0f}*." if remainder else "\nIt covers the full order."
+        step2_text = (
+            f"*Step {step_n} of {total_steps}*\n\n"
+            f"Head to your nearest {merchant} store.\n"
+            f"{redeem_instruction or 'Show the voucher at checkout.'}\n"
+            f"{remainder_line}"
+        )
         await send_text(phone, step2_text)
     else:
-        step2_text = f"*Step {step_n} of {total_steps}*\n\nOpen {merchant}, add the item to cart. {redeem_instruction or 'Apply the voucher.'}"
-        step2_text += f"\nPay the remaining *₹{remainder:,.0f}*." if remainder else "\nIt covers the full order."
+        step2_text = (
+            f"*Step {step_n} of {total_steps}*\n\n"
+            f"Open {merchant} and add the item to your cart.\n"
+            f"{redeem_instruction or 'Apply the voucher at checkout.'}\n"
+            f"{remainder_line}"
+        )
         if link:
             affiliate_link = _affiliate_url(link)
             if not await send_cta_url(phone, step2_text, f"Open {merchant}", affiliate_link):
@@ -295,27 +326,33 @@ async def _send_followup_buttons(phone: str) -> None:
     )
 
 
-async def _send_card_fomo(phone: str, route: dict) -> None:
+async def _send_card_fomo(phone: str, route: dict) -> bool:
     """Optional standalone bubble for the credit-card cashback callout —
     kept out of the main result caption (see _build_result_caption) and
     sent after the redemption steps instead. Only fires when there's an
-    actual positive saving to show."""
+    actual positive saving to show. Returns whether anything was actually
+    sent, so callers can skip a breathing-room pause meant for this message
+    when there was nothing to pause after."""
     card_fomo = route.get("card_fomo")
     if not card_fomo:
-        return
+        return False
     card_saving = card_fomo.get("actual_saving", 0)
     if not card_saving or card_saving <= 0:
-        return
+        return False
     card_name = card_fomo.get("card_name", "")
     apply_url = card_fomo.get("apply_url") or ""
-    text = (
-        f"💳 Have an {card_name} card? You could save an extra ₹{card_saving:,.0f} on this order.\n"
-        f"Don't have one? Apply here: {apply_url}"
-    )
-    await send_text(phone, text)
+    body_text = f"💳 Have an {card_name} card? You could save an extra ₹{card_saving:,.0f} on this order."
+    if apply_url:
+        if not await send_cta_url(phone, body_text, f"Apply for {card_name}", apply_url):
+            await send_text(phone, f"{body_text}\nDon't have one? Apply here: {apply_url}")
+    else:
+        await send_text(phone, body_text)
+    return True
 
 
 _MESSAGE_PACE_SECONDS = 2  # Breathing room between bubbles so a fast reply doesn't arrive as one dense burst.
+_CHECK_PAGE_GAP_SECONDS = 7  # Longer pause after the check-the-page step — see _send_voucher_steps.
+_POST_STEPS_GAP_SECONDS = 5  # Pause after the buy/redeem steps, before the card-fomo and follow-up bubbles.
 
 
 async def _send_success_flow(phone: str, route: dict, image_url: str | None) -> None:
@@ -350,9 +387,14 @@ async def _send_success_flow(phone: str, route: dict, image_url: str | None) -> 
         await _send_voucher_steps(phone, route)
     else:
         await _send_direct_cta(phone, route)
-    await asyncio.sleep(_MESSAGE_PACE_SECONDS)
-    await _send_card_fomo(phone, route)
-    await asyncio.sleep(_MESSAGE_PACE_SECONDS)
+
+    await asyncio.sleep(_POST_STEPS_GAP_SECONDS)
+    card_sent = await _send_card_fomo(phone, route)
+
+    # No point pausing 5s for a card-fomo bubble that never sent — fall
+    # back to the normal short beat so the follow-up buttons don't lag for
+    # no reason.
+    await asyncio.sleep(_POST_STEPS_GAP_SECONDS if card_sent else _MESSAGE_PACE_SECONDS)
     await _send_followup_buttons(phone)
 
 
@@ -914,6 +956,10 @@ async def _send_state_aware_nudge(phone: str, is_new: bool = False) -> None:
     await send_text(phone, WHATSAPP_FIRST_TIME_NUDGE_MSG if is_new else WHATSAPP_NUDGE_MSG)
 
 
+_SEEN_MESSAGE_TTL_SECONDS = 600  # comfortably longer than Meta's webhook retry window
+_seen_message_ids = TTLCache(default_ttl=_SEEN_MESSAGE_TTL_SECONDS)
+
+
 async def handle_incoming(body: dict) -> None:
     """Parse a Meta webhook payload and dispatch. Swallows malformed payloads
     and any Graph-API-call failures — Meta expects a 200 ack regardless, and
@@ -928,6 +974,19 @@ async def handle_incoming(body: dict) -> None:
         phone = msg["from"]
         msg_id = msg.get("id")
         msg_type = msg.get("type")
+
+        # Meta delivers "at least once", not "exactly once" — if our ack is
+        # slow (e.g. a Render free-tier cold start), it retries the same
+        # message, and without this check that meant the whole reply
+        # sequence (onboarding, nudges, everything) ran twice, landing as
+        # duplicate/out-of-order bubbles. The check+set below has no await
+        # between them, so it's race-safe against a near-simultaneous retry
+        # within this one process.
+        if msg_id:
+            if _seen_message_ids.get(msg_id):
+                return
+            _seen_message_ids.set(msg_id, True)
+
         _track("WhatsApp Message Received", phone, msg_type=msg_type)
 
         if msg_type == "interactive":

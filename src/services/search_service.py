@@ -187,6 +187,23 @@ def _maximize_brand_to_output_shape(record: dict) -> dict:
     # how_to_redeem_steps lives on the brand record, not per-product.
     products = record.get("products") or []
     best_tier = max(products, key=lambda t: t.get("best_discount_pct") or 0, default={})
+
+    # Maximize's own master data carries no redemption-instruction fields at
+    # all — "how do I use this gift card" is a brand-level fact that doesn't
+    # depend on which platform sold the voucher, so borrow Gyftr's copy for
+    # the same brand slug when Maximize itself has none.
+    redeem_short = record.get("how_to_redeem_short")
+    redeem_steps = record.get("how_to_redeem_steps") or []
+    # Maximize itself never has a short summary generated (only Gyftr's data
+    # does) — borrow Gyftr's for the same brand slug independently of
+    # whether Maximize has its own (possibly different) long-form steps.
+    if not redeem_short:
+        gyftr_record = voucher_repository.get_by_slug(record.get("slug") or "")
+        if gyftr_record:
+            redeem_short = gyftr_record.get("how_to_redeem_short")
+            if not redeem_steps:
+                redeem_steps = gyftr_record.get("how_to_redeem_steps") or []
+
     return {
         "brand_name": record.get("brand_name"),
         "slug": record.get("slug"),
@@ -209,7 +226,8 @@ def _maximize_brand_to_output_shape(record: dict) -> dict:
         "value_cap": best_tier.get("value_cap"),
         "purchase_cap_per_txn": best_tier.get("purchase_cap_per_txn"),
         "redemption_restrictions": record.get("redemption_restrictions") or [],
-        "how_to_redeem_steps": record.get("how_to_redeem_steps") or [],
+        "how_to_redeem_steps": redeem_steps,
+        "how_to_redeem_short": redeem_short,
     }
 
 
