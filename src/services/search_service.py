@@ -57,6 +57,95 @@ def parse_price(value) -> float | None:
         return None
 
 
+# ── budget parsing ("under 20000", "between 15000 and 20000") ──────────────────
+
+# A number only counts as a budget figure when it's directly attached to one
+# of these keywords — a bare number in the query (a model name, a spec) must
+# never be mistaken for a price ceiling. Keeps "iPhone 15 under 60000" from
+# treating "15" as anything but part of the product name.
+_BUDGET_PHRASE_RE = re.compile(
+    r"""
+    (?P<kind>under|below|less\s+than|cheaper\s+than|max|maximum|up\s?to
+             |over|above|more\s+than|min|minimum
+             |between)
+    \s+
+    (?:rs\.?|inr|₹)?\s*
+    (?P<num1>\d[\d,]*(?:\.\d+)?\s*k?)
+    (?:
+        \s*(?:-|to|and)\s*
+        (?:rs\.?|inr|₹)?\s*
+        (?P<num2>\d[\d,]*(?:\.\d+)?\s*k?)
+    )?
+    """,
+    re.IGNORECASE | re.VERBOSE,
+)
+
+_UNDER_KINDS = {"under", "below", "less than", "cheaper than", "max", "maximum", "upto", "up to"}
+_OVER_KINDS = {"over", "above", "more than", "min", "minimum"}
+
+
+def _parse_budget_amount(raw: str) -> float:
+    raw = raw.strip().lower()
+    mult = 1.0
+    if raw.endswith("k"):
+        mult = 1000.0
+        raw = raw[:-1].strip()
+    return float(raw.replace(",", "")) * mult
+
+
+def parse_budget(query: str) -> tuple[float | None, float | None, str | None]:
+    """Finds a budget phrase in a free-text query ("smartphones under 20000",
+    "TVs between 10000 and 15000") and returns (min_price, max_price,
+    matched_phrase). matched_phrase is the exact text matched — the caller
+    strips just those words from the required-token relevance check, since a
+    budget number/keyword was never meant to appear verbatim in a listing's
+    title the way a product word is ("Under Armour" stays untouched: "under"
+    alone with no number after it never matches this pattern at all).
+
+    Returns (None, None, None) when no budget phrase is present."""
+    m = _BUDGET_PHRASE_RE.search(query or "")
+    if not m:
+        return None, None, None
+    kind = re.sub(r"\s+", " ", m.group("kind").lower())
+    num1 = _parse_budget_amount(m.group("num1"))
+    num2_raw = m.group("num2")
+    min_price = max_price = None
+    if kind == "between":
+        if num2_raw:
+            num2 = _parse_budget_amount(num2_raw)
+            min_price, max_price = min(num1, num2), max(num1, num2)
+        else:
+            max_price = num1
+    elif kind in _OVER_KINDS:
+        min_price = num1
+    else:
+        max_price = num1
+    return min_price, max_price, m.group(0)
+
+
+def _apply_budget_filter(products: list[dict], min_price: float | None, max_price: float | None) -> list[dict]:
+    """Drops candidates priced outside the parsed budget. A candidate with no
+    readable price is kept rather than dropped — there isn't enough
+    information to say it's out of range, and hiding it outright risks
+    losing a genuine result over a scrape gap (see CLAUDE.md rule #1: a wrong
+    result is worse than no result, but that cuts the other way too — an
+    unnecessarily hidden real result is its own kind of wrong)."""
+    if min_price is None and max_price is None:
+        return products
+
+    def _in_budget(p: dict) -> bool:
+        price = p.get("price")
+        if price is None:
+            return True
+        if min_price is not None and price < min_price:
+            return False
+        if max_price is not None and price > max_price:
+            return False
+        return True
+
+    return [p for p in products if _in_budget(p)]
+
+
 # ── L1 guards (ported from pipeline.py) ─────────────────────────────────────────
 
 def _norm(name: str) -> str:
@@ -750,10 +839,16 @@ def _is_latin_dominant(title: str) -> bool:
 
 
 def _required_tokens(query: str) -> list[str]:
-    """Query tokens the candidate title must contain, minus brand names and
-    generic stopwords — e.g. "Boat Airdopes 141" -> ["airdopes", "141"]."""
+    """Query tokens the candidate title must contain, minus brand names,
+    generic stopwords, and a budget phrase's own words ("smartphones under
+    20000" -> ["smartphones"]) — a price ceiling/floor is enforced as a real
+    numeric check elsewhere (see `parse_budget` / `_apply_budget_filter`),
+    so the number and its keyword must not also be required to appear
+    verbatim in a listing's title the way a real product word would be."""
+    _, _, budget_phrase = parse_budget(query)
+    budget_words = set(re.findall(r"[a-z0-9]+", budget_phrase.lower())) if budget_phrase else set()
     tokens = re.findall(r"[a-z0-9]+", (query or "").lower())
-    return [t for t in tokens if t not in KNOWN_BRANDS and t not in _QUERY_STOPWORDS]
+    return [t for t in tokens if t not in KNOWN_BRANDS and t not in _QUERY_STOPWORDS and t not in budget_words]
 
 
 def _strip_known_brands(query: str) -> str | None:
@@ -781,6 +876,27 @@ def _is_bare_modifier_segment(segment: str) -> bool:
     return all(w.isdigit() or w in _COLOR_WORDS for w in words)
 
 
+def _plural_variants(word: str) -> set[str]:
+    """Both singular and plural spellings of a plain word — a category query
+    ("smartphones", "TVs under 15000") must match listings that (as almost
+    all of them do) title themselves in the singular ("Redmi Note 13
+    Smartphone"), and vice versa. Follows the same english pluralization
+    rules real listing titles do: words ending in ch/sh/x/s/z take "es"
+    ("watches" <-> "watch", "boxes" <-> "box"), everything else takes a
+    plain "s". Not applied to anything but plain alphabetic words — a model
+    number or fused alnum token has no plural form to speak of."""
+    variants = {word}
+    if word.endswith(("ches", "shes", "xes", "sses", "zes")):
+        variants.add(word[:-2])
+    elif word.endswith("s") and not word.endswith("ss") and len(word) > 2:
+        variants.add(word[:-1])
+    elif word.endswith(("ch", "sh", "x", "z", "s")):
+        variants.add(word + "es")
+    else:
+        variants.add(word + "s")
+    return variants
+
+
 def _token_pattern(token: str) -> str:
     """A bare generation/model number like "2" must also match its ordinal
     form in a listing title ("2nd Generation") — sellers routinely phrase the
@@ -797,6 +913,11 @@ def _token_pattern(token: str) -> str:
     parts = re.findall(r"[a-z]+|\d+", token)
     if len(parts) > 1:
         return r"\b" + r"\s?".join(re.escape(p) for p in parts) + r"\b"
+    if token.isalpha():
+        variants = sorted(_plural_variants(token), key=len, reverse=True)
+        if len(variants) > 1:
+            alt = "|".join(re.escape(v) for v in variants)
+            return rf"\b(?:{alt})\b"
     return rf"\b{re.escape(token)}\b"
 
 
@@ -1831,6 +1952,14 @@ def search_candidates(query: str) -> dict:
         products, approximate = _maybe_widen_brand_query(
             effective_query, is_url, shopping_results, products, approximate, tag
         )
+        min_price, max_price, budget_phrase = parse_budget(effective_query)
+        if budget_phrase:
+            before_count = len(products)
+            products = _apply_budget_filter(products, min_price, max_price)
+            logger.info(
+                "%s budget %r parsed (min=%s max=%s) -> %d of %d candidate(s) in range",
+                tag, budget_phrase, min_price, max_price, len(products), before_count,
+            )
         if live_candidate:
             # Added after filtering, not before: this candidate is the exact
             # page the user pasted, already "vetted" by the fact that it's
