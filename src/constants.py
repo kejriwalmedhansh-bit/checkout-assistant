@@ -111,6 +111,32 @@ MANUAL_TRUSTED_MERCHANTS = [
     "Nykaa Now", "Blaupunkt Audio", "Crossword Bookstores",
     "Decathlon Sports India", "Nua", "Philips Domestic Appliances",
     "Shiv Naresh Sports",
+    # Third sweep (2026-08-11): live-tested the 249 brands still marked
+    # Medium/Low/Uncertain confidence in audits/brand_website_matching.csv
+    # (guessed domains that were never checked against a real search). 23
+    # confirmed real gaps (16 distinct fixes — a few cover multiple
+    # near-duplicate SKUs of the same brand, e.g. Jos Alukkas/Joyalukkas/PC
+    # Jeweller each list Diamond/Gold/etc. as separate catalog rows but sell
+    # under one real storefront name). "adidas.co.in" was a bigger miss than
+    # the rest — the catalog has no plain "Adidas" entry at all, only an
+    # oddly-named "Adidas Kids-Luxe Gift Card" SKU, so no plain "adidas"
+    # signature existed to match against. "Malabar Gold & Diamonds" replaces
+    # the existing "malabargoldanddiamonds.com" fix, which doesn't actually
+    # match the real seller name: the domain spells out "and", but the live
+    # seller name uses "&", which the signature matcher drops entirely
+    # instead of reading as "and" — so the two never reduced to the same
+    # signature. Flagged separately, NOT added here: "Timezone Australia"
+    # (found for the "Timezone" arcade brand, but not confirmed to be the
+    # same company vs. an unrelated overseas retailer) and a handful of
+    # coincidental substring hits correctly excluded as false positives
+    # ("Mi.com" for "Mia", "Meena Bazaar"/"Wooden Bazar" for "Modern Bazaar",
+    # "CoinGate Gift Cards" for "Coach-Luxe Gift Card" and "Luxe Gift Card").
+    "adidas.co.in", "Aldo Shoes", "Bhima Jewellers",
+    "Blue Tokai Coffee Roasters", "BlueStone", "Bodycraft Shop",
+    "Jos Alukkas", "Joyalukkas", "Lawrence & Mayo",
+    "Malabar Gold & Diamonds", "M.P.J. Jewellers", "PC Jeweller",
+    "Peora India", "relaxofootwear.com", "Senco Gold and Diamonds",
+    "Tira", "W For Woman",
 ]
 
 PRIORITY_MERCHANTS = [

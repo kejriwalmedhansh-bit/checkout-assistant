@@ -364,8 +364,15 @@ def build_deals(results: list[dict], product_name: str = "") -> list[dict]:
             deal, voucher, voucher_source = gyftr_deal, gyftr_voucher, "gyftr"
             brand_name = gyftr_voucher.get("brand_name")
 
-        redemption_type_raw = voucher.get("redemption_type", "")
-        offline_only = redemption_type_raw == "Offline"
+        # `deal["redemption_type"]`, not `voucher.get(...)`: for a Gyftr deal,
+        # `voucher` here is the raw brand-level record, and redemption_type
+        # actually lives one level deeper, inside its `products[0]` — reading
+        # it off `voucher` directly always silently returned "" (never
+        # "Offline"), which meant offline-only vouchers (e.g. Puma) never
+        # tripped the in-store split below and got baked straight into the
+        # online route's price instead. `deal` was already correctly built
+        # from the flattened product data, so its own field is what's right.
+        offline_only = deal.get("redemption_type") == "Offline"
 
         card_deal = calculate_effective_price(price, voucher, "card")
 
