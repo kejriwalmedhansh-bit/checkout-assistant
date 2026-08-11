@@ -161,17 +161,43 @@ def _voucher_word(denom_breakdown: list[dict]) -> str:
 
 
 async def _send_voucher_steps(phone: str, route: dict) -> None:
-    """Step 1: buy the voucher (its own CTA button). Step 2: redeem it — a
-    CTA button to the merchant when there's a real online link, plain text
-    when the voucher is in-store only (there's nothing to link a button to).
-    Gyftr only sells fixed denominations, so Step 1 always states the exact
-    amount to buy — and when a per-transaction cap forces multiple separate
-    purchases, that requirement is folded into the same message rather than
-    dropped, since skipping it risks a purchase failing with no explanation."""
+    """All steps for a voucher route are sent back-to-back with only brief
+    breathing room between bubbles — never gated on the user having actually
+    tapped a button first (Meta never reports CTA-url taps, so pacing by an
+    assumed click time was pure guesswork and just made Step 2 feel like it
+    was withheld until a click that was never actually detected).
+
+    Up to three steps: an optional check-the-page disclaimer (online routes
+    only — nothing to check for an in-store voucher) telling the user to
+    confirm the price/specs and look for a coupon Dealo's price-only scan
+    might have missed, since that changes what voucher amount to buy; buy
+    the voucher; then redeem it. Gyftr only sells fixed denominations, so
+    the buy step always states the exact amount to buy — and when a
+    per-transaction cap forces multiple separate purchases, that requirement
+    is folded into the same message rather than dropped, since skipping it
+    risks a purchase failing with no explanation."""
     voucher = route["voucher"]
     merchant = _display_merchant(route).replace(" (in-store)", "")
     in_store = bool(voucher.get("offline_only"))
     upi = voucher.get("upi", {})
+
+    sellers = route.get("sellers") or []
+    link = sellers[0].get("link") if sellers else None
+    check_page_first = bool(link) and not in_store
+    total_steps = 3 if check_page_first else 2
+    step_n = 1
+
+    if check_page_first:
+        affiliate_link = _affiliate_url(link)
+        check_text = (
+            f"*Step {step_n} of {total_steps}*\n\n"
+            f"Quick check first: open the {merchant} product page to confirm the price and specs still match. "
+            f"Spot a coupon there we didn't catch? Buy a different voucher amount to cover it."
+        )
+        if not await send_cta_url(phone, check_text, f"View on {merchant}", affiliate_link):
+            await send_text(phone, f"{check_text}\n{affiliate_link}")
+        step_n += 1
+        await asyncio.sleep(_MESSAGE_PACE_SECONDS)
 
     denom_breakdown = upi.get("denomination_breakdown") or []
     voucher_word = _voucher_word(denom_breakdown)
@@ -187,7 +213,7 @@ async def _send_voucher_steps(phone: str, route: dict) -> None:
         # bulleted list is much easier to actually follow while shopping.
         breakdown_lines = "\n".join(f"• *{b['count']} × ₹{b['denom']:,}*" for b in denom_breakdown)
         step1_text = (
-            f"*Step 1 of 2*\n\n"
+            f"*Step {step_n} of {total_steps}*\n\n"
             f"Buy these {voucher_brand} {voucher_word} on {platform_label} ({discount_pct}% off via UPI):\n"
             f"{breakdown_lines}"
         )
@@ -200,7 +226,7 @@ async def _send_voucher_steps(phone: str, route: dict) -> None:
     else:
         breakdown = upi.get("purchase_breakdown") or f"₹{upi.get('voucher_amount', 0):,.0f}"
         step1_text = (
-            f"*Step 1 of 2*\n\n"
+            f"*Step {step_n} of {total_steps}*\n\n"
             f"Buy exactly {breakdown} {voucher_brand} {voucher_word} on {platform_label} first "
             f"({discount_pct}% off via UPI)."
         )
@@ -216,19 +242,18 @@ async def _send_voucher_steps(phone: str, route: dict) -> None:
         step="voucher", platform=platform_label, merchant=merchant,
         discount_pct=discount_pct,
     )
-    await asyncio.sleep(_VOUCHER_STEP_GAP_SECONDS)
+    step_n += 1
+    await asyncio.sleep(_MESSAGE_PACE_SECONDS)
 
     remainder = upi.get("remainder", 0)
     redeem_instruction = voucher.get("how_to_redeem_short")
     if in_store:
-        step2_text = f"*Step 2 of 2*\n\nHead to your nearest {merchant} store. {redeem_instruction or 'Show the voucher at checkout.'}"
+        step2_text = f"*Step {step_n} of {total_steps}*\n\nHead to your nearest {merchant} store. {redeem_instruction or 'Show the voucher at checkout.'}"
         step2_text += f"\nPay the remaining *₹{remainder:,.0f}*." if remainder else "\nIt covers the full order."
         await send_text(phone, step2_text)
     else:
-        step2_text = f"*Step 2 of 2*\n\nOpen {merchant}, add the item to cart. {redeem_instruction or 'Apply the voucher.'}"
+        step2_text = f"*Step {step_n} of {total_steps}*\n\nOpen {merchant}, add the item to cart. {redeem_instruction or 'Apply the voucher.'}"
         step2_text += f"\nPay the remaining *₹{remainder:,.0f}*." if remainder else "\nIt covers the full order."
-        sellers = route.get("sellers") or []
-        link = sellers[0].get("link") if sellers else None
         if link:
             affiliate_link = _affiliate_url(link)
             if not await send_cta_url(phone, step2_text, f"Open {merchant}", affiliate_link):
@@ -291,7 +316,6 @@ async def _send_card_fomo(phone: str, route: dict) -> None:
 
 
 _MESSAGE_PACE_SECONDS = 2  # Breathing room between bubbles so a fast reply doesn't arrive as one dense burst.
-_VOUCHER_STEP_GAP_SECONDS = 10  # Longer pause before Step 2 — gives the user real time to finish buying the voucher in Step 1 first.
 
 
 async def _send_success_flow(phone: str, route: dict, image_url: str | None) -> None:
