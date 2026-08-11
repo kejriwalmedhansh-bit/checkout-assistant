@@ -981,6 +981,54 @@ def _is_category_only_query(query: str, tokens: list[str]) -> bool:
     return not has_known_brand and not has_model_number
 
 
+# Only ever collapses genuinely equivalent phrasings of the *same* product
+# category into one canonical search term sent to Google — never two
+# different product types. A smartwatch and an analog watch are
+# deliberately kept as separate groups (not merged here at all): someone
+# searching "watches" wants the analog kind, not what a "smartwatch" search
+# means, even though both are things you wear on your wrist. Grows only as
+# new equivalences are individually confirmed — the same "targeted,
+# high-confidence fix, not a broad pattern matcher" bar as everything else
+# in this file (CLAUDE.md rule #1). A wrongly-merged group would silently
+# swap in the wrong product category for everyone who types the "other"
+# word.
+_CATEGORY_SYNONYM_GROUPS: dict[str, list[str]] = {
+    "smartphone": [
+        "smartphones", "smartphone", "mobile phones", "mobile phone",
+        "mobilephones", "mobilephone", "cell phones", "cell phone",
+        "cellphones", "cellphone", "mobiles", "mobile", "phones", "phone",
+    ],
+    "tv": ["televisions", "television", "tvs", "tv"],
+    "earbuds": ["earphones", "earphone", "earbuds", "earbud"],
+    "laptop": ["notebooks", "notebook", "laptops", "laptop"],
+}
+
+_CATEGORY_SYNONYM_RE: dict[str, re.Pattern] = {
+    canonical: re.compile(
+        r"\b(?:" + "|".join(re.escape(s) for s in sorted(synonyms, key=len, reverse=True)) + r")\b",
+        re.IGNORECASE,
+    )
+    for canonical, synonyms in _CATEGORY_SYNONYM_GROUPS.items()
+}
+
+
+def _canonicalize_category_words(query: str) -> str:
+    """Rewrites a recognized category word/phrase to one fixed canonical
+    term before the query is sent to Google — "mobilephone", "mobile
+    phone", and "smartphones" all become the same search text, so they get
+    back the same raw results instead of drifting apart on wording Google's
+    own index happens to rank differently.
+
+    The caller must only ever apply this to a query `_is_category_only_query`
+    has already confirmed names no specific product (no brand, no model
+    number) — a query that does name one has an exact product to find and
+    must reach Google exactly as typed, never rewritten."""
+    result = query
+    for canonical, pattern in _CATEGORY_SYNONYM_RE.items():
+        result = pattern.sub(canonical, result)
+    return result
+
+
 def _distinguishing_words(title: str, exclude: set) -> frozenset:
     """Words in the title beyond the query's own tokens, known brand names,
     and generic spec/marketing filler. If nothing distinguishing survives,
@@ -1945,6 +1993,17 @@ def search_candidates(query: str) -> dict:
         logger.info(
             "[url-search] searching via %s -> query=%r", layer, effective_query
         )
+    elif _is_category_only_query(effective_query, _required_tokens(effective_query)):
+        # Never touches a URL-derived query (that's one specific page, not a
+        # category to browse) or a brand/model-qualified query (guarded by
+        # `_is_category_only_query` itself) — see `_canonicalize_category_words`.
+        canonical_query = _canonicalize_category_words(effective_query)
+        if canonical_query != effective_query:
+            logger.info(
+                "%s category query canonicalized for search: %r -> %r",
+                tag, effective_query, canonical_query,
+            )
+            effective_query = canonical_query
     try:
         logger.info("%s query sent to SearchApi: %r", tag, effective_query)
         raw = searchapi_repository.search_products(effective_query)
