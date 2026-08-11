@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Box, Flex, Text } from '@chakra-ui/react';
 import { motion, useReducedMotion } from 'framer-motion';
 import { Navigate, useNavigate } from 'react-router-dom';
@@ -24,6 +24,8 @@ const PICKER_TIPS = [
   'Not right? Add the brand name and search again.',
 ];
 
+const PER_PAGE = 8;
+
 export default function ProductSelectPage() {
   usePageTitle('Select a product');
   const prefersReduced = useReducedMotion();
@@ -41,13 +43,23 @@ export default function ProductSelectPage() {
   const runSearch = useSearchStore((s) => s.runSearch);
   const selectProduct = useSearchStore((s) => s.selectProduct);
   const [quickViewIndex, setQuickViewIndex] = useState(null);
+  const [page, setPage] = useState(1);
   const tourActive = useUiStore((s) => s.tourActive);
   const advanceTour = useUiStore((s) => s.advanceTour);
+
+  // A fresh search result set always starts back on page 1.
+  useEffect(() => {
+    setPage(1);
+  }, [candidates]);
 
   // Direct load with no search in flight → back to home.
   if (searchStatus === 'idle') return <Navigate to={ROUTES.home} replace />;
 
   const rerun = (q) => runSearch(q);
+
+  const pageCount = Math.max(1, Math.ceil(candidates.length / PER_PAGE));
+  const pageStart = (page - 1) * PER_PAGE;
+  const pageCandidates = candidates.slice(pageStart, pageStart + PER_PAGE);
 
   const handleSelect = (token, title, price, source, thumbnail) => {
     if (tourActive) advanceTour();
@@ -147,29 +159,50 @@ export default function ProductSelectPage() {
               Select the exact product you want — we&apos;ll find the cheapest way to buy it.
             </Text>
             <Flex direction="column" gap="10px">
-              {candidates.map((p, i) => (
-                <motion.div
-                  key={p.product_token || i}
-                  initial={prefersReduced ? false : { opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.35, delay: Math.min(i * 0.045, 0.4), ease: [0.16, 1, 0.3, 1] }}
-                >
-                  <ProductCandidateCard
-                    product={p}
-                    onSelect={handleSelect}
-                    onEnlarge={() => setQuickViewIndex(i)}
-                    tourId={i === 0 ? 'picker-first-thumbnail' : undefined}
-                    isSelecting={status === 'loading' && selectedToken === p.product_token}
-                  />
-                </motion.div>
-              ))}
+              {pageCandidates.map((p, i) => {
+                const globalIndex = pageStart + i;
+                return (
+                  <motion.div
+                    key={p.product_token || globalIndex}
+                    initial={prefersReduced ? false : { opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.35, delay: Math.min(i * 0.045, 0.4), ease: [0.16, 1, 0.3, 1] }}
+                  >
+                    <ProductCandidateCard
+                      product={p}
+                      onSelect={handleSelect}
+                      onEnlarge={() => setQuickViewIndex(i)}
+                      tourId={globalIndex === 0 ? 'picker-first-thumbnail' : undefined}
+                      isSelecting={status === 'loading' && selectedToken === p.product_token}
+                    />
+                  </motion.div>
+                );
+              })}
             </Flex>
+
+            {pageCount > 1 && (
+              <Flex justify="center" align="center" gap="6px" mt="18px">
+                <PageButton disabled={page === 1} onClick={() => setPage((p) => p - 1)} aria-label="Previous page">
+                  <Box transform="rotate(180deg)">
+                    <I.chevRight size={14} />
+                  </Box>
+                </PageButton>
+                {Array.from({ length: pageCount }, (_, i) => i + 1).map((p) => (
+                  <PageButton key={p} active={p === page} onClick={() => setPage(p)}>
+                    {p}
+                  </PageButton>
+                ))}
+                <PageButton disabled={page === pageCount} onClick={() => setPage((p) => p + 1)} aria-label="Next page">
+                  <I.chevRight size={14} />
+                </PageButton>
+              </Flex>
+            )}
           </>
         )}
 
         {quickViewIndex != null && (
           <ProductQuickView
-            products={candidates}
+            products={pageCandidates}
             index={quickViewIndex}
             onIndexChange={setQuickViewIndex}
             onSelect={handleSelect}
@@ -178,5 +211,36 @@ export default function ProductSelectPage() {
         )}
       </Box>
     </Box>
+  );
+}
+
+// One numbered pill in the picker's page strip (also used for the ‹ / › arrows).
+function PageButton({ active, disabled, children, ...rest }) {
+  return (
+    <Flex
+      as="button"
+      type="button"
+      disabled={disabled}
+      minW="34px"
+      h="34px"
+      px="6px"
+      align="center"
+      justify="center"
+      borderRadius="999px"
+      border="1px solid"
+      borderColor={active ? 'brand' : 'border'}
+      bg={active ? 'brand' : 'surface'}
+      color={active ? 'onBrand' : 'text2'}
+      fontSize="13px"
+      fontWeight={700}
+      cursor={disabled ? 'default' : 'pointer'}
+      opacity={disabled ? 0.35 : 1}
+      transition="background .18s ease, color .18s ease, border-color .18s ease"
+      _hover={disabled ? undefined : { borderColor: active ? 'brand' : 'borderStrong' }}
+      _focusVisible={{ outline: '2px solid', outlineColor: 'brand', outlineOffset: '2px' }}
+      {...rest}
+    >
+      {children}
+    </Flex>
   );
 }

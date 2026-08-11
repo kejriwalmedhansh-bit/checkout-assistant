@@ -10,8 +10,8 @@ from __future__ import annotations
 
 from ..repositories import card_repository
 
-_MIN_SAVING_FLOOR = 200
-_MIN_SAVING_PCT = 0.03
+_MIN_SAVING_FLOOR = 0
+_MIN_SAVING_PCT = 0
 
 # CLAUDE.md rule #4: on an exact saving tie, SBI Cashback wins outright — it's
 # the safer/preferred recommendation, not a fee-driven choice. Cards outside
