@@ -191,8 +191,8 @@ async def _send_voucher_steps(phone: str, route: dict) -> None:
         affiliate_link = _affiliate_url(link)
         check_text = (
             f"*Step {step_n} of {total_steps}*\n\n"
-            f"Quick check first: open the {merchant} product page to confirm the price and specs still match. "
-            f"Spot a coupon there we didn't catch? Buy a different voucher amount to cover it."
+            f"Before you buy: quickly check the {merchant} page to make sure the price and specs are still right — "
+            f"and keep an eye out for any store coupon we might've missed."
         )
         if not await send_cta_url(phone, check_text, f"View on {merchant}", affiliate_link):
             await send_text(phone, f"{check_text}\n{affiliate_link}")
