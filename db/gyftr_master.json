@@ -1511,7 +1511,7 @@
     "status": "active",
     "notes": "",
     "last_scraped": "2026-07-02",
-    "how_to_redeem_short": "Complete your order by entering your unique voucher code, clicking → enter voucher code + PIN"
+    "how_to_redeem_short": "Enter your voucher code at checkout, click Apply Now"
   },
   "relaxo": {
     "brand_name": "Relaxo",
@@ -2422,7 +2422,7 @@
     "status": "active",
     "notes": "",
     "last_scraped": "2026-07-02",
-    "how_to_redeem_short": "On the checkout page complete the payment by choosing bigbasket wallet payment option → enter voucher code + PIN"
+    "how_to_redeem_short": "Add code under 'My Gift Cards' → credited to BigBasket Wallet, pay from wallet at checkout"
   },
   "uber": {
     "brand_name": "UBER",
@@ -6975,7 +6975,7 @@
     "status": "active",
     "notes": "",
     "last_scraped": "2026-07-02",
-    "how_to_redeem_short": "At checkout → enter voucher code + PIN"
+    "how_to_redeem_short": "Needs mobile verification — read the redemption steps on the voucher site before buying"
   },
   "swiggy-one-lite-membership": {
     "brand_name": "Swiggy One Lite Membership",
@@ -7508,7 +7508,7 @@
     "status": "active",
     "notes": "",
     "last_scraped": "2026-07-02",
-    "how_to_redeem_short": "Customer adds the vouchers to the E-Pay balance or can → enter voucher code + PIN"
+    "how_to_redeem_short": "Add vouchers to your E-Pay balance at checkout → enter voucher code + PIN"
   },
   "marks-&-spencer": {
     "brand_name": "Marks & Spencer",
@@ -7552,7 +7552,7 @@
     "status": "active",
     "notes": "",
     "last_scraped": "2026-07-02",
-    "how_to_redeem_short": "At checkout → enter voucher code + PIN"
+    "how_to_redeem_short": "Needs mobile verification — read the redemption steps on the voucher site before buying"
   },
   "fashion-factory": {
     "brand_name": "Fashion Factory",
@@ -7949,7 +7949,7 @@
     "status": "active",
     "notes": "",
     "last_scraped": "2026-07-02",
-    "how_to_redeem_short": "At checkout → enter voucher code + PIN"
+    "how_to_redeem_short": "Needs mobile verification — read the redemption steps on the voucher site before buying"
   },
   "dpauls-travel-&-tours": {
     "brand_name": "DPauls Travel & Tours",
@@ -8277,7 +8277,7 @@
     "status": "active",
     "notes": "",
     "last_scraped": "2026-07-02",
-    "how_to_redeem_short": "At checkout → enter voucher code + PIN"
+    "how_to_redeem_short": "Needs mobile verification — read the redemption steps on the voucher site before buying"
   },
   "jio-hotstar": {
     "brand_name": "JioHotstar",
@@ -8317,7 +8317,7 @@
     "status": "active",
     "notes": "",
     "last_scraped": "2026-07-02",
-    "how_to_redeem_short": "At checkout → enter voucher code + PIN"
+    "how_to_redeem_short": "Needs mobile verification — read the redemption steps on the voucher site before buying"
   },
   "allen-solly-gift-voucher": {
     "brand_name": "Allen Solly Gift Voucher",
@@ -10331,7 +10331,7 @@
     "status": "active",
     "notes": "",
     "last_scraped": "2026-07-02",
-    "how_to_redeem_short": "At checkout → enter voucher code + PIN"
+    "how_to_redeem_short": "Needs mobile verification — read the redemption steps on the voucher site before buying"
   },
   "pigeon": {
     "brand_name": "Pigeon",
@@ -11275,7 +11275,7 @@
     "status": "active",
     "notes": "",
     "last_scraped": "2026-07-02",
-    "how_to_redeem_short": "Balance is updated in UniPin Credit Wallet, Transaction success: Resulting in UniPin voucher getting added as UniPin Credits for the user → enter voucher code + PIN"
+    "how_to_redeem_short": "Needs mobile verification — read the redemption steps on the voucher site before buying"
   },
   "unipin-bgmi": {
     "brand_name": "UniPin BGMI",
@@ -11316,7 +11316,7 @@
     "status": "active",
     "notes": "",
     "last_scraped": "2026-07-02",
-    "how_to_redeem_short": "At checkout → enter voucher code + PIN"
+    "how_to_redeem_short": "Needs mobile verification — read the redemption steps on the voucher site before buying"
   },
   "barbeque-nation-value-voucher": {
     "brand_name": "Barbeque Nation Value Voucher",

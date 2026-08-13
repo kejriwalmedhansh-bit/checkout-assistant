@@ -94,23 +94,38 @@ def is_trustworthy_where(where: str) -> bool:
     return True
 
 
-_GATE_KEYWORD_RE = re.compile(
-    r"\bwallet\b|\bkyc\b|\botp\b|\bcredit(?:s)?\b|\bbalance\b|\baccount\b|"
-    r"verify|\bmoney\b|\bcash\b|\bcoins?\b|activate",
+# Two different signals, not one — "wallet" alone isn't a warning-worthy
+# gate: it means the code loads onto a running balance rather than a
+# single-use code, which usually means you get real change back and can
+# often stack a higher total than a fixed-denomination code allows. KYC/OTP
+# is the actual added friction — a real identity-verification step some
+# (not most) wallet systems require before the wallet can be used at all.
+_KYC_OTP_RE = re.compile(
+    r"\bkyc\b|\botp\b|verif(?:y|ication).{0,20}(mobile|number)|\bverification\b",
+    re.I,
+)
+_WALLET_KEYWORD_RE = re.compile(
+    r"\bwallet\b|\bcredit(?:s)?\b|\bbalance\b|\baccount\b|\bmoney\b|\bcash\b|\bcoins?\b|activate",
     re.I,
 )
 
+_KYC_WARNING = "Needs mobile verification — read the redemption steps on the voucher site before buying"
 
-def has_redemption_gate(steps: list[str]) -> bool:
-    """A generic "At checkout -> enter voucher code + PIN" line is only
-    risky when the real flow has a gate the line doesn't mention (a wallet
-    top-up, OTP/KYC verification, an account balance step) — that's what
-    made the original TATA CLiQ line wrong. When the real steps have none
-    of that, "at checkout" is simply true (Cleartrip, EaseMyTrip, FlixBus,
+
+def has_kyc_or_otp(steps: list[str]) -> bool:
+    return bool(_KYC_OTP_RE.search(" ".join(steps)))
+
+
+def has_wallet_signal(steps: list[str]) -> bool:
+    """A generic "At checkout -> enter voucher code + PIN" line undersells a
+    wallet brand (the code actually loads onto a page/section *before*
+    checkout, not into a box at checkout) but isn't factually wrong or
+    risky the way a hidden KYC step is — Cleartrip, EaseMyTrip, FlixBus,
     Daily Objects, Donatekart, and many more really do just take a code at
-    checkout) — treating every generic result as equally risky was overly
-    cautious and left genuinely simple brands with no line at all."""
-    return bool(_GATE_KEYWORD_RE.search(" ".join(steps)))
+    checkout, no wallet involved. Still held back from the generic line
+    (kept null) pending real per-brand wallet copy, just not given the
+    stronger KYC warning."""
+    return bool(_WALLET_KEYWORD_RE.search(" ".join(steps)))
 
 
 def brand_redemption_type(brand: dict) -> str | None:
@@ -152,13 +167,18 @@ def rule_based_short(brand: dict) -> tuple[str | None, str]:
 
         where = extract_where(candidate)
         if where == "At checkout":
-            if has_redemption_gate(steps):
-                # A real gate exists (wallet/OTP/KYC/balance) and this
-                # generic line wouldn't mention it — the exact failure mode
-                # that produced the wrong TATA CLiQ line. Skip rather than
-                # assert a specific-sounding claim with nothing concrete
-                # behind it.
-                return None, "online_generic_where_gated_skipped"
+            if has_kyc_or_otp(steps):
+                # A real identity-verification step exists that this
+                # generic line wouldn't mention — not safe to guess at the
+                # specifics, but also not safe to stay silent about it the
+                # way a plain wallet brand can. Ship an explicit warning
+                # instead of either a wrong-sounding guess or nothing.
+                return _KYC_WARNING, "kyc_otp_warning"
+            if has_wallet_signal(steps):
+                # Wallet-only, no verification step — undersold by the
+                # generic line (sequencing, not risk) but not warning-
+                # worthy. Held back pending real per-brand wallet copy.
+                return None, "online_generic_where_wallet_skipped"
             # No gate in the real steps, so "at checkout" is just true —
             # ship it rather than withhold a correct, if plain, answer.
             return "At checkout → enter voucher code + PIN", "online_generic_where_safe"

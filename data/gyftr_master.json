@@ -1770,7 +1770,7 @@
     "stack_limit_confidence": "text_extracted",
     "can_club_with_offers": false,
     "one_time_use": true,
-    "how_to_redeem_short": "Complete your order by entering your unique voucher code, clicking → enter voucher code + PIN"
+    "how_to_redeem_short": "Enter your voucher code at checkout, click Apply Now"
   },
   "relaxo": {
     "brand_name": "Relaxo",
@@ -2835,7 +2835,7 @@
     "stack_limit_confidence": "explicit",
     "can_club_with_offers": true,
     "one_time_use": true,
-    "how_to_redeem_short": "On the checkout page complete the payment by choosing bigbasket wallet payment option → enter voucher code + PIN"
+    "how_to_redeem_short": "Add code under 'My Gift Cards' → credited to BigBasket Wallet, pay from wallet at checkout"
   },
   "uber": {
     "brand_name": "UBER",
@@ -8172,7 +8172,7 @@
     "stack_limit_confidence": "unlimited_stated",
     "can_club_with_offers": null,
     "one_time_use": false,
-    "how_to_redeem_short": "At checkout → enter voucher code + PIN"
+    "how_to_redeem_short": "Needs mobile verification — read the redemption steps on the voucher site before buying"
   },
   "swiggy-one-lite-membership": {
     "brand_name": "Swiggy One Lite Membership",
@@ -8796,7 +8796,7 @@
     "stack_limit_confidence": "unlimited_stated",
     "can_club_with_offers": null,
     "one_time_use": false,
-    "how_to_redeem_short": "Customer adds the vouchers to the E-Pay balance or can → enter voucher code + PIN"
+    "how_to_redeem_short": "Add vouchers to your E-Pay balance at checkout → enter voucher code + PIN"
   },
   "marks-&-spencer": {
     "brand_name": "Marks & Spencer",
@@ -8847,7 +8847,7 @@
     "stack_limit_confidence": "unlimited_stated",
     "can_club_with_offers": null,
     "one_time_use": false,
-    "how_to_redeem_short": "At checkout → enter voucher code + PIN"
+    "how_to_redeem_short": "Needs mobile verification — read the redemption steps on the voucher site before buying"
   },
   "fashion-factory": {
     "brand_name": "Fashion Factory",
@@ -9314,7 +9314,7 @@
     "stack_limit_confidence": "explicit",
     "can_club_with_offers": false,
     "one_time_use": true,
-    "how_to_redeem_short": "At checkout → enter voucher code + PIN"
+    "how_to_redeem_short": "Needs mobile verification — read the redemption steps on the voucher site before buying"
   },
   "dpauls-travel-&-tours": {
     "brand_name": "DPauls Travel & Tours",
@@ -9647,7 +9647,7 @@
     "stack_limit_confidence": "text_extracted",
     "can_club_with_offers": false,
     "one_time_use": true,
-    "how_to_redeem_short": "At checkout → enter voucher code + PIN"
+    "how_to_redeem_short": "Needs mobile verification — read the redemption steps on the voucher site before buying"
   },
   "jio-hotstar": {
     "brand_name": "JioHotstar",
@@ -9694,7 +9694,7 @@
     "stack_limit_confidence": "explicit",
     "can_club_with_offers": false,
     "one_time_use": true,
-    "how_to_redeem_short": "At checkout → enter voucher code + PIN"
+    "how_to_redeem_short": "Needs mobile verification — read the redemption steps on the voucher site before buying"
   },
   "allen-solly-gift-voucher": {
     "brand_name": "Allen Solly Gift Voucher",
@@ -12037,7 +12037,7 @@
     "stack_limit_confidence": "unlimited_stated",
     "can_club_with_offers": null,
     "one_time_use": false,
-    "how_to_redeem_short": "At checkout → enter voucher code + PIN"
+    "how_to_redeem_short": "Needs mobile verification — read the redemption steps on the voucher site before buying"
   },
   "pigeon": {
     "brand_name": "Pigeon",
@@ -13142,7 +13142,7 @@
     "stack_limit_confidence": "unlimited_stated",
     "can_club_with_offers": false,
     "one_time_use": true,
-    "how_to_redeem_short": "Balance is updated in UniPin Credit Wallet, Transaction success: Resulting in UniPin voucher getting added as UniPin Credits for the user → enter voucher code + PIN"
+    "how_to_redeem_short": "Needs mobile verification — read the redemption steps on the voucher site before buying"
   },
   "unipin-bgmi": {
     "brand_name": "UniPin BGMI",
@@ -13190,7 +13190,7 @@
     "stack_limit_confidence": "unlimited_stated",
     "can_club_with_offers": false,
     "one_time_use": true,
-    "how_to_redeem_short": "At checkout → enter voucher code + PIN"
+    "how_to_redeem_short": "Needs mobile verification — read the redemption steps on the voucher site before buying"
   },
   "barbeque-nation-value-voucher": {
     "brand_name": "Barbeque Nation Value Voucher",

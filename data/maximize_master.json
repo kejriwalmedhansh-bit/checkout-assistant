@@ -5951,7 +5951,8 @@
     "notes": null,
     "stack_limit_confidence": null,
     "can_club_with_offers": false,
-    "one_time_use": true
+    "one_time_use": true,
+    "how_to_redeem_short": "Needs mobile verification — read the redemption steps on the voucher site before buying"
   },
   "wonderchef": {
     "brand_name": "Wonderchef",
@@ -8180,7 +8181,8 @@
     "notes": null,
     "stack_limit_confidence": null,
     "can_club_with_offers": false,
-    "one_time_use": true
+    "one_time_use": true,
+    "how_to_redeem_short": "Needs mobile verification — read the redemption steps on the voucher site before buying"
   },
   "lohono-stays": {
     "brand_name": "Lohono Stays",
@@ -8646,7 +8648,8 @@
     "notes": null,
     "stack_limit_confidence": null,
     "can_club_with_offers": true,
-    "one_time_use": true
+    "one_time_use": true,
+    "how_to_redeem_short": "Needs mobile verification — read the redemption steps on the voucher site before buying"
   },
   "william-penn": {
     "brand_name": "William Penn",
@@ -10534,7 +10537,8 @@
     "notes": null,
     "stack_limit_confidence": null,
     "can_club_with_offers": false,
-    "one_time_use": false
+    "one_time_use": false,
+    "how_to_redeem_short": "At checkout → enter voucher code + PIN"
   },
   "steam-wallet-inr-500": {
     "brand_name": "Steam Wallet INR 500",
@@ -11213,7 +11217,8 @@
     "notes": null,
     "stack_limit_confidence": null,
     "can_club_with_offers": false,
-    "one_time_use": true
+    "one_time_use": true,
+    "how_to_redeem_short": "Needs mobile verification — read the redemption steps on the voucher site before buying"
   },
   "louis-philippe": {
     "brand_name": "Louis Philippe",
@@ -16740,7 +16745,8 @@
     "notes": null,
     "stack_limit_confidence": null,
     "can_club_with_offers": false,
-    "one_time_use": true
+    "one_time_use": true,
+    "how_to_redeem_short": "Needs mobile verification — read the redemption steps on the voucher site before buying"
   },
   "the-good-bowl": {
     "brand_name": "The Good Bowl",
@@ -16889,7 +16895,8 @@
     "notes": null,
     "stack_limit_confidence": null,
     "can_club_with_offers": false,
-    "one_time_use": true
+    "one_time_use": true,
+    "how_to_redeem_short": "Needs mobile verification — read the redemption steps on the voucher site before buying"
   },
   "ta-iserveu-gift-card-generic-upto-2000": {
     "brand_name": "TA iServeU Gift Card - Generic (Upto 2000)",
@@ -16977,7 +16984,8 @@
     "notes": null,
     "stack_limit_confidence": null,
     "can_club_with_offers": false,
-    "one_time_use": true
+    "one_time_use": true,
+    "how_to_redeem_short": "Needs mobile verification — read the redemption steps on the voucher site before buying"
   },
   "park-avenue": {
     "brand_name": "Park Avenue",
@@ -17790,7 +17798,8 @@
     "notes": null,
     "stack_limit_confidence": null,
     "can_club_with_offers": true,
-    "one_time_use": false
+    "one_time_use": false,
+    "how_to_redeem_short": "Needs mobile verification — read the redemption steps on the voucher site before buying"
   },
   "freecultr": {
     "brand_name": "Freecultr",
@@ -18198,7 +18207,8 @@
     "notes": null,
     "stack_limit_confidence": null,
     "can_club_with_offers": false,
-    "one_time_use": false
+    "one_time_use": false,
+    "how_to_redeem_short": "Needs mobile verification — read the redemption steps on the voucher site before buying"
   },
   "firstcry": {
     "brand_name": "FirstCry",
@@ -18507,7 +18517,8 @@
     "notes": null,
     "stack_limit_confidence": null,
     "can_club_with_offers": false,
-    "one_time_use": false
+    "one_time_use": false,
+    "how_to_redeem_short": "Needs mobile verification — read the redemption steps on the voucher site before buying"
   },
   "vijay-sales": {
     "brand_name": "Vijay Sales",
