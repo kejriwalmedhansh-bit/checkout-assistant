@@ -12,7 +12,7 @@ from typing import Any
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from .api.routers import conversations, health, redirect, search, vouchers, whatsapp
+from .api.routers import cards, conversations, health, redirect, search, vouchers, whatsapp
 from .config import get_settings
 
 
@@ -35,6 +35,7 @@ def create_app() -> FastAPI:
     )
 
     app.include_router(search.router)
+    app.include_router(cards.router)
     app.include_router(vouchers.router)
     app.include_router(whatsapp.router)
     app.include_router(health.router)
@@ -49,6 +50,7 @@ def create_app() -> FastAPI:
             "endpoints": [
                 "POST /search",
                 "POST /routes",
+                "POST /card-options",
                 "GET /products/{product_token}",
                 "GET /vouchers",
                 "GET /vouchers/{slug}",

@@ -13,7 +13,7 @@ import ProductIdentity from '@/components/dashboard/ProductIdentity';
 import SavingsBar from '@/components/dashboard/SavingsBar';
 import RouteWire from '@/components/dashboard/RouteWire';
 import RouteCard from '@/components/dashboard/RouteCard';
-import CardFomo from '@/components/dashboard/CardFomo';
+import CreditCardPrompt from '@/components/dashboard/CreditCardPrompt';
 import AlternativesToggle from '@/components/dashboard/AlternativesToggle';
 import { usePageHeader } from '@/hooks/usePageHeader';
 import { usePageTitle } from '@/hooks/usePageTitle';
@@ -203,7 +203,7 @@ export default function ResultsPage() {
                 onBack={backToRecommended}
               />
             </Flex>
-            <CardFomo cardFomo={activeRoute.card_fomo} />
+            <CreditCardPrompt key={`${activeRoute.merchant}-${activeRoute.final_cost ?? ''}`} route={activeRoute} />
             <AlternativesToggle
               alternatives={result.routes?.alternatives}
               onSelect={selectAlt}

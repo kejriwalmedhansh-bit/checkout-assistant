@@ -110,6 +110,21 @@ class CardFomo(BaseModel):
     apply_url: str | None = None
 
 
+class CardOption(BaseModel):
+    """One card's real numbers for a route the shopper already picked — the
+    voucher discount at card rate (None if the route has no voucher) plus the
+    ₹ cashback this specific card earns. Never a comparison against UPI, and
+    never an auto-picked "best" card — the shopper chose this card."""
+    card_name: str
+    voucher_discount: float | None = None
+    cashback: float = 0
+    apply_url: str | None = None
+
+
+class CardOptionsResponse(BaseModel):
+    options: list[CardOption] = []
+
+
 class Seller(BaseModel):
     link: str | None = None
     delivery: str | None = None

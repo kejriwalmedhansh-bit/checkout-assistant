@@ -306,7 +306,7 @@ export default function JourneyRow({
               <I.alert size={16} />
             </Box>
             <Text fontSize="13.5px" fontWeight={800} color="text" lineHeight={1.3}>
-              Double-check size & price first.
+              Double-check size, price & coupons first.
             </Text>
           </Flex>
           <Link
