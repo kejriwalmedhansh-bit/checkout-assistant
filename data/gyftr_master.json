@@ -2930,7 +2930,7 @@
     "stack_limit_confidence": "unlimited_stated",
     "can_club_with_offers": null,
     "one_time_use": false,
-    "how_to_redeem_short": "Then → enter voucher code + PIN"
+    "how_to_redeem_short": "Add Gift Card under Jockey Credit → enter voucher code + PIN"
   },
   "ketan-diamonds-gold-jewellery": {
     "brand_name": "Ketan Diamonds Gold Jewellery",
@@ -9129,7 +9129,7 @@
     "stack_limit_confidence": "explicit",
     "can_club_with_offers": false,
     "one_time_use": false,
-    "how_to_redeem_short": "Now → enter voucher code + PIN"
+    "how_to_redeem_short": "In the 'Enter Coupon Code' section → enter voucher code + PIN"
   },
   "flower-aura": {
     "brand_name": "Flower Aura",
@@ -9177,7 +9177,7 @@
     "stack_limit_confidence": "explicit",
     "can_club_with_offers": false,
     "one_time_use": true,
-    "how_to_redeem_short": "Now → enter voucher code + PIN"
+    "how_to_redeem_short": "Click 'Have a Coupon Code?' at checkout → enter voucher code + PIN"
   },
   "quick-heal": {
     "brand_name": "Quick Heal",
@@ -16595,7 +16595,7 @@
     "stack_limit_confidence": "unlimited_stated",
     "can_club_with_offers": null,
     "one_time_use": false,
-    "how_to_redeem_short": "Then → enter voucher code + PIN"
+    "how_to_redeem_short": "Add Balance to your GyFTR e-Pay → enter voucher code + PIN"
   },
   "apollo-diagnostics": {
     "brand_name": "APOLLO DIAGNOSTICS",
@@ -18538,7 +18538,7 @@
     "stack_limit_confidence": "unlimited_stated",
     "can_club_with_offers": null,
     "one_time_use": false,
-    "how_to_redeem_short": "Now → enter voucher code + PIN"
+    "how_to_redeem_short": "Tap 'Have a Gift Card? Add to Wallet' → enter voucher code + PIN"
   },
   "whats-up-wellness": {
     "brand_name": "What's Up Wellness",
