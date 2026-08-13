@@ -23,11 +23,33 @@ _RESELLER_WORDS = (
 # Store") still gets caught, but this specific, extremely common legitimate
 # phrase doesn't.
 _IN_STORE_PHRASE_RE = re.compile(r"\bin[\s-]?store\b", re.IGNORECASE)
+_DAY_WAIT_PHRASE_RE = re.compile(r"\(?\d+\s*day\s*wait\)?", re.IGNORECASE)
+_ONLINE_WORD_RE = re.compile(r"\bonline\b", re.IGNORECASE)
 
 
 def _is_reseller_name(brand_name_lower: str) -> bool:
     stripped = _IN_STORE_PHRASE_RE.sub("", brand_name_lower)
     return any(w in stripped for w in _RESELLER_WORDS)
+
+
+def _channel_stripped_length(name: str) -> int:
+    """Length of `name` with known redemption-channel qualifiers (In Store,
+    Online, "N Day Wait") removed first — used only to break ties among
+    same-rank candidates, never to decide which candidates qualify.
+
+    Without this, a rank-1 tie between a brand's plain listing ("Titan In
+    Store 3 Day Wait") and a genuinely different sub-brand ("Titan Eye Plus
+    In Store") could resolve in the sub-brand's favour purely because its
+    channel suffix ("Eye Plus") happens to be shorter than the other's ("3
+    Day Wait") — found 2026-08-14: merchant "Titan" was matching "Titan Eye
+    Plus In Store" over the far more generic "Titan In Store 3 Day Wait".
+    Stripping the channel words first makes the comparison "Titan" (5) vs
+    "Titan Eye Plus" (14) — the actually-plainer match correctly wins.
+    """
+    stripped = _DAY_WAIT_PHRASE_RE.sub(" ", name)
+    stripped = _IN_STORE_PHRASE_RE.sub(" ", stripped)
+    stripped = _ONLINE_WORD_RE.sub(" ", stripped)
+    return len(normalize(stripped))
 
 # Generic trailing words a merchant's *display* name routinely carries that
 # its brand record never does (e.g. search results show "Hamleys India",
@@ -83,13 +105,13 @@ def find_best_match(merchant_name: str, records: list[dict], name_key: str = "br
         else:
             continue
 
+        brand_name_raw = record.get(name_key, "")
         if rank >= 1:
-            brand_name_lower = record.get(name_key, "").lower()
-            if _is_reseller_name(brand_name_lower):
+            if _is_reseller_name(brand_name_raw.lower()):
                 continue
-        candidates.append((rank, len(norm_brand), record))
+        candidates.append((rank, _channel_stripped_length(brand_name_raw), len(norm_brand), record))
 
     if not candidates:
         return None
-    candidates.sort(key=lambda c: (c[0], c[1]))
-    return candidates[0][2]
+    candidates.sort(key=lambda c: (c[0], c[1], c[2]))
+    return candidates[0][3]
