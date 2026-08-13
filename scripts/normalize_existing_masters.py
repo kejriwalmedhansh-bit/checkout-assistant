@@ -12,6 +12,20 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent))
 from clean_maximize_master import EXCLUDE_PRODUCT_IDS  # noqa: E402
 
+# Amazon Prime subscription vouchers as their OWN top-level brand entries
+# (distinct from the "amazon" slug's own product list, which
+# EXCLUDE_PRODUCT_IDS already keeps clean of these) — same reasoning as
+# EXCLUDE_PRODUCT_IDS: a Prime membership activation code isn't spend-
+# anywhere shopping credit, and "Amazon Prime ..." can prefix-match against
+# an "Amazon" merchant search, risking a wrong recommendation for an
+# ordinary physical-product purchase. The Google Sheet vendor audit already
+# flagged these "Excluded (subscription)" — this was never actually applied
+# to the live data these normalizers write, only noted in the audit tab.
+# Found 2026-08-14 while fixing the identical issue for BuyHatke's own
+# Amazon Prime listings (scripts/normalize_buyhatke_master.py).
+_EXCLUDED_SUBSCRIPTION_SLUGS_GYFTR = {"amazon-prime-membership"}
+_EXCLUDED_SUBSCRIPTION_SLUGS_MAXIMIZE = {"amazon-prime-voucher-3-months-membership"}
+
 # Same patterns/word list parse_stacking_rules.py uses for Gyftr's T&C text —
 # copied rather than imported since that script runs its own top-level
 # scrape-file read and file write as a side effect of being imported.
@@ -78,6 +92,8 @@ def normalize_gyftr(gyftr_data: dict) -> dict:
     normalized = {}
 
     for slug, brand in gyftr_data.items():
+        if slug in _EXCLUDED_SUBSCRIPTION_SLUGS_GYFTR:
+            continue
         normalized[slug] = {
             "brand_name": brand.get("brand_name"),
             "slug": slug,
@@ -121,6 +137,8 @@ def normalize_maximize(raw_data: dict) -> dict:
     normalized = {}
 
     for slug, brand in raw_data.items():
+        if slug in _EXCLUDED_SUBSCRIPTION_SLUGS_MAXIMIZE:
+            continue
         brand_name = brand.get("brand_name", slug)
         products = []
 
