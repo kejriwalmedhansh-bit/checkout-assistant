@@ -409,6 +409,19 @@ def build_deals(results: list[dict], product_name: str = "") -> list[dict]:
 
         card_deal = calculate_effective_price(price, voucher, "card")
 
+        # "How do I use this gift card" is a brand-level fact, the same
+        # regardless of which platform actually sold the voucher — but only
+        # Gyftr's data has ever had this field populated (Maximize/BuyHatke
+        # records carry none at all). Without this, every Maximize/BuyHatke
+        # win — not just a rare edge case, since they're picked whenever
+        # they're the cheaper source — silently fell back to the generic
+        # "add to cart, apply the code" copy the whole point of this field
+        # was to replace. `gyftr_voucher` is already looked up above for
+        # every merchant regardless of which source wins, so this is free.
+        how_to_redeem_short = voucher.get("how_to_redeem_short")
+        if not how_to_redeem_short and gyftr_voucher is not None:
+            how_to_redeem_short = gyftr_voucher.get("how_to_redeem_short")
+
         deals.append({
             "merchant": merchant,
             "brand_name": brand_name or merchant,
@@ -435,7 +448,7 @@ def build_deals(results: list[dict], product_name: str = "") -> list[dict]:
             "redemption_type": deal["redemption_type"],
             "denominations": deal["denominations"],
             "redemption_instructions": deal.get("redemption_instructions", []),
-            "how_to_redeem_short": voucher.get("how_to_redeem_short"),
+            "how_to_redeem_short": how_to_redeem_short,
         })
 
     return deals
