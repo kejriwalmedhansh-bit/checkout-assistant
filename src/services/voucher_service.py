@@ -10,7 +10,7 @@ import math
 import re
 
 from ..category_classifier import classify_product, restriction_mentions_category
-from ..repositories import maximize_repository, voucher_repository
+from ..repositories import buyhatke_repository, maximize_repository, voucher_repository
 
 # Maps the caller-facing payment_method argument to the keys used in the
 # discounts dict of gyftr_master.json / maximize_master.json. "card" means
@@ -306,15 +306,41 @@ def get_best_maximize_deal(merchant_name: str, price: float) -> tuple[dict, dict
     return deal, tier, record.get("brand_name")
 
 
+def get_best_buyhatke_deal(merchant_name: str, price: float) -> tuple[dict, dict, str | None] | None:
+    """BuyHatke equivalent of get_best_maximize_deal — same multi-tier shape
+    (different denomination bands can carry different discount %, e.g.
+    Myntra's ₹250 tier vs its ₹200/₹500/etc tier), same tier-picking logic.
+
+    BuyHatke has no card-purchase option at all (confirmed via live testing,
+    2026-08-13) — its discounts dict only ever carries a "UPI" key, never
+    "Credit Card", so calculate_effective_price's card path naturally yields
+    a 0% card discount here instead of a fabricated one.
+    """
+    record = buyhatke_repository.get_by_merchant(merchant_name)
+    if record is None:
+        return None
+    tiers = [
+        {**record, **p, "voucher_platform": "BuyHatke", "voucher_url": p.get("source_url")}
+        for p in (record.get("products") or [])
+    ]
+    result = _best_tier_deal(price, tiers, payment_method="upi")
+    if result is None:
+        return None
+    deal, tier = result
+    return deal, tier, record.get("brand_name")
+
+
 def build_deals(results: list[dict], product_name: str = "") -> list[dict]:
     """Build per-merchant voucher deals for the given route candidates,
-    checking both Gyftr and Maximize and keeping whichever gives the lower
-    final price — this is Dealo's "always show the cheaper source" rule.
+    checking Gyftr, Maximize, and BuyHatke and keeping whichever gives the
+    lower final price — this is Dealo's "always show the cheaper source"
+    rule.
 
     Ported from pipeline.step5_vouchers. Skips a *source* whose redemption
     restrictions exclude the product's category (not the whole merchant —
-    a Gyftr category restriction must not hide a valid Maximize deal for the
-    same merchant, and vice versa). UPI is the recommendation rate.
+    a Gyftr category restriction must not hide a valid Maximize/BuyHatke
+    deal for the same merchant, and vice versa). UPI is the recommendation
+    rate.
     """
     deals: list[dict] = []
     seen_merchants: set[str] = set()
@@ -345,24 +371,31 @@ def build_deals(results: list[dict], product_name: str = "") -> list[dict]:
         if gyftr_voucher is not None and not _category_blocked(gyftr_voucher.get("redemption_restrictions", [])):
             gyftr_deal = get_best_voucher_deal(merchant, price)
 
-        # Maximize tiers carry no redemption_restrictions field yet (Gyftr's
-        # scrape captured category rules from free-text T&Cs; Maximize's
-        # structured fields don't expose an equivalent) — category filtering
-        # simply doesn't apply to Maximize deals until that data exists.
+        # Maximize/BuyHatke tiers carry no redemption_restrictions field yet
+        # (Gyftr's scrape captured category rules from free-text T&Cs;
+        # neither source's structured fields expose an equivalent) —
+        # category filtering simply doesn't apply to these deals until that
+        # data exists.
         maximize_result = get_best_maximize_deal(merchant, price)
         maximize_deal, maximize_tier, maximize_brand_name = maximize_result if maximize_result else (None, None, None)
 
-        if gyftr_deal is None and maximize_deal is None:
+        buyhatke_result = get_best_buyhatke_deal(merchant, price)
+        buyhatke_deal, buyhatke_tier, buyhatke_brand_name = buyhatke_result if buyhatke_result else (None, None, None)
+
+        candidates = [
+            c for c in (
+                (gyftr_deal, gyftr_voucher, "gyftr", gyftr_voucher.get("brand_name") if gyftr_voucher else None),
+                (maximize_deal, maximize_tier, "maximize", maximize_brand_name),
+                (buyhatke_deal, buyhatke_tier, "buyhatke", buyhatke_brand_name),
+            )
+            if c[0] is not None
+        ]
+        if not candidates:
             continue
 
-        if maximize_deal is not None and (
-            gyftr_deal is None or maximize_deal["effective_price"] < gyftr_deal["effective_price"]
-        ):
-            deal, voucher, voucher_source = maximize_deal, maximize_tier, "maximize"
-            brand_name = maximize_brand_name
-        else:
-            deal, voucher, voucher_source = gyftr_deal, gyftr_voucher, "gyftr"
-            brand_name = gyftr_voucher.get("brand_name")
+        # Dealo's "always show the cheaper source" rule, now three-way:
+        # keep whichever source yields the lowest effective_price.
+        deal, voucher, voucher_source, brand_name = min(candidates, key=lambda c: c[0]["effective_price"])
 
         # `deal["redemption_type"]`, not `voucher.get(...)`: for a Gyftr deal,
         # `voucher` here is the raw brand-level record, and redemption_type

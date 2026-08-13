@@ -39,37 +39,44 @@ def _merchant_override(card: dict, merchant: str) -> dict | None:
     return None
 
 
-def get_card_rate(card_name: str, merchant: str, has_voucher: bool = False) -> float:
+def get_card_rate(card_name: str, merchant: str, voucher_source: str | None = None) -> float:
     """Applicable cashback rate for a card at a given merchant.
 
-    When the route has a Gyftr voucher, the earn rate is the card's gyftr_rate
-    (0 for cards that don't earn on Gyftr), not the merchant/online rate.
+    `voucher_source` ("gyftr"/"maximize"/"buyhatke") is the route's voucher
+    source, or None for a no-voucher direct purchase. Delegates the
+    has-a-voucher case to get_voucher_cashback_rate so every source (not just
+    Gyftr) gets its own real rate — previously this only ever checked
+    earns_on_gyftr/gyftr_rate regardless of the actual source, which silently
+    mispriced Maximize voucher routes here (the WhatsApp-facing
+    best_card_for_voucher_purchase path already dispatched correctly; this
+    web-only get_card_rate/eligible_cards_for_route/get_card_quote path did
+    not) and would have offered an impossible "pay by card" option for
+    BuyHatke, which doesn't accept card payment for its vouchers at all.
     """
     card = card_repository.get(card_name)
     if not card:
         return 0.0
-    if has_voucher:
-        # Only cards that earn on Gyftr contribute on a voucher route.
-        if not card.get("earns_on_gyftr"):
-            return 0.0
-        return card.get("gyftr_rate", 0.0)
+    if voucher_source is not None:
+        return get_voucher_cashback_rate(card_name, voucher_source)
     override = _merchant_override(card, merchant)
     if override is not None:
         return override["rate"]
     return card.get("rate_online", 0.0)
 
 
-def get_card_cap(card_name: str, merchant: str, has_voucher: bool = False) -> tuple[float | None, str | None]:
+def get_card_cap(card_name: str, merchant: str, voucher_source: str | None = None) -> tuple[float | None, str | None]:
     """The (cap_amount, cap_period) that applies to this card's earning at this
     merchant, or (None, None) if that earning is genuinely uncapped. A
     merchant category with its own cap (e.g. Flipkart Axis's Flipkart/
     ClearTrip/Myntra rates) takes priority over the card-level cap; cards
     without any per-category caps (SBI, BOB) always fall back to the
-    card-level cap_amount/cap_period."""
+    card-level cap_amount/cap_period. Every voucher source shares the same
+    card-level cap (no source has ever needed a separate one) — only the
+    *rate* varies by source, handled in get_card_rate."""
     card = card_repository.get(card_name)
     if not card:
         return (None, None)
-    if not has_voucher:
+    if voucher_source is None:
         override = _merchant_override(card, merchant)
         if override is not None and "cap_amount" in override:
             return (override["cap_amount"], override.get("cap_period"))
@@ -77,22 +84,22 @@ def get_card_cap(card_name: str, merchant: str, has_voucher: bool = False) -> tu
 
 
 def get_actual_saving(
-    card_name: str, merchant: str, purchase_amount: float, has_voucher: bool = False
+    card_name: str, merchant: str, purchase_amount: float, voucher_source: str | None = None
 ) -> float:
     """Actual saving after applying the cap (uncapped if the applicable cap is None)."""
     card = card_repository.get(card_name)
     if not card:
         return 0.0
-    rate = get_card_rate(card_name, merchant, has_voucher=has_voucher)
+    rate = get_card_rate(card_name, merchant, voucher_source=voucher_source)
     raw_saving = purchase_amount * rate
-    cap, _ = get_card_cap(card_name, merchant, has_voucher=has_voucher)
+    cap, _ = get_card_cap(card_name, merchant, voucher_source=voucher_source)
     if cap is None:
         return raw_saving
     return min(raw_saving, cap)
 
 
 def best_card_for_purchase(
-    merchant: str, purchase_amount: float, has_voucher: bool = False
+    merchant: str, purchase_amount: float, voucher_source: str | None = None
 ) -> dict | None:
     """Best cashback card for the purchase, or None if none clears the minimum
     saving threshold. Tiebreaker: named priority (SBI Cashback beats BOB
@@ -101,13 +108,13 @@ def best_card_for_purchase(
 
     best = None
     for card_name, card_data in card_repository.all_cards().items():
-        saving = round(get_actual_saving(card_name, merchant, purchase_amount, has_voucher=has_voucher), 2)
+        saving = round(get_actual_saving(card_name, merchant, purchase_amount, voucher_source=voucher_source), 2)
         if saving < min_threshold:
             continue
-        cap_amount, cap_period = get_card_cap(card_name, merchant, has_voucher=has_voucher)
+        cap_amount, cap_period = get_card_cap(card_name, merchant, voucher_source=voucher_source)
         candidate = {
             "card_name": card_name,
-            "rate": get_card_rate(card_name, merchant, has_voucher=has_voucher),
+            "rate": get_card_rate(card_name, merchant, voucher_source=voucher_source),
             "actual_saving": saving,
             "cap_amount": cap_amount,
             "cap_period": cap_period,
@@ -130,10 +137,21 @@ def best_card_for_purchase(
 
 def get_voucher_cashback_rate(card_name: str, voucher_source: str) -> float:
     """Cashback rate this card earns when funding a voucher purchase from the
-    given source ("gyftr" or "maximize"), or 0 if the card doesn't earn on
-    that source at all."""
+    given source ("gyftr", "maximize", or "buyhatke"), or 0 if the card
+    doesn't earn on that source at all.
+
+    BuyHatke always returns 0: it doesn't accept card payment at all for
+    buying a voucher (confirmed via live testing, 2026-08-13), so there is
+    no "pay with a card and earn cashback" path to offer for it — unlike
+    Gyftr/Maximize, this isn't a per-card lookup. Before this explicit
+    branch existed, any voucher_source other than "maximize" silently fell
+    through to the Gyftr rate check, which would have offered a real-looking
+    but unexecutable card-cashback recommendation for BuyHatke routes.
+    """
     card = card_repository.get(card_name)
     if not card:
+        return 0.0
+    if voucher_source == "buyhatke":
         return 0.0
     if voucher_source == "maximize":
         if not card.get("earns_on_maximize"):
@@ -196,25 +214,26 @@ def best_card_for_voucher_purchase(
     return best
 
 
-def _route_card_context(route) -> tuple[float, bool]:
-    """(purchase_amount, has_voucher) for the price the shopper would actually
-    pay by card on this route — the voucher's card-rate price when a voucher
-    is involved (never the UPI-rate price nobody paying by card would get),
-    otherwise the route's own final cost."""
+def _route_card_context(route) -> tuple[float, str | None]:
+    """(purchase_amount, voucher_source) for the price the shopper would
+    actually pay by card on this route — the voucher's card-rate price when
+    a voucher is involved (never the UPI-rate price nobody paying by card
+    would get), otherwise the route's own final cost. voucher_source is None
+    for a no-voucher route."""
     if route.voucher is not None:
-        return route.voucher.card.effective_price, True
-    return route.final_cost, False
+        return route.voucher.card.effective_price, route.voucher.voucher_source
+    return route.final_cost, None
 
 
 def eligible_cards_for_route(route) -> list[str]:
     """Card names that earn something (cashback rate > 0) on this specific
     route — used to only offer cards in the picker that would actually pay
     out here, rather than always listing every card."""
-    _, has_voucher = _route_card_context(route)
+    _, voucher_source = _route_card_context(route)
     return [
         card_name
         for card_name in card_repository.all_cards()
-        if get_card_rate(card_name, route.merchant, has_voucher=has_voucher) > 0
+        if get_card_rate(card_name, route.merchant, voucher_source=voucher_source) > 0
     ]
 
 
@@ -223,11 +242,11 @@ def get_card_quote(route, card_name: str) -> dict | None:
     no "best card" comparison, no ranking, just this card's real numbers.
     Returns None if the card doesn't earn anything here (shouldn't normally
     be called for a card outside `eligible_cards_for_route`)."""
-    purchase_amount, has_voucher = _route_card_context(route)
-    rate = get_card_rate(card_name, route.merchant, has_voucher=has_voucher)
+    purchase_amount, voucher_source = _route_card_context(route)
+    rate = get_card_rate(card_name, route.merchant, voucher_source=voucher_source)
     if rate <= 0:
         return None
-    cashback = round(get_actual_saving(card_name, route.merchant, purchase_amount, has_voucher=has_voucher), 2)
+    cashback = round(get_actual_saving(card_name, route.merchant, purchase_amount, voucher_source=voucher_source), 2)
     card_data = card_repository.get(card_name) or {}
     voucher_discount = round(route.voucher.card.saving, 2) if route.voucher is not None else None
     return {

@@ -1,0 +1,2266 @@
+[
+  {
+    "slug": "109f-gift-card",
+    "brand_name": "109F"
+  },
+  {
+    "slug": "absolute-barbecues-(in-store)-gift-card",
+    "brand_name": "Absolute Barbecues (In Store)"
+  },
+  {
+    "slug": "absolute-barbecues-gift-card",
+    "brand_name": "Absolute Barbecues"
+  },
+  {
+    "slug": "aeropostale-(in-store)-gift-card",
+    "brand_name": "Aeropostale (In Store)"
+  },
+  {
+    "slug": "air-gift-card",
+    "brand_name": "Air"
+  },
+  {
+    "slug": "air-uk-route-(1-day-wait)-gift-card",
+    "brand_name": "Air UK Route (1 Day Wait)"
+  },
+  {
+    "slug": "ajio-gift-card",
+    "brand_name": "Ajio"
+  },
+  {
+    "slug": "ajio-luxe-gift-card",
+    "brand_name": "AJIO LUXE"
+  },
+  {
+    "slug": "aldo-(in-store)-gift-card",
+    "brand_name": "ALDO (In Store)"
+  },
+  {
+    "slug": "aldo-gift-card",
+    "brand_name": "ALDO"
+  },
+  {
+    "slug": "aliste-(in-store)-gift-card",
+    "brand_name": "Aliste (In Store)"
+  },
+  {
+    "slug": "aliste-gift-card",
+    "brand_name": "Aliste"
+  },
+  {
+    "slug": "allen-solly-(in-store)-gift-card",
+    "brand_name": "Allen Solly (In Store)"
+  },
+  {
+    "slug": "amala-earth-gift-card",
+    "brand_name": "Amala Earth"
+  },
+  {
+    "slug": "amazon-fresh-gift-card",
+    "brand_name": "Amazon Fresh"
+  },
+  {
+    "slug": "amazon-pay-gift-card",
+    "brand_name": "Amazon Pay"
+  },
+  {
+    "slug": "amazon-prime-12-months-gift-card",
+    "brand_name": "Amazon Prime 12 months"
+  },
+  {
+    "slug": "amazon-prime-3-months-gift-card",
+    "brand_name": "Amazon Prime 3 months"
+  },
+  {
+    "slug": "amazon-prime-gift-card",
+    "brand_name": "Amazon Prime"
+  },
+  {
+    "slug": "amazon-prime-lite-edition-gift-card",
+    "brand_name": "Amazon Prime Lite Edition"
+  },
+  {
+    "slug": "amazon-prime-shopping-edition-gift-card",
+    "brand_name": "Amazon Prime Shopping Edition"
+  },
+  {
+    "slug": "amazon-shopping-gift-card",
+    "brand_name": "Amazon Shopping"
+  },
+  {
+    "slug": "american-eagle-(in-store)-gift-card",
+    "brand_name": "American Eagle (In Store)"
+  },
+  {
+    "slug": "american-eagle-gift-card",
+    "brand_name": "American Eagle"
+  },
+  {
+    "slug": "american-tourister-(in-store)-gift-card",
+    "brand_name": "American Tourister (In Store)"
+  },
+  {
+    "slug": "anita-dongre-gift-card",
+    "brand_name": "Anita Dongre"
+  },
+  {
+    "slug": "apollo-diagnostics-gift-card",
+    "brand_name": "Apollo Diagnostics"
+  },
+  {
+    "slug": "apollo-healing-gift-card",
+    "brand_name": "Apollo Healing"
+  },
+  {
+    "slug": "apollo-pharmacy-(in-store)-gift-card",
+    "brand_name": "Apollo Pharmacy (In Store)"
+  },
+  {
+    "slug": "apple-premium-(in-store)-gift-card",
+    "brand_name": "Apple Premium (In Store)"
+  },
+  {
+    "slug": "apple-premium-6m-(in-store%2C-3-day-wait)-gift-card",
+    "brand_name": "Apple Premium 6M (In Store, 3 Day Wait)"
+  },
+  {
+    "slug": "appreciate-(1-day-wait)-gift-card",
+    "brand_name": "Appreciate (1 Day Wait)"
+  },
+  {
+    "slug": "appyhigh-prime-gift-card",
+    "brand_name": "AppyHigh Prime"
+  },
+  {
+    "slug": "archies-gallery-gift-card",
+    "brand_name": "Archies Gallery"
+  },
+  {
+    "slug": "archies-gift-card",
+    "brand_name": "Archies"
+  },
+  {
+    "slug": "armani-exchange-luxe-gift-card",
+    "brand_name": "Armani Exchange Luxe"
+  },
+  {
+    "slug": "arrow-(in-store)-gift-card",
+    "brand_name": "Arrow (In Store)"
+  },
+  {
+    "slug": "asia-seven-express-(in-store)-gift-card",
+    "brand_name": "Asia Seven Express (In Store)"
+  },
+  {
+    "slug": "assembly-gift-card",
+    "brand_name": "Assembly"
+  },
+  {
+    "slug": "aurelia-(in-store)-gift-card",
+    "brand_name": "Aurelia (In Store)"
+  },
+  {
+    "slug": "auric-gift-card",
+    "brand_name": "Auric"
+  },
+  {
+    "slug": "aza-fashions-gift-card",
+    "brand_name": "AZA Fashions"
+  },
+  {
+    "slug": "baazar-kolkata-(in-store)-gift-card",
+    "brand_name": "Baazar Kolkata (In Store)"
+  },
+  {
+    "slug": "bagline-gift-card",
+    "brand_name": "Bagline"
+  },
+  {
+    "slug": "bakingo-gift-card",
+    "brand_name": "Bakingo"
+  },
+  {
+    "slug": "barbeque-nation-(in-store)-gift-card",
+    "brand_name": "Barbeque Nation (In Store)"
+  },
+  {
+    "slug": "bare-anatomy-gift-card",
+    "brand_name": "Bare Anatomy"
+  },
+  {
+    "slug": "baskin-robbins-(in-store)-gift-card",
+    "brand_name": "Baskin Robbins (In Store)"
+  },
+  {
+    "slug": "bata-(in-store)-gift-card",
+    "brand_name": "Bata (In Store)"
+  },
+  {
+    "slug": "bath-body-works-(in-store)-gift-card",
+    "brand_name": "Bath Body Works (In Store)"
+  },
+  {
+    "slug": "bath-body-works-gift-card",
+    "brand_name": "Bath Body Works"
+  },
+  {
+    "slug": "bear-house-gift-card",
+    "brand_name": "Bear House"
+  },
+  {
+    "slug": "beer-cafe-(in-store)-gift-card",
+    "brand_name": "Beer Cafe (In Store)"
+  },
+  {
+    "slug": "beer-cafe-gift-card",
+    "brand_name": "Beer Cafe"
+  },
+  {
+    "slug": "behrouz-biryani-gift-card",
+    "brand_name": "Behrouz Biryani"
+  },
+  {
+    "slug": "benetton-(in-store)-gift-card",
+    "brand_name": "Benetton (In Store)"
+  },
+  {
+    "slug": "beverly-hills-polo-club-(in-store)-gift-card",
+    "brand_name": "Beverly Hills Polo Club (In Store)"
+  },
+  {
+    "slug": "beyoung-gift-card",
+    "brand_name": "Beyoung"
+  },
+  {
+    "slug": "bhima-jewellers-coin-(in-store)-gift-card",
+    "brand_name": "Bhima Jewellers Coin (In Store)"
+  },
+  {
+    "slug": "bhima-jewellers-jewellery-(in-store)-gift-card",
+    "brand_name": "Bhima Jewellers Jewellery (In Store)"
+  },
+  {
+    "slug": "biba-gift-card",
+    "brand_name": "BIBA"
+  },
+  {
+    "slug": "bigbasket-gift-card",
+    "brand_name": "Bigbasket"
+  },
+  {
+    "slug": "bikanervala-(in-store)-gift-card",
+    "brand_name": "Bikanervala (In Store)"
+  },
+  {
+    "slug": "birkenstock-gift-card",
+    "brand_name": "Birkenstock"
+  },
+  {
+    "slug": "biryani-by-kilo-gift-card",
+    "brand_name": "BIRYANI BY KILO"
+  },
+  {
+    "slug": "blaupunkt-gift-card",
+    "brand_name": "Blaupunkt"
+  },
+  {
+    "slug": "blinkit-gift-card",
+    "brand_name": "Blinkit"
+  },
+  {
+    "slug": "blissclub-gift-card",
+    "brand_name": "Blissclub"
+  },
+  {
+    "slug": "blue-tokai-coffee-gift-card",
+    "brand_name": "Blue Tokai Coffee"
+  },
+  {
+    "slug": "bluestone-diamond-gift-card",
+    "brand_name": "BlueStone Diamond"
+  },
+  {
+    "slug": "bluestone-gemstone-studded-gift-card",
+    "brand_name": "Bluestone Gemstone Studded"
+  },
+  {
+    "slug": "bluestone-gift-card",
+    "brand_name": "Bluestone"
+  },
+  {
+    "slug": "bluestone-gold-gift-card",
+    "brand_name": "BlueStone Gold"
+  },
+  {
+    "slug": "boat-gift-card",
+    "brand_name": "Boat"
+  },
+  {
+    "slug": "body-craft-(in-store)-gift-card",
+    "brand_name": "Body Craft (In Store)"
+  },
+  {
+    "slug": "bookmyshow-gift-card",
+    "brand_name": "BookMyShow"
+  },
+  {
+    "slug": "braingymjr-gift-card",
+    "brand_name": "BrainGymJr"
+  },
+  {
+    "slug": "brooks-brothers-luxe-(in-store)-gift-card",
+    "brand_name": "Brooks Brothers Luxe (In Store)"
+  },
+  {
+    "slug": "brooks-brothers-luxe-gift-card",
+    "brand_name": "Brooks Brothers Luxe"
+  },
+  {
+    "slug": "cafe-coffee-day-gift-card",
+    "brand_name": "Cafe Coffee Day"
+  },
+  {
+    "slug": "cafe-delhi-heights-(in-store)-gift-card",
+    "brand_name": "Cafe Delhi Heights (In Store)"
+  },
+  {
+    "slug": "cafe-mezzuna-gift-card",
+    "brand_name": "Cafe Mezzuna"
+  },
+  {
+    "slug": "call-it-spring-(in-store)-gift-card",
+    "brand_name": "CALL IT SPRING (In Store)"
+  },
+  {
+    "slug": "call-it-spring-gift-card",
+    "brand_name": "Call it Spring"
+  },
+  {
+    "slug": "campus-(in-store)-gift-card",
+    "brand_name": "Campus (In Store)"
+  },
+  {
+    "slug": "campus-gift-card",
+    "brand_name": "Campus"
+  },
+  {
+    "slug": "campus-sutra-gift-card",
+    "brand_name": "Campus Sutra"
+  },
+  {
+    "slug": "candere-diamond-jewellery-gift-card",
+    "brand_name": "Candere Diamond Jewellery"
+  },
+  {
+    "slug": "candere-gold-coin-gift-card",
+    "brand_name": "Candere Gold Coin"
+  },
+  {
+    "slug": "candere-gold-jewellery-gift-card",
+    "brand_name": "Candere Gold Jewellery"
+  },
+  {
+    "slug": "cello-gift-card",
+    "brand_name": "Cello"
+  },
+  {
+    "slug": "cgh-earth-gift-card",
+    "brand_name": "CGH Earth"
+  },
+  {
+    "slug": "charles-and-keith-gift-card",
+    "brand_name": "Charles and Keith"
+  },
+  {
+    "slug": "charles-keith-(in-store)-gift-card",
+    "brand_name": "CHARLES KEITH (In Store)"
+  },
+  {
+    "slug": "charles-keith-gift-card",
+    "brand_name": "CHARLES KEITH"
+  },
+  {
+    "slug": "chemist-at-play-gift-card",
+    "brand_name": "Chemist At Play"
+  },
+  {
+    "slug": "chicago-pizza-(in-store)-gift-card",
+    "brand_name": "Chicago Pizza (In Store)"
+  },
+  {
+    "slug": "chicco-gift-card",
+    "brand_name": "Chicco"
+  },
+  {
+    "slug": "chumbak-(in-store)-gift-card",
+    "brand_name": "Chumbak (In Store)"
+  },
+  {
+    "slug": "chunmun-(in-store)-gift-card",
+    "brand_name": "Chunmun (In Store)"
+  },
+  {
+    "slug": "cinepolis-gift-card",
+    "brand_name": "Cinepolis"
+  },
+  {
+    "slug": "citizen-watches-gift-card",
+    "brand_name": "Citizen Watches"
+  },
+  {
+    "slug": "clayco-gift-card",
+    "brand_name": "CLAYCO"
+  },
+  {
+    "slug": "cleartax-gift-card",
+    "brand_name": "Cleartax"
+  },
+  {
+    "slug": "cleartrip-gift-card",
+    "brand_name": "Cleartrip"
+  },
+  {
+    "slug": "cleartrip-hotels-gift-card",
+    "brand_name": "ClearTrip Hotels"
+  },
+  {
+    "slug": "cloud-tailor-gift-card",
+    "brand_name": "Cloud tailor"
+  },
+  {
+    "slug": "clovia-gift-card",
+    "brand_name": "Clovia"
+  },
+  {
+    "slug": "coach-luxe-(in-store)-gift-card",
+    "brand_name": "Coach luxe (In Store)"
+  },
+  {
+    "slug": "coach-luxe-gift-card",
+    "brand_name": "Coach Luxe"
+  },
+  {
+    "slug": "colorplus-(in-store)-gift-card",
+    "brand_name": "ColorPlus (In Store)"
+  },
+  {
+    "slug": "corseca-gift-card",
+    "brand_name": "Corseca"
+  },
+  {
+    "slug": "cosmus-gift-card",
+    "brand_name": "Cosmus"
+  },
+  {
+    "slug": "costa-coffee-(in-store)-gift-card",
+    "brand_name": "Costa Coffee (In Store)"
+  },
+  {
+    "slug": "credit-masterclass-gift-card",
+    "brand_name": "Credit Masterclass"
+  },
+  {
+    "slug": "croma-gift-card",
+    "brand_name": "Croma"
+  },
+  {
+    "slug": "cult-gift-card",
+    "brand_name": "Cult"
+  },
+  {
+    "slug": "daily-objects-gift-card",
+    "brand_name": "Daily Objects"
+  },
+  {
+    "slug": "danube-buildmart-gift-card",
+    "brand_name": "DANUBE BUILDMART"
+  },
+  {
+    "slug": "de-royal-gift-card",
+    "brand_name": "DE ROYAL"
+  },
+  {
+    "slug": "decathlon-gift-card",
+    "brand_name": "Decathlon"
+  },
+  {
+    "slug": "devagabond-gift-card",
+    "brand_name": "DeVagabond"
+  },
+  {
+    "slug": "discovery-gift-card",
+    "brand_name": "Discovery"
+  },
+  {
+    "slug": "discovery-plus-gift-card",
+    "brand_name": "Discovery Plus"
+  },
+  {
+    "slug": "district-gift-card",
+    "brand_name": "District"
+  },
+  {
+    "slug": "docubay-gift-card",
+    "brand_name": "Docubay"
+  },
+  {
+    "slug": "dominos-app-only-gift-card",
+    "brand_name": "DOMINOS App Only"
+  },
+  {
+    "slug": "dominos-gift-card",
+    "brand_name": "Dominos"
+  },
+  {
+    "slug": "donatekart-gift-card",
+    "brand_name": "Donatekart"
+  },
+  {
+    "slug": "doniv-gift-card",
+    "brand_name": "Doniv"
+  },
+  {
+    "slug": "doodhvale-gift-card",
+    "brand_name": "Doodhvale"
+  },
+  {
+    "slug": "dpauls-gift-card",
+    "brand_name": "Dpauls"
+  },
+  {
+    "slug": "dpauls-travel-tours-gift-card",
+    "brand_name": "DPauls Travel Tours"
+  },
+  {
+    "slug": "dune-london-luxe-(in-store)-gift-card",
+    "brand_name": "Dune London Luxe (In Store)"
+  },
+  {
+    "slug": "dune-london-luxe-gift-card",
+    "brand_name": "Dune London Luxe"
+  },
+  {
+    "slug": "duroflex-gift-card",
+    "brand_name": "DUROFLEX"
+  },
+  {
+    "slug": "easemytrip-gift-card",
+    "brand_name": "EaseMyTrip"
+  },
+  {
+    "slug": "easemytrip-holiday-gift-card",
+    "brand_name": "EaseMyTrip Holiday"
+  },
+  {
+    "slug": "easemytrip-hotel-gift-card",
+    "brand_name": "EaseMyTrip Hotel"
+  },
+  {
+    "slug": "easybuy-(in-store)-gift-card",
+    "brand_name": "EasyBuy (In Store)"
+  },
+  {
+    "slug": "eatsure-gift-card",
+    "brand_name": "EatSure"
+  },
+  {
+    "slug": "eazydiner-gift-card",
+    "brand_name": "EazyDiner"
+  },
+  {
+    "slug": "elleven-(in-store)-gift-card",
+    "brand_name": "Elleven (In Store)"
+  },
+  {
+    "slug": "elver-gift-card",
+    "brand_name": "Elver"
+  },
+  {
+    "slug": "epic-on-gift-card",
+    "brand_name": "Epic On"
+  },
+  {
+    "slug": "esbeda-(in-store)-gift-card",
+    "brand_name": "Esbeda (In Store)"
+  },
+  {
+    "slug": "estele-gift-card",
+    "brand_name": "Estele"
+  },
+  {
+    "slug": "et-prime-gift-card",
+    "brand_name": "ET Prime"
+  },
+  {
+    "slug": "euphoria-gold-jewellery-gift-card",
+    "brand_name": "Euphoria Gold Jewellery"
+  },
+  {
+    "slug": "euphoria-jewellery-gift-card",
+    "brand_name": "Euphoria Jewellery"
+  },
+  {
+    "slug": "euphoria-jewellery-gold-coin-gift-card",
+    "brand_name": "Euphoria Jewellery Gold Coin"
+  },
+  {
+    "slug": "euphoria-jewellery-silver-coin-gift-card",
+    "brand_name": "Euphoria Jewellery Silver Coin"
+  },
+  {
+    "slug": "faasos-gift-card",
+    "brand_name": "Faasos"
+  },
+  {
+    "slug": "fab-hotels-gift-card",
+    "brand_name": "Fab Hotels"
+  },
+  {
+    "slug": "fancode-gift-card",
+    "brand_name": "Fancode"
+  },
+  {
+    "slug": "fashion-factory-(in-store)-gift-card",
+    "brand_name": "Fashion Factory (In Store)"
+  },
+  {
+    "slug": "fastrack-(1-day-wait)-gift-card",
+    "brand_name": "Fastrack (1 Day Wait)"
+  },
+  {
+    "slug": "fastrack-(in-store%2C-1-day-wait)-gift-card",
+    "brand_name": "Fastrack (In Store, 1 Day Wait)"
+  },
+  {
+    "slug": "fastrack-(in-store%2C-3-day-wait)-gift-card",
+    "brand_name": "Fastrack (In Store, 3 Day Wait)"
+  },
+  {
+    "slug": "fastrack-(in-store)-gift-card",
+    "brand_name": "Fastrack (In Store)"
+  },
+  {
+    "slug": "fastrack-bags-(in-store%2C-3-day-wait)-gift-card",
+    "brand_name": "Fastrack Bags (In Store, 3 Day Wait)"
+  },
+  {
+    "slug": "fastrack-bags-(in-store)-gift-card",
+    "brand_name": "Fastrack Bags (In Store)"
+  },
+  {
+    "slug": "fastrack-smartwatch-(1-day-wait)-gift-card",
+    "brand_name": "Fastrack SmartWatch (1 Day Wait)"
+  },
+  {
+    "slug": "femmella-gift-card",
+    "brand_name": "Femmella"
+  },
+  {
+    "slug": "ferns-n-petals-gift-card",
+    "brand_name": "Ferns N Petals"
+  },
+  {
+    "slug": "ferragamo-(in-store)-gift-card",
+    "brand_name": "Ferragamo (In Store)"
+  },
+  {
+    "slug": "finusmart-gift-card",
+    "brand_name": "Finusmart"
+  },
+  {
+    "slug": "firstcry-gift-card",
+    "brand_name": "FirstCry"
+  },
+  {
+    "slug": "fitpass-gift-card",
+    "brand_name": "FITPASS"
+  },
+  {
+    "slug": "flipkart-gift-card",
+    "brand_name": "Flipkart"
+  },
+  {
+    "slug": "flixbus-gift-card",
+    "brand_name": "FlixBus"
+  },
+  {
+    "slug": "flower-aura-gift-card",
+    "brand_name": "Flower Aura"
+  },
+  {
+    "slug": "forever-new-gift-card",
+    "brand_name": "Forever New"
+  },
+  {
+    "slug": "forever21-(in-store)-gift-card",
+    "brand_name": "Forever21 (In Store)"
+  },
+  {
+    "slug": "foxtale-gift-card",
+    "brand_name": "Foxtale"
+  },
+  {
+    "slug": "freecultr-gift-card",
+    "brand_name": "Freecultr"
+  },
+  {
+    "slug": "freshmenu-gift-card",
+    "brand_name": "FreshMenu"
+  },
+  {
+    "slug": "fricken-gift-card",
+    "brand_name": "Fricken"
+  },
+  {
+    "slug": "frido-gift-card",
+    "brand_name": "Frido"
+  },
+  {
+    "slug": "future-world-apple-gift-card",
+    "brand_name": "Future World Apple"
+  },
+  {
+    "slug": "g-star-raw-(in-store)-gift-card",
+    "brand_name": "G Star Raw (In Store)"
+  },
+  {
+    "slug": "g-star-raw-luxe-(in-store%2C-1-hr-wait)-gift-card",
+    "brand_name": "G STAR RAW Luxe (In Store, 1 Hr Wait)"
+  },
+  {
+    "slug": "gaana-gift-card",
+    "brand_name": "Gaana"
+  },
+  {
+    "slug": "gas-luxe-gift-card",
+    "brand_name": "Gas Luxe"
+  },
+  {
+    "slug": "girias-(in-store)-gift-card",
+    "brand_name": "Girias (In Store)"
+  },
+  {
+    "slug": "giva-gift-card",
+    "brand_name": "GIVA"
+  },
+  {
+    "slug": "giva-jewellery-gold-gift-card",
+    "brand_name": "Giva Jewellery Gold"
+  },
+  {
+    "slug": "global-desi-gift-card",
+    "brand_name": "Global Desi"
+  },
+  {
+    "slug": "goibibo-hotel-gift-card",
+    "brand_name": "GoIbibo Hotel"
+  },
+  {
+    "slug": "gong-gift-card",
+    "brand_name": "Gong"
+  },
+  {
+    "slug": "google-play-gift-card",
+    "brand_name": "Google Play"
+  },
+  {
+    "slug": "grt-jewellers-(in-store)-gift-card",
+    "brand_name": "GRT Jewellers (In Store)"
+  },
+  {
+    "slug": "guhantara-(in-store)-gift-card",
+    "brand_name": "Guhantara (In Store)"
+  },
+  {
+    "slug": "gupta-distributors-(in-store)-gift-card",
+    "brand_name": "Gupta Distributors (In Store)"
+  },
+  {
+    "slug": "hamleys-luxe-(in-store)-gift-card",
+    "brand_name": "Hamleys Luxe (In Store)"
+  },
+  {
+    "slug": "hammer-gift-card",
+    "brand_name": "Hammer"
+  },
+  {
+    "slug": "health-glow-(in-store)-gift-card",
+    "brand_name": "Health Glow (In Store)"
+  },
+  {
+    "slug": "healthians-gift-card",
+    "brand_name": "Healthians"
+  },
+  {
+    "slug": "healthifyme-smart-plan-gift-card",
+    "brand_name": "HealthifyMe Smart Plan"
+  },
+  {
+    "slug": "healthkart-gift-card",
+    "brand_name": "HealthKart"
+  },
+  {
+    "slug": "helios-(in-store%2C-1-day-wait)-gift-card",
+    "brand_name": "Helios (In Store, 1 Day Wait)"
+  },
+  {
+    "slug": "helios-(in-store)-gift-card",
+    "brand_name": "Helios (In Store)"
+  },
+  {
+    "slug": "hidesign-(in-store)-gift-card",
+    "brand_name": "Hidesign (In Store)"
+  },
+  {
+    "slug": "hidesign-gift-card",
+    "brand_name": "Hidesign"
+  },
+  {
+    "slug": "himalaya-wellness-(in-store)-gift-card",
+    "brand_name": "Himalaya Wellness (In Store)"
+  },
+  {
+    "slug": "hoichoi-gift-card",
+    "brand_name": "Hoichoi"
+  },
+  {
+    "slug": "home-gift-card",
+    "brand_name": "Home"
+  },
+  {
+    "slug": "homecentre-(in-store)-gift-card",
+    "brand_name": "Homecentre (In Store)"
+  },
+  {
+    "slug": "hopintown-plus-gift-card",
+    "brand_name": "HopInTown Plus"
+  },
+  {
+    "slug": "house-of-vaaree-gift-card",
+    "brand_name": "House of Vaaree"
+  },
+  {
+    "slug": "hp-pay-250-300-gift-card",
+    "brand_name": "HP Pay 250 300"
+  },
+  {
+    "slug": "hp-pay-in-app-gift-card",
+    "brand_name": "HP Pay In App"
+  },
+  {
+    "slug": "hugo-boss-gift-card",
+    "brand_name": "Hugo Boss"
+  },
+  {
+    "slug": "hugo-boss-luxe-gift-card",
+    "brand_name": "Hugo Boss Luxe"
+  },
+  {
+    "slug": "hunkemoller-(in-store)-gift-card",
+    "brand_name": "Hunkemoller (In Store)"
+  },
+  {
+    "slug": "hush-puppies-(in-store)-gift-card",
+    "brand_name": "Hush Puppies (In Store)"
+  },
+  {
+    "slug": "hyatt-(in-store)-gift-card",
+    "brand_name": "Hyatt (In Store)"
+  },
+  {
+    "slug": "igp-gift-card",
+    "brand_name": "IGP"
+  },
+  {
+    "slug": "ikea-gift-card",
+    "brand_name": "Ikea"
+  },
+  {
+    "slug": "imagine-apple-premium-gift-card",
+    "brand_name": "Imagine Apple Premium"
+  },
+  {
+    "slug": "indian-terrain-(in-store)-gift-card",
+    "brand_name": "Indian Terrain (In Store)"
+  },
+  {
+    "slug": "inglot-(in-store)-gift-card",
+    "brand_name": "Inglot (In Store)"
+  },
+  {
+    "slug": "inglot-gift-card",
+    "brand_name": "INGLOT"
+  },
+  {
+    "slug": "innovist-gift-card",
+    "brand_name": "Innovist"
+  },
+  {
+    "slug": "itc-hotels-(in-store)-gift-card",
+    "brand_name": "ITC Hotels (In Store)"
+  },
+  {
+    "slug": "ixigo-gift-card",
+    "brand_name": "Ixigo"
+  },
+  {
+    "slug": "ixigo-hotel-gift-card",
+    "brand_name": "Ixigo Hotel"
+  },
+  {
+    "slug": "jack-jones-(in-store)-gift-card",
+    "brand_name": "JACK JONES (In Store)"
+  },
+  {
+    "slug": "jhari-eco-stay-(in-store)-gift-card",
+    "brand_name": "Jhari Eco Stay (In Store)"
+  },
+  {
+    "slug": "jio-mart-gift-card",
+    "brand_name": "Jio Mart"
+  },
+  {
+    "slug": "jiohotstar-gift-card",
+    "brand_name": "JioHotstar"
+  },
+  {
+    "slug": "jockey-gift-card",
+    "brand_name": "Jockey"
+  },
+  {
+    "slug": "jos-alukkas-diamond-gift-card",
+    "brand_name": "Jos Alukkas Diamond"
+  },
+  {
+    "slug": "jos-alukkas-jewellery-(in-store)-gift-card",
+    "brand_name": "Jos Alukkas Jewellery (In Store)"
+  },
+  {
+    "slug": "joyalukkas-gift-card",
+    "brand_name": "Joyalukkas"
+  },
+  {
+    "slug": "jungle-safari-gift-card",
+    "brand_name": "Jungle Safari"
+  },
+  {
+    "slug": "just-lil-things-gift-card",
+    "brand_name": "Just Lil Things"
+  },
+  {
+    "slug": "kalyan-diamond-(in-store)-gift-card",
+    "brand_name": "Kalyan Diamond (In Store)"
+  },
+  {
+    "slug": "kalyan-diamond-gift-card",
+    "brand_name": "Kalyan Diamond"
+  },
+  {
+    "slug": "kalyan-diamond-jewellery-(in-store)-gift-card",
+    "brand_name": "Kalyan Diamond Jewellery (In Store)"
+  },
+  {
+    "slug": "kalyan-gold-coins-(in-store)-gift-card",
+    "brand_name": "Kalyan Gold Coins (In Store)"
+  },
+  {
+    "slug": "kalyan-gold-jewellery-(in-store)-gift-card",
+    "brand_name": "Kalyan Gold Jewellery (In Store)"
+  },
+  {
+    "slug": "kalyan-jewellery-(in-store)-gift-card",
+    "brand_name": "Kalyan Jewellery (In Store)"
+  },
+  {
+    "slug": "kama-ayurveda-(in-store)-gift-card",
+    "brand_name": "Kama Ayurveda (In Store)"
+  },
+  {
+    "slug": "kama-ayurveda-gift-card",
+    "brand_name": "Kama Ayurveda"
+  },
+  {
+    "slug": "kanchipuram-narayani-silks-gift-card",
+    "brand_name": "KANCHIPURAM NARAYANI SILKS"
+  },
+  {
+    "slug": "kate-spade-luxe-(in-store)-gift-card",
+    "brand_name": "Kate Spade Luxe (In Store)"
+  },
+  {
+    "slug": "kate-spade-luxe-gift-card",
+    "brand_name": "Kate Spade Luxe"
+  },
+  {
+    "slug": "ketan-diamonds-diamond-only-gift-card",
+    "brand_name": "Ketan Diamonds Diamond Only"
+  },
+  {
+    "slug": "ketan-diamonds-gold-coin-gift-card",
+    "brand_name": "Ketan Diamonds Gold Coin"
+  },
+  {
+    "slug": "ketan-diamonds-gold-jewellery-gift-card",
+    "brand_name": "Ketan Diamonds Gold Jewellery"
+  },
+  {
+    "slug": "kfc-gift-card",
+    "brand_name": "KFC"
+  },
+  {
+    "slug": "khadims-(in-store)-gift-card",
+    "brand_name": "Khadims (In Store)"
+  },
+  {
+    "slug": "kiehl-s-gift-card",
+    "brand_name": "Kiehl s"
+  },
+  {
+    "slug": "kiehls-(in-store)-gift-card",
+    "brand_name": "Kiehls (In Store)"
+  },
+  {
+    "slug": "kimirica-gift-card",
+    "brand_name": "Kimirica"
+  },
+  {
+    "slug": "klook-gift-card",
+    "brand_name": "Klook"
+  },
+  {
+    "slug": "kuku-fm-gift-card",
+    "brand_name": "Kuku FM"
+  },
+  {
+    "slug": "lakme-salon-(in-store)-gift-card",
+    "brand_name": "Lakme Salon (In Store)"
+  },
+  {
+    "slug": "lawrence-and-mayo-(in-store)-gift-card",
+    "brand_name": "Lawrence and Mayo (In Store)"
+  },
+  {
+    "slug": "leaf-studios-gift-card",
+    "brand_name": "Leaf Studios"
+  },
+  {
+    "slug": "lee-(3-day-wait)-gift-card",
+    "brand_name": "Lee (3 Day Wait)"
+  },
+  {
+    "slug": "lee-(in-store)-gift-card",
+    "brand_name": "Lee (In Store)"
+  },
+  {
+    "slug": "lee-gift-card",
+    "brand_name": "Lee"
+  },
+  {
+    "slug": "lenskart-(3-day-wait)-gift-card",
+    "brand_name": "Lenskart (3 Day Wait)"
+  },
+  {
+    "slug": "levis-(in-store)-gift-card",
+    "brand_name": "Levis (In Store)"
+  },
+  {
+    "slug": "levis-gift-card",
+    "brand_name": "Levis"
+  },
+  {
+    "slug": "liberty-(in-store%2C-3-day-wait)-gift-card",
+    "brand_name": "Liberty (In Store, 3 Day Wait)"
+  },
+  {
+    "slug": "liberty-gift-card",
+    "brand_name": "Liberty"
+  },
+  {
+    "slug": "liberty-offline-(in-store)-gift-card",
+    "brand_name": "Liberty Offline (In Store)"
+  },
+  {
+    "slug": "lifestyle-(in-store)-gift-card",
+    "brand_name": "Lifestyle (In Store)"
+  },
+  {
+    "slug": "lifestyle-gift-card",
+    "brand_name": "Lifestyle"
+  },
+  {
+    "slug": "linen-club-(in-store)-gift-card",
+    "brand_name": "Linen Club (In Store)"
+  },
+  {
+    "slug": "lionsgate-play-gift-card",
+    "brand_name": "LIONSGATE PLAY"
+  },
+  {
+    "slug": "lite-bite-food-(in-store)-gift-card",
+    "brand_name": "Lite Bite Food (In Store)"
+  },
+  {
+    "slug": "live-hindustan-gift-card",
+    "brand_name": "Live Hindustan"
+  },
+  {
+    "slug": "live-mint-gift-card",
+    "brand_name": "Live Mint"
+  },
+  {
+    "slug": "loccitane-gift-card",
+    "brand_name": "LOCCITANE"
+  },
+  {
+    "slug": "lohono-stays-gift-card",
+    "brand_name": "Lohono Stays"
+  },
+  {
+    "slug": "louis-philippe-(in-store)-gift-card",
+    "brand_name": "Louis Philippe (In Store)"
+  },
+  {
+    "slug": "lulu-hypermarket-gift-card",
+    "brand_name": "Lulu Hypermarket"
+  },
+  {
+    "slug": "lunch-box-gift-card",
+    "brand_name": "Lunch Box"
+  },
+  {
+    "slug": "machaan-(in-store)-gift-card",
+    "brand_name": "Machaan (In Store)"
+  },
+  {
+    "slug": "machaan-gift-card",
+    "brand_name": "Machaan"
+  },
+  {
+    "slug": "madame-(in-store)-gift-card",
+    "brand_name": "Madame (In Store)"
+  },
+  {
+    "slug": "mainland-china-(in-store)-gift-card",
+    "brand_name": "Mainland China (In Store)"
+  },
+  {
+    "slug": "makemytrip-bus-gift-card",
+    "brand_name": "MakeMyTrip Bus"
+  },
+  {
+    "slug": "makemytrip-gift-card",
+    "brand_name": "MakeMyTrip"
+  },
+  {
+    "slug": "makemytrip-holiday-gift-card",
+    "brand_name": "Makemytrip Holiday"
+  },
+  {
+    "slug": "makemytrip-hotel-gift-card",
+    "brand_name": "MakeMyTrip Hotel"
+  },
+  {
+    "slug": "makemytrip-rail-gift-card",
+    "brand_name": "MakeMyTrip Rail"
+  },
+  {
+    "slug": "malabar-diamonds-(1-day-wait)-gift-card",
+    "brand_name": "Malabar Diamonds (1 Day Wait)"
+  },
+  {
+    "slug": "mamaearth-gift-card",
+    "brand_name": "Mamaearth"
+  },
+  {
+    "slug": "manyavar-(in-store)-gift-card",
+    "brand_name": "Manyavar (In Store)"
+  },
+  {
+    "slug": "maple-gift-card",
+    "brand_name": "Maple"
+  },
+  {
+    "slug": "marks-and-spencer-gift-card",
+    "brand_name": "Marks And Spencer"
+  },
+  {
+    "slug": "marks-spencer-(in-store)-gift-card",
+    "brand_name": "Marks Spencer (In Store)"
+  },
+  {
+    "slug": "marriott-hotels-(in-store)-gift-card",
+    "brand_name": "Marriott Hotels (In Store)"
+  },
+  {
+    "slug": "max-fashion-(in-store)-gift-card",
+    "brand_name": "Max Fashion (In Store)"
+  },
+  {
+    "slug": "max-fashion-gift-card",
+    "brand_name": "Max Fashion"
+  },
+  {
+    "slug": "mcdonalds-(in-store)-gift-card",
+    "brand_name": "McDonalds (In Store)"
+  },
+  {
+    "slug": "mcdonalds-gift-card",
+    "brand_name": "McDonalds"
+  },
+  {
+    "slug": "me-n-moms-gift-card",
+    "brand_name": "Me N Moms"
+  },
+  {
+    "slug": "medibuddy-gold-gift-card",
+    "brand_name": "Medibuddy Gold"
+  },
+  {
+    "slug": "mediwheel-gift-card",
+    "brand_name": "Mediwheel"
+  },
+  {
+    "slug": "mia-(in-store)-gift-card",
+    "brand_name": "Mia (In Store)"
+  },
+  {
+    "slug": "michael-kors-luxe-(in-store)-gift-card",
+    "brand_name": "Michael Kors Luxe (In Store)"
+  },
+  {
+    "slug": "michael-kors-luxe-gift-card",
+    "brand_name": "Michael Kors Luxe"
+  },
+  {
+    "slug": "microsoft-xbox-game-pass-core-gift-card",
+    "brand_name": "Microsoft Xbox Game Pass Core"
+  },
+  {
+    "slug": "miniklub-gift-card",
+    "brand_name": "MiniKlub"
+  },
+  {
+    "slug": "modern-bazaar-gift-card",
+    "brand_name": "Modern Bazaar"
+  },
+  {
+    "slug": "mokobara-gift-card",
+    "brand_name": "Mokobara"
+  },
+  {
+    "slug": "moments-by-the-leela-(in-store)-gift-card",
+    "brand_name": "Moments by The Leela (In Store)"
+  },
+  {
+    "slug": "mothercare-luxe-(in-store)-gift-card",
+    "brand_name": "Mothercare Luxe (In Store)"
+  },
+  {
+    "slug": "muro-qc-(in-store)-gift-card",
+    "brand_name": "Muro QC (In Store)"
+  },
+  {
+    "slug": "muthoot-gold-gift-card",
+    "brand_name": "Muthoot Gold"
+  },
+  {
+    "slug": "mxplayer-gift-card",
+    "brand_name": "MXPlayer"
+  },
+  {
+    "slug": "my-jio-store-(in-store)-gift-card",
+    "brand_name": "My Jio Store (In Store)"
+  },
+  {
+    "slug": "myhq-gift-card",
+    "brand_name": "myHQ"
+  },
+  {
+    "slug": "myntra-gift-card",
+    "brand_name": "Myntra"
+  },
+  {
+    "slug": "myntra-luxe-gift-card",
+    "brand_name": "Myntra LUXE"
+  },
+  {
+    "slug": "myupchar-medicines-gift-card",
+    "brand_name": "myUpchar Medicines"
+  },
+  {
+    "slug": "nat-habit-gift-card",
+    "brand_name": "Nat Habit"
+  },
+  {
+    "slug": "natures-basket-(in-store)-gift-card",
+    "brand_name": "Natures Basket (In Store)"
+  },
+  {
+    "slug": "natures-basket-gift-card",
+    "brand_name": "Natures Basket"
+  },
+  {
+    "slug": "neemans-gift-card",
+    "brand_name": "Neemans"
+  },
+  {
+    "slug": "neerus-(in-store)-gift-card",
+    "brand_name": "Neerus (In Store)"
+  },
+  {
+    "slug": "netmeds-gift-card",
+    "brand_name": "Netmeds"
+  },
+  {
+    "slug": "nu-ayurveda-(in-store)-gift-card",
+    "brand_name": "NU Ayurveda (In Store)"
+  },
+  {
+    "slug": "nua-women-gift-card",
+    "brand_name": "Nua Women"
+  },
+  {
+    "slug": "nykaa-fashion-gift-card",
+    "brand_name": "Nykaa Fashion"
+  },
+  {
+    "slug": "nykaa-gift-card",
+    "brand_name": "Nykaa"
+  },
+  {
+    "slug": "nykaa-man-gift-card",
+    "brand_name": "Nykaa Man"
+  },
+  {
+    "slug": "nykaa-men-gift-card",
+    "brand_name": "Nykaa Men"
+  },
+  {
+    "slug": "o2-spa-(in-store)-gift-card",
+    "brand_name": "O2 Spa (In Store)"
+  },
+  {
+    "slug": "o2-spa-salon-(in-store)-gift-card",
+    "brand_name": "O2 Spa Salon (In Store)"
+  },
+  {
+    "slug": "oberoi-hotels-resorts-gift-card",
+    "brand_name": "Oberoi Hotels Resorts"
+  },
+  {
+    "slug": "oh-calcutta-(in-store)-gift-card",
+    "brand_name": "Oh Calcutta (In Store)"
+  },
+  {
+    "slug": "ola-cabs-gift-card",
+    "brand_name": "Ola Cabs"
+  },
+  {
+    "slug": "om-book-shop-gift-card",
+    "brand_name": "OM BOOK SHOP"
+  },
+  {
+    "slug": "only-(in-store)-gift-card",
+    "brand_name": "ONLY (In Store)"
+  },
+  {
+    "slug": "organic-(in-store)-gift-card",
+    "brand_name": "Organic (In Store)"
+  },
+  {
+    "slug": "origin-nutrition-gift-card",
+    "brand_name": "Origin Nutrition"
+  },
+  {
+    "slug": "ornaz-gift-card",
+    "brand_name": "Ornaz"
+  },
+  {
+    "slug": "ottplay-gift-card",
+    "brand_name": "OTTplay"
+  },
+  {
+    "slug": "oven-story-gift-card",
+    "brand_name": "Oven Story"
+  },
+  {
+    "slug": "pantaloons-(4-hr-wait)-gift-card",
+    "brand_name": "Pantaloons (4 Hr Wait)"
+  },
+  {
+    "slug": "pantaloons-(in-store%2C-4-hr-wait)-gift-card",
+    "brand_name": "Pantaloons (In Store, 4 Hr Wait)"
+  },
+  {
+    "slug": "park-avenue-(in-store)-gift-card",
+    "brand_name": "Park Avenue (In Store)"
+  },
+  {
+    "slug": "parx-(in-store)-gift-card",
+    "brand_name": "Parx (In Store)"
+  },
+  {
+    "slug": "paul-and-shark-luxe-(in-store)-gift-card",
+    "brand_name": "Paul and Shark Luxe (In Store)"
+  },
+  {
+    "slug": "paul-smith-(in-store)-gift-card",
+    "brand_name": "Paul Smith (In Store)"
+  },
+  {
+    "slug": "pc-chandra-gems-gold-coin-gift-card",
+    "brand_name": "PC Chandra Gems Gold Coin"
+  },
+  {
+    "slug": "pc-chandra-gold-coin-gift-card",
+    "brand_name": "PC Chandra Gold Coin"
+  },
+  {
+    "slug": "pcj-diamond-(in-store)-gift-card",
+    "brand_name": "PCJ Diamond (In Store)"
+  },
+  {
+    "slug": "pcj-diamond-gift-card",
+    "brand_name": "PCJ Diamond"
+  },
+  {
+    "slug": "pcj-diamond-jewellery-(in-store)-gift-card",
+    "brand_name": "PCJ Diamond Jewellery (In Store)"
+  },
+  {
+    "slug": "pcj-gold-coin-(in-store)-gift-card",
+    "brand_name": "PCJ Gold Coin (In Store)"
+  },
+  {
+    "slug": "pcj-gold-coin-gift-card",
+    "brand_name": "PCJ Gold Coin"
+  },
+  {
+    "slug": "pcj-gold-jewellery-(in-store)-gift-card",
+    "brand_name": "PCJ Gold Jewellery (In Store)"
+  },
+  {
+    "slug": "pcj-gold-jewellery-gift-card",
+    "brand_name": "PCJ Gold Jewellery"
+  },
+  {
+    "slug": "peora-fashions-(in-store)-gift-card",
+    "brand_name": "Peora Fashions (In Store)"
+  },
+  {
+    "slug": "pepperfry-gift-card",
+    "brand_name": "Pepperfry"
+  },
+  {
+    "slug": "perfume2order-gift-card",
+    "brand_name": "Perfume2Order"
+  },
+  {
+    "slug": "peter-england-(in-store)-gift-card",
+    "brand_name": "Peter England (In Store)"
+  },
+  {
+    "slug": "philips-gift-card",
+    "brand_name": "Philips"
+  },
+  {
+    "slug": "phonepe-gift-card",
+    "brand_name": "PhonePe"
+  },
+  {
+    "slug": "photojaanic-gift-card",
+    "brand_name": "Photojaanic"
+  },
+  {
+    "slug": "pigeon-(in-store)-gift-card",
+    "brand_name": "Pigeon (In Store)"
+  },
+  {
+    "slug": "pineperksrupayprime-wh-(4-day-wait)-gift-card",
+    "brand_name": "PinePerksRupayPrime WH (4 Day Wait)"
+  },
+  {
+    "slug": "pixel-go-gift-card",
+    "brand_name": "Pixel Go"
+  },
+  {
+    "slug": "pizza-hut-gift-card",
+    "brand_name": "Pizza Hut"
+  },
+  {
+    "slug": "planet-fashion-(in-store)-gift-card",
+    "brand_name": "Planet Fashion (In Store)"
+  },
+  {
+    "slug": "playstation-gift-card",
+    "brand_name": "Playstation"
+  },
+  {
+    "slug": "points-for-good-gift-card",
+    "brand_name": "Points for Good"
+  },
+  {
+    "slug": "polar-bear-(in-store)-gift-card",
+    "brand_name": "Polar bear (In Store)"
+  },
+  {
+    "slug": "polaroid-gift-card",
+    "brand_name": "Polaroid"
+  },
+  {
+    "slug": "pothys-(in-store)-gift-card",
+    "brand_name": "Pothys (In Store)"
+  },
+  {
+    "slug": "prestige-gift-card",
+    "brand_name": "Prestige"
+  },
+  {
+    "slug": "prestige-smart-kitchen-gift-card",
+    "brand_name": "Prestige Smart Kitchen"
+  },
+  {
+    "slug": "puma-(in-store)-gift-card",
+    "brand_name": "Puma (In Store)"
+  },
+  {
+    "slug": "pure-home-living-gift-card",
+    "brand_name": "Pure Home Living"
+  },
+  {
+    "slug": "pvr-gift-card",
+    "brand_name": "PVR"
+  },
+  {
+    "slug": "r-b-(in-store)-gift-card",
+    "brand_name": "R B (In Store)"
+  },
+  {
+    "slug": "r-b-gift-card",
+    "brand_name": "R B"
+  },
+  {
+    "slug": "r-s-brothers-gift-card",
+    "brand_name": "R S BROTHERS"
+  },
+  {
+    "slug": "rangoli-sarees-(in-store)-gift-card",
+    "brand_name": "Rangoli Sarees (In Store)"
+  },
+  {
+    "slug": "rangriti-gift-card",
+    "brand_name": "Rangriti"
+  },
+  {
+    "slug": "ratnadeep-retail-(in-store)-gift-card",
+    "brand_name": "Ratnadeep Retail (In Store)"
+  },
+  {
+    "slug": "ratnadeep-super-market-(in-store)-gift-card",
+    "brand_name": "Ratnadeep Super Market (In Store)"
+  },
+  {
+    "slug": "ray-ban-gift-card",
+    "brand_name": "Ray Ban"
+  },
+  {
+    "slug": "razorpay-money-flex-gift-card",
+    "brand_name": "Razorpay Money Flex"
+  },
+  {
+    "slug": "relaxo-(in-store)-gift-card",
+    "brand_name": "Relaxo (In Store)"
+  },
+  {
+    "slug": "reliance-(in-store)-gift-card",
+    "brand_name": "Reliance (In Store)"
+  },
+  {
+    "slug": "reliance-jewels-(in-store)-gift-card",
+    "brand_name": "Reliance Jewels (In Store)"
+  },
+  {
+    "slug": "reliance-smart-bazaar-(in-store)-gift-card",
+    "brand_name": "Reliance Smart Bazaar (In Store)"
+  },
+  {
+    "slug": "reliance-smart-gift-card",
+    "brand_name": "Reliance Smart"
+  },
+  {
+    "slug": "reliance-smart-point-(in-store)-gift-card",
+    "brand_name": "Reliance Smart Point (In Store)"
+  },
+  {
+    "slug": "reliance-smart-super-store-(in-store)-gift-card",
+    "brand_name": "Reliance Smart Super Store (In Store)"
+  },
+  {
+    "slug": "reliance-trends-(in-store)-gift-card",
+    "brand_name": "Reliance Trends (In Store)"
+  },
+  {
+    "slug": "renee-cosmetics-gift-card",
+    "brand_name": "Renee Cosmetics"
+  },
+  {
+    "slug": "rentomojo-gift-card",
+    "brand_name": "Rentomojo"
+  },
+  {
+    "slug": "replay-(in-store)-gift-card",
+    "brand_name": "Replay (In Store)"
+  },
+  {
+    "slug": "resonate-gift-card",
+    "brand_name": "Resonate"
+  },
+  {
+    "slug": "river-roost-(in-store)-gift-card",
+    "brand_name": "River Roost (In Store)"
+  },
+  {
+    "slug": "roblox-gift-card",
+    "brand_name": "Roblox"
+  },
+  {
+    "slug": "samsonite-(in-store)-gift-card",
+    "brand_name": "Samsonite (In Store)"
+  },
+  {
+    "slug": "samsonite-gift-card",
+    "brand_name": "Samsonite"
+  },
+  {
+    "slug": "sathya-(in-store)-gift-card",
+    "brand_name": "Sathya (In Store)"
+  },
+  {
+    "slug": "satya-paul-luxe-(in-store)-gift-card",
+    "brand_name": "Satya Paul Luxe (In Store)"
+  },
+  {
+    "slug": "scotch-and-soda-luxe-(in-store)-gift-card",
+    "brand_name": "Scotch and Soda Luxe (In Store)"
+  },
+  {
+    "slug": "scotch-soda-luxe-gift-card",
+    "brand_name": "Scotch Soda Luxe"
+  },
+  {
+    "slug": "selected-homme-(in-store)-gift-card",
+    "brand_name": "SELECTED HOMME (In Store)"
+  },
+  {
+    "slug": "senco-gold-(in-store)-gift-card",
+    "brand_name": "Senco Gold (In Store)"
+  },
+  {
+    "slug": "seniority-(in-store)-gift-card",
+    "brand_name": "Seniority (In Store)"
+  },
+  {
+    "slug": "sheaffer-gift-card",
+    "brand_name": "SHEAFFER"
+  },
+  {
+    "slug": "shell-(1-day-wait)-gift-card",
+    "brand_name": "Shell (1 Day Wait)"
+  },
+  {
+    "slug": "shemaroome-gift-card",
+    "brand_name": "ShemarooMe"
+  },
+  {
+    "slug": "shemaroome-premium-gift-card",
+    "brand_name": "ShemarooMe Premium"
+  },
+  {
+    "slug": "shilhaandara-(in-store)-gift-card",
+    "brand_name": "Shilhaandara (In Store)"
+  },
+  {
+    "slug": "shiv-naresh-gift-card",
+    "brand_name": "Shiv Naresh"
+  },
+  {
+    "slug": "shoppers-stop-gift-card",
+    "brand_name": "Shoppers Stop"
+  },
+  {
+    "slug": "shopy-vision-gift-card",
+    "brand_name": "Shopy Vision"
+  },
+  {
+    "slug": "sigree-(in-store)-gift-card",
+    "brand_name": "SIGREE (In Store)"
+  },
+  {
+    "slug": "simon-carter-(in-store)-gift-card",
+    "brand_name": "Simon Carter (In Store)"
+  },
+  {
+    "slug": "simple-gift-card",
+    "brand_name": "Simple"
+  },
+  {
+    "slug": "siri-nature-roost-(in-store)-gift-card",
+    "brand_name": "Siri Nature Roost (In Store)"
+  },
+  {
+    "slug": "skechers-gift-card",
+    "brand_name": "Skechers"
+  },
+  {
+    "slug": "skinn-(in-store%2C-3-day-wait)-gift-card",
+    "brand_name": "Skinn (In Store, 3 Day Wait)"
+  },
+  {
+    "slug": "skinn-(in-store)-gift-card",
+    "brand_name": "Skinn (In Store)"
+  },
+  {
+    "slug": "skullcandy-gift-card",
+    "brand_name": "Skullcandy"
+  },
+  {
+    "slug": "smile-foundation-gift-card",
+    "brand_name": "Smile Foundation"
+  },
+  {
+    "slug": "snitch-e-gift-card",
+    "brand_name": "Snitch E"
+  },
+  {
+    "slug": "soch-(in-store)-gift-card",
+    "brand_name": "Soch (In Store)"
+  },
+  {
+    "slug": "soch-gift-card",
+    "brand_name": "Soch"
+  },
+  {
+    "slug": "sonyliv-6-months-gift-card",
+    "brand_name": "SonyLiv 6 Months"
+  },
+  {
+    "slug": "sonyliv-gift-card",
+    "brand_name": "SonyLIV"
+  },
+  {
+    "slug": "sotc-travel-(in-store)-gift-card",
+    "brand_name": "SOTC Travel (In Store)"
+  },
+  {
+    "slug": "south-shopping-mall-gift-card",
+    "brand_name": "SOUTH SHOPPING MALL"
+  },
+  {
+    "slug": "speedo-gift-card",
+    "brand_name": "Speedo"
+  },
+  {
+    "slug": "spencers-(in-store)-gift-card",
+    "brand_name": "Spencers (In Store)"
+  },
+  {
+    "slug": "spicejet-gift-card",
+    "brand_name": "SpiceJet"
+  },
+  {
+    "slug": "ssunsu-gift-card",
+    "brand_name": "SSUNSU"
+  },
+  {
+    "slug": "starbucks-(in-store)-gift-card",
+    "brand_name": "Starbucks (In Store)"
+  },
+  {
+    "slug": "starbucks-gift-card",
+    "brand_name": "Starbucks"
+  },
+  {
+    "slug": "stayvista-gift-card",
+    "brand_name": "StayVista"
+  },
+  {
+    "slug": "steam-gift-card",
+    "brand_name": "Steam"
+  },
+  {
+    "slug": "steam-lysto-gift-card",
+    "brand_name": "Steam Lysto"
+  },
+  {
+    "slug": "sterling-holiday-resorts-gift-card",
+    "brand_name": "Sterling Holiday Resorts"
+  },
+  {
+    "slug": "steve-madden-luxe-(in-store)-gift-card",
+    "brand_name": "Steve Madden Luxe (In Store)"
+  },
+  {
+    "slug": "steve-madden-luxe-gift-card",
+    "brand_name": "Steve Madden Luxe"
+  },
+  {
+    "slug": "street-foods-by-punjab-grill-gift-card",
+    "brand_name": "Street Foods By PUNJAB Grill"
+  },
+  {
+    "slug": "subway-(in-store)-gift-card",
+    "brand_name": "Subway (In Store)"
+  },
+  {
+    "slug": "subway-gift-card",
+    "brand_name": "Subway"
+  },
+  {
+    "slug": "sun-scoop-gift-card",
+    "brand_name": "Sun Scoop"
+  },
+  {
+    "slug": "supa-gift-card",
+    "brand_name": "SUPA"
+  },
+  {
+    "slug": "superbottoms-gift-card",
+    "brand_name": "SuperBottoms"
+  },
+  {
+    "slug": "superdry-luxe-(in-store)-gift-card",
+    "brand_name": "Superdry Luxe (In Store)"
+  },
+  {
+    "slug": "surat-diamonds-gift-card",
+    "brand_name": "Surat Diamonds"
+  },
+  {
+    "slug": "surat-diamonds-solitaire-gift-card",
+    "brand_name": "Surat Diamonds Solitaire"
+  },
+  {
+    "slug": "svenklas-gift-card",
+    "brand_name": "Svenklas"
+  },
+  {
+    "slug": "sweet-bengal-(in-store)-gift-card",
+    "brand_name": "Sweet Bengal (In Store)"
+  },
+  {
+    "slug": "sweet-truth-gift-card",
+    "brand_name": "Sweet Truth"
+  },
+  {
+    "slug": "swiss-beauty-gift-card",
+    "brand_name": "SWISS BEAUTY"
+  },
+  {
+    "slug": "taco-bell-(in-store)-gift-card",
+    "brand_name": "Taco Bell (In Store)"
+  },
+  {
+    "slug": "tagg-gift-card",
+    "brand_name": "Tagg"
+  },
+  {
+    "slug": "taj-dining-gift-card",
+    "brand_name": "Taj Dining"
+  },
+  {
+    "slug": "taj-experiences-(in-store)-gift-card",
+    "brand_name": "Taj Experiences (In Store)"
+  },
+  {
+    "slug": "taj-experiences-gift-card",
+    "brand_name": "Taj Experiences"
+  },
+  {
+    "slug": "taj-hotels-gift-card",
+    "brand_name": "Taj Hotels"
+  },
+  {
+    "slug": "taj-hotels-j-wellness-circle-bliss-duo-(in-store)-gift-card",
+    "brand_name": "Taj Hotels J Wellness Circle Bliss Duo (In Store)"
+  },
+  {
+    "slug": "taj-hotels-j-wellness-circle-bliss-solo-(in-store)-gift-card",
+    "brand_name": "Taj Hotels J Wellness Circle Bliss Solo (In Store)"
+  },
+  {
+    "slug": "taj-spa-gift-card",
+    "brand_name": "Taj Spa"
+  },
+  {
+    "slug": "taneira-(in-store)-gift-card",
+    "brand_name": "Taneira (In Store)"
+  },
+  {
+    "slug": "taneira-gift-card",
+    "brand_name": "Taneira"
+  },
+  {
+    "slug": "tanishq-gold-coin-(in-store)-gift-card",
+    "brand_name": "Tanishq Gold Coin (In Store)"
+  },
+  {
+    "slug": "tanishq-gold-coin-gift-card",
+    "brand_name": "Tanishq Gold Coin"
+  },
+  {
+    "slug": "tanishq-gold-jewellery-(in-store)-gift-card",
+    "brand_name": "Tanishq Gold Jewellery (In Store)"
+  },
+  {
+    "slug": "tanishq-studded-(in-store)-gift-card",
+    "brand_name": "Tanishq Studded (In Store)"
+  },
+  {
+    "slug": "tata-cliq-luxury-gift-card",
+    "brand_name": "Tata CliQ Luxury"
+  },
+  {
+    "slug": "tatacliq-fashion-gift-card",
+    "brand_name": "TataCliq Fashion"
+  },
+  {
+    "slug": "tattva-spa-gift-card",
+    "brand_name": "Tattva Spa"
+  },
+  {
+    "slug": "tbz-(in-store)-gift-card",
+    "brand_name": "TBZ (In Store)"
+  },
+  {
+    "slug": "tego-gift-card",
+    "brand_name": "TEGO"
+  },
+  {
+    "slug": "tgi-fridays-(in-store)-gift-card",
+    "brand_name": "TGI Fridays (In Store)"
+  },
+  {
+    "slug": "tgif-(in-store)-gift-card",
+    "brand_name": "TGIF (In Store)"
+  },
+  {
+    "slug": "the-body-shop-gift-card",
+    "brand_name": "The Body Shop"
+  },
+  {
+    "slug": "the-collective-gift-card",
+    "brand_name": "The Collective"
+  },
+  {
+    "slug": "the-good-bowl-gift-card",
+    "brand_name": "The Good Bowl"
+  },
+  {
+    "slug": "the-man-company-gift-card",
+    "brand_name": "The Man Company"
+  },
+  {
+    "slug": "the-raymond-shop-(in-store)-gift-card",
+    "brand_name": "The Raymond Shop (In Store)"
+  },
+  {
+    "slug": "the-reading-habit-gift-card",
+    "brand_name": "The Reading Habit"
+  },
+  {
+    "slug": "the-sleep-company-(in-store)-gift-card",
+    "brand_name": "The Sleep Company (In Store)"
+  },
+  {
+    "slug": "the-wellness-co-(in-store)-gift-card",
+    "brand_name": "The Wellness Co (In Store)"
+  },
+  {
+    "slug": "things2do-gift-card",
+    "brand_name": "Things2Do"
+  },
+  {
+    "slug": "third-wave-coffee-gift-card",
+    "brand_name": "Third Wave Coffee"
+  },
+  {
+    "slug": "tim-hortons-(in-store)-gift-card",
+    "brand_name": "Tim Hortons (In Store)"
+  },
+  {
+    "slug": "timezone-(in-store)-gift-card",
+    "brand_name": "TimeZone (In Store)"
+  },
+  {
+    "slug": "timezone-gift-card",
+    "brand_name": "Timezone"
+  },
+  {
+    "slug": "tinder-gift-card",
+    "brand_name": "Tinder"
+  },
+  {
+    "slug": "tira-beauty-gift-card",
+    "brand_name": "Tira Beauty"
+  },
+  {
+    "slug": "titan-(in-store%2C-3-day-wait)-gift-card",
+    "brand_name": "Titan (In Store, 3 Day Wait)"
+  },
+  {
+    "slug": "titan-eye-plus-(in-store)-gift-card",
+    "brand_name": "Titan Eye Plus (In Store)"
+  },
+  {
+    "slug": "titan-minimals-(in-store%2C-3-day-wait)-gift-card",
+    "brand_name": "Titan Minimals (In Store, 3 Day Wait)"
+  },
+  {
+    "slug": "titan-minimals-(in-store)-gift-card",
+    "brand_name": "Titan Minimals (In Store)"
+  },
+  {
+    "slug": "toscano-(in-store)-gift-card",
+    "brand_name": "Toscano (In Store)"
+  },
+  {
+    "slug": "trends-footwear-(in-store)-gift-card",
+    "brand_name": "Trends Footwear (In Store)"
+  },
+  {
+    "slug": "trends-junior-(in-store)-gift-card",
+    "brand_name": "Trends Junior (In Store)"
+  },
+  {
+    "slug": "trends-man-(in-store)-gift-card",
+    "brand_name": "Trends Man (In Store)"
+  },
+  {
+    "slug": "trends-women-(in-store)-gift-card",
+    "brand_name": "Trends Women (In Store)"
+  },
+  {
+    "slug": "truefitt-hill-(in-store)-gift-card",
+    "brand_name": "TRUEFITT HILL (In Store)"
+  },
+  {
+    "slug": "tumi-luxe-(in-store)-gift-card",
+    "brand_name": "Tumi Luxe (In Store)"
+  },
+  {
+    "slug": "tzaro-gift-card",
+    "brand_name": "Tzaro"
+  },
+  {
+    "slug": "uber-gift-card",
+    "brand_name": "Uber"
+  },
+  {
+    "slug": "unicorn-apple-premium-(in-store)-gift-card",
+    "brand_name": "Unicorn Apple Premium (In Store)"
+  },
+  {
+    "slug": "unipin-bgmi-gift-card",
+    "brand_name": "Unipin BGMI"
+  },
+  {
+    "slug": "unipin-gift-card",
+    "brand_name": "UniPin"
+  },
+  {
+    "slug": "unlimited-(in-store)-gift-card",
+    "brand_name": "Unlimited (In Store)"
+  },
+  {
+    "slug": "urban-ladder-gift-card",
+    "brand_name": "Urban Ladder"
+  },
+  {
+    "slug": "urban-space-gift-card",
+    "brand_name": "Urban Space"
+  },
+  {
+    "slug": "us-polo-assn-(in-store)-gift-card",
+    "brand_name": "US Polo Assn (In Store)"
+  },
+  {
+    "slug": "v-mart-(in-store)-gift-card",
+    "brand_name": "V Mart (In Store)"
+  },
+  {
+    "slug": "valorant-gift-card",
+    "brand_name": "Valorant"
+  },
+  {
+    "slug": "van-heusen-(in-store)-gift-card",
+    "brand_name": "Van Heusen (In Store)"
+  },
+  {
+    "slug": "vaya-gift-card",
+    "brand_name": "Vaya"
+  },
+  {
+    "slug": "veridicus-gift-card",
+    "brand_name": "Veridicus"
+  },
+  {
+    "slug": "vero-moda-(in-store)-gift-card",
+    "brand_name": "Vero Moda (In Store)"
+  },
+  {
+    "slug": "victorias-secret-gift-card",
+    "brand_name": "VICTORIAS SECRET"
+  },
+  {
+    "slug": "vijay-sales-(in-store)-gift-card",
+    "brand_name": "Vijay Sales (In Store)"
+  },
+  {
+    "slug": "vinci-botanicals-gift-card",
+    "brand_name": "Vinci Botanicals"
+  },
+  {
+    "slug": "vitamin-haat-gift-card",
+    "brand_name": "Vitamin Haat"
+  },
+  {
+    "slug": "vrott-gift-card",
+    "brand_name": "VROTT"
+  },
+  {
+    "slug": "w-(in-store)-gift-card",
+    "brand_name": "W (In Store)"
+  },
+  {
+    "slug": "wakefit-gift-card",
+    "brand_name": "Wakefit"
+  },
+  {
+    "slug": "wellbeing-nutrition-gift-card",
+    "brand_name": "Wellbeing Nutrition"
+  },
+  {
+    "slug": "wendys-gift-card",
+    "brand_name": "Wendys"
+  },
+  {
+    "slug": "westside-(in-store%2C-8-hr-wait)-gift-card",
+    "brand_name": "Westside (In Store, 8 Hr Wait)"
+  },
+  {
+    "slug": "westside-(in-store)-gift-card",
+    "brand_name": "Westside (In Store)"
+  },
+  {
+    "slug": "white-crow-(in-store)-gift-card",
+    "brand_name": "White Crow (In Store)"
+  },
+  {
+    "slug": "wildcraft-(in-store)-gift-card",
+    "brand_name": "Wildcraft (In Store)"
+  },
+  {
+    "slug": "william-penn-(in-store)-gift-card",
+    "brand_name": "William Penn (In Store)"
+  },
+  {
+    "slug": "woggles-gift-card",
+    "brand_name": "Woggles"
+  },
+  {
+    "slug": "wonderchef-gift-card",
+    "brand_name": "Wonderchef"
+  },
+  {
+    "slug": "woodland-(in-store)-gift-card",
+    "brand_name": "Woodland (In Store)"
+  },
+  {
+    "slug": "woodland-gift-card",
+    "brand_name": "Woodland"
+  },
+  {
+    "slug": "world-of-titan-(in-store%2C-1-day-wait)-gift-card",
+    "brand_name": "World of Titan (In Store, 1 Day Wait)"
+  },
+  {
+    "slug": "wow-chicken-gift-card",
+    "brand_name": "Wow Chicken"
+  },
+  {
+    "slug": "wow-china-(in-store)-gift-card",
+    "brand_name": "Wow China (In Store)"
+  },
+  {
+    "slug": "wow-momo-(in-store)-gift-card",
+    "brand_name": "Wow Momo (In Store)"
+  },
+  {
+    "slug": "wow-momo-gift-card",
+    "brand_name": "Wow Momo"
+  },
+  {
+    "slug": "wrangler-(in-store)-gift-card",
+    "brand_name": "Wrangler (In Store)"
+  },
+  {
+    "slug": "wrangler-gift-card",
+    "brand_name": "Wrangler"
+  },
+  {
+    "slug": "yatra-gift-card",
+    "brand_name": "Yatra"
+  },
+  {
+    "slug": "yatra-hotels-and-holidays-gift-card",
+    "brand_name": "Yatra Hotels and Holidays"
+  },
+  {
+    "slug": "yatra-hotels-gift-card",
+    "brand_name": "Yatra Hotels"
+  },
+  {
+    "slug": "yatra-prime-gift-card",
+    "brand_name": "Yatra Prime"
+  },
+  {
+    "slug": "yatra-special-gift-card",
+    "brand_name": "Yatra Special"
+  },
+  {
+    "slug": "yatra-travel-treat-1000-gift-card",
+    "brand_name": "Yatra Travel Treat 1000"
+  },
+  {
+    "slug": "ylg-(in-store)-gift-card",
+    "brand_name": "YLG (In Store)"
+  },
+  {
+    "slug": "youmee-(in-store)-gift-card",
+    "brand_name": "YouMee (In Store)"
+  },
+  {
+    "slug": "zambar-(in-store)-gift-card",
+    "brand_name": "Zambar (In Store)"
+  },
+  {
+    "slug": "zee5-gift-card",
+    "brand_name": "Zee5"
+  },
+  {
+    "slug": "zepto-gift-card",
+    "brand_name": "Zepto"
+  },
+  {
+    "slug": "zomato-(1-day-wait)-gift-card",
+    "brand_name": "Zomato (1 Day Wait)"
+  },
+  {
+    "slug": "zomato-gift-card",
+    "brand_name": "Zomato"
+  },
+  {
+    "slug": "zone-hypermarket-gift-card",
+    "brand_name": "ZONE HYPERMARKET"
+  }
+]

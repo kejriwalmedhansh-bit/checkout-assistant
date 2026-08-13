@@ -33,7 +33,13 @@ logger = logging.getLogger("uvicorn.error")
 
 from ..config import get_settings
 from ..constants import HYPERLOCAL_MERCHANTS, KNOWN_BRANDS, MANUAL_TRUSTED_MERCHANTS, PRIORITY_MERCHANTS
-from ..repositories import apify_repository, maximize_repository, searchapi_repository, voucher_repository
+from ..repositories import (
+    apify_repository,
+    buyhatke_repository,
+    maximize_repository,
+    searchapi_repository,
+    voucher_repository,
+)
 from . import card_service, voucher_service
 
 # ── price parsing ──────────────────────────────────────────────────────────────
@@ -440,7 +446,12 @@ def _load_trusted_merchants() -> set[str]:
     if _trusted_merchants_cache is not None:
         return _trusted_merchants_cache
     whitelist: set[str] = set()
-    all_names = list(MANUAL_TRUSTED_MERCHANTS) + list(voucher_repository.brand_names()) + list(maximize_repository.brand_names())
+    all_names = (
+        list(MANUAL_TRUSTED_MERCHANTS)
+        + list(voucher_repository.brand_names())
+        + list(maximize_repository.brand_names())
+        + list(buyhatke_repository.brand_names())
+    )
     for name in all_names:
         whitelist.add(_norm(name))
         whitelist.add(_brand_signature(name))
@@ -633,13 +644,12 @@ def _card_fomo_for_route(route: dict) -> dict | None:
     """The recommended route is always card-free — this only adds an optional
     "by the way" aside for someone who already owns a qualifying card. Never
     affects ranking, never a reason to apply for a card to get Dealo's main
-    price (see CardFomo.jsx)."""
+    price (see CreditCardPrompt.jsx)."""
     voucher = route.get("voucher")
     if voucher is None:
         card_fomo = card_service.best_card_for_purchase(
             merchant=route["merchant"],
             purchase_amount=route["final_cost"],
-            has_voucher=False,
         )
     else:
         # A card path means paying the voucher at THIS card's own rate (Credit
@@ -1285,6 +1295,7 @@ def _product_candidate(p: dict) -> dict:
         "has_voucher": bool(source) and (
             voucher_repository.get_by_merchant(source) is not None
             or maximize_repository.get_by_merchant(source) is not None
+            or buyhatke_repository.get_by_merchant(source) is not None
         ),
     }
 
