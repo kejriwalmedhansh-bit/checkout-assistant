@@ -1,5 +1,5 @@
-import { useEffect, useRef, useState } from 'react';
-import { Box, Flex, Text, useToast } from '@chakra-ui/react';
+import { useEffect, useState } from 'react';
+import { Box, Flex, Text } from '@chakra-ui/react';
 
 import { I } from '@/components/common/icons';
 import InfoNote from '@/components/common/InfoNote';
@@ -51,7 +51,6 @@ export default function Journey({ rec }) {
   const tourActive = useUiStore((s) => s.tourActive);
   const tourStep = useUiStore((s) => s.tourStep);
   const advanceTour = useUiStore((s) => s.advanceTour);
-  const toast = useToast();
   // Tour steps 2 and 3 (see tourSteps.js) target this component's own
   // voucher-buy and checkout-open buttons — advancing here, at the same
   // click that already checks the step off, keeps the tour tied to the
@@ -70,62 +69,41 @@ export default function Journey({ rec }) {
     }, 550);
   };
 
-  // "Welcome back" nudge: fires once, the first time the tab regains focus
-  // after the voucher was bought but before checkout is done — the same
-  // return-detection Spotlight.jsx uses, for the same reason (Gyftr opens
-  // in a new tab and backgrounds this one). Skipped while the live tour is
-  // active, same reason as the toast in check() above — the tour's own
-  // fixed bottom bar already covers this exact moment, and the two
-  // collided visually (a Chakra toast at position='bottom' landing on top
-  // of the tour bar looked like a stuck/stale tooltip). Guarded by a ref
-  // (not state) so it can't itself trigger a re-render loop, and reset
-  // whenever the voucher gets checked again (a fresh alternate route, for
-  // instance) so it's armed for the next return.
-  const welcomedBackRef = useRef(false);
-  useEffect(() => {
-    welcomedBackRef.current = false;
-  }, [checked.voucher]);
-  useEffect(() => {
-    if (!v) return undefined;
-    const onReturn = () => {
-      if (document.visibilityState !== 'visible') return;
-      if (checked.voucher && !checked.checkout && !welcomedBackRef.current && !tourActive) {
-        welcomedBackRef.current = true;
-        toast({
-          title: 'Welcome back',
-          description: `Continue to Step 2 — pay at ${rec.merchant}.`,
-          status: 'info',
-          duration: 5000,
-          isClosable: true,
-          position: 'bottom',
-        });
-      }
-    };
-    window.addEventListener('focus', onReturn);
-    document.addEventListener('visibilitychange', onReturn);
-    return () => {
-      window.removeEventListener('focus', onReturn);
-      document.removeEventListener('visibilitychange', onReturn);
-    };
-  }, [v, checked.voucher, checked.checkout, rec.merchant, toast, tourActive]);
-
   const paid = v ? paidForVoucher(v) : null;
   // Short line shown by default; DETAIL is the original full sentence, one
   // tap away behind the row's own InfoNote toggle — same content as before,
   // just not all of it on screen at once.
+  //
+  // Prefer the real per-brand redemption step (how_to_redeem_short) over the
+  // generic "add to cart, apply the code" line whenever we have it — that
+  // generic copy is flat wrong for wallet-style brands (Myntra: the code
+  // gets added to a Myntra Wallet from your profile *before* you shop, not
+  // typed in at checkout), and we already have the real mechanics scraped
+  // per brand. Only merchants missing real data fall back to the old guess.
+  const redeemStep = v?.how_to_redeem_short;
+  // Scraped short instructions don't reliably end in punctuation — sentence
+  // ends up run together with whatever gets appended after it otherwise
+  // ("...enter voucher code + PIN Then pay ₹495.").
+  const redeemStepSentence = redeemStep ? redeemStep.replace(/[.!]?\s*$/, '.') : redeemStep;
   const HINT_TEXT = {
-    checkout: v?.upi?.remainder
-      ? `Add to cart, apply the code, then pay ${fmt(v.upi.remainder)}.`
-      : v
-        ? 'Add to cart and apply the code — it covers your order.'
-        : 'This is the cheapest price we found.',
+    checkout: redeemStep
+      ? `${redeemStepSentence}${v.upi?.remainder ? ` Then pay ${fmt(v.upi.remainder)}.` : ''}`
+      : v?.upi?.remainder
+        ? `Add to cart, apply the code, then pay ${fmt(v.upi.remainder)}.`
+        : v
+          ? 'Add to cart and apply the code — it covers your order.'
+          : 'This is the cheapest price we found.',
   };
   const HINT_DETAIL = {
-    checkout: v
-      ? `Open ${rec.merchant}, add your item to the basket, and apply your voucher code at checkout${
-          v.upi?.remainder ? `, then pay the last ${fmt(v.upi.remainder)} any way you like` : ' — it covers your whole order'
-        }.`
-      : `Open ${rec.merchant} and buy it there — this is already the cheapest way we found.`,
+    checkout: redeemStep
+      ? `On ${rec.merchant}: ${redeemStepSentence}${
+          v.upi?.remainder ? ` Then pay the last ${fmt(v.upi.remainder)} any way you like.` : ' It covers your whole order.'
+        }`
+      : v
+        ? `Open ${rec.merchant}, add your item to the basket, and apply your voucher code at checkout${
+            v.upi?.remainder ? `, then pay the last ${fmt(v.upi.remainder)} any way you like` : ' — it covers your whole order'
+          }.`
+        : `Open ${rec.merchant} and buy it there — this is already the cheapest way we found.`,
   };
 
   // Both hints show at once, each under its own step — not just whichever
@@ -148,6 +126,30 @@ export default function Journey({ rec }) {
     setViewIndex(STEP_INDEX[currentStep]);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentStep]);
+
+  // Return-from-Gyftr re-sync: Gyftr (and the merchant site) open in a new
+  // tab and background this one. Used to pop a "Welcome back" toast here —
+  // cut per live-testing feedback (read as confusing, not helpful). The
+  // screen itself already carries the state that toast was trying to
+  // announce (the chip strip + the glowing current-step card), so instead
+  // of *telling* the user where they are, this just makes sure the panel
+  // they land on is actually the current step — silently snaps back to it
+  // in case they'd swiped over to browse a different step before tabbing
+  // away. No text, no interruption.
+  useEffect(() => {
+    if (!v) return undefined;
+    const onReturn = () => {
+      if (document.visibilityState !== 'visible') return;
+      setViewIndex(STEP_INDEX[currentStep]);
+    };
+    window.addEventListener('focus', onReturn);
+    document.addEventListener('visibilitychange', onReturn);
+    return () => {
+      window.removeEventListener('focus', onReturn);
+      document.removeEventListener('visibilitychange', onReturn);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [v, currentStep]);
 
   // A route with no voucher has nothing for the tour's "buy the voucher"
   // step (2) to point at — without this it would sit polling forever for an

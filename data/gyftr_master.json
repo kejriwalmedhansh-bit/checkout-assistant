@@ -1727,7 +1727,7 @@
     "stack_limit_confidence": "explicit",
     "can_club_with_offers": null,
     "one_time_use": false,
-    "how_to_redeem_short": "At checkout → enter voucher code + PIN"
+    "how_to_redeem_short": "Saved Cards & Wallets → Add Gift Card → enter code + PIN"
   },
   "readers-digest": {
     "brand_name": "Reader's Digest",
@@ -2778,7 +2778,7 @@
     "stack_limit_confidence": "unlimited_stated",
     "can_club_with_offers": null,
     "one_time_use": false,
-    "how_to_redeem_short": "At checkout → enter voucher code + PIN"
+    "how_to_redeem_short": "Apply Gift Card at checkout → verify OTP → pay from Wallet"
   },
   "bigbasket": {
     "brand_name": "BigBasket",
@@ -3886,7 +3886,7 @@
     "stack_limit_confidence": "unlimited_stated",
     "can_club_with_offers": false,
     "one_time_use": false,
-    "how_to_redeem_short": "At checkout → enter voucher code + PIN"
+    "how_to_redeem_short": "Choose GyFTR e-Pay at checkout → code adds to your wallet"
   },
   "elleven": {
     "brand_name": "Elleven",
@@ -4271,7 +4271,7 @@
     "stack_limit_confidence": "unlimited_stated",
     "can_club_with_offers": null,
     "one_time_use": false,
-    "how_to_redeem_short": "At checkout → enter voucher code + PIN"
+    "how_to_redeem_short": "Add code to CLiQ Cash (needs mobile KYC) → apply CLiQ Cash at payment"
   },
   "docubay": {
     "brand_name": "DocuBay",
@@ -4840,7 +4840,7 @@
     "stack_limit_confidence": "unlimited_stated",
     "can_club_with_offers": true,
     "one_time_use": false,
-    "how_to_redeem_short": "At checkout → enter voucher code + PIN"
+    "how_to_redeem_short": "Swiggy Money (needs KYC) → Add Voucher → enter code + PIN"
   },
   "taj-hotels": {
     "brand_name": "Taj Experiences",
@@ -6530,7 +6530,7 @@
     "stack_limit_confidence": "unknown",
     "can_club_with_offers": null,
     "one_time_use": false,
-    "how_to_redeem_short": "At checkout → enter voucher code + PIN"
+    "how_to_redeem_short": "Swiggy Money (needs KYC) → Add Voucher → enter code + PIN"
   },
   "behrouz-biryani": {
     "brand_name": "Behrouz Biryani",
@@ -6580,7 +6580,7 @@
     "stack_limit_confidence": "unlimited_stated",
     "can_club_with_offers": null,
     "one_time_use": false,
-    "how_to_redeem_short": "At checkout → enter voucher code + PIN"
+    "how_to_redeem_short": "Log in with your phone number → tap Redeem on the voucher → credited to EatSure Wallet"
   },
   "ovenstory-pizza": {
     "brand_name": "Ovenstory Pizza",
@@ -6669,7 +6669,7 @@
     "stack_limit_confidence": "unlimited_stated",
     "can_club_with_offers": true,
     "one_time_use": false,
-    "how_to_redeem_short": "At checkout → enter voucher code + PIN"
+    "how_to_redeem_short": "Log in with your phone number → tap Redeem on the voucher → credited to EatSure Wallet"
   },
   "sweet-truth": {
     "brand_name": "Sweet Truth",
@@ -6718,7 +6718,7 @@
     "stack_limit_confidence": "unlimited_stated",
     "can_club_with_offers": true,
     "one_time_use": false,
-    "how_to_redeem_short": "At checkout → enter voucher code + PIN"
+    "how_to_redeem_short": "Log in with your phone number → tap Redeem on the voucher → credited to EatSure Wallet"
   },
   "daily-objects": {
     "brand_name": "Daily Objects",
@@ -8307,7 +8307,7 @@
     "stack_limit_confidence": "unlimited_stated",
     "can_club_with_offers": true,
     "one_time_use": false,
-    "how_to_redeem_short": "At checkout → enter voucher code + PIN"
+    "how_to_redeem_short": "Log in with your phone number → tap Redeem on the voucher → credited to EatSure Wallet"
   },
   "the-good-bowl": {
     "brand_name": "The Good Bowl",
@@ -8356,7 +8356,7 @@
     "stack_limit_confidence": "unlimited_stated",
     "can_club_with_offers": true,
     "one_time_use": false,
-    "how_to_redeem_short": "At checkout → enter voucher code + PIN"
+    "how_to_redeem_short": "Log in with your phone number → tap Redeem on the voucher → credited to EatSure Wallet"
   },
   "hppay": {
     "brand_name": "HP Pay",
@@ -8460,7 +8460,7 @@
     "stack_limit_confidence": "unlimited_stated",
     "can_club_with_offers": null,
     "one_time_use": false,
-    "how_to_redeem_short": "At checkout → enter voucher code + PIN"
+    "how_to_redeem_short": "Add code to CLiQ Cash (needs mobile KYC) → apply CLiQ Cash at payment"
   },
   "igp": {
     "brand_name": "IGP",
@@ -10159,7 +10159,7 @@
     "stack_limit_confidence": "unlimited_stated",
     "can_club_with_offers": true,
     "one_time_use": false,
-    "how_to_redeem_short": "At checkout → enter voucher code + PIN"
+    "how_to_redeem_short": "Log in with your phone number → tap Redeem on the voucher → credited to EatSure Wallet"
   },
   "faasos": {
     "brand_name": "Faasos",
@@ -10208,7 +10208,7 @@
     "stack_limit_confidence": "unlimited_stated",
     "can_club_with_offers": true,
     "one_time_use": false,
-    "how_to_redeem_short": "At checkout → enter voucher code + PIN"
+    "how_to_redeem_short": "Log in with your phone number → tap Redeem on the voucher → credited to EatSure Wallet"
   },
   "lunch-box": {
     "brand_name": "Lunch Box",
@@ -10258,7 +10258,7 @@
     "stack_limit_confidence": "unlimited_stated",
     "can_club_with_offers": true,
     "one_time_use": false,
-    "how_to_redeem_short": "At checkout → enter voucher code + PIN"
+    "how_to_redeem_short": "Log in with your phone number → tap Redeem on the voucher → credited to EatSure Wallet"
   },
   "victoria's-secret-beauty": {
     "brand_name": "VICTORIA'S SECRET BEAUTY",
@@ -12622,7 +12622,7 @@
     "stack_limit_confidence": "unlimited_stated",
     "can_club_with_offers": true,
     "one_time_use": false,
-    "how_to_redeem_short": "At checkout → enter voucher code + PIN"
+    "how_to_redeem_short": "Air India Wallet → enter code + PIN → balance applies automatically"
   },
   "cello": {
     "brand_name": "Cello",
@@ -12807,7 +12807,7 @@
     "stack_limit_confidence": "unlimited_stated",
     "can_club_with_offers": null,
     "one_time_use": false,
-    "how_to_redeem_short": "At checkout → enter voucher code + PIN"
+    "how_to_redeem_short": "Zepto Cash & Gift Card → Add card → enter 16-digit code + PIN"
   },
   "home-centre-online": {
     "brand_name": "Home Centre Online",
@@ -13916,7 +13916,7 @@
     "stack_limit_confidence": "unlimited_stated",
     "can_club_with_offers": null,
     "one_time_use": false,
-    "how_to_redeem_short": "At checkout → enter voucher code + PIN"
+    "how_to_redeem_short": "Pay via e-Pay/Gift Vouchers → code adds to e-Pay balance"
   },
   "sony-playstation": {
     "brand_name": "Sony Playstation",
@@ -17126,7 +17126,7 @@
     "stack_limit_confidence": "unlimited_stated",
     "can_club_with_offers": true,
     "one_time_use": false,
-    "how_to_redeem_short": "At checkout → enter voucher code + PIN"
+    "how_to_redeem_short": "Wallet → GV/e-Pay option → code tops up your Milkbasket Wallet"
   },
   "lohono-stays": {
     "brand_name": "Lohono Stays",
@@ -18826,7 +18826,7 @@
     "stack_limit_confidence": "text_extracted",
     "can_club_with_offers": null,
     "one_time_use": false,
-    "how_to_redeem_short": "At checkout → enter voucher code + PIN"
+    "how_to_redeem_short": "Air India Wallet → enter code + PIN → balance applies automatically"
   },
   "microsoft-office": {
     "brand_name": "Microsoft Office",
