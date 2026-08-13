@@ -1,6 +1,7 @@
-"""Shared brand-name matching for voucher repositories (Gyftr, Maximize).
+"""Shared brand-name matching for voucher repositories (Gyftr, Maximize,
+BuyHatke).
 
-Same exact -> prefix -> substring algorithm both sources need to answer
+Same exact -> prefix -> substring algorithm all sources need to answer
 "which brand record matches this merchant name" — factored out so a future
 fix to the matching logic only has to happen once.
 """
@@ -12,6 +13,21 @@ _RESELLER_WORDS = (
     "reseller", "authorised", "authorized", "premium",
     "future world", "store", "electronics", "mobile",
 )
+
+# BuyHatke bakes its own redemption-channel label straight into hundreds of
+# brand names ("Titan Eye Plus In Store", "Trends Man In Store") — the bare
+# "store" reseller-word above would otherwise exclude every single one of
+# them as a false "reseller listing", found 2026-08-14 when "Titan" and
+# "Trends" as merchant names matched nothing at all. Stripped before the
+# reseller-word check runs so a real reseller name (hypothetically "XYZ
+# Store") still gets caught, but this specific, extremely common legitimate
+# phrase doesn't.
+_IN_STORE_PHRASE_RE = re.compile(r"\bin[\s-]?store\b", re.IGNORECASE)
+
+
+def _is_reseller_name(brand_name_lower: str) -> bool:
+    stripped = _IN_STORE_PHRASE_RE.sub("", brand_name_lower)
+    return any(w in stripped for w in _RESELLER_WORDS)
 
 # Generic trailing words a merchant's *display* name routinely carries that
 # its brand record never does (e.g. search results show "Hamleys India",
@@ -69,7 +85,7 @@ def find_best_match(merchant_name: str, records: list[dict], name_key: str = "br
 
         if rank >= 1:
             brand_name_lower = record.get(name_key, "").lower()
-            if any(w in brand_name_lower for w in _RESELLER_WORDS):
+            if _is_reseller_name(brand_name_lower):
                 continue
         candidates.append((rank, len(norm_brand), record))
 

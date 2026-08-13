@@ -55,6 +55,7 @@ PROGRESS_FILE = Path(__file__).resolve().parent.parent / "db" / "buyhatke_scrape
 OUTPUT_PATH = Path(__file__).resolve().parent.parent / "data" / "buyhatke_master.json"
 EXCLUDED_CASHBACK_LOG = Path(__file__).resolve().parent.parent / "db" / "buyhatke_excluded_cashback.json"
 EXCLUDED_INACTIVE_LOG = Path(__file__).resolve().parent.parent / "db" / "buyhatke_excluded_inactive.json"
+EXCLUDED_SUBSCRIPTION_LOG = Path(__file__).resolve().parent.parent / "db" / "buyhatke_excluded_subscription.json"
 
 _RESTRICTION_MARKERS = (
     "not applicable on",
@@ -63,6 +64,49 @@ _RESTRICTION_MARKERS = (
     "cannot be used to purchase",
     "cannot be used on",
 )
+
+# BuyHatke's own `title` field sometimes duplicates its wait-time suffix
+# verbatim in parentheses, e.g. "Titan In Store 3 Day Wait (3 Day Wait)" —
+# found 2026-08-14 across 14 brands (Titan/Fastrack/Lenskart/etc families).
+# Cosmetic only (doesn't affect matching or pricing), but confusing to read
+# in the sheet, so collapse the redundant "(X)" back down to "X".
+_DUPLICATE_PAREN_SUFFIX_RE = re.compile(r"^(.*?)\s*\(\1\)\s*$")
+
+
+def _clean_title(title: str) -> str:
+    # Only the exact trailing phrase repeated in parens should collapse —
+    # try progressively shorter trailing word-groups against the
+    # parenthesized text rather than the whole title (the duplicate is
+    # always just the last few words, e.g. "3 Day Wait", not the full name).
+    m = re.search(r"\(([^()]+)\)\s*$", title)
+    if not m:
+        return title
+    paren = m.group(1).strip()
+    before = title[: m.start()].rstrip()
+    if before.lower().endswith(paren.lower()):
+        return before
+    return title
+
+
+# BuyHatke brands whose product is a subscription/membership activation
+# code, not a spend-anywhere voucher — same real-world category Gyftr's and
+# Maximize's own vendor audits already exclude for the literal same reason
+# (see "All GV Details" sheet: Amazon product IDs 547-549, "Excluded ...
+# (subscription)"). Only Amazon's variants make this list: "Amazon" is also
+# a genuine general-marketplace merchant name in Dealo's own matching, so an
+# "Amazon Prime" voucher can collide with and get recommended for an
+# ordinary physical-product Amazon purchase it can't actually discount — a
+# real correctness risk (CLAUDE.md rule #1), not merely a is-it-a-subscription
+# label. Other subscription-only BuyHatke brands (Discovery Plus, Zee5,
+# FITPASS, AppyHigh Prime) have no such name collision — Gyftr's and
+# Maximize's own audits keep those, so this does too.
+_EXCLUDED_SUBSCRIPTION_SLUGS = {
+    "amazon-prime-gift-card",
+    "amazon-prime-12-months-gift-card",
+    "amazon-prime-3-months-gift-card",
+    "amazon-prime-lite-edition-gift-card",
+    "amazon-prime-shopping-edition-gift-card",
+}
 
 
 def _to_float(val) -> float | None:
@@ -100,7 +144,7 @@ def _build_products(slug: str, choice: dict, scraped_at: str | None) -> list[dic
     purchase_cap_per_txn = _to_float(choice.get("maxAmountPerUserTransaction"))
     status = "active" if choice.get("status") == "ACTIVE" else "inactive"
     source_url = f"https://buyhatke.com/gift-cards/{slug}"
-    title = choice.get("title") or slug
+    title = _clean_title(choice.get("title") or slug)
 
     common = {
         "source_url": source_url,
@@ -181,7 +225,7 @@ def normalize_brand(slug: str, rec: dict) -> dict | None:
     is_one_time_use = choice.get("isOneTimeUse")
 
     return {
-        "brand_name": choice.get("title") or slug,
+        "brand_name": _clean_title(choice.get("title") or slug),
         "slug": slug,
         "source": "BuyHatke",
         "products": products,
@@ -204,6 +248,7 @@ def main() -> None:
     master: dict[str, dict] = {}
     excluded_cashback: list[str] = []
     excluded_inactive: list[str] = []
+    excluded_subscription: list[str] = []
     skipped_errors: list[str] = []
 
     for slug, rec in progress.items():
@@ -217,6 +262,9 @@ def main() -> None:
         choice = choices[0]
         if choice.get("isCashback"):
             excluded_cashback.append(slug)
+            continue
+        if slug in _EXCLUDED_SUBSCRIPTION_SLUGS:
+            excluded_subscription.append(slug)
             continue
         # Not just a data-quality filter: about 1 in 5 brands sampled came
         # back "INACTIVE" (temporarily unavailable on BuyHatke, e.g. out of
@@ -240,10 +288,13 @@ def main() -> None:
         json.dump(excluded_cashback, f, indent=2)
     with open(EXCLUDED_INACTIVE_LOG, "w") as f:
         json.dump(excluded_inactive, f, indent=2)
+    with open(EXCLUDED_SUBSCRIPTION_LOG, "w") as f:
+        json.dump(excluded_subscription, f, indent=2)
 
     print(f"Normalized {len(master)} brands -> {OUTPUT_PATH}")
     print(f"Excluded {len(excluded_cashback)} cashback-type brands -> {EXCLUDED_CASHBACK_LOG}: {excluded_cashback}")
     print(f"Excluded {len(excluded_inactive)} inactive brands -> {EXCLUDED_INACTIVE_LOG}")
+    print(f"Excluded {len(excluded_subscription)} subscription-type brands -> {EXCLUDED_SUBSCRIPTION_LOG}: {excluded_subscription}")
     if skipped_errors:
         print(f"Skipped {len(skipped_errors)} brands with scrape errors: {skipped_errors}")
 
