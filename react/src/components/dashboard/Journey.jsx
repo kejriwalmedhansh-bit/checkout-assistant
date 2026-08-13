@@ -35,8 +35,15 @@ import JourneyPanels from './JourneyPanels';
  * own; tapping a chip or dragging the panel lets you browse freely without
  * losing progress.
  */
-export default function Journey({ rec }) {
+export default function Journey({ rec, payingByCard = false }) {
   const v = rec.voucher || null;
+  // Gyftr/Maximize give a lower discount when the voucher is paid for by
+  // card than by UPI — once the shopper has said they're paying by card,
+  // this step's price/percentage figures switch to that real, lower number
+  // instead of silently staying on the UPI one. The denomination breakdown
+  // and remainder don't depend on payment method (same real vouchers either
+  // way), so those keep reading from `v.upi` unchanged below.
+  const priceSet = payingByCard ? v?.card : v?.upi;
   const sourceLabel = v?.voucher_source === 'maximize' ? 'Maximize' : 'Gyftr';
   const sellerLink = rec.sellers?.[0]?.link;
   const [checked, setChecked] = useState({ voucher: false, checkout: false });
@@ -69,7 +76,7 @@ export default function Journey({ rec }) {
     }, 550);
   };
 
-  const paid = v ? paidForVoucher(v) : null;
+  const paid = v ? paidForVoucher(v, payingByCard) : null;
   // Short line shown by default; DETAIL is the original full sentence, one
   // tap away behind the row's own InfoNote toggle — same content as before,
   // just not all of it on screen at once.
@@ -258,8 +265,8 @@ export default function Journey({ rec }) {
               <InfoNote
                 short={
                   v.upi?.remainder
-                    ? `${v.upi?.pct}% off — voucher costs ${fmt(paid)} + ${fmt(v.upi.remainder)} at checkout`
-                    : `${v.upi?.pct}% off — voucher costs ${fmt(paid)}`
+                    ? `${priceSet?.pct}% off — voucher costs ${fmt(paid)} + ${fmt(v.upi.remainder)} at checkout`
+                    : `${priceSet?.pct}% off — voucher costs ${fmt(paid)}`
                 }
                 full={
                   v.upi?.remainder

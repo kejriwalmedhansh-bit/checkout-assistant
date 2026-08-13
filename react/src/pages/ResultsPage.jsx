@@ -47,12 +47,20 @@ export default function ResultsPage() {
 
   const scrollRef = useRef(null);
   const [selectedAlt, setSelectedAlt] = useState(null);
+  // Whether the shopper has picked a card in CreditCardPrompt — drives the
+  // top price, the voucher step's numbers, and the explanatory banner below,
+  // so the page never shows two disagreeing prices at once. Reset whenever
+  // the active route changes (a fresh route's card pick, if any, starts over).
+  const [payingByCard, setPayingByCard] = useState(false);
   // Collapsed by default: on a phone, the back button + full search box
   // used to stack into ~100px of chrome above the fold on every single
   // visit, even though re-running a search from here is rare. Opening it is
   // one tap away; nothing about the ability to search again is lost.
   const [searchOpen, setSearchOpen] = useState(false);
-  const backToRecommended = () => setSelectedAlt(null);
+  const backToRecommended = () => {
+    setSelectedAlt(null);
+    setPayingByCard(false);
+  };
 
   const backControl = (
     <BackButton
@@ -107,6 +115,7 @@ export default function ResultsPage() {
 
   const selectAlt = (alt) => {
     setSelectedAlt(alt);
+    setPayingByCard(false);
     scrollRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
   };
 
@@ -182,14 +191,33 @@ export default function ResultsPage() {
                 route the steps below continue, not a separate block a
                 user has to scroll past to find what to do. */}
             <Flex direction="column" gap={0}>
-              {calcSaving(result, activeRoute) > 0 ? (
+              {calcSaving(result, activeRoute, payingByCard) > 0 ? (
                 <>
                   <SavingsBar
                     originalPrice={calcOriginal(result, activeRoute)}
-                    finalPrice={calcFinal(activeRoute)}
-                    saving={calcSaving(result, activeRoute)}
+                    finalPrice={calcFinal(activeRoute, payingByCard)}
+                    saving={calcSaving(result, activeRoute, payingByCard)}
                     voucherRequired={!!activeRoute.voucher}
                   />
+                  {payingByCard && (
+                    <Flex
+                      align="flex-start"
+                      gap="8px"
+                      bg="amberSoft"
+                      border="1px solid"
+                      borderColor="amber"
+                      borderTop="none"
+                      px="14px"
+                      py="10px"
+                    >
+                      <Box color="amber" flex="0 0 auto" mt="1px">
+                        <I.alert size={13} />
+                      </Box>
+                      <Box fontSize="12px" color="text" lineHeight={1.4}>
+                        Paying by card lowers the voucher discount, but your card also gives you additional benefits on top.
+                      </Box>
+                    </Flex>
+                  )}
                   <RouteWire animated={!prefersReduced} />
                 </>
               ) : (
@@ -201,9 +229,14 @@ export default function ResultsPage() {
                 rec={activeRoute}
                 isAlt={!!selectedAlt}
                 onBack={backToRecommended}
+                payingByCard={payingByCard}
               />
             </Flex>
-            <CreditCardPrompt key={`${activeRoute.merchant}-${activeRoute.final_cost ?? ''}`} route={activeRoute} />
+            <CreditCardPrompt
+              key={`${activeRoute.merchant}-${activeRoute.final_cost ?? ''}`}
+              route={activeRoute}
+              onPayingByCardChange={setPayingByCard}
+            />
             <AlternativesToggle
               alternatives={result.routes?.alternatives}
               onSelect={selectAlt}

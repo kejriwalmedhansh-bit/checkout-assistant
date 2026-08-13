@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Box, Button, Flex, Text } from '@chakra-ui/react';
 
 import Card from '@/components/common/Card';
@@ -12,12 +12,23 @@ import { fmt } from '@/utils/format';
  * from a dropdown -> see that card's real voucher discount + cashback for
  * this order. Never a comparison against UPI, never an auto-picked "best"
  * card — the shopper's choice, the shopper's numbers.
+ *
+ * `onPayingByCardChange` (optional) tells the parent whether a card is
+ * currently selected — derived straight from `stage` rather than called
+ * ad-hoc from every action, so it can't drift out of sync with what's on
+ * screen. The rest of the results page (top price, voucher-step numbers,
+ * the "why did this change" banner) reacts to that single boolean.
  */
-export default function CreditCardPrompt({ route }) {
+export default function CreditCardPrompt({ route, onPayingByCardChange }) {
   const [stage, setStage] = useState('prompt'); // prompt | declined | picking | selected
   const [options, setOptions] = useState(null); // null = not fetched yet
   const [loadError, setLoadError] = useState(false);
   const [selectedCard, setSelectedCard] = useState('');
+
+  useEffect(() => {
+    onPayingByCardChange?.(stage === 'selected');
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [stage]);
 
   const openPicker = async () => {
     setStage('picking');
@@ -41,6 +52,14 @@ export default function CreditCardPrompt({ route }) {
   const changeCard = () => {
     setSelectedCard('');
     setStage('picking');
+  };
+
+  // One tap back to "no card" — for a mis-tap or "actually I don't have
+  // this one." Change/Cancel already reaches the same place, but two taps
+  // through a dropdown isn't an obvious undo path.
+  const removeCard = () => {
+    setSelectedCard('');
+    setStage('prompt');
   };
 
   const quote = options?.find((o) => o.card_name === selectedCard) || null;
@@ -169,9 +188,14 @@ export default function CreditCardPrompt({ route }) {
                 {quote.card_name}
               </Text>
             </Flex>
-            <Box as="button" type="button" onClick={changeCard} fontSize="13px" fontWeight={600} color="brand">
-              Change
-            </Box>
+            <Flex gap="12px" flex="0 0 auto">
+              <Box as="button" type="button" onClick={changeCard} fontSize="13px" fontWeight={600} color="brand">
+                Change
+              </Box>
+              <Box as="button" type="button" onClick={removeCard} fontSize="13px" fontWeight={600} color="text3">
+                Remove
+              </Box>
+            </Flex>
           </Flex>
           <Flex gap="10px">
             {quote.voucher_discount != null && (

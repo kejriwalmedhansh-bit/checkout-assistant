@@ -13,11 +13,16 @@ export function fmt(n) {
 
 const round = (n) => (n == null ? null : Math.round(n));
 
-/** Final price the user pays: voucher effective price if a voucher exists, else listed. */
-export function finalPrice(rec) {
+/** Final price the user pays: voucher effective price if a voucher exists, else listed.
+ * `payingByCard` reads the voucher's card-rate figures instead of UPI's — Gyftr/Maximize
+ * give a lower discount when the voucher itself is paid for by card, so this is a genuinely
+ * different (not just relabeled) number once the shopper says they're paying by card. */
+export function finalPrice(rec, payingByCard = false) {
   if (!rec) return null;
   const v = rec.voucher || null;
-  return v ? round(v.upi?.effective_price) : round(rec.listed_price);
+  if (!v) return round(rec.listed_price);
+  const priceSet = payingByCard ? v.card : v.upi;
+  return round(priceSet?.effective_price);
 }
 
 /** Original price: source price in URL mode (when present), else the listed price. */
@@ -28,18 +33,24 @@ export function originalPrice(result, rec) {
 }
 
 /** Amount saved. Prefers original−final; falls back to the voucher's own saving. */
-export function saving(result, rec) {
-  const fin = finalPrice(rec);
+export function saving(result, rec, payingByCard = false) {
+  const fin = finalPrice(rec, payingByCard);
   const orig = originalPrice(result, rec);
   if (fin && orig && orig > fin) return orig - fin;
   const v = rec?.voucher || null;
-  return v ? round(v.upi?.saving) : null;
+  if (!v) return null;
+  const priceSet = payingByCard ? v.card : v.upi;
+  return round(priceSet?.saving);
 }
 
-/** What the buyer actually pays for the voucher itself (face value less UPI discount). */
-export function paidForVoucher(v) {
+/** What the buyer actually pays for the voucher itself (face value less the applicable
+ * discount — UPI's or, once a card is picked, the card rate's, per `payingByCard`). The
+ * face value itself (`voucher_amount`) doesn't depend on payment method, so it's always
+ * read from `v.upi` — only the discount % differs between the two. */
+export function paidForVoucher(v, payingByCard = false) {
   if (!v?.upi) return null;
-  return Math.round(v.upi.voucher_amount * (1 - v.upi.pct / 100));
+  const pct = (payingByCard ? v.card?.pct : v.upi.pct) ?? v.upi.pct;
+  return Math.round(v.upi.voucher_amount * (1 - pct / 100));
 }
 
 /**
