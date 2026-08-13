@@ -94,6 +94,25 @@ def is_trustworthy_where(where: str) -> bool:
     return True
 
 
+_GATE_KEYWORD_RE = re.compile(
+    r"\bwallet\b|\bkyc\b|\botp\b|\bcredit(?:s)?\b|\bbalance\b|\baccount\b|"
+    r"verify|\bmoney\b|\bcash\b|\bcoins?\b|activate",
+    re.I,
+)
+
+
+def has_redemption_gate(steps: list[str]) -> bool:
+    """A generic "At checkout -> enter voucher code + PIN" line is only
+    risky when the real flow has a gate the line doesn't mention (a wallet
+    top-up, OTP/KYC verification, an account balance step) — that's what
+    made the original TATA CLiQ line wrong. When the real steps have none
+    of that, "at checkout" is simply true (Cleartrip, EaseMyTrip, FlixBus,
+    Daily Objects, Donatekart, and many more really do just take a code at
+    checkout) — treating every generic result as equally risky was overly
+    cautious and left genuinely simple brands with no line at all."""
+    return bool(_GATE_KEYWORD_RE.search(" ".join(steps)))
+
+
 def brand_redemption_type(brand: dict) -> str | None:
     """Unlike Gyftr's flat db/ schema, redemption_type isn't a brand-level
     field here -- it lives on each product/tier. A brand's tiers are always
@@ -133,10 +152,16 @@ def rule_based_short(brand: dict) -> tuple[str | None, str]:
 
         where = extract_where(candidate)
         if where == "At checkout":
-            # extract_where itself fell back to the same generic phrase —
-            # same reasoning as above, skip rather than assert a specific-
-            # sounding claim with nothing concrete behind it.
-            return None, "online_generic_where_skipped"
+            if has_redemption_gate(steps):
+                # A real gate exists (wallet/OTP/KYC/balance) and this
+                # generic line wouldn't mention it — the exact failure mode
+                # that produced the wrong TATA CLiQ line. Skip rather than
+                # assert a specific-sounding claim with nothing concrete
+                # behind it.
+                return None, "online_generic_where_gated_skipped"
+            # No gate in the real steps, so "at checkout" is just true —
+            # ship it rather than withhold a correct, if plain, answer.
+            return "At checkout → enter voucher code + PIN", "online_generic_where_safe"
         if not is_trustworthy_where(where):
             return None, "online_low_quality_where_skipped"
         return f"{where} → enter voucher code + PIN", "online_extracted"

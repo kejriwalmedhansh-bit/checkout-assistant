@@ -3069,7 +3069,7 @@
     "stack_limit_confidence": "unlimited_stated",
     "can_club_with_offers": null,
     "one_time_use": true,
-    "how_to_redeem_short": "At checkout → enter voucher code + PIN"
+    "how_to_redeem_short": "SMS ACT + card no + PIN to 9704200300 → redeem with OTP at store"
   },
   "luxe-gift-card-diesel": {
     "brand_name": "Diesel- Luxe Gift Card",
@@ -3116,7 +3116,7 @@
     "stack_limit_confidence": "unlimited_stated",
     "can_club_with_offers": null,
     "one_time_use": true,
-    "how_to_redeem_short": "At checkout → enter voucher code + PIN"
+    "how_to_redeem_short": "SMS ACT + card no + PIN to 9704200300 → redeem with OTP at store"
   },
   "luxe-gift-card-coach": {
     "brand_name": "Coach-Luxe Gift Card",
@@ -3211,7 +3211,7 @@
     "stack_limit_confidence": "unlimited_stated",
     "can_club_with_offers": null,
     "one_time_use": true,
-    "how_to_redeem_short": "At checkout → enter voucher code + PIN"
+    "how_to_redeem_short": "SMS ACT + card no + PIN to 9704200300 → redeem with OTP at store"
   },
   "luxe-gift-card-hamleys": {
     "brand_name": "Hamleys-Luxe Gift Card",
@@ -3259,7 +3259,7 @@
     "stack_limit_confidence": "unlimited_stated",
     "can_club_with_offers": null,
     "one_time_use": true,
-    "how_to_redeem_short": "At checkout → enter voucher code + PIN"
+    "how_to_redeem_short": "SMS ACT + card no + PIN to 9704200300 → redeem with OTP at store"
   },
   "luxe-gift-card-hugo-boss": {
     "brand_name": "Hugo Boss-Luxe Gift Card",
@@ -3402,7 +3402,7 @@
     "stack_limit_confidence": "unlimited_stated",
     "can_club_with_offers": null,
     "one_time_use": true,
-    "how_to_redeem_short": "At checkout → enter voucher code + PIN"
+    "how_to_redeem_short": "SMS ACT + card no + PIN to 9704200300 → redeem with OTP at store"
   },
   "luxe-gift-card-mothercare": {
     "brand_name": "Mothercare-Luxe Gift Card",
@@ -3450,7 +3450,7 @@
     "stack_limit_confidence": "unlimited_stated",
     "can_club_with_offers": null,
     "one_time_use": true,
-    "how_to_redeem_short": "At checkout → enter voucher code + PIN"
+    "how_to_redeem_short": "SMS ACT + card no + PIN to 9704200300 → redeem with OTP at store"
   },
   "luxe-gift-card-superdry": {
     "brand_name": "Superdry-Luxe Gift Card",
@@ -3498,7 +3498,7 @@
     "stack_limit_confidence": "unlimited_stated",
     "can_club_with_offers": null,
     "one_time_use": true,
-    "how_to_redeem_short": "At checkout → enter voucher code + PIN"
+    "how_to_redeem_short": "SMS ACT + card no + PIN to 9704200300 → redeem with OTP at store"
   },
   "luxe-gift-card-steve-madden": {
     "brand_name": "Steve Madden-Luxe Gift Card",
@@ -3546,7 +3546,7 @@
     "stack_limit_confidence": "unlimited_stated",
     "can_club_with_offers": null,
     "one_time_use": true,
-    "how_to_redeem_short": "At checkout → enter voucher code + PIN"
+    "how_to_redeem_short": "SMS ACT + card no + PIN to 9704200300 → redeem with OTP at store"
   },
   "zee5": {
     "brand_name": "Zee5",
@@ -4407,7 +4407,7 @@
     "stack_limit_confidence": "unlimited_stated",
     "can_club_with_offers": null,
     "one_time_use": true,
-    "how_to_redeem_short": "At checkout → enter voucher code + PIN"
+    "how_to_redeem_short": "SMS ACT + card no + PIN to 9704200300 → redeem with OTP at store"
   },
   "luxe-gift-card-emporio-armani": {
     "brand_name": "Emporio Armani- Luxe Gift Card",
@@ -9507,57 +9507,6 @@
     "one_time_use": false,
     "how_to_redeem_short": "Show voucher code to cashier before billing"
   },
-  "amazon-prime-membership": {
-    "brand_name": "Amazon Prime Membership",
-    "slug": "amazon-prime-membership",
-    "source": "GyFTR",
-    "products": [
-      {
-        "product_name": "Amazon Prime Membership",
-        "source_url": null,
-        "redemption_type": "Online",
-        "denominations": [
-          399,
-          599,
-          799,
-          1499
-        ],
-        "is_custom_denom": false,
-        "custom_min": null,
-        "custom_max": null,
-        "discounts": {
-          "Credit Card": 10,
-          "Debit Card": 10,
-          "Net Banking": 10,
-          "UPI": 10
-        },
-        "best_payment_method": "UPI",
-        "best_discount_pct": 10,
-        "stack_limit": 1,
-        "value_cap": null,
-        "purchase_cap_per_txn": null,
-        "status": "active",
-        "last_scraped": "2026-07-02"
-      }
-    ],
-    "description": null,
-    "important_instructions_raw": "TERMS & CONDITIONS\nIMPORTANT INSTRUCTIONS\nHOW TO USE\nWATCH VIDEO\nAmazon Prime Membership Important Instructions\nGift Vouchers CAN be used on the Amazon website and app.\nGift Vouchers CAN only be used to purchase Amazon Prime membership plans.\nGift Vouchers CANNOT be used by existing Amazon Prime members.\nOnly one Gift Voucher CAN be used per subscription.\nGift Voucher CAN be used multiple times.",
-    "how_to_redeem_steps": [
-      "Visit www.amazon.in/vouchers. Enter the voucher code (13-digit alphanumeric code). Click on 'Add to your vouchers'.",
-      "Add the billing address & proceed to checkout",
-      "Your prime membership has been activated"
-    ],
-    "full_terms_and_conditions": "TERMS & CONDITIONS\nIMPORTANT INSTRUCTIONS\nHOW TO USE\nWATCH VIDEO\nAmazon Prime Membership Terms & Conditions\n1. This is an Amazon Prime subscription GV (Gift Voucher)/GC (Gift Card) is a prepaid payment instrument that can be used to purchase Amazon Prime memberships (3-months, 12-months, Prime Shopping edition or Prime Lite plan) or Amazon Pay Anytime Gift cards (inactive zero value gift card) from Amazon.in.\n2. GV/GC has an expiry of 12 months from the date of activation, subject to applicable terms.\n3. The GV/GC cannot be transferred or cancelled once it is issued (please reach out to the issuer (Pine Labs) for any assistance in this regard). Additionally, as per Amazon business guidelines, GV/GC cannot be claimed on Amazon Business accounts.\n4. Credit and Debit Cards issued outside India cannot be used to purchase a GV/GC\n5. The user with the GV/GC is deemed the beneficiary.\n6. Only one GV/GC can be used for one subscription.\n7. GV/GC cannot be used to purchase any other physical or digital product on Amazon.in, including but not limited to: (i) products on 'Global Store' on Amazon.in, recharges, all kinds of bill payments, all kinds of ticket bookings, and financial products on Amazon.in. (ii) purchase Amazon Pay gift cards (pre-loaded) on Amazon.in (iii) pay for mixed item order if the order has at least one non-eligible item.\n8. Offer is valid for new users only, who are subscribing to Amazon Prime for the first time\n9. GV/GC cannot be used to purchase Prime membership plans if the customer has telecom provider (Airtel, VI, Jio, etc.) activated Prime membership on the same Amazon account.\n10. Existing Amazon Prime members who purchased an Amazon Prime/Prime Lite membership via Google Play are not eligible to redeem GV/GC for extending/upgrading the Amazon Prime membership.\n11. Beneficiaries of the GV/GC can apply the 13-digit numeric code on https://www.amazon.in/vouchers and add the voucher balance in his/her Amazon.in account.\n12. Customers can add a maximum balance of INR 1799/- to their Amazon Prime voucher balance.\n13. Amazon Prime membership activated via GV/GC can't be cancelled and is nonrefundable.\n14. Customers can redeem a partial GV/GC once per calendar year. This limit applies regardless of where the voucher is obtained from.\n15. GV/GC cannot be transferred for value or redeemed for cash.\n16. The above subscription GV/GC is valid in India only.\n17. Subscription will start immediately after GV/GC redemption.\n18. Pine Labs, Amazon, or their affiliates are not responsible if a GV/GC is lost, stolen, destroyed, or used without permission.\n19. Amazon.in logo/trademark is an IP of Amazon or its affiliates, and the Pine Labs trademark/logo is an IP of Pine Labs.\n20. Pine Labs reserves the right to change these Voucher terms and conditions from time to time in its discretion and without prior notice to you. All terms and conditions are applicable to the extent permitted by law.\n21. For detailed terms & conditions and frequently asked questions, please click here.",
-    "redemption_restrictions": [
-      "any other physical or digital product on Amazon.in, including but not limited to: (i) products on 'Global Store' on Amazon.in, recharges, all kinds of bill payments, all kinds of ticket bookings",
-      "financial products on Amazon.in. (ii) purchase Amazon Pay gift cards (pre-loaded) on Amazon.in (iii) pay for mixed item order if the order has at least one non-eligible item"
-    ],
-    "notes": "",
-    "stack_limit_confidence": "unconfirmed",
-    "can_club_with_offers": null,
-    "one_time_use": false,
-    "how_to_redeem_short": "At checkout → enter voucher code + PIN"
-  },
   "aliste": {
     "brand_name": "Aliste",
     "slug": "aliste",
@@ -11069,7 +11018,7 @@
     "stack_limit_confidence": "unlimited_stated",
     "can_club_with_offers": null,
     "one_time_use": true,
-    "how_to_redeem_short": "At checkout → enter voucher code + PIN"
+    "how_to_redeem_short": "SMS ACT + card no + PIN to 9704200300 → redeem with OTP at store"
   },
   "kate-spade--luxe-gift-card": {
     "brand_name": "Kate Spade- Luxe Gift Card",
@@ -11210,7 +11159,7 @@
     "stack_limit_confidence": "unlimited_stated",
     "can_club_with_offers": null,
     "one_time_use": true,
-    "how_to_redeem_short": "At checkout → enter voucher code + PIN"
+    "how_to_redeem_short": "SMS ACT + card no + PIN to 9704200300 → redeem with OTP at store"
   },
   "malabar-diamonds": {
     "brand_name": "Malabar Diamonds",

@@ -388,7 +388,8 @@
     "notes": null,
     "stack_limit_confidence": null,
     "can_club_with_offers": true,
-    "one_time_use": true
+    "one_time_use": true,
+    "how_to_redeem_short": "At checkout → enter voucher code + PIN"
   },
   "absolute-barbecues": {
     "brand_name": "Absolute Barbecues",
@@ -778,7 +779,8 @@
     "notes": null,
     "stack_limit_confidence": null,
     "can_club_with_offers": false,
-    "one_time_use": true
+    "one_time_use": true,
+    "how_to_redeem_short": "At checkout → enter voucher code + PIN"
   },
   "marriott-india-dining": {
     "brand_name": "Marriott India -Dining",
@@ -1277,7 +1279,8 @@
     "notes": null,
     "stack_limit_confidence": null,
     "can_club_with_offers": false,
-    "one_time_use": true
+    "one_time_use": true,
+    "how_to_redeem_short": "At checkout → enter voucher code + PIN"
   },
   "fashion-factory": {
     "brand_name": "Fashion Factory",
@@ -1682,7 +1685,8 @@
     "notes": null,
     "stack_limit_confidence": null,
     "can_club_with_offers": false,
-    "one_time_use": true
+    "one_time_use": true,
+    "how_to_redeem_short": "At checkout → enter voucher code + PIN"
   },
   "yatra-500": {
     "brand_name": "Yatra - 500",
@@ -1734,7 +1738,8 @@
     "notes": null,
     "stack_limit_confidence": null,
     "can_club_with_offers": false,
-    "one_time_use": true
+    "one_time_use": true,
+    "how_to_redeem_short": "At checkout → enter voucher code + PIN"
   },
   "natural-salon-4k": {
     "brand_name": "Natural Salon 4K",
@@ -2036,7 +2041,8 @@
     "notes": null,
     "stack_limit_confidence": null,
     "can_club_with_offers": false,
-    "one_time_use": true
+    "one_time_use": true,
+    "how_to_redeem_short": "At checkout → enter voucher code + PIN"
   },
   "aldo": {
     "brand_name": "ALDO",
@@ -2550,7 +2556,8 @@
     "notes": null,
     "stack_limit_confidence": null,
     "can_club_with_offers": false,
-    "one_time_use": false
+    "one_time_use": false,
+    "how_to_redeem_short": "At checkout → enter voucher code + PIN"
   },
   "cgh-earth": {
     "brand_name": "CGH Earth",
@@ -2596,7 +2603,8 @@
     "notes": null,
     "stack_limit_confidence": null,
     "can_club_with_offers": false,
-    "one_time_use": false
+    "one_time_use": false,
+    "how_to_redeem_short": "At checkout → enter voucher code + PIN"
   },
   "easemytrip-hotel": {
     "brand_name": "EaseMyTrip Hotel",
@@ -3307,7 +3315,8 @@
     "notes": null,
     "stack_limit_confidence": null,
     "can_club_with_offers": false,
-    "one_time_use": true
+    "one_time_use": true,
+    "how_to_redeem_short": "SMS ACT + card no + PIN to 9704200300 → redeem with OTP at store"
   },
   "kate-spade-luxe": {
     "brand_name": "Kate Spade-Luxe",
@@ -3358,7 +3367,8 @@
     "notes": null,
     "stack_limit_confidence": null,
     "can_club_with_offers": false,
-    "one_time_use": true
+    "one_time_use": true,
+    "how_to_redeem_short": "SMS ACT + card no + PIN to 9704200300 → redeem with OTP at store"
   },
   "bath-and-body-works": {
     "brand_name": "Bath and Body Works",
@@ -3672,7 +3682,8 @@
     "notes": null,
     "stack_limit_confidence": null,
     "can_club_with_offers": false,
-    "one_time_use": true
+    "one_time_use": true,
+    "how_to_redeem_short": "At checkout → enter voucher code + PIN"
   },
   "mango": {
     "brand_name": "MANGO",
@@ -3769,7 +3780,8 @@
     "notes": null,
     "stack_limit_confidence": null,
     "can_club_with_offers": false,
-    "one_time_use": true
+    "one_time_use": true,
+    "how_to_redeem_short": "At checkout → enter voucher code + PIN"
   },
   "trends-man": {
     "brand_name": "Trends Man",
@@ -4869,7 +4881,8 @@
     "notes": null,
     "stack_limit_confidence": null,
     "can_club_with_offers": false,
-    "one_time_use": true
+    "one_time_use": true,
+    "how_to_redeem_short": "SMS ACT + card no + PIN to 9704200300 → redeem with OTP at store"
   },
   "tumi-luxe": {
     "brand_name": "Tumi - Luxe",
@@ -4948,7 +4961,8 @@
     "notes": null,
     "stack_limit_confidence": null,
     "can_club_with_offers": false,
-    "one_time_use": true
+    "one_time_use": true,
+    "how_to_redeem_short": "SMS ACT + card no + PIN to 9704200300 → redeem with OTP at store"
   },
   "rainbow-six-mobile": {
     "brand_name": "Rainbow Six Mobile",
@@ -5100,7 +5114,8 @@
     "notes": null,
     "stack_limit_confidence": null,
     "can_club_with_offers": false,
-    "one_time_use": true
+    "one_time_use": true,
+    "how_to_redeem_short": "SMS ACT + card no + PIN to 9704200300 → redeem with OTP at store"
   },
   "muthoot-gold-voucher": {
     "brand_name": "Muthoot Gold Voucher",
@@ -6286,7 +6301,8 @@
     "notes": null,
     "stack_limit_confidence": null,
     "can_club_with_offers": false,
-    "one_time_use": true
+    "one_time_use": true,
+    "how_to_redeem_short": "SMS ACT + card no + PIN to 9704200300 → redeem with OTP at store"
   },
   "indriya-aditya-birla-jewellery": {
     "brand_name": "INDRIYA – Aditya Birla Jewellery",
@@ -6439,7 +6455,8 @@
     "notes": null,
     "stack_limit_confidence": null,
     "can_club_with_offers": false,
-    "one_time_use": true
+    "one_time_use": true,
+    "how_to_redeem_short": "At checkout → enter voucher code + PIN"
   },
   "surat-diamond": {
     "brand_name": "Surat Diamond",
@@ -6587,7 +6604,8 @@
     "notes": null,
     "stack_limit_confidence": null,
     "can_club_with_offers": true,
-    "one_time_use": true
+    "one_time_use": true,
+    "how_to_redeem_short": "At checkout → enter voucher code + PIN"
   },
   "malabar-diamond": {
     "brand_name": "Malabar Diamond",
@@ -7286,7 +7304,8 @@
     "notes": null,
     "stack_limit_confidence": null,
     "can_club_with_offers": false,
-    "one_time_use": true
+    "one_time_use": true,
+    "how_to_redeem_short": "SMS ACT + card no + PIN to 9704200300 → redeem with OTP at store"
   },
   "manyavar": {
     "brand_name": "Manyavar",
@@ -7952,7 +7971,8 @@
     "notes": null,
     "stack_limit_confidence": null,
     "can_club_with_offers": false,
-    "one_time_use": true
+    "one_time_use": true,
+    "how_to_redeem_short": "SMS ACT + card no + PIN to 9704200300 → redeem with OTP at store"
   },
   "body-craft-clinic": {
     "brand_name": "Body Craft (Clinic)",
@@ -8723,7 +8743,8 @@
     "notes": null,
     "stack_limit_confidence": null,
     "can_club_with_offers": true,
-    "one_time_use": true
+    "one_time_use": true,
+    "how_to_redeem_short": "At checkout → enter voucher code + PIN"
   },
   "pepperfry": {
     "brand_name": "Pepperfry",
@@ -9510,7 +9531,8 @@
     "notes": null,
     "stack_limit_confidence": null,
     "can_club_with_offers": false,
-    "one_time_use": true
+    "one_time_use": true,
+    "how_to_redeem_short": "At checkout → enter voucher code + PIN"
   },
   "district": {
     "brand_name": "District",
@@ -9573,7 +9595,8 @@
     "notes": null,
     "stack_limit_confidence": null,
     "can_club_with_offers": false,
-    "one_time_use": false
+    "one_time_use": false,
+    "how_to_redeem_short": "At checkout → enter voucher code + PIN"
   },
   "frido": {
     "brand_name": "Frido",
@@ -11350,7 +11373,8 @@
     "notes": null,
     "stack_limit_confidence": null,
     "can_club_with_offers": false,
-    "one_time_use": true
+    "one_time_use": true,
+    "how_to_redeem_short": "At checkout → enter voucher code + PIN"
   },
   "elver": {
     "brand_name": "Elver",
@@ -11775,7 +11799,8 @@
     "notes": null,
     "stack_limit_confidence": null,
     "can_club_with_offers": false,
-    "one_time_use": true
+    "one_time_use": true,
+    "how_to_redeem_short": "At checkout → enter voucher code + PIN"
   },
   "charles-and-keith": {
     "brand_name": "Charles and Keith",
@@ -11990,7 +12015,8 @@
     "notes": null,
     "stack_limit_confidence": null,
     "can_club_with_offers": false,
-    "one_time_use": false
+    "one_time_use": false,
+    "how_to_redeem_short": "At checkout → enter voucher code + PIN"
   },
   "flipkart": {
     "brand_name": "Flipkart -",
@@ -12299,7 +12325,8 @@
     "notes": null,
     "stack_limit_confidence": null,
     "can_club_with_offers": false,
-    "one_time_use": true
+    "one_time_use": true,
+    "how_to_redeem_short": "SMS ACT + card no + PIN to 9704200300 → redeem with OTP at store"
   },
   "hugo-boss-luxe": {
     "brand_name": "Hugo Boss-Luxe",
@@ -12350,7 +12377,8 @@
     "notes": null,
     "stack_limit_confidence": null,
     "can_club_with_offers": false,
-    "one_time_use": true
+    "one_time_use": true,
+    "how_to_redeem_short": "SMS ACT + card no + PIN to 9704200300 → redeem with OTP at store"
   },
   "ratnadeep-retail": {
     "brand_name": "Ratnadeep Retail",
@@ -12454,7 +12482,8 @@
     "notes": null,
     "stack_limit_confidence": null,
     "can_club_with_offers": false,
-    "one_time_use": true
+    "one_time_use": true,
+    "how_to_redeem_short": "At checkout → enter voucher code + PIN"
   },
   "eatsure": {
     "brand_name": "EatSure",
@@ -12689,54 +12718,8 @@
     "notes": null,
     "stack_limit_confidence": null,
     "can_club_with_offers": false,
-    "one_time_use": true
-  },
-  "amazon-prime-voucher-3-months-membership": {
-    "brand_name": "Amazon Prime Voucher - 3 months Membership",
-    "slug": "amazon-prime-voucher-3-months-membership",
-    "source": "Maximize",
-    "products": [
-      {
-        "product_name": "Amazon Prime Voucher - 3 months Membership",
-        "source_url": "https://www.maximize.money/gift-cards/Amazon Prime Voucher - 3 months Membership/550",
-        "redemption_type": "Online",
-        "denominations": [
-          599,
-          599
-        ],
-        "is_custom_denom": false,
-        "custom_min": null,
-        "custom_max": null,
-        "discounts": {
-          "UPI": 15.0,
-          "Debit Card": 13.75,
-          "Credit Card": 13.1,
-          "CC on UPI": 12.65,
-          "Diners Club": 12.75,
-          "Amex": 12.75
-        },
-        "best_payment_method": "UPI",
-        "best_discount_pct": 15.0,
-        "stack_limit": 1,
-        "value_cap": null,
-        "purchase_cap_per_txn": null,
-        "status": "active",
-        "last_scraped": "2026-07-26"
-      }
-    ],
-    "description": "Step into the wonderful world of Amazon Prime & more with this gift voucher. If you purchase Prime membership you can enjoy benefits like fast and FREE delivery, early access to deals, exclusive and popular movies and TV shows on Prime video, unlimited ad-free music, books, games and much more. At Amazon Prime, there's something for everyone.",
-    "important_instructions_raw": null,
-    "how_to_redeem_steps": [
-      "Visit: https://www.amazon.in/vouchers",
-      "Enter Code: Use the 13-digit voucher code in the \"Add new\" section.",
-      "Click: Tap on the \"Add\" button to load the voucher."
-    ],
-    "full_terms_and_conditions": "The voucher is issued by Pine Labs Private Limited, co-branded with Amazon Pay (India) Pvt. Ltd..\nCannot be used for: Global Store products, bill payments, recharges, tickets, financial products.\nCannot be used for: Buying Amazon Pay pre-loaded gift cards.\nCannot be used for: Mixed orders (if even one item is ineligible).\nCannot be used for: Redeeming on Amazon Business accounts.\nCannot be used by: Users with telecom-activated Prime memberships (e.g., via Airtel, Jio, VI).\nCannot be used by: Existing Prime users who subscribed via Google Play.\nNot transferable, non-refundable, and cannot be cancelled once issued.\nVoucher cannot be reused and only one can be applied per customer.\nCredit/Debit cards issued outside India cannot be used to purchase this voucher.\nPine Labs, Amazon, or affiliates are not liable if the voucher is lost, stolen, or misused.\nExpiry: 12 months from the date of activation.\nAmazon Prime memberships activated via this voucher cannot be cancelled.\nTerms may change without prior notice.\nTrademarks of Amazon and Pine Labs are IP of respective owners.\nUse of the voucher is subject to Amazon and Pine Labs’ terms.",
-    "redemption_restrictions": null,
-    "notes": null,
-    "stack_limit_confidence": null,
-    "can_club_with_offers": false,
-    "one_time_use": true
+    "one_time_use": true,
+    "how_to_redeem_short": "SMS ACT + card no + PIN to 9704200300 → redeem with OTP at store"
   },
   "chumbak": {
     "brand_name": "Chumbak",
@@ -13241,7 +13224,8 @@
     "notes": null,
     "stack_limit_confidence": null,
     "can_club_with_offers": false,
-    "one_time_use": true
+    "one_time_use": true,
+    "how_to_redeem_short": "At checkout → enter voucher code + PIN"
   },
   "samsonite": {
     "brand_name": "Samsonite",
@@ -13657,7 +13641,8 @@
     "notes": null,
     "stack_limit_confidence": null,
     "can_club_with_offers": true,
-    "one_time_use": true
+    "one_time_use": true,
+    "how_to_redeem_short": "At checkout → enter voucher code + PIN"
   },
   "riot-league-of-legends-2900": {
     "brand_name": "Riot League of Legends 2900",
@@ -13842,7 +13827,8 @@
     "notes": null,
     "stack_limit_confidence": null,
     "can_club_with_offers": true,
-    "one_time_use": true
+    "one_time_use": true,
+    "how_to_redeem_short": "At checkout → enter voucher code + PIN"
   },
   "riot-league-of-legends-830": {
     "brand_name": "Riot League of Legends 830",
@@ -15338,7 +15324,8 @@
     "notes": null,
     "stack_limit_confidence": null,
     "can_club_with_offers": false,
-    "one_time_use": false
+    "one_time_use": false,
+    "how_to_redeem_short": "At checkout → enter voucher code + PIN"
   },
   "apollo-diagnostics": {
     "brand_name": "Apollo Diagnostics",
@@ -15834,7 +15821,8 @@
     "notes": null,
     "stack_limit_confidence": null,
     "can_club_with_offers": true,
-    "one_time_use": true
+    "one_time_use": true,
+    "how_to_redeem_short": "At checkout → enter voucher code + PIN"
   },
   "blue-tokai-coffe": {
     "brand_name": "Blue Tokai Coffe",
@@ -15939,7 +15927,8 @@
     "notes": null,
     "stack_limit_confidence": null,
     "can_club_with_offers": false,
-    "one_time_use": true
+    "one_time_use": true,
+    "how_to_redeem_short": "SMS ACT + card no + PIN to 9704200300 → redeem with OTP at store"
   },
   "colorplus": {
     "brand_name": "ColorPlus",
@@ -16248,7 +16237,8 @@
     "notes": null,
     "stack_limit_confidence": null,
     "can_club_with_offers": true,
-    "one_time_use": false
+    "one_time_use": false,
+    "how_to_redeem_short": "At checkout → enter voucher code + PIN"
   },
   "pantaloons": {
     "brand_name": "Pantaloons",
@@ -17091,7 +17081,8 @@
     "notes": null,
     "stack_limit_confidence": null,
     "can_club_with_offers": false,
-    "one_time_use": true
+    "one_time_use": true,
+    "how_to_redeem_short": "SMS ACT + card no + PIN to 9704200300 → redeem with OTP at store"
   },
   "euphoria-gold-coin": {
     "brand_name": "Euphoria Gold Coin",
@@ -17643,7 +17634,8 @@
     "notes": null,
     "stack_limit_confidence": null,
     "can_club_with_offers": false,
-    "one_time_use": false
+    "one_time_use": false,
+    "how_to_redeem_short": "At checkout → enter voucher code + PIN"
   },
   "archies-gallery": {
     "brand_name": "Archies Gallery",
@@ -19419,7 +19411,8 @@
     "notes": null,
     "stack_limit_confidence": null,
     "can_club_with_offers": false,
-    "one_time_use": true
+    "one_time_use": true,
+    "how_to_redeem_short": "At checkout → enter voucher code + PIN"
   },
   "the-collective": {
     "brand_name": "The Collective",
@@ -19849,7 +19842,8 @@
     "notes": null,
     "stack_limit_confidence": null,
     "can_club_with_offers": false,
-    "one_time_use": true
+    "one_time_use": true,
+    "how_to_redeem_short": "SMS ACT + card no + PIN to 9704200300 → redeem with OTP at store"
   },
   "gas-luxe": {
     "brand_name": "Gas-Luxe",
@@ -19903,7 +19897,8 @@
     "notes": null,
     "stack_limit_confidence": null,
     "can_club_with_offers": false,
-    "one_time_use": true
+    "one_time_use": true,
+    "how_to_redeem_short": "SMS ACT + card no + PIN to 9704200300 → redeem with OTP at store"
   },
   "luzo": {
     "brand_name": "Luzo",

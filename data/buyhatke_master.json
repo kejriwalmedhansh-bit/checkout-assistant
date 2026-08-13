@@ -1130,7 +1130,8 @@
     "notes": null,
     "stack_limit_confidence": null,
     "can_club_with_offers": null,
-    "one_time_use": true
+    "one_time_use": true,
+    "how_to_redeem_short": "At checkout → enter voucher code + PIN"
   },
   "bakingo-gift-card": {
     "brand_name": "Bakingo",
@@ -3580,7 +3581,8 @@
     "notes": null,
     "stack_limit_confidence": null,
     "can_club_with_offers": null,
-    "one_time_use": true
+    "one_time_use": true,
+    "how_to_redeem_short": "At checkout → enter voucher code + PIN"
   },
   "costa-coffee-(in-store)-gift-card": {
     "brand_name": "Costa Coffee In Store",
@@ -3732,7 +3734,8 @@
     "notes": null,
     "stack_limit_confidence": null,
     "can_club_with_offers": null,
-    "one_time_use": true
+    "one_time_use": true,
+    "how_to_redeem_short": "At checkout → enter voucher code + PIN"
   },
   "danube-buildmart-gift-card": {
     "brand_name": "DANUBE BUILDMART",
@@ -3937,7 +3940,8 @@
     "notes": null,
     "stack_limit_confidence": null,
     "can_club_with_offers": null,
-    "one_time_use": null
+    "one_time_use": null,
+    "how_to_redeem_short": "At checkout → enter voucher code + PIN"
   },
   "discovery-plus-gift-card": {
     "brand_name": "Discovery Plus",
@@ -4168,7 +4172,8 @@
     "notes": null,
     "stack_limit_confidence": null,
     "can_club_with_offers": null,
-    "one_time_use": null
+    "one_time_use": null,
+    "how_to_redeem_short": "At checkout → enter voucher code + PIN"
   },
   "dpauls-travel-tours-gift-card": {
     "brand_name": "DPauls Travel Tours",
@@ -7903,7 +7908,8 @@
     "notes": null,
     "stack_limit_confidence": null,
     "can_club_with_offers": null,
-    "one_time_use": false
+    "one_time_use": false,
+    "how_to_redeem_short": "At checkout → enter voucher code + PIN"
   },
   "just-lil-things-gift-card": {
     "brand_name": "Just Lil Things",
@@ -8524,7 +8530,8 @@
     "notes": null,
     "stack_limit_confidence": null,
     "can_club_with_offers": null,
-    "one_time_use": true
+    "one_time_use": true,
+    "how_to_redeem_short": "At checkout → enter voucher code + PIN"
   },
   "kiehls-(in-store)-gift-card": {
     "brand_name": "Kiehls In Store",
@@ -9818,7 +9825,8 @@
     "notes": null,
     "stack_limit_confidence": null,
     "can_club_with_offers": null,
-    "one_time_use": false
+    "one_time_use": false,
+    "how_to_redeem_short": "At checkout → enter voucher code + PIN"
   },
   "makemytrip-holiday-gift-card": {
     "brand_name": "Makemytrip Holiday",
@@ -10936,7 +10944,8 @@
     "notes": null,
     "stack_limit_confidence": null,
     "can_club_with_offers": null,
-    "one_time_use": null
+    "one_time_use": null,
+    "how_to_redeem_short": "At checkout → enter voucher code + PIN"
   },
   "nat-habit-gift-card": {
     "brand_name": "Nat Habit",
@@ -12280,7 +12289,8 @@
     "notes": null,
     "stack_limit_confidence": null,
     "can_club_with_offers": null,
-    "one_time_use": false
+    "one_time_use": false,
+    "how_to_redeem_short": "At checkout → enter voucher code + PIN"
   },
   "peter-england-(in-store)-gift-card": {
     "brand_name": "Peter England In Store",
@@ -12411,7 +12421,8 @@
     "notes": null,
     "stack_limit_confidence": null,
     "can_club_with_offers": null,
-    "one_time_use": true
+    "one_time_use": true,
+    "how_to_redeem_short": "At checkout → enter voucher code + PIN"
   },
   "pigeon-(in-store)-gift-card": {
     "brand_name": "Pigeon In Store",
@@ -14108,7 +14119,8 @@
     "notes": null,
     "stack_limit_confidence": null,
     "can_club_with_offers": null,
-    "one_time_use": null
+    "one_time_use": null,
+    "how_to_redeem_short": "At checkout → enter voucher code + PIN"
   },
   "sigree-(in-store)-gift-card": {
     "brand_name": "SIGREE In Store",
@@ -16660,7 +16672,8 @@
     "notes": null,
     "stack_limit_confidence": null,
     "can_club_with_offers": null,
-    "one_time_use": null
+    "one_time_use": null,
+    "how_to_redeem_short": "At checkout → enter voucher code + PIN"
   },
   "titan-(in-store%2C-3-day-wait)-gift-card": {
     "brand_name": "Titan In Store 3 Day Wait",
