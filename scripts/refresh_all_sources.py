@@ -103,21 +103,21 @@ def refresh_buyhatke() -> dict:
     if progress_file.exists():
         progress_file.unlink()  # force a genuine full re-scrape, not a no-op resume
 
-    ok, log = run(["/usr/local/bin/python3.11", "scripts/scrape_buyhatke_brands.py"], "BuyHatke brand list")
+    ok, log = run([sys.executable, "scripts/scrape_buyhatke_brands.py"], "BuyHatke brand list")
     report["steps"].append({"step": "brand_list", "ok": ok})
     if not ok:
         report["status"] = "failed"
         report["reason"] = "brand list scrape failed"
         return report
 
-    ok, log = run(["/usr/local/bin/python3.11", "scripts/scrape_buyhatke_details.py"], "BuyHatke detail scrape")
+    ok, log = run([sys.executable, "scripts/scrape_buyhatke_details.py"], "BuyHatke detail scrape")
     report["steps"].append({"step": "detail_scrape", "ok": ok, "log_tail": log[-800:]})
 
     failures_file = DB_DIR / "buyhatke_scrape_failures.json"
     scrape_failures = json.loads(failures_file.read_text()) if failures_file.exists() else []
     report["individual_scrape_failures"] = scrape_failures
 
-    ok, log = run(["/usr/local/bin/python3.11", "scripts/normalize_buyhatke_master.py"], "BuyHatke normalize")
+    ok, log = run([sys.executable, "scripts/normalize_buyhatke_master.py"], "BuyHatke normalize")
     report["steps"].append({"step": "normalize", "ok": ok, "log_tail": log[-800:]})
     if not ok:
         report["status"] = "failed"
@@ -148,28 +148,28 @@ def refresh_gyftr() -> dict:
     if progress_file.exists():
         progress_file.unlink()
 
-    ok, log = run(["/usr/local/bin/python3.11", "scripts/scrape_gyftr.py"], "Gyftr brand+rate scrape (API)")
+    ok, log = run([sys.executable, "scripts/scrape_gyftr.py"], "Gyftr brand+rate scrape (API)")
     report["steps"].append({"step": "api_scrape", "ok": ok})
     if not ok:
         report["status"] = "failed"
         report["reason"] = "API brand/rate scrape failed"
         return report
 
-    ok, log = run(["/usr/local/bin/python3.11", "scripts/scrape_all_gyftr.py"], "Gyftr T&C scrape (Playwright)")
+    ok, log = run([sys.executable, "scripts/scrape_all_gyftr.py"], "Gyftr T&C scrape (Playwright)")
     report["steps"].append({"step": "playwright_scrape", "ok": ok, "log_tail": log[-800:]})
 
     failures_file = DB_DIR / "gyftr_scrape_failures.json"
     scrape_failures = json.loads(failures_file.read_text()) if failures_file.exists() else []
     report["individual_scrape_failures"] = scrape_failures
 
-    ok, log = run(["/usr/local/bin/python3.11", "scripts/build_master.py"], "Gyftr build_master")
+    ok, log = run([sys.executable, "scripts/build_master.py"], "Gyftr build_master")
     report["steps"].append({"step": "build_master", "ok": ok, "log_tail": log[-800:]})
     if not ok:
         report["status"] = "failed"
         report["reason"] = "build_master step failed"
         return report
 
-    ok, log = run(["/usr/local/bin/python3.11", "scripts/normalize_existing_masters.py"], "Normalize Gyftr+Maximize masters")
+    ok, log = run([sys.executable, "scripts/normalize_existing_masters.py"], "Normalize Gyftr+Maximize masters")
     report["steps"].append({"step": "normalize", "ok": ok, "log_tail": log[-800:]})
     if not ok:
         report["status"] = "failed"
