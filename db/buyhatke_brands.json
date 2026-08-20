@@ -4,6 +4,10 @@
     "brand_name": "109F"
   },
   {
+    "slug": "abraham-thakore-luxe-(in-store)-gift-card",
+    "brand_name": "Abraham Thakore Luxe (In Store)"
+  },
+  {
     "slug": "absolute-barbecues-(in-store)-gift-card",
     "brand_name": "Absolute Barbecues (In Store)"
   },
@@ -12,12 +16,24 @@
     "brand_name": "Absolute Barbecues"
   },
   {
+    "slug": "adani-meet-and-greet-gift-card",
+    "brand_name": "Adani Meet and greet"
+  },
+  {
+    "slug": "adidas-kids-luxe-(in-store)-gift-card",
+    "brand_name": "Adidas Kids Luxe (In Store)"
+  },
+  {
     "slug": "aeropostale-(in-store)-gift-card",
     "brand_name": "Aeropostale (In Store)"
   },
   {
-    "slug": "air-gift-card",
-    "brand_name": "Air"
+    "slug": "aeropostale-bagline-gift-card",
+    "brand_name": "Aeropostale BAGLINE"
+  },
+  {
+    "slug": "air-india-gift-card",
+    "brand_name": "Air India"
   },
   {
     "slug": "air-uk-route-(1-day-wait)-gift-card",
@@ -29,7 +45,7 @@
   },
   {
     "slug": "ajio-luxe-gift-card",
-    "brand_name": "AJIO LUXE"
+    "brand_name": "Ajio Luxe"
   },
   {
     "slug": "aldo-(in-store)-gift-card",
@@ -65,7 +81,7 @@
   },
   {
     "slug": "amazon-prime-12-months-gift-card",
-    "brand_name": "Amazon Prime 12 months"
+    "brand_name": "Amazon Prime 12 Months"
   },
   {
     "slug": "amazon-prime-3-months-gift-card",
@@ -140,6 +156,10 @@
     "brand_name": "Archies"
   },
   {
+    "slug": "armani-exchange-luxe-(in-store)-gift-card",
+    "brand_name": "Armani Exchange Luxe (In Store)"
+  },
+  {
     "slug": "armani-exchange-luxe-gift-card",
     "brand_name": "Armani Exchange Luxe"
   },
@@ -180,6 +200,14 @@
     "brand_name": "Bakingo"
   },
   {
+    "slug": "balenciaga-luxe-(in-store)-gift-card",
+    "brand_name": "Balenciaga Luxe (In Store)"
+  },
+  {
+    "slug": "bally-luxe-(in-store)-gift-card",
+    "brand_name": "Bally Luxe (In Store)"
+  },
+  {
     "slug": "barbeque-nation-(in-store)-gift-card",
     "brand_name": "Barbeque Nation (In Store)"
   },
@@ -212,10 +240,6 @@
     "brand_name": "Beer Cafe (In Store)"
   },
   {
-    "slug": "beer-cafe-gift-card",
-    "brand_name": "Beer Cafe"
-  },
-  {
     "slug": "behrouz-biryani-gift-card",
     "brand_name": "Behrouz Biryani"
   },
@@ -230,6 +254,10 @@
   {
     "slug": "beyoung-gift-card",
     "brand_name": "Beyoung"
+  },
+  {
+    "slug": "bgmi-unipin-gift-card",
+    "brand_name": "BGMI UniPin"
   },
   {
     "slug": "bhima-jewellers-coin-(in-store)-gift-card",
@@ -258,6 +286,10 @@
   {
     "slug": "biryani-by-kilo-gift-card",
     "brand_name": "BIRYANI BY KILO"
+  },
+  {
+    "slug": "black-decker-gift-card",
+    "brand_name": "Black Decker"
   },
   {
     "slug": "blaupunkt-gift-card",
@@ -296,12 +328,28 @@
     "brand_name": "Boat"
   },
   {
+    "slug": "boditive-gift-card",
+    "brand_name": "Boditive"
+  },
+  {
     "slug": "body-craft-(in-store)-gift-card",
     "brand_name": "Body Craft (In Store)"
   },
   {
+    "slug": "body-craft-clinic-gift-card",
+    "brand_name": "Body Craft Clinic"
+  },
+  {
     "slug": "bookmyshow-gift-card",
     "brand_name": "BookMyShow"
+  },
+  {
+    "slug": "bottega-veneta-luxe-(in-store)-gift-card",
+    "brand_name": "Bottega Veneta Luxe (In Store)"
+  },
+  {
+    "slug": "bpcl-gift-card",
+    "brand_name": "BPCL"
   },
   {
     "slug": "braingymjr-gift-card",
@@ -314,6 +362,10 @@
   {
     "slug": "brooks-brothers-luxe-gift-card",
     "brand_name": "Brooks Brothers Luxe"
+  },
+  {
+    "slug": "buywithemi-gift-card",
+    "brand_name": "BuyWithEMI"
   },
   {
     "slug": "cafe-coffee-day-gift-card",
@@ -332,20 +384,16 @@
     "brand_name": "CALL IT SPRING (In Store)"
   },
   {
-    "slug": "call-it-spring-gift-card",
-    "brand_name": "Call it Spring"
-  },
-  {
     "slug": "campus-(in-store)-gift-card",
     "brand_name": "Campus (In Store)"
   },
   {
-    "slug": "campus-gift-card",
-    "brand_name": "Campus"
-  },
-  {
     "slug": "campus-sutra-gift-card",
     "brand_name": "Campus Sutra"
+  },
+  {
+    "slug": "canali-luxe-(in-store)-gift-card",
+    "brand_name": "Canali Luxe (In Store)"
   },
   {
     "slug": "candere-diamond-jewellery-gift-card",
@@ -360,8 +408,16 @@
     "brand_name": "Candere Gold Jewellery"
   },
   {
+    "slug": "caratlane-gift-card",
+    "brand_name": "CaratLane"
+  },
+  {
     "slug": "cello-gift-card",
     "brand_name": "Cello"
+  },
+  {
+    "slug": "cgh-earth-(in-store)-gift-card",
+    "brand_name": "CGH Earth (In Store)"
   },
   {
     "slug": "cgh-earth-gift-card",
@@ -376,8 +432,8 @@
     "brand_name": "CHARLES KEITH (In Store)"
   },
   {
-    "slug": "charles-keith-gift-card",
-    "brand_name": "CHARLES KEITH"
+    "slug": "charles-tyrwhitt-luxe-(in-store)-gift-card",
+    "brand_name": "Charles Tyrwhitt Luxe (In Store)"
   },
   {
     "slug": "chemist-at-play-gift-card",
@@ -464,8 +520,12 @@
     "brand_name": "Croma"
   },
   {
-    "slug": "cult-gift-card",
-    "brand_name": "Cult"
+    "slug": "crossword-gift-card",
+    "brand_name": "Crossword"
+  },
+  {
+    "slug": "cultfit-gift-card",
+    "brand_name": "CultFit"
   },
   {
     "slug": "daily-objects-gift-card",
@@ -488,6 +548,14 @@
     "brand_name": "DeVagabond"
   },
   {
+    "slug": "diesel-luxe-(in-store)-gift-card",
+    "brand_name": "DIESEL Luxe (In Store)"
+  },
+  {
+    "slug": "discord-gift-card",
+    "brand_name": "Discord"
+  },
+  {
     "slug": "discovery-gift-card",
     "brand_name": "Discovery"
   },
@@ -500,12 +568,12 @@
     "brand_name": "District"
   },
   {
-    "slug": "docubay-gift-card",
-    "brand_name": "Docubay"
+    "slug": "district-pass-gift-card",
+    "brand_name": "District Pass"
   },
   {
-    "slug": "dominos-app-only-gift-card",
-    "brand_name": "DOMINOS App Only"
+    "slug": "docubay-gift-card",
+    "brand_name": "Docubay"
   },
   {
     "slug": "dominos-gift-card",
@@ -528,20 +596,16 @@
     "brand_name": "Dpauls"
   },
   {
-    "slug": "dpauls-travel-tours-gift-card",
-    "brand_name": "DPauls Travel Tours"
-  },
-  {
     "slug": "dune-london-luxe-(in-store)-gift-card",
     "brand_name": "Dune London Luxe (In Store)"
   },
   {
-    "slug": "dune-london-luxe-gift-card",
-    "brand_name": "Dune London Luxe"
-  },
-  {
     "slug": "duroflex-gift-card",
     "brand_name": "DUROFLEX"
+  },
+  {
+    "slug": "ea7-(in-store)-gift-card",
+    "brand_name": "EA7 (In Store)"
   },
   {
     "slug": "easemytrip-gift-card",
@@ -557,7 +621,7 @@
   },
   {
     "slug": "easybuy-(in-store)-gift-card",
-    "brand_name": "EasyBuy (In Store)"
+    "brand_name": "easybuy (In Store)"
   },
   {
     "slug": "eatsure-gift-card",
@@ -568,6 +632,10 @@
     "brand_name": "EazyDiner"
   },
   {
+    "slug": "elivaas-gift-card",
+    "brand_name": "Elivaas"
+  },
+  {
     "slug": "elleven-(in-store)-gift-card",
     "brand_name": "Elleven (In Store)"
   },
@@ -576,8 +644,24 @@
     "brand_name": "Elver"
   },
   {
-    "slug": "epic-on-gift-card",
-    "brand_name": "Epic On"
+    "slug": "emporio-armani-luxe-(in-store)-gift-card",
+    "brand_name": "Emporio Armani Luxe (In Store)"
+  },
+  {
+    "slug": "epic-on-1-month-plan-gift-card",
+    "brand_name": "Epic On 1 month Plan"
+  },
+  {
+    "slug": "epic-on-1-year-plan-gift-card",
+    "brand_name": "Epic On 1 Year Plan"
+  },
+  {
+    "slug": "epic-on-3-month-plan-gift-card",
+    "brand_name": "Epic On 3 month Plan"
+  },
+  {
+    "slug": "epic-on-6-month-plan-gift-card",
+    "brand_name": "Epic On 6 month Plan"
   },
   {
     "slug": "esbeda-(in-store)-gift-card",
@@ -590,6 +674,14 @@
   {
     "slug": "et-prime-gift-card",
     "brand_name": "ET Prime"
+  },
+  {
+    "slug": "euphoria-diamond-jewellery-gift-card",
+    "brand_name": "Euphoria Diamond Jewellery"
+  },
+  {
+    "slug": "euphoria-gold-coin-gift-card",
+    "brand_name": "Euphoria Gold Coin"
   },
   {
     "slug": "euphoria-gold-jewellery-gift-card",
@@ -606,6 +698,10 @@
   {
     "slug": "euphoria-jewellery-silver-coin-gift-card",
     "brand_name": "Euphoria Jewellery Silver Coin"
+  },
+  {
+    "slug": "euphoria-silver-coin-gift-card",
+    "brand_name": "Euphoria Silver Coin"
   },
   {
     "slug": "faasos-gift-card",
@@ -632,10 +728,6 @@
     "brand_name": "Fastrack (In Store, 1 Day Wait)"
   },
   {
-    "slug": "fastrack-(in-store%2C-3-day-wait)-gift-card",
-    "brand_name": "Fastrack (In Store, 3 Day Wait)"
-  },
-  {
     "slug": "fastrack-(in-store)-gift-card",
     "brand_name": "Fastrack (In Store)"
   },
@@ -652,6 +744,10 @@
     "brand_name": "Fastrack SmartWatch (1 Day Wait)"
   },
   {
+    "slug": "fastrack-smartwatch-(8-hr-wait)-gift-card",
+    "brand_name": "Fastrack SmartWatch (8 Hr Wait)"
+  },
+  {
     "slug": "femmella-gift-card",
     "brand_name": "Femmella"
   },
@@ -666,6 +762,10 @@
   {
     "slug": "finusmart-gift-card",
     "brand_name": "Finusmart"
+  },
+  {
+    "slug": "firangi-bake-gift-card",
+    "brand_name": "Firangi Bake"
   },
   {
     "slug": "firstcry-gift-card",
@@ -704,6 +804,10 @@
     "brand_name": "Freecultr"
   },
   {
+    "slug": "french-accent-gift-card",
+    "brand_name": "French Accent"
+  },
+  {
     "slug": "freshmenu-gift-card",
     "brand_name": "FreshMenu"
   },
@@ -714,6 +818,18 @@
   {
     "slug": "frido-gift-card",
     "brand_name": "Frido"
+  },
+  {
+    "slug": "funblock-(in-store)-gift-card",
+    "brand_name": "Funblock (In Store)"
+  },
+  {
+    "slug": "funcity-(in-store)-gift-card",
+    "brand_name": "Funcity (In Store)"
+  },
+  {
+    "slug": "future-world-(in-store)-gift-card",
+    "brand_name": "Future World (In Store)"
   },
   {
     "slug": "future-world-apple-gift-card",
@@ -732,28 +848,48 @@
     "brand_name": "Gaana"
   },
   {
-    "slug": "gas-luxe-gift-card",
-    "brand_name": "Gas Luxe"
+    "slug": "gas-luxe-(in-store)-gift-card",
+    "brand_name": "Gas Luxe (In Store)"
+  },
+  {
+    "slug": "giorgio-armani-luxe-(in-store)-gift-card",
+    "brand_name": "Giorgio Armani Luxe (In Store)"
   },
   {
     "slug": "girias-(in-store)-gift-card",
     "brand_name": "Girias (In Store)"
   },
   {
-    "slug": "giva-gift-card",
-    "brand_name": "GIVA"
+    "slug": "giva-gold-jewellery-gift-card",
+    "brand_name": "GIVA Gold Jewellery"
   },
   {
-    "slug": "giva-jewellery-gold-gift-card",
-    "brand_name": "Giva Jewellery Gold"
+    "slug": "giva-jewellery-rdm-gift-card",
+    "brand_name": "Giva Jewellery RDM"
+  },
+  {
+    "slug": "giva-silver-coin-gift-card",
+    "brand_name": "GIVA Silver Coin"
+  },
+  {
+    "slug": "glam-studio-(in-store)-gift-card",
+    "brand_name": "Glam Studio (In Store)"
   },
   {
     "slug": "global-desi-gift-card",
     "brand_name": "Global Desi"
   },
   {
+    "slug": "gobaby-travel-gift-card",
+    "brand_name": "GoBaby Travel"
+  },
+  {
+    "slug": "goibibo-gift-card",
+    "brand_name": "Goibibo"
+  },
+  {
     "slug": "goibibo-hotel-gift-card",
-    "brand_name": "GoIbibo Hotel"
+    "brand_name": "Goibibo Hotel"
   },
   {
     "slug": "gong-gift-card",
@@ -776,6 +912,10 @@
     "brand_name": "Gupta Distributors (In Store)"
   },
   {
+    "slug": "hamleys-(in-store)-gift-card",
+    "brand_name": "Hamleys (In Store)"
+  },
+  {
     "slug": "hamleys-luxe-(in-store)-gift-card",
     "brand_name": "Hamleys Luxe (In Store)"
   },
@@ -784,8 +924,12 @@
     "brand_name": "Hammer"
   },
   {
-    "slug": "health-glow-(in-store)-gift-card",
-    "brand_name": "Health Glow (In Store)"
+    "slug": "haute-sauce-gift-card",
+    "brand_name": "Haute Sauce"
+  },
+  {
+    "slug": "health-and-glow-(in-store)-gift-card",
+    "brand_name": "Health and Glow (In Store)"
   },
   {
     "slug": "healthians-gift-card",
@@ -832,8 +976,16 @@
     "brand_name": "Homecentre (In Store)"
   },
   {
+    "slug": "honest-bowl-gift-card",
+    "brand_name": "Honest Bowl"
+  },
+  {
     "slug": "hopintown-plus-gift-card",
     "brand_name": "HopInTown Plus"
+  },
+  {
+    "slug": "hopscotch-gift-card",
+    "brand_name": "Hopscotch"
   },
   {
     "slug": "house-of-vaaree-gift-card",
@@ -844,12 +996,20 @@
     "brand_name": "HP Pay 250 300"
   },
   {
+    "slug": "hp-pay-gift-card",
+    "brand_name": "HP Pay"
+  },
+  {
     "slug": "hp-pay-in-app-gift-card",
     "brand_name": "HP Pay In App"
   },
   {
     "slug": "hugo-boss-gift-card",
     "brand_name": "Hugo Boss"
+  },
+  {
+    "slug": "hugo-boss-luxe-(in-store)-gift-card",
+    "brand_name": "Hugo Boss Luxe (In Store)"
   },
   {
     "slug": "hugo-boss-luxe-gift-card",
@@ -896,8 +1056,24 @@
     "brand_name": "Innovist"
   },
   {
+    "slug": "instafab-plus-gift-card",
+    "brand_name": "Instafab Plus"
+  },
+  {
+    "slug": "iocl-(in-store)-gift-card",
+    "brand_name": "IOCL (In Store)"
+  },
+  {
     "slug": "itc-hotels-(in-store)-gift-card",
     "brand_name": "ITC Hotels (In Store)"
+  },
+  {
+    "slug": "itc-hotels-fabelle-chocolates-(in-store)-gift-card",
+    "brand_name": "ITC Hotels Fabelle Chocolates (In Store)"
+  },
+  {
+    "slug": "itc-hotels-spa-(in-store)-gift-card",
+    "brand_name": "ITC Hotels Spa (In Store)"
   },
   {
     "slug": "ixigo-gift-card",
@@ -916,6 +1092,10 @@
     "brand_name": "Jhari Eco Stay (In Store)"
   },
   {
+    "slug": "jimmy-choo-luxe-(in-store)-gift-card",
+    "brand_name": "Jimmy Choo Luxe (In Store)"
+  },
+  {
     "slug": "jio-mart-gift-card",
     "brand_name": "Jio Mart"
   },
@@ -928,6 +1108,10 @@
     "brand_name": "Jockey"
   },
   {
+    "slug": "jos-alukkas-coin-gift-card",
+    "brand_name": "Jos Alukkas Coin"
+  },
+  {
     "slug": "jos-alukkas-diamond-gift-card",
     "brand_name": "Jos Alukkas Diamond"
   },
@@ -936,8 +1120,24 @@
     "brand_name": "Jos Alukkas Jewellery (In Store)"
   },
   {
+    "slug": "joyalukkas-diamond-(in-store)-gift-card",
+    "brand_name": "Joyalukkas Diamond (In Store)"
+  },
+  {
     "slug": "joyalukkas-gift-card",
     "brand_name": "Joyalukkas"
+  },
+  {
+    "slug": "joyalukkas-gold-and-diamond-(12-hr-wait)-gift-card",
+    "brand_name": "Joyalukkas Gold and Diamond (12 Hr Wait)"
+  },
+  {
+    "slug": "joyalukkas-pure-gold-(in-store)-gift-card",
+    "brand_name": "Joyalukkas Pure Gold (In Store)"
+  },
+  {
+    "slug": "juicy-couture-bagline-gift-card",
+    "brand_name": "Juicy Couture BAGLINE"
   },
   {
     "slug": "jungle-safari-gift-card",
@@ -946,6 +1146,10 @@
   {
     "slug": "just-lil-things-gift-card",
     "brand_name": "Just Lil Things"
+  },
+  {
+    "slug": "kalki-gift-card",
+    "brand_name": "KALKI"
   },
   {
     "slug": "kalyan-diamond-(in-store)-gift-card",
@@ -968,16 +1172,16 @@
     "brand_name": "Kalyan Gold Jewellery (In Store)"
   },
   {
-    "slug": "kalyan-jewellery-(in-store)-gift-card",
-    "brand_name": "Kalyan Jewellery (In Store)"
+    "slug": "kalyan-gold-jewellery-gift-card",
+    "brand_name": "Kalyan Gold Jewellery"
+  },
+  {
+    "slug": "kalyan-jewellers-(in-store)-gift-card",
+    "brand_name": "Kalyan Jewellers (In Store)"
   },
   {
     "slug": "kama-ayurveda-(in-store)-gift-card",
     "brand_name": "Kama Ayurveda (In Store)"
-  },
-  {
-    "slug": "kama-ayurveda-gift-card",
-    "brand_name": "Kama Ayurveda"
   },
   {
     "slug": "kanchipuram-narayani-silks-gift-card",
@@ -994,6 +1198,10 @@
   {
     "slug": "ketan-diamonds-diamond-only-gift-card",
     "brand_name": "Ketan Diamonds Diamond Only"
+  },
+  {
+    "slug": "ketan-diamonds-gold-coin-(in-store)-gift-card",
+    "brand_name": "Ketan Diamonds Gold Coin (In Store)"
   },
   {
     "slug": "ketan-diamonds-gold-coin-gift-card",
@@ -1032,12 +1240,16 @@
     "brand_name": "Kuku FM"
   },
   {
-    "slug": "lakme-salon-(in-store)-gift-card",
-    "brand_name": "Lakme Salon (In Store)"
+    "slug": "lakm-salon-(in-store)-gift-card",
+    "brand_name": "Lakm Salon (In Store)"
   },
   {
     "slug": "lawrence-and-mayo-(in-store)-gift-card",
     "brand_name": "Lawrence and Mayo (In Store)"
+  },
+  {
+    "slug": "le-creuset-(in-store)-gift-card",
+    "brand_name": "LE CREUSET (In Store)"
   },
   {
     "slug": "leaf-studios-gift-card",
@@ -1068,8 +1280,8 @@
     "brand_name": "Levis"
   },
   {
-    "slug": "liberty-(in-store%2C-3-day-wait)-gift-card",
-    "brand_name": "Liberty (In Store, 3 Day Wait)"
+    "slug": "liberty-(in-store)-gift-card",
+    "brand_name": "Liberty (In Store)"
   },
   {
     "slug": "liberty-gift-card",
@@ -1100,10 +1312,6 @@
     "brand_name": "Lite Bite Food (In Store)"
   },
   {
-    "slug": "live-hindustan-gift-card",
-    "brand_name": "Live Hindustan"
-  },
-  {
     "slug": "live-mint-gift-card",
     "brand_name": "Live Mint"
   },
@@ -1120,6 +1328,10 @@
     "brand_name": "Louis Philippe (In Store)"
   },
   {
+    "slug": "love-beauty-planet-gift-card",
+    "brand_name": "Love Beauty Planet"
+  },
+  {
     "slug": "lulu-hypermarket-gift-card",
     "brand_name": "Lulu Hypermarket"
   },
@@ -1132,16 +1344,16 @@
     "brand_name": "Machaan (In Store)"
   },
   {
-    "slug": "machaan-gift-card",
-    "brand_name": "Machaan"
-  },
-  {
     "slug": "madame-(in-store)-gift-card",
     "brand_name": "Madame (In Store)"
   },
   {
     "slug": "mainland-china-(in-store)-gift-card",
     "brand_name": "Mainland China (In Store)"
+  },
+  {
+    "slug": "maje-luxe-(in-store)-gift-card",
+    "brand_name": "Maje Luxe (In Store)"
   },
   {
     "slug": "makemytrip-bus-gift-card",
@@ -1152,8 +1364,8 @@
     "brand_name": "MakeMyTrip"
   },
   {
-    "slug": "makemytrip-holiday-gift-card",
-    "brand_name": "Makemytrip Holiday"
+    "slug": "makemytrip-holidays-gift-card",
+    "brand_name": "MakeMyTrip Holidays"
   },
   {
     "slug": "makemytrip-hotel-gift-card",
@@ -1164,12 +1376,40 @@
     "brand_name": "MakeMyTrip Rail"
   },
   {
+    "slug": "makhani-darbar-gift-card",
+    "brand_name": "Makhani Darbar"
+  },
+  {
     "slug": "malabar-diamonds-(1-day-wait)-gift-card",
     "brand_name": "Malabar Diamonds (1 Day Wait)"
   },
   {
+    "slug": "malabar-diamonds-gift-card",
+    "brand_name": "Malabar Diamonds"
+  },
+  {
+    "slug": "malabar-gold-coin-gift-card",
+    "brand_name": "Malabar Gold Coin"
+  },
+  {
+    "slug": "malabar-gold-jewellery-gift-card",
+    "brand_name": "Malabar Gold Jewellery"
+  },
+  {
+    "slug": "malabar-jewellery-gift-card",
+    "brand_name": "Malabar Jewellery"
+  },
+  {
+    "slug": "malabar-silver-coin-gift-card",
+    "brand_name": "Malabar Silver Coin"
+  },
+  {
     "slug": "mamaearth-gift-card",
     "brand_name": "Mamaearth"
+  },
+  {
+    "slug": "mango-(in-store)-gift-card",
+    "brand_name": "Mango (In Store)"
   },
   {
     "slug": "manyavar-(in-store)-gift-card",
@@ -1180,16 +1420,40 @@
     "brand_name": "Maple"
   },
   {
-    "slug": "marks-and-spencer-gift-card",
-    "brand_name": "Marks And Spencer"
+    "slug": "marks-and-spencer-(in-store)-gift-card",
+    "brand_name": "Marks and Spencer (In Store)"
   },
   {
-    "slug": "marks-spencer-(in-store)-gift-card",
-    "brand_name": "Marks Spencer (In Store)"
+    "slug": "marks-and-spencer-gift-card",
+    "brand_name": "Marks and Spencer"
+  },
+  {
+    "slug": "marriott-dining-(in-store)-gift-card",
+    "brand_name": "Marriott Dining (In Store)"
+  },
+  {
+    "slug": "marriott-dining-1-(in-store)-gift-card",
+    "brand_name": "Marriott Dining 1 (In Store)"
+  },
+  {
+    "slug": "marriott-dining-2-(in-store)-gift-card",
+    "brand_name": "Marriott Dining 2 (In Store)"
+  },
+  {
+    "slug": "marriott-e-dining-(in-store)-gift-card",
+    "brand_name": "Marriott E Dining (In Store)"
   },
   {
     "slug": "marriott-hotels-(in-store)-gift-card",
     "brand_name": "Marriott Hotels (In Store)"
+  },
+  {
+    "slug": "marriott-spa-(in-store)-gift-card",
+    "brand_name": "Marriott SPA (In Store)"
+  },
+  {
+    "slug": "matrix-gift-card",
+    "brand_name": "Matrix"
   },
   {
     "slug": "max-fashion-(in-store)-gift-card",
@@ -1208,6 +1472,10 @@
     "brand_name": "McDonalds"
   },
   {
+    "slug": "mcdonalds-mccafe-(in-store)-gift-card",
+    "brand_name": "McDonalds McCafe (In Store)"
+  },
+  {
     "slug": "me-n-moms-gift-card",
     "brand_name": "Me N Moms"
   },
@@ -1220,24 +1488,40 @@
     "brand_name": "Mediwheel"
   },
   {
-    "slug": "mia-(in-store)-gift-card",
-    "brand_name": "Mia (In Store)"
+    "slug": "mia-by-tanishq-(in-store)-gift-card",
+    "brand_name": "Mia By Tanishq (In Store)"
   },
   {
     "slug": "michael-kors-luxe-(in-store)-gift-card",
     "brand_name": "Michael Kors Luxe (In Store)"
   },
   {
-    "slug": "michael-kors-luxe-gift-card",
-    "brand_name": "Michael Kors Luxe"
-  },
-  {
     "slug": "microsoft-xbox-game-pass-core-gift-card",
     "brand_name": "Microsoft Xbox Game Pass Core"
   },
   {
+    "slug": "milkbasket-gift-card",
+    "brand_name": "Milkbasket"
+  },
+  {
+    "slug": "milton-gift-card",
+    "brand_name": "Milton"
+  },
+  {
+    "slug": "minecraft-minecoins-gift-card",
+    "brand_name": "Minecraft Minecoins"
+  },
+  {
     "slug": "miniklub-gift-card",
     "brand_name": "MiniKlub"
+  },
+  {
+    "slug": "miraggio-gift-card",
+    "brand_name": "Miraggio"
+  },
+  {
+    "slug": "moba-legends-gift-card",
+    "brand_name": "Moba Legends"
   },
   {
     "slug": "modern-bazaar-gift-card",
@@ -1256,8 +1540,12 @@
     "brand_name": "Mothercare Luxe (In Store)"
   },
   {
-    "slug": "muro-qc-(in-store)-gift-card",
-    "brand_name": "Muro QC (In Store)"
+    "slug": "muji-luxe-(in-store)-gift-card",
+    "brand_name": "Muji Luxe (In Store)"
+  },
+  {
+    "slug": "muro-(in-store)-gift-card",
+    "brand_name": "Muro (In Store)"
   },
   {
     "slug": "muthoot-gold-gift-card",
@@ -1300,6 +1588,10 @@
     "brand_name": "Natures Basket"
   },
   {
+    "slug": "nautica-gift-card",
+    "brand_name": "Nautica"
+  },
+  {
     "slug": "neemans-gift-card",
     "brand_name": "Neemans"
   },
@@ -1308,8 +1600,20 @@
     "brand_name": "Neerus (In Store)"
   },
   {
+    "slug": "nestasia-gift-card",
+    "brand_name": "Nestasia"
+  },
+  {
     "slug": "netmeds-gift-card",
     "brand_name": "Netmeds"
+  },
+  {
+    "slug": "next-(in-store)-gift-card",
+    "brand_name": "NEXT (In Store)"
+  },
+  {
+    "slug": "nintendo-gift-card",
+    "brand_name": "Nintendo"
   },
   {
     "slug": "nu-ayurveda-(in-store)-gift-card",
@@ -1328,12 +1632,12 @@
     "brand_name": "Nykaa"
   },
   {
-    "slug": "nykaa-man-gift-card",
-    "brand_name": "Nykaa Man"
+    "slug": "nykaa-luxe-gift-card",
+    "brand_name": "Nykaa LUXE"
   },
   {
-    "slug": "nykaa-men-gift-card",
-    "brand_name": "Nykaa Men"
+    "slug": "nykaa-man-gift-card",
+    "brand_name": "Nykaa Man"
   },
   {
     "slug": "o2-spa-(in-store)-gift-card",
@@ -1346,6 +1650,10 @@
   {
     "slug": "oberoi-hotels-resorts-gift-card",
     "brand_name": "Oberoi Hotels Resorts"
+  },
+  {
+    "slug": "ode-spa-salon-(in-store)-gift-card",
+    "brand_name": "Ode Spa Salon (In Store)"
   },
   {
     "slug": "oh-calcutta-(in-store)-gift-card",
@@ -1380,8 +1688,8 @@
     "brand_name": "OTTplay"
   },
   {
-    "slug": "oven-story-gift-card",
-    "brand_name": "Oven Story"
+    "slug": "ovenstory-gift-card",
+    "brand_name": "Ovenstory"
   },
   {
     "slug": "pantaloons-(4-hr-wait)-gift-card",
@@ -1404,6 +1712,10 @@
     "brand_name": "Paul and Shark Luxe (In Store)"
   },
   {
+    "slug": "paul-shark-luxe-(in-store)-gift-card",
+    "brand_name": "Paul Shark Luxe (In Store)"
+  },
+  {
     "slug": "paul-smith-(in-store)-gift-card",
     "brand_name": "Paul Smith (In Store)"
   },
@@ -1414,10 +1726,6 @@
   {
     "slug": "pc-chandra-gold-coin-gift-card",
     "brand_name": "PC Chandra Gold Coin"
-  },
-  {
-    "slug": "pcj-diamond-(in-store)-gift-card",
-    "brand_name": "PCJ Diamond (In Store)"
   },
   {
     "slug": "pcj-diamond-gift-card",
@@ -1444,12 +1752,20 @@
     "brand_name": "PCJ Gold Jewellery"
   },
   {
+    "slug": "peora-(in-store)-gift-card",
+    "brand_name": "PEORA (In Store)"
+  },
+  {
     "slug": "peora-fashions-(in-store)-gift-card",
     "brand_name": "Peora Fashions (In Store)"
   },
   {
     "slug": "pepperfry-gift-card",
     "brand_name": "Pepperfry"
+  },
+  {
+    "slug": "pepperfry-luxury-gift-card",
+    "brand_name": "Pepperfry Luxury"
   },
   {
     "slug": "perfume2order-gift-card",
@@ -1488,12 +1804,24 @@
     "brand_name": "Pizza Hut"
   },
   {
+    "slug": "pizza-hut-offline-(in-store)-gift-card",
+    "brand_name": "Pizza Hut Offline (In Store)"
+  },
+  {
     "slug": "planet-fashion-(in-store)-gift-card",
     "brand_name": "Planet Fashion (In Store)"
   },
   {
+    "slug": "playo-gift-card",
+    "brand_name": "Playo"
+  },
+  {
     "slug": "playstation-gift-card",
     "brand_name": "Playstation"
+  },
+  {
+    "slug": "pmj-jewellers-(in-store)-gift-card",
+    "brand_name": "PMJ Jewellers (In Store)"
   },
   {
     "slug": "points-for-good-gift-card",
@@ -1512,6 +1840,10 @@
     "brand_name": "Pothys (In Store)"
   },
   {
+    "slug": "pottery-barn-luxe-(in-store)-gift-card",
+    "brand_name": "Pottery Barn Luxe (In Store)"
+  },
+  {
     "slug": "prestige-gift-card",
     "brand_name": "Prestige"
   },
@@ -1520,24 +1852,32 @@
     "brand_name": "Prestige Smart Kitchen"
   },
   {
+    "slug": "pret-a-manger-luxe-(in-store)-gift-card",
+    "brand_name": "Pret A Manger Luxe (In Store)"
+  },
+  {
+    "slug": "pronto-gift-card",
+    "brand_name": "Pronto"
+  },
+  {
     "slug": "puma-(in-store)-gift-card",
     "brand_name": "Puma (In Store)"
+  },
+  {
+    "slug": "punjab-grill-(in-store)-gift-card",
+    "brand_name": "Punjab Grill (In Store)"
   },
   {
     "slug": "pure-home-living-gift-card",
     "brand_name": "Pure Home Living"
   },
   {
-    "slug": "pvr-gift-card",
-    "brand_name": "PVR"
+    "slug": "pvr-cinemas-gift-card",
+    "brand_name": "PVR Cinemas"
   },
   {
     "slug": "r-b-(in-store)-gift-card",
     "brand_name": "R B (In Store)"
-  },
-  {
-    "slug": "r-b-gift-card",
-    "brand_name": "R B"
   },
   {
     "slug": "r-s-brothers-gift-card",
@@ -1564,6 +1904,14 @@
     "brand_name": "Ray Ban"
   },
   {
+    "slug": "raymond-ready-to-wear-(in-store)-gift-card",
+    "brand_name": "Raymond Ready to Wear (In Store)"
+  },
+  {
+    "slug": "razer-gold-gift-card",
+    "brand_name": "Razer Gold"
+  },
+  {
     "slug": "razorpay-money-flex-gift-card",
     "brand_name": "Razorpay Money Flex"
   },
@@ -1580,6 +1928,10 @@
     "brand_name": "Reliance Jewels (In Store)"
   },
   {
+    "slug": "reliance-smart-(in-store)-gift-card",
+    "brand_name": "Reliance Smart (In Store)"
+  },
+  {
     "slug": "reliance-smart-bazaar-(in-store)-gift-card",
     "brand_name": "Reliance Smart Bazaar (In Store)"
   },
@@ -1590,10 +1942,6 @@
   {
     "slug": "reliance-smart-point-(in-store)-gift-card",
     "brand_name": "Reliance Smart Point (In Store)"
-  },
-  {
-    "slug": "reliance-smart-super-store-(in-store)-gift-card",
-    "brand_name": "Reliance Smart Super Store (In Store)"
   },
   {
     "slug": "reliance-trends-(in-store)-gift-card",
@@ -1612,8 +1960,12 @@
     "brand_name": "Replay (In Store)"
   },
   {
-    "slug": "resonate-gift-card",
-    "brand_name": "Resonate"
+    "slug": "resonate-router-ups-gift-card",
+    "brand_name": "Resonate Router UPS"
+  },
+  {
+    "slug": "ritu-kumar-luxe-(in-store)-gift-card",
+    "brand_name": "Ritu Kumar Luxe (In Store)"
   },
   {
     "slug": "river-roost-(in-store)-gift-card",
@@ -1624,12 +1976,20 @@
     "brand_name": "Roblox"
   },
   {
+    "slug": "salty-gift-card",
+    "brand_name": "Salty"
+  },
+  {
     "slug": "samsonite-(in-store)-gift-card",
     "brand_name": "Samsonite (In Store)"
   },
   {
     "slug": "samsonite-gift-card",
     "brand_name": "Samsonite"
+  },
+  {
+    "slug": "sandro-luxe-(in-store)-gift-card",
+    "brand_name": "Sandro Luxe (In Store)"
   },
   {
     "slug": "sathya-(in-store)-gift-card",
@@ -1640,8 +2000,16 @@
     "brand_name": "Satya Paul Luxe (In Store)"
   },
   {
+    "slug": "satya-paul-luxe-gift-card",
+    "brand_name": "Satya Paul Luxe"
+  },
+  {
     "slug": "scotch-and-soda-luxe-(in-store)-gift-card",
     "brand_name": "Scotch and Soda Luxe (In Store)"
+  },
+  {
+    "slug": "scotch-soda-luxe-(in-store)-gift-card",
+    "brand_name": "Scotch Soda Luxe (In Store)"
   },
   {
     "slug": "scotch-soda-luxe-gift-card",
@@ -1668,6 +2036,10 @@
     "brand_name": "Shell (1 Day Wait)"
   },
   {
+    "slug": "shell-fuel-(1-day-wait)-gift-card",
+    "brand_name": "Shell Fuel (1 Day Wait)"
+  },
+  {
     "slug": "shemaroome-gift-card",
     "brand_name": "ShemarooMe"
   },
@@ -1682,6 +2054,10 @@
   {
     "slug": "shiv-naresh-gift-card",
     "brand_name": "Shiv Naresh"
+  },
+  {
+    "slug": "shiva-organic-gift-card",
+    "brand_name": "Shiva Organic"
   },
   {
     "slug": "shoppers-stop-gift-card",
@@ -1708,6 +2084,10 @@
     "brand_name": "Siri Nature Roost (In Store)"
   },
   {
+    "slug": "skechers-(in-store)-gift-card",
+    "brand_name": "Skechers (In Store)"
+  },
+  {
     "slug": "skechers-gift-card",
     "brand_name": "Skechers"
   },
@@ -1728,6 +2108,14 @@
     "brand_name": "Smile Foundation"
   },
   {
+    "slug": "snapdeal-1000-gift-card",
+    "brand_name": "Snapdeal 1000"
+  },
+  {
+    "slug": "snapdeal-500-gift-card",
+    "brand_name": "Snapdeal 500"
+  },
+  {
     "slug": "snitch-e-gift-card",
     "brand_name": "Snitch E"
   },
@@ -1736,24 +2124,28 @@
     "brand_name": "Soch (In Store)"
   },
   {
-    "slug": "soch-gift-card",
-    "brand_name": "Soch"
-  },
-  {
     "slug": "sonyliv-6-months-gift-card",
     "brand_name": "SonyLiv 6 Months"
   },
   {
     "slug": "sonyliv-gift-card",
-    "brand_name": "SonyLIV"
+    "brand_name": "SonyLiv"
   },
   {
     "slug": "sotc-travel-(in-store)-gift-card",
     "brand_name": "SOTC Travel (In Store)"
   },
   {
+    "slug": "soulflower-gift-card",
+    "brand_name": "Soulflower"
+  },
+  {
     "slug": "south-shopping-mall-gift-card",
     "brand_name": "SOUTH SHOPPING MALL"
+  },
+  {
+    "slug": "spar-hypermart-(in-store)-gift-card",
+    "brand_name": "Spar Hypermart (In Store)"
   },
   {
     "slug": "speedo-gift-card",
@@ -1761,11 +2153,19 @@
   },
   {
     "slug": "spencers-(in-store)-gift-card",
-    "brand_name": "Spencers (In Store)"
+    "brand_name": "spencers (In Store)"
+  },
+  {
+    "slug": "spencers-retail-(in-store)-gift-card",
+    "brand_name": "Spencers Retail (In Store)"
   },
   {
     "slug": "spicejet-gift-card",
     "brand_name": "SpiceJet"
+  },
+  {
+    "slug": "sri-jagdamba-pearls-gift-card",
+    "brand_name": "Sri Jagdamba Pearls"
   },
   {
     "slug": "ssunsu-gift-card",
@@ -1792,32 +2192,40 @@
     "brand_name": "Steam Lysto"
   },
   {
-    "slug": "sterling-holiday-resorts-gift-card",
-    "brand_name": "Sterling Holiday Resorts"
+    "slug": "sterling-holidays-gift-card",
+    "brand_name": "Sterling Holidays"
+  },
+  {
+    "slug": "steve-madde-luxe-gift-card",
+    "brand_name": "Steve Madde Luxe"
   },
   {
     "slug": "steve-madden-luxe-(in-store)-gift-card",
     "brand_name": "Steve Madden Luxe (In Store)"
   },
   {
-    "slug": "steve-madden-luxe-gift-card",
-    "brand_name": "Steve Madden Luxe"
+    "slug": "street-foods-by-punjab-grill-(in-store)-gift-card",
+    "brand_name": "Street Foods By Punjab Grill (In Store)"
   },
   {
     "slug": "street-foods-by-punjab-grill-gift-card",
-    "brand_name": "Street Foods By PUNJAB Grill"
+    "brand_name": "Street Foods By Punjab Grill"
+  },
+  {
+    "slug": "style-bazaar-(in-store)-gift-card",
+    "brand_name": "Style Bazaar (In Store)"
   },
   {
     "slug": "subway-(in-store)-gift-card",
     "brand_name": "Subway (In Store)"
   },
   {
-    "slug": "subway-gift-card",
-    "brand_name": "Subway"
-  },
-  {
     "slug": "sun-scoop-gift-card",
     "brand_name": "Sun Scoop"
+  },
+  {
+    "slug": "sunglass-hut-(in-store)-gift-card",
+    "brand_name": "Sunglass Hut (In Store)"
   },
   {
     "slug": "supa-gift-card",
@@ -1832,8 +2240,12 @@
     "brand_name": "Superdry Luxe (In Store)"
   },
   {
-    "slug": "surat-diamonds-gift-card",
-    "brand_name": "Surat Diamonds"
+    "slug": "superdry-luxe-gift-card",
+    "brand_name": "Superdry Luxe"
+  },
+  {
+    "slug": "surat-diamonds-main-gift-card",
+    "brand_name": "Surat Diamonds Main"
   },
   {
     "slug": "surat-diamonds-solitaire-gift-card",
@@ -1850,6 +2262,14 @@
   {
     "slug": "sweet-truth-gift-card",
     "brand_name": "Sweet Truth"
+  },
+  {
+    "slug": "swiggy-instamart-gift-card",
+    "brand_name": "Swiggy Instamart"
+  },
+  {
+    "slug": "swiggy-one-gift-card",
+    "brand_name": "Swiggy One"
   },
   {
     "slug": "swiss-beauty-gift-card",
@@ -1916,6 +2336,14 @@
     "brand_name": "Tanishq Studded (In Store)"
   },
   {
+    "slug": "tasva-gift-card",
+    "brand_name": "Tasva"
+  },
+  {
+    "slug": "tata-cliq-fashion-gift-card",
+    "brand_name": "TATA CLiQ Fashion"
+  },
+  {
     "slug": "tata-cliq-luxury-gift-card",
     "brand_name": "Tata CliQ Luxury"
   },
@@ -1940,8 +2368,12 @@
     "brand_name": "TGI Fridays (In Store)"
   },
   {
-    "slug": "tgif-(in-store)-gift-card",
-    "brand_name": "TGIF (In Store)"
+    "slug": "thalaiva-biryani-gift-card",
+    "brand_name": "Thalaiva Biryani"
+  },
+  {
+    "slug": "the-biryani-life-gift-card",
+    "brand_name": "The Biryani Life"
   },
   {
     "slug": "the-body-shop-gift-card",
@@ -1980,12 +2412,28 @@
     "brand_name": "Things2Do"
   },
   {
+    "slug": "thinsane-pizza-gift-card",
+    "brand_name": "Thinsane Pizza"
+  },
+  {
     "slug": "third-wave-coffee-gift-card",
     "brand_name": "Third Wave Coffee"
   },
   {
     "slug": "tim-hortons-(in-store)-gift-card",
     "brand_name": "Tim Hortons (In Store)"
+  },
+  {
+    "slug": "times-prime-lite-gift-card",
+    "brand_name": "Times Prime Lite"
+  },
+  {
+    "slug": "times-prime-power-gift-card",
+    "brand_name": "Times Prime Power"
+  },
+  {
+    "slug": "times-prime-prive-gift-card",
+    "brand_name": "Times Prime Prive"
   },
   {
     "slug": "timezone-(in-store)-gift-card",
@@ -2012,12 +2460,24 @@
     "brand_name": "Titan Eye Plus (In Store)"
   },
   {
+    "slug": "titan-eye-plus-gift-card",
+    "brand_name": "Titan Eye Plus"
+  },
+  {
     "slug": "titan-minimals-(in-store%2C-3-day-wait)-gift-card",
     "brand_name": "Titan Minimals (In Store, 3 Day Wait)"
   },
   {
     "slug": "titan-minimals-(in-store)-gift-card",
     "brand_name": "Titan Minimals (In Store)"
+  },
+  {
+    "slug": "tods-luxe-(in-store)-gift-card",
+    "brand_name": "Tods Luxe (In Store)"
+  },
+  {
+    "slug": "tory-burch-luxe-(in-store)-gift-card",
+    "brand_name": "Tory Burch Luxe (In Store)"
   },
   {
     "slug": "toscano-(in-store)-gift-card",
@@ -2040,12 +2500,28 @@
     "brand_name": "Trends Women (In Store)"
   },
   {
+    "slug": "tridom-(in-store)-gift-card",
+    "brand_name": "Tridom (In Store)"
+  },
+  {
+    "slug": "tripxoxo-gift-card",
+    "brand_name": "tripXOXO"
+  },
+  {
     "slug": "truefitt-hill-(in-store)-gift-card",
     "brand_name": "TRUEFITT HILL (In Store)"
   },
   {
     "slug": "tumi-luxe-(in-store)-gift-card",
     "brand_name": "Tumi Luxe (In Store)"
+  },
+  {
+    "slug": "tumi-luxe-brand-(in-store)-gift-card",
+    "brand_name": "Tumi Luxe Brand (In Store)"
+  },
+  {
+    "slug": "typsy-beauty-gift-card",
+    "brand_name": "Typsy Beauty"
   },
   {
     "slug": "tzaro-gift-card",
@@ -2060,12 +2536,12 @@
     "brand_name": "Unicorn Apple Premium (In Store)"
   },
   {
-    "slug": "unipin-bgmi-gift-card",
-    "brand_name": "Unipin BGMI"
-  },
-  {
     "slug": "unipin-gift-card",
     "brand_name": "UniPin"
+  },
+  {
+    "slug": "united-colors-of-benetton-bagline-gift-card",
+    "brand_name": "United Colors of Benetton BAGLINE"
   },
   {
     "slug": "unlimited-(in-store)-gift-card",
@@ -2088,6 +2564,14 @@
     "brand_name": "V Mart (In Store)"
   },
   {
+    "slug": "vaango-(in-store)-gift-card",
+    "brand_name": "Vaango (In Store)"
+  },
+  {
+    "slug": "valentino-luxe-(in-store)-gift-card",
+    "brand_name": "Valentino Luxe (In Store)"
+  },
+  {
     "slug": "valorant-gift-card",
     "brand_name": "Valorant"
   },
@@ -2108,12 +2592,20 @@
     "brand_name": "Vero Moda (In Store)"
   },
   {
+    "slug": "versace-luxe-(in-store)-gift-card",
+    "brand_name": "Versace Luxe (In Store)"
+  },
+  {
     "slug": "victorias-secret-gift-card",
-    "brand_name": "VICTORIAS SECRET"
+    "brand_name": "Victorias Secret"
   },
   {
     "slug": "vijay-sales-(in-store)-gift-card",
     "brand_name": "Vijay Sales (In Store)"
+  },
+  {
+    "slug": "villeroy-boch-luxe-(in-store)-gift-card",
+    "brand_name": "Villeroy Boch Luxe (In Store)"
   },
   {
     "slug": "vinci-botanicals-gift-card",
@@ -2128,8 +2620,8 @@
     "brand_name": "VROTT"
   },
   {
-    "slug": "w-(in-store)-gift-card",
-    "brand_name": "W (In Store)"
+    "slug": "w-for-woman-(in-store)-gift-card",
+    "brand_name": "W For Woman (In Store)"
   },
   {
     "slug": "wakefit-gift-card",
@@ -2142,6 +2634,10 @@
   {
     "slug": "wendys-gift-card",
     "brand_name": "Wendys"
+  },
+  {
+    "slug": "west-elm-luxe-(in-store)-gift-card",
+    "brand_name": "West Elm Luxe (In Store)"
   },
   {
     "slug": "westside-(in-store%2C-8-hr-wait)-gift-card",
@@ -2180,6 +2676,14 @@
     "brand_name": "Woodland"
   },
   {
+    "slug": "world-of-titan-(1-day-wait)-gift-card",
+    "brand_name": "World of Titan (1 Day Wait)"
+  },
+  {
+    "slug": "world-of-titan-(8-hr-wait)-gift-card",
+    "brand_name": "World of Titan (8 Hr Wait)"
+  },
+  {
     "slug": "world-of-titan-(in-store%2C-1-day-wait)-gift-card",
     "brand_name": "World of Titan (In Store, 1 Day Wait)"
   },
@@ -2196,10 +2700,6 @@
     "brand_name": "Wow Momo (In Store)"
   },
   {
-    "slug": "wow-momo-gift-card",
-    "brand_name": "Wow Momo"
-  },
-  {
     "slug": "wrangler-(in-store)-gift-card",
     "brand_name": "Wrangler (In Store)"
   },
@@ -2208,16 +2708,36 @@
     "brand_name": "Wrangler"
   },
   {
+    "slug": "xbox-essential-game-pass-gift-card",
+    "brand_name": "Xbox Essential Game Pass"
+  },
+  {
+    "slug": "xbox-premium-game-pass-gift-card",
+    "brand_name": "Xbox Premium Game Pass"
+  },
+  {
+    "slug": "xbox-ultimate-game-pass-gift-card",
+    "brand_name": "Xbox Ultimate Game Pass"
+  },
+  {
+    "slug": "xfused-gift-card",
+    "brand_name": "Xfused"
+  },
+  {
     "slug": "yatra-gift-card",
     "brand_name": "Yatra"
+  },
+  {
+    "slug": "yatra-hotel-gift-card",
+    "brand_name": "Yatra Hotel"
   },
   {
     "slug": "yatra-hotels-and-holidays-gift-card",
     "brand_name": "Yatra Hotels and Holidays"
   },
   {
-    "slug": "yatra-hotels-gift-card",
-    "brand_name": "Yatra Hotels"
+    "slug": "yatra-hotels-holidays-gift-card",
+    "brand_name": "Yatra Hotels Holidays"
   },
   {
     "slug": "yatra-prime-gift-card",
@@ -2240,20 +2760,28 @@
     "brand_name": "YouMee (In Store)"
   },
   {
+    "slug": "youmee-gift-card",
+    "brand_name": "YouMee"
+  },
+  {
     "slug": "zambar-(in-store)-gift-card",
     "brand_name": "Zambar (In Store)"
   },
   {
+    "slug": "zambar-gift-card",
+    "brand_name": "Zambar"
+  },
+  {
     "slug": "zee5-gift-card",
-    "brand_name": "Zee5"
+    "brand_name": "ZEE5"
+  },
+  {
+    "slug": "zee5-regional-gift-card",
+    "brand_name": "ZEE5 Regional"
   },
   {
     "slug": "zepto-gift-card",
     "brand_name": "Zepto"
-  },
-  {
-    "slug": "zomato-(1-day-wait)-gift-card",
-    "brand_name": "Zomato (1 Day Wait)"
   },
   {
     "slug": "zomato-gift-card",
@@ -2262,5 +2790,13 @@
   {
     "slug": "zone-hypermarket-gift-card",
     "brand_name": "ZONE HYPERMARKET"
+  },
+  {
+    "slug": "zoom-car-gift-card",
+    "brand_name": "Zoom Car"
+  },
+  {
+    "slug": "zouk-gift-card",
+    "brand_name": "Zouk"
   }
 ]

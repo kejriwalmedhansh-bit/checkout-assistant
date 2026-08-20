@@ -1,0 +1,34 @@
+Dealo voucher data refresh — 2026-08-20 13:15 UTC
+==================================================
+
+OVERALL: All sources refreshed successfully
+
+## BuyHatke: OK
+  Brands before: 425  ->  after: 552
+  Individual brand scrape failures this run: 0
+  New brands: 170 (Abraham Thakore Luxe In Store, Adidas Kids Luxe In Store, Aeropostale BAGLINE, Air India, Ajio Luxe, Amazon Fresh, Amazon Shopping, American Eagle, Armani Exchange Luxe In Store, BGMI UniPin...)
+  Removed brands: 43 (AJIO LUXE, Air, Beer Cafe, CHARLES KEITH, Call it Spring, Campus, Campus Sutra, DPauls Travel Tours, EasyBuy In Store, Epic On...)
+  Notable rate changes (>= 1.0pp): 37
+    - Live Mint: 12.88% -> 58.88% (+46.0pp)
+    - Nat Habit: 21.14% -> 11.79% (-9.35pp)
+    - TEGO: 16.88% -> 9.89% (-6.99pp)
+    - Urban Ladder: 8.0% -> 1.13% (-6.87pp)
+    - Daily Objects: 17.88% -> 11.88% (-6.0pp)
+    - Flower Aura: 18.88% -> 13.73% (-5.15pp)
+    - Pure Home Living: 8.27% -> 12.43% (+4.16pp)
+    - Tata CliQ Luxury: 4.51% -> 8.52% (+4.01pp)
+    - Apollo Healing: 6.88% -> 10.88% (+4.0pp)
+    - Louis Philippe In Store: 5.88% -> 2.13% (-3.75pp)
+    - MakeMyTrip Hotel: 9.14% -> 12.89% (+3.75pp)
+    - Peter England In Store: 5.88% -> 2.23% (-3.65pp)
+    - Van Heusen In Store: 5.88% -> 2.23% (-3.65pp)
+    - V Mart In Store: 8.89% -> 5.88% (-3.01pp)
+    - Citizen Watches: 10.88% -> 13.73% (+2.85pp)
+    - Wow Chicken: 8.39% -> 5.84% (-2.55pp)
+    - Titan Eye Plus In Store: 4.88% -> 7.39% (+2.51pp)
+    - American Tourister In Store: 5.63% -> 7.89% (+2.26pp)
+    - Bakingo: 15.88% -> 13.73% (-2.15pp)
+    - Reliance Jewels In Store: 2.88% -> 0.74% (-2.14pp)
+    ... and 17 more
+
+(Maximize is not part of this automated refresh — needs a manually logged-in browser session, done separately.)
