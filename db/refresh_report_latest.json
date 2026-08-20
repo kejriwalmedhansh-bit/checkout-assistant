@@ -1,5 +1,5 @@
 {
-  "run_id": "2026-08-20 13:15 UTC",
+  "run_id": "2026-08-20 13:18 UTC",
   "reports": [
     {
       "source": "BuyHatke",
@@ -7,12 +7,43 @@
       "diff": {
         "before_count": 425,
         "after_count": 552,
+        "renamed": [
+          {
+            "slug": "ajio-luxe-gift-card",
+            "before_name": "AJIO LUXE",
+            "after_name": "Ajio Luxe"
+          },
+          {
+            "slug": "easybuy-(in-store)-gift-card",
+            "before_name": "EasyBuy In Store",
+            "after_name": "easybuy In Store"
+          },
+          {
+            "slug": "goibibo-hotel-gift-card",
+            "before_name": "GoIbibo Hotel",
+            "after_name": "Goibibo Hotel"
+          },
+          {
+            "slug": "marks-and-spencer-gift-card",
+            "before_name": "Marks And Spencer",
+            "after_name": "Marks and Spencer"
+          },
+          {
+            "slug": "victorias-secret-gift-card",
+            "before_name": "VICTORIAS SECRET",
+            "after_name": "Victorias Secret"
+          },
+          {
+            "slug": "zee5-gift-card",
+            "before_name": "Zee5",
+            "after_name": "ZEE5"
+          }
+        ],
         "added": [
           "Abraham Thakore Luxe In Store",
           "Adidas Kids Luxe In Store",
           "Aeropostale BAGLINE",
           "Air India",
-          "Ajio Luxe",
           "Amazon Fresh",
           "Amazon Shopping",
           "American Eagle",
@@ -54,7 +85,6 @@
           "Glam Studio In Store",
           "GoBaby Travel",
           "Goibibo",
-          "Goibibo Hotel",
           "Google Play",
           "HP Pay",
           "Hamleys Luxe In Store",
@@ -90,7 +120,6 @@
           "Malabar Gold Jewellery",
           "Malabar Jewellery",
           "Mango In Store",
-          "Marks and Spencer",
           "Marks and Spencer In Store",
           "Marriott Dining In Store",
           "Marriott E Dining In Store",
@@ -161,7 +190,6 @@
           "Vaango In Store",
           "Valentino Luxe In Store",
           "Versace Luxe In Store",
-          "Victorias Secret",
           "Villeroy Boch Luxe In Store",
           "W For Woman In Store",
           "West Elm Luxe In Store",
@@ -172,15 +200,12 @@
           "Xfused",
           "Yatra Hotel",
           "Yatra Hotels Holidays",
-          "ZEE5",
           "ZEE5 Regional",
           "Zepto",
           "Zoom Car",
-          "easybuy In Store",
           "tripXOXO"
         ],
         "removed": [
-          "AJIO LUXE",
           "Air",
           "Beer Cafe",
           "CHARLES KEITH",
@@ -188,13 +213,11 @@
           "Campus",
           "Campus Sutra",
           "DPauls Travel Tours",
-          "EasyBuy In Store",
           "Epic On",
           "Fastrack In Store 3 Day Wait",
           "GIVA",
           "Gas Luxe",
           "Giva Jewellery Gold",
-          "GoIbibo Hotel",
           "Health Glow In Store",
           "Kalyan Jewellery In Store",
           "Kama Ayurveda",
@@ -203,7 +226,6 @@
           "Live Hindustan",
           "Machaan",
           "Makemytrip Holiday",
-          "Marks And Spencer",
           "Marks Spencer In Store",
           "Mia In Store",
           "Muro QC In Store",
@@ -218,11 +240,9 @@
           "Subway",
           "Surat Diamonds",
           "TGIF In Store",
-          "VICTORIAS SECRET",
           "W In Store",
           "Wow Momo",
-          "Yatra Hotels",
-          "Zee5"
+          "Yatra Hotels"
         ],
         "rate_changes": [
           {
@@ -260,6 +280,12 @@
             "before_pct": 18.88,
             "after_pct": 13.73,
             "delta": -5.15
+          },
+          {
+            "brand": "Goibibo Hotel",
+            "before_pct": 8.89,
+            "after_pct": 13.63,
+            "delta": 4.74
           },
           {
             "brand": "Pure Home Living",

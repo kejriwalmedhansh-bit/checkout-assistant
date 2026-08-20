@@ -76,33 +76,45 @@ def run(cmd: list[str], label: str) -> tuple[bool, str]:
     return ok, tail
 
 
-def snapshot(source: str) -> dict[str, float]:
-    """{brand_name: best_discount_pct} across all products for a source."""
+def snapshot(source: str) -> dict[str, tuple[str, float]]:
+    """{slug: (brand_name, best_discount_pct)} across all products for a
+    source. Keyed by slug, not brand_name — found 2026-08-20: BuyHatke
+    re-capitalized "AJIO LUXE" to "Ajio Luxe" between scrapes (same slug,
+    same real brand), and a brand_name-keyed diff reported that as a fake
+    "removed AJIO LUXE" + "added Ajio Luxe" pair instead of recognizing it
+    as the same listing — real noise in a report whose whole point is to
+    be trustworthy about what actually changed."""
     path = DATA_DIR / f"{source}_master.json"
     if not path.exists():
         return {}
     data = json.loads(path.read_text())
     out = {}
-    for rec in data.values():
+    for slug, rec in data.items():
         rates = [p.get("best_discount_pct") for p in rec.get("products") or [] if p.get("best_discount_pct") is not None]
         if rates:
-            out[rec["brand_name"]] = max(rates)
+            out[slug] = (rec["brand_name"], max(rates))
     return out
 
 
-def diff_snapshots(before: dict[str, float], after: dict[str, float]) -> dict:
-    before_names, after_names = set(before), set(after)
-    added = sorted(after_names - before_names)
-    removed = sorted(before_names - after_names)
+def diff_snapshots(before: dict[str, tuple[str, float]], after: dict[str, tuple[str, float]]) -> dict:
+    before_slugs, after_slugs = set(before), set(after)
+    added = sorted(after[s][0] for s in after_slugs - before_slugs)
+    removed = sorted(before[s][0] for s in before_slugs - after_slugs)
+    renamed = []
     changed = []
-    for name in sorted(before_names & after_names):
-        delta = round(after[name] - before[name], 2)
+    for slug in sorted(before_slugs & after_slugs):
+        before_name, before_pct = before[slug]
+        after_name, after_pct = after[slug]
+        if before_name != after_name:
+            renamed.append({"slug": slug, "before_name": before_name, "after_name": after_name})
+        delta = round(after_pct - before_pct, 2)
         if abs(delta) >= RATE_CHANGE_THRESHOLD:
-            changed.append({"brand": name, "before_pct": before[name], "after_pct": after[name], "delta": delta})
+            changed.append({"brand": after_name, "before_pct": before_pct, "after_pct": after_pct, "delta": delta})
     changed.sort(key=lambda c: -abs(c["delta"]))
     return {
-        "before_count": len(before_names),
-        "after_count": len(after_names),
+        "before_count": len(before_slugs),
+        "after_count": len(after_slugs),
+        "renamed": renamed,
         "added": added,
         "removed": removed,
         "rate_changes": changed,
@@ -224,10 +236,17 @@ def format_report_text(run_id: str, reports: list[dict]) -> str:
         lines.append(f"  Brands before: {d.get('before_count')}  ->  after: {d.get('after_count')}")
         fails = r.get("individual_scrape_failures") or []
         lines.append(f"  Individual brand scrape failures this run: {len(fails)}" + (f" ({', '.join(fails[:15])}{'...' if len(fails) > 15 else ''})" if fails else ""))
+        renamed = d.get("renamed") or []
         added = d.get("added") or []
         removed = d.get("removed") or []
         lines.append(f"  New brands: {len(added)}" + (f" ({', '.join(added[:10])}{'...' if len(added) > 10 else ''})" if added else ""))
         lines.append(f"  Removed brands: {len(removed)}" + (f" ({', '.join(removed[:10])}{'...' if len(removed) > 10 else ''})" if removed else ""))
+        if renamed:
+            lines.append(f"  Renamed (same listing, name changed — not counted as add/remove): {len(renamed)}")
+            for rn in renamed[:10]:
+                lines.append(f"    - \"{rn['before_name']}\" -> \"{rn['after_name']}\"")
+            if len(renamed) > 10:
+                lines.append(f"    ... and {len(renamed) - 10} more")
         changes = d.get("rate_changes") or []
         lines.append(f"  Notable rate changes (>= {RATE_CHANGE_THRESHOLD}pp): {len(changes)}")
         for c in changes[:20]:
