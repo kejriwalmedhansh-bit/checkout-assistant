@@ -161,6 +161,7 @@ def _norm(name: str) -> str:
 _trusted_merchants_cache: set[str] | None = None
 _brand_voucher_index_cache: dict[str, dict] | None = None
 _maximize_brand_index_cache: dict[str, dict] | None = None
+_buyhatke_brand_index_cache: dict[str, dict] | None = None
 
 
 def _gyftr_voucher_to_output_shape(voucher: dict) -> dict:
@@ -237,6 +238,54 @@ def _maximize_brand_to_output_shape(record: dict) -> dict:
     }
 
 
+def _buyhatke_brand_to_output_shape(record: dict) -> dict:
+    """Same idea as `_maximize_brand_to_output_shape`, for BuyHatke — picks
+    the best-headline-rate tier and reshapes to the same flat fields. Found
+    2026-08-14: this shape function didn't exist at all, so a bare brand-name
+    search (e.g. "Myntra") only ever compared Gyftr vs Maximize and could
+    show a worse rate (Gyftr's 2.5%) while BuyHatke quietly had a better one
+    (5%) that this flow structurally couldn't see."""
+    products = record.get("products") or []
+    best_tier = max(products, key=lambda t: t.get("best_discount_pct") or 0, default={})
+
+    # BuyHatke's own data never has a short summary generated for it in the
+    # same way Gyftr's does — borrow Gyftr's for the same brand name (BuyHatke
+    # slugs don't match Gyftr's, so look up by normalized brand name instead
+    # of by slug the way `_maximize_brand_to_output_shape` does).
+    redeem_short = record.get("how_to_redeem_short")
+    redeem_steps = record.get("how_to_redeem_steps") or []
+    if not redeem_short:
+        gyftr_voucher = _load_brand_voucher_index().get(_norm(record.get("brand_name") or ""))
+        if gyftr_voucher:
+            redeem_short = gyftr_voucher.get("how_to_redeem_short")
+            if not redeem_steps:
+                redeem_steps = gyftr_voucher.get("how_to_redeem_steps") or []
+
+    return {
+        "brand_name": record.get("brand_name"),
+        "slug": record.get("slug"),
+        "voucher_source": "buyhatke",
+        "voucher_url": best_tier.get("source_url"),
+        "redemption_type": best_tier.get("redemption_type", ""),
+        "denominations": best_tier.get("denominations") or [],
+        "is_custom_denom": best_tier.get("is_custom_denom", False),
+        "custom_min": best_tier.get("custom_min"),
+        "custom_max": best_tier.get("custom_max"),
+        "discounts": best_tier.get("discounts") or {},
+        "best_payment_method": best_tier.get("best_payment_method"),
+        "best_discount_pct": best_tier.get("best_discount_pct"),
+        "stack_limit": best_tier.get("stack_limit"),
+        # BuyHatke doesn't track this separately (always None) — same as
+        # Maximize, a real numeric stack_limit here is still a confirmed cap.
+        "stack_limit_confidence": record.get("stack_limit_confidence"),
+        "value_cap": best_tier.get("value_cap"),
+        "purchase_cap_per_txn": best_tier.get("purchase_cap_per_txn"),
+        "redemption_restrictions": record.get("redemption_restrictions") or [],
+        "how_to_redeem_steps": redeem_steps,
+        "how_to_redeem_short": redeem_short,
+    }
+
+
 def _load_brand_voucher_index() -> dict[str, dict]:
     """Maps a normalized, spaceless full Gyftr brand name ("Tata CLiQ" ->
     "tatacliq") to its raw voucher record, for exact whole-phrase query
@@ -264,6 +313,20 @@ def _load_maximize_brand_index() -> dict[str, dict]:
         if key:
             index[key] = record
     _maximize_brand_index_cache = index
+    return index
+
+
+def _load_buyhatke_brand_index() -> dict[str, dict]:
+    """Same idea as `_load_brand_voucher_index`, over BuyHatke brands."""
+    global _buyhatke_brand_index_cache
+    if _buyhatke_brand_index_cache is not None:
+        return _buyhatke_brand_index_cache
+    index: dict[str, dict] = {}
+    for record in buyhatke_repository.all_brands():
+        key = _norm(record.get("brand_name", ""))
+        if key:
+            index[key] = record
+    _buyhatke_brand_index_cache = index
     return index
 
 
@@ -335,19 +398,30 @@ _MANUAL_VOUCHER_MATCHES: dict[str, tuple[str | None, str | None]] = {
 }
 
 
-def _pick_better_voucher(gyftr_shaped: dict | None, maximize_shaped: dict | None) -> dict | None:
-    """Whichever has the higher headline discount wins. On an exact tie,
-    default to Gyftr (simpler checkout flow) — UNLESS one side's stack limit
-    is clearly better (no stated cap beats a numeric cap; a higher numeric
-    cap beats a lower one), in which case that side wins instead."""
-    if gyftr_shaped is None:
-        return maximize_shaped
-    if maximize_shaped is None:
-        return gyftr_shaped
-    g_pct = gyftr_shaped.get("best_discount_pct") or 0
-    m_pct = maximize_shaped.get("best_discount_pct") or 0
-    if g_pct != m_pct:
-        return maximize_shaped if m_pct > g_pct else gyftr_shaped
+_VOUCHER_SOURCE_TIE_PRIORITY = {"gyftr": 0, "maximize": 1, "buyhatke": 2}
+
+
+def _pick_better_voucher(*shaped_options: dict | None) -> dict | None:
+    """Whichever has the higher headline discount wins, across however many
+    sources actually have this brand (2 originally — Gyftr/Maximize — now up
+    to 3 with BuyHatke). On an exact tie, whichever side's stack limit is
+    clearly better wins (no stated cap beats a numeric cap; a higher numeric
+    cap beats a lower one); a further tie defaults to Gyftr, then Maximize,
+    then BuyHatke (simpler checkout flow first) — same priority order the
+    original 2-way version used, just extended to a third source."""
+    candidates = [s for s in shaped_options if s is not None]
+    if not candidates:
+        return None
+    if len(candidates) == 1:
+        return candidates[0]
+
+    def _pct(shaped: dict) -> float:
+        return shaped.get("best_discount_pct") or 0
+
+    best_pct = max(_pct(c) for c in candidates)
+    tied = [c for c in candidates if _pct(c) == best_pct]
+    if len(tied) == 1:
+        return tied[0]
 
     def _stack_rank(shaped: dict) -> int:
         limit = shaped.get("stack_limit")
@@ -358,10 +432,8 @@ def _pick_better_voucher(gyftr_shaped: dict | None, maximize_shaped: dict | None
             return -1  # genuinely unconfirmed — worst, not "unlimited"
         return limit
 
-    g_rank, m_rank = _stack_rank(gyftr_shaped), _stack_rank(maximize_shaped)
-    if m_rank > g_rank:
-        return maximize_shaped
-    return gyftr_shaped
+    tied.sort(key=lambda s: (-_stack_rank(s), _VOUCHER_SOURCE_TIE_PRIORITY.get(s.get("voucher_source"), 99)))
+    return tied[0]
 
 
 def _match_brand_voucher(query: str) -> dict | None:
@@ -369,20 +441,25 @@ def _match_brand_voucher(query: str) -> dict | None:
     (optionally plus filler words like "gift card"/"voucher"), never a brand
     name appearing anywhere inside a longer, more specific search. A query
     word window (1 to `_MAX_BRAND_WORDS` consecutive words) must normalize to
-    exactly equal a brand's full normalized name, checked against both Gyftr
-    and Maximize — and every word outside that window must be pure filler,
-    or this isn't a brand-only lookup, it's a real product search that
-    happens to mention the brand ("Levi's denim jacket for men" must be
+    exactly equal a brand's full normalized name, checked against Gyftr,
+    Maximize, and BuyHatke — and every word outside that window must be pure
+    filler, or this isn't a brand-only lookup, it's a real product search
+    that happens to mention the brand ("Levi's denim jacket for men" must be
     priced via L1, not short-circuited to the Levi's voucher).
 
-    If a window matches on both sides, the one with the better headline rate
-    wins — there's no product price in this flow to compare actual final
-    cost with, so headline rate is the honest best available signal."""
+    If a window matches on more than one source, whichever has the better
+    headline rate wins — there's no product price in this flow to compare
+    actual final cost with, so headline rate is the honest best available
+    signal. (Note: the hand-verified `_MANUAL_VOUCHER_MATCHES` overrides
+    below are still Gyftr/Maximize-only — extending those to BuyHatke needs
+    the same brand-by-brand verification the existing pairs got, not a
+    blanket rule.)"""
     words = re.findall(r"[a-z0-9]+", (query or "").lower())
     if not words:
         return None
     gyftr_index = _load_brand_voucher_index()
     maximize_index = _load_maximize_brand_index()
+    buyhatke_index = _load_buyhatke_brand_index()
     for start in range(len(words)):
         for length in range(1, min(_MAX_BRAND_WORDS, len(words) - start) + 1):
             window = "".join(words[start:start + length])
@@ -406,14 +483,16 @@ def _match_brand_voucher(query: str) -> dict | None:
 
             gyftr_voucher = gyftr_index.get(window)
             maximize_record = maximize_index.get(window)
-            if gyftr_voucher is None and maximize_record is None:
+            buyhatke_record = buyhatke_index.get(window)
+            if gyftr_voucher is None and maximize_record is None and buyhatke_record is None:
                 continue
             leftover = words[:start] + words[start + length:]
             if any(w not in _BRAND_VOUCHER_FILLER_WORDS for w in leftover):
                 continue
             g_shaped = _gyftr_voucher_to_output_shape(gyftr_voucher) if gyftr_voucher else None
             m_shaped = _maximize_brand_to_output_shape(maximize_record) if maximize_record else None
-            return _pick_better_voucher(g_shaped, m_shaped)
+            b_shaped = _buyhatke_brand_to_output_shape(buyhatke_record) if buyhatke_record else None
+            return _pick_better_voucher(g_shaped, m_shaped, b_shaped)
     return None
 
 
