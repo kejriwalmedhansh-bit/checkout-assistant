@@ -227,17 +227,30 @@ def format_report_text(run_id: str, reports: list[dict]) -> str:
 
 
 def main() -> None:
+    source_arg = sys.argv[1] if len(sys.argv) > 1 else "all"
+    if source_arg not in ("all", "buyhatke", "gyftr"):
+        print(f"Unknown source {source_arg!r} — expected 'all', 'buyhatke', or 'gyftr'")
+        sys.exit(1)
+
     run_id = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M UTC")
-    reports = [refresh_buyhatke(), refresh_gyftr()]
+    reports = []
+    if source_arg in ("all", "buyhatke"):
+        reports.append(refresh_buyhatke())
+    if source_arg in ("all", "gyftr"):
+        reports.append(refresh_gyftr())
 
     ok_sources = [r["source"] for r in reports if r["status"] == "ok"]
     if ok_sources:
-        subprocess.run(["git", "add"] + [f"data/{s.lower()}_master.json" for s in ok_sources]
-                        + ["db/buyhatke_brands.json", "db/buyhatke_scrape_progress.json", "db/buyhatke_scrape_failures.json",
-                           "db/gyftr_full_scrape_progress.json", "db/gyftr_scrape_failures.json", "db/gyftr_vouchers.json"],
-                        cwd=ROOT)
+        db_files = {
+            "BuyHatke": ["db/buyhatke_brands.json", "db/buyhatke_scrape_progress.json", "db/buyhatke_scrape_failures.json"],
+            "Gyftr": ["db/gyftr_full_scrape_progress.json", "db/gyftr_scrape_failures.json", "db/gyftr_vouchers.json"],
+        }
+        add_paths = [f"data/{s.lower()}_master.json" for s in ok_sources]
+        for s in ok_sources:
+            add_paths += db_files.get(s, [])
+        subprocess.run(["git", "add"] + add_paths, cwd=ROOT)
         summary = ", ".join(f"{r['source']} {r['diff']['before_count']}->{r['diff']['after_count']}" for r in reports if r["status"] == "ok")
-        commit_msg = f"Scheduled data refresh ({run_id}): {summary}\n\nAutomated biweekly refresh via scheduled cloud routine."
+        commit_msg = f"Data refresh ({run_id}): {summary}"
         subprocess.run(["git", "commit", "-m", commit_msg], cwd=ROOT)
         subprocess.run(["git", "push"], cwd=ROOT)
 
