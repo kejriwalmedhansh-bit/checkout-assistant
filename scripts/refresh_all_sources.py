@@ -51,9 +51,23 @@ REPORT_JSON = DB_DIR / "refresh_report_latest.json"
 REPORT_TXT = DB_DIR / "refresh_report_latest.txt"
 
 
+# BuyHatke's catalog grew from ~570 to 700 brands between the first scrape
+# and this refresh — found 2026-08-20 when the old 1800s (30min) timeout cut
+# the detail scrape off mid-run (382/700 done) and, worse, crashed the whole
+# script with an uncaught TimeoutExpired instead of reporting it as a clean
+# step failure. Generous headroom for further catalog growth; a timeout is
+# now always caught and reported, never left to crash the process.
+STEP_TIMEOUT_SECONDS = 5400
+
+
 def run(cmd: list[str], label: str) -> tuple[bool, str]:
     print(f"--- {label} ---")
-    result = subprocess.run(cmd, cwd=ROOT, capture_output=True, text=True, timeout=1800)
+    try:
+        result = subprocess.run(cmd, cwd=ROOT, capture_output=True, text=True, timeout=STEP_TIMEOUT_SECONDS)
+    except subprocess.TimeoutExpired as e:
+        partial = ((e.stdout or "") + (e.stderr or ""))[-2000:]
+        print(f"!!! {label} TIMED OUT after {STEP_TIMEOUT_SECONDS}s")
+        return False, f"TIMED OUT after {STEP_TIMEOUT_SECONDS}s. Partial output:\n{partial}"
     ok = result.returncode == 0
     tail = (result.stdout[-3000:] + result.stderr[-1500:]).strip()
     print(tail[-2000:])
