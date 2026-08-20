@@ -137,6 +137,7 @@ MANUAL_TRUSTED_MERCHANTS = [
     "Malabar Gold & Diamonds", "M.P.J. Jewellers", "PC Jeweller",
     "Peora India", "relaxofootwear.com", "Senco Gold and Diamonds",
     "Tira", "W For Woman",
+    "culture-circle.com",
 ]
 
 PRIORITY_MERCHANTS = [
