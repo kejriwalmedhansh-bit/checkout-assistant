@@ -35,8 +35,13 @@ import JourneyPanels from './JourneyPanels';
  * own; tapping a chip or dragging the panel lets you browse freely without
  * losing progress.
  */
-export default function Journey({ rec, payingByCard = false }) {
-  const v = rec.voucher || null;
+export default function Journey({ rec, payingByCard = false, skipVoucher = false }) {
+  // A voucher exists on the route, but the selected card earns the same (or
+  // more) cashback buying direct as it would funding the voucher — e.g. a
+  // 0%-off voucher, where the voucher step adds friction for no benefit.
+  // Treated exactly like "no voucher": the direct-buy row below already
+  // covers it, no separate rendering path needed.
+  const v = skipVoucher ? null : rec.voucher || null;
   // Gyftr/Maximize give a lower discount when the voucher is paid for by
   // card than by UPI — once the shopper has said they're paying by card,
   // this step's price/percentage figures switch to that real, lower number

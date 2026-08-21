@@ -13,10 +13,12 @@ import InfoNote from '@/components/common/InfoNote';
  * card was measurably too tall on a phone with every step given its own
  * bordered box; this one is real but secondary, so it doesn't need the same
  * visual weight as the voucher/cart/pay steps above it. Renders nothing when
- * the route has no voucher.
+ * the route has no voucher, or when `skipVoucher` means Journey isn't
+ * routing the shopper through the voucher this visit — there are no terms
+ * to skim for a purchase they're not making.
  */
-export default function HowToSteps({ rec }) {
-  const v = rec.voucher || null;
+export default function HowToSteps({ rec, skipVoucher = false }) {
+  const v = skipVoucher ? null : rec.voucher || null;
   if (!v) return null;
   const sourceLabel = v.voucher_source === 'maximize' ? 'Maximize' : 'Gyftr';
 

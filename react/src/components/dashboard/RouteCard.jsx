@@ -16,7 +16,7 @@ import { finalPrice as calcFinal, originalPrice as calcOriginal, saving as calcS
  * weight above the fold (removed after live mobile testing showed the CTA
  * needed to fit on screen without scrolling).
  */
-export default function RouteCard({ result, rec, isAlt = false, onBack, payingByCard = false }) {
+export default function RouteCard({ result, rec, isAlt = false, onBack, payingByCard = false, skipVoucher = false }) {
   const finalPrice = calcFinal(rec, payingByCard);
   const originalPrice = calcOriginal(result, rec);
   const saving = calcSaving(result, rec, payingByCard);
@@ -40,8 +40,8 @@ export default function RouteCard({ result, rec, isAlt = false, onBack, payingBy
         </Flex>
       )}
       <Flex direction="column" gap="12px">
-        <Journey rec={rec} payingByCard={payingByCard} />
-        <HowToSteps rec={rec} />
+        <Journey rec={rec} payingByCard={payingByCard} skipVoucher={skipVoucher} />
+        <HowToSteps rec={rec} skipVoucher={skipVoucher} />
         <FinalPriceRow finalPrice={finalPrice} originalPrice={originalPrice} saving={saving} />
       </Flex>
     </Card>

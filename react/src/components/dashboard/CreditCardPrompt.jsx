@@ -18,8 +18,15 @@ import { fmt } from '@/utils/format';
  * ad-hoc from every action, so it can't drift out of sync with what's on
  * screen. The rest of the results page (top price, voucher-step numbers,
  * the "why did this change" banner) reacts to that single boolean.
+ *
+ * `onQuoteChange` (optional) hands the parent the selected card's full quote
+ * (null when no card is selected) — specifically for `skip_voucher`: some
+ * cards earn the exact same cashback buying the voucher or buying direct
+ * (e.g. a 0%-off voucher), in which case the voucher step is pure extra
+ * friction for no benefit and the journey below should skip straight to
+ * "buy direct with this card" instead.
  */
-export default function CreditCardPrompt({ route, onPayingByCardChange }) {
+export default function CreditCardPrompt({ route, onPayingByCardChange, onQuoteChange }) {
   const [stage, setStage] = useState('prompt'); // prompt | declined | picking | selected
   const [options, setOptions] = useState(null); // null = not fetched yet
   const [loadError, setLoadError] = useState(false);
@@ -29,6 +36,13 @@ export default function CreditCardPrompt({ route, onPayingByCardChange }) {
     onPayingByCardChange?.(stage === 'selected');
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [stage]);
+
+  const quote = options?.find((o) => o.card_name === selectedCard) || null;
+
+  useEffect(() => {
+    onQuoteChange?.(stage === 'selected' ? quote : null);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [stage, quote]);
 
   const openPicker = async () => {
     setStage('picking');
@@ -61,8 +75,6 @@ export default function CreditCardPrompt({ route, onPayingByCardChange }) {
     setSelectedCard('');
     setStage('prompt');
   };
-
-  const quote = options?.find((o) => o.card_name === selectedCard) || null;
 
   return (
     <Card p="16px 18px" bg="surface2">
@@ -197,8 +209,18 @@ export default function CreditCardPrompt({ route, onPayingByCardChange }) {
               </Box>
             </Flex>
           </Flex>
+          {quote.skip_voucher && (
+            <Flex align="flex-start" gap="8px" bg="amberSoft" border="1px solid" borderColor="amber" borderRadius="8px" px="10px" py="8px">
+              <Box color="amber" flex="0 0 auto" mt="1px">
+                <I.alert size={13} />
+              </Box>
+              <Text fontSize="12px" color="text" lineHeight={1.4}>
+                This voucher gives no extra discount — your card earns the same buying direct, with one less step. Skip the voucher below.
+              </Text>
+            </Flex>
+          )}
           <Flex gap="10px">
-            {quote.voucher_discount != null && (
+            {quote.voucher_discount != null && !quote.skip_voucher && (
               <Card flex="1" p="14px" bg="surface" gap="8px" display="flex" flexDirection="column">
                 <Box w="26px" h="26px" borderRadius="8px" bg="brandSoft" color="brand" display="flex" alignItems="center" justifyContent="center">
                   <I.ticket size={14} />
@@ -216,7 +238,7 @@ export default function CreditCardPrompt({ route, onPayingByCardChange }) {
                 <I.check size={14} />
               </Box>
               <Text fontSize="18px" fontWeight={800} color="text">
-                {fmt(quote.cashback)}
+                {fmt(quote.skip_voucher ? (quote.direct_cashback ?? quote.cashback) : quote.cashback)}
               </Text>
               <Text fontSize="11px" color="text2" lineHeight="1.3">
                 Cashback on this order

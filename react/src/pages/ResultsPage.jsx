@@ -52,6 +52,12 @@ export default function ResultsPage() {
   // so the page never shows two disagreeing prices at once. Reset whenever
   // the active route changes (a fresh route's card pick, if any, starts over).
   const [payingByCard, setPayingByCard] = useState(false);
+  // The selected card's full quote (see CreditCardPrompt) — specifically
+  // for `skip_voucher`: some cards earn identical cashback buying direct as
+  // buying the voucher (e.g. a 0%-off voucher), in which case the journey
+  // below should skip the voucher step, not just show its cashback number
+  // alongside a pointless extra step.
+  const [selectedCardQuote, setSelectedCardQuote] = useState(null);
   // Collapsed by default: on a phone, the back button + full search box
   // used to stack into ~100px of chrome above the fold on every single
   // visit, even though re-running a search from here is rare. Opening it is
@@ -60,6 +66,7 @@ export default function ResultsPage() {
   const backToRecommended = () => {
     setSelectedAlt(null);
     setPayingByCard(false);
+    setSelectedCardQuote(null);
   };
 
   const backControl = (
@@ -116,6 +123,7 @@ export default function ResultsPage() {
   const selectAlt = (alt) => {
     setSelectedAlt(alt);
     setPayingByCard(false);
+    setSelectedCardQuote(null);
     scrollRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
   };
 
@@ -230,12 +238,14 @@ export default function ResultsPage() {
                 isAlt={!!selectedAlt}
                 onBack={backToRecommended}
                 payingByCard={payingByCard}
+                skipVoucher={payingByCard && !!selectedCardQuote?.skip_voucher}
               />
             </Flex>
             <CreditCardPrompt
               key={`${activeRoute.merchant}-${activeRoute.final_cost ?? ''}`}
               route={activeRoute}
               onPayingByCardChange={setPayingByCard}
+              onQuoteChange={setSelectedCardQuote}
             />
             <AlternativesToggle
               alternatives={result.routes?.alternatives}

@@ -241,7 +241,16 @@ def get_card_quote(route, card_name: str) -> dict | None:
     """Voucher discount + cashback for one user-picked card on this route —
     no "best card" comparison, no ranking, just this card's real numbers.
     Returns None if the card doesn't earn anything here (shouldn't normally
-    be called for a card outside `eligible_cards_for_route`)."""
+    be called for a card outside `eligible_cards_for_route`).
+
+    `skip_voucher` covers the case this card exposed: when a voucher gives
+    little or no discount (e.g. a 0%-off Amazon voucher), routing the
+    shopper through "buy the voucher, then use it" earns the same card
+    cashback as just paying the merchant directly, for an extra step and no
+    benefit. True when this card's direct-purchase total (listed price minus
+    its normal purchase cashback) is no worse than the voucher-route total
+    (final cost minus the voucher-funding cashback already computed above).
+    Only meaningful when the route has a voucher; None/False otherwise."""
     purchase_amount, voucher_source = _route_card_context(route)
     rate = get_card_rate(card_name, route.merchant, voucher_source=voucher_source)
     if rate <= 0:
@@ -249,9 +258,21 @@ def get_card_quote(route, card_name: str) -> dict | None:
     cashback = round(get_actual_saving(card_name, route.merchant, purchase_amount, voucher_source=voucher_source), 2)
     card_data = card_repository.get(card_name) or {}
     voucher_discount = round(route.voucher.card.saving, 2) if route.voucher is not None else None
+
+    skip_voucher = False
+    direct_cashback = None
+    if route.voucher is not None:
+        direct_amount = route.listed_price if route.listed_price is not None else route.final_cost
+        direct_cashback = round(get_actual_saving(card_name, route.merchant, direct_amount, voucher_source=None), 2)
+        direct_total = round(direct_amount - direct_cashback, 2)
+        voucher_total = round(route.final_cost - cashback, 2)
+        skip_voucher = direct_total <= voucher_total
+
     return {
         "card_name": card_name,
         "voucher_discount": voucher_discount,
         "cashback": cashback,
         "apply_url": card_data.get("apply_url"),
+        "skip_voucher": skip_voucher,
+        "direct_cashback": direct_cashback,
     }

@@ -119,6 +119,8 @@ class CardOption(BaseModel):
     voucher_discount: float | None = None
     cashback: float = 0
     apply_url: str | None = None
+    skip_voucher: bool = False
+    direct_cashback: float | None = None
 
 
 class CardOptionsResponse(BaseModel):
