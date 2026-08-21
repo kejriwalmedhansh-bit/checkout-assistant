@@ -18,11 +18,21 @@ import { fmt } from '@/utils/format';
  * connecting straight into the step card, so sighted users read it from the
  * layout. The same fact is kept as a screen-reader-only line so it isn't
  * lost for anyone who can't see the connector.
+ *
+ * `cardCashback` folds a selected card's ₹ cashback into the headline
+ * number once one's picked — the checkout price itself (`originalPrice` →
+ * `finalPrice`) never nets cashback out (that's still just the voucher
+ * price), but "YOU SAVE" is the shopper's real total benefit, so it's the
+ * voucher discount plus the cashback, with a one-line breakdown underneath
+ * so the number isn't a mystery. When there's no voucher discount at all
+ * (e.g. the skip-the-voucher path), the headline is cashback alone.
  */
-export default function SavingsBar({ originalPrice, finalPrice, saving, voucherRequired = false }) {
-  if (!saving || saving <= 0) return null;
+export default function SavingsBar({ originalPrice, finalPrice, saving, cardCashback = 0, voucherRequired = false }) {
+  const voucherSaving = saving > 0 ? saving : 0;
+  const totalSaving = voucherSaving + (cardCashback || 0);
+  if (!totalSaving || totalSaving <= 0) return null;
 
-  const pct = originalPrice ? Math.round((saving / originalPrice) * 100) : null;
+  const pct = originalPrice ? Math.round((totalSaving / originalPrice) * 100) : null;
 
   return (
     <Box
@@ -60,7 +70,7 @@ export default function SavingsBar({ originalPrice, finalPrice, saving, voucherR
             lineHeight={1.1}
             letterSpacing="-.01em"
           >
-            {fmt(saving)}
+            {fmt(totalSaving)}
           </Text>
           <Flex align="center" gap="6px" fontSize="11px" fontFamily="mono" color="text2">
             <Text as="span" textDecoration="line-through" color="text3">
@@ -73,6 +83,11 @@ export default function SavingsBar({ originalPrice, finalPrice, saving, voucherR
               {fmt(finalPrice)}
             </Text>
           </Flex>
+          {cardCashback > 0 && (
+            <Text fontSize="10.5px" fontFamily="mono" color="text2" mt="2px">
+              {voucherSaving > 0 ? `${fmt(voucherSaving)} voucher + ${fmt(cardCashback)} cashback` : `${fmt(cardCashback)} cashback`}
+            </Text>
+          )}
         </Box>
 
         {pct != null && pct > 0 && (

@@ -43,6 +43,16 @@ export function saving(result, rec, payingByCard = false) {
   return round(priceSet?.saving);
 }
 
+/** The cashback ₹ figure that actually applies for a selected card's quote
+ * (see CreditCardPrompt/card_service.get_card_quote) — `direct_cashback`
+ * when the route is skipping the voucher for this card (`skip_voucher`),
+ * else the voucher-funded `cashback`. Single source of truth so the
+ * top savings box and the card's own cashback tile can never disagree. */
+export function effectiveCashback(quote) {
+  if (!quote) return 0;
+  return (quote.skip_voucher ? quote.direct_cashback ?? quote.cashback : quote.cashback) || 0;
+}
+
 /** What the buyer actually pays for the voucher itself (face value less the applicable
  * discount — UPI's or, once a card is picked, the card rate's, per `payingByCard`). The
  * face value itself (`voucher_amount`) doesn't depend on payment method, so it's always

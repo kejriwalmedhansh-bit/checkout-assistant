@@ -19,7 +19,13 @@ import { usePageHeader } from '@/hooks/usePageHeader';
 import { usePageTitle } from '@/hooks/usePageTitle';
 import { ROUTES } from '@/routes/paths';
 import { useSearchStore } from '@/store/searchStore';
-import { affiliateUrl, finalPrice as calcFinal, originalPrice as calcOriginal, saving as calcSaving } from '@/utils/format';
+import {
+  affiliateUrl,
+  effectiveCashback,
+  finalPrice as calcFinal,
+  originalPrice as calcOriginal,
+  saving as calcSaving,
+} from '@/utils/format';
 
 // Shown one at a time while the route is being built — this is Dealo's real
 // trust gap (buying a gift voucher is an unfamiliar concept to most users,
@@ -199,38 +205,44 @@ export default function ResultsPage() {
                 route the steps below continue, not a separate block a
                 user has to scroll past to find what to do. */}
             <Flex direction="column" gap={0}>
-              {calcSaving(result, activeRoute, payingByCard) > 0 ? (
-                <>
-                  <SavingsBar
-                    originalPrice={calcOriginal(result, activeRoute)}
-                    finalPrice={calcFinal(activeRoute, payingByCard)}
-                    saving={calcSaving(result, activeRoute, payingByCard)}
-                    voucherRequired={!!activeRoute.voucher}
-                  />
-                  {payingByCard && (
-                    <Flex
-                      align="flex-start"
-                      gap="8px"
-                      bg="amberSoft"
-                      border="1px solid"
-                      borderColor="amber"
-                      borderTop="none"
-                      px="14px"
-                      py="10px"
-                    >
-                      <Box color="amber" flex="0 0 auto" mt="1px">
-                        <I.alert size={13} />
-                      </Box>
-                      <Box fontSize="12px" color="text" lineHeight={1.4}>
-                        Paying by card lowers the voucher discount, but your card also gives you additional benefits on top.
-                      </Box>
-                    </Flex>
-                  )}
-                  <RouteWire animated={!prefersReduced} />
-                </>
-              ) : (
-                <BestPriceConfirmed comparedCount={result?.routes?.compared_count} />
-              )}
+              {(() => {
+                const voucherOnlySaving = calcSaving(result, activeRoute, payingByCard) || 0;
+                const cardCashback = payingByCard ? effectiveCashback(selectedCardQuote) : 0;
+                const skipVoucherOnCard = payingByCard && !!selectedCardQuote?.skip_voucher;
+                return voucherOnlySaving > 0 || cardCashback > 0 ? (
+                  <>
+                    <SavingsBar
+                      originalPrice={calcOriginal(result, activeRoute)}
+                      finalPrice={calcFinal(activeRoute, payingByCard)}
+                      saving={voucherOnlySaving}
+                      cardCashback={cardCashback}
+                      voucherRequired={!!activeRoute.voucher}
+                    />
+                    {payingByCard && !skipVoucherOnCard && (
+                      <Flex
+                        align="flex-start"
+                        gap="8px"
+                        bg="amberSoft"
+                        border="1px solid"
+                        borderColor="amber"
+                        borderTop="none"
+                        px="14px"
+                        py="10px"
+                      >
+                        <Box color="amber" flex="0 0 auto" mt="1px">
+                          <I.alert size={13} />
+                        </Box>
+                        <Box fontSize="12px" color="text" lineHeight={1.4}>
+                          Paying by card lowers the voucher discount, but your card also gives you additional benefits on top.
+                        </Box>
+                      </Flex>
+                    )}
+                    <RouteWire animated={!prefersReduced} />
+                  </>
+                ) : (
+                  <BestPriceConfirmed comparedCount={result?.routes?.compared_count} />
+                );
+              })()}
               <RouteCard
                 key={`${activeRoute.merchant}-${activeRoute.final_cost ?? ''}`}
                 result={result}

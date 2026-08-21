@@ -4,7 +4,7 @@ import { Box, Button, Flex, Text } from '@chakra-ui/react';
 import Card from '@/components/common/Card';
 import { I } from '@/components/common/icons';
 import { cardOptionsApi } from '@/api/cardOptions.api';
-import { fmt } from '@/utils/format';
+import { effectiveCashback, fmt } from '@/utils/format';
 
 /**
  * Replaces the old auto-picked "best card" nudge (CardFomo). Nothing shows
@@ -238,7 +238,7 @@ export default function CreditCardPrompt({ route, onPayingByCardChange, onQuoteC
                 <I.check size={14} />
               </Box>
               <Text fontSize="18px" fontWeight={800} color="text">
-                {fmt(quote.skip_voucher ? (quote.direct_cashback ?? quote.cashback) : quote.cashback)}
+                {fmt(effectiveCashback(quote))}
               </Text>
               <Text fontSize="11px" color="text2" lineHeight="1.3">
                 Cashback on this order
