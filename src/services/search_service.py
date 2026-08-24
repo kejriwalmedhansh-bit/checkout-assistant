@@ -23,6 +23,7 @@ import html
 import json
 import logging
 import re
+from concurrent.futures import ThreadPoolExecutor
 from urllib.parse import unquote, urlsplit
 
 import httpx
@@ -2377,6 +2378,19 @@ def build_routes_for_token(
 
     try:
         variant_query = (title or query).strip()
+
+        # The picked token's own detail fetch doesn't depend on the refined
+        # search at all (it's already known before the refined search even
+        # runs) — kicking it off in parallel here, instead of after, removes
+        # one whole sequential SearchApi round trip (typically several
+        # seconds) from every /routes call.
+        executor = ThreadPoolExecutor(max_workers=1 + _ROUTE_TOKEN_CAP)
+        primary_future = (
+            executor.submit(searchapi_repository.get_product, product_token)
+            if not product_token.startswith(_LIVE_PRICE_TOKEN_PREFIX)
+            else None
+        )
+
         tokens_to_fetch: list[str] = []
         if variant_query:
             refined = _refined_variant_candidates(variant_query)
@@ -2459,34 +2473,52 @@ def build_routes_for_token(
         # The originally-selected token was already vetted against the full
         # Product Picker candidate pool (including its own trust/price
         # checks) — a narrower refined search finding something else is not
-        # grounds to drop it, only to potentially outrank it later. Placed
-        # FIRST, not appended: the fetch loop below claims `display_title`
-        # from whichever token's fetch succeeds first, and the user's own
-        # pick must win that claim whenever its own fetch succeeds — not
+        # grounds to drop it, only to potentially outrank it later. Consumed
+        # FIRST below, not appended: the user's own pick must win the
+        # `display_title` claim whenever its own fetch succeeds — not
         # whichever refined-search token happened to load first.
-        tokens_to_fetch = [product_token] + [t for t in tokens_to_fetch if t != product_token]
+        tokens_to_fetch = [t for t in tokens_to_fetch if t != product_token]
+
+        # A live-fetched candidate (e.g. an Amazon price read straight off a
+        # pasted link) never came from SearchApi.io, so it has no real
+        # product_token to look up — skip it rather than spending a paid
+        # SearchApi call on an ID nothing can resolve. It still reaches the
+        # route via the picked_price/picked_source pin below.
+        detail_futures = {
+            token: executor.submit(searchapi_repository.get_product, token)
+            for token in tokens_to_fetch
+            if not token.startswith(_LIVE_PRICE_TOKEN_PREFIX)
+        }
 
         candidates: list[dict] = []
         display_title = ""
-        for token in tokens_to_fetch:
-            # A live-fetched candidate (e.g. an Amazon price read straight off
-            # a pasted link) never came from SearchApi.io, so it has no real
-            # product_token to look up — skip it here rather than spending a
-            # paid SearchApi call on an ID nothing can resolve. It still
-            # reaches the route via the picked_price/picked_source pin below.
-            if token.startswith(_LIVE_PRICE_TOKEN_PREFIX):
-                continue
-            detail = searchapi_repository.get_product(token)
+
+        def _consume(token: str, detail: dict) -> None:
+            nonlocal display_title
             if detail.get("error"):
-                continue
+                return
             product = detail.get("product") or {}
             display_title = display_title or product.get("title") or detail.get("title") or ""
             candidates.extend(_build_candidates(detail, source_token=token))
 
+        primary_detail = primary_future.result() if primary_future is not None else None
+        if primary_detail is not None:
+            _consume(product_token, primary_detail)
+        for token, future in detail_futures.items():
+            _consume(token, future.result())
+
+        executor.shutdown(wait=False)
+
         if not candidates and not product_token.startswith(_LIVE_PRICE_TOKEN_PREFIX):
             # Refined search came up empty or every fetch failed — fall back
-            # to the originally selected token alone.
-            detail = searchapi_repository.get_product(product_token)
+            # to the originally selected token alone. Cheap: the primary
+            # fetch above already hit the cache/API for this exact token, so
+            # this only does real work when that first attempt itself failed.
+            detail = (
+                primary_detail
+                if primary_detail is not None and not primary_detail.get("error")
+                else searchapi_repository.get_product(product_token)
+            )
             if detail.get("error"):
                 output["error"] = detail["error"]
                 return output
