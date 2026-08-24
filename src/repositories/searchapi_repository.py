@@ -11,11 +11,33 @@ object instead of crashing.
 """
 from __future__ import annotations
 
+import threading
+
 import httpx
 
 from ..cache import search_cache
 from ..config import get_settings
 from ..constants import SEARCHAPI_BASE, SEARCHAPI_DEFAULTS
+
+# One persistent, connection-pooling client for the process instead of a
+# fresh httpx.Client() per call — the old per-call client paid a full new
+# TCP+TLS handshake to searchapi.io on every single request (including each
+# leg of a set of calls now fired in parallel), which is pure latency with
+# no other benefit. httpx.Client is thread-safe for concurrent .get() calls,
+# which matters since build_routes_for_token fetches multiple product
+# details from a thread pool. Built lazily (not at import time) since it
+# needs the configured timeout from settings.
+_client: httpx.Client | None = None
+_client_lock = threading.Lock()
+
+
+def _get_client(timeout: float) -> httpx.Client:
+    global _client
+    if _client is None:
+        with _client_lock:
+            if _client is None:
+                _client = httpx.Client(timeout=timeout)
+    return _client
 
 
 def _get(params: dict) -> dict:
@@ -32,8 +54,8 @@ def _get(params: dict) -> dict:
         return cached
 
     try:
-        with httpx.Client(timeout=float(settings.SEARCHAPI_TIMEOUT)) as client:
-            resp = client.get(SEARCHAPI_BASE, params=call_params)
+        client = _get_client(float(settings.SEARCHAPI_TIMEOUT))
+        resp = client.get(SEARCHAPI_BASE, params=call_params)
         if resp.status_code != 200:
             return {"error": f"SearchApi returned HTTP {resp.status_code}"}
         data = resp.json()
