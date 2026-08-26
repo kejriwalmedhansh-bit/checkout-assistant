@@ -1153,26 +1153,62 @@ async def handle_incoming(body: dict) -> None:
 
         text = msg["text"]["body"]
         message_log.record(phone, "in", text)
-        is_new = session_store.is_new_user(phone)
-        if is_new:
-            await send_text(phone, WHATSAPP_ONBOARDING_MSG)
-            _track("WhatsApp Onboarded", phone)
-
-        classification = classify_input(text)
-        if classification["type"] == "unparseable":
-            await _send_state_aware_nudge(phone, is_new=is_new)
-            _track("WhatsApp Nudge Sent", phone, reason=classification.get("reason", ""), text=text)
-            return
-
-        if not _search_rate_limiter.allow(phone):
-            await send_text(phone, WHATSAPP_RATE_LIMITED_MSG)
-            _track("WhatsApp Rate Limited", phone, query=text)
-            return
-
-        _track("WhatsApp Search", phone, query=text, input_type=classification["type"])
+        # Marks this message read + shows typing immediately, regardless of
+        # what it turns out to be — without this, the debounce delay below
+        # would read as dead silence instead of "the bot is composing a
+        # reply." A later message in the same burst re-marks/re-shows this
+        # harmlessly; only one of them ends up producing an actual reply.
         await send_typing_indicator(msg_id)
-        _run_exclusive(phone, _run_with_typing_keepalive(msg_id, process_and_respond(phone, classification)))
+        _run_exclusive(phone, _process_text_message(phone, msg_id, text))
     except (KeyError, IndexError):
         pass
     except Exception as e:
         print(f"[Webhook] handle_incoming error: {e}")
+
+
+_TEXT_DEBOUNCE_SECONDS = 2  # see _process_text_message
+
+
+async def _process_text_message(phone: str, msg_id: str | None, text: str) -> None:
+    """The actual decide-and-reply logic for one incoming text, run only
+    after a short quiet gap. Waiting first means that if another text
+    arrives from the same phone in that window, _run_exclusive (see
+    handle_incoming) cancels this call before it ever runs its body — so a
+    quick burst of separate texts (e.g. "hi" immediately followed by
+    "hello") produces exactly one reply cycle, based on the last message,
+    instead of stacking one bot reply per human message. Live-tested
+    2026-08-26: two greetings sent seconds apart otherwise produced three
+    stacked bot messages (onboarding + two separate nudges), which read as
+    overwhelming rather than responsive."""
+    await asyncio.sleep(_TEXT_DEBOUNCE_SECONDS)
+
+    is_new = session_store.is_new_user(phone)
+    classification = classify_input(text)
+
+    if is_new:
+        await send_text(phone, WHATSAPP_ONBOARDING_MSG)
+        _track("WhatsApp Onboarded", phone)
+        if classification["type"] == "unparseable":
+            # The onboarding message just sent already explains how to use
+            # Dealo — immediately following it with "I didn't catch a
+            # product there" on this same first turn is redundant, not
+            # helpful. A later unparseable message from the same (now no
+            # longer new) phone still gets the normal nudge below.
+            _track(
+                "WhatsApp Nudge Sent", phone,
+                reason=classification.get("reason", ""), text=text, suppressed_first_time=True,
+            )
+            return
+
+    if classification["type"] == "unparseable":
+        await _send_state_aware_nudge(phone, is_new=is_new)
+        _track("WhatsApp Nudge Sent", phone, reason=classification.get("reason", ""), text=text)
+        return
+
+    if not _search_rate_limiter.allow(phone):
+        await send_text(phone, WHATSAPP_RATE_LIMITED_MSG)
+        _track("WhatsApp Rate Limited", phone, query=text)
+        return
+
+    _track("WhatsApp Search", phone, query=text, input_type=classification["type"])
+    await _run_with_typing_keepalive(msg_id, process_and_respond(phone, classification))
