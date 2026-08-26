@@ -287,6 +287,10 @@
       {
         "pg_name": "MobiKwik",
         "brand_pg_discount": 7
+      },
+      {
+        "pg_name": "Amazon Pay",
+        "brand_pg_discount": 7
       }
     ],
     "products": [
@@ -665,7 +669,7 @@
     "brand_name": "Croma",
     "slug": "croma",
     "redemption_type": "B",
-    "defaut_pg_dis": 2,
+    "defaut_pg_dis": 3,
     "pgdis": [
       {
         "pg_name": "Credit Card",
@@ -681,7 +685,7 @@
       },
       {
         "pg_name": "PAYTM UPI",
-        "brand_pg_discount": 2
+        "brand_pg_discount": 3
       },
       {
         "pg_name": "Paytm Wallet",
@@ -689,11 +693,11 @@
       },
       {
         "pg_name": "UPI",
-        "brand_pg_discount": 2
+        "brand_pg_discount": 3
       },
       {
         "pg_name": "e-Pay",
-        "brand_pg_discount": 2
+        "brand_pg_discount": 3
       },
       {
         "pg_name": "MobiKwik",
@@ -1351,7 +1355,7 @@
     "brand_name": "Myntra",
     "slug": "myntra",
     "redemption_type": "ON",
-    "defaut_pg_dis": 2.5,
+    "defaut_pg_dis": 3,
     "pgdis": [
       {
         "pg_name": "Credit Card",
@@ -1367,18 +1371,49 @@
       },
       {
         "pg_name": "PAYTM UPI",
-        "brand_pg_discount": 2.5
+        "brand_pg_discount": 3
       },
       {
         "pg_name": "UPI",
-        "brand_pg_discount": 2.5
+        "brand_pg_discount": 3
       },
       {
         "pg_name": "e-Pay",
-        "brand_pg_discount": 2.5
+        "brand_pg_discount": 3
       }
     ],
-    "products": [],
+    "products": [
+      {
+        "mrp": 1000,
+        "min_value": 1000,
+        "max_value": 0
+      },
+      {
+        "mrp": 5000,
+        "min_value": 5000,
+        "max_value": 0
+      },
+      {
+        "mrp": 500,
+        "min_value": 500,
+        "max_value": 0
+      },
+      {
+        "mrp": 2000,
+        "min_value": 2000,
+        "max_value": 0
+      },
+      {
+        "mrp": 7500,
+        "min_value": 7500,
+        "max_value": 0
+      },
+      {
+        "mrp": 10000,
+        "min_value": 10000,
+        "max_value": 0
+      }
+    ],
     "important_instruction": "<ul>\r\n\r\n<li>Gift Vouchers <span>CAN</span> be used Online at <a href=\"https://www.myntra.com/\">myntra.com</a> & Myntra App</li>\r\n<li><span>Multiple</span> Gift Voucher <span>CAN</span> be used in one bill.</li>\r\n<li>Gift Vouchers <span>CAN</span> be used to buy discounted products.</li>\r\n</ul>",
     "checkout_instruction": ""
   },
@@ -1552,10 +1587,6 @@
       {
         "pg_name": "e-Pay",
         "brand_pg_discount": 0
-      },
-      {
-        "pg_name": "Payzapp",
-        "brand_pg_discount": 0
       }
     ],
     "products": [
@@ -1625,9 +1656,29 @@
     ],
     "products": [
       {
+        "mrp": 1000,
+        "min_value": 1000,
+        "max_value": 0
+      },
+      {
+        "mrp": 2000,
+        "min_value": 2000,
+        "max_value": 0
+      },
+      {
+        "mrp": 500,
+        "min_value": 500,
+        "max_value": 0
+      },
+      {
         "mrp": 100,
         "min_value": 100,
         "max_value": 10000
+      },
+      {
+        "mrp": 5000,
+        "min_value": 5000,
+        "max_value": 0
       },
       {
         "mrp": 100,
@@ -1899,7 +1950,7 @@
       },
       {
         "pg_name": "e-Pay",
-        "brand_pg_discount": 3
+        "brand_pg_discount": 5
       },
       {
         "pg_name": "MobiKwik",
@@ -1911,6 +1962,11 @@
       }
     ],
     "products": [
+      {
+        "mrp": 1000,
+        "min_value": 1000,
+        "max_value": 0
+      },
       {
         "mrp": 500,
         "min_value": 500,
@@ -1965,6 +2021,11 @@
       {
         "mrp": 1000,
         "min_value": 1000,
+        "max_value": 0
+      },
+      {
+        "mrp": 2000,
+        "min_value": 2000,
         "max_value": 0
       },
       {
@@ -2023,6 +2084,11 @@
       {
         "mrp": 1000,
         "min_value": 1000,
+        "max_value": 0
+      },
+      {
+        "mrp": 500,
+        "min_value": 500,
         "max_value": 0
       }
     ],
@@ -2152,6 +2218,11 @@
         "max_value": 0
       },
       {
+        "mrp": 5000,
+        "min_value": 5000,
+        "max_value": 0
+      },
+      {
         "mrp": 2000,
         "min_value": 2000,
         "max_value": 0
@@ -2169,15 +2240,15 @@
     "brand_name": "Amazon",
     "slug": "amazon",
     "redemption_type": "ON",
-    "defaut_pg_dis": 0.5,
+    "defaut_pg_dis": 0.75,
     "pgdis": [
       {
         "pg_name": "PAYTM UPI",
-        "brand_pg_discount": 0.5
+        "brand_pg_discount": 0.75
       },
       {
         "pg_name": "UPI",
-        "brand_pg_discount": 0.5
+        "brand_pg_discount": 0.75
       },
       {
         "pg_name": "Credit Card",
@@ -2912,8 +2983,20 @@
     "brand_name": "PC Jeweller Gold",
     "slug": "pc-jeweller-gold",
     "redemption_type": "OFF",
-    "defaut_pg_dis": 0,
+    "defaut_pg_dis": 1,
     "pgdis": [
+      {
+        "pg_name": "PAYTM UPI",
+        "brand_pg_discount": 1
+      },
+      {
+        "pg_name": "UPI",
+        "brand_pg_discount": 1
+      },
+      {
+        "pg_name": "e-Pay",
+        "brand_pg_discount": 1
+      },
       {
         "pg_name": "Credit Card",
         "brand_pg_discount": 0
@@ -2931,19 +3014,7 @@
         "brand_pg_discount": 0
       },
       {
-        "pg_name": "UPI",
-        "brand_pg_discount": 0
-      },
-      {
         "pg_name": "Amazon Pay",
-        "brand_pg_discount": 0
-      },
-      {
-        "pg_name": "e-Pay",
-        "brand_pg_discount": 0
-      },
-      {
-        "pg_name": "Payzapp",
         "brand_pg_discount": 0
       }
     ],
@@ -2976,39 +3047,39 @@
     "brand_name": "PC Jeweller Diamond",
     "slug": "pc-jeweller-diamond",
     "redemption_type": "OFF",
-    "defaut_pg_dis": 0,
+    "defaut_pg_dis": 3,
     "pgdis": [
       {
         "pg_name": "Credit Card",
-        "brand_pg_discount": 0
+        "brand_pg_discount": 1
       },
       {
         "pg_name": "Net Banking",
-        "brand_pg_discount": 0
+        "brand_pg_discount": 1
       },
       {
         "pg_name": "Debit Card",
-        "brand_pg_discount": 0
+        "brand_pg_discount": 1
       },
       {
-        "pg_name": "MobiKwik",
-        "brand_pg_discount": 0
+        "pg_name": "PAYTM UPI",
+        "brand_pg_discount": 3
       },
       {
         "pg_name": "UPI",
-        "brand_pg_discount": 0
-      },
-      {
-        "pg_name": "Amazon Pay",
-        "brand_pg_discount": 0
+        "brand_pg_discount": 3
       },
       {
         "pg_name": "e-Pay",
-        "brand_pg_discount": 0
+        "brand_pg_discount": 3
       },
       {
-        "pg_name": "Payzapp",
-        "brand_pg_discount": 0
+        "pg_name": "MobiKwik",
+        "brand_pg_discount": 1
+      },
+      {
+        "pg_name": "Amazon Pay",
+        "brand_pg_discount": 1
       }
     ],
     "products": [
@@ -3720,11 +3791,6 @@
         "max_value": 0
       },
       {
-        "mrp": 2500,
-        "min_value": 2500,
-        "max_value": 0
-      },
-      {
         "mrp": 2000,
         "min_value": 2000,
         "max_value": 0
@@ -3889,8 +3955,18 @@
     ],
     "products": [
       {
+        "mrp": 100,
+        "min_value": 100,
+        "max_value": 0
+      },
+      {
         "mrp": 250,
         "min_value": 250,
+        "max_value": 0
+      },
+      {
+        "mrp": 1000,
+        "min_value": 1000,
         "max_value": 0
       },
       {
@@ -4213,6 +4289,11 @@
         "mrp": 1000,
         "min_value": 1000,
         "max_value": 0
+      },
+      {
+        "mrp": 10000,
+        "min_value": 10000,
+        "max_value": 0
       }
     ],
     "important_instruction": "<ul>\r\n<li>Multiple Gift Vouchers CAN be used in one bill.</li>\r\n<li>This Luxe Gift Card is redeemable at more than 30 participatory brands across India.</li>\r\n<li>Gift Vouchers CANNOT be used during Sale.</li>\r\n<li>Gift Vouchers are ACCEPTED at all listed Outlets. </li>\r\n<li>EGV is ONE time use.</li>\r\n</ul>",
@@ -4413,39 +4494,31 @@
     "brand_name": "Hugo Boss-Luxe Gift Card",
     "slug": "luxe-gift-card-hugo-boss",
     "redemption_type": "OFF",
-    "defaut_pg_dis": 0,
+    "defaut_pg_dis": 10,
     "pgdis": [
       {
         "pg_name": "Credit Card",
-        "brand_pg_discount": 0
+        "brand_pg_discount": 10
       },
       {
         "pg_name": "Net Banking",
-        "brand_pg_discount": 0
+        "brand_pg_discount": 10
       },
       {
         "pg_name": "Debit Card",
-        "brand_pg_discount": 0
+        "brand_pg_discount": 10
       },
       {
-        "pg_name": "MobiKwik",
-        "brand_pg_discount": 0
+        "pg_name": "PAYTM UPI",
+        "brand_pg_discount": 10
       },
       {
         "pg_name": "UPI",
-        "brand_pg_discount": 0
-      },
-      {
-        "pg_name": "Amazon Pay",
-        "brand_pg_discount": 0
+        "brand_pg_discount": 10
       },
       {
         "pg_name": "e-Pay",
-        "brand_pg_discount": 0
-      },
-      {
-        "pg_name": "Payzapp",
-        "brand_pg_discount": 0
+        "brand_pg_discount": 10
       }
     ],
     "products": [
@@ -4462,6 +4535,11 @@
       {
         "mrp": 1000,
         "min_value": 1000,
+        "max_value": 0
+      },
+      {
+        "mrp": 10000,
+        "min_value": 10000,
         "max_value": 0
       }
     ],
@@ -4511,11 +4589,6 @@
       {
         "mrp": 5000,
         "min_value": 5000,
-        "max_value": 0
-      },
-      {
-        "mrp": 2500,
-        "min_value": 2500,
         "max_value": 0
       },
       {
@@ -4732,39 +4805,31 @@
     "brand_name": "Steve Madden-Luxe Gift Card",
     "slug": "luxe-gift-card-steve-madden",
     "redemption_type": "B",
-    "defaut_pg_dis": 0,
+    "defaut_pg_dis": 10,
     "pgdis": [
       {
         "pg_name": "Credit Card",
-        "brand_pg_discount": 0
+        "brand_pg_discount": 10
       },
       {
         "pg_name": "Net Banking",
-        "brand_pg_discount": 0
+        "brand_pg_discount": 10
       },
       {
         "pg_name": "Debit Card",
-        "brand_pg_discount": 0
+        "brand_pg_discount": 10
       },
       {
-        "pg_name": "MobiKwik",
-        "brand_pg_discount": 0
+        "pg_name": "PAYTM UPI",
+        "brand_pg_discount": 10
       },
       {
         "pg_name": "UPI",
-        "brand_pg_discount": 0
-      },
-      {
-        "pg_name": "Amazon Pay",
-        "brand_pg_discount": 0
+        "brand_pg_discount": 10
       },
       {
         "pg_name": "e-Pay",
-        "brand_pg_discount": 0
-      },
-      {
-        "pg_name": "Payzapp",
-        "brand_pg_discount": 0
+        "brand_pg_discount": 10
       }
     ],
     "products": [
@@ -4833,8 +4898,18 @@
     ],
     "products": [
       {
+        "mrp": 1499,
+        "min_value": 1499,
+        "max_value": 0
+      },
+      {
         "mrp": 1299,
         "min_value": 1299,
+        "max_value": 0
+      },
+      {
+        "mrp": 399,
+        "min_value": 399,
         "max_value": 0
       }
     ],
@@ -4872,12 +4947,16 @@
         "brand_pg_discount": 16
       },
       {
+        "pg_name": "e-Pay",
+        "brand_pg_discount": 16
+      },
+      {
         "pg_name": "MobiKwik",
         "brand_pg_discount": 14
       },
       {
-        "pg_name": "e-Pay",
-        "brand_pg_discount": 0
+        "pg_name": "Amazon Pay",
+        "brand_pg_discount": 14
       }
     ],
     "products": [
@@ -4909,8 +4988,12 @@
     "brand_name": "Candere Gold Coin",
     "slug": "candere-gold-coin",
     "redemption_type": "ON",
-    "defaut_pg_dis": 0,
+    "defaut_pg_dis": 2,
     "pgdis": [
+      {
+        "pg_name": "PAYTM UPI",
+        "brand_pg_discount": 2
+      },
       {
         "pg_name": "UPI",
         "brand_pg_discount": 2
@@ -5467,6 +5550,10 @@
         "brand_pg_discount": 20
       },
       {
+        "pg_name": "Amazon Pay",
+        "brand_pg_discount": 20
+      },
+      {
         "pg_name": "Payzapp",
         "brand_pg_discount": 0
       }
@@ -5753,7 +5840,7 @@
     "brand_name": "TATA CLiQ",
     "slug": "tata-cliq",
     "redemption_type": "ON",
-    "defaut_pg_dis": 9,
+    "defaut_pg_dis": 10,
     "pgdis": [
       {
         "pg_name": "Credit Card",
@@ -5769,7 +5856,7 @@
       },
       {
         "pg_name": "PAYTM UPI",
-        "brand_pg_discount": 9
+        "brand_pg_discount": 10
       },
       {
         "pg_name": "Paytm Wallet",
@@ -5777,11 +5864,11 @@
       },
       {
         "pg_name": "UPI",
-        "brand_pg_discount": 9
+        "brand_pg_discount": 10
       },
       {
         "pg_name": "e-Pay",
-        "brand_pg_discount": 9
+        "brand_pg_discount": 10
       }
     ],
     "products": [
@@ -5803,11 +5890,6 @@
       {
         "mrp": 1000,
         "min_value": 1000,
-        "max_value": 0
-      },
-      {
-        "mrp": 7500,
-        "min_value": 7500,
         "max_value": 0
       },
       {
@@ -5912,8 +5994,8 @@
         "max_value": 0
       },
       {
-        "mrp": 5000,
-        "min_value": 5000,
+        "mrp": 2500,
+        "min_value": 2500,
         "max_value": 0
       },
       {
@@ -6003,39 +6085,31 @@
     "brand_name": "Emporio Armani- Luxe Gift Card",
     "slug": "luxe-gift-card-emporio-armani",
     "redemption_type": "OFF",
-    "defaut_pg_dis": 0,
+    "defaut_pg_dis": 10,
     "pgdis": [
       {
         "pg_name": "Credit Card",
-        "brand_pg_discount": 0
+        "brand_pg_discount": 10
       },
       {
         "pg_name": "Net Banking",
-        "brand_pg_discount": 0
+        "brand_pg_discount": 10
       },
       {
         "pg_name": "Debit Card",
-        "brand_pg_discount": 0
+        "brand_pg_discount": 10
       },
       {
-        "pg_name": "MobiKwik",
-        "brand_pg_discount": 0
+        "pg_name": "PAYTM UPI",
+        "brand_pg_discount": 10
       },
       {
         "pg_name": "UPI",
-        "brand_pg_discount": 0
-      },
-      {
-        "pg_name": "Amazon Pay",
-        "brand_pg_discount": 0
+        "brand_pg_discount": 10
       },
       {
         "pg_name": "e-Pay",
-        "brand_pg_discount": 0
-      },
-      {
-        "pg_name": "Payzapp",
-        "brand_pg_discount": 0
+        "brand_pg_discount": 10
       }
     ],
     "products": [
@@ -6052,6 +6126,11 @@
       {
         "mrp": 1000,
         "min_value": 1000,
+        "max_value": 0
+      },
+      {
+        "mrp": 10000,
+        "min_value": 10000,
         "max_value": 0
       }
     ],
@@ -6126,39 +6205,31 @@
     "brand_name": " Paul Smith- Luxe Gift Card",
     "slug": "luxe-gift-card---paul-smith",
     "redemption_type": "OFF",
-    "defaut_pg_dis": 0,
+    "defaut_pg_dis": 10,
     "pgdis": [
       {
         "pg_name": "Credit Card",
-        "brand_pg_discount": 0
+        "brand_pg_discount": 10
       },
       {
         "pg_name": "Net Banking",
-        "brand_pg_discount": 0
+        "brand_pg_discount": 10
       },
       {
         "pg_name": "Debit Card",
-        "brand_pg_discount": 0
+        "brand_pg_discount": 10
       },
       {
-        "pg_name": "MobiKwik",
-        "brand_pg_discount": 0
+        "pg_name": "PAYTM UPI",
+        "brand_pg_discount": 10
       },
       {
         "pg_name": "UPI",
-        "brand_pg_discount": 0
-      },
-      {
-        "pg_name": "Amazon Pay",
-        "brand_pg_discount": 0
+        "brand_pg_discount": 10
       },
       {
         "pg_name": "e-Pay",
-        "brand_pg_discount": 0
-      },
-      {
-        "pg_name": "Payzapp",
-        "brand_pg_discount": 0
+        "brand_pg_discount": 10
       }
     ],
     "products": [
@@ -6175,6 +6246,11 @@
       {
         "mrp": 1000,
         "min_value": 1000,
+        "max_value": 0
+      },
+      {
+        "mrp": 10000,
+        "min_value": 10000,
         "max_value": 0
       }
     ],
@@ -6488,11 +6564,6 @@
         "max_value": 0
       },
       {
-        "mrp": 500,
-        "min_value": 500,
-        "max_value": 0
-      },
-      {
         "mrp": 1000,
         "min_value": 1000,
         "max_value": 0
@@ -6510,26 +6581,39 @@
     "brand_name": "Swiggy Money Voucher",
     "slug": "swiggy-gv",
     "redemption_type": "ON",
-    "defaut_pg_dis": 0,
+    "defaut_pg_dis": 2.5,
     "pgdis": [
+      {
+        "pg_name": "PAYTM UPI",
+        "brand_pg_discount": 2.5
+      },
+      {
+        "pg_name": "UPI",
+        "brand_pg_discount": 2.5
+      },
+      {
+        "pg_name": "e-Pay",
+        "brand_pg_discount": 2.5
+      },
       {
         "pg_name": "Credit Card",
         "brand_pg_discount": 0
       },
       {
+        "pg_name": "Net Banking",
+        "brand_pg_discount": 0
+      },
+      {
         "pg_name": "Debit Card",
-        "brand_pg_discount": 0
-      },
-      {
-        "pg_name": "UPI",
-        "brand_pg_discount": 0
-      },
-      {
-        "pg_name": "e-Pay",
         "brand_pg_discount": 0
       }
     ],
     "products": [
+      {
+        "mrp": 3000,
+        "min_value": 3000,
+        "max_value": 0
+      },
       {
         "mrp": 150,
         "min_value": 150,
@@ -6553,6 +6637,11 @@
       {
         "mrp": 200,
         "min_value": 200,
+        "max_value": 0
+      },
+      {
+        "mrp": 5000,
+        "min_value": 5000,
         "max_value": 0
       }
     ],
@@ -6617,6 +6706,11 @@
       {
         "mrp": 5000,
         "min_value": 5000,
+        "max_value": 0
+      },
+      {
+        "mrp": 2500,
+        "min_value": 2500,
         "max_value": 0
       },
       {
@@ -6770,39 +6864,39 @@
     "brand_name": "Mia",
     "slug": "mia",
     "redemption_type": "OFF",
-    "defaut_pg_dis": 0,
+    "defaut_pg_dis": 3.5,
     "pgdis": [
       {
         "pg_name": "Credit Card",
-        "brand_pg_discount": 0
+        "brand_pg_discount": 1.5
       },
       {
         "pg_name": "Net Banking",
-        "brand_pg_discount": 0
+        "brand_pg_discount": 1.5
       },
       {
         "pg_name": "Debit Card",
-        "brand_pg_discount": 0
+        "brand_pg_discount": 1.5
       },
       {
-        "pg_name": "MobiKwik",
-        "brand_pg_discount": 0
+        "pg_name": "PAYTM UPI",
+        "brand_pg_discount": 3.5
       },
       {
         "pg_name": "UPI",
-        "brand_pg_discount": 0
-      },
-      {
-        "pg_name": "Amazon Pay",
-        "brand_pg_discount": 0
+        "brand_pg_discount": 3.5
       },
       {
         "pg_name": "e-Pay",
-        "brand_pg_discount": 0
+        "brand_pg_discount": 3.5
       },
       {
-        "pg_name": "Payzapp",
-        "brand_pg_discount": 0
+        "pg_name": "MobiKwik",
+        "brand_pg_discount": 1.5
+      },
+      {
+        "pg_name": "Amazon Pay",
+        "brand_pg_discount": 1.5
       }
     ],
     "products": [
@@ -7192,8 +7286,20 @@
     "brand_name": "Reliance Digital",
     "slug": "reliance-digital",
     "redemption_type": "OFF",
-    "defaut_pg_dis": 0,
+    "defaut_pg_dis": 0.5,
     "pgdis": [
+      {
+        "pg_name": "PAYTM UPI",
+        "brand_pg_discount": 0.5
+      },
+      {
+        "pg_name": "UPI",
+        "brand_pg_discount": 0.5
+      },
+      {
+        "pg_name": "e-Pay",
+        "brand_pg_discount": 0.5
+      },
       {
         "pg_name": "Credit Card",
         "brand_pg_discount": 0
@@ -7207,15 +7313,7 @@
         "brand_pg_discount": 0
       },
       {
-        "pg_name": "UPI",
-        "brand_pg_discount": 0
-      },
-      {
         "pg_name": "Amazon Pay",
-        "brand_pg_discount": 0
-      },
-      {
-        "pg_name": "e-Pay",
         "brand_pg_discount": 0
       }
     ],
@@ -7248,6 +7346,11 @@
       {
         "mrp": 7500,
         "min_value": 7500,
+        "max_value": 0
+      },
+      {
+        "mrp": 3000,
+        "min_value": 3000,
         "max_value": 0
       },
       {
@@ -7451,6 +7554,10 @@
         "brand_pg_discount": 0
       },
       {
+        "pg_name": "Net Banking",
+        "brand_pg_discount": 0
+      },
+      {
         "pg_name": "Debit Card",
         "brand_pg_discount": 0
       },
@@ -7494,11 +7601,19 @@
         "brand_pg_discount": 0
       },
       {
+        "pg_name": "Net Banking",
+        "brand_pg_discount": 0
+      },
+      {
         "pg_name": "Debit Card",
         "brand_pg_discount": 0
       },
       {
         "pg_name": "UPI",
+        "brand_pg_discount": 0
+      },
+      {
+        "pg_name": "Amazon Pay",
         "brand_pg_discount": 0
       },
       {
@@ -7719,7 +7834,15 @@
         "brand_pg_discount": 0
       },
       {
+        "pg_name": "Net Banking",
+        "brand_pg_discount": 0
+      },
+      {
         "pg_name": "Debit Card",
+        "brand_pg_discount": 0
+      },
+      {
+        "pg_name": "MobiKwik",
         "brand_pg_discount": 0
       },
       {
@@ -8361,11 +8484,6 @@
         "max_value": 0
       },
       {
-        "mrp": 500,
-        "min_value": 500,
-        "max_value": 0
-      },
-      {
         "mrp": 250,
         "min_value": 250,
         "max_value": 0
@@ -8484,13 +8602,18 @@
     ],
     "products": [
       {
-        "mrp": 599,
-        "min_value": 599,
+        "mrp": 799,
+        "min_value": 799,
         "max_value": 0
       },
       {
-        "mrp": 99,
-        "min_value": 99,
+        "mrp": 549,
+        "min_value": 549,
+        "max_value": 0
+      },
+      {
+        "mrp": 349,
+        "min_value": 349,
         "max_value": 0
       }
     ],
@@ -8665,13 +8788,18 @@
         "max_value": 0
       },
       {
+        "mrp": 10000,
+        "min_value": 10000,
+        "max_value": 0
+      },
+      {
         "mrp": 7500,
         "min_value": 7500,
         "max_value": 0
       },
       {
-        "mrp": 5000,
-        "min_value": 5000,
+        "mrp": 1000,
+        "min_value": 1000,
         "max_value": 0
       }
     ],
@@ -8898,23 +9026,7 @@
         "brand_pg_discount": 2
       }
     ],
-    "products": [
-      {
-        "mrp": 5000,
-        "min_value": 5000,
-        "max_value": 0
-      },
-      {
-        "mrp": 1000,
-        "min_value": 1000,
-        "max_value": 0
-      },
-      {
-        "mrp": 500,
-        "min_value": 500,
-        "max_value": 0
-      }
-    ],
+    "products": [],
     "important_instruction": "<ul>\r\n<li>GV/GC would be accepted only on the Swiggy App</li>\r\n<li>GV/GC can be used to buy discounted products</li>\r\n<li>In case someone fails to redeem the code during the validity period the Voucher Code will expire however once money is loaded in your Swiggy Wallet powered by their banking partner, it is valid for 365 days only.</li>\r\n</ul>",
     "checkout_instruction": ""
   },
@@ -9194,7 +9306,7 @@
     "brand_name": "Daily Objects",
     "slug": "daily-objects",
     "redemption_type": "ON",
-    "defaut_pg_dis": 14,
+    "defaut_pg_dis": 15,
     "pgdis": [
       {
         "pg_name": "Credit Card",
@@ -9210,7 +9322,7 @@
       },
       {
         "pg_name": "PAYTM UPI",
-        "brand_pg_discount": 14
+        "brand_pg_discount": 15
       },
       {
         "pg_name": "Paytm Wallet",
@@ -9218,14 +9330,18 @@
       },
       {
         "pg_name": "UPI",
-        "brand_pg_discount": 14
+        "brand_pg_discount": 15
       },
       {
         "pg_name": "e-Pay",
-        "brand_pg_discount": 14
+        "brand_pg_discount": 15
       },
       {
         "pg_name": "MobiKwik",
+        "brand_pg_discount": 12
+      },
+      {
+        "pg_name": "Amazon Pay",
         "brand_pg_discount": 12
       }
     ],
@@ -9355,15 +9471,15 @@
     "brand_name": "Amazon Shopping Voucher",
     "slug": "amazon-shopping-voucher",
     "redemption_type": "ON",
-    "defaut_pg_dis": 1,
+    "defaut_pg_dis": 1.25,
     "pgdis": [
       {
         "pg_name": "PAYTM UPI",
-        "brand_pg_discount": 1
+        "brand_pg_discount": 1.25
       },
       {
         "pg_name": "UPI",
-        "brand_pg_discount": 1
+        "brand_pg_discount": 1.25
       },
       {
         "pg_name": "Credit Card",
@@ -9382,11 +9498,6 @@
       {
         "mrp": 1000,
         "min_value": 1000,
-        "max_value": 0
-      },
-      {
-        "mrp": 500,
-        "min_value": 500,
         "max_value": 0
       },
       {
@@ -9567,6 +9678,21 @@
       {
         "mrp": 5000,
         "min_value": 5000,
+        "max_value": 0
+      },
+      {
+        "mrp": 1000,
+        "min_value": 1000,
+        "max_value": 0
+      },
+      {
+        "mrp": 500,
+        "min_value": 500,
+        "max_value": 0
+      },
+      {
+        "mrp": 250,
+        "min_value": 250,
         "max_value": 0
       },
       {
@@ -10265,6 +10391,11 @@
         "max_value": 0
       },
       {
+        "mrp": 1000,
+        "min_value": 1000,
+        "max_value": 0
+      },
+      {
         "mrp": 2000,
         "min_value": 2000,
         "max_value": 0
@@ -10395,9 +10526,70 @@
         "mrp": 500,
         "min_value": 500,
         "max_value": 0
+      },
+      {
+        "mrp": 2000,
+        "min_value": 2000,
+        "max_value": 0
       }
     ],
     "important_instruction": "<ul>\r\n<li>This is a 16-digit gift card which comes with a 4-digit pin</li>\r\n<li>Max Online E-Gift Cards are redeemable through <ahref='https://www.maxfashion.in/in/en/'>www.maxfashion.in/in/en or your iOS/android Max fashion app</a></li>\r\n<li>E-Gift Cards CAN be used to buy discounted products</li>\r\n<li>E- Gift Cards CANNOT be redeemed at physical outlets</li>\r\n<li>Maximum 10 Gift Cards can be used against one bill</li>\r\n</ul>",
+    "checkout_instruction": ""
+  },
+  {
+    "brand_name": "Cleartrip Hotel",
+    "slug": "cleartrip-hotel",
+    "redemption_type": "ON",
+    "defaut_pg_dis": 7,
+    "pgdis": [
+      {
+        "pg_name": "Credit Card",
+        "brand_pg_discount": 5
+      },
+      {
+        "pg_name": "Net Banking",
+        "brand_pg_discount": 5
+      },
+      {
+        "pg_name": "Debit Card",
+        "brand_pg_discount": 5
+      },
+      {
+        "pg_name": "PAYTM UPI",
+        "brand_pg_discount": 7
+      },
+      {
+        "pg_name": "UPI",
+        "brand_pg_discount": 7
+      },
+      {
+        "pg_name": "e-Pay",
+        "brand_pg_discount": 7
+      }
+    ],
+    "products": [
+      {
+        "mrp": 1000,
+        "min_value": 1000,
+        "max_value": 0
+      },
+      {
+        "mrp": 5000,
+        "min_value": 5000,
+        "max_value": 0
+      },
+      {
+        "mrp": 2000,
+        "min_value": 2000,
+        "max_value": 0
+      },
+      {
+        "mrp": 7500,
+        "min_value": 7500,
+        "max_value": 0
+      }
+    ],
+    "important_instruction": "<ul>\r\n<li>Maximum of 15 Gift Cards in a single booking for Hotels booking.</li>\r\n<li>GV/GC can be redeemed online on www.cleartrip.com</li>\r\n<li>GV/GC cannot be clubbed with any other offer including but not limited to cashback, discounts, etc on a particular credit/debit card. </li>\r\n<li>Hotel can be booked only on the website on desktop/laptop  https://www.cleartrip.com/. </li>\r\n<li>Convenience Fee will be applicable for all GV/GC bookings.</li>\r\n</ul>\r\n",
     "checkout_instruction": ""
   },
   {
@@ -10725,11 +10917,6 @@
       {
         "mrp": 1000,
         "min_value": 1000,
-        "max_value": 0
-      },
-      {
-        "mrp": 2000,
-        "min_value": 2000,
         "max_value": 0
       }
     ],
@@ -11298,11 +11485,6 @@
         "max_value": 0
       },
       {
-        "mrp": 7500,
-        "min_value": 7500,
-        "max_value": 0
-      },
-      {
         "mrp": 10000,
         "min_value": 10000,
         "max_value": 0
@@ -11351,6 +11533,11 @@
       }
     ],
     "products": [
+      {
+        "mrp": 2000,
+        "min_value": 2000,
+        "max_value": 0
+      },
       {
         "mrp": 500,
         "min_value": 500,
@@ -11479,6 +11666,11 @@
     ],
     "products": [
       {
+        "mrp": 50000,
+        "min_value": 50000,
+        "max_value": 0
+      },
+      {
         "mrp": 10000,
         "min_value": 10000,
         "max_value": 0
@@ -11569,8 +11761,20 @@
     "brand_name": "Reliance Jio Mart",
     "slug": "reliance-jio-mart",
     "redemption_type": "ON",
-    "defaut_pg_dis": 0,
+    "defaut_pg_dis": 0.5,
     "pgdis": [
+      {
+        "pg_name": "PAYTM UPI",
+        "brand_pg_discount": 0.5
+      },
+      {
+        "pg_name": "UPI",
+        "brand_pg_discount": 0.5
+      },
+      {
+        "pg_name": "e-Pay",
+        "brand_pg_discount": 0.5
+      },
       {
         "pg_name": "Credit Card",
         "brand_pg_discount": 0
@@ -11588,11 +11792,7 @@
         "brand_pg_discount": 0
       },
       {
-        "pg_name": "UPI",
-        "brand_pg_discount": 0
-      },
-      {
-        "pg_name": "e-Pay",
+        "pg_name": "Amazon Pay",
         "brand_pg_discount": 0
       }
     ],
@@ -11670,16 +11870,6 @@
       {
         "mrp": 250,
         "min_value": 250,
-        "max_value": 0
-      },
-      {
-        "mrp": 2000,
-        "min_value": 2000,
-        "max_value": 0
-      },
-      {
-        "mrp": 2500,
-        "min_value": 2500,
         "max_value": 0
       },
       {
@@ -11774,6 +11964,10 @@
       },
       {
         "pg_name": "MobiKwik",
+        "brand_pg_discount": 9
+      },
+      {
+        "pg_name": "Amazon Pay",
         "brand_pg_discount": 9
       }
     ],
@@ -12204,16 +12398,6 @@
     ],
     "products": [
       {
-        "mrp": 2000,
-        "min_value": 2000,
-        "max_value": 0
-      },
-      {
-        "mrp": 1000,
-        "min_value": 1000,
-        "max_value": 0
-      },
-      {
         "mrp": 250,
         "min_value": 250,
         "max_value": 0
@@ -12450,15 +12634,15 @@
     "brand_name": "Amazon Fresh",
     "slug": "amazon-fresh",
     "redemption_type": "ON",
-    "defaut_pg_dis": 1,
+    "defaut_pg_dis": 1.5,
     "pgdis": [
       {
         "pg_name": "PAYTM UPI",
-        "brand_pg_discount": 1
+        "brand_pg_discount": 1.5
       },
       {
         "pg_name": "UPI",
-        "brand_pg_discount": 1
+        "brand_pg_discount": 1.5
       },
       {
         "pg_name": "e-Pay",
@@ -12489,19 +12673,23 @@
     "brand_name": "Campus",
     "slug": "campus",
     "redemption_type": "B",
-    "defaut_pg_dis": 10,
+    "defaut_pg_dis": 14,
     "pgdis": [
       {
         "pg_name": "Credit Card",
-        "brand_pg_discount": 9
+        "brand_pg_discount": 12
+      },
+      {
+        "pg_name": "Net Banking",
+        "brand_pg_discount": 12
       },
       {
         "pg_name": "Debit Card",
-        "brand_pg_discount": 9
+        "brand_pg_discount": 12
       },
       {
         "pg_name": "PAYTM UPI",
-        "brand_pg_discount": 10
+        "brand_pg_discount": 14
       },
       {
         "pg_name": "Paytm Wallet",
@@ -12509,19 +12697,19 @@
       },
       {
         "pg_name": "UPI",
-        "brand_pg_discount": 10
+        "brand_pg_discount": 14
       },
       {
         "pg_name": "e-Pay",
-        "brand_pg_discount": 10
+        "brand_pg_discount": 14
       },
       {
         "pg_name": "MobiKwik",
-        "brand_pg_discount": 9
+        "brand_pg_discount": 12
       },
       {
         "pg_name": "Amazon Pay",
-        "brand_pg_discount": 9
+        "brand_pg_discount": 12
       }
     ],
     "products": [
@@ -13011,6 +13199,10 @@
       {
         "pg_name": "MobiKwik",
         "brand_pg_discount": 0
+      },
+      {
+        "pg_name": "Amazon Pay",
+        "brand_pg_discount": 0
       }
     ],
     "products": [
@@ -13090,6 +13282,10 @@
       },
       {
         "pg_name": "MobiKwik",
+        "brand_pg_discount": 0
+      },
+      {
+        "pg_name": "Amazon Pay",
         "brand_pg_discount": 0
       }
     ],
@@ -13331,6 +13527,10 @@
       {
         "pg_name": "MobiKwik",
         "brand_pg_discount": 0
+      },
+      {
+        "pg_name": "Amazon Pay",
+        "brand_pg_discount": 0
       }
     ],
     "products": [
@@ -13410,6 +13610,10 @@
       },
       {
         "pg_name": "MobiKwik",
+        "brand_pg_discount": 0
+      },
+      {
+        "pg_name": "Amazon Pay",
         "brand_pg_discount": 0
       }
     ],
@@ -13822,6 +14026,11 @@
     ],
     "products": [
       {
+        "mrp": 10000,
+        "min_value": 10000,
+        "max_value": 0
+      },
+      {
         "mrp": 100,
         "min_value": 100,
         "max_value": 10000
@@ -13834,6 +14043,11 @@
       {
         "mrp": 2000,
         "min_value": 2000,
+        "max_value": 0
+      },
+      {
+        "mrp": 5000,
+        "min_value": 5000,
         "max_value": 0
       },
       {
@@ -13925,8 +14139,8 @@
         "max_value": 0
       },
       {
-        "mrp": 2500,
-        "min_value": 2500,
+        "mrp": 1500,
+        "min_value": 1500,
         "max_value": 0
       },
       {
@@ -13937,11 +14151,6 @@
       {
         "mrp": 7500,
         "min_value": 7500,
-        "max_value": 0
-      },
-      {
-        "mrp": 2000,
-        "min_value": 2000,
         "max_value": 0
       },
       {
@@ -14460,59 +14669,9 @@
     ],
     "products": [
       {
-        "mrp": 7500,
-        "min_value": 7500,
-        "max_value": 0
-      },
-      {
-        "mrp": 1500,
-        "min_value": 1500,
-        "max_value": 0
-      },
-      {
-        "mrp": 5000,
-        "min_value": 5000,
-        "max_value": 0
-      },
-      {
-        "mrp": 2000,
-        "min_value": 2000,
-        "max_value": 0
-      },
-      {
-        "mrp": 100,
-        "min_value": 100,
-        "max_value": 10000
-      },
-      {
-        "mrp": 1000,
-        "min_value": 1000,
-        "max_value": 0
-      },
-      {
-        "mrp": 10000,
-        "min_value": 10000,
-        "max_value": 0
-      },
-      {
-        "mrp": 3000,
-        "min_value": 3000,
-        "max_value": 0
-      },
-      {
         "mrp": 100,
         "min_value": 100,
         "max_value": 15000
-      },
-      {
-        "mrp": 500,
-        "min_value": 500,
-        "max_value": 0
-      },
-      {
-        "mrp": 2500,
-        "min_value": 2500,
-        "max_value": 0
       }
     ],
     "important_instruction": "<ul>\r\n<li>Gift Voucher/ e-Pay is <span>ACCEPTED</span> at all Listed Outlets.</li>\r\n<li class=\"dont\"> Gift Voucher/ e-Pay <span>CANNOT</span> be used Online.</li>\r\n<li>Gift Voucher/e-Pay <span>CAN</span> be used during the Sale.</li>\r\n<li>Multiple Gift Vouchers <span>CAN</span> be combined & added to the e-Pay balance.</li>\r\n</ul>",
@@ -14625,39 +14784,31 @@
     "brand_name": "Pret A Manger-Luxe Gift Card",
     "slug": "pret-a-manger-luxe-gift-card",
     "redemption_type": "OFF",
-    "defaut_pg_dis": 0,
+    "defaut_pg_dis": 10,
     "pgdis": [
       {
         "pg_name": "Credit Card",
-        "brand_pg_discount": 0
+        "brand_pg_discount": 10
       },
       {
         "pg_name": "Net Banking",
-        "brand_pg_discount": 0
+        "brand_pg_discount": 10
       },
       {
         "pg_name": "Debit Card",
-        "brand_pg_discount": 0
+        "brand_pg_discount": 10
       },
       {
-        "pg_name": "MobiKwik",
-        "brand_pg_discount": 0
+        "pg_name": "PAYTM UPI",
+        "brand_pg_discount": 10
       },
       {
         "pg_name": "UPI",
-        "brand_pg_discount": 0
-      },
-      {
-        "pg_name": "Amazon Pay",
-        "brand_pg_discount": 0
+        "brand_pg_discount": 10
       },
       {
         "pg_name": "e-Pay",
-        "brand_pg_discount": 0
-      },
-      {
-        "pg_name": "Payzapp",
-        "brand_pg_discount": 0
+        "brand_pg_discount": 10
       }
     ],
     "products": [
@@ -14744,39 +14895,39 @@
     "brand_name": "Bally-Luxe Gift Card",
     "slug": "bally-luxe-gift-card",
     "redemption_type": "OFF",
-    "defaut_pg_dis": 0,
+    "defaut_pg_dis": 10,
     "pgdis": [
       {
         "pg_name": "Credit Card",
-        "brand_pg_discount": 0
+        "brand_pg_discount": 10
       },
       {
         "pg_name": "Net Banking",
-        "brand_pg_discount": 0
+        "brand_pg_discount": 10
       },
       {
         "pg_name": "Debit Card",
-        "brand_pg_discount": 0
+        "brand_pg_discount": 10
       },
       {
-        "pg_name": "MobiKwik",
-        "brand_pg_discount": 0
+        "pg_name": "PAYTM UPI",
+        "brand_pg_discount": 10
       },
       {
         "pg_name": "UPI",
-        "brand_pg_discount": 0
-      },
-      {
-        "pg_name": "Amazon Pay",
-        "brand_pg_discount": 0
+        "brand_pg_discount": 10
       },
       {
         "pg_name": "e-Pay",
-        "brand_pg_discount": 0
+        "brand_pg_discount": 10
       },
       {
-        "pg_name": "Payzapp",
-        "brand_pg_discount": 0
+        "pg_name": "MobiKwik",
+        "brand_pg_discount": 10
+      },
+      {
+        "pg_name": "Amazon Pay",
+        "brand_pg_discount": 10
       }
     ],
     "products": [
@@ -14803,39 +14954,31 @@
     "brand_name": "Canali- Luxe Gift Card",
     "slug": "canali--luxe-gift-card",
     "redemption_type": "OFF",
-    "defaut_pg_dis": 0,
+    "defaut_pg_dis": 10,
     "pgdis": [
       {
         "pg_name": "Credit Card",
-        "brand_pg_discount": 0
+        "brand_pg_discount": 10
       },
       {
         "pg_name": "Net Banking",
-        "brand_pg_discount": 0
+        "brand_pg_discount": 10
       },
       {
         "pg_name": "Debit Card",
-        "brand_pg_discount": 0
+        "brand_pg_discount": 10
       },
       {
-        "pg_name": "MobiKwik",
-        "brand_pg_discount": 0
+        "pg_name": "PAYTM UPI",
+        "brand_pg_discount": 10
       },
       {
         "pg_name": "UPI",
-        "brand_pg_discount": 0
-      },
-      {
-        "pg_name": "Amazon Pay",
-        "brand_pg_discount": 0
+        "brand_pg_discount": 10
       },
       {
         "pg_name": "e-Pay",
-        "brand_pg_discount": 0
-      },
-      {
-        "pg_name": "Payzapp",
-        "brand_pg_discount": 0
+        "brand_pg_discount": 10
       }
     ],
     "products": [
@@ -14852,6 +14995,11 @@
       {
         "mrp": 1000,
         "min_value": 1000,
+        "max_value": 0
+      },
+      {
+        "mrp": 10000,
+        "min_value": 10000,
         "max_value": 0
       }
     ],
@@ -14862,39 +15010,31 @@
     "brand_name": "EA-7- Luxe Gift Card",
     "slug": "ea-7--luxe-gift-card",
     "redemption_type": "OFF",
-    "defaut_pg_dis": 0,
+    "defaut_pg_dis": 10,
     "pgdis": [
       {
         "pg_name": "Credit Card",
-        "brand_pg_discount": 0
+        "brand_pg_discount": 10
       },
       {
         "pg_name": "Net Banking",
-        "brand_pg_discount": 0
+        "brand_pg_discount": 10
       },
       {
         "pg_name": "Debit Card",
-        "brand_pg_discount": 0
+        "brand_pg_discount": 10
       },
       {
-        "pg_name": "MobiKwik",
-        "brand_pg_discount": 0
+        "pg_name": "PAYTM UPI",
+        "brand_pg_discount": 10
       },
       {
         "pg_name": "UPI",
-        "brand_pg_discount": 0
-      },
-      {
-        "pg_name": "Amazon Pay",
-        "brand_pg_discount": 0
+        "brand_pg_discount": 10
       },
       {
         "pg_name": "e-Pay",
-        "brand_pg_discount": 0
-      },
-      {
-        "pg_name": "Payzapp",
-        "brand_pg_discount": 0
+        "brand_pg_discount": 10
       }
     ],
     "products": [
@@ -14911,6 +15051,11 @@
       {
         "mrp": 1000,
         "min_value": 1000,
+        "max_value": 0
+      },
+      {
+        "mrp": 10000,
+        "min_value": 10000,
         "max_value": 0
       }
     ],
@@ -14921,39 +15066,31 @@
     "brand_name": "Giorgio Armani- Luxe Gift Card",
     "slug": "giorgio-armani--luxe-gift-card",
     "redemption_type": "OFF",
-    "defaut_pg_dis": 0,
+    "defaut_pg_dis": 10,
     "pgdis": [
       {
         "pg_name": "Credit Card",
-        "brand_pg_discount": 0
+        "brand_pg_discount": 10
       },
       {
         "pg_name": "Net Banking",
-        "brand_pg_discount": 0
+        "brand_pg_discount": 10
       },
       {
         "pg_name": "Debit Card",
-        "brand_pg_discount": 0
+        "brand_pg_discount": 10
       },
       {
-        "pg_name": "MobiKwik",
-        "brand_pg_discount": 0
+        "pg_name": "PAYTM UPI",
+        "brand_pg_discount": 10
       },
       {
         "pg_name": "UPI",
-        "brand_pg_discount": 0
-      },
-      {
-        "pg_name": "Amazon Pay",
-        "brand_pg_discount": 0
+        "brand_pg_discount": 10
       },
       {
         "pg_name": "e-Pay",
-        "brand_pg_discount": 0
-      },
-      {
-        "pg_name": "Payzapp",
-        "brand_pg_discount": 0
+        "brand_pg_discount": 10
       }
     ],
     "products": [
@@ -14970,6 +15107,11 @@
       {
         "mrp": 1000,
         "min_value": 1000,
+        "max_value": 0
+      },
+      {
+        "mrp": 10000,
+        "min_value": 10000,
         "max_value": 0
       }
     ],
@@ -14980,39 +15122,31 @@
     "brand_name": "Hunkemoller- Luxe Gift Card",
     "slug": "hunkemoller--luxe-gift-card",
     "redemption_type": "B",
-    "defaut_pg_dis": 0,
+    "defaut_pg_dis": 10,
     "pgdis": [
       {
         "pg_name": "Credit Card",
-        "brand_pg_discount": 0
+        "brand_pg_discount": 10
       },
       {
         "pg_name": "Net Banking",
-        "brand_pg_discount": 0
+        "brand_pg_discount": 10
       },
       {
         "pg_name": "Debit Card",
-        "brand_pg_discount": 0
+        "brand_pg_discount": 10
       },
       {
-        "pg_name": "MobiKwik",
-        "brand_pg_discount": 0
+        "pg_name": "PAYTM UPI",
+        "brand_pg_discount": 10
       },
       {
         "pg_name": "UPI",
-        "brand_pg_discount": 0
-      },
-      {
-        "pg_name": "Amazon Pay",
-        "brand_pg_discount": 0
+        "brand_pg_discount": 10
       },
       {
         "pg_name": "e-Pay",
-        "brand_pg_discount": 0
-      },
-      {
-        "pg_name": "Payzapp",
-        "brand_pg_discount": 0
+        "brand_pg_discount": 10
       }
     ],
     "products": [
@@ -15029,6 +15163,11 @@
       {
         "mrp": 1000,
         "min_value": 1000,
+        "max_value": 0
+      },
+      {
+        "mrp": 10000,
+        "min_value": 10000,
         "max_value": 0
       }
     ],
@@ -15039,39 +15178,31 @@
     "brand_name": "Kate Spade- Luxe Gift Card",
     "slug": "kate-spade--luxe-gift-card",
     "redemption_type": "OFF",
-    "defaut_pg_dis": 0,
+    "defaut_pg_dis": 10,
     "pgdis": [
       {
         "pg_name": "Credit Card",
-        "brand_pg_discount": 0
+        "brand_pg_discount": 10
       },
       {
         "pg_name": "Net Banking",
-        "brand_pg_discount": 0
+        "brand_pg_discount": 10
       },
       {
         "pg_name": "Debit Card",
-        "brand_pg_discount": 0
+        "brand_pg_discount": 10
       },
       {
-        "pg_name": "MobiKwik",
-        "brand_pg_discount": 0
+        "pg_name": "PAYTM UPI",
+        "brand_pg_discount": 10
       },
       {
         "pg_name": "UPI",
-        "brand_pg_discount": 0
-      },
-      {
-        "pg_name": "Amazon Pay",
-        "brand_pg_discount": 0
+        "brand_pg_discount": 10
       },
       {
         "pg_name": "e-Pay",
-        "brand_pg_discount": 0
-      },
-      {
-        "pg_name": "Payzapp",
-        "brand_pg_discount": 0
+        "brand_pg_discount": 10
       }
     ],
     "products": [
@@ -15088,6 +15219,11 @@
       {
         "mrp": 1000,
         "min_value": 1000,
+        "max_value": 0
+      },
+      {
+        "mrp": 10000,
+        "min_value": 10000,
         "max_value": 0
       }
     ],
@@ -15098,39 +15234,31 @@
     "brand_name": "La Martina- Luxe Gift Card",
     "slug": "la-martina--luxe-gift-card",
     "redemption_type": "OFF",
-    "defaut_pg_dis": 0,
+    "defaut_pg_dis": 10,
     "pgdis": [
       {
         "pg_name": "Credit Card",
-        "brand_pg_discount": 0
+        "brand_pg_discount": 10
       },
       {
         "pg_name": "Net Banking",
-        "brand_pg_discount": 0
+        "brand_pg_discount": 10
       },
       {
         "pg_name": "Debit Card",
-        "brand_pg_discount": 0
+        "brand_pg_discount": 10
       },
       {
-        "pg_name": "MobiKwik",
-        "brand_pg_discount": 0
+        "pg_name": "PAYTM UPI",
+        "brand_pg_discount": 10
       },
       {
         "pg_name": "UPI",
-        "brand_pg_discount": 0
-      },
-      {
-        "pg_name": "Amazon Pay",
-        "brand_pg_discount": 0
+        "brand_pg_discount": 10
       },
       {
         "pg_name": "e-Pay",
-        "brand_pg_discount": 0
-      },
-      {
-        "pg_name": "Payzapp",
-        "brand_pg_discount": 0
+        "brand_pg_discount": 10
       }
     ],
     "products": [
@@ -15148,6 +15276,11 @@
         "mrp": 1000,
         "min_value": 1000,
         "max_value": 0
+      },
+      {
+        "mrp": 10000,
+        "min_value": 10000,
+        "max_value": 0
       }
     ],
     "important_instruction": "<ul>\r\n<li>Multiple Gift Vouchers CAN be used in one bill.</li>\r\n<li>This Luxe Gift Card is redeemable at more than 45+ participatory brands across India.</li>\r\n<li>Gift Vouchers CANNOT be used during Sale.</li>\r\n<li>Gift Vouchers are ACCEPTED at all listed Outlets.</li>\r\n<li>EGV is ONE time use.</li>\r\n</ul>",
@@ -15157,39 +15290,31 @@
     "brand_name": "Pottery Barn- Luxe Gift Card",
     "slug": "pottery-barn--luxe-gift-card",
     "redemption_type": "B",
-    "defaut_pg_dis": 0,
+    "defaut_pg_dis": 10,
     "pgdis": [
       {
         "pg_name": "Credit Card",
-        "brand_pg_discount": 0
+        "brand_pg_discount": 10
       },
       {
         "pg_name": "Net Banking",
-        "brand_pg_discount": 0
+        "brand_pg_discount": 10
       },
       {
         "pg_name": "Debit Card",
-        "brand_pg_discount": 0
+        "brand_pg_discount": 10
       },
       {
-        "pg_name": "MobiKwik",
-        "brand_pg_discount": 0
+        "pg_name": "PAYTM UPI",
+        "brand_pg_discount": 10
       },
       {
         "pg_name": "UPI",
-        "brand_pg_discount": 0
-      },
-      {
-        "pg_name": "Amazon Pay",
-        "brand_pg_discount": 0
+        "brand_pg_discount": 10
       },
       {
         "pg_name": "e-Pay",
-        "brand_pg_discount": 0
-      },
-      {
-        "pg_name": "Payzapp",
-        "brand_pg_discount": 0
+        "brand_pg_discount": 10
       }
     ],
     "products": [
@@ -15277,6 +15402,11 @@
         "max_value": 0
       },
       {
+        "mrp": 10000,
+        "min_value": 10000,
+        "max_value": 0
+      },
+      {
         "mrp": 5000,
         "min_value": 5000,
         "max_value": 0
@@ -15299,7 +15429,7 @@
     "brand_name": "Malabar Jewellery",
     "slug": "malabar-jewellery",
     "redemption_type": "B",
-    "defaut_pg_dis": 3,
+    "defaut_pg_dis": 4,
     "pgdis": [
       {
         "pg_name": "Credit Card",
@@ -15315,7 +15445,7 @@
       },
       {
         "pg_name": "PAYTM UPI",
-        "brand_pg_discount": 3
+        "brand_pg_discount": 4
       },
       {
         "pg_name": "Paytm Wallet",
@@ -15323,11 +15453,11 @@
       },
       {
         "pg_name": "UPI",
-        "brand_pg_discount": 3
+        "brand_pg_discount": 4
       },
       {
         "pg_name": "e-Pay",
-        "brand_pg_discount": 3
+        "brand_pg_discount": 4
       },
       {
         "pg_name": "MobiKwik",
@@ -15432,6 +15562,11 @@
         "mrp": 10000,
         "min_value": 10000,
         "max_value": 0
+      },
+      {
+        "mrp": 5000,
+        "min_value": 5000,
+        "max_value": 0
       }
     ],
     "important_instruction": "<ul>\r\n<li>Maximum 3 GV/GC can be used in a single transaction.</li>\r\n<li>GV/GC cannot be clubbed with any other ongoing offer.</li>\r\n<li>GV/GC can be applied multiple times within the validity period till the balance gets exhausted.</li>",
@@ -15473,6 +15608,10 @@
       },
       {
         "pg_name": "MobiKwik",
+        "brand_pg_discount": 12
+      },
+      {
+        "pg_name": "Amazon Pay",
         "brand_pg_discount": 12
       }
     ],
@@ -15550,11 +15689,6 @@
         "mrp": 10000,
         "min_value": 10000,
         "max_value": 0
-      },
-      {
-        "mrp": 5000,
-        "min_value": 5000,
-        "max_value": 0
       }
     ],
     "important_instruction": "<ul>\r\n<li>Multiple Gift Vouchers <span>CAN</span> be used in one bill.</li>\r\n<li>Gift Vouchers <span>CAN</span> be clubbed with on-going promotions/offers.</li>\r\n<li>Gift Vouchers are <span>ACCEPTED</span> at only listed Tanishq Outlets.</li>\r\n<li>Gift Vouchers are <span>ACCEPTED</span> only on Diamond Jewellery.</li>\r\n<li class=\"dont\">Gift Vouchers <span>CANNOT</span> be used Online.</li>\r\n<li>Cashback offer is not applicable on Tanishq brand</li>\r\n</ul>",
@@ -15608,6 +15742,16 @@
         "mrp": 100,
         "min_value": 100,
         "max_value": 10000
+      },
+      {
+        "mrp": 1000,
+        "min_value": 1000,
+        "max_value": 0
+      },
+      {
+        "mrp": 2000,
+        "min_value": 2000,
+        "max_value": 0
       },
       {
         "mrp": 100,
@@ -15974,6 +16118,10 @@
       },
       {
         "pg_name": "UPI",
+        "brand_pg_discount": 10
+      },
+      {
+        "pg_name": "e-Pay",
         "brand_pg_discount": 10
       },
       {
@@ -16525,9 +16673,29 @@
     ],
     "products": [
       {
+        "mrp": 1000,
+        "min_value": 1000,
+        "max_value": 0
+      },
+      {
+        "mrp": 100,
+        "min_value": 100,
+        "max_value": 0
+      },
+      {
+        "mrp": 5000,
+        "min_value": 5000,
+        "max_value": 0
+      },
+      {
         "mrp": 100,
         "min_value": 100,
         "max_value": 10000
+      },
+      {
+        "mrp": 2000,
+        "min_value": 2000,
+        "max_value": 0
       },
       {
         "mrp": 100,
@@ -17114,6 +17282,11 @@
         "max_value": 0
       },
       {
+        "mrp": 7500,
+        "min_value": 7500,
+        "max_value": 0
+      },
+      {
         "mrp": 3000,
         "min_value": 3000,
         "max_value": 0
@@ -17634,6 +17807,11 @@
     ],
     "products": [
       {
+        "mrp": 500,
+        "min_value": 500,
+        "max_value": 0
+      },
+      {
         "mrp": 150,
         "min_value": 150,
         "max_value": 0
@@ -17694,11 +17872,6 @@
       {
         "mrp": 870,
         "min_value": 870,
-        "max_value": 0
-      },
-      {
-        "mrp": 435,
-        "min_value": 435,
         "max_value": 0
       },
       {
@@ -17911,8 +18084,8 @@
         "max_value": 0
       },
       {
-        "mrp": 2500,
-        "min_value": 2500,
+        "mrp": 2000,
+        "min_value": 2000,
         "max_value": 0
       },
       {
@@ -17923,6 +18096,11 @@
       {
         "mrp": 7500,
         "min_value": 7500,
+        "max_value": 0
+      },
+      {
+        "mrp": 1000,
+        "min_value": 1000,
         "max_value": 0
       },
       {
@@ -18233,39 +18411,39 @@
     "brand_name": "Soch",
     "slug": "soch-apparels",
     "redemption_type": "B",
-    "defaut_pg_dis": 5,
+    "defaut_pg_dis": 12,
     "pgdis": [
       {
         "pg_name": "Credit Card",
-        "brand_pg_discount": 3
+        "brand_pg_discount": 10
       },
       {
         "pg_name": "Net Banking",
-        "brand_pg_discount": 3
+        "brand_pg_discount": 10
       },
       {
         "pg_name": "Debit Card",
-        "brand_pg_discount": 3
+        "brand_pg_discount": 10
       },
       {
         "pg_name": "PAYTM UPI",
-        "brand_pg_discount": 5
+        "brand_pg_discount": 12
       },
       {
         "pg_name": "Paytm Wallet",
-        "brand_pg_discount": 5
+        "brand_pg_discount": 12
       },
       {
         "pg_name": "UPI",
-        "brand_pg_discount": 5
+        "brand_pg_discount": 12
       },
       {
         "pg_name": "e-Pay",
-        "brand_pg_discount": 5
+        "brand_pg_discount": 12
       },
       {
         "pg_name": "MobiKwik",
-        "brand_pg_discount": 3
+        "brand_pg_discount": 10
       }
     ],
     "products": [
@@ -18373,65 +18551,6 @@
     "checkout_instruction": ""
   },
   {
-    "brand_name": "Vinci Botanicals",
-    "slug": "vinci-botanicals",
-    "redemption_type": "ON",
-    "defaut_pg_dis": 33,
-    "pgdis": [
-      {
-        "pg_name": "Credit Card",
-        "brand_pg_discount": 33
-      },
-      {
-        "pg_name": "Net Banking",
-        "brand_pg_discount": 33
-      },
-      {
-        "pg_name": "Debit Card",
-        "brand_pg_discount": 33
-      },
-      {
-        "pg_name": "PAYTM UPI",
-        "brand_pg_discount": 33
-      },
-      {
-        "pg_name": "Paytm Wallet",
-        "brand_pg_discount": 33
-      },
-      {
-        "pg_name": "UPI",
-        "brand_pg_discount": 33
-      },
-      {
-        "pg_name": "MobiKwik",
-        "brand_pg_discount": 33
-      },
-      {
-        "pg_name": "Amazon Pay",
-        "brand_pg_discount": 33
-      }
-    ],
-    "products": [
-      {
-        "mrp": 1000,
-        "min_value": 1000,
-        "max_value": 0
-      },
-      {
-        "mrp": 500,
-        "min_value": 500,
-        "max_value": 0
-      },
-      {
-        "mrp": 2000,
-        "min_value": 2000,
-        "max_value": 0
-      }
-    ],
-    "important_instruction": "<ul>\r\n<li>The GV/e-Pay will be accepted only on the app or the website.</li>\r\n<li>Multiple GVs CAN be combined & added to the e-Pay balance.</li>\r\n<li>The GV/e-Pay CAN be clubbed with ongoing sales.</li>\r\n</ul>\r\n",
-    "checkout_instruction": ""
-  },
-  {
     "brand_name": "Adani Meet and Greet",
     "slug": "adani-meet-and-greet",
     "redemption_type": "ON",
@@ -18478,39 +18597,39 @@
     "brand_name": "Microsoft Xbox Game Pass Core",
     "slug": "microsoft-xbox-game-pass-core",
     "redemption_type": "ON",
-    "defaut_pg_dis": 0,
+    "defaut_pg_dis": 6,
     "pgdis": [
       {
         "pg_name": "Credit Card",
-        "brand_pg_discount": 0
+        "brand_pg_discount": 4
       },
       {
         "pg_name": "Net Banking",
-        "brand_pg_discount": 0
+        "brand_pg_discount": 4
       },
       {
         "pg_name": "Debit Card",
-        "brand_pg_discount": 0
+        "brand_pg_discount": 4
       },
       {
-        "pg_name": "MobiKwik",
-        "brand_pg_discount": 0
+        "pg_name": "PAYTM UPI",
+        "brand_pg_discount": 6
       },
       {
         "pg_name": "UPI",
-        "brand_pg_discount": 0
-      },
-      {
-        "pg_name": "Amazon Pay",
-        "brand_pg_discount": 0
+        "brand_pg_discount": 6
       },
       {
         "pg_name": "e-Pay",
-        "brand_pg_discount": 0
+        "brand_pg_discount": 6
       },
       {
-        "pg_name": "Payzapp",
-        "brand_pg_discount": 0
+        "pg_name": "MobiKwik",
+        "brand_pg_discount": 4
+      },
+      {
+        "pg_name": "Amazon Pay",
+        "brand_pg_discount": 4
       }
     ],
     "products": [
@@ -18785,19 +18904,19 @@
     "brand_name": "Reliance Smart Bazaar",
     "slug": "reliance-smart-bazaar",
     "redemption_type": "OFF",
-    "defaut_pg_dis": 1.25,
+    "defaut_pg_dis": 1,
     "pgdis": [
       {
         "pg_name": "PAYTM UPI",
-        "brand_pg_discount": 1.25
+        "brand_pg_discount": 1
       },
       {
         "pg_name": "UPI",
-        "brand_pg_discount": 1.25
+        "brand_pg_discount": 1
       },
       {
         "pg_name": "e-Pay",
-        "brand_pg_discount": 1.25
+        "brand_pg_discount": 1
       },
       {
         "pg_name": "Credit Card",
@@ -19065,8 +19184,18 @@
     ],
     "products": [
       {
-        "mrp": 1000,
-        "min_value": 1000,
+        "mrp": 500,
+        "min_value": 500,
+        "max_value": 0
+      },
+      {
+        "mrp": 1500,
+        "min_value": 1500,
+        "max_value": 0
+      },
+      {
+        "mrp": 2000,
+        "min_value": 2000,
         "max_value": 0
       }
     ],
@@ -19281,39 +19410,39 @@
     "brand_name": "MS Xbox Game Pass Ultimate",
     "slug": "ms-xbox-game-pass-ultimate",
     "redemption_type": "ON",
-    "defaut_pg_dis": 0,
+    "defaut_pg_dis": 6,
     "pgdis": [
       {
         "pg_name": "Credit Card",
-        "brand_pg_discount": 0
+        "brand_pg_discount": 4
       },
       {
         "pg_name": "Net Banking",
-        "brand_pg_discount": 0
+        "brand_pg_discount": 4
       },
       {
         "pg_name": "Debit Card",
-        "brand_pg_discount": 0
+        "brand_pg_discount": 4
       },
       {
-        "pg_name": "MobiKwik",
-        "brand_pg_discount": 0
+        "pg_name": "PAYTM UPI",
+        "brand_pg_discount": 6
       },
       {
         "pg_name": "UPI",
-        "brand_pg_discount": 0
-      },
-      {
-        "pg_name": "Amazon Pay",
-        "brand_pg_discount": 0
+        "brand_pg_discount": 6
       },
       {
         "pg_name": "e-Pay",
-        "brand_pg_discount": 0
+        "brand_pg_discount": 6
       },
       {
-        "pg_name": "Payzapp",
-        "brand_pg_discount": 0
+        "pg_name": "MobiKwik",
+        "brand_pg_discount": 4
+      },
+      {
+        "pg_name": "Amazon Pay",
+        "brand_pg_discount": 4
       }
     ],
     "products": [
@@ -19419,6 +19548,11 @@
         "mrp": 2000,
         "min_value": 2000,
         "max_value": 0
+      },
+      {
+        "mrp": 10000,
+        "min_value": 10000,
+        "max_value": 0
       }
     ],
     "important_instruction": "<ul>\r\n<li>Gift Voucher/Gift Card (GV/GC) can be used online on the Mobile App and the Website. </li>\r\n<li>This is a one-time use GV/GC.</li>\r\n<li>This GV/GC is non-refundable. </li>\r\n<li>The GV/GC CANNOT be used to buy other Gift Cards on AJIO Luxe.</li>\r\n</ul>",
@@ -19506,7 +19640,7 @@
   {
     "brand_name": "Manyavar",
     "slug": "manyavar",
-    "redemption_type": "B",
+    "redemption_type": "OFF",
     "defaut_pg_dis": 0,
     "pgdis": [
       {
@@ -19531,6 +19665,10 @@
       },
       {
         "pg_name": "Amazon Pay",
+        "brand_pg_discount": 0
+      },
+      {
+        "pg_name": "e-Pay",
         "brand_pg_discount": 0
       }
     ],
@@ -20568,39 +20706,31 @@
     "brand_name": "CHARLES TYRWHITT- Luxe Gift Card",
     "slug": "charles-tyrwitt",
     "redemption_type": "OFF",
-    "defaut_pg_dis": 0,
+    "defaut_pg_dis": 10,
     "pgdis": [
       {
         "pg_name": "Credit Card",
-        "brand_pg_discount": 0
+        "brand_pg_discount": 10
       },
       {
         "pg_name": "Net Banking",
-        "brand_pg_discount": 0
+        "brand_pg_discount": 10
       },
       {
         "pg_name": "Debit Card",
-        "brand_pg_discount": 0
+        "brand_pg_discount": 10
       },
       {
-        "pg_name": "MobiKwik",
-        "brand_pg_discount": 0
+        "pg_name": "PAYTM UPI",
+        "brand_pg_discount": 10
       },
       {
         "pg_name": "UPI",
-        "brand_pg_discount": 0
-      },
-      {
-        "pg_name": "Amazon Pay",
-        "brand_pg_discount": 0
+        "brand_pg_discount": 10
       },
       {
         "pg_name": "e-Pay",
-        "brand_pg_discount": 0
-      },
-      {
-        "pg_name": "Payzapp",
-        "brand_pg_discount": 0
+        "brand_pg_discount": 10
       }
     ],
     "products": [
@@ -20696,39 +20826,31 @@
     "brand_name": "PAUL SHARK- Luxe Gift Card",
     "slug": "paul-and-shark",
     "redemption_type": "OFF",
-    "defaut_pg_dis": 0,
+    "defaut_pg_dis": 10,
     "pgdis": [
       {
         "pg_name": "Credit Card",
-        "brand_pg_discount": 0
+        "brand_pg_discount": 10
       },
       {
         "pg_name": "Net Banking",
-        "brand_pg_discount": 0
+        "brand_pg_discount": 10
       },
       {
         "pg_name": "Debit Card",
-        "brand_pg_discount": 0
+        "brand_pg_discount": 10
       },
       {
-        "pg_name": "MobiKwik",
-        "brand_pg_discount": 0
+        "pg_name": "PAYTM UPI",
+        "brand_pg_discount": 10
       },
       {
         "pg_name": "UPI",
-        "brand_pg_discount": 0
-      },
-      {
-        "pg_name": "Amazon Pay",
-        "brand_pg_discount": 0
+        "brand_pg_discount": 10
       },
       {
         "pg_name": "e-Pay",
-        "brand_pg_discount": 0
-      },
-      {
-        "pg_name": "Payzapp",
-        "brand_pg_discount": 0
+        "brand_pg_discount": 10
       }
     ],
     "products": [
@@ -20760,39 +20882,31 @@
     "brand_name": "Sandro-Luxe Gift Card",
     "slug": "sandro",
     "redemption_type": "OFF",
-    "defaut_pg_dis": 0,
+    "defaut_pg_dis": 10,
     "pgdis": [
       {
         "pg_name": "Credit Card",
-        "brand_pg_discount": 0
+        "brand_pg_discount": 10
       },
       {
         "pg_name": "Net Banking",
-        "brand_pg_discount": 0
+        "brand_pg_discount": 10
       },
       {
         "pg_name": "Debit Card",
-        "brand_pg_discount": 0
+        "brand_pg_discount": 10
       },
       {
-        "pg_name": "MobiKwik",
-        "brand_pg_discount": 0
+        "pg_name": "PAYTM UPI",
+        "brand_pg_discount": 10
       },
       {
         "pg_name": "UPI",
-        "brand_pg_discount": 0
-      },
-      {
-        "pg_name": "Amazon Pay",
-        "brand_pg_discount": 0
+        "brand_pg_discount": 10
       },
       {
         "pg_name": "e-Pay",
-        "brand_pg_discount": 0
-      },
-      {
-        "pg_name": "Payzapp",
-        "brand_pg_discount": 0
+        "brand_pg_discount": 10
       }
     ],
     "products": [
@@ -20824,39 +20938,31 @@
     "brand_name": "SUPERDRY SPORT- Luxe Gift Card",
     "slug": "superdry-sport",
     "redemption_type": "OFF",
-    "defaut_pg_dis": 0,
+    "defaut_pg_dis": 10,
     "pgdis": [
       {
         "pg_name": "Credit Card",
-        "brand_pg_discount": 0
+        "brand_pg_discount": 10
       },
       {
         "pg_name": "Net Banking",
-        "brand_pg_discount": 0
+        "brand_pg_discount": 10
       },
       {
         "pg_name": "Debit Card",
-        "brand_pg_discount": 0
+        "brand_pg_discount": 10
       },
       {
-        "pg_name": "MobiKwik",
-        "brand_pg_discount": 0
+        "pg_name": "PAYTM UPI",
+        "brand_pg_discount": 10
       },
       {
         "pg_name": "UPI",
-        "brand_pg_discount": 0
-      },
-      {
-        "pg_name": "Amazon Pay",
-        "brand_pg_discount": 0
+        "brand_pg_discount": 10
       },
       {
         "pg_name": "e-Pay",
-        "brand_pg_discount": 0
-      },
-      {
-        "pg_name": "Payzapp",
-        "brand_pg_discount": 0
+        "brand_pg_discount": 10
       }
     ],
     "products": [
@@ -20888,39 +20994,31 @@
     "brand_name": "The White Crow-Luxe Gift Card",
     "slug": "the-white-crow",
     "redemption_type": "OFF",
-    "defaut_pg_dis": 0,
+    "defaut_pg_dis": 10,
     "pgdis": [
       {
         "pg_name": "Credit Card",
-        "brand_pg_discount": 0
+        "brand_pg_discount": 10
       },
       {
         "pg_name": "Net Banking",
-        "brand_pg_discount": 0
+        "brand_pg_discount": 10
       },
       {
         "pg_name": "Debit Card",
-        "brand_pg_discount": 0
+        "brand_pg_discount": 10
       },
       {
-        "pg_name": "MobiKwik",
-        "brand_pg_discount": 0
+        "pg_name": "PAYTM UPI",
+        "brand_pg_discount": 10
       },
       {
         "pg_name": "UPI",
-        "brand_pg_discount": 0
-      },
-      {
-        "pg_name": "Amazon Pay",
-        "brand_pg_discount": 0
+        "brand_pg_discount": 10
       },
       {
         "pg_name": "e-Pay",
-        "brand_pg_discount": 0
-      },
-      {
-        "pg_name": "Payzapp",
-        "brand_pg_discount": 0
+        "brand_pg_discount": 10
       }
     ],
     "products": [
@@ -21016,39 +21114,31 @@
     "brand_name": "JIMMY CHOO- Luxe Gift Card",
     "slug": "jimmy-choo",
     "redemption_type": "OFF",
-    "defaut_pg_dis": 0,
+    "defaut_pg_dis": 10,
     "pgdis": [
       {
         "pg_name": "Credit Card",
-        "brand_pg_discount": 0
+        "brand_pg_discount": 10
       },
       {
         "pg_name": "Net Banking",
-        "brand_pg_discount": 0
+        "brand_pg_discount": 10
       },
       {
         "pg_name": "Debit Card",
-        "brand_pg_discount": 0
+        "brand_pg_discount": 10
       },
       {
-        "pg_name": "MobiKwik",
-        "brand_pg_discount": 0
+        "pg_name": "PAYTM UPI",
+        "brand_pg_discount": 10
       },
       {
         "pg_name": "UPI",
-        "brand_pg_discount": 0
-      },
-      {
-        "pg_name": "Amazon Pay",
-        "brand_pg_discount": 0
+        "brand_pg_discount": 10
       },
       {
         "pg_name": "e-Pay",
-        "brand_pg_discount": 0
-      },
-      {
-        "pg_name": "Payzapp",
-        "brand_pg_discount": 0
+        "brand_pg_discount": 10
       }
     ],
     "products": [
@@ -21080,39 +21170,31 @@
     "brand_name": "TORY BURCH- Luxe Gift Card",
     "slug": "tory-burch",
     "redemption_type": "OFF",
-    "defaut_pg_dis": 0,
+    "defaut_pg_dis": 10,
     "pgdis": [
       {
         "pg_name": "Credit Card",
-        "brand_pg_discount": 0
+        "brand_pg_discount": 10
       },
       {
         "pg_name": "Net Banking",
-        "brand_pg_discount": 0
+        "brand_pg_discount": 10
       },
       {
         "pg_name": "Debit Card",
-        "brand_pg_discount": 0
+        "brand_pg_discount": 10
       },
       {
-        "pg_name": "MobiKwik",
-        "brand_pg_discount": 0
+        "pg_name": "PAYTM UPI",
+        "brand_pg_discount": 10
       },
       {
         "pg_name": "UPI",
-        "brand_pg_discount": 0
-      },
-      {
-        "pg_name": "Amazon Pay",
-        "brand_pg_discount": 0
+        "brand_pg_discount": 10
       },
       {
         "pg_name": "e-Pay",
-        "brand_pg_discount": 0
-      },
-      {
-        "pg_name": "Payzapp",
-        "brand_pg_discount": 0
+        "brand_pg_discount": 10
       }
     ],
     "products": [
@@ -21144,39 +21226,31 @@
     "brand_name": "VALENTINO- Luxe Gift Card",
     "slug": "valentino",
     "redemption_type": "OFF",
-    "defaut_pg_dis": 0,
+    "defaut_pg_dis": 10,
     "pgdis": [
       {
         "pg_name": "Credit Card",
-        "brand_pg_discount": 0
+        "brand_pg_discount": 10
       },
       {
         "pg_name": "Net Banking",
-        "brand_pg_discount": 0
+        "brand_pg_discount": 10
       },
       {
         "pg_name": "Debit Card",
-        "brand_pg_discount": 0
+        "brand_pg_discount": 10
       },
       {
-        "pg_name": "MobiKwik",
-        "brand_pg_discount": 0
+        "pg_name": "PAYTM UPI",
+        "brand_pg_discount": 10
       },
       {
         "pg_name": "UPI",
-        "brand_pg_discount": 0
-      },
-      {
-        "pg_name": "Amazon Pay",
-        "brand_pg_discount": 0
+        "brand_pg_discount": 10
       },
       {
         "pg_name": "e-Pay",
-        "brand_pg_discount": 0
-      },
-      {
-        "pg_name": "Payzapp",
-        "brand_pg_discount": 0
+        "brand_pg_discount": 10
       }
     ],
     "products": [
@@ -21336,39 +21410,31 @@
     "brand_name": "ROWAN- Luxe Gift Card",
     "slug": "rowan",
     "redemption_type": "OFF",
-    "defaut_pg_dis": 0,
+    "defaut_pg_dis": 10,
     "pgdis": [
       {
         "pg_name": "Credit Card",
-        "brand_pg_discount": 0
+        "brand_pg_discount": 10
       },
       {
         "pg_name": "Net Banking",
-        "brand_pg_discount": 0
+        "brand_pg_discount": 10
       },
       {
         "pg_name": "Debit Card",
-        "brand_pg_discount": 0
+        "brand_pg_discount": 10
       },
       {
-        "pg_name": "MobiKwik",
-        "brand_pg_discount": 0
+        "pg_name": "PAYTM UPI",
+        "brand_pg_discount": 10
       },
       {
         "pg_name": "UPI",
-        "brand_pg_discount": 0
-      },
-      {
-        "pg_name": "Amazon Pay",
-        "brand_pg_discount": 0
+        "brand_pg_discount": 10
       },
       {
         "pg_name": "e-Pay",
-        "brand_pg_discount": 0
-      },
-      {
-        "pg_name": "Payzapp",
-        "brand_pg_discount": 0
+        "brand_pg_discount": 10
       }
     ],
     "products": [
@@ -21400,39 +21466,31 @@
     "brand_name": "MUJI- Luxe Gift Card",
     "slug": "muji",
     "redemption_type": "B",
-    "defaut_pg_dis": 0,
+    "defaut_pg_dis": 10,
     "pgdis": [
       {
         "pg_name": "Credit Card",
-        "brand_pg_discount": 0
+        "brand_pg_discount": 10
       },
       {
         "pg_name": "Net Banking",
-        "brand_pg_discount": 0
+        "brand_pg_discount": 10
       },
       {
         "pg_name": "Debit Card",
-        "brand_pg_discount": 0
+        "brand_pg_discount": 10
       },
       {
-        "pg_name": "MobiKwik",
-        "brand_pg_discount": 0
+        "pg_name": "PAYTM UPI",
+        "brand_pg_discount": 10
       },
       {
         "pg_name": "UPI",
-        "brand_pg_discount": 0
-      },
-      {
-        "pg_name": "Amazon Pay",
-        "brand_pg_discount": 0
+        "brand_pg_discount": 10
       },
       {
         "pg_name": "e-Pay",
-        "brand_pg_discount": 0
-      },
-      {
-        "pg_name": "Payzapp",
-        "brand_pg_discount": 0
+        "brand_pg_discount": 10
       }
     ],
     "products": [
@@ -21464,39 +21522,31 @@
     "brand_name": "VILLEROY AND BOCH- Luxe Gift Card",
     "slug": "villeroy-and-boch",
     "redemption_type": "OFF",
-    "defaut_pg_dis": 0,
+    "defaut_pg_dis": 10,
     "pgdis": [
       {
         "pg_name": "Credit Card",
-        "brand_pg_discount": 0
+        "brand_pg_discount": 10
       },
       {
         "pg_name": "Net Banking",
-        "brand_pg_discount": 0
+        "brand_pg_discount": 10
       },
       {
         "pg_name": "Debit Card",
-        "brand_pg_discount": 0
+        "brand_pg_discount": 10
       },
       {
-        "pg_name": "MobiKwik",
-        "brand_pg_discount": 0
+        "pg_name": "PAYTM UPI",
+        "brand_pg_discount": 10
       },
       {
         "pg_name": "UPI",
-        "brand_pg_discount": 0
-      },
-      {
-        "pg_name": "Amazon Pay",
-        "brand_pg_discount": 0
+        "brand_pg_discount": 10
       },
       {
         "pg_name": "e-Pay",
-        "brand_pg_discount": 0
-      },
-      {
-        "pg_name": "Payzapp",
-        "brand_pg_discount": 0
+        "brand_pg_discount": 10
       }
     ],
     "products": [
@@ -21528,39 +21578,31 @@
     "brand_name": "WEST ELM- Luxe Gift Card",
     "slug": "west-elm",
     "redemption_type": "B",
-    "defaut_pg_dis": 0,
+    "defaut_pg_dis": 10,
     "pgdis": [
       {
         "pg_name": "Credit Card",
-        "brand_pg_discount": 0
+        "brand_pg_discount": 10
       },
       {
         "pg_name": "Net Banking",
-        "brand_pg_discount": 0
+        "brand_pg_discount": 10
       },
       {
         "pg_name": "Debit Card",
-        "brand_pg_discount": 0
+        "brand_pg_discount": 10
       },
       {
-        "pg_name": "MobiKwik",
-        "brand_pg_discount": 0
+        "pg_name": "PAYTM UPI",
+        "brand_pg_discount": 10
       },
       {
         "pg_name": "UPI",
-        "brand_pg_discount": 0
-      },
-      {
-        "pg_name": "Amazon Pay",
-        "brand_pg_discount": 0
+        "brand_pg_discount": 10
       },
       {
         "pg_name": "e-Pay",
-        "brand_pg_discount": 0
-      },
-      {
-        "pg_name": "Payzapp",
-        "brand_pg_discount": 0
+        "brand_pg_discount": 10
       }
     ],
     "products": [
@@ -21592,39 +21634,31 @@
     "brand_name": "TODS- Luxe Gift Card",
     "slug": "tods",
     "redemption_type": "OFF",
-    "defaut_pg_dis": 0,
+    "defaut_pg_dis": 10,
     "pgdis": [
       {
         "pg_name": "Credit Card",
-        "brand_pg_discount": 0
+        "brand_pg_discount": 10
       },
       {
         "pg_name": "Net Banking",
-        "brand_pg_discount": 0
+        "brand_pg_discount": 10
       },
       {
         "pg_name": "Debit Card",
-        "brand_pg_discount": 0
+        "brand_pg_discount": 10
       },
       {
-        "pg_name": "MobiKwik",
-        "brand_pg_discount": 0
+        "pg_name": "PAYTM UPI",
+        "brand_pg_discount": 10
       },
       {
         "pg_name": "UPI",
-        "brand_pg_discount": 0
-      },
-      {
-        "pg_name": "Amazon Pay",
-        "brand_pg_discount": 0
+        "brand_pg_discount": 10
       },
       {
         "pg_name": "e-Pay",
-        "brand_pg_discount": 0
-      },
-      {
-        "pg_name": "Payzapp",
-        "brand_pg_discount": 0
+        "brand_pg_discount": 10
       }
     ],
     "products": [
@@ -21656,39 +21690,31 @@
     "brand_name": "RITU KUMAR- Luxe Gift Card",
     "slug": "ritu-kumar",
     "redemption_type": "B",
-    "defaut_pg_dis": 0,
+    "defaut_pg_dis": 10,
     "pgdis": [
       {
         "pg_name": "Credit Card",
-        "brand_pg_discount": 0
+        "brand_pg_discount": 10
       },
       {
         "pg_name": "Net Banking",
-        "brand_pg_discount": 0
+        "brand_pg_discount": 10
       },
       {
         "pg_name": "Debit Card",
-        "brand_pg_discount": 0
+        "brand_pg_discount": 10
       },
       {
-        "pg_name": "MobiKwik",
-        "brand_pg_discount": 0
+        "pg_name": "PAYTM UPI",
+        "brand_pg_discount": 10
       },
       {
         "pg_name": "UPI",
-        "brand_pg_discount": 0
-      },
-      {
-        "pg_name": "Amazon Pay",
-        "brand_pg_discount": 0
+        "brand_pg_discount": 10
       },
       {
         "pg_name": "e-Pay",
-        "brand_pg_discount": 0
-      },
-      {
-        "pg_name": "Payzapp",
-        "brand_pg_discount": 0
+        "brand_pg_discount": 10
       }
     ],
     "products": [
@@ -21720,39 +21746,31 @@
     "brand_name": "Abraham & Thakore- Luxe Gift Card",
     "slug": "abraham-and-thakore",
     "redemption_type": "OFF",
-    "defaut_pg_dis": 0,
+    "defaut_pg_dis": 10,
     "pgdis": [
       {
         "pg_name": "Credit Card",
-        "brand_pg_discount": 0
+        "brand_pg_discount": 10
       },
       {
         "pg_name": "Net Banking",
-        "brand_pg_discount": 0
+        "brand_pg_discount": 10
       },
       {
         "pg_name": "Debit Card",
-        "brand_pg_discount": 0
+        "brand_pg_discount": 10
       },
       {
-        "pg_name": "MobiKwik",
-        "brand_pg_discount": 0
+        "pg_name": "PAYTM UPI",
+        "brand_pg_discount": 10
       },
       {
         "pg_name": "UPI",
-        "brand_pg_discount": 0
-      },
-      {
-        "pg_name": "Amazon Pay",
-        "brand_pg_discount": 0
+        "brand_pg_discount": 10
       },
       {
         "pg_name": "e-Pay",
-        "brand_pg_discount": 0
-      },
-      {
-        "pg_name": "Payzapp",
-        "brand_pg_discount": 0
+        "brand_pg_discount": 10
       }
     ],
     "products": [
@@ -21784,39 +21802,31 @@
     "brand_name": "FERRAGAMO- Luxe Gift Card",
     "slug": "ferragamo",
     "redemption_type": "OFF",
-    "defaut_pg_dis": 0,
+    "defaut_pg_dis": 10,
     "pgdis": [
       {
         "pg_name": "Credit Card",
-        "brand_pg_discount": 0
+        "brand_pg_discount": 10
       },
       {
         "pg_name": "Net Banking",
-        "brand_pg_discount": 0
+        "brand_pg_discount": 10
       },
       {
         "pg_name": "Debit Card",
-        "brand_pg_discount": 0
+        "brand_pg_discount": 10
       },
       {
-        "pg_name": "MobiKwik",
-        "brand_pg_discount": 0
+        "pg_name": "PAYTM UPI",
+        "brand_pg_discount": 10
       },
       {
         "pg_name": "UPI",
-        "brand_pg_discount": 0
-      },
-      {
-        "pg_name": "Amazon Pay",
-        "brand_pg_discount": 0
+        "brand_pg_discount": 10
       },
       {
         "pg_name": "e-Pay",
-        "brand_pg_discount": 0
-      },
-      {
-        "pg_name": "Payzapp",
-        "brand_pg_discount": 0
+        "brand_pg_discount": 10
       }
     ],
     "products": [
@@ -21912,39 +21922,31 @@
     "brand_name": "Sunglass Hut- Luxe Gift Card",
     "slug": "sunglass-hut",
     "redemption_type": "OFF",
-    "defaut_pg_dis": 0,
+    "defaut_pg_dis": 10,
     "pgdis": [
       {
         "pg_name": "Credit Card",
-        "brand_pg_discount": 0
+        "brand_pg_discount": 10
       },
       {
         "pg_name": "Net Banking",
-        "brand_pg_discount": 0
+        "brand_pg_discount": 10
       },
       {
         "pg_name": "Debit Card",
-        "brand_pg_discount": 0
+        "brand_pg_discount": 10
       },
       {
-        "pg_name": "MobiKwik",
-        "brand_pg_discount": 0
+        "pg_name": "PAYTM UPI",
+        "brand_pg_discount": 10
       },
       {
         "pg_name": "UPI",
-        "brand_pg_discount": 0
-      },
-      {
-        "pg_name": "Amazon Pay",
-        "brand_pg_discount": 0
+        "brand_pg_discount": 10
       },
       {
         "pg_name": "e-Pay",
-        "brand_pg_discount": 0
-      },
-      {
-        "pg_name": "Payzapp",
-        "brand_pg_discount": 0
+        "brand_pg_discount": 10
       }
     ],
     "products": [
@@ -22294,6 +22296,11 @@
       }
     ],
     "products": [
+      {
+        "mrp": 940,
+        "min_value": 940,
+        "max_value": 0
+      },
       {
         "mrp": 1880,
         "min_value": 1880,
@@ -23164,6 +23171,10 @@
       {
         "pg_name": "MobiKwik",
         "brand_pg_discount": 11
+      },
+      {
+        "pg_name": "Amazon Pay",
+        "brand_pg_discount": 11
       }
     ],
     "products": [
@@ -23361,35 +23372,35 @@
     "brand_name": "Milkbasket",
     "slug": "milkbasket",
     "redemption_type": "ON",
-    "defaut_pg_dis": 1.5,
+    "defaut_pg_dis": 2,
     "pgdis": [
       {
-        "pg_name": "PAYTM UPI",
-        "brand_pg_discount": 1.5
-      },
-      {
-        "pg_name": "UPI",
-        "brand_pg_discount": 1.5
-      },
-      {
-        "pg_name": "e-Pay",
-        "brand_pg_discount": 1.5
-      },
-      {
         "pg_name": "Credit Card",
-        "brand_pg_discount": 0
+        "brand_pg_discount": 1
       },
       {
         "pg_name": "Net Banking",
-        "brand_pg_discount": 0
+        "brand_pg_discount": 1
       },
       {
         "pg_name": "Debit Card",
-        "brand_pg_discount": 0
+        "brand_pg_discount": 1
+      },
+      {
+        "pg_name": "PAYTM UPI",
+        "brand_pg_discount": 2
+      },
+      {
+        "pg_name": "UPI",
+        "brand_pg_discount": 2
+      },
+      {
+        "pg_name": "e-Pay",
+        "brand_pg_discount": 2
       },
       {
         "pg_name": "MobiKwik",
-        "brand_pg_discount": 0
+        "brand_pg_discount": 1
       }
     ],
     "products": [
@@ -23495,43 +23506,43 @@
     "brand_name": "NEXT",
     "slug": "next",
     "redemption_type": "OFF",
-    "defaut_pg_dis": 6,
+    "defaut_pg_dis": 3,
     "pgdis": [
       {
         "pg_name": "Credit Card",
-        "brand_pg_discount": 4.5
+        "brand_pg_discount": 3
       },
       {
         "pg_name": "Net Banking",
-        "brand_pg_discount": 4.5
+        "brand_pg_discount": 3
       },
       {
         "pg_name": "Debit Card",
-        "brand_pg_discount": 4.5
+        "brand_pg_discount": 3
       },
       {
         "pg_name": "PAYTM UPI",
-        "brand_pg_discount": 6
+        "brand_pg_discount": 3
       },
       {
         "pg_name": "Paytm Wallet",
-        "brand_pg_discount": 4.5
+        "brand_pg_discount": 3
       },
       {
         "pg_name": "UPI",
-        "brand_pg_discount": 6
+        "brand_pg_discount": 3
       },
       {
         "pg_name": "e-Pay",
-        "brand_pg_discount": 6
+        "brand_pg_discount": 3
       },
       {
         "pg_name": "MobiKwik",
-        "brand_pg_discount": 4.5
+        "brand_pg_discount": 3
       },
       {
         "pg_name": "Amazon Pay",
-        "brand_pg_discount": 4.5
+        "brand_pg_discount": 3
       }
     ],
     "products": [
@@ -23568,43 +23579,43 @@
     "brand_name": "Mango",
     "slug": "mango",
     "redemption_type": "OFF",
-    "defaut_pg_dis": 6,
+    "defaut_pg_dis": 3,
     "pgdis": [
       {
         "pg_name": "Credit Card",
-        "brand_pg_discount": 4.5
+        "brand_pg_discount": 3
       },
       {
         "pg_name": "Net Banking",
-        "brand_pg_discount": 4.5
+        "brand_pg_discount": 3
       },
       {
         "pg_name": "Debit Card",
-        "brand_pg_discount": 4.5
+        "brand_pg_discount": 3
       },
       {
         "pg_name": "PAYTM UPI",
-        "brand_pg_discount": 6
+        "brand_pg_discount": 3
       },
       {
         "pg_name": "Paytm Wallet",
-        "brand_pg_discount": 4.5
+        "brand_pg_discount": 3
       },
       {
         "pg_name": "UPI",
-        "brand_pg_discount": 6
+        "brand_pg_discount": 3
       },
       {
         "pg_name": "e-Pay",
-        "brand_pg_discount": 6
+        "brand_pg_discount": 3
       },
       {
         "pg_name": "MobiKwik",
-        "brand_pg_discount": 4.5
+        "brand_pg_discount": 3
       },
       {
         "pg_name": "Amazon Pay",
-        "brand_pg_discount": 4.5
+        "brand_pg_discount": 3
       }
     ],
     "products": [
@@ -23972,6 +23983,11 @@
     ],
     "products": [
       {
+        "mrp": 5000,
+        "min_value": 5000,
+        "max_value": 0
+      },
+      {
         "mrp": 1000,
         "min_value": 1000,
         "max_value": 0
@@ -23984,6 +24000,11 @@
       {
         "mrp": 500,
         "min_value": 500,
+        "max_value": 0
+      },
+      {
+        "mrp": 2500,
+        "min_value": 2500,
         "max_value": 0
       },
       {
@@ -24116,43 +24137,7 @@
         "brand_pg_discount": 15
       }
     ],
-    "products": [
-      {
-        "mrp": 100,
-        "min_value": 100,
-        "max_value": 10000
-      },
-      {
-        "mrp": 50,
-        "min_value": 50,
-        "max_value": 0
-      },
-      {
-        "mrp": 250,
-        "min_value": 250,
-        "max_value": 0
-      },
-      {
-        "mrp": 2500,
-        "min_value": 2500,
-        "max_value": 0
-      },
-      {
-        "mrp": 2000,
-        "min_value": 2000,
-        "max_value": 0
-      },
-      {
-        "mrp": 1000,
-        "min_value": 1000,
-        "max_value": 0
-      },
-      {
-        "mrp": 500,
-        "min_value": 500,
-        "max_value": 0
-      }
-    ],
+    "products": [],
     "important_instruction": "<ul>\r\n<li>The Gift Voucher/e-Pay would only be accepted on the Minus 30 website at https://minus30.co/.</li>\r\n<li>Multiple GV/GCs can be combined and added to the e-Pay balance. </li>\r\n<li>The GV/e-Pay can be clubbed with the existing offers on the website. \r\n </li>\r\n<li>You can either use GV/e-Pay or a promo code at once. </li>\r\n</ul>\r\n",
     "checkout_instruction": ""
   },
@@ -24188,6 +24173,10 @@
       },
       {
         "pg_name": "MobiKwik",
+        "brand_pg_discount": 12
+      },
+      {
+        "pg_name": "Amazon Pay",
         "brand_pg_discount": 12
       }
     ],
@@ -24268,6 +24257,10 @@
       },
       {
         "pg_name": "MobiKwik",
+        "brand_pg_discount": 11
+      },
+      {
+        "pg_name": "Amazon Pay",
         "brand_pg_discount": 11
       }
     ],
@@ -24431,11 +24424,6 @@
         "max_value": 0
       },
       {
-        "mrp": 2500,
-        "min_value": 2500,
-        "max_value": 0
-      },
-      {
         "mrp": 10000,
         "min_value": 10000,
         "max_value": 0
@@ -24570,6 +24558,10 @@
       },
       {
         "pg_name": "MobiKwik",
+        "brand_pg_discount": 1.5
+      },
+      {
+        "pg_name": "Amazon Pay",
         "brand_pg_discount": 1.5
       }
     ],
@@ -24732,31 +24724,39 @@
     "brand_name": "Nautica",
     "slug": "nautica",
     "redemption_type": "OFF",
-    "defaut_pg_dis": 3.5,
+    "defaut_pg_dis": 3,
     "pgdis": [
       {
         "pg_name": "Credit Card",
-        "brand_pg_discount": 1.5
+        "brand_pg_discount": 3
       },
       {
         "pg_name": "Net Banking",
-        "brand_pg_discount": 1.5
+        "brand_pg_discount": 3
       },
       {
         "pg_name": "Debit Card",
-        "brand_pg_discount": 1.5
+        "brand_pg_discount": 3
       },
       {
         "pg_name": "PAYTM UPI",
-        "brand_pg_discount": 3.5
+        "brand_pg_discount": 3
       },
       {
         "pg_name": "UPI",
-        "brand_pg_discount": 3.5
+        "brand_pg_discount": 3
       },
       {
         "pg_name": "e-Pay",
-        "brand_pg_discount": 3.5
+        "brand_pg_discount": 3
+      },
+      {
+        "pg_name": "MobiKwik",
+        "brand_pg_discount": 3
+      },
+      {
+        "pg_name": "Amazon Pay",
+        "brand_pg_discount": 3
       }
     ],
     "products": [
@@ -25030,6 +25030,11 @@
         "max_value": 0
       },
       {
+        "mrp": 2000,
+        "min_value": 2000,
+        "max_value": 0
+      },
+      {
         "mrp": 500,
         "min_value": 500,
         "max_value": 0
@@ -25080,11 +25085,6 @@
     ],
     "products": [
       {
-        "mrp": 2375,
-        "min_value": 2375,
-        "max_value": 0
-      },
-      {
         "mrp": 4750,
         "min_value": 4750,
         "max_value": 0
@@ -25132,6 +25132,11 @@
       {
         "mrp": 950,
         "min_value": 950,
+        "max_value": 0
+      },
+      {
+        "mrp": 9500,
+        "min_value": 9500,
         "max_value": 0
       }
     ],
@@ -25231,9 +25236,34 @@
       {
         "pg_name": "MobiKwik",
         "brand_pg_discount": 3
+      },
+      {
+        "pg_name": "Amazon Pay",
+        "brand_pg_discount": 3
       }
     ],
-    "products": [],
+    "products": [
+      {
+        "mrp": 3325,
+        "min_value": 3325,
+        "max_value": 0
+      },
+      {
+        "mrp": 1900,
+        "min_value": 1900,
+        "max_value": 0
+      },
+      {
+        "mrp": 4750,
+        "min_value": 4750,
+        "max_value": 0
+      },
+      {
+        "mrp": 950,
+        "min_value": 950,
+        "max_value": 0
+      }
+    ],
     "important_instruction": "",
     "checkout_instruction": ""
   },
@@ -25270,17 +25300,16 @@
       {
         "pg_name": "MobiKwik",
         "brand_pg_discount": 5
+      },
+      {
+        "pg_name": "Amazon Pay",
+        "brand_pg_discount": 5
       }
     ],
     "products": [
       {
         "mrp": 290,
         "min_value": 290,
-        "max_value": 0
-      },
-      {
-        "mrp": 1161,
-        "min_value": 1161,
         "max_value": 0
       },
       {
@@ -25333,7 +25362,7 @@
       },
       {
         "pg_name": "Amazon Pay",
-        "brand_pg_discount": 0
+        "brand_pg_discount": 5
       }
     ],
     "products": [
@@ -25548,6 +25577,10 @@
       {
         "pg_name": "MobiKwik",
         "brand_pg_discount": 9
+      },
+      {
+        "pg_name": "Amazon Pay",
+        "brand_pg_discount": 9
       }
     ],
     "products": [
@@ -25721,11 +25754,6 @@
     ],
     "products": [
       {
-        "mrp": 1000,
-        "min_value": 1000,
-        "max_value": 0
-      },
-      {
         "mrp": 10000,
         "min_value": 10000,
         "max_value": 0
@@ -25753,39 +25781,39 @@
     "brand_name": "Microsoft Office",
     "slug": "microsoft-office",
     "redemption_type": "ON",
-    "defaut_pg_dis": 0,
+    "defaut_pg_dis": 6,
     "pgdis": [
       {
         "pg_name": "Credit Card",
-        "brand_pg_discount": 0
+        "brand_pg_discount": 4
       },
       {
         "pg_name": "Net Banking",
-        "brand_pg_discount": 0
+        "brand_pg_discount": 4
       },
       {
         "pg_name": "Debit Card",
-        "brand_pg_discount": 0
+        "brand_pg_discount": 4
       },
       {
-        "pg_name": "MobiKwik",
-        "brand_pg_discount": 0
+        "pg_name": "PAYTM UPI",
+        "brand_pg_discount": 6
       },
       {
         "pg_name": "UPI",
-        "brand_pg_discount": 0
-      },
-      {
-        "pg_name": "Amazon Pay",
-        "brand_pg_discount": 0
+        "brand_pg_discount": 6
       },
       {
         "pg_name": "e-Pay",
-        "brand_pg_discount": 0
+        "brand_pg_discount": 6
       },
       {
-        "pg_name": "Payzapp",
-        "brand_pg_discount": 0
+        "pg_name": "MobiKwik",
+        "brand_pg_discount": 4
+      },
+      {
+        "pg_name": "Amazon Pay",
+        "brand_pg_discount": 4
       }
     ],
     "products": [
@@ -26096,6 +26124,11 @@
         "max_value": 0
       },
       {
+        "mrp": 75,
+        "min_value": 75,
+        "max_value": 0
+      },
+      {
         "mrp": 3800,
         "min_value": 3800,
         "max_value": 0
@@ -26113,60 +26146,45 @@
     "brand_name": "FirstCry",
     "slug": "firstcry",
     "redemption_type": "B",
-    "defaut_pg_dis": 5,
+    "defaut_pg_dis": 6.5,
     "pgdis": [
       {
         "pg_name": "Credit Card",
-        "brand_pg_discount": 3
+        "brand_pg_discount": 5.5
       },
       {
         "pg_name": "Net Banking",
-        "brand_pg_discount": 3
+        "brand_pg_discount": 5.5
       },
       {
         "pg_name": "Debit Card",
-        "brand_pg_discount": 3
+        "brand_pg_discount": 5.5
       },
       {
         "pg_name": "PAYTM UPI",
-        "brand_pg_discount": 5
+        "brand_pg_discount": 6.5
       },
       {
         "pg_name": "UPI",
-        "brand_pg_discount": 5
+        "brand_pg_discount": 6.5
       },
       {
         "pg_name": "e-Pay",
-        "brand_pg_discount": 5
+        "brand_pg_discount": 6.5
       },
       {
         "pg_name": "MobiKwik",
-        "brand_pg_discount": 3
+        "brand_pg_discount": 5
       },
       {
         "pg_name": "Amazon Pay",
-        "brand_pg_discount": 3
+        "brand_pg_discount": 5
       }
     ],
     "products": [
       {
-        "mrp": 5000,
-        "min_value": 5000,
-        "max_value": 0
-      },
-      {
         "mrp": 2000,
         "min_value": 2000,
-        "max_value": 0
-      },
-      {
-        "mrp": 2500,
-        "min_value": 2500,
-        "max_value": 0
-      },
-      {
-        "mrp": 10000,
-        "min_value": 10000,
         "max_value": 0
       },
       {
@@ -26179,7 +26197,76 @@
     "checkout_instruction": ""
   },
   {
-    "brand_name": "Luzo",
+    "brand_name": "Vinzberry",
+    "slug": "vinzberry",
+    "redemption_type": "ON",
+    "defaut_pg_dis": 0,
+    "pgdis": [
+      {
+        "pg_name": "Credit Card",
+        "brand_pg_discount": 0
+      },
+      {
+        "pg_name": "Net Banking",
+        "brand_pg_discount": 0
+      },
+      {
+        "pg_name": "Debit Card",
+        "brand_pg_discount": 0
+      },
+      {
+        "pg_name": "MobiKwik",
+        "brand_pg_discount": 0
+      },
+      {
+        "pg_name": "UPI",
+        "brand_pg_discount": 0
+      },
+      {
+        "pg_name": "Amazon Pay",
+        "brand_pg_discount": 0
+      },
+      {
+        "pg_name": "e-Pay",
+        "brand_pg_discount": 0
+      },
+      {
+        "pg_name": "Payzapp",
+        "brand_pg_discount": 0
+      }
+    ],
+    "products": [
+      {
+        "mrp": 2500,
+        "min_value": 2500,
+        "max_value": 0
+      },
+      {
+        "mrp": 1000,
+        "min_value": 1000,
+        "max_value": 0
+      },
+      {
+        "mrp": 250,
+        "min_value": 250,
+        "max_value": 0
+      },
+      {
+        "mrp": 2000,
+        "min_value": 2000,
+        "max_value": 0
+      },
+      {
+        "mrp": 500,
+        "min_value": 500,
+        "max_value": 0
+      }
+    ],
+    "important_instruction": "",
+    "checkout_instruction": ""
+  },
+  {
+    "brand_name": "LUZO - Salons, Spas, Clinics",
     "slug": "luzo",
     "redemption_type": "ON",
     "defaut_pg_dis": 9,
@@ -26335,39 +26422,35 @@
     "brand_name": "Solara",
     "slug": "solara",
     "redemption_type": "ON",
-    "defaut_pg_dis": 0,
+    "defaut_pg_dis": 9,
     "pgdis": [
       {
         "pg_name": "Credit Card",
-        "brand_pg_discount": 0
+        "brand_pg_discount": 8
       },
       {
         "pg_name": "Net Banking",
-        "brand_pg_discount": 0
+        "brand_pg_discount": 8
       },
       {
         "pg_name": "Debit Card",
-        "brand_pg_discount": 0
+        "brand_pg_discount": 8
       },
       {
-        "pg_name": "MobiKwik",
-        "brand_pg_discount": 0
+        "pg_name": "PAYTM UPI",
+        "brand_pg_discount": 9
       },
       {
         "pg_name": "UPI",
-        "brand_pg_discount": 0
-      },
-      {
-        "pg_name": "Amazon Pay",
-        "brand_pg_discount": 0
+        "brand_pg_discount": 9
       },
       {
         "pg_name": "e-Pay",
-        "brand_pg_discount": 0
+        "brand_pg_discount": 9
       },
       {
-        "pg_name": "Payzapp",
-        "brand_pg_discount": 0
+        "pg_name": "MobiKwik",
+        "brand_pg_discount": 8
       }
     ],
     "products": [
@@ -26409,6 +26492,1520 @@
     "brand_name": "Libas",
     "slug": "libas",
     "redemption_type": "ON",
+    "defaut_pg_dis": 8,
+    "pgdis": [
+      {
+        "pg_name": "Credit Card",
+        "brand_pg_discount": 6
+      },
+      {
+        "pg_name": "Net Banking",
+        "brand_pg_discount": 6
+      },
+      {
+        "pg_name": "Debit Card",
+        "brand_pg_discount": 6
+      },
+      {
+        "pg_name": "PAYTM UPI",
+        "brand_pg_discount": 8
+      },
+      {
+        "pg_name": "UPI",
+        "brand_pg_discount": 8
+      },
+      {
+        "pg_name": "e-Pay",
+        "brand_pg_discount": 8
+      },
+      {
+        "pg_name": "MobiKwik",
+        "brand_pg_discount": 6
+      }
+    ],
+    "products": [
+      {
+        "mrp": 5000,
+        "min_value": 5000,
+        "max_value": 0
+      },
+      {
+        "mrp": 500,
+        "min_value": 500,
+        "max_value": 0
+      },
+      {
+        "mrp": 1000,
+        "min_value": 1000,
+        "max_value": 0
+      },
+      {
+        "mrp": 10000,
+        "min_value": 10000,
+        "max_value": 0
+      },
+      {
+        "mrp": 2000,
+        "min_value": 2000,
+        "max_value": 0
+      }
+    ],
+    "important_instruction": "",
+    "checkout_instruction": ""
+  },
+  {
+    "brand_name": "Farzi Cafe",
+    "slug": "farzi-cafe",
+    "redemption_type": "OFF",
+    "defaut_pg_dis": 15,
+    "pgdis": [
+      {
+        "pg_name": "Credit Card",
+        "brand_pg_discount": 13
+      },
+      {
+        "pg_name": "Net Banking",
+        "brand_pg_discount": 13
+      },
+      {
+        "pg_name": "Debit Card",
+        "brand_pg_discount": 13
+      },
+      {
+        "pg_name": "PAYTM UPI",
+        "brand_pg_discount": 15
+      },
+      {
+        "pg_name": "UPI",
+        "brand_pg_discount": 15
+      },
+      {
+        "pg_name": "e-Pay",
+        "brand_pg_discount": 15
+      },
+      {
+        "pg_name": "MobiKwik",
+        "brand_pg_discount": 13
+      },
+      {
+        "pg_name": "Amazon Pay",
+        "brand_pg_discount": 13
+      }
+    ],
+    "products": [
+      {
+        "mrp": 7500,
+        "min_value": 7500,
+        "max_value": 0
+      },
+      {
+        "mrp": 5000,
+        "min_value": 5000,
+        "max_value": 0
+      },
+      {
+        "mrp": 100,
+        "min_value": 100,
+        "max_value": 10000
+      },
+      {
+        "mrp": 2500,
+        "min_value": 2500,
+        "max_value": 0
+      },
+      {
+        "mrp": 1000,
+        "min_value": 1000,
+        "max_value": 0
+      },
+      {
+        "mrp": 500,
+        "min_value": 500,
+        "max_value": 0
+      },
+      {
+        "mrp": 10000,
+        "min_value": 10000,
+        "max_value": 0
+      }
+    ],
+    "important_instruction": "",
+    "checkout_instruction": ""
+  },
+  {
+    "brand_name": "Swan",
+    "slug": "swan",
+    "redemption_type": "OFF",
+    "defaut_pg_dis": 15,
+    "pgdis": [
+      {
+        "pg_name": "Credit Card",
+        "brand_pg_discount": 13
+      },
+      {
+        "pg_name": "Net Banking",
+        "brand_pg_discount": 13
+      },
+      {
+        "pg_name": "Debit Card",
+        "brand_pg_discount": 13
+      },
+      {
+        "pg_name": "PAYTM UPI",
+        "brand_pg_discount": 15
+      },
+      {
+        "pg_name": "UPI",
+        "brand_pg_discount": 15
+      },
+      {
+        "pg_name": "e-Pay",
+        "brand_pg_discount": 15
+      },
+      {
+        "pg_name": "MobiKwik",
+        "brand_pg_discount": 13
+      },
+      {
+        "pg_name": "Amazon Pay",
+        "brand_pg_discount": 13
+      }
+    ],
+    "products": [
+      {
+        "mrp": 10000,
+        "min_value": 10000,
+        "max_value": 0
+      },
+      {
+        "mrp": 2500,
+        "min_value": 2500,
+        "max_value": 0
+      },
+      {
+        "mrp": 1000,
+        "min_value": 1000,
+        "max_value": 0
+      },
+      {
+        "mrp": 5000,
+        "min_value": 5000,
+        "max_value": 0
+      },
+      {
+        "mrp": 100,
+        "min_value": 100,
+        "max_value": 10000
+      },
+      {
+        "mrp": 7500,
+        "min_value": 7500,
+        "max_value": 0
+      },
+      {
+        "mrp": 500,
+        "min_value": 500,
+        "max_value": 0
+      }
+    ],
+    "important_instruction": "",
+    "checkout_instruction": ""
+  },
+  {
+    "brand_name": "Masala Library",
+    "slug": "masala-library",
+    "redemption_type": "OFF",
+    "defaut_pg_dis": 15,
+    "pgdis": [
+      {
+        "pg_name": "Credit Card",
+        "brand_pg_discount": 13
+      },
+      {
+        "pg_name": "Net Banking",
+        "brand_pg_discount": 13
+      },
+      {
+        "pg_name": "Debit Card",
+        "brand_pg_discount": 13
+      },
+      {
+        "pg_name": "PAYTM UPI",
+        "brand_pg_discount": 15
+      },
+      {
+        "pg_name": "UPI",
+        "brand_pg_discount": 15
+      },
+      {
+        "pg_name": "e-Pay",
+        "brand_pg_discount": 15
+      },
+      {
+        "pg_name": "MobiKwik",
+        "brand_pg_discount": 13
+      },
+      {
+        "pg_name": "Amazon Pay",
+        "brand_pg_discount": 13
+      }
+    ],
+    "products": [
+      {
+        "mrp": 7500,
+        "min_value": 7500,
+        "max_value": 0
+      },
+      {
+        "mrp": 2500,
+        "min_value": 2500,
+        "max_value": 0
+      },
+      {
+        "mrp": 1000,
+        "min_value": 1000,
+        "max_value": 0
+      },
+      {
+        "mrp": 10000,
+        "min_value": 10000,
+        "max_value": 0
+      },
+      {
+        "mrp": 100,
+        "min_value": 100,
+        "max_value": 10000
+      },
+      {
+        "mrp": 500,
+        "min_value": 500,
+        "max_value": 0
+      },
+      {
+        "mrp": 5000,
+        "min_value": 5000,
+        "max_value": 0
+      }
+    ],
+    "important_instruction": "",
+    "checkout_instruction": ""
+  },
+  {
+    "brand_name": "Bo TAi",
+    "slug": "bo-tai",
+    "redemption_type": "OFF",
+    "defaut_pg_dis": 15,
+    "pgdis": [
+      {
+        "pg_name": "Credit Card",
+        "brand_pg_discount": 13
+      },
+      {
+        "pg_name": "Net Banking",
+        "brand_pg_discount": 13
+      },
+      {
+        "pg_name": "Debit Card",
+        "brand_pg_discount": 13
+      },
+      {
+        "pg_name": "PAYTM UPI",
+        "brand_pg_discount": 15
+      },
+      {
+        "pg_name": "UPI",
+        "brand_pg_discount": 15
+      },
+      {
+        "pg_name": "e-Pay",
+        "brand_pg_discount": 15
+      },
+      {
+        "pg_name": "MobiKwik",
+        "brand_pg_discount": 13
+      },
+      {
+        "pg_name": "Amazon Pay",
+        "brand_pg_discount": 13
+      }
+    ],
+    "products": [
+      {
+        "mrp": 10000,
+        "min_value": 10000,
+        "max_value": 0
+      },
+      {
+        "mrp": 5000,
+        "min_value": 5000,
+        "max_value": 0
+      },
+      {
+        "mrp": 2500,
+        "min_value": 2500,
+        "max_value": 0
+      },
+      {
+        "mrp": 7500,
+        "min_value": 7500,
+        "max_value": 0
+      },
+      {
+        "mrp": 1000,
+        "min_value": 1000,
+        "max_value": 0
+      },
+      {
+        "mrp": 500,
+        "min_value": 500,
+        "max_value": 0
+      },
+      {
+        "mrp": 100,
+        "min_value": 100,
+        "max_value": 10000
+      }
+    ],
+    "important_instruction": "",
+    "checkout_instruction": ""
+  },
+  {
+    "brand_name": "Made In Punjab",
+    "slug": "made-in-punjab",
+    "redemption_type": "OFF",
+    "defaut_pg_dis": 15,
+    "pgdis": [
+      {
+        "pg_name": "Credit Card",
+        "brand_pg_discount": 13
+      },
+      {
+        "pg_name": "Net Banking",
+        "brand_pg_discount": 13
+      },
+      {
+        "pg_name": "Debit Card",
+        "brand_pg_discount": 13
+      },
+      {
+        "pg_name": "PAYTM UPI",
+        "brand_pg_discount": 15
+      },
+      {
+        "pg_name": "UPI",
+        "brand_pg_discount": 15
+      },
+      {
+        "pg_name": "e-Pay",
+        "brand_pg_discount": 15
+      },
+      {
+        "pg_name": "MobiKwik",
+        "brand_pg_discount": 13
+      },
+      {
+        "pg_name": "Amazon Pay",
+        "brand_pg_discount": 13
+      }
+    ],
+    "products": [
+      {
+        "mrp": 1000,
+        "min_value": 1000,
+        "max_value": 0
+      },
+      {
+        "mrp": 2500,
+        "min_value": 2500,
+        "max_value": 0
+      },
+      {
+        "mrp": 10000,
+        "min_value": 10000,
+        "max_value": 0
+      },
+      {
+        "mrp": 5000,
+        "min_value": 5000,
+        "max_value": 0
+      },
+      {
+        "mrp": 7500,
+        "min_value": 7500,
+        "max_value": 0
+      },
+      {
+        "mrp": 500,
+        "min_value": 500,
+        "max_value": 0
+      },
+      {
+        "mrp": 100,
+        "min_value": 100,
+        "max_value": 10000
+      }
+    ],
+    "important_instruction": "",
+    "checkout_instruction": ""
+  },
+  {
+    "brand_name": "Pa Pa Ya",
+    "slug": "pa-pa-ya",
+    "redemption_type": "OFF",
+    "defaut_pg_dis": 15,
+    "pgdis": [
+      {
+        "pg_name": "Credit Card",
+        "brand_pg_discount": 13
+      },
+      {
+        "pg_name": "Net Banking",
+        "brand_pg_discount": 13
+      },
+      {
+        "pg_name": "Debit Card",
+        "brand_pg_discount": 13
+      },
+      {
+        "pg_name": "PAYTM UPI",
+        "brand_pg_discount": 15
+      },
+      {
+        "pg_name": "UPI",
+        "brand_pg_discount": 15
+      },
+      {
+        "pg_name": "e-Pay",
+        "brand_pg_discount": 15
+      },
+      {
+        "pg_name": "MobiKwik",
+        "brand_pg_discount": 13
+      },
+      {
+        "pg_name": "Amazon Pay",
+        "brand_pg_discount": 13
+      }
+    ],
+    "products": [
+      {
+        "mrp": 1000,
+        "min_value": 1000,
+        "max_value": 0
+      },
+      {
+        "mrp": 500,
+        "min_value": 500,
+        "max_value": 0
+      },
+      {
+        "mrp": 10000,
+        "min_value": 10000,
+        "max_value": 0
+      },
+      {
+        "mrp": 2500,
+        "min_value": 2500,
+        "max_value": 0
+      },
+      {
+        "mrp": 5000,
+        "min_value": 5000,
+        "max_value": 0
+      },
+      {
+        "mrp": 100,
+        "min_value": 100,
+        "max_value": 10000
+      },
+      {
+        "mrp": 7500,
+        "min_value": 7500,
+        "max_value": 0
+      }
+    ],
+    "important_instruction": "",
+    "checkout_instruction": ""
+  },
+  {
+    "brand_name": "Cut & Style - Luzo Gift Card",
+    "slug": "cut-and-style-luzo-gift-card",
+    "redemption_type": "ON",
+    "defaut_pg_dis": 9,
+    "pgdis": [
+      {
+        "pg_name": "Credit Card",
+        "brand_pg_discount": 7
+      },
+      {
+        "pg_name": "Net Banking",
+        "brand_pg_discount": 7
+      },
+      {
+        "pg_name": "Debit Card",
+        "brand_pg_discount": 7
+      },
+      {
+        "pg_name": "PAYTM UPI",
+        "brand_pg_discount": 9
+      },
+      {
+        "pg_name": "UPI",
+        "brand_pg_discount": 9
+      },
+      {
+        "pg_name": "e-Pay",
+        "brand_pg_discount": 9
+      },
+      {
+        "pg_name": "MobiKwik",
+        "brand_pg_discount": 7
+      }
+    ],
+    "products": [
+      {
+        "mrp": 5000,
+        "min_value": 5000,
+        "max_value": 0
+      },
+      {
+        "mrp": 10000,
+        "min_value": 10000,
+        "max_value": 0
+      },
+      {
+        "mrp": 2500,
+        "min_value": 2500,
+        "max_value": 0
+      },
+      {
+        "mrp": 500,
+        "min_value": 500,
+        "max_value": 0
+      },
+      {
+        "mrp": 250,
+        "min_value": 250,
+        "max_value": 0
+      },
+      {
+        "mrp": 1500,
+        "min_value": 1500,
+        "max_value": 0
+      },
+      {
+        "mrp": 1000,
+        "min_value": 1000,
+        "max_value": 0
+      }
+    ],
+    "important_instruction": "",
+    "checkout_instruction": ""
+  },
+  {
+    "brand_name": "Bblunt - Luzo Gift Card",
+    "slug": "bblunt-luzo-gift-card",
+    "redemption_type": "ON",
+    "defaut_pg_dis": 9,
+    "pgdis": [
+      {
+        "pg_name": "Credit Card",
+        "brand_pg_discount": 7
+      },
+      {
+        "pg_name": "Net Banking",
+        "brand_pg_discount": 7
+      },
+      {
+        "pg_name": "Debit Card",
+        "brand_pg_discount": 7
+      },
+      {
+        "pg_name": "PAYTM UPI",
+        "brand_pg_discount": 9
+      },
+      {
+        "pg_name": "UPI",
+        "brand_pg_discount": 9
+      },
+      {
+        "pg_name": "e-Pay",
+        "brand_pg_discount": 9
+      },
+      {
+        "pg_name": "MobiKwik",
+        "brand_pg_discount": 7
+      }
+    ],
+    "products": [
+      {
+        "mrp": 5000,
+        "min_value": 5000,
+        "max_value": 0
+      },
+      {
+        "mrp": 10000,
+        "min_value": 10000,
+        "max_value": 0
+      },
+      {
+        "mrp": 2500,
+        "min_value": 2500,
+        "max_value": 0
+      },
+      {
+        "mrp": 500,
+        "min_value": 500,
+        "max_value": 0
+      },
+      {
+        "mrp": 250,
+        "min_value": 250,
+        "max_value": 0
+      },
+      {
+        "mrp": 1500,
+        "min_value": 1500,
+        "max_value": 0
+      },
+      {
+        "mrp": 1000,
+        "min_value": 1000,
+        "max_value": 0
+      }
+    ],
+    "important_instruction": "",
+    "checkout_instruction": ""
+  },
+  {
+    "brand_name": "Bounce - Luzo Gift Card",
+    "slug": "bounce-luzo-gift-card",
+    "redemption_type": "ON",
+    "defaut_pg_dis": 9,
+    "pgdis": [
+      {
+        "pg_name": "Credit Card",
+        "brand_pg_discount": 7
+      },
+      {
+        "pg_name": "Net Banking",
+        "brand_pg_discount": 7
+      },
+      {
+        "pg_name": "Debit Card",
+        "brand_pg_discount": 7
+      },
+      {
+        "pg_name": "PAYTM UPI",
+        "brand_pg_discount": 9
+      },
+      {
+        "pg_name": "UPI",
+        "brand_pg_discount": 9
+      },
+      {
+        "pg_name": "e-Pay",
+        "brand_pg_discount": 9
+      },
+      {
+        "pg_name": "MobiKwik",
+        "brand_pg_discount": 7
+      }
+    ],
+    "products": [
+      {
+        "mrp": 5000,
+        "min_value": 5000,
+        "max_value": 0
+      },
+      {
+        "mrp": 10000,
+        "min_value": 10000,
+        "max_value": 0
+      },
+      {
+        "mrp": 2500,
+        "min_value": 2500,
+        "max_value": 0
+      },
+      {
+        "mrp": 500,
+        "min_value": 500,
+        "max_value": 0
+      },
+      {
+        "mrp": 250,
+        "min_value": 250,
+        "max_value": 0
+      },
+      {
+        "mrp": 1500,
+        "min_value": 1500,
+        "max_value": 0
+      },
+      {
+        "mrp": 1000,
+        "min_value": 1000,
+        "max_value": 0
+      }
+    ],
+    "important_instruction": "",
+    "checkout_instruction": ""
+  },
+  {
+    "brand_name": "Enrich - Luzo Gift Card",
+    "slug": "enrich-luzo-gift-card",
+    "redemption_type": "ON",
+    "defaut_pg_dis": 9,
+    "pgdis": [
+      {
+        "pg_name": "Credit Card",
+        "brand_pg_discount": 7
+      },
+      {
+        "pg_name": "Net Banking",
+        "brand_pg_discount": 7
+      },
+      {
+        "pg_name": "Debit Card",
+        "brand_pg_discount": 7
+      },
+      {
+        "pg_name": "PAYTM UPI",
+        "brand_pg_discount": 9
+      },
+      {
+        "pg_name": "UPI",
+        "brand_pg_discount": 9
+      },
+      {
+        "pg_name": "e-Pay",
+        "brand_pg_discount": 9
+      },
+      {
+        "pg_name": "MobiKwik",
+        "brand_pg_discount": 7
+      }
+    ],
+    "products": [
+      {
+        "mrp": 5000,
+        "min_value": 5000,
+        "max_value": 0
+      },
+      {
+        "mrp": 10000,
+        "min_value": 10000,
+        "max_value": 0
+      },
+      {
+        "mrp": 2500,
+        "min_value": 2500,
+        "max_value": 0
+      },
+      {
+        "mrp": 500,
+        "min_value": 500,
+        "max_value": 0
+      },
+      {
+        "mrp": 250,
+        "min_value": 250,
+        "max_value": 0
+      },
+      {
+        "mrp": 1500,
+        "min_value": 1500,
+        "max_value": 0
+      },
+      {
+        "mrp": 1000,
+        "min_value": 1000,
+        "max_value": 0
+      }
+    ],
+    "important_instruction": "",
+    "checkout_instruction": ""
+  },
+  {
+    "brand_name": "JCB - Luzo Gift Card",
+    "slug": "jcb-luzo-gift-card",
+    "redemption_type": "ON",
+    "defaut_pg_dis": 9,
+    "pgdis": [
+      {
+        "pg_name": "Credit Card",
+        "brand_pg_discount": 7
+      },
+      {
+        "pg_name": "Net Banking",
+        "brand_pg_discount": 7
+      },
+      {
+        "pg_name": "Debit Card",
+        "brand_pg_discount": 7
+      },
+      {
+        "pg_name": "PAYTM UPI",
+        "brand_pg_discount": 9
+      },
+      {
+        "pg_name": "UPI",
+        "brand_pg_discount": 9
+      },
+      {
+        "pg_name": "e-Pay",
+        "brand_pg_discount": 9
+      },
+      {
+        "pg_name": "MobiKwik",
+        "brand_pg_discount": 7
+      }
+    ],
+    "products": [
+      {
+        "mrp": 5000,
+        "min_value": 5000,
+        "max_value": 0
+      },
+      {
+        "mrp": 10000,
+        "min_value": 10000,
+        "max_value": 0
+      },
+      {
+        "mrp": 2500,
+        "min_value": 2500,
+        "max_value": 0
+      },
+      {
+        "mrp": 500,
+        "min_value": 500,
+        "max_value": 0
+      },
+      {
+        "mrp": 250,
+        "min_value": 250,
+        "max_value": 0
+      },
+      {
+        "mrp": 1500,
+        "min_value": 1500,
+        "max_value": 0
+      },
+      {
+        "mrp": 1000,
+        "min_value": 1000,
+        "max_value": 0
+      }
+    ],
+    "important_instruction": "",
+    "checkout_instruction": ""
+  },
+  {
+    "brand_name": "Lakme - Luzo Gift Card",
+    "slug": "lakme-luzo-gift-card",
+    "redemption_type": "ON",
+    "defaut_pg_dis": 9,
+    "pgdis": [
+      {
+        "pg_name": "Credit Card",
+        "brand_pg_discount": 7
+      },
+      {
+        "pg_name": "Net Banking",
+        "brand_pg_discount": 7
+      },
+      {
+        "pg_name": "Debit Card",
+        "brand_pg_discount": 7
+      },
+      {
+        "pg_name": "PAYTM UPI",
+        "brand_pg_discount": 9
+      },
+      {
+        "pg_name": "UPI",
+        "brand_pg_discount": 9
+      },
+      {
+        "pg_name": "e-Pay",
+        "brand_pg_discount": 9
+      },
+      {
+        "pg_name": "MobiKwik",
+        "brand_pg_discount": 7
+      }
+    ],
+    "products": [
+      {
+        "mrp": 5000,
+        "min_value": 5000,
+        "max_value": 0
+      },
+      {
+        "mrp": 10000,
+        "min_value": 10000,
+        "max_value": 0
+      },
+      {
+        "mrp": 2500,
+        "min_value": 2500,
+        "max_value": 0
+      },
+      {
+        "mrp": 500,
+        "min_value": 500,
+        "max_value": 0
+      },
+      {
+        "mrp": 250,
+        "min_value": 250,
+        "max_value": 0
+      },
+      {
+        "mrp": 1500,
+        "min_value": 1500,
+        "max_value": 0
+      },
+      {
+        "mrp": 1000,
+        "min_value": 1000,
+        "max_value": 0
+      }
+    ],
+    "important_instruction": "",
+    "checkout_instruction": ""
+  },
+  {
+    "brand_name": "Bubbles - Luzo Gift Card",
+    "slug": "bubbles-luzo-gift-card",
+    "redemption_type": "ON",
+    "defaut_pg_dis": 9,
+    "pgdis": [
+      {
+        "pg_name": "Credit Card",
+        "brand_pg_discount": 7
+      },
+      {
+        "pg_name": "Net Banking",
+        "brand_pg_discount": 7
+      },
+      {
+        "pg_name": "Debit Card",
+        "brand_pg_discount": 7
+      },
+      {
+        "pg_name": "PAYTM UPI",
+        "brand_pg_discount": 9
+      },
+      {
+        "pg_name": "UPI",
+        "brand_pg_discount": 9
+      },
+      {
+        "pg_name": "e-Pay",
+        "brand_pg_discount": 9
+      },
+      {
+        "pg_name": "MobiKwik",
+        "brand_pg_discount": 7
+      }
+    ],
+    "products": [
+      {
+        "mrp": 5000,
+        "min_value": 5000,
+        "max_value": 0
+      },
+      {
+        "mrp": 10000,
+        "min_value": 10000,
+        "max_value": 0
+      },
+      {
+        "mrp": 2500,
+        "min_value": 2500,
+        "max_value": 0
+      },
+      {
+        "mrp": 500,
+        "min_value": 500,
+        "max_value": 0
+      },
+      {
+        "mrp": 250,
+        "min_value": 250,
+        "max_value": 0
+      },
+      {
+        "mrp": 1500,
+        "min_value": 1500,
+        "max_value": 0
+      },
+      {
+        "mrp": 1000,
+        "min_value": 1000,
+        "max_value": 0
+      }
+    ],
+    "important_instruction": "",
+    "checkout_instruction": ""
+  },
+  {
+    "brand_name": "Affinity - Luzo Gift Card",
+    "slug": "affinity-luzo-gift-card",
+    "redemption_type": "ON",
+    "defaut_pg_dis": 9,
+    "pgdis": [
+      {
+        "pg_name": "Credit Card",
+        "brand_pg_discount": 7
+      },
+      {
+        "pg_name": "Net Banking",
+        "brand_pg_discount": 7
+      },
+      {
+        "pg_name": "Debit Card",
+        "brand_pg_discount": 7
+      },
+      {
+        "pg_name": "PAYTM UPI",
+        "brand_pg_discount": 9
+      },
+      {
+        "pg_name": "UPI",
+        "brand_pg_discount": 9
+      },
+      {
+        "pg_name": "e-Pay",
+        "brand_pg_discount": 9
+      },
+      {
+        "pg_name": "MobiKwik",
+        "brand_pg_discount": 7
+      }
+    ],
+    "products": [
+      {
+        "mrp": 5000,
+        "min_value": 5000,
+        "max_value": 0
+      },
+      {
+        "mrp": 10000,
+        "min_value": 10000,
+        "max_value": 0
+      },
+      {
+        "mrp": 2500,
+        "min_value": 2500,
+        "max_value": 0
+      },
+      {
+        "mrp": 500,
+        "min_value": 500,
+        "max_value": 0
+      },
+      {
+        "mrp": 250,
+        "min_value": 250,
+        "max_value": 0
+      },
+      {
+        "mrp": 1500,
+        "min_value": 1500,
+        "max_value": 0
+      },
+      {
+        "mrp": 1000,
+        "min_value": 1000,
+        "max_value": 0
+      }
+    ],
+    "important_instruction": "",
+    "checkout_instruction": ""
+  },
+  {
+    "brand_name": "Looks - Luzo Gift Card",
+    "slug": "looks-luzo-gift-card",
+    "redemption_type": "ON",
+    "defaut_pg_dis": 9,
+    "pgdis": [
+      {
+        "pg_name": "Credit Card",
+        "brand_pg_discount": 7
+      },
+      {
+        "pg_name": "Net Banking",
+        "brand_pg_discount": 7
+      },
+      {
+        "pg_name": "Debit Card",
+        "brand_pg_discount": 7
+      },
+      {
+        "pg_name": "PAYTM UPI",
+        "brand_pg_discount": 9
+      },
+      {
+        "pg_name": "UPI",
+        "brand_pg_discount": 9
+      },
+      {
+        "pg_name": "e-Pay",
+        "brand_pg_discount": 9
+      },
+      {
+        "pg_name": "MobiKwik",
+        "brand_pg_discount": 7
+      }
+    ],
+    "products": [
+      {
+        "mrp": 5000,
+        "min_value": 5000,
+        "max_value": 0
+      },
+      {
+        "mrp": 10000,
+        "min_value": 10000,
+        "max_value": 0
+      },
+      {
+        "mrp": 2500,
+        "min_value": 2500,
+        "max_value": 0
+      },
+      {
+        "mrp": 500,
+        "min_value": 500,
+        "max_value": 0
+      },
+      {
+        "mrp": 250,
+        "min_value": 250,
+        "max_value": 0
+      },
+      {
+        "mrp": 1500,
+        "min_value": 1500,
+        "max_value": 0
+      },
+      {
+        "mrp": 1000,
+        "min_value": 1000,
+        "max_value": 0
+      }
+    ],
+    "important_instruction": "",
+    "checkout_instruction": ""
+  },
+  {
+    "brand_name": "Toni & Guy - Luzo Gift Card",
+    "slug": "toni-and-guy-luzo-gift-card",
+    "redemption_type": "ON",
+    "defaut_pg_dis": 9,
+    "pgdis": [
+      {
+        "pg_name": "Credit Card",
+        "brand_pg_discount": 7
+      },
+      {
+        "pg_name": "Net Banking",
+        "brand_pg_discount": 7
+      },
+      {
+        "pg_name": "Debit Card",
+        "brand_pg_discount": 7
+      },
+      {
+        "pg_name": "PAYTM UPI",
+        "brand_pg_discount": 9
+      },
+      {
+        "pg_name": "UPI",
+        "brand_pg_discount": 9
+      },
+      {
+        "pg_name": "e-Pay",
+        "brand_pg_discount": 9
+      },
+      {
+        "pg_name": "MobiKwik",
+        "brand_pg_discount": 7
+      }
+    ],
+    "products": [
+      {
+        "mrp": 5000,
+        "min_value": 5000,
+        "max_value": 0
+      },
+      {
+        "mrp": 10000,
+        "min_value": 10000,
+        "max_value": 0
+      },
+      {
+        "mrp": 2500,
+        "min_value": 2500,
+        "max_value": 0
+      },
+      {
+        "mrp": 500,
+        "min_value": 500,
+        "max_value": 0
+      },
+      {
+        "mrp": 250,
+        "min_value": 250,
+        "max_value": 0
+      },
+      {
+        "mrp": 1500,
+        "min_value": 1500,
+        "max_value": 0
+      },
+      {
+        "mrp": 1000,
+        "min_value": 1000,
+        "max_value": 0
+      }
+    ],
+    "important_instruction": "",
+    "checkout_instruction": ""
+  },
+  {
+    "brand_name": "Geetanjali - Luzo Gift Card",
+    "slug": "geetanjali-luzo-gift-card",
+    "redemption_type": "ON",
+    "defaut_pg_dis": 9,
+    "pgdis": [
+      {
+        "pg_name": "Credit Card",
+        "brand_pg_discount": 7
+      },
+      {
+        "pg_name": "Net Banking",
+        "brand_pg_discount": 7
+      },
+      {
+        "pg_name": "Debit Card",
+        "brand_pg_discount": 7
+      },
+      {
+        "pg_name": "PAYTM UPI",
+        "brand_pg_discount": 9
+      },
+      {
+        "pg_name": "UPI",
+        "brand_pg_discount": 9
+      },
+      {
+        "pg_name": "e-Pay",
+        "brand_pg_discount": 9
+      },
+      {
+        "pg_name": "MobiKwik",
+        "brand_pg_discount": 7
+      }
+    ],
+    "products": [
+      {
+        "mrp": 5000,
+        "min_value": 5000,
+        "max_value": 0
+      },
+      {
+        "mrp": 10000,
+        "min_value": 10000,
+        "max_value": 0
+      },
+      {
+        "mrp": 2500,
+        "min_value": 2500,
+        "max_value": 0
+      },
+      {
+        "mrp": 500,
+        "min_value": 500,
+        "max_value": 0
+      },
+      {
+        "mrp": 250,
+        "min_value": 250,
+        "max_value": 0
+      },
+      {
+        "mrp": 1500,
+        "min_value": 1500,
+        "max_value": 0
+      },
+      {
+        "mrp": 1000,
+        "min_value": 1000,
+        "max_value": 0
+      }
+    ],
+    "important_instruction": "",
+    "checkout_instruction": ""
+  },
+  {
+    "brand_name": "Jawed Habib - Luzo Gift Card",
+    "slug": "jawed-habib-luzo-gift-card",
+    "redemption_type": "ON",
+    "defaut_pg_dis": 9,
+    "pgdis": [
+      {
+        "pg_name": "Credit Card",
+        "brand_pg_discount": 7
+      },
+      {
+        "pg_name": "Net Banking",
+        "brand_pg_discount": 7
+      },
+      {
+        "pg_name": "Debit Card",
+        "brand_pg_discount": 7
+      },
+      {
+        "pg_name": "PAYTM UPI",
+        "brand_pg_discount": 9
+      },
+      {
+        "pg_name": "UPI",
+        "brand_pg_discount": 9
+      },
+      {
+        "pg_name": "e-Pay",
+        "brand_pg_discount": 9
+      },
+      {
+        "pg_name": "MobiKwik",
+        "brand_pg_discount": 7
+      }
+    ],
+    "products": [
+      {
+        "mrp": 5000,
+        "min_value": 5000,
+        "max_value": 0
+      },
+      {
+        "mrp": 10000,
+        "min_value": 10000,
+        "max_value": 0
+      },
+      {
+        "mrp": 2500,
+        "min_value": 2500,
+        "max_value": 0
+      },
+      {
+        "mrp": 500,
+        "min_value": 500,
+        "max_value": 0
+      },
+      {
+        "mrp": 250,
+        "min_value": 250,
+        "max_value": 0
+      },
+      {
+        "mrp": 1500,
+        "min_value": 1500,
+        "max_value": 0
+      },
+      {
+        "mrp": 1000,
+        "min_value": 1000,
+        "max_value": 0
+      }
+    ],
+    "important_instruction": "",
+    "checkout_instruction": ""
+  },
+  {
+    "brand_name": "Naturals - Luzo Gift Card",
+    "slug": "naturals-luzo-gift-card",
+    "redemption_type": "ON",
+    "defaut_pg_dis": 9,
+    "pgdis": [
+      {
+        "pg_name": "Credit Card",
+        "brand_pg_discount": 7
+      },
+      {
+        "pg_name": "Net Banking",
+        "brand_pg_discount": 7
+      },
+      {
+        "pg_name": "Debit Card",
+        "brand_pg_discount": 7
+      },
+      {
+        "pg_name": "PAYTM UPI",
+        "brand_pg_discount": 9
+      },
+      {
+        "pg_name": "UPI",
+        "brand_pg_discount": 9
+      },
+      {
+        "pg_name": "e-Pay",
+        "brand_pg_discount": 9
+      },
+      {
+        "pg_name": "MobiKwik",
+        "brand_pg_discount": 7
+      }
+    ],
+    "products": [
+      {
+        "mrp": 5000,
+        "min_value": 5000,
+        "max_value": 0
+      },
+      {
+        "mrp": 10000,
+        "min_value": 10000,
+        "max_value": 0
+      },
+      {
+        "mrp": 2500,
+        "min_value": 2500,
+        "max_value": 0
+      },
+      {
+        "mrp": 500,
+        "min_value": 500,
+        "max_value": 0
+      },
+      {
+        "mrp": 250,
+        "min_value": 250,
+        "max_value": 0
+      },
+      {
+        "mrp": 1500,
+        "min_value": 1500,
+        "max_value": 0
+      },
+      {
+        "mrp": 1000,
+        "min_value": 1000,
+        "max_value": 0
+      }
+    ],
+    "important_instruction": "",
+    "checkout_instruction": ""
+  },
+  {
+    "brand_name": "DreamFolks Club Membership",
+    "slug": "dreamfolks-club-membership",
+    "redemption_type": "OFF",
     "defaut_pg_dis": 0,
     "pgdis": [
       {
@@ -26446,43 +28043,18 @@
     ],
     "products": [
       {
-        "mrp": 5000,
-        "min_value": 5000,
+        "mrp": 11800,
+        "min_value": 11800,
         "max_value": 0
       },
       {
-        "mrp": 2500,
-        "min_value": 2500,
+        "mrp": 59000,
+        "min_value": 59000,
         "max_value": 0
       },
       {
-        "mrp": 500,
-        "min_value": 500,
-        "max_value": 0
-      },
-      {
-        "mrp": 1000,
-        "min_value": 1000,
-        "max_value": 0
-      },
-      {
-        "mrp": 100,
-        "min_value": 100,
-        "max_value": 10000
-      },
-      {
-        "mrp": 10000,
-        "min_value": 10000,
-        "max_value": 0
-      },
-      {
-        "mrp": 250,
-        "min_value": 250,
-        "max_value": 0
-      },
-      {
-        "mrp": 2000,
-        "min_value": 2000,
+        "mrp": 35400,
+        "min_value": 35400,
         "max_value": 0
       }
     ],
