@@ -18,6 +18,7 @@ URL mode is gone, so mode is always "text".
 """
 from __future__ import annotations
 
+import difflib
 import hashlib
 import html
 import json
@@ -1105,6 +1106,23 @@ def _required_token_match_fraction(title: str, tokens: list[str]) -> float:
     return hits / len(tokens)
 
 
+def _fuzzy_token_hit(token: str, normalized_title: str) -> bool:
+    """Tolerate a one-letter typo/spelling slip between a query word and a
+    listing's own word (e.g. query "airdryer" vs a real listing's "airfryer")
+    so a single glued-together typo doesn't throw out every real result. Only
+    applies to alphabetic tokens long enough that a coincidental near-match is
+    implausible (>=6 letters) — below that, genuinely different short words
+    read as artificially "close" too easily (e.g. "add" vs "app")."""
+    if not token.isalpha() or len(token) < 6:
+        return False
+    for word in re.findall(r"[a-z]+", normalized_title):
+        if abs(len(word) - len(token)) > 2:
+            continue
+        if difflib.SequenceMatcher(None, token, word).ratio() >= 0.82:
+            return True
+    return False
+
+
 def _matches_any_required_token(title: str, tokens: list[str]) -> bool:
     """Permissive relevance gate for the picker (see bug #6 in CLAUDE.md):
     at least one required query token must appear in the title — not every
@@ -1122,7 +1140,10 @@ def _matches_any_required_token(title: str, tokens: list[str]) -> bool:
     if not tokens:
         return True
     normalized = _norm_title(title or "")
-    return any(re.search(_token_pattern(t), normalized) for t in tokens)
+    return any(
+        re.search(_token_pattern(t), normalized) or _fuzzy_token_hit(t, normalized)
+        for t in tokens
+    )
 
 
 def _is_category_only_query(query: str, tokens: list[str]) -> bool:
