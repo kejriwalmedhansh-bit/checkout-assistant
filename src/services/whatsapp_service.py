@@ -101,6 +101,31 @@ OPT_OUT_PHRASES = {"stop", "unsubscribe", "cancel", "no thanks", "not interested
 # hardcoding every possible spelling.
 _REPEATED_CHAR_RE = re.compile(r"(.)\1{2,}")
 
+# Every single-word entry from the phrase sets above, reused to catch a
+# message made of nothing but repeated/combined filler words — "Hi hi",
+# "yes yes", "hey hey" — which no *exact* multi-word phrase entry would
+# ever cover (there's no realistic way to enumerate every such combo).
+# Live-tested 2026-08-26: "Hi hi" wasn't in NOISE_PHRASES verbatim, so it
+# fell through as a real product query and returned a garbage picker.
+_NOISE_WORDS = {p for p in NOISE_PHRASES if " " not in p}
+_OPT_OUT_WORDS = {p for p in OPT_OUT_PHRASES if " " not in p}
+
+
+def _all_words_are_filler(cleaned: str) -> str | None:
+    """Returns "opt_out"/"noise_phrase" if every letter-word in the message
+    is a known filler word on its own (any count, any order), None if any
+    word isn't recognized filler — so a real product query (which always
+    has at least one non-filler word, e.g. "boAt") is never affected."""
+    words = re.findall(r"[a-zA-Z]+", cleaned)
+    if not words:
+        return None
+    normalized_words = [_REPEATED_CHAR_RE.sub(r"\1\1", w.lower()) for w in words]
+    if all(w in _OPT_OUT_WORDS for w in normalized_words):
+        return "opt_out"
+    if all(w in _NOISE_WORDS or w in _OPT_OUT_WORDS for w in normalized_words):
+        return "noise_phrase"
+    return None
+
 
 def classify_input(text: str) -> dict:
     if not text or not text.strip():
@@ -115,6 +140,9 @@ def classify_input(text: str) -> dict:
         return {"type": "unparseable", "reason": "opt_out"}
     if normalized in NOISE_PHRASES:
         return {"type": "unparseable", "reason": "noise_phrase"}
+    filler_reason = _all_words_are_filler(cleaned)
+    if filler_reason:
+        return {"type": "unparseable", "reason": filler_reason}
     if len(cleaned) < 3:
         return {"type": "unparseable", "reason": "too_short"}
     if not re.search(r"[a-zA-Z0-9]", cleaned):
