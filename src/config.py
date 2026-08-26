@@ -26,7 +26,19 @@ class Settings(BaseSettings):
     SEARCHAPI_KEY: str = ""
     SEARCHAPI_TIMEOUT: int = 30
 
-    # --- Apify (anti-bot fallback for Myntra/Flipkart/AJIO/Nykaa) ---
+    # --- Crawlbase (primary anti-bot fetcher, 2026-08-27) ---
+    # Live-tested against 13 real blocked/JS-heavy merchant pages (Flipkart,
+    # Nykaa, Myntra, Croma, BigBasket, Samsung, Tata CLiQ, Pepperfry,
+    # Lenskart, Ethos, Apple — 11/13 correct, 5-22s each) — faster and far
+    # cheaper (pay-per-request, no forced monthly minimum) than Apify, which
+    # it replaces as the default. Only AJIO and Titan resisted it (both
+    # fall through to APIFY_TOKEN below as a second attempt).
+    CRAWLBASE_JS_TOKEN: str = ""
+    CRAWLBASE_TIMEOUT: int = 60
+
+    # --- Apify (fallback fetcher — only used for hosts Crawlbase can't get
+    # past, e.g. AJIO's Akamai challenge; was the sole fetcher before
+    # 2026-08-27) ---
     # Same no-hardcoded-fallback convention as SEARCHAPI_KEY above.
     APIFY_TOKEN: str = ""
     # Live-tested 2026-08-26: a real AJIO render took 58.7s — comfortably

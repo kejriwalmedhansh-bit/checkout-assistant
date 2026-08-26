@@ -37,6 +37,7 @@ from ..constants import HYPERLOCAL_MERCHANTS, KNOWN_BRANDS, MANUAL_TRUSTED_MERCH
 from ..repositories import (
     apify_repository,
     buyhatke_repository,
+    crawlbase_repository,
     maximize_repository,
     searchapi_repository,
     voucher_repository,
@@ -1855,20 +1856,22 @@ def _apify_merchant_for_host(host: str) -> str | None:
     return None
 
 
-# Hosts whose page reliably fails to finish loading for Apify's real-browser
-# render within our own timeout budget — confirmed on titan.co.in (2026-08-26):
-# a direct fetch fails fast with a clean 403, but the render itself twice
-# exceeded APIFY_TIMEOUT (60s) with nothing to show for the wait, live-tested
-# both from this codebase and by hand. Skipping the render for these hosts
-# trades a slightly weaker product name (URL-slug words only — the same
-# fallback already used for Myntra's server-block issue) for an honest,
-# instant result instead of a minute-long hang that fails anyway.
-_APIFY_SKIP_HOSTS = {"titan.co.in"}
+# Hosts whose page reliably fails to finish loading on EITHER real-browser
+# fetcher within a reasonable timeout budget — confirmed on titan.co.in: a
+# direct fetch fails fast with a clean 403, but Apify's render twice
+# exceeded its 60s budget with nothing to show for the wait (2026-08-26),
+# and Crawlbase's own render was blocked outright by a Cloudflare challenge
+# after 77s (2026-08-27) — live-tested both. Skipping render entirely for
+# these hosts trades a slightly weaker product name (URL-slug words only —
+# the same fallback already used for Myntra's server-block issue) for an
+# honest, fast result instead of a minute-plus hang that fails anyway on
+# every fetcher tried.
+_RENDER_SKIP_HOSTS = {"titan.co.in"}
 
 
-def _should_skip_apify(host: str) -> bool:
+def _should_skip_render(host: str) -> bool:
     host = (host or "").lower()
-    return any(host == suffix or host.endswith("." + suffix) for suffix in _APIFY_SKIP_HOSTS)
+    return any(host == suffix or host.endswith("." + suffix) for suffix in _RENDER_SKIP_HOSTS)
 
 
 # A stray double separator ("Nike Men Zoom Vomero 5 SP Sneakers -  - Footwear
@@ -2092,59 +2095,78 @@ def _fetch_url_page(url: str) -> tuple[str | None, float | None, str | None, str
             apify_host = resolved_host
             apify_merchant_name = _apify_merchant_for_host(apify_host)
 
-    def _try_apify(
+    def _try_render(
         need_title: bool = True,
     ) -> tuple[str | None, float | None, str | None, str | None]:
-        """Render the page through Apify's browser+residential proxy and read
-        a title (any host), a photo (any host), and, where we already trust
-        the host's structured data, a price. Returns (title, price, merchant,
-        image).
+        """Render the page through a real browser and read a title (any
+        host), a photo (any host), and, where we already trust the host's
+        structured data, a price. Returns (title, price, merchant, image).
 
-        One render serves all three: the actor is the expensive part, so a
-        page fetched for its title reads its price and photo from the same
-        HTML for free. Skipped entirely when there's nothing left to recover.
+        Tries Crawlbase first, Apify only if Crawlbase returns nothing —
+        Crawlbase is the default fetcher as of 2026-08-27 (faster and
+        live-tested correct on 11 of 13 real blocked/JS-heavy hosts: only
+        AJIO and Titan resisted it), Apify stays wired in as a second
+        attempt specifically for those holdouts rather than being dropped
+        outright, since it does get past AJIO's block most of the time.
+
+        One successful render serves all three: rendering is the expensive
+        part, so a page fetched for its title reads its price and photo
+        from the same HTML for free. Skipped entirely when there's nothing
+        left to recover.
         """
         need_price = apify_merchant_name is not None
         if not need_title and not need_price:
             return None, None, None, None
-        if _should_skip_apify(apify_host):
+        if _should_skip_render(apify_host):
             logger.info(
-                "[url-search] skipping Apify render for %s (known to exceed timeout)",
+                "[url-search] skipping render for %s (known to exceed timeout on every fetcher)",
                 apify_host,
             )
             return None, None, None, None
-        markup = apify_repository.fetch_rendered_html(url)
+
+        markup = crawlbase_repository.fetch_rendered_html(url)
+        render_source = "Crawlbase"
         if not markup:
-            logger.info("[url-search] Apify render returned nothing for %s", apify_host)
+            logger.info(
+                "[url-search] Crawlbase render returned nothing for %s — trying Apify",
+                apify_host,
+            )
+            markup = apify_repository.fetch_rendered_html(url)
+            render_source = "Apify"
+        if not markup:
+            logger.info(
+                "[url-search] render returned nothing for %s (Crawlbase + Apify both failed)",
+                apify_host,
+            )
             return None, None, None, None
 
-        apify_title = _extract_page_title(markup) if need_title else None
-        if apify_title:
-            logger.info("[url-search] title via Apify: %r", apify_title)
+        render_title = _extract_page_title(markup) if need_title else None
+        if render_title:
+            logger.info("[url-search] title via %s: %r", render_source, render_title)
         elif need_title:
-            logger.info("[url-search] Apify render had no usable title for %s", apify_host)
+            logger.info("[url-search] %s render had no usable title for %s", render_source, apify_host)
 
-        apify_image = _extract_page_image(markup, url)
-        if apify_image:
-            logger.info("[url-search] image via Apify: %s", apify_image)
+        render_image = _extract_page_image(markup, url)
+        if render_image:
+            logger.info("[url-search] image via %s: %s", render_source, render_image)
 
         # Price stays gated on the host list: _extract_jsonld_price is
         # generic, but "which hosts' structured data has been hand-checked
         # against the page's real selling price" is not — an unverified host
         # could be handing us an MRP or a range. A title is a name; a price
         # is a promise, and only the second one needs the whitelist.
-        apify_price = _extract_jsonld_price(markup) if need_price else None
-        if apify_price is not None:
+        render_price = _extract_jsonld_price(markup) if need_price else None
+        if render_price is not None:
             logger.info(
-                "[url-search] %s live price via Apify: %s", apify_merchant_name, apify_price
+                "[url-search] %s live price via %s: %s", apify_merchant_name, render_source, render_price
             )
         elif need_price:
-            logger.info("[url-search] Apify fallback found no price for %s", apify_host)
+            logger.info("[url-search] %s fallback found no price for %s", render_source, apify_host)
         return (
-            apify_title,
-            apify_price,
-            apify_merchant_name if apify_price is not None else None,
-            apify_image,
+            render_title,
+            render_price,
+            apify_merchant_name if render_price is not None else None,
+            render_image,
         )
 
     try:
@@ -2173,7 +2195,7 @@ def _fetch_url_page(url: str) -> tuple[str | None, float | None, str | None, str
             return _fetch_url_page(deeplink_target)
         _use_resolved_host(resp.url.host)
         if resp.status_code != 200:
-            return _try_apify()
+            return _try_render()
         full_markup = resp.text
         # The title lives in <head>, early in the document; cap the text we
         # scan for it so a huge product page doesn't turn into a huge regex
@@ -2182,7 +2204,7 @@ def _fetch_url_page(url: str) -> tuple[str | None, float | None, str | None, str
         markup = full_markup[:200_000]
     except (httpx.HTTPError, ValueError) as exc:
         logger.info("[url-search] page-fetch failed for %s: %s", url, exc)
-        return _try_apify()
+        return _try_render()
 
     title = _extract_page_title(markup)
     if title:
@@ -2211,13 +2233,13 @@ def _fetch_url_page(url: str) -> tuple[str | None, float | None, str | None, str
     # A 200 that yielded neither a name nor a price is a soft block (a shell
     # page, or a bot wall that didn't bother with a 403) — worth one render.
     if price is None or title is None:
-        apify_title, apify_price, apify_merchant, apify_image = _try_apify(
+        render_title, render_price, render_merchant, render_image = _try_render(
             need_title=title is None
         )
-        title = title or apify_title
-        image = image or apify_image
-        if apify_price is not None:
-            price, merchant = apify_price, apify_merchant
+        title = title or render_title
+        image = image or render_image
+        if render_price is not None:
+            price, merchant = render_price, render_merchant
 
     if price is None:
         merchant = None
