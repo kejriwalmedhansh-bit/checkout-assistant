@@ -1896,6 +1896,15 @@ def _extract_page_title(markup: str) -> str | None:
         candidate = re.sub(r"\s+", " ", html.unescape(m.group(1))).strip()
         if len(candidate) < 3:
             continue
+        # Storefronts routinely prefix their <title>/og:title with a CTA verb
+        # ("Buy Nike Air Force 1", "Shop Nike Air Force 1") that names no
+        # part of the product — strip it so the resolved name reads as a
+        # product name, not a call to action. Confirmed 2026-08-27: Myntra's
+        # og:title for the Air Force 1 listing was exactly "Buy Nike Air
+        # Force 1", surfaced verbatim to the user as the product name.
+        stripped = re.sub(r"^(?:buy|shop)\s+", "", candidate, flags=re.IGNORECASE)
+        if len(stripped) >= 3:
+            candidate = stripped
         broken = _BROKEN_TEMPLATE_RE.search(candidate)
         if broken:
             candidate = candidate[: broken.start()].strip(" -")
