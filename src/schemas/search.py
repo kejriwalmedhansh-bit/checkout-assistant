@@ -33,6 +33,11 @@ class ProductCandidate(BaseModel):
 
 class SearchCandidatesResponse(BaseModel):
     query: str
+    # Human-readable name for what was actually searched — the pasted URL's
+    # own page title/slug, when the input was a link. `query` above always
+    # echoes the raw input verbatim (a re-search needs that), so display
+    # code should prefer this field and only fall back to `query`.
+    resolved_query: str | None = None
     products: list[ProductCandidate] = []
     error: str | None = None
     # True when nothing matched the query exactly and these are the closest

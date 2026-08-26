@@ -45,6 +45,7 @@ export default function ResultsPage() {
   const navigate = useNavigate();
   const prefersReduced = useReducedMotion();
   const query = useSearchStore((s) => s.query);
+  const resolvedQuery = useSearchStore((s) => s.resolvedQuery);
   const result = useSearchStore((s) => s.result);
   const selectedThumbnail = useSearchStore((s) => s.selectedThumbnail);
   const status = useSearchStore((s) => s.status);
@@ -140,7 +141,7 @@ export default function ResultsPage() {
     navigate(ROUTES.select);
   };
 
-  const productName = result?.source?.name || rec?.title || query;
+  const productName = result?.source?.name || rec?.title || resolvedQuery || query;
   // The exact vendor product page — the URL the user pasted, when they
   // pasted one, or otherwise the recommended (or picked-alternative)
   // route's own merchant link. Either way, this is "click through and see

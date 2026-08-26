@@ -26,6 +26,11 @@ export const useSearchStore = create(
   persist(
     (set, get) => ({
       query: '',
+      // Human-readable name for what was searched, when different from
+      // `query` (e.g. a pasted URL's own page title). Falls back to `query`
+      // everywhere it's displayed. `query` itself must stay the raw input —
+      // it drives re-search and the search box's editable text.
+      resolvedQuery: '',
       candidates: [],
       // True when nothing matched the search exactly and these are the closest
       // trustworthy matches instead (e.g. "AirPods Pro Max", which isn't a real
@@ -52,6 +57,7 @@ export const useSearchStore = create(
         if (!q) return;
         set({
           query: q,
+          resolvedQuery: '',
           candidates: [],
           approximate: false,
           mode: 'products',
@@ -69,6 +75,7 @@ export const useSearchStore = create(
           } else {
             set({
               candidates: data.products || [],
+              resolvedQuery: data.resolved_query || '',
               approximate: Boolean(data.approximate),
               mode: data.mode || 'products',
               voucher: data.voucher || null,
@@ -124,6 +131,7 @@ export const useSearchStore = create(
       reset: () =>
         set({
           query: '',
+          resolvedQuery: '',
           candidates: [],
           approximate: false,
           mode: 'products',
@@ -142,6 +150,7 @@ export const useSearchStore = create(
       storage: createJSONStorage(() => localStorage),
       partialize: (s) => ({
         query: s.query,
+        resolvedQuery: s.resolvedQuery,
         candidates: s.candidates,
         approximate: s.approximate,
         mode: s.mode,

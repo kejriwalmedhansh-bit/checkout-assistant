@@ -34,6 +34,7 @@ export default function ProductSelectPage() {
 
   const navigate = useNavigate();
   const query = useSearchStore((s) => s.query);
+  const resolvedQuery = useSearchStore((s) => s.resolvedQuery);
   const candidates = useSearchStore((s) => s.candidates);
   const mode = useSearchStore((s) => s.mode);
   const voucher = useSearchStore((s) => s.voucher);
@@ -103,7 +104,7 @@ export default function ProductSelectPage() {
                 : 'You searched for'}
           </Text>
           <Text as="h1" fontSize={{ base: '20px', md: '24px' }} fontWeight={800} letterSpacing="-.02em" color="text" noOfLines={1} m={0}>
-            {query}
+            {resolvedQuery || query}
           </Text>
         </Box>
 

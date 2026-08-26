@@ -2412,6 +2412,11 @@ def search_candidates(query: str) -> dict:
                 tag, effective_query, canonical_query,
             )
             effective_query = canonical_query
+    # A pasted link's own page title/slug is the human-readable name of what
+    # was actually searched — surface it so the picker/results screens never
+    # have to fall back to showing the raw URL (`query`) to the user.
+    if is_url and effective_query:
+        out["resolved_query"] = effective_query
     try:
         logger.info("%s query sent to SearchApi: %r", tag, effective_query)
         raw = searchapi_repository.search_products(effective_query)
