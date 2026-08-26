@@ -944,11 +944,21 @@ def _is_bulk_listing(title: str) -> bool:
 
 
 def _is_latin_dominant(title: str) -> bool:
+    """True unless a title is genuinely non-English/mixed-language junk for
+    an English-speaking picker to show. The >=0.5 threshold this used to use
+    only rejected a title once NON-Latin letters were the majority — so a
+    title that's roughly half Hindi, half English (confirmed live,
+    2026-08-27: an amazon.in Samsung Galaxy M17 listing scored exactly 0.50
+    and was shown as-is, Devanagari specs and all) passed as "dominant" on a
+    tie. Raised to 0.75, well above where a normal English title with the
+    occasional accented character or non-Latin trademark symbol lands
+    (Nescafé, L'Oreal-style apostrophes, em dashes — all still ~0.95-1.0),
+    but firmly below a real half-and-half bilingual title."""
     letters = [c for c in (title or "") if c.isalpha()]
     if not letters:
         return True
     latin = sum(1 for c in letters if c.isascii())
-    return latin / len(letters) >= 0.5
+    return latin / len(letters) >= 0.75
 
 
 def _required_tokens(query: str) -> list[str]:
