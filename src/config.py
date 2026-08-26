@@ -29,7 +29,12 @@ class Settings(BaseSettings):
     # --- Apify (anti-bot fallback for Myntra/Flipkart/AJIO/Nykaa) ---
     # Same no-hardcoded-fallback convention as SEARCHAPI_KEY above.
     APIFY_TOKEN: str = ""
-    APIFY_TIMEOUT: int = 60
+    # Live-tested 2026-08-26: a real AJIO render took 58.7s — comfortably
+    # inside the old 60s cutoff that one time, but close enough that normal
+    # latency variance would time it out intermittently rather than
+    # reliably. 90s gives real margin without materially changing the
+    # already-known-slow experience for these hosts.
+    APIFY_TIMEOUT: int = 90
 
     # Timeout (seconds) for the lightweight og:title fetch used to recognise a
     # pasted product link. Kept short — it runs inline on every URL search and a

@@ -169,10 +169,6 @@ WHATSAPP_ONBOARDING_MSG = (
     "vouchers, card offers, best price, all in one place.\n\n"
     "Try: boAt Airdopes 141"
 )
-WHATSAPP_NUDGE_MSG = (
-    "Send me a product name and I'll find the best deal — "
-    "like 'boAt Airdopes 141' or 'Nike Air Force 1'."
-)
 WHATSAPP_DEAD_END_MSG = (
     "Couldn't find that one. Try adding the brand or model — "
     "like 'boAt Airdopes 141' instead of just 'earphones'."
@@ -191,9 +187,6 @@ WHATSAPP_LOW_CONFIDENCE_MSG = (
     "Found a few matches — tap the right one below 👇"
 )
 WHATSAPP_MORE_OPTIONS_MSG = "Want a different way to buy this — or a different product altogether?"
-WHATSAPP_FIRST_TIME_NUDGE_MSG = (
-    "I didn't catch a product there — send me a name or link, like 'boAt Airdopes 141'."
-)
 WHATSAPP_PICK_REMINDER_MSG = "Tap one of the options above 👆"
 WHATSAPP_RATE_LIMITED_MSG = (
     "You're searching a lot in a short time — give it a few minutes and try again."

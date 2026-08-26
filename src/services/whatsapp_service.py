@@ -28,7 +28,6 @@ from ..config import get_settings
 from ..constants import (
     KNOWN_BRANDS,
     WHATSAPP_DEAD_END_MSG,
-    WHATSAPP_FIRST_TIME_NUDGE_MSG,
     WHATSAPP_FLOW_FIELD_NAME,
     WHATSAPP_FLOW_SCREEN_ID,
     WHATSAPP_GRAPH_BASE,
@@ -37,7 +36,6 @@ from ..constants import (
     WHATSAPP_MORE_OPTIONS_MSG,
     WHATSAPP_MULTI_MATCH_MSG,
     WHATSAPP_NO_ALTERNATIVES_MSG,
-    WHATSAPP_NUDGE_MSG,
     WHATSAPP_ONBOARDING_MSG,
     WHATSAPP_PICK_REMINDER_MSG,
     WHATSAPP_RATE_LIMITED_MSG,
@@ -397,7 +395,12 @@ async def _send_card_fomo(phone: str, route: dict) -> bool:
     apply_url = card_fomo.get("apply_url") or ""
     body_text = f"💳 Have an {card_name} card? You could save an extra ₹{card_saving:,.0f} on this order."
     if apply_url:
-        if not await send_cta_url(phone, body_text, f"Apply for {card_name}", apply_url):
+        # Fixed generic label, not f"Apply for {card_name}" — the card name
+        # is already in body_text above, and "Apply for {card_name}" hits
+        # Meta's 20-char CTA limit for most real card names anyway (e.g.
+        # "Apply for SBI Cashback" got truncated to the awkward "Apply for
+        # SBI…" live 2026-08-26); this always fits with room to spare.
+        if not await send_cta_url(phone, body_text, "Apply for card", apply_url):
             await send_text(phone, f"{body_text}\nDon't have one? Apply here: {apply_url}")
     else:
         await send_text(phone, body_text)
@@ -1096,14 +1099,15 @@ async def handle_pick_again(phone: str) -> None:
     await _send_product_picker(phone, query, candidates, approximate=session.get("approximate", False))
 
 
-async def _send_state_aware_nudge(phone: str, is_new: bool = False) -> None:
+async def _send_state_aware_nudge(phone: str) -> None:
     """Gentle redirect for anything that doesn't make sense right now —
     free text or a non-text message that isn't a valid reply. Never tries to
     guess what the user meant; it only re-surfaces whatever the bot is
     actually waiting on, so a confused reply never gets silence. If nothing
-    is currently pending, falls back to the general how-to-use nudge (a
-    softer, first-time-friendly one for a brand-new user's first message,
-    instead of no reply at all)."""
+    is currently pending, falls back to the full onboarding message rather
+    than a terser one-line nudge — user feedback 2026-08-26: a returning
+    user saying "hi" should get the same welcoming, informative reply as a
+    first-time one, not a stripped-down version of it."""
     session = session_store.get_session(phone)
     state = (session or {}).get("state")
     if state == "awaiting_product_pick":
@@ -1121,7 +1125,7 @@ async def _send_state_aware_nudge(phone: str, is_new: bool = False) -> None:
             await send_text(phone, WHATSAPP_PICK_REMINDER_MSG)
             await handle_alternatives(phone)
             return
-    await send_text(phone, WHATSAPP_FIRST_TIME_NUDGE_MSG if is_new else WHATSAPP_NUDGE_MSG)
+    await send_text(phone, WHATSAPP_ONBOARDING_MSG)
 
 
 _SEEN_MESSAGE_TTL_SECONDS = 600  # comfortably longer than Meta's webhook retry window
@@ -1275,7 +1279,7 @@ async def _process_text_message(phone: str, msg_id: str | None, text: str) -> No
             return
 
     if classification["type"] == "unparseable":
-        await _send_state_aware_nudge(phone, is_new=is_new)
+        await _send_state_aware_nudge(phone)
         _track("WhatsApp Nudge Sent", phone, reason=classification.get("reason", ""), text=text)
         return
 
