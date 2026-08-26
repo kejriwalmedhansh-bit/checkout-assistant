@@ -1617,6 +1617,21 @@ _BAD_TITLE_MARKERS = (
     # with a descriptive slug still resolves correctly even while the
     # underlying IP-block persists. See CLAUDE.md's vendor-coverage note.
     "site maintenance",
+    # A smart-link/app-deeplink URL (AppsFlyer's onelink.me, and similar
+    # device-redirect infra) has no real product behind it for a plain fetch
+    # to read — it just serves the storefront's own generic homepage, whose
+    # <title> otherwise reads as legitimate, real text and gets searched
+    # literally. Live-tested 2026-08-27: an AJIO onelink.me share link
+    # ("ajioapps.onelink.me/ybtf/6rf4i64g", meant to open the app to a
+    # specific Air Force 1 listing) served AJIO's own homepage title
+    # ("Online Shopping Site for Women, Men, Kids Fashion, Lifestyle &
+    # More."), which then got searched as if it were the product name —
+    # returning random unrelated kids' clothing. This exact marketing phrase
+    # (or a close variant of it) is the standard homepage <title> for
+    # several major Indian storefronts, not just AJIO, so it's a real,
+    # generic bot-wall-equivalent signal worth catching broadly, not a
+    # one-off AJIO special case.
+    "online shopping site for",
 )
 _BARE_STORE_TITLES = frozenset(
     {"amazon.in", "amazon", "flipkart", "flipkart.com", "myntra", "nykaa", "ajio"}
