@@ -184,6 +184,12 @@ WHATSAPP_NO_ALTERNATIVES_MSG = (
     "This is the only route we found for this one — it's already your best option."
 )
 WHATSAPP_MULTI_MATCH_MSG = "Found a few matches — tap the right one below 👇"
+# Same wording as the web picker's LowConfidenceNotice — shown when
+# search_service's `approximate` flag is set (see _STRONG_MATCH_FRACTION).
+WHATSAPP_LOW_CONFIDENCE_MSG = (
+    "Results confidence is low — try searching with the product name.\n\n"
+    "Found a few matches — tap the right one below 👇"
+)
 WHATSAPP_MORE_OPTIONS_MSG = "Want a different way to buy this — or a different product altogether?"
 WHATSAPP_FIRST_TIME_NUDGE_MSG = (
     "I didn't catch a product there — send me a name or link, like 'boAt Airdopes 141'."

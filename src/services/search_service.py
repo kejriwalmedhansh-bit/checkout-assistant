@@ -24,7 +24,7 @@ import json
 import logging
 import re
 from concurrent.futures import ThreadPoolExecutor
-from urllib.parse import unquote, urlsplit
+from urllib.parse import unquote, urljoin, urlsplit
 
 import httpx
 
@@ -1051,6 +1051,28 @@ def _matches_required_tokens(title: str, tokens: list[str]) -> bool:
     return all(_segment_matches(seg) for seg in segments if not _is_bare_modifier_segment(seg))
 
 
+# A survivor matching at least this share of the query's required words
+# counts as a solid match. Below it, the listing only cleared the
+# permissive any-token relevance gate (one word landing anywhere), not a
+# real confirmation of the product itself — e.g. "AirPods" alone matching a
+# candidate titled "AirPods Max Silicone Case" (1 of 3 words). Picked to sit
+# clearly above "exactly one token of several," not tuned against a labeled
+# dataset — revisit if real weak-match reports turn out to disagree.
+_STRONG_MATCH_FRACTION = 0.6
+
+
+def _required_token_match_fraction(title: str, tokens: list[str]) -> float:
+    """Share of `tokens` actually found in `title`, 0.0-1.0. 1.0 (nothing to
+    fall short of) when `tokens` is empty — a query with no literal words
+    left to check (pure brand/stopword) has no basis to call any result a
+    weak match."""
+    if not tokens:
+        return 1.0
+    normalized = _norm_title(title or "")
+    hits = sum(1 for t in tokens if re.search(_token_pattern(t), normalized))
+    return hits / len(tokens)
+
+
 def _matches_any_required_token(title: str, tokens: list[str]) -> bool:
     """Permissive relevance gate for the picker (see bug #6 in CLAUDE.md):
     at least one required query token must appear in the title — not every
@@ -1183,9 +1205,15 @@ def _filter_and_group_candidates(
     and reverted on 2026-08-03 for false negatives; see CLAUDE.md bug #6),
     so unrelated-but-token-overlapping results can still surface.
 
-    Returns ``(candidates, approximate)`` — ``approximate`` is always False
-    now that there's no relaxed-match fallback tier; kept in the return shape
-    so callers don't need to change.
+    Returns ``(candidates, approximate)``. ``approximate`` is True when even
+    the best-matching survivor only weakly overlaps the query's required
+    words (below _STRONG_MATCH_FRACTION) — the permissive any-token gate
+    above lets a barely-scraped-by listing through on purpose (see its own
+    docstring), so this is what tells that case apart from a real, solid
+    match instead of showing both with the same silent confidence. Always
+    False for a category-only query (`_is_category_only_query`) or a query
+    with no required tokens at all — neither names a specific product for a
+    title to confirm or fall short of.
     """
     tokens = _required_tokens(query)
     exclude = set(tokens) | set(KNOWN_BRANDS)
@@ -1215,7 +1243,8 @@ def _filter_and_group_candidates(
     # trusted listings that phrase the category differently ("5G Mobile
     # Phone" for a "smartphones" search). Trust + price vetting below still
     # runs unchanged either way — that's what actually keeps junk out here.
-    if _is_category_only_query(query, tokens):
+    category_only = _is_category_only_query(query, tokens)
+    if category_only:
         logger.info("%s category-only query %r — skipping literal-word relevance gate", tag, query)
         relevant = hygienic
     else:
@@ -1301,7 +1330,6 @@ def _filter_and_group_candidates(
 
     # hygienic is already gated to bulk/non-Latin/no-token-overlap survivors
     # above; everything left goes straight through trust + price vetting.
-    approximate = False
     survivors = _vet(hygienic)
 
     if not survivors:
@@ -1333,8 +1361,28 @@ def _filter_and_group_candidates(
     # top there. Sorting the picker by price instead floats the cheapest
     # listing up, which is usually a refurb/clone/wrong-variant, so the wrong
     # product leads the list.
-    grouped = [groups[k] for k in order]
-    return grouped[:_MAX_CANDIDATES], approximate
+    grouped = [groups[k] for k in order][:_MAX_CANDIDATES]
+
+    # Weak-match warning: only when a category-only query hasn't already
+    # opted every listing out of word-matching entirely, and only when the
+    # very best survivor still falls short of _STRONG_MATCH_FRACTION — one
+    # strong match among several weak ones is still a real answer, not an
+    # approximate one.
+    if category_only or not tokens:
+        approximate = False
+    else:
+        best_fraction = max(
+            (_required_token_match_fraction(c["title"], tokens) for c in grouped),
+            default=1.0,
+        )
+        approximate = best_fraction < _STRONG_MATCH_FRACTION
+        if approximate:
+            logger.info(
+                "%s weak match: best survivor only overlaps %.0f%% of required tokens %r",
+                tag, best_fraction * 100, tokens,
+            )
+
+    return grouped, approximate
 
 
 # ── source brand inference (best-effort, for the identity box) ───────────────────
@@ -1479,6 +1527,30 @@ _META_TITLE_RES = [
     re.compile(r"<title[^>]*>(.*?)</title>", re.IGNORECASE | re.DOTALL),
 ]
 
+# Product-photo sources in the page head, best first — the same og:image /
+# twitter:image tags every storefront already sets for link-preview cards
+# (WhatsApp/iMessage/Slack use these to show a thumbnail when a link is
+# shared), so no per-site scraping is needed. Same attribute-order handling
+# as _META_TITLE_RES.
+_META_IMAGE_RES = [
+    re.compile(
+        r"""<meta[^>]+(?:property|name)=["']og:image["'][^>]+content=["']([^"']+)["']""",
+        re.IGNORECASE,
+    ),
+    re.compile(
+        r"""<meta[^>]+content=["']([^"']+)["'][^>]+(?:property|name)=["']og:image["']""",
+        re.IGNORECASE,
+    ),
+    re.compile(
+        r"""<meta[^>]+(?:property|name)=["']twitter:image["'][^>]+content=["']([^"']+)["']""",
+        re.IGNORECASE,
+    ),
+    re.compile(
+        r"""<meta[^>]+content=["']([^"']+)["'][^>]+(?:property|name)=["']twitter:image["']""",
+        re.IGNORECASE,
+    ),
+]
+
 # Titles that mean "we didn't get the product page" — bot walls, error pages, or
 # a bare store name. Lower-cased substring match; any hit rejects the title so
 # the caller falls through to slug extraction instead of searching junk.
@@ -1513,7 +1585,15 @@ _BARE_STORE_TITLES = frozenset(
 #    for why the react-migration removed live page price extraction entirely,
 #    and CLAUDE.md bug 1) ──────────────────────────────────────────────────────
 
-_AMAZON_HOST_RE = re.compile(r"(?:^|\.)amazon\.(?:in|com)$", re.IGNORECASE)
+# amazon.in only, deliberately — amazon.com prices in USD, and the buybox
+# regex below reads only a bare number ("a-price-whole"), with no currency
+# symbol/code to check. Live-tested 2026-08-26: an amazon.com Echo Dot's real
+# $-price came back stamped "₹79" because nothing here ever looks at
+# currency. Dealo doesn't price non-INR listings at all (per product rule),
+# so the honest fix is to never treat amazon.com's number as rupees, not to
+# label or convert it — amazon.com links still resolve by page title, just
+# without a live price pinned on top of the index price.
+_AMAZON_HOST_RE = re.compile(r"(?:^|\.)amazon\.in$", re.IGNORECASE)
 
 # Amazon's buybox price block. Scoping the price regex to a window starting
 # here (rather than searching the whole page) is the guard against matching
@@ -1719,6 +1799,33 @@ def _apify_merchant_for_host(host: str) -> str | None:
     return None
 
 
+# Hosts whose page reliably fails to finish loading for Apify's real-browser
+# render within our own timeout budget — confirmed on titan.co.in (2026-08-26):
+# a direct fetch fails fast with a clean 403, but the render itself twice
+# exceeded APIFY_TIMEOUT (60s) with nothing to show for the wait, live-tested
+# both from this codebase and by hand. Skipping the render for these hosts
+# trades a slightly weaker product name (URL-slug words only — the same
+# fallback already used for Myntra's server-block issue) for an honest,
+# instant result instead of a minute-long hang that fails anyway.
+_APIFY_SKIP_HOSTS = {"titan.co.in"}
+
+
+def _should_skip_apify(host: str) -> bool:
+    host = (host or "").lower()
+    return any(host == suffix or host.endswith("." + suffix) for suffix in _APIFY_SKIP_HOSTS)
+
+
+# A stray double separator ("Nike Men Zoom Vomero 5 SP Sneakers -  - Footwear
+# for Men") is the fingerprint of the MERCHANT's own page template failing to
+# fill in a field — confirmed live on Myntra's /mailers/ social-share pages,
+# where og:title itself already ships broken. It isn't natural language on
+# any site, so it's caught generically rather than special-cased to one host.
+# The text before it is still the real product name (verified against the
+# Myntra case above), so the fix truncates there instead of throwing the
+# whole title away and falling back to weaker URL-slug words.
+_BROKEN_TEMPLATE_RE = re.compile(r"\s-\s*-\s")
+
+
 def _extract_page_title(markup: str) -> str | None:
     """og:title -> twitter:title -> <title> from a page's markup, with the
     bot-wall/bare-store rejections applied, or None if none is usable.
@@ -1733,12 +1840,54 @@ def _extract_page_title(markup: str) -> str | None:
         candidate = re.sub(r"\s+", " ", html.unescape(m.group(1))).strip()
         if len(candidate) < 3:
             continue
+        broken = _BROKEN_TEMPLATE_RE.search(candidate)
+        if broken:
+            candidate = candidate[: broken.start()].strip(" -")
+            logger.info("[url-search] truncated broken-template title to %r", candidate)
+            if len(candidate) < 3:
+                continue
         low = candidate.lower()
         if low in _BARE_STORE_TITLES or any(b in low for b in _BAD_TITLE_MARKERS):
             logger.info("[url-search] rejected page title %r (bot-wall/bare store)", candidate)
             continue
         return candidate
     return None
+
+
+def _extract_page_image(markup: str, base_url: str) -> str | None:
+    """og:image -> twitter:image from a page's markup, resolved to an
+    absolute URL against ``base_url`` (a handful of storefronts set a
+    protocol-relative or root-relative path rather than a full URL). Same
+    layering as _extract_page_title, no per-site scraping — every one of
+    these hosts already publishes this tag for link-preview cards. None if
+    no usable image tag is present, never raises."""
+    for pattern in _META_IMAGE_RES:
+        m = pattern.search(markup)
+        if not m:
+            continue
+        candidate = html.unescape(m.group(1)).strip()
+        if not candidate:
+            continue
+        try:
+            resolved = urljoin(base_url, candidate)
+        except ValueError:
+            continue
+        if resolved.lower().startswith(("http://", "https://")):
+            return resolved
+    return None
+
+
+def _offer_currency_is_inr(offer: dict) -> bool:
+    """True unless the offer explicitly names a non-INR currency. Dealo
+    doesn't price non-INR listings at all (per product rule), and a
+    multi-region storefront in _JSONLD_MERCHANT_HOSTS (ikea.com's /us/ pages,
+    live-tested 2026-08-26) can otherwise hand back a real USD price with
+    nothing about the number itself to say so — it then gets stamped with a
+    ₹ sign as if it were rupees. Absent priceCurrency is accepted as before
+    (most already-verified Indian storefronts don't always set it); this
+    only rejects a currency that's positively identified as something else."""
+    currency = offer.get("priceCurrency")
+    return not isinstance(currency, str) or currency.strip().upper() in ("", "INR")
 
 
 def _extract_jsonld_price(markup: str) -> float | None:
@@ -1771,7 +1920,7 @@ def _extract_jsonld_price(markup: str) -> float | None:
             if isinstance(offers, list):
                 offers = offers[0] if offers else None
             if isinstance(offers, dict):
-                price = parse_price(offers.get("price"))
+                price = parse_price(offers.get("price")) if _offer_currency_is_inr(offers) else None
                 if price is None:
                     # An AggregateOffer (lowPrice/highPrice spanning sibling
                     # variants, e.g. Apple's color options) can still nest a
@@ -1782,20 +1931,25 @@ def _extract_jsonld_price(markup: str) -> float | None:
                     nested = offers.get("offers")
                     if isinstance(nested, list):
                         nested = nested[0] if nested else None
-                    if isinstance(nested, dict):
+                    if isinstance(nested, dict) and _offer_currency_is_inr(nested):
                         price = parse_price(nested.get("price"))
                 if price is not None:
                     return price
     return None
 
 
-def _fetch_url_page(url: str) -> tuple[str | None, float | None, str | None]:
+def _fetch_url_page(url: str) -> tuple[str | None, float | None, str | None, str | None]:
     """One GET for a pasted link (redirects resolved — amzn.in -> amazon.in).
-    Returns (title, live_price, live_merchant).
+    Returns (title, live_price, live_merchant, image).
 
     title: og:title -> twitter:title -> <title>, scanned over the first
     200_000 chars, rejected via _BAD_TITLE_MARKERS/_BARE_STORE_TITLES exactly
     as this function's original title-only version always did.
+
+    image: og:image -> twitter:image, resolved to an absolute URL, from the
+    same head block as the title — every host on the merchant list already
+    publishes this for link-preview cards, so it costs nothing extra to read
+    alongside the title. None if absent; never blocks title/price recovery.
 
     live_price/live_merchant: a verified live price and its merchant name,
     read via _extract_amazon_price (Amazon's own hand-rolled markup — see
@@ -1824,28 +1978,55 @@ def _fetch_url_page(url: str) -> tuple[str | None, float | None, str | None]:
     apify_host = (urlsplit(url).hostname or "").lower()
     apify_merchant_name = _apify_merchant_for_host(apify_host)
 
-    def _try_apify(need_title: bool = True) -> tuple[str | None, float | None, str | None]:
-        """Render the page through Apify's browser+residential proxy and read
-        a title (any host) and, where we already trust the host's structured
-        data, a price. Returns (title, price, merchant).
+    def _use_resolved_host(resolved_host: str | None) -> None:
+        """Re-derive which merchant's data we trust once httpx's own
+        redirect-following reveals the page's real host. A shortened link
+        (fkrt.co) is never in the merchant list, but the page it redirects
+        to (dl.flipkart.com) may be — matching on the pre-redirect host was
+        the actual reason shortened links to a known merchant fell through
+        to an unrecognized-host fallback instead of the merchant's normal
+        Apify/JSON-LD handling."""
+        nonlocal apify_host, apify_merchant_name
+        resolved_host = (resolved_host or "").lower()
+        if resolved_host and resolved_host != apify_host:
+            apify_host = resolved_host
+            apify_merchant_name = _apify_merchant_for_host(apify_host)
 
-        One render serves both: the actor is the expensive part, so a page
-        fetched for its title reads its price from the same HTML for free.
-        Skipped entirely when there's nothing left to recover.
+    def _try_apify(
+        need_title: bool = True,
+    ) -> tuple[str | None, float | None, str | None, str | None]:
+        """Render the page through Apify's browser+residential proxy and read
+        a title (any host), a photo (any host), and, where we already trust
+        the host's structured data, a price. Returns (title, price, merchant,
+        image).
+
+        One render serves all three: the actor is the expensive part, so a
+        page fetched for its title reads its price and photo from the same
+        HTML for free. Skipped entirely when there's nothing left to recover.
         """
         need_price = apify_merchant_name is not None
         if not need_title and not need_price:
-            return None, None, None
+            return None, None, None, None
+        if _should_skip_apify(apify_host):
+            logger.info(
+                "[url-search] skipping Apify render for %s (known to exceed timeout)",
+                apify_host,
+            )
+            return None, None, None, None
         markup = apify_repository.fetch_rendered_html(url)
         if not markup:
             logger.info("[url-search] Apify render returned nothing for %s", apify_host)
-            return None, None, None
+            return None, None, None, None
 
         apify_title = _extract_page_title(markup) if need_title else None
         if apify_title:
             logger.info("[url-search] title via Apify: %r", apify_title)
         elif need_title:
             logger.info("[url-search] Apify render had no usable title for %s", apify_host)
+
+        apify_image = _extract_page_image(markup, url)
+        if apify_image:
+            logger.info("[url-search] image via Apify: %s", apify_image)
 
         # Price stays gated on the host list: _extract_jsonld_price is
         # generic, but "which hosts' structured data has been hand-checked
@@ -1863,6 +2044,7 @@ def _fetch_url_page(url: str) -> tuple[str | None, float | None, str | None]:
             apify_title,
             apify_price,
             apify_merchant_name if apify_price is not None else None,
+            apify_image,
         )
 
     try:
@@ -1875,6 +2057,7 @@ def _fetch_url_page(url: str) -> tuple[str | None, float | None, str | None]:
             "[url-search] page-fetch %s -> final=%s status=%s",
             url, resp.url, resp.status_code,
         )
+        _use_resolved_host(resp.url.host)
         if resp.status_code != 200:
             return _try_apify()
         full_markup = resp.text
@@ -1893,6 +2076,10 @@ def _fetch_url_page(url: str) -> tuple[str | None, float | None, str | None]:
     else:
         logger.info("[url-search] no usable title found in page")
 
+    image = _extract_page_image(markup, str(resp.url))
+    if image:
+        logger.info("[url-search] using page image: %s", image)
+
     host = (resp.url.host or "").lower()
     price = None
     merchant = None
@@ -1910,15 +2097,18 @@ def _fetch_url_page(url: str) -> tuple[str | None, float | None, str | None]:
     # A 200 that yielded neither a name nor a price is a soft block (a shell
     # page, or a bot wall that didn't bother with a 403) — worth one render.
     if price is None or title is None:
-        apify_title, apify_price, apify_merchant = _try_apify(need_title=title is None)
+        apify_title, apify_price, apify_merchant, apify_image = _try_apify(
+            need_title=title is None
+        )
         title = title or apify_title
+        image = image or apify_image
         if apify_price is not None:
             price, merchant = apify_price, apify_merchant
 
     if price is None:
         merchant = None
 
-    return title, price, merchant
+    return title, price, merchant, image
 
 
 # Prefix marking a candidate's product_token as synthetic (not a real
@@ -1928,7 +2118,9 @@ def _fetch_url_page(url: str) -> tuple[str | None, float | None, str | None]:
 _LIVE_PRICE_TOKEN_PREFIX = "live-price:"
 
 
-def _live_price_candidate(url: str, title: str | None, price: float, source: str) -> dict:
+def _live_price_candidate(
+    url: str, title: str | None, price: float, source: str, image: str | None = None
+) -> dict:
     """Shape a live-fetched price (Amazon's hand-rolled read or another
     vendor's structured-data read) like `_product_candidate`'s output, so it
     can sit in the same picker list as any ordinary candidate.
@@ -1949,7 +2141,7 @@ def _live_price_candidate(url: str, title: str | None, price: float, source: str
         "title": title or _query_from_url(url) or f"{source} product",
         "price": price,
         "price_raw": f"₹{price:,.0f}",
-        "thumbnail": None,
+        "thumbnail": image,
         "source": source,
         "rating": None,
         "reviews": None,
@@ -2073,14 +2265,16 @@ def search_candidates(query: str) -> dict:
         # The same fetch also recovers a live price when the link is a page
         # we know how to read — see _fetch_url_page / _live_price_candidate.
         logger.info("[url-search] input is a link: %s", query)
-        page_title, live_price, live_merchant = _fetch_url_page(query)
+        page_title, live_price, live_merchant, page_image = _fetch_url_page(query)
         effective_query = page_title
         layer = "page-title"
         if not effective_query:
             effective_query = _query_from_url(query)
             layer = "url-slug"
         if live_price is not None and live_merchant:
-            live_candidate = _live_price_candidate(query, page_title, live_price, live_merchant)
+            live_candidate = _live_price_candidate(
+                query, page_title, live_price, live_merchant, page_image
+            )
             logger.info("[url-search] live %s price captured: %s", live_merchant, live_price)
         if not effective_query:
             # Neither the page's own title nor its URL slug named a product.
@@ -2149,7 +2343,13 @@ def search_candidates(query: str) -> dict:
         products, approximate = _maybe_widen_brand_query(
             effective_query, is_url, shopping_results, products, approximate, tag
         )
-        min_price, max_price, budget_phrase = parse_budget(effective_query)
+        # A pasted link's "budget" never came from the user — it's whatever
+        # promotional badge happened to be sitting in the page's own title
+        # ("Upto 50% to 80% OFF"), and treating that as an intended price
+        # ceiling silently zeroed out every real result on the fkrt.co
+        # shortened-link test (32 genuine Flipkart candidates -> 0). Budget
+        # phrases only mean something when the user typed them themselves.
+        min_price, max_price, budget_phrase = (None, None, None) if is_url else parse_budget(effective_query)
         if budget_phrase:
             before_count = len(products)
             products = _apply_budget_filter(products, min_price, max_price)

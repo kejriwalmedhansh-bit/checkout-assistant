@@ -10,6 +10,7 @@ import LoadingCard from '@/components/common/LoadingCard';
 import SearchBox from '@/components/common/SearchBox';
 import { I } from '@/components/common/icons';
 import BrandVoucherCard from '@/components/dashboard/BrandVoucherCard';
+import LowConfidenceNotice from '@/components/dashboard/LowConfidenceNotice';
 import ProductCandidateCard from '@/components/dashboard/ProductCandidateCard';
 import ProductQuickView from '@/components/dashboard/ProductQuickView';
 import { usePageTitle } from '@/hooks/usePageTitle';
@@ -39,6 +40,7 @@ export default function ProductSelectPage() {
   const searchStatus = useSearchStore((s) => s.searchStatus);
   const status = useSearchStore((s) => s.status);
   const selectedToken = useSearchStore((s) => s.selectedToken);
+  const approximate = useSearchStore((s) => s.approximate);
   const error = useSearchStore((s) => s.error);
   const runSearch = useSearchStore((s) => s.runSearch);
   const selectProduct = useSearchStore((s) => s.selectProduct);
@@ -155,6 +157,7 @@ export default function ProductSelectPage() {
 
         {searchStatus === 'success' && mode !== 'brand_voucher' && candidates.length > 0 && (
           <>
+            {approximate && <LowConfidenceNotice />}
             <Text fontSize="13px" color="text3" mb="12px">
               Select the exact product you want — we&apos;ll find the cheapest way to buy it.
             </Text>

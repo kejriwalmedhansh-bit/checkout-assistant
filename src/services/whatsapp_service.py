@@ -33,6 +33,7 @@ from ..constants import (
     WHATSAPP_FLOW_SCREEN_ID,
     WHATSAPP_GRAPH_BASE,
     WHATSAPP_GRAPH_VERSION,
+    WHATSAPP_LOW_CONFIDENCE_MSG,
     WHATSAPP_MORE_OPTIONS_MSG,
     WHATSAPP_MULTI_MATCH_MSG,
     WHATSAPP_NO_ALTERNATIVES_MSG,
@@ -747,21 +748,31 @@ async def send_product_flow(phone: str, body_text: str, flow_cta: str, query: st
 
 # ── dispatch ─────────────────────────────────────────────────────────────────────
 
-async def _send_product_picker(phone: str, query: str, products: list[dict]) -> None:
+async def _send_product_picker(
+    phone: str, query: str, products: list[dict], approximate: bool = False
+) -> None:
     """Shared by process_and_respond and handle_pick_again — both are the
     same picker moment (initial search vs. re-showing the same candidates).
     Tries the photo-carrying Flow first; falls back to the original text-only
     list message unchanged if the Flow isn't configured or fails to send, so
     a broken/unset Flow never breaks the picker outright.
 
-    Always (re)records candidates/query and marks the session as waiting on
-    a product pick — this is what lets a confused reply while this picker is
-    up get redirected back here instead of going unanswered (see
-    _send_state_aware_nudge)."""
+    `approximate` mirrors the web picker's LowConfidenceNotice (same
+    search_service flag) — swaps in a body message that says so, rather than
+    a separate silent message, since WhatsApp has no room for a banner.
+
+    Always (re)records candidates/query/approximate and marks the session as
+    waiting on a product pick — this is what lets a confused reply while
+    this picker is up get redirected back here instead of going unanswered
+    (see _send_state_aware_nudge)."""
     session = session_store.get_session(phone) or {}
-    session_store.set_session(phone, {**session, "candidates": products, "query": query, "state": "awaiting_product_pick"})
+    session_store.set_session(phone, {
+        **session, "candidates": products, "query": query,
+        "approximate": approximate, "state": "awaiting_product_pick",
+    })
+    body_text = WHATSAPP_LOW_CONFIDENCE_MSG if approximate else WHATSAPP_MULTI_MATCH_MSG
     flow_sent = await send_product_flow(
-        phone, WHATSAPP_MULTI_MATCH_MSG, "Select product", query, products,
+        phone, body_text, "Select product", query, products,
     )
     if flow_sent:
         return
@@ -777,7 +788,7 @@ async def _send_product_picker(phone: str, query: str, products: list[dict]) -> 
         })
     await send_list_message(
         phone,
-        body_text=WHATSAPP_MULTI_MATCH_MSG,
+        body_text=body_text,
         button_text="Select product",
         rows=rows,
     )
@@ -822,6 +833,11 @@ async def process_and_respond(phone: str, classification: dict) -> None:
             return
 
         if len(products) == 1:
+            # No picker step to attach a low-confidence notice to here — send
+            # it as its own message first so a weak single match doesn't
+            # reach the route with the same silent confidence as a real one.
+            if listing.get("approximate"):
+                await send_text(phone, WHATSAPP_LOW_CONFIDENCE_MSG.split("\n\n")[0])
             only = products[0]
             await _send_routes_for_token(
                 phone, only["product_token"], query, only.get("title", ""),
@@ -830,7 +846,7 @@ async def process_and_respond(phone: str, classification: dict) -> None:
             )
             return
 
-        await _send_product_picker(phone, query, products)
+        await _send_product_picker(phone, query, products, approximate=listing.get("approximate", False))
     except Exception as e:
         await send_text(phone, WHATSAPP_DEAD_END_MSG)
         _track("WhatsApp Dead End", phone, stage="exception", query=str(e)[:200])
@@ -928,7 +944,7 @@ async def handle_pick_again(phone: str) -> None:
         await send_text(phone, WHATSAPP_DEAD_END_MSG)
         _track("WhatsApp Dead End", phone, stage="pick_again_empty", query=query)
         return
-    await _send_product_picker(phone, query, candidates)
+    await _send_product_picker(phone, query, candidates, approximate=session.get("approximate", False))
 
 
 async def _send_state_aware_nudge(phone: str, is_new: bool = False) -> None:
@@ -945,7 +961,10 @@ async def _send_state_aware_nudge(phone: str, is_new: bool = False) -> None:
         candidates = (session or {}).get("candidates") or []
         if candidates:
             await send_text(phone, WHATSAPP_PICK_REMINDER_MSG)
-            await _send_product_picker(phone, session.get("query", ""), candidates)
+            await _send_product_picker(
+                phone, session.get("query", ""), candidates,
+                approximate=(session or {}).get("approximate", False),
+            )
             return
     elif state == "awaiting_alternative_pick":
         alternatives = (session or {}).get("routes", {}).get("alternatives") or []
