@@ -712,6 +712,22 @@ async def send_image(phone: str, image_url: str, caption: str) -> bool:
     return await _post_graph(payload, context=f"image to {phone}") is not None
 
 
+_CTA_BUTTON_MAX_CHARS = 20  # Meta hard-rejects a longer cta_url display_text with HTTP 400
+
+
+def _truncate_at_word(s: str, n: int) -> str:
+    """Truncates to at most n chars at a clean word boundary (never mid-word)
+    when it doesn't fit, appending a single ellipsis char. Same approach as
+    _clean_result_title's title-trimming, generalized for reuse here since a
+    CTA button label is short enough that a mid-word cut ("...Cashb…") reads
+    as sloppy far more often than a full product title would."""
+    s = (s or "").strip()
+    if len(s) <= n:
+        return s
+    cut = s[: n - 1].rsplit(" ", 1)[0]
+    return (cut or s[: n - 1]).rstrip(",.-") + "…"
+
+
 async def send_cta_url(phone: str, body_text: str, button_text: str, url: str) -> bool:
     """Meta interactive CTA-URL message — a proper tappable button with a
     clean label, instead of pasting a raw (possibly long, Cuelinks-wrapped)
@@ -719,7 +735,16 @@ async def send_cta_url(phone: str, body_text: str, button_text: str, url: str) -
     Returns True only on a 2xx response — Meta rejects some button messages
     outright (e.g. a malformed link) with no exception raised on our side,
     so callers must check this and fall back to plain text rather than let
-    the whole step silently vanish for the user."""
+    the whole step silently vanish for the user.
+
+    button_text is built from a merchant/card name of unknown length at
+    every call site (f"Open {merchant}", f"Apply for {card_name}", etc.) —
+    live-tested 2026-08-26: "Apply for SBI Cashback" (23 chars) got a real
+    HTTP 400 from Meta ("Parameter display_text..."), which fell back to
+    plain text as designed but is worth avoiding, not just tolerating.
+    Truncated centrally here rather than per call site, so every caller is
+    covered without remembering to truncate its own button text."""
+    button_text = _truncate_at_word(button_text, _CTA_BUTTON_MAX_CHARS)
     message_log.record(phone, "out", f"{body_text} [{button_text}]")
     payload = {
         "messaging_product": "whatsapp",
