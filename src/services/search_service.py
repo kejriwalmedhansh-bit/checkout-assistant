@@ -887,6 +887,11 @@ _MARKETING_FILLER_WORDS = {
     "original", "official", "new", "latest", "compatible", "silicone",
     "dial", "unisex", "men", "women", "girls", "boys", "bt", "dp",
     "strap", "leather", "steel", "mesh", "rubber", "metal", "band",
+    # "canvas" is Chuck Taylor's own default upper material, not an
+    # alternate-material variant the way a genuine "Leather Chuck Taylor" SKU
+    # would be (already covered by "leather" above) — found alongside the
+    # possessive-tokenizer bug, 2026-08-26.
+    "canvas",
 }
 
 # Number+unit phrases (screen size, battery life, ANC depth, etc.) stripped as
@@ -955,7 +960,23 @@ def _required_tokens(query: str) -> list[str]:
     verbatim in a listing's title the way a real product word would be."""
     _, _, budget_phrase = parse_budget(query)
     budget_words = set(re.findall(r"[a-z0-9]+", budget_phrase.lower())) if budget_phrase else set()
-    tokens = re.findall(r"[a-z0-9]+", (query or "").lower())
+    # A possessive ("Men's", "Women's") splits into two tokens under the
+    # plain [a-z0-9]+ scan below — the real word plus a bare, meaningless
+    # "s" — and that phantom "s" becomes a real required token downstream in
+    # `_matches_required_tokens`'s all-tokens route-building check. Almost no
+    # genuine listing's title contains a standalone "s" word, so this alone
+    # was enough to drop nearly every real seller for any possessive query
+    # (confirmed live: "Converse Men's Chuck Taylor..." silently excluded
+    # AJIO, Amazon.in, and a cheaper Nykaa listing from route-building, all
+    # for lacking a bare "s" — only listings whose own title also happened
+    # to spell out an apostrophe survived by coincidence). Stripped here,
+    # before tokenizing, rather than filtering a bare "s" out afterward — a
+    # trailing possessive "s" is grammatical, not a product word, so it
+    # shouldn't survive as a token at all, in the query or in `_norm_title`'s
+    # matching title text (this only touches the query-token side; title
+    # text is unaffected).
+    depossessed = re.sub(r"(?<=[a-z])['’]s\b", "", (query or "").lower())
+    tokens = re.findall(r"[a-z0-9]+", depossessed)
     return [t for t in tokens if t not in KNOWN_BRANDS and t not in _QUERY_STOPWORDS and t not in budget_words]
 
 
@@ -1174,7 +1195,17 @@ def _distinguishing_words(title: str, exclude: set) -> frozenset:
         # keep single-digit tokens (real model-version numbers like "Smart 4"
         # vs "Smart 3") but drop stray single-letter fragments (leftover "c"
         # from a stripped "USB C", etc.)
-        if (len(w) > 1 or w.isdigit()) and w not in exclude and w not in _MARKETING_FILLER_WORDS
+        if (len(w) > 1 or w.isdigit())
+        # A plain `w not in exclude` string check missed the seller's own
+        # plural of a required word ("Sneaker" required, title says
+        # "Sneakers") — that alone made AJIO's own Converse listing look
+        # like a different variant of the exact query it was fetched for,
+        # dropping it from route-building entirely (confirmed live,
+        # 2026-08-26). `_plural_variants` already exists for exactly this
+        # singular/plural equivalence elsewhere in the file — reused here so
+        # the two checks can't drift out of sync with each other.
+        and w not in exclude and not (_plural_variants(w) & exclude)
+        and w not in _MARKETING_FILLER_WORDS
     )
 
 
