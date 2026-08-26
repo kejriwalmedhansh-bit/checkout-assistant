@@ -1173,13 +1173,25 @@ async def handle_incoming(body: dict) -> None:
                     )
             return
 
-        if msg_type != "text":
+        if msg_type == "text":
+            text = msg["text"]["body"]
+        elif msg_type in ("image", "video") and (msg.get(msg_type) or {}).get("caption"):
+            # A phone's native "Share" sheet from a shopping app almost
+            # always lands on WhatsApp as a photo/video with the product
+            # link in its caption, not as a plain text message — Meta
+            # delivers it as an "image"/"video" message either way, so
+            # without this branch the caption (and any link in it) was
+            # never even looked at, and this exact real-world flow (share
+            # a product straight from a shopping app to Dealo) silently
+            # never worked. Reuses the normal text pipeline unchanged —
+            # classify_input already finds a URL anywhere in the string.
+            text = msg[msg_type]["caption"]
+        else:
             message_log.record(phone, "in", f"[{msg_type} message]")
             await _send_state_aware_nudge(phone)
             _track("WhatsApp Nudge Sent", phone, reason=f"non_text:{msg_type}")
             return
 
-        text = msg["text"]["body"]
         message_log.record(phone, "in", text)
         # Marks this message read + shows typing immediately, regardless of
         # what it turns out to be — without this, the debounce delay below
