@@ -24,7 +24,7 @@ import json
 import logging
 import re
 from concurrent.futures import ThreadPoolExecutor
-from urllib.parse import unquote, urljoin, urlsplit
+from urllib.parse import parse_qs, unquote, urljoin, urlsplit
 
 import httpx
 
@@ -1994,6 +1994,41 @@ def _extract_jsonld_price(markup: str) -> float | None:
     return None
 
 
+# Query param name(s) a mobile-app smart-link redirect (AppsFlyer's OneLink,
+# the mechanism behind an app's own "Share" button — confirmed live,
+# 2026-08-27, on an ajioapps.onelink.me link) carries the real product page
+# in, for the app to open when installed. When the app can't open it (any
+# desktop/server fetch, including ours), the redirect chain still lands on
+# the storefront's bare homepage — but the real product URL was never lost,
+# it's sitting unused in this param the whole time. Only "deep_link_value"
+# is confirmed against a real link so far; add another name here only once
+# it's actually been seen on a real redirect, not guessed from AppsFlyer's
+# docs — same bar as everywhere else in this file.
+_DEEPLINK_URL_PARAMS = ("deep_link_value",)
+
+
+def _deeplink_redirect_target(resp: httpx.Response) -> str | None:
+    """The real product URL hiding inside a smart-link's own redirect chain
+    (see _DEEPLINK_URL_PARAMS), if this response followed one — None for an
+    ordinary redirect (fkrt.co-style; handled separately by
+    _use_resolved_host) or no redirect at all. Checked against every hop in
+    `resp.history`, not just the first, since a smart-link can redirect more
+    than once before the deep-link param appears."""
+    for hop in resp.history:
+        location = hop.headers.get("location")
+        if not location:
+            continue
+        query = parse_qs(urlsplit(location).query)
+        for param in _DEEPLINK_URL_PARAMS:
+            values = query.get(param)
+            if not values:
+                continue
+            candidate = values[0]
+            if candidate.lower().startswith(("http://", "https://")):
+                return candidate
+    return None
+
+
 def _fetch_url_page(url: str) -> tuple[str | None, float | None, str | None, str | None]:
     """One GET for a pasted link (redirects resolved — amzn.in -> amazon.in).
     Returns (title, live_price, live_merchant, image).
@@ -2113,6 +2148,20 @@ def _fetch_url_page(url: str) -> tuple[str | None, float | None, str | None, str
             "[url-search] page-fetch %s -> final=%s status=%s",
             url, resp.url, resp.status_code,
         )
+        deeplink_target = _deeplink_redirect_target(resp)
+        if deeplink_target and deeplink_target != url:
+            # The real product URL was riding along in the smart-link's own
+            # redirect the whole time — whatever the final followed page
+            # actually shows (a bare homepage, a 403, anything) is beside
+            # the point once this exists. Re-run the exact same fetch logic
+            # against it instead of the smart-link itself, one level deep
+            # only (this target is a real storefront URL from a query
+            # param, never another smart-link, so no loop risk).
+            logger.info(
+                "[url-search] %s is a smart-link — resolved real product URL: %s",
+                url, deeplink_target,
+            )
+            return _fetch_url_page(deeplink_target)
         _use_resolved_host(resp.url.host)
         if resp.status_code != 200:
             return _try_apify()

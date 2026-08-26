@@ -470,14 +470,23 @@ def _graph_config() -> tuple[str, dict]:
 _SEND_RETRY_DELAY_SECONDS = 2  # short pause before the one retry in _post_graph
 
 
-async def _alert_admin(message: str) -> None:
+async def _alert_admin(message: str, affected_phone: str | None = None) -> None:
     """Fire-and-forget text to WHATSAPP_ADMIN_PHONE (if configured) so a send
     that fails even after retrying reaches a person, not just a server log
     nobody's watching. Deliberately posts directly rather than through
     _post_graph — an alert about a failure must never itself recurse into
-    another alert attempt if it also fails."""
+    another alert attempt if it also fails.
+
+    Skips sending when affected_phone is the admin's own number: that
+    means the failure happened on a message meant for whoever's actually
+    reading these alerts, who is already watching it happen live in that
+    same chat thread (e.g. a button silently falling back to plain text) —
+    an alert on top of that just interleaves noise into the middle of
+    their own conversation. A failure on any other phone still alerts
+    immediately, since that's the whole point: a real user's problem the
+    admin would otherwise never see."""
     admin_phone = get_settings().WHATSAPP_ADMIN_PHONE
-    if not admin_phone:
+    if not admin_phone or affected_phone == admin_phone:
         return
     try:
         api_url, headers = _graph_config()
@@ -514,7 +523,7 @@ async def _post_graph(payload: dict, context: str, timeout: float | None = None)
             last_error = str(e)[:200]
         if attempt == 0:
             await asyncio.sleep(_SEND_RETRY_DELAY_SECONDS)
-    await _alert_admin(f"send failed ({context}): {last_error}")
+    await _alert_admin(f"send failed ({context}): {last_error}", affected_phone=payload.get("to"))
     return None
 
 
