@@ -32,3 +32,11 @@ services:
         sync: false
       - key: WHATSAPP_FLOW_ID
         sync: false
+      # Primary anti-bot fetcher as of 2026-08-27 (see crawlbase_repository.py).
+      # Note: APIFY_TOKEN (the fallback fetcher) is also set on the live
+      # service but isn't listed here — it was added directly via the Render
+      # dashboard, not through this Blueprint, so this file has drifted from
+      # the service's actual env vars before. Don't assume this list is
+      # complete; check the dashboard directly if unsure.
+      - key: CRAWLBASE_JS_TOKEN
+        sync: false
