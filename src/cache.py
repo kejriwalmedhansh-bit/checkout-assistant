@@ -58,6 +58,29 @@ class TTLCache:
             self._store.pop(k, None)
 
 
+class RateLimiter:
+    """Fixed-window per-key rate limit (e.g. "N per phone per hour"). A
+    plain dict of (window_start, count) rather than TTLCache — TTLCache's
+    ttl resets on every .set(), which would silently turn "N per hour" into
+    "N since you last went quiet for an hour", not a real rolling cap."""
+
+    def __init__(self, max_per_window: int, window_seconds: float):
+        self.max_per_window = max_per_window
+        self.window_seconds = window_seconds
+        self._store: dict[Any, tuple[float, int]] = {}
+
+    def allow(self, key: Any) -> bool:
+        now = time.monotonic()
+        start, count = self._store.get(key, (now, 0))
+        if now - start >= self.window_seconds:
+            start, count = now, 0
+        if count >= self.max_per_window:
+            self._store[key] = (start, count)
+            return False
+        self._store[key] = (start, count + 1)
+        return True
+
+
 class SessionStore:
     """Per-phone WhatsApp session state on top of two TTL caches.
 

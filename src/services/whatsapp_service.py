@@ -23,7 +23,7 @@ import httpx
 from PIL import Image
 
 from .. import message_log
-from ..cache import TTLCache, session_store
+from ..cache import RateLimiter, TTLCache, session_store
 from ..config import get_settings
 from ..constants import (
     KNOWN_BRANDS,
@@ -40,9 +40,14 @@ from ..constants import (
     WHATSAPP_NUDGE_MSG,
     WHATSAPP_ONBOARDING_MSG,
     WHATSAPP_PICK_REMINDER_MSG,
+    WHATSAPP_RATE_LIMITED_MSG,
     WHATSAPP_SESSION_EXPIRED_MSG,
 )
 from . import analytics_service, search_service
+
+_search_rate_limiter = RateLimiter(
+    max_per_window=get_settings().WHATSAPP_MAX_SEARCHES_PER_HOUR, window_seconds=3600,
+)
 
 
 def _track(event: str, phone: str, **properties) -> None:
@@ -414,18 +419,66 @@ def _graph_config() -> tuple[str, dict]:
     return api_url, headers
 
 
+_SEND_RETRY_DELAY_SECONDS = 2  # short pause before the one retry in _post_graph
+
+
+async def _alert_admin(message: str) -> None:
+    """Fire-and-forget text to WHATSAPP_ADMIN_PHONE (if configured) so a send
+    that fails even after retrying reaches a person, not just a server log
+    nobody's watching. Deliberately posts directly rather than through
+    _post_graph — an alert about a failure must never itself recurse into
+    another alert attempt if it also fails."""
+    admin_phone = get_settings().WHATSAPP_ADMIN_PHONE
+    if not admin_phone:
+        return
+    try:
+        api_url, headers = _graph_config()
+        payload = {
+            "messaging_product": "whatsapp",
+            "to": admin_phone,
+            "type": "text",
+            "text": {"body": f"⚠️ Dealo bot: {message}"},
+        }
+        async with httpx.AsyncClient() as client:
+            await client.post(api_url, headers=headers, json=payload)
+    except Exception as e:
+        print(f"[WhatsApp Alert] failed to notify admin: {e}")
+
+
+async def _post_graph(payload: dict, context: str, timeout: float | None = None) -> httpx.Response | None:
+    """POSTs a message payload to the Graph API, retrying once after a short
+    delay on any failure (non-2xx or a raised exception, e.g. a timeout)
+    before giving up. Only alerts the admin once both attempts are
+    exhausted, so a single transient blip doesn't page anyone. Returns the
+    successful response, or None if both attempts failed — callers that
+    need a success/failure bool check `is not None`."""
+    api_url, headers = _graph_config()
+    last_error = ""
+    for attempt in range(2):
+        try:
+            async with httpx.AsyncClient(timeout=timeout) as client:
+                r = await client.post(api_url, headers=headers, json=payload)
+            print(f"[WhatsApp Send] Status: {r.status_code} | Body: {r.text}")
+            if r.status_code < 400:
+                return r
+            last_error = f"HTTP {r.status_code}: {r.text[:200]}"
+        except Exception as e:
+            last_error = str(e)[:200]
+        if attempt == 0:
+            await asyncio.sleep(_SEND_RETRY_DELAY_SECONDS)
+    await _alert_admin(f"send failed ({context}): {last_error}")
+    return None
+
+
 async def send_text(phone: str, text: str) -> None:
     message_log.record(phone, "out", text)
-    api_url, headers = _graph_config()
     payload = {
         "messaging_product": "whatsapp",
         "to": phone,
         "type": "text",
         "text": {"body": text},
     }
-    async with httpx.AsyncClient() as client:
-        r = await client.post(api_url, headers=headers, json=payload)
-        print(f"[WhatsApp Send] Status: {r.status_code} | Body: {r.text}")
+    await _post_graph(payload, context=f"text to {phone}")
 
 
 async def send_typing_indicator(message_id: str | None) -> None:
@@ -566,17 +619,13 @@ async def send_image(phone: str, image_url: str, caption: str) -> bool:
     if not media_id:
         return False
     message_log.record(phone, "out", f"[photo] {caption}")
-    api_url, headers = _graph_config()
     payload = {
         "messaging_product": "whatsapp",
         "to": phone,
         "type": "image",
         "image": {"id": media_id, "caption": caption},
     }
-    async with httpx.AsyncClient() as client:
-        r = await client.post(api_url, headers=headers, json=payload)
-        print(f"[WhatsApp Send] Status: {r.status_code} | Body: {r.text}")
-        return r.status_code < 400
+    return await _post_graph(payload, context=f"image to {phone}") is not None
 
 
 async def send_cta_url(phone: str, body_text: str, button_text: str, url: str) -> bool:
@@ -588,7 +637,6 @@ async def send_cta_url(phone: str, body_text: str, button_text: str, url: str) -
     so callers must check this and fall back to plain text rather than let
     the whole step silently vanish for the user."""
     message_log.record(phone, "out", f"{body_text} [{button_text}]")
-    api_url, headers = _graph_config()
     payload = {
         "messaging_product": "whatsapp",
         "to": phone,
@@ -602,10 +650,7 @@ async def send_cta_url(phone: str, body_text: str, button_text: str, url: str) -
             },
         },
     }
-    async with httpx.AsyncClient() as client:
-        r = await client.post(api_url, headers=headers, json=payload)
-        print(f"[WhatsApp Send] Status: {r.status_code} | Body: {r.text}")
-        return r.status_code < 400
+    return await _post_graph(payload, context=f"cta_url to {phone}") is not None
 
 
 async def send_reply_buttons(phone: str, text: str, buttons: list[tuple[str, str]]) -> None:
@@ -613,7 +658,6 @@ async def send_reply_buttons(phone: str, text: str, buttons: list[tuple[str, str
     interactive element whose tap triggers a webhook event back to us."""
     button_labels = " / ".join(title for _id, title in buttons)
     message_log.record(phone, "out", f"{text} [{button_labels}]")
-    api_url, headers = _graph_config()
     payload = {
         "messaging_product": "whatsapp",
         "to": phone,
@@ -629,9 +673,7 @@ async def send_reply_buttons(phone: str, text: str, buttons: list[tuple[str, str
             },
         },
     }
-    async with httpx.AsyncClient() as client:
-        r = await client.post(api_url, headers=headers, json=payload)
-        print(f"[WhatsApp Send] Status: {r.status_code} | Body: {r.text}")
+    await _post_graph(payload, context=f"reply_buttons to {phone}")
 
 
 def _truncate(s: str, n: int) -> str:
@@ -667,7 +709,6 @@ async def send_list_message(phone: str, body_text: str, button_text: str, rows: 
     The tapped row's id comes back as msg["interactive"]["list_reply"]["id"]."""
     row_titles = ", ".join(row["title"] for row in rows)
     message_log.record(phone, "out", f"{body_text} [list: {row_titles}]")
-    api_url, headers = _graph_config()
     payload = {
         "messaging_product": "whatsapp",
         "to": phone,
@@ -681,9 +722,7 @@ async def send_list_message(phone: str, body_text: str, button_text: str, rows: 
             },
         },
     }
-    async with httpx.AsyncClient() as client:
-        r = await client.post(api_url, headers=headers, json=payload)
-        print(f"[WhatsApp Send] Status: {r.status_code} | Body: {r.text}")
+    await _post_graph(payload, context=f"list to {phone}")
 
 
 async def send_product_flow(phone: str, body_text: str, flow_cta: str, query: str, products: list[dict]) -> bool:
@@ -713,7 +752,6 @@ async def send_product_flow(phone: str, body_text: str, flow_cta: str, query: st
         return False
 
     message_log.record(phone, "out", f"{body_text} [flow: {len(items)} products]")
-    api_url, headers = _graph_config()
     payload = {
         "messaging_product": "whatsapp",
         "to": phone,
@@ -736,14 +774,7 @@ async def send_product_flow(phone: str, body_text: str, flow_cta: str, query: st
             },
         },
     }
-    try:
-        async with httpx.AsyncClient(timeout=15.0) as client:
-            r = await client.post(api_url, headers=headers, json=payload)
-            print(f"[WhatsApp Send] Flow status: {r.status_code} | Body: {r.text}")
-            return r.status_code < 400
-    except Exception as e:
-        print(f"[WhatsApp Send] Flow send failed: {e}")
-        return False
+    return await _post_graph(payload, context=f"flow to {phone}", timeout=15.0) is not None
 
 
 # ── dispatch ─────────────────────────────────────────────────────────────────────
@@ -1075,6 +1106,11 @@ async def handle_incoming(body: dict) -> None:
         if classification["type"] == "unparseable":
             await _send_state_aware_nudge(phone, is_new=is_new)
             _track("WhatsApp Nudge Sent", phone, reason=classification.get("reason", ""), text=text)
+            return
+
+        if not _search_rate_limiter.allow(phone):
+            await send_text(phone, WHATSAPP_RATE_LIMITED_MSG)
+            _track("WhatsApp Rate Limited", phone, query=text)
             return
 
         _track("WhatsApp Search", phone, query=text, input_type=classification["type"])

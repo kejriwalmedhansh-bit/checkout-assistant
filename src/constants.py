@@ -195,6 +195,9 @@ WHATSAPP_FIRST_TIME_NUDGE_MSG = (
     "I didn't catch a product there — send me a name or link, like 'boAt Airdopes 141'."
 )
 WHATSAPP_PICK_REMINDER_MSG = "Tap one of the options above 👆"
+WHATSAPP_RATE_LIMITED_MSG = (
+    "You're searching a lot in a short time — give it a few minutes and try again."
+)
 
 # Technical identifiers for the WhatsApp Flow-based photo picker — must
 # exactly match the screen id / RadioButtonsGroup field name set in the

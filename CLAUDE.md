@@ -87,5 +87,6 @@ All of the above look like IP- or network-level bot detection (the kind that che
 
 - Repo: `github.com/kejriwalmedhansh-bit/checkout-assistant` (private), branch `main`.
 - `.env` in repo root: `ZYTE_API_KEY`, `SERPAPI_KEY`, `WHATSAPP_PHONE_NUMBER_ID`, `WHATSAPP_ACCESS_TOKEN`, `WHATSAPP_VERIFY_TOKEN=dealo_webhook_2026`. Never commit it, never print its values.
+- Optional WhatsApp bot hardening vars (2026-08-26, see `src/config.py`): `WHATSAPP_ADMIN_PHONE` (E.164, no "+") — if set, gets a text alert when a send fails after one retry; empty just logs as before. `WHATSAPP_MAX_SEARCHES_PER_HOUR` (default 20) — per-phone cap on fresh product searches to protect the SearchApi budget from a spammy number.
 - Run: `uvicorn api:app --host 0.0.0.0 --port 8000` from repo root; `ngrok http 8000` for WhatsApp.
 - SerpAPI: $25/mo, 1,000 credits — the 24h cache exists to protect this budget; don't bypass it casually.

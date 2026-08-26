@@ -72,6 +72,14 @@ class Settings(BaseSettings):
     # unlocked with an empty password — must be set explicitly to turn it on.
     ADMIN_PASSWORD: str = ""
 
+    # --- WhatsApp bot self-monitoring ---
+    # Phone number (E.164, no "+") to text when a WhatsApp send fails after
+    # retrying — empty disables alerting (failures still print to the log).
+    WHATSAPP_ADMIN_PHONE: str = ""
+    # Per-phone cap on fresh product searches per rolling hour — protects the
+    # SearchApi budget from one spammy/bot number.
+    WHATSAPP_MAX_SEARCHES_PER_HOUR: int = 20
+
     @property
     def cors_origins_list(self) -> list[str]:
         return [o.strip() for o in self.CORS_ORIGINS.split(",") if o.strip()]
