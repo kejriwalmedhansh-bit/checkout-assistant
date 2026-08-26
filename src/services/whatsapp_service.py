@@ -76,13 +76,30 @@ def _affiliate_url(link: str) -> str:
 URL_RE = re.compile(r"https?://\S+")
 
 NOISE_PHRASES = {
-    "hi", "hii", "hiii", "hello", "hey", "yo", "sup",
-    "thanks", "thank you", "thx", "ty",
-    "ok", "okay", "k", "kk",
+    "hi", "hii", "hiii", "hello", "helo", "hlo", "hola", "namaste",
+    "hey", "heyy", "yo", "yoo", "sup", "wassup",
+    "good morning", "good afternoon", "good evening", "good night", "gm", "gn",
+    "thanks", "thank you", "thx", "ty", "tysm",
+    "ok", "okay", "k", "kk", "alright", "cool", "nice", "great", "awesome",
+    "yes", "yeah", "yep", "yup", "no", "nope", "nah", "sure", "fine",
+    "lol", "haha", "hahaha", "hmm", "hmm ok",
     "test", "testing",
     "who are you", "what is this", "what are you", "how does this work",
+    "are you a bot", "is this a bot", "u there", "you there", "anyone there",
+    "hello?", "hey there", "who dis", "wrong number",
     "help", "start", "menu",
 }
+
+# Distinct from a plain confused/noise message — a real (if unactionable
+# right now) opt-out or command signal, worth its own analytics tag even
+# though the reply to the user is the same "didn't catch that" nudge. Not
+# acted on beyond that yet — see Phase C follow-up-messaging work.
+OPT_OUT_PHRASES = {"stop", "unsubscribe", "cancel", "no thanks", "not interested"}
+
+# Collapses a run of 3+ identical characters down to 2 ("hiiiiii" -> "hii",
+# "heyyyyy" -> "heyy") so elongated greetings match NOISE_PHRASES without
+# hardcoding every possible spelling.
+_REPEATED_CHAR_RE = re.compile(r"(.)\1{2,}")
 
 
 def classify_input(text: str) -> dict:
@@ -93,7 +110,10 @@ def classify_input(text: str) -> dict:
     if url_match:
         return {"type": "url", "url": url_match.group(0)}
     lowered = re.sub(r"[!.?,]+$", "", cleaned.lower()).strip()
-    if lowered in NOISE_PHRASES:
+    normalized = _REPEATED_CHAR_RE.sub(r"\1\1", lowered)
+    if normalized in OPT_OUT_PHRASES:
+        return {"type": "unparseable", "reason": "opt_out"}
+    if normalized in NOISE_PHRASES:
         return {"type": "unparseable", "reason": "noise_phrase"}
     if len(cleaned) < 3:
         return {"type": "unparseable", "reason": "too_short"}
@@ -512,13 +532,49 @@ async def _run_with_typing_keepalive(msg_id: str | None, work) -> None:
     pricing search this wraps can occasionally take 20-30+ seconds (real,
     observed third-party API latency) — without this, WhatsApp's typing
     indicator silently expires partway through the wait, leaving dead
-    silence right before the reply finally lands."""
+    silence right before the reply finally lands.
+
+    If this coroutine itself gets cancelled (see _run_exclusive — a newer
+    message from the same phone superseded it), the inner `work` task is
+    cancelled too rather than left running unsupervised in the background:
+    cancelling only the outer wait would abandon the typing-keepalive loop
+    while the actual search/reply work silently kept going to completion."""
     task = asyncio.create_task(work)
-    while not task.done():
-        done, _ = await asyncio.wait({task}, timeout=_TYPING_REFRESH_SECONDS)
-        if not done:
-            await send_typing_indicator(msg_id)
-    await task
+    try:
+        while not task.done():
+            done, _ = await asyncio.wait({task}, timeout=_TYPING_REFRESH_SECONDS)
+            if not done:
+                await send_typing_indicator(msg_id)
+        await task
+    except asyncio.CancelledError:
+        task.cancel()
+        raise
+
+
+_active_reply_tasks: dict[str, asyncio.Task] = {}
+
+
+def _run_exclusive(phone: str, coro) -> None:
+    """Starts `coro` as this phone's reply flow, cancelling any not-yet-
+    finished reply flow already running for the same phone first.
+
+    A message that arrives while the bot is still mid-reply to that
+    person's previous message almost always means "ignore that, answer
+    this instead" (a correction, a different product, an impatient
+    re-send) rather than "also answer my first one" — without this, two
+    flows can run concurrently and their bubbles land interleaved,
+    reading as a confusing double reply."""
+    prior = _active_reply_tasks.get(phone)
+    if prior and not prior.done():
+        prior.cancel()
+    task = asyncio.create_task(coro)
+    _active_reply_tasks[phone] = task
+
+    def _clear_if_current(finished: asyncio.Task, phone=phone) -> None:
+        if _active_reply_tasks.get(phone) is finished:
+            _active_reply_tasks.pop(phone, None)
+
+    task.add_done_callback(_clear_if_current)
 
 
 async def _fetch_and_convert_to_jpeg(image_url: str) -> bytes | None:
@@ -1048,10 +1104,10 @@ async def handle_incoming(body: dict) -> None:
                 message_log.record(phone, "in", f"[tapped] {reply_title}")
                 if reply_id == "see_alternatives":
                     await send_typing_indicator(msg_id)
-                    asyncio.create_task(handle_alternatives(phone))
+                    _run_exclusive(phone, handle_alternatives(phone))
                 elif reply_id == "pick_again":
                     await send_typing_indicator(msg_id)
-                    asyncio.create_task(handle_pick_again(phone))
+                    _run_exclusive(phone, handle_pick_again(phone))
             elif itype == "list_reply":
                 reply_id = interactive["list_reply"]["id"]
                 reply_title = interactive["list_reply"].get("title", reply_id)
@@ -1062,13 +1118,13 @@ async def handle_incoming(body: dict) -> None:
                     # sends take noticeable time, so this gets the typing
                     # indicator too rather than assuming "cached = instant".
                     await send_typing_indicator(msg_id)
-                    asyncio.create_task(
-                        _run_with_typing_keepalive(msg_id, handle_alternative_selection(phone, reply_id))
+                    _run_exclusive(
+                        phone, _run_with_typing_keepalive(msg_id, handle_alternative_selection(phone, reply_id))
                     )
                 elif reply_id.startswith("prod_"):
                     await send_typing_indicator(msg_id)
-                    asyncio.create_task(
-                        _run_with_typing_keepalive(msg_id, handle_product_selection(phone, reply_id))
+                    _run_exclusive(
+                        phone, _run_with_typing_keepalive(msg_id, handle_product_selection(phone, reply_id))
                     )
             elif itype == "nfm_reply":
                 # A completed WhatsApp Flow (the photo picker) — same
@@ -1084,8 +1140,8 @@ async def handle_incoming(body: dict) -> None:
                 message_log.record(phone, "in", f"[flow pick] {reply_id or 'unknown'}")
                 if reply_id and reply_id.startswith("prod_"):
                     await send_typing_indicator(msg_id)
-                    asyncio.create_task(
-                        _run_with_typing_keepalive(msg_id, handle_product_selection(phone, reply_id))
+                    _run_exclusive(
+                        phone, _run_with_typing_keepalive(msg_id, handle_product_selection(phone, reply_id))
                     )
             return
 
@@ -1115,7 +1171,7 @@ async def handle_incoming(body: dict) -> None:
 
         _track("WhatsApp Search", phone, query=text, input_type=classification["type"])
         await send_typing_indicator(msg_id)
-        asyncio.create_task(_run_with_typing_keepalive(msg_id, process_and_respond(phone, classification)))
+        _run_exclusive(phone, _run_with_typing_keepalive(msg_id, process_and_respond(phone, classification)))
     except (KeyError, IndexError):
         pass
     except Exception as e:
