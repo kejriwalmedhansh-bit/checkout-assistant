@@ -2908,11 +2908,22 @@ def build_routes_for_token(
                 ))
             else:
                 recovered = _find_seller_link(pre_filter_candidates, picked_source)
+                sellers = recovered["sellers"] if recovered else []
+                # A live-price token (Amazon/Myntra link-paste) has no
+                # SearchApi-fetched offer to recover a link from by design
+                # (see _find_pdp_candidate/_find_seller_link docstrings) — but
+                # the pasted link itself IS the exact seller page, already
+                # known with certainty. Without this, the route had a price
+                # and a voucher but no way to actually reach the store: no
+                # "Open store"/checkout link and no clickable product image
+                # (reported 2026-08-27, the boAt Nike Air Force 1 Myntra link).
+                if not sellers and product_token.startswith(_LIVE_PRICE_TOKEN_PREFIX) and _URL_QUERY_RE.match(query):
+                    sellers = [{"link": query, "delivery": None}]
                 candidates.append(_pinned_candidate(
                     display_title or title or query,
                     recovered["price"] if recovered and recovered.get("price") is not None else picked_price,
                     picked_source,
-                    recovered["sellers"] if recovered else [],
+                    sellers,
                 ))
 
         candidates = _dedup_by_merchant(candidates)
