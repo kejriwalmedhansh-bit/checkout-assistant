@@ -6,7 +6,7 @@ and full terms & conditions.
 Resumable: progress checkpointed to PROGRESS_FILE every CHECKPOINT_EVERY
 products; failures logged to FAILED_LOG for manual review.
 """
-import sys, json, os, re, time
+import sys, json, os, re, time, random
 sys.path.insert(0, os.path.dirname(__file__))
 from _maximize_cdp import get_connected_page, close_all
 
@@ -242,11 +242,23 @@ def run():
     total = len(all_ids)
 
     progress = load_json(PROGRESS_FILE, {})
+
+    # Entries saved while logged out are worthless (empty discounts) and
+    # must be retried, not treated as "done" — otherwise every run that
+    # gets cut off by a logout permanently poisons the last few products it
+    # touched before detecting it.
+    invalid_pids = [pid for pid, res in progress.items() if res.get("logged_in") is False]
+    for pid in invalid_pids:
+        del progress[pid]
+    if invalid_pids:
+        print(f"Dropped {len(invalid_pids)} logged-out entries from progress to retry them: {invalid_pids}")
+
     remaining = [pid for pid in all_ids if pid not in progress]
     print(f"Total products: {total}. Already done: {len(progress)}. Remaining: {len(remaining)}.")
 
     p, browser, page = get_connected_page()
     failed = []
+    consecutive_logged_out = 0
 
     for i, pid in enumerate(remaining, 1):
         entry = catalog[pid]
@@ -265,11 +277,33 @@ def run():
             failed.append(pid)
             print(f"    -> FAILED: {res.get('error', 'no brand_name parsed')}")
 
+        # Never silently grind through hours of empty-rate pages after the
+        # site logs the session out (CLAUDE.md rule 1: wrong/empty data is
+        # worse than no data). A single logged_in=False can be a transient
+        # page hiccup, but three in a row means the session is actually gone.
+        if res.get("logged_in") is False:
+            consecutive_logged_out += 1
+        else:
+            consecutive_logged_out = 0
+        if consecutive_logged_out >= 3:
+            save_json(PROGRESS_FILE, progress)
+            save_json(FAILED_LOG, failed)
+            print(f"\n!!! LOGGED OUT — {consecutive_logged_out} consecutive pages with no session. "
+                  f"Stopping at [{done_so_far}/{total}]. Progress saved — log back into "
+                  f"maximize.money in the Chrome window and re-run this script to resume.")
+            close_all(p, browser, page)
+            return
+
         if done_so_far % CHECKPOINT_EVERY == 0:
             save_json(PROGRESS_FILE, progress)
             save_json(FAILED_LOG, failed)
 
-        time.sleep(0.6)
+        # Slower, jittered pacing between pages — a tight, mechanically
+        # regular request rhythm looks like automation to a site's abuse
+        # detection. This isn't a guaranteed fix (the exact trigger is
+        # unconfirmed), but it's the one lever available without touching
+        # login/session mechanics directly.
+        time.sleep(random.uniform(4.0, 9.0))
 
     save_json(PROGRESS_FILE, progress)
     save_json(FAILED_LOG, failed)
