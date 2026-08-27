@@ -207,7 +207,21 @@ def calculate_effective_price(price: float, voucher: dict, payment_method: str =
     elif is_custom and voucher.get("is_custom_denom") and txns_needed and voucher.get("custom_max"):
         custom_max = voucher["custom_max"]
         if txns_needed > 1:
-            purchase_breakdown = f"{txns_needed}×up to ₹{custom_max:,.0f}"
+            # A custom-amount voucher is bought by typing in an exact rupee
+            # figure, not by choosing "up to X" — so the buy step must hand
+            # the customer the exact amount for each of the N vouchers
+            # (custom_max for every voucher but the last, the true remainder
+            # for the last one), the same way the fixed-denomination branch
+            # above always gives an exact, purchasable breakdown.
+            full_count = int(voucher_amount // custom_max)
+            last_amount = round(voucher_amount - full_count * custom_max, 2)
+            full_part = f"₹{custom_max:,.0f}" if full_count == 1 else f"{full_count}×₹{custom_max:,.0f}"
+            if full_count and last_amount:
+                purchase_breakdown = f"{full_part} + ₹{last_amount:,.0f}"
+            elif full_count:
+                purchase_breakdown = full_part
+            else:
+                purchase_breakdown = f"₹{last_amount:,.0f}"
         else:
             purchase_breakdown = f"₹{voucher_amount:,.0f}"
     else:
