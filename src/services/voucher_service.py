@@ -186,12 +186,26 @@ def calculate_effective_price(price: float, voucher: dict, payment_method: str =
             voucher_amount = float(amount)
             remainder = round(price - voucher_amount, 2)
 
-    if voucher.get("purchase_cap_per_txn"):
-        txns_needed = math.ceil(voucher_amount / voucher["purchase_cap_per_txn"])
-    elif custom_txns_needed is not None:
-        txns_needed = custom_txns_needed
+    # Two unrelated caps can both apply to a custom-amount voucher (e.g.
+    # Archies Gallery): `custom_max` limits how big a SINGLE voucher can be
+    # (₹10,000), `purchase_cap_per_txn` limits total rupees per checkout
+    # (₹88,500) — a big purchase can need multiple *vouchers* without ever
+    # needing multiple *checkouts*. The old code let whichever cap happened
+    # to be set win outright, so a custom-denom brand that also had a
+    # purchase_cap_per_txn silently ignored its own custom_max — telling the
+    # customer to buy one voucher bigger than Gyftr actually allows.
+    # Bug found via live testing, 2026-08-28.
+    cap_txns = math.ceil(voucher_amount / voucher["purchase_cap_per_txn"]) if voucher.get("purchase_cap_per_txn") and voucher_amount else 1
+    txns_needed = max(cap_txns, custom_txns_needed or 1)
+    if custom_txns_needed is not None and custom_txns_needed >= cap_txns:
+        per_txn_cap: float | None = voucher.get("custom_max")
+        per_txn_cap_kind: str | None = "voucher"
+    elif voucher.get("purchase_cap_per_txn"):
+        per_txn_cap = voucher["purchase_cap_per_txn"]
+        per_txn_cap_kind = "transaction"
     else:
-        txns_needed = 1
+        per_txn_cap = None
+        per_txn_cap_kind = None
 
     discount_amount = round(voucher_amount * discount_pct / 100, 2)
     effective_price = round(price - discount_amount, 2)
@@ -201,27 +215,31 @@ def calculate_effective_price(price: float, voucher: dict, payment_method: str =
     # per voucher), so "buy a voucher worth the full total" is never
     # literally purchasable when more than one voucher is needed. Surfacing
     # the real breakdown here (rather than just the total) is what makes the
-    # how-to-buy copy actually executable instead of misleading.
+    # how-to-buy copy actually executable instead of misleading. Gated on
+    # `custom_txns_needed` specifically (how many voucher *units* are
+    # needed), not the combined `txns_needed` above — a custom voucher still
+    # needs its per-unit breakdown even when it all fits in one checkout.
     if denomination_breakdown:
         purchase_breakdown = _format_breakdown(denomination_breakdown)
-    elif is_custom and voucher.get("is_custom_denom") and txns_needed and voucher.get("custom_max"):
+    elif is_custom and voucher.get("is_custom_denom") and custom_txns_needed and voucher.get("custom_max"):
         custom_max = voucher["custom_max"]
-        if txns_needed > 1:
+        if custom_txns_needed > 1:
             # A custom-amount voucher is bought by typing in an exact rupee
             # figure, not by choosing "up to X" — so the buy step must hand
             # the customer the exact amount for each of the N vouchers
             # (custom_max for every voucher but the last, the true remainder
             # for the last one), the same way the fixed-denomination branch
-            # above always gives an exact, purchasable breakdown.
+            # above always gives an exact, purchasable breakdown. Also
+            # populated as a real denomination_breakdown (not just a string)
+            # so callers can render an itemized list/box instead of an
+            # ambiguous inline "2×₹10,000" fragment.
             full_count = int(voucher_amount // custom_max)
             last_amount = round(voucher_amount - full_count * custom_max, 2)
-            full_part = f"₹{custom_max:,.0f}" if full_count == 1 else f"{full_count}×₹{custom_max:,.0f}"
-            if full_count and last_amount:
-                purchase_breakdown = f"{full_part} + ₹{last_amount:,.0f}"
-            elif full_count:
-                purchase_breakdown = full_part
-            else:
-                purchase_breakdown = f"₹{last_amount:,.0f}"
+            if full_count:
+                denomination_breakdown.append({"denom": int(custom_max), "count": full_count})
+            if last_amount:
+                denomination_breakdown.append({"denom": int(last_amount), "count": 1})
+            purchase_breakdown = _format_breakdown(denomination_breakdown)
         else:
             purchase_breakdown = f"₹{voucher_amount:,.0f}"
     else:
@@ -237,6 +255,8 @@ def calculate_effective_price(price: float, voucher: dict, payment_method: str =
         "effective_price": effective_price,
         "payment_method": payment_method,
         "txns_needed": txns_needed,
+        "per_txn_cap": per_txn_cap,
+        "per_txn_cap_kind": per_txn_cap_kind,
         "voucher_platform": voucher.get("voucher_platform", "Gyftr"),
         "voucher_url": voucher.get("voucher_url") or f"https://www.gyftr.com/{voucher['slug']}",
         "redemption_type": voucher.get("redemption_type", ""),
@@ -456,7 +476,14 @@ def build_deals(results: list[dict], product_name: str = "") -> list[dict]:
                 "saving": deal["voucher_discount_amount"],
                 "effective_price": deal["effective_price"],
                 "txns_needed": deal.get("txns_needed", 1),
-                "purchase_cap_per_txn": voucher.get("purchase_cap_per_txn"),
+                # Whichever cap actually forced multiple purchases — not
+                # always `purchase_cap_per_txn`; for a custom-amount voucher
+                # it's `custom_max` (see calculate_effective_price). Reading
+                # the raw voucher record's purchase_cap_per_txn here directly
+                # used to show an unrelated, much larger number next to a
+                # multi-buy instruction actually driven by custom_max.
+                "purchase_cap_per_txn": deal.get("per_txn_cap"),
+                "per_txn_cap_kind": deal.get("per_txn_cap_kind"),
                 "denomination_breakdown": deal.get("denomination_breakdown") or [],
                 "purchase_breakdown": deal.get("purchase_breakdown") or "",
             },

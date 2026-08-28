@@ -163,31 +163,33 @@ KNOWN_BRANDS = [
 ]
 
 # --- WhatsApp user-facing copy ---
+# Copy rules mirror design-system/dealo/MASTER.md's web copy rules: "Gift
+# Voucher" (not a bare "voucher"), never say "route" or "UPI" unexplained,
+# never show "Gyftr" raw (say "our voucher partner" instead).
 WHATSAPP_ONBOARDING_MSG = (
-    "Hi! I'm Dealo 👋\n\n"
-    "Send me a product name or a link and I'll find the cheapest legit way to buy it — "
-    "vouchers, card offers, best price, all in one place.\n\n"
-    "Try: boAt Airdopes 141"
+    "Hi, I'm *Dealo* 👋\n\n"
+    "Cheapest legit way to buy anything — Gift Vouchers, card offers, "
+    "best price, all checked for you.\n\n"
+    "Send a product name (or link) — like *Nike Air Force 1s*."
 )
 WHATSAPP_DEAD_END_MSG = (
     "Couldn't find that one. Try adding the brand or model — "
-    "like 'boAt Airdopes 141' instead of just 'earphones'."
+    "e.g. *Nike Air Force 1* instead of just 'shoes'."
 )
 WHATSAPP_SESSION_EXPIRED_MSG = (
-    "It's been a while — send the product name again and I'll look it up fresh."
+    "That search has gone cold — send the product name again and I'll pull fresh prices."
 )
 WHATSAPP_NO_ALTERNATIVES_MSG = (
-    "This is the only route we found for this one — it's already your best option."
+    "This is the only way we found to buy this — it's already your *best option*."
 )
-WHATSAPP_MULTI_MATCH_MSG = "Found a few matches — tap the right one below 👇"
-# Same wording as the web picker's LowConfidenceNotice — shown when
-# search_service's `approximate` flag is set (see _STRONG_MATCH_FRACTION).
-WHATSAPP_LOW_CONFIDENCE_MSG = (
-    "Results confidence is low — try searching with the product name.\n\n"
-    "Found a few matches — tap the right one below 👇"
-)
-WHATSAPP_MORE_OPTIONS_MSG = "Want a different way to buy this — or a different product altogether?"
-WHATSAPP_PICK_REMINDER_MSG = "Tap one of the options above 👆"
+WHATSAPP_MULTI_MATCH_MSG = "Select the *exact* product you're looking for 👇"
+# search_service's `approximate` / low-confidence flag (see
+# _STRONG_MATCH_FRACTION) is intentionally never surfaced as its own
+# message on WhatsApp — telling a user "I'm not fully sure" undermines
+# trust more than it helps (user feedback 2026-08-28). A weak match just
+# goes through the normal picker/result flow like any other match.
+WHATSAPP_MORE_OPTIONS_MSG = "Want a different way to buy this, or a different product altogether?"
+WHATSAPP_PICK_REMINDER_MSG = "*Tap* one of the options above 👆"
 WHATSAPP_RATE_LIMITED_MSG = (
     "You're searching a lot in a short time — give it a few minutes and try again."
 )

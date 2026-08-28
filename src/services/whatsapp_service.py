@@ -32,7 +32,6 @@ from ..constants import (
     WHATSAPP_FLOW_SCREEN_ID,
     WHATSAPP_GRAPH_BASE,
     WHATSAPP_GRAPH_VERSION,
-    WHATSAPP_LOW_CONFIDENCE_MSG,
     WHATSAPP_MORE_OPTIONS_MSG,
     WHATSAPP_MULTI_MATCH_MSG,
     WHATSAPP_NO_ALTERNATIVES_MSG,
@@ -203,7 +202,7 @@ def _build_result_caption(route: dict) -> str:
     # instruction text, where naming the actual site orients them right
     # before they're sent there.
     if voucher and not voucher.get("offline_only"):
-        best_route = f"{merchant} + gift voucher"
+        best_route = f"{merchant} + Gift Voucher"
     else:
         best_route = merchant
 
@@ -220,7 +219,10 @@ def _build_result_caption(route: dict) -> str:
         # A party emoji on a 1% saving reads as fake enthusiasm — reserve
         # the celebration for a discount actually worth celebrating.
         celebration = " 🎉" if pct >= 10 else ""
-        lines.append(f"You save ₹{savings:,.0f} ({pct}% off){celebration}")
+        # Bold the whole line, not just the number — this is the hero figure
+        # (see design-system/dealo/MASTER.md's SavingsBar), it should read
+        # as the most emphasized line in the bubble, not the price line above it.
+        lines.append(f"*You save ₹{savings:,.0f} ({pct}% off)*{celebration}")
     else:
         lines.append(f"Price: ₹{final_cost:,.0f}")
 
@@ -228,7 +230,29 @@ def _build_result_caption(route: dict) -> str:
 
 
 def _voucher_word(denom_breakdown: list[dict]) -> str:
-    return "voucher" if sum(b.get("count", 0) for b in denom_breakdown) <= 1 else "vouchers"
+    # "Gift Voucher" per design-system/dealo/MASTER.md copy rules — it's the
+    # real product name, not generic "voucher".
+    return "Gift Voucher" if sum(b.get("count", 0) for b in denom_breakdown) <= 1 else "Gift Vouchers"
+
+
+def _voucher_box(denom_breakdown: list[dict], discount_pct: float) -> str:
+    """Itemized breakdown for a multi-voucher buy step — the WhatsApp
+    equivalent of the breakdown the web results page shows (see
+    design-system/dealo/MASTER.md's ledger/tabular-numbers thesis). Plain
+    bulleted lines, not a ``` monospace block — WhatsApp doesn't parse
+    *bold* inside a code block, and every other number in this bot is bold,
+    so the box would be the one exception. The total is the vouchers' face
+    value; since that's not what actually gets paid (the whole point of
+    buying a voucher is the discount), it's immediately followed by the
+    real pay amount so "Total ₹7,000" can't misread as the cost."""
+    lines = [f"• *{b['count']} × ₹{b['denom']:,}*" for b in denom_breakdown]
+    total = sum(b["count"] * b["denom"] for b in denom_breakdown)
+    pay = round(total * (100 - discount_pct) / 100)
+    total_line = (
+        f"*Total: ₹{total:,}* (you pay *₹{pay:,}* — "
+        f"you don't pay the full ₹{total:,})"
+    )
+    return "\n".join(lines) + "\n" + total_line
 
 
 async def _send_voucher_steps(phone: str, route: dict) -> None:
@@ -262,7 +286,8 @@ async def _send_voucher_steps(phone: str, route: dict) -> None:
         affiliate_link = _affiliate_url(link)
         check_text = (
             f"*Step {step_n} of {total_steps}*\n\n"
-            f"Quick check — is everything still right on {merchant}?"
+            f"Confirm on {merchant} 👇 — right product, size, in stock.\n\n"
+            f"*Come back here* — the discount's in Steps 2 & 3."
         )
         if not await send_cta_url(phone, check_text, f"View on {merchant}", affiliate_link):
             await send_text(phone, f"{check_text}\n{affiliate_link}")
@@ -277,36 +302,49 @@ async def _send_voucher_steps(phone: str, route: dict) -> None:
     voucher_word = _voucher_word(denom_breakdown)
     voucher_brand = voucher.get("brand_name") or voucher.get("merchant") or merchant
     discount_pct = upi.get("pct", 0)
-    platform_label = "Maximize" if voucher.get("voucher_source") == "maximize" else "Gyftr"
+    # "Maximize" is a recognizable app name we can show as-is; "Gyftr" isn't
+    # — design-system/dealo/MASTER.md says never show it unexplained, so it
+    # becomes "our voucher partner" here (the underlying voucher_url is
+    # unaffected). "via UPI" is dropped too, per the same doc's rule against
+    # mentioning UPI unexplained — it doesn't help the user decide anything.
+    platform_label = "Maximize" if voucher.get("voucher_source") == "maximize" else "our voucher partner"
 
     txns = upi.get("txns_needed", 1)
+    total_units = sum(b.get("count", 0) for b in denom_breakdown)
 
-    if len(denom_breakdown) > 1:
-        # A single inline "2×₹10,000 + 1×₹3,000 + 3×₹500" string reads as a
-        # cramped run-on when it's more than one or two items — a short
-        # bulleted list is much easier to actually follow while shopping.
-        breakdown_lines = "\n".join(f"• *{b['count']} × ₹{b['denom']:,}*" for b in denom_breakdown)
+    if total_units > 1:
+        # A box, not a sentence — same idea as the itemized breakdown on the
+        # web results page (see design-system/dealo/MASTER.md). Reads
+        # cleanly whether it's several different denominations or several
+        # of the same one (e.g. "2 × ₹10,000").
         step1_text = (
             f"*Step {step_n} of {total_steps}*\n\n"
-            f"Buy these {voucher_brand} {voucher_word} on {platform_label} ({discount_pct}% off via UPI):\n"
-            f"{breakdown_lines}"
+            f"Buy these {voucher_brand} {voucher_word} on {platform_label} — *{discount_pct}% off*:\n\n"
+            f"{_voucher_box(denom_breakdown, discount_pct)}"
         )
         # Multiple denominations reads like multiple separate trips to the
         # platform, which is demotivating and usually wrong — both sources
         # have a cart, so unless a real per-transaction cap forces separate
         # purchases (handled below), all of these go in one cart, one checkout.
         if txns <= 1:
-            step1_text += f"\n\nAdd all of these to your {platform_label} cart — one checkout covers it."
+            step1_text += "\n\nAdd all of these to your cart — one checkout covers it."
     else:
         breakdown = upi.get("purchase_breakdown") or f"₹{upi.get('voucher_amount', 0):,.0f}"
         step1_text = (
             f"*Step {step_n} of {total_steps}*\n\n"
             f"Buy exactly *{breakdown}* {voucher_brand} {voucher_word} on {platform_label} first "
-            f"({discount_pct}% off via UPI)."
+            f"— *{discount_pct}% off*."
         )
     if txns > 1:
+        # The cap number is only worth repeating here when it's the
+        # per-transaction platform limit — a real constraint the box above
+        # doesn't show. When multiple purchases are needed, the box already
+        # shows the ₹-per-voucher cap as the line-item amounts, so restating
+        # it would just repeat what's already on screen (see
+        # calculate_effective_price's per_txn_cap_kind, voucher_service.py).
         cap = upi.get("purchase_cap_per_txn")
-        cap_text = f", *₹{cap:,.0f}* max per transaction" if cap else ""
+        cap_kind = upi.get("per_txn_cap_kind")
+        cap_text = f", *₹{cap:,.0f}* max per transaction" if cap and cap_kind == "transaction" else ""
         step1_text += f"\n\nYou'll need to do this {txns} separate times{cap_text}."
     voucher_url = voucher["voucher_url"]
     if not await send_cta_url(phone, step1_text, "Buy Gift Voucher Now", voucher_url):
@@ -325,7 +363,7 @@ async def _send_voucher_steps(phone: str, route: dict) -> None:
     if in_store:
         step2_text = (
             f"*Step {step_n} of {total_steps}*\n\n"
-            f"Head to your nearest {merchant} store.\n"
+            f"Head to your nearest *{merchant}* store.\n"
             f"{redeem_instruction or 'Show the voucher at checkout.'}\n"
             f"{remainder_line}"
         )
@@ -333,7 +371,7 @@ async def _send_voucher_steps(phone: str, route: dict) -> None:
     else:
         step2_text = (
             f"*Step {step_n} of {total_steps}*\n\n"
-            f"Open {merchant} and add the item to your cart.\n"
+            f"Open *{merchant}* and add the item to your cart.\n"
             f"{redeem_instruction or 'Apply the voucher at checkout.'}\n"
             f"{remainder_line}"
         )
@@ -354,7 +392,7 @@ async def _send_direct_cta(phone: str, route: dict) -> None:
     link = sellers[0].get("link") if sellers else None
     if link:
         affiliate_link = _affiliate_url(link)
-        body_text = f"Ready to buy from {merchant}?"
+        body_text = f"Best price is at *{merchant}* — ready to buy?"
         if not await send_cta_url(phone, body_text, f"Open {merchant}", affiliate_link):
             await send_text(phone, f"{body_text}\n{affiliate_link}")
         _track("WhatsApp Buy Step Shown", phone, step="direct", platform="none", merchant=merchant)
@@ -374,7 +412,7 @@ async def _send_result_message(phone: str, image_url: str | None, caption: str) 
 async def _send_followup_buttons(phone: str) -> None:
     await send_reply_buttons(
         phone, WHATSAPP_MORE_OPTIONS_MSG,
-        [("see_alternatives", "See other route"), ("pick_again", "Different product")],
+        [("see_alternatives", "See other option"), ("pick_again", "Different product")],
     )
 
 
@@ -393,7 +431,7 @@ async def _send_card_fomo(phone: str, route: dict) -> bool:
         return False
     card_name = card_fomo.get("card_name", "")
     apply_url = card_fomo.get("apply_url") or ""
-    body_text = f"💳 Have an {card_name} card? You could save an extra ₹{card_saving:,.0f} on this order."
+    body_text = f"💳 Have an *{card_name}* card? You could save an extra *₹{card_saving:,.0f}* on this order."
     if apply_url:
         # Fixed generic label, not f"Apply for {card_name}" — the card name
         # is already in body_text above, and "Apply for {card_name}" hits
@@ -909,9 +947,12 @@ async def _send_product_picker(
     list message unchanged if the Flow isn't configured or fails to send, so
     a broken/unset Flow never breaks the picker outright.
 
-    `approximate` mirrors the web picker's LowConfidenceNotice (same
-    search_service flag) — swaps in a body message that says so, rather than
-    a separate silent message, since WhatsApp has no room for a banner.
+    `approximate` (search_service's low-confidence flag, same one the web
+    picker's LowConfidenceNotice reads) is still recorded for analytics, but
+    deliberately does NOT change what the user sees — telling a user "I'm
+    not fully sure" reads as the bot being unreliable, which costs more
+    trust than it saves. The picker prompt is identical either way; a weak
+    match is handled by just showing candidates and letting the user pick.
 
     Always (re)records candidates/query/approximate and marks the session as
     waiting on a product pick — this is what lets a confused reply while
@@ -922,7 +963,7 @@ async def _send_product_picker(
         **session, "candidates": products, "query": query,
         "approximate": approximate, "state": "awaiting_product_pick",
     })
-    body_text = WHATSAPP_LOW_CONFIDENCE_MSG if approximate else WHATSAPP_MULTI_MATCH_MSG
+    body_text = WHATSAPP_MULTI_MATCH_MSG
     flow_sent = await send_product_flow(
         phone, body_text, "Select product", query, products,
     )
@@ -985,11 +1026,10 @@ async def process_and_respond(phone: str, classification: dict) -> None:
             return
 
         if len(products) == 1:
-            # No picker step to attach a low-confidence notice to here — send
-            # it as its own message first so a weak single match doesn't
-            # reach the route with the same silent confidence as a real one.
-            if listing.get("approximate"):
-                await send_text(phone, WHATSAPP_LOW_CONFIDENCE_MSG.split("\n\n")[0])
+            # A weak single match still just goes straight to the route —
+            # flagging "I'm not fully sure" undermines trust more than it
+            # helps (user feedback 2026-08-28); `approximate` is still on the
+            # listing for analytics, just no longer shown to the user.
             only = products[0]
             await _send_routes_for_token(
                 phone, only["product_token"], query, only.get("title", ""),
@@ -1043,7 +1083,7 @@ async def handle_alternatives(phone: str) -> None:
     for i, alt in enumerate(alternatives[:3]):
         merchant_name = alt.get("merchant") or f"Option {i + 1}"
         final_cost = alt.get("final_cost")
-        path = "Via gift card" if alt.get("voucher") else "Direct"
+        path = "Via Gift Voucher" if alt.get("voucher") else "Direct"
         desc = f"{merchant_name} · {path} · ₹{final_cost:,.0f}" if final_cost else f"{merchant_name} · {path}"
         rows.append({
             "id": f"alt_{i}",
@@ -1056,7 +1096,7 @@ async def handle_alternatives(phone: str) -> None:
     session_store.set_session(phone, {**session, "state": "awaiting_alternative_pick"})
     await send_list_message(
         phone,
-        body_text="Want a different route? Pick one:",
+        body_text="Want a different way to buy this? Pick one:",
         button_text="See options",
         rows=rows,
     )
