@@ -37,12 +37,25 @@ export default function SearchBox({
   };
 
   const paste = async () => {
-    try {
-      const text = await navigator.clipboard.readText();
-      if (text) setValue(text);
-    } catch {
-      // Clipboard read denied or unavailable — leave the box as-is.
+    const tryRead = async () => {
+      try {
+        return await navigator.clipboard.readText();
+      } catch {
+        return '';
+      }
+    };
+
+    let text = await tryRead();
+    if (!text) {
+      // iOS Safari's first-ever readText() often comes back empty at the
+      // exact moment the user taps "Allow Paste" on its native prompt — the
+      // permission is granted but that first call already settled without
+      // it. One retry, after the grant has landed, picks up the real value
+      // instead of making the user tap the button a second time.
+      await new Promise((resolve) => setTimeout(resolve, 150));
+      text = await tryRead();
     }
+    if (text) setValue(text);
     inputRef.current?.focus();
   };
 
