@@ -1905,6 +1905,34 @@ def _should_skip_render(host: str) -> bool:
 # whole title away and falling back to weaker URL-slug words.
 _BROKEN_TEMPLATE_RE = re.compile(r"\s-\s*-\s")
 
+# Storefronts append their own site name (and often a generic category tag)
+# to the end of a product page's title — "Amazon.in: Electronics",
+# "| Ajio.com" — which is never part of the product's own identity. Stripped
+# as a trailing suffix, not by guessing category words, so the same rule
+# works for every product category on every known storefront rather than
+# needing per-category upkeep. Confirmed live 2026-08-28 against real Amazon
+# and AJIO product pages — both end exactly this way.
+_STOREFRONT_SUFFIX_NAMES = sorted(
+    {m.lower() for m in MANUAL_TRUSTED_MERCHANTS} | {
+        "amazon.in", "amazon.com", "flipkart.com", "myntra.com",
+        "ajio.com", "nykaa.com", "nykaa.in", "croma.com",
+        "reliancedigital.in", "vijaysales.com", "tatacliq.com",
+        "jiomart.com", "bigbasket.com", "pepperfry.com", "lenskart.com",
+        "apple.com", "samsung.com",
+    },
+    key=len, reverse=True,
+)
+_STOREFRONT_SUFFIX_RE = re.compile(
+    r"[:|\-]\s*(?:" + "|".join(re.escape(n) for n in _STOREFRONT_SUFFIX_NAMES) + r")\b.*$",
+    re.IGNORECASE,
+)
+
+# A trailing "Online" ("... Sneakers Online | Ajio.com") is call-to-action
+# filler the same way a leading "Buy "/"Shop " is — stripped once the
+# storefront suffix itself is already gone, so it doesn't linger as an
+# orphan word.
+_TRAILING_ONLINE_RE = re.compile(r"\s+online$", re.IGNORECASE)
+
 
 def _extract_page_title(markup: str) -> str | None:
     """og:title -> twitter:title -> <title> from a page's markup, with the
@@ -1939,6 +1967,17 @@ def _extract_page_title(markup: str) -> str | None:
         if low in _BARE_STORE_TITLES or any(b in low for b in _BAD_TITLE_MARKERS):
             logger.info("[url-search] rejected page title %r (bot-wall/bare store)", candidate)
             continue
+        cleaned = _STOREFRONT_SUFFIX_RE.sub("", candidate).strip(" :|-")
+        cleaned = _TRAILING_ONLINE_RE.sub("", cleaned).strip()
+        # Whatever's left after the storefront's own suffix is gone, the real
+        # product name is still only the first "|"-delimited segment — every
+        # real title checked (Amazon, Myntra, AJIO) puts nothing but a
+        # marketing spec dump after the first pipe, never a second product or
+        # a variant detail that wasn't already stated before it.
+        cleaned = cleaned.split("|", 1)[0].strip()
+        if len(cleaned) >= 3 and cleaned != candidate:
+            logger.info("[url-search] cleaned page title %r -> %r", candidate, cleaned)
+            candidate = cleaned
         return candidate
     return None
 
