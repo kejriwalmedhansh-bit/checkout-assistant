@@ -12,6 +12,7 @@ import {
 } from '@chakra-ui/react';
 import { Link as RouterLink, Outlet, useLocation, useNavigate } from 'react-router-dom';
 
+import FloatingWhatsAppButton from '@/components/common/FloatingWhatsAppButton';
 import Logo from '@/components/common/Logo';
 import { I } from '@/components/common/icons';
 import Spotlight from '@/components/onboarding/Spotlight';
@@ -114,6 +115,11 @@ export default function AppLayout() {
       </Drawer>
 
       <Spotlight />
+
+      {/* Covered by the tour's own bottom bar (full-width, bottom:0) while
+          the tour is active, so hide it then rather than let it float on
+          top of that bar's content. */}
+      {!tourActive && <FloatingWhatsAppButton />}
 
       <Flex direction="column" flex={1} minW={0}>
         {/* mobile top bar */}
