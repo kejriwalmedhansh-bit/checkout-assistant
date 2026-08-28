@@ -36,7 +36,18 @@ export default function SearchBox({
     inputRef.current?.focus();
   };
 
+  const paste = async () => {
+    try {
+      const text = await navigator.clipboard.readText();
+      if (text) setValue(text);
+    } catch {
+      // Clipboard read denied or unavailable — leave the box as-is.
+    }
+    inputRef.current?.focus();
+  };
+
   const h = size === 'lg' ? '52px' : '44px';
+  const rightElementW = value ? '76px' : '38px';
 
   return (
     <Flex
@@ -61,12 +72,12 @@ export default function SearchBox({
           onChange={(e) => setValue(e.target.value)}
           placeholder={placeholder}
           h={h}
-          pr={value ? '38px' : undefined}
+          pr={rightElementW}
           autoComplete="off"
           aria-label="Search for a product"
         />
-        {value && (
-          <InputRightElement h={h} w="38px">
+        <InputRightElement h={h} w={rightElementW} gap="2px" justifyContent="flex-end" pr="7px">
+          {value && (
             <Box
               as="button"
               type="button"
@@ -84,8 +95,25 @@ export default function SearchBox({
             >
               <I.x size={15} />
             </Box>
-          </InputRightElement>
-        )}
+          )}
+          <Box
+            as="button"
+            type="button"
+            onClick={paste}
+            aria-label="Paste from clipboard"
+            display="inline-flex"
+            alignItems="center"
+            justifyContent="center"
+            w="24px"
+            h="24px"
+            borderRadius="50%"
+            color="text2"
+            _hover={{ color: 'text', bg: 'borderStrong' }}
+            _focusVisible={{ outline: '2px solid currentColor', outlineOffset: '2px' }}
+          >
+            <I.paste size={15} />
+          </Box>
+        </InputRightElement>
       </InputGroup>
       <Button
         type="submit"
