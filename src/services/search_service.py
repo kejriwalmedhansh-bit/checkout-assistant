@@ -1258,15 +1258,20 @@ def _filter_and_group_candidates(
     """Drop bulk-listings/non-English junk, then group same-variant listings
     from different sellers into one picker card each.
 
-    No accessory filtering happens here — every listing that passes the
-    bulk/non-Latin checks and the permissive any-token relevance gate
-    (`_matches_any_required_token`) goes straight to `_vet` (trusted seller +
-    price sanity), so an accessory search ("iPhone case") isn't suppressed
-    just because its own title says "case". The relevance gate only rejects
-    a listing that matches NONE of the query's required tokens — it does not
-    require every token to match (that stricter all-tokens rule was tried
-    and reverted on 2026-08-03 for false negatives; see CLAUDE.md bug #6),
-    so unrelated-but-token-overlapping results can still surface.
+    Accessory filtering only applies when the query itself isn't an
+    accessory search — a listing titled "iPhone 16 Pro Max Silicone Case"
+    is dropped for the query "iPhone 16 Pro Max" (the shopper wants the
+    phone, not a case), but kept for the query "iPhone 16 Pro Max case"
+    (that IS what they're looking for). See CLAUDE.md bug #6/#7 history —
+    a real-device query with no in-stock new listing from a trusted seller
+    used to fall through to whatever accessory listings survived the trust
+    filter instead, e.g. "iPhone 16 Pro Max" surfacing only phone cases as
+    picker candidates (2026-08-31, from live client feedback). The
+    relevance gate below only rejects a listing that matches NONE of the
+    query's required tokens — it does not require every token to match
+    (that stricter all-tokens rule was tried and reverted on 2026-08-03 for
+    false negatives; see CLAUDE.md bug #6), so unrelated-but-token-
+    overlapping results can still surface.
 
     Returns ``(candidates, approximate)``. ``approximate`` is True when even
     the best-matching survivor only weakly overlaps the query's required
@@ -1280,12 +1285,18 @@ def _filter_and_group_candidates(
     """
     tokens = _required_tokens(query)
     exclude = set(tokens) | set(KNOWN_BRANDS)
+    query_is_accessory_search = _is_accessory(query)
     hygienic = [
         c for c in candidates
         if c.get("title")
         and not _is_bulk_listing(c["title"])
         and _is_latin_dominant(c["title"])
+        and (query_is_accessory_search or not _is_accessory(c["title"]))
     ]
+    if not query_is_accessory_search:
+        for c in candidates:
+            if c.get("title") and _is_accessory(c["title"]) and not _is_bulk_listing(c["title"]) and _is_latin_dominant(c["title"]):
+                logger.info("%s   dropped (accessory listing for a non-accessory query): %r", tag, c["title"])
     for c in candidates:
         if not c.get("title"):
             continue
