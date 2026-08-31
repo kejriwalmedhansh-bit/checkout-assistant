@@ -21,6 +21,7 @@ import { PageHeaderContext } from '@/hooks/usePageHeader';
 import { ROUTES } from '@/routes/paths';
 import { track } from '@/utils/analytics';
 import { useUiStore } from '@/store/uiStore';
+import Footer from './Footer';
 import SidebarContent from './Sidebar';
 
 /**
@@ -176,32 +177,38 @@ export default function AppLayout() {
           </Flex>
         </Flex>
 
-        <Box
-          as="main"
-          flex={1}
-          minW={0}
-          w="100%"
-          maxW="1340px"
-          mx="auto"
-          p={{ base: '16px 16px 56px', md: '22px 34px 60px' }}
-          // Spotlight's tour bar is fixed to the bottom of the screen — this
-          // reserves matching blank space so scrolling all the way down
-          // never puts real content behind it either, not just the parts
-          // visible without scrolling. Note: this only guarantees clearance
-          // once scrolled to the true end of a long page — a page whose
-          // content is naturally short enough to end within the bar's own
-          // covered strip on first paint (no scrolling yet triggered) can
-          // still render underneath it there; that gap isn't closed by this
-          // padding alone (2026-08-06, flagged during an audit follow-up,
-          // not independently re-verified in-browser this session — check
-          // an actual narrow phone/emulated viewport before trusting this
-          // is fully closed).
-          pb={tourActive ? { base: '190px', md: '110px' } : undefined}
-          transition="padding-bottom .2s ease"
-        >
-          <PageHeaderContext.Provider value={setPageHeader}>
-            <Outlet />
-          </PageHeaderContext.Provider>
+        {/* flex column so the footer below always sits right after the page
+            content and never rides up under it on a short page — it's
+            pushed to the true bottom by the content block's flex-grow,
+            the standard "sticky footer" layout. */}
+        <Box as="main" flex={1} minW={0} w="100%" display="flex" flexDirection="column">
+          <Box
+            flex="1 0 auto"
+            w="100%"
+            maxW="1340px"
+            mx="auto"
+            p={{ base: '16px 16px 56px', md: '22px 34px 60px' }}
+            // Spotlight's tour bar is fixed to the bottom of the screen — this
+            // reserves matching blank space so scrolling all the way down
+            // never puts real content behind it either, not just the parts
+            // visible without scrolling. Note: this only guarantees clearance
+            // once scrolled to the true end of a long page — a page whose
+            // content is naturally short enough to end within the bar's own
+            // covered strip on first paint (no scrolling yet triggered) can
+            // still render underneath it there; that gap isn't closed by this
+            // padding alone (2026-08-06, flagged during an audit follow-up,
+            // not independently re-verified in-browser this session — check
+            // an actual narrow phone/emulated viewport before trusting this
+            // is fully closed).
+            pb={tourActive ? { base: '190px', md: '110px' } : undefined}
+            transition="padding-bottom .2s ease"
+          >
+            <PageHeaderContext.Provider value={setPageHeader}>
+              <Outlet />
+            </PageHeaderContext.Provider>
+          </Box>
+
+          {!tourActive && <Footer />}
         </Box>
       </Flex>
     </Flex>
