@@ -7,4 +7,11 @@ export const ROUTES = {
   select: '/select',
   results: '/results',
   howItWorks: '/how-it-works',
+  brands: '/brands',
+  brand: '/brands/:slug',
+  brandFor: (slug) => `/brands/${slug}`,
+  about: '/about',
+  contact: '/contact',
+  privacy: '/privacy',
+  terms: '/terms',
 };

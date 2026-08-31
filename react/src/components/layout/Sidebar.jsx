@@ -13,6 +13,7 @@ const ICON_SLOT = 34;
 
 const NAV = [
   { to: ROUTES.home, icon: I.search, label: 'Search', end: true },
+  { to: ROUTES.brands, icon: I.store, label: 'Store deals' },
   { to: ROUTES.howItWorks, icon: I.doc, label: 'What we do', end: true },
 ];
 
@@ -264,6 +265,26 @@ export default function SidebarContent({ onNavigate, collapsed = false, onOpenOn
             The smartest way to buy
           </Text>
         </Box>
+
+        <Flex wrap="wrap" gap="4px 10px" p="2px 0" sx={fx}>
+          {[
+            { to: ROUTES.about, label: 'About' },
+            { to: ROUTES.contact, label: 'Contact' },
+            { to: ROUTES.privacy, label: 'Privacy' },
+            { to: ROUTES.terms, label: 'Terms' },
+          ].map((l) => (
+            <Link
+              key={l.to}
+              as={RouterLink}
+              to={l.to}
+              fontSize="11px"
+              color="text3"
+              _hover={{ color: 'text2', textDecoration: 'underline' }}
+            >
+              {l.label}
+            </Link>
+          ))}
+        </Flex>
 
         <Box h="1px" bg="border" mt="12px" />
 
