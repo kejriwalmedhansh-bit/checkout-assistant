@@ -5,7 +5,10 @@ import { I } from '@/components/common/icons';
 import { usePageTitle } from '@/hooks/usePageTitle';
 import { track } from '@/utils/analytics';
 
-const WHATSAPP_NUMBER = '919874400045';
+// Support goes to the founder's personal number — the chatbot number
+// (919874400045, used elsewhere for "use Dealo on WhatsApp instead of the
+// website") is a different product surface, not a support line.
+const SUPPORT_WHATSAPP_NUMBER = '919674400021';
 const SUPPORT_EMAIL = 'medhansh@getdealo.in';
 
 function ContactRow({ icon, label, value, href, isExternal, onClick }) {
@@ -42,15 +45,15 @@ function ContactRow({ icon, label, value, href, isExternal, onClick }) {
 export default function ContactPage() {
   usePageTitle('Contact', 'Reach the Dealo team by WhatsApp or email — search support, feedback, and questions about how Gift Voucher deals work.');
 
-  const whatsappHref = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent("Hi! I have a question about Dealo.")}`;
+  const whatsappHref = `https://wa.me/${SUPPORT_WHATSAPP_NUMBER}?text=${encodeURIComponent("Hi! I have a question about Dealo.")}`;
 
   return (
     <InfoPageShell title="Contact" subtitle="Have a question, found a bug, or want to talk to us? Here's how to reach Dealo.">
       <Flex direction="column" gap="10px" mb="20px">
         <ContactRow
           icon={<I.external size={17} />}
-          label="Chat on WhatsApp"
-          value="Search and get answers right in chat"
+          label="WhatsApp support"
+          value="+91 96744 00021"
           href={whatsappHref}
           isExternal
           onClick={() => track('Clicked WhatsApp Button', { source: 'contact_page' })}
@@ -64,7 +67,11 @@ export default function ContactPage() {
       </Flex>
 
       <Text fontSize="12.5px" color="text3" lineHeight={1.6}>
-        There's no separate phone support line yet — the fastest way to reach us is WhatsApp or email above.
+        Looking to use Dealo on WhatsApp instead of the website?{' '}
+        <ChakraLink href="https://wa.me/919874400045" isExternal color="brand" fontWeight={700} textDecoration="underline">
+          Chat with the Dealo bot
+        </ChakraLink>{' '}
+        — that's a different number from support above.
       </Text>
     </InfoPageShell>
   );
