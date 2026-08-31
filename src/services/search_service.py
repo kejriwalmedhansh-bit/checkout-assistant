@@ -1944,6 +1944,19 @@ _STOREFRONT_SUFFIX_RE = re.compile(
 # orphan word.
 _TRAILING_ONLINE_RE = re.compile(r"\s+online$", re.IGNORECASE)
 
+# Flipkart's own <title> template repeats the full product name twice ("<X>
+# Price in India - Buy <X> online at Flipkart.com") — not just a trailing
+# storefront suffix, so _STOREFRONT_SUFFIX_RE never matches it (no
+# ":"/"|"/"-" sits directly before "Flipkart.com"). Confirmed live
+# 2026-08-31 on a real GoPro Hero13 Flipkart link: this shipped as a raw
+# ~230-char duplicated title (both the picker's display name and the
+# broader Google Shopping search query), one plausible cause of the
+# "Flipkart link not detected" client report — a bloated, half-duplicated
+# search query returns weaker/fewer matches than the clean product name
+# would. Truncating at " Price in India" drops the whole "- Buy ... online
+# at ..." tail in one cut, same as the broken-template truncation above.
+_FLIPKART_TEMPLATE_RE = re.compile(r"\s+Price in India\b.*$", re.IGNORECASE)
+
 
 def _extract_page_title(markup: str) -> str | None:
     """og:title -> twitter:title -> <title> from a page's markup, with the
@@ -1978,7 +1991,8 @@ def _extract_page_title(markup: str) -> str | None:
         if low in _BARE_STORE_TITLES or any(b in low for b in _BAD_TITLE_MARKERS):
             logger.info("[url-search] rejected page title %r (bot-wall/bare store)", candidate)
             continue
-        cleaned = _STOREFRONT_SUFFIX_RE.sub("", candidate).strip(" :|-")
+        cleaned = _FLIPKART_TEMPLATE_RE.sub("", candidate).strip()
+        cleaned = _STOREFRONT_SUFFIX_RE.sub("", cleaned).strip(" :|-")
         cleaned = _TRAILING_ONLINE_RE.sub("", cleaned).strip()
         # Whatever's left after the storefront's own suffix is gone, the real
         # product name is still only the first "|"-delimited segment — every
