@@ -74,6 +74,16 @@ class Settings(BaseSettings):
     # Dealo channel (getdealo.in), not the old placeholder "My Channel" (297179)
     # that Cuelinks auto-created from the pre-rebrand Lovable app URL.
     CUELINKS_CID: str = "307742"
+    # Publisher API key (account settings -> API), added 2026-08-31 so the
+    # backend can check campaign status/payout itself instead of relying on
+    # a manually-refreshed snapshot. Same no-hardcoded-fallback convention as
+    # SEARCHAPI_KEY above.
+    CUELINKS_API_KEY: str = ""
+
+    # --- INRDeals affiliate (second network, added 2026-08-31) ---
+    # Fixed per-publisher tracking id (see constants.INRDEALS_BASE) — not a
+    # secret, same category as CUELINKS_CID above.
+    INRDEALS_PUBLISHER_ID: str = "med579083413"
 
     # --- This backend's own public URL, no trailing slash ---
     # Used to build /go redirect links (see api/routers/redirect.py) so

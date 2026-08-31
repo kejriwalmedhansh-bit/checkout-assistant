@@ -24,9 +24,18 @@ SEARCHAPI_DEFAULTS = {"gl": "in", "hl": "en"}
 WHATSAPP_GRAPH_VERSION = "v20.0"
 WHATSAPP_GRAPH_BASE = "https://graph.facebook.com"
 
-# --- Cuelinks affiliate wrapping ---
+# --- Affiliate wrapping ---
 # Merchant store links are wrapped; Gyftr voucher links are deliberately NOT.
 CUELINKS_BASE = "https://linksredirect.com/?cid={cid}&source=linkkit&url={url}"
+
+# INRDeals — added 2026-08-31 as a second affiliate network, used only for
+# brands data/affiliate_coverage.json says pay better (or are only live)
+# there, e.g. Amazon, which has no Cuelinks program at all. `id` is a fixed
+# per-publisher identifier (confirmed stable across brands/regenerations by
+# hand in the INRDeals dashboard), not per-brand — the per-brand part is
+# `campaign`, which must match that brand's own campaign type (cps/cpa/...)
+# from affiliate_coverage.json, or the link won't track correctly.
+INRDEALS_BASE = "https://inr.deals/track?id={publisher_id}&src=dealo-backend&campaign={campaign_type}&url={url}"
 
 # --- L1 merchant guards (ported from pipeline.py) ---
 MANUAL_TRUSTED_MERCHANTS = [
