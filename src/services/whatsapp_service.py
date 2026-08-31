@@ -583,22 +583,22 @@ async def send_typing_indicator(message_id: str | None) -> None:
     """Marks the triggering message read and shows WhatsApp's native typing
     indicator (visible up to 25s, or until we send a reply) — replaces the
     old "Checking prices..." text bubble with no chat message spent at all.
+
+    Routed through the same _post_graph retry+admin-alert path every other
+    send uses (2026-08-31: this used to fire-and-forget with a bare print
+    on failure — the one send in the whole file with no retry and no way
+    for a real, ongoing failure to ever reach a person, unlike send_cta_url's
+    fix earlier in this file for the exact same silent-failure pattern).
     Never raises: a missed typing indicator must not block the real search."""
     if not message_id:
         return
-    api_url, headers = _graph_config()
     payload = {
         "messaging_product": "whatsapp",
         "status": "read",
         "message_id": message_id,
         "typing_indicator": {"type": "text"},
     }
-    try:
-        async with httpx.AsyncClient() as client:
-            r = await client.post(api_url, headers=headers, json=payload)
-            print(f"[WhatsApp Send] Status: {r.status_code} | Body: {r.text}")
-    except Exception as e:
-        print(f"[WhatsApp Send] typing indicator failed: {e}")
+    await _post_graph(payload, context=f"typing indicator for message {message_id}")
 
 
 _TYPING_REFRESH_SECONDS = 20  # Meta's indicator expires after 25s — refresh before that.
