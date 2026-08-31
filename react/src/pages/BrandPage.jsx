@@ -4,8 +4,43 @@ import { Navigate, useNavigate, useParams } from 'react-router-dom';
 import InfoPageShell from '@/components/common/InfoPageShell';
 import { I } from '@/components/common/icons';
 import { getBrandDeal } from '@/data/brandDeals';
+import { useJsonLd } from '@/hooks/useJsonLd';
 import { usePageTitle } from '@/hooks/usePageTitle';
 import { ROUTES } from '@/routes/paths';
+
+const SITE_URL = 'https://getdealo.in';
+
+/**
+ * HowTo (matches the numbered redemption steps shown on the page) +
+ * BreadcrumbList, not Product/Offer — Dealo doesn't sell the voucher or
+ * take a price on this page, it explains a discount rate, so Offer schema
+ * would misrepresent what's actually here and risks Google rejecting or
+ * penalizing the markup for not matching visible content.
+ */
+function buildJsonLd(brand) {
+  return [
+    {
+      '@context': 'https://schema.org',
+      '@type': 'HowTo',
+      name: `How to get the ${brand.name} Gift Voucher discount`,
+      description: brand.blurb,
+      step: brand.steps.map((text, i) => ({
+        '@type': 'HowToStep',
+        position: i + 1,
+        text,
+      })),
+    },
+    {
+      '@context': 'https://schema.org',
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Dealo', item: `${SITE_URL}/` },
+        { '@type': 'ListItem', position: 2, name: 'Store deals', item: `${SITE_URL}/brands` },
+        { '@type': 'ListItem', position: 3, name: brand.name, item: `${SITE_URL}/brands/${brand.slug}` },
+      ],
+    },
+  ];
+}
 
 function Badge({ children, ...props }) {
   return (
@@ -54,6 +89,8 @@ export default function BrandPage() {
   const { slug } = useParams();
   const navigate = useNavigate();
   const brand = getBrandDeal(slug);
+
+  useJsonLd(brand ? buildJsonLd(brand) : null);
 
   usePageTitle(
     brand ? `${brand.name} Gift Voucher discount` : 'Store not found',

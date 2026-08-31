@@ -2,13 +2,64 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <meta name="mitgo-verification" content="d6949ac6-f675-4185-9dcb-fba12afd9144" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="index, follow" />
+    <meta name="theme-color" content="#FAFAF7" />
     <title>Dealo</title>
     <meta
       name="description"
       content="Dealo finds the cheapest legitimate way to buy anything online in India — stacking discounted gift vouchers with cashback cards to cut your final checkout price."
     />
+    <link rel="canonical" href="https://getdealo.in/" />
+
+    <!--
+      Open Graph / Twitter card — the tags a link preview (WhatsApp, Twitter,
+      LinkedIn, Slack) actually reads. usePageTitle keeps these in sync with
+      the title/description of whichever page is open (see that file); the
+      values below are just the fallback for the very first paint and for
+      any page that doesn't call the hook.
+    -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Dealo" />
+    <meta property="og:title" content="Dealo — Never pay full price, just search the product" />
+    <meta
+      property="og:description"
+      content="Dealo finds the cheapest legitimate way to buy anything online in India — stacking discounted gift vouchers with cashback cards to cut your final checkout price."
+    />
+    <meta property="og:url" content="https://getdealo.in/" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Dealo — Never pay full price, just search the product" />
+    <meta
+      name="twitter:description"
+      content="Dealo finds the cheapest legitimate way to buy anything online in India — stacking discounted gift vouchers with cashback cards to cut your final checkout price."
+    />
+
+    <!--
+      Organization + WebSite structured data — lets Google show the getdealo
+      brand name/logo in search results and enables the sitelink search box.
+      Site-wide and static (not page-specific), so it lives here rather than
+      in the per-page SEO hook.
+    -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "getdealo",
+        "url": "https://getdealo.in/",
+        "logo": "https://getdealo.in/favicon.svg",
+        "sameAs": []
+      }
+    </script>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "Dealo",
+        "url": "https://getdealo.in/"
+      }
+    </script>
 
     <!--
       Legacy-host auto-redirect. Dealo moved off the geobuild.in subdomain to

@@ -4,6 +4,7 @@ import { Link as RouterLink } from 'react-router-dom';
 
 import BackButton from '@/components/common/BackButton';
 import { I } from '@/components/common/icons';
+import { useJsonLd } from '@/hooks/useJsonLd';
 import { usePageHeader } from '@/hooks/usePageHeader';
 import { usePageTitle } from '@/hooks/usePageTitle';
 import { ROUTES } from '@/routes/paths';
@@ -23,6 +24,19 @@ const FAQS = [
     a: "No. Our top recommendation never requires one. If you do have a card, we'll show you when it saves you a little more — never as a requirement.",
   },
 ];
+
+// Eligible for Google's FAQ rich result — the on-page copy and this data
+// are the same three questions, kept in the same array on purpose so they
+// can never drift apart.
+const FAQ_JSON_LD = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: FAQS.map((f) => ({
+    '@type': 'Question',
+    name: f.q,
+    acceptedAnswer: { '@type': 'Answer', text: f.a },
+  })),
+};
 
 function FaqItem({ q, a, defaultOpen = false }) {
   const [open, setOpen] = useState(defaultOpen);
@@ -228,7 +242,11 @@ function DealoMarkLine({ size = 22 }) {
 }
 
 export default function HowItWorksPage() {
-  usePageTitle('How it works');
+  usePageTitle(
+    'How it works',
+    'How Dealo finds the cheapest legitimate way to buy something online — from pasting a product link to checking out with a discounted Gift Voucher.'
+  );
+  useJsonLd(FAQ_JSON_LD);
 
   const backControl = <BackButton fallback={ROUTES.home} iconOnly />;
   // Below `lg` this renders in AppLayout's mobile top bar instead of an

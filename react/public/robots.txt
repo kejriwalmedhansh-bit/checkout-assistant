@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /select
+Disallow: /results
+
+Sitemap: https://getdealo.in/sitemap.xml
