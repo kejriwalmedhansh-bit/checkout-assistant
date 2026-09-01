@@ -177,13 +177,17 @@ export default function AppLayout() {
           </Flex>
         </Flex>
 
-        {/* flex column so the footer below always sits right after the page
-            content and never rides up under it on a short page — it's
-            pushed to the true bottom by the content block's flex-grow,
-            the standard "sticky footer" layout. */}
-        <Box as="main" flex={1} minW={0} w="100%" display="flex" flexDirection="column">
+        {/* Footer follows content in normal flow — no flex-grow forcing the
+            content block to fill the whole viewport first. That "sticky
+            footer" pattern (tried 2026-09-01) is right for an app shell with
+            substantial content on every page, but it made a short page like
+            the homepage hero stretch to fill exactly one screen before the
+            footer could start, leaving a large dead gap above it on mobile
+            — not how real marketing pages (Stripe, Airbnb, Amazon) behave;
+            their footers just sit right after whatever content is actually
+            there, short or long. */}
+        <Box as="main" flex={1} minW={0} w="100%">
           <Box
-            flex="1 0 auto"
             w="100%"
             maxW="1340px"
             mx="auto"
