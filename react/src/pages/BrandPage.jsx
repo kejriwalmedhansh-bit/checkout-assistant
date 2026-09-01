@@ -140,7 +140,7 @@ export default function BrandPage() {
 
   return (
     <InfoPageShell title={`${brand.name} Gift Voucher deal`} subtitle={brand.tagline}>
-      <BrandAvatar name={brand.name} size={48} logoSrc={`/brand-logos/${brand.slug}.png`} radius="14px" fontSize="18px" />
+      <BrandAvatar name={brand.name} size={72} logoSrc={`/brand-logos/${brand.slug}.png`} radius="14px" fontSize="26px" />
       <Flex align="center" gap="8px" mt="14px" mb="20px" flexWrap="wrap">
         <Badge bg="brandSoft" color="brandText">
           <I.zap size={12} />

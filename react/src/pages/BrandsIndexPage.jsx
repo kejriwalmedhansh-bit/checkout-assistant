@@ -44,7 +44,7 @@ function FlagshipCard({ brand }) {
       bg="surface2"
       _hover={{ textDecoration: 'none', borderColor: 'borderStrong', bg: 'surface3' }}
     >
-      <BrandAvatar name={brand.name} size={38} logoSrc={`/brand-logos/${brand.slug}.png`} />
+      <BrandAvatar name={brand.name} size={52} logoSrc={`/brand-logos/${brand.slug}.png`} />
       <Box minW={0} flex={1}>
         <Text m="0 0 2px" fontSize="14px" fontWeight={800} noOfLines={1}>
           {brand.name}

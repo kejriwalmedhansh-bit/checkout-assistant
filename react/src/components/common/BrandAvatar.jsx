@@ -29,30 +29,23 @@ export default function BrandAvatar({ name, size = 36, radius, fontSize, logoSrc
   const resolvedRadius = radius || `${Math.round(size * 0.3)}px`;
 
   if (logoSrc && !imgFailed) {
+    // No background/border box here on purpose — most of these logo files
+    // already carry their own brand-colour fill (Croma's teal tile, the
+    // Flipkart bag, etc.), so wrapping them in a white card made them read
+    // as a sticker stuck onto the row instead of an actual mark. Letting
+    // the image sit directly on the surrounding surface is what makes it
+    // blend in.
     return (
-      <Flex
+      <Box
+        as="img"
+        src={logoSrc}
+        alt={`${name} logo`}
         w={`${size}px`}
         h={`${size}px`}
         flex="0 0 auto"
-        align="center"
-        justify="center"
-        borderRadius={resolvedRadius}
-        bg="surface"
-        border="1px solid"
-        borderColor="border"
-        overflow="hidden"
-        p={`${Math.round(size * 0.12)}px`}
-      >
-        <Box
-          as="img"
-          src={logoSrc}
-          alt={`${name} logo`}
-          w="100%"
-          h="100%"
-          objectFit="contain"
-          onError={() => setImgFailed(true)}
-        />
-      </Flex>
+        objectFit="contain"
+        onError={() => setImgFailed(true)}
+      />
     );
   }
 
