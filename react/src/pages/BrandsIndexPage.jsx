@@ -103,12 +103,14 @@ export default function BrandsIndexPage() {
     `Compare Gift Voucher discount rates across ${ALL_BRAND_DEALS.length}+ Indian stores — search any brand and go straight to whichever voucher partner has the best rate.`
   );
 
+  const trimmedQuery = query.trim();
+
   const filtered = useMemo(() => {
-    const q = query.trim().toLowerCase();
-    let list = q ? LONG_TAIL.filter((b) => b.name.toLowerCase().includes(q)) : LONG_TAIL;
-    list = [...list].sort((a, b) => (sort === 'az' ? a.name.localeCompare(b.name) : b.pct - a.pct));
-    return list;
-  }, [query, sort]);
+    if (!trimmedQuery) return [];
+    const q = trimmedQuery.toLowerCase();
+    const list = LONG_TAIL.filter((b) => b.name.toLowerCase().includes(q));
+    return [...list].sort((a, b) => (sort === 'az' ? a.name.localeCompare(b.name) : b.pct - a.pct));
+  }, [trimmedQuery, sort]);
 
   return (
     <InfoPageShell
@@ -139,43 +141,49 @@ export default function BrandsIndexPage() {
           <Input
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            placeholder="Search a store name…"
+            placeholder="Search for the brand you're looking for…"
             h="42px"
             borderRadius="12px"
             fontSize="13.5px"
             bg="surface"
           />
         </InputGroup>
-        <Select
-          value={sort}
-          onChange={(e) => setSort(e.target.value)}
-          w={{ base: '140px', sm: '180px' }}
-          flex="0 0 auto"
-          h="42px"
-          borderRadius="12px"
-          fontSize="13px"
-          fontWeight={600}
-          bg="surface"
-        >
-          <option value="rate">Highest rate</option>
-          <option value="az">A–Z</option>
-        </Select>
+        {trimmedQuery && (
+          <Select
+            value={sort}
+            onChange={(e) => setSort(e.target.value)}
+            w={{ base: '140px', sm: '180px' }}
+            flex="0 0 auto"
+            h="42px"
+            borderRadius="12px"
+            fontSize="13px"
+            fontWeight={600}
+            bg="surface"
+          >
+            <option value="rate">Highest rate</option>
+            <option value="az">A–Z</option>
+          </Select>
+        )}
       </Flex>
 
-      <Text fontSize="11.5px" color="text3" mb="10px">
-        {filtered.length} store{filtered.length === 1 ? '' : 's'}
-      </Text>
+      {trimmedQuery && (
+        <>
+          <Text fontSize="11.5px" color="text3" mb="10px">
+            {filtered.length} store{filtered.length === 1 ? '' : 's'}
+          </Text>
 
-      {filtered.length === 0 ? (
-        <Text fontSize="13px" color="text3" py="20px" textAlign="center">
-          No store matches "{query}" yet — search it on Dealo instead and we'll check its rate live.
-        </Text>
-      ) : (
-        <Grid templateColumns={{ base: '1fr', sm: 'repeat(2, 1fr)' }} gap="8px">
-          {filtered.map((b) => (
-            <BrandRow key={`${b.source}-${b.name}`} brand={b} />
-          ))}
-        </Grid>
+          {filtered.length === 0 ? (
+            <Text fontSize="13px" color="text3" py="20px" textAlign="center">
+              No store matches "{trimmedQuery}" yet — search it on Dealo instead and we'll check its rate live.
+            </Text>
+          ) : (
+            <Grid templateColumns={{ base: '1fr', sm: 'repeat(2, 1fr)' }} gap="8px">
+              {filtered.map((b) => (
+                <BrandRow key={`${b.source}-${b.name}`} brand={b} />
+              ))}
+            </Grid>
+          )}
+        </>
       )}
 
       <Box mt="24px">
