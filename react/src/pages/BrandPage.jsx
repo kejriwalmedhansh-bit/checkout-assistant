@@ -1,6 +1,7 @@
 import { Box, Button, Flex, Text } from '@chakra-ui/react';
 import { Navigate, useNavigate, useParams } from 'react-router-dom';
 
+import BrandAvatar from '@/components/common/BrandAvatar';
 import InfoPageShell from '@/components/common/InfoPageShell';
 import { I } from '@/components/common/icons';
 import { getBrandDeal } from '@/data/brandDeals';
@@ -139,7 +140,8 @@ export default function BrandPage() {
 
   return (
     <InfoPageShell title={`${brand.name} Gift Voucher deal`} subtitle={brand.tagline}>
-      <Flex align="center" gap="8px" mb="20px" flexWrap="wrap">
+      <BrandAvatar name={brand.name} size={48} logoSrc={`/brand-logos/${brand.slug}.png`} radius="14px" fontSize="18px" />
+      <Flex align="center" gap="8px" mt="14px" mb="20px" flexWrap="wrap">
         <Badge bg="brandSoft" color="brandText">
           <I.zap size={12} />
           {brand.ratePct}% off, checked {brand.lastChecked}

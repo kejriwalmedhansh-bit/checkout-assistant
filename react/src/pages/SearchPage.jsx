@@ -81,43 +81,10 @@ export default function SearchPage() {
         position="relative"
         zIndex={1}
       >
-        {/* On mobile, AppLayout's own sticky topbar already shows a small
-            "dealo" wordmark right above this page — this bigger hero logo
-            repeats it, so the gap between them (pt above + mb below) needs
-            to stay tight on phones specifically, not match the generous
-            desktop spacing, or it reads as a large empty gap between two
-            copies of the same logo. */}
-        <Box mb={{ base: '10px', md: '22px' }}>
-          <Link as={RouterLink} to={ROUTES.home} _hover={{ textDecoration: 'none' }}>
-            <Logo size={{ base: '40px', md: '68px' }} />
-          </Link>
-        </Box>
-
-        <Text
-          as="h1"
-          fontSize={{ base: '26px', md: '44px' }}
-          fontWeight={800}
-          letterSpacing="-.03em"
-          lineHeight={1.12}
-          color="text"
-          m={0}
-        >
-          Never pay full price,{' '}
-          <Box as="span" color="brand">
-            just search the product.
-          </Box>
-        </Text>
-        <Text fontSize={{ base: '13px', md: '15px' }} color="text2" mt={{ base: '8px', md: '12px' }} maxW="440px" lineHeight={1.5}>
-          Paste any product link, or type what you want to buy. We check every store and every
-          gift-voucher discount, then show you the cheapest way to actually pay — no credit card
-          needed.
-        </Text>
-
         <Box
           position="relative"
           zIndex={searchBoxHighlighted && searchBoxDim ? 201 : undefined}
           w="100%"
-          mt={{ base: '18px', md: '36px' }}
           bg="surface"
           border="1.5px solid"
           borderColor="brand"
@@ -143,6 +110,37 @@ export default function SearchPage() {
             placeholder={'e.g. "Onitsuka Tiger Mexico 66" or paste a link'}
           />
         </Box>
+
+        {/* On mobile, AppLayout's own sticky topbar already shows a small
+            "dealo" wordmark right above this page — this bigger hero logo
+            repeats it, so the gap above it needs to stay tight on phones
+            specifically, not match the generous desktop spacing, or it
+            reads as a large empty gap between two copies of the same logo. */}
+        <Box mt={{ base: '18px', md: '36px' }} mb={{ base: '10px', md: '22px' }}>
+          <Link as={RouterLink} to={ROUTES.home} _hover={{ textDecoration: 'none' }}>
+            <Logo size={{ base: '40px', md: '68px' }} />
+          </Link>
+        </Box>
+
+        <Text
+          as="h1"
+          fontSize={{ base: '26px', md: '44px' }}
+          fontWeight={800}
+          letterSpacing="-.03em"
+          lineHeight={1.12}
+          color="text"
+          m={0}
+        >
+          Never pay full price,{' '}
+          <Box as="span" color="brand">
+            just search the product.
+          </Box>
+        </Text>
+        <Text fontSize={{ base: '13px', md: '15px' }} color="text2" mt={{ base: '8px', md: '12px' }} maxW="440px" lineHeight={1.5}>
+          Paste any product link, or type what you want to buy. We check every store and every
+          gift-voucher discount, then show you the cheapest way to actually pay — no credit card
+          needed.
+        </Text>
 
         <Box
           w="100%"

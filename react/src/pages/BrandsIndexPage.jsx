@@ -44,7 +44,7 @@ function FlagshipCard({ brand }) {
       bg="surface2"
       _hover={{ textDecoration: 'none', borderColor: 'borderStrong', bg: 'surface3' }}
     >
-      <BrandAvatar name={brand.name} size={38} />
+      <BrandAvatar name={brand.name} size={38} logoSrc={`/brand-logos/${brand.slug}.png`} />
       <Box minW={0} flex={1}>
         <Text m="0 0 2px" fontSize="14px" fontWeight={800} noOfLines={1}>
           {brand.name}
@@ -118,15 +118,6 @@ export default function BrandsIndexPage() {
       subtitle={`Every store below sells Gift Vouchers at a discount through an official partner — buy one, spend it like store credit, save the difference. ${ALL_BRAND_DEALS.length}+ stores tracked across our voucher partners.`}
       maxW="920px"
     >
-      <Text as="h2" m="0 0 12px" fontSize="13px" fontWeight={700} color="text3" letterSpacing=".02em" textTransform="uppercase">
-        Flagship stores
-      </Text>
-      <Grid templateColumns={{ base: '1fr', sm: 'repeat(2, 1fr)', md: 'repeat(3, 1fr)' }} gap="10px" mb="32px">
-        {BRAND_DEALS.map((b) => (
-          <FlagshipCard key={b.slug} brand={b} />
-        ))}
-      </Grid>
-
       <Text as="h2" m="0 0 12px" fontSize="15px" fontWeight={800} letterSpacing="-.01em">
         Search every store we track
       </Text>
@@ -185,6 +176,15 @@ export default function BrandsIndexPage() {
           )}
         </>
       )}
+
+      <Text as="h2" m="32px 0 12px" fontSize="13px" fontWeight={700} color="text3" letterSpacing=".02em" textTransform="uppercase">
+        Popular stores
+      </Text>
+      <Grid templateColumns={{ base: '1fr', sm: 'repeat(2, 1fr)', md: 'repeat(3, 1fr)' }} gap="10px">
+        {BRAND_DEALS.map((b) => (
+          <FlagshipCard key={b.slug} brand={b} />
+        ))}
+      </Grid>
 
       <Box mt="24px">
         <Text fontSize="12.5px" color="text3" lineHeight={1.6}>
