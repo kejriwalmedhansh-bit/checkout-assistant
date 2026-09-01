@@ -8,7 +8,6 @@ import SearchBox from '@/components/common/SearchBox';
 import { HOW_IT_WORKS } from '@/components/onboarding/tourSteps';
 import TourRing from '@/components/onboarding/TourRing';
 import { useTourHighlight } from '@/components/onboarding/useTourHighlight';
-import { I } from '@/components/common/icons';
 import { gradients } from '@/theme/foundations/colors';
 import { usePageTitle } from '@/hooks/usePageTitle';
 import { ROUTES } from '@/routes/paths';
@@ -75,16 +74,41 @@ export default function SearchPage() {
         align="center"
         justify="center"
         textAlign="center"
-        maxW="640px"
+        maxW="600px"
         mx="auto"
-        pt={{ base: '12px', md: '64px' }}
+        pt={{ base: '8px', md: '48px' }}
         position="relative"
         zIndex={1}
       >
+        {/* Logo leads on this page — search box, headline and everything
+            below now read in natural top-down order instead of the old
+            search-box-then-logo-below-it sequence, which is what read as
+            "weird." AppLayout's sidebar/topbar logo is a separate nav
+            element, not a duplicate of this one. */}
+        <Link as={RouterLink} to={ROUTES.home} _hover={{ textDecoration: 'none' }} mb={{ base: '14px', md: '20px' }}>
+          <Logo size={{ base: '30px', md: '38px' }} />
+        </Link>
+
+        <Text
+          as="h1"
+          fontSize={{ base: '24px', md: '38px' }}
+          fontWeight={800}
+          letterSpacing="-.03em"
+          lineHeight={1.14}
+          color="text"
+          m={0}
+        >
+          Never pay full price.{' '}
+          <Box as="span" color="brand">
+            Just search.
+          </Box>
+        </Text>
+
         <Box
           position="relative"
           zIndex={searchBoxHighlighted && searchBoxDim ? 201 : undefined}
           w="100%"
+          mt={{ base: '18px', md: '28px' }}
           bg="surface"
           border="1.5px solid"
           borderColor="brand"
@@ -94,16 +118,6 @@ export default function SearchPage() {
           textAlign="left"
         >
           {searchBoxHighlighted && <TourRing />}
-          <Text
-            fontSize="10.5px"
-            fontWeight={700}
-            color="brandText"
-            textTransform="uppercase"
-            letterSpacing=".05em"
-            mb="8px"
-          >
-            Type product name or paste link here
-          </Text>
           <SearchBox
             initialValue={query}
             onSubmit={handleSubmit}
@@ -111,45 +125,21 @@ export default function SearchPage() {
           />
         </Box>
 
-        {/* On mobile, AppLayout's own sticky topbar already shows a small
-            "dealo" wordmark right above this page — this bigger hero logo
-            repeats it, so the gap above it needs to stay tight on phones
-            specifically, not match the generous desktop spacing, or it
-            reads as a large empty gap between two copies of the same logo. */}
-        <Box mt={{ base: '18px', md: '36px' }} mb={{ base: '10px', md: '22px' }}>
-          <Link as={RouterLink} to={ROUTES.home} _hover={{ textDecoration: 'none' }}>
-            <Logo size={{ base: '40px', md: '68px' }} />
-          </Link>
-        </Box>
-
-        <Text
-          as="h1"
-          fontSize={{ base: '26px', md: '44px' }}
-          fontWeight={800}
-          letterSpacing="-.03em"
-          lineHeight={1.12}
-          color="text"
-          m={0}
-        >
-          Never pay full price,{' '}
-          <Box as="span" color="brand">
-            just search the product.
-          </Box>
-        </Text>
-        <Text fontSize={{ base: '13px', md: '15px' }} color="text2" mt={{ base: '8px', md: '12px' }} maxW="440px" lineHeight={1.5}>
-          Paste any product link, or type what you want to buy. We check every store and every
-          gift-voucher discount, then show you the cheapest way to actually pay — no credit card
-          needed.
-        </Text>
-
+        {/* The 3-icon strip is the "how it works" copy — pictures instead
+            of a sentence, per PRODUCT.md. It also carries the one thing the
+            old paragraph + separate "Heads up" banner used to spell out in
+            two blocks of prose: step 2's icon (a ticket, not a card) is
+            the entire "you're buying a voucher, not paying us" signal, and
+            the caption underneath gives the one fact a picture can't:
+            that it only takes 30 seconds. */}
         <Box
           w="100%"
-          mt={{ base: '14px', md: '28px' }}
+          mt={{ base: '16px', md: '26px' }}
           bg="surface"
           border="1px solid"
           borderColor="border"
           borderRadius="lg"
-          p={{ base: '14px 10px', md: '16px 14px' }}
+          p={{ base: '16px 10px 12px', md: '20px 14px 14px' }}
         >
           {/* Grid, not flex — three genuinely equal-width columns (1fr each)
               with the two arrows in their own fixed-width columns between
@@ -157,57 +147,65 @@ export default function SearchPage() {
               spacing because the columns' widths depended on how long each
               label's text happened to be; a grid keeps every icon centered
               in an equal slice of the row regardless of label length. */}
-          <Box display="grid" gridTemplateColumns="1fr auto 1fr auto 1fr" alignItems="center">
+          <Box display="grid" gridTemplateColumns="1fr auto 1fr auto 1fr" alignItems="start">
             {HOW_IT_WORKS.map((step, i) => (
               <Fragment key={step.label}>
                 <Flex direction="column" align="center" gap="6px" minW="0" px="4px">
                   <Flex
-                    w="38px"
-                    h="38px"
-                    flex="0 0 38px"
+                    w="42px"
+                    h="42px"
+                    flex="0 0 42px"
                     borderRadius="12px"
                     align="center"
                     justify="center"
                     bg={i === HOW_IT_WORKS.length - 1 ? 'greenSoft' : 'amberSoft'}
                     color={i === HOW_IT_WORKS.length - 1 ? 'green' : 'amber'}
                   >
-                    <step.icon size={20} />
+                    <step.icon size={22} />
                   </Flex>
                   <Text fontSize="11px" fontWeight={700} color="text" textAlign="center" lineHeight={1.25}>
                     {step.label}
                   </Text>
+                  {step.caption && (
+                    <Text
+                      fontFamily="mono"
+                      fontSize="9.5px"
+                      color="text3"
+                      textAlign="center"
+                      lineHeight={1.2}
+                      mt="-2px"
+                    >
+                      {step.caption}
+                    </Text>
+                  )}
                 </Flex>
+                {/* Connector echoes the logo mark's own dashed path instead
+                    of a generic chevron — the same visual language used for
+                    "route" appears here as literally connecting the steps
+                    of a route. */}
                 {i < HOW_IT_WORKS.length - 1 && (
-                  <Box color="border" px="4px">
-                    <I.chevRight size={16} />
+                  <Box mt="19px" px="2px" flex="0 0 auto">
+                    <svg width="22" height="10" viewBox="0 0 22 10" fill="none">
+                      <path
+                        d="M0 5H22"
+                        stroke="var(--chakra-colors-borderStrong)"
+                        strokeWidth="2"
+                        strokeDasharray="4 4"
+                      />
+                      <path
+                        d="M17 1L21 5L17 9"
+                        stroke="var(--chakra-colors-borderStrong)"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                    </svg>
                   </Box>
                 )}
               </Fragment>
             ))}
           </Box>
         </Box>
-
-        <Flex
-          w="100%"
-          mt={{ base: '10px', md: '12px' }}
-          gap="9px"
-          align="flex-start"
-          bg="amberSoft"
-          borderRadius="md"
-          p="11px 12px"
-          textAlign="left"
-        >
-          <Box color="amber" mt="1px" flex="0 0 auto">
-            <I.info size={15} />
-          </Box>
-          <Text fontSize="12px" color="text" lineHeight={1.45}>
-            <Text as="span" fontWeight={700}>
-              Heads up:
-            </Text>{' '}
-            step 2 is buying a small voucher yourself. Takes 30 seconds — that's how the discount
-            works.
-          </Text>
-        </Flex>
       </Flex>
     </Box>
   );
