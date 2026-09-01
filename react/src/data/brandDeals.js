@@ -7,6 +7,11 @@
  * crawl. Discount rates are the last-checked rate as of the date below —
  * revisit periodically so a stale page doesn't undersell (or oversell) the
  * live number.
+ *
+ * `multiUse` / `canClub` back the "Quick facts" block on BrandPage — both
+ * pulled from data/gyftr_master.json's `one_time_use` / `can_club_with_offers`
+ * fields (2026-09-01 snapshot). `canClub: null` means Gyftr's own data has no
+ * value for that field — shown as "not stated" rather than guessed.
  */
 export const BRAND_DEALS = [
   {
@@ -25,6 +30,8 @@ export const BRAND_DEALS = [
       'Add it to your Amazon Pay balance and check out on amazon.in as usual.',
     ],
     notes: 'Up to ₹50,000 in Gift Vouchers can be added to your Amazon Pay balance per calendar month.',
+    multiUse: true,
+    canClub: null,
   },
   {
     slug: 'flipkart',
@@ -42,6 +49,8 @@ export const BRAND_DEALS = [
       'Add it under Saved Cards & Wallets on Flipkart, then pay with it at checkout.',
     ],
     notes: 'Up to 15 Gift Vouchers can be combined in a single Flipkart order.',
+    multiUse: true,
+    canClub: null,
   },
   {
     slug: 'myntra',
@@ -59,6 +68,8 @@ export const BRAND_DEALS = [
       'Add it under Myntra Credit in your profile, then pay with it at checkout.',
     ],
     notes: "Doesn't apply to Gold & Silver coins or Fine Jewellery on Myntra.",
+    multiUse: true,
+    canClub: null,
   },
   {
     slug: 'croma',
@@ -76,6 +87,8 @@ export const BRAND_DEALS = [
       'Apply it at checkout on croma.com, or show it to the cashier in-store before billing.',
     ],
     notes: 'Up to 5 Gift Vouchers can be used on a single Croma.com order; it can also be combined with other Croma offers.',
+    multiUse: false,
+    canClub: true,
   },
   {
     slug: 'reliance-digital',
@@ -93,6 +106,8 @@ export const BRAND_DEALS = [
       'Visit the store and share the voucher code with the cashier before billing.',
     ],
     notes: "Doesn't apply to Gold/Silver coins, Fine Jewellery, or a few excluded brands — check with the store before you buy.",
+    multiUse: false,
+    canClub: null,
   },
   {
     slug: 'ajio',
@@ -110,6 +125,8 @@ export const BRAND_DEALS = [
       "Add it under 'Have a Gift Card?' in your AJIO Wallet, then pay with it at checkout.",
     ],
     notes: "Doesn't apply to gold/silver idols, coins, or fine jewellery on AJIO.",
+    multiUse: true,
+    canClub: null,
   },
 ];
 

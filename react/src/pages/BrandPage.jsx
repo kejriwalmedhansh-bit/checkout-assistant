@@ -61,6 +61,42 @@ function Badge({ children, ...props }) {
   );
 }
 
+function Fact({ icon, label, value }) {
+  return (
+    <Flex align="flex-start" gap="10px" p="13px 14px" borderRadius="13px" bg="surface2" border="1px solid" borderColor="border">
+      <Flex flex="0 0 auto" w="30px" h="30px" align="center" justify="center" borderRadius="9px" bg="brassSoft" color="brass">
+        {icon}
+      </Flex>
+      <Box>
+        <Text m="0 0 2px" fontSize="11.5px" fontWeight={700}>
+          {label}
+        </Text>
+        <Text m={0} fontSize="11.5px" color="text2" lineHeight={1.45}>
+          {value}
+        </Text>
+      </Box>
+    </Flex>
+  );
+}
+
+function whereToRedeem(brand) {
+  if (brand.online && brand.offline) return 'Online and in-store, at any listed outlet';
+  if (brand.offline) return 'In-store only, at any listed outlet';
+  return 'Online only';
+}
+
+function multiUseText(brand) {
+  if (brand.multiUse === true) return 'Multi-use — spend it across as many orders as you like';
+  if (brand.multiUse === false) return 'Single-use — the full voucher value is redeemed in one go';
+  return 'Not stated by the store';
+}
+
+function canClubText(brand) {
+  if (brand.canClub === true) return 'Yes — can be combined with other running offers';
+  if (brand.canClub === false) return 'No — cannot be combined with other offers';
+  return 'Not stated — treat as store credit only';
+}
+
 function Step({ n, children }) {
   return (
     <Flex align="flex-start" gap="12px" mb="14px">
@@ -125,6 +161,15 @@ export default function BrandPage() {
             {s}
           </Step>
         ))}
+      </Box>
+
+      <Text as="h2" m="0 0 14px" fontSize="15px" fontWeight={800} letterSpacing="-.01em">
+        Quick facts
+      </Text>
+      <Box display="grid" gridTemplateColumns={{ base: '1fr', sm: 'repeat(2, 1fr)' }} gap="10px" mb="22px">
+        <Fact icon={<I.globe size={15} />} label="Where to redeem" value={whereToRedeem(brand)} />
+        <Fact icon={<I.doc size={15} />} label="Multi-use or single-use" value={multiUseText(brand)} />
+        <Fact icon={<I.check size={15} />} label="Can be clubbed with offers" value={canClubText(brand)} />
       </Box>
 
       {brand.notes && (

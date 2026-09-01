@@ -1,7 +1,8 @@
 import { useMemo, useState } from 'react';
-import { Box, Flex, Grid, Input, InputGroup, InputLeftElement, Link as ChakraLink, Text } from '@chakra-ui/react';
+import { Box, Flex, Grid, Input, InputGroup, InputLeftElement, Link as ChakraLink, Select, Text } from '@chakra-ui/react';
 import { Link as RouterLink } from 'react-router-dom';
 
+import BrandAvatar from '@/components/common/BrandAvatar';
 import InfoPageShell from '@/components/common/InfoPageShell';
 import { I } from '@/components/common/icons';
 import ALL_BRAND_DEALS from '@/data/allBrandDeals.json';
@@ -34,27 +35,25 @@ function FlagshipCard({ brand }) {
       as={RouterLink}
       to={ROUTES.brandFor(brand.slug)}
       display="flex"
-      flexDirection="column"
-      gap="8px"
-      p="18px"
-      borderRadius="18px"
+      alignItems="center"
+      gap="12px"
+      p="14px"
+      borderRadius="16px"
       border="1px solid"
       borderColor="border"
       bg="surface2"
       _hover={{ textDecoration: 'none', borderColor: 'borderStrong', bg: 'surface3' }}
     >
-      <Flex align="center" justify="space-between">
-        <Text m={0} fontSize="15px" fontWeight={800}>
+      <BrandAvatar name={brand.name} size={38} />
+      <Box minW={0} flex={1}>
+        <Text m="0 0 2px" fontSize="14px" fontWeight={800} noOfLines={1}>
           {brand.name}
         </Text>
-        <Flex align="center" gap="4px" px="9px" py="3px" borderRadius="99px" bg="brandSoft" color="brandText" fontSize="11.5px" fontWeight={700}>
-          <I.zap size={11} />
+        <Flex align="center" gap="4px" fontSize="11.5px" fontWeight={700} color="brandText">
+          <I.zap size={10} />
           {brand.ratePct}% off
         </Flex>
-      </Flex>
-      <Text m={0} fontSize="12.5px" color="text2" lineHeight={1.5}>
-        {brand.tagline}
-      </Text>
+      </Box>
     </ChakraLink>
   );
 }
@@ -67,38 +66,37 @@ function BrandRow({ brand }) {
       onClick={() => track('Clicked Brand Voucher Link', { brand: brand.name, source: brand.source, pct: brand.pct })}
       display="flex"
       alignItems="center"
-      justifyContent="space-between"
-      gap="12px"
-      p="12px 14px"
-      borderRadius="12px"
+      gap="10px"
+      p="10px 12px"
+      borderRadius="13px"
       border="1px solid"
       borderColor="border"
       bg="surface2"
       _hover={{ textDecoration: 'none', borderColor: 'borderStrong', bg: 'surface3' }}
     >
-      <Box minW={0}>
-        <Text m={0} fontSize="13.5px" fontWeight={700} noOfLines={1}>
+      <BrandAvatar name={brand.name} size={32} />
+      <Box minW={0} flex={1}>
+        <Text m={0} fontSize="12.5px" fontWeight={700} noOfLines={1}>
           {brand.name}
         </Text>
-        <Text m={0} fontSize="11px" color="text3">
+        <Text m={0} fontSize="10.5px" color="text3">
           via {SOURCE_LABEL[brand.source] || brand.source}
         </Text>
       </Box>
-      <Flex align="center" gap="8px" flex="0 0 auto">
-        <Flex align="center" gap="4px" px="8px" py="3px" borderRadius="99px" bg="brandSoft" color="brandText" fontSize="11.5px" fontWeight={700}>
-          <I.zap size={10} />
-          {brand.pct}% off
-        </Flex>
-        <Box color="text3">
-          <I.external size={14} />
-        </Box>
+      <Flex align="center" gap="3px" flex="0 0 auto" px="8px" py="3px" borderRadius="99px" bg="brandSoft" color="brandText" fontSize="11px" fontWeight={700}>
+        <I.zap size={10} />
+        {brand.pct}%
       </Flex>
+      <Box color="text3" flex="0 0 auto">
+        <I.external size={13} />
+      </Box>
     </ChakraLink>
   );
 }
 
 export default function BrandsIndexPage() {
   const [query, setQuery] = useState('');
+  const [sort, setSort] = useState('rate');
 
   usePageTitle(
     'Gift Voucher deals by store',
@@ -107,9 +105,10 @@ export default function BrandsIndexPage() {
 
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();
-    if (!q) return LONG_TAIL;
-    return LONG_TAIL.filter((b) => b.name.toLowerCase().includes(q));
-  }, [query]);
+    let list = q ? LONG_TAIL.filter((b) => b.name.toLowerCase().includes(q)) : LONG_TAIL;
+    list = [...list].sort((a, b) => (sort === 'az' ? a.name.localeCompare(b.name) : b.pct - a.pct));
+    return list;
+  }, [query, sort]);
 
   return (
     <InfoPageShell
@@ -117,7 +116,10 @@ export default function BrandsIndexPage() {
       subtitle={`Every store below sells Gift Vouchers at a discount through an official partner — buy one, spend it like store credit, save the difference. ${ALL_BRAND_DEALS.length}+ stores tracked across our voucher partners.`}
       maxW="920px"
     >
-      <Grid templateColumns={{ base: '1fr', sm: 'repeat(2, 1fr)' }} gap="12px" mb="32px">
+      <Text as="h2" m="0 0 12px" fontSize="13px" fontWeight={700} color="text3" letterSpacing=".02em" textTransform="uppercase">
+        Flagship stores
+      </Text>
+      <Grid templateColumns={{ base: '1fr', sm: 'repeat(2, 1fr)', md: 'repeat(3, 1fr)' }} gap="10px" mb="32px">
         {BRAND_DEALS.map((b) => (
           <FlagshipCard key={b.slug} brand={b} />
         ))}
@@ -127,33 +129,53 @@ export default function BrandsIndexPage() {
         Search every store we track
       </Text>
 
-      <InputGroup mb="14px">
-        <InputLeftElement pointerEvents="none" h="42px">
-          <Box color="text3">
-            <I.search size={16} />
-          </Box>
-        </InputLeftElement>
-        <Input
-          value={query}
-          onChange={(e) => setQuery(e.target.value)}
-          placeholder="Search a store name…"
+      <Flex gap="10px" mb="14px">
+        <InputGroup flex={1}>
+          <InputLeftElement pointerEvents="none" h="42px">
+            <Box color="text3">
+              <I.search size={16} />
+            </Box>
+          </InputLeftElement>
+          <Input
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            placeholder="Search a store name…"
+            h="42px"
+            borderRadius="12px"
+            fontSize="13.5px"
+            bg="surface"
+          />
+        </InputGroup>
+        <Select
+          value={sort}
+          onChange={(e) => setSort(e.target.value)}
+          w={{ base: '140px', sm: '180px' }}
+          flex="0 0 auto"
           h="42px"
           borderRadius="12px"
-          fontSize="13.5px"
+          fontSize="13px"
+          fontWeight={600}
           bg="surface"
-        />
-      </InputGroup>
+        >
+          <option value="rate">Highest rate</option>
+          <option value="az">A–Z</option>
+        </Select>
+      </Flex>
+
+      <Text fontSize="11.5px" color="text3" mb="10px">
+        {filtered.length} store{filtered.length === 1 ? '' : 's'}
+      </Text>
 
       {filtered.length === 0 ? (
         <Text fontSize="13px" color="text3" py="20px" textAlign="center">
           No store matches "{query}" yet — search it on Dealo instead and we'll check its rate live.
         </Text>
       ) : (
-        <Flex direction="column" gap="8px" maxH={query ? undefined : '640px'} overflowY={query ? undefined : 'auto'}>
+        <Grid templateColumns={{ base: '1fr', sm: 'repeat(2, 1fr)' }} gap="8px">
           {filtered.map((b) => (
             <BrandRow key={`${b.source}-${b.name}`} brand={b} />
           ))}
-        </Flex>
+        </Grid>
       )}
 
       <Box mt="24px">
