@@ -61,7 +61,7 @@ function FooterCol({ heading, links }) {
  */
 export default function Footer() {
   return (
-    <Box as="footer" mt="64px" borderTop="1px solid" borderColor="border">
+    <Box as="footer" mt={{ base: '28px', md: '64px' }} borderTop="1px solid" borderColor="border">
       <Flex
         maxW="1340px"
         mx="auto"

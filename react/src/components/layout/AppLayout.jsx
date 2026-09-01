@@ -191,7 +191,7 @@ export default function AppLayout() {
             w="100%"
             maxW="1340px"
             mx="auto"
-            p={{ base: '16px 16px 56px', md: '22px 34px 60px' }}
+            p={{ base: '16px 16px 32px', md: '22px 34px 60px' }}
             // Spotlight's tour bar is fixed to the bottom of the screen — this
             // reserves matching blank space so scrolling all the way down
             // never puts real content behind it either, not just the parts
