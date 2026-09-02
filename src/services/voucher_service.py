@@ -499,3 +499,186 @@ def build_deals(results: list[dict], product_name: str = "") -> list[dict]:
         })
 
     return deals
+
+
+def _headline_rate(record: dict | None, source: str) -> tuple[float, dict, str | None] | None:
+    """Best UPI headline discount % for a brand record, with no price in
+    hand to compute a real ₹ saving against (the Chrome extension's
+    checkout-price read failed or wasn't attempted). Gyftr always has
+    exactly one product; Maximize/BuyHatke can have several tiers — picks
+    whichever has the higher UPI rate, same "honest best available signal"
+    approach `search_service._match_brand_voucher` already uses for its own
+    no-price brand-voucher shortcut."""
+    if record is None:
+        return None
+    products = record.get("products") or []
+    if not products:
+        return None
+    if source == "gyftr":
+        product = products[0]
+        pct = (product.get("discounts") or {}).get("UPI") or 0
+        return (pct, product, record.get("brand_name")) if pct else None
+    best = max(products, key=lambda p: p.get("best_discount_pct") or 0, default=None)
+    if not best or not best.get("best_discount_pct"):
+        return None
+    return best["best_discount_pct"], best, record.get("brand_name")
+
+
+def _norm_brand(name: str | None) -> str:
+    return re.sub(r"[^a-z0-9]", "", (name or "").lower())
+
+
+def _redemption_help(merchant_name: str, voucher_source: str) -> tuple[str | None, list]:
+    """The brand's "how do I actually use this code" copy.
+
+    Lives on the brand RECORD, not on the priced tier — reading it off the tier
+    silently returned nothing for every Maximize/BuyHatke brand (boAt has real
+    steps; the journey's final screen showed none). Prefers Gyftr's copy when
+    that brand exists there at all, matching `build_deals`: Gyftr's field has
+    had real manual QA, the others are rougher auto-extraction, and "how to
+    redeem" is a brand fact that doesn't depend on who sold the voucher.
+    """
+    gyftr = voucher_repository.get_by_merchant(merchant_name)
+    if gyftr and (gyftr.get("how_to_redeem_short") or gyftr.get("how_to_redeem_steps")):
+        return gyftr.get("how_to_redeem_short"), gyftr.get("how_to_redeem_steps") or []
+
+    repo = {"maximize": maximize_repository, "buyhatke": buyhatke_repository}.get(voucher_source)
+    record = repo.get_by_merchant(merchant_name) if repo else None
+    if record:
+        return record.get("how_to_redeem_short"), record.get("how_to_redeem_steps") or []
+    return None, []
+
+
+def is_exact_brand_match(queried: str, resolved_brand_name: str | None) -> bool:
+    """True when a lookup resolved to the brand actually asked for, rather
+    than fuzzy-matching onto a same-family sibling ("Ajio" -> "Ajio Luxe")."""
+    return _norm_brand(queried) == _norm_brand(resolved_brand_name)
+
+
+def _prefer_exact_name_matches(candidates: list[tuple], merchant_name: str, brand_index: int) -> list[tuple]:
+    """When at least one source's matched brand_name is an exact (normalized)
+    match for the merchant we actually asked about, restrict to only those —
+    a source that could only fuzzy-match to a same-family sibling (e.g.
+    BuyHatke has no plain "Amazon" listing, only "Amazon Fresh"/"Amazon
+    Shopping", and would otherwise win the % comparison on a technicality)
+    must not outrank a source with the real, exact brand. Live-confirmed
+    2026-08-31: querying "Amazon" returned BuyHatke's unrelated "Amazon
+    Fresh" (1.68%) over Gyftr's/Maximize's correct plain "Amazon" listings,
+    purely because BuyHatke doesn't carry a plain "Amazon" entry at all —
+    same family-brand ambiguity class as the Titan/Trends case, but this one
+    has a real, exact match available on other sources to prefer instead of
+    leaving it unresolved."""
+    target = _norm_brand(merchant_name)
+    exact = [c for c in candidates if _norm_brand(c[brand_index]) == target]
+    return exact or candidates
+
+
+def get_voucher_check(merchant_name: str, price: float | None = None) -> dict | None:
+    """Single merchant-name lookup across all 3 voucher sources, for the
+    Chrome extension's checkout-page popup (`GET /voucher-check`). Returns
+    None if no source has a voucher for this merchant at all.
+
+    With a real `price`, reuses the same priced per-source lookups
+    (`get_best_voucher_deal` / `get_best_maximize_deal` /
+    `get_best_buyhatke_deal`) `build_deals` already uses for routes, keeping
+    whichever source gives the lowest effective price — real ₹ savings, not
+    a guess. Without a price (the extension couldn't read one confidently
+    off the page), falls back to each source's own headline UPI rate and
+    keeps the highest one — a % is still honest without a price; a ₹ figure
+    would not be.
+    """
+    if price:
+        gyftr_record = voucher_repository.get_by_merchant(merchant_name)
+        gyftr_voucher = (
+            {**gyftr_record, **((gyftr_record.get("products") or [{}])[0])} if gyftr_record else None
+        )
+        gyftr_deal = get_best_voucher_deal(merchant_name, price) if gyftr_record else None
+
+        maximize_result = get_best_maximize_deal(merchant_name, price)
+        maximize_deal, maximize_tier, maximize_brand_name = (
+            maximize_result if maximize_result else (None, None, None)
+        )
+
+        buyhatke_result = get_best_buyhatke_deal(merchant_name, price)
+        buyhatke_deal, buyhatke_tier, buyhatke_brand_name = (
+            buyhatke_result if buyhatke_result else (None, None, None)
+        )
+
+        candidates = [
+            c for c in (
+                (gyftr_deal, "gyftr", gyftr_voucher.get("brand_name") if gyftr_voucher else None, gyftr_voucher),
+                (maximize_deal, "maximize", maximize_brand_name, maximize_tier),
+                (buyhatke_deal, "buyhatke", buyhatke_brand_name, buyhatke_tier),
+            )
+            if c[0] is not None
+        ]
+        if not candidates:
+            return None
+        candidates = _prefer_exact_name_matches(candidates, merchant_name, brand_index=2)
+        deal, voucher_source, brand_name, voucher = min(
+            candidates, key=lambda c: c[0]["effective_price"]
+        )
+
+        # What the same purchase would earn paid by card instead. The rate we
+        # promise on the store's checkout page is the UPI rate, so if the
+        # shopper pays for the voucher by card the promised saving silently
+        # shrinks (Nykaa: 5% by UPI, 3% by card). The extension needs this to
+        # warn them at the moment they're choosing how to pay.
+        card_pct = 0.0
+        try:
+            card_pct = calculate_effective_price(price, voucher, "card")["voucher_discount_pct"]
+        except Exception:
+            pass
+
+        redeem_short, redeem_steps = _redemption_help(merchant_name, voucher_source)
+        return {
+            "has_voucher": True,
+            "brand_name": brand_name or merchant_name,
+            "voucher_source": voucher_source,
+            "pct": deal["voucher_discount_pct"],
+            "saving": deal["voucher_discount_amount"],
+            "effective_price": deal["effective_price"],
+            "voucher_url": deal["voucher_url"],
+            "priced": True,
+            # --- everything below powers the guided journey ---
+            "voucher_amount": deal.get("voucher_amount"),
+            "remainder": deal.get("remainder_at_checkout") or 0,
+            "purchase_breakdown": deal.get("purchase_breakdown") or "",
+            "denomination_breakdown": deal.get("denomination_breakdown") or [],
+            "txns_needed": deal.get("txns_needed", 1),
+            "card_pct": card_pct,
+            "how_to_redeem_short": redeem_short,
+            "how_to_redeem_steps": redeem_steps,
+        }
+
+    raw_hits = (
+        ("gyftr", _headline_rate(voucher_repository.get_by_merchant(merchant_name), "gyftr")),
+        ("maximize", _headline_rate(maximize_repository.get_by_merchant(merchant_name), "maximize")),
+        ("buyhatke", _headline_rate(buyhatke_repository.get_by_merchant(merchant_name), "buyhatke")),
+    )
+    hits = [(pct, product, brand_name, source) for source, hit in raw_hits if hit for pct, product, brand_name in [hit]]
+    if not hits:
+        return None
+    hits = _prefer_exact_name_matches(hits, merchant_name, brand_index=2)
+    pct, product, brand_name, voucher_source = max(hits, key=lambda h: h[0])
+    voucher_url = product.get("voucher_url") or product.get("source_url")
+    if voucher_source == "gyftr" and not voucher_url:
+        voucher_url = f"https://www.gyftr.com/{product.get('slug') or ''}"
+
+    # "Where do I enter this code" doesn't depend on knowing the order total —
+    # but it used to be returned only on the priced path, so a shopper whose
+    # cart total couldn't be read lost the redemption coaching entirely, which
+    # is the most valuable part of the last step (found in live testing).
+    redeem_short, redeem_steps = _redemption_help(merchant_name, voucher_source)
+    return {
+        "has_voucher": True,
+        "brand_name": brand_name or merchant_name,
+        "voucher_source": voucher_source,
+        "pct": pct,
+        "saving": None,
+        "effective_price": None,
+        "voucher_url": voucher_url,
+        "priced": False,
+        "how_to_redeem_short": redeem_short,
+        "how_to_redeem_steps": redeem_steps,
+    }

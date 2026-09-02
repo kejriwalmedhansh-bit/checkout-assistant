@@ -1,0 +1,462 @@
+/* Dealo checkout popup.
+   Built to the Dealo Brand Kit (Figma: "Dealo Brand Kit", 01 Colors & Type),
+   not the older green "Ledger" system in design-system/dealo/MASTER.md —
+   confirmed with the user 2026-08-31. Palette and type roles are taken from
+   the kit's own named styles:
+     Navy #1F3A5F   — price / savings callouts
+     Terracotta     — labels, tags, CTA buttons
+     Ink #16202B    — headlines, body
+     Linen #F5F0E8  — ground
+     Slate #6B7A8D  — secondary text
+   Plus Jakarta Sans Bold = headlines; Inter = prices, body, CTA labels.
+
+   Fonts are bundled locally (not fetched from Google) so the popup renders
+   correctly on every site, offline included. Both latin and latin-ext
+   subsets ship: the rupee sign (U+20B9) only exists in latin-ext, and every
+   figure here is a rupee amount. */
+
+@font-face {
+  font-family: "Dealo Jakarta";
+  src: url("../fonts/PlusJakartaSans-700-latin.woff2") format("woff2");
+  font-weight: 700;
+  font-display: swap;
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: "Dealo Jakarta";
+  src: url("../fonts/PlusJakartaSans-700-latin-ext.woff2") format("woff2");
+  font-weight: 700;
+  font-display: swap;
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: "Dealo Inter";
+  src: url("../fonts/Inter-latin.woff2") format("woff2");
+  font-weight: 400 500;
+  font-display: swap;
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: "Dealo Inter";
+  src: url("../fonts/Inter-latin-ext.woff2") format("woff2");
+  font-weight: 400 500;
+  font-display: swap;
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+#dealo-popup-root {
+  all: initial;
+  position: fixed;
+  z-index: 2147483647;
+  bottom: 20px;
+  right: 20px;
+  font-family: "Dealo Inter", -apple-system, "Segoe UI", sans-serif;
+}
+
+/* Shifted out of the way when the site already parks its own chat bubble in
+   the bottom-right corner (see popup.js cornerIsOccupied). */
+#dealo-popup-root.dealo-shifted {
+  right: auto;
+  left: 20px;
+}
+
+#dealo-popup-root .dealo-card {
+  width: 320px;
+  background: #F5F0E8;
+  border: 1px solid #E3DACB;
+  border-radius: 14px;
+  box-shadow: 0 10px 30px rgba(22, 32, 43, 0.24);
+  padding: 18px;
+  color: #16202B;
+  box-sizing: border-box;
+  opacity: 0;
+  animation: dealoIn 0.48s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes dealoIn {
+  from { opacity: 0; transform: translateY(28px) scale(0.96); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+#dealo-popup-root .dealo-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+/* The kit's "Wordmark Only" treatment: lowercase, Jakarta Bold, navy with a
+   terracotta "o". */
+#dealo-popup-root .dealo-brand {
+  font-family: "Dealo Jakarta", -apple-system, sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: #1F3A5F;
+}
+#dealo-popup-root .dealo-brand-o { color: #C2712F; }
+
+#dealo-popup-root .dealo-close {
+  cursor: pointer;
+  border: none;
+  background: none;
+  color: #6B7A8D;
+  font-size: 18px;
+  line-height: 1;
+  padding: 2px 6px;
+  border-radius: 6px;
+}
+#dealo-popup-root .dealo-close:hover { color: #16202B; }
+
+#dealo-popup-root .dealo-message {
+  font-family: "Dealo Jakarta", -apple-system, sans-serif;
+  font-weight: 700;
+  font-size: 15px;
+  line-height: 1.35;
+  color: #16202B;
+  margin-bottom: 4px;
+}
+
+/* The kit's own "Price Callout" role: Inter Medium, Navy. */
+#dealo-popup-root .dealo-figure {
+  font-family: "Dealo Inter", ui-sans-serif, sans-serif;
+  font-variant-numeric: tabular-nums;
+  font-weight: 500;
+  font-size: 30px;
+  line-height: 1.1;
+  color: #1F3A5F;
+  margin: 10px 0 14px;
+}
+
+/* The kit's own "Label Tag" role: Inter Medium, Terracotta — its stated use
+   is "labels, tags, CTA buttons". */
+#dealo-popup-root .dealo-button {
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+  background: #C2712F;
+  color: #FFFFFF;
+  text-align: center;
+  padding: 11px 12px;
+  border-radius: 10px;
+  border: none;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  cursor: pointer;
+}
+#dealo-popup-root .dealo-button:hover { background: #A85F26; }
+
+/* One-time highlight on arrival — a single moment, never a repeating pulse. */
+#dealo-popup-root .dealo-button.dealo-ring {
+  animation: dealoRing 1s ease-out 0.48s 1;
+}
+@keyframes dealoRing {
+  0%   { box-shadow: 0 0 0 0 rgba(194, 113, 47, 0.5); }
+  100% { box-shadow: 0 0 0 10px rgba(194, 113, 47, 0); }
+}
+
+#dealo-popup-root .dealo-button.dealo-secondary {
+  background: transparent;
+  color: #16202B;
+  border: 1px solid #C7BFAF;
+}
+#dealo-popup-root .dealo-button.dealo-secondary:hover { background: #EBE4D8; }
+
+#dealo-popup-root .dealo-explain-toggle {
+  display: block;
+  width: 100%;
+  margin-top: 10px;
+  background: none;
+  border: none;
+  padding: 2px 0;
+  font-family: inherit;
+  font-size: 12.5px;
+  color: #6B7A8D;
+  text-align: left;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  cursor: pointer;
+}
+#dealo-popup-root .dealo-explain-toggle:hover { color: #16202B; }
+
+#dealo-popup-root .dealo-explain {
+  margin-top: 8px;
+  padding: 10px 12px;
+  background: #FFFFFF;
+  border: 1px solid #E3DACB;
+  border-radius: 10px;
+  font-size: 12.5px;
+  line-height: 1.5;
+  color: #6B7A8D;
+}
+
+/* --- visual language: fewer words, more picture --------------------------- */
+
+/* Progress as dots, replacing a "Step 2 of 3" line. */
+#dealo-popup-root .dealo-dots { display: flex; gap: 5px; align-items: center; margin-left: auto; margin-right: 10px; }
+#dealo-popup-root .dealo-dot { width: 7px; height: 7px; border-radius: 50%; background: #C7BFAF; }
+#dealo-popup-root .dealo-dot-on { background: #C2712F; }
+#dealo-popup-root .dealo-dot-done { background: #4A9B8E; }
+
+/* The number is the message, so it leads and nothing competes with it. */
+#dealo-popup-root .dealo-figure-tight { margin: 2px 0 0; }
+#dealo-popup-root .dealo-caption { font-size: 13px; color: #6B7A8D; margin-top: 2px; }
+
+/* The whole journey, before they commit: voucher -> pay -> done. */
+#dealo-popup-root .dealo-journey { display: flex; align-items: center; gap: 8px; margin: 14px 0; }
+#dealo-popup-root .dealo-j-step {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  padding: 9px 4px;
+  background: #FFFFFF;
+  border: 1px solid #E3DACB;
+  border-radius: 10px;
+}
+#dealo-popup-root .dealo-j-step span { font-size: 10.5px; color: #6B7A8D; }
+
+/* Denominations as tiles that mirror the buttons on the voucher site. */
+#dealo-popup-root .dealo-chips { display: flex; gap: 7px; flex-wrap: wrap; margin: 12px 0 2px; }
+#dealo-popup-root .dealo-chip {
+  font-variant-numeric: tabular-nums;
+  font-weight: 500;
+  font-size: 15px;
+  color: #16202B;
+  background: #FFFFFF;
+  border: 1px solid #C7BFAF;
+  border-radius: 9px;
+  padding: 7px 12px;
+}
+#dealo-popup-root .dealo-mult { color: #6B7A8D; font-size: 12px; }
+
+/* UPI vs card as a tick against a crossed-out number, not two sentences. */
+#dealo-popup-root .dealo-pay { margin: 12px 0 4px; border: 1px solid #E3DACB; border-radius: 10px; overflow: hidden; }
+#dealo-popup-root .dealo-pay-row {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 9px 11px;
+  background: #FFFFFF;
+  font-size: 14px;
+}
+#dealo-popup-root .dealo-pay-row + .dealo-pay-row { border-top: 1px solid #E3DACB; }
+#dealo-popup-root .dealo-pct { margin-left: auto; font-variant-numeric: tabular-nums; font-weight: 600; }
+#dealo-popup-root .dealo-good .dealo-pct { color: #4A9B8E; }
+#dealo-popup-root .dealo-bad { color: #6B7A8D; }
+#dealo-popup-root .dealo-bad .dealo-pct { color: #6B7A8D; text-decoration: line-through; }
+
+/* What's still owed, as a figure rather than a sentence. */
+#dealo-popup-root .dealo-left {
+  font-family: "Dealo Inter", ui-sans-serif, sans-serif;
+  font-variant-numeric: tabular-nums;
+  font-weight: 500;
+  font-size: 15px;
+  color: #16202B;
+  margin-top: 12px;
+}
+#dealo-popup-root .dealo-left span { color: #6B7A8D; font-size: 12.5px; font-weight: 400; }
+
+#dealo-popup-root .dealo-done-mark {
+  width: 44px;
+  height: 44px;
+  display: grid;
+  place-items: center;
+  background: #FFFFFF;
+  border: 1px solid #E3DACB;
+  border-radius: 50%;
+  margin-bottom: 10px;
+}
+
+#dealo-popup-root .dealo-withicon { display: flex; align-items: center; justify-content: center; gap: 8px; }
+#dealo-popup-root .dealo-centered { text-align: center; text-decoration: none; }
+#dealo-popup-root .dealo-centered:hover { text-decoration: underline; text-underline-offset: 2px; }
+
+/* --- guided journey ------------------------------------------------------ */
+
+#dealo-popup-root .dealo-step {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #C2712F;
+  margin-bottom: 6px;
+}
+
+#dealo-popup-root .dealo-sub {
+  font-size: 12.5px;
+  line-height: 1.5;
+  color: #6B7A8D;
+  margin-top: 8px;
+}
+
+#dealo-popup-root .dealo-warn {
+  margin: 10px 0 4px;
+  padding: 9px 11px;
+  background: #FFFFFF;
+  border: 1px solid #E3DACB;
+  border-radius: 10px;
+  font-size: 12.5px;
+  line-height: 1.5;
+  color: #16202B;
+}
+#dealo-popup-root .dealo-warn b { color: #C2712F; }
+
+/* Exactly what to buy — the most actionable line on the voucher-site step.
+   Was styled as quiet secondary text and was near-invisible in real use. */
+#dealo-popup-root .dealo-buy {
+  font-family: "Dealo Inter", ui-sans-serif, sans-serif;
+  font-variant-numeric: tabular-nums;
+  font-weight: 500;
+  font-size: 16px;
+  color: #16202B;
+  background: #FFFFFF;
+  border: 1px solid #E3DACB;
+  border-radius: 10px;
+  padding: 10px 12px;
+  margin: 10px 0 4px;
+}
+
+/* Code and PIN are two separate values typed into two separate boxes. */
+#dealo-popup-root .dealo-field { margin: 12px 0; }
+
+#dealo-popup-root .dealo-field-label {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: #6B7A8D;
+  margin-bottom: 4px;
+}
+
+#dealo-popup-root .dealo-field-row {
+  display: flex;
+  align-items: stretch;
+  gap: 8px;
+}
+
+#dealo-popup-root .dealo-code {
+  flex: 1;
+  min-width: 0;
+  font-family: "Dealo Inter", ui-monospace, monospace;
+  font-variant-numeric: tabular-nums;
+  font-weight: 500;
+  font-size: 16px;
+  color: #1F3A5F;
+  background: #FFFFFF;
+  border: 1px solid #E3DACB;
+  border-radius: 10px;
+  padding: 9px 11px;
+  word-break: break-all;
+}
+
+#dealo-popup-root .dealo-copy-btn {
+  flex-shrink: 0;
+  width: 42px;
+  display: grid;
+  place-items: center;
+  background: #FFFFFF;
+  color: #16202B;
+  border: 1px solid #C7BFAF;
+  border-radius: 10px;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+}
+#dealo-popup-root .dealo-copy-btn:hover { background: #E0D7C8; }
+#dealo-popup-root .dealo-button:disabled { opacity: 0.55; cursor: default; }
+
+/* The pointer: a ring drawn around the store's own gift-card box. */
+#dealo-pointer .dealo-ring-box {
+  position: fixed;
+  z-index: 2147483646;
+  border: 2px solid #C2712F;
+  border-radius: 10px;
+  box-shadow: 0 0 0 4px rgba(194, 113, 47, 0.22);
+  pointer-events: none;
+}
+
+#dealo-pointer .dealo-ring-label {
+  position: fixed;
+  z-index: 2147483647;
+  background: #C2712F;
+  color: #FFFFFF;
+  font-family: "Dealo Inter", -apple-system, sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  padding: 6px 11px;
+  border-radius: 8px;
+  white-space: nowrap;
+  pointer-events: none;
+}
+/* Little tail so it reads as pointing at the box, not floating near it. */
+#dealo-pointer .dealo-ring-label::after {
+  content: "";
+  position: absolute;
+  bottom: -5px;
+  left: 14px;
+  width: 10px;
+  height: 10px;
+  background: #C2712F;
+  transform: rotate(45deg);
+  border-radius: 2px;
+}
+#dealo-pointer .dealo-ring-label-below::after {
+  bottom: auto;
+  top: -5px;
+}
+
+#dealo-popup-root .dealo-input {
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+  font-family: inherit;
+  font-size: 14px;
+  color: #16202B;
+  background: #FFFFFF;
+  border: 1px solid #C7BFAF;
+  border-radius: 10px;
+  padding: 10px 12px;
+  margin: 8px 0;
+}
+#dealo-popup-root .dealo-input:focus-visible { outline: 2px solid #1F3A5F; outline-offset: 1px; }
+
+#dealo-popup-root .dealo-steps {
+  margin: 0;
+  padding-left: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+#dealo-popup-root .dealo-link {
+  display: block;
+  width: 100%;
+  margin-top: 10px;
+  background: none;
+  border: none;
+  padding: 2px 0;
+  font-family: inherit;
+  font-size: 12.5px;
+  color: #6B7A8D;
+  text-align: center;
+  cursor: pointer;
+}
+#dealo-popup-root .dealo-link:hover { color: #16202B; }
+
+#dealo-popup-root button:focus-visible {
+  outline: 2px solid #1F3A5F;
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #dealo-popup-root .dealo-card,
+  #dealo-popup-root .dealo-button.dealo-ring {
+    animation: none;
+    opacity: 1;
+  }
+}
