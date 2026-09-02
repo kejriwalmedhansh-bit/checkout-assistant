@@ -185,6 +185,8 @@ export default function AppLayout() {
         <Box as="main" flex={1} minW={0} w="100%">
           <Box
             minH="100dvh"
+            display="flex"
+            flexDirection="column"
             w="100%"
             maxW="1340px"
             mx="auto"

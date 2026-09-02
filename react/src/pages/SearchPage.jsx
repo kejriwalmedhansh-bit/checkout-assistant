@@ -1,6 +1,6 @@
 import { Fragment, useEffect } from 'react';
-import { Box, Flex, Link, Text } from '@chakra-ui/react';
-import { Link as RouterLink, useNavigate } from 'react-router-dom';
+import { Box, Flex, Text } from '@chakra-ui/react';
+import { useNavigate } from 'react-router-dom';
 
 import FloatingOutlines from '@/components/common/FloatingOutlines';
 import Logo from '@/components/common/Logo';
@@ -42,7 +42,13 @@ export default function SearchPage() {
   };
 
   return (
-    <Box position="relative">
+    <Box
+      position="relative"
+      flex="1"
+      display="flex"
+      alignItems="center"
+      justifyContent="center"
+    >
       {/* Decorative layer only, clipped on its own — this Box (not the page
           content below) is what has overflow="hidden", since clipping the
           whole page also clipped the search box's own glow/shadow at the
@@ -76,7 +82,7 @@ export default function SearchPage() {
         textAlign="center"
         maxW="600px"
         mx="auto"
-        pt={{ base: '8px', md: '48px' }}
+        w="100%"
         position="relative"
         zIndex={1}
       >
@@ -84,10 +90,12 @@ export default function SearchPage() {
             below now read in natural top-down order instead of the old
             search-box-then-logo-below-it sequence, which is what read as
             "weird." AppLayout's sidebar/topbar logo is a separate nav
-            element, not a duplicate of this one. */}
-        <Link as={RouterLink} to={ROUTES.home} _hover={{ textDecoration: 'none' }} mb={{ base: '14px', md: '20px' }}>
+            element, not a duplicate of this one. Not a link: this page IS
+            home, so it has nowhere useful to navigate to — it previously
+            looked clickable (hover states, cursor) but did nothing. */}
+        <Box mb={{ base: '14px', md: '20px' }}>
           <Logo size={{ base: '30px', md: '38px' }} />
-        </Link>
+        </Box>
 
         <Text
           as="h1"
