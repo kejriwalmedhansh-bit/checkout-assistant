@@ -3,7 +3,6 @@ import { Box, Flex, Text } from '@chakra-ui/react';
 import { useNavigate } from 'react-router-dom';
 
 import FloatingOutlines from '@/components/common/FloatingOutlines';
-import Logo from '@/components/common/Logo';
 import SearchBox from '@/components/common/SearchBox';
 import { HOW_IT_WORKS } from '@/components/onboarding/tourSteps';
 import TourRing from '@/components/onboarding/TourRing';
@@ -46,7 +45,7 @@ export default function SearchPage() {
       position="relative"
       flex="1"
       display="flex"
-      alignItems="center"
+      alignItems="flex-start"
       justifyContent="center"
     >
       {/* Decorative layer only, clipped on its own — this Box (not the page
@@ -78,25 +77,18 @@ export default function SearchPage() {
       <Flex
         direction="column"
         align="center"
-        justify="center"
         textAlign="center"
         maxW="600px"
         mx="auto"
         w="100%"
+        pt={{ base: '56px', md: '96px' }}
         position="relative"
         zIndex={1}
       >
-        {/* Logo leads on this page — search box, headline and everything
-            below now read in natural top-down order instead of the old
-            search-box-then-logo-below-it sequence, which is what read as
-            "weird." AppLayout's sidebar/topbar logo is a separate nav
-            element, not a duplicate of this one. Not a link: this page IS
-            home, so it has nowhere useful to navigate to — it previously
-            looked clickable (hover states, cursor) but did nothing. */}
-        <Box mb={{ base: '28px', md: '40px' }}>
-          <Logo size={{ base: '30px', md: '38px' }} />
-        </Box>
-
+        {/* The headline leads — no repeated logo here. AppLayout's
+            sidebar/topbar already shows the wordmark on every page,
+            including this one, so a second copy a few pixels below it
+            was pure duplication, not reinforcement. */}
         <Text
           as="h1"
           fontSize={{ base: '24px', md: '38px' }}
