@@ -1630,7 +1630,7 @@
         "best_payment_method": "UPI",
         "best_discount_pct": 0.75,
         "stack_limit": null,
-        "value_cap": null,
+        "value_cap": 50000.0,
         "purchase_cap_per_txn": 187500,
         "status": "active",
         "last_scraped": "2026-08-26"
@@ -6923,7 +6923,7 @@
         "best_payment_method": "UPI",
         "best_discount_pct": 1.25,
         "stack_limit": null,
-        "value_cap": null,
+        "value_cap": 50000.0,
         "purchase_cap_per_txn": null,
         "status": "active",
         "last_scraped": "2026-08-26"

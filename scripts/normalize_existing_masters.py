@@ -45,6 +45,34 @@ _UP_TO_N_PATTERNS = [
     r'\(?up\s*to\s+(\d+)\)?\s+can\s+be\s+used',
 ]
 
+# A stated ceiling on how much voucher value can actually be REDEEMED, as
+# opposed to how much can be bought in one go. Amazon's terms say "Gift
+# Vouchers over INR 50,000 CANNOT be added to wallet per calendar month",
+# and that number lived only in the free-text terms — so Dealo happily told
+# a shopper with a ₹60,403 basket to buy ₹60,403 of Amazon credit, ₹10,403
+# of which they could not have used this month (found in real use,
+# 2026-09-02). Only Amazon states such a ceiling across the whole Gyftr
+# catalogue, so this stays deliberately narrow rather than becoming a
+# general free-text money parser.
+_VALUE_CAP_PATTERNS = [
+    r'(?:gift\s+)?vouchers?\s+over\s+(?:INR|Rs\.?|₹)\s*([\d,]+)\s*CANNOT\s+be\s+added\s+to\s+wallet',
+    r'maximum\s+of\s+(?:INR|Rs\.?|₹)\s*([\d,]+)\s*(?:gift\s+)?(?:vouchers?|cards?)\s+(?:can\s+be\s+added|per\s+calendar\s+month)',
+]
+
+
+def parse_value_cap(text: str):
+    """The redemption ceiling stated in a brand's own terms, or None."""
+    if not text:
+        return None
+    for pattern in _VALUE_CAP_PATTERNS:
+        m = re.search(pattern, text, re.I)
+        if m:
+            try:
+                return float(m.group(1).replace(",", ""))
+            except ValueError:
+                continue
+    return None
+
 # An explicit "multiple vouchers CAN be used/combined" statement, with no
 # number given. Found (2026-08-10) contradicting Maximize's own multi_use=False
 # flag for 21 real brands (Tasva, HealthKart, Vijay Sales, PVR/INOX, etc.) —
@@ -111,7 +139,13 @@ def normalize_gyftr(gyftr_data: dict) -> dict:
                     "best_payment_method": brand.get("best_payment_method"),
                     "best_discount_pct": brand.get("best_discount_pct"),
                     "stack_limit": brand.get("stack_limit"),
-                    "value_cap": brand.get("value_cap"),
+                    # Fall back to the ceiling stated in the brand's own terms
+                    # when the structured field is empty (see _VALUE_CAP_PATTERNS).
+                    "value_cap": brand.get("value_cap") or parse_value_cap(
+                        (brand.get("important_instructions_raw") or "")
+                        + " "
+                        + (brand.get("full_terms_and_conditions") or "")
+                    ),
                     "purchase_cap_per_txn": brand.get("purchase_cap_per_txn"),
                     "status": brand.get("status", "active"),
                     "last_scraped": brand.get("last_scraped"),

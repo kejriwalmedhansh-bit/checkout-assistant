@@ -260,6 +260,24 @@
 }
 #dealo-popup-root .dealo-left span { color: #6B7A8D; font-size: 12.5px; font-weight: 400; }
 
+/* The privacy promise: a lock beats a sentence, and it needs to be seen. */
+#dealo-popup-root .dealo-private {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  margin-top: 11px;
+  font-size: 12.5px;
+  font-weight: 500;
+  color: #4A9B8E;
+}
+
+/* Anchors styled as buttons need the button box explicitly. */
+#dealo-popup-root a.dealo-button {
+  text-decoration: none;
+  margin-top: 8px;
+}
+
 #dealo-popup-root .dealo-done-mark {
   width: 44px;
   height: 44px;

@@ -366,7 +366,19 @@
     const result = await askBackground(domain, price);
     if (!result) return; // backend unreachable — stay silent, no broken UI
 
-    if (result.has_voucher) {
+    // A voucher worth less than the errand is worse than no voucher: the
+    // shopper spends real effort for a trivial saving and stops trusting the
+    // popup. Only applies when the total is known — with no total there's no
+    // rupee figure to judge, and the percentage is all anyone has.
+    const cfg = self.__dealoConfig;
+    const tooSmall =
+      result.has_voucher &&
+      result.priced &&
+      result.saving != null &&
+      result.saving < cfg.MIN_SAVING_TO_OFFER &&
+      (result.pct ?? 0) < cfg.MIN_RATE_TO_OFFER;
+
+    if (result.has_voucher && !tooSmall) {
       // Carry the order total through: the popup needs it to state the saving
       // as a share of THIS order rather than the voucher's headline rate.
       result.cart_total = price;

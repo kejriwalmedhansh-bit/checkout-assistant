@@ -52,12 +52,45 @@ window.__dealoPopup = (() => {
     copy: `<rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h8"/>`,
     target: `<circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="2.6"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/>`,
     info: `<circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 7.6v.1"/>`,
+    lock: `<rect x="4" y="10.5" width="16" height="10" rx="2"/><path d="M8 10.5V7a4 4 0 0 1 8 0v3.5"/>`,
+    link: `<path d="M10 13a5 5 0 0 0 7 0l3-3a5 5 0 0 0-7-7l-1.5 1.5"/><path d="M14 11a5 5 0 0 0-7 0l-3 3a5 5 0 0 0 7 7L12.5 19.5"/>`,
   };
 
   function svg(name, size = 16, color = "currentColor", width = 2) {
     return `<svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none"
       stroke="${color}" stroke-width="${width}" stroke-linecap="round"
       stroke-linejoin="round" aria-hidden="true">${ICON[name]}</svg>`;
+  }
+
+  // Cut a brand's redemption paragraph down to its first instruction: drop
+  // the "Alternatively…" branch, the sign-up aside, and everything after the
+  // first sentence. Amazon's step 2 is 3 sentences long as written.
+  function shortenStep(text) {
+    let s = String(text || "").replace(/\s+/g, " ").trim();
+    s = s.split(/\.\s+(?:Alternatively|If you are not|Please note|Note:)/i)[0];
+    const firstSentence = s.match(/^.*?[.!?](?=\s|$)/);
+    if (firstSentence && firstSentence[0].length > 25) s = firstSentence[0];
+    return s.length > 110 ? s.slice(0, 107).trimEnd() + "…" : s;
+  }
+
+  function firstUrlIn(steps) {
+    for (const s of steps) {
+      const m = String(s || "").match(/https?:\/\/[^\s,)"']+|(?:^|\s)(www\.[^\s,)"']+)/i);
+      if (m) {
+        const raw = (m[0] || "").trim().replace(/[.,]$/, "");
+        return raw.startsWith("http") ? raw : `https://${raw}`;
+      }
+    }
+    return null;
+  }
+
+  function prettyHost(url) {
+    try {
+      const u = new URL(url);
+      return (u.hostname.replace(/^www\./, "") + u.pathname).replace(/\/$/, "");
+    } catch (e) {
+      return url;
+    }
   }
 
   function dots(step) {
@@ -76,19 +109,15 @@ window.__dealoPopup = (() => {
     const priced = d.priced;
     const orderTotal = d.cartTotal ?? deal.cart_total;
 
-    if (priced && saving != null && saving >= self.__dealoConfig.RUPEE_HEADLINE_FROM) {
+    // Rupees whenever the order total is known — which, given the minimum
+    // saving rule, is every offer that gets this far. A concrete figure beats
+    // a percentage, and the percentage was hiding the number that persuades.
+    if (priced && saving != null) {
       return { big: `₹${rupees(saving)}`, caption: "saved on this order" };
     }
-
-    // A voucher can't always cover the whole order — Myntra caps at ₹2,500,
-    // so a ₹4,049 bag saves ₹132, which is 3% of the order, not the voucher's
-    // headline 5.29%. Showing the headline rate there would overstate the
-    // saving, so when the order total is known the percentage is recomputed
-    // against what they're actually paying.
-    if (priced && saving != null && orderTotal > 0) {
-      const realPct = Math.round((saving / orderTotal) * 10) / 10;
-      return { big: `${realPct}%`, caption: "off this order" };
-    }
+    // No total read, so no rupee figure can be stated honestly. The voucher's
+    // own rate is all we know — and it's the rate on the voucher, not on the
+    // order, so it's captioned as such rather than "off this order".
     return { big: `${d.pct}%`, caption: "off with a voucher" };
   }
 
@@ -272,7 +301,10 @@ window.__dealoPopup = (() => {
       <input class="dealo-input" id="dealo-code" type="text" placeholder="Voucher code" autocomplete="off">
       <input class="dealo-input" id="dealo-pin" type="text" placeholder="PIN (if there is one)" autocomplete="off">
       <button class="dealo-button" id="dealo-save-code">Save &amp; go back to ${esc(trip.store.brandName)}</button>
-      <div class="dealo-sub">Kept on this computer only — it never reaches Dealo.</div>
+      <div class="dealo-private">
+        ${svg("lock", 14, "#4A9B8E", 1.9)}
+        <span>Stays on your device</span>
+      </div>
     `, 2);
     const codeEl = root.querySelector("#dealo-code");
     codeEl.focus();
@@ -297,8 +329,21 @@ window.__dealoPopup = (() => {
     const left = !d.priced
       ? ""
       : `<div class="dealo-left">₹${rupees(d.remainder)} <span>left to pay</span></div>`;
+    // The brands write these as paragraphs — Amazon's middle step is three
+    // sentences with an "Alternatively…" branch and a sign-up aside. Nobody
+    // reads that mid-checkout, so each step is cut to its first instruction.
     const steps = (d.howToRedeemSteps || []).slice(0, 3)
-      .map((s) => `<li>${esc(s)}</li>`).join("");
+      .map((s) => `<li>${esc(shortenStep(s))}</li>`).join("");
+
+    // The single most useful thing buried in those paragraphs is the redeem
+    // page's address. Pulled out as a button, it replaces reading entirely.
+    const redeemUrl = firstUrlIn(d.howToRedeemSteps || []);
+    const openBtn = redeemUrl
+      ? `<a class="dealo-button dealo-secondary dealo-withicon" id="dealo-open-redeem"
+            href="${esc(redeemUrl)}" target="_blank" rel="noopener noreferrer">
+           ${svg("link", 15, "currentColor", 1.9)} ${esc(prettyHost(redeemUrl))}
+         </a>`
+      : "";
 
     // Code and PIN are two separate things typed into two separate boxes, so
     // they get two separate rows with their own Copy buttons. Showing them as
@@ -322,6 +367,7 @@ window.__dealoPopup = (() => {
       <button class="dealo-button dealo-ring dealo-withicon" id="dealo-where">
         ${svg("target", 17, "currentColor", 2)} Show me where
       </button>
+      ${openBtn}
       ${steps ? `<button class="dealo-explain-toggle dealo-centered" aria-expanded="false">${svg("info", 13, "currentColor", 2)} steps</button>
                  <div class="dealo-explain" hidden><ol class="dealo-steps">${steps}</ol></div>` : ""}
       <button class="dealo-link dealo-withicon" id="dealo-done">

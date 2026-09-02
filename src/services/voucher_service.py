@@ -329,8 +329,21 @@ def get_best_maximize_deal(merchant_name: str, price: float) -> tuple[dict, dict
     # source_url/platform label flattened in (Maximize's field is
     # source_url, not voucher_url — calculate_effective_price's generic
     # "gyftr.com/{slug}" fallback is only correct for actual Gyftr vouchers).
+    stacks = _store_allows_stacking(merchant_name)
+    store_cap = _store_value_cap(merchant_name)
     tiers = [
-        {**record, **p, "voucher_platform": "Maximize", "voucher_url": p.get("source_url")}
+        {
+            **record, **p,
+            "voucher_platform": "Maximize",
+            "voucher_url": p.get("source_url"),
+            # Same correction as BuyHatke: a reseller's per-order voucher
+            # count describes its own checkout, not what the store accepts.
+            # 58 Maximize brands carry "1 voucher" against stores whose own
+            # terms say vouchers combine.
+            **({"stack_limit": None, "stack_limit_confidence": "unlimited_stated"} if stacks else {}),
+            # The store's own redemption ceiling still applies, whoever sold it.
+            **({"value_cap": store_cap} if store_cap else {}),
+        }
         for p in (record.get("products") or [])
     ]
     result = _best_tier_deal(price, tiers, payment_method="upi")
@@ -338,6 +351,45 @@ def get_best_maximize_deal(merchant_name: str, price: float) -> tuple[dict, dict
         return None
     deal, tier = result
     return deal, tier, record.get("brand_name")
+
+
+def _store_allows_stacking(merchant_name: str) -> bool:
+    """Does the STORE let a shopper combine several vouchers in one order?
+
+    That is a fact about the store, stated in its own terms, and Gyftr's
+    scrape is the only source that parses it (`stack_limit_confidence ==
+    "unlimited_stated"`, e.g. Myntra's "Multiple Gift Vouchers CAN be
+    combined & added to Myntra Wallet").
+
+    It matters because Maximize and BuyHatke report limits about *buying on
+    their own site* — BuyHatke's `maxVoucherPerOrder: 1` means one voucher
+    per BuyHatke order, nothing about what Myntra accepts — and those were
+    being applied as redemption limits. On a ₹4,049 Myntra bag that quoted
+    ₹132 of savings instead of ₹212, because it bought one ₹2,500 voucher
+    instead of ₹2,500 + ₹1,500. Found 2026-09-02 when the shopper pointed
+    out that BuyHatke visibly sells Myntra vouchers far larger than the
+    "cap" we were enforcing.
+    """
+    gyftr = voucher_repository.get_by_merchant(merchant_name)
+    return bool(gyftr) and gyftr.get("stack_limit_confidence") == "unlimited_stated"
+
+
+def _store_value_cap(merchant_name: str) -> float | None:
+    """A ceiling the STORE puts on redemption, e.g. Amazon's "Gift Vouchers
+    over INR 50,000 CANNOT be added to wallet per calendar month".
+
+    Like stacking, this is a fact about the store, so it holds no matter who
+    sold the voucher — but it is only parsed out of Gyftr's terms scrape.
+    Without this, lifting the stacking limit let a Maximize-sourced Amazon
+    deal recommend ₹60,403 of credit, ₹10,403 of which could not have been
+    loaded that month (caught 2026-09-02, immediately after the fix that
+    lifted stacking).
+    """
+    gyftr = voucher_repository.get_by_merchant(merchant_name)
+    if not gyftr:
+        return None
+    caps = [p.get("value_cap") for p in (gyftr.get("products") or []) if p.get("value_cap")]
+    return min(caps) if caps else None
 
 
 def get_best_buyhatke_deal(merchant_name: str, price: float) -> tuple[dict, dict, str | None] | None:
@@ -353,8 +405,26 @@ def get_best_buyhatke_deal(merchant_name: str, price: float) -> tuple[dict, dict
     record = buyhatke_repository.get_by_merchant(merchant_name)
     if record is None:
         return None
+    stacks = _store_allows_stacking(merchant_name)
+    store_cap = _store_value_cap(merchant_name)
     tiers = [
-        {**record, **p, "voucher_platform": "BuyHatke", "voucher_url": p.get("source_url")}
+        {
+            **record, **p,
+            "voucher_platform": "BuyHatke",
+            "voucher_url": p.get("source_url"),
+            # BuyHatke reports a per-order voucher COUNT for its own checkout.
+            # It says nothing about how many the store will accept, and when
+            # the store's own terms say vouchers can be combined, that is the
+            # rule that governs redemption. No value or transaction limit is
+            # inferred here — inventing one is what produced a wrong ₹2,500
+            # ceiling on a brand that visibly sells ₹10,000 vouchers.
+            **({
+                "stack_limit": None,
+                "stack_limit_confidence": "unlimited_stated",
+            } if stacks else {}),
+            # The store's own redemption ceiling still applies, whoever sold it.
+            **({"value_cap": store_cap} if store_cap else {}),
+        }
         for p in (record.get("products") or [])
     ]
     result = _best_tier_deal(price, tiers, payment_method="upi")
