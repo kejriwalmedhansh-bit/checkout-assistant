@@ -93,7 +93,7 @@ export default function SearchPage() {
             element, not a duplicate of this one. Not a link: this page IS
             home, so it has nowhere useful to navigate to — it previously
             looked clickable (hover states, cursor) but did nothing. */}
-        <Box mb={{ base: '14px', md: '20px' }}>
+        <Box mb={{ base: '28px', md: '40px' }}>
           <Logo size={{ base: '30px', md: '38px' }} />
         </Box>
 
@@ -116,7 +116,7 @@ export default function SearchPage() {
           position="relative"
           zIndex={searchBoxHighlighted && searchBoxDim ? 201 : undefined}
           w="100%"
-          mt={{ base: '18px', md: '28px' }}
+          mt={{ base: '32px', md: '52px' }}
           bg="surface"
           border="1.5px solid"
           borderColor="brand"
@@ -142,7 +142,7 @@ export default function SearchPage() {
             that it only takes 30 seconds. */}
         <Box
           w="100%"
-          mt={{ base: '16px', md: '26px' }}
+          mt={{ base: '28px', md: '44px' }}
           bg="surface"
           border="1px solid"
           borderColor="border"
