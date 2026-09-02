@@ -177,17 +177,14 @@ export default function AppLayout() {
           </Flex>
         </Flex>
 
-        {/* Footer follows content in normal flow — no flex-grow forcing the
-            content block to fill the whole viewport first. That "sticky
-            footer" pattern (tried 2026-09-01) is right for an app shell with
-            substantial content on every page, but it made a short page like
-            the homepage hero stretch to fill exactly one screen before the
-            footer could start, leaving a large dead gap above it on mobile
-            — not how real marketing pages (Stripe, Airbnb, Amazon) behave;
-            their footers just sit right after whatever content is actually
-            there, short or long. */}
+        {/* Content is at least a full screen tall on its own (not just
+            flex-grown to the height of its flex row, which only glues the
+            footer to the bottom edge of a short page — still visible with
+            no scroll). This guarantees the footer starts below the fold,
+            so it only ever appears once the user actually scrolls. */}
         <Box as="main" flex={1} minW={0} w="100%">
           <Box
+            minH="100dvh"
             w="100%"
             maxW="1340px"
             mx="auto"
