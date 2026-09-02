@@ -2505,7 +2505,7 @@ def search_candidates(query: str) -> dict:
             # live-fetched price still stands on its own here (possible,
             # though rare, if the title was rejected as a blocked-page
             # placeholder while the price read separately still succeeded).
-            if live_candidate:
+            if live_candidate and live_candidate.get("thumbnail"):
                 out["products"] = [live_candidate]
                 return out
             logger.info("[url-search] no product identifiable from link")
@@ -2540,7 +2540,7 @@ def search_candidates(query: str) -> dict:
             # A live Amazon price stands on its own even if the broader
             # Google Shopping search is down — don't lose it to an
             # unrelated API failure.
-            if live_candidate:
+            if live_candidate and live_candidate.get("thumbnail"):
                 out["products"] = [live_candidate]
                 return out
             logger.info("%s google api error: %s", tag, raw["error"])
@@ -2583,22 +2583,30 @@ def search_candidates(query: str) -> dict:
                 "%s budget %r parsed (min=%s max=%s) -> %d of %d candidate(s) in range",
                 tag, budget_phrase, min_price, max_price, len(products), before_count,
             )
-        if live_candidate:
-            # Added after filtering, not before: this candidate is the exact
-            # page the user pasted, already "vetted" by the fact that it's
-            # what they're looking at, so it shouldn't be at risk of getting
-            # dropped by the trust/anchor/outlier checks the way an
-            # unverified listing would be. Supersedes rather than duplicates
-            # any (possibly stale) Amazon row the broader search also
-            # surfaced under a differently-formatted name ("Amazon.in" vs
-            # "Amazon") — _brand_signature already exists to recognize those
-            # as the same merchant, so there's never two conflicting Amazon
-            # prices shown.
+        if live_candidate and live_candidate.get("thumbnail"):
+            # Merged in place, not forced to the front: this candidate is the
+            # exact page the user pasted, so its price should win over a
+            # (possibly stale) row the broader search also surfaced for the
+            # same merchant under a differently-formatted name ("Amazon.in"
+            # vs "Amazon") — _brand_signature recognizes those as the same
+            # merchant. But it must not jump ahead of every other match
+            # regardless of how the real cross-platform search ranked them;
+            # the picker should show what the search actually found, in the
+            # order it found it, with this one row's price corrected. A
+            # pasted page with no readable product photo is dropped rather
+            # than shown as an image-less row — the search's own candidates
+            # always carry a real thumbnail, so this is never the only option.
             live_sig = _brand_signature(live_candidate["source"])
-            products = [live_candidate] + [
-                p for p in products
-                if _brand_signature(p.get("source") or "") != live_sig
-            ]
+            merged, replaced = [], False
+            for p in products:
+                if not replaced and _brand_signature(p.get("source") or "") == live_sig:
+                    merged.append(live_candidate)
+                    replaced = True
+                else:
+                    merged.append(p)
+            if not replaced:
+                merged.append(live_candidate)
+            products = merged
             approximate = False
         if not products:
             logger.info("%s no candidates after filtering", tag)
