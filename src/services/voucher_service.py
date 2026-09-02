@@ -598,25 +598,41 @@ def _norm_brand(name: str | None) -> str:
     return re.sub(r"[^a-z0-9]", "", (name or "").lower())
 
 
-def _redemption_help(merchant_name: str, voucher_source: str) -> tuple[str | None, list]:
-    """The brand's "how do I actually use this code" copy.
+_SOURCE_REPOS = {
+    "gyftr": voucher_repository,
+    "maximize": maximize_repository,
+    "buyhatke": buyhatke_repository,
+}
 
-    Lives on the brand RECORD, not on the priced tier — reading it off the tier
-    silently returned nothing for every Maximize/BuyHatke brand (boAt has real
-    steps; the journey's final screen showed none). Prefers Gyftr's copy when
-    that brand exists there at all, matching `build_deals`: Gyftr's field has
-    had real manual QA, the others are rougher auto-extraction, and "how to
-    redeem" is a brand fact that doesn't depend on who sold the voucher.
+
+def _redemption_help(merchant_name: str, voucher_source: str) -> tuple[str | None, list, list]:
+    """How to use THIS voucher, and what this voucher specifically excludes —
+    both taken from the source actually selling it. Returns
+    (short, steps, restrictions).
+
+    Deliberately does NOT borrow another seller's copy. The three sources sell
+    genuinely different products under the same brand name, confirmed in the
+    data (2026-09-02): Maximize's Myntra card is one-time-use where Gyftr's
+    isn't; Gyftr's Nykaa card works in store while BuyHatke's is online only;
+    and BuyHatke's AJIO card is not valid on H&M products, a restriction that
+    appears on no other source. Showing Gyftr's instructions beside a BuyHatke
+    voucher therefore states rules that may not hold for the thing the shopper
+    just bought.
+
+    266 BuyHatke listings publish no steps of their own (Myntra among them —
+    its usageInstructions is literally empty). Those return nothing here, and
+    the caller sends the shopper to the voucher page instead of showing
+    someone else's steps.
     """
-    gyftr = voucher_repository.get_by_merchant(merchant_name)
-    if gyftr and (gyftr.get("how_to_redeem_short") or gyftr.get("how_to_redeem_steps")):
-        return gyftr.get("how_to_redeem_short"), gyftr.get("how_to_redeem_steps") or []
-
-    repo = {"maximize": maximize_repository, "buyhatke": buyhatke_repository}.get(voucher_source)
+    repo = _SOURCE_REPOS.get(voucher_source)
     record = repo.get_by_merchant(merchant_name) if repo else None
-    if record:
-        return record.get("how_to_redeem_short"), record.get("how_to_redeem_steps") or []
-    return None, []
+    if not record:
+        return None, [], []
+    return (
+        record.get("how_to_redeem_short"),
+        record.get("how_to_redeem_steps") or [],
+        record.get("redemption_restrictions") or [],
+    )
 
 
 def is_exact_brand_match(queried: str, resolved_brand_name: str | None) -> bool:
@@ -700,7 +716,7 @@ def get_voucher_check(merchant_name: str, price: float | None = None) -> dict | 
         except Exception:
             pass
 
-        redeem_short, redeem_steps = _redemption_help(merchant_name, voucher_source)
+        redeem_short, redeem_steps, redeem_limits = _redemption_help(merchant_name, voucher_source)
         return {
             "has_voucher": True,
             "brand_name": brand_name or merchant_name,
@@ -719,6 +735,7 @@ def get_voucher_check(merchant_name: str, price: float | None = None) -> dict | 
             "card_pct": card_pct,
             "how_to_redeem_short": redeem_short,
             "how_to_redeem_steps": redeem_steps,
+            "restrictions": redeem_limits,
         }
 
     raw_hits = (
@@ -739,7 +756,7 @@ def get_voucher_check(merchant_name: str, price: float | None = None) -> dict | 
     # but it used to be returned only on the priced path, so a shopper whose
     # cart total couldn't be read lost the redemption coaching entirely, which
     # is the most valuable part of the last step (found in live testing).
-    redeem_short, redeem_steps = _redemption_help(merchant_name, voucher_source)
+    redeem_short, redeem_steps, redeem_limits = _redemption_help(merchant_name, voucher_source)
     return {
         "has_voucher": True,
         "brand_name": brand_name or merchant_name,
@@ -751,4 +768,5 @@ def get_voucher_check(merchant_name: str, price: float | None = None) -> dict | 
         "priced": False,
         "how_to_redeem_short": redeem_short,
         "how_to_redeem_steps": redeem_steps,
+        "restrictions": redeem_limits,
     }

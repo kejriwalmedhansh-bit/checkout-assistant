@@ -92,6 +92,7 @@ async function tripStart({ domain, returnUrl, cartTotal, deal }) {
       cardPct: deal.card_pct,
       howToRedeemShort: deal.how_to_redeem_short,
       howToRedeemSteps: deal.how_to_redeem_steps,
+      restrictions: deal.restrictions,
       priced: deal.priced,
     },
     code: null, // stays on this machine only — never sent anywhere

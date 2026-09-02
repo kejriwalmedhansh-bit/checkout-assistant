@@ -337,6 +337,17 @@ window.__dealoPopup = (() => {
 
     // The single most useful thing buried in those paragraphs is the redeem
     // page's address. Pulled out as a button, it replaces reading entirely.
+    // What THIS voucher can't be used for, straight from whoever sold it.
+    // The three sellers genuinely differ — BuyHatke's AJIO card excludes H&M
+    // products, which appears on no other source — so this is never borrowed
+    // from another seller and never silently dropped.
+    const limits = (d.restrictions || []).filter(Boolean).slice(0, 2);
+    const limitBlock = limits.length
+      ? `<div class="dealo-limits">${svg("info", 13, "#C2712F", 2)}
+           <span>${limits.map((l) => esc(shortenStep(l))).join(" ")}</span>
+         </div>`
+      : "";
+
     const redeemUrl = firstUrlIn(d.howToRedeemSteps || []);
     const openBtn = redeemUrl
       ? `<a class="dealo-button dealo-secondary dealo-withicon" id="dealo-open-redeem"
@@ -364,6 +375,7 @@ window.__dealoPopup = (() => {
       ${field("Code", trip.code, "dealo-copy-code")}
       ${trip.pin ? field("PIN", trip.pin, "dealo-copy-pin") : ""}
       ${left}
+      ${limitBlock}
       <button class="dealo-button dealo-ring dealo-withicon" id="dealo-where">
         ${svg("target", 17, "currentColor", 2)} Show me where
       </button>

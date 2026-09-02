@@ -478,3 +478,20 @@
     opacity: 1;
   }
 }
+
+/* What this particular voucher can't be used for. Sellers differ on this for
+   the same brand, so it is shown from whoever sold it — never borrowed. */
+#dealo-popup-root .dealo-limits {
+  display: flex;
+  align-items: flex-start;
+  gap: 7px;
+  margin-top: 11px;
+  padding: 9px 11px;
+  background: #FFFFFF;
+  border: 1px solid #E3DACB;
+  border-radius: 10px;
+  font-size: 12.5px;
+  line-height: 1.45;
+  color: #16202B;
+}
+#dealo-popup-root .dealo-limits svg { flex-shrink: 0; margin-top: 1px; }

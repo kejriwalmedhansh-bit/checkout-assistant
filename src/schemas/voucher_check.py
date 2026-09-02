@@ -35,3 +35,7 @@ class VoucherCheckResponse(BaseModel):
     # step once they're back at the store.
     how_to_redeem_short: str | None = None
     how_to_redeem_steps: list[str] = []
+    # What THIS voucher specifically can't be used for, from the source
+    # selling it — BuyHatke's AJIO card excludes H&M products, a limit that
+    # exists on no other source's AJIO card.
+    restrictions: list[str] = []
