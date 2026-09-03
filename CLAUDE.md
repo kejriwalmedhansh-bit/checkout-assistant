@@ -76,7 +76,6 @@ All of the above look like IP- or network-level bot detection (the kind that che
 ## Pending work
 
 - Fix bugs 1–4 above (1 and 2 are user-facing correctness — highest priority).
-- **Verify BuyHatke's real checkout** (single-item like Maximize, or a true multi-item cart like Gyftr). Its voucher pages were returning "Service Not Available" site-wide on 2026-09-03 when this needed checking, so `_SINGLE_ITEM_CHECKOUT_PLATFORMS` currently assumes BuyHatke behaves like Maximize (conservative — worse-case, not verified). If it turns out to support a real cart, remove it from that set.
 - Deploy web interface (Railway or Render); permanent WhatsApp access token at that point.
 - Cuelinks: publisher 256146. Switched 2026-08-04 from the placeholder "My Channel" (cid 297179, auto-created from the old Lovable app URL) to the real "Dealo" channel (cid 307742, getdealo.in — now set as the Cuelinks account default too). Merchant coverage as of 2026-08-04: Croma, Reliance Digital, Vijay Sales, Tata CLiQ, Pepperfry, and Nykaa (nykaa.com only, not nykaa.in) are live/auto-approved; Myntra, Flipkart, and AJIO (applied 2026-08-04) are all pending Cuelinks approval — no commission until approved; Amazon India, BigBasket, JioMart, Lenskart, Apple, and Samsung are not offered on Cuelinks at all (no affiliate program available through this network for those).
 - `refresh_gyftr.py` staleness checker for `gyftr_master.json`.

@@ -514,10 +514,17 @@ def get_best_buyhatke_deal(merchant_name: str, price: float) -> tuple[dict, dict
             **record, **p,
             "voucher_platform": "BuyHatke",
             "voucher_url": p.get("source_url"),
-            # BuyHatke's own real per-order quantity cap — see the matching
-            # comment in get_best_maximize_deal for why this has to survive
-            # the "stacks" override below under its own key.
-            "reseller_stack_limit": p.get("stack_limit"),
+            # BuyHatke's real per-order quantity cap is always 1 voucher —
+            # confirmed by the user's own live testing 2026-09-03: unlike
+            # Maximize (which can vary, e.g. Frido allows 4 of the same
+            # denomination in one order), BuyHatke never lets you buy more
+            # than a single voucher per checkout, even of the same
+            # denomination. Hardcoded rather than read from `stack_limit`,
+            # since that field carries a different, store-side meaning (see
+            # _store_allows_stacking's docstring) — reading it here for
+            # per-order quantity purposes is exactly the same category of
+            # mistake already fixed for Maximize.
+            "reseller_stack_limit": 1,
             # BuyHatke reports a per-order voucher COUNT for its own checkout.
             # It says nothing about how many the store will accept, and when
             # the store's own terms say vouchers can be combined, that is the
