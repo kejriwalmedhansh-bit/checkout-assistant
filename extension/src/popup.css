@@ -338,6 +338,44 @@
   margin: 10px 0 4px;
 }
 
+/* A deal needing several voucher purchases collects several codes — this
+   holds one full-width card per code, swiped between rather than stacked,
+   so the card never grows taller than a single-voucher deal's. */
+#dealo-popup-root .dealo-code-carousel {
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+#dealo-popup-root .dealo-code-carousel::-webkit-scrollbar { display: none; }
+#dealo-popup-root .dealo-code-card {
+  flex: 0 0 100%;
+  scroll-snap-align: start;
+  min-width: 0;
+}
+
+#dealo-popup-root .dealo-code-dots {
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+  margin: 2px 0 8px;
+}
+#dealo-popup-root .dealo-code-dot {
+  width: 6px;
+  height: 6px;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background: #E3DACB;
+  cursor: pointer;
+}
+#dealo-popup-root .dealo-code-dot.dealo-code-dot-on {
+  background: #C2712F;
+  width: 16px;
+  border-radius: 3px;
+}
+
 /* Code and PIN are two separate values typed into two separate boxes. */
 #dealo-popup-root .dealo-field { margin: 12px 0; }
 

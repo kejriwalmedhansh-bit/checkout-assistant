@@ -279,30 +279,80 @@
     return el ? { el, label: "Choose UPI — that's the better rate" } : null;
   }
 
+  // The last button in the journey. Same conservative, word-based matching
+  // as the gift-card box: a short label that reads like the real thing, or
+  // nothing at all — Dealo never guesses at the store's own "Buy Now" or
+  // "Add to Cart" buttons elsewhere on the page.
+  const ORDER_WORDS = /^(place( your)? order|pay now|make( the)? payment|confirm( and)? (pay|order)|proceed to pay|complete (purchase|payment)|pay\s?₹?\s?[\d,]*)$/i;
+  function findPlaceOrderControl() {
+    const el = visibleControls().find((c) => {
+      const t = textOf(c);
+      return t.length < 40 && ORDER_WORDS.test(t);
+    });
+    return el ? { el, label: "Place your order here" } : null;
+  }
+
+  // Whether the page itself is saying the order actually went through —
+  // checked before ever declaring the trip complete on Dealo's own say-so.
+  // The same "look at the real page, don't assume" approach already used to
+  // catch Myntra's "Site Maintenance" placeholder page elsewhere in Dealo.
+  const CONFIRM_URL = /order[-_]?(confirm|success|placed|received)|thank[-_]?you/i;
+  const CONFIRM_TEXT = /order (confirmed|placed|successful)|thank you for (your|the) order|your order has been placed|order\s*(id|number)\s*[:#]/i;
+  function looksLikeOrderConfirmed() {
+    if (CONFIRM_URL.test(location.pathname)) return true;
+    const bodyText = (document.body?.innerText || "").slice(0, 4000);
+    return CONFIRM_TEXT.test(bodyText);
+  }
+
+  // Some deals need several separate voucher purchases rather than one
+  // combined checkout (a reseller limits how many of a denomination it'll
+  // sell per order). `denominationBreakdown` is {denom, count} pairs — this
+  // flattens it into one amount per purchase, e.g. [{denom:2500,count:2},
+  // {denom:1000,count:1}] -> [2500, 2500, 1000], so each purchase in turn can
+  // be guided at its own amount. Falls back to the single headline amount
+  // when there's no breakdown at all.
+  function perTxnAmounts(deal) {
+    const list = [];
+    (deal.denominationBreakdown || []).forEach((b) => {
+      for (let i = 0; i < (b.count || 1); i++) list.push(b.denom);
+    });
+    return list.length ? list : [deal.voucherAmount].filter(Boolean);
+  }
+
   // The hand-holding sequence on the voucher site: which amount, then which
   // payment method. Skips anything it genuinely can't find rather than
   // pointing at something plausible and being wrong.
-  function voucherSiteGuideSteps(trip) {
-    const d = trip.deal;
-    const first = (d.denominationBreakdown || [])[0];
-    const want = first ? first.denom : d.voucherAmount;
+  function voucherSiteGuideSteps(want) {
     return [findAmountControl(want), findUpiControl()].filter(Boolean);
   }
 
   async function runJourney(trip) {
     if (trip.status === "buying_voucher" && onVoucherSiteFor(trip)) {
-      window.__dealoPopup.renderVoucherSiteStep(trip, {
+      const amounts = perTxnAmounts(trip.deal);
+      const codes = trip.codes || [];
+      const index = codes.length; // which purchase they're on right now
+      const total = Math.max(amounts.length, 1);
+      const want = amounts[index];
+
+      window.__dealoPopup.renderVoucherSiteStep(trip, { index, total, want }, {
         onShowMe: () => {
-          const steps = voucherSiteGuideSteps(trip);
+          const steps = voucherSiteGuideSteps(want);
           if (steps.length) window.__dealoPopup.guide(steps);
           else window.__dealoPopup.guideUnavailable();
         },
         onHaveCode: () => {
-          window.__dealoPopup.renderCodeEntry(trip, {
+          window.__dealoPopup.renderCodeEntry(trip, { index, total }, {
             onSave: async (code, pin) => {
-              await ask({ type: "tripUpdate", patch: { code, pin, status: "has_code" } });
-              // Send them back to the exact page they were buying from.
-              location.href = trip.store.returnUrl;
+              const next = await ask({ type: "tripAddCode", code, pin });
+              const updated = next?.trip;
+              // More purchases still needed: stay on this site and guide the
+              // next one, rather than sending them back with an incomplete
+              // set of codes. Only the last one heads back to the store.
+              if (updated && updated.status !== "has_code") {
+                await runJourney(updated);
+              } else {
+                location.href = trip.store.returnUrl;
+              }
             },
           });
         },
@@ -325,6 +375,41 @@
             window.__dealoPopup.showWhereFallback();
           }
         },
+        // The code is applied, not the order — this used to clear the trip
+        // and declare victory right here, leaving nobody pointing at "Place
+        // Order" and nothing checking whether the order actually went
+        // through. Advance the trip instead of ending it.
+        onDone: async () => {
+          const next = await ask({ type: "tripUpdate", patch: { status: "placing_order" } });
+          await runJourney(next?.trip || { ...trip, status: "placing_order" });
+        },
+      });
+      return true;
+    }
+
+    // Last leg: the code is in, and the only thing left is the shopper's own
+    // final tap. Dealo never takes that tap for them (see the "point, don't
+    // push" rule) — it points at the button, then watches the page itself
+    // for proof the order went through, the same way `check()` already
+    // re-runs on every page-view change (a poll, not a new mechanism).
+    if (trip.status === "placing_order" && backAtStoreFor(trip)) {
+      if (looksLikeOrderConfirmed()) {
+        await ask({ type: "tripClear" });
+        window.__dealoPopup.renderTripComplete(trip);
+        return true;
+      }
+      window.__dealoPopup.renderPlaceOrder(trip, {
+        onShowMe: () => {
+          const found = findPlaceOrderControl();
+          if (found) {
+            window.__dealoPopup.pointAt(found.el, found.label);
+          } else {
+            window.__dealoPopup.showWhereFallback();
+          }
+        },
+        // A fallback for a confirmation page Dealo doesn't recognise — the
+        // shopper's own word closes the loop rather than the popup lingering
+        // on a store that phrases its confirmation unusually.
         onDone: async () => {
           await ask({ type: "tripClear" });
           window.__dealoPopup.renderTripComplete(trip);

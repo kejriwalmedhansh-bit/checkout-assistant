@@ -183,6 +183,31 @@ window.__dealoPopup = (() => {
       : `A Gift Voucher is the same thing you'd buy someone as a present — our voucher partner sells ${brand} vouchers for ${esc(deal.pct)}% less than they're worth. You buy one, then pay for this order with it, exactly like a gift card. Same store, same order.`;
   }
 
+  // Dots reflect whichever code card is actually scrolled into view, and
+  // clicking one scrolls there — the same swipe-or-tap pattern as the rest
+  // of the journey, just for moving between codes instead of screens.
+  function wireCodeCarousel(root) {
+    const carousel = root.querySelector(".dealo-code-carousel");
+    const dots = [...root.querySelectorAll(".dealo-code-dot")];
+    if (!carousel || !dots.length) return;
+    dots.forEach((dot, i) => {
+      dot.addEventListener("click", () => {
+        const target = carousel.children[i];
+        if (target) carousel.scrollTo({ left: target.offsetLeft, behavior: "smooth" });
+      });
+    });
+    let ticking = false;
+    carousel.addEventListener("scroll", () => {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(() => {
+        const idx = Math.round(carousel.scrollLeft / carousel.clientWidth);
+        dots.forEach((d, i) => d.classList.toggle("dealo-code-dot-on", i === idx));
+        ticking = false;
+      });
+    });
+  }
+
   function wireExplainToggle(root) {
     const toggle = root.querySelector(".dealo-explain-toggle");
     const panel = root.querySelector(".dealo-explain");
@@ -247,16 +272,22 @@ window.__dealoPopup = (() => {
 
   // Step 2 of the journey: they've landed on the voucher partner's site.
   // Tells them exactly what to buy, and — critically — how to pay for it.
-  function renderVoucherSiteStep(trip, { onHaveCode, onAbandon, onShowMe }) {
+  function renderVoucherSiteStep(trip, { index = 0, total = 1, want } = {}, { onHaveCode, onAbandon, onShowMe }) {
     const d = trip.deal;
+    // A deal needing several separate purchases lands here once per
+    // purchase — showing the deal's combined total here would send them to
+    // buy the wrong amount, so each visit shows only THIS purchase's figure.
+    const multi = total > 1;
     // No amount when the cart total couldn't be read — the layout falls back
     // to naming the brand rather than rendering a sentence with a hole in it
     // ("Buy of Boat credit", seen in live testing).
-    const amount = d.voucherAmount ? `₹${rupees(d.voucherAmount)}` : "";
+    const amount = want ? `₹${rupees(want)}` : d.voucherAmount ? `₹${rupees(d.voucherAmount)}` : "";
     // The denominations become tiles that mirror the amount buttons they're
     // about to press on the voucher site — recognition instead of arithmetic.
     // As a sentence ("That's 1×₹7,500 + 1×₹1,000") it was near-invisible.
-    const tiles = (d.denominationBreakdown || []).length
+    // Skipped on a multi-purchase deal: the full breakdown belongs to the
+    // whole deal, not to the single purchase this screen is guiding.
+    const tiles = (!multi && (d.denominationBreakdown || []).length)
       ? `<div class="dealo-chips">${d.denominationBreakdown
           .map((b) => `<span class="dealo-chip">${b.count > 1 ? `<span class="dealo-mult">${b.count}×</span>` : ""}₹${rupees(b.denom)}</span>`)
           .join("")}</div>`
@@ -275,6 +306,7 @@ window.__dealoPopup = (() => {
          </div>`;
 
     const root = card(`
+      ${multi ? `<div class="dealo-step">Voucher ${index + 1} of ${total}</div>` : ""}
       <div class="dealo-figure dealo-figure-tight">${amount || esc(trip.store.brandName)}</div>
       ${amount ? `<div class="dealo-caption">of ${esc(trip.store.brandName)} credit</div>` : `<div class="dealo-caption">credit for your order</div>`}
       ${tiles}
@@ -294,13 +326,15 @@ window.__dealoPopup = (() => {
 
   // Step 2b: somewhere to put the code. Stays on this machine — never sent
   // to Dealo's servers, which is both the honest promise and less to secure.
-  function renderCodeEntry(trip, { onSave }) {
+  function renderCodeEntry(trip, { index = 0, total = 1 } = {}, { onSave }) {
+    const multi = total > 1;
+    const isLast = index === total - 1;
     const root = card(`
-      <div class="dealo-step">Step 2 of 3</div>
+      <div class="dealo-step">${multi ? `Voucher ${index + 1} of ${total}` : "Step 2 of 3"}</div>
       <div class="dealo-message">Paste your voucher code</div>
       <input class="dealo-input" id="dealo-code" type="text" placeholder="Voucher code" autocomplete="off">
       <input class="dealo-input" id="dealo-pin" type="text" placeholder="PIN (if there is one)" autocomplete="off">
-      <button class="dealo-button" id="dealo-save-code">Save &amp; go back to ${esc(trip.store.brandName)}</button>
+      <button class="dealo-button" id="dealo-save-code">${isLast ? `Save &amp; go back to ${esc(trip.store.brandName)}` : "Save &amp; buy the next voucher"}</button>
       <div class="dealo-private">
         ${svg("lock", 14, "#4A9B8E", 1.9)}
         <span>Stays on your device</span>
@@ -371,9 +405,26 @@ window.__dealoPopup = (() => {
         </div>
       </div>`;
 
+    // One card per voucher bought. On the common single-voucher deal this is
+    // just one card and no dots — unchanged from before. On a deal that
+    // needed several purchases, all their codes already live on the device
+    // (collected earlier in the journey) — swiping between them here means
+    // never switching back to an email or notes app mid-checkout.
+    const codes = trip.codes || [];
+    const multiCode = codes.length > 1;
+    const codeCards = codes.map((c, i) => `
+      <div class="dealo-code-card">
+        ${multiCode ? `<div class="dealo-step">Code ${i + 1} of ${codes.length}</div>` : ""}
+        ${field("Code", c.code, `dealo-copy-code-${i}`)}
+        ${c.pin ? field("PIN", c.pin, `dealo-copy-pin-${i}`) : ""}
+      </div>`).join("");
+    const codeDots = multiCode
+      ? `<div class="dealo-code-dots">${codes.map((_, i) => `<button class="dealo-code-dot${i === 0 ? " dealo-code-dot-on" : ""}" aria-label="Code ${i + 1}"></button>`).join("")}</div>`
+      : "";
+
     const root = card(`
-      ${field("Code", trip.code, "dealo-copy-code")}
-      ${trip.pin ? field("PIN", trip.pin, "dealo-copy-pin") : ""}
+      <div class="dealo-code-carousel">${codeCards}</div>
+      ${codeDots}
       ${left}
       ${limitBlock}
       <button class="dealo-button dealo-ring dealo-withicon" id="dealo-where">
@@ -383,10 +434,11 @@ window.__dealoPopup = (() => {
       ${steps ? `<button class="dealo-explain-toggle dealo-centered" aria-expanded="false">${svg("info", 13, "currentColor", 2)} steps</button>
                  <div class="dealo-explain" hidden><ol class="dealo-steps">${steps}</ol></div>` : ""}
       <button class="dealo-link dealo-withicon" id="dealo-done">
-        ${svg("check", 13, "#4A9B8E", 2.4)} done
+        ${svg("check", 13, "#4A9B8E", 2.4)} code applied
       </button>
     `, 3);
     wireExplainToggle(root);
+    if (multiCode) wireCodeCarousel(root);
     // Confirmation is the icon turning into a tick — "Copied" no longer fits
     // an icon-sized button, and the tick reads faster anyway.
     root.querySelectorAll(".dealo-copy-btn").forEach((btn) => {
@@ -398,6 +450,24 @@ window.__dealoPopup = (() => {
       });
     });
     root.querySelector("#dealo-where").addEventListener("click", () => onShowWhere());
+    root.querySelector("#dealo-done").addEventListener("click", () => { onDone(); close(); });
+  }
+
+  // Step 4, the last one: the code's in, and the only thing left is the
+  // shopper's own final tap. Dealo points at the button — it never presses
+  // it. Once they do, Dealo notices the store's own confirmation page on the
+  // next check and closes the loop on its own; "I've placed it" below is
+  // only a fallback for a confirmation page Dealo doesn't recognise.
+  function renderPlaceOrder(trip, { onShowMe, onDone }) {
+    const root = card(`
+      <div class="dealo-message">Voucher applied — place your order</div>
+      <button class="dealo-button dealo-ring dealo-withicon" id="dealo-where">
+        ${svg("target", 17, "currentColor", 2)} Show me the button
+      </button>
+      <div class="dealo-sub">Dealo will notice once your order's confirmed.</div>
+      <button class="dealo-link" id="dealo-done">I've placed it</button>
+    `, 3);
+    root.querySelector("#dealo-where").addEventListener("click", () => onShowMe());
     root.querySelector("#dealo-done").addEventListener("click", () => { onDone(); close(); });
   }
 
@@ -499,6 +569,6 @@ window.__dealoPopup = (() => {
 
   return {
     renderVoucherFound, renderNoDeal, close, copyText, pointAt, guide, showWhereFallback, guideUnavailable,
-    renderVoucherSiteStep, renderCodeEntry, renderBackAtStore, renderTripComplete,
+    renderVoucherSiteStep, renderCodeEntry, renderBackAtStore, renderPlaceOrder, renderTripComplete,
   };
 })();

@@ -95,7 +95,7 @@ async function tripStart({ domain, returnUrl, cartTotal, deal }) {
       restrictions: deal.restrictions,
       priced: deal.priced,
     },
-    code: null, // stays on this machine only — never sent anywhere
+    codes: [], // one {code, pin} per voucher purchased — stays on this machine only, never sent anywhere
   };
   await chrome.storage.local.set({ [TRIP_KEY]: trip });
   return trip;
@@ -105,6 +105,21 @@ async function tripUpdate(patch) {
   const trip = await tripGet();
   if (!trip) return null;
   const next = { ...trip, ...patch };
+  await chrome.storage.local.set({ [TRIP_KEY]: next });
+  return next;
+}
+
+// A deal needing several separate voucher purchases (txnsNeeded > 1 — e.g.
+// three ₹2,500 buys instead of one combined checkout) collects one code per
+// purchase as each arrives, rather than asking for all of them at once before
+// any exist. Only once every purchase has a code does the trip move on to
+// "has_code" and send the shopper back to the store.
+async function tripAddCode(code, pin) {
+  const trip = await tripGet();
+  if (!trip) return null;
+  const codes = [...(trip.codes || []), { code, pin: pin || null }];
+  const txnsNeeded = trip.deal.txnsNeeded || 1;
+  const next = { ...trip, codes, status: codes.length >= txnsNeeded ? "has_code" : "buying_voucher" };
   await chrome.storage.local.set({ [TRIP_KEY]: next });
   return next;
 }
@@ -122,6 +137,7 @@ const HANDLERS = {
   tripStart: async (msg) => ({ trip: await tripStart(msg.trip) }),
   tripGet: async () => ({ trip: await tripGet() }),
   tripUpdate: async (msg) => ({ trip: await tripUpdate(msg.patch) }),
+  tripAddCode: async (msg) => ({ trip: await tripAddCode(msg.code, msg.pin) }),
   tripClear: async () => {
     await tripClear();
     return {};
