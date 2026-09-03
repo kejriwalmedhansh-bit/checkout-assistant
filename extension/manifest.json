@@ -21,8 +21,8 @@
   },
   "permissions": ["storage"],
   "host_permissions": [
-    "http://localhost:8000/*",
-    "https://dealo-backend.onrender.com/*"
+    "http://*/*",
+    "https://*/*"
   ],
   "content_scripts": [
     {

@@ -2,13 +2,13 @@
 // background worker -> show whichever popup case applies.
 (() => {
   const DISMISS_KEY_PREFIX = "dealo-dismissed:";
-  // Keyed on host+path, not the full URL: storefronts rewrite their own query
-  // string constantly (tracking params, step markers, login referrers), and
-  // keying on href made one AJIO visit fire four identical backend calls in
-  // live testing. The path is what actually distinguishes "a different page".
+  // Keyed on host+path+hash, not the full URL: storefronts rewrite their own
+  // query string constantly (tracking params, step markers, login referrers),
+  // and keying on href made one AJIO visit fire four identical backend calls
+  // in live testing. Everything except the query string distinguishes "a
+  // different page" — see the note where the key is built.
   let lastCheckedKey = null;
   let lastCheckedAt = 0;
-  let pollTimer = null;
   const MIN_RECHECK_MS = 3000;
 
   // A checkout-looking URL is necessary but NOT sufficient. Found in real use
@@ -167,10 +167,10 @@
 
   // When the extension reloads or auto-updates, content scripts already
   // injected into open tabs are orphaned: chrome.runtime disappears from under
-  // them while their timers keep firing. Found in real use 2026-09-01 — an
-  // already-open tab threw "Cannot read properties of undefined (reading
-  // 'sendMessage')" every poll tick, forever. A Web Store update would do this
-  // in every tab a shopper had open, so the orphan has to notice and stop.
+  // them. Found in real use 2026-09-01 — an already-open tab threw "Cannot
+  // read properties of undefined (reading 'sendMessage')" on every check. A
+  // Web Store update does this in every tab a shopper has open, so the orphan
+  // has to notice and stay quiet until the tab reloads.
   function extensionGone() {
     try { return !chrome.runtime?.id; } catch (e) { return true; }
   }
@@ -420,18 +420,26 @@
     return false;
   }
 
-  async function check() {
-    // An orphaned copy of this script can't do anything useful and would throw
-    // on every tick — stop the timer and let this tab go quiet until it reloads.
-    if (extensionGone()) {
-      clearInterval(pollTimer);
-      return;
-    }
+  // `force` is a shopper clicking the Dealo icon: an explicit request, which
+  // outranks both the "already looked at this page" guard and an earlier
+  // dismissal of this store.
+  async function check(force = false) {
+    // An orphaned copy of this script — the extension was reloaded or removed
+    // out from under this tab — can't do anything useful. Go quiet.
+    if (extensionGone()) return;
 
     const now = Date.now();
-    const key = location.hostname + location.pathname;
-    if (key === lastCheckedKey) return;               // one check per page/view
-    if (now - lastCheckedAt < MIN_RECHECK_MS) return; // and never in a burst
+    // The hash counts as part of "which page is this", because it counts in
+    // urlLooksLikeCheckout: boAt and others open the cart as a drawer at /#cart
+    // rather than a path. Keying on path alone meant arriving at the cart from
+    // the same page's home view looked like the page hadn't changed, and the
+    // check was skipped. The query string stays out — storefronts rewrite it
+    // constantly with tracking parameters that change nothing.
+    const key = location.hostname + location.pathname + location.hash;
+    if (!force) {
+      if (key === lastCheckedKey) return;               // one check per page/view
+      if (now - lastCheckedAt < MIN_RECHECK_MS) return; // and never in a burst
+    }
     lastCheckedKey = key;
     lastCheckedAt = now;
 
@@ -445,7 +453,7 @@
     if (!isCheckoutPage()) return;
 
     const domain = getDomain();
-    if (isDismissed(domain)) return;
+    if (!force && isDismissed(domain)) return;
 
     const price = await readPrice();
     const result = await askBackground(domain, price);
@@ -487,13 +495,22 @@
     }
   }
 
-  // Storefronts routinely swap in the cart without a full page load, and a
-  // content script only runs once per real navigation — so without this the
-  // popup would silently never appear on those sites. Polling the address
-  // bar (rather than patching history, which a content script's isolated
-  // world can't intercept, or asking for the webNavigation permission,
-  // which widens the install warning) is the cheap, permission-free way to
-  // catch it.
-  pollTimer = setInterval(check, self.__dealoConfig.URL_POLL_MS);
+  // --- When to look again --------------------------------------------------
+  //
+  // Storefronts routinely swap in the cart without a full page load, so one
+  // run at page load isn't enough. This used to be a 700ms timer that ran for
+  // the life of every tab on every site. Two things replace it, both of which
+  // fire exactly when something actually happens and cost nothing in between:
+  //
+  //   * the background worker, which the browser tells about every navigation
+  //     including the in-page kind (see nudge() in background.js), and
+  //   * popstate/hashchange here, which catch a cart drawer opening on the
+  //     spot without waiting for a round trip.
+  chrome.runtime.onMessage.addListener((msg) => {
+    if (msg?.type === "dealoRecheck") check(msg.force);
+  });
+  addEventListener("popstate", () => check());
+  addEventListener("hashchange", () => check());
+
   check();
 })();

@@ -1,15 +1,22 @@
 // Shared by the content script and the background worker — `self` is the
 // global in both contexts (a service worker has no `window`).
 self.__dealoConfig = {
-  // Point this at the local backend while testing, switch to the deployed one
-  // (https://dealo-backend.onrender.com) before real distribution.
-  API_BASE: "http://localhost:8000",
+  // The live backend. This is what ships — pointing it at localhost was the
+  // single reason a correctly-installed Dealo could look completely dead:
+  // with no server on this machine every lookup failed silently, and silence
+  // is exactly what Dealo does when it finds nothing.
+  //
+  // To develop against a local backend, don't edit this line (it gets shipped
+  // by accident). Run this once in the service worker console instead:
+  //   chrome.storage.local.set({ dealo_api_base: "http://localhost:8000" })
+  // and to go back to live:
+  //   chrome.storage.local.remove("dealo_api_base")
+  API_BASE: "https://dealo-backend.onrender.com",
+  // Where the dev override above is kept.
+  API_BASE_OVERRIDE_KEY: "dealo_api_base",
   // URL must contain one of these (case-insensitive) to count as a
   // checkout-like page — generic, not a per-site list.
   CHECKOUT_URL_KEYWORDS: ["cart", "checkout", "bag", "payment"],
-  // How often to re-check the address bar for a cart page that loaded
-  // without a full page reload (common on single-page-app storefronts).
-  URL_POLL_MS: 700,
   // Don't interrupt a checkout for a saving that isn't worth the errand.
   // Buying a voucher is real effort — leave the site, pay, wait for a code,
   // come back, redeem it. A deal has to clear ONE of these two bars:

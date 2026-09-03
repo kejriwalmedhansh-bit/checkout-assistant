@@ -1,6 +1,6 @@
 # Dealo Chrome Extension — Privacy
 
-_Last updated: 2026-08-31_
+_Last updated: 2026-09-04_
 
 Dealo's Chrome extension checks whether a gift-voucher discount exists for the
 store you're buying from, and tells you before you pay.
@@ -42,9 +42,21 @@ affiliate programme reports.
 
 ## What's stored on your device
 
-One thing: whether you've already dismissed the popup for a given store during
-your current browsing session, so it doesn't ask twice. This is cleared when
-you close the browser and never leaves your computer.
+Three things, all of which stay on your computer and are never sent to Dealo
+or anyone else:
+
+1. **Whether you've already dismissed the popup** for a given store during
+   this browsing session, so it doesn't ask twice. Cleared when you close the
+   browser.
+2. **The purchase you're part-way through** — which store, the order total,
+   and which voucher was suggested. Buying a voucher means leaving the store
+   and coming back, so without this note the extension would forget what you
+   were doing the moment you left. Kept for up to seven days, then discarded;
+   cleared as soon as the purchase is finished.
+3. **Voucher codes you've bought**, held only so you can copy them back into
+   the store's discount box without hunting through your email. These are
+   stored on this machine alone. Dealo's servers never receive them, and they
+   are deleted along with the note above once you're done.
 
 ## Why the extension asks to run on all websites
 

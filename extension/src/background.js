@@ -16,8 +16,18 @@ const BADGE_DOT = "●";
 // Terracotta — the brand kit's own "labels, tags, CTA" colour.
 const BADGE_COLOR = "#C2712F";
 
+// The live backend, unless a developer has pointed this copy at a local one.
+// Read per call rather than cached in a variable: a service worker is torn
+// down after ~30s idle, so anything cached here is gone by the next lookup
+// anyway, and reading storage is cheap.
+async function apiBase() {
+  const cfg = self.__dealoConfig;
+  const stored = await chrome.storage.local.get(cfg.API_BASE_OVERRIDE_KEY);
+  return stored[cfg.API_BASE_OVERRIDE_KEY] || cfg.API_BASE;
+}
+
 async function fetchVoucherCheck(domain, price) {
-  const base = self.__dealoConfig.API_BASE;
+  const base = await apiBase();
   const params = new URLSearchParams({ domain });
   if (price != null) params.set("price", String(price));
   const res = await fetch(`${base}/voucher-check?${params.toString()}`);
@@ -156,7 +166,39 @@ chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
   return true; // keep the message channel open for the async response
 });
 
-// A badge belongs to the page it was set for — clear it when that tab moves on.
+// --- Telling the page when to look again -----------------------------------
+//
+// A content script runs once per real page load, but storefronts swap the cart
+// in without one — boAt opens /#cart, most single-page storefronts never
+// reload at all. Dealo used to catch that by re-reading the address bar every
+// 700ms, forever, in every open tab. That timer ran on every page on the
+// internet for the whole life of the tab, to notice something the browser
+// already knows the moment it happens.
+//
+// tabs.onUpdated fires on those in-page navigations too, so the browser can
+// simply say when to look again. No timer, and nothing running on pages where
+// nothing is happening.
+function nudge(tabId, force) {
+  chrome.tabs.sendMessage(tabId, { type: "dealoRecheck", force: Boolean(force) })
+    // No listener on this tab — an ordinary page Dealo isn't injected into, or
+    // one loaded before the extension. Nothing to fix, nothing to report.
+    .catch(() => {});
+}
+
 chrome.tabs.onUpdated.addListener((tabId, changeInfo) => {
+  // A badge belongs to the page it was set for — clear it when that tab moves on.
   if (changeInfo.status === "loading") setBadge(tabId, false);
+  // changeInfo.url is set for in-page navigations as well as full loads, and
+  // is visible to us because host_permissions covers ordinary web pages.
+  if (changeInfo.url || changeInfo.status === "complete") nudge(tabId);
+});
+
+// Clicking the toolbar icon did nothing at all — no popup is declared in the
+// manifest and nothing listened for the click, so the one deliberate gesture a
+// curious shopper makes was met with silence. It now re-runs the check on the
+// spot, ignoring both the "already looked at this page" guard and any earlier
+// dismissal: an explicit click is the shopper asking, which outranks Dealo's
+// own judgement about when to keep quiet.
+chrome.action.onClicked.addListener((tab) => {
+  if (tab?.id != null) nudge(tab.id, true);
 });
