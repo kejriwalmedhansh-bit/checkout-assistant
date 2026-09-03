@@ -52,6 +52,7 @@ UA = ("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 "
       "(KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36")
 
 GYFTR_BRAND_LIST = "https://api.gyftr.com/gyftrapi/api/v1/home/brand/list"
+BUYHATKE_BRANDS = "https://buyhatke.com/gift-cards/brands"
 GYFTR_DETAIL = "https://api.gyftr.com/gyftrapi/api/v1/brand/detail/{slug}"
 
 
@@ -93,6 +94,33 @@ def gyftr_targets() -> list[dict]:
          "url": f"https://www.gyftr.com/{b['slug']}"}
         for b in brands if b.get("is_published") and b.get("is_visible")
     ]
+
+
+def buyhatke_targets() -> list[dict]:
+    """Live catalogue, not the cached master — it is 161 brands larger, and the
+    missing ones are not obscure (Amazon Pay, Amazon Prime, BlueStone). The
+    brands page server-renders every tile, so no browser is needed here."""
+    req = urllib.request.Request(BUYHATKE_BRANDS, headers={"User-Agent": UA})
+    with urllib.request.urlopen(req, timeout=30) as resp:
+        html_text = resp.read().decode("utf-8", "replace")
+
+    out, seen = [], set()
+    for href, inner in re.findall(r'<a[^>]+href="(/gift-cards/[^"]+)"[^>]*>(.*?)</a>',
+                                  html_text, re.S):
+        slug = href[len("/gift-cards/"):]
+        if slug in {"brands", "referral", "my-vouchers"} or not slug.endswith("-gift-card"):
+            continue
+        if slug in seen:
+            continue
+        seen.add(slug)
+        name = re.search(r"<h3[^>]*>(.*?)</h3>", inner, re.S)
+        label = re.sub(r"<[^>]+>", " ", name.group(1) if name else inner)
+        label = re.sub(r"\s+", " ", html.unescape(label)).strip()
+        label = re.sub(r"\s*Gift Card$", "", label).strip()
+        out.append({"source": "buyhatke", "slug": slug,
+                    "brand_name": label or slug,
+                    "url": f"https://buyhatke.com{href}"})
+    return out
 
 
 def master_targets(source: str) -> list[dict]:
@@ -446,7 +474,8 @@ async def main_async(args) -> None:
         # silently discards the others' work. merge_voucher_terms.py joins them.
         out_path = Path(args.out) if args.out else OUT_PATH.with_name(f"voucher_terms_raw_{source}.json")
         out = load_out(out_path)
-        targets = gyftr_targets() if source == "gyftr" else master_targets(source)
+        targets = {"gyftr": gyftr_targets, "buyhatke": buyhatke_targets}.get(
+            source, lambda: master_targets(source))()
         if not args.refresh:
             targets = [t for t in targets if f"{source}:{t['slug']}" not in out]
         if args.limit:
