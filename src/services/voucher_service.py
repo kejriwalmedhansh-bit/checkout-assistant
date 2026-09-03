@@ -273,7 +273,24 @@ def calculate_effective_price(price: float, voucher: dict, payment_method: str =
     # customer to buy one voucher bigger than Gyftr actually allows.
     # Bug found via live testing, 2026-08-28.
     cap_txns = math.ceil(voucher_amount / voucher["purchase_cap_per_txn"]) if voucher.get("purchase_cap_per_txn") and voucher_amount else 1
-    txns_needed = max(cap_txns, custom_txns_needed or 1)
+
+    # Real number of separate checkouts needed to buy this denomination mix
+    # on a single-item-checkout platform: each *distinct* denomination in the
+    # breakdown is its own purchase (you can't select two different amounts
+    # in one Maximize/BuyHatke order), and repeats of the *same* denomination
+    # beyond that reseller's own per-order quantity cap need another purchase
+    # too. Deliberately uses `reseller_stack_limit` — the reseller's real,
+    # un-overridden order-quantity cap — never the `stack_limit` that
+    # `_store_allows_stacking` may have lifted to "unlimited" for value-cap
+    # purposes; that override describes what the STORE will redeem, not how
+    # many the RESELLER lets you buy in one sitting. Missing data defaults to
+    # 1 per order, the same conservative-default rule used elsewhere here.
+    reseller_denom_txns = 1
+    if denomination_breakdown and voucher.get("voucher_platform", "Gyftr").lower() in _SINGLE_ITEM_CHECKOUT_PLATFORMS:
+        reseller_limit = voucher.get("reseller_stack_limit") or 1
+        reseller_denom_txns = sum(math.ceil(b["count"] / reseller_limit) for b in denomination_breakdown)
+
+    txns_needed = max(cap_txns, custom_txns_needed or 1, reseller_denom_txns)
     if custom_txns_needed is not None and custom_txns_needed >= cap_txns:
         per_txn_cap: float | None = voucher.get("custom_max")
         per_txn_cap_kind: str | None = "voucher"
@@ -413,6 +430,14 @@ def get_best_maximize_deal(merchant_name: str, price: float) -> tuple[dict, dict
             **record, **p,
             "voucher_platform": "Maximize",
             "voucher_url": p.get("source_url"),
+            # Maximize's own real per-order quantity cap, kept under a
+            # separate key so it survives the "stacks" override just below —
+            # that override answers "how much will the store redeem in
+            # total," this answers "how many can I actually buy in one
+            # Maximize checkout," and they can legitimately differ (live-
+            # confirmed 2026-09-03: Frido's store terms allow combining
+            # vouchers, but Maximize itself still caps the order at 4).
+            "reseller_stack_limit": p.get("stack_limit"),
             # Same correction as BuyHatke: a reseller's per-order voucher
             # count describes its own checkout, not what the store accepts.
             # 58 Maximize brands carry "1 voucher" against stores whose own
@@ -489,6 +514,10 @@ def get_best_buyhatke_deal(merchant_name: str, price: float) -> tuple[dict, dict
             **record, **p,
             "voucher_platform": "BuyHatke",
             "voucher_url": p.get("source_url"),
+            # BuyHatke's own real per-order quantity cap — see the matching
+            # comment in get_best_maximize_deal for why this has to survive
+            # the "stacks" override below under its own key.
+            "reseller_stack_limit": p.get("stack_limit"),
             # BuyHatke reports a per-order voucher COUNT for its own checkout.
             # It says nothing about how many the store will accept, and when
             # the store's own terms say vouchers can be combined, that is the
@@ -509,6 +538,35 @@ def get_best_buyhatke_deal(merchant_name: str, price: float) -> tuple[dict, dict
         return None
     deal, tier = result
     return deal, tier, record.get("brand_name")
+
+
+def _pick_best_candidate(candidates: list[tuple]) -> tuple:
+    """Chooses which source's deal to recommend for one merchant.
+
+    Cheapest wins by default (Dealo's "always show the cheaper source"
+    rule) — UNLESS a single-transaction option exists and the cheapest
+    option needs more than one transaction. In that case the single-
+    transaction option wins unless the multi-transaction one is cheaper by
+    more than MULTI_TXN_SAVINGS_THRESHOLD: closing purchase friction is a
+    stated product USP, so a couple of percent extra saving isn't worth
+    sending the user through a second or third checkout. Product decision
+    made 2026-09-03 after a real case (Frido) where Maximize's 16.25% needed
+    2 transactions and Gyftr's 14% needed 1, for only ~2.6% more.
+    """
+    cheapest = min(candidates, key=lambda c: c[0]["effective_price"])
+    if cheapest[0].get("txns_needed", 1) <= 1:
+        return cheapest
+
+    single_txn = [c for c in candidates if c[0].get("txns_needed", 1) <= 1]
+    if not single_txn:
+        return cheapest
+
+    best_single = min(single_txn, key=lambda c: c[0]["effective_price"])
+    single_price = best_single[0]["effective_price"]
+    cheapest_price = cheapest[0]["effective_price"]
+    if cheapest_price <= single_price * (1 - MULTI_TXN_SAVINGS_THRESHOLD):
+        return cheapest
+    return best_single
 
 
 def build_deals(results: list[dict], product_name: str = "") -> list[dict]:
@@ -574,9 +632,10 @@ def build_deals(results: list[dict], product_name: str = "") -> list[dict]:
         if not candidates:
             continue
 
-        # Dealo's "always show the cheaper source" rule, now three-way:
-        # keep whichever source yields the lowest effective_price.
-        deal, voucher, voucher_source, brand_name = min(candidates, key=lambda c: c[0]["effective_price"])
+        # Dealo's "always show the cheaper source" rule, now friction-aware:
+        # see _pick_best_candidate for the single-vs-multi-transaction
+        # tie-break.
+        deal, voucher, voucher_source, brand_name = _pick_best_candidate(candidates)
 
         # `deal["redemption_type"]`, not `voucher.get(...)`: for a Gyftr deal,
         # `voucher` here is the raw brand-level record, and redemption_type

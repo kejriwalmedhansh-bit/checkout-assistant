@@ -11,7 +11,7 @@ Dealo is a pre-checkout purchase optimization engine for Indian e-commerce. Inpu
 ## Non-negotiable product rules
 
 1. **Trust is the core product value.** A wrong result is worse than no result. Prefer targeted, high-confidence fixes over broad pattern matchers. Regex-based soft-signal parsing hits diminishing returns fast — know when to stop patching.
-2. **Recommended Route = lowest final cost, always card-free, executable by anyone.** Card savings never affect ranking.
+2. **Recommended Route = lowest final cost, always card-free, executable by anyone** — with one exception, added 2026-09-03: **fewer transactions beats a small price gap.** Only Gyftr lets a shopper combine several voucher denominations into one cart/checkout; Maximize and BuyHatke require a separate purchase per distinct denomination (see `_SINGLE_ITEM_CHECKOUT_PLATFORMS` and `_pick_best_candidate` in `src/services/voucher_service.py`). If a single-transaction option exists, it wins unless a multi-transaction option is cheaper by more than 5% (`MULTI_TXN_SAVINGS_THRESHOLD`) — otherwise cheapest still wins as before. Card savings never affect ranking.
 3. **Alternatives (max 3)** appear only behind "Recommended route not working for you?". No "Fastest Route" or "Maximum Savings" buckets.
 4. **L3 cards: direct cashback only** (never points/miles). Show the single best card by **actual saving after cap**, not headline rate. SBI Cashback beats BOB Cashback on ties.
 5. **Never expose backend mechanics in user-facing copy** — no layer names, stacking math, or reward-point arithmetic. Users see: final cost, savings, what to do. Understandable in under 10 seconds.
@@ -76,6 +76,7 @@ All of the above look like IP- or network-level bot detection (the kind that che
 ## Pending work
 
 - Fix bugs 1–4 above (1 and 2 are user-facing correctness — highest priority).
+- **Verify BuyHatke's real checkout** (single-item like Maximize, or a true multi-item cart like Gyftr). Its voucher pages were returning "Service Not Available" site-wide on 2026-09-03 when this needed checking, so `_SINGLE_ITEM_CHECKOUT_PLATFORMS` currently assumes BuyHatke behaves like Maximize (conservative — worse-case, not verified). If it turns out to support a real cart, remove it from that set.
 - Deploy web interface (Railway or Render); permanent WhatsApp access token at that point.
 - Cuelinks: publisher 256146. Switched 2026-08-04 from the placeholder "My Channel" (cid 297179, auto-created from the old Lovable app URL) to the real "Dealo" channel (cid 307742, getdealo.in — now set as the Cuelinks account default too). Merchant coverage as of 2026-08-04: Croma, Reliance Digital, Vijay Sales, Tata CLiQ, Pepperfry, and Nykaa (nykaa.com only, not nykaa.in) are live/auto-approved; Myntra, Flipkart, and AJIO (applied 2026-08-04) are all pending Cuelinks approval — no commission until approved; Amazon India, BigBasket, JioMart, Lenskart, Apple, and Samsung are not offered on Cuelinks at all (no affiliate program available through this network for those).
 - `refresh_gyftr.py` staleness checker for `gyftr_master.json`.
