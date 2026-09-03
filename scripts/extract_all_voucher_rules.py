@@ -65,7 +65,10 @@ def extract_rules(terms_text: str | None, instructions_text: str | None = None) 
             rules["can_combine"]["evidence"] = quote
     
     # max_cards_per_order
-    match = re.search(r'(?:upto|up to|maximum|max|up to) (\d+).{0,20}(voucher|card)', full)
+    # "up to 45% off on vouchers" is a banner, not a limit on how many vouchers
+    # may be used, and it was being read as one on 380 brands. Reject a number
+    # followed by a percent sign.
+    match = re.search(r'(?:upto|up to|maximum|max) (\d+)\s*(?!%)(?:\.\d+)?\s*[a-z ]{0,20}(voucher|card)', full)
     if match:
         rules["max_cards_per_order"]["value"] = int(match.group(1))
         quote = find_quote(rf'(?:upto|up to|maximum|max).{0,20}{match.group(1)}', full_original)

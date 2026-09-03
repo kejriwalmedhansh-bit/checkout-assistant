@@ -1,0 +1,71 @@
+{
+  "gyftr": {
+    "offers": 425,
+    "available": 385,
+    "recommendable": 318,
+    "with_terms": 395,
+    "per_method_rates": 423,
+    "rules_stated": {
+      "works_online": 424,
+      "works_in_store": 424,
+      "one_time_use": 207,
+      "can_combine": 194,
+      "combines_with_store_offers": 51,
+      "max_cards_per_order": 0,
+      "ceiling_amount": 0,
+      "ceiling_period": 0,
+      "min_order_value": 0,
+      "max_spend_per_purchase": 0,
+      "works_on_sale_items": 60,
+      "excludes": 42,
+      "delivery_wait_days": 0,
+      "validity": 12
+    }
+  },
+  "buyhatke": {
+    "offers": 721,
+    "available": 550,
+    "recommendable": 539,
+    "with_terms": 679,
+    "per_method_rates": 0,
+    "rules_stated": {
+      "works_online": 684,
+      "works_in_store": 683,
+      "one_time_use": 437,
+      "can_combine": 179,
+      "combines_with_store_offers": 73,
+      "max_cards_per_order": 189,
+      "ceiling_amount": 3,
+      "ceiling_period": 3,
+      "min_order_value": 0,
+      "max_spend_per_purchase": 0,
+      "works_on_sale_items": 21,
+      "excludes": 76,
+      "delivery_wait_days": 28,
+      "validity": 176
+    }
+  },
+  "maximize": {
+    "offers": 40,
+    "available": 37,
+    "recommendable": 34,
+    "with_terms": 37,
+    "per_method_rates": 37,
+    "rules_stated": {
+      "works_online": 35,
+      "works_in_store": 34,
+      "one_time_use": 37,
+      "can_combine": 36,
+      "combines_with_store_offers": 35,
+      "max_cards_per_order": 0,
+      "ceiling_amount": 0,
+      "ceiling_period": 0,
+      "min_order_value": 0,
+      "max_spend_per_purchase": 0,
+      "works_on_sale_items": 1,
+      "excludes": 5,
+      "delivery_wait_days": 0,
+      "validity": 37
+    }
+  }
+}
