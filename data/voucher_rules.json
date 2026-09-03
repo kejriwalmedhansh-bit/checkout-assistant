@@ -1,0 +1,474 @@
+{
+  "gyftr:titan": {
+    "brand_name": "Titan",
+    "source": "gyftr",
+    "slug": "titan",
+    "rules": {
+      "can_combine": {
+        "value": "yes",
+        "evidence": "Multiple vouchers (upto 5) can be used against single transaction."
+      },
+      "max_cards_per_order": {
+        "value": 5,
+        "evidence": "Multiple vouchers (upto 5) can be used against single transaction."
+      },
+      "ceiling_amount": {
+        "value": null,
+        "evidence": ""
+      },
+      "ceiling_period": {
+        "value": null,
+        "evidence": ""
+      },
+      "one_time_use": {
+        "value": "yes",
+        "evidence": "Voucher partial redemption is not allowed, single time usage only."
+      },
+      "works_online": {
+        "value": "no",
+        "evidence": "This Voucher can be redeemed at all company authorized TITAN WORLD Stores"
+      },
+      "works_in_store": {
+        "value": "yes",
+        "evidence": "This Voucher can be redeemed at all company authorized TITAN WORLD Stores"
+      },
+      "works_on_sale_items": {
+        "value": "no",
+        "evidence": "Voucher is not applicable on discounted products and cannot be clubbed with any other offer in the store."
+      },
+      "combines_with_store_offers": {
+        "value": "no",
+        "evidence": "Voucher is not applicable on discounted products and cannot be clubbed with any other offer in the store."
+      },
+      "min_order_value": {
+        "value": null,
+        "evidence": ""
+      },
+      "excludes": {
+        "value": ["Titan Nebula Watches"],
+        "evidence": "Voucher cannot be redeemed for Titan Nebula collection of Watches"
+      },
+      "max_spend_per_purchase": {
+        "value": null,
+        "evidence": ""
+      },
+      "delivery_wait_days": {
+        "value": 0,
+        "evidence": "Gyftr delivers codes instantly"
+      }
+    }
+  },
+  "buyhatke:myntra": {
+    "brand_name": "Myntra",
+    "source": "buyhatke",
+    "slug": "myntra",
+    "rules": {
+      "can_combine": {
+        "value": "yes",
+        "evidence": "Multiple E-Gift Cards can be clubbed in a single order."
+      },
+      "max_cards_per_order": {
+        "value": null,
+        "evidence": ""
+      },
+      "ceiling_amount": {
+        "value": null,
+        "evidence": ""
+      },
+      "ceiling_period": {
+        "value": null,
+        "evidence": ""
+      },
+      "one_time_use": {
+        "value": "no",
+        "evidence": "If the order value is less than the E-Gift Card amount, the balance will remain on the same card for future use."
+      },
+      "works_online": {
+        "value": "yes",
+        "evidence": "This E-Gift Card can be redeemed online against sellers listed on www.myntra.com or the Myntra Mobile App only."
+      },
+      "works_in_store": {
+        "value": "no",
+        "evidence": "This E-Gift Card can be redeemed online against sellers listed on www.myntra.com or the Myntra Mobile App only."
+      },
+      "works_on_sale_items": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "combines_with_store_offers": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "min_order_value": {
+        "value": null,
+        "evidence": ""
+      },
+      "excludes": {
+        "value": ["Gift Cards"],
+        "evidence": "This E-Gift Card cannot be used to purchase other gift cards."
+      },
+      "max_spend_per_purchase": {
+        "value": null,
+        "evidence": ""
+      },
+      "delivery_wait_days": {
+        "value": 1,
+        "evidence": "BuyHatke typically delivers codes within 1 business day"
+      }
+    }
+  },
+  "gyftr:bata": {
+    "brand_name": "Bata",
+    "source": "gyftr",
+    "slug": "bata",
+    "rules": {
+      "can_combine": {
+        "value": "yes",
+        "evidence": "Multiple gift vouchers can be used in a single transaction"
+      },
+      "max_cards_per_order": {
+        "value": null,
+        "evidence": ""
+      },
+      "ceiling_amount": {
+        "value": null,
+        "evidence": ""
+      },
+      "ceiling_period": {
+        "value": null,
+        "evidence": ""
+      },
+      "one_time_use": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "works_online": {
+        "value": "yes",
+        "evidence": "Can be used on Bata website and mobile app"
+      },
+      "works_in_store": {
+        "value": "yes",
+        "evidence": "Can be redeemed at Bata stores"
+      },
+      "works_on_sale_items": {
+        "value": "no",
+        "evidence": "Not applicable on sale or discounted items"
+      },
+      "combines_with_store_offers": {
+        "value": "no",
+        "evidence": "Cannot be combined with any other offer or discount"
+      },
+      "min_order_value": {
+        "value": null,
+        "evidence": ""
+      },
+      "excludes": {
+        "value": [],
+        "evidence": ""
+      },
+      "max_spend_per_purchase": {
+        "value": null,
+        "evidence": ""
+      },
+      "delivery_wait_days": {
+        "value": 0,
+        "evidence": "Gyftr delivers codes instantly"
+      }
+    }
+  },
+  "gyftr:fastrack": {
+    "brand_name": "Fastrack",
+    "source": "gyftr",
+    "slug": "fastrack",
+    "rules": {
+      "can_combine": {
+        "value": "yes",
+        "evidence": "Multiple gift vouchers can be combined in one transaction"
+      },
+      "max_cards_per_order": {
+        "value": null,
+        "evidence": ""
+      },
+      "ceiling_amount": {
+        "value": null,
+        "evidence": ""
+      },
+      "ceiling_period": {
+        "value": null,
+        "evidence": ""
+      },
+      "one_time_use": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "works_online": {
+        "value": "yes",
+        "evidence": "Can be used on Fastrack website and app"
+      },
+      "works_in_store": {
+        "value": "yes",
+        "evidence": "Can be redeemed at Fastrack stores"
+      },
+      "works_on_sale_items": {
+        "value": "no",
+        "evidence": "Not applicable on discounted products"
+      },
+      "combines_with_store_offers": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "min_order_value": {
+        "value": null,
+        "evidence": ""
+      },
+      "excludes": {
+        "value": [],
+        "evidence": ""
+      },
+      "max_spend_per_purchase": {
+        "value": null,
+        "evidence": ""
+      },
+      "delivery_wait_days": {
+        "value": 0,
+        "evidence": "Gyftr delivers codes instantly"
+      }
+    }
+  },
+  "gyftr:croma": {
+    "brand_name": "Croma",
+    "source": "gyftr",
+    "slug": "croma",
+    "rules": {
+      "can_combine": {
+        "value": "yes",
+        "evidence": "Multiple gift vouchers can be used in a single transaction"
+      },
+      "max_cards_per_order": {
+        "value": null,
+        "evidence": ""
+      },
+      "ceiling_amount": {
+        "value": null,
+        "evidence": ""
+      },
+      "ceiling_period": {
+        "value": null,
+        "evidence": ""
+      },
+      "one_time_use": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "works_online": {
+        "value": "yes",
+        "evidence": "Can be used on Croma website and mobile app"
+      },
+      "works_in_store": {
+        "value": "yes",
+        "evidence": "Can be redeemed at Croma stores"
+      },
+      "works_on_sale_items": {
+        "value": "no",
+        "evidence": "Not applicable on sale or promotional offers"
+      },
+      "combines_with_store_offers": {
+        "value": "no",
+        "evidence": "Cannot be combined with other discounts or offers"
+      },
+      "min_order_value": {
+        "value": null,
+        "evidence": ""
+      },
+      "excludes": {
+        "value": [],
+        "evidence": ""
+      },
+      "max_spend_per_purchase": {
+        "value": null,
+        "evidence": ""
+      },
+      "delivery_wait_days": {
+        "value": 0,
+        "evidence": "Gyftr delivers codes instantly"
+      }
+    }
+  },
+  "gyftr:nykaa": {
+    "brand_name": "Nykaa",
+    "source": "gyftr",
+    "slug": "nykaa",
+    "rules": {
+      "can_combine": {
+        "value": "yes",
+        "evidence": "Multiple gift cards can be used in a single transaction"
+      },
+      "max_cards_per_order": {
+        "value": null,
+        "evidence": ""
+      },
+      "ceiling_amount": {
+        "value": null,
+        "evidence": ""
+      },
+      "ceiling_period": {
+        "value": null,
+        "evidence": ""
+      },
+      "one_time_use": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "works_online": {
+        "value": "yes",
+        "evidence": "Can be redeemed on nykaa.com"
+      },
+      "works_in_store": {
+        "value": "yes",
+        "evidence": "Can be used at Nykaa physical stores"
+      },
+      "works_on_sale_items": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "combines_with_store_offers": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "min_order_value": {
+        "value": null,
+        "evidence": ""
+      },
+      "excludes": {
+        "value": [],
+        "evidence": ""
+      },
+      "max_spend_per_purchase": {
+        "value": null,
+        "evidence": ""
+      },
+      "delivery_wait_days": {
+        "value": 0,
+        "evidence": "Gyftr delivers codes instantly"
+      }
+    }
+  },
+  "gyftr:amazon": {
+    "brand_name": "Amazon",
+    "source": "gyftr",
+    "slug": "amazon",
+    "rules": {
+      "can_combine": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "max_cards_per_order": {
+        "value": null,
+        "evidence": ""
+      },
+      "ceiling_amount": {
+        "value": 50000,
+        "evidence": "Gift Vouchers over INR 50,000 CANNOT be added to wallet per calendar month"
+      },
+      "ceiling_period": {
+        "value": "calendar month",
+        "evidence": "Gift Vouchers over INR 50,000 CANNOT be added to wallet per calendar month"
+      },
+      "one_time_use": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "works_online": {
+        "value": "yes",
+        "evidence": "Can be used on amazon.in"
+      },
+      "works_in_store": {
+        "value": "no",
+        "evidence": "Amazon gift vouchers are for online purchases only"
+      },
+      "works_on_sale_items": {
+        "value": "no",
+        "evidence": "Not applicable on sale/discount items or specific restricted categories"
+      },
+      "combines_with_store_offers": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "min_order_value": {
+        "value": null,
+        "evidence": ""
+      },
+      "excludes": {
+        "value": [],
+        "evidence": ""
+      },
+      "max_spend_per_purchase": {
+        "value": null,
+        "evidence": ""
+      },
+      "delivery_wait_days": {
+        "value": 0,
+        "evidence": "Gyftr delivers codes instantly"
+      }
+    }
+  },
+  "buyhatke:ajio": {
+    "brand_name": "AJIO",
+    "source": "buyhatke",
+    "slug": "ajio",
+    "rules": {
+      "can_combine": {
+        "value": "yes",
+        "evidence": "Multiple gift cards can be used in one transaction"
+      },
+      "max_cards_per_order": {
+        "value": null,
+        "evidence": ""
+      },
+      "ceiling_amount": {
+        "value": null,
+        "evidence": ""
+      },
+      "ceiling_period": {
+        "value": null,
+        "evidence": ""
+      },
+      "one_time_use": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "works_online": {
+        "value": "yes",
+        "evidence": "Can be redeemed on AJIO app and website"
+      },
+      "works_in_store": {
+        "value": "no",
+        "evidence": "AJIO gift cards are for online use only"
+      },
+      "works_on_sale_items": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "combines_with_store_offers": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "min_order_value": {
+        "value": null,
+        "evidence": ""
+      },
+      "excludes": {
+        "value": [],
+        "evidence": ""
+      },
+      "max_spend_per_purchase": {
+        "value": null,
+        "evidence": ""
+      },
+      "delivery_wait_days": {
+        "value": 1,
+        "evidence": "BuyHatke typically delivers codes within 1 business day"
+      }
+    }
+  }
+}

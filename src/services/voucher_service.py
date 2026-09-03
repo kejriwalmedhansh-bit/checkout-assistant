@@ -6,8 +6,10 @@ category redemption restrictions.
 """
 from __future__ import annotations
 
+import json
 import math
 import re
+from pathlib import Path
 
 from ..category_classifier import classify_product, restriction_mentions_category
 from ..repositories import buyhatke_repository, maximize_repository, voucher_repository
@@ -26,6 +28,65 @@ PAYMENT_METHOD_TO_DISCOUNT_KEYS = {
     "paytm_upi": ["UPI"],
     "amazon_pay": ["UPI"],
 }
+
+# Load standardized voucher rules from T&C extraction
+def _load_voucher_rules() -> dict:
+    """Load standardized voucher rules extracted from T&Cs. Returns {source:slug: {rules}}.
+    If file doesn't exist or is empty, returns empty dict (rules optional for now)."""
+    rules_path = Path(__file__).resolve().parent.parent.parent / "data" / "voucher_rules.json"
+    if not rules_path.exists():
+        return {}
+    try:
+        return json.loads(rules_path.read_text()) or {}
+    except (json.JSONDecodeError, IOError):
+        return {}
+
+VOUCHER_RULES = _load_voucher_rules()
+
+def _get_voucher_rules(source: str, slug: str) -> dict | None:
+    """Get standardized T&C rules for a voucher (source:slug format).
+    Returns rules dict or None if not found."""
+    return VOUCHER_RULES.get(f"{source}:{slug}")
+
+def validate_voucher_against_rules(source: str, slug: str, use_case: dict) -> tuple[bool, str | None]:
+    """Validate whether a voucher can be used based on standardized T&C rules.
+
+    Args:
+        source: 'gyftr', 'maximize', or 'buyhatke'
+        slug: brand slug
+        use_case: dict with optional keys:
+            - combine_with_other: bool (using multiple vouchers together)
+            - on_sale_item: bool
+            - with_store_offers: bool
+
+    Returns: (is_valid, reason_if_invalid) where reason is a human-readable string
+    explaining why voucher cannot be used (or None if valid/not stated).
+    """
+    rules = _get_voucher_rules(source, slug)
+    if not rules or "rules" not in rules:
+        return True, None  # No rules = assume valid
+
+    rules = rules["rules"]
+
+    # Check: can_combine
+    if use_case.get("combine_with_other") and rules.get("can_combine", {}).get("value") == "no":
+        return False, "This voucher cannot be combined with other gift cards."
+
+    # Check: works_on_sale_items
+    if use_case.get("on_sale_item") and rules.get("works_on_sale_items", {}).get("value") == "no":
+        return False, "This voucher is not applicable on sale or discounted items."
+
+    # Check: combines_with_store_offers
+    if use_case.get("with_store_offers") and rules.get("combines_with_store_offers", {}).get("value") == "no":
+        return False, "This voucher cannot be combined with other store offers."
+
+    # Check: max_cards_per_order
+    num_cards = use_case.get("num_cards", 1)
+    max_cards = rules.get("max_cards_per_order", {}).get("value")
+    if max_cards is not None and num_cards > max_cards:
+        return False, f"This voucher allows a maximum of {max_cards} cards per order, but you're trying to use {num_cards}."
+
+    return True, None
 
 
 def _parse_denominations(voucher: dict) -> tuple[bool, list[int]]:
