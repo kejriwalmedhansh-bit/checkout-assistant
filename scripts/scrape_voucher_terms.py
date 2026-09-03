@@ -324,11 +324,18 @@ async def scrape_maximize(page, target: dict) -> dict:
     # once a method is selected, so each has to be clicked and the resulting
     # "You Pay" figure read back. This is the difference between recommending
     # UPI and recommending a credit card, so it is worth the extra clicks.
+    # The page has no input[type=radio] at all — the methods are styled labels
+    # wrapping a role=radio, so the old "label containing a radio input" filter
+    # matched nothing and every method timed out. Match the label by its exact
+    # method text instead, and skip a method with no label rather than spending
+    # the timeout on it.
     per_method: dict[str, dict] = {}
     for method in raw.get("payment_methods_offered", []):
         try:
-            opt = page.locator(f"label:has-text('{method}'), div:has-text('{method}')").filter(
-                has=page.locator("input[type=radio]")).first
+            opt = page.locator(f"label:has(p:text-is('{method}'))").first
+            if await opt.count() == 0:
+                per_method[method] = {"error": "no selector on page"}
+                continue
             await opt.scroll_into_view_if_needed(timeout=4000)
             try:
                 await opt.click(timeout=4000)
