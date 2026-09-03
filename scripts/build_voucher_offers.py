@@ -139,15 +139,22 @@ def from_gyftr(rec: dict) -> dict:
         set_rule(rules, "works_online", flag[0], ev)
         set_rule(rules, "works_in_store", flag[1], ev)
 
+    # processing_charge_apply says the method is *subject* to the brand's
+    # processing charge, not that a charge exists: it reads "Y" on 422 brands
+    # while only six carry a non-zero charge. Taking the flag alone marked
+    # nearly every card payment as fee-bearing when it costs nothing extra.
+    charge = num(raw.get("processing_charge")) or 0.0
     methods = {}
     for name, m in (raw.get("payment_methods") or {}).items():
         pct = num(m.get("discount_pct"))
         if pct is None:
             continue
+        applies = m.get("processing_charge_apply") == "Y" and charge > 0
         methods[name] = {"saving_pct": pct,
-                         # A fee on this method eats the headline rate, so the
-                         # best rate is not always the cheapest route.
-                         "processing_fee": m.get("processing_charge_apply") == "Y"}
+                         # A real fee eats the headline rate, so the best rate
+                         # is not always the cheapest route.
+                         "processing_fee": applies,
+                         "processing_fee_pct": charge if applies else 0.0}
 
     return {
         # stock_left reads 0 on listings plainly on sale, so it says nothing.
