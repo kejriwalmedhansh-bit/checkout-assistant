@@ -29,6 +29,22 @@ PAYMENT_METHOD_TO_DISCOUNT_KEYS = {
     "amazon_pay": ["UPI"],
 }
 
+# Gyftr is the only platform confirmed (live-tested 2026-09-03) to let a
+# shopper put several different voucher amounts in one cart and pay once.
+# Maximize and BuyHatke only ever let you pick ONE amount per checkout —
+# buying a second, different denomination means a second separate purchase,
+# regardless of how many the *store* is willing to combine at redemption
+# (that's `_store_allows_stacking`, a different fact — see its docstring).
+_SINGLE_ITEM_CHECKOUT_PLATFORMS = {"maximize", "buyhatke"}
+
+# Recommended Route tie-break: a cheaper multi-transaction deal only beats a
+# single-transaction deal when it saves more than this fraction extra on top
+# of the single-transaction price. Below that, the one-click option wins even
+# though it costs a little more — closing purchase friction is a stated
+# product USP, not just a nice-to-have. Set 2026-09-03 per product decision:
+# up to ~5% more is worth paying to avoid extra transactions.
+MULTI_TXN_SAVINGS_THRESHOLD = 0.05
+
 # Load standardized voucher rules from T&C extraction
 def _load_voucher_rules() -> dict:
     """Load standardized voucher rules extracted from T&Cs. Returns {source:slug: {rules}}.
