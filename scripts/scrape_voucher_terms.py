@@ -262,11 +262,27 @@ async def scrape_buyhatke(page, target: dict) -> dict:
         except ValueError:
             return None
 
+    # Read the "Select Amount" block itself rather than only amounts that carry
+    # their own discount label. Most brands price every denomination the same
+    # and print the rate once as a headline, so pairing on "₹X … N% OFF" found
+    # nothing and left 320 live brands with no denominations at all — which is
+    # how a wrong purchase ceiling gets recommended. The per-denomination rate
+    # is still kept where the page does show one, and the label is kept with it
+    # because "CASHBACK" is not the same promise as "OFF".
     denoms = []
-    for m in re.finditer(r"(₹[\d.,]+\s*[Kk]?)\s*\n\s*([\d.]+)%\s*OFF", body):
-        value = rupees(m.group(1))
-        if value is not None:
-            denoms.append({"value": value, "discount_pct": float(m.group(2))})
+    block = re.search(r"Select Amount(.*?)(?:Continue|Need help)", body, re.S | re.I)
+    if block:
+        for m in re.finditer(
+                r"₹\s*([\d.,]+\s*[Kk]?)\s*(?:\n\s*([\d.]+)%\s*(OFF|CASHBACK))?",
+                block.group(1), re.I):
+            value = rupees("₹" + m.group(1))
+            if value is None:
+                continue
+            entry = {"value": value}
+            if m.group(2):
+                entry["discount_pct"] = float(m.group(2))
+                entry["label"] = m.group(3).upper()
+            denoms.append(entry)
 
     return {
         "restrictions": section(r"VOUCHER RESTRICTIONS", (r"REFER & EARN", r"HOW TO REDEEM")),
@@ -275,8 +291,19 @@ async def scrape_buyhatke(page, target: dict) -> dict:
         "denominations": denoms,
         # Headline range as the site advertises it, kept to cross-check the
         # per-denomination figures above.
+        # Some brands advertise CASHBACK rather than OFF (Amazon Pay, BookMyShow);
+        # matching only OFF recorded no rate at all for them.
         "headline_discount": (headline.group(1) if (headline := re.search(
-            r"([\d.]+%\s*-\s*[\d.]+%\s*OFF|[\d.]+%\s*OFF)", body)) else None),
+            r"([\d.]+%\s*-\s*[\d.]+%\s*(?:OFF|CASHBACK)|[\d.]+%\s*(?:OFF|CASHBACK))",
+            body, re.I)) else None),
+        "custom_amount": "Enter Custom Amount" in body,
+        # The site says so outright. Worth storing rather than inferring it from
+        # a missing rate: an unavailable brand still lists its amounts, so it
+        # otherwise looks like a live listing that simply has no discount.
+        # Requires the amount block too: a delisted brand still returns a page,
+        # but it is only nav and footer, which would otherwise pass the
+        # "not unavailable" test and read as a live listing.
+        "available": bool(denoms) and "currently unavailable" not in body.lower(),
         "page_text": body[:8000],
     }
 
