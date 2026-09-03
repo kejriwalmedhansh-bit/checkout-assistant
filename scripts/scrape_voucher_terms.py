@@ -142,6 +142,28 @@ def master_targets(source: str) -> list[dict]:
 # per-platform collection
 # --------------------------------------------------------------------------
 
+# The instant card is the only one that lowers what the shopper pays today, and
+# it is not always the first card on the page: brands that offer no instant
+# discount show the MaxCoins card alone, so reading "the amount after You Pay"
+# picks up the full price and reports it as though it were the deal. Anchor on
+# the card's own wording instead — "Instant ₹22.5 Off. MaxCoins excluded." —
+# and treat its absence as a real zero rather than guessing from a nearby card.
+INSTANT_CARD = re.compile(
+    r"₹\s*([\d,]+(?:\.\d+)?)\s*\n+\s*([\d.]+)%\s*Off"
+    r"(?:\s*\n+\s*Instant\s*₹\s*([\d,]+(?:\.\d+)?)\s*Off)?"
+    r"[^\n]*\n*[^\n]*MaxCoins excluded", re.I)
+
+
+def instant_offer(text: str) -> dict:
+    """The instant-discount card's figures, or an explicit zero when the brand
+    offers no instant route at all (PhonePe, for one)."""
+    m = INSTANT_CARD.search(text)
+    if not m:
+        return {"pay": None, "discount_pct": 0.0, "instant_offered": False}
+    return {"pay": m.group(1), "discount_pct": float(m.group(2)),
+            "saving_rupees": m.group(3), "instant_offered": True}
+
+
 async def scrape_gyftr(page, target: dict) -> dict:
     """Structured fields from the API; full terms from the page's T&C tab.
 
@@ -351,10 +373,7 @@ async def scrape_maximize(page, target: dict) -> dict:
     # ("₹200.00 20.75% Earn"). They are not interchangeable: only the first
     # lowers what you actually pay today, so they are captured separately
     # rather than as one "discount".
-    raw["instant_discount"] = [
-        {"pay": p, "pct": float(pct)} for p, pct in
-        re.findall(r"₹([\d,]+(?:\.\d+)?)\s*\n?\s*([\d.]+)%\s*Off", body, re.I)
-    ]
+    raw["instant_discount"] = instant_offer(body)
     raw["maxcoins_earn"] = [
         {"pay": p, "pct": float(pct)} for p, pct in
         re.findall(r"₹([\d,]+(?:\.\d+)?)\s*\n?\s*([\d.]+)%\s*Earn", body, re.I)
@@ -414,20 +433,7 @@ async def scrape_maximize(page, target: dict) -> dict:
             # method that earns no discount the badge is not rendered at all, so
             # keying off it recorded a blank — indistinguishable from a failed
             # read — where the true answer is 0%. The price is always shown.
-            pay = re.search(r"You Pay\s*\n+\s*₹\s*([\d,]+(?:\.\d+)?)", after, re.I)
-            off = re.search(r"You Pay\s*\n+\s*₹\s*[\d,]+(?:\.\d+)?\s*\n+\s*([\d.]+)%\s*Off",
-                            after, re.I)
-            if pay and not off:
-                # Price shown, no discount badge: the method is offered at full
-                # price. Recorded as an explicit zero, flagged so it is never
-                # mistaken for a value we simply failed to read.
-                per_method[method] = {"pay": pay.group(1), "discount_pct": 0.0,
-                                      "no_discount_badge": True}
-            else:
-                per_method[method] = {
-                    "pay": pay.group(1) if pay else None,
-                    "discount_pct": float(off.group(1)) if off else None,
-                }
+            per_method[method] = instant_offer(after)
         except Exception as exc:
             per_method[method] = {"error": str(exc)[:100]}
     raw["payment_method_rates"] = per_method
