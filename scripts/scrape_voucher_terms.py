@@ -371,11 +371,24 @@ async def scrape_maximize(page, target: dict) -> dict:
                 await opt.dispatch_event("click")
             await page.wait_for_timeout(1200)
             after = await page.inner_text("body")
-            off = re.search(r"₹([\d,]+(?:\.\d+)?)\s*\n?\s*([\d.]+)%\s*Off", after, re.I)
-            per_method[method] = {
-                "pay": off.group(1) if off else None,
-                "discount_pct": float(off.group(2)) if off else None,
-            }
+            # Read the "You Pay" figure rather than the "N% Off" badge: on a
+            # method that earns no discount the badge is not rendered at all, so
+            # keying off it recorded a blank — indistinguishable from a failed
+            # read — where the true answer is 0%. The price is always shown.
+            pay = re.search(r"You Pay\s*\n+\s*₹\s*([\d,]+(?:\.\d+)?)", after, re.I)
+            off = re.search(r"You Pay\s*\n+\s*₹\s*[\d,]+(?:\.\d+)?\s*\n+\s*([\d.]+)%\s*Off",
+                            after, re.I)
+            if pay and not off:
+                # Price shown, no discount badge: the method is offered at full
+                # price. Recorded as an explicit zero, flagged so it is never
+                # mistaken for a value we simply failed to read.
+                per_method[method] = {"pay": pay.group(1), "discount_pct": 0.0,
+                                      "no_discount_badge": True}
+            else:
+                per_method[method] = {
+                    "pay": pay.group(1) if pay else None,
+                    "discount_pct": float(off.group(1)) if off else None,
+                }
         except Exception as exc:
             per_method[method] = {"error": str(exc)[:100]}
     raw["payment_method_rates"] = per_method
