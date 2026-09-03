@@ -46,26 +46,26 @@
     }
   },
   "maximize": {
-    "offers": 40,
-    "available": 37,
-    "recommendable": 34,
-    "with_terms": 37,
-    "per_method_rates": 37,
+    "offers": 384,
+    "available": 361,
+    "recommendable": 342,
+    "with_terms": 361,
+    "per_method_rates": 361,
     "rules_stated": {
-      "works_online": 35,
-      "works_in_store": 34,
-      "one_time_use": 37,
-      "can_combine": 36,
-      "combines_with_store_offers": 35,
+      "works_online": 335,
+      "works_in_store": 344,
+      "one_time_use": 359,
+      "can_combine": 359,
+      "combines_with_store_offers": 347,
       "max_cards_per_order": 0,
       "ceiling_amount": 0,
       "ceiling_period": 0,
       "min_order_value": 0,
       "max_spend_per_purchase": 0,
-      "works_on_sale_items": 1,
-      "excludes": 5,
+      "works_on_sale_items": 28,
+      "excludes": 57,
       "delivery_wait_days": 0,
-      "validity": 37
+      "validity": 360
     }
   }
 }
