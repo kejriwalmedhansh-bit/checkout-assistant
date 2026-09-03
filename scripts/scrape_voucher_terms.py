@@ -26,8 +26,9 @@ Usage:
     python3.11 scripts/scrape_voucher_terms.py --source gyftr   # one platform
     python3.11 scripts/scrape_voucher_terms.py --limit 5        # smoke test
 
-Writes data/voucher_terms_raw.json, keyed "{source}:{slug}". Resumable: an entry
-already present is skipped unless --refresh.
+Writes data/voucher_terms_raw_{source}.json, keyed "{source}:{slug}" — one file
+per source so the three runs can go in parallel without overwriting each other.
+Resumable: an entry already present is skipped unless --refresh.
 """
 from __future__ import annotations
 
@@ -121,7 +122,8 @@ async def scrape_gyftr(page, target: dict) -> dict:
     """
     raw: dict = {}
     try:
-        brand = get_json(GYFTR_DETAIL.format(slug=target["slug"]))["data"]["brand"]
+        data = get_json(GYFTR_DETAIL.format(slug=target["slug"]))["data"]
+        brand = data["brand"]
         raw["important_instruction"] = untag(brand.get("important_instruction"))
         raw["checkout_instruction"] = untag(brand.get("checkout_instruction"))
         raw["faqs"] = untag(brand.get("faqs"))
@@ -129,21 +131,68 @@ async def scrape_gyftr(page, target: dict) -> dict:
         # ON / OFF / B — the platform's own online-vs-in-store flag, which is
         # cleaner than inferring it from prose.
         raw["redemption_type"] = brand.get("redemption_type")
+
+        # --- the money side ---
+        # The rate is per payment method, not per brand: Nykaa pays 5% on UPI
+        # and 3% on Credit Card. Recommending the wrong method quietly costs the
+        # difference, so every method is stored with its own rate rather than
+        # collapsing to a single headline number.
+        #
+        # processing_charge_apply matters just as much: Gyftr adds a fee on some
+        # methods, so the best-looking rate is not always the cheapest route.
+        modes = {}
+        for m in (data.get("pgmodes") or []) + (data.get("pgdis") or []):
+            name = m.get("pg_name")
+            if not name:
+                continue
+            entry = modes.setdefault(name, {"pg_slug": m.get("pg_slug")})
+            rate = m.get("pg_discount", m.get("brand_pg_discount"))
+            if rate is not None:
+                entry["discount_pct"] = rate
+            if m.get("processing_charge_apply") is not None:
+                entry["processing_charge_apply"] = m["processing_charge_apply"]
+            if m.get("pg_offer"):
+                entry["pg_offer"] = m["pg_offer"]
+        raw["payment_methods"] = modes
+
+        raw["denominations"] = [
+            {"name": p.get("product_name"), "value": p.get("mrp"),
+             "discount": p.get("discount"), "discount_type": p.get("discount_type"),
+             "offer_type": p.get("offer_type"),
+             # max_value is the per-voucher ceiling on custom-amount brands
+             "max_value": p.get("max_value"), "stock_left": p.get("stock_left")}
+            for p in (data.get("products") or [])
+        ]
+        raw["default_discount_pct"] = brand.get("defaut_pg_dis")
+        raw["processing_charge"] = brand.get("processing_charge")
+        raw["promocodes"] = data.get("promocodes") or []
     except Exception as exc:
         raw["api_error"] = str(exc)[:200]
 
-    await page.goto(target["url"], wait_until="domcontentloaded", timeout=45000)
-    await page.wait_for_timeout(2200)
+    await page.goto(target["url"], wait_until="domcontentloaded", timeout=60000)
+
     # Three elements carry the "T&C*" label (desktop div, desktop span, mobile
     # button), so a plain text= selector trips Playwright's strict mode and the
     # terms silently never load. Target the span that actually opens the panel.
-    for selector in ("span.cursor-pointer:has-text('T&C')", "text=T&C*"):
+    #
+    # Waiting a fixed number of milliseconds after the click is not enough: under
+    # concurrency the panel can take several seconds to populate, and a run at 5
+    # workers captured the terms for only 9% of brands while the same code
+    # single-threaded got 100%. Wait for the text itself to arrive instead, and
+    # re-click if the first one landed before the handler was bound.
+    tc = page.locator("span.cursor-pointer:has-text('T&C')").first
+    for attempt in range(3):
         try:
-            await page.locator(selector).first.click(timeout=6000)
-            await page.wait_for_timeout(1800)
+            await tc.click(timeout=8000)
+            await page.wait_for_function(
+                "() => /terms\\s*&\\s*conditions/i.test(document.body.innerText)",
+                timeout=8000)
             break
         except Exception:
-            continue  # last resort: the API fields still stand on their own
+            if attempt == 2:
+                break  # no T&C tab, or it never populated — API fields still stand
+            await page.wait_for_timeout(1200)
+
     body = await page.inner_text("body")
     idx = body.lower().find("terms & conditions")
     raw["full_terms"] = body[idx:idx + 20000].strip() if idx > -1 else ""
@@ -154,8 +203,16 @@ async def scrape_gyftr(page, target: dict) -> dict:
 async def scrape_buyhatke(page, target: dict) -> dict:
     """Everything lives in the rendered page: restrictions block, how-to-redeem,
     then the numbered terms."""
-    await page.goto(target["url"], wait_until="domcontentloaded", timeout=45000)
-    await page.wait_for_timeout(3200)
+    await page.goto(target["url"], wait_until="domcontentloaded", timeout=60000)
+    # Client-rendered, so the terms arrive well after domcontentloaded. A fixed
+    # 3.2s sleep held up single-threaded but caught only a third of listings at 5
+    # workers — wait for the heading itself, and fall back to a sleep for the
+    # handful of listings that genuinely carry no terms block.
+    try:
+        await page.wait_for_function(
+            "() => /TERMS AND CONDITIONS/i.test(document.body.innerText)", timeout=15000)
+    except Exception:
+        await page.wait_for_timeout(3000)
     body = await page.inner_text("body")
 
     def section(start_pat: str, end_pats: tuple[str, ...]) -> str:
@@ -166,10 +223,32 @@ async def scrape_buyhatke(page, target: dict) -> dict:
         ends = [e.start() for e in (re.search(p, rest[80:], re.I) for p in end_pats) if e]
         return rest[:min(ends) + 80].strip() if ends else rest[:12000].strip()
 
+    # BuyHatke prices each denomination separately — Myntra runs 3.51% on ₹250
+    # but 4.26% on ₹5,000 — so a single headline rate misstates the saving on
+    # most basket sizes. Values are written as ₹1.5K / ₹10K on the page.
+    def rupees(token: str) -> float | None:
+        t = token.replace("₹", "").replace(",", "").strip()
+        mult = 1000 if t[-1:].upper() == "K" else 1
+        try:
+            return float(t[:-1] if mult == 1000 else t) * mult
+        except ValueError:
+            return None
+
+    denoms = []
+    for m in re.finditer(r"(₹[\d.,]+\s*[Kk]?)\s*\n\s*([\d.]+)%\s*OFF", body):
+        value = rupees(m.group(1))
+        if value is not None:
+            denoms.append({"value": value, "discount_pct": float(m.group(2))})
+
     return {
         "restrictions": section(r"VOUCHER RESTRICTIONS", (r"REFER & EARN", r"HOW TO REDEEM")),
         "how_to_redeem": section(r"HOW TO REDEEM", (r"TERMS AND CONDITIONS", r"Frequently Asked")),
         "full_terms": section(r"TERMS AND CONDITIONS", (r"Frequently Asked Questions",)),
+        "denominations": denoms,
+        # Headline range as the site advertises it, kept to cross-check the
+        # per-denomination figures above.
+        "headline_discount": (headline.group(1) if (headline := re.search(
+            r"([\d.]+%\s*-\s*[\d.]+%\s*OFF|[\d.]+%\s*OFF)", body)) else None),
         "page_text": body[:8000],
     }
 
@@ -190,6 +269,38 @@ async def scrape_maximize(page, target: dict) -> dict:
 
     raw = {"info_boxes": boxes, "page_text": body[:8000], "full_terms": "", "how_to_redeem": ""}
 
+    # --- the money side ---
+    raw["denominations"] = [
+        {"value": float(v.replace("₹", "").replace(",", ""))}
+        for v in re.findall(r"₹[\d,]+(?:\.\d+)?", "\n".join(lines))[:14]
+    ]
+    # "Max: 4" caps how many this seller will sell in one checkout — distinct
+    # from how many the shop will accept at redemption.
+    if (m := re.search(r"Max:\s*(\d+)", body)):
+        raw["max_quantity_per_order"] = int(m.group(1))
+
+    # Maximize quotes two competing routes on the same card — an instant
+    # discount ("₹159.00 20.5% Off") versus paying full and earning MaxCoins
+    # ("₹200.00 20.75% Earn"). They are not interchangeable: only the first
+    # lowers what you actually pay today, so they are captured separately
+    # rather than as one "discount".
+    raw["instant_discount"] = [
+        {"pay": p, "pct": float(pct)} for p, pct in
+        re.findall(r"₹([\d,]+(?:\.\d+)?)\s*\n?\s*([\d.]+)%\s*Off", body, re.I)
+    ]
+    raw["maxcoins_earn"] = [
+        {"pay": p, "pct": float(pct)} for p, pct in
+        re.findall(r"₹([\d,]+(?:\.\d+)?)\s*\n?\s*([\d.]+)%\s*Earn", body, re.I)
+    ]
+    # Which methods this brand offers at all. Per-method rates appear only once
+    # a method is selected, so the list is recorded here and the rates are read
+    # per method below.
+    raw["payment_methods_offered"] = [
+        m for m in ("UPI", "Debit Card", "Credit Card", "Amazon pay", "CC on UPI",
+                    "Pay With Rewards", "Diners Club", "Wallets", "Amex")
+        if m.lower() in body.lower()
+    ]
+
     for label, key in (("Terms & Conditions", "full_terms"), ("How To Redeem", "how_to_redeem")):
         try:
             button = page.locator(f"button:has-text('{label}')").first
@@ -208,6 +319,31 @@ async def scrape_maximize(page, target: dict) -> dict:
             await page.wait_for_timeout(700)
         except Exception as exc:
             raw[f"{key}_error"] = str(exc)[:150]
+
+    # Per-method rates are not printed on load — the quoted price only updates
+    # once a method is selected, so each has to be clicked and the resulting
+    # "You Pay" figure read back. This is the difference between recommending
+    # UPI and recommending a credit card, so it is worth the extra clicks.
+    per_method: dict[str, dict] = {}
+    for method in raw.get("payment_methods_offered", []):
+        try:
+            opt = page.locator(f"label:has-text('{method}'), div:has-text('{method}')").filter(
+                has=page.locator("input[type=radio]")).first
+            await opt.scroll_into_view_if_needed(timeout=4000)
+            try:
+                await opt.click(timeout=4000)
+            except Exception:
+                await opt.dispatch_event("click")
+            await page.wait_for_timeout(1200)
+            after = await page.inner_text("body")
+            off = re.search(r"₹([\d,]+(?:\.\d+)?)\s*\n?\s*([\d.]+)%\s*Off", after, re.I)
+            per_method[method] = {
+                "pay": off.group(1) if off else None,
+                "discount_pct": float(off.group(2)) if off else None,
+            }
+        except Exception as exc:
+            per_method[method] = {"error": str(exc)[:100]}
+    raw["payment_method_rates"] = per_method
     return raw
 
 
@@ -218,20 +354,24 @@ SCRAPERS = {"gyftr": scrape_gyftr, "buyhatke": scrape_buyhatke, "maximize": scra
 # runners
 # --------------------------------------------------------------------------
 
-def load_out() -> dict:
-    if OUT_PATH.exists():
+def load_out(path: Path) -> dict:
+    if path.exists():
         try:
-            return json.loads(OUT_PATH.read_text())
+            return json.loads(path.read_text())
         except json.JSONDecodeError:
             pass
     return {}
 
 
-def save_out(out: dict) -> None:
-    OUT_PATH.write_text(json.dumps(out, indent=2, ensure_ascii=False) + "\n")
+def save_out(out: dict, path: Path) -> None:
+    """Write via a temp file so an interrupted run cannot leave a half-written
+    file behind — this is the only copy of a scrape that takes an hour."""
+    tmp = path.with_suffix(".tmp")
+    tmp.write_text(json.dumps(out, indent=2, ensure_ascii=False) + "\n")
+    tmp.replace(path)
 
 
-async def run_headless(source: str, targets: list[dict], out: dict, workers: int) -> None:
+async def run_headless(source: str, targets: list[dict], out: dict, workers: int, out_path: Path) -> None:
     """Gyftr and BuyHatke: bundled Chromium, logged out, several pages at once."""
     done = 0
     async with async_playwright() as p:
@@ -254,15 +394,15 @@ async def run_headless(source: str, targets: list[dict], out: dict, workers: int
                     await page.close()
                 done += 1
                 if done % 25 == 0:
-                    save_out(out)
+                    save_out(out, out_path)
                     print(f"  {source}: {done}/{len(targets)}", flush=True)
 
         await asyncio.gather(*(one(t) for t in targets))
         await browser.close()
-    save_out(out)
+    save_out(out, out_path)
 
 
-async def run_maximize(targets: list[dict], out: dict) -> None:
+async def run_maximize(targets: list[dict], out: dict, out_path: Path) -> None:
     """One real-Chrome window, one page at a time — Cloudflare rejects the
     bundled browser, and the profile can only be opened once."""
     if not CHROME_PROFILE.exists():
@@ -284,17 +424,21 @@ async def run_maximize(targets: list[dict], out: dict) -> None:
                                                      "error": str(exc)[:200]}
                 print(f"  ! {target['brand_name']}: {str(exc)[:90]}", flush=True)
             if i % 20 == 0:
-                save_out(out)
+                save_out(out, out_path)
                 print(f"  maximize: {i}/{len(targets)}", flush=True)
         await ctx.close()
-    save_out(out)
+    save_out(out, out_path)
 
 
 async def main_async(args) -> None:
-    out = load_out()
     sources = [args.source] if args.source else ["gyftr", "buyhatke", "maximize"]
 
     for source in sources:
+        # One file per source. The three runs are long enough that they want to
+        # go in parallel, and a shared file means whichever saves last wins and
+        # silently discards the others' work. merge_voucher_terms.py joins them.
+        out_path = Path(args.out) if args.out else OUT_PATH.with_name(f"voucher_terms_raw_{source}.json")
+        out = load_out(out_path)
         targets = gyftr_targets() if source == "gyftr" else master_targets(source)
         if not args.refresh:
             targets = [t for t in targets if f"{source}:{t['slug']}" not in out]
@@ -307,12 +451,12 @@ async def main_async(args) -> None:
         print(f"\n{source}: {len(targets)} listings", flush=True)
         if source == "maximize":
             print("  (opens a real Chrome window — Cloudflare rejects anything else)", flush=True)
-            await run_maximize(targets, out)
+            await run_maximize(targets, out, out_path)
         else:
-            await run_headless(source, targets, out, args.workers)
+            await run_headless(source, targets, out, args.workers, out_path)
 
-    ok = sum(1 for v in out.values() if "error" not in v)
-    print(f"\ncollected {ok} of {len(out)} listings -> {OUT_PATH}")
+        ok = sum(1 for v in out.values() if "error" not in v)
+        print(f"  {source}: {ok} of {len(out)} listings usable -> {out_path}", flush=True)
 
 
 def main() -> None:
@@ -321,6 +465,7 @@ def main() -> None:
     ap.add_argument("--limit", type=int, help="first N per source, for a smoke test")
     ap.add_argument("--workers", type=int, default=4, help="parallel pages (headless sources)")
     ap.add_argument("--refresh", action="store_true", help="re-scrape listings already collected")
+    ap.add_argument("--out", help="write here instead of the per-source default")
     asyncio.run(main_async(ap.parse_args()))
 
 
