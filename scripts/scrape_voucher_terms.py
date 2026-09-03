@@ -313,8 +313,20 @@ async def scrape_maximize(page, target: dict) -> dict:
     cards be clubbed?") that answer several fields outright; the fuller terms sit
     behind a modal. Both are collected."""
     await page.goto(target["url"], wait_until="domcontentloaded", timeout=60000)
-    await page.wait_for_timeout(3800)
+    # A fixed wait silently under-runs on a slow load: eleven brands, Zomato and
+    # Lenskart among them, came back with only the site chrome captured — no
+    # amounts and no rates — which is indistinguishable from a brand that has
+    # nothing on sale. Wait for the amount picker itself, and record the miss
+    # rather than returning a page that only looks empty.
+    try:
+        await page.wait_for_function(
+            "() => /Select your Shopping Amount/i.test(document.body.innerText)",
+            timeout=20000)
+    except Exception:
+        await page.wait_for_timeout(3800)
     body = await page.inner_text("body")
+    if "Select your Shopping Amount" not in body:
+        return {"load_incomplete": True, "page_text": body[:2000]}
 
     boxes: dict[str, str] = {}
     lines = [ln.strip() for ln in body.split("\n") if ln.strip()]
