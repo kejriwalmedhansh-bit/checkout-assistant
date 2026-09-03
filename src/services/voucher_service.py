@@ -74,6 +74,8 @@ def validate_voucher_against_rules(source: str, slug: str, use_case: dict) -> tu
             - combine_with_other: bool (using multiple vouchers together)
             - on_sale_item: bool
             - with_store_offers: bool
+            - num_cards: int (number of cards being combined)
+            - product_category: str (e.g., "H&M", "Fine Jewellery")
 
     Returns: (is_valid, reason_if_invalid) where reason is a human-readable string
     explaining why voucher cannot be used (or None if valid/not stated).
@@ -86,6 +88,9 @@ def validate_voucher_against_rules(source: str, slug: str, use_case: dict) -> tu
 
     # Check: can_combine
     if use_case.get("combine_with_other") and rules.get("can_combine", {}).get("value") == "no":
+        max_cards = rules.get("max_cards_per_order", {}).get("value")
+        if max_cards is not None:
+            return False, f"This voucher allows a maximum of {max_cards} card per order."
         return False, "This voucher cannot be combined with other gift cards."
 
     # Check: works_on_sale_items
@@ -101,6 +106,14 @@ def validate_voucher_against_rules(source: str, slug: str, use_case: dict) -> tu
     max_cards = rules.get("max_cards_per_order", {}).get("value")
     if max_cards is not None and num_cards > max_cards:
         return False, f"This voucher allows a maximum of {max_cards} cards per order, but you're trying to use {num_cards}."
+
+    # Check: product exclusions
+    product_category = use_case.get("product_category", "")
+    excludes = rules.get("excludes", {}).get("value") or []
+    if product_category and excludes:
+        for excluded in excludes:
+            if product_category.lower() in excluded.lower() or excluded.lower() in product_category.lower():
+                return False, f"This voucher cannot be used on {excluded.lower()}."
 
     return True, None
 
@@ -844,9 +857,12 @@ def get_voucher_check(merchant_name: str, price: float | None = None) -> dict | 
         if not candidates:
             return None
         candidates = _prefer_exact_name_matches(candidates, merchant_name, brand_index=2)
-        deal, voucher_source, brand_name, voucher = min(
-            candidates, key=lambda c: c[0]["effective_price"]
-        )
+        # Same friction-aware tie-break as build_deals — this endpoint had
+        # its own separate cheapest-wins picker that predated that fix and
+        # was never updated, so the Chrome extension's checkout popup was
+        # still recommending the higher-friction source (found 2026-09-03
+        # while setting up a test of the build_deals fix).
+        deal, voucher_source, brand_name, voucher = _pick_best_candidate(candidates)
 
         # What the same purchase would earn paid by card instead. The rate we
         # promise on the store's checkout page is the UPI rate, so if the
