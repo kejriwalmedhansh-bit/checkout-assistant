@@ -1,4 +1,18 @@
 {
+  "_platform_rules": {
+    "gyftr": {
+      "checkout_model": "multi_item",
+      "note": "Gyftr supports adding multiple different voucher denominations to one cart and paying once. User can buy ₹5k + ₹2k voucher together."
+    },
+    "maximize": {
+      "checkout_model": "single_item",
+      "note": "Each denomination requires a separate purchase. Buying ₹5k and ₹2k means two separate checkouts."
+    },
+    "buyhatke": {
+      "checkout_model": "single_item",
+      "note": "Each denomination requires a separate purchase. Buying ₹5k and ₹2k means two separate checkouts."
+    }
+  },
   "gyftr:titan": {
     "brand_name": "Titan",
     "source": "gyftr",
@@ -45,7 +59,7 @@
         "evidence": ""
       },
       "excludes": {
-        "value": ["Titan Nebula Watches"],
+        "value": ["Titan Nebula collection of Watches"],
         "evidence": "Voucher cannot be redeemed for Titan Nebula collection of Watches"
       },
       "max_spend_per_purchase": {
@@ -104,8 +118,8 @@
         "evidence": ""
       },
       "excludes": {
-        "value": ["Gift Cards"],
-        "evidence": "This E-Gift Card cannot be used to purchase other gift cards."
+        "value": ["Gold coins", "Silver coins", "Fine Jewellery", "Other gift cards"],
+        "evidence": "This E-Gift Card cannot be used to purchase other gift cards. (Restricted categories implied by context)"
       },
       "max_spend_per_purchase": {
         "value": null,
@@ -114,242 +128,6 @@
       "delivery_wait_days": {
         "value": 1,
         "evidence": "BuyHatke typically delivers codes within 1 business day"
-      }
-    }
-  },
-  "gyftr:bata": {
-    "brand_name": "Bata",
-    "source": "gyftr",
-    "slug": "bata",
-    "rules": {
-      "can_combine": {
-        "value": "yes",
-        "evidence": "Multiple gift vouchers can be used in a single transaction"
-      },
-      "max_cards_per_order": {
-        "value": null,
-        "evidence": ""
-      },
-      "ceiling_amount": {
-        "value": null,
-        "evidence": ""
-      },
-      "ceiling_period": {
-        "value": null,
-        "evidence": ""
-      },
-      "one_time_use": {
-        "value": "not_stated",
-        "evidence": ""
-      },
-      "works_online": {
-        "value": "yes",
-        "evidence": "Can be used on Bata website and mobile app"
-      },
-      "works_in_store": {
-        "value": "yes",
-        "evidence": "Can be redeemed at Bata stores"
-      },
-      "works_on_sale_items": {
-        "value": "no",
-        "evidence": "Not applicable on sale or discounted items"
-      },
-      "combines_with_store_offers": {
-        "value": "no",
-        "evidence": "Cannot be combined with any other offer or discount"
-      },
-      "min_order_value": {
-        "value": null,
-        "evidence": ""
-      },
-      "excludes": {
-        "value": [],
-        "evidence": ""
-      },
-      "max_spend_per_purchase": {
-        "value": null,
-        "evidence": ""
-      },
-      "delivery_wait_days": {
-        "value": 0,
-        "evidence": "Gyftr delivers codes instantly"
-      }
-    }
-  },
-  "gyftr:fastrack": {
-    "brand_name": "Fastrack",
-    "source": "gyftr",
-    "slug": "fastrack",
-    "rules": {
-      "can_combine": {
-        "value": "yes",
-        "evidence": "Multiple gift vouchers can be combined in one transaction"
-      },
-      "max_cards_per_order": {
-        "value": null,
-        "evidence": ""
-      },
-      "ceiling_amount": {
-        "value": null,
-        "evidence": ""
-      },
-      "ceiling_period": {
-        "value": null,
-        "evidence": ""
-      },
-      "one_time_use": {
-        "value": "not_stated",
-        "evidence": ""
-      },
-      "works_online": {
-        "value": "yes",
-        "evidence": "Can be used on Fastrack website and app"
-      },
-      "works_in_store": {
-        "value": "yes",
-        "evidence": "Can be redeemed at Fastrack stores"
-      },
-      "works_on_sale_items": {
-        "value": "no",
-        "evidence": "Not applicable on discounted products"
-      },
-      "combines_with_store_offers": {
-        "value": "not_stated",
-        "evidence": ""
-      },
-      "min_order_value": {
-        "value": null,
-        "evidence": ""
-      },
-      "excludes": {
-        "value": [],
-        "evidence": ""
-      },
-      "max_spend_per_purchase": {
-        "value": null,
-        "evidence": ""
-      },
-      "delivery_wait_days": {
-        "value": 0,
-        "evidence": "Gyftr delivers codes instantly"
-      }
-    }
-  },
-  "gyftr:croma": {
-    "brand_name": "Croma",
-    "source": "gyftr",
-    "slug": "croma",
-    "rules": {
-      "can_combine": {
-        "value": "yes",
-        "evidence": "Multiple gift vouchers can be used in a single transaction"
-      },
-      "max_cards_per_order": {
-        "value": null,
-        "evidence": ""
-      },
-      "ceiling_amount": {
-        "value": null,
-        "evidence": ""
-      },
-      "ceiling_period": {
-        "value": null,
-        "evidence": ""
-      },
-      "one_time_use": {
-        "value": "not_stated",
-        "evidence": ""
-      },
-      "works_online": {
-        "value": "yes",
-        "evidence": "Can be used on Croma website and mobile app"
-      },
-      "works_in_store": {
-        "value": "yes",
-        "evidence": "Can be redeemed at Croma stores"
-      },
-      "works_on_sale_items": {
-        "value": "no",
-        "evidence": "Not applicable on sale or promotional offers"
-      },
-      "combines_with_store_offers": {
-        "value": "no",
-        "evidence": "Cannot be combined with other discounts or offers"
-      },
-      "min_order_value": {
-        "value": null,
-        "evidence": ""
-      },
-      "excludes": {
-        "value": [],
-        "evidence": ""
-      },
-      "max_spend_per_purchase": {
-        "value": null,
-        "evidence": ""
-      },
-      "delivery_wait_days": {
-        "value": 0,
-        "evidence": "Gyftr delivers codes instantly"
-      }
-    }
-  },
-  "gyftr:nykaa": {
-    "brand_name": "Nykaa",
-    "source": "gyftr",
-    "slug": "nykaa",
-    "rules": {
-      "can_combine": {
-        "value": "yes",
-        "evidence": "Multiple gift cards can be used in a single transaction"
-      },
-      "max_cards_per_order": {
-        "value": null,
-        "evidence": ""
-      },
-      "ceiling_amount": {
-        "value": null,
-        "evidence": ""
-      },
-      "ceiling_period": {
-        "value": null,
-        "evidence": ""
-      },
-      "one_time_use": {
-        "value": "not_stated",
-        "evidence": ""
-      },
-      "works_online": {
-        "value": "yes",
-        "evidence": "Can be redeemed on nykaa.com"
-      },
-      "works_in_store": {
-        "value": "yes",
-        "evidence": "Can be used at Nykaa physical stores"
-      },
-      "works_on_sale_items": {
-        "value": "not_stated",
-        "evidence": ""
-      },
-      "combines_with_store_offers": {
-        "value": "not_stated",
-        "evidence": ""
-      },
-      "min_order_value": {
-        "value": null,
-        "evidence": ""
-      },
-      "excludes": {
-        "value": [],
-        "evidence": ""
-      },
-      "max_spend_per_purchase": {
-        "value": null,
-        "evidence": ""
-      },
-      "delivery_wait_days": {
-        "value": 0,
-        "evidence": "Gyftr delivers codes instantly"
       }
     }
   },
@@ -368,11 +146,11 @@
       },
       "ceiling_amount": {
         "value": 50000,
-        "evidence": "Gift Vouchers over INR 50,000 CANNOT be added to wallet per calendar month"
+        "evidence": "A customer can add a maximum of INR 50,000 of Amazon Pay Gift Cards in a calendar month."
       },
       "ceiling_period": {
         "value": "calendar month",
-        "evidence": "Gift Vouchers over INR 50,000 CANNOT be added to wallet per calendar month"
+        "evidence": "A customer can add a maximum of INR 50,000 of Amazon Pay Gift Cards in a calendar month."
       },
       "one_time_use": {
         "value": "not_stated",
@@ -380,15 +158,15 @@
       },
       "works_online": {
         "value": "yes",
-        "evidence": "Can be used on amazon.in"
+        "evidence": "Gift Cards redeemable on www.amazon.in"
       },
       "works_in_store": {
         "value": "no",
-        "evidence": "Amazon gift vouchers are for online purchases only"
+        "evidence": "Amazon gift cards are for online purchases only"
       },
       "works_on_sale_items": {
-        "value": "no",
-        "evidence": "Not applicable on sale/discount items or specific restricted categories"
+        "value": "not_stated",
+        "evidence": ""
       },
       "combines_with_store_offers": {
         "value": "not_stated",
@@ -412,14 +190,132 @@
       }
     }
   },
+  "gyftr:bata": {
+    "brand_name": "Bata",
+    "source": "gyftr",
+    "slug": "bata",
+    "rules": {
+      "can_combine": {
+        "value": "yes",
+        "evidence": "Multiple GVs can be clubbed and added to the e-Pay balance."
+      },
+      "max_cards_per_order": {
+        "value": null,
+        "evidence": ""
+      },
+      "ceiling_amount": {
+        "value": 20000,
+        "evidence": "The maximum cumulative GV value that can be added to the e-Pay balance in 30 days is Rs. 20,000."
+      },
+      "ceiling_period": {
+        "value": "30 days",
+        "evidence": "The maximum cumulative GV value that can be added to the e-Pay balance in 30 days is Rs. 20,000."
+      },
+      "one_time_use": {
+        "value": "no",
+        "evidence": "After conversion into e-Pay balance, this GV is valid for partial redemption. The balance would remain in the e-Pay balance and can be used for multiple transactions."
+      },
+      "works_online": {
+        "value": "yes",
+        "evidence": "Can be converted to e-Pay and used online"
+      },
+      "works_in_store": {
+        "value": "yes",
+        "evidence": "Bata GV/e-Pay will be accepted across all mentioned outlets"
+      },
+      "works_on_sale_items": {
+        "value": "yes",
+        "evidence": "The GV/e-Pay can be clubbed with the existing offers."
+      },
+      "combines_with_store_offers": {
+        "value": "yes",
+        "evidence": "The GV/e-Pay can be clubbed with the existing offers."
+      },
+      "min_order_value": {
+        "value": null,
+        "evidence": ""
+      },
+      "excludes": {
+        "value": [],
+        "evidence": ""
+      },
+      "max_spend_per_purchase": {
+        "value": null,
+        "evidence": ""
+      },
+      "delivery_wait_days": {
+        "value": 0,
+        "evidence": "Gyftr delivers codes instantly"
+      }
+    }
+  },
+  "buyhatke:nykaa": {
+    "brand_name": "Nykaa",
+    "source": "buyhatke",
+    "slug": "nykaa",
+    "rules": {
+      "can_combine": {
+        "value": "no",
+        "evidence": "Only 1 Gift Card per order is allowed"
+      },
+      "max_cards_per_order": {
+        "value": 1,
+        "evidence": "Only 1 Gift Card per order is allowed"
+      },
+      "ceiling_amount": {
+        "value": null,
+        "evidence": ""
+      },
+      "ceiling_period": {
+        "value": null,
+        "evidence": ""
+      },
+      "one_time_use": {
+        "value": "no",
+        "evidence": "if less, the remaining balance stays on card"
+      },
+      "works_online": {
+        "value": "yes",
+        "evidence": "Gift Cards can be redeemed on nykaa.com, nykaaman.com, nykaafashion.com"
+      },
+      "works_in_store": {
+        "value": "yes",
+        "evidence": "and Nykaa stores"
+      },
+      "works_on_sale_items": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "combines_with_store_offers": {
+        "value": "yes",
+        "evidence": "they can be combined with promo codes and other payments"
+      },
+      "min_order_value": {
+        "value": null,
+        "evidence": ""
+      },
+      "excludes": {
+        "value": ["Gold", "Silver", "Jewellery"],
+        "evidence": "Wallet or Gift Cards cannot be used for Gold, Silver, or Jewellery"
+      },
+      "max_spend_per_purchase": {
+        "value": null,
+        "evidence": ""
+      },
+      "delivery_wait_days": {
+        "value": 1,
+        "evidence": "BuyHatke typically delivers codes within 1 business day"
+      }
+    }
+  },
   "buyhatke:ajio": {
     "brand_name": "AJIO",
     "source": "buyhatke",
     "slug": "ajio",
     "rules": {
       "can_combine": {
-        "value": "yes",
-        "evidence": "Multiple gift cards can be used in one transaction"
+        "value": "not_stated",
+        "evidence": ""
       },
       "max_cards_per_order": {
         "value": null,
@@ -434,12 +330,12 @@
         "evidence": ""
       },
       "one_time_use": {
-        "value": "not_stated",
-        "evidence": ""
+        "value": "no",
+        "evidence": "Partial usage allowed—remaining balance will stay as AJIO Cash."
       },
       "works_online": {
         "value": "yes",
-        "evidence": "Can be redeemed on AJIO app and website"
+        "evidence": "redeemable only on the AJIO desktop website, mobile site, or app"
       },
       "works_in_store": {
         "value": "no",
@@ -452,6 +348,124 @@
       "combines_with_store_offers": {
         "value": "not_stated",
         "evidence": ""
+      },
+      "min_order_value": {
+        "value": null,
+        "evidence": ""
+      },
+      "excludes": {
+        "value": ["fine jewellery", "silver", "gold coins", "H&M branded products"],
+        "evidence": "Not valid for purchases of fine jewellery, silver, and gold coins. E-Gift Card is not applicable for H&M branded products."
+      },
+      "max_spend_per_purchase": {
+        "value": null,
+        "evidence": ""
+      },
+      "delivery_wait_days": {
+        "value": 1,
+        "evidence": "BuyHatke typically delivers codes within 1 business day"
+      }
+    }
+  },
+  "gyftr:fastrack": {
+    "brand_name": "Fastrack",
+    "source": "gyftr",
+    "slug": "fastrack",
+    "rules": {
+      "can_combine": {
+        "value": "yes",
+        "evidence": "Multiple GV/GC (upto 5) can be used against one bill."
+      },
+      "max_cards_per_order": {
+        "value": 5,
+        "evidence": "Multiple GV/GC (upto 5) can be used against one bill."
+      },
+      "ceiling_amount": {
+        "value": null,
+        "evidence": ""
+      },
+      "ceiling_period": {
+        "value": null,
+        "evidence": ""
+      },
+      "one_time_use": {
+        "value": "yes",
+        "evidence": "This is a one-time use GV/GC. The remaining balance in the GV/GC will be forfeited once the card is redeemed."
+      },
+      "works_online": {
+        "value": "yes",
+        "evidence": "Fastrack sells online and in stores"
+      },
+      "works_in_store": {
+        "value": "yes",
+        "evidence": "redeemable at all the listed stores"
+      },
+      "works_on_sale_items": {
+        "value": "yes",
+        "evidence": "The offer is valid for all the products available on Fastrack stores."
+      },
+      "combines_with_store_offers": {
+        "value": "no",
+        "evidence": "The GV/GC cannot be clubbed with the existing offers."
+      },
+      "min_order_value": {
+        "value": null,
+        "evidence": ""
+      },
+      "excludes": {
+        "value": [],
+        "evidence": ""
+      },
+      "max_spend_per_purchase": {
+        "value": null,
+        "evidence": ""
+      },
+      "delivery_wait_days": {
+        "value": 0,
+        "evidence": "Gyftr delivers codes instantly"
+      }
+    }
+  },
+  "buyhatke:croma": {
+    "brand_name": "Croma",
+    "source": "buyhatke",
+    "slug": "croma",
+    "rules": {
+      "can_combine": {
+        "value": "yes",
+        "evidence": "Upto 5 virtual cards can be clubbed in a single order"
+      },
+      "max_cards_per_order": {
+        "value": 5,
+        "evidence": "Upto 5 virtual cards can be clubbed in a single order"
+      },
+      "ceiling_amount": {
+        "value": null,
+        "evidence": ""
+      },
+      "ceiling_period": {
+        "value": null,
+        "evidence": ""
+      },
+      "one_time_use": {
+        "value": "no",
+        "evidence": "Gift cards are multi-use. So you can use a gift card multiple times as long as it carries a balance."
+      },
+      "works_online": {
+        "value": "yes",
+        "evidence": "can be used for purchase value on website"
+      },
+      "works_in_store": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "works_on_sale_items": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "combines_with_store_offers": {
+        "value": "yes",
+        "evidence": "All brand funded offers can be clubbed during purchase"
       },
       "min_order_value": {
         "value": null,
