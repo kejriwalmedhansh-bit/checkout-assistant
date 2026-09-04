@@ -19,7 +19,8 @@
       "works_on_sale_items": 60,
       "excludes": 42,
       "delivery_wait_days": 0,
-      "validity": 12
+      "validity": 12,
+      "spend_scope": 57
     }
   },
   "buyhatke": {
@@ -42,7 +43,8 @@
       "works_on_sale_items": 21,
       "excludes": 76,
       "delivery_wait_days": 28,
-      "validity": 176
+      "validity": 176,
+      "spend_scope": 82
     }
   },
   "maximize": {
@@ -65,7 +67,8 @@
       "works_on_sale_items": 29,
       "excludes": 62,
       "delivery_wait_days": 0,
-      "validity": 383
+      "validity": 383,
+      "spend_scope": 116
     }
   }
 }

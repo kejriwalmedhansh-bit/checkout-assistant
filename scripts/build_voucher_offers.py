@@ -30,7 +30,8 @@ COVERAGE = RAW / "voucher_offers_coverage.json"
 RULES = ("works_online", "works_in_store", "one_time_use", "can_combine",
          "combines_with_store_offers", "max_cards_per_order", "ceiling_amount",
          "ceiling_period", "min_order_value", "max_spend_per_purchase",
-         "works_on_sale_items", "excludes", "delivery_wait_days", "validity")
+         "works_on_sale_items", "excludes", "delivery_wait_days", "validity",
+         "spend_scope")
 
 _spec = importlib.util.spec_from_file_location(
     "extract_all_voucher_rules", REPO / "scripts" / "extract_all_voucher_rules.py")
@@ -53,12 +54,40 @@ GENERIC_EXCLUSION = re.compile(
     r"discount|sale item|sale price|offer|promotion|cash|other voucher|gift card", re.I)
 
 
+# What the voucher may actually be spent on. The name rarely says: Maximize's
+# "Air India Ancillary" pays 18% but buys only seat selection, extra baggage and
+# sports equipment — never a ticket — and a restaurant card good for "Food &
+# Non-Alcoholic beverages" will not settle a bar bill. Offering these as though
+# they were general-purpose is how a shopper gets stranded at the till.
+SCOPE_RE = re.compile(
+    r"(?:valid only (?:for|on)|can only be used (?:to|for|on)|"
+    r"redeemable only (?:for|on|at)|only (?:be )?applicable (?:for|on)|"
+    r"usable only (?:for|on))\s+([^.;\n]{5,120})", re.I)
+
+
+# A clause naming only the channel — website, app, store — says where, not what.
+CHANNEL_ONLY = re.compile(
+    r"^\W*(?:the\s+)?[\w &'-]{0,30}?(?:website|mobile app|app|online|"
+    r"stores?|outlets?|counters?)\b[\w &,'-]{0,25}$", re.I)
+
+
 def fill_extras(rules: dict, terms: str, instructions: str) -> None:
     """Validity period and named exclusions: both stated plainly and both worth
     surfacing, neither covered by the shared extractor."""
     text = f"{terms}\n{instructions}"
     if rules["validity"]["value"] == "not_stated" and (m := VALIDITY_RE.search(text)):
         set_rule(rules, "validity", m.group(0).strip(), m.group(0))
+    if rules["spend_scope"]["value"] == "not_stated":
+        # Prefer what the voucher buys over where it is spent. Air India
+        # Ancillary states both, and the channel clause comes first — leaving
+        # "the Air India website and mobile app" recorded while the clause that
+        # matters, "Seat Selection, Extra Baggage, ZipAhead and Sports
+        # Equipment", went unread.
+        matches = list(SCOPE_RE.finditer(text))
+        pick = next((m for m in matches if not CHANNEL_ONLY.search(m.group(1))),
+                    matches[0] if matches else None)
+        if pick:
+            set_rule(rules, "spend_scope", pick.group(1).strip(), pick.group(0))
     if rules["excludes"]["value"] in ([], None, "not_stated"):
         found, evidence = [], ""
         for m in EXCLUDE_RE.finditer(text):
