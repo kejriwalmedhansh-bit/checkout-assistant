@@ -589,6 +589,67 @@ def _pick_best_candidate(candidates: list[tuple]) -> tuple:
     return best_single
 
 
+_SLUG_BY_BRAND: dict[tuple[str, str], str] = {}
+
+
+def _slug_for(source: str, brand_name: str | None) -> str | None:
+    """Find a listing's slug from its brand name.
+
+    Gyftr's record carries the slug; Maximize and BuyHatke hand back a product
+    tier, which does not. Without this the rules silently resolved to {} for
+    two of the three platforms — the exact shape of bug that makes a feature
+    look wired when it is inert.
+    """
+    if not brand_name:
+        return None
+    if not _SLUG_BY_BRAND:
+        for key, rec in VOUCHER_RULES.items():
+            if key.startswith("_"):
+                continue
+            name = (rec.get("brand_name") or "").strip().lower()
+            if name:
+                _SLUG_BY_BRAND.setdefault((rec.get("source", ""), name), rec.get("slug"))
+    return _SLUG_BY_BRAND.get((source, brand_name.strip().lower()))
+
+
+def _standardised_rules(source: str, slug: str) -> dict:
+    """The read rules for one listing, or {} — see data/voucher_rules.json."""
+    rec = _get_voucher_rules(source, slug) or {}
+    return rec.get("rules") or {}
+
+
+def _rule_value(rules: dict, name: str):
+    return (rules.get(name) or {}).get("value")
+
+
+def _excluded_by_rules(rules: dict, category: str | None, product_name: str) -> str | None:
+    """The exclusion this product trips, or None.
+
+    Only the Gyftr scrape ever exposed redemption_restrictions, so category
+    filtering used to apply to a third of the catalogue. The read terms carry
+    an `excludes` list for all three platforms, phrased in the sellers' own
+    words, so the same check now covers every source.
+    """
+    excludes = _rule_value(rules, "excludes") or []
+    if not excludes:
+        return None
+    # Deliberately NOT run through restriction_mentions_category. That matcher
+    # was built for Gyftr's curated restriction list and is category-wide: an
+    # exclusion of "gold coins" reads as the whole jewellery category and threw
+    # away a Tanishq voucher for a gold necklace, which is precisely what it is
+    # for. These exclusions are the sellers' own free text, so they are matched
+    # against the product's own words instead.
+    words = {w for w in re.findall(r"[a-z]{4,}", product_name.lower())}
+    for item in excludes:
+        text = str(item).lower()
+        if text.startswith(("location:", "date:")):
+            continue
+        hits = {w for w in re.findall(r"[a-z]{4,}", text)} & words
+        if len(hits) >= 2:
+            return str(item)
+    return None
+
+
 def build_deals(results: list[dict], product_name: str = "") -> list[dict]:
     """Build per-merchant voucher deals for the given route candidates,
     checking Gyftr, Maximize, and BuyHatke and keeping whichever gives the
@@ -625,16 +686,22 @@ def build_deals(results: list[dict], product_name: str = "") -> list[dict]:
             continue
         seen_merchants.add(merchant_key)
 
+        def _rules_for(rec: dict | None, source: str, brand: str | None = None) -> dict:
+            slug = (rec or {}).get("slug") or _slug_for(source, brand or merchant)
+            return _standardised_rules(source, slug) if slug else {}
+
         gyftr_voucher = voucher_repository.get_by_merchant(merchant)
+        gyftr_rules = _rules_for(gyftr_voucher, "gyftr")
         gyftr_deal = None
-        if gyftr_voucher is not None and not _category_blocked(gyftr_voucher.get("redemption_restrictions", [])):
+        if gyftr_voucher is not None and not _category_blocked(
+                gyftr_voucher.get("redemption_restrictions", [])) and not _excluded_by_rules(
+                gyftr_rules, category, product_name):
             gyftr_deal = get_best_voucher_deal(merchant, price)
 
-        # Maximize/BuyHatke tiers carry no redemption_restrictions field yet
-        # (Gyftr's scrape captured category rules from free-text T&Cs;
-        # neither source's structured fields expose an equivalent) —
-        # category filtering simply doesn't apply to these deals until that
-        # data exists.
+        # Maximize and BuyHatke never had a redemption_restrictions field, so
+        # category filtering used to apply to Gyftr alone. The read terms carry
+        # an exclusion list for all three now, so the same product that is
+        # blocked on one source is blocked on the others.
         maximize_result = get_best_maximize_deal(merchant, price)
         maximize_deal, maximize_tier, maximize_brand_name = maximize_result if maximize_result else (None, None, None)
 
@@ -648,6 +715,7 @@ def build_deals(results: list[dict], product_name: str = "") -> list[dict]:
                 (buyhatke_deal, buyhatke_tier, "buyhatke", buyhatke_brand_name),
             )
             if c[0] is not None
+            and not _excluded_by_rules(_rules_for(c[1], c[2], c[3]), category, product_name)
         ]
         if not candidates:
             continue
@@ -665,7 +733,21 @@ def build_deals(results: list[dict], product_name: str = "") -> list[dict]:
         # tripped the in-store split below and got baked straight into the
         # online route's price instead. `deal` was already correctly built
         # from the flattened product data, so its own field is what's right.
+        won_rules = _rules_for(voucher, voucher_source, brand_name)
         offline_only = deal.get("redemption_type") == "Offline"
+        # A page that says outright the voucher cannot be used online outranks
+        # the platform's redemption_type flag, which is set by the seller and
+        # has been wrong in both directions.
+        if _rule_value(won_rules, "works_online") == "no":
+            offline_only = True
+
+        # What the voucher may actually be spent on, when the terms narrow it:
+        # Maximize's "Air India Ancillary" pays 18% and buys only seat
+        # selection and extra baggage, never a ticket. Matching that against a
+        # product name is too unreliable to filter on — a wrong block hides a
+        # real saving — so it travels with the deal for the shopper to see.
+        spend_scope = _rule_value(won_rules, "spend_scope")
+        must_be_used_for = spend_scope if spend_scope not in (None, "not_stated") else None
 
         card_deal = calculate_effective_price(price, voucher, "card")
 
@@ -695,6 +777,9 @@ def build_deals(results: list[dict], product_name: str = "") -> list[dict]:
             "voucher_url": deal["voucher_url"],
             "voucher_source": voucher_source,
             "offline_only": offline_only,
+            "must_be_used_for": must_be_used_for,
+            "confirm_with_cashier": bool(
+                _rule_value(won_rules, "works_in_store") == "yes"),
             "upi": {
                 "pct": deal["voucher_discount_pct"],
                 "voucher_amount": deal["voucher_amount"],

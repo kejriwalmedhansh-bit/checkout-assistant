@@ -97,7 +97,7 @@ def convert(offer: dict) -> dict:
         "can_combine", "max_cards_per_order", "ceiling_amount", "ceiling_period",
         "one_time_use", "works_online", "works_in_store", "works_on_sale_items",
         "combines_with_store_offers", "min_order_value", "excludes",
-        "max_spend_per_purchase", "delivery_wait_days")}
+        "max_spend_per_purchase", "delivery_wait_days", "spend_scope")}
     out["max_cards_per_order"] = {"value": None, "evidence": ""}
     out["excludes"] = {"value": [], "evidence": ""}
 
@@ -118,7 +118,11 @@ def convert(offer: dict) -> dict:
             ("one_time_use", "one_time_use"), ("works_online", "works_online"),
             ("works_in_store", "works_in_store"),
             ("combines_with_store_offers", "can_combine_with_store_offers"),
-            ("min_order_value", "min_order_value")):
+            ("min_order_value", "min_order_value"),
+            # What the voucher may actually be spent on. Air India Ancillary
+            # pays 18% and buys only seat selection and extra baggage; without
+            # this the service cannot warn anyone buying a ticket.
+            ("spend_scope", "spend_scope")):
         r = get(read_name)
         if r.get("value") not in (None, "not_stated"):
             out[service_name] = rule(r["value"], r.get("evidence", ""))

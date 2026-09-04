@@ -98,6 +98,14 @@ class VoucherDeal(BaseModel):
     voucher_url: str
     voucher_source: str = "gyftr"
     offline_only: bool = False
+    # What the seller's own terms say this voucher may be spent on, when they
+    # narrow it — "Seat Selection, Extra Baggage" on an 18% Air India card that
+    # cannot buy a ticket. Shown to the shopper rather than filtered on, because
+    # matching a scope against a product name is too unreliable to hide a real
+    # saving over.
+    must_be_used_for: str | None = None
+    # Redeemed in a shop, so the counter has the final say on the rules.
+    confirm_with_cashier: bool = False
     upi: VoucherUpi
     card: VoucherCard
     redemption_type: str = ""
