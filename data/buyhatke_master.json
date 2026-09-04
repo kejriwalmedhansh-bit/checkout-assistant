@@ -271,10 +271,10 @@
         "custom_min": null,
         "custom_max": null,
         "discounts": {
-          "UPI": 3.63
+          "UPI": 4.13
         },
         "best_payment_method": "UPI",
-        "best_discount_pct": 3.63,
+        "best_discount_pct": 4.13,
         "source_url": "https://buyhatke.com/gift-cards/air-india-gift-card",
         "redemption_type": "Online",
         "stack_limit": 3,
@@ -365,10 +365,10 @@
         "custom_min": null,
         "custom_max": null,
         "discounts": {
-          "UPI": 6.13
+          "UPI": 6.38
         },
         "best_payment_method": "UPI",
-        "best_discount_pct": 6.13,
+        "best_discount_pct": 6.38,
         "source_url": "https://buyhatke.com/gift-cards/ajio-gift-card",
         "redemption_type": "Online",
         "stack_limit": 4,
@@ -676,9 +676,9 @@
         "custom_min": 1.0,
         "custom_max": 10000.0,
         "discounts": {
-          "any": 1.68
+          "UPI": 1.68
         },
-        "best_payment_method": "any",
+        "best_payment_method": "UPI",
         "best_discount_pct": 1.68,
         "source_url": "https://buyhatke.com/gift-cards/amazon-shopping-gift-card",
         "redemption_type": "Online",
@@ -724,10 +724,10 @@
         "custom_min": null,
         "custom_max": null,
         "discounts": {
-          "UPI": 2.66
+          "UPI": 3.41
         },
         "best_payment_method": "UPI",
-        "best_discount_pct": 2.66,
+        "best_discount_pct": 3.41,
         "source_url": "https://buyhatke.com/gift-cards/american-eagle-(in-store)-gift-card",
         "redemption_type": "Offline",
         "stack_limit": 1,
@@ -1056,9 +1056,9 @@
         "custom_min": null,
         "custom_max": null,
         "discounts": {
-          "any": 15.07
+          "UPI": 15.07
         },
-        "best_payment_method": "any",
+        "best_payment_method": "UPI",
         "best_discount_pct": 15.07,
         "source_url": "https://buyhatke.com/gift-cards/appyhigh-prime-gift-card",
         "redemption_type": "Online",
@@ -1391,10 +1391,10 @@
         "custom_min": null,
         "custom_max": null,
         "discounts": {
-          "UPI": 9.89
+          "UPI": 10.63
         },
         "best_payment_method": "UPI",
-        "best_discount_pct": 9.89,
+        "best_discount_pct": 10.63,
         "source_url": "https://buyhatke.com/gift-cards/aurelia-(in-store)-gift-card",
         "redemption_type": "Offline",
         "stack_limit": null,
@@ -1533,10 +1533,10 @@
         "custom_min": null,
         "custom_max": null,
         "discounts": {
-          "UPI": 9.89
+          "UPI": 13.73
         },
         "best_payment_method": "UPI",
-        "best_discount_pct": 9.89,
+        "best_discount_pct": 13.73,
         "source_url": "https://buyhatke.com/gift-cards/bakingo-gift-card",
         "redemption_type": "Online",
         "stack_limit": 1,
@@ -1776,9 +1776,9 @@
         "custom_min": null,
         "custom_max": null,
         "discounts": {
-          "any": 10.88
+          "UPI": 10.88
         },
-        "best_payment_method": "any",
+        "best_payment_method": "UPI",
         "best_discount_pct": 10.88,
         "source_url": "https://buyhatke.com/gift-cards/bata-(in-store)-gift-card",
         "redemption_type": "Offline",
@@ -2332,9 +2332,9 @@
         "custom_min": null,
         "custom_max": null,
         "discounts": {
-          "any": 3.08
+          "UPI": 3.08
         },
-        "best_payment_method": "any",
+        "best_payment_method": "UPI",
         "best_discount_pct": 3.08,
         "source_url": "https://buyhatke.com/gift-cards/bigbasket-gift-card",
         "redemption_type": "Online",
@@ -3996,10 +3996,10 @@
         "custom_min": null,
         "custom_max": null,
         "discounts": {
-          "UPI": 10.88
+          "UPI": 13.88
         },
         "best_payment_method": "UPI",
-        "best_discount_pct": 10.88,
+        "best_discount_pct": 13.88,
         "source_url": "https://buyhatke.com/gift-cards/citizen-watches-gift-card",
         "redemption_type": "Online",
         "stack_limit": 4,
@@ -4405,10 +4405,10 @@
         "custom_min": null,
         "custom_max": null,
         "discounts": {
-          "UPI": 7.39
+          "UPI": 7.89
         },
         "best_payment_method": "UPI",
-        "best_discount_pct": 7.39,
+        "best_discount_pct": 7.89,
         "source_url": "https://buyhatke.com/gift-cards/costa-coffee-(in-store)-gift-card",
         "redemption_type": "Offline",
         "stack_limit": null,
@@ -4629,10 +4629,10 @@
         "custom_min": null,
         "custom_max": null,
         "discounts": {
-          "UPI": 3.99
+          "UPI": 4.0
         },
         "best_payment_method": "UPI",
-        "best_discount_pct": 3.99,
+        "best_discount_pct": 4.0,
         "source_url": "https://buyhatke.com/gift-cards/decathlon-gift-card",
         "redemption_type": "Online",
         "stack_limit": 4,
@@ -4958,32 +4958,6 @@
         "custom_min": null,
         "custom_max": null,
         "discounts": {
-          "UPI": 15.38
-        },
-        "best_payment_method": "UPI",
-        "best_discount_pct": 15.38,
-        "source_url": "https://buyhatke.com/gift-cards/dominos-gift-card",
-        "redemption_type": "Online",
-        "stack_limit": 1,
-        "value_cap": 10000.0,
-        "purchase_cap_per_txn": null,
-        "status": "active",
-        "last_scraped": "2026-09-04"
-      },
-      {
-        "product_name": "Dominos",
-        "denominations": [
-          250,
-          500,
-          750,
-          1000,
-          2000,
-          3000
-        ],
-        "is_custom_denom": true,
-        "custom_min": null,
-        "custom_max": null,
-        "discounts": {
           "UPI": 16.88
         },
         "best_payment_method": "UPI",
@@ -5036,9 +5010,35 @@
         "custom_min": null,
         "custom_max": null,
         "discounts": {
-          "any": 16.88
+          "UPI": 16.88
         },
-        "best_payment_method": "any",
+        "best_payment_method": "UPI",
+        "best_discount_pct": 16.88,
+        "source_url": "https://buyhatke.com/gift-cards/dominos-gift-card",
+        "redemption_type": "Online",
+        "stack_limit": 1,
+        "value_cap": 10000.0,
+        "purchase_cap_per_txn": null,
+        "status": "active",
+        "last_scraped": "2026-09-04"
+      },
+      {
+        "product_name": "Dominos",
+        "denominations": [
+          250,
+          500,
+          750,
+          1000,
+          2000,
+          3000
+        ],
+        "is_custom_denom": true,
+        "custom_min": null,
+        "custom_max": null,
+        "discounts": {
+          "UPI": 16.88
+        },
+        "best_payment_method": "UPI",
         "best_discount_pct": 16.88,
         "source_url": "https://buyhatke.com/gift-cards/dominos-gift-card",
         "redemption_type": "Online",
@@ -5233,10 +5233,10 @@
         "custom_min": null,
         "custom_max": null,
         "discounts": {
-          "UPI": 8.39
+          "UPI": 9.24
         },
         "best_payment_method": "UPI",
-        "best_discount_pct": 8.39,
+        "best_discount_pct": 9.24,
         "source_url": "https://buyhatke.com/gift-cards/duroflex-gift-card",
         "redemption_type": "Online",
         "stack_limit": null,
@@ -5493,10 +5493,10 @@
         "custom_min": null,
         "custom_max": null,
         "discounts": {
-          "UPI": 9.24
+          "UPI": 9.39
         },
         "best_payment_method": "UPI",
-        "best_discount_pct": 9.24,
+        "best_discount_pct": 9.39,
         "source_url": "https://buyhatke.com/gift-cards/eatsure-gift-card",
         "redemption_type": "Online",
         "stack_limit": null,
@@ -7149,10 +7149,10 @@
         "custom_min": null,
         "custom_max": null,
         "discounts": {
-          "UPI": 17.88
+          "UPI": 20.73
         },
         "best_payment_method": "UPI",
-        "best_discount_pct": 17.88,
+        "best_discount_pct": 20.73,
         "source_url": "https://buyhatke.com/gift-cards/freecultr-gift-card",
         "redemption_type": "Online",
         "stack_limit": 4,
@@ -7836,10 +7836,10 @@
         "custom_min": null,
         "custom_max": null,
         "discounts": {
-          "UPI": 3.66
+          "UPI": 5.41
         },
         "best_payment_method": "UPI",
-        "best_discount_pct": 3.66,
+        "best_discount_pct": 5.41,
         "source_url": "https://buyhatke.com/gift-cards/giva-silver-coin-gift-card",
         "redemption_type": "Online",
         "stack_limit": null,
@@ -9170,9 +9170,9 @@
         "custom_min": null,
         "custom_max": null,
         "discounts": {
-          "any": 8.89
+          "UPI": 8.89
         },
-        "best_payment_method": "any",
+        "best_payment_method": "UPI",
         "best_discount_pct": 8.89,
         "source_url": "https://buyhatke.com/gift-cards/hush-puppies-(in-store)-gift-card",
         "redemption_type": "Offline",
@@ -9311,10 +9311,10 @@
         "custom_min": null,
         "custom_max": null,
         "discounts": {
-          "UPI": 4.88
+          "UPI": 4.99
         },
         "best_payment_method": "UPI",
-        "best_discount_pct": 4.88,
+        "best_discount_pct": 4.99,
         "source_url": "https://buyhatke.com/gift-cards/ikea-gift-card",
         "redemption_type": "Online",
         "stack_limit": 4,
@@ -9405,10 +9405,10 @@
         "custom_min": null,
         "custom_max": null,
         "discounts": {
-          "UPI": 11.88
+          "UPI": 12.63
         },
         "best_payment_method": "UPI",
-        "best_discount_pct": 11.88,
+        "best_discount_pct": 12.63,
         "source_url": "https://buyhatke.com/gift-cards/indian-terrain-(in-store)-gift-card",
         "redemption_type": "Offline",
         "stack_limit": 1,
@@ -10009,10 +10009,10 @@
         "custom_min": null,
         "custom_max": null,
         "discounts": {
-          "UPI": 4.99
+          "UPI": 7.85
         },
         "best_payment_method": "UPI",
-        "best_discount_pct": 4.99,
+        "best_discount_pct": 7.85,
         "source_url": "https://buyhatke.com/gift-cards/jiohotstar-gift-card",
         "redemption_type": "Online",
         "stack_limit": 4,
@@ -10714,10 +10714,10 @@
         "custom_min": null,
         "custom_max": null,
         "discounts": {
-          "UPI": 3.6
+          "UPI": 3.74
         },
         "best_payment_method": "UPI",
-        "best_discount_pct": 3.6,
+        "best_discount_pct": 3.74,
         "source_url": "https://buyhatke.com/gift-cards/kalyan-jewellers-(in-store)-gift-card",
         "redemption_type": "Offline",
         "stack_limit": 10,
@@ -11784,10 +11784,10 @@
         "custom_min": null,
         "custom_max": null,
         "discounts": {
-          "UPI": 3.72
+          "UPI": 4.47
         },
         "best_payment_method": "UPI",
-        "best_discount_pct": 3.72,
+        "best_discount_pct": 4.47,
         "source_url": "https://buyhatke.com/gift-cards/lifestyle-(in-store)-gift-card",
         "redemption_type": "Offline",
         "stack_limit": null,
@@ -11826,10 +11826,10 @@
         "custom_min": null,
         "custom_max": null,
         "discounts": {
-          "UPI": 4.99
+          "UPI": 6.99
         },
         "best_payment_method": "UPI",
-        "best_discount_pct": 4.99,
+        "best_discount_pct": 6.99,
         "source_url": "https://buyhatke.com/gift-cards/lifestyle-gift-card",
         "redemption_type": "Online",
         "stack_limit": 10,
@@ -11997,9 +11997,9 @@
         "custom_min": null,
         "custom_max": null,
         "discounts": {
-          "any": 58.88
+          "UPI": 58.88
         },
-        "best_payment_method": "any",
+        "best_payment_method": "UPI",
         "best_discount_pct": 58.88,
         "source_url": "https://buyhatke.com/gift-cards/live-mint-gift-card",
         "redemption_type": "Online",
@@ -12284,10 +12284,10 @@
         "custom_min": null,
         "custom_max": null,
         "discounts": {
-          "UPI": 9.24
+          "UPI": 10.49
         },
         "best_payment_method": "UPI",
-        "best_discount_pct": 9.24,
+        "best_discount_pct": 10.49,
         "source_url": "https://buyhatke.com/gift-cards/machaan-(in-store)-gift-card",
         "redemption_type": "Offline",
         "stack_limit": null,
@@ -12400,10 +12400,10 @@
         "custom_min": null,
         "custom_max": null,
         "discounts": {
-          "UPI": 11.88
+          "UPI": 12.73
         },
         "best_payment_method": "UPI",
-        "best_discount_pct": 11.88,
+        "best_discount_pct": 12.73,
         "source_url": "https://buyhatke.com/gift-cards/mainland-china-(in-store)-gift-card",
         "redemption_type": "Offline",
         "stack_limit": null,
@@ -12620,10 +12620,10 @@
         "custom_min": null,
         "custom_max": null,
         "discounts": {
-          "UPI": 8.39
+          "UPI": 12.89
         },
         "best_payment_method": "UPI",
-        "best_discount_pct": 8.39,
+        "best_discount_pct": 12.89,
         "source_url": "https://buyhatke.com/gift-cards/makemytrip-hotel-gift-card",
         "redemption_type": "Online",
         "stack_limit": 3,
@@ -14286,10 +14286,10 @@
         "custom_min": null,
         "custom_max": null,
         "discounts": {
-          "UPI": 3.76
+          "UPI": 4.26
         },
         "best_payment_method": "UPI",
-        "best_discount_pct": 3.76,
+        "best_discount_pct": 4.26,
         "source_url": "https://buyhatke.com/gift-cards/myntra-gift-card",
         "redemption_type": "Online",
         "stack_limit": null,
@@ -14719,10 +14719,10 @@
         "custom_min": null,
         "custom_max": null,
         "discounts": {
-          "UPI": 7.55
+          "UPI": 15.14
         },
         "best_payment_method": "UPI",
-        "best_discount_pct": 7.55,
+        "best_discount_pct": 15.14,
         "source_url": "https://buyhatke.com/gift-cards/netmeds-gift-card",
         "redemption_type": "Online",
         "stack_limit": null,
@@ -14936,9 +14936,9 @@
         "custom_min": 250.0,
         "custom_max": 10000.0,
         "discounts": {
-          "any": 4.74
+          "UPI": 4.74
         },
-        "best_payment_method": "any",
+        "best_payment_method": "UPI",
         "best_discount_pct": 4.74,
         "source_url": "https://buyhatke.com/gift-cards/nykaa-fashion-gift-card",
         "redemption_type": "Online",
@@ -14983,10 +14983,10 @@
         "custom_min": null,
         "custom_max": null,
         "discounts": {
-          "UPI": 4.88
+          "UPI": 5.38
         },
         "best_payment_method": "UPI",
-        "best_discount_pct": 4.88,
+        "best_discount_pct": 5.38,
         "source_url": "https://buyhatke.com/gift-cards/nykaa-gift-card",
         "redemption_type": "Online",
         "stack_limit": 1,
@@ -15050,9 +15050,9 @@
         "custom_min": 250.0,
         "custom_max": 10000.0,
         "discounts": {
-          "any": 4.99
+          "UPI": 4.99
         },
-        "best_payment_method": "any",
+        "best_payment_method": "UPI",
         "best_discount_pct": 4.99,
         "source_url": "https://buyhatke.com/gift-cards/nykaa-luxe-gift-card",
         "redemption_type": "Online",
@@ -15790,10 +15790,10 @@
         "custom_min": null,
         "custom_max": null,
         "discounts": {
-          "UPI": 2.02
+          "UPI": 3.88
         },
         "best_payment_method": "UPI",
-        "best_discount_pct": 2.02,
+        "best_discount_pct": 3.88,
         "source_url": "https://buyhatke.com/gift-cards/pcj-diamond-jewellery-(in-store)-gift-card",
         "redemption_type": "Offline",
         "stack_limit": 1,
@@ -16478,10 +16478,10 @@
         "custom_min": null,
         "custom_max": null,
         "discounts": {
-          "UPI": 7.39
+          "UPI": 9.89
         },
         "best_payment_method": "UPI",
-        "best_discount_pct": 7.39,
+        "best_discount_pct": 9.89,
         "source_url": "https://buyhatke.com/gift-cards/pizza-hut-gift-card",
         "redemption_type": "Online",
         "stack_limit": 1,
@@ -16507,10 +16507,10 @@
         "custom_min": null,
         "custom_max": null,
         "discounts": {
-          "UPI": 8.89
+          "UPI": 9.89
         },
         "best_payment_method": "UPI",
-        "best_discount_pct": 8.89,
+        "best_discount_pct": 9.89,
         "source_url": "https://buyhatke.com/gift-cards/pizza-hut-gift-card",
         "redemption_type": "Online",
         "stack_limit": 1,
@@ -16598,10 +16598,10 @@
         "custom_min": null,
         "custom_max": null,
         "discounts": {
-          "UPI": 2.13
+          "UPI": 2.88
         },
         "best_payment_method": "UPI",
-        "best_discount_pct": 2.13,
+        "best_discount_pct": 2.88,
         "source_url": "https://buyhatke.com/gift-cards/planet-fashion-(in-store)-gift-card",
         "redemption_type": "Offline",
         "stack_limit": 10,
@@ -17027,10 +17027,10 @@
         "custom_min": null,
         "custom_max": null,
         "discounts": {
-          "UPI": 9.89
+          "UPI": 10.23
         },
         "best_payment_method": "UPI",
-        "best_discount_pct": 9.89,
+        "best_discount_pct": 10.23,
         "source_url": "https://buyhatke.com/gift-cards/puma-(in-store)-gift-card",
         "redemption_type": "Offline",
         "stack_limit": 1,
@@ -18489,10 +18489,10 @@
         "custom_min": null,
         "custom_max": null,
         "discounts": {
-          "UPI": 0.63
+          "UPI": 2.53
         },
         "best_payment_method": "UPI",
-        "best_discount_pct": 0.63,
+        "best_discount_pct": 2.53,
         "source_url": "https://buyhatke.com/gift-cards/senco-gold-(in-store)-gift-card",
         "redemption_type": "Offline",
         "stack_limit": 4,
@@ -20052,10 +20052,10 @@
         "custom_min": null,
         "custom_max": null,
         "discounts": {
-          "UPI": 7.55
+          "UPI": 12.79
         },
         "best_payment_method": "UPI",
-        "best_discount_pct": 7.55,
+        "best_discount_pct": 12.79,
         "source_url": "https://buyhatke.com/gift-cards/superbottoms-gift-card",
         "redemption_type": "Online",
         "stack_limit": 1,
@@ -20596,10 +20596,10 @@
         "custom_min": null,
         "custom_max": null,
         "discounts": {
-          "UPI": 7.99
+          "UPI": 9.98
         },
         "best_payment_method": "UPI",
-        "best_discount_pct": 7.99,
+        "best_discount_pct": 9.98,
         "source_url": "https://buyhatke.com/gift-cards/taj-hotels-j-wellness-circle-bliss-solo-(in-store)-gift-card",
         "redemption_type": "Offline",
         "stack_limit": 1,
@@ -20680,9 +20680,9 @@
         "custom_min": 500.0,
         "custom_max": 49999.0,
         "discounts": {
-          "any": 8.0
+          "UPI": 8.0
         },
-        "best_payment_method": "any",
+        "best_payment_method": "UPI",
         "best_discount_pct": 8.0,
         "source_url": "https://buyhatke.com/gift-cards/taneira-(in-store)-gift-card",
         "redemption_type": "Offline",
@@ -21026,10 +21026,10 @@
         "custom_min": null,
         "custom_max": null,
         "discounts": {
-          "UPI": 7.77
+          "UPI": 8.52
         },
         "best_payment_method": "UPI",
-        "best_discount_pct": 7.77,
+        "best_discount_pct": 8.52,
         "source_url": "https://buyhatke.com/gift-cards/tata-cliq-luxury-gift-card",
         "redemption_type": "Online",
         "stack_limit": 4,
@@ -21105,10 +21105,10 @@
         "custom_min": null,
         "custom_max": null,
         "discounts": {
-          "UPI": 5.88
+          "UPI": 9.14
         },
         "best_payment_method": "UPI",
-        "best_discount_pct": 5.88,
+        "best_discount_pct": 9.14,
         "source_url": "https://buyhatke.com/gift-cards/tatacliq-fashion-gift-card",
         "redemption_type": "Online",
         "stack_limit": 4,
@@ -21804,9 +21804,9 @@
         "custom_min": null,
         "custom_max": null,
         "discounts": {
-          "any": 22.84
+          "UPI": 22.84
         },
-        "best_payment_method": "any",
+        "best_payment_method": "UPI",
         "best_discount_pct": 22.84,
         "source_url": "https://buyhatke.com/gift-cards/times-prime-lite-gift-card",
         "redemption_type": "Online",
@@ -21847,9 +21847,9 @@
         "custom_min": null,
         "custom_max": null,
         "discounts": {
-          "any": 44.09
+          "UPI": 44.09
         },
-        "best_payment_method": "any",
+        "best_payment_method": "UPI",
         "best_discount_pct": 44.09,
         "source_url": "https://buyhatke.com/gift-cards/times-prime-power-gift-card",
         "redemption_type": "Online",
@@ -21890,9 +21890,9 @@
         "custom_min": null,
         "custom_max": null,
         "discounts": {
-          "any": 38.14
+          "UPI": 38.14
         },
-        "best_payment_method": "any",
+        "best_payment_method": "UPI",
         "best_discount_pct": 38.14,
         "source_url": "https://buyhatke.com/gift-cards/times-prime-prive-gift-card",
         "redemption_type": "Online",
@@ -22156,9 +22156,9 @@
         "custom_min": 500.0,
         "custom_max": 25000.0,
         "discounts": {
-          "any": 7.39
+          "UPI": 7.39
         },
-        "best_payment_method": "any",
+        "best_payment_method": "UPI",
         "best_discount_pct": 7.39,
         "source_url": "https://buyhatke.com/gift-cards/titan-eye-plus-(in-store)-gift-card",
         "redemption_type": "Offline",
@@ -23301,10 +23301,10 @@
         "custom_min": null,
         "custom_max": null,
         "discounts": {
-          "UPI": 1.88
+          "UPI": 2.63
         },
         "best_payment_method": "UPI",
-        "best_discount_pct": 1.88,
+        "best_discount_pct": 2.63,
         "source_url": "https://buyhatke.com/gift-cards/valorant-gift-card",
         "redemption_type": "Online",
         "stack_limit": 4,
@@ -23729,10 +23729,10 @@
         "custom_min": null,
         "custom_max": null,
         "discounts": {
-          "UPI": 32.89
+          "UPI": 46.73
         },
         "best_payment_method": "UPI",
-        "best_discount_pct": 32.89,
+        "best_discount_pct": 46.73,
         "source_url": "https://buyhatke.com/gift-cards/vrott-gift-card",
         "redemption_type": "Online",
         "stack_limit": 1,
@@ -24742,9 +24742,9 @@
         "custom_min": null,
         "custom_max": null,
         "discounts": {
-          "any": 5.84
+          "UPI": 5.84
         },
-        "best_payment_method": "any",
+        "best_payment_method": "UPI",
         "best_discount_pct": 5.84,
         "source_url": "https://buyhatke.com/gift-cards/xbox-ultimate-game-pass-gift-card",
         "redemption_type": "Online",

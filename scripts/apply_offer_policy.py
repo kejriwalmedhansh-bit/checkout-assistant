@@ -133,6 +133,20 @@ MEMBERSHIP_GATE = re.compile(
     r"[^.\n]{0,110}registered as loyalty members?[^.\n]{0,60}", re.I)
 
 
+# A page that both allows and denies online use. Gyftr's Marks & Spencer says
+# "ACCEPTED on the website, app, and all listed outlets" in its instructions and
+# "Online redemption is not available at the moment" in its FAQ. Two sources
+# against one is not the test — the user's rule is that the restriction wins,
+# because a voucher bought for an online purchase and refused is the expensive
+# failure, while being told to visit a shop when online would have worked costs
+# nothing.
+ONLINE_DENIED = re.compile(
+    r"[^.\n]{0,90}(?:online redemption is not available"
+    r"|applicable only at physical stores"
+    r"|cannot be (?:used|redeemed) online"
+    r"|not (?:valid|applicable) for online)[^.\n]{0,90}", re.I)
+
+
 COMBINE = re.compile(
     r"multiple\s+(?:gift\s+vouchers?|gvs?|gv/gc|e-?gvs?)[^.\n]{0,60}"
     r"(?:combin|club|add)[^.\n]{0,60}(?:e-?pay|balance|wallet)[^.\n]{0,40}", re.I)
@@ -152,7 +166,7 @@ def main() -> None:
         raw.update(json.loads((RAW / f"voucher_terms_raw_{src}.json").read_text()))
 
     foreign = foreign_terms_keys(raw)
-    filled = flagged = hidden = ceilings = gated = 0
+    filled = flagged = hidden = ceilings = gated = denied_online = 0
     for key, offer in offers.items():
         offer["platform_buying"] = PLATFORM_BUYING.get(offer["source"], {})
 
@@ -170,6 +184,14 @@ def main() -> None:
             offer["recommendable"] = False
             offer["hidden_reason"] = "only redeemable by an existing loyalty member"
             gated += 1
+
+        rules_now = offer.get("rules") or {}
+        if rules_now.get("works_online", {}).get("value") == "yes":
+            if m := ONLINE_DENIED.search(terms_text):
+                rules_now["works_online"] = {"value": "no",
+                                             "evidence": m.group(0).strip(),
+                                             "note": "page also claims online works"}
+                denied_online += 1
 
         if fix_discount_ceiling(offer):
             ceilings += 1
@@ -198,6 +220,7 @@ def main() -> None:
     print(f"hidden for carrying another merchant's terms      : {hidden}")
     print(f"discount-ceiling rules corrected                  : {ceilings}")
     print(f"hidden: needs an existing loyalty membership      : {gated}")
+    print(f"online use denied by the page's own terms         : {denied_online}")
     print(f"per-bill answers filled from the combine sentence : {filled}")
     print(f"vouchers flagged 'confirm with cashier'           : {flagged}")
     stated = sum(1 for v in offers.values()

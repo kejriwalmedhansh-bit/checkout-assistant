@@ -546,8 +546,8 @@
         "evidence": "A HideSign Gift Card can only be used once."
       },
       "works_online": {
-        "value": "yes",
-        "evidence": "This is a Hidesign GV/GC (Gift Voucher/Gift Card) and can be redeemed across all Hidesign listed stores in India and online on the Hidesign website at https://hidesign.com/."
+        "value": "no",
+        "evidence": "Gift Vouchers CANNOT be used Online"
       },
       "works_in_store": {
         "value": "yes",
@@ -909,8 +909,8 @@
         "evidence": ""
       },
       "works_online": {
-        "value": "yes",
-        "evidence": "This is a Bobbi Brown GV (Gift Voucher)/GC (Gift Card) that can be redeemed only against the purchase of products of Bobbi Brown brand at all Bobbi Brown outlets located within Shoppers Stop store, and standalone Bobbi Brown stores (operated by SSL) within India, and also valid for online shopping at www.shoppersstop.com only for Bobbi Brown products."
+        "value": "no",
+        "evidence": "Gift Vouchers CANNOT be used Online TERMS & CONDITIONS"
       },
       "works_in_store": {
         "value": "yes",
@@ -8923,8 +8923,8 @@
         "evidence": ""
       },
       "works_online": {
-        "value": "yes",
-        "evidence": "This is a Marks & Spencer Gift Voucher (GV)/e-Pay and can be redeemed for any product on the listed stores/mobile app/at https://www.marksandspencer.in/."
+        "value": "no",
+        "evidence": "Currently, Marks and Spencer Gift Cards are applicable only at physical stores"
       },
       "works_in_store": {
         "value": "yes",
@@ -14504,8 +14504,8 @@
         "evidence": "The Manyavar Gift Card can be used only once. However, once added to the e-Pay balance, the amount can be redeemed partially."
       },
       "works_online": {
-        "value": "yes",
-        "evidence": "This is a Manyavar & Mohey Gift Voucher (GV)/e-Pay and can be redeemed at the listed stores and the official website, www.manyavar.com."
+        "value": "no",
+        "evidence": "GV/ e-Pay CANNOT be used Online"
       },
       "works_in_store": {
         "value": "yes",
