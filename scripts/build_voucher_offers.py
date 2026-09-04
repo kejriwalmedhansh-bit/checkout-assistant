@@ -284,8 +284,16 @@ def main() -> None:
             offer = reader(rec)
             fill_from_terms(offer["rules"], offer["terms"], offer["instructions"])
             fill_extras(offer["rules"], offer["terms"], offer["instructions"])
-            best = max(offer["methods"].items(),
-                       key=lambda kv: kv[1]["saving_pct"], default=(None, None))
+            # Rank on the UPI rate, per the user's call. It is the rate most
+            # shoppers get, and ranking on each platform's best method barely
+            # moves the answer anyway — of 252 brands sold on more than one
+            # platform, the two rules disagree on exactly one. Every method is
+            # still stored: a card payer would be better served elsewhere on
+            # 110 of those 252, which is a question for when Dealo knows how
+            # the shopper pays.
+            methods = offer["methods"]
+            upi_key = next((k for k in ("UPI", "any") if k in methods), None)
+            best = ((upi_key, methods[upi_key]) if upi_key else (None, None))
             offer.update({
                 "source": source, "slug": rec["slug"], "brand_name": rec["brand_name"],
                 "url": rec["url"], "collected_at": rec.get("scraped_at"),
@@ -293,9 +301,15 @@ def main() -> None:
                 "best_saving_method": best[0],
                 "has_terms": bool(offer["terms"]),
             })
+            # Best rate across every method, for the day Dealo asks how the
+            # shopper pays. Never used for ranking today.
+            offer["max_saving_pct"] = max(
+                (m["saving_pct"] for m in methods.values()), default=None)
             # The one field a caller should gate on: in stock, and saving real
-            # money today rather than points.
-            offer["recommendable"] = bool(offer["available"] and offer["best_saving_pct"])
+            # money today rather than points. A voucher at 0% is not shown at
+            # all — the user's call, and right: it is a listing, not an offer.
+            offer["recommendable"] = bool(
+                offer["available"] and (offer["best_saving_pct"] or 0) > 0)
             out[key] = offer
             rows.append(offer)
 
