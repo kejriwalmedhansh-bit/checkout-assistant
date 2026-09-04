@@ -92,6 +92,33 @@ def foreign_terms_keys(raw: dict) -> set:
     return out
 
 
+# "Valid for redemption only on products on discount up to 30%" is a ceiling on
+# how deeply discounted an item may be, not a requirement that it be discounted
+# at all. Read as the latter it inverts the rule: the voucher was recorded as
+# working ONLY on sale stock, when in fact it works on ordinary stock and stops
+# at steeply discounted items. The user caught this on the Samsonite page.
+DISCOUNT_CEILING = re.compile(
+    r"valid for redemption only on products on discount\s*up\s?to\s*(\d+)\s*%"
+    r"[^.]{0,40}?(\d+)\s*%", re.I)
+
+
+def fix_discount_ceiling(offer: dict) -> bool:
+    rules = offer.get("rules") or {}
+    scope = rules.get("spend_scope") or {}
+    m = DISCOUNT_CEILING.search(scope.get("evidence") or "")
+    if not m:
+        return False
+    brand = offer["brand_name"].lower()
+    # The sentence names two brands and two ceilings, in order.
+    limit = m.group(2) if "tourister" in brand else m.group(1)
+    ev = scope["evidence"]
+    del rules["spend_scope"]
+    existing = (rules.get("excludes") or {}).get("value") or []
+    rules["excludes"] = {"value": existing + [f"products discounted more than {limit}%"],
+                         "evidence": ev}
+    return True
+
+
 COMBINE = re.compile(
     r"multiple\s+(?:gift\s+vouchers?|gvs?|gv/gc|e-?gvs?)[^.\n]{0,60}"
     r"(?:combin|club|add)[^.\n]{0,60}(?:e-?pay|balance|wallet)[^.\n]{0,40}", re.I)
@@ -111,7 +138,7 @@ def main() -> None:
         raw.update(json.loads((RAW / f"voucher_terms_raw_{src}.json").read_text()))
 
     foreign = foreign_terms_keys(raw)
-    filled = flagged = hidden = 0
+    filled = flagged = hidden = ceilings = 0
     for key, offer in offers.items():
         offer["platform_buying"] = PLATFORM_BUYING.get(offer["source"], {})
 
@@ -120,6 +147,9 @@ def main() -> None:
             offer["recommendable"] = False
             offer["hidden_reason"] = "page publishes another merchant's terms"
             hidden += 1
+
+        if fix_discount_ceiling(offer):
+            ceilings += 1
 
         rules = offer.get("rules") or {}
         if offer.get("rules_source") == "read" and "max_vouchers_per_bill" not in rules:
@@ -143,6 +173,7 @@ def main() -> None:
 
     OFFERS.write_text(json.dumps(offers, indent=2, ensure_ascii=False) + "\n")
     print(f"hidden for carrying another merchant's terms      : {hidden}")
+    print(f"discount-ceiling rules corrected                  : {ceilings}")
     print(f"per-bill answers filled from the combine sentence : {filled}")
     print(f"vouchers flagged 'confirm with cashier'           : {flagged}")
     stated = sum(1 for v in offers.values()

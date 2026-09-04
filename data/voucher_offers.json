@@ -43659,8 +43659,10 @@
         "value": "yes",
         "evidence": "Gift Vouchers CAN be used during Sale."
       },
-      "spend_scope": {
-        "value": "Only products discounted up to 30% (Samsonite) and up to 50% (American Tourister)",
+      "excludes": {
+        "value": [
+          "products discounted more than 50%"
+        ],
         "evidence": "GV will be Valid for redemption only on products on discount upto 30% in case of Samsonite and upto 50% on American Tourister respectively."
       }
     },
@@ -43778,8 +43780,10 @@
         "value": "yes",
         "evidence": "Gift Vouchers CAN be used during Sale."
       },
-      "spend_scope": {
-        "value": "Only products discounted up to 30% for Samsonite and up to 50% for American Tourister",
+      "excludes": {
+        "value": [
+          "products discounted more than 30%"
+        ],
         "evidence": "GV will be Valid for redemption only on products on discount upto 30% in case of Samsonite and upto 50% on American Tourister respectively."
       }
     },
@@ -48237,8 +48241,10 @@
         "value": "unlimited",
         "evidence": "Multiple GV's can be used in one single purchase"
       },
-      "spend_scope": {
-        "value": "Only products on discount up to 30% (Samsonite) and up to 50% (American Tourister)",
+      "excludes": {
+        "value": [
+          "products discounted more than 50%"
+        ],
         "evidence": "GV will be Valid for redemption only on products on discount upto 30% in case of Samsonite and upto 50% on American Tourister respectively."
       }
     },
@@ -76225,8 +76231,10 @@
         "value": "unlimited",
         "evidence": "Multiple GV's can be used in one single purchase."
       },
-      "spend_scope": {
-        "value": "Products on discount up to 30% for Samsonite and up to 50% for American Tourister",
+      "excludes": {
+        "value": [
+          "products discounted more than 30%"
+        ],
         "evidence": "GV will be valid for redemption only on products on discount up to 30% in case of Samsonite and up to 50% on American Tourister respectively."
       }
     },
@@ -127600,13 +127608,15 @@
         "value": "yes",
         "evidence": "Can be clubbed with other offers? Yes, clubbable with other offers / coupons"
       },
-      "spend_scope": {
-        "value": "Only products on discount upto 30% in case of Samsonite and upto 50% on American Tourister",
-        "evidence": "GV will be Valid for redemption only on products on discount upto 30% in case of Samsonite and upto 50% on American Tourister respectively."
-      },
       "validity": {
         "value": "Valid for upto 6 months",
         "evidence": "Validity Valid for upto 6 months"
+      },
+      "excludes": {
+        "value": [
+          "products discounted more than 50%"
+        ],
+        "evidence": "GV will be Valid for redemption only on products on discount upto 30% in case of Samsonite and upto 50% on American Tourister respectively."
       }
     },
     "terms": "Terms & Conditions\nThis is a American Tourister Insta Gift Voucher and would be accepted at the store\nThe person who has the American Tourister GV Code is deemed to be the beneficiary\nMultiple GV's can be used in one single purchase\nGV will be Valid for redemption only on products on discount upto 30% in case of Samsonite and upto 50% on American Tourister respectively.\nAmerican Tourister GV is a One-Time use Gift Voucher\nNo credit note/ Refund for the unused amount of the GV will be given\nThe GV's are neither transferable nor redeemable in cash nor negotiable\nNo replacement will be given for any misplaced voucher.\nAmerican Tourister Gift Voucher CANNOT be revalidated once expired\nPartial redemption of the voucher is not permitted.\nIf the order value exceeds the e-Gift Card amount, the balance must be paid by another payment option.\nAll disputes shall be governed by Indian laws and are subject to the exclusive jurisdiction of the competent courts/tribunals of Mumbai\nThe participation in the offer is entirely voluntary and it is understood, that the participation shall be deemed to have been made on a voluntary basis\nIn all matters relating to the Offer, the decision of Samsonite South Asia Private Limited shall be final and binding in all respects.\nThe discount is not available wherever prohibited and/or on products/services for which such offers cannot be made available for any reason whatsoever\nFor any queries / issues related to GV / GC, raise a request at https://www.gvhelpdesk.com\nClose",
@@ -128260,13 +128270,15 @@
         "value": "yes",
         "evidence": "Can be clubbed with other offers? Yes, clubbable with other offers / coupons"
       },
-      "spend_scope": {
-        "value": "Only products on discount up to 30% (Samsonite) and up to 50% (American Tourister)",
-        "evidence": "GV will be valid for redemption only on products on discount up to 30% in case of Samsonite and up to 50% on American Tourister respectively."
-      },
       "validity": {
         "value": "6 months",
         "evidence": "Validity Valid for upto 6 months"
+      },
+      "excludes": {
+        "value": [
+          "products discounted more than 30%"
+        ],
+        "evidence": "GV will be valid for redemption only on products on discount up to 30% in case of Samsonite and up to 50% on American Tourister respectively."
       }
     },
     "terms": "Terms & Conditions\nThis is a Samsonite Insta Gift Voucher and would be accepted at the store.\nThe person who has the Samsonite GV Code is deemed to be the beneficiary.\nMultiple GV's can be used in one single purchase.\nGV will be valid for redemption only on products on discount up to 30% in case of Samsonite and up to 50% on American Tourister respectively.\nSamsonite GV is a one-time use Gift Voucher.\nNo credit note/ refund for the unused amount of the GV will be given.\nThe GV's are neither transferable nor redeemable in cash nor negotiable.\nNo replacement will be given for any misplaced voucher.\nSamsonite Gift Voucher CANNOT be revalidated once expired.\nPartial redemption of the voucher is not permitted.\nIf the order value exceeds the e-Gift Card amount, the balance must be paid by another payment option.\nAll disputes shall be governed by Indian laws and are subject to the exclusive jurisdiction of the competent courts/tribunals of Mumbai.\nThe participation in the offer is entirely voluntary and it is understood that the participation shall be deemed to have been made on a voluntary basis.\nIn all matters relating to the offer, the decision of Samsonite South Asia Private Limited shall be final and binding in all respects.\nThe discount is not available wherever prohibited and/or on products/services for which such offers cannot be made available for any reason whatsoever.\nFor any queries / issues related to GV / GC, raise a request at https://www.gvhelpdesk.com.\nClose",

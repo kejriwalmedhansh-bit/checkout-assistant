@@ -23686,8 +23686,8 @@
         "evidence": "Gift Vouchers are ACCEPTED at all listed American Tourister Outlets ."
       },
       "works_on_sale_items": {
-        "value": "no",
-        "evidence": "GV will be Valid for redemption only on products on discount upto 30% in case of Samsonite and upto 50% on American Tourister respectively."
+        "value": "not_stated",
+        "evidence": ""
       },
       "combines_with_store_offers": {
         "value": "yes",
@@ -23698,8 +23698,10 @@
         "evidence": ""
       },
       "excludes": {
-        "value": [],
-        "evidence": ""
+        "value": [
+          "products discounted more than 50%"
+        ],
+        "evidence": "GV will be Valid for redemption only on products on discount upto 30% in case of Samsonite and upto 50% on American Tourister respectively."
       },
       "max_spend_per_purchase": {
         "value": "not_stated",
@@ -23745,8 +23747,8 @@
         "evidence": "This is a Samsonite Insta Gift Voucher and would be accepted at the store"
       },
       "works_on_sale_items": {
-        "value": "no",
-        "evidence": "GV will be Valid for redemption only on products on discount upto 30% in case of Samsonite and upto 50% on American Tourister respectively."
+        "value": "not_stated",
+        "evidence": ""
       },
       "combines_with_store_offers": {
         "value": "yes",
@@ -23757,8 +23759,10 @@
         "evidence": ""
       },
       "excludes": {
-        "value": [],
-        "evidence": ""
+        "value": [
+          "products discounted more than 30%"
+        ],
+        "evidence": "GV will be Valid for redemption only on products on discount upto 30% in case of Samsonite and upto 50% on American Tourister respectively."
       },
       "max_spend_per_purchase": {
         "value": "not_stated",
@@ -26725,8 +26729,8 @@
         "evidence": "This is a American Tourister Insta Gift Voucher and would be accepted at the store"
       },
       "works_on_sale_items": {
-        "value": "no",
-        "evidence": "GV will be Valid for redemption only on products on discount upto 30% in case of Samsonite and upto 50% on American Tourister respectively."
+        "value": "not_stated",
+        "evidence": ""
       },
       "combines_with_store_offers": {
         "value": "not_stated",
@@ -26737,8 +26741,10 @@
         "evidence": ""
       },
       "excludes": {
-        "value": [],
-        "evidence": ""
+        "value": [
+          "products discounted more than 50%"
+        ],
+        "evidence": "GV will be Valid for redemption only on products on discount upto 30% in case of Samsonite and upto 50% on American Tourister respectively."
       },
       "max_spend_per_purchase": {
         "value": "not_stated",
@@ -48809,8 +48815,8 @@
         "evidence": "This is a Samsonite Insta Gift Voucher and would be accepted at the store."
       },
       "works_on_sale_items": {
-        "value": "no",
-        "evidence": "GV will be valid for redemption only on products on discount up to 30% in case of Samsonite and up to 50% on American Tourister respectively."
+        "value": "not_stated",
+        "evidence": ""
       },
       "combines_with_store_offers": {
         "value": "not_stated",
@@ -48821,8 +48827,10 @@
         "evidence": ""
       },
       "excludes": {
-        "value": [],
-        "evidence": ""
+        "value": [
+          "products discounted more than 30%"
+        ],
+        "evidence": "GV will be valid for redemption only on products on discount up to 30% in case of Samsonite and up to 50% on American Tourister respectively."
       },
       "max_spend_per_purchase": {
         "value": "not_stated",
@@ -48868,8 +48876,8 @@
         "evidence": "Comes with the validity of 6 months and can be redeemed at both physical stores locator-https://www.samsonite.in/stores?showMap=true&horizontalView=true and online website- https://www.samsonite.in/"
       },
       "works_on_sale_items": {
-        "value": "no",
-        "evidence": "However This EGV will not be applicable on Samsonite products with more than 30% discount."
+        "value": "not_stated",
+        "evidence": ""
       },
       "combines_with_store_offers": {
         "value": "yes",
@@ -82627,8 +82635,8 @@
         "evidence": "This is a American Tourister Insta Gift Voucher and would be accepted at the store"
       },
       "works_on_sale_items": {
-        "value": "no",
-        "evidence": "GV will be Valid for redemption only on products on discount upto 30% in case of Samsonite and upto 50% on American Tourister respectively."
+        "value": "not_stated",
+        "evidence": ""
       },
       "combines_with_store_offers": {
         "value": "yes",
@@ -82639,8 +82647,10 @@
         "evidence": ""
       },
       "excludes": {
-        "value": [],
-        "evidence": ""
+        "value": [
+          "products discounted more than 50%"
+        ],
+        "evidence": "GV will be Valid for redemption only on products on discount upto 30% in case of Samsonite and upto 50% on American Tourister respectively."
       },
       "max_spend_per_purchase": {
         "value": "not_stated",
@@ -82985,8 +82995,8 @@
         "evidence": "This is a Samsonite Insta Gift Voucher and would be accepted at the store."
       },
       "works_on_sale_items": {
-        "value": "no",
-        "evidence": "GV will be valid for redemption only on products on discount up to 30% in case of Samsonite and up to 50% on American Tourister respectively."
+        "value": "not_stated",
+        "evidence": ""
       },
       "combines_with_store_offers": {
         "value": "yes",
@@ -82997,8 +83007,10 @@
         "evidence": ""
       },
       "excludes": {
-        "value": [],
-        "evidence": ""
+        "value": [
+          "products discounted more than 30%"
+        ],
+        "evidence": "GV will be valid for redemption only on products on discount up to 30% in case of Samsonite and up to 50% on American Tourister respectively."
       },
       "max_spend_per_purchase": {
         "value": "not_stated",

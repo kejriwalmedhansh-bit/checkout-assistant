@@ -126,7 +126,10 @@ def convert(offer: dict) -> dict:
     ex = get("excludes")
     if ex.get("value"):
         out["excludes"] = rule(list(ex["value"]), ex.get("evidence", ""))
-        if any(SALE_WORDS.search(str(e)) for e in ex["value"]):
+        # "discounted more than 30%" is a ceiling, not a ban on sale items:
+        # the voucher works on ordinary and lightly discounted stock.
+        if any(SALE_WORDS.search(str(e)) and "more than" not in str(e).lower()
+               for e in ex["value"]):
             out["works_on_sale_items"] = rule("no", ex.get("evidence", ""))
 
     # The same fact lives under whichever heading the page happened to state it:
