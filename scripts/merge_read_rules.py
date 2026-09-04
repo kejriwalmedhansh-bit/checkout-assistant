@@ -32,8 +32,17 @@ LOCATION = re.compile(r"airport|factory outlet|outlet|store|mall|city|cities|lou
 
 
 def load_read() -> dict:
+    """Prefer the merged two-pass readings when they exist.
+
+    One pass misses a stated rule on about a third of listings, so a single
+    reading is a fallback, not the intended input.
+    """
+    source = CHUNKS / "merged"
+    if not any(source.glob("out_*.json")):
+        source = CHUNKS
+        print("no merged readings found — using the first pass alone")
     out = {}
-    for p in sorted(CHUNKS.glob("out_*.json")):
+    for p in sorted(source.glob("out_*.json")):
         out.update(json.loads(p.read_text()))
     return out
 

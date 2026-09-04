@@ -1,0 +1,1030 @@
+{
+ "gyftr:allen-solly-gift-voucher": {
+  "can_combine_with_store_offers": "yes",
+  "excludes": [
+   "location: listed Allen Solly stores",
+   "date: specific block-out dates"
+  ],
+  "max_vouchers_per_bill": "unlimited",
+  "one_time_use": "yes",
+  "partial_redemption": "no",
+  "works_in_store": "yes",
+  "works_online": "no",
+  "quotes": {
+   "can_combine_with_store_offers": "The GV/GC can be clubbed with the existing offers.",
+   "excludes": "This is an Allen Solly Gift Voucher (GV) / Gift Card (GC), and it’s redeemable at all the listed stores. GV/GC cannot be redeemed on specific block-out dates. Allen Solly may add or delete any date at its sole discretion.",
+   "max_vouchers_per_bill": "Multiple GV/GC can be used against one bill.",
+   "one_time_use": "This is a one-time use GV/GC.",
+   "partial_redemption": "No Credit note/Refund for the unused amount of the GV/GC will be given.",
+   "works_in_store": "This is an Aditya Birla Fashion Retail Limited Allen Solly Gift Voucher (GV) / Gift Card (GC) and would be accepted at listed outlets.",
+   "works_online": "The GV / GC CANNOT be used online."
+  }
+ },
+ "gyftr:amazon": {
+  "excludes": [
+   "apps",
+   "certain global store products",
+   "other Amazon Pay gift cards",
+   "apps, certain global store products and other Amazon Pay gift cards",
+   "transactions made on Amazon Business"
+  ],
+  "monthly_purchase_cap": 50000,
+  "one_time_use": "yes",
+  "partial_redemption": "yes",
+  "validity": "365 days from the date of purchase",
+  "works_in_store": "no",
+  "works_online": "yes",
+  "quotes": {
+   "excludes": "Amazon Pay Gift cards are redeemable across all products on Amazon except apps, certain global store products and other Amazon Pay gift cards",
+   "monthly_purchase_cap": "You can load up to 50,000 in gift cards to your Amazon wallet per month.",
+   "one_time_use": "The Amazon Pay Gift Card can be redeemed only once.",
+   "partial_redemption": "However, once added to the Amazon Pay balance, it can be used partially.",
+   "validity": "Amazon Pay Gift Cards are valid for 365 days from the date of purchase and carry no fees",
+   "works_in_store": "Amazon Pay Gift Cards can only be redeemed online on the Amazon website and app.",
+   "works_online": "Amazon Pay Gift Cards can only be redeemed online on the Amazon website and app."
+  }
+ },
+ "gyftr:amazon-fresh": {
+  "delivery_wait": "normally instant; delivery can be delayed up to 24-48 hours",
+  "excludes": [
+   "Amazon Business marketplace",
+   "location: pin codes not eligible for Amazon Fresh deliveries"
+  ],
+  "one_time_use": "yes",
+  "partial_redemption": "yes",
+  "spend_scope": "Eligible Amazon Fresh products on www.amazon.in/fresh only",
+  "validity": "12 months from the date of activation",
+  "works_in_store": "no",
+  "works_online": "yes",
+  "quotes": {
+   "delivery_wait": "Amazon Fresh Voucher are normally delivered instantly. But sometimes due to system issues, the delivery can be delayed up to 24 - 48 hours.",
+   "excludes": "Amazon Vouchers (including Amazon Shopping Voucher, Amazon Prime Voucher and Amazon Fresh Voucher) are not eligible for use on Amazon Business marketplace effective 15th November ’23.",
+   "one_time_use": "The Amazon Fresh Gift Card can be used only once.",
+   "partial_redemption": "However, once added to your Amazon Account, you can use the balance at your leisure.",
+   "spend_scope": "Amazon Fresh Voucher GV/GC must be used only towards the purchase of eligible products mentioned above, on www.amazon.in/fresh only.",
+   "validity": "Amazon Fresh Voucher (including any unused Amazon Fresh Voucher balance) has an expiry of 12 months from the date of activation, subject to the applicable terms.",
+   "works_in_store": "Gift Vouchers CAN only be used Online at www.amazon.in/fresh.",
+   "works_online": "Gift Vouchers CAN only be used Online at www.amazon.in/fresh."
+  }
+ },
+ "gyftr:amazon-prime-membership": {
+  "excludes": [
+   "Amazon Business accounts",
+   "any other physical or digital product on Amazon.in",
+   "any other physical or digital product on Amazon.in, including Global Store products, recharges, bill payments, ticket bookings and financial products",
+   "Amazon Pay gift cards (pre-loaded)",
+   "Prime membership plans where a telecom provider has activated Prime on the same Amazon account"
+  ],
+  "max_vouchers_per_bill": 1,
+  "monthly_purchase_cap": "INR 1799 is the maximum balance that can be added to the Amazon Prime voucher balance",
+  "one_time_use": "yes",
+  "partial_redemption": "yes",
+  "spend_scope": "Amazon Prime memberships (3-months, 12-months, Prime Shopping edition or Prime Lite plan) or Amazon Pay Anytime Gift cards on Amazon.in",
+  "validity": "12 months from the date of activation",
+  "works_in_store": "no",
+  "works_online": "yes",
+  "quotes": {
+   "excludes": "GV/GC cannot be used to purchase any other physical or digital product on Amazon.in, including but not limited to: (i) products on 'Global Store' on Amazon.in, recharges, all kinds of bill payments, all kinds of ticket bookings, and financial products on Amazon.in.",
+   "max_vouchers_per_bill": "Only one GV/GC can be used for one subscription.",
+   "monthly_purchase_cap": "Customers can add a maximum balance of INR 1799/- to their Amazon Prime voucher balance.",
+   "one_time_use": "The Amazon Prime Membership Gift Card can be redeemed only once.",
+   "partial_redemption": "Customers can redeem a partial GV/GC once per calendar year. This limit applies regardless of where the voucher is obtained from.",
+   "spend_scope": "This is an Amazon Prime subscription GV (Gift Voucher)/GC (Gift Card) is a prepaid payment instrument that can be used to purchase Amazon Prime memberships (3-months, 12-months, Prime Shopping edition or Prime Lite plan) or Amazon Pay Anytime Gift cards (inactive zero value gift card) from Amazon.in.",
+   "validity": "GV/GC has an expiry of 12 months from the date of activation, subject to applicable terms.",
+   "works_in_store": "Amazon Prime Membership Gift Cards can only be redeemed online on the Amazon website and app.",
+   "works_online": "Amazon Prime Membership Gift Cards can only be redeemed online on the Amazon website and app."
+  }
+ },
+ "gyftr:amazon-shopping-voucher": {
+  "can_combine_with_store_offers": "yes",
+  "excludes": [
+   "digital content like e-books, video games",
+   "global store",
+   "recharges",
+   "bill payments",
+   "ticket booking",
+   "financial products",
+   "Amazon Pay gift cards",
+   "mixed item orders with a non-eligible item",
+   "prescription drugs and fresh products",
+   "global store, recharges, bill payments, ticket booking, and financial products",
+   "mixed item orders containing at least one non-eligible item",
+   "transactions made on Amazon Business"
+  ],
+  "monthly_purchase_cap": 50000,
+  "one_time_use": "yes",
+  "partial_redemption": "yes",
+  "spend_scope": "Physical product categories on Amazon.in only",
+  "works_in_store": "no",
+  "works_online": "yes",
+  "quotes": {
+   "can_combine_with_store_offers": "Amazon Shopping Voucher can be used to buy discounted products.",
+   "excludes": "2.2 Is not applicable for the purchase of digital content like e-books, video games\n2.3 Is not applicable on global store, recharges, bill payments, ticket booking, and financial products\n2.4 Is not eligible to buy Amazon Pay gift cards\n2.5 Cannot be used to pay for a mixed item order if the order has at least one non-eligible item\n2.6 Cannot be used to purchase prescription drugs and fresh products",
+   "monthly_purchase_cap": "You can load up to 50,000 in gift cards to your Amazon wallet per month.",
+   "one_time_use": "The Amazon Shopping Voucher Gift Card can be redeemed only once.",
+   "partial_redemption": "Amazon Shopping Voucher balance can be used multiple times.",
+   "spend_scope": "Amazon Shopping Vouchers are valid only on Amazon.in, across physical product categories.",
+   "works_in_store": "Amazon Shopping Voucher Gift Cards can only be redeemed online on the Amazon website and app.",
+   "works_online": "Amazon Shopping Voucher can be redeemed online at www.amazon.in/vouchers"
+  }
+ },
+ "gyftr:american-eagle-gift-voucher": {
+  "can_combine_with_store_offers": "yes",
+  "excludes": [
+   "location: listed outlets"
+  ],
+  "max_vouchers_per_bill": "unlimited",
+  "one_time_use": "yes",
+  "works_in_store": "yes",
+  "works_online": "no",
+  "quotes": {
+   "can_combine_with_store_offers": "This GV / GC CAN be used during sale.",
+   "excludes": "This is an Aditya Birla Fashion Retail Limited American Eagle Gift Voucher (GV) / Gift Card (GC) and would be accepted at listed outlets.",
+   "max_vouchers_per_bill": "Multiple Gift Vouchers CAN be used in one bill at the Stores.",
+   "one_time_use": "American Eagle Gift Card can be used/redeemed only once.",
+   "works_in_store": "This is an Aditya Birla Fashion Retail Limited American Eagle Gift Voucher (GV) / Gift Card (GC) and would be accepted at listed outlets.",
+   "works_online": "The GV / GC CANNOT be used online."
+  }
+ },
+ "gyftr:american-tourister": {
+  "can_combine_with_store_offers": "yes",
+  "excludes": [
+   "products discounted by more than 30% (Samsonite) or more than 50% (American Tourister)",
+   "location: listed American Tourister outlets"
+  ],
+  "max_vouchers_per_bill": "unlimited",
+  "one_time_use": "yes",
+  "partial_redemption": "no",
+  "spend_scope": "Only products discounted up to 30% (Samsonite) and up to 50% (American Tourister)",
+  "works_in_store": "yes",
+  "works_online": "no",
+  "quotes": {
+   "can_combine_with_store_offers": "Gift Vouchers CAN be used during Sale.",
+   "excludes": "GV will be Valid for redemption only on products on discount upto 30% in case of Samsonite and upto 50% on American Tourister respectively. Gift Vouchers are ACCEPTED at all listed American Tourister Outlets .",
+   "max_vouchers_per_bill": "Multiple Gift Vouchers CAN be used in one bill.",
+   "one_time_use": "American Tourister GV is a One-Time use Gift Voucher",
+   "partial_redemption": "Partial redemption of the voucher is not permitted.",
+   "spend_scope": "GV will be Valid for redemption only on products on discount upto 30% in case of Samsonite and upto 50% on American Tourister respectively.",
+   "works_in_store": "Gift Vouchers are ACCEPTED at all listed American Tourister Outlets .",
+   "works_online": "Gift Vouchers CANNOT be used Online."
+  }
+ },
+ "gyftr:apollo-diagnostics": {
+  "can_combine_with_store_offers": "no",
+  "excludes": [
+   "doctor consultation bookings",
+   "purchase of medicines",
+   "FMCG products",
+   "other healthcare products",
+   "doctor consultation bookings, purchase of medicines, FMCG products, or other healthcare products"
+  ],
+  "max_vouchers_per_bill": 1,
+  "one_time_use": "yes",
+  "spend_scope": "Diagnostic tests and services only",
+  "works_in_store": "no",
+  "works_online": "yes",
+  "quotes": {
+   "can_combine_with_store_offers": "The GV/GC cannot be clubbed with any other voucher, coupon, or promotional offer.",
+   "excludes": "GV/GC can only be redeemed against diagnostic tests and services. It cannot be used for doctor consultation bookings, purchase of medicines, FMCG products, or other healthcare products.",
+   "max_vouchers_per_bill": "Multiple GV/GCs CANNOT be clubbed in a single bill.",
+   "one_time_use": "This is a one-time use GV/GC and cannot be reused once redeemed.",
+   "spend_scope": "GV/GC can only be redeemed against diagnostic tests and services. It cannot be used for doctor consultation bookings, purchase of medicines, FMCG products, or other healthcare products.",
+   "works_in_store": "The GV/GC is redeemable only on the mobile app & not on the website.",
+   "works_online": "This is an Apollo Diagnostics Gift Voucher/Gift Card (GV/GC) and can be redeemed at https://www.apollo247.com/lab-tests & the Apollo 247 app."
+  }
+ },
+ "gyftr:apollo-pharmacy": {
+  "can_combine_with_store_offers": "no",
+  "excludes": [
+   "lab tests",
+   "consultations",
+   "FMCG products",
+   "insurance plans",
+   "lab tests, consultations, FMCG products, or insurance plans",
+   "Cash on Delivery (COD), cashback, or Apollo Health Credits"
+  ],
+  "max_vouchers_per_bill": 1,
+  "one_time_use": "no",
+  "partial_redemption": "yes",
+  "works_in_store": "yes",
+  "works_online": "yes",
+  "quotes": {
+   "can_combine_with_store_offers": "The GV/GC cannot be combined with other offers, promo codes, or corporate credits.",
+   "excludes": "The GV/GC does not apply to lab tests, consultations, FMCG products, or insurance plans.",
+   "max_vouchers_per_bill": "Only one GV/GC can be used per bill.",
+   "one_time_use": "The GV/GC is valid for multiple use. The same GV/GC code and PIN can be redeemed multiple times until the GV/GC value is fully utilised or the GV/GC expires, whichever is earlier.",
+   "partial_redemption": "The GV/GC is valid for multiple use. The same GV/GC code and PIN can be redeemed multiple times until the GV/GC value is fully utilised or the GV/GC expires, whichever is earlier.",
+   "works_in_store": "The GV/GC is redeemable on the mobile app as well as at Apollo Pharmacy offline stores.",
+   "works_online": "The GV/GC is redeemable on the mobile app as well as at Apollo Pharmacy offline stores."
+  }
+ },
+ "gyftr:app-store-code": {
+  "works_online": "yes",
+  "quotes": {
+   "works_online": "To redeem, simply click on the code above or visit appstore.com/redeem"
+  }
+ },
+ "gyftr:apparel-group": {
+  "can_combine_with_store_offers": "yes",
+  "excludes": [
+   "location: accepted at Aldo, Charles & Keith, Call it Spring, Beverly Hills Polo Club, Inglot, Victoria’s Secret, Victoria’s Secret beauty, Bath & Body works & R&B stores only"
+  ],
+  "max_vouchers_per_bill": "unlimited",
+  "monthly_purchase_cap": 25000,
+  "partial_redemption": "yes",
+  "spend_scope": "Aldo, Charles & Keith, Call it Spring, Beverly Hills Polo Club, Inglot, Victoria's Secret, Victoria's Secret beauty, Bath & Body works & R&B stores only",
+  "works_in_store": "yes",
+  "works_online": "no",
+  "quotes": {
+   "can_combine_with_store_offers": "Gift Voucher/e-Pay CAN be used during the Sale.",
+   "excludes": "This Gift Voucher (GV)/e-Pay and would be accepted at Aldo, Charles & Keith, Call it Spring, Beverly Hills Polo Club, Inglot, Victoria’s Secret, Victoria’s Secret beauty , Bath & Body works & R&B stores only.",
+   "max_vouchers_per_bill": "Multiple GVs can be clubbed and added to a e-Pay balance.",
+   "monthly_purchase_cap": "You can add up to ?25,000 worth of GVs to the e-Pay wallet in the last 30 days.",
+   "partial_redemption": "The Apparel Group Gift Card can be converted into e-Pay and then used partially at the holder's convenience.",
+   "spend_scope": "This Gift Voucher (GV)/e-Pay and would be accepted at Aldo, Charles & Keith, Call it Spring, Beverly Hills Polo Club, Inglot, Victoria’s Secret, Victoria’s Secret beauty , Bath & Body works & R&B stores only.",
+   "works_in_store": "Gift Voucher/ e-Pay is ACCEPTED at all Listed Outlets.",
+   "works_online": "Gift Voucher/ e-Pay CANNOT be used Online."
+  }
+ },
+ "gyftr:archies-gallery": {
+  "can_combine_with_store_offers": "yes",
+  "excludes": [
+   "location: once the GV is added to the e-Pay balance, it cannot be used at retail outlets",
+   "partial redemption is not allowed at the outlet — the remaining balance is forfeited",
+   "date: specific block-out dates"
+  ],
+  "max_vouchers_per_bill": "unlimited",
+  "one_time_use": "yes",
+  "partial_redemption": "no",
+  "works_in_store": "yes",
+  "works_online": "yes",
+  "quotes": {
+   "can_combine_with_store_offers": "The GV/e-Pay can be clubbed with existing offers.",
+   "excludes": "Once the GV is added to the e-Pay balance, it cannot be used at retail outlets. The GV/e-Pay is not valid for partial redemption at the outlet. The remaining balance will be forfeited once the GV/e-Pay is redeemed. The GV/e-Pay cannot be redeemed on specific block-out dates.",
+   "max_vouchers_per_bill": "Multiple Vouchers can be used against one bill.",
+   "one_time_use": "The Archies Gift Card can be used/redeemed only once.",
+   "partial_redemption": "The GV/e-Pay is not valid for partial redemption at the outlet. The remaining balance will be forfeited once the GV/e-Pay is redeemed.",
+   "works_in_store": "Archies Insta Gift Vouchers are accepted both at outlets and online.",
+   "works_online": "Archies Insta Gift Vouchers are accepted both at outlets and online."
+  }
+ },
+ "gyftr:assembly": {
+  "can_combine_with_store_offers": "no",
+  "max_vouchers_per_bill": 1,
+  "partial_redemption": "yes",
+  "validity": "between 3 to 12 months",
+  "works_in_store": "no",
+  "works_online": "yes",
+  "quotes": {
+   "can_combine_with_store_offers": "The Gift voucher cannot be clubbed with any other offers or promotions",
+   "max_vouchers_per_bill": "The Gift voucher can only be availed only once per transaction",
+   "partial_redemption": "After conversion into e-Pay balance, this GV/e-Pay is valid for partial redemption. The balance would remain in the e-pay balance and can be used for multiple transactions within the validity period.",
+   "validity": "We offer e-gift vouchers with a validity between 3 to 12 months.",
+   "works_in_store": "This is an Assembly GV (Gift Voucher)/e-Pay that will be accepted on the website at https://assemblytravel.com/.",
+   "works_online": "Gift voucher would be accepted on assemblytravel.com"
+  }
+ },
+ "gyftr:aurelia": {
+  "can_combine_with_store_offers": "yes",
+  "excludes": [
+   "location: listed Aurelia outlets",
+   "date: specific block out dates"
+  ],
+  "max_vouchers_per_bill": "unlimited",
+  "one_time_use": "yes",
+  "partial_redemption": "no",
+  "validity": "usually 3-12 months",
+  "works_in_store": "yes",
+  "works_online": "no",
+  "quotes": {
+   "can_combine_with_store_offers": "Aurelia GV or GC can be used during sale.",
+   "excludes": "Only the listed Aurelia outlets at its sole discretion accept the GV or GC. Aurelia GV or GC cannot be redeemed on specific block out dates. Aurelia may add or delete any date on its sole discretion.",
+   "max_vouchers_per_bill": "Multiple Gift Vouchers CAN be used in one bill",
+   "one_time_use": "This is a ONE time use GV / GC.",
+   "partial_redemption": "No Credit note or Refund for the unused amount of the GV / GC will be given.",
+   "validity": "An Aurelia Gift Card usually comes with a 3-12 months validity period.",
+   "works_in_store": "Gift Vouchers CAN Only be used at listed outlets",
+   "works_online": "Gift Vouchers CANNOT be used Online"
+  }
+ },
+ "gyftr:auric": {
+  "can_combine_with_store_offers": "no",
+  "excludes": [
+   "Ghee"
+  ],
+  "max_vouchers_per_bill": 1,
+  "one_time_use": "yes",
+  "partial_redemption": "no",
+  "works_in_store": "no",
+  "works_online": "yes",
+  "quotes": {
+   "can_combine_with_store_offers": "Vouchers cannot be clubbed with any other coupon or voucher.",
+   "excludes": "The GV is not valid on the purchase of Ghee",
+   "max_vouchers_per_bill": "Only 1 Gift Voucher can be used in one transaction/order.",
+   "one_time_use": "Auric Gift Voucher is a One-time use Gift Voucher",
+   "partial_redemption": "No credit note/refund for the unused balance amount of the Gift Voucher will be given.",
+   "works_in_store": "This is a AURIC Gift Voucher (GV) and would be accepted only on the website.",
+   "works_online": "This is a AURIC Gift Voucher (GV) and would be accepted only on the website."
+  }
+ },
+ "gyftr:bakingo": {
+  "can_combine_with_store_offers": "no",
+  "max_vouchers_per_bill": 1,
+  "one_time_use": "yes",
+  "validity": "usually 3 to 12 months",
+  "works_in_store": "no",
+  "works_online": "yes",
+  "quotes": {
+   "can_combine_with_store_offers": "GV/GC cannot be clubbed with other offers on the Bakingo website.",
+   "max_vouchers_per_bill": "Only one Gift Voucher CAN be used against one bill.",
+   "one_time_use": "Gift Vouchers CANNOT be used multiple times.",
+   "validity": "A Bakingo Gift Card usually comes with a validity of 3 to 12 months.",
+   "works_in_store": "Gift Vouchers CANNOT be used directly at Bakingo stores.",
+   "works_online": "GV/GC cannot be clubbed with other offers on the Bakingo website."
+  }
+ },
+ "gyftr:bally-luxe-gift-card": {
+  "can_combine_with_store_offers": "no",
+  "excludes": [
+   "location: listed Outlets"
+  ],
+  "max_vouchers_per_bill": "unlimited",
+  "one_time_use": "yes",
+  "works_in_store": "yes",
+  "works_online": "no",
+  "quotes": {
+   "can_combine_with_store_offers": "Gift Vouchers CANNOT be used during Sale.",
+   "excludes": "Gift Vouchers are ACCEPTED at all listed Outlets.",
+   "max_vouchers_per_bill": "Multiple Gift Vouchers CAN be used in one bill.",
+   "one_time_use": "EGV is ONE time use.",
+   "works_in_store": "Gift Vouchers are ACCEPTED at all listed Outlets.",
+   "works_online": "Bally Luxe Gift Cards can only be redeemed at select Bally Stores."
+  }
+ },
+ "gyftr:barbeque-nation": {
+  "can_combine_with_store_offers": "yes",
+  "excludes": [
+   "location: all PAN India Barbeque Nation restaurants except Kolhapur",
+   "date: 26th January, 15th August, 25th December, 31st December, and 1st January"
+  ],
+  "max_vouchers_per_bill": "unlimited",
+  "one_time_use": "yes",
+  "partial_redemption": "no",
+  "spend_scope": "Dine-in only",
+  "works_in_store": "yes",
+  "works_online": "no",
+  "quotes": {
+   "can_combine_with_store_offers": "Gift Vouchers CAN be clubbed with existing offers",
+   "excludes": "Gift Vouchers are ACCEPTED at all Listed Outlets except Kolhapur. GV/GC will not be valid on 26th January, 15th August, 25th December, 31st December, and 1st January.",
+   "max_vouchers_per_bill": "Multiple Gift Vouchers CAN be used in one bill.",
+   "one_time_use": "The GV/GC is valid for one-time redemption only.",
+   "partial_redemption": "Gift voucher cannot be partially redeemed.",
+   "spend_scope": "The GV/GC is applicable for Dine-in only.",
+   "works_in_store": "Gift Vouchers are ACCEPTED at all Listed Outlets except Kolhapur.",
+   "works_online": "Gift Vouchers CANNOT be used Online."
+  }
+ },
+ "gyftr:baskin-robbins": {
+  "can_combine_with_store_offers": "no",
+  "excludes": [
+   "discounted items",
+   "merchandise",
+   "cakes",
+   "sticks",
+   "pre-packed sundaes",
+   "discounted items, merchandise, cakes, sticks, and pre-packed sundaes",
+   "location: non-connected parlors, multiplexes, airports, shop-in-shops, and select food courts where payments are made using food court cash cards",
+   "date: specific block out dates"
+  ],
+  "max_vouchers_per_bill": "unlimited",
+  "one_time_use": "yes",
+  "partial_redemption": "yes",
+  "works_in_store": "yes",
+  "works_online": "no",
+  "quotes": {
+   "can_combine_with_store_offers": "GV/e-pay cannot be clubbed with store offers.",
+   "excludes": "This GV/e-Pay is not redeemable on discounted items, merchandise, cakes, sticks, and pre-packed sundaes.",
+   "max_vouchers_per_bill": "Multiple GVs can be combined and added to the e-Pay balance.",
+   "one_time_use": "The Baskin Robbins Gift Card can be used only once.",
+   "partial_redemption": "The GV can be converted into e-Pay, and then it can be used partially at the holder's convenience.",
+   "works_in_store": "Gift Vouchers are ACCEPTED at all Listed Outlets.",
+   "works_online": "Gift Vouchers CANNOT be used Online."
+  }
+ },
+ "gyftr:bata": {
+  "can_combine_with_store_offers": "yes",
+  "excludes": [
+   "location: listed Bata stores",
+   "date: specific block-out dates"
+  ],
+  "max_vouchers_per_bill": "unlimited",
+  "monthly_purchase_cap": 20000,
+  "one_time_use": "yes",
+  "partial_redemption": "yes",
+  "works_in_store": "yes",
+  "works_online": "no",
+  "quotes": {
+   "can_combine_with_store_offers": "Gift Voucher/e-Pay CAN be used during the Sale.",
+   "excludes": "This is a Bata GV (Gift Voucher)/e-Pay and would be accepted at the listed stores. Bata GV/e-Pay cannot be redeemed on specific block-out dates.",
+   "max_vouchers_per_bill": "Multiple Gift Vouchers CAN be combined & added to the e-Pay balance.",
+   "monthly_purchase_cap": "The maximum cumulative GV value that can be added to the e-Pay balance in 30 days is Rs. 20,000.",
+   "one_time_use": "The Bata Gift Card can be redeemed once. Once added to e-Pay balance, it can be used partially.",
+   "partial_redemption": "After conversion into e-Pay balance, this GV is valid for partial redemption. The balance would remain in the e-Pay balance and can be used for multiple transactions within the validity period.",
+   "works_in_store": "Gift Voucher/ e-Pay is ACCEPTED at all Listed Outlets.",
+   "works_online": "Gift Voucher/ e-Pay CANNOT be used Online."
+  }
+ },
+ "gyftr:bath-&-body-works": {
+  "can_combine_with_store_offers": "yes",
+  "excludes": [
+   "location: accepted at Aldo, Call it Spring, Charles & Keith, Beverly Hills Polo Club, Inglot, Victoria’s Secret, Victoria’s Secret Beauty & R&B stores only"
+  ],
+  "max_vouchers_per_bill": "unlimited",
+  "monthly_purchase_cap": 25000,
+  "one_time_use": "yes",
+  "partial_redemption": "yes",
+  "spend_scope": "Aldo, Call it Spring, Charles & Keith, Beverly Hills Polo Club, Inglot, Victoria's Secret, Victoria's Secret Beauty & R&B stores only",
+  "works_in_store": "yes",
+  "works_online": "no",
+  "quotes": {
+   "can_combine_with_store_offers": "Gift Voucher/e-Pay CAN be used during the Sale.",
+   "excludes": "This is a Bath & Body Works (GV)/e-Pay that will be accepted at Aldo, Call it Spring, Charles & Keith, Beverly Hills Polo Club, Inglot, Victoria’s Secret, Victoria’s Secret Beauty & R&B stores only.",
+   "max_vouchers_per_bill": "Multiple Gift Vouchers CAN be combined & added to the e-Pay balance.",
+   "monthly_purchase_cap": "Multiple GVs can be clubbed and added to the e-Pay balance. The maximum cumulative GV value that can be added to the e-Pay balance in 30 days is Rs. 25,000.",
+   "one_time_use": "Bath & Body Works Gift Cards can be used/redeemed only once.",
+   "partial_redemption": "After conversion into e-Pay balance, this GV is valid for partial redemption. The balance would remain in the e-Pay balance and can be used for multiple transactions within the validity period.",
+   "spend_scope": "This is a Bath & Body Works (GV)/e-Pay that will be accepted at Aldo, Call it Spring, Charles & Keith, Beverly Hills Polo Club, Inglot, Victoria’s Secret, Victoria’s Secret Beauty & R&B stores only.",
+   "works_in_store": "Gift Voucher/ e-Pay is ACCEPTED at all Listed Outlets.",
+   "works_online": "Gift Voucher/ e-Pay CANNOT be used Online."
+  }
+ },
+ "gyftr:bblunt-luzo-gift-card": {
+  "can_combine_with_store_offers": "yes",
+  "max_vouchers_per_bill": "unlimited",
+  "one_time_use": "no",
+  "partial_redemption": "yes",
+  "spend_scope": "Salon, spa, and clinic services booked through the Luzo app at partner outlets",
+  "works_in_store": "no",
+  "works_online": "yes",
+  "quotes": {
+   "can_combine_with_store_offers": "The GV/GC can be clubbed with existing offers.",
+   "max_vouchers_per_bill": "Multiple GV/GCs can be added to the Luzo wallet. There is no limit on the number of GV/GCs that can be added.",
+   "one_time_use": "Once added, the GV/GC balance is credited to the beneficiary's Luzo wallet and can be used across multiple transactions until the balance is exhausted.",
+   "partial_redemption": "Once added, the GV/GC balance is credited to the beneficiary's Luzo wallet and can be used across multiple transactions until the balance is exhausted.",
+   "spend_scope": "The GV/GC can be used for salon, spa, and clinic services booked through the Luzo app at partner outlets.",
+   "works_in_store": "This is a Luzo GV/GC (Gift Voucher/Gift Card) issued by Salonsurf Ventures Pvt Ltd, and it will be accepted only on the Luzo app.",
+   "works_online": "This is a Luzo GV/GC (Gift Voucher/Gift Card) issued by Salonsurf Ventures Pvt Ltd, and it will be accepted only on the Luzo app."
+  }
+ },
+ "gyftr:bounce-luzo-gift-card": {
+  "can_combine_with_store_offers": "yes",
+  "max_vouchers_per_bill": "unlimited",
+  "one_time_use": "no",
+  "partial_redemption": "yes",
+  "spend_scope": "Salon, spa, and clinic services booked through the Luzo app at partner outlets",
+  "works_in_store": "no",
+  "works_online": "yes",
+  "quotes": {
+   "can_combine_with_store_offers": "The GV/GC can be clubbed with existing offers.",
+   "max_vouchers_per_bill": "Multiple GV/GCs can be added to the Luzo wallet. There is no limit on the number of GV/GCs that can be added.",
+   "one_time_use": "Once added, the GV/GC balance is credited to the beneficiary's Luzo wallet and can be used across multiple transactions until the balance is exhausted.",
+   "partial_redemption": "Once added, the GV/GC balance is credited to the beneficiary's Luzo wallet and can be used across multiple transactions until the balance is exhausted.",
+   "spend_scope": "The GV/GC can be used for salon, spa, and clinic services booked through the Luzo app at partner outlets.",
+   "works_in_store": "This is a Luzo GV/GC (Gift Voucher/Gift Card) issued by Salonsurf Ventures Pvt Ltd, and it will be accepted only on the Luzo app.",
+   "works_online": "This is a Luzo GV/GC (Gift Voucher/Gift Card) issued by Salonsurf Ventures Pvt Ltd, and it will be accepted only on the Luzo app."
+  }
+ },
+ "gyftr:bubbles-luzo-gift-card": {
+  "can_combine_with_store_offers": "yes",
+  "max_vouchers_per_bill": "unlimited",
+  "one_time_use": "no",
+  "partial_redemption": "yes",
+  "spend_scope": "Salon, spa, and clinic services booked through the Luzo app at partner outlets",
+  "works_in_store": "no",
+  "works_online": "yes",
+  "quotes": {
+   "can_combine_with_store_offers": "The GV/GC can be clubbed with existing offers.",
+   "max_vouchers_per_bill": "Multiple GV/GCs can be added to the Luzo wallet. There is no limit on the number of GV/GCs that can be added.",
+   "one_time_use": "Once added, the GV/GC balance is credited to the beneficiary's Luzo wallet and can be used across multiple transactions until the balance is exhausted.",
+   "partial_redemption": "Once added, the GV/GC balance is credited to the beneficiary's Luzo wallet and can be used across multiple transactions until the balance is exhausted.",
+   "spend_scope": "The GV/GC can be used for salon, spa, and clinic services booked through the Luzo app at partner outlets.",
+   "works_in_store": "This is a Luzo GV/GC (Gift Voucher/Gift Card) issued by Salonsurf Ventures Pvt Ltd, and it will be accepted only on the Luzo app.",
+   "works_online": "This is a Luzo GV/GC (Gift Voucher/Gift Card) issued by Salonsurf Ventures Pvt Ltd, and it will be accepted only on the Luzo app."
+  }
+ },
+ "gyftr:beer-cafe": {
+  "can_combine_with_store_offers": "no",
+  "excludes": [
+   "date: 25th Dec, 31st Dec, 1st Jan and 14th Feb",
+   "location: listed outlets"
+  ],
+  "max_vouchers_per_bill": "unlimited",
+  "partial_redemption": "yes",
+  "validity": "between three to 12 months",
+  "works_in_store": "yes",
+  "works_online": "no",
+  "quotes": {
+   "can_combine_with_store_offers": "The GV/e-Pay cannot be clubbed with ongoing promotions at the outlet.",
+   "excludes": "The Beer Cafe GV/e-Pay cannot be redeemed on specific block out dates — 25th Dec, 31st Dec, 1st Jan and 14th Feb. Only the listed outlets at its sole discretion accept the GV/e-Pay.",
+   "max_vouchers_per_bill": "Multiple Gift Vouchers CAN be used in one bill.",
+   "partial_redemption": "After conversion into e-Pay balance, this GV is valid for partial redemption. The balance would remain in the e-Pay balance and can be used for multiple transactions within the validity period.",
+   "validity": "The validity of The Beer Cafe Gift Cards is between three to 12 months.",
+   "works_in_store": "Gift Vouchers are ACCEPTED at all Listed Outlets.",
+   "works_online": "Gift Vouchers CANNOT be used Online."
+  }
+ },
+ "gyftr:behrouz-biryani": {
+  "can_combine_with_store_offers": "no",
+  "excludes": [
+   "other aggregator offers"
+  ],
+  "one_time_use": "yes",
+  "partial_redemption": "yes",
+  "spend_scope": "Online orders on the EatSure App/Web only",
+  "works_in_store": "no",
+  "works_online": "yes",
+  "quotes": {
+   "can_combine_with_store_offers": "Gift Vouchers CANNOT be clubbed with other aggregator offers.",
+   "excludes": "Gift Vouchers CANNOT be clubbed with other aggregator offers.",
+   "one_time_use": "Behrouz Gift Cards can be used/redeemed only once.",
+   "partial_redemption": "EatSureGV balance can be used over multiple transactions as per any amount.",
+   "spend_scope": "EatSure Gift Voucher (GV) issued by their banking partner would be accepted only on the EatSure App/Web.",
+   "works_in_store": "EatSure Gift Voucher (GV) issued by their banking partner would be accepted only on the EatSure App/Web.",
+   "works_online": "EatSure Gift Voucher (GV) issued by their banking partner would be accepted only on the EatSure App/Web."
+  }
+ },
+ "gyftr:beverly-hills-polo-club": {
+  "can_combine_with_store_offers": "yes",
+  "excludes": [
+   "location: accepted at Aldo, Call it Spring, Charles & Keith, Inglot, Victoria’s Secret, Victoria’s Secret Beauty, Bath & Body Works & R&B stores only"
+  ],
+  "max_vouchers_per_bill": "unlimited",
+  "monthly_purchase_cap": 25000,
+  "one_time_use": "yes",
+  "partial_redemption": "yes",
+  "spend_scope": "Aldo, Call it Spring, Charles & Keith, Inglot, Victoria's Secret, Victoria's Secret Beauty, Bath & Body Works & R&B stores only",
+  "works_in_store": "yes",
+  "works_online": "no",
+  "quotes": {
+   "can_combine_with_store_offers": "Gift Voucher/e-Pay CAN be used during the Sale.",
+   "excludes": "This is a Beverly Hills Polo Club (GV)/e-Pay that will be accepted at Aldo, Call it Spring, Charles & Keith, Inglot, Victoria’s Secret, Victoria’s Secret Beauty, Bath & Body Works & R&B stores only.",
+   "max_vouchers_per_bill": "Multiple Gift Vouchers CAN be combined & added to the e-Pay balance.",
+   "monthly_purchase_cap": "Multiple GVs can be clubbed and added to the e-Pay balance. The maximum cumulative GV value that can be added to the e-Pay balance in 30 days is Rs. 25,000.",
+   "one_time_use": "Beverly Hills Polo Club Gift Cards can be used/redeemed only once.",
+   "partial_redemption": "After conversion into e-Pay balance, this GV is valid for partial redemption. The balance would remain in the e-Pay balance and can be used for multiple transactions within the validity period.",
+   "spend_scope": "This is a Beverly Hills Polo Club (GV)/e-Pay that will be accepted at Aldo, Call it Spring, Charles & Keith, Inglot, Victoria’s Secret, Victoria’s Secret Beauty, Bath & Body Works & R&B stores only.",
+   "works_in_store": "Gift Voucher/ e-Pay is ACCEPTED at all Listed Outlets.",
+   "works_online": "Gift Voucher/ e-Pay CANNOT be used Online."
+  }
+ },
+ "gyftr:beyoung": {
+  "can_combine_with_store_offers": "yes",
+  "excludes": [
+   "Cash on delivery orders"
+  ],
+  "max_vouchers_per_bill": "unlimited",
+  "one_time_use": "no",
+  "partial_redemption": "yes",
+  "works_in_store": "no",
+  "works_online": "yes",
+  "quotes": {
+   "can_combine_with_store_offers": "The GV/e-Pay can be clubbed with the existing offers.",
+   "excludes": "Cash on delivery cannot be clubbed with GV",
+   "max_vouchers_per_bill": "Multiple vouchers can be used in one bill.",
+   "one_time_use": "The Beyoung Gift Card can be used/redeemed multiple times.",
+   "partial_redemption": "After conversion into e-Pay balance, this GV is valid for partial redemption. The balance would remain in the e-Pay balance and can be used for multiple transactions within the validity period.",
+   "works_in_store": "This is a Beyoung GV (Gift Voucher)/e-Pay that will be accepted only on the website at www.beyoung.in.",
+   "works_online": "This is a Beyoung GV (Gift Voucher)/e-Pay that will be accepted only on the website at www.beyoung.in."
+  }
+ },
+ "gyftr:bgmi-uc-official-voucher": {
+  "partial_redemption": "yes",
+  "spend_scope": "BGMI UC top-up on the UniPin platform",
+  "works_in_store": "no",
+  "works_online": "yes",
+  "quotes": {
+   "partial_redemption": "This Gift Card, once added to BGMI UC Balance, can be used partially.",
+   "spend_scope": "BGMI Gift Cards can be redeemed on the UniPin platform to buy BGMI UC & top up your in-game UC wallet, which you can use to make in-game purchases for weapon upgrades, cosmetics, Royal Passes, and more",
+   "works_in_store": "This Gift Card is only accepted at www.unipin.com.",
+   "works_online": "This Gift Card is only accepted at www.unipin.com."
+  }
+ },
+ "gyftr:biba": {
+  "can_combine_with_store_offers": "yes",
+  "max_vouchers_per_bill": "unlimited",
+  "partial_redemption": "yes",
+  "validity": "3-12 months from the date of purchase",
+  "works_in_store": "no",
+  "works_online": "yes",
+  "quotes": {
+   "can_combine_with_store_offers": "Gift Vouchers CAN be clubbed with any on-going promotions on website",
+   "max_vouchers_per_bill": "Multiple Gift Vouchers CAN be used in one bill",
+   "partial_redemption": "After conversion into e-Pay balance, this GV is valid for partial redemption. The balance would remain in the e-Pay balance and can be used for multiple transactions within the validity period.",
+   "validity": "Your Biba Gift Cards are valid for 3-12 months from the date of purchase.",
+   "works_in_store": "Gift Vouchers CANNOT be used at outlet",
+   "works_online": "Gift Vouchers CAN Only be used online at http://bit.ly/2V6cESH"
+  }
+ },
+ "gyftr:bigbasket": {
+  "can_combine_with_store_offers": "yes",
+  "excludes": [
+   "Gold or Silver Coins",
+   "any product from the electronics category",
+   "products sold by third-party sellers listed on the platform",
+   "cigarettes, tobacco products and pan masala",
+   "infant food, infant milk substitute, and/or feeding bottles",
+   "products sold by third-party sellers listed on the platform, like café, pharmacy",
+   "tobacco products, pan masala, gutka and tooth powder containing tobacco",
+   "location: only select cities and geographical locations where BigBasket operates"
+  ],
+  "max_vouchers_per_bill": "unlimited",
+  "monthly_purchase_cap": "3 GV/GC per day per BigBasket account",
+  "one_time_use": "yes",
+  "partial_redemption": "yes",
+  "works_in_store": "no",
+  "works_online": "yes",
+  "quotes": {
+   "can_combine_with_store_offers": "Gift Voucher CAN be clubbed with on-going promotions/offers.",
+   "excludes": "The redeemed GV/GC amount can be used across multiple orders, except for:\n• Purchase of Gold or Silver Coins.\n• Purchases of any product from the electronics category.\n• Purchases of any products sold by third-party sellers listed on the platform, like café, pharmacy, and such other categories.\n• Purchase of cigarettes, cigars, cheroots, beedis, cigarette tobacco, pipe tobacco, hookah tobacco, chewing tobacco, snuff, pan masala, or any chewing material having tobacco as one of its ingredients (by whatever name called), gutka, and/or tooth powder containing tobacco.\n• Purchase of infant food, infant milk substitute, and/or feeding bottles.",
+   "max_vouchers_per_bill": "Multiple Gift Vouchers CAN be used in one bill.",
+   "monthly_purchase_cap": "(Please Note: There is a limit of 3 GV/GC per day that can be redeemed in a BigBasket account)",
+   "one_time_use": "This is a one-time use GV/GC.",
+   "partial_redemption": "But once added to the BigBasket wallet, you can use the balance at your leisure.",
+   "works_in_store": "GV/GCs are redeemable only on the BigBasket mobile app.",
+   "works_online": "GV/GC CAN be used on the Bigbasket App."
+  }
+ },
+ "gyftr:blinkit-gift-card": {
+  "one_time_use": "yes",
+  "partial_redemption": "yes",
+  "works_online": "yes",
+  "quotes": {
+   "one_time_use": "The Blinkit Gift Card can be used only once.",
+   "partial_redemption": "However, once added to Blinkit, you can use the balance at your convenience.",
+   "works_online": "You can use this Gift Card on the Blinkit App."
+  }
+ },
+ "gyftr:blissclub": {
+  "can_combine_with_store_offers": "yes",
+  "excludes": [
+   "location: listed Blissclub stores"
+  ],
+  "max_vouchers_per_bill": "unlimited",
+  "one_time_use": "yes",
+  "partial_redemption": "yes",
+  "works_in_store": "yes",
+  "works_online": "yes",
+  "quotes": {
+   "can_combine_with_store_offers": "The GV/GC CAN be clubbed with ongoing sales.",
+   "excludes": "This is a Blissclub GV/e-Pay that will be accepted on the website through this URL: www.blissclub.com and at listed stores.",
+   "max_vouchers_per_bill": "Multiple Gift Vouchers CAN be combined & added to the e-Pay balance.",
+   "one_time_use": "The Blissclub Gift Card can be used only once, but once converted to an e-Pay balance, you can use the balance to make partial payments.",
+   "partial_redemption": "After conversion into e-Pay balance, this GV is valid for partial redemption. The balance would remain in the e-Pay balance and can be used for multiple transactions within the validity period.",
+   "works_in_store": "The GV/GC CAN be used Online at www.blissclub.com & at listed stores",
+   "works_online": "The GV/GC CAN be used Online at www.blissclub.com & at listed stores"
+  }
+ },
+ "gyftr:bo-tai": {
+  "can_combine_with_store_offers": "no",
+  "excludes": [
+   "date: 25th December, 31st December, 1st January, and 14th February",
+   "location: listed BO-TAI outlets"
+  ],
+  "max_vouchers_per_bill": "unlimited",
+  "one_time_use": "yes",
+  "partial_redemption": "yes",
+  "works_in_store": "yes",
+  "works_online": "no",
+  "quotes": {
+   "can_combine_with_store_offers": "The GV/e-Pay cannot be clubbed with any existing offers.",
+   "excludes": "The GV/e-Pay cannot be redeemed on the following block-out dates: 25th December, 31st December, 1st January, and 14th February. This is a BO-TAI GV (Gift Voucher)/e-Pay and will only be accepted at the listed retail outlets of BO-TAI.",
+   "max_vouchers_per_bill": "Multiple GVs can be combined and added to the e-Pay balance.",
+   "one_time_use": "The Bo Tai Gift Card can be used only once.",
+   "partial_redemption": "After conversion into e-Pay balance, this GV is valid for partial redemption. The balance would remain in the e-Pay balance and can be used for multiple transactions within the validity period.",
+   "works_in_store": "This is a BO-TAI GV (Gift Voucher)/e-Pay and will only be accepted at the listed retail outlets of BO-TAI.",
+   "works_online": "This is a BO-TAI GV (Gift Voucher)/e-Pay and will only be accepted at the listed retail outlets of BO-TAI."
+  }
+ },
+ "gyftr:bobbi-brown": {
+  "can_combine_with_store_offers": "yes",
+  "excludes": [
+   "location: Bobbi Brown outlets inside Shoppers Stop stores and standalone Bobbi Brown stores in India, and online only at www.shoppersstop.com"
+  ],
+  "max_vouchers_per_bill": "unlimited",
+  "partial_redemption": "yes",
+  "spend_scope": "Bobbi Brown brand products only",
+  "works_in_store": "yes",
+  "works_online": "yes",
+  "quotes": {
+   "can_combine_with_store_offers": "Gift Vouchers CAN be used to buy discounted products.",
+   "excludes": "This is a Bobbi Brown GV (Gift Voucher)/GC (Gift Card) that can be redeemed only against the purchase of products of Bobbi Brown brand at all Bobbi Brown outlets located within Shoppers Stop store, and standalone Bobbi Brown stores (operated by SSL) within India, and also valid for online shopping at www.shoppersstop.com only for Bobbi Brown products.",
+   "max_vouchers_per_bill": "Multiple Gift Vouchers CAN be used in one bill.",
+   "partial_redemption": "A credit note shall be given for any remaining value available in GV/GC.",
+   "spend_scope": "This is a Bobbi Brown GV (Gift Voucher)/GC (Gift Card) that can be redeemed only against the purchase of products of Bobbi Brown brand at all Bobbi Brown outlets located within Shoppers Stop store, and standalone Bobbi Brown stores (operated by SSL) within India, and also valid for online shopping at www.shoppersstop.com only for Bobbi Brown products.",
+   "works_in_store": "This is a Bobbi Brown GV (Gift Voucher)/GC (Gift Card) that can be redeemed only against the purchase of products of Bobbi Brown brand at all Bobbi Brown outlets located within Shoppers Stop store, and standalone Bobbi Brown stores (operated by SSL) within India, and also valid for online shopping at www.shoppersstop.com only for Bobbi Brown products.",
+   "works_online": "This is a Bobbi Brown GV (Gift Voucher)/GC (Gift Card) that can be redeemed only against the purchase of products of Bobbi Brown brand at all Bobbi Brown outlets located within Shoppers Stop store, and standalone Bobbi Brown stores (operated by SSL) within India, and also valid for online shopping at www.shoppersstop.com only for Bobbi Brown products."
+  }
+ },
+ "gyftr:bottega-veneta": {
+  "can_combine_with_store_offers": "no",
+  "excludes": [
+   "airport stores",
+   "location: airport stores"
+  ],
+  "max_vouchers_per_bill": "unlimited",
+  "one_time_use": "yes",
+  "partial_redemption": "no",
+  "spend_scope": "Full priced merchandise only",
+  "works_in_store": "yes",
+  "works_online": "yes",
+  "quotes": {
+   "can_combine_with_store_offers": "Gift Vouchers CANNOT be used during Sale.",
+   "excludes": "Luxe Gift Card is not redeemable at airport stores.",
+   "max_vouchers_per_bill": "Multiple GV/GC can be used for one bill.",
+   "one_time_use": "This is a one-time use GV/GC.",
+   "partial_redemption": "In case the value of the merchandise exceeds the value of the GV/GC, the difference shall be paid by the bearer. No refund/credit note shall be issued for unused parts of the GV/GC.",
+   "spend_scope": "The GV/GC can be redeemed only against full priced merchandise.",
+   "works_in_store": "Gift Vouchers are ACCEPTED at all listed Outlets.",
+   "works_online": "The GV/GC can also be used online on Armani Exchange, Steve Madden, Diesel India, Superdry, Mothercare India, GAS, Sunglass Hut India, Muji, Hamleys, Satya Paul, Brooks Brothers, Hunkemoller, Tumi, Pottery Barn, West Elm, Ritu Kumar."
+  }
+ },
+ "gyftr:canali--luxe-gift-card": {
+  "can_combine_with_store_offers": "no",
+  "excludes": [
+   "airport stores",
+   "location: airport stores"
+  ],
+  "max_vouchers_per_bill": "unlimited",
+  "one_time_use": "yes",
+  "partial_redemption": "no",
+  "spend_scope": "Full priced merchandise only",
+  "works_in_store": "yes",
+  "works_online": "no",
+  "quotes": {
+   "can_combine_with_store_offers": "Gift Vouchers CANNOT be used during Sale.",
+   "excludes": "Luxe Gift Card is not redeemable at airport stores.",
+   "max_vouchers_per_bill": "Multiple GV/GC can be used for one bill.",
+   "one_time_use": "This is a one-time use GV/GC.",
+   "partial_redemption": "In case the value of the merchandise exceeds the value of the GV/GC, the difference shall be paid by the bearer. No refund/credit note shall be issued for unused parts of the GV/GC.",
+   "spend_scope": "The GV/GC can be redeemed only against full priced merchandise.",
+   "works_in_store": "Gift Vouchers are ACCEPTED at all listed Outlets.",
+   "works_online": "CANALI Luxe Gift Cards can only be redeemed at select CANALI Stores."
+  }
+ },
+ "gyftr:braingymjr": {
+  "can_combine_with_store_offers": "no",
+  "one_time_use": "yes",
+  "partial_redemption": "no",
+  "spend_scope": "A BrainGymJr Plan subscription only",
+  "validity": "6 months from its date of issue",
+  "works_in_store": "no",
+  "works_online": "yes",
+  "quotes": {
+   "can_combine_with_store_offers": "E-Gift Voucher cannot be clubbed with any other offer.",
+   "one_time_use": "This is a single use voucher against the given BrainGymJr subscription",
+   "partial_redemption": "The voucher cannot be partially redeemed or reloaded or exchanged for cash.",
+   "spend_scope": "E-Gift voucher is redeemable on www.BrainGymJr.com or on the BrainGymJr Android Application (bit.ly/BrainGymJr) against a BrainGymJr Plan subscription only",
+   "validity": "E-Gift Voucher is valid for a period of 6 months from its date of issue.",
+   "works_in_store": "E-Gift voucher is redeemable only on www.BrainGymJr.com or on the BrainGymJr Android Application (bit.ly/BrainGymJr)",
+   "works_online": "E-Gift voucher is redeemable only on www.BrainGymJr.com or on the BrainGymJr Android Application (bit.ly/BrainGymJr)"
+  }
+ },
+ "gyftr:cafe-delhi-heights": {
+  "can_combine_with_store_offers": "no",
+  "excludes": [
+   "alcoholic beverages",
+   "date: 25th Dec, 31st Dec, 1st Jan and 14th Feb",
+   "location: listed outlets"
+  ],
+  "max_vouchers_per_bill": "unlimited",
+  "partial_redemption": "yes",
+  "works_in_store": "yes",
+  "quotes": {
+   "can_combine_with_store_offers": "The GV/e-Pay cannot be clubbed with ongoing promotions/Loyalty cards/offers at the outlet and the other properties i.e. (Zomato, Dineout, Easy Diner & others).",
+   "excludes": "GV/e-Pay is not applicable on alcoholic beverages.",
+   "max_vouchers_per_bill": "Multiple Gift Vouchers can be used in one bill.",
+   "partial_redemption": "After conversion into e-Pay balance, this GV is valid for partial redemption. The balance would remain in the e-Pay balance and can be used for multiple transactions within the validity period.",
+   "works_in_store": "Gift Vouchers are ACCEPTED at all Listed Outlets."
+  }
+ },
+ "gyftr:cahoot": {
+  "can_combine_with_store_offers": "yes",
+  "max_vouchers_per_bill": "unlimited",
+  "one_time_use": "yes",
+  "partial_redemption": "yes",
+  "works_in_store": "no",
+  "works_online": "yes",
+  "quotes": {
+   "can_combine_with_store_offers": "The GV/GC CAN be clubbed with ongoing sales.",
+   "max_vouchers_per_bill": "Multiple Gift Vouchers CAN be combined & added to the e-Pay balance.",
+   "one_time_use": "Cahoot Gift Card can only be used once.",
+   "partial_redemption": "However, once added to the e-Pay balance, you can use the balance at your leisure.",
+   "works_in_store": "Cahoot Gift Cards can only be redeemed online at https://cahoot.in.",
+   "works_online": "Cahoot Gift Cards can only be redeemed online at https://cahoot.in."
+  }
+ },
+ "gyftr:call-it-spring": {
+  "can_combine_with_store_offers": "yes",
+  "excludes": [
+   "location: accepted at Aldo, Charles & Keith, Beverly Hills Polo Club, Inglot, Victoria’s Secret, Victoria’s Secret Beauty, Bath & Body Works & R&B stores only"
+  ],
+  "max_vouchers_per_bill": "unlimited",
+  "monthly_purchase_cap": 25000,
+  "one_time_use": "yes",
+  "partial_redemption": "yes",
+  "spend_scope": "Aldo, Charles & Keith, Beverly Hills Polo Club, Inglot, Victoria's Secret, Victoria's Secret Beauty, Bath & Body Works & R&B stores only",
+  "works_in_store": "yes",
+  "works_online": "no",
+  "quotes": {
+   "can_combine_with_store_offers": "Gift Voucher/e-Pay CAN be used during the Sale.",
+   "excludes": "This is a Call it Spring (GV)/e-Pay that will be accepted at Aldo, Charles & Keith, Beverly Hills Polo Club, Inglot, Victoria’s Secret, Victoria’s Secret Beauty, Bath & Body Works & R&B stores only.",
+   "max_vouchers_per_bill": "Multiple Gift Vouchers CAN be combined & added to the e-Pay balance.",
+   "monthly_purchase_cap": "Multiple GVs can be clubbed and added to the e-Pay balance. The maximum cumulative GV value that can be added to the e-Pay balance in 30 days is Rs. 25,000.",
+   "one_time_use": "CALL IT SPRING Gift Cards can be used/redeemed only once.",
+   "partial_redemption": "After conversion into e-Pay balance, this GV is valid for partial redemption. The balance would remain in the e-Pay balance and can be used for multiple transactions within the validity period.",
+   "spend_scope": "This is a Call it Spring (GV)/e-Pay that will be accepted at Aldo, Charles & Keith, Beverly Hills Polo Club, Inglot, Victoria’s Secret, Victoria’s Secret Beauty, Bath & Body Works & R&B stores only.",
+   "works_in_store": "Gift Voucher/ e-Pay is ACCEPTED at all Listed Outlets.",
+   "works_online": "Gift Voucher/ e-Pay CANNOT be used Online."
+  }
+ },
+ "gyftr:campus": {
+  "excludes": [
+   "location: listed Campus stores"
+  ],
+  "max_vouchers_per_bill": "unlimited",
+  "one_time_use": "yes",
+  "partial_redemption": "yes",
+  "works_in_store": "yes",
+  "works_online": "yes",
+  "quotes": {
+   "excludes": "This is a Campus Gift Voucher (GV)/Gift Card (GC)/e-Pay and would be only accepted at the listed stores and online at https://www.campusshoes.com/",
+   "max_vouchers_per_bill": "Multiple GV/GCs can be used against one bill/transaction by adding it to the e-Pay balance.",
+   "one_time_use": "The Campus Gift Card can only be used once.",
+   "partial_redemption": "However, once added to the e-Pay balance, you can use the balance at your leisure.",
+   "works_in_store": "This is a Campus Gift Voucher (GV)/e-Pay can be accepted Online & at listed stores.",
+   "works_online": "This is a Campus Gift Voucher (GV)/e-Pay can be accepted Online & at listed stores."
+  }
+ },
+ "gyftr:candere-diamond-jewellery": {
+  "can_combine_with_store_offers": "yes",
+  "max_vouchers_per_bill": "unlimited",
+  "one_time_use": "yes",
+  "partial_redemption": "no",
+  "spend_scope": "Diamond Jewellery on www.candere.com only",
+  "validity": "between 3 to 6 months",
+  "works_in_store": "no",
+  "works_online": "yes",
+  "quotes": {
+   "can_combine_with_store_offers": "The GV/GC can be clubbed with existing sale offers and promotions.",
+   "max_vouchers_per_bill": "Multiple GV/GCs can be used against one bill.",
+   "one_time_use": "This is a one-time use GV/GC. The remaining balance in the GV/GC will be forfeited once the card is redeemed.",
+   "partial_redemption": "This is a one-time use GV/GC. The remaining balance in the GV/GC will be forfeited once the card is redeemed.",
+   "spend_scope": "The offer is valid only for the purchase of Diamond Jewellery on www.candere.com.",
+   "validity": "The validity period of vouchers offered by GyFTR ranges between 3 to 6 months.",
+   "works_in_store": "Gift Vouchers are only accepted online at www.candere.com",
+   "works_online": "Gift Vouchers are only accepted online at www.candere.com"
+  }
+ },
+ "gyftr:candere-gold-coin": {
+  "can_combine_with_store_offers": "yes",
+  "max_vouchers_per_bill": "unlimited",
+  "one_time_use": "yes",
+  "partial_redemption": "no",
+  "spend_scope": "Gold Coins only",
+  "works_in_store": "no",
+  "works_online": "yes",
+  "quotes": {
+   "can_combine_with_store_offers": "The GV/GC can be clubbed with existing sale offers and promotions.",
+   "max_vouchers_per_bill": "Multiple GV/GCs can be used against one bill.",
+   "one_time_use": "This is a one-time use GV/GC. The remaining balance in the GV/GC will be forfeited once the card is redeemed.",
+   "partial_redemption": "This is a one-time use GV/GC. The remaining balance in the GV/GC will be forfeited once the card is redeemed.",
+   "spend_scope": "The offer is valid only for the purchase of Gold Coins.",
+   "works_in_store": "Gift Vouchers are only accepted online at www.candere.com",
+   "works_online": "Gift Vouchers are only accepted online at www.candere.com"
+  }
+ },
+ "gyftr:candere-gold-jewellery": {
+  "can_combine_with_store_offers": "yes",
+  "max_vouchers_per_bill": "unlimited",
+  "one_time_use": "yes",
+  "partial_redemption": "no",
+  "spend_scope": "Gold Jewellery on www.candere.com only",
+  "works_in_store": "no",
+  "works_online": "yes",
+  "quotes": {
+   "can_combine_with_store_offers": "The GV/GC can be clubbed with existing sale offers and promotions.",
+   "max_vouchers_per_bill": "Multiple GV/GCs can be used against one bill.",
+   "one_time_use": "This is a one-time use GV/GC. The remaining balance in the GV/GC will be forfeited once the card is redeemed.",
+   "partial_redemption": "This is a one-time use GV/GC. The remaining balance in the GV/GC will be forfeited once the card is redeemed.",
+   "spend_scope": "The offer is valid only for the purchase of Gold Jewellery on www.candere.com.",
+   "works_in_store": "Gift Vouchers are only accepted online at www.candere.com",
+   "works_online": "Gift Vouchers are only accepted online at www.candere.com"
+  }
+ },
+ "gyftr:cello": {
+  "can_combine_with_store_offers": "yes",
+  "excludes": [
+   "date: specific block-out dates"
+  ],
+  "max_vouchers_per_bill": "unlimited",
+  "one_time_use": "yes",
+  "partial_redemption": "yes",
+  "works_in_store": "no",
+  "works_online": "yes",
+  "quotes": {
+   "can_combine_with_store_offers": "The GV/e-Pay can be clubbed with the existing offers.",
+   "excludes": "Cello GV/e-Pay cannot be redeemed on specific block-out dates. Cello may add or delete any date at its sole discretion.",
+   "max_vouchers_per_bill": "Multiple Gift Vouchers can be combined & added to the e-Pay balance.",
+   "one_time_use": "This is a one-time gift card, and partial redemption isn’t applicable.",
+   "partial_redemption": "After conversion into e-Pay balance, this GV is valid for partial redemption. The balance would remain in the e-Pay balance and can be used for multiple transactions within the validity period.",
+   "works_in_store": "This is a Cello GV (Gift Voucher)/e-Pay and it would only be accepted on the Cello website at https://celloworld.com/",
+   "works_online": "The GV/e-Pay will be accepted on the Cello website."
+  }
+ },
+ "gyftr:charles-&-keith": {
+  "can_combine_with_store_offers": "yes",
+  "excludes": [
+   "location: accepted at Aldo, Call it Spring, Beverly Hills Polo Club, Inglot, Victoria’s Secret, Victoria’s Secret Beauty, Bath & Body Works & R&B stores only"
+  ],
+  "max_vouchers_per_bill": "unlimited",
+  "monthly_purchase_cap": 25000,
+  "one_time_use": "yes",
+  "partial_redemption": "yes",
+  "spend_scope": "Aldo, Call it Spring, Beverly Hills Polo Club, Inglot, Victoria's Secret, Victoria's Secret Beauty, Bath & Body Works & R&B stores only",
+  "works_in_store": "yes",
+  "works_online": "no",
+  "quotes": {
+   "can_combine_with_store_offers": "Gift Voucher/e-Pay CAN be used during the Sale.",
+   "excludes": "This is a Charles & Keith (GV)/e-Pay that will be accepted at Aldo, Call it Spring, Beverly Hills Polo Club, Inglot, Victoria’s Secret, Victoria’s Secret Beauty, Bath & Body Works & R&B stores only.",
+   "max_vouchers_per_bill": "Multiple Gift Vouchers CAN be combined & added to the e-Pay balance.",
+   "monthly_purchase_cap": "Multiple GVs can be clubbed and added to the e-Pay balance. The maximum cumulative GV value that can be added to the e-Pay balance in 30 days is Rs. 25,000.",
+   "one_time_use": "CHARLES & KEITH Gift Cards can be used/redeemed only once.",
+   "partial_redemption": "After conversion into e-Pay balance, this GV is valid for partial redemption. The balance would remain in the e-Pay balance and can be used for multiple transactions within the validity period.",
+   "spend_scope": "This is a Charles & Keith (GV)/e-Pay that will be accepted at Aldo, Call it Spring, Beverly Hills Polo Club, Inglot, Victoria’s Secret, Victoria’s Secret Beauty, Bath & Body Works & R&B stores only.",
+   "works_in_store": "Gift Voucher/ e-Pay is ACCEPTED at all Listed Outlets.",
+   "works_online": "Gift Voucher/ e-Pay CANNOT be used Online."
+  }
+ },
+ "gyftr:charles-tyrwitt": {
+  "can_combine_with_store_offers": "no",
+  "excludes": [
+   "location: listed Outlets"
+  ],
+  "max_vouchers_per_bill": "unlimited",
+  "one_time_use": "yes",
+  "works_in_store": "yes",
+  "works_online": "no",
+  "quotes": {
+   "can_combine_with_store_offers": "Gift Vouchers CANNOT be used during Sale.",
+   "excludes": "Gift Vouchers are ACCEPTED at all listed Outlets.",
+   "max_vouchers_per_bill": "Multiple Gift Vouchers CAN be used in one bill.",
+   "one_time_use": "EGV is ONE time use.",
+   "works_in_store": "Gift Vouchers are ACCEPTED at all listed Outlets.",
+   "works_online": "Charles Tyrwhitt Luxe Gift Cards can only be redeemed at select Charles Tyrwhitt Stores."
+  }
+ },
+ "gyftr:chicago-pizza": {
+  "can_combine_with_store_offers": "yes",
+  "excludes": [
+   "Food Courts",
+   "location: Food Courts",
+   "location: listed Chicago Pizza outlets"
+  ],
+  "max_vouchers_per_bill": 1,
+  "one_time_use": "yes",
+  "partial_redemption": "no",
+  "spend_scope": "Takeaway/Dine in only",
+  "works_in_store": "yes",
+  "works_online": "no",
+  "quotes": {
+   "can_combine_with_store_offers": "Chicago Pizza GC can be clubbed with any one of the existing offers at the outlets. Only valid on Takeaway/Dine in.",
+   "excludes": "This is a Chicago Pizza Gift Voucher (GV) / Gift Card (GC) and is accepted at listed Chicago Pizza outlets and not valid on Food Courts.",
+   "max_vouchers_per_bill": "Only One GC can be used in one bill/transaction.",
+   "one_time_use": "This Chicago Pizza Gift Voucher (GV) / Gift Card (GC) is a one-time use card & any unused balance cannot be used again or be exchanged for Cash.No credit note / refund for the unused balance amount of the GC will be given.",
+   "partial_redemption": "This Chicago Pizza Gift Voucher (GV) / Gift Card (GC) is a one-time use card & any unused balance cannot be used again or be exchanged for Cash.No credit note / refund for the unused balance amount of the GC will be given.",
+   "spend_scope": "Chicago Pizza GC can be clubbed with any one of the existing offers at the outlets. Only valid on Takeaway/Dine in.",
+   "works_in_store": "This is a Chicago Pizza Gift Voucher (GV) / Gift Card (GC) and is accepted at listed Chicago Pizza outlets and not valid on Food Courts.",
+   "works_online": "Chicago Pizza GC can be clubbed with any one of the existing offers at the outlets. Only valid on Takeaway/Dine in."
+  }
+ },
+ "gyftr:chumbak": {
+  "can_combine_with_store_offers": "yes",
+  "excludes": [
+   "date: specific block out dates",
+   "date: EOSS (end of season sale)",
+   "location: listed Chumbak retail stores"
+  ],
+  "max_vouchers_per_bill": "unlimited",
+  "partial_redemption": "yes",
+  "validity": "3 - 12 months",
+  "works_in_store": "yes",
+  "quotes": {
+   "can_combine_with_store_offers": "The GV/e-Pay can be clubbed with the existing offers.",
+   "excludes": "This GV/e-Pay cannot be redeemed on specific block out dates. Chumbak may add or delete any date at its sole discretion. GV/e-Pay cannot be redeemed during EOSS.",
+   "max_vouchers_per_bill": "Multiple vouchers can be used against one bill.",
+   "partial_redemption": "After conversion into e-Pay balance, this GV is valid for partial redemption. The balance would remain in the e-Pay balance and can be used for multiple transactions within the validity period.",
+   "validity": "The validity of a Chumbak Gift Cards is 3 - 12 months.",
+   "works_in_store": "Gift Vouchers are ACCEPTED at all Listed Outlets."
+  }
+ }
+}

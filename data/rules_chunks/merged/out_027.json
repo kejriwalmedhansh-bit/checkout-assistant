@@ -1,0 +1,1195 @@
+{
+ "maximize:me-n-moms": {
+  "can_combine_with_store_offers": "yes",
+  "max_vouchers_per_bill": "unlimited",
+  "one_time_use": "no",
+  "partial_redemption": "yes",
+  "validity": "up to 6 months",
+  "works_in_store": "no",
+  "works_online": "yes",
+  "quotes": {
+   "can_combine_with_store_offers": "Can be clubbed with other offers? Yes, clubbable with other offers / coupons",
+   "max_vouchers_per_bill": "Can the cards be clubbed? Use several gift cards in one purchase",
+   "one_time_use": "After conversion, it is valid for partial redemption; the remaining balance stays in the e-Pay account and can be used for multiple transactions within validity.",
+   "partial_redemption": "After conversion, it is valid for partial redemption; the remaining balance stays in the e-Pay account and can be used for multiple transactions within validity.",
+   "validity": "Validity Valid for upto 6 months",
+   "works_in_store": "This GV/GC is accepted only on https://www.menmoms.in",
+   "works_online": "This GV/GC is accepted only on https://www.menmoms.in"
+  }
+ },
+ "maximize:mia-by-tanishq": {
+  "can_combine_with_store_offers": "no",
+  "excludes": [
+   "location: only participating Mia by Tanishq Authorised Showrooms in India",
+   "location: This e-Gift card is valid only on Mia Studded Products at the participating Mia by Tanishq Authorised Showrooms in India."
+  ],
+  "max_vouchers_per_bill": 1,
+  "one_time_use": "yes",
+  "partial_redemption": "no",
+  "spend_scope": "Mia Studded Products only",
+  "validity": "180 days from the date of issuance",
+  "works_in_store": "yes",
+  "works_online": "no",
+  "quotes": {
+   "can_combine_with_store_offers": "Can be clubbed with other offers? No, can't club with other offers / coupons",
+   "excludes": "This e-Gift card is valid only on Mia Studded Products at the participating Mia by Tanishq Authorised Showrooms in India.",
+   "max_vouchers_per_bill": "Can the cards be clubbed? Multiple cards can't be clubbed",
+   "one_time_use": "This e-Gift card allowed for one-time redemption only.",
+   "partial_redemption": "Any unused balance on the e-Gift card, will not be refunded or credited.",
+   "spend_scope": "This e-Gift card is valid only on Mia Studded Products at the participating Mia by Tanishq Authorised Showrooms in India.",
+   "validity": "This e-Gift Card is valid for 180 days from the date of issuance and it can not be further re-validated for any reason whatsoever.",
+   "works_in_store": "This e-Gift card is valid only on Mia Studded Products at the participating Mia by Tanishq Authorised Showrooms in India.",
+   "works_online": "This e-Gift card is valid only on Mia Studded Products at the participating Mia by Tanishq Authorised Showrooms in India."
+  }
+ },
+ "maximize:michael-kors-luxe": {
+  "can_combine_with_store_offers": "no",
+  "excludes": [
+   "discounted items",
+   "location: airport stores",
+   "location: The Luxe Gift Card is not redeemable at airport stores."
+  ],
+  "max_vouchers_per_bill": "unlimited",
+  "one_time_use": "yes",
+  "partial_redemption": "no",
+  "spend_scope": "Full-priced merchandise only",
+  "validity": "12 months from the date of purchase",
+  "works_in_store": "yes",
+  "works_online": "yes",
+  "quotes": {
+   "can_combine_with_store_offers": "Can be clubbed with other offers? No, can't club with other offers / coupons",
+   "excludes": "The Luxe Gift Card is not redeemable at airport stores.",
+   "max_vouchers_per_bill": "Multiple Luxe Gift Cards can be used in a single transaction.",
+   "one_time_use": "The Luxe Gift Card is valid for one-time use only until expiry. If the purchase value exceeds the Gift Card value, the balance amount must be paid by the customer. No refund or credit note will be issued for any unused balance.",
+   "partial_redemption": "The Luxe Gift Card is valid for one-time use only until expiry. If the purchase value exceeds the Gift Card value, the balance amount must be paid by the customer. No refund or credit note will be issued for any unused balance.",
+   "spend_scope": "The Gift Card can be redeemed only on full-priced merchandise and is not applicable on discounted items unless specified otherwise.",
+   "validity": "The Luxe Gift Card is issued by Pine Labs Limited (formerly Pine Labs Private Limited) and is valid for 12 months from the date of purchase.",
+   "works_in_store": "Where to Redeem? Redeem Online & checkout counters",
+   "works_online": "The Gift Card can also be redeemed online at the brand websites"
+  }
+ },
+ "maximize:microsoft-office": {
+  "can_combine_with_store_offers": "no",
+  "max_vouchers_per_bill": 1,
+  "one_time_use": "yes",
+  "spend_scope": "One Microsoft 365 subscription only",
+  "validity": "up to 6 months from purchase",
+  "works_in_store": "no",
+  "works_online": "yes",
+  "quotes": {
+   "can_combine_with_store_offers": "Cannot be clubbed with any existing offers or promotions.",
+   "max_vouchers_per_bill": "Only one Gift Voucher can be used per subscription.",
+   "one_time_use": "One-time redemption only.",
+   "spend_scope": "Valid for one Microsoft 365 subscription only.",
+   "validity": "Validity Valid upto 6 Months from purchase",
+   "works_in_store": "Redeemable only online at Office.com/setup.",
+   "works_online": "Redeemable only online at Office.com/setup."
+  }
+ },
+ "maximize:milkbasket": {
+  "can_combine_with_store_offers": "yes",
+  "max_vouchers_per_bill": "unlimited",
+  "one_time_use": "no",
+  "partial_redemption": "yes",
+  "validity": "up to 12 months from purchase",
+  "works_in_store": "no",
+  "works_online": "yes",
+  "quotes": {
+   "can_combine_with_store_offers": "Can be clubbed with other offers? Yes, clubbable with other offers / coupons",
+   "max_vouchers_per_bill": "Can the cards be clubbed? Use several gift cards in one purchase",
+   "one_time_use": "After conversion into e-Pay balance, this GV is valid for partial redemption. The balance would remain in the e-Pay balance and can be used for multiple transactions within the validity period.",
+   "partial_redemption": "After conversion into e-Pay balance, this GV is valid for partial redemption. The balance would remain in the e-Pay balance and can be used for multiple transactions within the validity period.",
+   "validity": "Validity Valid upto 12 Months from purchase",
+   "works_in_store": "This Milkbasket GV (Gift Voucher)/e-Pay can only be redeemed on the Milkbasket App.",
+   "works_online": "This Milkbasket GV (Gift Voucher)/e-Pay can only be redeemed on the Milkbasket App."
+  }
+ },
+ "maximize:minus30": {
+  "can_combine_with_store_offers": "yes",
+  "max_vouchers_per_bill": "unlimited",
+  "one_time_use": "no",
+  "partial_redemption": "yes",
+  "validity": "6 months",
+  "works_in_store": "no",
+  "works_online": "yes",
+  "quotes": {
+   "can_combine_with_store_offers": "The Gift Voucher (GV) can be used over and above any discounts offered by the brand on its website. However, only one code can be redeemed either a Gift Voucher or a promo code along with Brand offer.",
+   "max_vouchers_per_bill": "Can the cards be clubbed? Use several gift cards in one purchase",
+   "one_time_use": "After conversion into e-Pay balance, this GV is valid for partial redemption. The balance would remain in the e-Pay balance and can be used for multiple transactions within the validity period.",
+   "partial_redemption": "After conversion into e-Pay balance, this GV is valid for partial redemption. The balance would remain in the e-Pay balance and can be used for multiple transactions within the validity period.",
+   "validity": "Minus30 Gift Voucher is valid for 6 months.",
+   "works_in_store": "This is a Minus30 GV (Gift Voucher)/e-Pay that will be accepted on the Minus30 website at https://minus30.co/.",
+   "works_online": "This is a Minus30 GV (Gift Voucher)/e-Pay that will be accepted on the Minus30 website at https://minus30.co/."
+  }
+ },
+ "maximize:miraggio": {
+  "can_combine_with_store_offers": "no",
+  "max_vouchers_per_bill": 1,
+  "one_time_use": "no",
+  "partial_redemption": "yes",
+  "validity": "1 year from the date of issue",
+  "works_in_store": "no",
+  "works_online": "yes",
+  "quotes": {
+   "can_combine_with_store_offers": "Can be clubbed with other offers? No, can't club with other offers / coupons",
+   "max_vouchers_per_bill": "Only one Gift Card can be redeemed per order.",
+   "one_time_use": "Partial redemption is allowed. The remaining balance can be used until the card expires.",
+   "partial_redemption": "Partial redemption is allowed. The remaining balance can be used until the card expires.",
+   "validity": "Valid for 1 year from the date of issue.",
+   "works_in_store": "Redeemable only on the Miraggio website.",
+   "works_online": "Redeemable only on the Miraggio website."
+  }
+ },
+ "maximize:moba-legends-5v5": {
+  "can_combine_with_store_offers": "no",
+  "excludes": [
+   "location: region-locked - the voucher region must match the game account region",
+   "location: Gift Cards may be region-locked and will only work if the voucher region matches the user’s game account region."
+  ],
+  "max_vouchers_per_bill": 1,
+  "one_time_use": "yes",
+  "partial_redemption": "no",
+  "spend_scope": "In-game currency only",
+  "validity": "6 months from the date of purchase or issuance",
+  "works_in_store": "no",
+  "works_online": "yes",
+  "quotes": {
+   "can_combine_with_store_offers": "Can be clubbed with other offers? No, can't club with other offers / coupons",
+   "excludes": "Gift Cards may be region-locked and will only work if the voucher region matches the user's game account region.",
+   "max_vouchers_per_bill": "Can the cards be clubbed? Multiple cards can't be clubbed",
+   "one_time_use": "Multi-Use or Single Use? Must use the full balance in one go",
+   "partial_redemption": "Multi-Use or Single Use? Must use the full balance in one go",
+   "spend_scope": "Gift Card value is credited only in the form of in-game currency and cannot be exchanged for cash, reloaded, refunded, transferred, or resold.",
+   "validity": "Each Gift Card is valid for 6 months from the date of purchase or issuance, unless stated otherwise.",
+   "works_in_store": "Where to Redeem? Redeem online on website / app",
+   "works_online": "Where to Redeem? Redeem online on website / app"
+  }
+ },
+ "maximize:modern-bazaar": {
+  "can_combine_with_store_offers": "yes",
+  "excludes": [
+   "location: Select City Walk (Delhi NCR)",
+   "location: delivery not available in Faridabad & Ghaziabad",
+   "location: Valid at all stores except Select City Walk (Delhi NCR)"
+  ],
+  "max_vouchers_per_bill": "unlimited",
+  "min_order_value": "none - no minimum purchase required",
+  "one_time_use": "yes",
+  "partial_redemption": "no",
+  "validity": "up to 6 months from purchase",
+  "works_in_store": "yes",
+  "works_online": "yes",
+  "quotes": {
+   "can_combine_with_store_offers": "Can be used with existing offers and schemes",
+   "excludes": "Valid at all stores except Select City Walk (Delhi NCR)",
+   "max_vouchers_per_bill": "Multiple vouchers can be used in one bill (online & in-store, except Select City Walk)",
+   "min_order_value": "No minimum purchase required",
+   "one_time_use": "One-time use only",
+   "partial_redemption": "Unused balance is non-cashable & non-refundable",
+   "validity": "Validity Valid upto 6 Months from purchase",
+   "works_in_store": "Valid at all stores except Select City Walk (Delhi NCR)",
+   "works_online": "Multiple vouchers can be used in one bill (online & in-store, except Select City Walk)"
+  }
+ },
+ "maximize:mokobara": {
+  "can_combine_with_store_offers": "no",
+  "excludes": [
+   "other gift cards"
+  ],
+  "max_vouchers_per_bill": "unlimited",
+  "one_time_use": "no",
+  "partial_redemption": "yes",
+  "validity": "up to 6 months",
+  "works_in_store": "yes",
+  "works_online": "yes",
+  "quotes": {
+   "can_combine_with_store_offers": "Can be clubbed with other offers? No, can't club with other offers / coupons",
+   "excludes": "This E-Gift Card cannot be used to purchase other gift cards.",
+   "max_vouchers_per_bill": "Multiple E-Gift Cards can be combined in a single order.",
+   "one_time_use": "If the order value is less than the amount of the E-Gift Card, the remaining balance will reflect under the same E-Gift Card and can be used for subsequent transactions.",
+   "partial_redemption": "If the order value is less than the amount of the E-Gift Card, the remaining balance will reflect under the same E-Gift Card and can be used for subsequent transactions.",
+   "validity": "Validity Valid for upto 6 months",
+   "works_in_store": "Mokobara Lifestyle Private Limited E- Gift Card is redeemable only on https://www.mokobara.com and exclusive brand retail stores.",
+   "works_online": "Mokobara Lifestyle Private Limited E- Gift Card is redeemable only on https://www.mokobara.com and exclusive brand retail stores."
+  }
+ },
+ "maximize:mother-care-luxe": {
+  "can_combine_with_store_offers": "no",
+  "excludes": [
+   "discounted items",
+   "location: airport stores",
+   "location: The Luxe Gift Card is not redeemable at airport stores."
+  ],
+  "max_vouchers_per_bill": "unlimited",
+  "one_time_use": "yes",
+  "partial_redemption": "no",
+  "spend_scope": "Full-priced merchandise only",
+  "validity": "12 months from the date of purchase",
+  "works_in_store": "yes",
+  "works_online": "yes",
+  "quotes": {
+   "can_combine_with_store_offers": "Can be clubbed with other offers? No, can't club with other offers / coupons",
+   "excludes": "The Luxe Gift Card is not redeemable at airport stores.",
+   "max_vouchers_per_bill": "Multiple Luxe Gift Cards can be used in a single transaction.",
+   "one_time_use": "The Luxe Gift Card is valid for one-time use only until expiry. If the purchase value exceeds the Gift Card value, the balance amount must be paid by the customer. No refund or credit note will be issued for any unused balance.",
+   "partial_redemption": "The Luxe Gift Card is valid for one-time use only until expiry. If the purchase value exceeds the Gift Card value, the balance amount must be paid by the customer. No refund or credit note will be issued for any unused balance.",
+   "spend_scope": "The Gift Card can be redeemed only on full-priced merchandise and is not applicable on discounted items unless specified otherwise.",
+   "validity": "The Luxe Gift Card is issued by Pine Labs Limited (formerly Pine Labs Private Limited) and is valid for 12 months from the date of purchase.",
+   "works_in_store": "Where to Redeem? Redeem Online & checkout counters",
+   "works_online": "The Gift Card can also be redeemed online at the brand websites"
+  }
+ },
+ "maximize:mpj-gold-jewellery": {
+  "can_combine_with_store_offers": "no",
+  "delivery_wait": "generally instant, may take up to 24-48 hours",
+  "excludes": [
+   "Gold Coins",
+   "Silver Coins",
+   "location: only participating MPJ Jewellers showrooms"
+  ],
+  "max_vouchers_per_bill": 1,
+  "one_time_use": "yes",
+  "partial_redemption": "no",
+  "spend_scope": "Gold Jewellery, Diamond Jewellery, Platinum Jewellery, Silver Jewellery",
+  "validity": "90 days from the date of activation/issuance",
+  "works_in_store": "yes",
+  "works_online": "no",
+  "quotes": {
+   "can_combine_with_store_offers": "Can be clubbed with other offers? No, can't club with other offers / coupons",
+   "delivery_wait": "Delivery is generally instant but may take up to 24–48 hours due to technical issues.",
+   "excludes": "Not valid on Gold Coins and Silver Coins.",
+   "max_vouchers_per_bill": "Can the cards be clubbed? Multiple cards can't be clubbed",
+   "one_time_use": "Gift Voucher is single-use only.",
+   "partial_redemption": "Partial redemption is not allowed. Any unused balance will be forfeited.",
+   "spend_scope": "Applicable on: Gold Jewellery, Diamond Jewellery, Platinum Jewellery, Silver Jewellery",
+   "validity": "Valid for 90 days from the date of activation/issuance.",
+   "works_in_store": "Redeemable only at participating MPJ Jewellers showrooms.",
+   "works_online": "Redeemable only at participating MPJ Jewellers showrooms."
+  }
+ },
+ "maximize:mpj-nbsp-diamond-jewellery": {
+  "can_combine_with_store_offers": "no",
+  "delivery_wait": "generally instant, may take up to 24-48 hours",
+  "excludes": [
+   "gold coins",
+   "silver coins",
+   "location: only participating MPJ Jewellers showrooms"
+  ],
+  "max_vouchers_per_bill": 1,
+  "one_time_use": "yes",
+  "partial_redemption": "no",
+  "spend_scope": "Diamond-studded jewellery only",
+  "validity": "90 days from the date of activation/issuance",
+  "works_in_store": "yes",
+  "works_online": "no",
+  "quotes": {
+   "can_combine_with_store_offers": "Can be clubbed with other offers? No, can't club with other offers / coupons",
+   "delivery_wait": "Delivery is generally instant but may take up to 24–48 hours due to technical issues.",
+   "excludes": "Not valid for gold coins, silver coins, or other excluded products.",
+   "max_vouchers_per_bill": "Can the cards be clubbed? Multiple cards can't be clubbed",
+   "one_time_use": "Gift Voucher is single-use only.",
+   "partial_redemption": "Partial redemption is not allowed. Any unused balance will be forfeited.",
+   "spend_scope": "Applicable only on diamond-studded jewellery.",
+   "validity": "Valid for 90 days from the date of activation/issuance.",
+   "works_in_store": "Redeemable only at participating MPJ Jewellers showrooms.",
+   "works_online": "Redeemable only at participating MPJ Jewellers showrooms."
+  }
+ },
+ "maximize:muro-qc": {
+  "can_combine_with_store_offers": "no",
+  "delivery_wait": "normally instant, may be delayed up to 24-48 hours",
+  "excludes": [
+   "location: Muro Outlet, Bangalore",
+   "location: Vouchers are valid at Muro Outlet, Bangalore."
+  ],
+  "max_vouchers_per_bill": 1,
+  "one_time_use": "yes",
+  "partial_redemption": "no",
+  "spend_scope": "Dine-in only",
+  "validity": "up to 6 months",
+  "works_in_store": "yes",
+  "works_online": "no",
+  "quotes": {
+   "can_combine_with_store_offers": "Offers cannot be combined.",
+   "delivery_wait": "E-Gift Cards are normally delivered instantly. But sometimes, due to system issues, the delivery can be delayed up to 24–48 hours.",
+   "excludes": "Vouchers are valid at Muro Outlet, Bangalore.",
+   "max_vouchers_per_bill": "Can the cards be clubbed? Multiple cards can't be clubbed",
+   "one_time_use": "Multi-Use or Single Use? Must use the full balance in one go",
+   "partial_redemption": "Multi-Use or Single Use? Must use the full balance in one go",
+   "spend_scope": "Codes can be used for Dine-in Only.",
+   "validity": "Validity Valid for upto 6 months",
+   "works_in_store": "Vouchers are valid at Muro Outlet, Bangalore.",
+   "works_online": "Codes can be used for Dine-in Only."
+  }
+ },
+ "maximize:muscle-20blaze": {
+  "can_combine_with_store_offers": "no",
+  "excludes": [
+   "other Gift Cards"
+  ],
+  "max_vouchers_per_bill": "unlimited",
+  "one_time_use": "no",
+  "partial_redemption": "yes",
+  "spend_scope": "eligible products sold by listed sellers on the official MuscleBlaze website",
+  "validity": "365 days (12 months) from the date of issue",
+  "works_in_store": "no",
+  "works_online": "yes",
+  "quotes": {
+   "can_combine_with_store_offers": "Can be clubbed with other offers? No, can't club with other offers / coupons",
+   "excludes": "Cannot be used to purchase other Gift Cards.",
+   "max_vouchers_per_bill": "Can the cards be clubbed? Use several gift cards in one purchase",
+   "one_time_use": "If the order value is lower than the available MB Cash balance, the remaining balance stays in the MB Wallet until expiry.",
+   "partial_redemption": "If the order value is lower than the available MB Cash balance, the remaining balance stays in the MB Wallet until expiry.",
+   "spend_scope": "Redeemable only on the official MuscleBlaze website against eligible products sold by listed sellers.",
+   "validity": "Gift Voucher and unused MB Cash are valid for 365 days (12 months) from the date of issue.",
+   "works_in_store": "Redeemable only on the official MuscleBlaze website against eligible products sold by listed sellers.",
+   "works_online": "Redeemable only on the official MuscleBlaze website against eligible products sold by listed sellers."
+  }
+ },
+ "maximize:muthoot-gold-voucher": {
+  "can_combine_with_store_offers": "yes",
+  "delivery_wait": "dispatch within 10 days for gold or silver coins; within 15 days for gold jewelry or silver articles",
+  "max_vouchers_per_bill": "unlimited",
+  "one_time_use": "yes",
+  "partial_redemption": "no",
+  "spend_scope": "all articles available on https://buygold.muthoot.com",
+  "validity": "six months from the date of issue",
+  "works_in_store": "no",
+  "works_online": "yes",
+  "quotes": {
+   "can_combine_with_store_offers": "Can be clubbed with other offers? Yes, clubbable with other offers / coupons",
+   "delivery_wait": "Upon receiving the redemption request, if the selected product is gold or silver coins, dispatch will be within 10 days.",
+   "max_vouchers_per_bill": "Can the cards be clubbed? Use several gift cards in one purchase",
+   "one_time_use": "GV/GC is redeemable only once and cannot be split for partial use.",
+   "partial_redemption": "GV/GC is redeemable only once and cannot be split for partial use.",
+   "spend_scope": "Muthoot Exim GV/GC (Gift Voucher/Gift Card) is accepted only on https://buygold.muthoot.com and can be redeemed for all articles available on the website.",
+   "validity": "GV/GC is valid for six months from the date of issue, redeemable only for the assigned value, and cannot be revalidated once expired or canceled.",
+   "works_in_store": "Muthoot Exim GV/GC (Gift Voucher/Gift Card) is accepted only on https://buygold.muthoot.com and can be redeemed for all articles available on the website.",
+   "works_online": "Muthoot Exim GV/GC (Gift Voucher/Gift Card) is accepted only on https://buygold.muthoot.com and can be redeemed for all articles available on the website."
+  }
+ },
+ "maximize:natural-salon-10k": {
+  "can_combine_with_store_offers": "no",
+  "delivery_wait": "generally instant, may take up to 24-48 hours",
+  "excludes": [
+   "location: only participating Naturals Salon outlets"
+  ],
+  "max_vouchers_per_bill": 1,
+  "one_time_use": "no",
+  "partial_redemption": "yes",
+  "spend_scope": "salon services at more than 700 Naturals Salon outlets",
+  "validity": "365 days from the date of activation",
+  "works_in_store": "yes",
+  "works_online": "no",
+  "quotes": {
+   "can_combine_with_store_offers": "Multiple discounts, vouchers, or promotional offers cannot be combined.",
+   "delivery_wait": "Gift Card delivery is generally instant but may take up to 24–48 hours in case of technical delays.",
+   "excludes": "Valid for redemption at participating Naturals Salon outlets across India.",
+   "max_vouchers_per_bill": "Can the cards be clubbed? Multiple cards can't be clubbed",
+   "one_time_use": "The Gift Card can be redeemed multiple times until the available balance is exhausted or the validity period expires.",
+   "partial_redemption": "The Gift Card can be redeemed multiple times until the available balance is exhausted or the validity period expires.",
+   "spend_scope": "Applicable on salon services at more than 700 Naturals Salon outlets.",
+   "validity": "Valid for 365 days from the date of activation.",
+   "works_in_store": "Valid for redemption at participating Naturals Salon outlets across India.",
+   "works_online": "Valid for redemption at participating Naturals Salon outlets across India."
+  }
+ },
+ "maximize:natural-salon-20k": {
+  "can_combine_with_store_offers": "no",
+  "delivery_wait": "generally instant, may take up to 24-48 hours",
+  "excludes": [
+   "location: only participating Naturals Salon outlets"
+  ],
+  "max_vouchers_per_bill": 1,
+  "one_time_use": "no",
+  "partial_redemption": "yes",
+  "spend_scope": "salon services at more than 700 Naturals Salon outlets",
+  "validity": "365 days from the date of activation",
+  "works_in_store": "yes",
+  "works_online": "no",
+  "quotes": {
+   "can_combine_with_store_offers": "Multiple discounts, vouchers, or promotional offers cannot be combined.",
+   "delivery_wait": "Gift Card delivery is generally instant but may take up to 24–48 hours in case of technical delays.",
+   "excludes": "Valid for redemption at participating Naturals Salon outlets across India.",
+   "max_vouchers_per_bill": "Can the cards be clubbed? Multiple cards can't be clubbed",
+   "one_time_use": "The Gift Card can be redeemed multiple times until the available balance is exhausted or the validity period expires.",
+   "partial_redemption": "The Gift Card can be redeemed multiple times until the available balance is exhausted or the validity period expires.",
+   "spend_scope": "Applicable on salon services at more than 700 Naturals Salon outlets.",
+   "validity": "Valid for 365 days from the date of activation.",
+   "works_in_store": "Valid for redemption at participating Naturals Salon outlets across India.",
+   "works_online": "Valid for redemption at participating Naturals Salon outlets across India."
+  }
+ },
+ "maximize:natural-salon-4k": {
+  "can_combine_with_store_offers": "no",
+  "delivery_wait": "generally instant, may take up to 24-48 hours",
+  "excludes": [
+   "location: only 700+ Naturals Salon outlets across India"
+  ],
+  "max_vouchers_per_bill": 1,
+  "one_time_use": "no",
+  "partial_redemption": "yes",
+  "spend_scope": "salon services at 700+ Naturals Salon outlets across India",
+  "validity": "365 days from the date of activation",
+  "works_in_store": "yes",
+  "works_online": "no",
+  "quotes": {
+   "can_combine_with_store_offers": "Multiple discounts, vouchers, or promotional offers cannot be combined.",
+   "delivery_wait": "Gift Cards are generally delivered instantly but may take up to 24–48 hours due to technical issues.",
+   "excludes": "Redeemable against salon services at 700+ Naturals Salon outlets across India.",
+   "max_vouchers_per_bill": "Can the cards be clubbed? Multiple cards can't be clubbed",
+   "one_time_use": "The Gift Card balance can be used until exhausted or until expiry.",
+   "partial_redemption": "The Gift Card balance can be used until exhausted or until expiry.",
+   "spend_scope": "Redeemable against salon services at 700+ Naturals Salon outlets across India.",
+   "validity": "Valid for 365 days from the date of activation.",
+   "works_in_store": "Redeemable against salon services at 700+ Naturals Salon outlets across India.",
+   "works_online": "Redeemable against salon services at 700+ Naturals Salon outlets across India."
+  }
+ },
+ "maximize:nature-s-basket": {
+  "can_combine_with_store_offers": "no",
+  "excludes": [
+   "location: This gift E-Voucher can be used for making payments only at Nature’s Basket stores across India"
+  ],
+  "max_vouchers_per_bill": 1,
+  "one_time_use": "yes",
+  "partial_redemption": "no",
+  "validity": "12 months from the date of issue",
+  "works_in_store": "yes",
+  "works_online": "no",
+  "quotes": {
+   "can_combine_with_store_offers": "Can be clubbed with other offers? No, can't club with other offers / coupons",
+   "excludes": "This gift E-Voucher can be used for making payments only at Nature’s Basket stores across India",
+   "max_vouchers_per_bill": "Can the cards be clubbed? Multiple cards can't be clubbed",
+   "one_time_use": "For redemption in-store the E-GV needs to be used in full. E-GVs are only one time redeemable.",
+   "partial_redemption": "For redemption in-store the E-GV needs to be used in full. E-GVs are only one time redeemable.",
+   "validity": "Any balance in the E-Voucher is valid only for 12 months from the date of issue",
+   "works_in_store": "This gift E-Voucher can be used for making payments only at Nature’s Basket stores across India",
+   "works_online": "This gift E-Voucher can be used for making payments only at Nature’s Basket stores across India"
+  }
+ },
+ "maximize:nautica": {
+  "can_combine_with_store_offers": "yes",
+  "excludes": [
+   "location: only listed Nautica retail outlets",
+   "location: This Gift Voucher/e-Pay is accepted only at listed Nautica retail outlets."
+  ],
+  "max_vouchers_per_bill": "unlimited",
+  "one_time_use": "no",
+  "partial_redemption": "yes",
+  "validity": "up to 6 months from purchase",
+  "works_in_store": "yes",
+  "works_online": "no",
+  "quotes": {
+   "can_combine_with_store_offers": "Gift Vouchers can be clubbed with existing offers.",
+   "excludes": "This Gift Voucher/e-Pay is accepted only at listed Nautica retail outlets.",
+   "max_vouchers_per_bill": "Multiple Gift Vouchers can be combined and added to the e-Pay wallet balance.",
+   "one_time_use": "After conversion to e-Pay, partial redemption is allowed and the remaining balance can be used for future purchases within the validity period.",
+   "partial_redemption": "After conversion to e-Pay, partial redemption is allowed and the remaining balance can be used for future purchases within the validity period.",
+   "validity": "Validity Valid upto 6 Months from purchase",
+   "works_in_store": "This Gift Voucher/e-Pay is accepted only at listed Nautica retail outlets.",
+   "works_online": "This Gift Voucher/e-Pay is accepted only at listed Nautica retail outlets."
+  }
+ },
+ "maximize:neeman-s": {
+  "can_combine_with_store_offers": "yes",
+  "max_vouchers_per_bill": "unlimited",
+  "one_time_use": "no",
+  "partial_redemption": "yes",
+  "validity": "up to 6 months from purchase",
+  "works_in_store": "no",
+  "works_online": "yes",
+  "quotes": {
+   "can_combine_with_store_offers": "The GV/GC can be used along with existing discounts on the Neeman’s website.",
+   "max_vouchers_per_bill": "Can the cards be clubbed? Use several gift cards in one purchase",
+   "one_time_use": "After conversion into e-Pay, this GV/GC is valid for partial redemption. Any remaining balance stays in the e-Pay wallet and can be used for multiple transactions within the validity period.",
+   "partial_redemption": "After conversion into e-Pay, this GV/GC is valid for partial redemption. Any remaining balance stays in the e-Pay wallet and can be used for multiple transactions within the validity period.",
+   "validity": "Validity Valid upto 6 Months from purchase",
+   "works_in_store": "This is a Neeman’s Gift Voucher (GV) or Gift Card (GC) accepted only on Neeman’s official website.",
+   "works_online": "This is a Neeman’s Gift Voucher (GV) or Gift Card (GC) accepted only on Neeman’s official website."
+  }
+ },
+ "maximize:neerus": {
+  "can_combine_with_store_offers": "no",
+  "excludes": [
+   "location: partner stores - valid only at Neeru's Exclusive outlets",
+   "location: This Gift Voucher is valid only at Neeru’s Exclusive outlets and cannot be redeemed at partner stores"
+  ],
+  "max_vouchers_per_bill": 1,
+  "one_time_use": "yes",
+  "partial_redemption": "no",
+  "spend_scope": "Any fashion apparel or accessories (Yuva) available in-store",
+  "validity": "6 months from the date of issue",
+  "works_in_store": "yes",
+  "works_online": "no",
+  "quotes": {
+   "can_combine_with_store_offers": "Can be clubbed with other offers? No, can't club with other offers / coupons",
+   "excludes": "This Gift Voucher is valid only at Neeru’s Exclusive outlets and cannot be redeemed at partner stores",
+   "max_vouchers_per_bill": "Can the cards be clubbed? Multiple cards can't be clubbed",
+   "one_time_use": "Multi-Use or Single Use? Must use the full balance in one go",
+   "partial_redemption": "If the bill amount is less than the voucher value, the remaining balance will not be refunded or carried forward",
+   "spend_scope": "Can be redeemed against any fashion apparel or accessories (Yuva) available in-store",
+   "validity": "The voucher is valid for 6 months from the date of issue; expired vouchers will not be accepted",
+   "works_in_store": "This Gift Voucher is valid only at Neeru’s Exclusive outlets and cannot be redeemed at partner stores",
+   "works_online": "This Gift Voucher is valid only at Neeru’s Exclusive outlets and cannot be redeemed at partner stores"
+  }
+ },
+ "maximize:nestasia": {
+  "can_combine_with_store_offers": "yes",
+  "excludes": [
+   "location: only participating Nestasia stores",
+   "location: The Gift Voucher is redeemable only at participating Nestasia stores."
+  ],
+  "max_vouchers_per_bill": "unlimited",
+  "one_time_use": "no",
+  "partial_redemption": "yes",
+  "validity": "up to 12 months from purchase",
+  "works_in_store": "yes",
+  "works_online": "no",
+  "quotes": {
+   "can_combine_with_store_offers": "Gift Vouchers can be clubbed with existing offers and discounts.",
+   "excludes": "The Gift Voucher is redeemable only at participating Nestasia stores.",
+   "max_vouchers_per_bill": "Multiple Gift Vouchers can be combined and added to the e-Pay balance.",
+   "one_time_use": "Once converted to e-Pay, the balance can be used partially across multiple transactions during the validity period.",
+   "partial_redemption": "Once converted to e-Pay, the balance can be used partially across multiple transactions during the validity period.",
+   "validity": "Validity Valid upto 12 Months from purchase",
+   "works_in_store": "The Gift Voucher is redeemable only at participating Nestasia stores.",
+   "works_online": "The Gift Voucher is redeemable only at participating Nestasia stores."
+  }
+ },
+ "maximize:netmeds": {
+  "can_combine_with_store_offers": "no",
+  "excludes": [
+   "Toiletries",
+   "Cosmetics",
+   "Wellness",
+   "FMCG products",
+   "FMCG products, or products of a similar kind",
+   "Delivery and/or COD charges"
+  ],
+  "max_vouchers_per_bill": "unlimited",
+  "one_time_use": "no",
+  "partial_redemption": "yes",
+  "spend_scope": "Medicines only",
+  "validity": "up to 6 months",
+  "works_in_store": "no",
+  "works_online": "yes",
+  "quotes": {
+   "can_combine_with_store_offers": "The GV/e-Pay cannot be clubbed with ongoing offers and promo codes available on the website.",
+   "excludes": "Toiletries, Cosmetics, Wellness, FMCG products, or products of a similar kind cannot be purchased using GV/e-Pay.",
+   "max_vouchers_per_bill": "Multiple GVs can be combined and added to the e-Pay balance.",
+   "one_time_use": "The GV can be converted into e-Pay, and then it can be used partially at the holder's convenience.",
+   "partial_redemption": "The GV can be converted into e-Pay, and then it can be used partially at the holder's convenience.",
+   "spend_scope": "This GV/e-Pay entitles customers to order medicines ONLY.",
+   "validity": "Validity Valid for upto 6 months",
+   "works_in_store": "This is a Netmeds GV(Gift Voucher)/e-Pay and would be accepted on https://www.netmeds.com/ and Netmeds mobile application.",
+   "works_online": "This is a Netmeds GV(Gift Voucher)/e-Pay and would be accepted on https://www.netmeds.com/ and Netmeds mobile application."
+  }
+ },
+ "maximize:next": {
+  "can_combine_with_store_offers": "yes",
+  "excludes": [
+   "location: listed Next retail stores/outlets only",
+   "location: This Next GV/e-Pay is accepted at listed Next retail stores/outlets."
+  ],
+  "max_vouchers_per_bill": "unlimited",
+  "one_time_use": "no",
+  "partial_redemption": "yes",
+  "validity": "up to 6 months from purchase",
+  "works_in_store": "yes",
+  "works_online": "no",
+  "quotes": {
+   "can_combine_with_store_offers": "The GV/e-Pay can be clubbed with existing offers.",
+   "excludes": "This Next GV/e-Pay is accepted at listed Next retail stores/outlets.",
+   "max_vouchers_per_bill": "Multiple Gift Vouchers can be combined and added to the e-Pay balance.",
+   "one_time_use": "After conversion into e-Pay balance, partial redemption is allowed and the remaining balance can be used for multiple transactions within the validity period.",
+   "partial_redemption": "After conversion into e-Pay balance, partial redemption is allowed and the remaining balance can be used for multiple transactions within the validity period.",
+   "validity": "Validity Valid upto 6 Months from purchase",
+   "works_in_store": "This Next GV/e-Pay is accepted at listed Next retail stores/outlets.",
+   "works_online": "This Next GV/e-Pay is accepted at listed Next retail stores/outlets."
+  }
+ },
+ "maximize:nilkamal-homes": {
+  "can_combine_with_store_offers": "yes",
+  "delivery_wait": "normally instant, may be delayed up to 24-48 hours",
+  "max_vouchers_per_bill": "unlimited",
+  "one_time_use": "yes",
+  "partial_redemption": "no",
+  "validity": "one year from the date of purchase",
+  "works_in_store": "yes",
+  "works_online": "yes",
+  "quotes": {
+   "can_combine_with_store_offers": "The E-Gift can be utilized with combination of other promotional offers at store or website.",
+   "delivery_wait": "E-Gift Cards are normally delivered instantly. But sometimes due to system issues, the delivery can be delayed up-to 24 - 48 hours.",
+   "max_vouchers_per_bill": "Can the cards be clubbed? Use several gift cards in one purchase",
+   "one_time_use": "E– Gift cards can be redeemed only once.",
+   "partial_redemption": "Balance if any, of the E-Gift after purchase shall not be carried forward.",
+   "validity": "This E-Gift card is valid for one year from the date of Purchase.",
+   "works_in_store": "The E – Gift cards can be redeemed at https://www.nilkamalhomes.com and at Nilkamal Homes stores only.",
+   "works_online": "The E – Gift cards can be redeemed at https://www.nilkamalhomes.com and at Nilkamal Homes stores only."
+  }
+ },
+ "maximize:nintendo-shop": {
+  "can_combine_with_store_offers": "no",
+  "excludes": [
+   "physical products",
+   "purchases outside Nintendo shopping services"
+  ],
+  "max_vouchers_per_bill": "unlimited",
+  "one_time_use": "yes",
+  "partial_redemption": "yes",
+  "spend_scope": "games, downloadable content (DLC), and other digital content available on Nintendo eShop",
+  "validity": "up to 6 months",
+  "works_in_store": "no",
+  "works_online": "yes",
+  "quotes": {
+   "can_combine_with_store_offers": "Cannot be clubbed with existing promotional offers or discount codes.",
+   "excludes": "Cannot be used to purchase physical products or outside Nintendo shopping services.",
+   "max_vouchers_per_bill": "Multiple Gift Vouchers can be added to a single Nintendo Account.",
+   "one_time_use": "Voucher code is for one-time redemption only. Once redeemed, the code cannot be reused.",
+   "partial_redemption": "Gift Voucher balance is added to your Nintendo Account and can be used across multiple purchases until exhausted.",
+   "spend_scope": "Can be used to purchase games, downloadable content (DLC), and other digital content available on Nintendo eShop.",
+   "validity": "Validity Valid for upto 6 months",
+   "works_in_store": "Redeemable only on the Nintendo eShop via https://ec.nintendo.com/redeem or on a Nintendo Switch console.",
+   "works_online": "Redeemable only on the Nintendo eShop via https://ec.nintendo.com/redeem or on a Nintendo Switch console."
+  }
+ },
+ "maximize:nua-women": {
+  "can_combine_with_store_offers": "yes",
+  "excludes": [
+   "subscriptions"
+  ],
+  "max_vouchers_per_bill": "unlimited",
+  "one_time_use": "no",
+  "partial_redemption": "yes",
+  "spend_scope": "all products & services on Nua website except subscriptions",
+  "validity": "up to 6 months from purchase",
+  "works_in_store": "no",
+  "works_online": "yes",
+  "quotes": {
+   "can_combine_with_store_offers": "GV can be used over and above existing website discounts",
+   "excludes": "Valid for all products & services on Nua website except subscriptions",
+   "max_vouchers_per_bill": "Can the cards be clubbed? Use several gift cards in one purchase",
+   "one_time_use": "Remaining balance stays in e-Pay and can be used for multiple transactions within validity",
+   "partial_redemption": "After conversion, partial redemption allowed",
+   "spend_scope": "Valid for all products & services on Nua website except subscriptions",
+   "validity": "Validity Valid upto 6 Months from purchase",
+   "works_in_store": "Redeemable only on Nua official website: https://nuawoman.com",
+   "works_online": "Redeemable only on Nua official website: https://nuawoman.com"
+  }
+ },
+ "maximize:nykaa": {
+  "can_combine_with_store_offers": "yes",
+  "excludes": [
+   "Gold",
+   "Silver",
+   "Jewellery",
+   "other Gift Cards"
+  ],
+  "max_vouchers_per_bill": 1,
+  "one_time_use": "no",
+  "partial_redemption": "yes",
+  "validity": "365 days",
+  "works_in_store": "yes",
+  "works_online": "yes",
+  "quotes": {
+   "can_combine_with_store_offers": "Wallet or Gift Cards cannot be used for Gold, Silver, or Jewellery, and cannot be redeemed for cash, credit, or reloaded; they can be combined with promo codes and other payments.",
+   "excludes": "Wallet or Gift Cards cannot be used for Gold, Silver, or Jewellery, and cannot be redeemed for cash, credit, or reloaded; they can be combined with promo codes and other payments.",
+   "max_vouchers_per_bill": "Only 1 Gift Card per order is allowed, but registered users may add multiple cards to Wallet.",
+   "one_time_use": "Online redemption: if order exceeds card value, pay balance; if less, the remaining balance stays on card.",
+   "partial_redemption": "Online redemption: if order exceeds card value, pay balance; if less, the remaining balance stays on card.",
+   "validity": "Gift Cards are issued via nykaa.com/giftcard/list , valid for 365 days, and are non-transferable, non-cancellable, and non-refundable.",
+   "works_in_store": "Gift Cards can be redeemed on nykaa.com, nykaaman.com, nykaafashion.com, and Nykaa stores.",
+   "works_online": "Gift Cards can be redeemed on nykaa.com, nykaaman.com, nykaafashion.com, and Nykaa stores."
+  }
+ },
+ "maximize:nykaa-fashion": {
+  "can_combine_with_store_offers": "yes",
+  "excludes": [
+   "Gold Silver Coins",
+   "Gold Silver Bars",
+   "Jewellery",
+   "other gift cards"
+  ],
+  "max_vouchers_per_bill": 1,
+  "one_time_use": "no",
+  "partial_redemption": "yes",
+  "validity": "365 days from the date of issue",
+  "works_in_store": "yes",
+  "works_online": "yes",
+  "quotes": {
+   "can_combine_with_store_offers": "The Gift Card can be combined with promotional codes and with other payment options",
+   "excludes": "Nykaa Gift Cards E Gift Cards Nykaa Wallet Balance cannot be used to purchase Gold Silver Coins Gold Silver Bars and Jewellery",
+   "max_vouchers_per_bill": "You can redeem only 1 Gift Card per order",
+   "one_time_use": "For online transaction If the order value exceeds the Gift Card amount the balance must be paid by other payment option If the order value is less than the amount of the Gift Card the outstanding balance after deduction of order value will reflect under the same Gift Card",
+   "partial_redemption": "For online transaction If the order value exceeds the Gift Card amount the balance must be paid by other payment option If the order value is less than the amount of the Gift Card the outstanding balance after deduction of order value will reflect under the same Gift Card",
+   "validity": "This Gift Card shall have a validity period of 365 days from the date of issue",
+   "works_in_store": "This Gift Card is redeemable on the online ecommerce platforms of Nykaa group entities to include https://www.nykaa.com https://www.nykaaman.com https://www.nykaafashion.com and across all Nykaa Retail stores",
+   "works_online": "This Gift Card is redeemable on the online ecommerce platforms of Nykaa group entities to include https://www.nykaa.com https://www.nykaaman.com https://www.nykaafashion.com and across all Nykaa Retail stores"
+  }
+ },
+ "maximize:nykaa-men": {
+  "can_combine_with_store_offers": "yes",
+  "delivery_wait": "normally instant, may be delayed up to 24 hours",
+  "excludes": [
+   "other gift cards"
+  ],
+  "max_vouchers_per_bill": 5,
+  "one_time_use": "no",
+  "partial_redemption": "yes",
+  "validity": "1 year",
+  "works_in_store": "no",
+  "works_online": "yes",
+  "quotes": {
+   "can_combine_with_store_offers": "The Gift Card can also be combined with promotional codes and with other prepaid payment options.",
+   "delivery_wait": "E-Gift Cards are normally delivered instantly. But sometimes due to system issues, the delivery can be delayed up-to 24 hours.",
+   "excludes": "This E - Gift Card cannot be used to purchase other gift cards.",
+   "max_vouchers_per_bill": "You can redeem up to 5 Gift Cards in a single order.",
+   "one_time_use": "If the order value is less than the amount of the e-Gift Card, the outstanding balance (after deduction of order value) will reflect under the same e-Gift Card.",
+   "partial_redemption": "If the order value is less than the amount of the e-Gift Card, the outstanding balance (after deduction of order value) will reflect under the same e-Gift Card.",
+   "validity": "This E-Gift Card shall have a validity period of 1 year.",
+   "works_in_store": "This E-Gift Card is redeemable on the website https://www.myglamm.com,Android and iOS App.",
+   "works_online": "This E-Gift Card is redeemable on the website https://www.myglamm.com,Android and iOS App."
+  }
+ },
+ "maximize:ode-spa-salon": {
+  "can_combine_with_store_offers": "no",
+  "delivery_wait": "normally instant, may be delayed up to 24 hours",
+  "excludes": [
+   "returned, refunded, or cancelled orders"
+  ],
+  "max_vouchers_per_bill": 5,
+  "one_time_use": "yes",
+  "partial_redemption": "no",
+  "validity": "180 days from the date of activation",
+  "works_in_store": "yes",
+  "works_online": "no",
+  "quotes": {
+   "can_combine_with_store_offers": "Can be clubbed with other offers? No, can't club with other offers / coupons",
+   "delivery_wait": "E-Gift Cards are normally delivered instantly; however, due to occasional system issues, delivery may be delayed up to 24 hours.",
+   "excludes": "This card is not applicable on returned, refunded, or cancelled orders (if applicable).",
+   "max_vouchers_per_bill": "A maximum of five gift cards can be redeemed against a single invoice.",
+   "one_time_use": "Multi-Use or Single Use? Must use the full balance in one go",
+   "partial_redemption": "Multi-Use or Single Use? Must use the full balance in one go",
+   "validity": "Card validity: 180 days from the date of activation.",
+   "works_in_store": "This Gift Card is valid across all ODE Spa outlets. Please refer to the outlet list at https://www.woohoo.in/odespa-store-list.",
+   "works_online": "Present the card at any ODE Spa outlet"
+  }
+ },
+ "maximize:oh-calcutta": {
+  "can_combine_with_store_offers": "no",
+  "excludes": [
+   "Meal Combos",
+   "location: only listed outlets",
+   "location: Valid only at listed outlets. Outlet list available at https://www.gyftr.com.",
+   "date: Cannot be redeemed on blockout dates, which may change at the brand’s discretion."
+  ],
+  "max_vouchers_per_bill": "unlimited",
+  "one_time_use": "yes",
+  "partial_redemption": "no",
+  "spend_scope": "food and non-alcoholic beverages only",
+  "validity": "up to 6 months",
+  "works_in_store": "yes",
+  "works_online": "no",
+  "quotes": {
+   "can_combine_with_store_offers": "Cannot be clubbed with other offers or vouchers. Cannot be used on Meal Combos.",
+   "excludes": "Cannot be clubbed with other offers or vouchers. Cannot be used on Meal Combos.",
+   "max_vouchers_per_bill": "Multiple vouchers can be used in one bill.",
+   "one_time_use": "This is a one-time use voucher.",
+   "partial_redemption": "No refunds/credit will be issued for unused balances.",
+   "spend_scope": "Valid only for food and non-alcoholic beverages.",
+   "validity": "Validity Valid for upto 6 months",
+   "works_in_store": "Valid only at listed outlets. Outlet list available at https://www.gyftr.com.",
+   "works_online": "Valid only at listed outlets. Outlet list available at https://www.gyftr.com."
+  }
+ },
+ "maximize:organic-india": {
+  "can_combine_with_store_offers": "no",
+  "excludes": [
+   "location: only listed Organic India outlets",
+   "location: This Gift Voucher is valid only at listed Organic India outlets.",
+   "date: GVs cannot be clubbed with ongoing promotions or on block-out dates."
+  ],
+  "max_vouchers_per_bill": "unlimited",
+  "one_time_use": "no",
+  "partial_redemption": "yes",
+  "validity": "6 months from issuance",
+  "works_in_store": "yes",
+  "works_online": "no",
+  "quotes": {
+   "can_combine_with_store_offers": "GVs cannot be clubbed with ongoing promotions or on block-out dates.",
+   "excludes": "This Gift Voucher is valid only at listed Organic India outlets.",
+   "max_vouchers_per_bill": "Multiple GVs/GCs can be used in one bill.",
+   "one_time_use": "Unused amount will remain as e-Pay balance and can be used later till exhausted or expired.",
+   "partial_redemption": "Unused amount will remain as e-Pay balance and can be used later till exhausted or expired.",
+   "validity": "Validity: 6 months from issuance.",
+   "works_in_store": "This Gift Voucher is valid only at listed Organic India outlets.",
+   "works_online": "This Gift Voucher is valid only at listed Organic India outlets."
+  }
+ },
+ "maximize:ovenstory": {
+  "can_combine_with_store_offers": "no",
+  "delivery_wait": "instant via email/SMS, may take up to 24 hours",
+  "excludes": [
+   "another Oven Story Gift Card",
+   "Delivery charges and applicable taxes are extra."
+  ],
+  "max_vouchers_per_bill": 1,
+  "one_time_use": "no",
+  "partial_redemption": "yes",
+  "validity": "12 months from the date of issue",
+  "works_in_store": "no",
+  "works_online": "yes",
+  "quotes": {
+   "can_combine_with_store_offers": "Can be clubbed with other offers? No, can't club with other offers / coupons",
+   "delivery_wait": "Gift Cards are usually delivered instantly via email/SMS, but may take up to 24 hours in case of system delays.",
+   "excludes": "A Gift Card cannot be used to buy another Oven Story Gift Card.",
+   "max_vouchers_per_bill": "Only one Gift Card can be used per order.",
+   "one_time_use": "Gift Cards can be redeemed multiple times until the balance is exhausted.",
+   "partial_redemption": "Gift Cards can be redeemed multiple times until the balance is exhausted.",
+   "validity": "The validity of the Gift Card is 12 months from the date of issue.",
+   "works_in_store": "The Oven Story Gift Card is redeemable only on the EatSure iOS/Android app.",
+   "works_online": "The Oven Story Gift Card is redeemable only on the EatSure iOS/Android app."
+  }
+ },
+ "maximize:palmonas": {
+  "can_combine_with_store_offers": "yes",
+  "max_vouchers_per_bill": "unlimited",
+  "one_time_use": "no",
+  "partial_redemption": "yes",
+  "validity": "up to 12 months from purchase",
+  "works_in_store": "no",
+  "works_online": "yes",
+  "quotes": {
+   "can_combine_with_store_offers": "The Gift Voucher GV/e-Pay can be used over and above any discounts offered by the brand on its website.",
+   "max_vouchers_per_bill": "Can the cards be clubbed? Use several gift cards in one purchase",
+   "one_time_use": "After conversion into e-Pay balance, this GV is valid for partial redemption. The balance would remain in the e-Pay balance and can be used for multiple transactions within the validity period.",
+   "partial_redemption": "After conversion into e-Pay balance, this GV is valid for partial redemption. The balance would remain in the e-Pay balance and can be used for multiple transactions within the validity period.",
+   "validity": "Validity Valid upto 12 Months from purchase",
+   "works_in_store": "This is a Palmonas GV (Gift Voucher)/e-Pay that will be accepted on the Palmonas website at https://palmonas.com.",
+   "works_online": "This is a Palmonas GV (Gift Voucher)/e-Pay that will be accepted on the Palmonas website at https://palmonas.com."
+  }
+ },
+ "maximize:pantaloons": {
+  "can_combine_with_store_offers": "yes",
+  "delivery_wait": "redeemable only after 4 hours from the time of purchase",
+  "excludes": [
+   "jewellery",
+   "location: shop-in-shops",
+   "shop-in-shops"
+  ],
+  "max_vouchers_per_bill": "unlimited",
+  "one_time_use": "yes",
+  "partial_redemption": "no",
+  "validity": "up to 12 months",
+  "works_in_store": "yes",
+  "works_online": "no",
+  "quotes": {
+   "can_combine_with_store_offers": "Can be clubbed with other offers? Yes, clubbable with other offers / coupons",
+   "delivery_wait": "Pantaloons GV/GC can only be redeemed AFTER 4 HOURS from the time of purchase across listed Pantaloons outlets.",
+   "excludes": "Pantaloons Insta Gift Voucher (GV) / Gift Card (GC) is not valid at shop-in-shops & on jewellery.",
+   "max_vouchers_per_bill": "More than one GV / GC can be used in one bill.",
+   "one_time_use": "Pantaloons Insta Gift Voucher (GV) / Gift Card (GC) is redeemable only once and only by the bearer.",
+   "partial_redemption": "Pantaloons Insta Gift Voucher (GV) / Gift Card (GC) must be redeemed in full and partial redemption is not allowed.",
+   "validity": "Validity Valid for upto 12 months",
+   "works_in_store": "This is a Pantaloons Insta Gift Voucher (GV) / Gift Card (GC) and can be redeemed for any product at participating Pantaloons stores across India.",
+   "works_online": "This is a Pantaloons Insta Gift Voucher (GV) / Gift Card (GC) and can be redeemed for any product at participating Pantaloons stores across India."
+  }
+ },
+ "maximize:park-avenue": {
+  "can_combine_with_store_offers": "no",
+  "excludes": [
+   "Custom Tailoring bills",
+   "discounted products during the End of Season Sale",
+   "location: only listed outlets",
+   "discounted products during the sale",
+   "location: This is Park Avenue Insta Gift Voucher (GV) / Gift Card (GC) and would be accepted at listed outlets.",
+   "date: The Park Avenue GV / GC cannot be redeemed on specific block out dates. Park Avenue may add or delete any date on its sole discretion."
+  ],
+  "max_vouchers_per_bill": "unlimited",
+  "one_time_use": "no",
+  "partial_redemption": "yes",
+  "spend_scope": "Ready-made products only",
+  "validity": "6 - 12 months",
+  "works_in_store": "yes",
+  "works_online": "no",
+  "quotes": {
+   "can_combine_with_store_offers": "GV/e-Pay can be used during the End of Season Sale (EOSS), but they cannot be applied to discounted products during the sale.",
+   "excludes": "The Park Avenue GV / GC will not be applicable for Custom Tailoring bills.",
+   "max_vouchers_per_bill": "More than one GV / GC can be used in one bill.",
+   "one_time_use": "Partial redemption is allowed but no refund or credit note would be issued against an unused or partially used Instant Gift Voucher. Any unused amount shall remain as EPay balance which can be utilized till the balance gets exhausted or expires.",
+   "partial_redemption": "Partial redemption is allowed but no refund or credit note would be issued against an unused or partially used Instant Gift Voucher. Any unused amount shall remain as EPay balance which can be utilized till the balance gets exhausted or expires.",
+   "spend_scope": "The Park Avenue GV / GC can only be used to purchase ready-made products.",
+   "validity": "Validity Valid for a range of 6 - 12 months",
+   "works_in_store": "This is Park Avenue Insta Gift Voucher (GV) / Gift Card (GC) and would be accepted at listed outlets.",
+   "works_online": "Where to Redeem? Accepted at listed Park Avenue outlets"
+  }
+ },
+ "maximize:parx": {
+  "can_combine_with_store_offers": "no",
+  "excludes": [
+   "Custom Tailoring bills",
+   "discounted products during the End of Season Sale",
+   "location: only listed outlets",
+   "discounted products during the sale",
+   "location: This is Parx Insta Gift Voucher (GV) / Gift Card (GC) and would be accepted at listed outlets.",
+   "date: The Parx GV / GC cannot be redeemed on specific block out dates. Parx may add or delete any date at its sole discretion."
+  ],
+  "max_vouchers_per_bill": "unlimited",
+  "one_time_use": "no",
+  "partial_redemption": "yes",
+  "spend_scope": "Ready-made products only",
+  "validity": "6 - 12 months",
+  "works_in_store": "yes",
+  "works_online": "no",
+  "quotes": {
+   "can_combine_with_store_offers": "GV/e-Pay can be used during the End of Season Sale (EOSS), but they cannot be applied to discounted products during the sale.",
+   "excludes": "The Parx GV / GC will not be applicable for Custom Tailoring bills.",
+   "max_vouchers_per_bill": "More than one GV / GC can be used in one bill.",
+   "one_time_use": "Partial redemption is allowed but no refund or credit note would be issued against an unused or partially used Instant Gift Voucher. Any unused amount shall remain as EPay balance which can be utilized till the balance gets exhausted or expires.",
+   "partial_redemption": "Partial redemption is allowed but no refund or credit note would be issued against an unused or partially used Instant Gift Voucher. Any unused amount shall remain as EPay balance which can be utilized till the balance gets exhausted or expires.",
+   "spend_scope": "The Parx GV / GC can only be used to purchase ready-made products.",
+   "validity": "Validity Valid for a range of 6 - 12 months",
+   "works_in_store": "This is Parx Insta Gift Voucher (GV) / Gift Card (GC) and would be accepted at listed outlets.",
+   "works_online": "Where to Redeem? Accepted at listed Parx outlets"
+  }
+ },
+ "maximize:paul-and-shark-luxe": {
+  "can_combine_with_store_offers": "no",
+  "max_vouchers_per_bill": "unlimited",
+  "one_time_use": "yes",
+  "partial_redemption": "no",
+  "validity": "up to 6 months",
+  "works_in_store": "yes",
+  "works_online": "no",
+  "quotes": {
+   "can_combine_with_store_offers": "Non-transferable and cannot be combined with other offers.",
+   "max_vouchers_per_bill": "Can the cards be clubbed? Use several gift cards in one purchase",
+   "one_time_use": "The card value cannot be split across transactions.",
+   "partial_redemption": "The card value cannot be split across transactions.",
+   "validity": "Validity Valid for upto 6 months",
+   "works_in_store": "Redeemable at Paul & Shark outlets.",
+   "works_online": "Where to Redeem? Accepted at Paul & Shark outlets"
+  }
+ },
+ "maximize:pc-chandra-gold-coin": {
+  "can_combine_with_store_offers": "no",
+  "excludes": [
+   "location: only participating P. C. Chandra Jewellers showrooms and website",
+   "location: Gift Card can be used only at participating P. C. Chandra Jewellers showrooms and website"
+  ],
+  "max_vouchers_per_bill": 1,
+  "one_time_use": "yes",
+  "partial_redemption": "no",
+  "validity": "6 months from the date of purchase or activation",
+  "works_in_store": "yes",
+  "works_online": "yes",
+  "quotes": {
+   "can_combine_with_store_offers": "Can be clubbed with other offers? No, can't club with other offers / coupons",
+   "excludes": "Gift Card can be used only at participating P. C. Chandra Jewellers showrooms and website",
+   "max_vouchers_per_bill": "Can the cards be clubbed? Multiple cards can't be clubbed",
+   "one_time_use": "Gift Card is one-time redeemable only and cannot be used multiple times",
+   "partial_redemption": "Redeem the Gift Card in full in a single transaction",
+   "validity": "Gift Card is valid for 6 months from the date of purchase or activation",
+   "works_in_store": "PC Chandra Gold Coin E-Gift Card can be redeemed for products at participating offline stores and on https://www.pcchandraindia.com",
+   "works_online": "PC Chandra Gold Coin E-Gift Card can be redeemed for products at participating offline stores and on https://www.pcchandraindia.com"
+  }
+ },
+ "maximize:pcj-diamond-jewellery": {
+  "can_combine_with_store_offers": "no",
+  "delivery_wait": "normally instant, may be delayed up to 24-48 hours",
+  "max_spend_per_purchase": "Rs. 1,00,000 - maximum denomination the gift card can be purchased for",
+  "max_vouchers_per_bill": "unlimited",
+  "one_time_use": "yes",
+  "partial_redemption": "no",
+  "spend_scope": "Diamond Jewellery only",
+  "validity": "balance must be used within two years of the date of issue",
+  "works_in_store": "yes",
+  "works_online": "no",
+  "quotes": {
+   "can_combine_with_store_offers": "Can be clubbed with other offers? No, can't club with other offers / coupons",
+   "delivery_wait": "E-Gift Cards are normally delivered instantly. But sometimes due to system issues, the delivery can be delayed up-to 24 - 48 hours.",
+   "max_spend_per_purchase": "The Gift Card/ e-Gift Card can be purchased for variable denomination upto Rs. 1,00,000.",
+   "max_vouchers_per_bill": "Can the cards be clubbed? Use several gift cards in one purchase.",
+   "one_time_use": "Multiple transactions can be performed on a Gift Card, e-Gift Card is Only One time Redeemable.",
+   "partial_redemption": "Multi-Use or Single Use? Must use the full balance in one go",
+   "spend_scope": "A Diamond Jewellery Card can be used to purchase Diamond Jewellery only",
+   "validity": "The Gift Card / e-Gift Card balance must be used within two years of the date of issue.",
+   "works_in_store": "The Gift Card/ e-Gift Card may be used at all PC Jeweller stores.",
+   "works_online": "Where to Redeem? Redeem at checkout counters."
+  }
+ },
+ "maximize:pcj-gold-coin": {
+  "can_combine_with_store_offers": "no",
+  "max_spend_per_purchase": "₹1,00,000 - maximum denomination the card can be purchased for",
+  "max_vouchers_per_bill": "unlimited",
+  "one_time_use": "no",
+  "partial_redemption": "yes",
+  "spend_scope": "Gold coins, gold jewellery, and diamond jewellery",
+  "validity": "1 year from the date of issue",
+  "works_in_store": "yes",
+  "works_online": "no",
+  "quotes": {
+   "can_combine_with_store_offers": "Can be clubbed with other offers? No, can't club with other offers / coupons",
+   "max_spend_per_purchase": "It can be purchased for denominations up to ₹1,00,000.",
+   "max_vouchers_per_bill": "Can the cards be clubbed? Use several gift cards in one purchase",
+   "one_time_use": "Multiple transactions are allowed until the card balance is fully used.",
+   "partial_redemption": "Multiple transactions are allowed until the card balance is fully used.",
+   "spend_scope": "Gold Coin Cards can be used to purchase gold coins, gold jewellery, and diamond jewellery.",
+   "validity": "The card balance must be used within 1 year from the date of issue; any unused balance will expire thereafter.",
+   "works_in_store": "The card is valid at all PC Jeweller stores.",
+   "works_online": "Where to Redeem? Redeem at select stores"
+  }
+ },
+ "maximize:pcj-gold-jewellery": {
+  "can_combine_with_store_offers": "no",
+  "delivery_wait": "normally instant, may be delayed up to 24-48 hours",
+  "max_spend_per_purchase": "Rs. 1,00,000 - maximum denomination the gift card can be purchased for",
+  "max_vouchers_per_bill": "unlimited",
+  "one_time_use": "no",
+  "partial_redemption": "yes",
+  "spend_scope": "Diamond Jewellery / Gold Jewellery",
+  "validity": "balance must be used within two years of the date of issue",
+  "works_in_store": "yes",
+  "works_online": "no",
+  "quotes": {
+   "can_combine_with_store_offers": "Can be clubbed with other offers? No, can't club with other offers / coupons",
+   "delivery_wait": "E-Gift Cards are normally delivered instantly. But sometimes due to system issues, the delivery can be delayed up-to 24 - 48 hours.",
+   "max_spend_per_purchase": "The Gift Card/ e-Gift Card can be purchased for variable denomination upto Rs. 1,00,000.",
+   "max_vouchers_per_bill": "Can the cards be clubbed? Use several gift cards in one purchase",
+   "one_time_use": "Multiple transactions can be performed on a Gift Card",
+   "partial_redemption": "Multiple transactions can be performed on a Gift Card",
+   "spend_scope": "A Gold Jewellery Card can be used to purchase Diamond Jewellery/ Gold Jewellery.",
+   "validity": "The Gift Card / e-Gift Card balance must be used within two years of the date of issue.",
+   "works_in_store": "The Gift Card/ e-Gift Card may be used at all PC Jeweller stores.",
+   "works_online": "Where to Redeem? Redeem at select stores"
+  }
+ },
+ "maximize:peora-fashions": {
+  "can_combine_with_store_offers": "no",
+  "excludes": [
+   "Package invoices",
+   "Special Priced Items",
+   "location: only Peora Fashions Pvt Ltd Stores in India"
+  ],
+  "max_vouchers_per_bill": 1,
+  "one_time_use": "yes",
+  "partial_redemption": "no",
+  "spend_scope": "Any Jewellery at Peora Fashion Jewellery Pvt Ltd Stores in India",
+  "validity": "364 days from issue",
+  "works_in_store": "yes",
+  "works_online": "no",
+  "quotes": {
+   "can_combine_with_store_offers": "This voucher cannot be clubbed with Package invoices and Special Priced Items",
+   "excludes": "This voucher cannot be clubbed with Package invoices and Special Priced Items",
+   "max_vouchers_per_bill": "Can the cards be clubbed? Multiple cards can't be clubbed",
+   "one_time_use": "E-Gift Card can be redeemed only once",
+   "partial_redemption": "Multi-Use or Single Use? Must use the full balance in one go",
+   "spend_scope": "This E-Gift Card is Redeemable on Any Jewellery at Peora Fashion Jewellery Pvt Ltd Stores in India.",
+   "validity": "This E-Gift Card Valid for 364 days from issue",
+   "works_in_store": "E-Gift Card is valid at only Peora Fashions Pvt Ltd Stores in India",
+   "works_online": "E-Gift Card is valid at only Peora Fashions Pvt Ltd Stores in India"
+  }
+ },
+ "maximize:pepperfry": {
+  "can_combine_with_store_offers": "yes",
+  "delivery_wait": "usually instant, may take up to 24-48 hours",
+  "excludes": [
+   "other Pepperfry Gift Cards"
+  ],
+  "max_vouchers_per_bill": 5,
+  "one_time_use": "no",
+  "partial_redemption": "yes",
+  "validity": "1 year from the date of issue",
+  "works_in_store": "yes",
+  "works_online": "yes",
+  "quotes": {
+   "can_combine_with_store_offers": "Can be clubbed with other offers? Yes, clubbable with other offers / coupons",
+   "delivery_wait": "E-Gift Cards are usually delivered instantly, but in some cases, delivery may take up to 24–48 hours due to system issues.",
+   "excludes": "No cash withdrawal is permitted against the Gift Card, and it cannot be used to purchase other Pepperfry Gift Cards.",
+   "max_vouchers_per_bill": "A maximum of 5 Gift Cards can be used in a single transaction, and Pepperfry reserves the right to revise this limit at its discretion.",
+   "one_time_use": "Partial redemption is allowed, and the remaining balance will continue to remain on the same Gift Card for future use within its validity.",
+   "partial_redemption": "Partial redemption is allowed, and the remaining balance will continue to remain on the same Gift Card for future use within its validity.",
+   "validity": "Pepperfry Gift Cards are valid for 1 year from the date of issue.",
+   "works_in_store": "Pepperfry Gift Cards can be used for purchases on https://www.pepperfry.com , Pepperfry mobile application, and Pepperfry offline stores, subject to acceptance and technical availability.",
+   "works_online": "Pepperfry Gift Cards can be used for purchases on https://www.pepperfry.com , Pepperfry mobile application, and Pepperfry offline stores, subject to acceptance and technical availability."
+  }
+ },
+ "maximize:peter-england": {
+  "can_combine_with_store_offers": "no",
+  "delivery_wait": "normally instant, may be delayed up to 24 hours",
+  "excludes": [
+   "location: only Exclusive Peter England Outlets",
+   "location: This E-Gift Card/Gift Card can be used only at Exclusive Peter England Outlets."
+  ],
+  "max_vouchers_per_bill": "unlimited",
+  "min_order_value": "a minimum purchase is required to activate the card (amount not specified)",
+  "one_time_use": "yes",
+  "partial_redemption": "no",
+  "spend_scope": "all merchandise at Peter England stores",
+  "validity": "6 months from the date of issuance",
+  "works_in_store": "yes",
+  "works_online": "no",
+  "quotes": {
+   "can_combine_with_store_offers": "Can be clubbed with other offers? No, can't club with other offers / coupons",
+   "delivery_wait": "E-Gift Cards are normally delivered instantly. But sometimes, due to system issues, the delivery can be delayed up to 24 hours.",
+   "excludes": "This E-Gift Card/Gift Card can be used only at Exclusive Peter England Outlets.",
+   "max_vouchers_per_bill": "Can the cards be clubbed? Use several gift cards in one purchase",
+   "min_order_value": "This E-Gift Card holds no value until activated with a minimum purchase.",
+   "one_time_use": "This E-Gift Card can be redeemed just once.",
+   "partial_redemption": "Multi-Use or Single Use? Must use the full balance in one go",
+   "spend_scope": "This E-Gift Card is redeemable on all merchandise at Peter England stores across India.",
+   "validity": "This EGC shall have a validity period of 6 months from the date of issuance.",
+   "works_in_store": "This E-Gift Card is redeemable on all merchandise at Peter England stores across India.",
+   "works_online": "This E-Gift Card/Gift Card can be used only at Exclusive Peter England Outlets."
+  }
+ },
+ "maximize:phonepe": {
+  "can_combine_with_store_offers": "no",
+  "excludes": [
+   "purchasing e-gift cards with PhonePe wallet balance or existing Gift Card balance"
+  ],
+  "max_spend_per_purchase": "₹50,000 worth of gift cards per month per individual user",
+  "max_vouchers_per_bill": "unlimited",
+  "one_time_use": "no",
+  "partial_redemption": "yes",
+  "spend_scope": "all Eligible PhonePe merchants and services",
+  "validity": "1 year from the date of issue",
+  "works_online": "yes",
+  "quotes": {
+   "can_combine_with_store_offers": "Can be clubbed with other offers? No, can't club with other offers / coupons",
+   "excludes": "PhonePe wallet balance or existing Gift Card balance cannot be used to purchase e-gift cards.",
+   "max_spend_per_purchase": "This is for individual use only. An individual user can not utilize more than 50,000 worth of Gift cards in a month.",
+   "max_vouchers_per_bill": "Can the cards be clubbed? Use several gift cards in one purchase",
+   "one_time_use": "Any balance amount left on the used gift card can be reused within the validity period.",
+   "partial_redemption": "Any balance amount left on the used gift card can be reused within the validity period.",
+   "spend_scope": "PhonePe shall not be responsible for any fraudulent purchases or services that might be availed by customers using the e-gift cards purchased through PhonePe.10. PhonePe Giftcards can be used as payment option across all Eligible PhonePe merchants and services.",
+   "validity": "Validity -1 year from the date of issue. Validity of gift cards cannot be extended.",
+   "works_online": "Where to Redeem? Redeem Online on website / app"
+  }
+ },
+ "maximize:phonepe-fixed": {
+  "can_combine_with_store_offers": "no",
+  "excludes": [
+   "purchasing e-gift cards with PhonePe wallet balance or existing Gift Card balance"
+  ],
+  "max_spend_per_purchase": "₹50,000 worth of gift cards per month per individual user",
+  "max_vouchers_per_bill": "unlimited",
+  "one_time_use": "no",
+  "partial_redemption": "yes",
+  "spend_scope": "all Eligible PhonePe merchants and services",
+  "validity": "1 year from the date of issue",
+  "works_online": "yes",
+  "quotes": {
+   "can_combine_with_store_offers": "Can be clubbed with other offers? No, can't club with other offers / coupons",
+   "excludes": "PhonePe wallet balance or existing Gift Card balance cannot be used to purchase e-gift cards.",
+   "max_spend_per_purchase": "This is for individual use only. An individual user can not utilize more than 50,000 worth of Gift cards in a month.",
+   "max_vouchers_per_bill": "Can the cards be clubbed? Use several gift cards in one purchase",
+   "one_time_use": "Any balance amount left on the used gift card can be reused within the validity period.",
+   "partial_redemption": "Any balance amount left on the used gift card can be reused within the validity period.",
+   "spend_scope": "PhonePe Giftcards can be used as payment option across all Eligible PhonePe merchants and services.",
+   "validity": "Validity -1 year from the date of issue. Validity of gift cards cannot be extended.",
+   "works_online": "Where to Redeem? Redeem Online on website / app"
+  }
+ }
+}

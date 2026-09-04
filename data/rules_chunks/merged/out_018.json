@@ -1,0 +1,969 @@
+{
+ "gyftr:jiosaavn": {
+  "spend_scope": "JioSaavn Pro Subscription",
+  "quotes": {
+   "spend_scope": "To view your Pro Subscription, please go to the Settings tab on the top right corner\nof the JioSaavn App and it will reflect the No. of days till when the Pro Subscription is\nvalid."
+  }
+ },
+ "gyftr:jockey": {
+  "can_combine_with_store_offers": "yes",
+  "max_vouchers_per_bill": "unlimited",
+  "one_time_use": "yes",
+  "partial_redemption": "yes",
+  "works_in_store": "no",
+  "works_online": "yes",
+  "quotes": {
+   "can_combine_with_store_offers": "GV/e-Pay (Jockey Credit) CAN be clubbed with deals and offers on the Jockey website.",
+   "max_vouchers_per_bill": "Multiple GVs can be combined in one bill after converting them to e-Pay balance (Jockey Credit).",
+   "one_time_use": "The Jockey Gift Card can be used only once.",
+   "partial_redemption": "The GV CAN be used partially, once converted to e-Pay balance (Jockey Credit).",
+   "works_in_store": "Jockey GV/e-Pay can only be redeemed online at www.jockey.in.",
+   "works_online": "Jockey GV/e-Pay can only be redeemed online at www.jockey.in."
+  }
+ },
+ "gyftr:kalki": {
+  "one_time_use": "yes",
+  "partial_redemption": "yes",
+  "works_in_store": "yes",
+  "works_online": "yes",
+  "quotes": {
+   "one_time_use": "The Kalki Gift Card can only be used once.",
+   "partial_redemption": "But once added to the e-Pay balance, you can use the balance partially.",
+   "works_in_store": "Kalki Gift Cards can only be redeemed at select Kalki Stores and the Kalki Website.",
+   "works_online": "Kalki Gift Cards can only be redeemed at select Kalki Stores and the Kalki Website."
+  }
+ },
+ "gyftr:kalyan-diamond-jewellery": {
+  "can_combine_with_store_offers": "yes",
+  "max_vouchers_per_bill": 10,
+  "works_in_store": "yes",
+  "works_online": "no",
+  "quotes": {
+   "can_combine_with_store_offers": "Gift Vouchers CAN be clubbed with on-going promotions/offers.",
+   "max_vouchers_per_bill": "A maximum of 10 GV or GC can be applied in one bill",
+   "works_in_store": "Gift Vouchers are ACCEPTED at only listed Kalyan Jewellers Outlets.",
+   "works_online": "Gift Vouchers CANNOT be used Online."
+  }
+ },
+ "gyftr:kalyan-gold-coins": {
+  "can_combine_with_store_offers": "yes",
+  "max_vouchers_per_bill": 10,
+  "validity": "3-12 months from the date of purchase",
+  "works_in_store": "yes",
+  "works_online": "no",
+  "quotes": {
+   "can_combine_with_store_offers": "Gift Vouchers CAN be clubbed with on-going promotions/offers.",
+   "max_vouchers_per_bill": "A maximum of 10 GV or GC can be applied in one bill",
+   "validity": "Your Kalyan Gold CoinsGift Cards are valid for 3-12 months from the date of purchase.",
+   "works_in_store": "Gift Vouchers are ACCEPTED at only listed Kalyan Jewellers Outlets.",
+   "works_online": "Gift Vouchers CANNOT be used Online."
+  }
+ },
+ "gyftr:kalyan-gold-jewellery": {
+  "can_combine_with_store_offers": "yes",
+  "excludes": [
+   "Gold/Diamond Purchase Advance Schemes",
+   "Package invoices and Special Priced Items",
+   "redemption of Gold/Diamond Purchase Advance Schemes"
+  ],
+  "max_vouchers_per_bill": 10,
+  "one_time_use": "yes",
+  "partial_redemption": "no",
+  "spend_scope": "Gold Jewellery only",
+  "works_in_store": "yes",
+  "works_online": "no",
+  "quotes": {
+   "can_combine_with_store_offers": "Gift Vouchers CAN be clubbed with on-going promotions/offers.",
+   "excludes": "3.This voucher cannot be clubbed with redemption of Gold/Diamond Purchase Advance Schemes 4.This voucher cannot be clubbed with Package invoices and Special Priced Items",
+   "max_vouchers_per_bill": "A maximum of 10 GV or GC can be applied in one bill",
+   "one_time_use": "12.This is a ONE time use GV.",
+   "partial_redemption": "13.No Credit note / Refund for the unused amount of the GV will be given.",
+   "spend_scope": "18.Kalyan Jewellers Gold Jewellery Insta Gift Voucher (GV) / Gift Card can only be used to purchase Gold Jewellery.",
+   "works_in_store": "Gift Vouchers are ACCEPTED at only listed Kalyan Jewellers Outlets.",
+   "works_online": "Gift Vouchers CANNOT be used Online."
+  }
+ },
+ "gyftr:kama-ayurveda": {
+  "can_combine_with_store_offers": "no",
+  "excludes": [
+   "date: specific block-out dates"
+  ],
+  "max_vouchers_per_bill": 1,
+  "partial_redemption": "yes",
+  "works_in_store": "yes",
+  "works_online": "yes",
+  "quotes": {
+   "can_combine_with_store_offers": "7. The GV/e-Pay cannot be clubbed with ongoing promotions.",
+   "excludes": "The GV/e-Pay cannot be redeemed on specific block-out dates. Kama Ayurveda may add or delete any date at its sole discretion.",
+   "max_vouchers_per_bill": "You can use multiple GV/GC in one bill at the store/retail outlet. For online use, you can redeem only ONE GV/GC per bill.",
+   "partial_redemption": "After conversion into e-Pay balance, this GV is valid for partial redemption only at the listed retail stores.",
+   "works_in_store": "1. This is a Kama Ayurveda GV (Gift Voucher), and it can be redeemed on the website at www.kamaayurveda.in and at the listed Kama Ayurveda stores.",
+   "works_online": "1. This is a Kama Ayurveda GV (Gift Voucher), and it can be redeemed on the website at www.kamaayurveda.in and at the listed Kama Ayurveda stores."
+  }
+ },
+ "gyftr:kate-spade--luxe-gift-card": {
+  "can_combine_with_store_offers": "no",
+  "excludes": [
+   "Airport stores",
+   "Merchandise that is not full priced",
+   "location: airport stores"
+  ],
+  "max_vouchers_per_bill": "unlimited",
+  "one_time_use": "yes",
+  "partial_redemption": "no",
+  "spend_scope": "Full priced merchandise only",
+  "works_in_store": "yes",
+  "works_online": "no",
+  "quotes": {
+   "can_combine_with_store_offers": "11. The GV/GC can be redeemed only against full priced merchandise.",
+   "excludes": "4. Luxe Gift Card is not redeemable at airport stores.",
+   "max_vouchers_per_bill": "7. Multiple GV/GC can be used for one bill.",
+   "one_time_use": "6. This is a one-time use GV/GC.",
+   "partial_redemption": "No refund/credit note shall be issued for unused parts of the GV/GC.",
+   "spend_scope": "The GV/GC can be redeemed only against full priced merchandise.",
+   "works_in_store": "Gift Vouchers are ACCEPTED at all listed Outlets.",
+   "works_online": "Kate Spade Luxe Gift Cards can only be redeemed at select Kate Spade Stores."
+  }
+ },
+ "gyftr:la-martina--luxe-gift-card": {
+  "can_combine_with_store_offers": "no",
+  "excludes": [
+   "Airport stores",
+   "Merchandise that is not full priced",
+   "location: airport stores"
+  ],
+  "max_vouchers_per_bill": "unlimited",
+  "one_time_use": "yes",
+  "partial_redemption": "no",
+  "spend_scope": "Full priced merchandise only",
+  "works_in_store": "yes",
+  "works_online": "no",
+  "quotes": {
+   "can_combine_with_store_offers": "11. The GV/GC can be redeemed only against full priced merchandise.",
+   "excludes": "4. Luxe Gift Card is not redeemable at airport stores.",
+   "max_vouchers_per_bill": "7. Multiple GV/GC can be used for one bill.",
+   "one_time_use": "6. This is a one-time use GV/GC.",
+   "partial_redemption": "No refund/credit note shall be issued for unused parts of the GV/GC.",
+   "spend_scope": "The GV/GC can be redeemed only against full priced merchandise.",
+   "works_in_store": "Gift Vouchers are ACCEPTED at all listed Outlets.",
+   "works_online": "La Martina Luxe Gift Cards can only be redeemed at select La Martina Stores."
+  }
+ },
+ "gyftr:luxe-gift-card": {
+  "can_combine_with_store_offers": "no",
+  "excludes": [
+   "Airport stores",
+   "Merchandise that is not full priced",
+   "location: airport stores"
+  ],
+  "max_vouchers_per_bill": "unlimited",
+  "one_time_use": "yes",
+  "partial_redemption": "no",
+  "spend_scope": "Full priced merchandise only",
+  "works_in_store": "yes",
+  "works_online": "yes",
+  "quotes": {
+   "can_combine_with_store_offers": "11. The GV/GC can be redeemed only against full priced merchandise.",
+   "excludes": "4. Luxe Gift Card is not redeemable at airport stores.",
+   "max_vouchers_per_bill": "7. Multiple GV/GC can be used for one bill.",
+   "one_time_use": "This is a one-time use Gift Card, it cannot be redeemed in parts.",
+   "partial_redemption": "This is a one-time use Gift Card, it cannot be redeemed in parts.",
+   "spend_scope": "The GV/GC can be redeemed only against full priced merchandise.",
+   "works_in_store": "Gift Vouchers are ACCEPTED at all listed Outlets.",
+   "works_online": "2. The GV/GC can also be used online on Armani Exchange, Steve Madden, Diesel India, Superdry, Mothercare India, GAS, Sunglass Hut India, Muji, Hamleys, Satya Paul, Brooks Brothers, Hunkemoller, Tumi, Pottery Barn, West Elm, Ritu Kumar."
+  }
+ },
+ "gyftr:luxe-gift-card---dune": {
+  "can_combine_with_store_offers": "no",
+  "excludes": [
+   "Airport stores",
+   "Merchandise that is not full priced",
+   "location: airport stores"
+  ],
+  "max_vouchers_per_bill": "unlimited",
+  "one_time_use": "yes",
+  "partial_redemption": "no",
+  "spend_scope": "Full priced merchandise only",
+  "works_in_store": "yes",
+  "works_online": "yes",
+  "quotes": {
+   "can_combine_with_store_offers": "11. The GV/GC can be redeemed only against full priced merchandise.",
+   "excludes": "4. Luxe Gift Card is not redeemable at airport stores.",
+   "max_vouchers_per_bill": "7. Multiple GV/GC can be used for one bill.",
+   "one_time_use": "6. This is a one-time use GV/GC.",
+   "partial_redemption": "No refund/credit note shall be issued for unused parts of the GV/GC.",
+   "spend_scope": "The GV/GC can be redeemed only against full priced merchandise.",
+   "works_in_store": "Gift Vouchers are ACCEPTED at all listed Outlets.",
+   "works_online": "The GV/GC can also be used online on Armani Exchange, Steve Madden, Diesel India, Superdry, Mothercare India, GAS, Sunglass Hut India, Muji, Hamleys, Satya Paul, Brooks Brothers, Hunkemoller, Tumi, Pottery Barn, West Elm, Ritu Kumar."
+  }
+ },
+ "gyftr:luxe-gift-card---paul-smith": {
+  "can_combine_with_store_offers": "no",
+  "excludes": [
+   "Airport stores",
+   "Merchandise that is not full priced",
+   "location: airport stores"
+  ],
+  "max_vouchers_per_bill": "unlimited",
+  "one_time_use": "yes",
+  "partial_redemption": "no",
+  "spend_scope": "Full priced merchandise only",
+  "works_in_store": "yes",
+  "works_online": "no",
+  "quotes": {
+   "can_combine_with_store_offers": "11. The GV/GC can be redeemed only against full priced merchandise.",
+   "excludes": "4. Luxe Gift Card is not redeemable at airport stores.",
+   "max_vouchers_per_bill": "7. Multiple GV/GC can be used for one bill.",
+   "one_time_use": "6. This is a one-time use GV/GC.",
+   "partial_redemption": "No refund/credit note shall be issued for unused parts of the GV/GC.",
+   "spend_scope": "The GV/GC can be redeemed only against full priced merchandise.",
+   "works_in_store": "Gift Vouchers are ACCEPTED at all listed Outlets.",
+   "works_online": "Paul Smith Luxe Gift Cards can only be redeemed at select Paul Smith Stores."
+  }
+ },
+ "gyftr:luxe-gift-card-armani-exchange": {
+  "can_combine_with_store_offers": "no",
+  "excludes": [
+   "Airport stores",
+   "Merchandise that is not full priced",
+   "location: airport stores"
+  ],
+  "max_vouchers_per_bill": "unlimited",
+  "one_time_use": "yes",
+  "partial_redemption": "no",
+  "spend_scope": "Full priced merchandise only",
+  "validity": "usually 3 to 6 months",
+  "works_in_store": "yes",
+  "works_online": "yes",
+  "quotes": {
+   "can_combine_with_store_offers": "11. The GV/GC can be redeemed only against full priced merchandise.",
+   "excludes": "4. Luxe Gift Card is not redeemable at airport stores.",
+   "max_vouchers_per_bill": "7. Multiple GV/GC can be used for one bill.",
+   "one_time_use": "6. This is a one-time use GV/GC.",
+   "partial_redemption": "No refund/credit note shall be issued for unused parts of the GV/GC.",
+   "spend_scope": "The GV/GC can be redeemed only against full priced merchandise.",
+   "validity": "The gift cards offered by GyFTR usually last anytime between 3 to 6 months.",
+   "works_in_store": "Gift Vouchers are ACCEPTED at all listed Outlets.",
+   "works_online": "2. The GV/GC can also be used online on Armani Exchange, Steve Madden, Diesel India, Superdry, Mothercare India, GAS, Sunglass Hut India, Muji, Hamleys, Satya Paul, Brooks Brothers, Hunkemoller, Tumi, Pottery Barn, West Elm, Ritu Kumar."
+  }
+ },
+ "gyftr:luxe-gift-card-brooks-brothers": {
+  "can_combine_with_store_offers": "no",
+  "excludes": [
+   "Airport stores",
+   "Merchandise that is not full priced",
+   "location: airport stores"
+  ],
+  "max_vouchers_per_bill": "unlimited",
+  "one_time_use": "yes",
+  "partial_redemption": "no",
+  "spend_scope": "Full priced merchandise only",
+  "works_in_store": "yes",
+  "works_online": "yes",
+  "quotes": {
+   "can_combine_with_store_offers": "11. The GV/GC can be redeemed only against full priced merchandise.",
+   "excludes": "4. Luxe Gift Card is not redeemable at airport stores.",
+   "max_vouchers_per_bill": "7. Multiple GV/GC can be used for one bill.",
+   "one_time_use": "6. This is a one-time use GV/GC.",
+   "partial_redemption": "No refund/credit note shall be issued for unused parts of the GV/GC.",
+   "spend_scope": "The GV/GC can be redeemed only against full priced merchandise.",
+   "works_in_store": "Gift Vouchers are ACCEPTED at all listed Outlets.",
+   "works_online": "2. The GV/GC can also be used online on Armani Exchange, Steve Madden, Diesel India, Superdry, Mothercare India, GAS, Sunglass Hut India, Muji, Hamleys, Satya Paul, Brooks Brothers, Hunkemoller, Tumi, Pottery Barn, West Elm, Ritu Kumar."
+  }
+ },
+ "gyftr:luxe-gift-card-coach": {
+  "can_combine_with_store_offers": "no",
+  "excludes": [
+   "Airport stores",
+   "Merchandise that is not full priced",
+   "location: airport stores"
+  ],
+  "max_vouchers_per_bill": "unlimited",
+  "one_time_use": "yes",
+  "partial_redemption": "no",
+  "spend_scope": "Full priced merchandise only",
+  "works_in_store": "yes",
+  "works_online": "yes",
+  "quotes": {
+   "can_combine_with_store_offers": "11. The GV/GC can be redeemed only against full priced merchandise.",
+   "excludes": "4. Luxe Gift Card is not redeemable at airport stores.",
+   "max_vouchers_per_bill": "7. Multiple GV/GC can be used for one bill.",
+   "one_time_use": "6. This is a one-time use GV/GC.",
+   "partial_redemption": "No refund/credit note shall be issued for unused parts of the GV/GC.",
+   "spend_scope": "The GV/GC can be redeemed only against full priced merchandise.",
+   "works_in_store": "Gift Vouchers are ACCEPTED at all listed Outlets.",
+   "works_online": "The GV/GC can also be used online on Armani Exchange, Steve Madden, Diesel India, Superdry, Mothercare India, GAS, Sunglass Hut India, Muji, Hamleys, Satya Paul, Brooks Brothers, Hunkemoller, Tumi, Pottery Barn, West Elm, Ritu Kumar."
+  }
+ },
+ "gyftr:luxe-gift-card-diesel": {
+  "can_combine_with_store_offers": "no",
+  "excludes": [
+   "Airport stores",
+   "Merchandise that is not full priced",
+   "location: airport stores"
+  ],
+  "max_vouchers_per_bill": "unlimited",
+  "one_time_use": "yes",
+  "partial_redemption": "no",
+  "spend_scope": "Full priced merchandise only",
+  "works_in_store": "yes",
+  "works_online": "yes",
+  "quotes": {
+   "can_combine_with_store_offers": "11. The GV/GC can be redeemed only against full priced merchandise.",
+   "excludes": "4. Luxe Gift Card is not redeemable at airport stores.",
+   "max_vouchers_per_bill": "7. Multiple GV/GC can be used for one bill.",
+   "one_time_use": "6. This is a one-time use GV/GC.",
+   "partial_redemption": "No refund/credit note shall be issued for unused parts of the GV/GC.",
+   "spend_scope": "The GV/GC can be redeemed only against full priced merchandise.",
+   "works_in_store": "Gift Vouchers are ACCEPTED at all listed Outlets.",
+   "works_online": "2. The GV/GC can also be used online on Armani Exchange, Steve Madden, Diesel India, Superdry, Mothercare India, GAS, Sunglass Hut India, Muji, Hamleys, Satya Paul, Brooks Brothers, Hunkemoller, Tumi, Pottery Barn, West Elm, Ritu Kumar."
+  }
+ },
+ "gyftr:luxe-gift-card-emporio-armani": {
+  "can_combine_with_store_offers": "no",
+  "excludes": [
+   "Airport stores",
+   "Merchandise that is not full priced",
+   "location: airport stores"
+  ],
+  "max_vouchers_per_bill": "unlimited",
+  "one_time_use": "yes",
+  "partial_redemption": "no",
+  "spend_scope": "Full priced merchandise only",
+  "works_in_store": "yes",
+  "works_online": "no",
+  "quotes": {
+   "can_combine_with_store_offers": "11. The GV/GC can be redeemed only against full priced merchandise.",
+   "excludes": "4. Luxe Gift Card is not redeemable at airport stores.",
+   "max_vouchers_per_bill": "7. Multiple GV/GC can be used for one bill.",
+   "one_time_use": "6. This is a one-time use GV/GC.",
+   "partial_redemption": "No refund/credit note shall be issued for unused parts of the GV/GC.",
+   "spend_scope": "The GV/GC can be redeemed only against full priced merchandise.",
+   "works_in_store": "Gift Vouchers are ACCEPTED at all listed Outlets.",
+   "works_online": "Emporio Armani Luxe Gift Cards can only be redeemed at select Emporio Armani Stores."
+  }
+ },
+ "gyftr:luxe-gift-card-gas": {
+  "can_combine_with_store_offers": "no",
+  "excludes": [
+   "Airport stores",
+   "Merchandise that is not full priced",
+   "location: airport stores"
+  ],
+  "max_vouchers_per_bill": "unlimited",
+  "one_time_use": "yes",
+  "partial_redemption": "no",
+  "spend_scope": "Full priced merchandise only",
+  "works_in_store": "yes",
+  "works_online": "yes",
+  "quotes": {
+   "can_combine_with_store_offers": "11. The GV/GC can be redeemed only against full priced merchandise.",
+   "excludes": "4. Luxe Gift Card is not redeemable at airport stores.",
+   "max_vouchers_per_bill": "7. Multiple GV/GC can be used for one bill.",
+   "one_time_use": "6. This is a one-time use GV/GC.",
+   "partial_redemption": "No refund/credit note shall be issued for unused parts of the GV/GC.",
+   "spend_scope": "The GV/GC can be redeemed only against full priced merchandise.",
+   "works_in_store": "Gift Vouchers are ACCEPTED at all listed Outlets.",
+   "works_online": "2. The GV/GC can also be used online on Armani Exchange, Steve Madden, Diesel India, Superdry, Mothercare India, GAS, Sunglass Hut India, Muji, Hamleys, Satya Paul, Brooks Brothers, Hunkemoller, Tumi, Pottery Barn, West Elm, Ritu Kumar."
+  }
+ },
+ "gyftr:luxe-gift-card-hamleys": {
+  "can_combine_with_store_offers": "no",
+  "excludes": [
+   "Airport stores",
+   "Merchandise that is not full priced",
+   "location: airport stores"
+  ],
+  "max_vouchers_per_bill": "unlimited",
+  "one_time_use": "yes",
+  "partial_redemption": "no",
+  "spend_scope": "Full priced merchandise only",
+  "works_in_store": "yes",
+  "works_online": "yes",
+  "quotes": {
+   "can_combine_with_store_offers": "11. The GV/GC can be redeemed only against full priced merchandise.",
+   "excludes": "4. Luxe Gift Card is not redeemable at airport stores.",
+   "max_vouchers_per_bill": "7. Multiple GV/GC can be used for one bill.",
+   "one_time_use": "6. This is a one-time use GV/GC.",
+   "partial_redemption": "No refund/credit note shall be issued for unused parts of the GV/GC.",
+   "spend_scope": "The GV/GC can be redeemed only against full priced merchandise.",
+   "works_in_store": "Gift Vouchers are ACCEPTED at all listed Outlets.",
+   "works_online": "2. The GV/GC can also be used online on Armani Exchange, Steve Madden, Diesel India, Superdry, Mothercare India, GAS, Sunglass Hut India, Muji, Hamleys, Satya Paul, Brooks Brothers, Hunkemoller, Tumi, Pottery Barn, West Elm, Ritu Kumar."
+  }
+ },
+ "gyftr:luxe-gift-card-hugo-boss": {
+  "can_combine_with_store_offers": "no",
+  "excludes": [
+   "Airport stores",
+   "Merchandise that is not full priced",
+   "location: airport stores"
+  ],
+  "max_vouchers_per_bill": "unlimited",
+  "one_time_use": "yes",
+  "partial_redemption": "no",
+  "spend_scope": "Full priced merchandise only",
+  "works_in_store": "yes",
+  "works_online": "no",
+  "quotes": {
+   "can_combine_with_store_offers": "11. The GV/GC can be redeemed only against full priced merchandise.",
+   "excludes": "4. Luxe Gift Card is not redeemable at airport stores.",
+   "max_vouchers_per_bill": "7. Multiple GV/GC can be used for one bill.",
+   "one_time_use": "6. This is a one-time use GV/GC.",
+   "partial_redemption": "No refund/credit note shall be issued for unused parts of the GV/GC.",
+   "spend_scope": "The GV/GC can be redeemed only against full priced merchandise.",
+   "works_in_store": "Gift Vouchers are ACCEPTED at all listed Outlets. For locations, visit - http://luxegiftcard.com/store-locator",
+   "works_online": "Hugo Boss Luxe Gift Cards can only be redeemed at select Hugo Boss Stores."
+  }
+ },
+ "gyftr:luxe-gift-card-michael-kors": {
+  "can_combine_with_store_offers": "no",
+  "excludes": [
+   "Airport stores",
+   "Merchandise that is not full priced",
+   "location: airport stores"
+  ],
+  "max_vouchers_per_bill": "unlimited",
+  "one_time_use": "yes",
+  "partial_redemption": "no",
+  "spend_scope": "Full priced merchandise only",
+  "works_in_store": "yes",
+  "works_online": "no",
+  "quotes": {
+   "can_combine_with_store_offers": "11. The GV/GC can be redeemed only against full priced merchandise.",
+   "excludes": "4. Luxe Gift Card is not redeemable at airport stores.",
+   "max_vouchers_per_bill": "7. Multiple GV/GC can be used for one bill.",
+   "one_time_use": "6. This is a one-time use GV/GC.",
+   "partial_redemption": "No refund/credit note shall be issued for unused parts of the GV/GC.",
+   "spend_scope": "The GV/GC can be redeemed only against full priced merchandise.",
+   "works_in_store": "Gift Vouchers are ACCEPTED at all listed Outlets.",
+   "works_online": "Michael Kors Luxe Gift Cards can only be redeemed at select Michael Kors Stores."
+  }
+ },
+ "gyftr:luxe-gift-card-mothercare": {
+  "can_combine_with_store_offers": "no",
+  "excludes": [
+   "Airport stores",
+   "Merchandise that is not full priced",
+   "location: airport stores"
+  ],
+  "max_vouchers_per_bill": "unlimited",
+  "one_time_use": "yes",
+  "partial_redemption": "no",
+  "spend_scope": "Full priced merchandise only",
+  "works_in_store": "yes",
+  "works_online": "yes",
+  "quotes": {
+   "can_combine_with_store_offers": "11. The GV/GC can be redeemed only against full priced merchandise.",
+   "excludes": "4. Luxe Gift Card is not redeemable at airport stores.",
+   "max_vouchers_per_bill": "7. Multiple GV/GC can be used for one bill.",
+   "one_time_use": "6. This is a one-time use GV/GC.",
+   "partial_redemption": "No refund/credit note shall be issued for unused parts of the GV/GC.",
+   "spend_scope": "The GV/GC can be redeemed only against full priced merchandise.",
+   "works_in_store": "Gift Vouchers are ACCEPTED at all listed Outlets.",
+   "works_online": "2. The GV/GC can also be used online on Armani Exchange, Steve Madden, Diesel India, Superdry, Mothercare India, GAS, Sunglass Hut India, Muji, Hamleys, Satya Paul, Brooks Brothers, Hunkemoller, Tumi, Pottery Barn, West Elm, Ritu Kumar."
+  }
+ },
+ "gyftr:luxe-gift-card-satya-paul": {
+  "can_combine_with_store_offers": "no",
+  "excludes": [
+   "Airport stores",
+   "Merchandise that is not full priced",
+   "location: airport stores"
+  ],
+  "max_vouchers_per_bill": "unlimited",
+  "one_time_use": "yes",
+  "partial_redemption": "no",
+  "spend_scope": "Full priced merchandise only",
+  "works_in_store": "yes",
+  "works_online": "yes",
+  "quotes": {
+   "can_combine_with_store_offers": "11. The GV/GC can be redeemed only against full priced merchandise.",
+   "excludes": "4. Luxe Gift Card is not redeemable at airport stores.",
+   "max_vouchers_per_bill": "7. Multiple GV/GC can be used for one bill.",
+   "one_time_use": "6. This is a one-time use GV/GC.",
+   "partial_redemption": "No refund/credit note shall be issued for unused parts of the GV/GC.",
+   "spend_scope": "The GV/GC can be redeemed only against full priced merchandise.",
+   "works_in_store": "Gift Vouchers are ACCEPTED at all listed Outlets.",
+   "works_online": "2. The GV/GC can also be used online on Armani Exchange, Steve Madden, Diesel India, Superdry, Mothercare India, GAS, Sunglass Hut India, Muji, Hamleys, Satya Paul, Brooks Brothers, Hunkemoller, Tumi, Pottery Barn, West Elm, Ritu Kumar."
+  }
+ },
+ "gyftr:luxe-gift-card-scotch-soda": {
+  "can_combine_with_store_offers": "no",
+  "excludes": [
+   "Airport stores",
+   "Merchandise that is not full priced",
+   "location: airport stores"
+  ],
+  "max_vouchers_per_bill": "unlimited",
+  "one_time_use": "yes",
+  "partial_redemption": "no",
+  "spend_scope": "Full priced merchandise only",
+  "works_in_store": "yes",
+  "works_online": "yes",
+  "quotes": {
+   "can_combine_with_store_offers": "11. The GV/GC can be redeemed only against full priced merchandise.",
+   "excludes": "4. Luxe Gift Card is not redeemable at airport stores.",
+   "max_vouchers_per_bill": "7. Multiple GV/GC can be used for one bill.",
+   "one_time_use": "6. This is a one-time use GV/GC.",
+   "partial_redemption": "No refund/credit note shall be issued for unused parts of the GV/GC.",
+   "spend_scope": "The GV/GC can be redeemed only against full priced merchandise.",
+   "works_in_store": "Gift Vouchers are ACCEPTED at all listed Outlets.",
+   "works_online": "The GV/GC can also be used online on Armani Exchange, Steve Madden, Diesel India, Superdry, Mothercare India, GAS, Sunglass Hut India, Muji, Hamleys, Satya Paul, Brooks Brothers, Hunkemoller, Tumi, Pottery Barn, West Elm, Ritu Kumar."
+  }
+ },
+ "gyftr:luxe-gift-card-steve-madden": {
+  "can_combine_with_store_offers": "no",
+  "excludes": [
+   "Airport stores",
+   "Merchandise that is not full priced",
+   "location: airport stores"
+  ],
+  "max_vouchers_per_bill": "unlimited",
+  "one_time_use": "yes",
+  "partial_redemption": "no",
+  "spend_scope": "Full priced merchandise only",
+  "validity": "usually 12 months",
+  "works_in_store": "yes",
+  "works_online": "yes",
+  "quotes": {
+   "can_combine_with_store_offers": "11. The GV/GC can be redeemed only against full priced merchandise.",
+   "excludes": "4. Luxe Gift Card is not redeemable at airport stores.",
+   "max_vouchers_per_bill": "7. Multiple GV/GC can be used for one bill.",
+   "one_time_use": "6. This is a one-time use GV/GC.",
+   "partial_redemption": "No refund/credit note shall be issued for unused parts of the GV/GC.",
+   "spend_scope": "The GV/GC can be redeemed only against full priced merchandise.",
+   "validity": "A Steve Madden Gift Cards usually comes with a validity period of 12 months.",
+   "works_in_store": "Gift Vouchers are ACCEPTED at all listed Outlets.",
+   "works_online": "2. The GV/GC can also be used online on Armani Exchange, Steve Madden, Diesel India, Superdry, Mothercare India, GAS, Sunglass Hut India, Muji, Hamleys, Satya Paul, Brooks Brothers, Hunkemoller, Tumi, Pottery Barn, West Elm, Ritu Kumar."
+  }
+ },
+ "gyftr:luxe-gift-card-superdry": {
+  "can_combine_with_store_offers": "no",
+  "excludes": [
+   "Airport stores",
+   "Merchandise that is not full priced",
+   "location: airport stores"
+  ],
+  "max_vouchers_per_bill": "unlimited",
+  "one_time_use": "yes",
+  "partial_redemption": "no",
+  "spend_scope": "Full priced merchandise only",
+  "works_in_store": "yes",
+  "works_online": "yes",
+  "quotes": {
+   "can_combine_with_store_offers": "11. The GV/GC can be redeemed only against full priced merchandise.",
+   "excludes": "4. Luxe Gift Card is not redeemable at airport stores.",
+   "max_vouchers_per_bill": "7. Multiple GV/GC can be used for one bill.",
+   "one_time_use": "6. This is a one-time use GV/GC.",
+   "partial_redemption": "No refund/credit note shall be issued for unused parts of the GV/GC.",
+   "spend_scope": "The GV/GC can be redeemed only against full priced merchandise.",
+   "works_in_store": "Gift Vouchers are ACCEPTED at all listed Outlets.",
+   "works_online": "2. The GV/GC can also be used online on Armani Exchange, Steve Madden, Diesel India, Superdry, Mothercare India, GAS, Sunglass Hut India, Muji, Hamleys, Satya Paul, Brooks Brothers, Hunkemoller, Tumi, Pottery Barn, West Elm, Ritu Kumar."
+  }
+ },
+ "gyftr:ketan-diamonds-diamond-only": {
+  "can_combine_with_store_offers": "yes",
+  "excludes": [
+   "date: specific block-out dates"
+  ],
+  "max_vouchers_per_bill": "unlimited",
+  "one_time_use": "yes",
+  "partial_redemption": "no",
+  "spend_scope": "Diamond Jewellery only",
+  "works_in_store": "no",
+  "works_online": "yes",
+  "quotes": {
+   "can_combine_with_store_offers": "4. The GV/GC can be clubbed with the existing offers.",
+   "excludes": "The GV/GC cannot be redeemed on specific block-out dates, which the brand may add or delete at its sole discretion.",
+   "max_vouchers_per_bill": "5. Multiple GV/GC can be used against one bill.",
+   "one_time_use": "3. This is a one-time use GV/GC. The remaining balance in the GV/GC will be forfeited once the card is redeemed.",
+   "partial_redemption": "The remaining balance in the GV/GC will be forfeited once the card is redeemed.",
+   "spend_scope": "8. This GV/GC can only be used to purchase Diamond Jewellery.",
+   "works_in_store": "1. This is a Ketan Diamonds Diamonds Only GV/GC (Gift Voucher/Gift Card) and will be accepted only online on the mobile application and on the website at www.ketandiamonds.com.",
+   "works_online": "1. This is a Ketan Diamonds Diamonds Only GV/GC (Gift Voucher/Gift Card) and will be accepted only online on the mobile application and on the website at www.ketandiamonds.com."
+  }
+ },
+ "gyftr:ketan-diamonds-gold-coin": {
+  "can_combine_with_store_offers": "yes",
+  "excludes": [
+   "date: specific block-out dates"
+  ],
+  "max_vouchers_per_bill": "unlimited",
+  "one_time_use": "yes",
+  "partial_redemption": "no",
+  "spend_scope": "Gold Coins only",
+  "validity": "usually 3-12 months",
+  "works_in_store": "no",
+  "works_online": "yes",
+  "quotes": {
+   "can_combine_with_store_offers": "Gift Vouchers CAN be clubbed with offers/promotions available online.",
+   "excludes": "The GV/GC cannot be redeemed on specific block-out dates which the brand may add or delete at its sole discretion.",
+   "max_vouchers_per_bill": "7. Multiple GV/GC can be used against one bill.",
+   "one_time_use": "3. This is a one-time use GV/GC. The remaining balance in the GV/GC will be forfeited once the card is redeemed.",
+   "partial_redemption": "The remaining balance in the GV/GC will be forfeited once the card is redeemed.",
+   "spend_scope": "4. GV/GC can only be used to purchase Gold Coins.",
+   "validity": "A Ketan Diamonds Gold Coin Gift Card usually comes with a validity period of 3-12 months.",
+   "works_in_store": "1. This is a Ketan Diamonds Gold Coin GV/GC (Gift Voucher/Gift Card) and will be accepted only online on the mobile application and on the website at www.ketandiamonds.com.",
+   "works_online": "Gift Vouchers are only ACCEPTED online at www.ketandiamonds.com"
+  }
+ },
+ "gyftr:ketan-diamonds-gold-jewellery": {
+  "can_combine_with_store_offers": "yes",
+  "excludes": [
+   "date: specific block-out dates"
+  ],
+  "max_vouchers_per_bill": "unlimited",
+  "one_time_use": "yes",
+  "partial_redemption": "no",
+  "spend_scope": "Gold Jewellery only",
+  "validity": "usually 12 months",
+  "works_in_store": "no",
+  "works_online": "yes",
+  "quotes": {
+   "can_combine_with_store_offers": "Gift Vouchers CAN be clubbed with offers/promotions available online.",
+   "excludes": "The GV/GC cannot be redeemed on specific block-out dates which the brand may add or delete at its sole discretion.",
+   "max_vouchers_per_bill": "7. Multiple GV/GC can be used against one bill.",
+   "one_time_use": "3. This is a one-time use GV/GC. The remaining balance in the GV/GC will be forfeited once the card is redeemed.",
+   "partial_redemption": "The remaining balance in the GV/GC will be forfeited once the card is redeemed.",
+   "spend_scope": "4. GV/GC can only be used to purchase Gold Jewellery.",
+   "validity": "A Ketan Diamond Gold Jewellery Gift Card usually comes with a validity period of 12 months.",
+   "works_in_store": "1. This is a Ketan Diamonds Gold Jewellery GV/GC (Gift Voucher/Gift Card) and will be accepted only online on the mobile application and on the website at www.ketandiamonds.com.",
+   "works_online": "Gift Vouchers are only ACCEPTED online at www.ketandiamonds.com"
+  }
+ },
+ "gyftr:kfc": {
+  "max_vouchers_per_bill": 1,
+  "one_time_use": "yes",
+  "works_in_store": "yes",
+  "works_online": "yes",
+  "quotes": {
+   "max_vouchers_per_bill": "Single GV / GC can be used in one bill against online redemption. Multiple Gift Vouchers CAN be used in one bill at the outlet (offline redemption).",
+   "one_time_use": "This is a ONE time use GV / GC.",
+   "works_in_store": "Gift Vouchers are accepted at all Listed Outlets and on the website at online.kfc.co.in/home",
+   "works_online": "Gift Vouchers are accepted at all Listed Outlets and on the website at online.kfc.co.in/home"
+  }
+ },
+ "gyftr:kimirica": {
+  "can_combine_with_store_offers": "yes",
+  "max_vouchers_per_bill": "unlimited",
+  "one_time_use": "yes",
+  "partial_redemption": "yes",
+  "works_in_store": "no",
+  "works_online": "yes",
+  "quotes": {
+   "can_combine_with_store_offers": "3. The GV/e-Pay can be clubbed with existing offers.",
+   "max_vouchers_per_bill": "Multiple gift vouchers can be combined and added to the e-Pay balance.",
+   "one_time_use": "The Kimirica Gift Card can be used only once.",
+   "partial_redemption": "However, once added to the e-Pay balance, the amount can be redeemed partially.",
+   "works_in_store": "Kimirica Gift Cards can only be redeemed online at www.kimirica.shop.",
+   "works_online": "Kimirica Gift Cards can only be redeemed online at www.kimirica.shop."
+  }
+ },
+ "gyftr:klook": {
+  "can_combine_with_store_offers": "no",
+  "excludes": [
+   "Non-Eligible Activity List",
+   "activities on the Non-Eligible Activity List: https://www.klook.com/no_applicable_activities_list_new/?coupon_forbid_act_batch_ids=1",
+   "location: applicable for Indian users only"
+  ],
+  "max_vouchers_per_bill": 1,
+  "one_time_use": "yes",
+  "works_in_store": "no",
+  "works_online": "yes",
+  "quotes": {
+   "can_combine_with_store_offers": "GV/GC cannot be combined with existing offers on its website or any other promo codes.",
+   "excludes": "4. GV/GC will not be applicable for the Non-Eligible Activity List: https://www.klook.com/no_applicable_activities_list_new/?coupon_forbid_act_batch_ids=1.",
+   "max_vouchers_per_bill": "Only one GV/GC can be used in one bill.",
+   "one_time_use": "This is a one-time use GV/GC.",
+   "works_in_store": "A Klook Gift Card can only be redeemed online on the Klook App & the website www.klook.com.",
+   "works_online": "The GV/GC will be used on the app or website at www.klook.com."
+  }
+ },
+ "gyftr:lakme-luzo-gift-card": {
+  "can_combine_with_store_offers": "yes",
+  "max_vouchers_per_bill": "unlimited",
+  "one_time_use": "no",
+  "partial_redemption": "yes",
+  "spend_scope": "Salon, spa, and clinic services booked through the Luzo app at partner outlets",
+  "works_in_store": "no",
+  "works_online": "no",
+  "quotes": {
+   "can_combine_with_store_offers": "5. The GV/GC can be clubbed with existing offers.",
+   "max_vouchers_per_bill": "8. Multiple GV/GCs can be added to the Luzo wallet. There is no limit on the number of GV/GCs that can be added.",
+   "one_time_use": "7. Once added, the GV/GC balance is credited to the beneficiary's Luzo wallet and can be used across multiple transactions until the balance is exhausted.",
+   "partial_redemption": "7. Once added, the GV/GC balance is credited to the beneficiary's Luzo wallet and can be used across multiple transactions until the balance is exhausted.",
+   "spend_scope": "4. The GV/GC can be used for salon, spa, and clinic services booked through the Luzo app at partner outlets.",
+   "works_in_store": "1. This is a Luzo GV/GC (Gift Voucher/Gift Card) issued by Salonsurf Ventures Pvt Ltd, and it will be accepted only on the Luzo app.",
+   "works_online": "This is a Luzo GV/GC (Gift Voucher/Gift Card) issued by Salonsurf Ventures Pvt Ltd, and it will be accepted only on the Luzo app."
+  }
+ },
+ "gyftr:landline-bill-payment": {
+  "partial_redemption": "yes",
+  "spend_scope": "Services and billers available on www.gyftr.com/loyaltylifecycle/bills-utilities and linked portals",
+  "works_online": "yes",
+  "quotes": {
+   "partial_redemption": "Partial redemption allowed; remaining balance usable until expiry.",
+   "spend_scope": "GV/e-Pay is valid only for services and billers available on https://www.gyftr.com/loyaltylifecycle/bills-utilities and linked portals.",
+   "works_online": "The GV/e-Pay CAN be used Online at www.gyftr.com/loyaltylifecycle/bills-utilities/landline-postpaid"
+  }
+ },
+ "gyftr:lego": {
+  "can_combine_with_store_offers": "yes",
+  "max_vouchers_per_bill": "unlimited",
+  "partial_redemption": "yes",
+  "works_in_store": "yes",
+  "works_online": "yes",
+  "quotes": {
+   "can_combine_with_store_offers": "3. The GV/e-Pay can be clubbed with existing offers.",
+   "max_vouchers_per_bill": "Multiple GVs can be combined and added to the e-Pay balance.",
+   "partial_redemption": "After conversion into e-Pay balance, this GV is valid for partial redemption.",
+   "works_in_store": "1. This is a LEGO GV (Gift Voucher)/e-Pay and will be accepted at the listed LEGO retail outlets and on the LEGO website at https://LEGO.mybrickhouse.com.",
+   "works_online": "1. This is a LEGO GV (Gift Voucher)/e-Pay and will be accepted at the listed LEGO retail outlets and on the LEGO website at https://LEGO.mybrickhouse.com."
+  }
+ },
+ "gyftr:lenskart": {
+  "can_combine_with_store_offers": "yes",
+  "excludes": [
+   "Branded contact lenses including Bausch + Lomb, Johnson & Johnson, Alcon, Freshlook and Acuvue",
+   "branded contact lenses, including but not limited to Bausch + Lomb, Johnson & Johnson, Alcon, Freshlook, and Acuvue"
+  ],
+  "max_spend_per_purchase": "INR 1,00,000 maximum accumulated in Lenskart Money via gift cards",
+  "max_vouchers_per_bill": "unlimited",
+  "monthly_purchase_cap": 100000,
+  "one_time_use": "no",
+  "partial_redemption": "yes",
+  "works_in_store": "yes",
+  "works_online": "yes",
+  "quotes": {
+   "can_combine_with_store_offers": "The GV/GC can be clubbed with any ongoing offer.",
+   "excludes": "8. GV/GC cannot be used for branded contact lenses, including but not limited to Bausch + Lomb, Johnson & Johnson, Alcon, Freshlook, and Acuvue.",
+   "max_spend_per_purchase": "The maximum amount that can be accumulated via Gift cards is INR 1,00,000.",
+   "max_vouchers_per_bill": "Multiple Gift Cards can be loaded into Lenskart Money Balance via the Claim Option.",
+   "monthly_purchase_cap": "You can load up to 1,00,000 in gift cards to Lenskart Money for purchases.",
+   "one_time_use": "Multiple Lenskart Gift Cards can be loaded into the Lenskart Money Balance. The balance can be redeemed partially.",
+   "partial_redemption": "Multiple Lenskart Gift Cards can be loaded into the Lenskart Money Balance. The balance can be redeemed partially.",
+   "works_in_store": "The GV/GC will be accepted on Lenskart's website, app, offline stores, and affiliate platforms.",
+   "works_online": "The GV/GC will be accepted on Lenskart's website, app, offline stores, and affiliate platforms."
+  }
+ },
+ "gyftr:levis": {
+  "can_combine_with_store_offers": "yes",
+  "excludes": [
+   "Discounted articles during EOSS/Sale Period",
+   "articles on discount running in retail stores during EOSS (End of Season Sale)"
+  ],
+  "max_vouchers_per_bill": "unlimited",
+  "one_time_use": "yes",
+  "partial_redemption": "yes",
+  "works_in_store": "yes",
+  "works_online": "yes",
+  "quotes": {
+   "can_combine_with_store_offers": "5. The GV/e-Pay CAN be clubbed with existing offers.",
+   "excludes": "GV/GC will not be accepted on Discounted Articles during EOSS/Sale Period",
+   "max_vouchers_per_bill": "Multiple Gift Vouchers CAN be used in one bill.",
+   "one_time_use": "The Levis Gift Card can only be used once.",
+   "partial_redemption": "After conversion into e-Pay balance, this GV is valid for partial redemption.",
+   "works_in_store": "GV/GC CAN be used Online & at listed stores.",
+   "works_online": "GV/GC CAN be used Online & at listed stores."
+  }
+ },
+ "gyftr:libas": {
+  "can_combine_with_store_offers": "yes",
+  "one_time_use": "yes",
+  "partial_redemption": "yes",
+  "works_in_store": "no",
+  "works_online": "yes",
+  "quotes": {
+   "can_combine_with_store_offers": "3. The GV/e-Pay can be clubbed with the existing offers.",
+   "one_time_use": "Libas Gift Card can only be used once.",
+   "partial_redemption": "After conversion into e-Pay balance, this GV is valid for partial redemption.",
+   "works_in_store": "Libas Gift Cards can only be redeemed online on the Libas website at www.libas.in.",
+   "works_online": "Libas Gift Cards can only be redeemed online on the Libas website at www.libas.in."
+  }
+ },
+ "gyftr:liberty": {
+  "can_combine_with_store_offers": "yes",
+  "max_vouchers_per_bill": "unlimited",
+  "works_in_store": "yes",
+  "quotes": {
+   "can_combine_with_store_offers": "GV/e-Pay can be clubbed with the existing offers.",
+   "max_vouchers_per_bill": "Multiple Gift Vouchers CAN be combined & added to the e-Pay balance.",
+   "works_in_store": "GV/e-Pay is ACCEPTED at all Listed Outlets."
+  }
+ },
+ "gyftr:liberty-online": {
+  "can_combine_with_store_offers": "yes",
+  "max_vouchers_per_bill": "unlimited",
+  "one_time_use": "yes",
+  "partial_redemption": "yes",
+  "works_in_store": "no",
+  "works_online": "yes",
+  "quotes": {
+   "can_combine_with_store_offers": "The GV/e-Pay CAN be clubbed with existing offers.",
+   "max_vouchers_per_bill": "Multiple Gift Vouchers CAN be combined & added to the e-Pay balance.",
+   "one_time_use": "The Liberty Online Gift Card can be used only once.",
+   "partial_redemption": "However, once added to the e-Pay balance, the amount can be redeemed partially.",
+   "works_in_store": "Liberty Online Gift Cards can only be redeemed online at www.libertyshoesonline.com.",
+   "works_online": "Liberty Online Gift Cards can only be redeemed online at www.libertyshoesonline.com."
+  }
+ },
+ "gyftr:lifestyle": {
+  "can_combine_with_store_offers": "yes",
+  "max_vouchers_per_bill": "unlimited",
+  "one_time_use": "yes",
+  "partial_redemption": "no",
+  "validity": "One year from the date of issue",
+  "works_in_store": "yes",
+  "works_online": "no",
+  "quotes": {
+   "can_combine_with_store_offers": "Gift Vouchers CAN be used to buy discounted products.",
+   "max_vouchers_per_bill": "Multiple Gift Vouchers CAN be used in one bill.",
+   "one_time_use": "3. This is a one-time use GV/GC. The remaining balance in the GV/GC will be forfeited once the card is redeemed.",
+   "partial_redemption": "The remaining balance in the GV/GC will be forfeited once the card is redeemed.",
+   "validity": "9. The GV/GC is valid for one year from the date of issue.",
+   "works_in_store": "Gift Vouchers CAN be used at all Listed Outlets.",
+   "works_online": "Gift Vouchers CANNOT be used Online at lifestylestores.com, maxfashion.com & homecentre.com"
+  }
+ },
+ "gyftr:lifestyle-online": {
+  "can_combine_with_store_offers": "yes",
+  "delivery_wait": "normally instant; delivery can be delayed up to 24 - 48 hours",
+  "max_vouchers_per_bill": 10,
+  "one_time_use": "no",
+  "partial_redemption": "yes",
+  "works_in_store": "no",
+  "works_online": "yes",
+  "quotes": {
+   "can_combine_with_store_offers": "9.The Lifestyle E-Gift Cards are valid and redeemable on all offers and during EOSS on the website and apps.",
+   "delivery_wait": "E-Gift Cards are normally delivered instantly. But sometimes due to system issues, the delivery can be delayed up-to 24 - 48 hours.",
+   "max_vouchers_per_bill": "Maximum 10 Gift Cards can be used against one bill",
+   "one_time_use": "4.Lifestyle Online e-Gift Cards can be partially redeemed and can be used multiple times till balance exists in the E-Gift Card.",
+   "partial_redemption": "4.Lifestyle Online e-Gift Cards can be partially redeemed and can be used multiple times till balance exists in the E-Gift Card.",
+   "works_in_store": "E- Gift Cards CANNOT be redeemed at physical outlets",
+   "works_online": "E-Gift Cards are redeemable only through online stores and apps of lifestylestores.com and homecentre.in"
+  }
+ },
+ "gyftr:lions-gate": {
+  "can_combine_with_store_offers": "no",
+  "excludes": [
+   "location: valid in India only",
+   "redemption by existing Lionsgate Play subscribers before their current subscription expires",
+   "redemption via iOS iPhone"
+  ],
+  "max_vouchers_per_bill": 1,
+  "one_time_use": "yes",
+  "spend_scope": "Lionsgate Play subscription",
+  "works_in_store": "no",
+  "works_online": "yes",
+  "quotes": {
+   "can_combine_with_store_offers": "The GV/GC cannot be clubbed with ongoing offers.",
+   "excludes": "Existing Lionsgate Play subscribers can redeem this GV/GC only after their current subscription expires.",
+   "max_vouchers_per_bill": "4. Only one GV/GC can be used for one subscription.",
+   "one_time_use": "This is a one-time use GV/GC.",
+   "spend_scope": "This is a Lionsgate Play subscription GV/GC (Gift Voucher/Gift Card) that will be accepted on the website through this URL: https://lionsgateplay.com/paymentlanding and on the Lionsgate Play app.",
+   "works_in_store": "The GV/GC will only be accepted on the website: lionsgateplay.com/paymentlanding & app.",
+   "works_online": "The GV/GC will only be accepted on the website: lionsgateplay.com/paymentlanding & app."
+  }
+ },
+ "gyftr:live-hindustan": {
+  "can_combine_with_store_offers": "no",
+  "excludes": [
+   "Existing LH e-paper paid users"
+  ],
+  "max_vouchers_per_bill": 1,
+  "one_time_use": "yes",
+  "spend_scope": "Live Hindustan full digital subscription",
+  "works_in_store": "no",
+  "works_online": "yes",
+  "quotes": {
+   "can_combine_with_store_offers": "GV/GC CANNOT be clubbed with existing offers.",
+   "excludes": "12. Offer is not valid for existing LH e-paper paid user.",
+   "max_vouchers_per_bill": "Only One GV/GC can be used in one bill.",
+   "one_time_use": "The Live Hindustan Gift Card can be used only once.",
+   "spend_scope": "You can use your Live Hindustan Gift Card to activate a full digital subscription, giving you access to the Live Hindustan newspaper ePaper, ad-free reading, offline downloads, and premium newsletters across politics, sports, health, spirituality, and more.",
+   "works_in_store": "Live Hindustan Gift Cards can only be redeemed online.",
+   "works_online": "The GV/GC would only be accepted on the official website/app hindustantimes.com"
+  }
+ },
+ "gyftr:lohono-stays": {
+  "can_combine_with_store_offers": "yes",
+  "excludes": [
+   "International trips"
+  ],
+  "max_vouchers_per_bill": "unlimited",
+  "one_time_use": "yes",
+  "partial_redemption": "yes",
+  "works_in_store": "no",
+  "works_online": "yes",
+  "quotes": {
+   "can_combine_with_store_offers": "GV/e-Pay CAN be clubbed with deals and offers on the Lohono website.",
+   "excludes": "4. The GV/e-Pay is not valid for international trips.",
+   "max_vouchers_per_bill": "Multiple GVs can be combined in one bill after converting them to e-Pay balance.",
+   "one_time_use": "The Lohono Gift Card can only be used once.",
+   "partial_redemption": "The GV CAN be used partially, once converted to e-Pay balance.",
+   "works_in_store": "Lohono GV/e-Pay can only be redeemed online at http://www.lohono.com.",
+   "works_online": "Lohono GV/e-Pay can only be redeemed online at http://www.lohono.com."
+  }
+ },
+ "gyftr:looks-luzo-gift-card": {
+  "quotes": {}
+ },
+ "gyftr:louis-philippe-gift-voucher": {
+  "can_combine_with_store_offers": "yes",
+  "max_vouchers_per_bill": "unlimited",
+  "one_time_use": "yes",
+  "works_in_store": "yes",
+  "works_online": "no",
+  "quotes": {
+   "can_combine_with_store_offers": "This GV / GC CAN be used during sale.",
+   "max_vouchers_per_bill": "Multiple Gift Vouchers CAN be used in one bill at the Stores.",
+   "one_time_use": "Louis Philippe Gift Cards can be used/redeemed only once.",
+   "works_in_store": "This is an Aditya Birla Fashion Retail Limited Louis Philippe Gift Voucher (GV) / Gift Card (GC) and would be accepted at listed outlets.",
+   "works_online": "The GV / GC CANNOT be used online."
+  }
+ },
+ "gyftr:lunch-box": {
+  "can_combine_with_store_offers": "no",
+  "max_vouchers_per_bill": "unlimited",
+  "one_time_use": "yes",
+  "partial_redemption": "yes",
+  "spend_scope": "Online orders placed through the EatSure application/website",
+  "works_in_store": "no",
+  "works_online": "yes",
+  "quotes": {
+   "can_combine_with_store_offers": "GV/GC can be used to buy discounted items on the EatSure app, but it cannot be clubbed with other aggregator offers.",
+   "max_vouchers_per_bill": "4. Multiple GV/GC can be combined and added to the EatSure wallet balance.",
+   "one_time_use": "Lunchbox Gift Cards can be used/redeemed only once.",
+   "partial_redemption": "The GV/GC will be converted into 'EatSure wallet balance', and the wallet balance can be used partially.",
+   "spend_scope": "This is a Lunch Box GV/GC (Gift Voucher/Gift Card) and is valid for online orders placed through the EatSure application/website at https://www.eatsure.com/.",
+   "works_in_store": "1. This is a Lunch Box GV/GC (Gift Voucher/Gift Card) and is valid for online orders placed through the EatSure application/website at https://www.eatsure.com/.",
+   "works_online": "The Gift Card works online."
+  }
+ },
+ "gyftr:luzo": {
+  "one_time_use": "yes",
+  "partial_redemption": "yes",
+  "spend_scope": "Appointments at a hair salon, beauty salon, or salon and spa, and beauty services through the LUZO platform",
+  "works_in_store": "no",
+  "works_online": "no",
+  "quotes": {
+   "one_time_use": "The LUZO Gift Card can only be used once.",
+   "partial_redemption": "But once added to the Luzo Wallet balance, you can use the balance at your leisure.",
+   "spend_scope": "You can use your LUZO Gift Card to book appointments at a hair salon, beauty salon, or salon and spa, and enjoy a wide range of beauty services through the LUZO platform.",
+   "works_in_store": "LUZO Gift Cards can only be redeemed on the LUZO App.",
+   "works_online": "LUZO Gift Cards can only be redeemed on the LUZO App."
+  }
+ },
+ "gyftr:mac": {
+  "can_combine_with_store_offers": "yes",
+  "max_vouchers_per_bill": "unlimited",
+  "works_in_store": "yes",
+  "works_online": "no",
+  "quotes": {
+   "can_combine_with_store_offers": "Gift Vouchers CAN be used to buy discounted products",
+   "max_vouchers_per_bill": "Multiple Gift Vouchers CAN be used in one bill",
+   "works_in_store": "Gift Vouchers CAN Only be used at listed outlets",
+   "works_online": "Gift Vouchers CANNOT be used Online"
+  }
+ }
+}
