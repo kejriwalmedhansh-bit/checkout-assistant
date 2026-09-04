@@ -123,6 +123,21 @@ def buyhatke_targets() -> list[dict]:
     return out
 
 
+def maximize_targets() -> list[dict]:
+    """The harvested catalog, not the cached master — it is 26 listings larger,
+    and the extras are real (a working Yatra, several Amazon variants, Marks &
+    Spencer). Rebuild it with harvest_maximize_catalog_v2.py; the site has no
+    browse-all page, so it cannot be read in one request the way Gyftr and
+    BuyHatke can."""
+    cat = json.loads((REPO / "db" / "maximize_catalog_raw.json").read_text())
+    out = []
+    for pid, rec in cat.items():
+        name = html.unescape(rec.get("product_name") or pid)
+        out.append({"source": "maximize", "slug": f"{name}-{pid}".lower().replace(" ", "-"),
+                    "brand_name": name, "url": rec["url"]})
+    return out
+
+
 def master_targets(source: str) -> list[dict]:
     """Maximize/BuyHatke have no public catalogue endpoint; their own master
     files already carry a source_url for every listing."""
@@ -532,10 +547,16 @@ async def main_async(args) -> None:
         # silently discards the others' work. merge_voucher_terms.py joins them.
         out_path = Path(args.out) if args.out else OUT_PATH.with_name(f"voucher_terms_raw_{source}.json")
         out = load_out(out_path)
-        targets = {"gyftr": gyftr_targets, "buyhatke": buyhatke_targets}.get(
+        targets = {"gyftr": gyftr_targets, "buyhatke": buyhatke_targets,
+                   "maximize": maximize_targets}.get(
             source, lambda: master_targets(source))()
         if not args.refresh:
-            targets = [t for t in targets if f"{source}:{t['slug']}" not in out]
+            # Match on the URL as well as the key: switching Maximize to the
+            # harvested catalog renamed its slugs, and matching on slug alone
+            # would re-collect all 410 listings to gain 26.
+            collected = {rec.get("url") for rec in out.values()}
+            targets = [t for t in targets
+                       if f"{source}:{t['slug']}" not in out and t["url"] not in collected]
         if args.limit:
             targets = targets[: args.limit]
         if not targets:

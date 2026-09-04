@@ -178376,5 +178376,3372 @@
     "best_saving_method": null,
     "has_terms": false,
     "recommendable": false
+  },
+  "maximize:air-india-409": {
+    "available": true,
+    "methods": {
+      "UPI": {
+        "saving_pct": 5.0,
+        "processing_fee": null
+      },
+      "Debit Card": {
+        "saving_pct": 3.75,
+        "processing_fee": null
+      },
+      "Credit Card": {
+        "saving_pct": 3.1,
+        "processing_fee": null
+      },
+      "Amazon pay": {
+        "saving_pct": 3.0,
+        "processing_fee": null
+      },
+      "CC on UPI": {
+        "saving_pct": 2.65,
+        "processing_fee": null
+      },
+      "Pay With Rewards": {
+        "saving_pct": 1.7,
+        "processing_fee": null
+      },
+      "Diners Club": {
+        "saving_pct": 2.75,
+        "processing_fee": null
+      },
+      "Wallets": {
+        "saving_pct": 2.65,
+        "processing_fee": null
+      },
+      "Amex": {
+        "saving_pct": 2.75,
+        "processing_fee": null
+      }
+    },
+    "denominations": [
+      {
+        "value": 2000.0
+      },
+      {
+        "value": 1500.0
+      },
+      {
+        "value": 5000.0
+      },
+      {
+        "value": 10000.0
+      },
+      {
+        "value": 20000.0
+      },
+      {
+        "value": 50000.0
+      },
+      {
+        "value": 100000.0
+      },
+      {
+        "value": 200000.0
+      },
+      {
+        "value": 4750.0
+      },
+      {
+        "value": 250.0
+      }
+    ],
+    "custom_amount": true,
+    "rules": {
+      "works_online": {
+        "value": "yes",
+        "evidence": "Redeem Online on website / app"
+      },
+      "works_in_store": {
+        "value": "no",
+        "evidence": "Redeem Online on website / app"
+      },
+      "one_time_use": {
+        "value": "no",
+        "evidence": "Can be used multiple times"
+      },
+      "can_combine": {
+        "value": "yes",
+        "evidence": "Use several gift cards in one purchase"
+      },
+      "combines_with_store_offers": {
+        "value": "no",
+        "evidence": "No, can't club with other offers / coupons"
+      },
+      "max_cards_per_order": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "ceiling_amount": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "ceiling_period": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "min_order_value": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "max_spend_per_purchase": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "works_on_sale_items": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "excludes": {
+        "value": [
+          "group travel"
+        ],
+        "evidence": "cannot be redeemed for group travel"
+      },
+      "delivery_wait_days": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "validity": {
+        "value": "Valid for upto 12 months",
+        "evidence": "Valid for upto 12 months"
+      }
+    },
+    "terms": "Terms & Conditions\nGift Cards can only be purchased through the Platform.\nGift Cards can only be purchased and redeemed in Indian currency (INR).\nGift Cards can be purchased using credit card or debit card.\nGift Cards are valid until the date mentioned on them; validity cannot be extended.\nNo compensation will be provided for any lapsed or unused amount on a Gift Card.\nGift Cards can be used only on Air India website and mobile app for tickets and ancillary products.\nGift Cards cannot be used for travel insurance, upgrades, or third-party goods/services.\nGift Cards are fully transferable but cannot be resold.\nUnlawful resale is grounds for seizure and cancellation without compensation.\nDenomination range is between INR 1,000 and INR 2,00,000.\nGift Cards cannot be redeemed offline, such as at airport ticketing centres.\nGift Cards cannot be redeemed for group travel.\nGift Cards are for individual use only; travel agent usage will result in cancellation without refund.\nIn case of transaction failure, refund will be made to the same Gift Card within 24 hours.\nGift Cards can be combined with ongoing offers on Air India’s website.\nOther payment methods like credit cards can be used alongside Gift Card redemption on website/app.\nSome Gift Cards support multiple redemptions; others are one-time use only.\nIf purchase exceeds Gift Card value, the balance must be paid via other means.\nUnused balance remains until the expiry date; no refund or credit note for unused portion.\nUp to 3 Gift Cards can be used in a single transaction.\nGift Cards cannot be refunded, cancelled, or exchanged for cash.\nUsers are solely responsible for keeping Gift Card details confidential.\nAir India may amend, withdraw, or cancel Gift Cards at any time without notice.\nIssuance of a Gift Card does not guarantee provision of services or products.\nAir India disclaims warranties regarding Gift Card performance or platform compatibility.\nIn case a Gift Card is non-functional, it will be replaced with a new one of same value.\nAir India is not liable for losses due to user negligence or third-party misuse.\nNo refund for cancellations where the Gift Card has expired.\nRefunded amounts go back to the original Gift Card; retain card number and PIN.\nAir India may suspend or cancel Gift Cards in case of fraud or violation.\nYou shall indemnify Air India against any losses from misuse or breach of terms.\nAir India’s maximum liability is limited to the value of the Gift Card.\nGift Card terms governed by Indian laws; courts of Delhi have exclusive jurisdiction.\nDisputes resolved through arbitration in Delhi under Arbitration and Conciliation Act, 1996.\nArbitration proceedings will be confidential and conducted in English.\nArbitrator's decision will be final and binding.\nArbitration costs will be decided by arbitrator; each party bears their own interim costs.\nNothing in the terms limits your statutory rights under applicable law.\nFor queries, contact Air India's customer support at 0116 932 9333, 0116 932 9999, or 1860 233 1407.\nClose",
+    "instructions": "How To Redeem\nSelect the flights you are interested in on the Air India website or Air India mobile app.\nEnter the Gift Card number and PIN after completing the purchase of a Gift Card.\nIf the booking amount equals or exceeds the available credit on the Gift Card, the Gift Card will be fully used until it has no remaining value.\nIf your Gift Card amount is lower than the booking amount, you can make up the difference by paying the additional amount using any credit card accepted by Air India on the Air India website or mobile app. Gift Card cannot be clubbed with any other form of payment if redemption is being done through the Air India Contact Centre.\nClose",
+    "cashback_only": false,
+    "cashback_pct": null,
+    "maxcoins_earn_pct": 5.25,
+    "source": "maximize",
+    "slug": "air-india-409",
+    "brand_name": "Air India",
+    "url": "https://www.maximize.money/gift-cards/Air India/409",
+    "collected_at": "2026-09-04T01:49:49+00:00",
+    "best_saving_pct": 5.0,
+    "best_saving_method": "UPI",
+    "has_terms": true,
+    "recommendable": true
+  },
+  "maximize:absolute-barbecues-388": {
+    "available": true,
+    "methods": {
+      "UPI": {
+        "saving_pct": 8.5,
+        "processing_fee": null
+      },
+      "Debit Card": {
+        "saving_pct": 7.25,
+        "processing_fee": null
+      },
+      "Credit Card": {
+        "saving_pct": 6.6,
+        "processing_fee": null
+      },
+      "Amazon pay": {
+        "saving_pct": 6.5,
+        "processing_fee": null
+      },
+      "CC on UPI": {
+        "saving_pct": 6.15,
+        "processing_fee": null
+      },
+      "Pay With Rewards": {
+        "saving_pct": 5.2,
+        "processing_fee": null
+      },
+      "Diners Club": {
+        "saving_pct": 6.25,
+        "processing_fee": null
+      },
+      "Wallets": {
+        "saving_pct": 6.15,
+        "processing_fee": null
+      },
+      "Amex": {
+        "saving_pct": 6.25,
+        "processing_fee": null
+      }
+    },
+    "denominations": [
+      {
+        "value": 2000.0
+      },
+      {
+        "value": 1500.0
+      },
+      {
+        "value": 200.0
+      },
+      {
+        "value": 500.0
+      },
+      {
+        "value": 1000.0
+      },
+      {
+        "value": 5000.0
+      },
+      {
+        "value": 10000.0
+      },
+      {
+        "value": 183.0
+      },
+      {
+        "value": 17.0
+      }
+    ],
+    "custom_amount": true,
+    "rules": {
+      "works_online": {
+        "value": "yes",
+        "evidence": "url=https%3a%2f%2fwww"
+      },
+      "works_in_store": {
+        "value": "yes",
+        "evidence": "Terms & Conditions This is an Absolute Barbecues (AB's) Insta Gift Voucher (GV) / Gift Card (GC) and would be accepted at AB's outlets in India"
+      },
+      "one_time_use": {
+        "value": "yes",
+        "evidence": "Must use the full balance in one go"
+      },
+      "can_combine": {
+        "value": "yes",
+        "evidence": "Use several gift cards in one purchase"
+      },
+      "combines_with_store_offers": {
+        "value": "no",
+        "evidence": "No, can't club with other offers / coupons"
+      },
+      "max_cards_per_order": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "ceiling_amount": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "ceiling_period": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "min_order_value": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "max_spend_per_purchase": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "works_on_sale_items": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "excludes": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "delivery_wait_days": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "validity": {
+        "value": "Valid for upto 12 months",
+        "evidence": "Valid for upto 12 months"
+      }
+    },
+    "terms": "Terms & Conditions\nThis is an Absolute Barbecues (AB's) Insta Gift Voucher (GV) / Gift Card (GC) and would be accepted at AB's outlets in India.\nThe person who has the AB's GV / GC Code is deemed to be the beneficiary.\nDo inform the outlet reception that you plan to use the GV / GC for making payments before billing.\nThe validity period is 365 days from the date of its issuance or depends on the condition of the purchase.\nA maximum of 5 GV / GC can be used in one bill.\nThis is a ONE time use GV / GC. Electronic Gift Vouchers can't be replaced or duplicated, if lost or stolen.\nNo Credit note / Refund for the unused amount of the GV / GC will be given.\nAB's GV / GC CANNOT be revalidated once expired.\nThis E-Voucher cannot be exchanged for cash.\nAB's GV / GC cannot be redeemed on specific block out dates. AB's may add or delete any date on its sole discretion.\nAny dispute related to the GV / GC should be referred to the issuing company and the decision of the issuing company shall be final.\nAB's makes full efforts to accept Insta Gift Vouchers (GV) / Gift Card (GC), but on account of any technical / administrative reasons an outlet may refuse to accept the same.\nIf an Insta Gift Voucher (GV) / Gift Card (GC) gets blocked on account of technical issue, it would get enabled in 72 hours.\nPlease contact outlet manager for any acceptance issue and if issue is still not resolved, you can write to wecare@absolute-barbecue.com\nAll disputes shall be subject to the exclusive jurisdiction of competent courts of Hyderabad, India.\nAbsolute Barbecues reserves the right to change the 'Terms & Conditions' at any time without prior information.\nClose",
+    "instructions": "How To Redeem\nVisit nearest Absolute Barbecues (AB’s) restaurant, check store locator - https://ems-urlprotect.trendmicro.com:443/wis/clicktime/v1/query?url=https%3a%2f%2fwww.absolutebarbecues.com&umid=539bf63d-9c47-48a1-b696-4987cb3e6d47&rct=1755513604&auth=79933211e7a7e528900b9643b3e255c9cd8c0549-dbc3b4682aef1ec79ebef1a7ce2315c4494819fd\nInform the service team that you would like to pay using Gift Card, share the Card no and pin details\nCashier in puts card details and submit it for validation\nOnce card gets validated, total invoice value will get reduced with redeemed value of the gift card\nBalance amount (if any) must be paid using other mode of payment accepted at the outlet\nPost clearance of the payment invoice gets closed\nClose",
+    "cashback_only": false,
+    "cashback_pct": null,
+    "maxcoins_earn_pct": 8.75,
+    "source": "maximize",
+    "slug": "absolute-barbecues-388",
+    "brand_name": "Absolute Barbecues",
+    "url": "https://www.maximize.money/gift-cards/Absolute Barbecues/388",
+    "collected_at": "2026-09-04T01:50:09+00:00",
+    "best_saving_pct": 8.5,
+    "best_saving_method": "UPI",
+    "has_terms": true,
+    "recommendable": true
+  },
+  "maximize:amazon-547": {
+    "available": true,
+    "methods": {
+      "UPI": {
+        "saving_pct": 15.0,
+        "processing_fee": null
+      },
+      "Debit Card": {
+        "saving_pct": 13.75,
+        "processing_fee": null
+      },
+      "Credit Card": {
+        "saving_pct": 13.1,
+        "processing_fee": null
+      },
+      "CC on UPI": {
+        "saving_pct": 12.65,
+        "processing_fee": null
+      },
+      "Diners Club": {
+        "saving_pct": 12.75,
+        "processing_fee": null
+      },
+      "Amex": {
+        "saving_pct": 12.75,
+        "processing_fee": null
+      }
+    },
+    "denominations": [
+      {
+        "value": 2000.0
+      },
+      {
+        "value": 1500.0
+      },
+      {
+        "value": 799.0
+      },
+      {
+        "value": 679.15
+      },
+      {
+        "value": 119.85
+      }
+    ],
+    "custom_amount": false,
+    "rules": {
+      "works_online": {
+        "value": "yes",
+        "evidence": "Redeem Online on website / app"
+      },
+      "works_in_store": {
+        "value": "no",
+        "evidence": "Redeem Online on website / app"
+      },
+      "one_time_use": {
+        "value": "yes",
+        "evidence": "Must use the full balance in one go"
+      },
+      "can_combine": {
+        "value": "no",
+        "evidence": "Multiple cards can't be clubbed"
+      },
+      "combines_with_store_offers": {
+        "value": "no",
+        "evidence": "No, can't club with other offers / coupons"
+      },
+      "max_cards_per_order": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "ceiling_amount": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "ceiling_period": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "min_order_value": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "max_spend_per_purchase": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "works_on_sale_items": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "excludes": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "delivery_wait_days": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "validity": {
+        "value": "Valid for upto 12 months",
+        "evidence": "Valid for upto 12 months"
+      }
+    },
+    "terms": "Terms & Conditions\nAmazon Prime Voucher is issued by Pine Labs Private Limited (Qwikcilver) with Amazon Pay and can be used for Amazon Prime memberships (3/12 months, Prime Lite, Prime Shopping edition) or Amazon Pay Anytime Gift Cards (zero value) on Amazon.in.\nThe voucher has a validity of 12 months from the date of activation and cannot be transferred or cancelled once issued.\nAmazon Prime Voucher cannot be used on Amazon Business accounts.\nCredit and Debit Cards issued outside India cannot be used to purchase Amazon Prime Voucher.\nThe voucher is valid only for new users subscribing to Amazon Prime for the first time.\nAmazon Prime Voucher cannot be used for physical or digital products, Global Store items, recharges, bill payments, ticket bookings, financial products, Amazon Pay gift cards, or mixed orders with ineligible items.\nCustomers with Prime activated via telecom providers (Airtel, Jio, VI, etc.) or Google Play subscriptions are not eligible to redeem this voucher.\nBeneficiary can redeem the voucher on https://www.amazon.in/vouchers by applying the 13-digit numeric code, with a maximum balance addition of ₹1799 per voucher.\nAmazon Prime Voucher can be redeemed only once per customer, is non-refundable, non-cancellable, and cannot be redeemed for cash or transferred for value.\nPine Labs or Amazon are not responsible if the voucher is lost, stolen, or misused, and terms may be changed anytime; e-gift card delivery may take up to 24 hours, and no returns/refunds are allowed\nClose",
+    "instructions": "How To Redeem\nVisit https://www.amazon.in/vouchers\nEnter the voucher code in 'Add new' section.\nClick on 'Add button' to add voucher.\nClose",
+    "cashback_only": false,
+    "cashback_pct": null,
+    "maxcoins_earn_pct": 18.75,
+    "source": "maximize",
+    "slug": "amazon-547",
+    "brand_name": "Amazon",
+    "url": "https://www.maximize.money/gift-cards/Amazon/547",
+    "collected_at": "2026-09-04T01:50:24+00:00",
+    "best_saving_pct": 15.0,
+    "best_saving_method": "UPI",
+    "has_terms": true,
+    "recommendable": true
+  },
+  "maximize:amazon-548": {
+    "available": false,
+    "methods": {},
+    "denominations": [],
+    "custom_amount": false,
+    "rules": {
+      "works_online": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "works_in_store": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "one_time_use": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "can_combine": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "combines_with_store_offers": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "max_cards_per_order": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "ceiling_amount": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "ceiling_period": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "min_order_value": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "max_spend_per_purchase": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "works_on_sale_items": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "excludes": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "delivery_wait_days": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "validity": {
+        "value": "not_stated",
+        "evidence": ""
+      }
+    },
+    "terms": "",
+    "instructions": "",
+    "cashback_only": false,
+    "cashback_pct": null,
+    "maxcoins_earn_pct": null,
+    "source": "maximize",
+    "slug": "amazon-548",
+    "brand_name": "Amazon",
+    "url": "https://www.maximize.money/gift-cards/Amazon/548",
+    "collected_at": "2026-09-04T01:50:48+00:00",
+    "best_saving_pct": null,
+    "best_saving_method": null,
+    "has_terms": false,
+    "recommendable": false
+  },
+  "maximize:amazon-1083": {
+    "available": true,
+    "methods": {
+      "UPI": {
+        "saving_pct": 0.0,
+        "processing_fee": null
+      },
+      "Debit Card": {
+        "saving_pct": 0.0,
+        "processing_fee": null
+      },
+      "Credit Card": {
+        "saving_pct": 0.0,
+        "processing_fee": null
+      },
+      "CC on UPI": {
+        "saving_pct": 0.0,
+        "processing_fee": null
+      },
+      "Diners Club": {
+        "saving_pct": 0.0,
+        "processing_fee": null
+      },
+      "Amex": {
+        "saving_pct": 0.0,
+        "processing_fee": null
+      }
+    },
+    "denominations": [
+      {
+        "value": 2000.0
+      },
+      {
+        "value": 1500.0
+      },
+      {
+        "value": 100.0
+      },
+      {
+        "value": 200.0
+      },
+      {
+        "value": 500.0
+      },
+      {
+        "value": 1000.0
+      },
+      {
+        "value": 3000.0
+      },
+      {
+        "value": 5000.0
+      },
+      {
+        "value": 8000.0
+      }
+    ],
+    "custom_amount": true,
+    "rules": {
+      "works_online": {
+        "value": "yes",
+        "evidence": "Close How To Redeem Visit https://www"
+      },
+      "works_in_store": {
+        "value": "yes",
+        "evidence": "Cannot be used to purchase other gift cards or for certain global store products"
+      },
+      "one_time_use": {
+        "value": "no",
+        "evidence": "Balance remains until fully utilized or expired"
+      },
+      "can_combine": {
+        "value": "yes",
+        "evidence": "Use several gift cards in one purchase"
+      },
+      "combines_with_store_offers": {
+        "value": "yes",
+        "evidence": "No cap on the number of cards per account"
+      },
+      "max_cards_per_order": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "ceiling_amount": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "ceiling_period": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "min_order_value": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "max_spend_per_purchase": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "works_on_sale_items": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "excludes": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "delivery_wait_days": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "validity": {
+        "value": "Valid for upto 12 months",
+        "evidence": "Valid for upto 12 months"
+      }
+    },
+    "terms": "Terms & Conditions\nIssued by Pine Labs under the brand Qwikcilver.\nCan be added to your Amazon Pay balance and used across Amazon.in.\nCannot be used to purchase other gift cards or for certain global store products.\nNo cap on the number of gift cards that can be added to an account.\nThe balance remains until fully utilized or expired.\nGift cards, once purchased, cannot be cancelled or refunded\nA customer can add a maximum of INR 15,000 worth of Amazon Pay Gift Cards in a calendar month.\nCustomers may be required to complete additional verification when adding an Amazon Pay Gift Card.\nClose",
+    "instructions": "How To Redeem\nVisit https://www.amazon.in/addgiftcard.\nEnter the 14-digit code to add the balance to your account.\nUse the balance during your next purchase.\nClose",
+    "cashback_only": false,
+    "cashback_pct": null,
+    "maxcoins_earn_pct": 1.0,
+    "source": "maximize",
+    "slug": "amazon-1083",
+    "brand_name": "Amazon",
+    "url": "https://www.maximize.money/gift-cards/Amazon/1083",
+    "collected_at": "2026-09-04T01:51:05+00:00",
+    "best_saving_pct": 0.0,
+    "best_saving_method": "UPI",
+    "has_terms": true,
+    "recommendable": false
+  },
+  "maximize:dominos-507": {
+    "available": false,
+    "methods": {},
+    "denominations": [],
+    "custom_amount": false,
+    "rules": {
+      "works_online": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "works_in_store": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "one_time_use": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "can_combine": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "combines_with_store_offers": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "max_cards_per_order": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "ceiling_amount": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "ceiling_period": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "min_order_value": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "max_spend_per_purchase": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "works_on_sale_items": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "excludes": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "delivery_wait_days": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "validity": {
+        "value": "not_stated",
+        "evidence": ""
+      }
+    },
+    "terms": "",
+    "instructions": "",
+    "cashback_only": false,
+    "cashback_pct": null,
+    "maxcoins_earn_pct": null,
+    "source": "maximize",
+    "slug": "dominos-507",
+    "brand_name": "Dominos",
+    "url": "https://www.maximize.money/gift-cards/Dominos/507",
+    "collected_at": "2026-09-04T01:51:29+00:00",
+    "best_saving_pct": null,
+    "best_saving_method": null,
+    "has_terms": false,
+    "recommendable": false
+  },
+  "maximize:amazon-549": {
+    "available": true,
+    "methods": {
+      "UPI": {
+        "saving_pct": 15.0,
+        "processing_fee": null
+      },
+      "Debit Card": {
+        "saving_pct": 13.75,
+        "processing_fee": null
+      },
+      "Credit Card": {
+        "saving_pct": 13.1,
+        "processing_fee": null
+      },
+      "CC on UPI": {
+        "saving_pct": 12.65,
+        "processing_fee": null
+      },
+      "Diners Club": {
+        "saving_pct": 12.75,
+        "processing_fee": null
+      },
+      "Amex": {
+        "saving_pct": 12.75,
+        "processing_fee": null
+      }
+    },
+    "denominations": [
+      {
+        "value": 2000.0
+      },
+      {
+        "value": 1500.0
+      },
+      {
+        "value": 1499.0
+      },
+      {
+        "value": 1274.15
+      },
+      {
+        "value": 224.85
+      }
+    ],
+    "custom_amount": false,
+    "rules": {
+      "works_online": {
+        "value": "yes",
+        "evidence": "Redeem Online on website / app"
+      },
+      "works_in_store": {
+        "value": "no",
+        "evidence": "Redeem Online on website / app"
+      },
+      "one_time_use": {
+        "value": "yes",
+        "evidence": "Must use the full balance in one go"
+      },
+      "can_combine": {
+        "value": "no",
+        "evidence": "Multiple cards can't be clubbed"
+      },
+      "combines_with_store_offers": {
+        "value": "no",
+        "evidence": "No, can't club with other offers / coupons"
+      },
+      "max_cards_per_order": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "ceiling_amount": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "ceiling_period": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "min_order_value": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "max_spend_per_purchase": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "works_on_sale_items": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "excludes": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "delivery_wait_days": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "validity": {
+        "value": "Valid for upto 6 months",
+        "evidence": "Valid for upto 6 months"
+      }
+    },
+    "terms": "Terms & Conditions\nThis voucher is issued by Pine Labs Pvt Ltd under the Qwikcilver brand and co-branded with Amazon Pay (India) Pvt Ltd.\nValid for purchasing: Amazon Prime Memberships : 12-month\nAmazon Pay Anytime Gift Cards (inactive, zero-value)\nCannot be used to buy: Products on Amazon Global Store\nCannot be used to buy: Recharges, bill payments, ticket bookings, financial products\nCannot be used to buy: Amazon Pay gift cards (pre-loaded)\nCannot be used to buy: Mixed orders (with ineligible items)\nCannot be redeemed: On Amazon Business accounts\nCannot be redeemed: If you have Prime via telecom providers (Airtel, VI, Jio)\nCannot be redeemed: if your current Prime subscription was purchased via Google Play\nRedeemable only once per customer\nPrime membership once activated cannot be cancelled or refunded\nVoucher is non-transferable, non-refundable, and cannot be converted to cash\nCards issued outside India cannot be used to purchase this voucher\nNot valid if lost, stolen, or misused - Pine Labs, Amazon, and affiliates are not liable\nValid for 12 months from activation\nPine Labs reserves the right to change terms without notice\nVoucher is for individual use and cannot be combined with other Prime subscription methods.\nCannot be reused or extended beyond expiry.\nAmazon Prime via this voucher is non-cancellable.\nClose",
+    "instructions": "How To Redeem\nVisit: https://www.amazon.in/vouchers\nEnter your 13-digit voucher code in the ‘Add new’ section\nClick Add to apply the voucher\nClose",
+    "cashback_only": false,
+    "cashback_pct": null,
+    "maxcoins_earn_pct": 17.75,
+    "source": "maximize",
+    "slug": "amazon-549",
+    "brand_name": "Amazon",
+    "url": "https://www.maximize.money/gift-cards/Amazon/549",
+    "collected_at": "2026-09-04T01:51:44+00:00",
+    "best_saving_pct": 15.0,
+    "best_saving_method": "UPI",
+    "has_terms": true,
+    "recommendable": true
+  },
+  "maximize:ajio-luxe-700": {
+    "available": true,
+    "methods": {
+      "UPI": {
+        "saving_pct": 7.0,
+        "processing_fee": null
+      },
+      "Debit Card": {
+        "saving_pct": 5.75,
+        "processing_fee": null
+      },
+      "Credit Card": {
+        "saving_pct": 5.1,
+        "processing_fee": null
+      },
+      "Amazon pay": {
+        "saving_pct": 5.0,
+        "processing_fee": null
+      },
+      "CC on UPI": {
+        "saving_pct": 4.65,
+        "processing_fee": null
+      },
+      "Pay With Rewards": {
+        "saving_pct": 3.7,
+        "processing_fee": null
+      },
+      "Diners Club": {
+        "saving_pct": 4.75,
+        "processing_fee": null
+      },
+      "Wallets": {
+        "saving_pct": 4.65,
+        "processing_fee": null
+      },
+      "Amex": {
+        "saving_pct": 4.75,
+        "processing_fee": null
+      }
+    },
+    "denominations": [
+      {
+        "value": 2000.0
+      },
+      {
+        "value": 50000.0
+      },
+      {
+        "value": 1500.0
+      },
+      {
+        "value": 5000.0
+      },
+      {
+        "value": 10000.0
+      },
+      {
+        "value": 20000.0
+      },
+      {
+        "value": 4650.0
+      },
+      {
+        "value": 350.0
+      }
+    ],
+    "custom_amount": true,
+    "rules": {
+      "works_online": {
+        "value": "yes",
+        "evidence": "Redeem Online on website / app"
+      },
+      "works_in_store": {
+        "value": "no",
+        "evidence": "Redeem Online on website / app"
+      },
+      "one_time_use": {
+        "value": "no",
+        "evidence": "Can be used multiple times"
+      },
+      "can_combine": {
+        "value": "yes",
+        "evidence": "Use several gift cards in one purchase"
+      },
+      "combines_with_store_offers": {
+        "value": "yes",
+        "evidence": "Yes, clubbable with other offers / coupons"
+      },
+      "max_cards_per_order": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "ceiling_amount": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "ceiling_period": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "min_order_value": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "max_spend_per_purchase": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "works_on_sale_items": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "excludes": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "delivery_wait_days": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "validity": {
+        "value": "Valid for upto 12 months",
+        "evidence": "Valid for upto 12 months"
+      }
+    },
+    "terms": "Terms & Conditions\nGift Cards can be redeemed only on the AJIO website and mobile application.\nThe Gift Card is valid only for eligible AJIO Luxe products.\nThe Gift Card cannot be used to purchase other Gift Cards.\nThe Gift Card value must first be added to your AJIO Wallet as AJIO Cash before redemption.\nOnce added to the AJIO Wallet, the balance can be used across multiple purchases until exhausted or expired.\nAny unused balance will remain in the AJIO Wallet and can be used for future eligible purchases within the validity period.\nIf your purchase exceeds the available Gift Card balance, the remaining amount must be paid using another payment method.\nGift Cards cannot be redeemed for cash, transferred, reloaded, exchanged, or resold.\nGift Cards cannot be used to purchase excluded products such as H&M products, gold or silver coins, fine jewellery, or other products excluded by AJIO.\nGift Cards are non-refundable and cannot be cancelled after purchase.\nLost, stolen, damaged, or unauthorized use of Gift Cards will not be replaced or reimbursed.\nAJIO reserves the right to cancel or block Gift Cards in case of fraud, misuse, or violation of its terms.\nAJIO reserves the right to modify or withdraw these terms at any time without prior notice.\nFor support or disputes, contact AJIO Customer Care or Woohoo support.\nClose",
+    "instructions": "How To Redeem\nVisit the AJIO website or mobile app and sign in to your account.\nAdd your preferred AJIO Luxe products to the cart.\nProceed to checkout.\nSelect Add Gift Card under the payment options.\nEnter the 16-digit Gift Card number and 6-digit PIN.\nClick Add to AJIO Wallet. The gift card value will be added as AJIO Cash.\nComplete your purchase using the wallet balance. If the order value exceeds the available balance, pay the remaining amount using another payment method.\nClose",
+    "cashback_only": false,
+    "cashback_pct": null,
+    "maxcoins_earn_pct": 7.1,
+    "source": "maximize",
+    "slug": "ajio-luxe-700",
+    "brand_name": "AJIO Luxe",
+    "url": "https://www.maximize.money/gift-cards/AJIO Luxe/700",
+    "collected_at": "2026-09-04T01:52:04+00:00",
+    "best_saving_pct": 7.0,
+    "best_saving_method": "UPI",
+    "has_terms": true,
+    "recommendable": true
+  },
+  "maximize:amazon-448": {
+    "available": true,
+    "methods": {
+      "UPI": {
+        "saving_pct": 1.5,
+        "processing_fee": null
+      },
+      "Debit Card": {
+        "saving_pct": 0.25,
+        "processing_fee": null
+      },
+      "Credit Card": {
+        "saving_pct": 0.0,
+        "processing_fee": null
+      },
+      "CC on UPI": {
+        "saving_pct": 0.0,
+        "processing_fee": null
+      },
+      "Diners Club": {
+        "saving_pct": 0.0,
+        "processing_fee": null
+      },
+      "Amex": {
+        "saving_pct": 0.0,
+        "processing_fee": null
+      }
+    },
+    "denominations": [
+      {
+        "value": 2000.0
+      },
+      {
+        "value": 1500.0
+      },
+      {
+        "value": 200.0
+      },
+      {
+        "value": 500.0
+      },
+      {
+        "value": 1000.0
+      },
+      {
+        "value": 5000.0
+      },
+      {
+        "value": 10000.0
+      },
+      {
+        "value": 197.0
+      },
+      {
+        "value": 3.0
+      }
+    ],
+    "custom_amount": true,
+    "rules": {
+      "works_online": {
+        "value": "yes",
+        "evidence": "Redeem Online on website / app"
+      },
+      "works_in_store": {
+        "value": "no",
+        "evidence": "Redeem Online on website / app"
+      },
+      "one_time_use": {
+        "value": "no",
+        "evidence": "Can be used multiple times"
+      },
+      "can_combine": {
+        "value": "no",
+        "evidence": "Multiple cards can't be clubbed"
+      },
+      "combines_with_store_offers": {
+        "value": "no",
+        "evidence": "No, can't club with other offers / coupons"
+      },
+      "max_cards_per_order": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "ceiling_amount": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "ceiling_period": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "min_order_value": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "max_spend_per_purchase": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "works_on_sale_items": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "excludes": {
+        "value": [
+          "Amazon Business marketplace"
+        ],
+        "evidence": "Not valid on Amazon Business marketplace"
+      },
+      "delivery_wait_days": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "validity": {
+        "value": "Valid for upto 12 months",
+        "evidence": "Valid for upto 12 months"
+      }
+    },
+    "terms": "Terms & Conditions\nThese vouchers are issued by Pine Labs (Qwikcilver) and co-branded with Amazon Pay.\nCan only be used to purchase products listed on the Amazon Fresh page on Amazon.in.\nNon-transferable and non-cancellable once issued.\nInternational credit/debit cards cannot be used to purchase these vouchers.\nTo redeem, apply the 13-digit alphanumeric code at amazon.in/vouchers to add the balance to your Amazon.in account.\nValid for 12 months from the date of activation.\nCannot be transferred for value or redeemed for cash.\nLost, stolen, or misused vouchers are the responsibility of the customer; no replacements will be issued.\nDelivery is usually instant but may be delayed up to 24–48 hours due to system issues.\nAmazon and Pine Labs logos/trademarks used are intellectual properties of their respective owners.\nPine Labs may update these terms anytime without prior notice.\nNot valid on Amazon Business marketplace.\nClose",
+    "instructions": "How To Redeem\nVisit https://www.amazon.in/vouchers.\nEnter the voucher code in the ''Add new'' section.\nClick on the ‘Add’ button to apply the voucher.\nTo track your voucher balance, revisit https://www.amazon.in/vouchers.\nDuring checkout on Amazon.in, select Voucher Balance as the payment option.\nFor full Terms & Conditions, visit T&C Link.\nExplore eligible products on the Amazon Fresh Page.\nClose",
+    "cashback_only": false,
+    "cashback_pct": null,
+    "maxcoins_earn_pct": 1.65,
+    "source": "maximize",
+    "slug": "amazon-448",
+    "brand_name": "Amazon",
+    "url": "https://www.maximize.money/gift-cards/Amazon/448",
+    "collected_at": "2026-09-04T01:52:20+00:00",
+    "best_saving_pct": 1.5,
+    "best_saving_method": "UPI",
+    "has_terms": true,
+    "recommendable": true
+  },
+  "maximize:air-india-1089": {
+    "available": true,
+    "methods": {
+      "UPI": {
+        "saving_pct": 18.0,
+        "processing_fee": null
+      },
+      "Debit Card": {
+        "saving_pct": 16.75,
+        "processing_fee": null
+      },
+      "Credit Card": {
+        "saving_pct": 16.1,
+        "processing_fee": null
+      },
+      "Amazon pay": {
+        "saving_pct": 16.0,
+        "processing_fee": null
+      },
+      "CC on UPI": {
+        "saving_pct": 15.65,
+        "processing_fee": null
+      },
+      "Pay With Rewards": {
+        "saving_pct": 14.7,
+        "processing_fee": null
+      },
+      "Diners Club": {
+        "saving_pct": 15.75,
+        "processing_fee": null
+      },
+      "Wallets": {
+        "saving_pct": 15.65,
+        "processing_fee": null
+      },
+      "Amex": {
+        "saving_pct": 15.75,
+        "processing_fee": null
+      }
+    },
+    "denominations": [
+      {
+        "value": 2000.0
+      },
+      {
+        "value": 1500.0
+      },
+      {
+        "value": 1000.0
+      },
+      {
+        "value": 5000.0
+      },
+      {
+        "value": 820.0
+      },
+      {
+        "value": 180.0
+      }
+    ],
+    "custom_amount": true,
+    "rules": {
+      "works_online": {
+        "value": "yes",
+        "evidence": "Redeem online on website / app"
+      },
+      "works_in_store": {
+        "value": "no",
+        "evidence": "Redeem online on website / app"
+      },
+      "one_time_use": {
+        "value": "no",
+        "evidence": "Can be used multiple times"
+      },
+      "can_combine": {
+        "value": "yes",
+        "evidence": "Use several gift cards in one purchase"
+      },
+      "combines_with_store_offers": {
+        "value": "yes",
+        "evidence": "Yes, clubbable with other offers / coupons"
+      },
+      "max_cards_per_order": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "ceiling_amount": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "ceiling_period": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "min_order_value": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "max_spend_per_purchase": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "works_on_sale_items": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "excludes": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "delivery_wait_days": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "validity": {
+        "value": "Valid upto 6 Months from purchase",
+        "evidence": "Valid upto 6 Months from purchase"
+      }
+    },
+    "terms": "Terms & Conditions\nThe Air India Ancillary Gift Card is redeemable only on the Air India website and mobile app.\nValid only for purchasing Seat Selection, Extra Baggage, ZipAhead, and Sports Equipment.\nApplicable only for bookings made in Indian Rupees (INR) from Point of Sale India.\nGift Cards are available in denominations from ₹500 to ₹5,000.\nValid for 180 days from the date of activation.\nGift Cards can be combined with Air India promotional offers, except offers tied to a specific payment method.\nMultiple Gift Cards can be added to the Air India Wallet for easier redemption.\nPartial redemption is supported where applicable. The remaining balance stays available until expiry.\nIf the ancillary purchase exceeds the Gift Card balance, the remaining amount must be paid using a Credit Card.\nGift Cards cannot be used for: Flight fare, Travel insurance, Upgrades, Third-party services, Group bookings\nGift Cards cannot be redeemed through airport counters, customer service centres, or call centres.\nGift Cards cannot be cancelled, refunded, exchanged for cash, or revalidated after expiry.\nIn case of transaction failure, the amount will be re-credited within 24 hours.\nOn cancellation, the refunded amount is credited back to the same Gift Card or Wallet, provided it is still valid.\nAir India is not responsible for lost, stolen, or unauthorized use of Gift Cards.\nAir India reserves the right to suspend, cancel, or reject Gift Cards in cases of fraud or misuse.\nAir India may modify these terms without prior notice.\nAny disputes are subject to the exclusive jurisdiction of the courts in Delhi.\nClose",
+    "instructions": "How To Redeem\nVisit the Air India website or mobile app and book your flight.\nSelect eligible ancillary services such as Seat Selection, Extra Baggage, ZipAhead, or Sports Equipment.\nAt the payment page, enter your Gift Card Number and PIN to redeem.\nIf the gift card balance is insufficient, pay the remaining amount using a Credit Card.\nFor multiple gift cards, first add them to your Air India Wallet, then select Use Air India Wallet/Gift Cards/Vouchers during checkout and apply the desired wallet balance.\nClose",
+    "cashback_only": false,
+    "cashback_pct": null,
+    "maxcoins_earn_pct": 18.25,
+    "source": "maximize",
+    "slug": "air-india-1089",
+    "brand_name": "Air India",
+    "url": "https://www.maximize.money/gift-cards/Air India/1089",
+    "collected_at": "2026-09-04T01:52:40+00:00",
+    "best_saving_pct": 18.0,
+    "best_saving_method": "UPI",
+    "has_terms": true,
+    "recommendable": true
+  },
+  "maximize:v-mart-(custom)-930": {
+    "available": true,
+    "methods": {
+      "UPI": {
+        "saving_pct": 6.75,
+        "processing_fee": null
+      },
+      "Debit Card": {
+        "saving_pct": 5.5,
+        "processing_fee": null
+      },
+      "Credit Card": {
+        "saving_pct": 4.85,
+        "processing_fee": null
+      },
+      "Amazon pay": {
+        "saving_pct": 4.75,
+        "processing_fee": null
+      },
+      "CC on UPI": {
+        "saving_pct": 4.4,
+        "processing_fee": null
+      },
+      "Pay With Rewards": {
+        "saving_pct": 3.45,
+        "processing_fee": null
+      },
+      "Diners Club": {
+        "saving_pct": 4.5,
+        "processing_fee": null
+      },
+      "Wallets": {
+        "saving_pct": 4.4,
+        "processing_fee": null
+      },
+      "Amex": {
+        "saving_pct": 4.5,
+        "processing_fee": null
+      }
+    },
+    "denominations": [
+      {
+        "value": 2000.0
+      },
+      {
+        "value": 1500.0
+      },
+      {
+        "value": 250.0
+      },
+      {
+        "value": 500.0
+      },
+      {
+        "value": 1000.0
+      },
+      {
+        "value": 5000.0
+      },
+      {
+        "value": 233.12
+      },
+      {
+        "value": 16.88
+      }
+    ],
+    "custom_amount": true,
+    "rules": {
+      "works_online": {
+        "value": "yes",
+        "evidence": "in/ E-Gift Card redemption is not allowed for FMCG, grocery, or Kirana sales E-Gift Cards are valid for 1 year from the date of issue E-Gift Cards are not valid for online purchases and cannot be redeemed on the V-Mart app or https://www"
+      },
+      "works_in_store": {
+        "value": "yes",
+        "evidence": "Terms & Conditions V-Mart E-Gift Cards are valid at all V-Mart and Unlimited stores across India List of stores is available at http://stores"
+      },
+      "one_time_use": {
+        "value": "yes",
+        "evidence": "Must use the full balance in one go"
+      },
+      "can_combine": {
+        "value": "no",
+        "evidence": "Multiple cards can't be clubbed"
+      },
+      "combines_with_store_offers": {
+        "value": "no",
+        "evidence": "No, can't club with other offers / coupons"
+      },
+      "max_cards_per_order": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "ceiling_amount": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "ceiling_period": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "min_order_value": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "max_spend_per_purchase": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "works_on_sale_items": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "excludes": {
+        "value": [
+          "online purchases and cannot be redeemed on the V-Mart app or https://www",
+          "FMCG / grocery items)"
+        ],
+        "evidence": "not valid for online purchases and cannot be redeemed on the V-Mart app or https://www"
+      },
+      "delivery_wait_days": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "validity": {
+        "value": "Valid for upto 12 months",
+        "evidence": "Valid for upto 12 months"
+      }
+    },
+    "terms": "Terms & Conditions\nV-Mart E-Gift Cards are valid at all V-Mart and Unlimited stores across India\nList of stores is available at http://stores.vmart.co.in/\nE-Gift Card redemption is not allowed for FMCG, grocery, or Kirana sales\nE-Gift Cards are valid for 1 year from the date of issue\nE-Gift Cards are not valid for online purchases and cannot be redeemed on the V-Mart app or https://www.vmartretail.com\nE-Gift Cards cannot be exchanged for cash, cheque, credit note, or other gift cards\nE-Gift Cards cannot be revalidated once expired\nE-Gift Cards are non-refundable and non-returnable\nReloading of E-Gift Cards is not permitted\nE-Gift Cards are one-time redeemable and cannot be used multiple times\nMultiple E-Gift Cards cannot be redeemed in a single invoice\nIf the purchase value exceeds the E-Gift Card value, the balance amount must be paid by cash or card\nThe cardholder is responsible for safe custody of the card and its credentials\nVMRL is not liable to issue a replacement card if the E-Gift Card is lost or stolen\nVMRL is not responsible for unauthorized or fraudulent transactions made using the card\nVMRL reserves the right to amend the terms and conditions without prior notice\nAll disputes are subject to the jurisdiction of courts in Delhi\nIn case of return of items purchased using the E-Gift Card, V-Mart’s standard return policy will apply\nClose",
+    "instructions": "How To Redeem\nVisit any V-Mart or Unlimited store in India\nSelect eligible products (excluding FMCG / grocery items)\nProceed to the billing counter\nPresent the E-Gift Card at the time of payment\nPay any excess amount using cash or card if the bill value exceeds the card value\nClose",
+    "cashback_only": false,
+    "cashback_pct": null,
+    "maxcoins_earn_pct": 7.0,
+    "source": "maximize",
+    "slug": "v-mart-(custom)-930",
+    "brand_name": "V Mart (Custom)",
+    "url": "https://www.maximize.money/gift-cards/V Mart (Custom)/930",
+    "collected_at": "2026-09-04T01:53:00+00:00",
+    "best_saving_pct": 6.75,
+    "best_saving_method": "UPI",
+    "has_terms": true,
+    "recommendable": true
+  },
+  "maximize:bigbasket-(custom)-342": {
+    "available": true,
+    "methods": {
+      "UPI": {
+        "saving_pct": 3.25,
+        "processing_fee": null
+      },
+      "Debit Card": {
+        "saving_pct": 2.0,
+        "processing_fee": null
+      },
+      "Credit Card": {
+        "saving_pct": 1.35,
+        "processing_fee": null
+      },
+      "Amazon pay": {
+        "saving_pct": 1.25,
+        "processing_fee": null
+      },
+      "CC on UPI": {
+        "saving_pct": 0.9,
+        "processing_fee": null
+      },
+      "Pay With Rewards": {
+        "saving_pct": 0.0,
+        "processing_fee": null
+      },
+      "Diners Club": {
+        "saving_pct": 1.0,
+        "processing_fee": null
+      },
+      "Wallets": {
+        "saving_pct": 0.9,
+        "processing_fee": null
+      },
+      "Amex": {
+        "saving_pct": 1.0,
+        "processing_fee": null
+      }
+    },
+    "denominations": [
+      {
+        "value": 2000.0
+      },
+      {
+        "value": 1500.0
+      },
+      {
+        "value": 100.0
+      },
+      {
+        "value": 500.0
+      },
+      {
+        "value": 1000.0
+      },
+      {
+        "value": 2500.0
+      },
+      {
+        "value": 5000.0
+      },
+      {
+        "value": 10000.0
+      },
+      {
+        "value": 96.75
+      },
+      {
+        "value": 3.25
+      }
+    ],
+    "custom_amount": true,
+    "rules": {
+      "works_online": {
+        "value": "yes",
+        "evidence": "Redeemable only online on website and app"
+      },
+      "works_in_store": {
+        "value": "no",
+        "evidence": "Redeemable only online on website and app"
+      },
+      "one_time_use": {
+        "value": "no",
+        "evidence": "Can be used multiple times"
+      },
+      "can_combine": {
+        "value": "yes",
+        "evidence": "Use several gift cards in one purchase"
+      },
+      "combines_with_store_offers": {
+        "value": "no",
+        "evidence": "No, can't club with other offers / coupons"
+      },
+      "max_cards_per_order": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "ceiling_amount": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "ceiling_period": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "min_order_value": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "max_spend_per_purchase": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "works_on_sale_items": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "excludes": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "delivery_wait_days": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "validity": {
+        "value": "Valid for upto 12 months",
+        "evidence": "Valid for upto 12 months"
+      }
+    },
+    "terms": "Terms & Conditions\nVisit https://www.bigbasket.com/sh/1058e or open the bigbasket app, tap the top-right icon, select My Gift Cards, enter the Gift Card Code and PIN, and click Redeem.\nThe full Gift Card value will be credited to the bigbasket wallet (bbWallet).\nAdd products to your basket and complete the payment using the bbWallet payment option.\nA maximum of 3 Gift Cards per day can be added to one bigbasket account.\nGift Cards are redeemable only on the bigbasket mobile app.\nGift Cards are valid only in select cities and geographical locations where bigbasket operates, subject to availability; if used in a non-serviceable city, the amount will not be reimbursed or refunded.\nGift Cards are valid for up to 12 months from the date of issue and cannot be revalidated after expiry.\nThe redeemed Gift Card balance can be used across multiple orders but cannot be used for the purchase of gold or silver coins, electronics, products sold by third-party sellers such as café and pharmacy categories, tobacco and tobacco-related products, infant food, infant milk substitutes, feeding bottles, or any other products or categories as determined by bigbasket at its sole discretion.\nGift Cards cannot be redeemed for cash or credited back to the source account.\nbigbasket is not responsible for reimbursement, refund, or replacement if a Gift Card is lost or misplaced.\nFor more details, please refer to the Terms and Conditions available at https://www.bigbasket.com/fp/mobile/terms-and-conditions/ .\nbigbasket reserves the right to modify, update, or amend these terms and conditions at any time without prior notice.\nClose",
+    "instructions": "How To Redeem\nGift Card can be used on Bigbasket website App and M site where Bigbasket is present\nClick on the link https://www.bigbasket.com/membergiftcards\nEnter your Gift Card Code and Gift Card PIN\nThe value of the Gift Card gets added to bigbasket wallet\nAdd products to the shopping cart and complete the payment by choosing bigbasket wallet payment option\nClose",
+    "cashback_only": false,
+    "cashback_pct": null,
+    "maxcoins_earn_pct": 3.5,
+    "source": "maximize",
+    "slug": "bigbasket-(custom)-342",
+    "brand_name": "Bigbasket (Custom)",
+    "url": "https://www.maximize.money/gift-cards/Bigbasket (Custom)/342",
+    "collected_at": "2026-09-04T01:53:20+00:00",
+    "best_saving_pct": 3.25,
+    "best_saving_method": "UPI",
+    "has_terms": true,
+    "recommendable": true
+  },
+  "maximize:yatra-470": {
+    "available": true,
+    "methods": {
+      "UPI": {
+        "saving_pct": 5.25,
+        "processing_fee": null
+      },
+      "Debit Card": {
+        "saving_pct": 4.0,
+        "processing_fee": null
+      },
+      "Credit Card": {
+        "saving_pct": 3.35,
+        "processing_fee": null
+      },
+      "Amazon pay": {
+        "saving_pct": 3.25,
+        "processing_fee": null
+      },
+      "CC on UPI": {
+        "saving_pct": 2.9,
+        "processing_fee": null
+      },
+      "Pay With Rewards": {
+        "saving_pct": 1.95,
+        "processing_fee": null
+      },
+      "Diners Club": {
+        "saving_pct": 3.0,
+        "processing_fee": null
+      },
+      "Wallets": {
+        "saving_pct": 2.9,
+        "processing_fee": null
+      },
+      "Amex": {
+        "saving_pct": 3.0,
+        "processing_fee": null
+      }
+    },
+    "denominations": [
+      {
+        "value": 2000.0
+      },
+      {
+        "value": 1500.0
+      },
+      {
+        "value": 1000.0
+      },
+      {
+        "value": 5000.0
+      },
+      {
+        "value": 10000.0
+      },
+      {
+        "value": 20000.0
+      },
+      {
+        "value": 50000.0
+      },
+      {
+        "value": 947.5
+      },
+      {
+        "value": 52.5
+      }
+    ],
+    "custom_amount": true,
+    "rules": {
+      "works_online": {
+        "value": "yes",
+        "evidence": "Redeem Online on website / app"
+      },
+      "works_in_store": {
+        "value": "no",
+        "evidence": "Redeem Online on website / app"
+      },
+      "one_time_use": {
+        "value": "no",
+        "evidence": "Can be used multiple times"
+      },
+      "can_combine": {
+        "value": "yes",
+        "evidence": "Use several gift cards in one purchase"
+      },
+      "combines_with_store_offers": {
+        "value": "no",
+        "evidence": "No, can't club with other offers / coupons"
+      },
+      "max_cards_per_order": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "ceiling_amount": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "ceiling_period": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "min_order_value": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "max_spend_per_purchase": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "works_on_sale_items": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "excludes": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "delivery_wait_days": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "validity": {
+        "value": "Valid for upto 12 months",
+        "evidence": "Valid for upto 12 months"
+      }
+    },
+    "terms": "Terms & Conditions\nThe E-Gift Voucher (EGV) can be redeemed only on https://www.yatra.com\nand is valid for bookings of Domestic & International Flights, Domestic Hotels, Domestic Buses, and Domestic/International Holiday Packages.\nFor online redemption (Flights / Hotels / Buses), select your preferred service and proceed to the payment page. Choose “Gift Voucher” as the payment mode, enter the 16-digit EGV/Card number and 6-digit PIN, click on “Redeem Gift Card,” and pay the balance amount, if any, using other available payment methods. In case of a transaction failure, the deducted amount will be automatically refunded back to the same EGV.\nHoliday packages (Domestic & International) can be redeemed offline only by sending a redemption request via email to coepromoteam@yatra.com.\nThe EGV supports partial and multiple redemptions until the balance is fully utilized within the validity period. However, only one voucher can be used per booking, and multiple vouchers cannot be clubbed in a single transaction.\nAny applicable convenience fee, processing fee, excess tour cost, or government taxes must be paid separately if the booking value exceeds the voucher amount.\nLost or stolen vouchers will not be replaced or compensated. The EGV cannot be combined with any other discount, cashback, or promotional offer, and no additional discount beyond the voucher value will be applicable. Booking confirmation is subject to availability and governed by Yatra’s standard booking terms. Expired vouchers cannot be revalidated, and no cash or balance amount will be provided in exchange for the EGV.\nIf a booking made using the EGV is cancelled within the validity period, the refundable amount will be credited back to the same voucher. If the voucher has expired at the time of cancellation, no refund will be processed.\nCustomers can check their voucher balance online at https://yatra.woohoo.in/en-in/CheckBalance.\nAll disputes related to the EGV shall be subject to the jurisdiction of courts in Gurgaon, Haryana. This voucher is meant for individual use only, and usage by travel agents may result in cancellation without refund.\nClose",
+    "instructions": "How To Redeem\nSelect your flight/hotel/bus on https://www.yatra.com and proceed to the payment page.\nChoose \"Gift Voucher\" as the payment mode.\nEnter the 16-digit card number and 6-digit PIN.\nClick \"Pay Now\" and complete any remaining balance payment using other listed methods.\nIf the transaction fails after applying the EGC, the amount will be automatically refunded to the same EGC.\nClose",
+    "cashback_only": false,
+    "cashback_pct": null,
+    "maxcoins_earn_pct": 5.5,
+    "source": "maximize",
+    "slug": "yatra-470",
+    "brand_name": "Yatra",
+    "url": "https://www.maximize.money/gift-cards/Yatra/470",
+    "collected_at": "2026-09-04T01:53:40+00:00",
+    "best_saving_pct": 5.25,
+    "best_saving_method": "UPI",
+    "has_terms": true,
+    "recommendable": true
+  },
+  "maximize:marks-&-spencer-279": {
+    "available": true,
+    "methods": {
+      "UPI": {
+        "saving_pct": 10.0,
+        "processing_fee": null
+      },
+      "Debit Card": {
+        "saving_pct": 8.75,
+        "processing_fee": null
+      },
+      "Credit Card": {
+        "saving_pct": 8.1,
+        "processing_fee": null
+      },
+      "Amazon pay": {
+        "saving_pct": 8.0,
+        "processing_fee": null
+      },
+      "CC on UPI": {
+        "saving_pct": 7.65,
+        "processing_fee": null
+      },
+      "Pay With Rewards": {
+        "saving_pct": 6.7,
+        "processing_fee": null
+      },
+      "Diners Club": {
+        "saving_pct": 7.75,
+        "processing_fee": null
+      },
+      "Wallets": {
+        "saving_pct": 7.65,
+        "processing_fee": null
+      },
+      "Amex": {
+        "saving_pct": 7.75,
+        "processing_fee": null
+      }
+    },
+    "denominations": [
+      {
+        "value": 2000.0
+      },
+      {
+        "value": 1500.0
+      },
+      {
+        "value": 1000.0
+      },
+      {
+        "value": 5000.0
+      },
+      {
+        "value": 7500.0
+      },
+      {
+        "value": 10000.0
+      },
+      {
+        "value": 900.0
+      },
+      {
+        "value": 100.0
+      }
+    ],
+    "custom_amount": true,
+    "rules": {
+      "works_online": {
+        "value": "yes",
+        "evidence": "Both Online & Checkout counters."
+      },
+      "works_in_store": {
+        "value": "yes",
+        "evidence": "Both Online & Checkout counters."
+      },
+      "one_time_use": {
+        "value": "yes",
+        "evidence": "Must use full balance in one go at Stores & Can be used multiple times via Epay for Online"
+      },
+      "can_combine": {
+        "value": "yes",
+        "evidence": "Use several gift cards in one purchase"
+      },
+      "combines_with_store_offers": {
+        "value": "yes",
+        "evidence": "Yes, clubbable with other offers / coupons"
+      },
+      "max_cards_per_order": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "ceiling_amount": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "ceiling_period": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "min_order_value": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "max_spend_per_purchase": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "works_on_sale_items": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "excludes": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "delivery_wait_days": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "validity": {
+        "value": "Valid for 6 - 12 months",
+        "evidence": "Valid for 6 - 12 months"
+      }
+    },
+    "terms": "Terms & Conditions\nThis is a Marks & Spencer Gift Voucher (GV)/e-Pay and can be redeemed for any product on the listed stores/mobile app/at https://www.marksandspencer.in/.\nThe person with the Marks & Spencer GV/ e-Pay is deemed the beneficiary.\nOnce the Vouchers are added to e-Pay online, they cannot be used in Retail Stores.\nThe GV/e-Pay cannot be revalidated once it expires.\nThe GV can be converted into e-Pay, and then it can be used partially at the holder's convenience.\nGV/e-Pay is non-refundable, may not be exchanged, transferred, or resold, and may not be redeemed for cash.\nMultiple GVs can be combined and added to the e-Pay balance.\nThe GV/e-Pay can be clubbed with ongoing sales.\nMarks & Spencer/GyFTR is not responsible for lost, damaged, or stolen GV/e-Pay.\nAny dispute should be referred to the company and the decision of the company shall be final.\nGV/e-Pay has been issued subject to the terms of the company.\nMarks and Spencer makes full efforts to accept GV/e-Pay but on account of any technical/administrative reasons an outlet may refuse to accept the same.\nFor any concerns or issues related to GV / GC, raise a request at https://www.gvhelpdesk.com.\nClose",
+    "instructions": "How To Redeem\nFor Offline Redemption:\nPlease ask the store to select the \"GyFTR\" option on their terminal and enter the 16-digit PIN. It should work as expected.\nFor Online Redemption:\nYou can add the PIN at the following link: https://brandpts.com/markspencer\nClose",
+    "cashback_only": false,
+    "cashback_pct": null,
+    "maxcoins_earn_pct": 12.25,
+    "source": "maximize",
+    "slug": "marks-&-spencer-279",
+    "brand_name": "Marks & Spencer",
+    "url": "https://www.maximize.money/gift-cards/Marks &amp; Spencer/279",
+    "collected_at": "2026-09-04T01:53:59+00:00",
+    "best_saving_pct": 10.0,
+    "best_saving_method": "UPI",
+    "has_terms": true,
+    "recommendable": true
+  },
+  "maximize:amazon-prime-voucher---3-months-membership-550": {
+    "available": true,
+    "methods": {
+      "UPI": {
+        "saving_pct": 15.0,
+        "processing_fee": null
+      },
+      "Debit Card": {
+        "saving_pct": 13.75,
+        "processing_fee": null
+      },
+      "Credit Card": {
+        "saving_pct": 13.1,
+        "processing_fee": null
+      },
+      "CC on UPI": {
+        "saving_pct": 12.65,
+        "processing_fee": null
+      },
+      "Diners Club": {
+        "saving_pct": 12.75,
+        "processing_fee": null
+      },
+      "Amex": {
+        "saving_pct": 12.75,
+        "processing_fee": null
+      }
+    },
+    "denominations": [
+      {
+        "value": 2000.0
+      },
+      {
+        "value": 1500.0
+      },
+      {
+        "value": 599.0
+      },
+      {
+        "value": 509.15
+      },
+      {
+        "value": 89.85
+      }
+    ],
+    "custom_amount": false,
+    "rules": {
+      "works_online": {
+        "value": "yes",
+        "evidence": "Redeem Online on website / app"
+      },
+      "works_in_store": {
+        "value": "no",
+        "evidence": "Redeem Online on website / app"
+      },
+      "one_time_use": {
+        "value": "yes",
+        "evidence": "Must use the full balance in one go"
+      },
+      "can_combine": {
+        "value": "no",
+        "evidence": "Multiple cards can't be clubbed"
+      },
+      "combines_with_store_offers": {
+        "value": "no",
+        "evidence": "No, can't club with other offers / coupons"
+      },
+      "max_cards_per_order": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "ceiling_amount": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "ceiling_period": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "min_order_value": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "max_spend_per_purchase": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "works_on_sale_items": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "excludes": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "delivery_wait_days": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "validity": {
+        "value": "Valid for upto 12 months",
+        "evidence": "Valid for upto 12 months"
+      }
+    },
+    "terms": "Terms & Conditions\nThe voucher is issued by Pine Labs Private Limited, co-branded with Amazon Pay (India) Pvt. Ltd..\nCannot be used for: Global Store products, bill payments, recharges, tickets, financial products.\nCannot be used for: Buying Amazon Pay pre-loaded gift cards.\nCannot be used for: Mixed orders (if even one item is ineligible).\nCannot be used for: Redeeming on Amazon Business accounts.\nCannot be used by: Users with telecom-activated Prime memberships (e.g., via Airtel, Jio, VI).\nCannot be used by: Existing Prime users who subscribed via Google Play.\nNot transferable, non-refundable, and cannot be cancelled once issued.\nVoucher cannot be reused and only one can be applied per customer.\nCredit/Debit cards issued outside India cannot be used to purchase this voucher.\nPine Labs, Amazon, or affiliates are not liable if the voucher is lost, stolen, or misused.\nExpiry: 12 months from the date of activation.\nAmazon Prime memberships activated via this voucher cannot be cancelled.\nTerms may change without prior notice.\nTrademarks of Amazon and Pine Labs are IP of respective owners.\nUse of the voucher is subject to Amazon and Pine Labs’ terms.\nClose",
+    "instructions": "How To Redeem\nVisit: https://www.amazon.in/vouchers\nEnter Code: Use the 13-digit voucher code in the \"Add new\" section.\nClick: Tap on the \"Add\" button to load the voucher.\nClose",
+    "cashback_only": false,
+    "cashback_pct": null,
+    "maxcoins_earn_pct": 17.75,
+    "source": "maximize",
+    "slug": "amazon-prime-voucher---3-months-membership-550",
+    "brand_name": "Amazon Prime Voucher - 3 months Membership",
+    "url": "https://www.maximize.money/gift-cards/Amazon Prime Voucher - 3 months Membership/550",
+    "collected_at": "2026-09-04T01:54:15+00:00",
+    "best_saving_pct": 15.0,
+    "best_saving_method": "UPI",
+    "has_terms": true,
+    "recommendable": true
+  },
+  "maximize:wonderchef-471": {
+    "available": true,
+    "methods": {
+      "UPI": {
+        "saving_pct": 13.25,
+        "processing_fee": null
+      },
+      "Debit Card": {
+        "saving_pct": 12.0,
+        "processing_fee": null
+      },
+      "Credit Card": {
+        "saving_pct": 11.35,
+        "processing_fee": null
+      },
+      "Amazon pay": {
+        "saving_pct": 11.25,
+        "processing_fee": null
+      },
+      "CC on UPI": {
+        "saving_pct": 10.9,
+        "processing_fee": null
+      },
+      "Pay With Rewards": {
+        "saving_pct": 9.95,
+        "processing_fee": null
+      },
+      "Diners Club": {
+        "saving_pct": 11.0,
+        "processing_fee": null
+      },
+      "Wallets": {
+        "saving_pct": 10.9,
+        "processing_fee": null
+      },
+      "Amex": {
+        "saving_pct": 11.0,
+        "processing_fee": null
+      }
+    },
+    "denominations": [
+      {
+        "value": 2000.0
+      },
+      {
+        "value": 1500.0
+      },
+      {
+        "value": 1000.0
+      },
+      {
+        "value": 5000.0
+      },
+      {
+        "value": 10000.0
+      },
+      {
+        "value": 20000.0
+      },
+      {
+        "value": 867.5
+      },
+      {
+        "value": 132.5
+      }
+    ],
+    "custom_amount": true,
+    "rules": {
+      "works_online": {
+        "value": "yes",
+        "evidence": "Redeem Online on website / app"
+      },
+      "works_in_store": {
+        "value": "no",
+        "evidence": "Redeem Online on website / app"
+      },
+      "one_time_use": {
+        "value": "yes",
+        "evidence": "Must use the full balance in one go"
+      },
+      "can_combine": {
+        "value": "yes",
+        "evidence": "Use several gift cards in one purchase"
+      },
+      "combines_with_store_offers": {
+        "value": "no",
+        "evidence": "No, can't club with other offers / coupons"
+      },
+      "max_cards_per_order": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "ceiling_amount": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "ceiling_period": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "min_order_value": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "max_spend_per_purchase": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "works_on_sale_items": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "excludes": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "delivery_wait_days": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "validity": {
+        "value": "Valid for upto 12 months",
+        "evidence": "Valid for upto 12 months"
+      }
+    },
+    "terms": "Terms & Conditions\nThis E-Gift Card is redeemable for products and services at all Wonderchef.com.\nMultiple E-Gift Cards can be redeemed in the same bill.\nThe E-Gift Card can be redeemed only once; partial redemption is not allowed.\nThe card cannot be redeemed for cash or credit, and no refund will be provided for any unutilized balance.\nThe card cannot be reloaded.\nThe value on the card is valid for 365 days from the date of issue.\nIf the E-Gift Card is lost or stolen (and used by someone else), it will not be reissued.\nE-Gift Cards are usually delivered instantly, but delivery may be delayed up to 24 hours due to system issues.\nNo returns or refunds are allowed on gift cards, e-gift cards, or vouchers shipped by Woohoo.in.\nFor refund policy and further details, visit: http://www.woohoo.in/faq.\nClose",
+    "instructions": "How To Redeem\nLog in to the website - https://www.wonderchef.com\nSelect the desired product\nAdd the product to your cart\nClick on “Buy Now”\nRedeem the gift card by entering all required details, including the delivery address.\nClose",
+    "cashback_only": false,
+    "cashback_pct": null,
+    "maxcoins_earn_pct": 13.5,
+    "source": "maximize",
+    "slug": "wonderchef-471",
+    "brand_name": "Wonderchef",
+    "url": "https://www.maximize.money/gift-cards/Wonderchef/471",
+    "collected_at": "2026-09-04T01:54:35+00:00",
+    "best_saving_pct": 13.25,
+    "best_saving_method": "UPI",
+    "has_terms": true,
+    "recommendable": true
+  },
+  "maximize:blinkit-749": {
+    "available": false,
+    "methods": {},
+    "denominations": [],
+    "custom_amount": false,
+    "rules": {
+      "works_online": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "works_in_store": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "one_time_use": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "can_combine": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "combines_with_store_offers": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "max_cards_per_order": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "ceiling_amount": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "ceiling_period": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "min_order_value": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "max_spend_per_purchase": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "works_on_sale_items": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "excludes": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "delivery_wait_days": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "validity": {
+        "value": "not_stated",
+        "evidence": ""
+      }
+    },
+    "terms": "",
+    "instructions": "",
+    "cashback_only": false,
+    "cashback_pct": null,
+    "maxcoins_earn_pct": null,
+    "source": "maximize",
+    "slug": "blinkit-749",
+    "brand_name": "Blinkit",
+    "url": "https://www.maximize.money/gift-cards/Blinkit/749",
+    "collected_at": "2026-09-04T01:54:59+00:00",
+    "best_saving_pct": null,
+    "best_saving_method": null,
+    "has_terms": false,
+    "recommendable": false
+  },
+  "maximize:giva-silver-coin-520": {
+    "available": true,
+    "methods": {
+      "UPI": {
+        "saving_pct": 4.25,
+        "processing_fee": null
+      },
+      "Debit Card": {
+        "saving_pct": 3.0,
+        "processing_fee": null
+      },
+      "Credit Card": {
+        "saving_pct": 2.35,
+        "processing_fee": null
+      },
+      "Amazon pay": {
+        "saving_pct": 2.25,
+        "processing_fee": null
+      },
+      "CC on UPI": {
+        "saving_pct": 1.9,
+        "processing_fee": null
+      },
+      "Pay With Rewards": {
+        "saving_pct": 0.95,
+        "processing_fee": null
+      },
+      "Diners Club": {
+        "saving_pct": 2.0,
+        "processing_fee": null
+      },
+      "Wallets": {
+        "saving_pct": 1.9,
+        "processing_fee": null
+      },
+      "Amex": {
+        "saving_pct": 2.0,
+        "processing_fee": null
+      }
+    },
+    "denominations": [
+      {
+        "value": 2000.0
+      },
+      {
+        "value": 1500.0
+      },
+      {
+        "value": 500.0
+      },
+      {
+        "value": 1000.0
+      },
+      {
+        "value": 478.75
+      },
+      {
+        "value": 21.25
+      }
+    ],
+    "custom_amount": false,
+    "rules": {
+      "works_online": {
+        "value": "yes",
+        "evidence": "Redeem Online & checkout counters"
+      },
+      "works_in_store": {
+        "value": "no",
+        "evidence": "Redeem Online & checkout counters"
+      },
+      "one_time_use": {
+        "value": "yes",
+        "evidence": "Must use the full balance in one go"
+      },
+      "can_combine": {
+        "value": "yes",
+        "evidence": "Use several gift cards in one purchase"
+      },
+      "combines_with_store_offers": {
+        "value": "yes",
+        "evidence": "Yes, clubbable with other offers / coupons"
+      },
+      "max_cards_per_order": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "ceiling_amount": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "ceiling_period": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "min_order_value": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "max_spend_per_purchase": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "works_on_sale_items": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "excludes": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "delivery_wait_days": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "validity": {
+        "value": "Valid for upto 6 months",
+        "evidence": "Valid for upto 6 months"
+      }
+    },
+    "terms": "Terms & Conditions\nThe GV/GC is valid only on Silver Coins via GIVA website, app, or stores.\nThe person holding the GV/GC is considered the beneficiary.\nUp to 10 GV/GCs can be used in a single transaction.\nGV/GC can be clubbed with existing offers on the GIVA website.\nCannot be used for Gold Jewellery or Gold Coins.\nNon-transferable once activated.\nGV/GC cannot be resold, exchanged for cash, or refunded.\nIf lost, stolen, or misused, GIVA/GyFTR bears no responsibility.\nIt is a one-time use gift card with a specific expiration date.\nCannot be revalidated once expired or cancelled.\nGIVA/GyFTR can change, withdraw, or cancel the offer at any time without notice.\nFor issues, contact: https://www.gvhelpdesk.com OR care@giva.co\nClose",
+    "instructions": "How To Redeem\nOnline - Visit https://www.giva.co or use the GIVA app\nAdd products to your cart, proceed to checkout, and enter: 16-digit Gift Card Number & 6-digit PIN\nOffline -Locate a GIVA store\nSelect your product\nProvide the GV code at billing\nPay any remaining amount by card or cash\nClose",
+    "cashback_only": false,
+    "cashback_pct": null,
+    "maxcoins_earn_pct": 4.35,
+    "source": "maximize",
+    "slug": "giva-silver-coin-520",
+    "brand_name": "GIVA Silver Coin",
+    "url": "https://www.maximize.money/gift-cards/GIVA Silver Coin/520",
+    "collected_at": "2026-09-04T01:55:19+00:00",
+    "best_saving_pct": 4.25,
+    "best_saving_method": "UPI",
+    "has_terms": true,
+    "recommendable": true
+  },
+  "maximize:starbucks-321": {
+    "available": true,
+    "methods": {
+      "UPI": {
+        "saving_pct": 8.75,
+        "processing_fee": null
+      },
+      "Debit Card": {
+        "saving_pct": 7.5,
+        "processing_fee": null
+      },
+      "Credit Card": {
+        "saving_pct": 6.85,
+        "processing_fee": null
+      },
+      "Amazon pay": {
+        "saving_pct": 6.75,
+        "processing_fee": null
+      },
+      "CC on UPI": {
+        "saving_pct": 6.4,
+        "processing_fee": null
+      },
+      "Pay With Rewards": {
+        "saving_pct": 5.45,
+        "processing_fee": null
+      },
+      "Diners Club": {
+        "saving_pct": 6.5,
+        "processing_fee": null
+      },
+      "Wallets": {
+        "saving_pct": 6.4,
+        "processing_fee": null
+      },
+      "Amex": {
+        "saving_pct": 6.5,
+        "processing_fee": null
+      }
+    },
+    "denominations": [
+      {
+        "value": 2000.0
+      },
+      {
+        "value": 1500.0
+      },
+      {
+        "value": 500.0
+      },
+      {
+        "value": 1000.0
+      },
+      {
+        "value": 456.25
+      },
+      {
+        "value": 43.75
+      }
+    ],
+    "custom_amount": false,
+    "rules": {
+      "works_online": {
+        "value": "yes",
+        "evidence": "Redeemable only via the app across all Starbucks stores in India."
+      },
+      "works_in_store": {
+        "value": "no",
+        "evidence": "Redeemable only via the app across all Starbucks stores in India."
+      },
+      "one_time_use": {
+        "value": "yes",
+        "evidence": "Must use the full balance in one go"
+      },
+      "can_combine": {
+        "value": "no",
+        "evidence": "Multiple cards can't be clubbed"
+      },
+      "combines_with_store_offers": {
+        "value": "no",
+        "evidence": "No, can't club with other offers / coupons"
+      },
+      "max_cards_per_order": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "ceiling_amount": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "ceiling_period": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "min_order_value": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "max_spend_per_purchase": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "works_on_sale_items": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "excludes": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "delivery_wait_days": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "validity": {
+        "value": "Valid for upto 6 months",
+        "evidence": "Valid for upto 6 months"
+      }
+    },
+    "terms": "Terms & Conditions\nThis is a Starbucks GV/GC (Gift Voucher/Gift Card) and it can only be redeemed via the Starbucks India mobile app across all Starbucks stores in India. All terms and conditions of the Starbucks India mobile app and Starbucks Rewards program shall apply upon signing up for the mobile app.\nThe holder of the GV/GC is deemed to be the beneficiary.\nGV/GCs are non-refundable, may not be exchanged, transferred, or resold, and may not be redeemed for cash.\nGyFTR/ Starbucks is not responsible for lost, damaged, or stolen GV/GCs.\nThe GV/GC cannot be reloaded with additional funds once purchased.\nMultiple GV/GC cannot be used in one bill.\nGyFTR/Starbucks India reserves the right to add, alter, amend, and revise the terms and conditions without prior notice, and without assigning any reasons thereof. In the event of such changes, the latest terms & conditions will be updated and can be viewed on our website https://www.starbucks.in.\nGyFTR/Starbucks India reserves the right to suspend, block, or terminate the rights and privileges attached to the GV/GC if it has reasonable grounds to suspect fraudulent or unauthorized use.\nAll disputes in connection with the GV/GC or its program shall be governed and construed in accordance with Indian Laws and are subject to the exclusive jurisdiction of Competent Courts in Mumbai only.\nFor any queries/issues related to GV/GC, please contact Tata Starbucks Customer Care at 18602660010 (9 AM to 9 PM) or customercare@tatastarbucks.com or raise a request at https://www.gvhelpdesk.com.\nClose",
+    "instructions": "How To Redeem\nDownload the Starbucks app and navigate to the 'Pay' option in the sticky menu. Tap on 'Starbucks Pay' at the top of the page, then choose the 'Already have a Starbucks Card' option.\nChoose the option to enter your card details manually, then input the card number and security code.\nTo place an order online, simply add the items to your cart.\nChoose 'Pay with Starbucks Card' as your payment method.\nTo make a payment in-store, simply show the barcode to the cashier for scanning.\nClose",
+    "cashback_only": false,
+    "cashback_pct": null,
+    "maxcoins_earn_pct": 9.0,
+    "source": "maximize",
+    "slug": "starbucks-321",
+    "brand_name": "Starbucks",
+    "url": "https://www.maximize.money/gift-cards/Starbucks/321",
+    "collected_at": "2026-09-04T01:55:38+00:00",
+    "best_saving_pct": 8.75,
+    "best_saving_method": "UPI",
+    "has_terms": true,
+    "recommendable": true
+  },
+  "maximize:croma-(custom)-220": {
+    "available": true,
+    "methods": {
+      "UPI": {
+        "saving_pct": 2.5,
+        "processing_fee": null
+      },
+      "Debit Card": {
+        "saving_pct": 1.25,
+        "processing_fee": null
+      },
+      "Credit Card": {
+        "saving_pct": 0.6,
+        "processing_fee": null
+      },
+      "Amazon pay": {
+        "saving_pct": 0.5,
+        "processing_fee": null
+      },
+      "CC on UPI": {
+        "saving_pct": 0.15,
+        "processing_fee": null
+      },
+      "Pay With Rewards": {
+        "saving_pct": 0.0,
+        "processing_fee": null
+      },
+      "Diners Club": {
+        "saving_pct": 0.25,
+        "processing_fee": null
+      },
+      "Wallets": {
+        "saving_pct": 0.15,
+        "processing_fee": null
+      },
+      "Amex": {
+        "saving_pct": 0.25,
+        "processing_fee": null
+      }
+    },
+    "denominations": [
+      {
+        "value": 2000.0
+      },
+      {
+        "value": 1500.0
+      },
+      {
+        "value": 500.0
+      },
+      {
+        "value": 2500.0
+      },
+      {
+        "value": 5000.0
+      },
+      {
+        "value": 10000.0
+      },
+      {
+        "value": 487.5
+      },
+      {
+        "value": 12.5
+      }
+    ],
+    "custom_amount": true,
+    "rules": {
+      "works_online": {
+        "value": "yes",
+        "evidence": "Redeem Online & checkout counters"
+      },
+      "works_in_store": {
+        "value": "no",
+        "evidence": "Redeem Online & checkout counters"
+      },
+      "one_time_use": {
+        "value": "yes",
+        "evidence": "Must use the full balance in one go"
+      },
+      "can_combine": {
+        "value": "yes",
+        "evidence": "Use several gift cards in one purchase"
+      },
+      "combines_with_store_offers": {
+        "value": "no",
+        "evidence": "No, can't club with other offers / coupons"
+      },
+      "max_cards_per_order": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "ceiling_amount": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "ceiling_period": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "min_order_value": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "max_spend_per_purchase": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "works_on_sale_items": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "excludes": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "delivery_wait_days": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "validity": {
+        "value": "Valid for upto 12 months",
+        "evidence": "Valid for upto 12 months"
+      }
+    },
+    "terms": "Terms & Conditions\nThe Electronic Gift Vouchers is issued by Croma, Infiniti Retail Ltd (the Company).\nThe Electronic Gift Vouchers can be redeemed on croma.com and at Croma Stores.\nThe validity period on the gift Vouchers is for 365 days from the date of its issuance or depends on the condition of the purchase.\nShould your purchase value exceed the value of the Electronic Gift Vouchers, the differential amount of such purchase should be paid using the other modes of payment available on the website.\nNo refund, replacement or cash back would be considered against the Electronic Gift Vouchers.\nThis Voucher should be treated like cash. Electronic Gift Vouchers can nott be replaced or duplicated, if lost or stolen.\nOnce Electronic Gift Vouchers are issued, the company will not entertain any request from anybody for its cancellation.\nFor any queries, balance check and date of expiry please contact any Croma store / check balance on https://www.croma.com or contact our Croma care at 186026627662 | 04046517910\nIn case of Returns/cancellations of the redemption done via EGV, the refund of the same will be done to the effect of the value of contribution of the EGV to the sale. The balance will be done via the contribution of the other respective payment mode to the sale. In the case of multiple products being purchased and a combination of the EGV and any other mode of payment being used to complete the transaction, the individual products being sold, will get the assignment of the value of the EGV and any other mode of payment being used based on the tender percentage contribution in total order value. The refund will happen in the same percentage split as per the original tender used.\nThe Electronic Gift Vouchers can be purchased Min Rs. 500 and Max 10,000.\nThe Electronic Gift Vouchers has to be utilized in one single transaction and the balance will not be carried forward for the same.\nThe Electronic Gift Vouchers cannot be reloaded.\nOnly 5 Croma EGV can be redeem on Single Invoice on Croma.com.\nRedemption of Electronic Gift Vouchers by its bearer shall be valid discharge of the company&apos;s liabilities in respect of Electronic Gift Vouchers.\nAny dispute need to be referred to the Company and the decision of the company shall be final.\nThe Electronic Gift Vouchers is subject to applicable laws. The company and Electronic Gift Vouchers holder shall comply with all applicable laws promulgated by any statutory / judicial / competent authority from time to time in this regards.\nAny dispute relating to the Electronic Gift Vouchers shall be subject to the exclusive jurisdiction of courts at Mumbai.\nInfiniti Retail Ltd shall be entitled to amend these terms and conditions from time to time. Any change in these terms and conditions can be viewed on our Website and/or at any of the Croma stores.\nContact corporate@croma.com for any bulk enquires of Electronic Gift Vouchers.\nClose",
+    "instructions": "How To Redeem\nVisit the outlet near you.\nBefore making the purchase confirm about the acceptance of Gift Card at the store.\nChoose the products you would like to buy.\nShow your Gift Card details to the cashier at the time of billing & pay any balance amount by cash or card.\nClose",
+    "cashback_only": false,
+    "cashback_pct": null,
+    "maxcoins_earn_pct": 2.75,
+    "source": "maximize",
+    "slug": "croma-(custom)-220",
+    "brand_name": "Croma (Custom)",
+    "url": "https://www.maximize.money/gift-cards/Croma (Custom)/220",
+    "collected_at": "2026-09-04T01:55:58+00:00",
+    "best_saving_pct": 2.5,
+    "best_saving_method": "UPI",
+    "has_terms": true,
+    "recommendable": true
+  },
+  "maximize:hidesign-462": {
+    "available": true,
+    "methods": {
+      "UPI": {
+        "saving_pct": 13.0,
+        "processing_fee": null
+      },
+      "Debit Card": {
+        "saving_pct": 11.75,
+        "processing_fee": null
+      },
+      "Credit Card": {
+        "saving_pct": 11.1,
+        "processing_fee": null
+      },
+      "Amazon pay": {
+        "saving_pct": 11.0,
+        "processing_fee": null
+      },
+      "CC on UPI": {
+        "saving_pct": 10.65,
+        "processing_fee": null
+      },
+      "Pay With Rewards": {
+        "saving_pct": 9.7,
+        "processing_fee": null
+      },
+      "Diners Club": {
+        "saving_pct": 10.75,
+        "processing_fee": null
+      },
+      "Wallets": {
+        "saving_pct": 10.65,
+        "processing_fee": null
+      },
+      "Amex": {
+        "saving_pct": 10.75,
+        "processing_fee": null
+      }
+    },
+    "denominations": [
+      {
+        "value": 2000.0
+      },
+      {
+        "value": 1500.0
+      },
+      {
+        "value": 200.0
+      },
+      {
+        "value": 500.0
+      },
+      {
+        "value": 1000.0
+      },
+      {
+        "value": 5000.0
+      },
+      {
+        "value": 10000.0
+      },
+      {
+        "value": 174.0
+      },
+      {
+        "value": 26.0
+      }
+    ],
+    "custom_amount": true,
+    "rules": {
+      "works_online": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "works_in_store": {
+        "value": "yes",
+        "evidence": "Close How To Redeem Visit the outlet near you"
+      },
+      "one_time_use": {
+        "value": "yes",
+        "evidence": "Must use the full balance in one go"
+      },
+      "can_combine": {
+        "value": "no",
+        "evidence": "Multiple cards can't be clubbed"
+      },
+      "combines_with_store_offers": {
+        "value": "no",
+        "evidence": "No, can't club with other offers / coupons"
+      },
+      "max_cards_per_order": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "ceiling_amount": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "ceiling_period": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "min_order_value": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "max_spend_per_purchase": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "works_on_sale_items": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "excludes": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "delivery_wait_days": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "validity": {
+        "value": "Valid for upto 12 months",
+        "evidence": "Valid for upto 12 months"
+      }
+    },
+    "terms": "Terms & Conditions\nThis e-Gift Card is valid at all participating exclusive Hidesign boutiques.\nThis e-Gift Card can be redeemed only once.\nThis is a bearer card, please treat it like cash. No duplicate cards shall be reissued if lost, misplaced or stolen.\nThis card cannot be exchanged for cash.\nE-Gift Cards are normally delivered instantly. But sometimes due to system issues, the delivery can be delayed up-to 24 - 48 hours.\nNo returns and no refunds on gift cards, e-gift cards and gift vouchers shipped. Please check the refund policy for further details.\nClose",
+    "instructions": "How To Redeem\nVisit the outlet near you.\nBefore making the purchase confirm about the acceptance of Gift Card at the store.\nChoose the products you would like to buy.\nShow your Gift Card details to the cashier at the time of billing & pay any balance amount by cash or card.\nClose",
+    "cashback_only": false,
+    "cashback_pct": null,
+    "maxcoins_earn_pct": 13.5,
+    "source": "maximize",
+    "slug": "hidesign-462",
+    "brand_name": "Hidesign",
+    "url": "https://www.maximize.money/gift-cards/Hidesign/462",
+    "collected_at": "2026-09-04T01:56:18+00:00",
+    "best_saving_pct": 13.0,
+    "best_saving_method": "UPI",
+    "has_terms": true,
+    "recommendable": true
+  },
+  "maximize:subway-896": {
+    "available": true,
+    "methods": {
+      "UPI": {
+        "saving_pct": 11.0,
+        "processing_fee": null
+      },
+      "Debit Card": {
+        "saving_pct": 9.75,
+        "processing_fee": null
+      },
+      "Credit Card": {
+        "saving_pct": 9.1,
+        "processing_fee": null
+      },
+      "Amazon pay": {
+        "saving_pct": 9.0,
+        "processing_fee": null
+      },
+      "CC on UPI": {
+        "saving_pct": 8.65,
+        "processing_fee": null
+      },
+      "Pay With Rewards": {
+        "saving_pct": 7.7,
+        "processing_fee": null
+      },
+      "Diners Club": {
+        "saving_pct": 8.75,
+        "processing_fee": null
+      },
+      "Wallets": {
+        "saving_pct": 8.65,
+        "processing_fee": null
+      },
+      "Amex": {
+        "saving_pct": 8.75,
+        "processing_fee": null
+      }
+    },
+    "denominations": [
+      {
+        "value": 2000.0
+      },
+      {
+        "value": 1500.0
+      },
+      {
+        "value": 100.0
+      },
+      {
+        "value": 250.0
+      },
+      {
+        "value": 500.0
+      },
+      {
+        "value": 750.0
+      },
+      {
+        "value": 1000.0
+      },
+      {
+        "value": 89.0
+      },
+      {
+        "value": 11.0
+      }
+    ],
+    "custom_amount": false,
+    "rules": {
+      "works_online": {
+        "value": "yes",
+        "evidence": "For support, contact https://www"
+      },
+      "works_in_store": {
+        "value": "yes",
+        "evidence": "Terms & Conditions Subway Gift Vouchers (GV)/e-Pay are valid at participating Subway outlets in India"
+      },
+      "one_time_use": {
+        "value": "no",
+        "evidence": "After e-Pay conversion, it can be redeemed multiple times until the balance is exhausted within validity."
+      },
+      "can_combine": {
+        "value": "yes",
+        "evidence": "Multiple Gift Vouchers can be combined and added to the e-Pay balance"
+      },
+      "combines_with_store_offers": {
+        "value": "yes",
+        "evidence": "GV/e-Pay can be used in addition to in-store discounts."
+      },
+      "max_cards_per_order": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "ceiling_amount": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "ceiling_period": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "min_order_value": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "max_spend_per_purchase": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "works_on_sale_items": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "excludes": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "delivery_wait_days": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "validity": {
+        "value": "Valid for upto 6 months",
+        "evidence": "Valid for upto 6 months"
+      }
+    },
+    "terms": "Terms & Conditions\nSubway Gift Vouchers (GV)/e-Pay are valid at participating Subway outlets in India.\nThe holder of the GV/e-Pay is considered the beneficiary.\nGV/e-Pay can be used in addition to in-store discounts.\nGV can be converted into Subway e-Pay balance as per convenience.\nAfter conversion, partial redemption is allowed and the remaining balance can be used within the validity period.\nThe e-Pay balance must be linked to the registered mobile number.\nGV/e-Pay cannot be transferred, exchanged for cash, or converted into any other form.\nExpired or cancelled GV/e-Pay cannot be revalidated.\nSubway/Maximize is not responsible for loss, theft, or unauthorized use of the voucher.\nIn case of technical issues causing blockage, the voucher will be enabled within 72 hours.\nAll disputes are subject to the decision of Subway/Maximize, which shall be final.\nSubway/Maximize reserves the right to modify or withdraw the offer without prior notice.\nFor support, contact https://www.gvhelpdesk.com or customercare@subway.in\nClose",
+    "instructions": "How To Redeem\nShare your registered mobile number with the cashier after billing.\nConfirm the redemption amount and pay any remaining balance, if applicable.\nCashier completes the transaction.\nClose",
+    "cashback_only": false,
+    "cashback_pct": null,
+    "maxcoins_earn_pct": 11.0,
+    "source": "maximize",
+    "slug": "subway-896",
+    "brand_name": "Subway",
+    "url": "https://www.maximize.money/gift-cards/Subway/896",
+    "collected_at": "2026-09-04T01:56:38+00:00",
+    "best_saving_pct": 11.0,
+    "best_saving_method": "UPI",
+    "has_terms": true,
+    "recommendable": true
+  },
+  "maximize:tumi---luxe-1116": {
+    "available": true,
+    "methods": {
+      "UPI": {
+        "saving_pct": 12.75,
+        "processing_fee": null
+      },
+      "Debit Card": {
+        "saving_pct": 11.5,
+        "processing_fee": null
+      },
+      "Credit Card": {
+        "saving_pct": 10.85,
+        "processing_fee": null
+      },
+      "Amazon pay": {
+        "saving_pct": 10.75,
+        "processing_fee": null
+      },
+      "CC on UPI": {
+        "saving_pct": 10.4,
+        "processing_fee": null
+      },
+      "Pay With Rewards": {
+        "saving_pct": 9.45,
+        "processing_fee": null
+      },
+      "Diners Club": {
+        "saving_pct": 10.5,
+        "processing_fee": null
+      },
+      "Wallets": {
+        "saving_pct": 10.4,
+        "processing_fee": null
+      },
+      "Amex": {
+        "saving_pct": 10.5,
+        "processing_fee": null
+      }
+    },
+    "denominations": [
+      {
+        "value": 2000.0
+      },
+      {
+        "value": 1500.0
+      },
+      {
+        "value": 1000.0
+      },
+      {
+        "value": 5000.0
+      },
+      {
+        "value": 10000.0
+      },
+      {
+        "value": 872.5
+      },
+      {
+        "value": 127.5
+      }
+    ],
+    "custom_amount": true,
+    "rules": {
+      "works_online": {
+        "value": "yes",
+        "evidence": "Redeem Online & checkout counters"
+      },
+      "works_in_store": {
+        "value": "no",
+        "evidence": "Redeem Online & checkout counters"
+      },
+      "one_time_use": {
+        "value": "yes",
+        "evidence": "Must use the full balance in one go"
+      },
+      "can_combine": {
+        "value": "yes",
+        "evidence": "Use several gift cards in one purchase."
+      },
+      "combines_with_store_offers": {
+        "value": "no",
+        "evidence": "No, can't club with other offers / coupons"
+      },
+      "max_cards_per_order": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "ceiling_amount": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "ceiling_period": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "min_order_value": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "max_spend_per_purchase": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "works_on_sale_items": {
+        "value": "no",
+        "evidence": "The Gift Card can be redeemed only on full-priced merchandise and is not applicable on discounted items unless specified otherwise"
+      },
+      "excludes": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "delivery_wait_days": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "validity": {
+        "value": "Valid for 12 month only",
+        "evidence": "Valid for 12 month only"
+      }
+    },
+    "terms": "Terms & Conditions\nThese Terms & Conditions apply to the electronic version of the Luxe Gift Card.\nThe Luxe Gift Card is issued by Pine Labs Limited (formerly Pine Labs Private Limited) and is valid for 12 months from the date of purchase.\nThe Luxe Gift Card can be redeemed across 45+ participating brands in India. For store locations, visit: https://www.luxegiftcard.com/brands#store_location\nThe Luxe Gift Card is not redeemable at airport stores.\nThe Gift Card can also be redeemed online at the brand websites\nThe Luxe Gift Card is valid for one-time use only until expiry. If the purchase value exceeds the Gift Card value, the balance amount must be paid by the customer. No refund or credit note will be issued for any unused balance.\nUsers are advised to protect the Gift Card details. RBL Bank or Pine Labs shall not be liable in case of loss, theft, or misuse of the Gift Card or PIN. The Gift Card will not be replaced or refunded in such cases.\nMultiple Luxe Gift Cards can be used in a single transaction.\nOnce issued, the Luxe Gift Card cannot be cancelled or blocked.\nThe Gift Card can be redeemed only on full-priced merchandise and is not applicable on discounted items unless specified otherwise.\nTo activate the Gift Card, send an SMS in the format: ACT <16-digit card number><6-digit PIN> to 9704200300\nAlternatively, activation can be done via the portal: https://bit.ly/4072sdb\nFor balance enquiry and validity, SMS the 16-digit card number to 9704200300 or visit any participating merchant location.\nFor complete Terms & Conditions, participating brands, and store locations, visit: https://www.luxegiftcard.com\nFor bulk enquiries or support, contact: info@luxegiftcard.com\nUsers can change the SMS transaction alert language by writing to gcsupport.woohoo@pinelabs.com , mentioning the registered mobile number and preferred language (Hindi, Telugu, Tamil, Kannada, Marathi, Bengali, Gujarati, Odia, Punjabi, Malayalam, Assamese).\nPine Labs may take up to 15 working days to update the language preference. Once updated, all future SMS alerts for the Luxe Gift Card will be sent in the selected language.\nClose",
+    "instructions": "How To Redeem\nRedeem your Luxe Gift Card at a participating brand of your choice by providing the Digital gift card.\nAn OTP will be generated and sent to you on your registered mobile number at the time of redemption.\nPlease use your Luxe Gift Card and OTP to redeem this gift card.\nTo activate this gift card, SMS to 9704200300. For balance enquiry & validity, SMS to 9704200300.\nClose",
+    "cashback_only": false,
+    "cashback_pct": null,
+    "maxcoins_earn_pct": 13.0,
+    "source": "maximize",
+    "slug": "tumi---luxe-1116",
+    "brand_name": "Tumi - Luxe",
+    "url": "https://www.maximize.money/gift-cards/Tumi - Luxe/1116",
+    "collected_at": "2026-09-04T01:56:57+00:00",
+    "best_saving_pct": 12.75,
+    "best_saving_method": "UPI",
+    "has_terms": true,
+    "recommendable": true
+  },
+  "maximize:airport-sim-1138": {
+    "available": true,
+    "methods": {
+      "UPI": {
+        "saving_pct": 13.0,
+        "processing_fee": null
+      },
+      "Debit Card": {
+        "saving_pct": 11.75,
+        "processing_fee": null
+      },
+      "Credit Card": {
+        "saving_pct": 11.1,
+        "processing_fee": null
+      },
+      "Amazon pay": {
+        "saving_pct": 11.0,
+        "processing_fee": null
+      },
+      "CC on UPI": {
+        "saving_pct": 10.65,
+        "processing_fee": null
+      },
+      "Pay With Rewards": {
+        "saving_pct": 9.7,
+        "processing_fee": null
+      },
+      "Diners Club": {
+        "saving_pct": 10.75,
+        "processing_fee": null
+      },
+      "Wallets": {
+        "saving_pct": 10.65,
+        "processing_fee": null
+      },
+      "Amex": {
+        "saving_pct": 10.75,
+        "processing_fee": null
+      }
+    },
+    "denominations": [
+      {
+        "value": 2000.0
+      },
+      {
+        "value": 1500.0
+      },
+      {
+        "value": 1305.0
+      },
+      {
+        "value": 195.0
+      }
+    ],
+    "custom_amount": false,
+    "rules": {
+      "works_online": {
+        "value": "yes",
+        "evidence": "Redeem online on website / app"
+      },
+      "works_in_store": {
+        "value": "no",
+        "evidence": "Redeem online on website / app"
+      },
+      "one_time_use": {
+        "value": "yes",
+        "evidence": "Must use the full balance in one go"
+      },
+      "can_combine": {
+        "value": "yes",
+        "evidence": "Multiple cards can''t be clubbed"
+      },
+      "combines_with_store_offers": {
+        "value": "no",
+        "evidence": "No, can''t club with other offers / coupons"
+      },
+      "max_cards_per_order": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "ceiling_amount": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "ceiling_period": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "min_order_value": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "max_spend_per_purchase": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "works_on_sale_items": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "excludes": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "delivery_wait_days": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "validity": {
+        "value": "Valid upto 6 Months from purchase",
+        "evidence": "Valid upto 6 Months from purchase"
+      }
+    },
+    "terms": "Terms & Conditions\nRedeemable on Steam or GOG, depending on the activation method provided.\nValid Steam product key or GOG activation link is required.\nGame can only be redeemed once.\nSteam activation is not possible if the game already exists in your Steam account.\nGOG activation is not possible if the game already exists in your GOG account.\nCertain game keys may be region-locked and can only be redeemed in the country where they were purchased.\nInternet connection and the respective gaming platform account are required for activation.\nClose",
+    "instructions": "How To Redeem\nOpen the Steam application and sign in to your Steam account.\nClick + Add a Game in the bottom-left corner.\nSelect Activate a Product on Steam.\nFollow the on-screen instructions.\nEnter your game activation key.\nOnce activated, Airport Sim will be added to your Steam Library and will be available for download.\nClose",
+    "cashback_only": false,
+    "cashback_pct": null,
+    "maxcoins_earn_pct": 13.25,
+    "source": "maximize",
+    "slug": "airport-sim-1138",
+    "brand_name": "Airport Sim",
+    "url": "https://www.maximize.money/gift-cards/Airport Sim/1138",
+    "collected_at": "2026-09-04T01:57:17+00:00",
+    "best_saving_pct": 13.0,
+    "best_saving_method": "UPI",
+    "has_terms": true,
+    "recommendable": true
+  },
+  "maximize:air-india-1148": {
+    "available": true,
+    "methods": {
+      "UPI": {
+        "saving_pct": 8.0,
+        "processing_fee": null
+      },
+      "Debit Card": {
+        "saving_pct": 6.75,
+        "processing_fee": null
+      },
+      "Credit Card": {
+        "saving_pct": 6.1,
+        "processing_fee": null
+      },
+      "Amazon pay": {
+        "saving_pct": 6.0,
+        "processing_fee": null
+      },
+      "CC on UPI": {
+        "saving_pct": 5.65,
+        "processing_fee": null
+      },
+      "Pay With Rewards": {
+        "saving_pct": 4.7,
+        "processing_fee": null
+      },
+      "Diners Club": {
+        "saving_pct": 5.75,
+        "processing_fee": null
+      },
+      "Wallets": {
+        "saving_pct": 5.65,
+        "processing_fee": null
+      },
+      "Amex": {
+        "saving_pct": 5.75,
+        "processing_fee": null
+      }
+    },
+    "denominations": [
+      {
+        "value": 2000.0
+      },
+      {
+        "value": 1500.0
+      },
+      {
+        "value": 5000.0
+      },
+      {
+        "value": 10000.0
+      },
+      {
+        "value": 20000.0
+      },
+      {
+        "value": 1840.0
+      },
+      {
+        "value": 160.0
+      }
+    ],
+    "custom_amount": true,
+    "rules": {
+      "works_online": {
+        "value": "yes",
+        "evidence": "Redeem online on website / app"
+      },
+      "works_in_store": {
+        "value": "no",
+        "evidence": "Redeem online on website / app"
+      },
+      "one_time_use": {
+        "value": "no",
+        "evidence": "Can be used multiple times"
+      },
+      "can_combine": {
+        "value": "yes",
+        "evidence": "Use several gift cards in one purchase"
+      },
+      "combines_with_store_offers": {
+        "value": "yes",
+        "evidence": "Yes, clubbable with other offers / coupons"
+      },
+      "max_cards_per_order": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "ceiling_amount": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "ceiling_period": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "min_order_value": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "max_spend_per_purchase": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "works_on_sale_items": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "excludes": {
+        "value": [
+          "Air India Express flights (AI9XXX series)",
+          "bookings to/from/via Srinagar (SXR) and Leh (IXL)"
+        ],
+        "evidence": "Not valid for Air India Express flights (AI9XXX series)"
+      },
+      "delivery_wait_days": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "validity": {
+        "value": "Up to 30 September 2026.",
+        "evidence": "Up to 30 September 2026."
+      }
+    },
+    "terms": "Terms & Conditions\nIssued and redeemed exclusively by Air India.\nRedeemable only on the Air India website and mobile app.\nValid only for eligible domestic Air India flights and applicable ancillary services.\nApplicable only for bookings made in INR with Point of Sale India.\nNot valid for Air India Express flights (AI9XXX series).\nNot valid for bookings to/from/via Srinagar (SXR) and Leh (IXL).\nGift Card cannot be redeemed through airport counters, call centers, or offline booking channels.\nValid only until the expiry date mentioned on the Gift Card.\nMultiple redemptions are allowed until the available balance is exhausted.\nUp to 3 Gift Cards can be combined in a single transaction.\nCan be added to the Air India Wallet for easier redemption.\nRemaining balance after partial redemption stays available until expiry.\nIf the booking amount exceeds the Gift Card balance, the remaining amount can only be paid using a Credit Card.\nCannot be redeemed for cash, cancelled, refunded, or exchanged.\nGift Cards are transferable but cannot be resold.\nRefunds for cancelled bookings will be credited back to the original Gift Card or Wallet, subject to validity.\nAir India reserves the right to suspend or cancel Gift Cards in cases of fraud or misuse.\nSystem Requirements: Internet connection and a valid Air India account are required to redeem the Gift Card online or through the Air India Wallet.\nClose",
+    "instructions": "How To Redeem\nOption 1 – Redeem Using Gift Card\nVisit the Air India website or open the Air India mobile app.\nSearch and select an eligible domestic flight.\nProceed to checkout.\nSelect Gift Card as the payment option.\nEnter your Gift Card Number and PIN.\nIf the booking amount exceeds the Gift Card balance, pay the remaining amount using a Credit Card.\nComplete your booking.\nOption 2 – Redeem Using Air India Wallet\nActivate your Air India Wallet by logging in to the Air India Wallet portal.\nAdd your Gift Card using the Add Card option.\nThe Gift Card value will be added to your Wallet balance.\nBook an eligible domestic flight on the Air India website or app.\nDuring payment, select Air India Wallet.\nEnter your Wallet ID and PIN.\nApply the desired wallet balance and pay any remaining amount using a Credit Card.\nClose",
+    "cashback_only": false,
+    "cashback_pct": null,
+    "maxcoins_earn_pct": 8.25,
+    "source": "maximize",
+    "slug": "air-india-1148",
+    "brand_name": "Air India",
+    "url": "https://www.maximize.money/gift-cards/Air India/1148",
+    "collected_at": "2026-09-04T01:57:37+00:00",
+    "best_saving_pct": 8.0,
+    "best_saving_method": "UPI",
+    "has_terms": true,
+    "recommendable": true
+  },
+  "maximize:giva%20silver%20coin-1166": {
+    "available": true,
+    "methods": {
+      "UPI": {
+        "saving_pct": 14.0,
+        "processing_fee": null
+      },
+      "Debit Card": {
+        "saving_pct": 12.75,
+        "processing_fee": null
+      },
+      "Credit Card": {
+        "saving_pct": 12.1,
+        "processing_fee": null
+      },
+      "Amazon pay": {
+        "saving_pct": 12.0,
+        "processing_fee": null
+      },
+      "CC on UPI": {
+        "saving_pct": 11.65,
+        "processing_fee": null
+      },
+      "Pay With Rewards": {
+        "saving_pct": 10.7,
+        "processing_fee": null
+      },
+      "Diners Club": {
+        "saving_pct": 11.75,
+        "processing_fee": null
+      },
+      "Wallets": {
+        "saving_pct": 11.65,
+        "processing_fee": null
+      },
+      "Amex": {
+        "saving_pct": 11.75,
+        "processing_fee": null
+      }
+    },
+    "denominations": [
+      {
+        "value": 2000.0
+      },
+      {
+        "value": 1500.0
+      },
+      {
+        "value": 500.0
+      },
+      {
+        "value": 1000.0
+      },
+      {
+        "value": 430.0
+      },
+      {
+        "value": 70.0
+      }
+    ],
+    "custom_amount": true,
+    "rules": {
+      "works_online": {
+        "value": "yes",
+        "evidence": "Redeem Online & checkout counters"
+      },
+      "works_in_store": {
+        "value": "no",
+        "evidence": "Redeem Online & checkout counters"
+      },
+      "one_time_use": {
+        "value": "no",
+        "evidence": "Can be used multiple times"
+      },
+      "can_combine": {
+        "value": "yes",
+        "evidence": "Use several gift cards in one purchase"
+      },
+      "combines_with_store_offers": {
+        "value": "yes",
+        "evidence": "Yes, clubbable with other offers / coupons"
+      },
+      "max_cards_per_order": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "ceiling_amount": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "ceiling_period": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "min_order_value": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "max_spend_per_purchase": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "works_on_sale_items": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "excludes": {
+        "value": [
+          "Silver Chains, Silver Anklets, Silver Toe Rings, Gold Jewellery, Gold-Diamond and Silver-D"
+        ],
+        "evidence": "not applicable on Silver Chains, Silver Anklets, Silver Toe Rings, Gold Jewellery, Gold-Diamond and Silver-D"
+      },
+      "delivery_wait_days": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "validity": {
+        "value": "Valid for upto 6 months",
+        "evidence": "Valid for upto 6 months"
+      }
+    },
+    "terms": "Terms & Conditions\nThe GIVA Silver Jewellery GV/e-Pay can be redeemed on the GIVA website at https://www.giva.co/, mobile app, and listed retail stores/outlets.\nThe person holding the GV/e-Pay is deemed to be the beneficiary.\nThe GV/e-Pay can be clubbed with existing offers.\nThe GV/e-Pay is not applicable on Silver Chains, Silver Anklets, Silver Toe Rings, Gold Jewellery, Gold-Diamond and Silver-Diamond Jewellery, Silver & Gold Coins, Idols, and Utensils.\nThe Gift Voucher can be converted into e-Pay at the holder's convenience.\nThe e-Pay balance cannot be transferred to another e-Pay account, exchanged for cash, or converted into another form of currency.\nThe e-Pay balance must be linked to the registered mobile number.\nAfter conversion into e-Pay balance, the voucher supports partial redemption and the remaining balance can be used for multiple transactions within the validity period.\nOnly valid GIVA GV/e-Pay shall be accepted for redemption at the sole discretion of GIVA.\nThe GV/e-Pay cannot be revalidated once expired or cancelled.\nGIVA/GyFTR is not responsible if the GV/e-Pay is lost, stolen, or used without permission.\nIf the GV/e-Pay is blocked due to a technical issue, it will be enabled within 72 hours.\nAny dispute should be referred to the company from which the GIVA GV/e-Pay was received, and the company's decision shall be final.\nGIVA/GyFTR reserves the right to withdraw, modify, cancel, or change the offer at any point without prior notice and at its sole discretion.\nFor any queries or issues related to the GV/e-Pay, raise a request at https://www.gvhelpdesk.com.\nClose",
+    "instructions": "How To Redeem\nOnline Redemption\nAdd your preferred GIVA product to the cart.\nTap “Redeem GIVA Gift Card.”\nSelect “Redeem GIVA ePay”, enter your registered mobile number, and tap “Get OTP.”\nVerify the OTP to view your available ePay balance.\nChoose the applicable category, enter the amount you want to redeem, and tap “Apply.”\nComplete the remaining payment, if any, using another payment method.\nStore Redemption\nUse the outlet locator to find the nearest listed GIVA store accepting the voucher.\nSelect the products you wish to purchase.\nShare your Gift Voucher with the cashier at checkout.\nPay any remaining balance through cash or card, if required.\nClose",
+    "cashback_only": false,
+    "cashback_pct": null,
+    "maxcoins_earn_pct": 14.1,
+    "source": "maximize",
+    "slug": "giva%20silver%20coin-1166",
+    "brand_name": "GIVA%20Silver%20Coin",
+    "url": "https://www.maximize.money/gift-cards/GIVA%20Silver%20Coin/1166",
+    "collected_at": "2026-09-04T01:57:57+00:00",
+    "best_saving_pct": 14.0,
+    "best_saving_method": "UPI",
+    "has_terms": true,
+    "recommendable": true
   }
 }
