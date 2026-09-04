@@ -119,6 +119,20 @@ def fix_discount_ceiling(offer: dict) -> bool:
     return True
 
 
+# Some brands accept the voucher only from an existing loyalty member. The
+# shopper cannot know that until the till refuses them, and signing up is not
+# something Dealo can do on their way to a purchase — so these are hidden for
+# now. The requirement is recorded rather than discarded: the intent is to show
+# it as a warning before purchase later, and that needs the sentence.
+#
+# All nine are Aditya Birla brands carrying one identical clause, so this is a
+# group policy rather than nine coincidences. Deliberately narrow: a card that
+# must be "registered and activated" (Marriott) or a streaming service you must
+# sign up for (Epic On) is not a loyalty gate and stays visible.
+MEMBERSHIP_GATE = re.compile(
+    r"[^.\n]{0,110}registered as loyalty members?[^.\n]{0,60}", re.I)
+
+
 COMBINE = re.compile(
     r"multiple\s+(?:gift\s+vouchers?|gvs?|gv/gc|e-?gvs?)[^.\n]{0,60}"
     r"(?:combin|club|add)[^.\n]{0,60}(?:e-?pay|balance|wallet)[^.\n]{0,40}", re.I)
@@ -138,7 +152,7 @@ def main() -> None:
         raw.update(json.loads((RAW / f"voucher_terms_raw_{src}.json").read_text()))
 
     foreign = foreign_terms_keys(raw)
-    filled = flagged = hidden = ceilings = 0
+    filled = flagged = hidden = ceilings = gated = 0
     for key, offer in offers.items():
         offer["platform_buying"] = PLATFORM_BUYING.get(offer["source"], {})
 
@@ -147,6 +161,15 @@ def main() -> None:
             offer["recommendable"] = False
             offer["hidden_reason"] = "page publishes another merchant's terms"
             hidden += 1
+
+        terms_text = raw_text(raw.get(key, {}))
+        if m := MEMBERSHIP_GATE.search(terms_text):
+            offer["requires_membership"] = {"value": True,
+                                            "evidence": m.group(0).strip()}
+            offer["available"] = False
+            offer["recommendable"] = False
+            offer["hidden_reason"] = "only redeemable by an existing loyalty member"
+            gated += 1
 
         if fix_discount_ceiling(offer):
             ceilings += 1
@@ -174,6 +197,7 @@ def main() -> None:
     OFFERS.write_text(json.dumps(offers, indent=2, ensure_ascii=False) + "\n")
     print(f"hidden for carrying another merchant's terms      : {hidden}")
     print(f"discount-ceiling rules corrected                  : {ceilings}")
+    print(f"hidden: needs an existing loyalty membership      : {gated}")
     print(f"per-bill answers filled from the combine sentence : {filled}")
     print(f"vouchers flagged 'confirm with cashier'           : {flagged}")
     stated = sum(1 for v in offers.values()
