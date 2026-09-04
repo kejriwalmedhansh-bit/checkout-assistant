@@ -231,11 +231,22 @@ def from_buyhatke(rec: dict) -> dict:
             e["saving_pct"] = d["discount_pct"]
         denoms.append(e)
 
+    # Prefer the rate printed against each amount over the headline. BuyHatke
+    # advertises a range — Costa Coffee reads "0.88% - 7.89% OFF" — and the
+    # headline's first number is the WORST case, earned only on the smallest
+    # denomination. Ranking on it understates the brand badly; the shopper
+    # picks the amount, so the achievable rate is the top of the range.
+    priced = [d["saving_pct"] for d in denoms if d.get("saving_pct") is not None]
+    best_denom_rate = max(priced) if priced else None
+    rate = best_denom_rate if best_denom_rate is not None else pct
+
     return {
         "available": bool(raw.get("available")),
         # BuyHatke quotes one rate for the brand, not per payment method.
-        "methods": ({} if is_cashback or pct is None else
-                    {"any": {"saving_pct": pct, "processing_fee": None}}),
+        "methods": ({} if is_cashback or rate is None else
+                    {"any": {"saving_pct": rate, "processing_fee": None}}),
+        "saving_range": ([min(priced), max(priced)] if len(priced) > 1
+                         and min(priced) != max(priced) else None),
         "denominations": denoms,
         "custom_amount": bool(raw.get("custom_amount")),
         "rules": rules,

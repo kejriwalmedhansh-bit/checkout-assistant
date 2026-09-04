@@ -309,8 +309,13 @@ async def scrape_buyhatke(page, target: dict) -> dict:
     denoms = []
     block = re.search(r"Select Amount(.*?)(?:Continue|Need help)", body, re.S | re.I)
     if block:
+        # The rate sits on the line after the amount. An earlier version wrote
+        # \s* before an explicit \n, so the \s* ate the newline and the rate
+        # never matched — every BuyHatke listing lost its per-denomination rate
+        # and fell back to the headline, which is the LOW end of a range.
+        # Costa Coffee reads 0.88% at ₹100 and 7.89% at ₹250 and above.
         for m in re.finditer(
-                r"₹\s*([\d.,]+\s*[Kk]?)\s*(?:\n\s*([\d.]+)%\s*(OFF|CASHBACK))?",
+                r"₹\s*([\d.,]+\s*[Kk]?)\s*(?:([\d.]+)%\s*(OFF|CASHBACK))?",
                 block.group(1), re.I):
             value = rupees("₹" + m.group(1))
             if value is None:
