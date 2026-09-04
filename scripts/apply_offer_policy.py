@@ -40,6 +40,39 @@ PLATFORM_BUYING = {
                  "note": "Several vouchers per order, but all the same denomination."},
 }
 
+# A page that publishes another merchant's terms cannot be trusted for any of
+# its rules, and repeating them makes Dealo look like it does not know the
+# product: a bookshop voucher does not have a BigBasket wallet or a BBdaily
+# exclusion. The user's call is to hide these outright.
+#
+# Detected by the terms document, not by keyword. Plenty of legitimate pages
+# name BigBasket in a list of brands — keying off the word hid 395 listings
+# including TGIF and Pizza Hut. A listing is only foreign when it shares its
+# ENTIRE terms text with other unrelated brands and that text is unmistakably
+# one specific merchant's.
+FOREIGN_MARKERS = re.compile(r"bbdaily|big\s?basket wallet|tata\s?neu coins", re.I)
+
+
+def foreign_terms_keys(raw: dict) -> set:
+    """Listings whose whole terms document belongs to a merchant they are not."""
+    groups: dict[str, list] = {}
+    for key, rec in raw.items():
+        terms = re.sub(r"\s+", " ", (rec.get("raw", {}).get("full_terms") or "")).strip()
+        if len(terms) < 200 or not FOREIGN_MARKERS.search(terms):
+            continue
+        groups.setdefault(terms, []).append((key, rec.get("brand_name", "")))
+    out = set()
+    for terms, members in groups.items():
+        owner = re.sub(r"[^a-z]", "", "".join(FOREIGN_MARKERS.findall(terms)).lower())
+        # If one of the brands sharing this document IS the merchant it
+        # describes, the document is theirs and everyone else borrowed it —
+        # but if none of them is, it is nobody's and all of them are wrong.
+        if any("bigbasket" in re.sub(r"[^a-z]", "", b.lower()) for _, b in members):
+            continue
+        out.update(k for k, _ in members)
+    return out
+
+
 COMBINE = re.compile(
     r"multiple\s+(?:gift\s+vouchers?|gvs?|gv/gc|e-?gvs?)[^.\n]{0,60}"
     r"(?:combin|club|add)[^.\n]{0,60}(?:e-?pay|balance|wallet)[^.\n]{0,40}", re.I)
@@ -58,9 +91,16 @@ def main() -> None:
     for src in ("gyftr", "buyhatke", "maximize"):
         raw.update(json.loads((RAW / f"voucher_terms_raw_{src}.json").read_text()))
 
-    filled = flagged = 0
+    foreign = foreign_terms_keys(raw)
+    filled = flagged = hidden = 0
     for key, offer in offers.items():
         offer["platform_buying"] = PLATFORM_BUYING.get(offer["source"], {})
+
+        if key in foreign:
+            offer["available"] = False
+            offer["recommendable"] = False
+            offer["hidden_reason"] = "page publishes another merchant's terms"
+            hidden += 1
 
         rules = offer.get("rules") or {}
         if offer.get("rules_source") == "read" and "max_vouchers_per_bill" not in rules:
@@ -83,6 +123,7 @@ def main() -> None:
         offer["rules"] = rules
 
     OFFERS.write_text(json.dumps(offers, indent=2, ensure_ascii=False) + "\n")
+    print(f"hidden for carrying another merchant's terms      : {hidden}")
     print(f"per-bill answers filled from the combine sentence : {filled}")
     print(f"vouchers flagged 'confirm with cashier'           : {flagged}")
     stated = sum(1 for v in offers.values()

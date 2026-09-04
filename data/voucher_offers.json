@@ -51214,13 +51214,13 @@
         ],
         "evidence": "The Gift Card shall be valid for a period of one (1) year from the date of purchase and cannot be used to purchase other gift cards."
       },
-      "monthly_purchase_cap": {
-        "value": 25000,
-        "evidence": "Gift card redemptions are limited to ₹25,000 per user within a calendar month."
-      },
       "validity": {
         "value": "one (1) year from the date of purchase",
         "evidence": "The Gift Card shall be valid for a period of one (1) year from the date of purchase and cannot be used to purchase other gift cards."
+      },
+      "max_spend_per_purchase": {
+        "value": 25000,
+        "evidence": "Gift card redemptions are limited to ₹25,000 per user within a calendar month."
       }
     },
     "terms": "TERMS AND CONDITIONS\n1.\nThe Gift Card is redeemable only on Razorpay approved platforms i.e., Blinkit website and mobile application (“Blinkit Platform”) and on the Blinkit Affiliate Platform. “Blinkit Affiliate Platform” means any website and/or application owned and/or operated by affiliates of Blinkit such as Bistro where the Gift Card is made available as a payment solution for purchase of products or services. Blinkit Platform and Blinkit Affiliate Platform shall be collectively referred to as the “Platform”.\n2.\nGift card redemptions are limited to ₹25,000 per user within a calendar month.\n3.\nThe Gift Card issued by Razorpay shall be governed by the applicable terms here. \n4.\nThe purchaser of Gift Card may add the Gift Card to Blinkit Money balance via “Claim” option.\n5.\nThe Gift Card shall be valid for a period of one (1) year from the date of purchase and cannot be used to purchase other gift cards.\n6.\nMultiple Gift Cards can be clubbed in a single order of purchase. \n7.\nThe Gift Card cannot be redeemed for cash or credit and cannot be reloaded. \n8.\nIn cases where the order is canceled, the Gift Card amount shall be refunded to the source account. \n9.\nAll taxes, duties, levies or other statutory dues and charges payable in connection with the benefits accruing under the offer shall be borne solely by the purchaser of the Gift Card. \n10.\nThe purchaser of the Gift Card is solely responsible for the safety and security of the Gift Card. Blinkit and Razorpay are not responsible for any acts of omission or commission if the Gift Card is lost, stolen, or used without permission. Once the Gift Card is claimed, no refund can be issued against such Gift Card. \n11.\nRazorpay assumes no responsibility for the products purchased using the Gift Card and any liability thereof is expressly disclaimed. \n12.\nRazorpay reserves the right to cancel the Gift Card if the same has been found to be purchased with fraudulent means and / or the beneficiary / know-your-customer (“KYC”) details are found to be incorrect or insufficient as per RBI guidelines. In such cases, the funds shall be credited back to the same source account from where these were received. \n13.\nThe purchaser of the Gift Card agrees and understands that the Gift Card is a pre-paid payment instrument subject to regulation by RBI under PPI Master Directions. Under the RBI guidelines, Blinkit and / or Razorpay may be required to share KYC details of the purchaser of the Gift Card and /or any other information in relation to purchase of the Gift Card and / or transaction undertaken using the Gift Card with RBI or such statutory authorities. Blinkit and / or Razorpay may contact the purchaser of the Gift Card for any such information. \n14.\nBlinkit will consider requests for blocking of the Gift Card only from the registered users of Blinkit.\n15.\nFor any customer grievance, kindly refer to our policy. \n16.\nThe purchaser of the Gift Card may request for the revalidation of the expired Gift Card. Upon receipt of such a request the Gift Card may be revalidated after due verification by Blinkit and Razorpay as per PPI Master Directions. \n17.\nIn the event of any conflict in the terms regarding Gift Card captured here under these Terms and any other terms made available to the purchaser of the Gift Card via the Blinkit Platform, these Terms shall prevail. \n18.\nRazorpay reserves the right to change the Terms of the Gift Card, including extending, withdrawing or discontinuing at its sole discretion without notice. \n19.\nThese Terms shall be governed by the laws of India and  all disputes arising out of or in connection to these Terms are subject to the exclusive jurisdiction of the courts in Bangalore only.\n\nBlinkit is a leading quick-commerce platform in India that delivers groceries, household essentials, fresh produce, and more directly to customers' doorsteps. Known for its ultra-fast delivery—often within minutes—Blinkit operates in 80+ cities across the country. The app offers a smooth and user-friendly shopping experience, with a wide range of products including packaged foods, personal care items, and fresh fruits and vegetables. It has become a go-to choice for users looking for instant, hassle-free shopping.\n\nIn addition to its services, Blinkit also offers Blinkit Gift Cards, which allow users to conveniently pay for their orders without using cash or cards. These gift cards can be redeemed within the app and are perfect for gifting friends or family who frequently shop for groceries and essentials online.\n\nHow to Buy Blinkit Gift Card\n1\nVisit our website buyhatke.com/gift-cards\n2\nSearch or select blinkit gift card\n3\nLogin to your account\n4\nChoose your gift card denomination\n5\nClick on Create Voucher\n6\nProceed to checkout\n7\nComplete the payment securely\n8\nReceive your gift card instantly via email",
@@ -89521,13 +89521,13 @@
         "value": "yes",
         "evidence": "Any balance amount left on the used gift card can be reused within the validity period."
       },
-      "monthly_purchase_cap": {
-        "value": 50000,
-        "evidence": "This is for individual use only. An individual user can not utilize more than 50,000 worth of Gift cards in a month."
-      },
       "validity": {
         "value": "1 year from the date of issue",
         "evidence": "Validity -1 year from the date of issue. Validity of gift cards cannot be extended."
+      },
+      "max_spend_per_purchase": {
+        "value": 50000,
+        "evidence": "This is for individual use only. An individual user can not utilize more than 50,000 worth of Gift cards in a month."
       }
     },
     "terms": "TERMS AND CONDITIONS\n1.\nValidity -1 year from the date of issue. Validity of gift cards cannot be extended.\n2.\nPhonePe Gift Card once bought cannot be cancelled.\n3.\nPhonePe wallet balance or existing Gift Card balance cannot be used to purchase e-gift cards.\n4.\nAny balance amount left on the used gift card can be reused within the validity period.\n5.\nYou are solely responsible for the safety and security of the e-gift cards. PhonePe is not responsible if the gift card details are lost, stolen or used without permission.\n6.\nThe gift cards cannot be replaced, refunded, revalidated or exchanged for cash.\n7.\nPhonePe reserves the right to deny accepting any gift card if it suspects that there is duplicity of gift cards.\n8.\nAny misuse of this gift card will result in cancellation of the gift card.\n9.\nPhonePe is the final authority on the interpretation of these rules.\n10.\nThis is for individual use only.\n11.\nPhonePe shall not be responsible for any fraudulent purchases or services that might be availed by customers using the e-gift cards purchased through PhonePe.10. PhonePe Giftcards can be used as payment option across all Eligible PhonePe merchants and services.\n12.\nThis is for individual use only. An individual user can not utilize more than 50,000 worth of Gift cards in a month.\n13.\nDisputes are subject to Bangalore jurisdiction.\n14.\nIn case of any cancellation of transactions paid using the gift cards within the validity period, the amount will be reversed to the Gift Card used at the time of the transaction.\n15.\nIn case the Gift Card validity has expired, then there will be no refund processed for the amount paid by the Gift Card.\n16.\nFor complete T&Cs, visit www.phonepe.com/en/terms.html#gift-vouchers\nIndia\nEnglish\nProducts\nHot Deals\nPrice Drop alerts\nGift Cards\nReferrals\nGoodies\nPrice History Tracker\nAmazon Price History Tracker\nFlipkart Price History Tracker\nAmazon Quiz Answers\nCompany\nAbout\nContact Us\nWhat We Do\nHow We Earn\nOther\nSupported Stores\nAdvertise With Us\nPricing Intelligence\nBuyhatke Internet Pvt Ltd. © 2012 - 2026\nLegal Terms\nPrivacy & Policies",
@@ -93234,7 +93234,8 @@
       "must_be_same_denomination": true,
       "multiple_brands_per_order": false,
       "note": "Several vouchers per order, but all the same denomination."
-    }
+    },
+    "hidden_reason": "page publishes another merchant's terms"
   },
   "buyhatke:zone-hypermarket-gift-card": {
     "available": false,
@@ -93304,7 +93305,8 @@
       "must_be_same_denomination": true,
       "multiple_brands_per_order": false,
       "note": "Several vouchers per order, but all the same denomination."
-    }
+    },
+    "hidden_reason": "page publishes another merchant's terms"
   },
   "buyhatke:south-shopping-mall-gift-card": {
     "available": false,
@@ -93377,7 +93379,8 @@
       "must_be_same_denomination": true,
       "multiple_brands_per_order": false,
       "note": "Several vouchers per order, but all the same denomination."
-    }
+    },
+    "hidden_reason": "page publishes another merchant's terms"
   },
   "buyhatke:de-royal-gift-card": {
     "available": false,
@@ -93450,7 +93453,8 @@
       "must_be_same_denomination": true,
       "multiple_brands_per_order": false,
       "note": "Several vouchers per order, but all the same denomination."
-    }
+    },
+    "hidden_reason": "page publishes another merchant's terms"
   },
   "buyhatke:kanchipuram-narayani-silks-gift-card": {
     "available": false,
@@ -93519,7 +93523,8 @@
       "must_be_same_denomination": true,
       "multiple_brands_per_order": false,
       "note": "Several vouchers per order, but all the same denomination."
-    }
+    },
+    "hidden_reason": "page publishes another merchant's terms"
   },
   "buyhatke:myhq-gift-card": {
     "available": false,
@@ -93712,7 +93717,8 @@
       "must_be_same_denomination": true,
       "multiple_brands_per_order": false,
       "note": "Several vouchers per order, but all the same denomination."
-    }
+    },
+    "hidden_reason": "page publishes another merchant's terms"
   },
   "buyhatke:maple-gift-card": {
     "available": false,
@@ -94060,7 +94066,8 @@
       "must_be_same_denomination": true,
       "multiple_brands_per_order": false,
       "note": "Several vouchers per order, but all the same denomination."
-    }
+    },
+    "hidden_reason": "page publishes another merchant's terms"
   },
   "buyhatke:hyatt-(in-store)-gift-card": {
     "available": false,
@@ -94445,7 +94452,8 @@
       "must_be_same_denomination": true,
       "multiple_brands_per_order": false,
       "note": "Several vouchers per order, but all the same denomination."
-    }
+    },
+    "hidden_reason": "page publishes another merchant's terms"
   },
   "buyhatke:109f-gift-card": {
     "available": false,
@@ -94573,7 +94581,8 @@
       "must_be_same_denomination": true,
       "multiple_brands_per_order": false,
       "note": "Several vouchers per order, but all the same denomination."
-    }
+    },
+    "hidden_reason": "page publishes another merchant's terms"
   },
   "buyhatke:jungle-safari-gift-card": {
     "available": false,
@@ -94698,7 +94707,8 @@
       "must_be_same_denomination": true,
       "multiple_brands_per_order": false,
       "note": "Several vouchers per order, but all the same denomination."
-    }
+    },
+    "hidden_reason": "page publishes another merchant's terms"
   },
   "buyhatke:renee-cosmetics-gift-card": {
     "available": false,
@@ -94906,7 +94916,8 @@
       "must_be_same_denomination": true,
       "multiple_brands_per_order": false,
       "note": "Several vouchers per order, but all the same denomination."
-    }
+    },
+    "hidden_reason": "page publishes another merchant's terms"
   },
   "buyhatke:amala-earth-gift-card": {
     "available": false,
