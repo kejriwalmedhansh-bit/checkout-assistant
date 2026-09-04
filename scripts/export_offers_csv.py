@@ -70,11 +70,9 @@ def main() -> None:
             "Confirm With Cashier": "yes" if offer.get("confirm_with_cashier") else "",
             "Cashback Only": "yes" if offer.get("cashback_only") else "",
             "MaxCoins Instead %": offer.get("maxcoins_earn_pct") or "",
-            "Order: Mixed Denominations": (
-                "yes" if (offer.get("platform_buying") or {}).get(
-                    "multiple_vouchers_per_order")
-                and not (offer.get("platform_buying") or {}).get("must_be_same_denomination")
-                else "same denomination only"),
+            "Vouchers Buyable Per Order": str(
+                (offer.get("platform_buying") or {}).get("vouchers_per_order", "")),
+            "Order Rule": (offer.get("platform_buying") or {}).get("note", ""),
         }
         for key, label in RULE_COLS:
             row[label] = cell(rules.get(key))

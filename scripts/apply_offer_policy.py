@@ -29,16 +29,36 @@ RAW = REPO / "data"
 # the other two take several vouchers only at one denomination, so a large
 # purchase has to be assembled from equal-sized cards or split across orders.
 PLATFORM_BUYING = {
-    "gyftr": {"multiple_vouchers_per_order": True, "must_be_same_denomination": False,
-              "multiple_brands_per_order": True,
-              "note": "Any mix of denominations, and different brands, in one order."},
-    "maximize": {"multiple_vouchers_per_order": True, "must_be_same_denomination": True,
-                 "multiple_brands_per_order": False,
-                 "note": "Several vouchers per order, but all the same denomination."},
-    "buyhatke": {"multiple_vouchers_per_order": True, "must_be_same_denomination": True,
-                 "multiple_brands_per_order": False,
-                 "note": "Several vouchers per order, but all the same denomination."},
+    # Gyftr: a real cart. Any mix of denominations, and different brands, in one
+    # order — so a large purchase can be assembled exactly (20,000 + 10,000 +
+    # 5,000) and paid for once.
+    "gyftr": {
+        "vouchers_per_order": "unlimited",
+        "mixed_denominations": True,
+        "mixed_brands": True,
+        "note": "Any mix of denominations and brands in a single order.",
+    },
+    # Maximize: several vouchers per order, but all the same denomination and
+    # the same brand — so a large purchase has to be built from equal-sized
+    # cards (4 x 10,000), never an exact combination.
+    "maximize": {
+        "vouchers_per_order": "multiple",
+        "mixed_denominations": False,
+        "mixed_brands": False,
+        "note": "Several vouchers per order, but all the same denomination and brand.",
+    },
+    # BuyHatke: one voucher per transaction, confirmed by the user's own live
+    # testing. Whatever the merchant would accept at the till is therefore moot
+    # here — Dealo can only ever send someone to BuyHatke for a purchase a
+    # single voucher covers.
+    "buyhatke": {
+        "vouchers_per_order": 1,
+        "mixed_denominations": False,
+        "mixed_brands": False,
+        "note": "One voucher per transaction. Use only when one voucher covers the bill.",
+    },
 }
+
 
 # A page that publishes another merchant's terms cannot be trusted for any of
 # its rules, and repeating them makes Dealo look like it does not know the
@@ -63,7 +83,6 @@ def foreign_terms_keys(raw: dict) -> set:
         groups.setdefault(terms, []).append((key, rec.get("brand_name", "")))
     out = set()
     for terms, members in groups.items():
-        owner = re.sub(r"[^a-z]", "", "".join(FOREIGN_MARKERS.findall(terms)).lower())
         # If one of the brands sharing this document IS the merchant it
         # describes, the document is theirs and everyone else borrowed it —
         # but if none of them is, it is nobody's and all of them are wrong.
