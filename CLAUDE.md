@@ -32,7 +32,26 @@ Dealo is a pre-checkout purchase optimization engine for Indian e-commerce. Inpu
 
 **L1 — price discovery: complete.** `pipeline.py` is the pure-compute layer (the old main.py print-refactor is done). Zyte extraction with per-site fallbacks (Amazon browserHtml, amzn.in resolution, Myntra /buy retry + slug + browser-render price recovery, Nykaa/AJIO slugs) in `extractor/zyte_client.py`. SerpAPI discovery + immersive seller resolution in `extractor/discovery.py`, 24h SQLite cache in `db/cache.py`. Matching in `engine/matcher.py`: brand gate → refurb/submodel/color/storage/size conflict detection → noise-stripped token subset/Jaccard. Trusted-merchant whitelist (manual list + all Gyftr brands), price-outlier filter (< 40% of median), accessory/model-number relevance filter, per-merchant dedup, priority-merchant sort.
 
-**L2 — Gyftr vouchers: complete.** 379 brands in `db/gyftr_master.json`. `db/voucher_lookup.py` does exact→prefix→substring brand matching (short-name guard, reseller exclusion), greedy denomination fill respecting `stack_limit` / `value_cap` / `purchase_cap_per_txn`, custom-amount vouchers, UPI vs card discount rates. Category restrictions enforced via `engine/category_classifier.py` against `redemption_restrictions`.
+**L2 — vouchers: complete, all three platforms, refreshed 2026-09-04.** The
+pipeline reads `data/gyftr_master.json`, `data/buyhatke_master.json` and
+`data/maximize_master.json` (rates, denominations, stack limits, status) plus
+`data/voucher_rules.json` (what the shop will accept). All four are regenerated
+from the scrape by `scripts/update_masters_from_scrape.py` and
+`scripts/build_service_rules.py` — see `VOUCHER_REFRESH.md` for the whole
+sequence, which is designed so a fortnightly refresh re-reads only what changed.
+
+Every rule Dealo states now carries the seller's own sentence as evidence;
+`scripts/verify_rule_quotes.py` gates that and must report zero unsupported.
+Each listing was read twice, independently, and merged with the restriction
+winning.
+
+**Expect fewer active vouchers than the previous deploy — that is deliberate.**
+111 Gyftr, 46 Maximize and 44 BuyHatke products are now `inactive`: a 0%
+discount (not an offer), out of stock, redeemable only by an existing loyalty
+member, or publishing another merchant's terms. A drop in count is the intended
+change, not a broken import.
+
+Historic detail, still accurate for the matching logic: 379 brands in `db/gyftr_master.json`. `db/voucher_lookup.py` does exact→prefix→substring brand matching (short-name guard, reseller exclusion), greedy denomination fill respecting `stack_limit` / `value_cap` / `purchase_cap_per_txn`, custom-amount vouchers, UPI vs card discount rates. Category restrictions enforced via `engine/category_classifier.py` against `redemption_restrictions`.
 
 **L3 — cards: built, has known correctness gaps (see bugs).** `db/cashback_cards.json`: SBI Cashback, Flipkart Axis, BOB Cashback. `db/card_lookup.py` picks best card by capped saving; surfaced as `card_fomo` on the recommended route only.
 
@@ -40,15 +59,15 @@ Dealo is a pre-checkout purchase optimization engine for Indian e-commerce. Inpu
 
 **Web UI: functional.** `api.py` (FastAPI: `/`, `POST /search`, `/health`) + `templates/index.html` (single file, vanilla JS). Product identity box, savings bar, journey visualization, how-to steps with cleaned redemption instructions, card FOMO row with embedded base64 card images, alternatives toggle, unverified-sellers warning. Cuelinks affiliate wrapping on merchant links (`linksredirect.com/?cid=297179`), deliberately NOT on Gyftr voucher links. Not yet deployed (target: Railway or Render).
 
-**WhatsApp: end-to-end wired, one display bug.** `whatsapp/webhook.py` (Meta Graph v20.0, verify + receive, async pipeline dispatch, "See other routes" button), `classifier.py` (url / product_name / unparseable triage with noise-phrase list), `session_store.py` (SQLite, 10-min sliding TTL per phone), `formatter.py`. Access token is a 24h dev token needing daily regeneration; ngrok URL changes on restart and must be re-registered in Meta.
+**WhatsApp: end-to-end wired.** Now `src/services/whatsapp_service.py` and `src/api/routers/whatsapp.py` (Meta Graph v20.0, verify + receive, async pipeline dispatch, "See other routes" button), with url / product_name / unparseable triage and a SQLite session store on a 10-min sliding TTL per phone. The old `whatsapp/` package and its display bug are gone. Access token is a 24h dev token needing daily regeneration; ngrok URL changes on restart and must be re-registered in Meta.
 
 ## Known bugs and discrepancies (fix before trusting output)
 
-1. **`whatsapp/formatter.py` key mismatch — live bug.** Reads `voucher.brand` / `best_discount` / `recommended_denomination` / `gyftr_url`; pipeline vouchers expose `merchant` / `upi.pct` / `upi.voucher_amount` / `voucher_url`. WhatsApp renders "Buy ₹0 voucher at 0% off" with no link. Fix formatter to the pipeline schema (web UI in index.html shows the correct keys).
+1. ~~`whatsapp/formatter.py` key mismatch~~ — **fixed by the refactor, verified 2026-09-04. Do not chase this.** There is no `whatsapp/` directory any more; that code lives in `src/services/whatsapp_service.py` and reads the pipeline schema (`voucher["brand_name"]`, `voucher["voucher_url"]`, `denom_breakdown`). Grepping `src/` for the old keys — `best_discount`, `recommended_denomination`, `gyftr_url` — returns nothing.
 2. **`card_lookup.py` ignores `earns_on_gyftr`.** Flipkart Axis (`earns_on_gyftr: false`) can be recommended at its 7.5% Myntra override on a Gyftr-voucher route where it earns nothing. When the route includes a voucher, only cards with `earns_on_gyftr: true` should qualify, at `gyftr_rate`.
 3. **No card FOMO display threshold.** Intended rule (₹200 or 3% minimum saving) is not implemented; any saving > ₹0 shows.
 4. **Cap periods not normalized** — monthly vs quarterly `cap_amount` compared raw when selecting the best card.
-5. **Dead code**: unused inner `_headers()` in both send functions in `whatsapp/webhook.py`.
+5. ~~Dead code: unused inner `_headers()` in `whatsapp/webhook.py`~~ — moot, that file no longer exists (see 1).
 6. ~~Text-query mode Product Picker no longer checks title relevance~~ — **partially re-added 2026-08-06.** The all-tokens rung system from before 2026-08-03 is still gone (that's what wrongly dropped "Buds4 Pro"), but a permissive relevance gate is back: `_filter_and_group_candidates` now drops a candidate only if it matches **none** of the query's required tokens (`_matches_any_required_token`, new), not if it fails to match **all** of them. This closes the actual reported problem — pure gibberish input ("asdkjhaskjdh 1234 ??!!") returning a confident, unrelated real product — without reviving the false-negative failure mode: "Buds4 Pro" and the accessory-search cases from the original incident were re-tested and still pass. The accessory filter (`_is_accessory`) is still not applied in the picker, unchanged from before. `_required_tokens`, `_matches_required_tokens`, `_token_pattern` remain used as-is by the separate route-building stage (`build_routes_for_token`).
 7. **Marketplace-attributed clones — largely mitigated 2026-07-13 via price anchor.** Google Shopping attributes third-party marketplace listings to the platform ("Flipkart"), not the actual seller, so a merchant-whitelist check alone can't catch a clone sold *through* a trusted platform. Fix: `_filter_and_group_candidates` now anchors the price-outlier check on the highest price quoted by any of the small `PRIORITY_MERCHANTS` set (Croma, Vijay Sales, Reliance Digital, Tata CLiQ, Flipkart, Amazon) when one is present, instead of the survivor pool's own median — verified this drops all 39 clone/junk listings for "Apple Airpods Pro 2" down to the single genuine Reliance Digital ₹18,900 listing. Residual gap: if a query has **no** priority-merchant listing at all (only JioMart/Zepto/Apple/Myntra/Nykaa/AJIO/BigBasket/Pepperfry/Lenskart), there's no anchor and the weaker median-based filter is all that applies — don't attempt to close this with title-keyword heuristics ("Oem", "king edition", etc.), that's the kind of ad hoc special-casing rule #1 warns against.
 8. `_KNOWN_BRANDS` (pipeline.py) and `_BRAND_SLUGS` (discovery.py) are small hardcoded lists — brands outside them weaken brand inference and conflict filtering.
