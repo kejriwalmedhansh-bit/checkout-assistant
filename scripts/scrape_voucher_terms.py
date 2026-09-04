@@ -371,13 +371,28 @@ async def scrape_maximize(page, target: dict) -> dict:
         if ln.endswith("?") or ln in ("Validity",):
             boxes[ln] = lines[i + 1]
 
-    raw = {"info_boxes": boxes, "page_text": body[:8000], "full_terms": "", "how_to_redeem": ""}
+    # The URL says only "Amazon" for five different products — a shopping
+    # voucher, AmazonPay, Amazon Fresh, and two Prime memberships that discount
+    # 15%. Ranking those together would offer a Prime subscription to someone
+    # buying groceries. The page states the real name just above the Share
+    # button.
+    product_name = next((lines[i - 1] for i, ln in enumerate(lines)
+                         if ln == "Share" and i), None)
+
+    raw = {"info_boxes": boxes, "page_text": body[:8000], "full_terms": "",
+           "how_to_redeem": "", "product_name": product_name}
 
     # --- the money side ---
+    # Scoped to the amount picker. Taking every rupee figure on the page swept
+    # in the credit-card promo above it ("Apply and get ₹2000 cashback"), so
+    # ₹2000, ₹2000 and ₹1500 were recorded as denominations of every single
+    # brand — none of them real.
+    picker = re.search(r"Select your Shopping Amount(.*?)(?:Quantity|You Pay)",
+                       body, re.S | re.I)
     raw["denominations"] = [
-        {"value": float(v.replace("₹", "").replace(",", ""))}
-        for v in re.findall(r"₹[\d,]+(?:\.\d+)?", "\n".join(lines))[:14]
-    ]
+        {"value": float(v.replace(",", ""))}
+        for v in re.findall(r"₹\s*([\d,]+(?:\.\d+)?)", picker.group(1))
+    ] if picker else []
     # "Max: 4" caps how many this seller will sell in one checkout — distinct
     # from how many the shop will accept at redemption.
     if (m := re.search(r"Max:\s*(\d+)", body)):

@@ -127321,12 +127321,6 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 750.0
       },
       {
@@ -127340,12 +127334,6 @@
       },
       {
         "value": 16300.0
-      },
-      {
-        "value": 675.0
-      },
-      {
-        "value": 75.0
       }
     ],
     "custom_amount": false,
@@ -127414,7 +127402,7 @@
     "maxcoins_earn_pct": 10.1,
     "source": "maximize",
     "slug": "bgmi",
-    "brand_name": "BGMI",
+    "brand_name": "BGMI UC Official Voucher",
     "url": "https://www.maximize.money/gift-cards/BGMI/1061",
     "collected_at": "2026-09-03T20:46:18+00:00",
     "best_saving_pct": 10.0,
@@ -127465,12 +127453,6 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 1000.0
       },
       {
@@ -127481,12 +127463,6 @@
       },
       {
         "value": 10000.0
-      },
-      {
-        "value": 867.5
-      },
-      {
-        "value": 132.5
       }
     ],
     "custom_amount": false,
@@ -127555,7 +127531,7 @@
     "maxcoins_earn_pct": 13.5,
     "source": "maximize",
     "slug": "bagline",
-    "brand_name": "BAGLINE",
+    "brand_name": "Aeropostale-BAGLINE",
     "url": "https://www.maximize.money/gift-cards/BAGLINE/588",
     "collected_at": "2026-09-03T20:46:39+00:00",
     "best_saving_pct": 13.25,
@@ -127606,12 +127582,6 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 500.0
       },
       {
@@ -127621,10 +127591,10 @@
         "value": 1000.0
       },
       {
-        "value": 481.25
+        "value": 1500.0
       },
       {
-        "value": 18.75
+        "value": 2000.0
       }
     ],
     "custom_amount": false,
@@ -127734,12 +127704,6 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 100.0
       },
       {
@@ -127749,6 +127713,9 @@
         "value": 1000.0
       },
       {
+        "value": 2000.0
+      },
+      {
         "value": 3000.0
       },
       {
@@ -127756,12 +127723,6 @@
       },
       {
         "value": 8000.0
-      },
-      {
-        "value": 98.75
-      },
-      {
-        "value": 1.25
       }
     ],
     "custom_amount": true,
@@ -127830,7 +127791,7 @@
     "maxcoins_earn_pct": 1.8,
     "source": "maximize",
     "slug": "amazon",
-    "brand_name": "Amazon",
+    "brand_name": "Amazon Shopping Voucher",
     "url": "https://www.maximize.money/gift-cards/Amazon/1084",
     "collected_at": "2026-09-03T20:47:16+00:00",
     "best_saving_pct": 1.25,
@@ -127881,12 +127842,6 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 100.0
       },
       {
@@ -127900,12 +127855,6 @@
       },
       {
         "value": 300.0
-      },
-      {
-        "value": 99.5
-      },
-      {
-        "value": 0.5
       }
     ],
     "custom_amount": false,
@@ -127974,7 +127923,7 @@
     "maxcoins_earn_pct": 0.75,
     "source": "maximize",
     "slug": "hp-pay",
-    "brand_name": "HP Pay",
+    "brand_name": "HP Pay (In-App)",
     "url": "https://www.maximize.money/gift-cards/HP Pay/788",
     "collected_at": "2026-09-03T20:47:36+00:00",
     "best_saving_pct": 0.5,
@@ -128025,13 +127974,10 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 1000.0
+      },
+      {
+        "value": 2000.0
       },
       {
         "value": 5000.0
@@ -128041,12 +127987,6 @@
       },
       {
         "value": 10000.0
-      },
-      {
-        "value": 957.5
-      },
-      {
-        "value": 42.5
       }
     ],
     "custom_amount": false,
@@ -128168,25 +128108,16 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 500.0
       },
       {
         "value": 1000.0
       },
       {
+        "value": 2000.0
+      },
+      {
         "value": 5000.0
-      },
-      {
-        "value": 450.0
-      },
-      {
-        "value": 50.0
       }
     ],
     "custom_amount": false,
@@ -128255,7 +128186,7 @@
     "maxcoins_earn_pct": 10.1,
     "source": "maximize",
     "slug": "absolute-barbecues",
-    "brand_name": "Absolute Barbecues",
+    "brand_name": "Absolute Barbeque",
     "url": "https://www.maximize.money/gift-cards/Absolute Barbecues/791",
     "collected_at": "2026-09-03T20:48:17+00:00",
     "best_saving_pct": 10.0,
@@ -128293,12 +128224,6 @@
       }
     },
     "denominations": [
-      {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
       {
         "value": 5000.0
       }
@@ -128369,7 +128294,7 @@
     "maxcoins_earn_pct": 0.15,
     "source": "maximize",
     "slug": "phonepe",
-    "brand_name": "PhonePe",
+    "brand_name": "PhonePe 5000 and 10000",
     "url": "https://www.maximize.money/gift-cards/PhonePe/801",
     "collected_at": "2026-09-03T20:48:34+00:00",
     "best_saving_pct": 0.0,
@@ -128420,16 +128345,13 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 500.0
       },
       {
         "value": 1000.0
+      },
+      {
+        "value": 2000.0
       },
       {
         "value": 5000.0
@@ -128445,12 +128367,6 @@
       },
       {
         "value": 95600.0
-      },
-      {
-        "value": 447.5
-      },
-      {
-        "value": 52.5
       }
     ],
     "custom_amount": false,
@@ -128573,16 +128489,7 @@
         "value": 2000.0
       },
       {
-        "value": 1500.0
-      },
-      {
         "value": 5000.0
-      },
-      {
-        "value": 1905.0
-      },
-      {
-        "value": 95.0
       }
     ],
     "custom_amount": false,
@@ -128651,7 +128558,7 @@
     "maxcoins_earn_pct": 5.0,
     "source": "maximize",
     "slug": "muscle-20blaze",
-    "brand_name": "Muscle%20Blaze",
+    "brand_name": "Muscle Blaze",
     "url": "https://www.maximize.money/gift-cards/Muscle%20Blaze/1126",
     "collected_at": "2026-09-03T20:49:15+00:00",
     "best_saving_pct": 4.75,
@@ -128702,22 +128609,10 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 5000.0
       },
       {
         "value": 10000.0
-      },
-      {
-        "value": 4812.5
-      },
-      {
-        "value": 187.5
       }
     ],
     "custom_amount": false,
@@ -128786,7 +128681,7 @@
     "maxcoins_earn_pct": 4.5,
     "source": "maximize",
     "slug": "ajio-luxe",
-    "brand_name": "AJIO Luxe",
+    "brand_name": "Ajio Luxe",
     "url": "https://www.maximize.money/gift-cards/AJIO Luxe/733",
     "collected_at": "2026-09-03T20:49:35+00:00",
     "best_saving_pct": 3.75,
@@ -128825,12 +128720,6 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 1000.0
       },
       {
@@ -128850,12 +128739,6 @@
       },
       {
         "value": 10000.0
-      },
-      {
-        "value": 922.5
-      },
-      {
-        "value": 77.5
       }
     ],
     "custom_amount": false,
@@ -128978,12 +128861,6 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 1000.0
       },
       {
@@ -129003,12 +128880,6 @@
       },
       {
         "value": 10000.0
-      },
-      {
-        "value": 922.5
-      },
-      {
-        "value": 77.5
       }
     ],
     "custom_amount": false,
@@ -129130,12 +129001,6 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 100.0
       },
       {
@@ -129143,6 +129008,12 @@
       },
       {
         "value": 1000.0
+      },
+      {
+        "value": 1500.0
+      },
+      {
+        "value": 2000.0
       },
       {
         "value": 2500.0
@@ -129158,9 +129029,6 @@
       },
       {
         "value": 10000.0
-      },
-      {
-        "value": 97.1
       }
     ],
     "custom_amount": false,
@@ -129280,22 +129148,13 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 1000.0
       },
       {
+        "value": 2000.0
+      },
+      {
         "value": 5000.0
-      },
-      {
-        "value": 880.0
-      },
-      {
-        "value": 120.0
       }
     ],
     "custom_amount": false,
@@ -129415,25 +129274,16 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 250.0
       },
       {
         "value": 500.0
       },
       {
+        "value": 2000.0
+      },
+      {
         "value": 5000.0
-      },
-      {
-        "value": 226.87
-      },
-      {
-        "value": 23.13
       }
     ],
     "custom_amount": false,
@@ -129555,12 +129405,6 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 7492.0
       },
       {
@@ -129571,9 +129415,6 @@
       },
       {
         "value": 73750.0
-      },
-      {
-        "value": 3746.0
       }
     ],
     "custom_amount": false,
@@ -129693,16 +129534,16 @@
     },
     "denominations": [
       {
-        "value": 2000.0
+        "value": 500.0
+      },
+      {
+        "value": 1000.0
       },
       {
         "value": 1500.0
       },
       {
-        "value": 500.0
-      },
-      {
-        "value": 1000.0
+        "value": 2000.0
       },
       {
         "value": 2500.0
@@ -129718,12 +129559,6 @@
       },
       {
         "value": 10000.0
-      },
-      {
-        "value": 446.25
-      },
-      {
-        "value": 53.75
       }
     ],
     "custom_amount": false,
@@ -129843,19 +129678,7 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 600.0
-      },
-      {
-        "value": 360.0
-      },
-      {
-        "value": 240.0
       }
     ],
     "custom_amount": false,
@@ -129975,28 +129798,19 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 500.0
       },
       {
         "value": 1000.0
       },
       {
+        "value": 2000.0
+      },
+      {
         "value": 3000.0
       },
       {
         "value": 5000.0
-      },
-      {
-        "value": 482.5
-      },
-      {
-        "value": 17.5
       }
     ],
     "custom_amount": false,
@@ -130116,12 +129930,6 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 100.0
       },
       {
@@ -130131,10 +129939,7 @@
         "value": 1000.0
       },
       {
-        "value": 0.25
-      },
-      {
-        "value": 100.25
+        "value": 2000.0
       }
     ],
     "custom_amount": false,
@@ -130254,12 +130059,6 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 100.0
       },
       {
@@ -130269,6 +130068,9 @@
         "value": 1000.0
       },
       {
+        "value": 2000.0
+      },
+      {
         "value": 2500.0
       },
       {
@@ -130276,12 +130078,6 @@
       },
       {
         "value": 10000.0
-      },
-      {
-        "value": 84.5
-      },
-      {
-        "value": 15.5
       }
     ],
     "custom_amount": false,
@@ -130401,12 +130197,6 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 250.0
       },
       {
@@ -130420,12 +130210,6 @@
       },
       {
         "value": 5000.0
-      },
-      {
-        "value": 225.0
-      },
-      {
-        "value": 25.0
       }
     ],
     "custom_amount": false,
@@ -130545,19 +130329,7 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 799.0
-      },
-      {
-        "value": 631.21
-      },
-      {
-        "value": 167.79
       }
     ],
     "custom_amount": false,
@@ -130677,28 +130449,22 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 500.0
       },
       {
         "value": 1000.0
       },
       {
+        "value": 1500.0
+      },
+      {
+        "value": 2000.0
+      },
+      {
         "value": 5000.0
       },
       {
         "value": 10000.0
-      },
-      {
-        "value": 480.0
-      },
-      {
-        "value": 20.0
       }
     ],
     "custom_amount": false,
@@ -130819,12 +130585,6 @@
     "denominations": [
       {
         "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
-        "value": 500.0
       }
     ],
     "custom_amount": false,
@@ -130944,19 +130704,7 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 500.0
-      },
-      {
-        "value": 75.0
-      },
-      {
-        "value": 425.0
       }
     ],
     "custom_amount": false,
@@ -131077,21 +130825,6 @@
     "denominations": [
       {
         "value": 4000.0
-      },
-      {
-        "value": 5000.0
-      },
-      {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
-        "value": 3330.0
-      },
-      {
-        "value": 670.0
       }
     ],
     "custom_amount": false,
@@ -131212,21 +130945,6 @@
     "denominations": [
       {
         "value": 10000.0
-      },
-      {
-        "value": 14000.0
-      },
-      {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
-        "value": 8325.0
-      },
-      {
-        "value": 1675.0
       }
     ],
     "custom_amount": false,
@@ -131347,21 +131065,6 @@
     "denominations": [
       {
         "value": 20000.0
-      },
-      {
-        "value": 30000.0
-      },
-      {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
-        "value": 16650.0
-      },
-      {
-        "value": 3350.0
       }
     ],
     "custom_amount": false,
@@ -131481,16 +131184,16 @@
     },
     "denominations": [
       {
-        "value": 2000.0
+        "value": 500.0
+      },
+      {
+        "value": 1000.0
       },
       {
         "value": 1500.0
       },
       {
-        "value": 500.0
-      },
-      {
-        "value": 1000.0
+        "value": 2000.0
       },
       {
         "value": 2500.0
@@ -131506,12 +131209,6 @@
       },
       {
         "value": 10000.0
-      },
-      {
-        "value": 441.25
-      },
-      {
-        "value": 58.75
       }
     ],
     "custom_amount": false,
@@ -131631,12 +131328,6 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 100.0
       },
       {
@@ -131647,12 +131338,6 @@
       },
       {
         "value": 250.0
-      },
-      {
-        "value": 99.5
-      },
-      {
-        "value": 0.5
       }
     ],
     "custom_amount": false,
@@ -131772,12 +131457,6 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 199.0
       },
       {
@@ -131788,12 +131467,6 @@
       },
       {
         "value": 1499.0
-      },
-      {
-        "value": 171.64
-      },
-      {
-        "value": 27.36
       }
     ],
     "custom_amount": false,
@@ -131913,16 +131586,16 @@
     },
     "denominations": [
       {
-        "value": 2000.0
+        "value": 500.0
+      },
+      {
+        "value": 1000.0
       },
       {
         "value": 1500.0
       },
       {
-        "value": 500.0
-      },
-      {
-        "value": 1000.0
+        "value": 2000.0
       },
       {
         "value": 2500.0
@@ -131938,12 +131611,6 @@
       },
       {
         "value": 10000.0
-      },
-      {
-        "value": 441.25
-      },
-      {
-        "value": 58.75
       }
     ],
     "custom_amount": true,
@@ -132063,25 +131730,16 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 1000.0
+      },
+      {
+        "value": 2000.0
       },
       {
         "value": 5000.0
       },
       {
         "value": 10000.0
-      },
-      {
-        "value": 970.0
-      },
-      {
-        "value": 30.0
       }
     ],
     "custom_amount": true,
@@ -132201,16 +131859,16 @@
     },
     "denominations": [
       {
-        "value": 2000.0
+        "value": 500.0
+      },
+      {
+        "value": 1000.0
       },
       {
         "value": 1500.0
       },
       {
-        "value": 500.0
-      },
-      {
-        "value": 1000.0
+        "value": 2000.0
       },
       {
         "value": 3000.0
@@ -132336,28 +131994,19 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 500.0
       },
       {
         "value": 1000.0
       },
       {
+        "value": 2000.0
+      },
+      {
         "value": 5000.0
       },
       {
         "value": 10000.0
-      },
-      {
-        "value": 480.0
-      },
-      {
-        "value": 20.0
       }
     ],
     "custom_amount": true,
@@ -132426,7 +132075,7 @@
     "maxcoins_earn_pct": 5.1,
     "source": "maximize",
     "slug": "decathlon",
-    "brand_name": "Decathlon",
+    "brand_name": "Decathlon (Custom)",
     "url": "https://www.maximize.money/gift-cards/Decathlon/387",
     "collected_at": "2026-09-03T20:59:34+00:00",
     "best_saving_pct": 4.0,
@@ -132477,12 +132126,6 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 200.0
       },
       {
@@ -132492,13 +132135,10 @@
         "value": 1000.0
       },
       {
+        "value": 2000.0
+      },
+      {
         "value": 5000.0
-      },
-      {
-        "value": 159.0
-      },
-      {
-        "value": 41.0
       }
     ],
     "custom_amount": true,
@@ -132567,7 +132207,7 @@
     "maxcoins_earn_pct": 20.75,
     "source": "maximize",
     "slug": "pvr",
-    "brand_name": "PVR",
+    "brand_name": "PVR Inox Cinemas",
     "url": "https://www.maximize.money/gift-cards/PVR/553",
     "collected_at": "2026-09-03T20:59:55+00:00",
     "best_saving_pct": 20.5,
@@ -132618,12 +132258,6 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 200.0
       },
       {
@@ -132633,13 +132267,10 @@
         "value": 1000.0
       },
       {
+        "value": 2000.0
+      },
+      {
         "value": 5000.0
-      },
-      {
-        "value": 150.0
-      },
-      {
-        "value": 50.0
       }
     ],
     "custom_amount": true,
@@ -132750,19 +132381,10 @@
         "value": 2000.0
       },
       {
-        "value": 1500.0
-      },
-      {
         "value": 5000.0
       },
       {
         "value": 10000.0
-      },
-      {
-        "value": 1845.0
-      },
-      {
-        "value": 155.0
       }
     ],
     "custom_amount": true,
@@ -132882,12 +132504,6 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 200.0
       },
       {
@@ -132897,16 +132513,13 @@
         "value": 1000.0
       },
       {
+        "value": 2000.0
+      },
+      {
         "value": 5000.0
       },
       {
         "value": 10000.0
-      },
-      {
-        "value": 192.5
-      },
-      {
-        "value": 7.5
       }
     ],
     "custom_amount": true,
@@ -133014,16 +132627,16 @@
     },
     "denominations": [
       {
-        "value": 2000.0
+        "value": 500.0
+      },
+      {
+        "value": 1000.0
       },
       {
         "value": 1500.0
       },
       {
-        "value": 500.0
-      },
-      {
-        "value": 1000.0
+        "value": 2000.0
       },
       {
         "value": 2500.0
@@ -133036,12 +132649,6 @@
       },
       {
         "value": 7500.0
-      },
-      {
-        "value": 466.25
-      },
-      {
-        "value": 33.75
       }
     ],
     "custom_amount": true,
@@ -133161,12 +132768,6 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 20000.0
       },
       {
@@ -133174,12 +132775,6 @@
       },
       {
         "value": 100000.0
-      },
-      {
-        "value": 17450.0
-      },
-      {
-        "value": 2550.0
       }
     ],
     "custom_amount": true,
@@ -133299,13 +132894,10 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 1000.0
+      },
+      {
+        "value": 2000.0
       },
       {
         "value": 5000.0
@@ -133318,12 +132910,6 @@
       },
       {
         "value": 50000.0
-      },
-      {
-        "value": 900.0
-      },
-      {
-        "value": 100.0
       }
     ],
     "custom_amount": true,
@@ -133443,13 +133029,10 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 1000.0
+      },
+      {
+        "value": 2000.0
       },
       {
         "value": 5000.0
@@ -133462,12 +133045,6 @@
       },
       {
         "value": 50000.0
-      },
-      {
-        "value": 877.5
-      },
-      {
-        "value": 122.5
       }
     ],
     "custom_amount": true,
@@ -133587,13 +133164,10 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 1000.0
+      },
+      {
+        "value": 2000.0
       },
       {
         "value": 5000.0
@@ -133606,12 +133180,6 @@
       },
       {
         "value": 50000.0
-      },
-      {
-        "value": 927.5
-      },
-      {
-        "value": 72.5
       }
     ],
     "custom_amount": true,
@@ -133731,12 +133299,6 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 250.0
       },
       {
@@ -133744,6 +133306,12 @@
       },
       {
         "value": 1000.0
+      },
+      {
+        "value": 1500.0
+      },
+      {
+        "value": 2000.0
       },
       {
         "value": 2500.0
@@ -133759,9 +133327,6 @@
       },
       {
         "value": 9999.0
-      },
-      {
-        "value": 242.5
       }
     ],
     "custom_amount": true,
@@ -133869,12 +133434,6 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 250.0
       },
       {
@@ -133882,6 +133441,9 @@
       },
       {
         "value": 1000.0
+      },
+      {
+        "value": 1500.0
       },
       {
         "value": 2500.0
@@ -133894,12 +133456,6 @@
       },
       {
         "value": 10000.0
-      },
-      {
-        "value": 235.0
-      },
-      {
-        "value": 15.0
       }
     ],
     "custom_amount": true,
@@ -134019,13 +133575,10 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 1000.0
+      },
+      {
+        "value": 2000.0
       },
       {
         "value": 5000.0
@@ -134038,12 +133591,6 @@
       },
       {
         "value": 50000.0
-      },
-      {
-        "value": 915.0
-      },
-      {
-        "value": 85.0
       }
     ],
     "custom_amount": true,
@@ -134165,16 +133712,13 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 500.0
       },
       {
         "value": 1000.0
+      },
+      {
+        "value": 2000.0
       },
       {
         "value": 5000.0
@@ -134187,12 +133731,6 @@
       },
       {
         "value": 50000.0
-      },
-      {
-        "value": 493.75
-      },
-      {
-        "value": 6.25
       }
     ],
     "custom_amount": true,
@@ -134312,12 +133850,6 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 100.0
       },
       {
@@ -134330,13 +133862,13 @@
         "value": 1000.0
       },
       {
+        "value": 1500.0
+      },
+      {
+        "value": 2000.0
+      },
+      {
         "value": 2500.0
-      },
-      {
-        "value": 88.0
-      },
-      {
-        "value": 12.0
       }
     ],
     "custom_amount": true,
@@ -134456,12 +133988,6 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 200.0
       },
       {
@@ -134469,6 +133995,9 @@
       },
       {
         "value": 1000.0
+      },
+      {
+        "value": 2000.0
       },
       {
         "value": 5000.0
@@ -134481,12 +134010,6 @@
       },
       {
         "value": 50000.0
-      },
-      {
-        "value": 184.0
-      },
-      {
-        "value": 16.0
       }
     ],
     "custom_amount": true,
@@ -134606,12 +134129,6 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 250.0
       },
       {
@@ -134619,6 +134136,9 @@
       },
       {
         "value": 1000.0
+      },
+      {
+        "value": 1500.0
       },
       {
         "value": 2500.0
@@ -134637,9 +134157,6 @@
       },
       {
         "value": 50000.0
-      },
-      {
-        "value": 230.0
       }
     ],
     "custom_amount": true,
@@ -134761,12 +134278,6 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 200.0
       },
       {
@@ -134776,16 +134287,13 @@
         "value": 1000.0
       },
       {
+        "value": 2000.0
+      },
+      {
         "value": 5000.0
       },
       {
         "value": 10000.0
-      },
-      {
-        "value": 187.5
-      },
-      {
-        "value": 12.5
       }
     ],
     "custom_amount": true,
@@ -134893,13 +134401,10 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 1000.0
+      },
+      {
+        "value": 2000.0
       },
       {
         "value": 2500.0
@@ -134909,12 +134414,6 @@
       },
       {
         "value": 10000.0
-      },
-      {
-        "value": 900.0
-      },
-      {
-        "value": 100.0
       }
     ],
     "custom_amount": true,
@@ -134983,7 +134482,7 @@
     "maxcoins_earn_pct": 13.75,
     "source": "maximize",
     "slug": "superdry-luxe",
-    "brand_name": "Superdry-Luxe",
+    "brand_name": "Superdry - Luxe",
     "url": "https://www.maximize.money/gift-cards/Superdry-Luxe/902",
     "collected_at": "2026-09-03T21:06:08+00:00",
     "best_saving_pct": 10.0,
@@ -135025,19 +134524,10 @@
         "value": 2000.0
       },
       {
-        "value": 1500.0
-      },
-      {
         "value": 5000.0
       },
       {
         "value": 10000.0
-      },
-      {
-        "value": 1800.0
-      },
-      {
-        "value": 200.0
       }
     ],
     "custom_amount": true,
@@ -135157,16 +134647,16 @@
     },
     "denominations": [
       {
-        "value": 2000.0
+        "value": 500.0
+      },
+      {
+        "value": 1000.0
       },
       {
         "value": 1500.0
       },
       {
-        "value": 500.0
-      },
-      {
-        "value": 1000.0
+        "value": 2000.0
       },
       {
         "value": 2500.0
@@ -135182,12 +134672,6 @@
       },
       {
         "value": 10000.0
-      },
-      {
-        "value": 441.25
-      },
-      {
-        "value": 58.75
       }
     ],
     "custom_amount": true,
@@ -135307,22 +134791,10 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 500.0
       },
       {
         "value": 1000.0
-      },
-      {
-        "value": 426.25
-      },
-      {
-        "value": 73.75
       }
     ],
     "custom_amount": true,
@@ -135445,9 +134917,6 @@
         "value": 2000.0
       },
       {
-        "value": 1500.0
-      },
-      {
         "value": 5000.0
       },
       {
@@ -135458,12 +134927,6 @@
       },
       {
         "value": 50000.0
-      },
-      {
-        "value": 1875.0
-      },
-      {
-        "value": 125.0
       }
     ],
     "custom_amount": true,
@@ -135586,9 +135049,6 @@
         "value": 2000.0
       },
       {
-        "value": 1500.0
-      },
-      {
         "value": 5000.0
       },
       {
@@ -135599,12 +135059,6 @@
       },
       {
         "value": 50000.0
-      },
-      {
-        "value": 1725.0
-      },
-      {
-        "value": 275.0
       }
     ],
     "custom_amount": true,
@@ -135724,12 +135178,6 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 200.0
       },
       {
@@ -135739,16 +135187,13 @@
         "value": 1000.0
       },
       {
+        "value": 2000.0
+      },
+      {
         "value": 5000.0
       },
       {
         "value": 10000.0
-      },
-      {
-        "value": 190.0
-      },
-      {
-        "value": 10.0
       }
     ],
     "custom_amount": true,
@@ -135868,12 +135313,6 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 200.0
       },
       {
@@ -135883,16 +135322,13 @@
         "value": 1000.0
       },
       {
+        "value": 2000.0
+      },
+      {
         "value": 5000.0
       },
       {
         "value": 10000.0
-      },
-      {
-        "value": 194.0
-      },
-      {
-        "value": 6.0
       }
     ],
     "custom_amount": true,
@@ -136012,12 +135448,6 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 250.0
       },
       {
@@ -136027,13 +135457,10 @@
         "value": 1000.0
       },
       {
+        "value": 2000.0
+      },
+      {
         "value": 2500.0
-      },
-      {
-        "value": 208.12
-      },
-      {
-        "value": 41.88
       }
     ],
     "custom_amount": false,
@@ -136153,12 +135580,6 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 200.0
       },
       {
@@ -136168,16 +135589,13 @@
         "value": 1000.0
       },
       {
+        "value": 2000.0
+      },
+      {
         "value": 5000.0
       },
       {
         "value": 10000.0
-      },
-      {
-        "value": 190.0
-      },
-      {
-        "value": 10.0
       }
     ],
     "custom_amount": true,
@@ -136299,12 +135717,6 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 200.0
       },
       {
@@ -136314,16 +135726,13 @@
         "value": 1000.0
       },
       {
+        "value": 2000.0
+      },
+      {
         "value": 5000.0
       },
       {
         "value": 10000.0
-      },
-      {
-        "value": 180.0
-      },
-      {
-        "value": 20.0
       }
     ],
     "custom_amount": true,
@@ -136443,28 +135852,19 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 500.0
       },
       {
         "value": 1000.0
       },
       {
+        "value": 2000.0
+      },
+      {
         "value": 3000.0
       },
       {
         "value": 4000.0
-      },
-      {
-        "value": 463.75
-      },
-      {
-        "value": 36.25
       }
     ],
     "custom_amount": true,
@@ -136584,12 +135984,6 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 200.0
       },
       {
@@ -136597,6 +135991,9 @@
       },
       {
         "value": 1000.0
+      },
+      {
+        "value": 2000.0
       },
       {
         "value": 5000.0
@@ -136609,12 +136006,6 @@
       },
       {
         "value": 50000.0
-      },
-      {
-        "value": 184.0
-      },
-      {
-        "value": 16.0
       }
     ],
     "custom_amount": true,
@@ -136736,13 +136127,10 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 1000.0
+      },
+      {
+        "value": 2000.0
       },
       {
         "value": 5000.0
@@ -136755,12 +136143,6 @@
       },
       {
         "value": 50000.0
-      },
-      {
-        "value": 915.0
-      },
-      {
-        "value": 85.0
       }
     ],
     "custom_amount": true,
@@ -136882,12 +136264,6 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 200.0
       },
       {
@@ -136897,16 +136273,13 @@
         "value": 1000.0
       },
       {
+        "value": 2000.0
+      },
+      {
         "value": 5000.0
       },
       {
         "value": 10000.0
-      },
-      {
-        "value": 174.5
-      },
-      {
-        "value": 25.5
       }
     ],
     "custom_amount": true,
@@ -137026,16 +136399,16 @@
     },
     "denominations": [
       {
-        "value": 2000.0
+        "value": 500.0
+      },
+      {
+        "value": 1000.0
       },
       {
         "value": 1500.0
       },
       {
-        "value": 500.0
-      },
-      {
-        "value": 1000.0
+        "value": 2000.0
       },
       {
         "value": 2500.0
@@ -137045,12 +136418,6 @@
       },
       {
         "value": 10000.0
-      },
-      {
-        "value": 475.0
-      },
-      {
-        "value": 25.0
       }
     ],
     "custom_amount": false,
@@ -137170,12 +136537,6 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 250.0
       },
       {
@@ -137183,12 +136544,6 @@
       },
       {
         "value": 1000.0
-      },
-      {
-        "value": 210.0
-      },
-      {
-        "value": 40.0
       }
     ],
     "custom_amount": false,
@@ -137308,22 +136663,13 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 500.0
       },
       {
         "value": 1000.0
       },
       {
-        "value": 431.25
-      },
-      {
-        "value": 68.75
+        "value": 2000.0
       }
     ],
     "custom_amount": false,
@@ -137443,25 +136789,16 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 500.0
       },
       {
         "value": 1000.0
       },
       {
+        "value": 2000.0
+      },
+      {
         "value": 5000.0
-      },
-      {
-        "value": 446.25
-      },
-      {
-        "value": 53.75
       }
     ],
     "custom_amount": true,
@@ -137581,12 +136918,6 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 100.0
       },
       {
@@ -137599,6 +136930,9 @@
         "value": 1000.0
       },
       {
+        "value": 1500.0
+      },
+      {
         "value": 2500.0
       },
       {
@@ -137606,12 +136940,6 @@
       },
       {
         "value": 10000.0
-      },
-      {
-        "value": 96.25
-      },
-      {
-        "value": 3.75
       }
     ],
     "custom_amount": true,
@@ -137719,12 +137047,6 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 250.0
       },
       {
@@ -137732,6 +137054,9 @@
       },
       {
         "value": 1000.0
+      },
+      {
+        "value": 1500.0
       },
       {
         "value": 2500.0
@@ -137744,12 +137069,6 @@
       },
       {
         "value": 10000.0
-      },
-      {
-        "value": 235.0
-      },
-      {
-        "value": 15.0
       }
     ],
     "custom_amount": true,
@@ -137869,16 +137188,16 @@
     },
     "denominations": [
       {
-        "value": 2000.0
+        "value": 500.0
+      },
+      {
+        "value": 1000.0
       },
       {
         "value": 1500.0
       },
       {
-        "value": 500.0
-      },
-      {
-        "value": 1000.0
+        "value": 2000.0
       },
       {
         "value": 2500.0
@@ -137888,12 +137207,6 @@
       },
       {
         "value": 10000.0
-      },
-      {
-        "value": 485.0
-      },
-      {
-        "value": 15.0
       }
     ],
     "custom_amount": false,
@@ -138013,12 +137326,6 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 250.0
       },
       {
@@ -138028,10 +137335,7 @@
         "value": 1000.0
       },
       {
-        "value": 190.0
-      },
-      {
-        "value": 60.0
+        "value": 2000.0
       }
     ],
     "custom_amount": false,
@@ -138151,22 +137455,10 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 800.0
       },
       {
         "value": 1250.0
-      },
-      {
-        "value": 694.0
-      },
-      {
-        "value": 106.0
       }
     ],
     "custom_amount": false,
@@ -138286,12 +137578,6 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 200.0
       },
       {
@@ -138301,16 +137587,13 @@
         "value": 1000.0
       },
       {
+        "value": 2000.0
+      },
+      {
         "value": 5000.0
       },
       {
         "value": 10000.0
-      },
-      {
-        "value": 166.5
-      },
-      {
-        "value": 33.5
       }
     ],
     "custom_amount": true,
@@ -138430,25 +137713,19 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 500.0
       },
       {
         "value": 1000.0
       },
       {
+        "value": 1500.0
+      },
+      {
+        "value": 2000.0
+      },
+      {
         "value": 5000.0
-      },
-      {
-        "value": 460.0
-      },
-      {
-        "value": 40.0
       }
     ],
     "custom_amount": false,
@@ -138568,22 +137845,10 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 2949.0
       },
       {
         "value": 4999.0
-      },
-      {
-        "value": 1894.73
-      },
-      {
-        "value": 1054.27
       }
     ],
     "custom_amount": false,
@@ -138703,12 +137968,6 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 200.0
       },
       {
@@ -138718,13 +137977,10 @@
         "value": 1000.0
       },
       {
+        "value": 2000.0
+      },
+      {
         "value": 5000.0
-      },
-      {
-        "value": 186.0
-      },
-      {
-        "value": 14.0
       }
     ],
     "custom_amount": true,
@@ -138846,13 +138102,10 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 1000.0
+      },
+      {
+        "value": 2000.0
       },
       {
         "value": 5000.0
@@ -138865,12 +138118,6 @@
       },
       {
         "value": 50000.0
-      },
-      {
-        "value": 980.0
-      },
-      {
-        "value": 20.0
       }
     ],
     "custom_amount": true,
@@ -138978,25 +138225,16 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 1000.0
+      },
+      {
+        "value": 2000.0
       },
       {
         "value": 5000.0
       },
       {
         "value": 10000.0
-      },
-      {
-        "value": 900.0
-      },
-      {
-        "value": 100.0
       }
     ],
     "custom_amount": true,
@@ -139104,25 +138342,16 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 1000.0
+      },
+      {
+        "value": 2000.0
       },
       {
         "value": 5000.0
       },
       {
         "value": 10000.0
-      },
-      {
-        "value": 872.5
-      },
-      {
-        "value": 127.5
       }
     ],
     "custom_amount": false,
@@ -139242,12 +138471,6 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 119.0
       },
       {
@@ -139258,12 +138481,6 @@
       },
       {
         "value": 1199.0
-      },
-      {
-        "value": 105.91
-      },
-      {
-        "value": 13.09
       }
     ],
     "custom_amount": false,
@@ -139383,13 +138600,10 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 1000.0
+      },
+      {
+        "value": 2000.0
       },
       {
         "value": 2500.0
@@ -139402,12 +138616,6 @@
       },
       {
         "value": 10000.0
-      },
-      {
-        "value": 937.5
-      },
-      {
-        "value": 62.5
       }
     ],
     "custom_amount": false,
@@ -139518,19 +138726,10 @@
         "value": 2000.0
       },
       {
-        "value": 1500.0
-      },
-      {
         "value": 5000.0
       },
       {
         "value": 10000.0
-      },
-      {
-        "value": 1745.0
-      },
-      {
-        "value": 255.0
       }
     ],
     "custom_amount": true,
@@ -139650,22 +138849,13 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 1000.0
       },
       {
+        "value": 2000.0
+      },
+      {
         "value": 5000.0
-      },
-      {
-        "value": 970.0
-      },
-      {
-        "value": 30.0
       }
     ],
     "custom_amount": false,
@@ -139785,12 +138975,6 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 200.0
       },
       {
@@ -139800,16 +138984,13 @@
         "value": 1000.0
       },
       {
+        "value": 2000.0
+      },
+      {
         "value": 5000.0
       },
       {
         "value": 10000.0
-      },
-      {
-        "value": 192.0
-      },
-      {
-        "value": 8.0
       }
     ],
     "custom_amount": true,
@@ -139929,12 +139110,6 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 250.0
       },
       {
@@ -139960,12 +139135,6 @@
       },
       {
         "value": 50000.0
-      },
-      {
-        "value": 224.37
-      },
-      {
-        "value": 25.63
       }
     ],
     "custom_amount": true,
@@ -140088,25 +139257,16 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 1000.0
+      },
+      {
+        "value": 2000.0
       },
       {
         "value": 5000.0
       },
       {
         "value": 10000.0
-      },
-      {
-        "value": 877.5
-      },
-      {
-        "value": 122.5
       }
     ],
     "custom_amount": false,
@@ -140226,16 +139386,13 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 500.0
       },
       {
         "value": 1000.0
+      },
+      {
+        "value": 2000.0
       },
       {
         "value": 5000.0
@@ -140251,12 +139408,6 @@
       },
       {
         "value": 100000.0
-      },
-      {
-        "value": 463.75
-      },
-      {
-        "value": 36.25
       }
     ],
     "custom_amount": true,
@@ -140378,13 +139529,10 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 1000.0
+      },
+      {
+        "value": 2000.0
       },
       {
         "value": 4000.0
@@ -140397,12 +139545,6 @@
       },
       {
         "value": 10000.0
-      },
-      {
-        "value": 930.0
-      },
-      {
-        "value": 70.0
       }
     ],
     "custom_amount": false,
@@ -140525,12 +139667,6 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 250.0
       },
       {
@@ -140538,12 +139674,6 @@
       },
       {
         "value": 1000.0
-      },
-      {
-        "value": 241.87
-      },
-      {
-        "value": 8.13
       }
     ],
     "custom_amount": true,
@@ -140665,12 +139795,6 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 250.0
       },
       {
@@ -140678,12 +139802,6 @@
       },
       {
         "value": 1000.0
-      },
-      {
-        "value": 229.37
-      },
-      {
-        "value": 20.63
       }
     ],
     "custom_amount": true,
@@ -140806,28 +139924,22 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 500.0
       },
       {
         "value": 1000.0
       },
       {
+        "value": 1500.0
+      },
+      {
+        "value": 2000.0
+      },
+      {
         "value": 2500.0
       },
       {
         "value": 5000.0
-      },
-      {
-        "value": 472.5
-      },
-      {
-        "value": 27.5
       }
     ],
     "custom_amount": true,
@@ -140949,12 +140061,6 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 250.0
       },
       {
@@ -140964,13 +140070,10 @@
         "value": 1000.0
       },
       {
+        "value": 2000.0
+      },
+      {
         "value": 2500.0
-      },
-      {
-        "value": 248.12
-      },
-      {
-        "value": 1.88
       }
     ],
     "custom_amount": false,
@@ -141092,16 +140195,16 @@
     },
     "denominations": [
       {
-        "value": 2000.0
+        "value": 500.0
+      },
+      {
+        "value": 1000.0
       },
       {
         "value": 1500.0
       },
       {
-        "value": 500.0
-      },
-      {
-        "value": 1000.0
+        "value": 2000.0
       },
       {
         "value": 2500.0
@@ -141114,12 +140217,6 @@
       },
       {
         "value": 9999.0
-      },
-      {
-        "value": 473.75
-      },
-      {
-        "value": 26.25
       }
     ],
     "custom_amount": true,
@@ -141241,16 +140338,16 @@
     },
     "denominations": [
       {
-        "value": 2000.0
+        "value": 500.0
+      },
+      {
+        "value": 1000.0
       },
       {
         "value": 1500.0
       },
       {
-        "value": 500.0
-      },
-      {
-        "value": 1000.0
+        "value": 2000.0
       },
       {
         "value": 2500.0
@@ -141387,16 +140484,16 @@
     },
     "denominations": [
       {
-        "value": 2000.0
+        "value": 500.0
+      },
+      {
+        "value": 1000.0
       },
       {
         "value": 1500.0
       },
       {
-        "value": 500.0
-      },
-      {
-        "value": 1000.0
+        "value": 2000.0
       },
       {
         "value": 3000.0
@@ -141527,12 +140624,6 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 500.0
       },
       {
@@ -141542,16 +140633,13 @@
         "value": 1000.0
       },
       {
+        "value": 2000.0
+      },
+      {
         "value": 3000.0
       },
       {
         "value": 5000.0
-      },
-      {
-        "value": 455.0
-      },
-      {
-        "value": 45.0
       }
     ],
     "custom_amount": false,
@@ -141671,12 +140759,6 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 1000.0
       },
       {
@@ -141690,12 +140772,6 @@
       },
       {
         "value": 100000.0
-      },
-      {
-        "value": 967.5
-      },
-      {
-        "value": 32.5
       }
     ],
     "custom_amount": false,
@@ -141815,12 +140891,6 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 160.0
       },
       {
@@ -141843,12 +140913,6 @@
       },
       {
         "value": 1460.0
-      },
-      {
-        "value": 148.8
-      },
-      {
-        "value": 11.2
       }
     ],
     "custom_amount": false,
@@ -141968,16 +141032,16 @@
     },
     "denominations": [
       {
-        "value": 2000.0
+        "value": 500.0
+      },
+      {
+        "value": 1000.0
       },
       {
         "value": 1500.0
       },
       {
-        "value": 500.0
-      },
-      {
-        "value": 1000.0
+        "value": 2000.0
       },
       {
         "value": 2500.0
@@ -141987,12 +141051,6 @@
       },
       {
         "value": 5000.0
-      },
-      {
-        "value": 431.25
-      },
-      {
-        "value": 68.75
       }
     ],
     "custom_amount": false,
@@ -142112,28 +141170,19 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 500.0
       },
       {
         "value": 1000.0
       },
       {
+        "value": 2000.0
+      },
+      {
         "value": 2500.0
       },
       {
         "value": 5000.0
-      },
-      {
-        "value": 492.5
-      },
-      {
-        "value": 7.5
       }
     ],
     "custom_amount": false,
@@ -142253,28 +141302,19 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 500.0
       },
       {
         "value": 1000.0
       },
       {
+        "value": 2000.0
+      },
+      {
         "value": 2500.0
       },
       {
         "value": 5000.0
-      },
-      {
-        "value": 485.0
-      },
-      {
-        "value": 15.0
       }
     ],
     "custom_amount": false,
@@ -142394,12 +141434,6 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 250.0
       },
       {
@@ -142409,10 +141443,7 @@
         "value": 1000.0
       },
       {
-        "value": 224.37
-      },
-      {
-        "value": 25.63
+        "value": 1500.0
       }
     ],
     "custom_amount": true,
@@ -142532,12 +141563,6 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 500.0
       },
       {
@@ -142557,12 +141582,6 @@
       },
       {
         "value": 50000.0
-      },
-      {
-        "value": 433.75
-      },
-      {
-        "value": 66.25
       }
     ],
     "custom_amount": true,
@@ -142682,12 +141701,6 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 950.0
       },
       {
@@ -142698,12 +141711,6 @@
       },
       {
         "value": 4750.0
-      },
-      {
-        "value": 912.0
-      },
-      {
-        "value": 38.0
       }
     ],
     "custom_amount": false,
@@ -142814,19 +141821,10 @@
         "value": 2000.0
       },
       {
-        "value": 1500.0
-      },
-      {
         "value": 5000.0
       },
       {
         "value": 10000.0
-      },
-      {
-        "value": 1800.0
-      },
-      {
-        "value": 200.0
       }
     ],
     "custom_amount": true,
@@ -142949,9 +141947,6 @@
         "value": 2000.0
       },
       {
-        "value": 1500.0
-      },
-      {
         "value": 5000.0
       },
       {
@@ -142965,12 +141960,6 @@
       },
       {
         "value": 100000.0
-      },
-      {
-        "value": 1960.0
-      },
-      {
-        "value": 40.0
       }
     ],
     "custom_amount": true,
@@ -143093,19 +142082,10 @@
         "value": 2000.0
       },
       {
-        "value": 1500.0
-      },
-      {
         "value": 5000.0
       },
       {
         "value": 10000.0
-      },
-      {
-        "value": 1980.0
-      },
-      {
-        "value": 20.0
       }
     ],
     "custom_amount": true,
@@ -143225,12 +142205,6 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 500.0
       },
       {
@@ -143247,12 +142221,6 @@
       },
       {
         "value": 25000.0
-      },
-      {
-        "value": 435.0
-      },
-      {
-        "value": 65.0
       }
     ],
     "custom_amount": false,
@@ -143372,25 +142340,16 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 1000.0
+      },
+      {
+        "value": 2000.0
       },
       {
         "value": 5000.0
       },
       {
         "value": 10000.0
-      },
-      {
-        "value": 862.5
-      },
-      {
-        "value": 137.5
       }
     ],
     "custom_amount": true,
@@ -143510,19 +142469,7 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 415.0
-      },
-      {
-        "value": 405.66
-      },
-      {
-        "value": 9.34
       }
     ],
     "custom_amount": false,
@@ -143642,16 +142589,13 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 500.0
       },
       {
         "value": 1000.0
+      },
+      {
+        "value": 2000.0
       },
       {
         "value": 2500.0
@@ -143664,12 +142608,6 @@
       },
       {
         "value": 9999.0
-      },
-      {
-        "value": 425.0
-      },
-      {
-        "value": 75.0
       }
     ],
     "custom_amount": true,
@@ -143792,9 +142730,6 @@
         "value": 2000.0
       },
       {
-        "value": 1500.0
-      },
-      {
         "value": 2500.0
       },
       {
@@ -143814,12 +142749,6 @@
       },
       {
         "value": 50000.0
-      },
-      {
-        "value": 1910.0
-      },
-      {
-        "value": 90.0
       }
     ],
     "custom_amount": true,
@@ -143888,7 +142817,7 @@
     "maxcoins_earn_pct": 4.6,
     "source": "maximize",
     "slug": "malabar-diamond",
-    "brand_name": "Malabar Diamond",
+    "brand_name": "Malabar Diamond (Custom)",
     "url": "https://www.maximize.money/gift-cards/Malabar Diamond (Custom)/880",
     "collected_at": "2026-09-03T21:27:11+00:00",
     "best_saving_pct": 4.5,
@@ -143939,25 +142868,16 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 1000.0
+      },
+      {
+        "value": 2000.0
       },
       {
         "value": 5000.0
       },
       {
         "value": 10000.0
-      },
-      {
-        "value": 970.0
-      },
-      {
-        "value": 30.0
       }
     ],
     "custom_amount": true,
@@ -144077,12 +142997,6 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 100.0
       },
       {
@@ -144095,6 +143009,12 @@
         "value": 1000.0
       },
       {
+        "value": 1500.0
+      },
+      {
+        "value": 2000.0
+      },
+      {
         "value": 2500.0
       },
       {
@@ -144102,12 +143022,6 @@
       },
       {
         "value": 5000.0
-      },
-      {
-        "value": 91.25
-      },
-      {
-        "value": 8.75
       }
     ],
     "custom_amount": false,
@@ -144227,12 +143141,6 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 250.0
       },
       {
@@ -144243,12 +143151,6 @@
       },
       {
         "value": 1000.0
-      },
-      {
-        "value": 195.0
-      },
-      {
-        "value": 55.0
       }
     ],
     "custom_amount": false,
@@ -144368,25 +143270,16 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 1000.0
+      },
+      {
+        "value": 2000.0
       },
       {
         "value": 5000.0
       },
       {
         "value": 10000.0
-      },
-      {
-        "value": 917.5
-      },
-      {
-        "value": 82.5
       }
     ],
     "custom_amount": true,
@@ -144506,12 +143399,6 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 500.0
       },
       {
@@ -144522,12 +143409,6 @@
       },
       {
         "value": 5000.0
-      },
-      {
-        "value": 451.25
-      },
-      {
-        "value": 48.75
       }
     ],
     "custom_amount": true,
@@ -144647,16 +143528,13 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 500.0
       },
       {
         "value": 1000.0
+      },
+      {
+        "value": 2000.0
       },
       {
         "value": 5000.0
@@ -144672,12 +143550,6 @@
       },
       {
         "value": 100000.0
-      },
-      {
-        "value": 467.5
-      },
-      {
-        "value": 32.5
       }
     ],
     "custom_amount": true,
@@ -144787,22 +143659,10 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 3000.0
       },
       {
         "value": 5000.0
-      },
-      {
-        "value": 2917.5
-      },
-      {
-        "value": 82.5
       }
     ],
     "custom_amount": false,
@@ -144924,12 +143784,6 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 100.0
       },
       {
@@ -144939,16 +143793,13 @@
         "value": 1000.0
       },
       {
+        "value": 2000.0
+      },
+      {
         "value": 3000.0
       },
       {
         "value": 5000.0
-      },
-      {
-        "value": 93.0
-      },
-      {
-        "value": 7.0
       }
     ],
     "custom_amount": true,
@@ -145020,7 +143871,7 @@
     "maxcoins_earn_pct": 7.1,
     "source": "maximize",
     "slug": "ajio",
-    "brand_name": "Ajio",
+    "brand_name": "AJIO",
     "url": "https://www.maximize.money/gift-cards/Ajio/416",
     "collected_at": "2026-09-03T21:29:47+00:00",
     "best_saving_pct": 7.0,
@@ -145071,10 +143922,10 @@
     },
     "denominations": [
       {
-        "value": 2000.0
+        "value": 1500.0
       },
       {
-        "value": 1500.0
+        "value": 2000.0
       },
       {
         "value": 2500.0
@@ -145084,12 +143935,6 @@
       },
       {
         "value": 5000.0
-      },
-      {
-        "value": 1248.75
-      },
-      {
-        "value": 251.25
       }
     ],
     "custom_amount": true,
@@ -145200,19 +144045,10 @@
         "value": 2000.0
       },
       {
-        "value": 1500.0
-      },
-      {
         "value": 5000.0
       },
       {
         "value": 10000.0
-      },
-      {
-        "value": 1800.0
-      },
-      {
-        "value": 200.0
       }
     ],
     "custom_amount": true,
@@ -145331,12 +144167,6 @@
       }
     },
     "denominations": [
-      {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
       {
         "value": 1000.0
       },
@@ -145472,25 +144302,16 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 1000.0
+      },
+      {
+        "value": 2000.0
       },
       {
         "value": 5000.0
       },
       {
         "value": 10000.0
-      },
-      {
-        "value": 980.0
-      },
-      {
-        "value": 20.0
       }
     ],
     "custom_amount": true,
@@ -145610,12 +144431,6 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 500.0
       },
       {
@@ -145626,12 +144441,6 @@
       },
       {
         "value": 5000.0
-      },
-      {
-        "value": 451.25
-      },
-      {
-        "value": 48.75
       }
     ],
     "custom_amount": false,
@@ -145751,12 +144560,6 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 1000.0
       },
       {
@@ -145776,12 +144579,6 @@
       },
       {
         "value": 10000.0
-      },
-      {
-        "value": 867.5
-      },
-      {
-        "value": 132.5
       }
     ],
     "custom_amount": true,
@@ -145901,12 +144698,6 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 145.0
       },
       {
@@ -145926,12 +144717,6 @@
       },
       {
         "value": 5809.0
-      },
-      {
-        "value": 133.04
-      },
-      {
-        "value": 11.96
       }
     ],
     "custom_amount": false,
@@ -146051,12 +144836,6 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 100.0
       },
       {
@@ -146069,10 +144848,7 @@
         "value": 1000.0
       },
       {
-        "value": 87.25
-      },
-      {
-        "value": 12.75
+        "value": 2000.0
       }
     ],
     "custom_amount": true,
@@ -146192,28 +144968,19 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 500.0
       },
       {
         "value": 1000.0
       },
       {
+        "value": 2000.0
+      },
+      {
         "value": 2500.0
       },
       {
         "value": 5000.0
-      },
-      {
-        "value": 463.75
-      },
-      {
-        "value": 36.25
       }
     ],
     "custom_amount": false,
@@ -146333,12 +145100,6 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 250.0
       },
       {
@@ -146364,12 +145125,6 @@
       },
       {
         "value": 40000.0
-      },
-      {
-        "value": 230.0
-      },
-      {
-        "value": 20.0
       }
     ],
     "custom_amount": true,
@@ -146489,16 +145244,13 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 500.0
       },
       {
         "value": 1000.0
+      },
+      {
+        "value": 2000.0
       },
       {
         "value": 5000.0
@@ -146514,12 +145266,6 @@
       },
       {
         "value": 25000.0
-      },
-      {
-        "value": 462.5
-      },
-      {
-        "value": 37.5
       }
     ],
     "custom_amount": false,
@@ -146639,22 +145385,13 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 500.0
       },
       {
         "value": 1000.0
       },
       {
-        "value": 425.0
-      },
-      {
-        "value": 75.0
+        "value": 2000.0
       }
     ],
     "custom_amount": false,
@@ -146765,19 +145502,10 @@
         "value": 2000.0
       },
       {
-        "value": 1500.0
-      },
-      {
         "value": 5000.0
       },
       {
         "value": 10000.0
-      },
-      {
-        "value": 1800.0
-      },
-      {
-        "value": 200.0
       }
     ],
     "custom_amount": true,
@@ -146897,25 +145625,16 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 1000.0
+      },
+      {
+        "value": 2000.0
       },
       {
         "value": 5000.0
       },
       {
         "value": 10000.0
-      },
-      {
-        "value": 867.5
-      },
-      {
-        "value": 132.5
       }
     ],
     "custom_amount": true,
@@ -147035,12 +145754,6 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 250.0
       },
       {
@@ -147050,6 +145763,12 @@
         "value": 1000.0
       },
       {
+        "value": 1500.0
+      },
+      {
+        "value": 2000.0
+      },
+      {
         "value": 2500.0
       },
       {
@@ -147057,12 +145776,6 @@
       },
       {
         "value": 10000.0
-      },
-      {
-        "value": 237.5
-      },
-      {
-        "value": 12.5
       }
     ],
     "custom_amount": true,
@@ -147182,25 +145895,16 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 1000.0
+      },
+      {
+        "value": 2000.0
       },
       {
         "value": 5000.0
       },
       {
         "value": 10000.0
-      },
-      {
-        "value": 867.5
-      },
-      {
-        "value": 132.5
       }
     ],
     "custom_amount": true,
@@ -147320,12 +146024,6 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 499.0
       },
       {
@@ -147333,12 +146031,6 @@
       },
       {
         "value": 2199.0
-      },
-      {
-        "value": 460.33
-      },
-      {
-        "value": 38.67
       }
     ],
     "custom_amount": false,
@@ -147458,12 +146150,6 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 200.0
       },
       {
@@ -147473,16 +146159,13 @@
         "value": 1000.0
       },
       {
+        "value": 2000.0
+      },
+      {
         "value": 5000.0
       },
       {
         "value": 10000.0
-      },
-      {
-        "value": 178.5
-      },
-      {
-        "value": 21.5
       }
     ],
     "custom_amount": true,
@@ -147607,9 +146290,6 @@
         "value": 2000.0
       },
       {
-        "value": 1500.0
-      },
-      {
         "value": 2500.0
       },
       {
@@ -147629,12 +146309,6 @@
       },
       {
         "value": 100000.0
-      },
-      {
-        "value": 1955.0
-      },
-      {
-        "value": 45.0
       }
     ],
     "custom_amount": false,
@@ -147754,13 +146428,10 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 1000.0
+      },
+      {
+        "value": 2000.0
       },
       {
         "value": 5000.0
@@ -147776,12 +146447,6 @@
       },
       {
         "value": 100000.0
-      },
-      {
-        "value": 987.5
-      },
-      {
-        "value": 12.5
       }
     ],
     "custom_amount": true,
@@ -147901,12 +146566,6 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 200.0
       },
       {
@@ -147916,16 +146575,13 @@
         "value": 1000.0
       },
       {
+        "value": 2000.0
+      },
+      {
         "value": 5000.0
       },
       {
         "value": 10000.0
-      },
-      {
-        "value": 179.5
-      },
-      {
-        "value": 20.5
       }
     ],
     "custom_amount": true,
@@ -148047,13 +146703,10 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 1000.0
+      },
+      {
+        "value": 2000.0
       },
       {
         "value": 5000.0
@@ -148066,12 +146719,6 @@
       },
       {
         "value": 50000.0
-      },
-      {
-        "value": 966.0
-      },
-      {
-        "value": 34.0
       }
     ],
     "custom_amount": true,
@@ -148193,16 +146840,16 @@
     },
     "denominations": [
       {
-        "value": 2000.0
+        "value": 500.0
+      },
+      {
+        "value": 1000.0
       },
       {
         "value": 1500.0
       },
       {
-        "value": 500.0
-      },
-      {
-        "value": 1000.0
+        "value": 2000.0
       },
       {
         "value": 2500.0
@@ -148218,12 +146865,6 @@
       },
       {
         "value": 10000.0
-      },
-      {
-        "value": 446.25
-      },
-      {
-        "value": 53.75
       }
     ],
     "custom_amount": false,
@@ -148343,13 +146984,10 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 1000.0
+      },
+      {
+        "value": 2000.0
       },
       {
         "value": 5000.0
@@ -148362,12 +147000,6 @@
       },
       {
         "value": 50000.0
-      },
-      {
-        "value": 977.5
-      },
-      {
-        "value": 22.5
       }
     ],
     "custom_amount": true,
@@ -148487,12 +147119,6 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 200.0
       },
       {
@@ -148502,16 +147128,13 @@
         "value": 1000.0
       },
       {
+        "value": 2000.0
+      },
+      {
         "value": 5000.0
       },
       {
         "value": 10000.0
-      },
-      {
-        "value": 168.5
-      },
-      {
-        "value": 31.5
       }
     ],
     "custom_amount": true,
@@ -148623,12 +147246,6 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 100.0
       },
       {
@@ -148641,16 +147258,16 @@
         "value": 1000.0
       },
       {
+        "value": 1500.0
+      },
+      {
+        "value": 2000.0
+      },
+      {
         "value": 5000.0
       },
       {
         "value": 10000.0
-      },
-      {
-        "value": 98.75
-      },
-      {
-        "value": 1.25
       }
     ],
     "custom_amount": true,
@@ -148770,28 +147387,19 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 500.0
       },
       {
         "value": 1000.0
       },
       {
+        "value": 2000.0
+      },
+      {
         "value": 5000.0
       },
       {
         "value": 10000.0
-      },
-      {
-        "value": 453.75
-      },
-      {
-        "value": 46.25
       }
     ],
     "custom_amount": false,
@@ -148911,19 +147519,7 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 1000.0
-      },
-      {
-        "value": 860.0
-      },
-      {
-        "value": 140.0
       }
     ],
     "custom_amount": false,
@@ -149031,12 +147627,6 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 200.0
       },
       {
@@ -149046,16 +147636,13 @@
         "value": 1000.0
       },
       {
+        "value": 2000.0
+      },
+      {
         "value": 5000.0
       },
       {
         "value": 10000.0
-      },
-      {
-        "value": 186.5
-      },
-      {
-        "value": 13.5
       }
     ],
     "custom_amount": true,
@@ -149175,16 +147762,13 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 500.0
       },
       {
         "value": 1000.0
+      },
+      {
+        "value": 2000.0
       },
       {
         "value": 3000.0
@@ -149313,19 +147897,7 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 999.0
-      },
-      {
-        "value": 851.65
-      },
-      {
-        "value": 147.35
       }
     ],
     "custom_amount": false,
@@ -149445,19 +148017,7 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 5000.0
-      },
-      {
-        "value": 4500.0
-      },
-      {
-        "value": 500.0
       }
     ],
     "custom_amount": true,
@@ -149579,19 +148139,7 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 2999.0
-      },
-      {
-        "value": 2489.17
-      },
-      {
-        "value": 509.83
       }
     ],
     "custom_amount": false,
@@ -149711,16 +148259,16 @@
     },
     "denominations": [
       {
-        "value": 2000.0
+        "value": 500.0
+      },
+      {
+        "value": 1000.0
       },
       {
         "value": 1500.0
       },
       {
-        "value": 500.0
-      },
-      {
-        "value": 1000.0
+        "value": 2000.0
       },
       {
         "value": 2500.0
@@ -149736,12 +148284,6 @@
       },
       {
         "value": 10000.0
-      },
-      {
-        "value": 441.25
-      },
-      {
-        "value": 58.75
       }
     ],
     "custom_amount": true,
@@ -149864,9 +148406,6 @@
         "value": 2000.0
       },
       {
-        "value": 1500.0
-      },
-      {
         "value": 5000.0
       },
       {
@@ -149981,12 +148520,6 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 100.0
       },
       {
@@ -149999,10 +148532,7 @@
         "value": 1000.0
       },
       {
-        "value": 98.9
-      },
-      {
-        "value": 1.1
+        "value": 2000.0
       }
     ],
     "custom_amount": true,
@@ -150122,12 +148652,6 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 3000.0
       },
       {
@@ -150144,12 +148668,6 @@
       },
       {
         "value": 7500.0
-      },
-      {
-        "value": 2700.0
-      },
-      {
-        "value": 300.0
       }
     ],
     "custom_amount": true,
@@ -150269,25 +148787,16 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 500.0
       },
       {
         "value": 1000.0
       },
       {
+        "value": 2000.0
+      },
+      {
         "value": 5000.0
-      },
-      {
-        "value": 445.0
-      },
-      {
-        "value": 55.0
       }
     ],
     "custom_amount": true,
@@ -150407,16 +148916,16 @@
     },
     "denominations": [
       {
-        "value": 2000.0
+        "value": 500.0
+      },
+      {
+        "value": 1000.0
       },
       {
         "value": 1500.0
       },
       {
-        "value": 500.0
-      },
-      {
-        "value": 1000.0
+        "value": 2000.0
       },
       {
         "value": 2500.0
@@ -150426,12 +148935,6 @@
       },
       {
         "value": 5000.0
-      },
-      {
-        "value": 460.0
-      },
-      {
-        "value": 40.0
       }
     ],
     "custom_amount": false,
@@ -150551,16 +149054,16 @@
     },
     "denominations": [
       {
-        "value": 2000.0
+        "value": 500.0
+      },
+      {
+        "value": 1000.0
       },
       {
         "value": 1500.0
       },
       {
-        "value": 500.0
-      },
-      {
-        "value": 1000.0
+        "value": 2000.0
       },
       {
         "value": 2500.0
@@ -150576,12 +149079,6 @@
       },
       {
         "value": 10000.0
-      },
-      {
-        "value": 441.25
-      },
-      {
-        "value": 58.75
       }
     ],
     "custom_amount": true,
@@ -150701,22 +149198,10 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 500.0
       },
       {
         "value": 1000.0
-      },
-      {
-        "value": 458.75
-      },
-      {
-        "value": 41.25
       }
     ],
     "custom_amount": false,
@@ -150838,22 +149323,10 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 250.0
       },
       {
         "value": 500.0
-      },
-      {
-        "value": 158.12
-      },
-      {
-        "value": 91.88
       }
     ],
     "custom_amount": false,
@@ -150963,12 +149436,6 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 100.0
       },
       {
@@ -150976,6 +149443,12 @@
       },
       {
         "value": 1000.0
+      },
+      {
+        "value": 1500.0
+      },
+      {
+        "value": 2000.0
       },
       {
         "value": 2500.0
@@ -150991,9 +149464,6 @@
       },
       {
         "value": 10000.0
-      },
-      {
-        "value": 96.0
       }
     ],
     "custom_amount": false,
@@ -151113,12 +149583,6 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 100.0
       },
       {
@@ -151128,13 +149592,10 @@
         "value": 1000.0
       },
       {
+        "value": 2000.0
+      },
+      {
         "value": 5000.0
-      },
-      {
-        "value": 83.75
-      },
-      {
-        "value": 16.25
       }
     ],
     "custom_amount": false,
@@ -151254,12 +149715,6 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 100.0
       },
       {
@@ -151270,12 +149725,6 @@
       },
       {
         "value": 500.0
-      },
-      {
-        "value": 93.5
-      },
-      {
-        "value": 6.5
       }
     ],
     "custom_amount": false,
@@ -151395,12 +149844,6 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 200.0
       },
       {
@@ -151410,16 +149853,13 @@
         "value": 1000.0
       },
       {
+        "value": 2000.0
+      },
+      {
         "value": 5000.0
       },
       {
         "value": 10000.0
-      },
-      {
-        "value": 173.5
-      },
-      {
-        "value": 26.5
       }
     ],
     "custom_amount": true,
@@ -151542,9 +149982,6 @@
         "value": 2000.0
       },
       {
-        "value": 1500.0
-      },
-      {
         "value": 5000.0
       },
       {
@@ -151552,12 +149989,6 @@
       },
       {
         "value": 20000.0
-      },
-      {
-        "value": 1800.0
-      },
-      {
-        "value": 200.0
       }
     ],
     "custom_amount": true,
@@ -151680,9 +150111,6 @@
         "value": 2000.0
       },
       {
-        "value": 1500.0
-      },
-      {
         "value": 5000.0
       },
       {
@@ -151693,12 +150121,6 @@
       },
       {
         "value": 50000.0
-      },
-      {
-        "value": 1735.0
-      },
-      {
-        "value": 265.0
       }
     ],
     "custom_amount": true,
@@ -151818,12 +150240,6 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 1000.0
       },
       {
@@ -151834,12 +150250,6 @@
       },
       {
         "value": 10000.0
-      },
-      {
-        "value": 897.5
-      },
-      {
-        "value": 102.5
       }
     ],
     "custom_amount": false,
@@ -151959,25 +150369,16 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 1000.0
+      },
+      {
+        "value": 2000.0
       },
       {
         "value": 5000.0
       },
       {
         "value": 10000.0
-      },
-      {
-        "value": 970.0
-      },
-      {
-        "value": 30.0
       }
     ],
     "custom_amount": false,
@@ -152097,19 +150498,7 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 599.0
-      },
-      {
-        "value": 360.9
-      },
-      {
-        "value": 238.1
       }
     ],
     "custom_amount": false,
@@ -152229,22 +150618,10 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 500.0
       },
       {
         "value": 1000.0
-      },
-      {
-        "value": 462.5
-      },
-      {
-        "value": 37.5
       }
     ],
     "custom_amount": false,
@@ -152364,13 +150741,10 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 1000.0
+      },
+      {
+        "value": 2000.0
       },
       {
         "value": 5000.0
@@ -152380,12 +150754,6 @@
       },
       {
         "value": 20000.0
-      },
-      {
-        "value": 953.5
-      },
-      {
-        "value": 46.5
       }
     ],
     "custom_amount": true,
@@ -152505,25 +150873,16 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 1000.0
+      },
+      {
+        "value": 2000.0
       },
       {
         "value": 5000.0
       },
       {
         "value": 10000.0
-      },
-      {
-        "value": 970.0
-      },
-      {
-        "value": 30.0
       }
     ],
     "custom_amount": true,
@@ -152643,12 +151002,6 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 250.0
       },
       {
@@ -152656,6 +151009,9 @@
       },
       {
         "value": 1000.0
+      },
+      {
+        "value": 2000.0
       },
       {
         "value": 5000.0
@@ -152783,12 +151139,6 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 250.0
       },
       {
@@ -152796,6 +151146,12 @@
       },
       {
         "value": 1000.0
+      },
+      {
+        "value": 1500.0
+      },
+      {
+        "value": 2000.0
       },
       {
         "value": 2500.0
@@ -152808,12 +151164,6 @@
       },
       {
         "value": 10000.0
-      },
-      {
-        "value": 230.62
-      },
-      {
-        "value": 19.38
       }
     ],
     "custom_amount": true,
@@ -152933,12 +151283,6 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 250.0
       },
       {
@@ -152946,6 +151290,12 @@
       },
       {
         "value": 1000.0
+      },
+      {
+        "value": 1500.0
+      },
+      {
+        "value": 2000.0
       },
       {
         "value": 2500.0
@@ -152961,9 +151311,6 @@
       },
       {
         "value": 10000.0
-      },
-      {
-        "value": 220.62
       }
     ],
     "custom_amount": true,
@@ -153083,12 +151430,6 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 200.0
       },
       {
@@ -153096,6 +151437,9 @@
       },
       {
         "value": 1000.0
+      },
+      {
+        "value": 2000.0
       },
       {
         "value": 5000.0
@@ -153111,12 +151455,6 @@
       },
       {
         "value": 100000.0
-      },
-      {
-        "value": 172.5
-      },
-      {
-        "value": 27.5
       }
     ],
     "custom_amount": true,
@@ -153236,12 +151574,6 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 200.0
       },
       {
@@ -153251,16 +151583,13 @@
         "value": 1000.0
       },
       {
+        "value": 2000.0
+      },
+      {
         "value": 5000.0
       },
       {
         "value": 10000.0
-      },
-      {
-        "value": 189.5
-      },
-      {
-        "value": 10.5
       }
     ],
     "custom_amount": true,
@@ -153380,25 +151709,16 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 500.0
       },
       {
         "value": 1000.0
       },
       {
+        "value": 2000.0
+      },
+      {
         "value": 10000.0
-      },
-      {
-        "value": 475.0
-      },
-      {
-        "value": 25.0
       }
     ],
     "custom_amount": false,
@@ -153518,12 +151838,6 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 100.0
       },
       {
@@ -153533,16 +151847,13 @@
         "value": 1000.0
       },
       {
+        "value": 1500.0
+      },
+      {
         "value": 2500.0
       },
       {
         "value": 5000.0
-      },
-      {
-        "value": 90.0
-      },
-      {
-        "value": 10.0
       }
     ],
     "custom_amount": true,
@@ -153611,7 +151922,7 @@
     "maxcoins_earn_pct": 10.5,
     "source": "maximize",
     "slug": "subway",
-    "brand_name": "Subway",
+    "brand_name": "Subway (Custom)",
     "url": "https://www.maximize.money/gift-cards/Subway (Custom)/330",
     "collected_at": "2026-09-03T21:53:22+00:00",
     "best_saving_pct": 10.0,
@@ -153662,12 +151973,6 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 200.0
       },
       {
@@ -153677,16 +151982,13 @@
         "value": 1000.0
       },
       {
+        "value": 2000.0
+      },
+      {
         "value": 5000.0
       },
       {
         "value": 10000.0
-      },
-      {
-        "value": 176.0
-      },
-      {
-        "value": 24.0
       }
     ],
     "custom_amount": true,
@@ -153806,13 +152108,10 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 1000.0
+      },
+      {
+        "value": 2000.0
       },
       {
         "value": 2500.0
@@ -153828,12 +152127,6 @@
       },
       {
         "value": 10000.0
-      },
-      {
-        "value": 880.0
-      },
-      {
-        "value": 120.0
       }
     ],
     "custom_amount": false,
@@ -153953,19 +152246,7 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 12000.0
-      },
-      {
-        "value": 10650.0
-      },
-      {
-        "value": 1350.0
       }
     ],
     "custom_amount": false,
@@ -154085,19 +152366,7 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 6000.0
-      },
-      {
-        "value": 5325.0
-      },
-      {
-        "value": 675.0
       }
     ],
     "custom_amount": false,
@@ -154217,12 +152486,6 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 100.0
       },
       {
@@ -154235,16 +152498,16 @@
         "value": 1000.0
       },
       {
+        "value": 1500.0
+      },
+      {
+        "value": 2000.0
+      },
+      {
         "value": 2500.0
       },
       {
         "value": 5000.0
-      },
-      {
-        "value": 82.25
-      },
-      {
-        "value": 17.75
       }
     ],
     "custom_amount": false,
@@ -154364,22 +152627,10 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 100.0
       },
       {
         "value": 200.0
-      },
-      {
-        "value": 87.25
-      },
-      {
-        "value": 12.75
       }
     ],
     "custom_amount": true,
@@ -154499,12 +152750,6 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 250.0
       },
       {
@@ -154514,6 +152759,12 @@
         "value": 1000.0
       },
       {
+        "value": 1500.0
+      },
+      {
+        "value": 2000.0
+      },
+      {
         "value": 2500.0
       },
       {
@@ -154521,12 +152772,6 @@
       },
       {
         "value": 5000.0
-      },
-      {
-        "value": 216.87
-      },
-      {
-        "value": 33.13
       }
     ],
     "custom_amount": false,
@@ -154646,12 +152891,6 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 190.0
       },
       {
@@ -154662,12 +152901,6 @@
       },
       {
         "value": 2375.0
-      },
-      {
-        "value": 187.15
-      },
-      {
-        "value": 2.85
       }
     ],
     "custom_amount": false,
@@ -154787,12 +153020,6 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 250.0
       },
       {
@@ -154800,6 +153027,12 @@
       },
       {
         "value": 1000.0
+      },
+      {
+        "value": 1500.0
+      },
+      {
+        "value": 2000.0
       },
       {
         "value": 2500.0
@@ -154812,12 +153045,6 @@
       },
       {
         "value": 9999.0
-      },
-      {
-        "value": 245.0
-      },
-      {
-        "value": 5.0
       }
     ],
     "custom_amount": false,
@@ -154937,16 +153164,16 @@
     },
     "denominations": [
       {
-        "value": 2000.0
+        "value": 500.0
+      },
+      {
+        "value": 1000.0
       },
       {
         "value": 1500.0
       },
       {
-        "value": 500.0
-      },
-      {
-        "value": 1000.0
+        "value": 2000.0
       },
       {
         "value": 2500.0
@@ -154959,12 +153186,6 @@
       },
       {
         "value": 10000.0
-      },
-      {
-        "value": 450.0
-      },
-      {
-        "value": 50.0
       }
     ],
     "custom_amount": true,
@@ -155084,13 +153305,10 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 1000.0
+      },
+      {
+        "value": 2000.0
       },
       {
         "value": 2500.0
@@ -155103,12 +153321,6 @@
       },
       {
         "value": 10000.0
-      },
-      {
-        "value": 880.0
-      },
-      {
-        "value": 120.0
       }
     ],
     "custom_amount": false,
@@ -155228,12 +153440,6 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 250.0
       },
       {
@@ -155243,10 +153449,7 @@
         "value": 1000.0
       },
       {
-        "value": 178.12
-      },
-      {
-        "value": 71.88
+        "value": 2000.0
       }
     ],
     "custom_amount": true,
@@ -155369,9 +153572,6 @@
         "value": 2000.0
       },
       {
-        "value": 1500.0
-      },
-      {
         "value": 5000.0
       },
       {
@@ -155385,12 +153585,6 @@
       },
       {
         "value": 100000.0
-      },
-      {
-        "value": 1910.0
-      },
-      {
-        "value": 90.0
       }
     ],
     "custom_amount": true,
@@ -155510,12 +153704,6 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 100.0
       },
       {
@@ -155541,12 +153729,6 @@
       },
       {
         "value": 50000.0
-      },
-      {
-        "value": 98.0
-      },
-      {
-        "value": 2.0
       }
     ],
     "custom_amount": true,
@@ -155669,9 +153851,6 @@
         "value": 2000.0
       },
       {
-        "value": 1500.0
-      },
-      {
         "value": 5000.0
       },
       {
@@ -155685,12 +153864,6 @@
       },
       {
         "value": 100000.0
-      },
-      {
-        "value": 1965.0
-      },
-      {
-        "value": 35.0
       }
     ],
     "custom_amount": true,
@@ -155810,13 +153983,10 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 1000.0
+      },
+      {
+        "value": 2000.0
       },
       {
         "value": 3000.0
@@ -155826,12 +153996,6 @@
       },
       {
         "value": 10000.0
-      },
-      {
-        "value": 970.0
-      },
-      {
-        "value": 30.0
       }
     ],
     "custom_amount": false,
@@ -155954,12 +154118,6 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 250.0
       },
       {
@@ -155972,10 +154130,7 @@
         "value": 1000.0
       },
       {
-        "value": 205.0
-      },
-      {
-        "value": 45.0
+        "value": 1500.0
       }
     ],
     "custom_amount": true,
@@ -156044,7 +154199,7 @@
     "maxcoins_earn_pct": 18.25,
     "source": "maximize",
     "slug": "dominos",
-    "brand_name": "Dominos",
+    "brand_name": "Dominos Pizza (Custom)",
     "url": "https://www.maximize.money/gift-cards/Dominos/1017",
     "collected_at": "2026-09-03T21:59:01+00:00",
     "best_saving_pct": 18.0,
@@ -156087,10 +154242,10 @@
     },
     "denominations": [
       {
-        "value": 2000.0
+        "value": 1500.0
       },
       {
-        "value": 1500.0
+        "value": 2000.0
       },
       {
         "value": 2500.0
@@ -156106,12 +154261,6 @@
       },
       {
         "value": 10000.0
-      },
-      {
-        "value": 22.5
-      },
-      {
-        "value": 1522.5
       }
     ],
     "custom_amount": true,
@@ -156223,12 +154372,6 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 100.0
       },
       {
@@ -156245,12 +154388,6 @@
       },
       {
         "value": 1000.0
-      },
-      {
-        "value": 0.5
-      },
-      {
-        "value": 100.5
       }
     ],
     "custom_amount": true,
@@ -156370,25 +154507,16 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 1000.0
+      },
+      {
+        "value": 2000.0
       },
       {
         "value": 5000.0
       },
       {
         "value": 10000.0
-      },
-      {
-        "value": 915.0
-      },
-      {
-        "value": 85.0
       }
     ],
     "custom_amount": false,
@@ -156508,16 +154636,16 @@
     },
     "denominations": [
       {
-        "value": 2000.0
+        "value": 500.0
+      },
+      {
+        "value": 1000.0
       },
       {
         "value": 1500.0
       },
       {
-        "value": 500.0
-      },
-      {
-        "value": 1000.0
+        "value": 2000.0
       },
       {
         "value": 2500.0
@@ -156533,12 +154661,6 @@
       },
       {
         "value": 10000.0
-      },
-      {
-        "value": 441.25
-      },
-      {
-        "value": 58.75
       }
     ],
     "custom_amount": true,
@@ -156658,12 +154780,6 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 200.0
       },
       {
@@ -156671,6 +154787,9 @@
       },
       {
         "value": 1000.0
+      },
+      {
+        "value": 2000.0
       },
       {
         "value": 5000.0
@@ -156683,12 +154802,6 @@
       },
       {
         "value": 50000.0
-      },
-      {
-        "value": 187.0
-      },
-      {
-        "value": 13.0
       }
     ],
     "custom_amount": true,
@@ -156796,12 +154909,6 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 250.0
       },
       {
@@ -156811,16 +154918,13 @@
         "value": 1000.0
       },
       {
+        "value": 2000.0
+      },
+      {
         "value": 5000.0
       },
       {
         "value": 10000.0
-      },
-      {
-        "value": 235.0
-      },
-      {
-        "value": 15.0
       }
     ],
     "custom_amount": true,
@@ -156889,7 +154993,7 @@
     "maxcoins_earn_pct": 6.1,
     "source": "maximize",
     "slug": "nykaa",
-    "brand_name": "Nykaa",
+    "brand_name": "Nykaa (Custom)",
     "url": "https://www.maximize.money/gift-cards/Nykaa/234",
     "collected_at": "2026-09-03T22:00:51+00:00",
     "best_saving_pct": 6.0,
@@ -156928,16 +155032,16 @@
     },
     "denominations": [
       {
-        "value": 2000.0
+        "value": 500.0
+      },
+      {
+        "value": 1000.0
       },
       {
         "value": 1500.0
       },
       {
-        "value": 500.0
-      },
-      {
-        "value": 1000.0
+        "value": 2000.0
       },
       {
         "value": 2500.0
@@ -156947,12 +155051,6 @@
       },
       {
         "value": 5000.0
-      },
-      {
-        "value": 465.0
-      },
-      {
-        "value": 35.0
       }
     ],
     "custom_amount": true,
@@ -157021,7 +155119,7 @@
     "maxcoins_earn_pct": 7.25,
     "source": "maximize",
     "slug": "cleartrip-hotels",
-    "brand_name": "Cleartrip Hotels",
+    "brand_name": "Cleartrip Hotels (Custom)",
     "url": "https://www.maximize.money/gift-cards/Cleartrip Hotels (Custom)/227",
     "collected_at": "2026-09-03T22:01:06+00:00",
     "best_saving_pct": 7.0,
@@ -157060,25 +155158,16 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 1000.0
+      },
+      {
+        "value": 2000.0
       },
       {
         "value": 5000.0
       },
       {
         "value": 10000.0
-      },
-      {
-        "value": 987.5
-      },
-      {
-        "value": 12.5
       }
     ],
     "custom_amount": true,
@@ -157147,7 +155236,7 @@
     "maxcoins_earn_pct": 1.8,
     "source": "maximize",
     "slug": "flipkart",
-    "brand_name": "Flipkart -",
+    "brand_name": "Flipkart - (Custom)",
     "url": "https://www.maximize.money/gift-cards/Flipkart - (Custom)/410",
     "collected_at": "2026-09-03T22:01:22+00:00",
     "best_saving_pct": 1.25,
@@ -157198,28 +155287,19 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 500.0
       },
       {
         "value": 1000.0
       },
       {
+        "value": 2000.0
+      },
+      {
         "value": 5000.0
       },
       {
         "value": 10000.0
-      },
-      {
-        "value": 438.75
-      },
-      {
-        "value": 61.25
       }
     ],
     "custom_amount": false,
@@ -157339,22 +155419,13 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 500.0
       },
       {
         "value": 1000.0
       },
       {
-        "value": 397.5
-      },
-      {
-        "value": 102.5
+        "value": 2000.0
       }
     ],
     "custom_amount": true,
@@ -157474,25 +155545,19 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 500.0
       },
       {
         "value": 1000.0
       },
       {
+        "value": 1500.0
+      },
+      {
+        "value": 2000.0
+      },
+      {
         "value": 5000.0
-      },
-      {
-        "value": 458.75
-      },
-      {
-        "value": 41.25
       }
     ],
     "custom_amount": false,
@@ -157600,22 +155665,13 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 1000.0
       },
       {
+        "value": 2000.0
+      },
+      {
         "value": 5000.0
-      },
-      {
-        "value": 892.5
-      },
-      {
-        "value": 107.5
       }
     ],
     "custom_amount": false,
@@ -157687,7 +155743,7 @@
     "maxcoins_earn_pct": 10.9,
     "source": "maximize",
     "slug": "tata-cliq",
-    "brand_name": "Tata Cliq",
+    "brand_name": "Tata CliQ Fashion",
     "url": "https://www.maximize.money/gift-cards/Tata Cliq/887",
     "collected_at": "2026-09-03T22:02:38+00:00",
     "best_saving_pct": 10.75,
@@ -157726,13 +155782,10 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 1000.0
+      },
+      {
+        "value": 2000.0
       },
       {
         "value": 2500.0
@@ -157742,12 +155795,6 @@
       },
       {
         "value": 10000.0
-      },
-      {
-        "value": 900.0
-      },
-      {
-        "value": 100.0
       }
     ],
     "custom_amount": true,
@@ -157858,19 +155905,10 @@
         "value": 2000.0
       },
       {
-        "value": 1500.0
-      },
-      {
         "value": 5000.0
       },
       {
         "value": 10000.0
-      },
-      {
-        "value": 1800.0
-      },
-      {
-        "value": 200.0
       }
     ],
     "custom_amount": true,
@@ -157990,13 +156028,10 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 1000.0
+      },
+      {
+        "value": 2000.0
       },
       {
         "value": 5000.0
@@ -158009,12 +156044,6 @@
       },
       {
         "value": 50000.0
-      },
-      {
-        "value": 960.0
-      },
-      {
-        "value": 40.0
       }
     ],
     "custom_amount": true,
@@ -158134,16 +156163,7 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
         "value": 1500.0
-      },
-      {
-        "value": 975.0
-      },
-      {
-        "value": 525.0
       }
     ],
     "custom_amount": false,
@@ -158251,12 +156271,6 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 100.0
       },
       {
@@ -158269,10 +156283,10 @@
         "value": 1000.0
       },
       {
-        "value": 90.0
+        "value": 1500.0
       },
       {
-        "value": 10.0
+        "value": 2000.0
       }
     ],
     "custom_amount": false,
@@ -158392,12 +156406,6 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 200.0
       },
       {
@@ -158407,16 +156415,13 @@
         "value": 1000.0
       },
       {
+        "value": 2000.0
+      },
+      {
         "value": 5000.0
       },
       {
         "value": 10000.0
-      },
-      {
-        "value": 194.0
-      },
-      {
-        "value": 6.0
       }
     ],
     "custom_amount": true,
@@ -158536,13 +156541,10 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 1000.0
+      },
+      {
+        "value": 2000.0
       },
       {
         "value": 5000.0
@@ -158552,12 +156554,6 @@
       },
       {
         "value": 10000.0
-      },
-      {
-        "value": 867.5
-      },
-      {
-        "value": 132.5
       }
     ],
     "custom_amount": true,
@@ -158626,7 +156622,7 @@
     "maxcoins_earn_pct": 13.5,
     "source": "maximize",
     "slug": "marks-amp-spencer",
-    "brand_name": "Marks &amp; Spencer",
+    "brand_name": "Marks & Spencer",
     "url": "https://www.maximize.money/gift-cards/Marks &amp; Spencer/957",
     "collected_at": "2026-09-03T22:04:46+00:00",
     "best_saving_pct": 13.25,
@@ -158668,19 +156664,10 @@
         "value": 2000.0
       },
       {
-        "value": 1500.0
-      },
-      {
         "value": 5000.0
       },
       {
         "value": 10000.0
-      },
-      {
-        "value": 1800.0
-      },
-      {
-        "value": 200.0
       }
     ],
     "custom_amount": true,
@@ -158800,12 +156787,6 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 250.0
       },
       {
@@ -158815,10 +156796,10 @@
         "value": 1000.0
       },
       {
-        "value": 217.5
+        "value": 1500.0
       },
       {
-        "value": 32.5
+        "value": 2000.0
       }
     ],
     "custom_amount": false,
@@ -158938,13 +156919,10 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 1000.0
+      },
+      {
+        "value": 2000.0
       },
       {
         "value": 5000.0
@@ -158957,12 +156935,6 @@
       },
       {
         "value": 50000.0
-      },
-      {
-        "value": 915.0
-      },
-      {
-        "value": 85.0
       }
     ],
     "custom_amount": true,
@@ -159084,12 +157056,6 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 200.0
       },
       {
@@ -159099,16 +157065,13 @@
         "value": 1000.0
       },
       {
+        "value": 2000.0
+      },
+      {
         "value": 5000.0
       },
       {
         "value": 10000.0
-      },
-      {
-        "value": 146.5
-      },
-      {
-        "value": 53.5
       }
     ],
     "custom_amount": true,
@@ -159228,19 +157191,10 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 1000.0
       },
       {
-        "value": 937.5
-      },
-      {
-        "value": 62.5
+        "value": 2000.0
       }
     ],
     "custom_amount": true,
@@ -159360,12 +157314,6 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 500.0
       },
       {
@@ -159385,12 +157333,6 @@
       },
       {
         "value": 50000.0
-      },
-      {
-        "value": 480.0
-      },
-      {
-        "value": 20.0
       }
     ],
     "custom_amount": true,
@@ -159510,12 +157452,6 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 6899.0
       },
       {
@@ -159523,12 +157459,6 @@
       },
       {
         "value": 10999.0
-      },
-      {
-        "value": 6623.04
-      },
-      {
-        "value": 275.96
       }
     ],
     "custom_amount": false,
@@ -159648,12 +157578,6 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 200.0
       },
       {
@@ -159663,16 +157587,13 @@
         "value": 1000.0
       },
       {
+        "value": 2000.0
+      },
+      {
         "value": 5000.0
       },
       {
         "value": 10000.0
-      },
-      {
-        "value": 170.5
-      },
-      {
-        "value": 29.5
       }
     ],
     "custom_amount": true,
@@ -159792,12 +157713,6 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 5000.0
       },
       {
@@ -159805,12 +157720,6 @@
       },
       {
         "value": 20000.0
-      },
-      {
-        "value": 4600.0
-      },
-      {
-        "value": 400.0
       }
     ],
     "custom_amount": true,
@@ -159930,19 +157839,7 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 1800.0
-      },
-      {
-        "value": 1084.5
-      },
-      {
-        "value": 715.5
       }
     ],
     "custom_amount": false,
@@ -160065,19 +157962,10 @@
         "value": 2000.0
       },
       {
-        "value": 1500.0
-      },
-      {
         "value": 5000.0
       },
       {
         "value": 10000.0
-      },
-      {
-        "value": 1875.0
-      },
-      {
-        "value": 125.0
       }
     ],
     "custom_amount": true,
@@ -160200,9 +158088,6 @@
         "value": 2000.0
       },
       {
-        "value": 1500.0
-      },
-      {
         "value": 5000.0
       },
       {
@@ -160216,12 +158101,6 @@
       },
       {
         "value": 100000.0
-      },
-      {
-        "value": 1845.0
-      },
-      {
-        "value": 155.0
       }
     ],
     "custom_amount": true,
@@ -160341,16 +158220,13 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 500.0
       },
       {
         "value": 1000.0
+      },
+      {
+        "value": 2000.0
       },
       {
         "value": 5000.0
@@ -160369,12 +158245,6 @@
       },
       {
         "value": 200000.0
-      },
-      {
-        "value": 448.75
-      },
-      {
-        "value": 51.25
       }
     ],
     "custom_amount": true,
@@ -160496,13 +158366,10 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 1000.0
+      },
+      {
+        "value": 2000.0
       },
       {
         "value": 5000.0
@@ -160512,12 +158379,6 @@
       },
       {
         "value": 10000.0
-      },
-      {
-        "value": 877.5
-      },
-      {
-        "value": 122.5
       }
     ],
     "custom_amount": false,
@@ -160640,12 +158501,6 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 250.0
       },
       {
@@ -160653,12 +158508,6 @@
       },
       {
         "value": 1000.0
-      },
-      {
-        "value": 229.37
-      },
-      {
-        "value": 20.63
       }
     ],
     "custom_amount": true,
@@ -160780,12 +158629,6 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 200.0
       },
       {
@@ -160795,16 +158638,13 @@
         "value": 1000.0
       },
       {
+        "value": 2000.0
+      },
+      {
         "value": 5000.0
       },
       {
         "value": 10000.0
-      },
-      {
-        "value": 174.0
-      },
-      {
-        "value": 26.0
       }
     ],
     "custom_amount": true,
@@ -160924,16 +158764,13 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 500.0
       },
       {
         "value": 1000.0
+      },
+      {
+        "value": 2000.0
       },
       {
         "value": 2500.0
@@ -160943,12 +158780,6 @@
       },
       {
         "value": 7500.0
-      },
-      {
-        "value": 460.0
-      },
-      {
-        "value": 40.0
       }
     ],
     "custom_amount": true,
@@ -161068,19 +158899,7 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 2900.0
-      },
-      {
-        "value": 2834.75
-      },
-      {
-        "value": 65.25
       }
     ],
     "custom_amount": false,
@@ -161200,19 +159019,7 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 4150.0
-      },
-      {
-        "value": 4056.62
-      },
-      {
-        "value": 93.38
       }
     ],
     "custom_amount": false,
@@ -161332,19 +159139,7 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 1660.0
-      },
-      {
-        "value": 1622.65
-      },
-      {
-        "value": 37.35
       }
     ],
     "custom_amount": false,
@@ -161464,16 +159259,13 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 500.0
       },
       {
         "value": 1000.0
+      },
+      {
+        "value": 2000.0
       },
       {
         "value": 2500.0
@@ -161486,12 +159278,6 @@
       },
       {
         "value": 9999.0
-      },
-      {
-        "value": 488.0
-      },
-      {
-        "value": 12.0
       }
     ],
     "custom_amount": true,
@@ -161611,19 +159397,7 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 830.0
-      },
-      {
-        "value": 811.32
-      },
-      {
-        "value": 18.68
       }
     ],
     "custom_amount": false,
@@ -161743,12 +159517,6 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 500.0
       },
       {
@@ -161765,12 +159533,6 @@
       },
       {
         "value": 25000.0
-      },
-      {
-        "value": 490.0
-      },
-      {
-        "value": 10.0
       }
     ],
     "custom_amount": false,
@@ -161839,7 +159601,7 @@
     "maxcoins_earn_pct": 2.0,
     "source": "maximize",
     "slug": "surat-diamonds-solitaire",
-    "brand_name": "Surat Diamonds Solitaire",
+    "brand_name": "Surat Diamond Solitaire",
     "url": "https://www.maximize.money/gift-cards/Surat Diamonds Solitaire/1108",
     "collected_at": "2026-09-03T22:13:12+00:00",
     "best_saving_pct": 2.0,
@@ -161890,12 +159652,6 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 200.0
       },
       {
@@ -161905,16 +159661,13 @@
         "value": 1000.0
       },
       {
+        "value": 2000.0
+      },
+      {
         "value": 5000.0
       },
       {
         "value": 10000.0
-      },
-      {
-        "value": 189.3
-      },
-      {
-        "value": 10.7
       }
     ],
     "custom_amount": true,
@@ -162036,28 +159789,19 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 500.0
       },
       {
         "value": 1000.0
       },
       {
+        "value": 2000.0
+      },
+      {
         "value": 3000.0
       },
       {
         "value": 5000.0
-      },
-      {
-        "value": 412.5
-      },
-      {
-        "value": 87.5
       }
     ],
     "custom_amount": true,
@@ -162165,12 +159909,6 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 250.0
       },
       {
@@ -162180,10 +159918,10 @@
         "value": 1000.0
       },
       {
-        "value": 225.0
+        "value": 1500.0
       },
       {
-        "value": 25.0
+        "value": 2000.0
       }
     ],
     "custom_amount": true,
@@ -162303,12 +160041,6 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 500.0
       },
       {
@@ -162328,12 +160060,6 @@
       },
       {
         "value": 25000.0
-      },
-      {
-        "value": 456.25
-      },
-      {
-        "value": 43.75
       }
     ],
     "custom_amount": false,
@@ -162453,12 +160179,6 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 200.0
       },
       {
@@ -162466,6 +160186,9 @@
       },
       {
         "value": 1000.0
+      },
+      {
+        "value": 2000.0
       },
       {
         "value": 5000.0
@@ -162481,12 +160204,6 @@
       },
       {
         "value": 100000.0
-      },
-      {
-        "value": 179.5
-      },
-      {
-        "value": 20.5
       }
     ],
     "custom_amount": true,
@@ -162597,19 +160314,10 @@
         "value": 2000.0
       },
       {
-        "value": 1500.0
-      },
-      {
         "value": 5000.0
       },
       {
         "value": 10000.0
-      },
-      {
-        "value": 1978.0
-      },
-      {
-        "value": 22.0
       }
     ],
     "custom_amount": false,
@@ -162717,12 +160425,6 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 100.0
       },
       {
@@ -162733,6 +160435,9 @@
       },
       {
         "value": 1000.0
+      },
+      {
+        "value": 2000.0
       },
       {
         "value": 3000.0
@@ -162864,12 +160569,6 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 100.0
       },
       {
@@ -162886,12 +160585,6 @@
       },
       {
         "value": 5000.0
-      },
-      {
-        "value": 87.0
-      },
-      {
-        "value": 13.0
       }
     ],
     "custom_amount": false,
@@ -163011,12 +160704,6 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 100.0
       },
       {
@@ -163033,12 +160720,6 @@
       },
       {
         "value": 10000.0
-      },
-      {
-        "value": 91.25
-      },
-      {
-        "value": 8.75
       }
     ],
     "custom_amount": true,
@@ -163158,12 +160839,6 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 200.0
       },
       {
@@ -163173,16 +160848,13 @@
         "value": 1000.0
       },
       {
+        "value": 2000.0
+      },
+      {
         "value": 5000.0
       },
       {
         "value": 10000.0
-      },
-      {
-        "value": 194.0
-      },
-      {
-        "value": 6.0
       }
     ],
     "custom_amount": true,
@@ -163290,12 +160962,6 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 200.0
       },
       {
@@ -163305,16 +160971,13 @@
         "value": 1000.0
       },
       {
+        "value": 2000.0
+      },
+      {
         "value": 5000.0
       },
       {
         "value": 10000.0
-      },
-      {
-        "value": 0.8
-      },
-      {
-        "value": 200.8
       }
     ],
     "custom_amount": true,
@@ -163434,12 +161097,6 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 200.0
       },
       {
@@ -163449,16 +161106,13 @@
         "value": 1000.0
       },
       {
+        "value": 2000.0
+      },
+      {
         "value": 5000.0
       },
       {
         "value": 10000.0
-      },
-      {
-        "value": 193.5
-      },
-      {
-        "value": 6.5
       }
     ],
     "custom_amount": true,
@@ -163578,12 +161232,6 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 250.0
       },
       {
@@ -163593,13 +161241,13 @@
         "value": 1000.0
       },
       {
+        "value": 1500.0
+      },
+      {
+        "value": 2000.0
+      },
+      {
         "value": 5000.0
-      },
-      {
-        "value": 215.0
-      },
-      {
-        "value": 35.0
       }
     ],
     "custom_amount": false,
@@ -163719,16 +161367,16 @@
     },
     "denominations": [
       {
-        "value": 2000.0
+        "value": 500.0
+      },
+      {
+        "value": 1000.0
       },
       {
         "value": 1500.0
       },
       {
-        "value": 500.0
-      },
-      {
-        "value": 1000.0
+        "value": 2000.0
       },
       {
         "value": 2500.0
@@ -163744,12 +161392,6 @@
       },
       {
         "value": 10000.0
-      },
-      {
-        "value": 441.25
-      },
-      {
-        "value": 58.75
       }
     ],
     "custom_amount": true,
@@ -163869,28 +161511,19 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 500.0
       },
       {
         "value": 1000.0
       },
       {
+        "value": 2000.0
+      },
+      {
         "value": 2500.0
       },
       {
         "value": 5000.0
-      },
-      {
-        "value": 457.5
-      },
-      {
-        "value": 42.5
       }
     ],
     "custom_amount": false,
@@ -164010,28 +161643,22 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 500.0
       },
       {
         "value": 1000.0
       },
       {
+        "value": 1500.0
+      },
+      {
+        "value": 2000.0
+      },
+      {
         "value": 4000.0
       },
       {
         "value": 5000.0
-      },
-      {
-        "value": 462.5
-      },
-      {
-        "value": 37.5
       }
     ],
     "custom_amount": false,
@@ -164151,12 +161778,6 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 200.0
       },
       {
@@ -164164,6 +161785,9 @@
       },
       {
         "value": 1000.0
+      },
+      {
+        "value": 2000.0
       },
       {
         "value": 5000.0
@@ -164179,12 +161803,6 @@
       },
       {
         "value": 100000.0
-      },
-      {
-        "value": 195.0
-      },
-      {
-        "value": 5.0
       }
     ],
     "custom_amount": true,
@@ -164304,12 +161922,6 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 250.0
       },
       {
@@ -164322,19 +161934,19 @@
         "value": 1000.0
       },
       {
+        "value": 1500.0
+      },
+      {
         "value": 1900.0
+      },
+      {
+        "value": 2000.0
       },
       {
         "value": 2500.0
       },
       {
         "value": 3800.0
-      },
-      {
-        "value": 235.62
-      },
-      {
-        "value": 14.38
       }
     ],
     "custom_amount": false,
@@ -164454,12 +162066,6 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 500.0
       },
       {
@@ -164479,12 +162085,6 @@
       },
       {
         "value": 50000.0
-      },
-      {
-        "value": 495.0
-      },
-      {
-        "value": 5.0
       }
     ],
     "custom_amount": true,
@@ -164604,13 +162204,10 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 1000.0
+      },
+      {
+        "value": 2000.0
       },
       {
         "value": 5000.0
@@ -164626,12 +162223,6 @@
       },
       {
         "value": 100000.0
-      },
-      {
-        "value": 977.5
-      },
-      {
-        "value": 22.5
       }
     ],
     "custom_amount": true,
@@ -164753,13 +162344,10 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 1000.0
+      },
+      {
+        "value": 2000.0
       },
       {
         "value": 5000.0
@@ -164775,12 +162363,6 @@
       },
       {
         "value": 100000.0
-      },
-      {
-        "value": 960.0
-      },
-      {
-        "value": 40.0
       }
     ],
     "custom_amount": true,
@@ -164902,13 +162484,10 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 1000.0
+      },
+      {
+        "value": 2000.0
       },
       {
         "value": 5000.0
@@ -164921,12 +162500,6 @@
       },
       {
         "value": 50000.0
-      },
-      {
-        "value": 915.0
-      },
-      {
-        "value": 85.0
       }
     ],
     "custom_amount": true,
@@ -165048,13 +162621,10 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 1000.0
+      },
+      {
+        "value": 2000.0
       },
       {
         "value": 5000.0
@@ -165067,12 +162637,6 @@
       },
       {
         "value": 50000.0
-      },
-      {
-        "value": 915.0
-      },
-      {
-        "value": 85.0
       }
     ],
     "custom_amount": true,
@@ -165194,25 +162758,16 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 500.0
       },
       {
         "value": 1000.0
       },
       {
+        "value": 2000.0
+      },
+      {
         "value": 5000.0
-      },
-      {
-        "value": 410.0
-      },
-      {
-        "value": 90.0
       }
     ],
     "custom_amount": false,
@@ -165334,28 +162889,22 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 500.0
       },
       {
         "value": 1000.0
       },
       {
+        "value": 1500.0
+      },
+      {
+        "value": 2000.0
+      },
+      {
         "value": 2500.0
       },
       {
         "value": 5000.0
-      },
-      {
-        "value": 438.75
-      },
-      {
-        "value": 61.25
       }
     ],
     "custom_amount": false,
@@ -165475,12 +163024,6 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 200.0
       },
       {
@@ -165490,16 +163033,13 @@
         "value": 1000.0
       },
       {
+        "value": 2000.0
+      },
+      {
         "value": 5000.0
       },
       {
         "value": 10000.0
-      },
-      {
-        "value": 165.0
-      },
-      {
-        "value": 35.0
       }
     ],
     "custom_amount": true,
@@ -165619,12 +163159,6 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 250.0
       },
       {
@@ -165638,12 +163172,6 @@
       },
       {
         "value": 5000.0
-      },
-      {
-        "value": 244.37
-      },
-      {
-        "value": 5.63
       }
     ],
     "custom_amount": false,
@@ -165763,22 +163291,13 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 1000.0
       },
       {
+        "value": 2000.0
+      },
+      {
         "value": 5000.0
-      },
-      {
-        "value": 930.0
-      },
-      {
-        "value": 70.0
       }
     ],
     "custom_amount": true,
@@ -165898,22 +163417,10 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 940.0
       },
       {
         "value": 1880.0
-      },
-      {
-        "value": 878.9
-      },
-      {
-        "value": 61.1
       }
     ],
     "custom_amount": false,
@@ -166033,16 +163540,13 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 500.0
       },
       {
         "value": 1000.0
+      },
+      {
+        "value": 2000.0
       },
       {
         "value": 5000.0
@@ -166058,12 +163562,6 @@
       },
       {
         "value": 100000.0
-      },
-      {
-        "value": 448.75
-      },
-      {
-        "value": 51.25
       }
     ],
     "custom_amount": true,
@@ -166185,16 +163683,13 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 500.0
       },
       {
         "value": 1000.0
+      },
+      {
+        "value": 1500.0
       },
       {
         "value": 2500.0
@@ -166204,12 +163699,6 @@
       },
       {
         "value": 10000.0
-      },
-      {
-        "value": 480.0
-      },
-      {
-        "value": 20.0
       }
     ],
     "custom_amount": true,
@@ -166280,7 +163769,7 @@
     "maxcoins_earn_pct": 4.1,
     "source": "maximize",
     "slug": "giva-silver-coin",
-    "brand_name": "GIVA Silver Coin",
+    "brand_name": "GIVA Silver Coin (Custom)",
     "url": "https://www.maximize.money/gift-cards/GIVA Silver Coin (Custom)/742",
     "collected_at": "2026-09-03T22:24:27+00:00",
     "best_saving_pct": 4.0,
@@ -166331,16 +163820,13 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 500.0
       },
       {
         "value": 1000.0
+      },
+      {
+        "value": 2000.0
       },
       {
         "value": 2500.0
@@ -166353,12 +163839,6 @@
       },
       {
         "value": 10000.0
-      },
-      {
-        "value": 496.25
-      },
-      {
-        "value": 3.75
       }
     ],
     "custom_amount": true,
@@ -166478,28 +163958,19 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 500.0
       },
       {
         "value": 1000.0
       },
       {
+        "value": 2000.0
+      },
+      {
         "value": 5000.0
       },
       {
         "value": 10000.0
-      },
-      {
-        "value": 477.5
-      },
-      {
-        "value": 22.5
       }
     ],
     "custom_amount": true,
@@ -166619,12 +164090,6 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 100.0
       },
       {
@@ -166637,10 +164102,7 @@
         "value": 1000.0
       },
       {
-        "value": 87.0
-      },
-      {
-        "value": 13.0
+        "value": 2000.0
       }
     ],
     "custom_amount": false,
@@ -166751,19 +164213,10 @@
         "value": 2000.0
       },
       {
-        "value": 1500.0
-      },
-      {
         "value": 5000.0
       },
       {
         "value": 10000.0
-      },
-      {
-        "value": 1800.0
-      },
-      {
-        "value": 200.0
       }
     ],
     "custom_amount": true,
@@ -166883,16 +164336,16 @@
     },
     "denominations": [
       {
-        "value": 2000.0
+        "value": 500.0
+      },
+      {
+        "value": 1000.0
       },
       {
         "value": 1500.0
       },
       {
-        "value": 500.0
-      },
-      {
-        "value": 1000.0
+        "value": 2000.0
       },
       {
         "value": 2500.0
@@ -166908,12 +164361,6 @@
       },
       {
         "value": 10000.0
-      },
-      {
-        "value": 446.25
-      },
-      {
-        "value": 53.75
       }
     ],
     "custom_amount": false,
@@ -167033,16 +164480,16 @@
     },
     "denominations": [
       {
-        "value": 2000.0
+        "value": 500.0
+      },
+      {
+        "value": 1000.0
       },
       {
         "value": 1500.0
       },
       {
-        "value": 500.0
-      },
-      {
-        "value": 1000.0
+        "value": 2000.0
       },
       {
         "value": 2500.0
@@ -167058,12 +164505,6 @@
       },
       {
         "value": 10000.0
-      },
-      {
-        "value": 441.25
-      },
-      {
-        "value": 58.75
       }
     ],
     "custom_amount": true,
@@ -167183,12 +164624,6 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 250.0
       },
       {
@@ -167198,16 +164633,13 @@
         "value": 1000.0
       },
       {
+        "value": 2000.0
+      },
+      {
         "value": 5000.0
       },
       {
         "value": 10000.0
-      },
-      {
-        "value": 227.5
-      },
-      {
-        "value": 22.5
       }
     ],
     "custom_amount": true,
@@ -167276,7 +164708,7 @@
     "maxcoins_earn_pct": 9.5,
     "source": "maximize",
     "slug": "pure-home-amp-living",
-    "brand_name": "Pure Home &amp; Living",
+    "brand_name": "Pure Home & Living",
     "url": "https://www.maximize.money/gift-cards/Pure Home &amp; Living/604",
     "collected_at": "2026-09-03T22:26:43+00:00",
     "best_saving_pct": 9.0,
@@ -167327,22 +164759,13 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 500.0
       },
       {
+        "value": 2000.0
+      },
+      {
         "value": 5000.0
-      },
-      {
-        "value": 466.25
-      },
-      {
-        "value": 33.75
       }
     ],
     "custom_amount": false,
@@ -167464,13 +164887,10 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 1000.0
+      },
+      {
+        "value": 2000.0
       },
       {
         "value": 5000.0
@@ -167483,12 +164903,6 @@
       },
       {
         "value": 50000.0
-      },
-      {
-        "value": 953.5
-      },
-      {
-        "value": 46.5
       }
     ],
     "custom_amount": true,
@@ -167610,19 +165024,7 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 1000.0
-      },
-      {
-        "value": 907.5
-      },
-      {
-        "value": 92.5
       }
     ],
     "custom_amount": false,
@@ -167742,12 +165144,6 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 250.0
       },
       {
@@ -167755,6 +165151,12 @@
       },
       {
         "value": 1000.0
+      },
+      {
+        "value": 1500.0
+      },
+      {
+        "value": 2000.0
       },
       {
         "value": 2500.0
@@ -167770,9 +165172,6 @@
       },
       {
         "value": 7500.0
-      },
-      {
-        "value": 230.62
       }
     ],
     "custom_amount": true,
@@ -167892,12 +165291,6 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 475.0
       },
       {
@@ -167923,12 +165316,6 @@
       },
       {
         "value": 9500.0
-      },
-      {
-        "value": 445.31
-      },
-      {
-        "value": 29.69
       }
     ],
     "custom_amount": false,
@@ -168048,12 +165435,6 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 500.0
       },
       {
@@ -168064,12 +165445,6 @@
       },
       {
         "value": 5000.0
-      },
-      {
-        "value": 433.75
-      },
-      {
-        "value": 66.25
       }
     ],
     "custom_amount": false,
@@ -168192,9 +165567,6 @@
         "value": 2000.0
       },
       {
-        "value": 1500.0
-      },
-      {
         "value": 5000.0
       },
       {
@@ -168202,12 +165574,6 @@
       },
       {
         "value": 20000.0
-      },
-      {
-        "value": 1740.0
-      },
-      {
-        "value": 260.0
       }
     ],
     "custom_amount": true,
@@ -168327,12 +165693,6 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 200.0
       },
       {
@@ -168342,16 +165702,13 @@
         "value": 1000.0
       },
       {
+        "value": 2000.0
+      },
+      {
         "value": 5000.0
       },
       {
         "value": 10000.0
-      },
-      {
-        "value": 176.0
-      },
-      {
-        "value": 24.0
       }
     ],
     "custom_amount": true,
@@ -168471,22 +165828,16 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 500.0
       },
       {
         "value": 1000.0
       },
       {
-        "value": 385.0
+        "value": 1500.0
       },
       {
-        "value": 115.0
+        "value": 2000.0
       }
     ],
     "custom_amount": true,
@@ -168606,13 +165957,10 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 1000.0
+      },
+      {
+        "value": 2000.0
       },
       {
         "value": 5000.0
@@ -168622,12 +165970,6 @@
       },
       {
         "value": 20000.0
-      },
-      {
-        "value": 917.5
-      },
-      {
-        "value": 82.5
       }
     ],
     "custom_amount": true,
@@ -168735,12 +166077,6 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 250.0
       },
       {
@@ -168750,10 +166086,10 @@
         "value": 1000.0
       },
       {
-        "value": 225.62
+        "value": 1500.0
       },
       {
-        "value": 24.38
+        "value": 2000.0
       }
     ],
     "custom_amount": false,
@@ -168873,19 +166209,7 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 499.0
-      },
-      {
-        "value": 309.38
-      },
-      {
-        "value": 189.62
       }
     ],
     "custom_amount": false,
@@ -169005,22 +166329,13 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 500.0
       },
       {
         "value": 1000.0
       },
       {
-        "value": 430.0
-      },
-      {
-        "value": 70.0
+        "value": 2000.0
       }
     ],
     "custom_amount": false,
@@ -169128,12 +166443,6 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 250.0
       },
       {
@@ -169143,10 +166452,10 @@
         "value": 1000.0
       },
       {
-        "value": 225.62
+        "value": 1500.0
       },
       {
-        "value": 24.38
+        "value": 2000.0
       }
     ],
     "custom_amount": true,
@@ -169266,12 +166575,6 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 500.0
       },
       {
@@ -169282,12 +166585,6 @@
       },
       {
         "value": 5000.0
-      },
-      {
-        "value": 461.25
-      },
-      {
-        "value": 38.75
       }
     ],
     "custom_amount": true,
@@ -169399,12 +166696,6 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 100.0
       },
       {
@@ -169417,16 +166708,16 @@
         "value": 1000.0
       },
       {
+        "value": 1500.0
+      },
+      {
+        "value": 2000.0
+      },
+      {
         "value": 5000.0
       },
       {
         "value": 10000.0
-      },
-      {
-        "value": 0.25
-      },
-      {
-        "value": 100.25
       }
     ],
     "custom_amount": true,
@@ -169518,12 +166809,6 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 100.0
       },
       {
@@ -169536,10 +166821,10 @@
         "value": 1000.0
       },
       {
-        "value": 0.25
+        "value": 1500.0
       },
       {
-        "value": 100.25
+        "value": 2000.0
       }
     ],
     "custom_amount": true,
@@ -169631,12 +166916,6 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 100.0
       },
       {
@@ -169649,10 +166928,10 @@
         "value": 1000.0
       },
       {
-        "value": 98.75
+        "value": 1500.0
       },
       {
-        "value": 1.25
+        "value": 2000.0
       }
     ],
     "custom_amount": true,
@@ -169772,16 +167051,16 @@
     },
     "denominations": [
       {
-        "value": 2000.0
+        "value": 500.0
+      },
+      {
+        "value": 1000.0
       },
       {
         "value": 1500.0
       },
       {
-        "value": 500.0
-      },
-      {
-        "value": 1000.0
+        "value": 2000.0
       },
       {
         "value": 2500.0
@@ -169797,12 +167076,6 @@
       },
       {
         "value": 10000.0
-      },
-      {
-        "value": 446.25
-      },
-      {
-        "value": 53.75
       }
     ],
     "custom_amount": false,
@@ -169922,25 +167195,16 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 1000.0
+      },
+      {
+        "value": 2000.0
       },
       {
         "value": 5000.0
       },
       {
         "value": 10000.0
-      },
-      {
-        "value": 902.5
-      },
-      {
-        "value": 97.5
       }
     ],
     "custom_amount": false,
@@ -170060,13 +167324,10 @@
     },
     "denominations": [
       {
-        "value": 2000.0
+        "value": 1000.0
       },
       {
         "value": 1500.0
-      },
-      {
-        "value": 1000.0
       },
       {
         "value": 2500.0
@@ -170085,12 +167346,6 @@
       },
       {
         "value": 49999.0
-      },
-      {
-        "value": 950.0
-      },
-      {
-        "value": 50.0
       }
     ],
     "custom_amount": true,
@@ -170210,13 +167465,10 @@
     },
     "denominations": [
       {
-        "value": 2000.0
+        "value": 1000.0
       },
       {
         "value": 1500.0
-      },
-      {
-        "value": 1000.0
       },
       {
         "value": 2500.0
@@ -170235,12 +167487,6 @@
       },
       {
         "value": 49999.0
-      },
-      {
-        "value": 937.5
-      },
-      {
-        "value": 62.5
       }
     ],
     "custom_amount": true,
@@ -170360,28 +167606,22 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 500.0
       },
       {
         "value": 1000.0
       },
       {
+        "value": 1500.0
+      },
+      {
+        "value": 2000.0
+      },
+      {
         "value": 5000.0
       },
       {
         "value": 10000.0
-      },
-      {
-        "value": 446.25
-      },
-      {
-        "value": 53.75
       }
     ],
     "custom_amount": false,
@@ -170501,12 +167741,6 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 250.0
       },
       {
@@ -170516,16 +167750,13 @@
         "value": 1000.0
       },
       {
+        "value": 2000.0
+      },
+      {
         "value": 2500.0
       },
       {
         "value": 5000.0
-      },
-      {
-        "value": 199.37
-      },
-      {
-        "value": 50.63
       }
     ],
     "custom_amount": false,
@@ -170645,12 +167876,6 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 250.0
       },
       {
@@ -170660,16 +167885,13 @@
         "value": 1000.0
       },
       {
+        "value": 2000.0
+      },
+      {
         "value": 2500.0
       },
       {
         "value": 5000.0
-      },
-      {
-        "value": 199.37
-      },
-      {
-        "value": 50.63
       }
     ],
     "custom_amount": false,
@@ -170788,12 +168010,6 @@
       }
     },
     "denominations": [
-      {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
       {
         "value": 500.0
       },
@@ -170945,13 +168161,10 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 1000.0
+      },
+      {
+        "value": 2000.0
       },
       {
         "value": 5000.0
@@ -170967,12 +168180,6 @@
       },
       {
         "value": 100000.0
-      },
-      {
-        "value": 957.5
-      },
-      {
-        "value": 42.5
       }
     ],
     "custom_amount": true,
@@ -171092,12 +168299,6 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 100.0
       },
       {
@@ -171110,6 +168311,9 @@
         "value": 1000.0
       },
       {
+        "value": 2000.0
+      },
+      {
         "value": 2500.0
       },
       {
@@ -171117,12 +168321,6 @@
       },
       {
         "value": 5000.0
-      },
-      {
-        "value": 98.0
-      },
-      {
-        "value": 2.0
       }
     ],
     "custom_amount": false,
@@ -171242,13 +168440,10 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 1000.0
+      },
+      {
+        "value": 2000.0
       },
       {
         "value": 3000.0
@@ -171395,12 +168590,6 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 100.0
       },
       {
@@ -171416,16 +168605,16 @@
         "value": 1000.0
       },
       {
+        "value": 1500.0
+      },
+      {
+        "value": 2000.0
+      },
+      {
         "value": 2500.0
       },
       {
         "value": 5000.0
-      },
-      {
-        "value": 84.0
-      },
-      {
-        "value": 16.0
       }
     ],
     "custom_amount": true,
@@ -171545,12 +168734,6 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 100.0
       },
       {
@@ -171561,12 +168744,6 @@
       },
       {
         "value": 1000.0
-      },
-      {
-        "value": 0.5
-      },
-      {
-        "value": 100.5
       }
     ],
     "custom_amount": false,
@@ -171686,12 +168863,6 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 200.0
       },
       {
@@ -171701,16 +168872,13 @@
         "value": 1000.0
       },
       {
+        "value": 2000.0
+      },
+      {
         "value": 5000.0
       },
       {
         "value": 10000.0
-      },
-      {
-        "value": 174.0
-      },
-      {
-        "value": 26.0
       }
     ],
     "custom_amount": true,
@@ -171830,19 +168998,7 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 500.0
-      },
-      {
-        "value": 395.0
-      },
-      {
-        "value": 105.0
       }
     ],
     "custom_amount": false,
@@ -171962,12 +169118,6 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 100.0
       },
       {
@@ -171980,16 +169130,16 @@
         "value": 1000.0
       },
       {
+        "value": 1500.0
+      },
+      {
+        "value": 2000.0
+      },
+      {
         "value": 2500.0
       },
       {
         "value": 5000.0
-      },
-      {
-        "value": 87.0
-      },
-      {
-        "value": 13.0
       }
     ],
     "custom_amount": false,
@@ -172109,12 +169259,6 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 250.0
       },
       {
@@ -172122,6 +169266,9 @@
       },
       {
         "value": 1000.0
+      },
+      {
+        "value": 2000.0
       },
       {
         "value": 5000.0
@@ -172247,12 +169394,6 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 100.0
       },
       {
@@ -172269,12 +169410,6 @@
       },
       {
         "value": 10000.0
-      },
-      {
-        "value": 96.5
-      },
-      {
-        "value": 3.5
       }
     ],
     "custom_amount": false,
@@ -172394,16 +169529,16 @@
     },
     "denominations": [
       {
-        "value": 2000.0
+        "value": 500.0
+      },
+      {
+        "value": 1000.0
       },
       {
         "value": 1500.0
       },
       {
-        "value": 500.0
-      },
-      {
-        "value": 1000.0
+        "value": 2000.0
       },
       {
         "value": 2500.0
@@ -172419,12 +169554,6 @@
       },
       {
         "value": 9999.0
-      },
-      {
-        "value": 461.25
-      },
-      {
-        "value": 38.75
       }
     ],
     "custom_amount": false,
@@ -172544,12 +169673,6 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 25000.0
       },
       {
@@ -172560,12 +169683,6 @@
       },
       {
         "value": 150000.0
-      },
-      {
-        "value": 21437.5
-      },
-      {
-        "value": 3562.5
       }
     ],
     "custom_amount": false,
@@ -172688,22 +169805,13 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 500.0
       },
       {
         "value": 1000.0
       },
       {
-        "value": 458.75
-      },
-      {
-        "value": 41.25
+        "value": 2000.0
       }
     ],
     "custom_amount": true,
@@ -172811,12 +169919,6 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 250.0
       },
       {
@@ -172826,10 +169928,10 @@
         "value": 1000.0
       },
       {
-        "value": 224.37
+        "value": 1500.0
       },
       {
-        "value": 25.63
+        "value": 2000.0
       }
     ],
     "custom_amount": true,
@@ -172949,12 +170051,6 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 100.0
       },
       {
@@ -172970,6 +170066,9 @@
         "value": 1000.0
       },
       {
+        "value": 2000.0
+      },
+      {
         "value": 2500.0
       },
       {
@@ -172980,9 +170079,6 @@
       },
       {
         "value": 10000.0
-      },
-      {
-        "value": 93.25
       }
     ],
     "custom_amount": false,
@@ -173102,12 +170198,6 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 1000.0
       },
       {
@@ -173118,12 +170208,6 @@
       },
       {
         "value": 10000.0
-      },
-      {
-        "value": 892.5
-      },
-      {
-        "value": 107.5
       }
     ],
     "custom_amount": false,
@@ -173245,12 +170329,6 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 250.0
       },
       {
@@ -173260,13 +170338,10 @@
         "value": 1000.0
       },
       {
+        "value": 2000.0
+      },
+      {
         "value": 5000.0
-      },
-      {
-        "value": 230.0
-      },
-      {
-        "value": 20.0
       }
     ],
     "custom_amount": false,
@@ -173386,12 +170461,6 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 250.0
       },
       {
@@ -173401,13 +170470,10 @@
         "value": 1000.0
       },
       {
+        "value": 2000.0
+      },
+      {
         "value": 5000.0
-      },
-      {
-        "value": 228.12
-      },
-      {
-        "value": 21.88
       }
     ],
     "custom_amount": false,
@@ -173527,25 +170593,19 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 500.0
       },
       {
         "value": 1000.0
       },
       {
+        "value": 1500.0
+      },
+      {
+        "value": 2000.0
+      },
+      {
         "value": 2500.0
-      },
-      {
-        "value": 376.25
-      },
-      {
-        "value": 123.75
       }
     ],
     "custom_amount": true,
@@ -173653,12 +170713,6 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 250.0
       },
       {
@@ -173668,10 +170722,10 @@
         "value": 1000.0
       },
       {
-        "value": 223.12
+        "value": 1500.0
       },
       {
-        "value": 26.88
+        "value": 2000.0
       }
     ],
     "custom_amount": true,
@@ -173791,16 +170845,16 @@
     },
     "denominations": [
       {
-        "value": 2000.0
+        "value": 500.0
+      },
+      {
+        "value": 1000.0
       },
       {
         "value": 1500.0
       },
       {
-        "value": 500.0
-      },
-      {
-        "value": 1000.0
+        "value": 2000.0
       },
       {
         "value": 2500.0
@@ -173816,12 +170870,6 @@
       },
       {
         "value": 10000.0
-      },
-      {
-        "value": 487.5
-      },
-      {
-        "value": 12.5
       }
     ],
     "custom_amount": false,
@@ -173941,19 +170989,7 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 1000.0
-      },
-      {
-        "value": 872.5
-      },
-      {
-        "value": 127.5
       }
     ],
     "custom_amount": true,
@@ -174075,22 +171111,13 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 1000.0
       },
       {
+        "value": 2000.0
+      },
+      {
         "value": 5000.0
-      },
-      {
-        "value": 820.0
-      },
-      {
-        "value": 180.0
       }
     ],
     "custom_amount": true,
@@ -174210,19 +171237,7 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 950.0
-      },
-      {
-        "value": 933.37
-      },
-      {
-        "value": 16.63
       }
     ],
     "custom_amount": false,
@@ -174342,13 +171357,10 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 1000.0
+      },
+      {
+        "value": 2000.0
       },
       {
         "value": 5000.0
@@ -174465,12 +171477,6 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 250.0
       },
       {
@@ -174480,10 +171486,10 @@
         "value": 1000.0
       },
       {
-        "value": 225.0
+        "value": 1500.0
       },
       {
-        "value": 25.0
+        "value": 2000.0
       }
     ],
     "custom_amount": true,
@@ -174603,12 +171609,6 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 100.0
       },
       {
@@ -174621,10 +171621,7 @@
         "value": 1000.0
       },
       {
-        "value": 86.75
-      },
-      {
-        "value": 13.25
+        "value": 2000.0
       }
     ],
     "custom_amount": true,
@@ -174744,12 +171741,6 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 250.0
       },
       {
@@ -174759,13 +171750,10 @@
         "value": 1000.0
       },
       {
+        "value": 2000.0
+      },
+      {
         "value": 2500.0
-      },
-      {
-        "value": 230.0
-      },
-      {
-        "value": 20.0
       }
     ],
     "custom_amount": false,
@@ -174885,12 +171873,6 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 250.0
       },
       {
@@ -174900,10 +171882,7 @@
         "value": 1000.0
       },
       {
-        "value": 200.0
-      },
-      {
-        "value": 50.0
+        "value": 2000.0
       }
     ],
     "custom_amount": false,
@@ -175023,25 +172002,16 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 500.0
       },
       {
         "value": 1000.0
       },
       {
+        "value": 2000.0
+      },
+      {
         "value": 5000.0
-      },
-      {
-        "value": 481.25
-      },
-      {
-        "value": 18.75
       }
     ],
     "custom_amount": true,
@@ -175161,19 +172131,10 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 1000.0
       },
       {
-        "value": 912.5
-      },
-      {
-        "value": 87.5
+        "value": 2000.0
       }
     ],
     "custom_amount": true,
@@ -175293,12 +172254,6 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 200.0
       },
       {
@@ -175306,6 +172261,9 @@
       },
       {
         "value": 1000.0
+      },
+      {
+        "value": 2000.0
       },
       {
         "value": 5000.0
@@ -175318,12 +172276,6 @@
       },
       {
         "value": 50000.0
-      },
-      {
-        "value": 184.0
-      },
-      {
-        "value": 16.0
       }
     ],
     "custom_amount": true,
@@ -175445,12 +172397,6 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 100.0
       },
       {
@@ -175458,6 +172404,12 @@
       },
       {
         "value": 1000.0
+      },
+      {
+        "value": 1500.0
+      },
+      {
+        "value": 2000.0
       },
       {
         "value": 2500.0
@@ -175470,12 +172422,6 @@
       },
       {
         "value": 10000.0
-      },
-      {
-        "value": 92.0
-      },
-      {
-        "value": 8.0
       }
     ],
     "custom_amount": true,
@@ -175597,12 +172543,6 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 200.0
       },
       {
@@ -175610,6 +172550,9 @@
       },
       {
         "value": 1000.0
+      },
+      {
+        "value": 2000.0
       },
       {
         "value": 5000.0
@@ -175622,12 +172565,6 @@
       },
       {
         "value": 50000.0
-      },
-      {
-        "value": 183.5
-      },
-      {
-        "value": 16.5
       }
     ],
     "custom_amount": true,
@@ -175749,19 +172686,10 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 1000.0
       },
       {
-        "value": 842.5
-      },
-      {
-        "value": 157.5
+        "value": 2000.0
       }
     ],
     "custom_amount": false,
@@ -175881,12 +172809,6 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 5000.0
       },
       {
@@ -175897,12 +172819,6 @@
       },
       {
         "value": 50000.0
-      },
-      {
-        "value": 4800.0
-      },
-      {
-        "value": 200.0
       }
     ],
     "custom_amount": true,
@@ -176024,13 +172940,10 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 1000.0
+      },
+      {
+        "value": 2000.0
       },
       {
         "value": 5000.0
@@ -176046,12 +172959,6 @@
       },
       {
         "value": 100000.0
-      },
-      {
-        "value": 970.0
-      },
-      {
-        "value": 30.0
       }
     ],
     "custom_amount": true,
@@ -176171,19 +173078,7 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 10000.0
-      },
-      {
-        "value": 9000.0
-      },
-      {
-        "value": 1000.0
       }
     ],
     "custom_amount": true,
@@ -176303,12 +173198,6 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 200.0
       },
       {
@@ -176318,16 +173207,13 @@
         "value": 1000.0
       },
       {
+        "value": 2000.0
+      },
+      {
         "value": 5000.0
       },
       {
         "value": 10000.0
-      },
-      {
-        "value": 172.0
-      },
-      {
-        "value": 28.0
       }
     ],
     "custom_amount": true,
@@ -176447,13 +173333,10 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 1000.0
+      },
+      {
+        "value": 2000.0
       },
       {
         "value": 5000.0
@@ -176469,12 +173352,6 @@
       },
       {
         "value": 100000.0
-      },
-      {
-        "value": 989.0
-      },
-      {
-        "value": 11.0
       }
     ],
     "custom_amount": true,
@@ -176594,13 +173471,10 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 1000.0
+      },
+      {
+        "value": 2000.0
       },
       {
         "value": 5000.0
@@ -176616,12 +173490,6 @@
       },
       {
         "value": 100000.0
-      },
-      {
-        "value": 960.0
-      },
-      {
-        "value": 40.0
       }
     ],
     "custom_amount": true,
@@ -176741,28 +173609,19 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 500.0
       },
       {
         "value": 1000.0
       },
       {
+        "value": 1500.0
+      },
+      {
         "value": 2500.0
       },
       {
         "value": 5000.0
-      },
-      {
-        "value": 480.0
-      },
-      {
-        "value": 20.0
       }
     ],
     "custom_amount": true,
@@ -176870,12 +173729,6 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 200.0
       },
       {
@@ -176883,6 +173736,9 @@
       },
       {
         "value": 1000.0
+      },
+      {
+        "value": 2000.0
       },
       {
         "value": 5000.0
@@ -176999,19 +173855,10 @@
         "value": 2000.0
       },
       {
-        "value": 1500.0
-      },
-      {
         "value": 5000.0
       },
       {
         "value": 10000.0
-      },
-      {
-        "value": 1800.0
-      },
-      {
-        "value": 200.0
       }
     ],
     "custom_amount": true,
@@ -177119,13 +173966,10 @@
     },
     "denominations": [
       {
-        "value": 2000.0
+        "value": 1000.0
       },
       {
         "value": 1500.0
-      },
-      {
-        "value": 1000.0
       },
       {
         "value": 2500.0
@@ -177141,12 +173985,6 @@
       },
       {
         "value": 10000.0
-      },
-      {
-        "value": 900.0
-      },
-      {
-        "value": 100.0
       }
     ],
     "custom_amount": true,
@@ -177266,12 +174104,6 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 250.0
       },
       {
@@ -177281,6 +174113,12 @@
         "value": 1000.0
       },
       {
+        "value": 1500.0
+      },
+      {
+        "value": 2000.0
+      },
+      {
         "value": 2500.0
       },
       {
@@ -177288,12 +174126,6 @@
       },
       {
         "value": 10000.0
-      },
-      {
-        "value": 225.62
-      },
-      {
-        "value": 24.38
       }
     ],
     "custom_amount": false,
@@ -177413,25 +174245,16 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 500.0
       },
       {
         "value": 1000.0
       },
       {
+        "value": 2000.0
+      },
+      {
         "value": 5000.0
-      },
-      {
-        "value": 455.0
-      },
-      {
-        "value": 45.0
       }
     ],
     "custom_amount": false,
@@ -177554,12 +174377,6 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 500.0
       },
       {
@@ -177582,12 +174399,6 @@
       },
       {
         "value": 50000.0
-      },
-      {
-        "value": 480.0
-      },
-      {
-        "value": 20.0
       }
     ],
     "custom_amount": true,
@@ -177707,25 +174518,16 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 500.0
       },
       {
         "value": 1000.0
       },
       {
+        "value": 2000.0
+      },
+      {
         "value": 5000.0
-      },
-      {
-        "value": 450.0
-      },
-      {
-        "value": 50.0
       }
     ],
     "custom_amount": true,
@@ -177845,13 +174647,10 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 1000.0
+      },
+      {
+        "value": 2000.0
       },
       {
         "value": 3000.0
@@ -177861,12 +174660,6 @@
       },
       {
         "value": 10000.0
-      },
-      {
-        "value": 960.0
-      },
-      {
-        "value": 40.0
       }
     ],
     "custom_amount": false,
@@ -177937,7 +174730,7 @@
     "maxcoins_earn_pct": 4.25,
     "source": "maximize",
     "slug": "mpj-nbsp-diamond-jewellery",
-    "brand_name": "MPJ&nbsp;Diamond Jewellery",
+    "brand_name": "MPJ Diamond Jewellery",
     "url": "https://www.maximize.money/gift-cards/MPJ&nbsp;Diamond Jewellery/1109",
     "collected_at": "2026-09-03T22:52:19+00:00",
     "best_saving_pct": 4.0,
@@ -177988,13 +174781,10 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 1000.0
+      },
+      {
+        "value": 2000.0
       },
       {
         "value": 5000.0
@@ -178007,12 +174797,6 @@
       },
       {
         "value": 50000.0
-      },
-      {
-        "value": 970.0
-      },
-      {
-        "value": 30.0
       }
     ],
     "custom_amount": true,
@@ -179949,12 +176733,6 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 5000.0
       },
       {
@@ -179971,12 +176749,6 @@
       },
       {
         "value": 200000.0
-      },
-      {
-        "value": 4750.0
-      },
-      {
-        "value": 250.0
       }
     ],
     "custom_amount": true,
@@ -180098,12 +176870,6 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 200.0
       },
       {
@@ -180113,16 +176879,13 @@
         "value": 1000.0
       },
       {
+        "value": 2000.0
+      },
+      {
         "value": 5000.0
       },
       {
         "value": 10000.0
-      },
-      {
-        "value": 183.0
-      },
-      {
-        "value": 17.0
       }
     ],
     "custom_amount": true,
@@ -180191,7 +176954,7 @@
     "maxcoins_earn_pct": 8.75,
     "source": "maximize",
     "slug": "absolute-barbecues-388",
-    "brand_name": "Absolute Barbecues",
+    "brand_name": "Absolute Barbecues (Custom)",
     "url": "https://www.maximize.money/gift-cards/Absolute Barbecues/388",
     "collected_at": "2026-09-04T01:50:09+00:00",
     "best_saving_pct": 8.5,
@@ -180230,19 +176993,7 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 799.0
-      },
-      {
-        "value": 679.15
-      },
-      {
-        "value": 119.85
       }
     ],
     "custom_amount": false,
@@ -180311,7 +177062,7 @@
     "maxcoins_earn_pct": 18.75,
     "source": "maximize",
     "slug": "amazon-547",
-    "brand_name": "Amazon",
+    "brand_name": "Amazon Prime Lite Edition",
     "url": "https://www.maximize.money/gift-cards/Amazon/547",
     "collected_at": "2026-09-04T01:50:24+00:00",
     "best_saving_pct": 15.0,
@@ -180429,12 +177180,6 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 100.0
       },
       {
@@ -180445,6 +177190,9 @@
       },
       {
         "value": 1000.0
+      },
+      {
+        "value": 2000.0
       },
       {
         "value": 3000.0
@@ -180522,7 +177270,7 @@
     "maxcoins_earn_pct": 1.0,
     "source": "maximize",
     "slug": "amazon-1083",
-    "brand_name": "Amazon",
+    "brand_name": "AmazonPay (Gift Card)",
     "url": "https://www.maximize.money/gift-cards/Amazon/1083",
     "collected_at": "2026-09-04T01:51:05+00:00",
     "best_saving_pct": 0.0,
@@ -180640,19 +177388,7 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 1499.0
-      },
-      {
-        "value": 1274.15
-      },
-      {
-        "value": 224.85
       }
     ],
     "custom_amount": false,
@@ -180721,7 +177457,7 @@
     "maxcoins_earn_pct": 17.75,
     "source": "maximize",
     "slug": "amazon-549",
-    "brand_name": "Amazon",
+    "brand_name": "Amazon Prime Voucher - 12 months Membership",
     "url": "https://www.maximize.money/gift-cards/Amazon/549",
     "collected_at": "2026-09-04T01:51:44+00:00",
     "best_saving_pct": 15.0,
@@ -180772,15 +177508,6 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 50000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 5000.0
       },
       {
@@ -180790,10 +177517,7 @@
         "value": 20000.0
       },
       {
-        "value": 4650.0
-      },
-      {
-        "value": 350.0
+        "value": 50000.0
       }
     ],
     "custom_amount": true,
@@ -180862,7 +177586,7 @@
     "maxcoins_earn_pct": 7.1,
     "source": "maximize",
     "slug": "ajio-luxe-700",
-    "brand_name": "AJIO Luxe",
+    "brand_name": "Ajio Luxe",
     "url": "https://www.maximize.money/gift-cards/AJIO Luxe/700",
     "collected_at": "2026-09-04T01:52:04+00:00",
     "best_saving_pct": 7.0,
@@ -180901,12 +177625,6 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 200.0
       },
       {
@@ -180916,16 +177634,13 @@
         "value": 1000.0
       },
       {
+        "value": 2000.0
+      },
+      {
         "value": 5000.0
       },
       {
         "value": 10000.0
-      },
-      {
-        "value": 197.0
-      },
-      {
-        "value": 3.0
       }
     ],
     "custom_amount": true,
@@ -180996,7 +177711,7 @@
     "maxcoins_earn_pct": 1.65,
     "source": "maximize",
     "slug": "amazon-448",
-    "brand_name": "Amazon",
+    "brand_name": "Amazon Fresh Voucher",
     "url": "https://www.maximize.money/gift-cards/Amazon/448",
     "collected_at": "2026-09-04T01:52:20+00:00",
     "best_saving_pct": 1.5,
@@ -181047,22 +177762,13 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 1000.0
       },
       {
+        "value": 2000.0
+      },
+      {
         "value": 5000.0
-      },
-      {
-        "value": 820.0
-      },
-      {
-        "value": 180.0
       }
     ],
     "custom_amount": true,
@@ -181131,7 +177837,7 @@
     "maxcoins_earn_pct": 18.25,
     "source": "maximize",
     "slug": "air-india-1089",
-    "brand_name": "Air India",
+    "brand_name": "Air India Ancillary",
     "url": "https://www.maximize.money/gift-cards/Air India/1089",
     "collected_at": "2026-09-04T01:52:40+00:00",
     "best_saving_pct": 18.0,
@@ -181182,12 +177888,6 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 250.0
       },
       {
@@ -181197,13 +177897,10 @@
         "value": 1000.0
       },
       {
+        "value": 2000.0
+      },
+      {
         "value": 5000.0
-      },
-      {
-        "value": 233.12
-      },
-      {
-        "value": 16.88
       }
     ],
     "custom_amount": true,
@@ -181326,12 +178023,6 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 100.0
       },
       {
@@ -181341,6 +178032,9 @@
         "value": 1000.0
       },
       {
+        "value": 1500.0
+      },
+      {
         "value": 2500.0
       },
       {
@@ -181348,12 +178042,6 @@
       },
       {
         "value": 10000.0
-      },
-      {
-        "value": 96.75
-      },
-      {
-        "value": 3.25
       }
     ],
     "custom_amount": true,
@@ -181473,13 +178161,10 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 1000.0
+      },
+      {
+        "value": 2000.0
       },
       {
         "value": 5000.0
@@ -181492,12 +178177,6 @@
       },
       {
         "value": 50000.0
-      },
-      {
-        "value": 947.5
-      },
-      {
-        "value": 52.5
       }
     ],
     "custom_amount": true,
@@ -181617,13 +178296,10 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 1000.0
+      },
+      {
+        "value": 2000.0
       },
       {
         "value": 5000.0
@@ -181633,12 +178309,6 @@
       },
       {
         "value": 10000.0
-      },
-      {
-        "value": 900.0
-      },
-      {
-        "value": 100.0
       }
     ],
     "custom_amount": true,
@@ -181746,19 +178416,7 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 599.0
-      },
-      {
-        "value": 509.15
-      },
-      {
-        "value": 89.85
       }
     ],
     "custom_amount": false,
@@ -181878,13 +178536,10 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 1000.0
+      },
+      {
+        "value": 2000.0
       },
       {
         "value": 5000.0
@@ -181894,12 +178549,6 @@
       },
       {
         "value": 20000.0
-      },
-      {
-        "value": 867.5
-      },
-      {
-        "value": 132.5
       }
     ],
     "custom_amount": true,
@@ -182098,22 +178747,13 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 500.0
       },
       {
         "value": 1000.0
       },
       {
-        "value": 478.75
-      },
-      {
-        "value": 21.25
+        "value": 2000.0
       }
     ],
     "custom_amount": false,
@@ -182233,22 +178873,13 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 500.0
       },
       {
         "value": 1000.0
       },
       {
-        "value": 456.25
-      },
-      {
-        "value": 43.75
+        "value": 2000.0
       }
     ],
     "custom_amount": false,
@@ -182368,13 +178999,10 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 500.0
+      },
+      {
+        "value": 2000.0
       },
       {
         "value": 2500.0
@@ -182384,12 +179012,6 @@
       },
       {
         "value": 10000.0
-      },
-      {
-        "value": 487.5
-      },
-      {
-        "value": 12.5
       }
     ],
     "custom_amount": true,
@@ -182509,12 +179131,6 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 200.0
       },
       {
@@ -182524,16 +179140,13 @@
         "value": 1000.0
       },
       {
+        "value": 2000.0
+      },
+      {
         "value": 5000.0
       },
       {
         "value": 10000.0
-      },
-      {
-        "value": 174.0
-      },
-      {
-        "value": 26.0
       }
     ],
     "custom_amount": true,
@@ -182653,12 +179266,6 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 100.0
       },
       {
@@ -182672,12 +179279,6 @@
       },
       {
         "value": 1000.0
-      },
-      {
-        "value": 89.0
-      },
-      {
-        "value": 11.0
       }
     ],
     "custom_amount": false,
@@ -182797,25 +179398,16 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 1000.0
+      },
+      {
+        "value": 2000.0
       },
       {
         "value": 5000.0
       },
       {
         "value": 10000.0
-      },
-      {
-        "value": 872.5
-      },
-      {
-        "value": 127.5
       }
     ],
     "custom_amount": true,
@@ -182935,16 +179527,7 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
         "value": 1500.0
-      },
-      {
-        "value": 1305.0
-      },
-      {
-        "value": 195.0
       }
     ],
     "custom_amount": false,
@@ -183067,9 +179650,6 @@
         "value": 2000.0
       },
       {
-        "value": 1500.0
-      },
-      {
         "value": 5000.0
       },
       {
@@ -183077,12 +179657,6 @@
       },
       {
         "value": 20000.0
-      },
-      {
-        "value": 1840.0
-      },
-      {
-        "value": 160.0
       }
     ],
     "custom_amount": true,
@@ -183154,7 +179728,7 @@
     "maxcoins_earn_pct": 8.25,
     "source": "maximize",
     "slug": "air-india-1148",
-    "brand_name": "Air India",
+    "brand_name": "Air India Domestic",
     "url": "https://www.maximize.money/gift-cards/Air India/1148",
     "collected_at": "2026-09-04T01:57:37+00:00",
     "best_saving_pct": 8.0,
@@ -183205,22 +179779,13 @@
     },
     "denominations": [
       {
-        "value": 2000.0
-      },
-      {
-        "value": 1500.0
-      },
-      {
         "value": 500.0
       },
       {
         "value": 1000.0
       },
       {
-        "value": 430.0
-      },
-      {
-        "value": 70.0
+        "value": 2000.0
       }
     ],
     "custom_amount": true,
@@ -183291,7 +179856,7 @@
     "maxcoins_earn_pct": 14.1,
     "source": "maximize",
     "slug": "giva%20silver%20coin-1166",
-    "brand_name": "GIVA%20Silver%20Coin",
+    "brand_name": "GIVA Silver jewellery",
     "url": "https://www.maximize.money/gift-cards/GIVA%20Silver%20Coin/1166",
     "collected_at": "2026-09-04T01:57:57+00:00",
     "best_saving_pct": 14.0,
