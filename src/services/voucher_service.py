@@ -300,22 +300,26 @@ def _best_voucher_plan(
             price, denoms, discount_pct, stack_limit, value_cap, leftover_reusable
         )
 
-    keep = 1 - discount_pct / 100.0
-    inf = float("inf")
-    # best[u] = (cheapest spend on u*step of face value, vouchers used, last denom)
-    best: list[tuple[float, int, int | None]] = [(inf, 0, None)] * (units + 1)
-    best[0] = (0.0, 0, None)
+    # What a plan costs depends only on the face value it reaches, never on
+    # which denominations got there, so the search minimises VOUCHERS and each
+    # total is priced once at the end. Accumulating a running cost here instead
+    # made ties turn on floating-point noise — 1x₹1,000 + 20x₹100 and 3x₹1,000
+    # are the same ₹3,000 but sum to different last bits, and Ajio was being
+    # quoted the 21-voucher plan.
+    unreachable = units + 1
+    # best[u] = (fewest vouchers making u*step of face value, last denom used)
+    best: list[tuple[int, int | None]] = [(unreachable, None)] * (units + 1)
+    best[0] = (0, None)
     for u in range(1, units + 1):
         for d in denoms:
             span = d // step
             if span > u:
                 break
-            prev_cost, prev_count, _ = best[u - span]
-            if prev_cost == inf or prev_count >= max_count:
+            prev_count, _ = best[u - span]
+            if prev_count == unreachable or prev_count >= max_count:
                 continue
-            candidate = (prev_cost + d * keep, prev_count + 1, d)
-            if candidate[:2] < best[u][:2]:
-                best[u] = candidate
+            if prev_count + 1 < best[u][0]:
+                best[u] = (prev_count + 1, d)
 
     # Buying nothing is the baseline: pay the bill in cash. Ties go to the
     # plan with fewer vouchers, so a voucher that saves the shopper exactly
@@ -327,8 +331,8 @@ def _best_voucher_plan(
         if leftover_reusable else None
     )
     for u in range(1, units + 1):
-        cost, count, _ = best[u]
-        if cost == inf:
+        count, _ = best[u]
+        if count == unreachable:
             continue
         face = u * step
         if max_face is not None and face > max_face:
@@ -348,7 +352,7 @@ def _best_voucher_plan(
     counts: dict[int, int] = {}
     u = chosen_units
     while u > 0:
-        d = best[u][2]
+        d = best[u][1]
         counts[d] = counts.get(d, 0) + 1
         u -= d // step
     breakdown = [{"denom": d, "count": c} for d, c in sorted(counts.items(), reverse=True)]

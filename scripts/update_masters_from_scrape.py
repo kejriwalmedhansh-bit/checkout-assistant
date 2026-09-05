@@ -107,8 +107,22 @@ def main() -> None:
                     product["denominations"] = denoms
                     stats["denominations updated"] += 1
 
+                # A refresh is allowed to correct this flag, but never to set
+                # it in a shape the app cannot price. calculate_effective_price
+                # reads a custom listing off custom_max and quotes nothing when
+                # it is missing, so a True with no ceiling silently retires the
+                # brand — that is how 364 BuyHatke brands, 151 of them the best
+                # rate anywhere, went dark after the 2026-09-04 refresh while
+                # the run reported only that rates had been updated. Flipping a
+                # brand ON to custom needs a usable range to go with it;
+                # clearing it back to fixed denominations is always safe.
                 if offer.get("custom_amount") is not None:
-                    product["is_custom_denom"] = bool(offer["custom_amount"])
+                    wants_custom = bool(offer["custom_amount"])
+                    has_range = bool(product.get("custom_max") or offer.get("custom_max"))
+                    if not wants_custom or has_range:
+                        product["is_custom_denom"] = wants_custom
+                    else:
+                        stats["custom flag rejected (no range)"] += 1
 
                 limit = stack_limit_from(offer)
                 if limit != "keep" and limit != product.get("stack_limit"):
