@@ -558,10 +558,30 @@ def calculate_effective_price(price: float, voucher: dict, payment_method: str =
     # purposes; that override describes what the STORE will redeem, not how
     # many the RESELLER lets you buy in one sitting. Missing data defaults to
     # 1 per order, the same conservative-default rule used elsewhere here.
+    #
+    # An UNKNOWN cap is not a cap of one. What forces a second checkout on
+    # these platforms is picking a second *amount*, not a second voucher: five
+    # ₹5,000 vouchers go through in one order, ₹5,000 plus ₹2,000 does not.
+    # Defaulting the unknown case to one-voucher-per-order charged a checkout
+    # for every repeat and inflated the count — a ₹28,999 Frido order read as 7
+    # transactions instead of 2 — which then lost Maximize the recommendation
+    # under MULTI_TXN_SAVINGS_THRESHOLD despite a rate 2 points better. It bit
+    # 194 of 399 Maximize listings, the ones carrying no stack_limit at all.
+    # A real, known cap is still divided through; BuyHatke passes an explicit 1
+    # (live-confirmed: it genuinely allows only one voucher per checkout, even
+    # of the same amount) so it is unaffected by this default.
+    #
+    # How many vouchers the STORE will then accept on one bill is a separate
+    # question, already settled above by `stack_limit` — which stays at a
+    # conservative 1 unless the brand's own terms confirm combining.
     reseller_denom_txns = 1
     if denomination_breakdown and voucher.get("voucher_platform", "Gyftr").lower() in _SINGLE_ITEM_CHECKOUT_PLATFORMS:
-        reseller_limit = voucher.get("reseller_stack_limit") or 1
-        reseller_denom_txns = sum(math.ceil(b["count"] / reseller_limit) for b in denomination_breakdown)
+        reseller_limit = voucher.get("reseller_stack_limit")
+        reseller_denom_txns = (
+            sum(math.ceil(b["count"] / reseller_limit) for b in denomination_breakdown)
+            if reseller_limit
+            else len(denomination_breakdown)
+        )
 
     txns_needed = max(cap_txns, custom_txns_needed or 1, reseller_denom_txns)
     if custom_txns_needed is not None and custom_txns_needed >= cap_txns:
