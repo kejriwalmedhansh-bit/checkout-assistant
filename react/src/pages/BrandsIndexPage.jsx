@@ -29,11 +29,39 @@ function normalizeKey(name) {
 
 const LONG_TAIL = ALL_BRAND_DEALS.filter((b) => !FLAGSHIP_KEYS.has(normalizeKey(b.name)));
 
+// The live deal behind each popular store, looked up the same way the long
+// list gets its own: by normalized name against allBrandDeals.json. The
+// flagship entries in brandDeals.js carry hand-typed copy and a hand-typed
+// `ratePct`, but no partner link at all — which is why these cards used to
+// dead-end on an internal page whose only button went back to the search
+// homepage, while every other store on this page linked straight out. The
+// hand-typed rates had also drifted: Amazon read 0.75% against a live 1.25%,
+// AJIO 5% against 7%, all four stale ones UNDER-selling. Reading the rate and
+// the link from the same generated file as everything else keeps the most
+// prominent placement on the page honest and current by construction.
+const LIVE_DEAL_BY_KEY = new Map(ALL_BRAND_DEALS.map((b) => [normalizeKey(b.name), b]));
+
 function FlagshipCard({ brand }) {
+  const deal = LIVE_DEAL_BY_KEY.get(normalizeKey(brand.name));
+  // No live row (brand delisted between builds) — fall back to the internal
+  // page rather than rendering a card that goes nowhere.
+  const linkProps = deal
+    ? {
+        href: deal.url,
+        isExternal: true,
+        onClick: () =>
+          track('Clicked Brand Voucher Link', {
+            brand: brand.name,
+            source: deal.source,
+            pct: deal.pct,
+            placement: 'popular',
+          }),
+      }
+    : { as: RouterLink, to: ROUTES.brandFor(brand.slug) };
+
   return (
     <ChakraLink
-      as={RouterLink}
-      to={ROUTES.brandFor(brand.slug)}
+      {...linkProps}
       display="flex"
       alignItems="center"
       gap="14px"
@@ -51,9 +79,19 @@ function FlagshipCard({ brand }) {
         </Text>
         <Flex align="center" justify="center" gap="4px" fontSize="13px" fontWeight={700} color="brandText">
           <I.zap size={11} />
-          {brand.ratePct}% off
+          {(deal ? deal.pct : brand.ratePct)}% off
         </Flex>
+        {deal && (
+          <Text m="2px 0 0" fontSize="10.5px" color="text3">
+            via {SOURCE_LABEL[deal.source] || deal.source}
+          </Text>
+        )}
       </Box>
+      {deal && (
+        <Box color="text3" flex="0 0 auto">
+          <I.external size={13} />
+        </Box>
+      )}
     </ChakraLink>
   );
 }

@@ -2,14 +2,26 @@ import { Box, Button, Flex, Text } from '@chakra-ui/react';
 import { Navigate, useNavigate, useParams } from 'react-router-dom';
 
 import BrandAvatar from '@/components/common/BrandAvatar';
+import ALL_BRAND_DEALS from '@/data/allBrandDeals.json';
 import InfoPageShell from '@/components/common/InfoPageShell';
 import { I } from '@/components/common/icons';
 import { getBrandDeal } from '@/data/brandDeals';
 import { useJsonLd } from '@/hooks/useJsonLd';
 import { usePageTitle } from '@/hooks/usePageTitle';
+import { track } from '@/utils/analytics';
 import { ROUTES } from '@/routes/paths';
 
 const SITE_URL = 'https://getdealo.in';
+
+const SOURCE_LABEL = { gyftr: 'Gyftr', maximize: 'Maximize', buyhatke: 'BuyHatke' };
+
+const normalizeKey = (name) => name.toLowerCase().replace(/[^a-z0-9]/g, '');
+
+// These pages stay in sitemap.xml and take search traffic directly, so they
+// cannot rely on the hand-typed `ratePct` in brandDeals.js — those had drifted
+// up to 2 points low. The rate and the partner link come from the same
+// generated file the rest of the site reads.
+const LIVE_DEAL_BY_KEY = new Map(ALL_BRAND_DEALS.map((b) => [normalizeKey(b.name), b]));
 
 /**
  * HowTo (matches the numbered redemption steps shown on the page) +
@@ -126,13 +138,15 @@ export default function BrandPage() {
   const { slug } = useParams();
   const navigate = useNavigate();
   const brand = getBrandDeal(slug);
+  const deal = brand ? LIVE_DEAL_BY_KEY.get(normalizeKey(brand.name)) : null;
+  const ratePct = deal ? deal.pct : brand?.ratePct;
 
   useJsonLd(brand ? buildJsonLd(brand) : null);
 
   usePageTitle(
     brand ? `${brand.name} Gift Voucher discount` : 'Store not found',
     brand
-      ? `${brand.name} Gift Vouchers sell at ${brand.ratePct}% off through the official voucher partner — buy one, spend it like store credit at ${brand.name}, and save the difference.`
+      ? `${brand.name} Gift Vouchers sell at ${ratePct}% off through the official voucher partner — buy one, spend it like store credit at ${brand.name}, and save the difference.`
       : undefined
   );
 
@@ -144,7 +158,7 @@ export default function BrandPage() {
       <Flex align="center" gap="8px" mt="14px" mb="20px" flexWrap="wrap">
         <Badge bg="brandSoft" color="brandText">
           <I.zap size={12} />
-          {brand.ratePct}% off, checked {brand.lastChecked}
+          {ratePct}% off{deal ? '' : `, checked ${brand.lastChecked}`}
         </Badge>
         {brand.online && <Badge>Works online</Badge>}
         {brand.offline && <Badge>Works in-store</Badge>}
@@ -185,19 +199,35 @@ export default function BrandPage() {
         </Flex>
       )}
 
+      {/* Was a button that navigated to the empty search homepage, leaving the
+          reader to retype the brand they had just clicked. It now goes where
+          the page has spent its whole length telling them to go. Falls back to
+          search only when no live row exists for this brand. */}
       <Button
+        as={deal ? 'a' : 'button'}
+        href={deal ? deal.url : undefined}
+        target={deal ? '_blank' : undefined}
+        rel={deal ? 'noopener noreferrer' : undefined}
         variant="solid"
         bg="brand"
         color="onBrand"
-        _hover={{ bg: 'brandHover' }}
+        _hover={{ bg: 'brandHover', textDecoration: 'none' }}
         h="46px"
         w="100%"
         borderRadius="14px"
         fontSize="14px"
         fontWeight={700}
-        onClick={() => navigate(ROUTES.home)}
+        onClick={
+          deal
+            ? () => track('Clicked Brand Voucher Link', {
+                brand: brand.name, source: deal.source, pct: deal.pct, placement: 'brand-page',
+              })
+            : () => navigate(ROUTES.home)
+        }
       >
-        Search {brand.name} on Dealo
+        {deal
+          ? `Buy on ${SOURCE_LABEL[deal.source] || deal.source} — ${deal.pct}% off`
+          : `Search ${brand.name} on Dealo`}
       </Button>
     </InfoPageShell>
   );
