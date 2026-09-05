@@ -127,10 +127,10 @@
   },
   {
     "name": "ALDO",
-    "pct": 11.75,
-    "source": "maximize",
-    "url": "https://www.maximize.money/gift-cards/ALDO/308",
-    "redemptionType": "In-store"
+    "pct": 12.88,
+    "source": "buyhatke",
+    "url": "https://buyhatke.com/gift-cards/aldo-gift-card",
+    "redemptionType": "Online"
   },
   {
     "name": "ALDO In Store",
@@ -141,7 +141,7 @@
   },
   {
     "name": "Aliste",
-    "pct": 27.82,
+    "pct": 28.09,
     "source": "buyhatke",
     "url": "https://buyhatke.com/gift-cards/aliste-gift-card",
     "redemptionType": "Online"
@@ -176,7 +176,7 @@
   },
   {
     "name": "Amazon Fresh",
-    "pct": 1.68,
+    "pct": 1.93,
     "source": "buyhatke",
     "url": "https://buyhatke.com/gift-cards/amazon-fresh-gift-card",
     "redemptionType": "Online"
@@ -225,7 +225,7 @@
   },
   {
     "name": "American Tourister In Store",
-    "pct": 7.89,
+    "pct": 8.0,
     "source": "buyhatke",
     "url": "https://buyhatke.com/gift-cards/american-tourister-%28in-store%29-gift-card",
     "redemptionType": "Offline"
@@ -393,7 +393,7 @@
   },
   {
     "name": "Barbeque Nation In Store",
-    "pct": 6.38,
+    "pct": 5.88,
     "source": "buyhatke",
     "url": "https://buyhatke.com/gift-cards/barbeque-nation-%28in-store%29-gift-card",
     "redemptionType": "Offline"
@@ -407,7 +407,7 @@
   },
   {
     "name": "Baskin Robbins In Store",
-    "pct": 11.73,
+    "pct": 11.88,
     "source": "buyhatke",
     "url": "https://buyhatke.com/gift-cards/baskin-robbins-%28in-store%29-gift-card",
     "redemptionType": "Offline"
@@ -435,7 +435,7 @@
   },
   {
     "name": "Bath Body Works",
-    "pct": 11.73,
+    "pct": 12.88,
     "source": "buyhatke",
     "url": "https://buyhatke.com/gift-cards/bath-body-works-gift-card",
     "redemptionType": "Online"
@@ -617,10 +617,10 @@
   },
   {
     "name": "Blissclub",
-    "pct": 19.0,
-    "source": "gyftr",
-    "url": "https://www.gyftr.com/blissclub",
-    "redemptionType": "Both"
+    "pct": 18.0,
+    "source": "maximize",
+    "url": "https://www.maximize.money/gift-cards/Blissclub/712",
+    "redemptionType": "Online"
   },
   {
     "name": "Blue Tokai Coffe",
@@ -757,7 +757,7 @@
   },
   {
     "name": "Brooks Brothers Luxe In Store",
-    "pct": 11.67,
+    "pct": 11.88,
     "source": "buyhatke",
     "url": "https://buyhatke.com/gift-cards/brooks-brothers-luxe-%28in-store%29-gift-card",
     "redemptionType": "Offline"
@@ -792,7 +792,7 @@
   },
   {
     "name": "Cafe Delhi Heights In Store",
-    "pct": 9.64,
+    "pct": 9.89,
     "source": "buyhatke",
     "url": "https://buyhatke.com/gift-cards/cafe-delhi-heights-%28in-store%29-gift-card",
     "redemptionType": "Offline"
@@ -1118,13 +1118,6 @@
     "source": "maximize",
     "url": "https://www.maximize.money/gift-cards/Crossword/770",
     "redemptionType": "Online + In-store"
-  },
-  {
-    "name": "Cult",
-    "pct": 1.25,
-    "source": "maximize",
-    "url": "https://www.maximize.money/gift-cards/Cult/378",
-    "redemptionType": "Online"
   },
   {
     "name": "Cult Gift Card",
@@ -1478,9 +1471,9 @@
   },
   {
     "name": "Fab Hotels",
-    "pct": 10.0,
-    "source": "gyftr",
-    "url": "https://www.gyftr.com/fab-hotels",
+    "pct": 10.09,
+    "source": "buyhatke",
+    "url": "https://buyhatke.com/gift-cards/fab-hotels-gift-card",
     "redemptionType": "Online"
   },
   {
@@ -1499,7 +1492,7 @@
   },
   {
     "name": "Fashion Factory In Store",
-    "pct": 2.63,
+    "pct": 2.88,
     "source": "buyhatke",
     "url": "https://buyhatke.com/gift-cards/fashion-factory-%28in-store%29-gift-card",
     "redemptionType": "Offline"
@@ -1527,7 +1520,7 @@
   },
   {
     "name": "Fastrack Bags In Store",
-    "pct": 5.84,
+    "pct": 6.69,
     "source": "buyhatke",
     "url": "https://buyhatke.com/gift-cards/fastrack-bags-%28in-store%29-gift-card",
     "redemptionType": "Offline"
@@ -1674,9 +1667,9 @@
   },
   {
     "name": "Foxtale",
-    "pct": 20.0,
-    "source": "gyftr",
-    "url": "https://www.gyftr.com/foxtale",
+    "pct": 20.88,
+    "source": "buyhatke",
+    "url": "https://buyhatke.com/gift-cards/foxtale-gift-card",
     "redemptionType": "Online"
   },
   {
@@ -1772,7 +1765,7 @@
   },
   {
     "name": "Gas Luxe In Store",
-    "pct": 12.13,
+    "pct": 11.88,
     "source": "buyhatke",
     "url": "https://buyhatke.com/gift-cards/gas-luxe-%28in-store%29-gift-card",
     "redemptionType": "Offline"
@@ -1806,6 +1799,13 @@
     "redemptionType": "Offline"
   },
   {
+    "name": "GIVA Gold Jewellery",
+    "pct": 11.24,
+    "source": "buyhatke",
+    "url": "https://buyhatke.com/gift-cards/giva-gold-jewellery-gift-card",
+    "redemptionType": "Online"
+  },
+  {
     "name": "Giva Jewellery RDM",
     "pct": 11.59,
     "source": "buyhatke",
@@ -1818,13 +1818,6 @@
     "source": "buyhatke",
     "url": "https://buyhatke.com/gift-cards/giva-silver-coin-gift-card",
     "redemptionType": "Online"
-  },
-  {
-    "name": "Giva-Gold Jewellery",
-    "pct": 4.5,
-    "source": "gyftr",
-    "url": "https://www.gyftr.com/giva-gold-jewellery",
-    "redemptionType": "Both"
   },
   {
     "name": "Giva-Silver Jewellery",
@@ -1989,7 +1982,7 @@
   },
   {
     "name": "Helios In Store 1 Day Wait",
-    "pct": 8.0,
+    "pct": 7.13,
     "source": "buyhatke",
     "url": "https://buyhatke.com/gift-cards/helios-%28in-store%252C-1-day-wait%29-gift-card",
     "redemptionType": "Offline"
@@ -2017,7 +2010,7 @@
   },
   {
     "name": "Himalaya Wellness In Store",
-    "pct": 10.73,
+    "pct": 12.88,
     "source": "buyhatke",
     "url": "https://buyhatke.com/gift-cards/himalaya-wellness-%28in-store%29-gift-card",
     "redemptionType": "Offline"
@@ -2031,7 +2024,7 @@
   },
   {
     "name": "Hoichoi",
-    "pct": 15.07,
+    "pct": 15.19,
     "source": "buyhatke",
     "url": "https://buyhatke.com/gift-cards/hoichoi-gift-card",
     "redemptionType": "Online"
@@ -2097,13 +2090,6 @@
     "pct": 7.39,
     "source": "buyhatke",
     "url": "https://buyhatke.com/gift-cards/hopintown-plus-gift-card",
-    "redemptionType": "Online"
-  },
-  {
-    "name": "Hopscotch",
-    "pct": 1.25,
-    "source": "maximize",
-    "url": "https://www.maximize.money/gift-cards/Hopscotch/1076",
     "redemptionType": "Online"
   },
   {
@@ -2275,13 +2261,6 @@
     "redemptionType": "Offline"
   },
   {
-    "name": "IRCTC",
-    "pct": 1.25,
-    "source": "maximize",
-    "url": "https://www.maximize.money/gift-cards/IRCTC/601",
-    "redemptionType": "Online"
-  },
-  {
     "name": "ITC Hotels",
     "pct": 9.0,
     "source": "gyftr",
@@ -2395,7 +2374,7 @@
   },
   {
     "name": "Jos Alukkas Gold Coin",
-    "pct": 1.25,
+    "pct": 1.1,
     "source": "maximize",
     "url": "https://www.maximize.money/gift-cards/Jos%20Alukkas%20Gold%20Coin/483",
     "redemptionType": "Online + In-store"
@@ -2549,7 +2528,7 @@
   },
   {
     "name": "Kate Spade Luxe In Store",
-    "pct": 10.82,
+    "pct": 10.95,
     "source": "buyhatke",
     "url": "https://buyhatke.com/gift-cards/kate-spade-luxe-%28in-store%29-gift-card",
     "redemptionType": "Offline"
@@ -2766,10 +2745,10 @@
   },
   {
     "name": "Lifestyle",
-    "pct": 5.0,
-    "source": "gyftr",
-    "url": "https://www.gyftr.com/lifestyle",
-    "redemptionType": "Offline"
+    "pct": 6.99,
+    "source": "buyhatke",
+    "url": "https://buyhatke.com/gift-cards/lifestyle-gift-card",
+    "redemptionType": "Online"
   },
   {
     "name": "Lifestyle In Store",
@@ -2913,7 +2892,7 @@
   },
   {
     "name": "Luzo salon Spa And Clinics",
-    "pct": 40.0,
+    "pct": 10.0,
     "source": "maximize",
     "url": "https://www.maximize.money/gift-cards/Luzo%20salon%20Spa%20And%20Clinics/1054",
     "redemptionType": "In-store"
@@ -3123,7 +3102,7 @@
   },
   {
     "name": "Manyavar In Store",
-    "pct": 5.63,
+    "pct": 5.84,
     "source": "buyhatke",
     "url": "https://buyhatke.com/gift-cards/manyavar-%28in-store%29-gift-card",
     "redemptionType": "Offline"
@@ -3304,6 +3283,13 @@
     "redemptionType": "Online + In-store"
   },
   {
+    "name": "Michael Kors-Luxe Gift Card",
+    "pct": 10.0,
+    "source": "gyftr",
+    "url": "https://www.gyftr.com/luxe-gift-card-michael-kors",
+    "redemptionType": "Offline"
+  },
+  {
     "name": "Microsoft Office",
     "pct": 6.0,
     "source": "gyftr",
@@ -3319,7 +3305,7 @@
   },
   {
     "name": "Milkbasket",
-    "pct": 2.0,
+    "pct": 3.0,
     "source": "gyftr",
     "url": "https://www.gyftr.com/milkbasket",
     "redemptionType": "Online"
@@ -3487,7 +3473,7 @@
   },
   {
     "name": "Myntra",
-    "pct": 5.29,
+    "pct": 4.26,
     "source": "buyhatke",
     "url": "https://buyhatke.com/gift-cards/myntra-gift-card",
     "redemptionType": "Online"
@@ -3683,7 +3669,7 @@
   },
   {
     "name": "Nykaa Man",
-    "pct": 5.13,
+    "pct": 4.74,
     "source": "buyhatke",
     "url": "https://buyhatke.com/gift-cards/nykaa-man-gift-card",
     "redemptionType": "Online"
@@ -3865,7 +3851,7 @@
   },
   {
     "name": "PC Chandra Gold Coin",
-    "pct": 1.25,
+    "pct": 1.0,
     "source": "maximize",
     "url": "https://www.maximize.money/gift-cards/PC%20Chandra%20Gold%20Coin/939",
     "redemptionType": "Online + In-store"
@@ -3907,7 +3893,7 @@
   },
   {
     "name": "PCJ Gold Coin",
-    "pct": 1.25,
+    "pct": 0.75,
     "source": "maximize",
     "url": "https://www.maximize.money/gift-cards/PCJ%20Gold%20Coin/909",
     "redemptionType": "In-store"
@@ -3984,7 +3970,7 @@
   },
   {
     "name": "Peter England In Store",
-    "pct": 2.23,
+    "pct": 5.88,
     "source": "buyhatke",
     "url": "https://buyhatke.com/gift-cards/peter-england-%28in-store%29-gift-card",
     "redemptionType": "Offline"
@@ -3994,13 +3980,6 @@
     "pct": 10.0,
     "source": "gyftr",
     "url": "https://www.gyftr.com/philips",
-    "redemptionType": "Online"
-  },
-  {
-    "name": "PhonePe (Fixed)",
-    "pct": 1.25,
-    "source": "maximize",
-    "url": "https://www.maximize.money/gift-cards/PhonePe%20%28Fixed%29/219",
     "redemptionType": "Online"
   },
   {
@@ -4026,7 +4005,7 @@
   },
   {
     "name": "PinePerksRupayPrime-WH",
-    "pct": 1.25,
+    "pct": 1.1,
     "source": "maximize",
     "url": "https://www.maximize.money/gift-cards/PinePerksRupayPrime-WH/413",
     "redemptionType": "Online"
@@ -4082,9 +4061,9 @@
   },
   {
     "name": "Points for Good",
-    "pct": 2.25,
-    "source": "maximize",
-    "url": "https://www.maximize.money/gift-cards/Points%20for%20Good/935",
+    "pct": 2.88,
+    "source": "buyhatke",
+    "url": "https://buyhatke.com/gift-cards/points-for-good-gift-card",
     "redemptionType": "Online"
   },
   {
@@ -4152,9 +4131,9 @@
   },
   {
     "name": "Pronto",
-    "pct": 17.5,
-    "source": "maximize",
-    "url": "https://www.maximize.money/gift-cards/Pronto/1033",
+    "pct": 18.0,
+    "source": "gyftr",
+    "url": "https://www.gyftr.com/pronto",
     "redemptionType": "Online"
   },
   {
@@ -4298,13 +4277,6 @@
     "redemptionType": "Online"
   },
   {
-    "name": "Razorpay Money Bill",
-    "pct": 1.25,
-    "source": "maximize",
-    "url": "https://www.maximize.money/gift-cards/Razorpay%20Money%20Bill/1070",
-    "redemptionType": "Online"
-  },
-  {
     "name": "Razorpay Money Flex",
     "pct": 3.25,
     "source": "maximize",
@@ -4334,10 +4306,10 @@
   },
   {
     "name": "Reliance Digital",
-    "pct": 1.25,
-    "source": "maximize",
-    "url": "https://www.maximize.money/gift-cards/Reliance%20Digital/671",
-    "redemptionType": "In-store"
+    "pct": 0.5,
+    "source": "gyftr",
+    "url": "https://www.gyftr.com/reliance-digital",
+    "redemptionType": "Offline"
   },
   {
     "name": "Reliance In Store",
@@ -4345,13 +4317,6 @@
     "source": "buyhatke",
     "url": "https://buyhatke.com/gift-cards/reliance-%28in-store%29-gift-card",
     "redemptionType": "Offline"
-  },
-  {
-    "name": "Reliance Jewels",
-    "pct": 1.25,
-    "source": "maximize",
-    "url": "https://www.maximize.money/gift-cards/Reliance%20Jewels/672",
-    "redemptionType": "In-store"
   },
   {
     "name": "Reliance Jewels In Store",
@@ -4369,7 +4334,7 @@
   },
   {
     "name": "Reliance My Jio Store",
-    "pct": 1.25,
+    "pct": 0.75,
     "source": "maximize",
     "url": "https://www.maximize.money/gift-cards/Reliance%20My%20Jio%20Store/282",
     "redemptionType": "In-store"
@@ -4411,7 +4376,7 @@
   },
   {
     "name": "Reliance Trends In Store",
-    "pct": 2.87,
+    "pct": 4.99,
     "source": "buyhatke",
     "url": "https://buyhatke.com/gift-cards/reliance-trends-%28in-store%29-gift-card",
     "redemptionType": "Offline"
@@ -4530,7 +4495,7 @@
   },
   {
     "name": "Samsonite In Store",
-    "pct": 5.42,
+    "pct": 5.49,
     "source": "buyhatke",
     "url": "https://buyhatke.com/gift-cards/samsonite-%28in-store%29-gift-card",
     "redemptionType": "Offline"
@@ -4572,7 +4537,7 @@
   },
   {
     "name": "Scotch and Soda Luxe In Store",
-    "pct": 11.68,
+    "pct": 11.67,
     "source": "buyhatke",
     "url": "https://buyhatke.com/gift-cards/scotch-and-soda-luxe-%28in-store%29-gift-card",
     "redemptionType": "Offline"
@@ -4614,7 +4579,7 @@
   },
   {
     "name": "ShemarooMe",
-    "pct": 30.49,
+    "pct": 30.8,
     "source": "buyhatke",
     "url": "https://buyhatke.com/gift-cards/shemaroome-gift-card",
     "redemptionType": "Online"
@@ -4639,13 +4604,6 @@
     "source": "buyhatke",
     "url": "https://buyhatke.com/gift-cards/shiva-organic-gift-card",
     "redemptionType": "Online"
-  },
-  {
-    "name": "Shoppers Stop",
-    "pct": 1.25,
-    "source": "maximize",
-    "url": "https://www.maximize.money/gift-cards/Shoppers%20Stop/777",
-    "redemptionType": "Online + In-store"
   },
   {
     "name": "Shopy Vision",
@@ -4761,7 +4719,7 @@
   },
   {
     "name": "Soch",
-    "pct": 12.0,
+    "pct": 8.0,
     "source": "gyftr",
     "url": "https://www.gyftr.com/soch-apparels",
     "redemptionType": "Both"
@@ -5110,13 +5068,6 @@
     "redemptionType": "Online"
   },
   {
-    "name": "TA iServeU Gift Card - Generic Variant",
-    "pct": 1.25,
-    "source": "maximize",
-    "url": "https://www.maximize.money/gift-cards/TA%20iServeU%20Gift%20Card%20-%20Generic%20Variant/940",
-    "redemptionType": "Online"
-  },
-  {
     "name": "TA iServeU Gift Card - Limited (Upto 2000)",
     "pct": 1.25,
     "source": "maximize",
@@ -5129,13 +5080,6 @@
     "source": "maximize",
     "url": "https://www.maximize.money/gift-cards/TA%20iServeU%20Gift%20Card%20-%20Limited%20Variant/967",
     "redemptionType": "Online"
-  },
-  {
-    "name": "TA iServeU Gift Card - Max Variant",
-    "pct": 1.25,
-    "source": "maximize",
-    "url": "https://www.maximize.money/gift-cards/TA%20iServeU%20Gift%20Card%20-%20Max%20Variant/1086",
-    "redemptionType": null
   },
   {
     "name": "Taco Bell",
@@ -5174,7 +5118,7 @@
   },
   {
     "name": "Taj Experiences In Store",
-    "pct": 10.31,
+    "pct": 10.79,
     "source": "buyhatke",
     "url": "https://buyhatke.com/gift-cards/taj-experiences-%28in-store%29-gift-card",
     "redemptionType": "Offline"
@@ -5209,7 +5153,7 @@
   },
   {
     "name": "Taj Hotels J Wellness Circle Bliss Solo In Store",
-    "pct": 7.99,
+    "pct": 9.98,
     "source": "buyhatke",
     "url": "https://buyhatke.com/gift-cards/taj-hotels-j-wellness-circle-bliss-solo-%28in-store%29-gift-card",
     "redemptionType": "Offline"
@@ -5244,10 +5188,10 @@
   },
   {
     "name": "Tanishq Gold Coin",
-    "pct": 1.25,
-    "source": "maximize",
-    "url": "https://www.maximize.money/gift-cards/Tanishq%20Gold%20Coin/358",
-    "redemptionType": "Online + In-store"
+    "pct": 1.0,
+    "source": "gyftr",
+    "url": "https://www.gyftr.com/tanishq-gold-coin",
+    "redemptionType": "Offline"
   },
   {
     "name": "Tanishq Gold Coin In Store",
@@ -5265,14 +5209,14 @@
   },
   {
     "name": "Tanishq Gold Jewellery In Store",
-    "pct": 2.23,
+    "pct": 2.27,
     "source": "buyhatke",
     "url": "https://buyhatke.com/gift-cards/tanishq-gold-jewellery-%28in-store%29-gift-card",
     "redemptionType": "Offline"
   },
   {
     "name": "Tanishq Studded In Store",
-    "pct": 3.08,
+    "pct": 3.46,
     "source": "buyhatke",
     "url": "https://buyhatke.com/gift-cards/tanishq-studded-%28in-store%29-gift-card",
     "redemptionType": "Offline"
@@ -5314,9 +5258,9 @@
   },
   {
     "name": "TEGO",
-    "pct": 15.75,
-    "source": "maximize",
-    "url": "https://www.maximize.money/gift-cards/TEGO/840",
+    "pct": 16.88,
+    "source": "buyhatke",
+    "url": "https://buyhatke.com/gift-cards/tego-gift-card",
     "redemptionType": "Online"
   },
   {
@@ -5545,7 +5489,7 @@
   },
   {
     "name": "Titan Minimals In Store",
-    "pct": 6.38,
+    "pct": 6.88,
     "source": "buyhatke",
     "url": "https://buyhatke.com/gift-cards/titan-minimals-%28in-store%29-gift-card",
     "redemptionType": "Offline"
@@ -5622,7 +5566,7 @@
   },
   {
     "name": "Trends Footwear In Store",
-    "pct": 5.12,
+    "pct": 5.37,
     "source": "buyhatke",
     "url": "https://buyhatke.com/gift-cards/trends-footwear-%28in-store%29-gift-card",
     "redemptionType": "Offline"
@@ -5811,7 +5755,7 @@
   },
   {
     "name": "V Mart In Store",
-    "pct": 5.88,
+    "pct": 8.89,
     "source": "buyhatke",
     "url": "https://buyhatke.com/gift-cards/v-mart-%28in-store%29-gift-card",
     "redemptionType": "Offline"
@@ -5874,7 +5818,7 @@
   },
   {
     "name": "Van Heusen In Store",
-    "pct": 2.23,
+    "pct": 5.88,
     "source": "buyhatke",
     "url": "https://buyhatke.com/gift-cards/van-heusen-%28in-store%29-gift-card",
     "redemptionType": "Offline"
@@ -5965,7 +5909,7 @@
   },
   {
     "name": "W For Woman In Store",
-    "pct": 9.39,
+    "pct": 9.89,
     "source": "buyhatke",
     "url": "https://buyhatke.com/gift-cards/w-for-woman-%28in-store%29-gift-card",
     "redemptionType": "Offline"
@@ -6013,20 +5957,6 @@
     "redemptionType": "Both"
   },
   {
-    "name": "Westside",
-    "pct": 1.25,
-    "source": "maximize",
-    "url": "https://www.maximize.money/gift-cards/Westside/563",
-    "redemptionType": "In-store"
-  },
-  {
-    "name": "Westside [No Cooling Period]",
-    "pct": 1.25,
-    "source": "maximize",
-    "url": "https://www.maximize.money/gift-cards/Westside%20%5BNo%20Cooling%20Period%5D/793",
-    "redemptionType": "In-store"
-  },
-  {
     "name": "Westside In Store",
     "pct": 6.99,
     "source": "buyhatke",
@@ -6056,7 +5986,7 @@
   },
   {
     "name": "Wildcraft In Store",
-    "pct": 5.38,
+    "pct": 6.88,
     "source": "buyhatke",
     "url": "https://buyhatke.com/gift-cards/wildcraft-%28in-store%29-gift-card",
     "redemptionType": "Offline"
@@ -6315,7 +6245,7 @@
   },
   {
     "name": "Zepto",
-    "pct": 1.25,
+    "pct": 1.1,
     "source": "maximize",
     "url": "https://www.maximize.money/gift-cards/Zepto/205",
     "redemptionType": "Online"
