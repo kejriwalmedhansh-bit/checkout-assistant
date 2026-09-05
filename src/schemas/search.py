@@ -75,6 +75,11 @@ class VoucherUpi(BaseModel):
     pct: float = 0
     voucher_amount: float = 0
     remainder: float = 0
+    # Voucher face value bought past the bill, when rounding up to the next
+    # denomination costs less than settling the difference in cash (a ₹5,000
+    # voucher for a ₹4,999 order). Stays as credit with the brand, so the copy
+    # can say so — the plan is chosen assuming it is worth nothing.
+    overshoot: float = 0
     saving: float = 0
     effective_price: float = 0
     txns_needed: int = 1

@@ -16,9 +16,9 @@
           2000,
           5000
         ],
-        "is_custom_denom": true,
-        "custom_min": 100,
-        "custom_max": 10000,
+        "is_custom_denom": false,
+        "custom_min": null,
+        "custom_max": null,
         "discounts": {
           "Credit Card": 12.0,
           "Net Banking": 12.0,
@@ -73,9 +73,9 @@
           4000,
           5000
         ],
-        "is_custom_denom": true,
-        "custom_min": 100,
-        "custom_max": 10000,
+        "is_custom_denom": false,
+        "custom_min": null,
+        "custom_max": null,
         "discounts": {
           "Credit Card": 5.0,
           "Net Banking": 5.0,
@@ -127,9 +127,9 @@
           2000,
           5000
         ],
-        "is_custom_denom": true,
-        "custom_min": 100,
-        "custom_max": 10000,
+        "is_custom_denom": false,
+        "custom_min": null,
+        "custom_max": null,
         "discounts": {
           "Credit Card": 5.0,
           "Debit Card": 5.0,
@@ -392,9 +392,9 @@
           500,
           1000
         ],
-        "is_custom_denom": true,
-        "custom_min": 100,
-        "custom_max": 10000,
+        "is_custom_denom": false,
+        "custom_min": null,
+        "custom_max": null,
         "discounts": {
           "Credit Card": 15.0,
           "Net Banking": 15.0,
@@ -447,9 +447,9 @@
           2000,
           5000
         ],
-        "is_custom_denom": true,
-        "custom_min": 100,
-        "custom_max": 10000,
+        "is_custom_denom": false,
+        "custom_min": null,
+        "custom_max": null,
         "discounts": {
           "Credit Card": 4.0,
           "Net Banking": 4.0,
@@ -503,9 +503,9 @@
           5000,
           10000
         ],
-        "is_custom_denom": true,
-        "custom_min": 100,
-        "custom_max": 10000,
+        "is_custom_denom": false,
+        "custom_min": null,
+        "custom_max": null,
         "discounts": {
           "Credit Card": 1.0,
           "Net Banking": 1.0,
@@ -607,9 +607,9 @@
           2000,
           5000
         ],
-        "is_custom_denom": true,
-        "custom_min": 100,
-        "custom_max": 10000,
+        "is_custom_denom": false,
+        "custom_min": null,
+        "custom_max": null,
         "discounts": {
           "Credit Card": 0.0,
           "Net Banking": 0.0,
@@ -662,9 +662,9 @@
           5000,
           7500
         ],
-        "is_custom_denom": true,
-        "custom_min": 100,
-        "custom_max": 10000,
+        "is_custom_denom": false,
+        "custom_min": null,
+        "custom_max": null,
         "discounts": {
           "Credit Card": 5.0,
           "Net Banking": 5.0,
@@ -715,9 +715,9 @@
           2000,
           5000
         ],
-        "is_custom_denom": true,
-        "custom_min": 100,
-        "custom_max": 20000,
+        "is_custom_denom": false,
+        "custom_min": null,
+        "custom_max": null,
         "discounts": {
           "Credit Card": 8.0,
           "Debit Card": 8.0,
@@ -1120,9 +1120,9 @@
           2000,
           5000
         ],
-        "is_custom_denom": true,
-        "custom_min": 100,
-        "custom_max": 10000,
+        "is_custom_denom": false,
+        "custom_min": null,
+        "custom_max": null,
         "discounts": {
           "Credit Card": 8.0,
           "Net Banking": 8.0,
@@ -1282,9 +1282,9 @@
           2000,
           5000
         ],
-        "is_custom_denom": true,
-        "custom_min": 100,
-        "custom_max": 10000,
+        "is_custom_denom": false,
+        "custom_min": null,
+        "custom_max": null,
         "discounts": {
           "Credit Card": 0.0,
           "Net Banking": 0.0,
@@ -1333,9 +1333,9 @@
           2000,
           5000
         ],
-        "is_custom_denom": true,
-        "custom_min": 100,
-        "custom_max": 10000,
+        "is_custom_denom": false,
+        "custom_min": null,
+        "custom_max": null,
         "discounts": {
           "Credit Card": 5.0,
           "Net Banking": 5.0,
@@ -1388,9 +1388,9 @@
           2000,
           5000
         ],
-        "is_custom_denom": true,
-        "custom_min": 100,
-        "custom_max": 10000,
+        "is_custom_denom": false,
+        "custom_min": null,
+        "custom_max": null,
         "discounts": {
           "Credit Card": 7.0,
           "Net Banking": 7.0,
@@ -1445,9 +1445,9 @@
           7000,
           7500
         ],
-        "is_custom_denom": true,
-        "custom_min": 100,
-        "custom_max": 10000,
+        "is_custom_denom": false,
+        "custom_min": null,
+        "custom_max": null,
         "discounts": {
           "Credit Card": 5.0,
           "Net Banking": 5.0,
@@ -1762,9 +1762,9 @@
           5000,
           10000
         ],
-        "is_custom_denom": true,
-        "custom_min": 100,
-        "custom_max": 10000,
+        "is_custom_denom": false,
+        "custom_min": null,
+        "custom_max": null,
         "discounts": {
           "Credit Card": 0.0,
           "Debit Card": 0.0,
@@ -1815,9 +1815,9 @@
           2500,
           5000
         ],
-        "is_custom_denom": true,
-        "custom_min": 100,
-        "custom_max": 10000,
+        "is_custom_denom": false,
+        "custom_min": null,
+        "custom_max": null,
         "discounts": {
           "Credit Card": 10.0,
           "Net Banking": 10.0,
@@ -1968,9 +1968,9 @@
           2000,
           5000
         ],
-        "is_custom_denom": true,
-        "custom_min": 100,
-        "custom_max": 10000,
+        "is_custom_denom": false,
+        "custom_min": null,
+        "custom_max": null,
         "discounts": {
           "Credit Card": 7.0,
           "Net Banking": 7.0,
@@ -2021,9 +2021,9 @@
           1000,
           2000
         ],
-        "is_custom_denom": true,
-        "custom_min": 250,
-        "custom_max": 10000,
+        "is_custom_denom": false,
+        "custom_min": null,
+        "custom_max": null,
         "discounts": {
           "Credit Card": 7.0,
           "Net Banking": 7.0,
@@ -2119,9 +2119,9 @@
           2500,
           5000
         ],
-        "is_custom_denom": true,
-        "custom_min": 100,
-        "custom_max": 10000,
+        "is_custom_denom": false,
+        "custom_min": null,
+        "custom_max": null,
         "discounts": {
           "Net Banking": 0.0,
           "Debit Card": 0.0,
@@ -2170,9 +2170,9 @@
           2000,
           5000
         ],
-        "is_custom_denom": true,
-        "custom_min": 100,
-        "custom_max": 10000,
+        "is_custom_denom": false,
+        "custom_min": null,
+        "custom_max": null,
         "discounts": {
           "Credit Card": 9.0,
           "Net Banking": 9.0,
@@ -2224,9 +2224,9 @@
           2000,
           5000
         ],
-        "is_custom_denom": true,
-        "custom_min": 100,
-        "custom_max": 10000,
+        "is_custom_denom": false,
+        "custom_min": null,
+        "custom_max": null,
         "discounts": {
           "Credit Card": 9.0,
           "Net Banking": 9.0,
@@ -2376,9 +2376,9 @@
           2000,
           5000
         ],
-        "is_custom_denom": true,
-        "custom_min": 100,
-        "custom_max": 10000,
+        "is_custom_denom": false,
+        "custom_min": null,
+        "custom_max": null,
         "discounts": {
           "Credit Card": 0.0,
           "Net Banking": 0.0,
@@ -2427,9 +2427,9 @@
           500,
           2000
         ],
-        "is_custom_denom": true,
-        "custom_min": 100,
-        "custom_max": 10000,
+        "is_custom_denom": false,
+        "custom_min": null,
+        "custom_max": null,
         "discounts": {
           "Credit Card": 1.0,
           "Net Banking": 1.0,
@@ -2479,9 +2479,9 @@
           500,
           2000
         ],
-        "is_custom_denom": true,
-        "custom_min": 100,
-        "custom_max": 10000,
+        "is_custom_denom": false,
+        "custom_min": null,
+        "custom_max": null,
         "discounts": {
           "Credit Card": 0.0,
           "Net Banking": 0.0,
@@ -2533,9 +2533,9 @@
           2000,
           5000
         ],
-        "is_custom_denom": true,
-        "custom_min": 100,
-        "custom_max": 10000,
+        "is_custom_denom": false,
+        "custom_min": null,
+        "custom_max": null,
         "discounts": {
           "Credit Card": 6.0,
           "Net Banking": 6.0,
@@ -2647,9 +2647,9 @@
           5000,
           10000
         ],
-        "is_custom_denom": true,
-        "custom_min": 100,
-        "custom_max": 10000,
+        "is_custom_denom": false,
+        "custom_min": null,
+        "custom_max": null,
         "discounts": {
           "Credit Card": 0.0,
           "Net Banking": 0.0,
@@ -2750,9 +2750,9 @@
           1000,
           2000
         ],
-        "is_custom_denom": true,
-        "custom_min": 100,
-        "custom_max": 20000,
+        "is_custom_denom": false,
+        "custom_min": null,
+        "custom_max": null,
         "discounts": {
           "Credit Card": 4.0,
           "Net Banking": 4.0,
@@ -2857,9 +2857,9 @@
           250,
           500
         ],
-        "is_custom_denom": true,
-        "custom_min": 100,
-        "custom_max": 10000,
+        "is_custom_denom": false,
+        "custom_min": null,
+        "custom_max": null,
         "discounts": {
           "Credit Card": 0.0,
           "Net Banking": 0.0,
@@ -3012,9 +3012,9 @@
         "denominations": [
           100
         ],
-        "is_custom_denom": true,
-        "custom_min": 100,
-        "custom_max": 10000,
+        "is_custom_denom": false,
+        "custom_min": null,
+        "custom_max": null,
         "discounts": {
           "Credit Card": 2.0,
           "Net Banking": 2.0,
@@ -3179,9 +3179,9 @@
           2000,
           5000
         ],
-        "is_custom_denom": true,
-        "custom_min": 100,
-        "custom_max": 10000,
+        "is_custom_denom": false,
+        "custom_min": null,
+        "custom_max": null,
         "discounts": {
           "Credit Card": 11.0,
           "Net Banking": 11.0,
@@ -3230,9 +3230,9 @@
           100,
           5000
         ],
-        "is_custom_denom": true,
-        "custom_min": 100,
-        "custom_max": 10000,
+        "is_custom_denom": false,
+        "custom_min": null,
+        "custom_max": null,
         "discounts": {
           "Credit Card": 7.0,
           "Net Banking": 7.0,
@@ -3282,9 +3282,9 @@
           100,
           2000
         ],
-        "is_custom_denom": true,
-        "custom_min": 100,
-        "custom_max": 10000,
+        "is_custom_denom": false,
+        "custom_min": null,
+        "custom_max": null,
         "discounts": {
           "Credit Card": 1.5,
           "Net Banking": 1.5,
@@ -4008,9 +4008,9 @@
           2500,
           5000
         ],
-        "is_custom_denom": true,
-        "custom_min": 100,
-        "custom_max": 10000,
+        "is_custom_denom": false,
+        "custom_min": null,
+        "custom_max": null,
         "discounts": {
           "Credit Card": 0.0,
           "Net Banking": 0.0,
@@ -4063,9 +4063,9 @@
           2500,
           5000
         ],
-        "is_custom_denom": true,
-        "custom_min": 100,
-        "custom_max": 10000,
+        "is_custom_denom": false,
+        "custom_min": null,
+        "custom_max": null,
         "discounts": {
           "Credit Card": 2.0,
           "Net Banking": 2.0,
@@ -4118,9 +4118,9 @@
           2500,
           5000
         ],
-        "is_custom_denom": true,
-        "custom_min": 100,
-        "custom_max": 10000,
+        "is_custom_denom": false,
+        "custom_min": null,
+        "custom_max": null,
         "discounts": {
           "Credit Card": 5.0,
           "Net Banking": 5.0,
@@ -4172,9 +4172,9 @@
           3000,
           5000
         ],
-        "is_custom_denom": true,
-        "custom_min": 100,
-        "custom_max": 10000,
+        "is_custom_denom": false,
+        "custom_min": null,
+        "custom_max": null,
         "discounts": {
           "Credit Card": 8.0,
           "Net Banking": 8.0,
@@ -4226,9 +4226,9 @@
           1500,
           2000
         ],
-        "is_custom_denom": true,
-        "custom_min": 100,
-        "custom_max": 10000,
+        "is_custom_denom": false,
+        "custom_min": null,
+        "custom_max": null,
         "discounts": {
           "Credit Card": 10.0,
           "Net Banking": 10.0,
@@ -4335,9 +4335,9 @@
           7500,
           10000
         ],
-        "is_custom_denom": true,
-        "custom_min": 100,
-        "custom_max": 10000,
+        "is_custom_denom": false,
+        "custom_min": null,
+        "custom_max": null,
         "discounts": {
           "Credit Card": 0.0,
           "Net Banking": 0.0,
@@ -4544,9 +4544,9 @@
           2000,
           5000
         ],
-        "is_custom_denom": true,
-        "custom_min": 100,
-        "custom_max": 20000,
+        "is_custom_denom": false,
+        "custom_min": null,
+        "custom_max": null,
         "discounts": {
           "Credit Card": 8.0,
           "Net Banking": 8.0,
@@ -5058,9 +5058,9 @@
           2500,
           5000
         ],
-        "is_custom_denom": true,
-        "custom_min": 100,
-        "custom_max": 10000,
+        "is_custom_denom": false,
+        "custom_min": null,
+        "custom_max": null,
         "discounts": {
           "Credit Card": 11.0,
           "Net Banking": 11.0,
@@ -5111,9 +5111,9 @@
           2000,
           10000
         ],
-        "is_custom_denom": true,
-        "custom_min": 100,
-        "custom_max": 10000,
+        "is_custom_denom": false,
+        "custom_min": null,
+        "custom_max": null,
         "discounts": {
           "Credit Card": 3.0,
           "Net Banking": 0.0,
@@ -5375,9 +5375,9 @@
           2000,
           5000
         ],
-        "is_custom_denom": true,
-        "custom_min": 100,
-        "custom_max": 10000,
+        "is_custom_denom": false,
+        "custom_min": null,
+        "custom_max": null,
         "discounts": {
           "Credit Card": 1.0,
           "Net Banking": 1.0,
@@ -5427,9 +5427,9 @@
           500,
           1000
         ],
-        "is_custom_denom": true,
-        "custom_min": 100,
-        "custom_max": 10000,
+        "is_custom_denom": false,
+        "custom_min": null,
+        "custom_max": null,
         "discounts": {
           "Credit Card": 15.0,
           "Net Banking": 15.0,
@@ -5685,9 +5685,9 @@
           1000,
           2000
         ],
-        "is_custom_denom": true,
-        "custom_min": 100,
-        "custom_max": 10000,
+        "is_custom_denom": false,
+        "custom_min": null,
+        "custom_max": null,
         "discounts": {
           "Credit Card": 11.0,
           "Net Banking": 11.0,
@@ -5845,9 +5845,9 @@
           7500,
           9999
         ],
-        "is_custom_denom": true,
-        "custom_min": 250,
-        "custom_max": 10000,
+        "is_custom_denom": false,
+        "custom_min": null,
+        "custom_max": null,
         "discounts": {
           "Credit Card": 0.0,
           "Debit Card": 0.0,
@@ -6114,9 +6114,9 @@
           1000,
           1500
         ],
-        "is_custom_denom": true,
-        "custom_min": 100,
-        "custom_max": 10000,
+        "is_custom_denom": false,
+        "custom_min": null,
+        "custom_max": null,
         "discounts": {
           "Credit Card": 3.0,
           "Net Banking": 3.0,
@@ -6169,9 +6169,9 @@
           1000,
           1500
         ],
-        "is_custom_denom": true,
-        "custom_min": 100,
-        "custom_max": 10000,
+        "is_custom_denom": false,
+        "custom_min": null,
+        "custom_max": null,
         "discounts": {
           "Credit Card": 8.0,
           "Net Banking": 8.0,
@@ -6281,9 +6281,9 @@
           5000,
           10000
         ],
-        "is_custom_denom": true,
-        "custom_min": 100,
-        "custom_max": 10000,
+        "is_custom_denom": false,
+        "custom_min": null,
+        "custom_max": null,
         "discounts": {
           "Credit Card": 2.5,
           "Net Banking": 2.5,
@@ -6334,9 +6334,9 @@
           2000,
           2500
         ],
-        "is_custom_denom": true,
-        "custom_min": 100,
-        "custom_max": 10000,
+        "is_custom_denom": false,
+        "custom_min": null,
+        "custom_max": null,
         "discounts": {
           "Credit Card": 6.0,
           "Net Banking": 6.0,
@@ -6388,9 +6388,9 @@
           1000,
           1500
         ],
-        "is_custom_denom": true,
-        "custom_min": 100,
-        "custom_max": 10000,
+        "is_custom_denom": false,
+        "custom_min": null,
+        "custom_max": null,
         "discounts": {
           "Credit Card": 6.0,
           "Net Banking": 6.0,
@@ -6441,9 +6441,9 @@
           1000,
           2000
         ],
-        "is_custom_denom": true,
-        "custom_min": 100,
-        "custom_max": 10000,
+        "is_custom_denom": false,
+        "custom_min": null,
+        "custom_max": null,
         "discounts": {
           "Credit Card": 8.0,
           "Net Banking": 8.0,
@@ -6494,9 +6494,9 @@
           250,
           500
         ],
-        "is_custom_denom": true,
-        "custom_min": 100,
-        "custom_max": 10000,
+        "is_custom_denom": false,
+        "custom_min": null,
+        "custom_max": null,
         "discounts": {
           "Credit Card": 8.0,
           "Net Banking": 8.0,
@@ -6549,9 +6549,9 @@
           2000,
           2500
         ],
-        "is_custom_denom": true,
-        "custom_min": 100,
-        "custom_max": 10000,
+        "is_custom_denom": false,
+        "custom_min": null,
+        "custom_max": null,
         "discounts": {
           "Credit Card": 20.0,
           "Net Banking": 20.0,
@@ -6860,9 +6860,9 @@
           3000,
           5000
         ],
-        "is_custom_denom": true,
-        "custom_min": 100,
-        "custom_max": 10000,
+        "is_custom_denom": false,
+        "custom_min": null,
+        "custom_max": null,
         "discounts": {
           "Credit Card": 11.0,
           "Net Banking": 11.0,
@@ -6966,9 +6966,9 @@
           1500,
           2000
         ],
-        "is_custom_denom": true,
-        "custom_min": 100,
-        "custom_max": 10000,
+        "is_custom_denom": false,
+        "custom_min": null,
+        "custom_max": null,
         "discounts": {
           "Credit Card": 21.0,
           "Net Banking": 21.0,
@@ -7167,9 +7167,9 @@
           1500,
           2000
         ],
-        "is_custom_denom": true,
-        "custom_min": 100,
-        "custom_max": 10000,
+        "is_custom_denom": false,
+        "custom_min": null,
+        "custom_max": null,
         "discounts": {
           "Credit Card": 10.0,
           "Net Banking": 10.0,
@@ -7320,9 +7320,9 @@
           1500,
           2000
         ],
-        "is_custom_denom": true,
-        "custom_min": 100,
-        "custom_max": 10000,
+        "is_custom_denom": false,
+        "custom_min": null,
+        "custom_max": null,
         "discounts": {
           "Credit Card": 10.0,
           "Net Banking": 10.0,
@@ -7525,9 +7525,9 @@
           2000,
           10000
         ],
-        "is_custom_denom": true,
-        "custom_min": 100,
-        "custom_max": 10000,
+        "is_custom_denom": false,
+        "custom_min": null,
+        "custom_max": null,
         "discounts": {
           "Credit Card": 0.0,
           "Debit Card": 0.0,
@@ -7879,9 +7879,9 @@
           1000,
           2000
         ],
-        "is_custom_denom": true,
-        "custom_min": 100,
-        "custom_max": 10000,
+        "is_custom_denom": false,
+        "custom_min": null,
+        "custom_max": null,
         "discounts": {
           "Credit Card": 21.0,
           "Net Banking": 21.0,
@@ -8030,9 +8030,9 @@
           7500,
           10000
         ],
-        "is_custom_denom": true,
-        "custom_min": 1000,
-        "custom_max": 10000,
+        "is_custom_denom": false,
+        "custom_min": null,
+        "custom_max": null,
         "discounts": {
           "Credit Card": 4.0,
           "Net Banking": 4.0,
@@ -8083,9 +8083,9 @@
           7500,
           10000
         ],
-        "is_custom_denom": true,
-        "custom_min": 1000,
-        "custom_max": 10000,
+        "is_custom_denom": false,
+        "custom_min": null,
+        "custom_max": null,
         "discounts": {
           "Credit Card": 4.0,
           "Net Banking": 4.0,
@@ -8336,9 +8336,9 @@
           2000,
           5000
         ],
-        "is_custom_denom": true,
-        "custom_min": 100,
-        "custom_max": 10000,
+        "is_custom_denom": false,
+        "custom_min": null,
+        "custom_max": null,
         "discounts": {
           "Credit Card": 0.0,
           "Net Banking": 0.0,
@@ -8955,9 +8955,9 @@
           500,
           1000
         ],
-        "is_custom_denom": true,
-        "custom_min": 100,
-        "custom_max": 10000,
+        "is_custom_denom": false,
+        "custom_min": null,
+        "custom_max": null,
         "discounts": {
           "Credit Card": 0.0,
           "Net Banking": 0.0,
@@ -9099,9 +9099,9 @@
           1500,
           2000
         ],
-        "is_custom_denom": true,
-        "custom_min": 100,
-        "custom_max": 10000,
+        "is_custom_denom": false,
+        "custom_min": null,
+        "custom_max": null,
         "discounts": {
           "Credit Card": 10.0,
           "Net Banking": 10.0,
@@ -9154,9 +9154,9 @@
           1500,
           2000
         ],
-        "is_custom_denom": true,
-        "custom_min": 100,
-        "custom_max": 10000,
+        "is_custom_denom": false,
+        "custom_min": null,
+        "custom_max": null,
         "discounts": {
           "Credit Card": 10.0,
           "Net Banking": 10.0,
@@ -9685,9 +9685,9 @@
           7500,
           10000
         ],
-        "is_custom_denom": true,
-        "custom_min": 100,
-        "custom_max": 10000,
+        "is_custom_denom": false,
+        "custom_min": null,
+        "custom_max": null,
         "discounts": {
           "Credit Card": 9.0,
           "Net Banking": 9.0,
@@ -9940,9 +9940,9 @@
           5000,
           10000
         ],
-        "is_custom_denom": true,
-        "custom_min": 100,
-        "custom_max": 10000,
+        "is_custom_denom": false,
+        "custom_min": null,
+        "custom_max": null,
         "discounts": {
           "Credit Card": 0.0,
           "Net Banking": 0.0,
@@ -10341,9 +10341,9 @@
           1000,
           2000
         ],
-        "is_custom_denom": true,
-        "custom_min": 100,
-        "custom_max": 10000,
+        "is_custom_denom": false,
+        "custom_min": null,
+        "custom_max": null,
         "discounts": {
           "Credit Card": 12.0,
           "Net Banking": 12.0,
@@ -10448,9 +10448,9 @@
           3000,
           5000
         ],
-        "is_custom_denom": true,
-        "custom_min": 100,
-        "custom_max": 10000,
+        "is_custom_denom": false,
+        "custom_min": null,
+        "custom_max": null,
         "discounts": {
           "Credit Card": 0.0,
           "Net Banking": 0.0,
@@ -11040,9 +11040,9 @@
           1500,
           2000
         ],
-        "is_custom_denom": true,
-        "custom_min": 100,
-        "custom_max": 10000,
+        "is_custom_denom": false,
+        "custom_min": null,
+        "custom_max": null,
         "discounts": {
           "Credit Card": 10.0,
           "Net Banking": 10.0,
@@ -11095,9 +11095,9 @@
           1500,
           2000
         ],
-        "is_custom_denom": true,
-        "custom_min": 100,
-        "custom_max": 10000,
+        "is_custom_denom": false,
+        "custom_min": null,
+        "custom_max": null,
         "discounts": {
           "Credit Card": 8.0,
           "Net Banking": 8.0,
@@ -11150,9 +11150,9 @@
           1500,
           2000
         ],
-        "is_custom_denom": true,
-        "custom_min": 100,
-        "custom_max": 10000,
+        "is_custom_denom": false,
+        "custom_min": null,
+        "custom_max": null,
         "discounts": {
           "Credit Card": 10.0,
           "Net Banking": 10.0,
@@ -11210,9 +11210,9 @@
           7500,
           10000
         ],
-        "is_custom_denom": true,
-        "custom_min": 100,
-        "custom_max": 15000,
+        "is_custom_denom": false,
+        "custom_min": null,
+        "custom_max": null,
         "discounts": {
           "Credit Card": 10.0,
           "Net Banking": 10.0,
@@ -11264,9 +11264,9 @@
           7500,
           10000
         ],
-        "is_custom_denom": true,
-        "custom_min": 100,
-        "custom_max": 15000,
+        "is_custom_denom": false,
+        "custom_min": null,
+        "custom_max": null,
         "discounts": {
           "Credit Card": 10.0,
           "Net Banking": 10.0,
@@ -11321,9 +11321,9 @@
           7500,
           10000
         ],
-        "is_custom_denom": true,
-        "custom_min": 100,
-        "custom_max": 15000,
+        "is_custom_denom": false,
+        "custom_min": null,
+        "custom_max": null,
         "discounts": {
           "Credit Card": 10.0,
           "Net Banking": 10.0,
@@ -11380,9 +11380,9 @@
           7500,
           10000
         ],
-        "is_custom_denom": true,
-        "custom_min": 100,
-        "custom_max": 15000,
+        "is_custom_denom": false,
+        "custom_min": null,
+        "custom_max": null,
         "discounts": {
           "Credit Card": 10.0,
           "Net Banking": 10.0,
@@ -11439,9 +11439,9 @@
           7500,
           10000
         ],
-        "is_custom_denom": true,
-        "custom_min": 100,
-        "custom_max": 15000,
+        "is_custom_denom": false,
+        "custom_min": null,
+        "custom_max": null,
         "discounts": {
           "Credit Card": 10.0,
           "Net Banking": 10.0,
@@ -11499,9 +11499,9 @@
           7500,
           10000
         ],
-        "is_custom_denom": true,
-        "custom_min": 100,
-        "custom_max": 15000,
+        "is_custom_denom": false,
+        "custom_min": null,
+        "custom_max": null,
         "discounts": {
           "Credit Card": 10.0,
           "Net Banking": 10.0,
@@ -11558,9 +11558,9 @@
           7500,
           10000
         ],
-        "is_custom_denom": true,
-        "custom_min": 100,
-        "custom_max": 15000,
+        "is_custom_denom": false,
+        "custom_min": null,
+        "custom_max": null,
         "discounts": {
           "Credit Card": 10.0,
           "Net Banking": 10.0,
@@ -11608,9 +11608,9 @@
         "denominations": [
           100
         ],
-        "is_custom_denom": true,
-        "custom_min": 100,
-        "custom_max": 15000,
+        "is_custom_denom": false,
+        "custom_min": null,
+        "custom_max": null,
         "discounts": {
           "Credit Card": 10.0,
           "Net Banking": 10.0,
@@ -11667,9 +11667,9 @@
           7500,
           10000
         ],
-        "is_custom_denom": true,
-        "custom_min": 100,
-        "custom_max": 15000,
+        "is_custom_denom": false,
+        "custom_min": null,
+        "custom_max": null,
         "discounts": {
           "Credit Card": 10.0,
           "Net Banking": 10.0,
@@ -12488,9 +12488,9 @@
           1000,
           2000
         ],
-        "is_custom_denom": true,
-        "custom_min": 100,
-        "custom_max": 10000,
+        "is_custom_denom": false,
+        "custom_min": null,
+        "custom_max": null,
         "discounts": {
           "Credit Card": 16.0,
           "Net Banking": 16.0,
@@ -12789,9 +12789,9 @@
           500,
           1000
         ],
-        "is_custom_denom": true,
-        "custom_min": 100,
-        "custom_max": 10000,
+        "is_custom_denom": false,
+        "custom_min": null,
+        "custom_max": null,
         "discounts": {
           "Credit Card": 8.0,
           "Net Banking": 8.0,
@@ -12849,9 +12849,9 @@
           7500,
           10000
         ],
-        "is_custom_denom": true,
-        "custom_min": 100,
-        "custom_max": 20000,
+        "is_custom_denom": false,
+        "custom_min": null,
+        "custom_max": null,
         "discounts": {
           "Credit Card": 9.0,
           "Net Banking": 9.0,
@@ -12909,9 +12909,9 @@
           7500,
           10000
         ],
-        "is_custom_denom": true,
-        "custom_min": 100,
-        "custom_max": 20000,
+        "is_custom_denom": false,
+        "custom_min": null,
+        "custom_max": null,
         "discounts": {
           "Credit Card": 9.0,
           "Net Banking": 9.0,
@@ -12969,9 +12969,9 @@
           7500,
           10000
         ],
-        "is_custom_denom": true,
-        "custom_min": 100,
-        "custom_max": 20000,
+        "is_custom_denom": false,
+        "custom_min": null,
+        "custom_max": null,
         "discounts": {
           "Credit Card": 9.0,
           "Net Banking": 9.0,
@@ -13029,9 +13029,9 @@
           7500,
           10000
         ],
-        "is_custom_denom": true,
-        "custom_min": 100,
-        "custom_max": 20000,
+        "is_custom_denom": false,
+        "custom_min": null,
+        "custom_max": null,
         "discounts": {
           "Credit Card": 9.0,
           "Net Banking": 9.0,
@@ -13139,9 +13139,9 @@
           7500,
           10000
         ],
-        "is_custom_denom": true,
-        "custom_min": 100,
-        "custom_max": 10000,
+        "is_custom_denom": false,
+        "custom_min": null,
+        "custom_max": null,
         "discounts": {
           "Credit Card": 2.0,
           "Net Banking": 2.0,
@@ -13193,9 +13193,9 @@
           2000,
           5000
         ],
-        "is_custom_denom": true,
-        "custom_min": 100,
-        "custom_max": 10000,
+        "is_custom_denom": false,
+        "custom_min": null,
+        "custom_max": null,
         "discounts": {
           "Credit Card": 9.0,
           "Net Banking": 9.0,
@@ -13300,9 +13300,9 @@
           2500,
           5000
         ],
-        "is_custom_denom": true,
-        "custom_min": 100,
-        "custom_max": 10000,
+        "is_custom_denom": false,
+        "custom_min": null,
+        "custom_max": null,
         "discounts": {
           "Credit Card": 20.0,
           "Net Banking": 20.0,
@@ -13403,9 +13403,9 @@
           4000,
           5000
         ],
-        "is_custom_denom": true,
-        "custom_min": 100,
-        "custom_max": 10000,
+        "is_custom_denom": false,
+        "custom_min": null,
+        "custom_max": null,
         "discounts": {
           "Credit Card": 7.0,
           "Net Banking": 7.0,
@@ -13457,9 +13457,9 @@
           2000,
           5000
         ],
-        "is_custom_denom": true,
-        "custom_min": 100,
-        "custom_max": 10000,
+        "is_custom_denom": false,
+        "custom_min": null,
+        "custom_max": null,
         "discounts": {
           "Credit Card": 11.0,
           "Net Banking": 11.0,
@@ -13684,9 +13684,9 @@
           2500,
           5000
         ],
-        "is_custom_denom": true,
-        "custom_min": 100,
-        "custom_max": 10000,
+        "is_custom_denom": false,
+        "custom_min": null,
+        "custom_max": null,
         "discounts": {
           "Credit Card": 21.0,
           "Net Banking": 21.0,
@@ -13792,9 +13792,9 @@
           2000,
           5000
         ],
-        "is_custom_denom": true,
-        "custom_min": 100,
-        "custom_max": 10000,
+        "is_custom_denom": false,
+        "custom_min": null,
+        "custom_max": null,
         "discounts": {
           "Credit Card": 11.0,
           "Net Banking": 11.0,
@@ -13897,9 +13897,9 @@
           2500,
           5000
         ],
-        "is_custom_denom": true,
-        "custom_min": 100,
-        "custom_max": 10000,
+        "is_custom_denom": false,
+        "custom_min": null,
+        "custom_max": null,
         "discounts": {
           "Credit Card": 15.0,
           "Net Banking": 15.0,
@@ -14205,9 +14205,9 @@
           1000,
           2000
         ],
-        "is_custom_denom": true,
-        "custom_min": 100,
-        "custom_max": 10000,
+        "is_custom_denom": false,
+        "custom_min": null,
+        "custom_max": null,
         "discounts": {
           "Credit Card": 22.0,
           "Net Banking": 22.0,
@@ -14516,9 +14516,9 @@
           2000,
           5000
         ],
-        "is_custom_denom": true,
-        "custom_min": 100,
-        "custom_max": 10000,
+        "is_custom_denom": false,
+        "custom_min": null,
+        "custom_max": null,
         "discounts": {
           "Credit Card": 10.0,
           "Net Banking": 10.0,
@@ -14571,9 +14571,9 @@
           2500,
           5000
         ],
-        "is_custom_denom": true,
-        "custom_min": 100,
-        "custom_max": 10000,
+        "is_custom_denom": false,
+        "custom_min": null,
+        "custom_max": null,
         "discounts": {
           "Credit Card": 8.0,
           "Net Banking": 8.0,
@@ -14624,9 +14624,9 @@
           1000,
           2000
         ],
-        "is_custom_denom": true,
-        "custom_min": 100,
-        "custom_max": 10000,
+        "is_custom_denom": false,
+        "custom_min": null,
+        "custom_max": null,
         "discounts": {
           "Credit Card": 12.0,
           "Net Banking": 12.0,
@@ -14940,9 +14940,9 @@
           7500,
           10000
         ],
-        "is_custom_denom": true,
-        "custom_min": 100,
-        "custom_max": 10000,
+        "is_custom_denom": false,
+        "custom_min": null,
+        "custom_max": null,
         "discounts": {
           "Credit Card": 9.0,
           "Net Banking": 9.0,
@@ -15107,9 +15107,9 @@
           2000,
           5000
         ],
-        "is_custom_denom": true,
-        "custom_min": 100,
-        "custom_max": 10000,
+        "is_custom_denom": false,
+        "custom_min": null,
+        "custom_max": null,
         "discounts": {
           "Credit Card": 16.0,
           "Net Banking": 16.0,
@@ -15255,9 +15255,9 @@
           1000,
           2000
         ],
-        "is_custom_denom": true,
-        "custom_min": 100,
-        "custom_max": 10000,
+        "is_custom_denom": false,
+        "custom_min": null,
+        "custom_max": null,
         "discounts": {
           "Credit Card": 11.0,
           "Net Banking": 11.0,
@@ -15626,9 +15626,9 @@
           7500,
           10000
         ],
-        "is_custom_denom": true,
-        "custom_min": 100,
-        "custom_max": 10000,
+        "is_custom_denom": false,
+        "custom_min": null,
+        "custom_max": null,
         "discounts": {
           "Credit Card": 0.0,
           "Net Banking": 0.0,
@@ -15831,9 +15831,9 @@
           2000,
           5000
         ],
-        "is_custom_denom": true,
-        "custom_min": 100,
-        "custom_max": 10000,
+        "is_custom_denom": false,
+        "custom_min": null,
+        "custom_max": null,
         "discounts": {
           "Credit Card": 6.5,
           "Net Banking": 6.5,
@@ -15887,9 +15887,9 @@
           7500,
           10000
         ],
-        "is_custom_denom": true,
-        "custom_min": 100,
-        "custom_max": 10000,
+        "is_custom_denom": false,
+        "custom_min": null,
+        "custom_max": null,
         "discounts": {
           "Credit Card": 0.0,
           "Net Banking": 0.0,
@@ -15943,9 +15943,9 @@
           7500,
           10000
         ],
-        "is_custom_denom": true,
-        "custom_min": 100,
-        "custom_max": 10000,
+        "is_custom_denom": false,
+        "custom_min": null,
+        "custom_max": null,
         "discounts": {
           "Credit Card": 0.0,
           "Net Banking": 0.0,
@@ -15999,9 +15999,9 @@
           7500,
           10000
         ],
-        "is_custom_denom": true,
-        "custom_min": 100,
-        "custom_max": 10000,
+        "is_custom_denom": false,
+        "custom_min": null,
+        "custom_max": null,
         "discounts": {
           "Credit Card": 0.0,
           "Net Banking": 0.0,
@@ -16055,9 +16055,9 @@
           7500,
           10000
         ],
-        "is_custom_denom": true,
-        "custom_min": 100,
-        "custom_max": 10000,
+        "is_custom_denom": false,
+        "custom_min": null,
+        "custom_max": null,
         "discounts": {
           "Credit Card": 0.0,
           "Net Banking": 0.0,
@@ -16111,9 +16111,9 @@
           7500,
           10000
         ],
-        "is_custom_denom": true,
-        "custom_min": 100,
-        "custom_max": 10000,
+        "is_custom_denom": false,
+        "custom_min": null,
+        "custom_max": null,
         "discounts": {
           "Credit Card": 0.0,
           "Net Banking": 0.0,
@@ -16167,9 +16167,9 @@
           7500,
           10000
         ],
-        "is_custom_denom": true,
-        "custom_min": 100,
-        "custom_max": 10000,
+        "is_custom_denom": false,
+        "custom_min": null,
+        "custom_max": null,
         "discounts": {
           "Credit Card": 0.0,
           "Net Banking": 0.0,
@@ -16219,9 +16219,9 @@
           1000,
           2000
         ],
-        "is_custom_denom": true,
-        "custom_min": 100,
-        "custom_max": 10000,
+        "is_custom_denom": false,
+        "custom_min": null,
+        "custom_max": null,
         "discounts": {
           "Credit Card": 4.0,
           "Net Banking": 4.0,
@@ -17489,9 +17489,9 @@
           1000,
           2000
         ],
-        "is_custom_denom": true,
-        "custom_min": 100,
-        "custom_max": 10000,
+        "is_custom_denom": false,
+        "custom_min": null,
+        "custom_max": null,
         "discounts": {
           "Credit Card": 9.0,
           "Net Banking": 9.0,
@@ -17542,9 +17542,9 @@
           1000,
           2000
         ],
-        "is_custom_denom": true,
-        "custom_min": 100,
-        "custom_max": 10000,
+        "is_custom_denom": false,
+        "custom_min": null,
+        "custom_max": null,
         "discounts": {
           "Credit Card": 9.0,
           "Net Banking": 9.0,
@@ -17596,9 +17596,9 @@
           2000,
           5000
         ],
-        "is_custom_denom": true,
-        "custom_min": 100,
-        "custom_max": 10000,
+        "is_custom_denom": false,
+        "custom_min": null,
+        "custom_max": null,
         "discounts": {
           "Credit Card": 8.5,
           "Net Banking": 8.5,
@@ -17808,9 +17808,9 @@
           5000,
           10000
         ],
-        "is_custom_denom": true,
-        "custom_min": 100,
-        "custom_max": 10000,
+        "is_custom_denom": false,
+        "custom_min": null,
+        "custom_max": null,
         "discounts": {
           "Credit Card": 13.0,
           "Net Banking": 13.0,
@@ -17912,9 +17912,9 @@
           1000,
           2000
         ],
-        "is_custom_denom": true,
-        "custom_min": 100,
-        "custom_max": 10000,
+        "is_custom_denom": false,
+        "custom_min": null,
+        "custom_max": null,
         "discounts": {
           "Credit Card": 26.0,
           "Net Banking": 26.0,
@@ -17968,9 +17968,9 @@
           2000,
           5000
         ],
-        "is_custom_denom": true,
-        "custom_min": 100,
-        "custom_max": 10000,
+        "is_custom_denom": false,
+        "custom_min": null,
+        "custom_max": null,
         "discounts": {
           "Credit Card": 16.0,
           "Net Banking": 16.0,
@@ -18433,9 +18433,9 @@
           1000,
           2000
         ],
-        "is_custom_denom": true,
-        "custom_min": 100,
-        "custom_max": 10000,
+        "is_custom_denom": false,
+        "custom_min": null,
+        "custom_max": null,
         "discounts": {
           "Credit Card": 11.0,
           "Net Banking": 11.0,
@@ -18486,9 +18486,9 @@
           2000,
           5000
         ],
-        "is_custom_denom": true,
-        "custom_min": 10,
-        "custom_max": 10000,
+        "is_custom_denom": false,
+        "custom_min": null,
+        "custom_max": null,
         "discounts": {
           "Credit Card": 13.0,
           "Net Banking": 13.0,
@@ -18543,9 +18543,9 @@
           2500,
           5000
         ],
-        "is_custom_denom": true,
-        "custom_min": 100,
-        "custom_max": 10000,
+        "is_custom_denom": false,
+        "custom_min": null,
+        "custom_max": null,
         "discounts": {
           "Credit Card": 16.0,
           "Net Banking": 16.0,
@@ -18650,9 +18650,9 @@
           5000,
           10000
         ],
-        "is_custom_denom": true,
-        "custom_min": 100,
-        "custom_max": 10000,
+        "is_custom_denom": false,
+        "custom_min": null,
+        "custom_max": null,
         "discounts": {
           "Credit Card": 9.5,
           "Net Banking": 9.5,
@@ -18703,9 +18703,9 @@
           5000,
           10000
         ],
-        "is_custom_denom": true,
-        "custom_min": 100,
-        "custom_max": 10000,
+        "is_custom_denom": false,
+        "custom_min": null,
+        "custom_max": null,
         "discounts": {
           "Credit Card": 3.0,
           "Net Banking": 3.0,
@@ -18758,9 +18758,9 @@
           5000,
           10000
         ],
-        "is_custom_denom": true,
-        "custom_min": 100,
-        "custom_max": 10000,
+        "is_custom_denom": false,
+        "custom_min": null,
+        "custom_max": null,
         "discounts": {
           "Credit Card": 3.0,
           "Net Banking": 3.0,
@@ -18865,9 +18865,9 @@
           1000,
           2000
         ],
-        "is_custom_denom": true,
-        "custom_min": 100,
-        "custom_max": 10000,
+        "is_custom_denom": false,
+        "custom_min": null,
+        "custom_max": null,
         "discounts": {
           "Credit Card": 4.0,
           "Net Banking": 4.0,
@@ -18919,9 +18919,9 @@
           5000,
           10000
         ],
-        "is_custom_denom": true,
-        "custom_min": 100,
-        "custom_max": 10000,
+        "is_custom_denom": false,
+        "custom_min": null,
+        "custom_max": null,
         "discounts": {
           "Credit Card": 15.0,
           "Net Banking": 15.0,
@@ -19028,9 +19028,9 @@
           2500,
           5000
         ],
-        "is_custom_denom": true,
-        "custom_min": 100,
-        "custom_max": 10000,
+        "is_custom_denom": false,
+        "custom_min": null,
+        "custom_max": null,
         "discounts": {
           "Credit Card": 11.0,
           "Net Banking": 11.0,
@@ -19082,9 +19082,9 @@
           5000,
           10000
         ],
-        "is_custom_denom": true,
-        "custom_min": 100,
-        "custom_max": 10000,
+        "is_custom_denom": false,
+        "custom_min": null,
+        "custom_max": null,
         "discounts": {
           "Credit Card": 11.0,
           "Net Banking": 11.0,
@@ -19186,9 +19186,9 @@
           1500,
           2000
         ],
-        "is_custom_denom": true,
-        "custom_min": 100,
-        "custom_max": 10000,
+        "is_custom_denom": false,
+        "custom_min": null,
+        "custom_max": null,
         "discounts": {
           "Credit Card": 16.0,
           "Net Banking": 16.0,
@@ -19242,9 +19242,9 @@
           7500,
           10000
         ],
-        "is_custom_denom": true,
-        "custom_min": 100,
-        "custom_max": 10000,
+        "is_custom_denom": false,
+        "custom_min": null,
+        "custom_max": null,
         "discounts": {
           "Credit Card": 11.0,
           "Net Banking": 11.0,
@@ -19296,9 +19296,9 @@
           2500,
           5000
         ],
-        "is_custom_denom": true,
-        "custom_min": 100,
-        "custom_max": 10000,
+        "is_custom_denom": false,
+        "custom_min": null,
+        "custom_max": null,
         "discounts": {
           "Credit Card": 11.0,
           "Net Banking": 11.0,
@@ -19511,9 +19511,9 @@
           2000,
           5000
         ],
-        "is_custom_denom": true,
-        "custom_min": 100,
-        "custom_max": 10000,
+        "is_custom_denom": false,
+        "custom_min": null,
+        "custom_max": null,
         "discounts": {
           "Credit Card": 13.0,
           "Net Banking": 13.0,
@@ -19564,9 +19564,9 @@
           5000,
           10000
         ],
-        "is_custom_denom": true,
-        "custom_min": 100,
-        "custom_max": 10000,
+        "is_custom_denom": false,
+        "custom_min": null,
+        "custom_max": null,
         "discounts": {
           "Credit Card": 5.0,
           "Net Banking": 5.0,
@@ -19618,9 +19618,9 @@
           5000,
           10000
         ],
-        "is_custom_denom": true,
-        "custom_min": 100,
-        "custom_max": 10000,
+        "is_custom_denom": false,
+        "custom_min": null,
+        "custom_max": null,
         "discounts": {
           "Credit Card": 3.0,
           "Net Banking": 3.0,
@@ -20134,9 +20134,9 @@
           3000,
           5000
         ],
-        "is_custom_denom": true,
-        "custom_min": 100,
-        "custom_max": 10000,
+        "is_custom_denom": false,
+        "custom_min": null,
+        "custom_max": null,
         "discounts": {
           "Credit Card": 5.0,
           "Net Banking": 5.0,
@@ -20189,9 +20189,9 @@
           2000,
           2500
         ],
-        "is_custom_denom": true,
-        "custom_min": 100,
-        "custom_max": 10000,
+        "is_custom_denom": false,
+        "custom_min": null,
+        "custom_max": null,
         "discounts": {
           "Credit Card": 13.0,
           "Net Banking": 13.0,
@@ -20549,9 +20549,9 @@
           5000,
           10000
         ],
-        "is_custom_denom": true,
-        "custom_min": 100,
-        "custom_max": 10000,
+        "is_custom_denom": false,
+        "custom_min": null,
+        "custom_max": null,
         "discounts": {
           "Credit Card": 3.0,
           "Net Banking": 3.0,
@@ -20604,9 +20604,9 @@
           5000,
           10000
         ],
-        "is_custom_denom": true,
-        "custom_min": 100,
-        "custom_max": 10000,
+        "is_custom_denom": false,
+        "custom_min": null,
+        "custom_max": null,
         "discounts": {
           "Credit Card": 10.0,
           "Net Banking": 10.0,
@@ -20659,9 +20659,9 @@
           5000,
           10000
         ],
-        "is_custom_denom": true,
-        "custom_min": 100,
-        "custom_max": 10000,
+        "is_custom_denom": false,
+        "custom_min": null,
+        "custom_max": null,
         "discounts": {
           "Credit Card": 0.0,
           "Net Banking": 0.0,
@@ -20933,9 +20933,9 @@
           5000,
           10000
         ],
-        "is_custom_denom": true,
-        "custom_min": 100,
-        "custom_max": 10000,
+        "is_custom_denom": false,
+        "custom_min": null,
+        "custom_max": null,
         "discounts": {
           "Credit Card": 6.0,
           "Net Banking": 6.0,
@@ -21093,9 +21093,9 @@
           7500,
           10000
         ],
-        "is_custom_denom": true,
-        "custom_min": 100,
-        "custom_max": 10000,
+        "is_custom_denom": false,
+        "custom_min": null,
+        "custom_max": null,
         "discounts": {
           "Credit Card": 13.0,
           "Net Banking": 13.0,
@@ -21148,9 +21148,9 @@
           7500,
           10000
         ],
-        "is_custom_denom": true,
-        "custom_min": 100,
-        "custom_max": 10000,
+        "is_custom_denom": false,
+        "custom_min": null,
+        "custom_max": null,
         "discounts": {
           "Credit Card": 13.0,
           "Net Banking": 13.0,
@@ -21203,9 +21203,9 @@
           7500,
           10000
         ],
-        "is_custom_denom": true,
-        "custom_min": 100,
-        "custom_max": 10000,
+        "is_custom_denom": false,
+        "custom_min": null,
+        "custom_max": null,
         "discounts": {
           "Credit Card": 13.0,
           "Net Banking": 13.0,
@@ -21258,9 +21258,9 @@
           7500,
           10000
         ],
-        "is_custom_denom": true,
-        "custom_min": 100,
-        "custom_max": 10000,
+        "is_custom_denom": false,
+        "custom_min": null,
+        "custom_max": null,
         "discounts": {
           "Credit Card": 13.0,
           "Net Banking": 13.0,
@@ -21313,9 +21313,9 @@
           7500,
           10000
         ],
-        "is_custom_denom": true,
-        "custom_min": 100,
-        "custom_max": 10000,
+        "is_custom_denom": false,
+        "custom_min": null,
+        "custom_max": null,
         "discounts": {
           "Credit Card": 13.0,
           "Net Banking": 13.0,
@@ -21368,9 +21368,9 @@
           7500,
           10000
         ],
-        "is_custom_denom": true,
-        "custom_min": 100,
-        "custom_max": 10000,
+        "is_custom_denom": false,
+        "custom_min": null,
+        "custom_max": null,
         "discounts": {
           "Credit Card": 13.0,
           "Net Banking": 13.0,
