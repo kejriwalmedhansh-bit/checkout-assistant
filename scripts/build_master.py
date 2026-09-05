@@ -382,12 +382,26 @@ for slug, brand in api_brands.items():
     best_method, best_disc = best_payment(merged_map)
 
     products = brand.get("products", [])
-    # Gyftr uses max_value=0 as its own sentinel for "no custom range" (a fixed
-    # denomination SKU). A real custom-amount range has max_value truthy and
-    # different from min_value.
+    # A custom-amount SKU is one with no fixed price of its own — Gyftr sells
+    # it by typing in a rupee figure, so it carries a min/max range and no
+    # `mrp`. A row that HAS an mrp is a fixed denomination, whatever range it
+    # also reports: `max_value` there is an order ceiling for that SKU, not an
+    # amount the shopper gets to choose.
+    #
+    # This used to key off `max_value != min_value` alone, which caught every
+    # ₹100 SKU (they all report min_value=100, max_value=10000) and turned 145
+    # brands into fictitious "any amount ₹100-10,000" vouchers. Netmeds was
+    # quoted a ₹154 voucher that Gyftr does not sell; the real catalogue there
+    # starts at ₹250. Checked across the whole scrape 2026-09-05: all 175 rows
+    # the old rule called custom have `mrp == min_value` and a real mrp, and
+    # not one row anywhere lacks an mrp — Gyftr sells no custom-amount voucher
+    # at all today. Reported by a shopper who compared against gyftr.com.
     custom_rows = [
         p for p in products
-        if p.get("max_value") and p.get("min_value") is not None and p["max_value"] != p["min_value"]
+        if not p.get("mrp")
+        and p.get("max_value")
+        and p.get("min_value") is not None
+        and p["max_value"] != p["min_value"]
     ]
     fixed_rows = [p for p in products if p not in custom_rows]
     denominations = sorted([p.get("mrp") for p in fixed_rows if p.get("mrp")])

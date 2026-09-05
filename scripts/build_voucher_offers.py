@@ -154,6 +154,28 @@ def redeem_rules(rules: dict, phrase: str) -> None:
 
 # --------------------------------------------------------------------------
 
+def is_custom_amount(denominations: list, custom_max=None) -> bool:
+    """Does this listing let the shopper type in their own rupee figure?
+
+    One rule for all three sites, because they were each guessing differently
+    and all three were wrong: Gyftr inferred it from any amount carrying a
+    max_value (145 brands), BuyHatke read a scraped flag that is True on 695
+    of 721 listings that plainly sell fixed amounts, and Maximize searched the
+    page text for the word "Custom" (218). Between them they told the app to
+    quote vouchers nobody sells — a ₹154 Netmeds voucher against a catalogue
+    starting at ₹250 — and, where no range came with the flag, to quote nothing
+    at all: 364 BuyHatke brands went silently dead after the 2026-09-04 refresh.
+
+    A listing showing fixed amounts to pick from is not custom, whatever else
+    it reports. And a custom listing without a real ceiling is not usable
+    either — every consumer needs the maximum to size a voucher — so that is
+    False too rather than a flag that reads as a deal and prices as nothing.
+    """
+    if any((d.get("value") if isinstance(d, dict) else d) for d in denominations or []):
+        return False
+    return bool(custom_max and custom_max > 0)
+
+
 def from_gyftr(rec: dict) -> dict:
     raw = rec["raw"]
     page = raw.get("page_text") or ""
@@ -190,7 +212,8 @@ def from_gyftr(rec: dict) -> dict:
         "available": bool(denoms) and "sold out" not in page.lower(),
         "methods": methods,
         "denominations": [{"value": d["value"]} for d in denoms if d.get("value")],
-        "custom_amount": any((d.get("max_value") or 0) > 0 for d in denoms),
+        "custom_amount": is_custom_amount(
+            denoms, max((d.get("max_value") or 0) for d in denoms) if denoms else 0),
         "rules": rules,
         "terms": raw.get("full_terms") or "",
         "instructions": raw.get("important_instruction") or "",
@@ -248,7 +271,8 @@ def from_buyhatke(rec: dict) -> dict:
         "saving_range": ([min(priced), max(priced)] if len(priced) > 1
                          and min(priced) != max(priced) else None),
         "denominations": denoms,
-        "custom_amount": bool(raw.get("custom_amount")),
+        "custom_amount": is_custom_amount(
+            denoms, num(raw.get("max_amount")) or num(raw.get("maxVoucherAmount"))),
         "rules": rules,
         "terms": raw.get("full_terms") or "",
         "instructions": raw.get("how_to_redeem") or "",
@@ -296,7 +320,7 @@ def from_maximize(rec: dict) -> dict:
         "available": bool(denoms) and not raw.get("load_incomplete"),
         "methods": methods,
         "denominations": denoms,
-        "custom_amount": "Custom" in (raw.get("page_text") or ""),
+        "custom_amount": is_custom_amount(denoms, num(raw.get("custom_amount_max"))),
         "rules": rules,
         "terms": raw.get("full_terms") or "",
         "instructions": raw.get("how_to_redeem") or "",

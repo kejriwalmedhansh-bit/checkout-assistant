@@ -118,12 +118,80 @@ def validate_voucher_against_rules(source: str, slug: str, use_case: dict) -> tu
     return True, None
 
 
+def _leftover_is_reusable(voucher: dict) -> bool:
+    """Does unspent value on this voucher survive the order?
+
+    True only where the seller's own terms say so — `one_time_use == "no"`,
+    which for these brands is always a sentence about the balance converting
+    to store credit ("The GV can be converted into e-Pay, and then it can be
+    used partially at the holder's convenience"). "not_stated" is a third of
+    the catalogue and stays conservative: unknown means burned.
+
+    Read per SOURCE, never per brand. The three sellers list genuinely
+    different products under one name — Netmeds is one_time_use "yes" on Gyftr
+    and "no" on Maximize and BuyHatke — so borrowing another seller's answer
+    here would be the same mistake _redemption_help exists to avoid.
+    """
+    source = (voucher.get("voucher_platform") or "Gyftr").lower()
+    slug = voucher.get("slug") or _slug_for(source, voucher.get("brand_name"))
+    if not slug:
+        return False
+    return _rule_value(_standardised_rules(source, slug), "one_time_use") == "no"
+
+
 def _parse_denominations(voucher: dict) -> tuple[bool, list[int]]:
     """Returns (is_custom, sorted_fixed_denoms). is_custom=True when empty."""
     denoms = sorted(set(int(d) for d in (voucher.get("denominations") or []) if d is not None))
     if denoms:
         return False, denoms
     return True, []
+
+
+# Above this many DP states the exact search below is abandoned for the old
+# greedy plus its round-up variants. Only bites on the 57 catalogue tiers
+# whose denominations share no common factor (Zee5's ₹399/₹1,299/₹1,499,
+# Reliance's ₹9,999 top-up) AND a bill in the lakhs; everything else — any
+# brand whose denominations are round hundreds — stays exact.
+_PLAN_SEARCH_MAX_STATES = 200_000
+
+
+# How much unused voucher value a shopper may be asked to park with a brand,
+# as a multiple of the purchase, when that value is confirmed reusable. Buying
+# a ₹250 voucher for a ₹154 order is a fair trade; being told to buy ₹250 for a
+# ₹20 order is not, however good the rate looks. 1.0 = never park more than the
+# purchase itself is worth.
+MAX_REUSABLE_OVERSHOOT_RATIO = 1.0
+# ...and a flat ceiling on top of it. The ratio alone is useless on a big
+# basket: 100% of a ₹2,999 order let Apollo Pharmacy demand ₹4,450 in cash to
+# park ₹2,001 of credit the shopper never asked for. Both bounds apply, so the
+# rule reads "round up by at most ₹250, and never by more than the purchase
+# itself". At ₹250, 12% of deals park anything at all, the median parked amount
+# is ₹1, and the largest is ₹176 (measured across the catalogue 2026-09-05).
+MAX_REUSABLE_OVERSHOOT_RUPEES = 250.0
+
+
+
+def _plan_cost(
+    price: float, face: float, discount_pct: float, leftover_reusable: bool = False
+) -> float:
+    """What a plan really costs the shopper.
+
+    Out of pocket is always `face x (1 - discount) + whatever is left to pay in
+    cash`. The two differ only in what the unspent voucher value is worth:
+
+    * Not reusable (the default) — it is burned, so the shopper is charged for
+      every rupee of it.
+    * Reusable — the brand keeps it as credit, so it is valued at exactly what
+      it cost. The shopper neither gains nor loses on the overshoot; only the
+      part that actually pays for this order is counted.
+
+    Valuing reusable change at cost rather than face is deliberate. Face value
+    would make buying credit look profitable and push shoppers into ever larger
+    vouchers to farm the discount; cost keeps the comparison honest and still
+    surfaces the cheaper platform whenever its rate genuinely wins.
+    """
+    covered = min(face, price) if leftover_reusable else face
+    return covered * (1 - discount_pct / 100.0) + max(0.0, price - face)
 
 
 def _greedy_voucher_amount(
@@ -136,7 +204,11 @@ def _greedy_voucher_amount(
     and value_cap. Returns (total, breakdown) — breakdown is the actual list of
     {denom, count} purchases that sum to `total`, since Gyftr only sells fixed
     denominations and a customer can't literally buy one voucher for the total
-    amount; they need to know exactly which/how-many denominations to buy."""
+    amount; they need to know exactly which/how-many denominations to buy.
+
+    Only a fallback now, for bills too large to search exactly; the caller is
+    _best_voucher_plan, which knows this can undershoot and tries covering the
+    shortfall by rounding up as well."""
     remaining = int(price)
     total = 0
     count_used = 0
@@ -162,6 +234,189 @@ def _greedy_voucher_amount(
         remaining -= count * d
         count_used += count
     return total, breakdown
+
+
+def _best_voucher_plan(
+    price: float,
+    fixed_denoms: list[int],
+    discount_pct: float,
+    stack_limit: int | None = None,
+    value_cap: float | None = None,
+    leftover_reusable: bool = False,
+) -> tuple[int, list[dict]]:
+    """The cheapest buyable set of fixed-denomination vouchers for `price`.
+
+    Replaces a largest-denomination-first greedy that could only ever build a
+    total <= price. That was wrong twice over:
+
+      * It never covered the last few rupees by buying one denomination *up*.
+        A ₹4,999 Frido bill against denominations that include ₹5,000 was
+        quoted 2×₹2,000 + 1×₹500, leaving ₹499 to pay in full cash, instead
+        of the single ₹5,000 voucher that covers the whole bill in one
+        transaction at the full rate. Reported 2026-09-05.
+      * Largest-first is not optimal even under its own <= price rule: with
+        ₹2,000/₹3,000 denominations and a ₹4,000 bill it takes the ₹3,000 and
+        strands ₹1,000, where 2×₹2,000 covers the lot.
+
+    Both go away by optimising what the shopper actually pays rather than
+    voucher face value:
+
+        cost = face x (1 - discount) + whatever is left to settle in cash
+
+    Leftover voucher value is deliberately counted as worth nothing. Some
+    brands (Frido among them) keep the residue as store credit the shopper
+    can spend later, but plenty of vouchers are one-time-use and
+    `one_time_use` is "not_stated" for a fifth of the catalogue. Valuing the
+    residue at zero means an overshoot is recommended only when it wins even
+    if the change is burned — so this can never route a shopper into a plan
+    worse than the old one, whatever a brand's terms turn out to say. It also
+    bounds the search on its own: every rupee past the bill costs
+    (1 - discount) and covers nothing, so no plan overshoots further than one
+    denomination.
+
+    Returns (face_value_total, breakdown) exactly as before, so the total may
+    now legitimately exceed `price` — callers must clamp the cash remainder at
+    zero rather than subtracting straight through.
+    """
+    denoms = sorted({int(d) for d in fixed_denoms if d})
+    if not denoms or discount_pct <= 0:
+        return 0, []
+
+    # Nothing above the bill plus one voucher can ever pay for itself.
+    ceiling = int(math.ceil(price)) + denoms[-1]
+    if value_cap is not None:
+        ceiling = min(ceiling, int(value_cap))
+    if ceiling < denoms[0]:
+        return 0, []
+
+    step = math.gcd(*denoms)
+    units = ceiling // step
+    max_count = units if stack_limit is None else stack_limit
+    if units <= 0 or max_count <= 0:
+        return 0, []
+
+    if units * len(denoms) > _PLAN_SEARCH_MAX_STATES:
+        return _fallback_voucher_plan(
+            price, denoms, discount_pct, stack_limit, value_cap, leftover_reusable
+        )
+
+    # What a plan costs depends only on the face value it reaches, never on
+    # which denominations got there, so the search minimises VOUCHERS and each
+    # total is priced once at the end. Accumulating a running cost here instead
+    # made ties turn on floating-point noise — 1x₹1,000 + 20x₹100 and 3x₹1,000
+    # are the same ₹3,000 but sum to different last bits, and Ajio was being
+    # quoted the 21-voucher plan.
+    unreachable = units + 1
+    # best[u] = (fewest vouchers making u*step of face value, last denom used)
+    best: list[tuple[int, int | None]] = [(unreachable, None)] * (units + 1)
+    best[0] = (0, None)
+    for u in range(1, units + 1):
+        for d in denoms:
+            span = d // step
+            if span > u:
+                break
+            prev_count, _ = best[u - span]
+            if prev_count == unreachable or prev_count >= max_count:
+                continue
+            if prev_count + 1 < best[u][0]:
+                best[u] = (prev_count + 1, d)
+
+    # Buying nothing is the baseline: pay the bill in cash. Ties go to the
+    # plan with fewer vouchers, so a voucher that saves the shopper exactly
+    # nothing is never recommended.
+    chosen_units = 0
+    chosen_key = (round(float(price), 2), 0.0, 0)
+    max_face = (
+        price + min(price * MAX_REUSABLE_OVERSHOOT_RATIO, MAX_REUSABLE_OVERSHOOT_RUPEES)
+        if leftover_reusable else None
+    )
+    for u in range(1, units + 1):
+        count, _ = best[u]
+        if count == unreachable:
+            continue
+        face = u * step
+        if max_face is not None and face > max_face:
+            continue
+        # Once the change is reusable every fully-covering plan scores the same,
+        # so the tie-break decides what actually gets bought. Least money parked
+        # with the brand wins, ahead of fewest vouchers: preferring fewer
+        # vouchers quietly bought MORE credit to save a checkout — a ₹28,999
+        # mattress was routed to 6x₹5,000, raising cash at the counter by ₹837
+        # to park ₹1,001 the shopper never asked for. Cash out of pocket stays
+        # the lowest the rate allows; the multi-transaction rule in
+        # _pick_best_candidate is where checkout friction gets priced, not here.
+        key = (round(_plan_cost(price, face, discount_pct, leftover_reusable), 2), face, count)
+        if key < chosen_key:
+            chosen_units, chosen_key = u, key
+
+    counts: dict[int, int] = {}
+    u = chosen_units
+    while u > 0:
+        d = best[u][1]
+        counts[d] = counts.get(d, 0) + 1
+        u -= d // step
+    breakdown = [{"denom": d, "count": c} for d, c in sorted(counts.items(), reverse=True)]
+    return chosen_units * step, breakdown
+
+
+def _fallback_voucher_plan(
+    price: float,
+    denoms: list[int],
+    discount_pct: float,
+    stack_limit: int | None,
+    value_cap: float | None,
+    leftover_reusable: bool = False,
+) -> tuple[int, list[dict]]:
+    """Approximation for bills too large to search exactly (see
+    _PLAN_SEARCH_MAX_STATES): the old greedy, plus every way of closing the
+    shortfall it leaves by adding one more voucher or trading its smallest
+    voucher up a size. Candidates are scored on the same out-of-pocket
+    measure the exact search uses and the greedy itself is always in the
+    running, so the answer is never worse than the greedy alone."""
+    base_total, base_breakdown = _greedy_voucher_amount(price, denoms, stack_limit, value_cap)
+    best_total = base_total
+    best_counts = {b["denom"]: b["count"] for b in base_breakdown}
+    best_cost = _plan_cost(price, base_total, discount_pct, leftover_reusable)
+    if price - base_total <= 0:
+        return best_total, base_breakdown
+
+    # Candidates are always built from the greedy plan, never from whichever
+    # improvement happens to be winning — otherwise `smallest` can name a
+    # denomination the current best has already traded away.
+    base_counts = dict(best_counts)
+    used = sum(base_counts.values())
+    smallest = base_breakdown[-1]["denom"] if base_breakdown else None
+
+    def consider(counts: dict[int, int]) -> None:
+        nonlocal best_total, best_counts, best_cost
+        total = sum(d * n for d, n in counts.items())
+        if value_cap is not None and total > value_cap:
+            return
+        if leftover_reusable and total - price > min(price * MAX_REUSABLE_OVERSHOOT_RATIO, MAX_REUSABLE_OVERSHOOT_RUPEES):
+            return
+        if stack_limit is not None and sum(counts.values()) > stack_limit:
+            return
+        cost = _plan_cost(price, total, discount_pct, leftover_reusable)
+        if cost < best_cost:
+            best_cost, best_total, best_counts = cost, total, counts
+
+    for d in denoms:
+        if d < price - base_total:
+            continue
+        # Add one voucher big enough to close the gap...
+        if stack_limit is None or used + 1 <= stack_limit:
+            consider({**base_counts, d: base_counts.get(d, 0) + 1})
+        # ...or trade the smallest one already in the plan up to it.
+        if smallest is not None and d > smallest:
+            counts = dict(base_counts)
+            counts[smallest] -= 1
+            if not counts[smallest]:
+                del counts[smallest]
+            counts[d] = counts.get(d, 0) + 1
+            consider(counts)
+
+    breakdown = [{"denom": d, "count": n} for d, n in sorted(best_counts.items(), reverse=True)]
+    return best_total, breakdown
 
 
 def _format_breakdown(breakdown: list[dict]) -> str:
@@ -225,6 +480,7 @@ def _clean_instructions(html: str) -> list[str]:
 
 def calculate_effective_price(price: float, voucher: dict, payment_method: str = "upi") -> dict:
     discount_pct = _discount_pct(voucher, payment_method)
+    leftover_reusable = _leftover_is_reusable(voucher)
     custom_txns_needed = None
     denomination_breakdown: list[dict] = []
 
@@ -268,13 +524,17 @@ def calculate_effective_price(price: float, voucher: dict, payment_method: str =
             stack_limit = voucher.get("stack_limit")
             if stack_limit is None and voucher.get("stack_limit_confidence") != "unlimited_stated":
                 stack_limit = 1
-            amount, denomination_breakdown = _greedy_voucher_amount(
-                price, fixed_denoms,
+            amount, denomination_breakdown = _best_voucher_plan(
+                price, fixed_denoms, discount_pct,
                 stack_limit=stack_limit,
                 value_cap=voucher.get("value_cap"),
+                leftover_reusable=leftover_reusable,
             )
             voucher_amount = float(amount)
-            remainder = round(price - voucher_amount, 2)
+            # May now exceed the bill: covering the last ₹499 of a ₹4,999
+            # purchase by buying ₹5,000 is cheaper than paying it in cash, so
+            # the cash remainder floors at zero instead of going negative.
+            remainder = round(max(0.0, price - voucher_amount), 2)
 
     # Two unrelated caps can both apply to a custom-amount voucher (e.g.
     # Archies Gallery): `custom_max` limits how big a SINGLE voucher can be
@@ -298,10 +558,30 @@ def calculate_effective_price(price: float, voucher: dict, payment_method: str =
     # purposes; that override describes what the STORE will redeem, not how
     # many the RESELLER lets you buy in one sitting. Missing data defaults to
     # 1 per order, the same conservative-default rule used elsewhere here.
+    #
+    # An UNKNOWN cap is not a cap of one. What forces a second checkout on
+    # these platforms is picking a second *amount*, not a second voucher: five
+    # ₹5,000 vouchers go through in one order, ₹5,000 plus ₹2,000 does not.
+    # Defaulting the unknown case to one-voucher-per-order charged a checkout
+    # for every repeat and inflated the count — a ₹28,999 Frido order read as 7
+    # transactions instead of 2 — which then lost Maximize the recommendation
+    # under MULTI_TXN_SAVINGS_THRESHOLD despite a rate 2 points better. It bit
+    # 194 of 399 Maximize listings, the ones carrying no stack_limit at all.
+    # A real, known cap is still divided through; BuyHatke passes an explicit 1
+    # (live-confirmed: it genuinely allows only one voucher per checkout, even
+    # of the same amount) so it is unaffected by this default.
+    #
+    # How many vouchers the STORE will then accept on one bill is a separate
+    # question, already settled above by `stack_limit` — which stays at a
+    # conservative 1 unless the brand's own terms confirm combining.
     reseller_denom_txns = 1
     if denomination_breakdown and voucher.get("voucher_platform", "Gyftr").lower() in _SINGLE_ITEM_CHECKOUT_PLATFORMS:
-        reseller_limit = voucher.get("reseller_stack_limit") or 1
-        reseller_denom_txns = sum(math.ceil(b["count"] / reseller_limit) for b in denomination_breakdown)
+        reseller_limit = voucher.get("reseller_stack_limit")
+        reseller_denom_txns = (
+            sum(math.ceil(b["count"] / reseller_limit) for b in denomination_breakdown)
+            if reseller_limit
+            else len(denomination_breakdown)
+        )
 
     txns_needed = max(cap_txns, custom_txns_needed or 1, reseller_denom_txns)
     if custom_txns_needed is not None and custom_txns_needed >= cap_txns:
@@ -314,8 +594,25 @@ def calculate_effective_price(price: float, voucher: dict, payment_method: str =
         per_txn_cap = None
         per_txn_cap_kind = None
 
+    # What the shopper actually parts with: the discounted cost of the
+    # vouchers plus anything still owed at the till. Identical to the old
+    # `price - discount_amount` whenever the vouchers land on or under the
+    # bill, but that form silently credits a discount on money spent past it,
+    # so it under-reports the cost of any plan that rounds up.
     discount_amount = round(voucher_amount * discount_pct / 100, 2)
-    effective_price = round(price - discount_amount, 2)
+    effective_price = round(voucher_amount * (1 - discount_pct / 100) + remainder, 2)
+    # Face value bought beyond the bill. Frido and other e-Pay brands keep it
+    # as store credit; a one-time-use voucher burns it. Either way the plan
+    # was chosen assuming it is worth nothing (see _best_voucher_plan), so
+    # this is surfaced for the copy to be honest about, not to discount by.
+    voucher_overshoot = round(max(0.0, voucher_amount - price), 2)
+    # `effective_price` is cash at the counter and stays that way — it is what
+    # the shopper is told to pay. Ranking, though, must not treat ₹96 of usable
+    # store credit as money burned, or a genuinely better platform loses to a
+    # worse one purely for selling in bigger steps. Equal when nothing is left
+    # over, which is the overwhelming majority of deals.
+    reusable_credit = round(voucher_overshoot * (1 - discount_pct / 100), 2) if leftover_reusable else 0.0
+    net_effective_price = round(effective_price - reusable_credit, 2)
 
     # What the customer actually needs to buy — Gyftr only sells fixed
     # denominations (or, for custom-amount/wallet brands, up to `custom_max`
@@ -356,6 +653,10 @@ def calculate_effective_price(price: float, voucher: dict, payment_method: str =
         "original_price": price,
         "voucher_amount": voucher_amount,
         "remainder_at_checkout": remainder,
+        "voucher_overshoot": voucher_overshoot,
+        "leftover_reusable": leftover_reusable,
+        "reusable_credit": reusable_credit,
+        "net_effective_price": net_effective_price,
         "is_custom": is_custom,
         "voucher_discount_pct": discount_pct,
         "voucher_discount_amount": discount_amount,
@@ -399,6 +700,13 @@ def get_best_voucher_deal(merchant_name: str, price: float) -> dict | None:
     return deal
 
 
+def _rank_price(deal: dict) -> float:
+    """The figure platforms are compared on: cash at the counter, less any
+    leftover voucher value the brand's own terms say the shopper keeps. Falls
+    back to the cash price for deals built before that was tracked."""
+    return deal.get("net_effective_price", deal["effective_price"])
+
+
 def _best_tier_deal(price: float, tiers: list[dict], payment_method: str = "upi") -> tuple[dict, dict] | None:
     """Runs calculate_effective_price per tier (unchanged) and keeps whichever
     tier yields the lowest effective_price among tiers with a real discount
@@ -412,7 +720,7 @@ def _best_tier_deal(price: float, tiers: list[dict], payment_method: str = "upi"
         deal = calculate_effective_price(price, tier, payment_method)
         if not deal["voucher_discount_pct"] or deal["voucher_amount"] == 0:
             continue
-        if best_deal is None or deal["effective_price"] < best_deal["effective_price"]:
+        if best_deal is None or _rank_price(deal) < _rank_price(best_deal):
             best_deal = deal
             best_tier = tier
     if best_deal is None:
@@ -573,7 +881,7 @@ def _pick_best_candidate(candidates: list[tuple]) -> tuple:
     made 2026-09-03 after a real case (Frido) where Maximize's 16.25% needed
     2 transactions and Gyftr's 14% needed 1, for only ~2.6% more.
     """
-    cheapest = min(candidates, key=lambda c: c[0]["effective_price"])
+    cheapest = min(candidates, key=lambda c: _rank_price(c[0]))
     if cheapest[0].get("txns_needed", 1) <= 1:
         return cheapest
 
@@ -581,9 +889,9 @@ def _pick_best_candidate(candidates: list[tuple]) -> tuple:
     if not single_txn:
         return cheapest
 
-    best_single = min(single_txn, key=lambda c: c[0]["effective_price"])
-    single_price = best_single[0]["effective_price"]
-    cheapest_price = cheapest[0]["effective_price"]
+    best_single = min(single_txn, key=lambda c: _rank_price(c[0]))
+    single_price = _rank_price(best_single[0])
+    cheapest_price = _rank_price(cheapest[0])
     if cheapest_price <= single_price * (1 - MULTI_TXN_SAVINGS_THRESHOLD):
         return cheapest
     return best_single
@@ -784,6 +1092,7 @@ def build_deals(results: list[dict], product_name: str = "") -> list[dict]:
                 "pct": deal["voucher_discount_pct"],
                 "voucher_amount": deal["voucher_amount"],
                 "remainder": deal.get("remainder_at_checkout") or 0,
+                "overshoot": deal.get("voucher_overshoot") or 0,
                 "saving": deal["voucher_discount_amount"],
                 "effective_price": deal["effective_price"],
                 "txns_needed": deal.get("txns_needed", 1),
@@ -973,6 +1282,7 @@ def get_voucher_check(merchant_name: str, price: float | None = None) -> dict | 
             # --- everything below powers the guided journey ---
             "voucher_amount": deal.get("voucher_amount"),
             "remainder": deal.get("remainder_at_checkout") or 0,
+            "overshoot": deal.get("voucher_overshoot") or 0,
             "purchase_breakdown": deal.get("purchase_breakdown") or "",
             "denomination_breakdown": deal.get("denomination_breakdown") or [],
             "txns_needed": deal.get("txns_needed", 1),
