@@ -418,6 +418,74 @@ def _best_voucher_plan(
     return chosen_units * step, breakdown
 
 
+def _single_checkout_plan(
+    price: float,
+    fixed_denoms: list[int],
+    discount_pct: float,
+    max_count: int,
+    value_cap: float | None = None,
+    leftover_reusable: bool = False,
+) -> tuple[int, list[dict]]:
+    """The cheapest plan buyable in ONE order on a platform with no cart.
+
+    Maximize and BuyHatke sell a single amount per checkout, so a plan there
+    may use one denomination only, repeated at most `max_count` times.
+    MAX_CHECKOUTS is one: whatever the vouchers do not cover is paid by card,
+    and nobody is sent to buy twice.
+
+    That makes one checkout a CONSTRAINT on what may be planned, not a test the
+    finished plan is marked against — which is the bug this exists to fix.
+    Planning without it and disqualifying the result afterwards threw away the
+    platform along with the plan: a ₹2,199 Frido bill priced Maximize's 16.25%
+    as 1x₹2,000 + 2x₹100, saw two checkouts, dropped Maximize entirely, and
+    routed the shopper to Gyftr's 14% at ₹1,919 — when a single ₹2,000
+    Maximize voucher plus ₹199 on the card is ₹1,874 in one checkout. Chasing
+    the last ₹32 of discount cost the shopper ₹45. Reported 2026-09-07.
+
+    Ranked cheapest cash at the counter, then least face value bought, then
+    fewest vouchers, with "buy nothing and pay cash" as the baseline — so a
+    voucher that saves the shopper nothing is never recommended. Leftover
+    value counts for nothing even where the brand keeps it as credit, which is
+    the doctrine _best_voucher_plan states and the reason overshoot has to
+    earn its place: counting reusable change at cost made overshoot free, and
+    the search bought it — a ₹1,299 Frido order came out as 3x₹500 (₹1,256
+    today, ₹201 parked as store credit) over a single ₹1,000 voucher at
+    ₹1,136. Nobody is charged more today for credit they did not ask for.
+    """
+    denoms = sorted({int(d) for d in fixed_denoms if d})
+    if not denoms or discount_pct <= 0 or max_count < 1:
+        return 0, []
+
+    # How far past the bill a plan may buy, capped the same way
+    # _best_voucher_plan caps it. Where the change becomes store credit it is
+    # kept small, because cash scoring alone will not stop a big overshoot when
+    # only one denomination may be used: a ₹28,999 MakeMyTrip order came out as
+    # 3x₹10,000, ₹701 more at the counter than Gyftr's basket, to park ₹1,001
+    # of credit nobody asked for. Where the change is simply burned there is
+    # nothing to protect the shopper from — a plan only wins there by costing
+    # less today — so the bound is just "nothing a voucher can never repay".
+    max_face = (
+        price + min(price * MAX_REUSABLE_OVERSHOOT_RATIO, MAX_REUSABLE_OVERSHOOT_RUPEES)
+        if leftover_reusable else price + denoms[-1] * max_count
+    )
+    chosen: tuple[int, int] | None = None
+    chosen_key = (round(float(price), 2), 0.0, 0)
+    for d in denoms:
+        for count in range(1, max_count + 1):
+            face = d * count
+            if face > max_face:
+                break
+            if value_cap is not None and face > value_cap:
+                break
+            key = (round(_plan_cost(price, face, discount_pct), 2), face, count)
+            if key < chosen_key:
+                chosen, chosen_key = (d, count), key
+    if chosen is None:
+        return 0, []
+    denom, count = chosen
+    return denom * count, [{"denom": denom, "count": count}]
+
+
 def _fallback_voucher_plan(
     price: float,
     denoms: list[int],
@@ -541,7 +609,22 @@ def calculate_effective_price(price: float, voucher: dict, payment_method: str =
     discount_pct = _discount_pct(voucher, payment_method)
     leftover_reusable = _leftover_is_reusable(voucher)
     custom_txns_needed = None
+    custom_units = 0
     denomination_breakdown: list[dict] = []
+
+    # Known before the plan is built, not just after it. On a platform with no
+    # cart the one-checkout rule constrains what may be planned at all — see
+    # _single_checkout_plan.
+    is_single_item_platform = (
+        voucher.get("voucher_platform", "Gyftr").lower() in _SINGLE_ITEM_CHECKOUT_PLATFORMS
+    )
+    # Vouchers of ONE amount buyable in a single order there: the reseller's own
+    # per-order quantity cap, never lifted past what the store will combine on
+    # one bill. Unknown means one — the assumption that cannot overstate how
+    # easy the errand is.
+    one_order_count = voucher.get("reseller_stack_limit") or 1
+    if voucher.get("stack_limit"):
+        one_order_count = min(one_order_count, int(voucher["stack_limit"]))
 
     if voucher.get("is_custom_denom"):
         # Real custom-amount range (e.g. Titan: any exact amount ₹100-10,000).
@@ -561,10 +644,27 @@ def calculate_effective_price(price: float, voucher: dict, payment_method: str =
         else:
             # Unknown — conservative default of a single voucher.
             total_cap = custom_max
+        if is_single_item_platform and custom_max:
+            # No cart, and a custom voucher is bought by typing an amount in.
+            # Two amounts is two checkouts, and whether the reseller's
+            # "up to 4 of the same" cap applies to typed-in amounts has never
+            # been live-tested — so one voucher per order is all that is
+            # claimed here. The rest of the bill goes on the card, which under
+            # MAX_CHECKOUTS is the release valve, not a second errand.
+            total_cap = min(total_cap, custom_max)
+        if voucher.get("purchase_cap_per_txn"):
+            # One checkout means one transaction's worth of vouchers, on every
+            # platform. See the fixed-denomination branch below.
+            total_cap = min(total_cap, voucher["purchase_cap_per_txn"])
         voucher_amount = min(price, total_cap) if custom_max else 0.0
-        remainder = round(price - voucher_amount, 2)
+        remainder = round(max(0.0, price - voucher_amount), 2)
         is_custom = True
-        custom_txns_needed = math.ceil(voucher_amount / custom_max) if custom_max and voucher_amount else 0
+        custom_units = math.ceil(voucher_amount / custom_max) if custom_max and voucher_amount else 0
+        # Vouchers, not errands: the total is now capped at what one checkout
+        # can buy, so however many vouchers it takes, it is one checkout —
+        # several go in one Gyftr basket, and a cartless platform was already
+        # held to a single voucher above.
+        custom_txns_needed = 1 if custom_units else 0
     else:
         is_custom, fixed_denoms = _parse_denominations(voucher)
         if is_custom or not fixed_denoms:
@@ -583,12 +683,32 @@ def calculate_effective_price(price: float, voucher: dict, payment_method: str =
             stack_limit = voucher.get("stack_limit")
             if stack_limit is None and voucher.get("stack_limit_confidence") != "unlimited_stated":
                 stack_limit = 1
-            amount, denomination_breakdown = _best_voucher_plan(
-                price, fixed_denoms, discount_pct,
-                stack_limit=stack_limit,
-                value_cap=voucher.get("value_cap"),
-                leftover_reusable=leftover_reusable,
-            )
+            # The most face value one checkout can buy. A brand's own value cap,
+            # and the platform's per-transaction ceiling, are both hard walls:
+            # without the second, Gyftr's ₹26,000 Subway cap turned a ₹54,999
+            # order into three separate checkouts — exactly what MAX_CHECKOUTS
+            # exists to prevent. Buy one checkout's worth; the card covers the
+            # rest.
+            rupee_cap = voucher.get("value_cap")
+            if voucher.get("purchase_cap_per_txn"):
+                rupee_cap = min(c for c in (rupee_cap, voucher["purchase_cap_per_txn"]) if c)
+            if is_single_item_platform:
+                # No cart: one amount only, repeated up to the reseller's own
+                # per-order cap. A constraint on the plan, not a verdict on it.
+                amount, denomination_breakdown = _single_checkout_plan(
+                    price, fixed_denoms, discount_pct,
+                    max_count=min(one_order_count, stack_limit) if stack_limit else one_order_count,
+                    value_cap=rupee_cap,
+                    leftover_reusable=leftover_reusable,
+                )
+            else:
+                # Gyftr has a cart, so any mix of amounts is one basket.
+                amount, denomination_breakdown = _best_voucher_plan(
+                    price, fixed_denoms, discount_pct,
+                    stack_limit=stack_limit,
+                    value_cap=rupee_cap,
+                    leftover_reusable=leftover_reusable,
+                )
             voucher_amount = float(amount)
             # May now exceed the bill: covering the last ₹499 of a ₹4,999
             # purchase by buying ₹5,000 is cheaper than paying it in cash, so
@@ -629,10 +749,6 @@ def calculate_effective_price(price: float, voucher: dict, payment_method: str =
     #   * A QUANTITY CAP on repeats of the SAME amount, which applies only
     #     where the brand permits multi-buy at all, and tops out at four. See
     #     _maximize_qty_per_txn.
-    is_single_item_platform = (
-        voucher.get("voucher_platform", "Gyftr").lower() in _SINGLE_ITEM_CHECKOUT_PLATFORMS
-    )
-
     reseller_denom_txns = 1
     if denomination_breakdown and is_single_item_platform:
         reseller_limit = voucher.get("reseller_stack_limit")
@@ -691,9 +807,9 @@ def calculate_effective_price(price: float, voucher: dict, payment_method: str =
     # needs its per-unit breakdown even when it all fits in one checkout.
     if denomination_breakdown:
         purchase_breakdown = _format_breakdown(denomination_breakdown)
-    elif is_custom and voucher.get("is_custom_denom") and custom_txns_needed and voucher.get("custom_max"):
+    elif is_custom and voucher.get("is_custom_denom") and custom_units and voucher.get("custom_max"):
         custom_max = voucher["custom_max"]
-        if custom_txns_needed > 1:
+        if custom_units > 1:
             # A custom-amount voucher is bought by typing in an exact rupee
             # figure, not by choosing "up to X" — so the buy step must hand
             # the customer the exact amount for each of the N vouchers

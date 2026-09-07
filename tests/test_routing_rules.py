@@ -30,13 +30,19 @@ from src.services import voucher_service as vs  # noqa: E402
 # 2. One voucher needed -> whichever platform is cheapest, Maximize and
 #    BuyHatke included.
 # 3. More than one denomination needed -> Gyftr, always. Maximize and BuyHatke
-#    have no cart and cannot take two different amounts in one order.
+#    have no cart and cannot take two different amounts in one order. They are
+#    not dropped for it, though: they are planned inside the one-checkout rule
+#    from the start, taking the best single amount they can and leaving the
+#    rest to the card. Dropping them instead sent a ₹2,199 Frido order to
+#    Gyftr at ₹1,919 when Maximize could do ₹1,874 in one checkout.
 # 4. Repeats of the SAME denomination -> allowed on Maximize up to four, and
 #    only where the brand's own terms permit combining vouchers on one bill.
 #    BuyHatke sells one voucher per transaction whatever the denomination.
 
 CASES = [
     # (shop domain, order, expected platform, rule being protected)
+    ("myfrido.com", 2199, "maximize",
+     "rule 1+2 — one ₹2,000 voucher and ₹199 on the card beats Gyftr's ₹1,919"),
     ("myfrido.com", 5000, "maximize",
      "rule 2 — one voucher, Maximize's 16.25% beats Gyftr's 14%"),
     ("myfrido.com", 12000, "gyftr",
@@ -45,10 +51,12 @@ CASES = [
      "rule 3/4 — the order that was wrongly sent to Maximize as 8 purchases"),
     ("skullcandy.in", 5000, "buyhatke",
      "rule 2 — one voucher, BuyHatke cheapest"),
-    ("skullcandy.in", 12000, "gyftr",
-     "rule 3 — a custom-amount brand still may not mix amounts on Maximize"),
-    ("netmeds.com", 5000, "gyftr",
-     "rule 1 — Maximize would need two checkouts here, so it loses outright"),
+    ("skullcandy.in", 12000, "maximize",
+     "rule 1+3 — still one typed-in amount only, but ₹10,000 there plus "
+     "₹2,000 on the card is one checkout and beats Gyftr's three-voucher basket"),
+    ("netmeds.com", 5000, "maximize",
+     "rule 4 — 4×₹1,000 is one amount within Maximize's cap of four, so one "
+     "checkout, with the last ₹1,000 on the card"),
     ("myntra.com", 12000, "buyhatke",
      "rule 2 — a single ₹10,000 voucher, remainder on card"),
     ("croma.com", 29999, "gyftr",
