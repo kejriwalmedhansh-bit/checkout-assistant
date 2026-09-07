@@ -37,15 +37,44 @@ PAYMENT_METHOD_TO_DISCOUNT_KEYS = {
 # (that's `_store_allows_stacking`, a different fact — see its docstring).
 _SINGLE_ITEM_CHECKOUT_PLATFORMS = {"maximize", "buyhatke"}
 
-# Maximize's own quantity selector is capped at "Max: 4" on every product page,
-# for one denomination of one brand. It is a property of the platform, not of a
-# listing, but only some listings carry it as a scraped `stack_limit` — 194 of
-# 399 have none — and a missing one used to mean "no limit at all".
+# Buying more than one voucher in a single Maximize checkout takes TWO separate
+# permissions, and both have to hold (product owner, 2026-09-07):
 #
-# That is how a ₹29,999 Frido order came to be planned as six ₹5,000 vouchers
-# bought in a single imaginary checkout, which then beat Gyftr's genuine
-# one-basket route on rate alone. Reported from live use 2026-09-07.
+#   1. the brand has to allow multiple vouchers at all — many do not, and
+#   2. even when it does, Maximize's own quantity selector stops at "Max: 4",
+#
+# and the vouchers must be the same denomination of the same brand. So the
+# usable quantity is the brand's own limit, capped at four — never four on its
+# own, which is the mistake this constant was briefly used to make.
 _MAXIMIZE_MAX_QTY_PER_TXN = 4
+
+
+def _maximize_qty_per_txn(stack_limit: int | None) -> int:
+    """Vouchers buyable in one Maximize checkout, for one brand and denomination.
+
+    Of 353 active Maximize listings, 179 record no limit and 128 record 1, so
+    "unknown" is not a rare edge — it is half the catalogue, and a third of
+    what IS known says no multi-buy at all. Unknown therefore resolves to 1,
+    the more restrictive reading, in line with the standing rule that the more
+    restrictive source wins.
+
+    The cost of that is real and worth stating: for a brand that does allow
+    multi-buy but never had it recorded, Dealo will over-count the checkouts
+    and may send the shopper to Gyftr when Maximize would have been fine and
+    cheaper. The cost of the opposite default is what was actually reported —
+    promising one easy checkout and then demanding six — and between a deal
+    that is quietly missed and a promise that is publicly broken, the missed
+    deal is the survivable one.
+
+    Closing the gap properly means reading the quantity cap off the 179
+    listings that lack it; until then this is deliberately pessimistic.
+
+    A recorded limit above four is capped, not believed: 29 listings claim 5,
+    7, 9, 10 or 15, and no Maximize checkout sells that many at once.
+    """
+    if not stack_limit or stack_limit < 1:
+        return 1
+    return min(stack_limit, _MAXIMIZE_MAX_QTY_PER_TXN)
 
 # Recommended Route tie-break: a cheaper multi-transaction deal only beats a
 # single-transaction deal when it saves more than this fraction extra on top
@@ -54,6 +83,15 @@ _MAXIMIZE_MAX_QTY_PER_TXN = 4
 # product USP, not just a nice-to-have. Set 2026-09-03 per product decision:
 # up to ~5% more is worth paying to avoid extra transactions.
 MULTI_TXN_SAVINGS_THRESHOLD = 0.05
+
+# ...and above this many checkouts, no rate is good enough while a
+# one-basket option exists. The threshold above is a flat percentage, so it
+# priced two checkouts and thirty identically: a ₹29,999 Netmeds order was
+# recommended as THIRTY separate ₹1,000 purchases on Maximize, because its 16%
+# beat Gyftr's 10% by more than five percent. Nobody makes thirty purchases to
+# save six points, and offering it destroys the trust the saving was for.
+# Found while re-checking the Frido routing, 2026-09-07.
+MAX_EXTRA_CHECKOUTS_WORTH_IT = 2
 
 # Load standardized voucher rules from T&C extraction
 def _load_voucher_rules() -> dict:
@@ -566,26 +604,26 @@ def calculate_effective_price(price: float, voucher: dict, payment_method: str =
     # un-overridden order-quantity cap — never the `stack_limit` that
     # `_store_allows_stacking` may have lifted to "unlimited" for value-cap
     # purposes; that override describes what the STORE will redeem, not how
-    # many the RESELLER lets you buy in one sitting. Missing data defaults to
-    # 1 per order, the same conservative-default rule used elsewhere here.
+    # many the RESELLER lets you buy in one sitting.
     #
-    # An UNKNOWN cap is not a cap of one. What forces a second checkout on
-    # these platforms is picking a second *amount*, not a second voucher: five
-    # ₹5,000 vouchers go through in one order, ₹5,000 plus ₹2,000 does not.
-    # Defaulting the unknown case to one-voucher-per-order charged a checkout
-    # for every repeat and inflated the count — a ₹28,999 Frido order read as 7
-    # transactions instead of 2 — which then lost Maximize the recommendation
-    # under MULTI_TXN_SAVINGS_THRESHOLD despite a rate 2 points better. It bit
-    # 194 of 399 Maximize listings, the ones carrying no stack_limit at all.
-    # A real, known cap is still divided through; BuyHatke passes an explicit 1
-    # (live-confirmed: it genuinely allows only one voucher per checkout, even
-    # of the same amount) so it is unaffected by this default.
+    # Two separate limits apply on Maximize and BuyHatke, and only one of them
+    # is about quantity (product owner, 2026-09-07):
     #
-    # How many vouchers the STORE will then accept on one bill is a separate
-    # question, already settled above by `stack_limit` — which stays at a
-    # conservative 1 unless the brand's own terms confirm combining.
+    #   * NO CART AT ALL. Neither platform lets you put two different amounts
+    #     in one basket, even of the same brand — ₹5,000 plus ₹2,000 is always
+    #     two checkouts, and there is no rate good enough to make that a
+    #     recommendation while Gyftr will sell the same thing in one. That is
+    #     handled as a hard disqualification in _pick_best_candidate rather
+    #     than priced in here, which is why the flag below exists.
+    #   * A QUANTITY CAP on repeats of the SAME amount, which applies only
+    #     where the brand permits multi-buy at all, and tops out at four. See
+    #     _maximize_qty_per_txn.
+    is_single_item_platform = (
+        voucher.get("voucher_platform", "Gyftr").lower() in _SINGLE_ITEM_CHECKOUT_PLATFORMS
+    )
+
     reseller_denom_txns = 1
-    if denomination_breakdown and voucher.get("voucher_platform", "Gyftr").lower() in _SINGLE_ITEM_CHECKOUT_PLATFORMS:
+    if denomination_breakdown and is_single_item_platform:
         reseller_limit = voucher.get("reseller_stack_limit")
         reseller_denom_txns = (
             sum(math.ceil(b["count"] / reseller_limit) for b in denomination_breakdown)
@@ -596,9 +634,7 @@ def calculate_effective_price(price: float, voucher: dict, payment_method: str =
             # scored as one, and the fewer-transactions rule that should have
             # sent the shopper to Gyftr never fired. When the limit is genuinely
             # unknown, assume the platform sells one at a time; that is the
-            # assumption that cannot overstate how easy the errand is. Both
-            # current platforms now pass a real limit, so this is a guard for
-            # the next one, not a live path.
+            # assumption that cannot overstate how easy the errand is.
             else sum(b["count"] for b in denomination_breakdown)
         )
 
@@ -668,6 +704,15 @@ def calculate_effective_price(price: float, voucher: dict, payment_method: str =
     else:
         purchase_breakdown = f"₹{voucher_amount:,.0f}" if voucher_amount else ""
 
+    # Deliberately here, not earlier: a custom-amount brand has no breakdown at
+    # all until the block just above splits the total into per-voucher chunks.
+    # Computed before that, this read an empty list and quietly answered "one
+    # denomination" for every custom brand — Skullcandy's ₹10,000 + ₹2,000 on
+    # Maximize sailed through the rule that exists to stop exactly that.
+    needs_separate_checkout_per_denom = (
+        is_single_item_platform and len(denomination_breakdown or []) > 1
+    )
+
     return {
         "original_price": price,
         "voucher_amount": voucher_amount,
@@ -682,6 +727,9 @@ def calculate_effective_price(price: float, voucher: dict, payment_method: str =
         "effective_price": effective_price,
         "payment_method": payment_method,
         "txns_needed": txns_needed,
+        # See _pick_best_candidate: more than one amount on a platform with
+        # no cart is disqualifying, not merely expensive.
+        "needs_separate_checkout_per_denom": needs_separate_checkout_per_denom,
         "per_txn_cap": per_txn_cap,
         "per_txn_cap_kind": per_txn_cap_kind,
         "voucher_platform": voucher.get("voucher_platform", "Gyftr"),
@@ -777,8 +825,7 @@ def get_best_maximize_deal(merchant_name: str, price: float) -> tuple[dict, dict
             # Maximize checkout," and they can legitimately differ (live-
             # confirmed 2026-09-03: Frido's store terms allow combining
             # vouchers, but Maximize itself still caps the order at 4).
-            # Falls back to the platform's own "Max: 4", never to "unlimited".
-            "reseller_stack_limit": p.get("stack_limit") or _MAXIMIZE_MAX_QTY_PER_TXN,
+            "reseller_stack_limit": _maximize_qty_per_txn(p.get("stack_limit")),
             # Same correction as BuyHatke: a reseller's per-order voucher
             # count describes its own checkout, not what the store accepts.
             # 58 Maximize brands carry "1 voucher" against stores whose own
@@ -901,6 +948,18 @@ def _pick_best_candidate(candidates: list[tuple]) -> tuple:
     made 2026-09-03 after a real case (Frido) where Maximize's 16.25% needed
     2 transactions and Gyftr's 14% needed 1, for only ~2.6% more.
     """
+    # Rule one, and it is absolute rather than a matter of price: Maximize and
+    # BuyHatke have no cart. Two different amounts cannot go through together
+    # even for the same brand, so a plan needing ₹5,000 and ₹2,000 there is two
+    # separate purchases where Gyftr sells the identical thing in one basket.
+    # No rate closes that gap, so such a plan is removed from the running
+    # outright whenever anything else can do the job — rather than being
+    # discounted by MULTI_TXN_SAVINGS_THRESHOLD and sometimes surviving it.
+    # Product owner, 2026-09-07.
+    cartless = [c for c in candidates if c[0].get("needs_separate_checkout_per_denom")]
+    if cartless and len(cartless) < len(candidates):
+        candidates = [c for c in candidates if not c[0].get("needs_separate_checkout_per_denom")]
+
     cheapest = min(candidates, key=lambda c: _rank_price(c[0]))
     if cheapest[0].get("txns_needed", 1) <= 1:
         return cheapest
@@ -912,7 +971,9 @@ def _pick_best_candidate(candidates: list[tuple]) -> tuple:
     best_single = min(single_txn, key=lambda c: _rank_price(c[0]))
     single_price = _rank_price(best_single[0])
     cheapest_price = _rank_price(cheapest[0])
-    if cheapest_price <= single_price * (1 - MULTI_TXN_SAVINGS_THRESHOLD):
+    cheap_enough = cheapest_price <= single_price * (1 - MULTI_TXN_SAVINGS_THRESHOLD)
+    short_enough = cheapest[0].get("txns_needed", 1) <= MAX_EXTRA_CHECKOUTS_WORTH_IT
+    if cheap_enough and short_enough:
         return cheapest
     return best_single
 
