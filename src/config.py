@@ -107,6 +107,20 @@ class Settings(BaseSettings):
     # SearchApi budget from one spammy/bot number.
     WHATSAPP_MAX_SEARCHES_PER_HOUR: int = 20
 
+    # --- Website search limits (see src/api/rate_limit.py) ---
+    # The same budget protection for the web, where there's no phone number to
+    # key on and anyone can call the endpoints directly. Set well above real
+    # use: a shopper runs a handful of searches, not dozens a minute. Indian
+    # mobile networks put many people behind one address, so the per-IP
+    # numbers have to leave room for a whole shared connection, not one person.
+    SEARCH_MAX_PER_MINUTE_PER_IP: int = 20
+    SEARCH_MAX_PER_HOUR_PER_IP: int = 150
+    # The backstop the other two can't provide: per-IP limits are only as good
+    # as the IP, and changing address is cheap. This caps the hourly bill
+    # however the traffic arrives. Raise it when real traffic gets near it —
+    # a hit is logged as a warning.
+    SEARCH_MAX_PER_HOUR_TOTAL: int = 1500
+
     @property
     def cors_origins_list(self) -> list[str]:
         return [o.strip() for o in self.CORS_ORIGINS.split(",") if o.strip()]
