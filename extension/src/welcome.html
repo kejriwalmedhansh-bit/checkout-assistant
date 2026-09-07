@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dealo</title>
+  <link rel="stylesheet" href="welcome.css" />
+</head>
+<body>
+  <main class="stage">
+    <!-- The ask. Everything a stranger needs in order to say yes, and nothing
+         they have to scroll for. -->
+    <section class="panel" id="ask">
+      <div class="mark">deal<span>o</span></div>
+
+      <h1><span id="hl-strong">Up to 20%</span> off, at shops you already use</h1>
+      <p class="lede">
+        Plenty of Indian shops sell their own gift vouchers below face value —
+        <span id="hl-typical">around 9%</span> on a typical shop, more on the best.
+        Buy the voucher, spend it on the order you were placing anyway, pay less.
+        Same shop, same order, same delivery.
+      </p>
+
+      <p class="ask-line">
+        To find yours, Dealo has to be able to look at the shop pages you open.
+      </p>
+
+      <ul class="ledger">
+        <li class="yes">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5" /></svg>
+          <span>Shop pages you are checking out on</span>
+        </li>
+        <li class="yes">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5" /></svg>
+          <span>The order total shown on those pages</span>
+        </li>
+        <li class="no">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12" /></svg>
+          <span>Never your email, messages or files</span>
+        </li>
+        <li class="no">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12" /></svg>
+          <span>Never your card details</span>
+        </li>
+      </ul>
+
+      <button id="grant" class="cta" type="button">Start saving</button>
+      <p class="foot" id="foot">Chrome will ask you to confirm. You can turn this off any time.</p>
+    </section>
+
+    <!-- Shown in place of the ask once access is granted. -->
+    <section class="panel" id="done" hidden>
+      <div class="mark">deal<span>o</span></div>
+      <div class="tick" aria-hidden="true">
+        <svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5" /></svg>
+      </div>
+      <h1>Dealo is on</h1>
+      <p class="lede">
+        Carry on shopping. When you reach a cart or checkout at a shop Dealo
+        covers, it will tell you what a voucher would save — in rupees, before
+        you pay. If there is nothing worth having, it stays quiet.
+      </p>
+      <button id="close" class="cta secondary" type="button">Close this tab</button>
+    </section>
+  </main>
+
+  <script src="welcome.js"></script>
+</body>
+</html>

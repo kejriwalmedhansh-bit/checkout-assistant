@@ -11,6 +11,19 @@
   let lastCheckedAt = 0;
   const MIN_RECHECK_MS = 3000;
 
+  // A cart-shaped address whose page has not drawn its prices yet is the
+  // ordinary state of a single-page storefront for the first second or so
+  // after it opens — the address changes before the cart is rendered. Dealo
+  // used to conclude "not a checkout" from that empty page and, because it
+  // checks a given view only once, never look again: on boAt the ₹350 panel
+  // appeared only if you jogged the address bar. So a cart-shaped address
+  // that hasn't produced a commerce signal yet is treated as "too early",
+  // not as "no", and is looked at again a few times before giving up.
+  const SIGNAL_RETRY_MS = 1200;
+  const SIGNAL_RETRIES = 4;
+  let retriesLeftForKey = SIGNAL_RETRIES;
+  let retryKey = null;
+
   // A checkout-looking URL is necessary but NOT sufficient. Found in real use
   // 2026-08-31: the popup appeared on github.com, because "github.com/actions/
   // checkout" contains the word "checkout". A plain substring match also hits
@@ -92,8 +105,15 @@
   // savings or discounts are excluded outright: on Myntra the pre-discount
   // "Total MRP ₹8,596" sits right above the real "Total Amount ₹4,049", and
   // picking the wrong one would size the voucher twice too large.
-  const TOTAL_LABEL = /(total amount|amount payable|amount to pay|order total|grand total|total payable|net payable|you pay|to be paid)/i;
+  const TOTAL_LABEL = /(total amount|amount payable|amount to pay|order total|grand total|total price|total payable|net payable|you pay|to be paid)/i;
   const NOT_A_TOTAL = /(mrp|saved|savings|discount|cashback|coupon)/i;
+
+  // Every rupee figure in a piece of text, in the order they appear.
+  function amountsIn(text) {
+    return [...text.matchAll(/(?:₹|rs\.?)\s?([\d,]+(?:\.\d{1,2})?)/gi)]
+      .map((m) => parseFloat(m[1].replace(/,/g, "")))
+      .filter((n) => Number.isFinite(n) && n > 0);
+  }
 
   function labelledTotal() {
     let last = null;
@@ -101,19 +121,40 @@
       const t = (el.textContent || "").replace(/\s+/g, " ").trim();
       if (!t || t.length > 60) continue;
       if (!TOTAL_LABEL.test(t) || NOT_A_TOTAL.test(t)) continue;
-      const m = t.match(/(?:₹|rs\.?)\s?([\d,]+(?:\.\d{1,2})?)/i);
-      if (!m) continue;
-      const n = parseFloat(m[1].replace(/,/g, ""));
-      // Last match wins: the final payable line renders below the breakdown.
+      const nums = amountsIn(t);
+      if (!nums.length) continue;
+      // The LAST figure in the row, not the first. A discounted total renders
+      // the old price struck through and the real one after it — Frido's
+      // "Total Price ₹40,000 ₹29,999" — and taking the first figure there
+      // reads the price nobody is paying. Live-tested 2026-09-07: that read
+      // sized a voucher purchase at ₹40,000 for a ₹29,999 order.
+      const n = nums[nums.length - 1];
+      // And the last matching row wins: the final payable line renders below
+      // the breakdown.
       if (Number.isFinite(n) && n > 0) last = n;
     }
     return last;
   }
 
+  // Never plan a purchase bigger than what the shopper is actually going to
+  // pay. When two credible reads disagree, the lower one wins.
+  //
+  // This is not fussiness. Shopify's own /cart.js reports the cart before
+  // discounts applied by a third-party checkout — Frido runs GoKwik, which
+  // takes ₹10,001 off at the checkout step, so cart.js said ₹40,000 while the
+  // shopper owed ₹29,999. Trusting the platform figure there told someone to
+  // buy ₹40,000 of store credit for a ₹29,999 order and strand ₹10,001 in a
+  // wallet they may never spend. Found in live testing 2026-09-07.
+  //
+  // The two errors are not symmetrical, which is why the tie-break is "lower"
+  // and not "the platform knows best": buying too little means paying the
+  // small remainder by card, an annoyance. Buying too much means money the
+  // shopper cannot get back.
   async function readPrice() {
     const fromPlatform = await shopifyCartTotal();
-    if (fromPlatform) return fromPlatform;
-    return labelledTotal() ?? extractPrice();
+    const labelled = labelledTotal();
+    if (fromPlatform && labelled) return Math.min(fromPlatform, labelled);
+    return fromPlatform ?? labelled ?? extractPrice();
   }
 
   function extractPrice() {
@@ -273,6 +314,59 @@
     return null;
   }
 
+  // The instant-discount option — the whole reason the promised saving is real.
+  //
+  // This is the single most dangerous gap Dealo has had. Maximize sells the
+  // same voucher two ways and DEFAULTS to the wrong one:
+  //
+  //   ₹930.00  "7% Off"   — Instant ₹70 off. MaxCoins excluded.
+  //   ₹1000.00 "7.1% Earn" — Pay full amount, earn 71 MaxCoins.  <- preselected,
+  //                                                    and badged "Best Discount"
+  //
+  // Dealo quotes the 7% instant figure, because cashback and loyalty coins are
+  // never counted as a saving. But it used to guide the shopper through the
+  // amount and the payment method and say nothing about this — so someone who
+  // did exactly what Dealo told them paid full price, collected coins they
+  // never asked for, and the rupees Dealo promised never arrived. Reported by
+  // the product owner 2026-09-07; a wrong result that looks like it worked is
+  // the worst thing this product can do.
+  //
+  // Matching is on the seller's own words rather than any per-site selector.
+  // "Instant" is the discriminator, and "earn" is the counter-signal — note
+  // the instant option's text mentions MaxCoins too ("MaxCoins excluded"), so
+  // matching on that word alone would pick exactly the wrong box.
+  const INSTANT_OFFER = /instant/i;
+  const EARNS_INSTEAD = /\bearn(s|ed|ing)?\b/i;
+
+  function isSelected(input) {
+    return input.checked === true || input.getAttribute("aria-checked") === "true";
+  }
+
+  function findInstantDiscountControl() {
+    for (const input of document.querySelectorAll('input[type="radio"], [role="radio"]')) {
+      // Climb out of the input to the small box that carries the option's
+      // wording. Bounded, and it stops at the first box with real text — one
+      // more level up is the whole list, where both options' words run
+      // together and the counter-signal would be meaningless.
+      let node = input;
+      for (let up = 0; up < 5 && node; up += 1) {
+        const text = (node.innerText || "").replace(/\s+/g, " ").trim();
+        if (text.length >= 12 && text.length <= 220) {
+          if (INSTANT_OFFER.test(text) && !EARNS_INSTEAD.test(text)) {
+            // Already chosen — there is nothing to tell them to do, and
+            // pointing at a done thing wastes a step.
+            if (isSelected(input)) return null;
+            const box = node.offsetParent !== null ? node : input;
+            return { el: box, label: "Choose the instant discount, not coins" };
+          }
+          break;
+        }
+        node = node.parentElement;
+      }
+    }
+    return null;
+  }
+
   // The UPI payment option — the whole reason the promised rate holds.
   function findUpiControl() {
     const el = visibleControls().find((c) => /^upi$/i.test(textOf(c)));
@@ -319,11 +413,21 @@
     return list.length ? list : [deal.voucherAmount].filter(Boolean);
   }
 
-  // The hand-holding sequence on the voucher site: which amount, then which
-  // payment method. Skips anything it genuinely can't find rather than
-  // pointing at something plausible and being wrong.
+  // The hand-holding sequence on the voucher site, in the order the shopper
+  // has to do it: which amount, then take the discount as money rather than
+  // coins, then which payment method.
+  //
+  // Every step is a function, not a resolved element. The page redraws its
+  // price options as soon as an amount is tapped, so the instant-discount box
+  // that exists now is not the one that will be there when the shopper
+  // reaches that step — see guide() in popup.js. Anything genuinely absent is
+  // skipped rather than approximated.
   function voucherSiteGuideSteps(want) {
-    return [findAmountControl(want), findUpiControl()].filter(Boolean);
+    return [
+      () => findAmountControl(want),
+      () => findInstantDiscountControl(),
+      () => findUpiControl(),
+    ];
   }
 
   async function runJourney(trip) {
@@ -336,9 +440,12 @@
 
       window.__dealoPopup.renderVoucherSiteStep(trip, { index, total, want }, {
         onShowMe: () => {
-          const steps = voucherSiteGuideSteps(want);
-          if (steps.length) window.__dealoPopup.guide(steps);
-          else window.__dealoPopup.guideUnavailable();
+          // guide() reports whether it found anything at all to point at, so
+          // a page it can't read falls back to written steps instead of a
+          // sequence that shows nothing.
+          if (!window.__dealoPopup.guide(voucherSiteGuideSteps(want))) {
+            window.__dealoPopup.guideUnavailable();
+          }
         },
         onHaveCode: () => {
           window.__dealoPopup.renderCodeEntry(trip, { index, total }, {
@@ -365,6 +472,9 @@
 
     if (trip.status === "has_code" && backAtStoreFor(trip)) {
       window.__dealoPopup.renderBackAtStore(trip, {
+        // Remembered on the trip rather than in the page, because the whole
+        // point is that it survives the shopper moving from cart to checkout.
+        onStepsToggle: (open) => ask({ type: "tripUpdate", patch: { stepsOpen: open } }),
         onShowWhere: () => {
           const found = findGiftCardField();
           if (found) {
@@ -423,7 +533,7 @@
   // `force` is a shopper clicking the Dealo icon: an explicit request, which
   // outranks both the "already looked at this page" guard and an earlier
   // dismissal of this store.
-  async function check(force = false) {
+  async function check(force = false, isRetry = false) {
     // An orphaned copy of this script — the extension was reloaded or removed
     // out from under this tab — can't do anything useful. Go quiet.
     if (extensionGone()) return;
@@ -436,12 +546,23 @@
     // check was skipped. The query string stays out — storefronts rewrite it
     // constantly with tracking parameters that change nothing.
     const key = location.hostname + location.pathname + location.hash;
-    if (!force) {
+    if (!force && !isRetry) {
       if (key === lastCheckedKey) return;               // one check per page/view
       if (now - lastCheckedAt < MIN_RECHECK_MS) return; // and never in a burst
     }
-    lastCheckedKey = key;
+    // A retry is Dealo looking again at a page it has not yet made up its mind
+    // about, so the burst limiter must not swallow it — the retries are
+    // 1.2s apart and the limiter is 3s, which would have made the whole
+    // too-early fix inert. It is still bounded: SIGNAL_RETRIES attempts, and
+    // only ever on an address that already looks like a checkout.
+    // lastCheckedAt rate-limits bursts straight away, but lastCheckedKey — the
+    // "already looked at this view" guard — is only set once an actual
+    // decision has been reached, so a too-early look doesn't count as one.
     lastCheckedAt = now;
+    if (retryKey !== key) {
+      retryKey = key;
+      retriesLeftForKey = SIGNAL_RETRIES;
+    }
 
     // A trip in progress outranks everything: the shopper is part-way through
     // saving money, so the next instruction matters more than a fresh check.
@@ -450,7 +571,16 @@
     const trip = tripRes?.trip || null;
     if (trip && await runJourney(trip)) return;
 
-    if (!isCheckoutPage()) return;
+    if (!isCheckoutPage()) {
+      if (urlLooksLikeCheckout() && retriesLeftForKey > 0) {
+        retriesLeftForKey -= 1;
+        setTimeout(() => check(force, true), SIGNAL_RETRY_MS);
+        return; // deliberately without setting lastCheckedKey — not a decision
+      }
+      lastCheckedKey = key;
+      return;
+    }
+    lastCheckedKey = key;
 
     const domain = getDomain();
     if (!force && isDismissed(domain)) return;
@@ -463,13 +593,26 @@
     // shopper spends real effort for a trivial saving and stops trusting the
     // popup. Only applies when the total is known — with no total there's no
     // rupee figure to judge, and the percentage is all anyone has.
+    //
+    // Two ways to be worth the errand, and a good rate is no longer enough on
+    // its own: 7% of a small basket is small. See config.js for the numbers
+    // and why they moved.
     const cfg = self.__dealoConfig;
+    const saving = result.saving ?? 0;
+    const pct = result.pct ?? 0;
+    const worthTheErrand =
+      pct >= cfg.MIN_RATE_FLOOR &&
+      ((pct >= cfg.MIN_RATE_TO_OFFER && saving >= cfg.MIN_SAVING_AT_RATE) ||
+        saving >= cfg.MIN_SAVING_ALONE);
+    // A rate under the floor is too thin whatever the basket, so it doesn't
+    // need a readable total to be judged — and it must not need one. Without
+    // this, an Amazon cart whose total Dealo couldn't read fell straight past
+    // the rupee test and got offered as a real deal, headlined "0.75% off".
+    // Found 2026-09-07 while checking what Amazon actually shows.
+    const rateTooThin = pct > 0 && pct < cfg.MIN_RATE_FLOOR;
     const tooSmall =
       result.has_voucher &&
-      result.priced &&
-      result.saving != null &&
-      result.saving < cfg.MIN_SAVING_TO_OFFER &&
-      (result.pct ?? 0) < cfg.MIN_RATE_TO_OFFER;
+      (rateTooThin || (result.priced && result.saving != null && !worthTheErrand));
 
     if (result.has_voucher && !tooSmall) {
       // Carry the order total through: the popup needs it to state the saving
@@ -488,10 +631,23 @@
         markDismissed(domain);
       });
     } else {
-      window.__dealoPopup.renderNoDeal(() => {
+      // Two different silences, and saying "no discounts available" for both
+      // was a small lie: on a too-small deal there IS one, it just isn't worth
+      // the errand. Saying so is the more trustworthy answer and it shows the
+      // shopper Dealo actually looked. Either way the Okay button is the same
+      // — it routes through the affiliate link before returning them to the
+      // page they were on, which is how Dealo is paid when it has nothing to
+      // sell them.
+      // Two different actions now, and the difference is the whole point.
+      // Dismissing costs Dealo nothing and earns Dealo nothing; the affiliate
+      // hop happens only when the shopper presses the button that says so.
+      // See renderNoDeal for why that separation exists.
+      const onSupport = () => {
         markDismissed(domain);
         location.href = affiliateRedirectUrl(location.href);
-      });
+      };
+      const onDismiss = () => markDismissed(domain);
+      window.__dealoPopup.renderNoDeal(onSupport, onDismiss, tooSmall ? result : null);
     }
   }
 

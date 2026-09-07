@@ -10,6 +10,11 @@ window.__dealoPopup = (() => {
     return d.innerHTML;
   }
 
+  const SOURCE_NAMES = { gyftr: "Gyftr", maximize: "Maximize", buyhatke: "BuyHatke" };
+  function sourceName(src) {
+    return SOURCE_NAMES[(src || "").toLowerCase()] || "our voucher partner";
+  }
+
   function rupees(n) {
     return Math.round(n).toLocaleString("en-IN");
   }
@@ -53,6 +58,7 @@ window.__dealoPopup = (() => {
     target: `<circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="2.6"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/>`,
     info: `<circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 7.6v.1"/>`,
     lock: `<rect x="4" y="10.5" width="16" height="10" rx="2"/><path d="M8 10.5V7a4 4 0 0 1 8 0v3.5"/>`,
+    heart: `<path d="M12 20s-7-4.4-7-9.3A3.9 3.9 0 0 1 12 8a3.9 3.9 0 0 1 7 2.7C19 15.6 12 20 12 20z"/>`,
     link: `<path d="M10 13a5 5 0 0 0 7 0l3-3a5 5 0 0 0-7-7l-1.5 1.5"/><path d="M14 11a5 5 0 0 0-7 0l-3 3a5 5 0 0 0 7 7L12.5 19.5"/>`,
   };
 
@@ -176,11 +182,31 @@ window.__dealoPopup = (() => {
   // design-system/dealo/MASTER.md: a "buy a code first, then use it" flow
   // MUST come with a plain explanation of why it's legitimate — without one
   // it reads as a scam pattern. Kept behind a toggle so the card stays small.
+  // The same trade drawn rather than described. This was four sentences of
+  // prose, and the shopper's verdict on it was "so much text, make it symbolic
+  // to make it easy to understand" (2026-09-07). Two amounts and an arrow say
+  // it: this much credit, for this much money.
   function explanationBody(deal) {
     const brand = esc(deal.brand_name);
-    return deal.priced && deal.effective_price != null
-      ? `A Gift Voucher is the same thing you'd buy someone as a present — our voucher partner sells them for less than they're worth. You buy ₹${rupees(deal.effective_price + deal.saving)} of ${brand} credit for ₹${rupees(deal.effective_price)}, then pay for this order with it, exactly like a gift card. Same store, same order.`
-      : `A Gift Voucher is the same thing you'd buy someone as a present — our voucher partner sells ${brand} vouchers for ${esc(deal.pct)}% less than they're worth. You buy one, then pay for this order with it, exactly like a gift card. Same store, same order.`;
+    if (!deal.priced || deal.effective_price == null) {
+      return `<div class="dealo-trade-note">${brand} vouchers sell for
+              ${esc(deal.pct)}% less than they are worth. Spend one here like a gift card.</div>`;
+    }
+    const face = rupees(deal.effective_price + deal.saving);
+    const paid = rupees(deal.effective_price);
+    return `
+      <div class="dealo-trade">
+        <div class="dealo-trade-half">
+          <div class="dealo-trade-amount">₹${face}</div>
+          <div class="dealo-trade-label">of ${brand} credit</div>
+        </div>
+        ${svg("arrow", 15, "#C7BFAF", 2.2)}
+        <div class="dealo-trade-half">
+          <div class="dealo-trade-amount dealo-trade-pay">₹${paid}</div>
+          <div class="dealo-trade-label">is all you pay</div>
+        </div>
+      </div>
+      <div class="dealo-trade-note">Spend it on this order, like a gift card.</div>`;
   }
 
   // Dots reflect whichever code card is actually scrolled into view, and
@@ -208,18 +234,27 @@ window.__dealoPopup = (() => {
     });
   }
 
-  function wireExplainToggle(root) {
+  // `onToggle` lets a caller remember the choice. Without it, a disclosure
+  // reopens closed on the next page — which is how a shopper who had opened
+  // the redemption steps on the cart page arrived at checkout to find them
+  // gone, at exactly the moment they needed them. Reported 2026-09-07:
+  // "it left me lost as a user."
+  function wireExplainToggle(root, onToggle) {
     const toggle = root.querySelector(".dealo-explain-toggle");
     const panel = root.querySelector(".dealo-explain");
     if (!toggle || !panel) return;
     // Keep the original label (icon included) rather than overwriting it with
     // hardcoded text — each screen's toggle now says something different.
     const original = toggle.innerHTML;
+    const paint = () => {
+      toggle.setAttribute("aria-expanded", String(!panel.hidden));
+      toggle.innerHTML = panel.hidden ? original : "hide";
+    };
+    paint();
     toggle.addEventListener("click", () => {
-      const open = !panel.hidden;
-      panel.hidden = open;
-      toggle.setAttribute("aria-expanded", String(!open));
-      toggle.innerHTML = open ? original : "hide";
+      panel.hidden = !panel.hidden;
+      paint();
+      onToggle?.(!panel.hidden);
     });
   }
 
@@ -236,9 +271,22 @@ window.__dealoPopup = (() => {
         <div class="dealo-j-step">${svg("check", 20, "#4A9B8E", 2)}<span>done</span></div>
       </div>`;
 
+    // What they are about to be sent to buy, stated BEFORE they agree to go.
+    // Being sent to a voucher site and only then told "voucher 1 of 8" is what
+    // a shopper described as being asked to buy blindly: "I wouldn't trust
+    // Dealo to randomly have me buy vouchers and then expect everything to
+    // work out. That's not how a user thinks." (2026-09-07)
+    const plan = deal.purchase_breakdown
+      ? `<div class="dealo-plan">
+           <span class="dealo-plan-buy">${esc(deal.purchase_breakdown)}</span>
+           <span class="dealo-plan-where">at ${esc(sourceName(deal.voucher_source))}</span>
+         </div>`
+      : "";
+
     const root = card(`
       <div class="dealo-figure dealo-figure-tight">${big}</div>
       <div class="dealo-caption">${caption} at ${esc(deal.brand_name)}</div>
+      ${plan}
       ${strip}
       <button class="dealo-button dealo-ring dealo-withicon" id="dealo-open-voucher">
         ${svg("voucher", 16, "currentColor", 1.9)} Get voucher
@@ -255,13 +303,45 @@ window.__dealoPopup = (() => {
     });
   }
 
-  function renderNoDeal(onOkay) {
+  // `smallDeal` is a real voucher that didn't clear the worth-the-errand bar
+  // (see config.js). Naming the figure is deliberate: "no discounts available"
+  // on a shop that plainly has one reads as Dealo being broken or lazy, where
+  // "only ₹83 off" reads as Dealo having checked and made a judgement. Same
+  // two choices either way.
+  //
+  // The affiliate click is a CHOICE here, not a side effect of dismissing the
+  // panel. It used to be the latter: "Okay" quietly sent the shopper through
+  // Dealo's affiliate link and back, which places Dealo's cookie last and
+  // takes the commission from whoever actually sent them to the shop.
+  //
+  // That is precisely what Honey was doing, and in the eighteen months after a
+  // YouTuber demonstrated it Honey lost seven million users, was thrown out of
+  // Awin and Rakuten Advertising for policy violations, and is still in court.
+  // Rakuten's own model is the answer, and the one adopted here: the shopper
+  // presses a button that says what it does, so the commission is consented to
+  // rather than swapped in behind them. Product decision, 2026-09-07.
+  function renderNoDeal(onSupport, onDismiss, smallDeal = null) {
+    const message = !smallDeal
+      ? "No discounts available, unfortunately."
+      : smallDeal.priced && smallDeal.saving != null
+        ? `Only ₹${rupees(smallDeal.saving)} off here — not worth the extra steps.`
+        // No readable total, so no honest rupee figure — the rate is all we
+        // know, and it's the rate on the voucher, not on this order.
+        : `Only ${smallDeal.pct}% off here — not worth the extra steps.`;
     const root = card(`
-      <div class="dealo-message">No discounts available, unfortunately.</div>
-      <button class="dealo-button dealo-secondary" id="dealo-okay">Okay</button>
+      <div class="dealo-message">${esc(message)}</div>
+      <button class="dealo-button dealo-ring dealo-withicon" id="dealo-support">
+        ${svg("heart", 16, "currentColor", 1.9)} Shop with Dealo's link
+      </button>
+      <div class="dealo-support-note">Pays Dealo a commission from the shop. Your price is the same.</div>
+      <button class="dealo-link dealo-centered" id="dealo-okay">No thanks</button>
     `);
+    root.querySelector("#dealo-support").addEventListener("click", () => {
+      onSupport();
+      close();
+    });
     root.querySelector("#dealo-okay").addEventListener("click", () => {
-      onOkay();
+      onDismiss();
       close();
     });
   }
@@ -287,10 +367,22 @@ window.__dealoPopup = (() => {
     // As a sentence ("That's 1×₹7,500 + 1×₹1,000") it was near-invisible.
     // Skipped on a multi-purchase deal: the full breakdown belongs to the
     // whole deal, not to the single purchase this screen is guiding.
-    const tiles = (!multi && (d.denominationBreakdown || []).length)
+    // Shown on multi-voucher deals too, not just single ones. Hiding the whole
+    // plan here and captioning the screen "VOUCHER 1 OF 8" told the shopper
+    // only how deep into an errand they were, never how big the errand was —
+    // "what is happening here looks so confusing, forget the user"
+    // (2026-09-07). The tiles are the plan; the counter is the position in it.
+    const tiles = (d.denominationBreakdown || []).length
       ? `<div class="dealo-chips">${d.denominationBreakdown
           .map((b) => `<span class="dealo-chip">${b.count > 1 ? `<span class="dealo-mult">${b.count}×</span>` : ""}₹${rupees(b.denom)}</span>`)
           .join("")}</div>`
+      : "";
+
+    // The whole errand in one line: what it all costs and what it is worth.
+    // Without it, someone eight vouchers deep has no way of checking that the
+    // running total is still the deal they agreed to.
+    const totalLine = (multi && d.priced && d.effectivePrice != null)
+      ? `<div class="dealo-plan-total">${esc(d.purchaseBreakdown || "")} · pay ₹${rupees(d.effectivePrice)} in total</div>`
       : "";
 
     // The rate promised back at the store is the UPI rate. Shown as a tick
@@ -307,6 +399,7 @@ window.__dealoPopup = (() => {
 
     const root = card(`
       ${multi ? `<div class="dealo-step">Voucher ${index + 1} of ${total}</div>` : ""}
+      ${totalLine}
       <div class="dealo-figure dealo-figure-tight">${amount || esc(trip.store.brandName)}</div>
       ${amount ? `<div class="dealo-caption">of ${esc(trip.store.brandName)} credit</div>` : `<div class="dealo-caption">credit for your order</div>`}
       ${tiles}
@@ -351,8 +444,12 @@ window.__dealoPopup = (() => {
 
   // Step 3: they're back at the store's checkout, holding a code they now
   // have to actually use. This is where people give up without help.
-  function renderBackAtStore(trip, { onDone, onShowWhere }) {
+  function renderBackAtStore(trip, { onDone, onShowWhere, onStepsToggle }) {
     const d = trip.deal;
+    // Open unless the shopper closed them. This is the one screen where the
+    // instructions are the point — they are standing at the discount box with
+    // a code in hand — so hiding them behind a tap by default was backwards.
+    const stepsOpen = trip.stepsOpen !== false;
     // The store's own one-liner becomes the label on the steps toggle rather
     // than a sentence sitting on the card — one tap away, not in the way.
     const how = d.howToRedeemShort || "";
@@ -431,13 +528,13 @@ window.__dealoPopup = (() => {
         ${svg("target", 17, "currentColor", 2)} Show me where
       </button>
       ${openBtn}
-      ${steps ? `<button class="dealo-explain-toggle dealo-centered" aria-expanded="false">${svg("info", 13, "currentColor", 2)} steps</button>
-                 <div class="dealo-explain" hidden><ol class="dealo-steps">${steps}</ol></div>` : ""}
+      ${steps ? `<button class="dealo-explain-toggle dealo-centered">${svg("info", 13, "currentColor", 2)} steps</button>
+                 <div class="dealo-explain"${stepsOpen ? "" : " hidden"}><ol class="dealo-steps">${steps}</ol></div>` : ""}
       <button class="dealo-link dealo-withicon" id="dealo-done">
         ${svg("check", 13, "#4A9B8E", 2.4)} code applied
       </button>
     `, 3);
-    wireExplainToggle(root);
+    wireExplainToggle(root, onStepsToggle);
     if (multiCode) wireCodeCarousel(root);
     // Confirmation is the icon turning into a tick — "Copied" no longer fits
     // an icon-sized button, and the tick reads faster anyway.
@@ -512,16 +609,44 @@ window.__dealoPopup = (() => {
   // highlighted control at a time — "tap this amount", then "choose UPI".
   // Advances when they actually click the thing, so it follows them rather
   // than racing ahead. Dealo never clicks anything itself.
+  // A step may be a plain {el, label}, or a FUNCTION returning one. Prefer the
+  // function: it is looked up at the moment the shopper reaches that step,
+  // not when the sequence starts.
+  //
+  // That matters on the voucher sites, which redraw as you use them. Tapping
+  // an amount on Maximize re-renders the price options underneath — so a step
+  // that grabbed the "instant discount" box up front would, by the time the
+  // shopper got there, be holding an element the page had already thrown
+  // away, and the pointer would simply never appear. Resolving late is the
+  // difference between the guidance working and silently doing nothing.
+  //
+  // Returns false when nothing could be found to point at, so the caller can
+  // fall back to written instructions instead of a sequence that shows
+  // nothing.
   function guide(steps) {
+    const resolve = (s) => (typeof s === "function" ? s() : s);
+    // Counted up front so the shopper sees a stable "2 of 3" rather than a
+    // total that shrinks under them. Re-resolved at show time regardless.
+    let total = steps.reduce((n, s) => n + (resolve(s) ? 1 : 0), 0);
+    if (!total) return false;
+
     let i = 0;
+    let shown = 0;
     let clearPointer = null;
 
     const show = () => {
       clearPointer?.();
       if (i >= steps.length) return;
-      const step = steps[i];
-      if (!step.el || !step.el.isConnected) { i += 1; return show(); }
-      clearPointer = pointAt(step.el, `${i + 1}/${steps.length} · ${step.label}`, { persist: true });
+      const step = resolve(steps[i]);
+      // Not there any more, or no longer needed — the shopper may have already
+      // done this one themselves.
+      if (!step || !step.el || !step.el.isConnected) {
+        i += 1;
+        total = Math.max(total - 1, shown);
+        return show();
+      }
+      shown += 1;
+      clearPointer = pointAt(step.el, `${shown}/${total} · ${step.label}`, { persist: true });
       const onDone = () => {
         step.el.removeEventListener("click", onDone, true);
         i += 1;
@@ -532,6 +657,7 @@ window.__dealoPopup = (() => {
     };
 
     show();
+    return true;
   }
 
   // When the gift-card box can't be found on this particular page, say so and

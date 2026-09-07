@@ -20,6 +20,53 @@ from ...services import voucher_service
 router = APIRouter(tags=["voucher-check"])
 
 
+@router.get("/headline")
+async def headline() -> dict:
+    """Live discount figures for the extension's welcome screen.
+
+    That screen used to name a rate in its own HTML — "16% off" — which was
+    true the day it was written and becomes a lie the first time the
+    fortnightly refresh moves it. A number a stranger reads before they trust
+    anything is the worst possible place for a stale figure.
+
+    Deliberately NOT the maximum. The single best rate in the catalogue today
+    is 85% (a Yatra listing) and the next few are tax filing and magazine
+    subscriptions — figures that are either wrong or irrelevant to someone
+    installing a shopping extension, and both read as a scam on a welcome
+    screen. A high percentile survives one bad scrape; a maximum is defined by
+    it.
+
+    Returns the middle of the catalogue and its 95th percentile, so the page
+    can say what shops usually take off and what the good ones do, both true
+    on the day they are read.
+    """
+    from ...repositories import buyhatke_repository, maximize_repository, voucher_repository
+
+    rates = []
+    listings = (
+        voucher_repository.all_vouchers()
+        + maximize_repository.all_brands()
+        + buyhatke_repository.all_brands()
+    )
+    for record in listings:
+        for product in record.get("products", []):
+            if product.get("status") != "active":
+                continue
+            rate = product.get("best_discount_pct") or 0
+            if rate > 0:
+                rates.append(rate)
+
+    if not rates:
+        return {"typical_pct": None, "strong_pct": None, "listings": 0}
+
+    rates.sort()
+    return {
+        "typical_pct": round(rates[len(rates) // 2], 1),
+        "strong_pct": round(rates[int(len(rates) * 0.95)], 1),
+        "listings": len(rates),
+    }
+
+
 def _domain_root(domain: str) -> str:
     """The registrable brand label of a host — "ajio" for ajio.com,
     "steampowered" for store.steampowered.com."""

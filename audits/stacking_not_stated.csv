@@ -1,0 +1,362 @@
+matters_now,source,brand,slug,one_time_use,max_cards_per_order,works_online,spend_scope
+YES,gyftr,Adani Meet and Greet,adani-meet-and-greet,not_stated,,yes,Adani Meet & Greet packages
+YES,gyftr,Affinity - Luzo Gift Card,affinity-luzo-gift-card,not_stated,,not_stated,not_stated
+YES,gyftr,AJIO,ajio,yes,,yes,not_stated
+YES,gyftr,Ajio Luxe,ajio-luxe,yes,,yes,not_stated
+YES,gyftr,Amazon,amazon,yes,,yes,not_stated
+YES,gyftr,Amazon Fresh,amazon-fresh,yes,,yes,Eligible Amazon Fresh products on www.amazon.in/fresh only
+YES,gyftr,Amazon Shopping Voucher,amazon-shopping-voucher,yes,,yes,Physical product categories on Amazon.in only
+YES,gyftr,App Store Code,app-store-code,not_stated,,yes,not_stated
+YES,gyftr,Barbeque Nation Value Voucher,barbeque-nation-value-voucher,not_stated,,no,not_stated
+YES,gyftr,Behrouz Biryani,behrouz-biryani,yes,,yes,Online orders on the EatSure App/Web only
+YES,gyftr,BGMI UC Official Voucher,bgmi-uc-official-voucher,not_stated,,yes,BGMI UC top-up on the UniPin platform
+YES,gyftr,Black + Decker,black-+-decker,not_stated,,not_stated,not_stated
+YES,gyftr,Blinkit Gift Card,blinkit-gift-card,yes,,yes,not_stated
+YES,gyftr,BrainGymJr,braingymjr,yes,,yes,A BrainGymJr Plan subscription only
+YES,gyftr,Discord,discord,yes,,yes,not_stated
+YES,gyftr,Discovery Plus,discovery-plus,yes,,yes,a one-year subscription for new subscribers only
+YES,gyftr,DPauls Travel & Tours,dpauls-travel-&-tours,yes,,yes,Flight bookings and Holiday Package bookings on https://dpauls.com
+YES,gyftr,EazyDiner,eazydiner,yes,,yes,not_stated
+YES,gyftr,Electricity Bill Payment,electricity-bill-payment,no,,yes,services and billers available on www.gyftr.com/loyaltylifecycle/bills-utilities and linked portals
+YES,gyftr,Enrich - Luzo Gift Card,enrich-luzo-gift-card,not_stated,,not_stated,not_stated
+YES,gyftr,ExitLag,exitlag,yes,,yes,not_stated
+YES,gyftr,Fastag Recharge,fastag-recharge,yes,,yes,services and billers available on www.gyftr.com/loyaltylifecycle/bills-utilities and linked portals
+YES,gyftr,Gaana,gaanaplus,yes,,yes,Gaana Plus premium subscription service
+YES,gyftr,Gas Bill Payment,gas-bill-payment,not_stated,,yes,Services and billers available on www.gyftr.com/loyaltylifecycle/bills-utilities and linked portals
+YES,gyftr,Giva-Gold Jewellery,giva-gold-jewellery,yes,,yes,"Studded Gold Jewellery, Silver Jewellery, Perfumes, and Candles"
+YES,gyftr,Giva-Silver Coin,giva-silver-coin,yes,,yes,999 pure silver coins
+YES,gyftr,Giva-Silver Jewellery,giva-silver-jewellery,yes,,yes,"Eligible sterling silver items including rings, earrings, bracelets, and jewelry sets"
+YES,gyftr,Health & Glow,health-and-glow,yes,,not_stated,not_stated
+YES,gyftr,Hyperice,hyperice,yes,,yes,not_stated
+YES,gyftr,INTERMILES,intermiles,no,,yes,not_stated
+YES,gyftr,IOCL,iocl,yes,,no,Fuel purchases (Petrol / XP95 / XG / Diesel / XP100) at IOCL Retail Outlets only
+YES,gyftr,JioSaavn,jiosaavn,not_stated,,not_stated,JioSaavn Pro Subscription
+YES,gyftr,KALKI,kalki,yes,,yes,not_stated
+YES,gyftr,Landline Bill Payment,landline-bill-payment,not_stated,,yes,Services and billers available on www.gyftr.com/loyaltylifecycle/bills-utilities and linked portals
+YES,gyftr,Libas,libas,yes,,yes,not_stated
+YES,gyftr,Looks - Luzo Gift Card,looks-luzo-gift-card,not_stated,,not_stated,not_stated
+YES,gyftr,"LUZO - Salons, Spas, Clinics",luzo,yes,,no,"Appointments at a hair salon, beauty salon, or salon and spa, and beauty services through the LUZO platform"
+YES,gyftr,Mamaearth,mamaearth,yes,,yes,not_stated
+YES,gyftr,Microsoft Xbox Game Pass Core,microsoft-xbox-game-pass-core,not_stated,,not_stated,not_stated
+YES,gyftr,Microsoft Xbox PC Game Pass,microsoft-xbox-pc-game-pass,not_stated,,not_stated,not_stated
+YES,gyftr,Mobile Postpaid - Bill Payment,mobile-postpaid-bill-payment,not_stated,,yes,services and billers available on www.gyftr.com/loyaltylifecycle/bills-utilities and linked portals
+YES,gyftr,Mobile Prepaid - Recharge,mobile-prepaid-recharge,not_stated,,yes,services and billers available on www.gyftr.com/loyaltylifecycle/bills-utilities and linked portals
+YES,gyftr,MS Xbox Game Pass Ultimate,ms-xbox-game-pass-ultimate,not_stated,,not_stated,not_stated
+YES,gyftr,Nautica,nautica,yes,,no,not_stated
+YES,gyftr,Ovenstory Pizza,ovenstory-pizza,not_stated,,not_stated,not_stated
+YES,gyftr,Palmonas,palmonas,yes,,yes,not_stated
+YES,gyftr,Shiva Organic,shiva-organic,not_stated,,yes,not_stated
+YES,gyftr,Solara,solara,yes,,yes,not_stated
+YES,gyftr,Sony Playstation,sony-playstation,yes,,yes,PlayStation Store purchases
+YES,gyftr,Soulflower,soulflower,yes,,yes,not_stated
+YES,gyftr,Swiggy Instamart,swiggy-instamart,yes,,yes,not_stated
+YES,gyftr,Swiggy One Lite Membership,swiggy-one-lite-membership,not_stated,,not_stated,not_stated
+YES,gyftr,Taj Experiences,taj-hotels,no,,no,"Spends on rooms, food and beverages, spa, other services, and applicable taxes at Taj, SeleQtions, Gateway, Vivanta hotels, and Ama Trails & Stays in India"
+YES,gyftr,Taj Hotels J Wellness Circle,taj-wellness-gift-card,yes,,no,"Only at participating J Wellness Circle Spas across Taj, SeleQtions, and Vivanta hotels"
+YES,gyftr,Tinder,tinder,yes,,yes,"Tinder premium subscriptions: Plus, Gold, or Platinum"
+YES,gyftr,UniPin BGMI,unipin-bgmi,not_stated,,yes,BGMI UC (in-game currency) bought on the UniPin platform
+YES,gyftr,Valorant,valorant,yes,,yes,Valorant Points (VP) / Riot Games Virtual Currency
+YES,gyftr,Vinzberry,vinzberry,yes,,yes,not_stated
+YES,gyftr,Water Bill Payment,water-bill-payment,no,,yes,Services and billers available on www.gyftr.com/loyaltylifecycle/bills-utilities and linked portals
+YES,gyftr,Wendy's,wendy's,yes,,yes,"Orders on the EatSure App/Web across Ovenstory, Faasos, Wendy's, Behrouz biryani, Sweet Truth, Lunch Box & The Good Bowl"
+YES,gyftr,Wynk Music,wynk-music,not_stated,,not_stated,"Monthly, quarterly & annual Wynk Music subscription packs"
+YES,gyftr,Zomato Gift Card,zomato-gift-card,yes,,yes,not_stated
+YES,maximize,Amazon,amazon-548,not_stated,,not_stated,not_stated
+YES,maximize,Bakingo,bakingo,not_stated,,not_stated,not_stated
+YES,maximize,Bata,bata,not_stated,,not_stated,not_stated
+YES,maximize,Blinkit,blinkit-749,not_stated,,not_stated,not_stated
+YES,maximize,Daily Objects,daily-objects,not_stated,,not_stated,not_stated
+YES,maximize,Dominos,dominos-507,not_stated,,not_stated,not_stated
+YES,maximize,EA Sports,ea-sports,not_stated,,not_stated,not_stated
+YES,maximize,Fashion Factory,fashion-factory,yes,,no,not_stated
+YES,maximize,FlixBus,flixbus,not_stated,,not_stated,not_stated
+YES,maximize,Hush Puppies - Fixed,hush-puppies-fixed,not_stated,,not_stated,not_stated
+YES,maximize,Lenskart,lenskart,not_stated,,not_stated,not_stated
+YES,maximize,Myntra,myntra,not_stated,,not_stated,not_stated
+YES,maximize,Reliance Jio Mart,reliance-jio-mart,not_stated,,not_stated,not_stated
+YES,maximize,Skinn,skinn,not_stated,,not_stated,not_stated
+YES,maximize,Snitch,snitch,not_stated,,not_stated,not_stated
+YES,maximize,Soch,soch,not_stated,,not_stated,not_stated
+YES,maximize,Starbucks,starbucks,not_stated,,not_stated,not_stated
+YES,maximize,Steam Wallet INR 150,steam-wallet-inr-150,not_stated,,not_stated,not_stated
+YES,maximize,Steam Wallet INR 1680,steam-wallet-inr-1680,not_stated,,not_stated,not_stated
+YES,maximize,Steam Wallet INR 500,steam-wallet-inr-500,not_stated,,not_stated,not_stated
+YES,maximize,Steam Wallet INR 975,steam-wallet-inr-975,not_stated,,not_stated,not_stated
+YES,maximize,TATA CLiQ Fashion,tata-cliq-fashion,not_stated,,not_stated,not_stated
+YES,maximize,Tata CliQ Luxury,tata-cliq-luxury,not_stated,,not_stated,not_stated
+YES,maximize,Third Wave Coffee,third-wave-coffee,not_stated,,not_stated,not_stated
+YES,maximize,Trends Women,trends-women,not_stated,,not_stated,not_stated
+YES,maximize,Unipin,unipin,not_stated,,not_stated,not_stated
+YES,maximize,Yatra,yatra,not_stated,,not_stated,not_stated
+YES,maximize,Zomato,zomato,not_stated,,not_stated,not_stated
+no (BuyHatke sells 1 per checkout),buyhatke,109F,109f-gift-card,not_stated,,yes,not_stated
+no (BuyHatke sells 1 per checkout),buyhatke,Absolute Barbecues,absolute-barbecues-gift-card,no,,no,not_stated
+no (BuyHatke sells 1 per checkout),buyhatke,Adani Meet and greet,adani-meet-and-greet-gift-card,not_stated,,yes,Adani meet & greet service bookings on the Adani One app or official website
+no (BuyHatke sells 1 per checkout),buyhatke,Aeropostale In Store,aeropostale-(in-store)-gift-card,yes,,no,MRP products only during EOSS and promotions at local stores
+no (BuyHatke sells 1 per checkout),buyhatke,Ajio,ajio-gift-card,no,,yes,not_stated
+no (BuyHatke sells 1 per checkout),buyhatke,Ajio Luxe,ajio-luxe-gift-card,no,,yes,Eligible AJIO Luxe products only
+no (BuyHatke sells 1 per checkout),buyhatke,Allen Solly In Store,allen-solly-(in-store)-gift-card,yes,,no,Merchandise at participating Allen Solly exclusive stores only
+no (BuyHatke sells 1 per checkout),buyhatke,Amazon Fresh,amazon-fresh-gift-card,not_stated,,yes,Products listed on the Amazon Fresh page
+no (BuyHatke sells 1 per checkout),buyhatke,Amazon Pay,amazon-pay-gift-card,not_stated,,yes,not_stated
+no (BuyHatke sells 1 per checkout),buyhatke,Amazon Prime,amazon-prime-gift-card,yes,,yes,"Prime memberships (3/12 months, Prime Lite/Shopping Edition) or Amazon Pay Anytime Gift Cards"
+no (BuyHatke sells 1 per checkout),buyhatke,Amazon Prime Lite Edition,amazon-prime-lite-edition-gift-card,yes,,yes,"Amazon Prime memberships (3/12 months, Prime Lite, Prime Shopping edition) or Amazon Pay Anytime Gift Cards on Amazon.in"
+no (BuyHatke sells 1 per checkout),buyhatke,Amazon Prime Shopping Edition,amazon-prime-shopping-edition-gift-card,yes,,yes,"Amazon Prime memberships (3-months, 12-months, Prime Lite, Prime Shopping Edition) or Amazon Pay Anytime Gift Cards"
+no (BuyHatke sells 1 per checkout),buyhatke,Amazon Shopping,amazon-shopping-gift-card,not_stated,,yes,All physical goods purchases on Amazon.in
+no (BuyHatke sells 1 per checkout),buyhatke,American Eagle,american-eagle-gift-card,yes,,yes,not_stated
+no (BuyHatke sells 1 per checkout),buyhatke,Anita Dongre,anita-dongre-gift-card,yes,,yes,not_stated
+no (BuyHatke sells 1 per checkout),buyhatke,Apollo Diagnostics,apollo-diagnostics-gift-card,yes,,yes,Apollo Diagnostics mobile app only
+no (BuyHatke sells 1 per checkout),buyhatke,Apollo Healing,apollo-healing-gift-card,yes,,yes,not_stated
+no (BuyHatke sells 1 per checkout),buyhatke,Appreciate (1 Day Wait),appreciate-(1-day-wait)-gift-card,yes,,yes,"Appreciate App, Android users only"
+no (BuyHatke sells 1 per checkout),buyhatke,Assembly,assembly-gift-card,yes,,yes,not_stated
+no (BuyHatke sells 1 per checkout),buyhatke,AZA Fashions,aza-fashions-gift-card,not_stated,,yes,not_stated
+no (BuyHatke sells 1 per checkout),buyhatke,Baazar Kolkata (In Store),baazar-kolkata-(in-store)-gift-card,yes,,no,not_stated
+no (BuyHatke sells 1 per checkout),buyhatke,BGMI UniPin,bgmi-unipin-gift-card,yes,,yes,UniPin India website only
+no (BuyHatke sells 1 per checkout),buyhatke,Bhima Jewellers Coin In Store,bhima-jewellers-coin-(in-store)-gift-card,yes,,no,"Purchase of gold, silver, and platinum jewellery only"
+no (BuyHatke sells 1 per checkout),buyhatke,BIRYANI BY KILO,biryani-by-kilo-gift-card,not_stated,,yes,Delivery/take away orders placed through the BBK website & APP only
+no (BuyHatke sells 1 per checkout),buyhatke,Blissclub,blissclub-gift-card,no,,yes,www.blissclub.com only
+no (BuyHatke sells 1 per checkout),buyhatke,Boat,boat-gift-card,not_stated,,yes,"https://www.boat-lifestyle.com only, in India"
+no (BuyHatke sells 1 per checkout),buyhatke,Boditive,boditive-gift-card,not_stated,,yes,Eligible goods and services on https://www.boditive.com
+no (BuyHatke sells 1 per checkout),buyhatke,Body Craft Clinic,body-craft-clinic-gift-card,not_stated,,not_stated,not_stated
+no (BuyHatke sells 1 per checkout),buyhatke,BrainGymJr,braingymjr-gift-card,yes,,yes,BrainGymJr Plan subscriptions on www.BrainGymJr.com or their Android app
+no (BuyHatke sells 1 per checkout),buyhatke,Brooks Brothers Luxe,brooks-brothers-luxe-gift-card,not_stated,,not_stated,not_stated
+no (BuyHatke sells 1 per checkout),buyhatke,Cafe Coffee Day,cafe-coffee-day-gift-card,not_stated,,yes,"Food and Beverage, Merchandise"
+no (BuyHatke sells 1 per checkout),buyhatke,CaratLane,caratlane-gift-card,not_stated,,yes,Diamond Jewellery and Shaya Silver Jewellery
+no (BuyHatke sells 1 per checkout),buyhatke,CGH Earth,cgh-earth-gift-card,no,,yes,Room bookings on prior reservation basis at participating CGH Earth properties only
+no (BuyHatke sells 1 per checkout),buyhatke,CGH Earth In Store,cgh-earth-(in-store)-gift-card,no,,no,Room bookings on a prior reservation basis at participating CGH Earth properties only
+no (BuyHatke sells 1 per checkout),buyhatke,Chemist At Play,chemist-at-play-gift-card,not_stated,,yes,https://innovist.com/ website only
+no (BuyHatke sells 1 per checkout),buyhatke,Chicago Pizza In Store,chicago-pizza-(in-store)-gift-card,not_stated,,no,Takeaway/Dine in only
+no (BuyHatke sells 1 per checkout),buyhatke,Chicco,chicco-gift-card,no,,yes,not_stated
+no (BuyHatke sells 1 per checkout),buyhatke,Chunmun In Store,chunmun-(in-store)-gift-card,yes,,no,"Purchase of Garments & Gifts only, on MRP only"
+no (BuyHatke sells 1 per checkout),buyhatke,Cinepolis,cinepolis-gift-card,not_stated,,yes,"Transactions on the web and app of Cinepolis, for cinemas listed on Cinépolis digital channels"
+no (BuyHatke sells 1 per checkout),buyhatke,Citizen Watches,citizen-watches-gift-card,no,,yes,www.citizenwatches.co.in website only
+no (BuyHatke sells 1 per checkout),buyhatke,CLAYCO,clayco-gift-card,no,,yes,clayco.in website only
+no (BuyHatke sells 1 per checkout),buyhatke,Credit Masterclass,credit-masterclass-gift-card,not_stated,,yes,"Only the redirected link https://rb.gy/er3zm4, via Hubble"
+no (BuyHatke sells 1 per checkout),buyhatke,CultFit,cultfit-gift-card,no,,yes,Cult fitness services (memberships) on the Cult mobile application only
+no (BuyHatke sells 1 per checkout),buyhatke,DANUBE BUILDMART,danube-buildmart-gift-card,not_stated,,yes,not_stated
+no (BuyHatke sells 1 per checkout),buyhatke,Decathlon,decathlon-gift-card,no,,yes,not_stated
+no (BuyHatke sells 1 per checkout),buyhatke,Discord,discord-gift-card,not_stated,,not_stated,not_stated
+no (BuyHatke sells 1 per checkout),buyhatke,Discovery,discovery-gift-card,not_stated,,yes,"One-year discovery+ subscription for new subscribers only, activated on the website"
+no (BuyHatke sells 1 per checkout),buyhatke,Discovery Plus,discovery-plus-gift-card,yes,,yes,"1-year Discovery+ Premium subscription at www.discoveryplus.in or the Discovery+ Android app, new subscribers only"
+no (BuyHatke sells 1 per checkout),buyhatke,District,district-gift-card,not_stated,,yes,not_stated
+no (BuyHatke sells 1 per checkout),buyhatke,Dominos,dominos-gift-card,no,,yes,"DELIVERY, DINE-IN, TAKEAWAY AND DRIVE N PICK orders via the Domino’s Mobile App and Website"
+no (BuyHatke sells 1 per checkout),buyhatke,easybuy In Store,easybuy-(in-store)-gift-card,yes,,no,not_stated
+no (BuyHatke sells 1 per checkout),buyhatke,Elivaas,elivaas-gift-card,not_stated,,not_stated,not_stated
+no (BuyHatke sells 1 per checkout),buyhatke,Epic On 1 month Plan,epic-on-1-month-plan-gift-card,yes,,yes,"EPIC ON subscription only, and each code is valid only for the specific subscription pack it was issued for"
+no (BuyHatke sells 1 per checkout),buyhatke,Epic On 1 Year Plan,epic-on-1-year-plan-gift-card,not_stated,,yes,EPIC ON premium subscription for 1 year
+no (BuyHatke sells 1 per checkout),buyhatke,Epic On 3 month Plan,epic-on-3-month-plan-gift-card,yes,,yes,"EPIC ON subscription only, and each code is valid only for the specific subscription pack it was issued for"
+no (BuyHatke sells 1 per checkout),buyhatke,Epic On 6 month Plan,epic-on-6-month-plan-gift-card,yes,,yes,"EPIC ON subscription only, and each code is valid only for the specific subscription pack it was issued for"
+no (BuyHatke sells 1 per checkout),buyhatke,ET Prime,et-prime-gift-card,yes,,yes,not_stated
+no (BuyHatke sells 1 per checkout),buyhatke,Euphoria Diamond Jewellery,euphoria-diamond-jewellery-gift-card,yes,,yes,Diamond Jewellery products only
+no (BuyHatke sells 1 per checkout),buyhatke,Euphoria Gold Coin,euphoria-gold-coin-gift-card,yes,,yes,not_stated
+no (BuyHatke sells 1 per checkout),buyhatke,Euphoria Gold Jewellery,euphoria-gold-jewellery-gift-card,yes,,yes,not_stated
+no (BuyHatke sells 1 per checkout),buyhatke,Euphoria Jewellery,euphoria-jewellery-gift-card,yes,,yes,not_stated
+no (BuyHatke sells 1 per checkout),buyhatke,Finusmart,finusmart-gift-card,yes,,yes,not_stated
+no (BuyHatke sells 1 per checkout),buyhatke,FirstCry,firstcry-gift-card,not_stated,,not_stated,not_stated
+no (BuyHatke sells 1 per checkout),buyhatke,Flipkart,flipkart-gift-card,not_stated,,yes,not_stated
+no (BuyHatke sells 1 per checkout),buyhatke,Foxtale,foxtale-gift-card,no,,yes,not_stated
+no (BuyHatke sells 1 per checkout),buyhatke,Freecultr,freecultr-gift-card,yes,,yes,not_stated
+no (BuyHatke sells 1 per checkout),buyhatke,French Accent,french-accent-gift-card,not_stated,,yes,not_stated
+no (BuyHatke sells 1 per checkout),buyhatke,FreshMenu,freshmenu-gift-card,no,,yes,not_stated
+no (BuyHatke sells 1 per checkout),buyhatke,Frido,frido-gift-card,no,,yes,not_stated
+no (BuyHatke sells 1 per checkout),buyhatke,Gaana,gaana-gift-card,yes,,yes,Gaana Plus premium subscription only
+no (BuyHatke sells 1 per checkout),buyhatke,GIVA Gold Jewellery,giva-gold-jewellery-gift-card,no,,yes,Gold-Diamond Jewellery and Silver Diamond Jewellery only
+no (BuyHatke sells 1 per checkout),buyhatke,Giva Jewellery RDM,giva-jewellery-rdm-gift-card,no,,yes,"Silver Jewellery, Perfumes, and Candles only"
+no (BuyHatke sells 1 per checkout),buyhatke,GoBaby Travel,gobaby-travel-gift-card,not_stated,,yes,Applicable on respective service categories only
+no (BuyHatke sells 1 per checkout),buyhatke,Google Play,google-play-gift-card,not_stated,,yes,"Apps, games, digital content, and in-app items on the Google Play Store"
+no (BuyHatke sells 1 per checkout),buyhatke,GRT Jewellers In Store,grt-jewellers-(in-store)-gift-card,yes,,no,not_stated
+no (BuyHatke sells 1 per checkout),buyhatke,Hamleys (In Store),hamleys-(in-store)-gift-card,yes,,no,not_stated
+no (BuyHatke sells 1 per checkout),buyhatke,Hammer,hammer-gift-card,not_stated,,yes,not_stated
+no (BuyHatke sells 1 per checkout),buyhatke,Haute Sauce,haute-sauce-gift-card,not_stated,,yes,not_stated
+no (BuyHatke sells 1 per checkout),buyhatke,Helios In Store 1 Day Wait,helios-(in-store%2C-1-day-wait)-gift-card,yes,,no,not_stated
+no (BuyHatke sells 1 per checkout),buyhatke,Hidesign,hidesign-gift-card,yes,,yes,not_stated
+no (BuyHatke sells 1 per checkout),buyhatke,Hidesign In Store,hidesign-(in-store)-gift-card,yes,,no,not_stated
+no (BuyHatke sells 1 per checkout),buyhatke,Home,home-gift-card,yes,,yes,not_stated
+no (BuyHatke sells 1 per checkout),buyhatke,HopInTown Plus,hopintown-plus-gift-card,not_stated,,yes,HopInTown 1 year membership only
+no (BuyHatke sells 1 per checkout),buyhatke,Hopscotch,hopscotch-gift-card,not_stated,,not_stated,not_stated
+no (BuyHatke sells 1 per checkout),buyhatke,Hyatt (In Store),hyatt-(in-store)-gift-card,yes,,no,Eligible purchases at participating Hyatt hotels in India
+no (BuyHatke sells 1 per checkout),buyhatke,Ikea,ikea-gift-card,no,,yes,not_stated
+no (BuyHatke sells 1 per checkout),buyhatke,Innovist,innovist-gift-card,no,,yes,not_stated
+no (BuyHatke sells 1 per checkout),buyhatke,Instafab Plus,instafab-plus-gift-card,not_stated,,yes,www.instafabplus.com only
+no (BuyHatke sells 1 per checkout),buyhatke,IOCL In Store,iocl-(in-store)-gift-card,yes,,no,Fuel purchase (Petrol/XP95/XG/diesel & XP100) at IOCL Retail outlets only
+no (BuyHatke sells 1 per checkout),buyhatke,ITC Hotels Fabelle Chocolates In Store,itc-hotels-fabelle-chocolates-(in-store)-gift-card,not_stated,,no,"Stays (room & incidental charges), food & beverages, home deliveries & takeaways, spa services (resident guests only), Fabelle Boutiques and applicable taxes at participating hotels"
+no (BuyHatke sells 1 per checkout),buyhatke,ITC Hotels In Store,itc-hotels-(in-store)-gift-card,not_stated,,no,"Stays (room & incidental charges), food & beverages, home deliveries & takeaways, spa services (resident guests only), Fabelle Boutiques and applicable taxes at participating hotels"
+no (BuyHatke sells 1 per checkout),buyhatke,ITC Hotels Spa In Store,itc-hotels-spa-(in-store)-gift-card,not_stated,,no,"Stays (room & incidental charges), food & beverages, home deliveries & takeaways, spa services (resident guests only), Fabelle Boutiques and applicable taxes at participating hotels"
+no (BuyHatke sells 1 per checkout),buyhatke,JACK JONES (In Store),jack-jones-(in-store)-gift-card,yes,,no,Exclusive brand JACK&JONES stores in India
+no (BuyHatke sells 1 per checkout),buyhatke,JioHotstar,jiohotstar-gift-card,yes,,yes,"JioHotstar subscription, redeemed at https://www.jiohotstar.com/in/redeem"
+no (BuyHatke sells 1 per checkout),buyhatke,Jockey,jockey-gift-card,yes,,yes,www.jockey.in website only
+no (BuyHatke sells 1 per checkout),buyhatke,Joyalukkas Gold and Diamond 12 Hr Wait,joyalukkas-gold-and-diamond-(12-hr-wait)-gift-card,no,,yes,Jewellery only
+no (BuyHatke sells 1 per checkout),buyhatke,Joyalukkas Pure Gold In Store,joyalukkas-pure-gold-(in-store)-gift-card,no,,no,not_stated
+no (BuyHatke sells 1 per checkout),buyhatke,Jungle Safari,jungle-safari-gift-card,no,,yes,not_stated
+no (BuyHatke sells 1 per checkout),buyhatke,Just Lil Things,just-lil-things-gift-card,not_stated,,yes,not_stated
+no (BuyHatke sells 1 per checkout),buyhatke,Kalyan Gold Jewellery (In Store),kalyan-gold-jewellery-(in-store)-gift-card,yes,,no,Any Jewellery at Kalyan Jewellers Stores in India
+no (BuyHatke sells 1 per checkout),buyhatke,Kate Spade Luxe,kate-spade-luxe-gift-card,not_stated,,not_stated,not_stated
+no (BuyHatke sells 1 per checkout),buyhatke,Kiehls In Store,kiehls-(in-store)-gift-card,yes,,no,not_stated
+no (BuyHatke sells 1 per checkout),buyhatke,Kuku FM,kuku-fm-gift-card,yes,,yes,not_stated
+no (BuyHatke sells 1 per checkout),buyhatke,Lawrence and Mayo In Store,lawrence-and-mayo-(in-store)-gift-card,yes,,no,not_stated
+no (BuyHatke sells 1 per checkout),buyhatke,Levis In Store,levis-(in-store)-gift-card,yes,,no,not_stated
+no (BuyHatke sells 1 per checkout),buyhatke,Liberty,liberty-gift-card,no,,yes,not_stated
+no (BuyHatke sells 1 per checkout),buyhatke,"Liberty (In Store, 3 Day Wait)",liberty-(in-store%2C-3-day-wait)-gift-card,no,,no,not_stated
+no (BuyHatke sells 1 per checkout),buyhatke,Liberty In Store,liberty-(in-store)-gift-card,not_stated,,not_stated,not_stated
+no (BuyHatke sells 1 per checkout),buyhatke,Liberty Offline In Store,liberty-offline-(in-store)-gift-card,no,,no,not_stated
+no (BuyHatke sells 1 per checkout),buyhatke,Linen Club In Store,linen-club-(in-store)-gift-card,yes,,no,Valid on MRP sale only
+no (BuyHatke sells 1 per checkout),buyhatke,LIONSGATE PLAY,lionsgate-play-gift-card,yes,,yes,not_stated
+no (BuyHatke sells 1 per checkout),buyhatke,Live Mint,live-mint-gift-card,yes,,yes,not_stated
+no (BuyHatke sells 1 per checkout),buyhatke,LOCCITANE,loccitane-gift-card,no,,yes,not_stated
+no (BuyHatke sells 1 per checkout),buyhatke,Lohono Stays,lohono-stays-gift-card,no,,yes,not_stated
+no (BuyHatke sells 1 per checkout),buyhatke,Lulu Hypermarket,lulu-hypermarket-gift-card,yes,,yes,not_stated
+no (BuyHatke sells 1 per checkout),buyhatke,Makhani Darbar,makhani-darbar-gift-card,not_stated,,not_stated,not_stated
+no (BuyHatke sells 1 per checkout),buyhatke,Malabar Gold Coin,malabar-gold-coin-gift-card,not_stated,,not_stated,not_stated
+no (BuyHatke sells 1 per checkout),buyhatke,Malabar Jewellery,malabar-jewellery-gift-card,not_stated,,not_stated,not_stated
+no (BuyHatke sells 1 per checkout),buyhatke,Mamaearth,mamaearth-gift-card,yes,,yes,not_stated
+no (BuyHatke sells 1 per checkout),buyhatke,Mango In Store,mango-(in-store)-gift-card,not_stated,,no,not_stated
+no (BuyHatke sells 1 per checkout),buyhatke,Maple,maple-gift-card,yes,,yes,not_stated
+no (BuyHatke sells 1 per checkout),buyhatke,Marks and Spencer In Store,marks-and-spencer-(in-store)-gift-card,yes,,no,not_stated
+no (BuyHatke sells 1 per checkout),buyhatke,Marriott Dining In Store,marriott-dining-(in-store)-gift-card,yes,,no,not_stated
+no (BuyHatke sells 1 per checkout),buyhatke,Marriott E Dining In Store,marriott-e-dining-(in-store)-gift-card,not_stated,,not_stated,not_stated
+no (BuyHatke sells 1 per checkout),buyhatke,Marriott Hotels In Store,marriott-hotels-(in-store)-gift-card,yes,,no,not_stated
+no (BuyHatke sells 1 per checkout),buyhatke,Marriott SPA In Store,marriott-spa-(in-store)-gift-card,not_stated,,not_stated,not_stated
+no (BuyHatke sells 1 per checkout),buyhatke,Matrix,matrix-gift-card,not_stated,,not_stated,not_stated
+no (BuyHatke sells 1 per checkout),buyhatke,Max Fashion In Store,max-fashion-(in-store)-gift-card,not_stated,,not_stated,not_stated
+no (BuyHatke sells 1 per checkout),buyhatke,McDonalds In Store,mcdonalds-(in-store)-gift-card,not_stated,,not_stated,not_stated
+no (BuyHatke sells 1 per checkout),buyhatke,McDonalds McCafe (In Store),mcdonalds-mccafe-(in-store)-gift-card,no,,no,"8 cups of beverages from the McCafe menu (Cappuccino, Vietnamese Iced Coffee, Americano, Iced Americano, Latte, Iced Latte, Peach Iced Tea, Watermelon Coolers)"
+no (BuyHatke sells 1 per checkout),buyhatke,Me N Moms,me-n-moms-gift-card,not_stated,,not_stated,not_stated
+no (BuyHatke sells 1 per checkout),buyhatke,Medibuddy Gold,medibuddy-gold-gift-card,yes,,yes,Unlimited doctor consultations for you and your family for 1 year
+no (BuyHatke sells 1 per checkout),buyhatke,Mia By Tanishq In Store,mia-by-tanishq-(in-store)-gift-card,yes,,no,Mia Studded Products only
+no (BuyHatke sells 1 per checkout),buyhatke,Microsoft Xbox Game Pass Core,microsoft-xbox-game-pass-core-gift-card,not_stated,,yes,not_stated
+no (BuyHatke sells 1 per checkout),buyhatke,Milkbasket,milkbasket-gift-card,not_stated,,yes,not_stated
+no (BuyHatke sells 1 per checkout),buyhatke,Milton,milton-gift-card,no,,yes,not_stated
+no (BuyHatke sells 1 per checkout),buyhatke,Minecraft Minecoins,minecraft-minecoins-gift-card,not_stated,,yes,not_stated
+no (BuyHatke sells 1 per checkout),buyhatke,MiniKlub,miniklub-gift-card,not_stated,,not_stated,not_stated
+no (BuyHatke sells 1 per checkout),buyhatke,Miraggio,miraggio-gift-card,not_stated,,not_stated,not_stated
+no (BuyHatke sells 1 per checkout),buyhatke,Moba Legends,moba-legends-gift-card,not_stated,,not_stated,not_stated
+no (BuyHatke sells 1 per checkout),buyhatke,Muro In Store,muro-(in-store)-gift-card,not_stated,,no,"Dine-in only, at Muro Outlet, Bangalore"
+no (BuyHatke sells 1 per checkout),buyhatke,Muthoot Gold,muthoot-gold-gift-card,yes,,yes,All articles available on https://buygold.muthoot.com
+no (BuyHatke sells 1 per checkout),buyhatke,MXPlayer,mxplayer-gift-card,yes,,yes,MX Player Gold subscription only
+no (BuyHatke sells 1 per checkout),buyhatke,myHQ,myhq-gift-card,not_stated,,yes,not_stated
+no (BuyHatke sells 1 per checkout),buyhatke,Nat Habit,nat-habit-gift-card,no,,yes,not_stated
+no (BuyHatke sells 1 per checkout),buyhatke,Natures Basket,natures-basket-gift-card,yes,,yes,not_stated
+no (BuyHatke sells 1 per checkout),buyhatke,Natures Basket In Store,natures-basket-(in-store)-gift-card,yes,,no,not_stated
+no (BuyHatke sells 1 per checkout),buyhatke,Nautica,nautica-gift-card,not_stated,,not_stated,not_stated
+no (BuyHatke sells 1 per checkout),buyhatke,Neemans,neemans-gift-card,no,,yes,not_stated
+no (BuyHatke sells 1 per checkout),buyhatke,Neerus In Store,neerus-(in-store)-gift-card,not_stated,,no,Any fashion apparel or accessories (Yuva) available in-store
+no (BuyHatke sells 1 per checkout),buyhatke,Nestasia,nestasia-gift-card,not_stated,,not_stated,not_stated
+no (BuyHatke sells 1 per checkout),buyhatke,NEXT In Store,next-(in-store)-gift-card,not_stated,,no,not_stated
+no (BuyHatke sells 1 per checkout),buyhatke,Nintendo,nintendo-gift-card,not_stated,,yes,Games and other content on Nintendo eShop and other Nintendo shopping services
+no (BuyHatke sells 1 per checkout),buyhatke,Nua Women,nua-women-gift-card,no,,yes,All products & services on the Nua website except subscriptions
+no (BuyHatke sells 1 per checkout),buyhatke,Oberoi Hotels Resorts,oberoi-hotels-resorts-gift-card,no,,yes,not_stated
+no (BuyHatke sells 1 per checkout),buyhatke,ONLY (In Store),only-(in-store)-gift-card,yes,,no,not_stated
+no (BuyHatke sells 1 per checkout),buyhatke,Origin Nutrition,origin-nutrition-gift-card,yes,,yes,not_stated
+no (BuyHatke sells 1 per checkout),buyhatke,Ovenstory,ovenstory-gift-card,not_stated,,not_stated,not_stated
+no (BuyHatke sells 1 per checkout),buyhatke,"Pantaloons (In Store, 4 Hr Wait)",pantaloons-(in-store%2C-4-hr-wait)-gift-card,yes,,no,not_stated
+no (BuyHatke sells 1 per checkout),buyhatke,Park Avenue In Store,park-avenue-(in-store)-gift-card,not_stated,,not_stated,not_stated
+no (BuyHatke sells 1 per checkout),buyhatke,Parx In Store,parx-(in-store)-gift-card,not_stated,,not_stated,not_stated
+no (BuyHatke sells 1 per checkout),buyhatke,Paul and Shark Luxe In Store,paul-and-shark-luxe-(in-store)-gift-card,not_stated,,not_stated,not_stated
+no (BuyHatke sells 1 per checkout),buyhatke,PC Chandra Gems Gold Coin,pc-chandra-gems-gold-coin-gift-card,yes,,yes,All products at participating P.C Chandra stores and webstore
+no (BuyHatke sells 1 per checkout),buyhatke,PC Chandra Gold Coin,pc-chandra-gold-coin-gift-card,yes,,yes,not_stated
+no (BuyHatke sells 1 per checkout),buyhatke,PCJ Diamond Jewellery In Store,pcj-diamond-jewellery-(in-store)-gift-card,yes,,no,Diamond Jewellery only
+no (BuyHatke sells 1 per checkout),buyhatke,PCJ Gold Coin In Store,pcj-gold-coin-(in-store)-gift-card,no,,no,"Gold coins, gold jewellery, and diamond jewellery"
+no (BuyHatke sells 1 per checkout),buyhatke,PCJ Gold Jewellery In Store,pcj-gold-jewellery-(in-store)-gift-card,not_stated,,no,Diamond Jewellery / Gold Jewellery only
+no (BuyHatke sells 1 per checkout),buyhatke,Peora Fashions In Store,peora-fashions-(in-store)-gift-card,yes,,no,Any Jewellery at Peora Fashion Jewellery Pvt Ltd Stores in India
+no (BuyHatke sells 1 per checkout),buyhatke,PEORA In Store,peora-(in-store)-gift-card,yes,,no,Any Jewellery at Peora Fashion Jewellery Pvt Ltd Stores in India
+no (BuyHatke sells 1 per checkout),buyhatke,Pepperfry,pepperfry-gift-card,no,,yes,not_stated
+no (BuyHatke sells 1 per checkout),buyhatke,Peter England In Store,peter-england-(in-store)-gift-card,yes,,no,All merchandise at Peter England stores
+no (BuyHatke sells 1 per checkout),buyhatke,Philips,philips-gift-card,no,,yes,not_stated
+no (BuyHatke sells 1 per checkout),buyhatke,PhonePe,phonepe-gift-card,no,,yes,All Eligible PhonePe merchants and services
+no (BuyHatke sells 1 per checkout),buyhatke,PinePerksRupayPrime WH (4 Day Wait),pineperksrupayprime-wh-(4-day-wait)-gift-card,not_stated,,yes,Any POS and e-commerce merchants in India where RuPay is accepted
+no (BuyHatke sells 1 per checkout),buyhatke,Planet Fashion In Store,planet-fashion-(in-store)-gift-card,yes,,no,not_stated
+no (BuyHatke sells 1 per checkout),buyhatke,Playo,playo-gift-card,not_stated,,not_stated,not_stated
+no (BuyHatke sells 1 per checkout),buyhatke,Playstation,playstation-gift-card,not_stated,,yes,Items in the PS Store available to Indian account holders
+no (BuyHatke sells 1 per checkout),buyhatke,PMJ Jewellers In Store,pmj-jewellers-(in-store)-gift-card,not_stated,,no,not_stated
+no (BuyHatke sells 1 per checkout),buyhatke,Points for Good,points-for-good-gift-card,yes,,yes,not_stated
+no (BuyHatke sells 1 per checkout),buyhatke,Polar bear In Store,polar-bear-(in-store)-gift-card,not_stated,,not_stated,not_stated
+no (BuyHatke sells 1 per checkout),buyhatke,Polaroid,polaroid-gift-card,not_stated,,yes,not_stated
+no (BuyHatke sells 1 per checkout),buyhatke,Prestige Smart Kitchen,prestige-smart-kitchen-gift-card,yes,,yes,not_stated
+no (BuyHatke sells 1 per checkout),buyhatke,Punjab Grill In Store,punjab-grill-(in-store)-gift-card,yes,,no,not_stated
+no (BuyHatke sells 1 per checkout),buyhatke,Pure Home Living,pure-home-living-gift-card,no,,yes,not_stated
+no (BuyHatke sells 1 per checkout),buyhatke,R B In Store,r-b-(in-store)-gift-card,not_stated,,not_stated,not_stated
+no (BuyHatke sells 1 per checkout),buyhatke,Ratnadeep Retail In Store,ratnadeep-retail-(in-store)-gift-card,yes,,no,not_stated
+no (BuyHatke sells 1 per checkout),buyhatke,Ratnadeep Super Market (In Store),ratnadeep-super-market-(in-store)-gift-card,yes,,no,not_stated
+no (BuyHatke sells 1 per checkout),buyhatke,Razer Gold,razer-gold-gift-card,not_stated,,yes,not_stated
+no (BuyHatke sells 1 per checkout),buyhatke,Reliance Smart,reliance-smart-gift-card,yes,,not_stated,not_stated
+no (BuyHatke sells 1 per checkout),buyhatke,Reliance Smart In Store,reliance-smart-(in-store)-gift-card,yes,,no,"Qualified products from Reliance Signature, Reliance Smart Bazaar, Reliance SmartPoint and Reliance Freshpik"
+no (BuyHatke sells 1 per checkout),buyhatke,Rentomojo,rentomojo-gift-card,no,,yes,Rental payments for products rented from the Company only
+no (BuyHatke sells 1 per checkout),buyhatke,Roblox,roblox-gift-card,not_stated,,yes,"Roblox credits on www.roblox.com, usable for Robux or a Roblox Premium Subscription"
+no (BuyHatke sells 1 per checkout),buyhatke,Salty,salty-gift-card,no,,yes,not_stated
+no (BuyHatke sells 1 per checkout),buyhatke,Sathya In Store,sathya-(in-store)-gift-card,yes,,no,not_stated
+no (BuyHatke sells 1 per checkout),buyhatke,Satya Paul Luxe,satya-paul-luxe-gift-card,not_stated,,not_stated,not_stated
+no (BuyHatke sells 1 per checkout),buyhatke,SELECTED HOMME (In Store),selected-homme-(in-store)-gift-card,yes,,no,not_stated
+no (BuyHatke sells 1 per checkout),buyhatke,Senco Gold In Store,senco-gold-(in-store)-gift-card,yes,,no,"Gold Jewelry, Diamond Jewelry, Gossip collection, Astral Gems/Jewelry, Silver products, Gold & Silver coins, “Sennes” Leather Bags, “Sennes” Lab Grown Diamond Jewelry, and “Sennes” Perfume"
+no (BuyHatke sells 1 per checkout),buyhatke,Skullcandy,skullcandy-gift-card,not_stated,,yes,not_stated
+no (BuyHatke sells 1 per checkout),buyhatke,Smile Foundation,smile-foundation-gift-card,yes,,yes,Donation at https://donate.smilefoundationindia.org/shiksha-na-ruke-voucher only
+no (BuyHatke sells 1 per checkout),buyhatke,SOTC Travel In Store,sotc-travel-(in-store)-gift-card,yes,,no,not_stated
+no (BuyHatke sells 1 per checkout),buyhatke,Soulflower,soulflower-gift-card,not_stated,,yes,not_stated
+no (BuyHatke sells 1 per checkout),buyhatke,Spar Hypermart In Store,spar-hypermart-(in-store)-gift-card,yes,,no,not_stated
+no (BuyHatke sells 1 per checkout),buyhatke,Sri Jagdamba Pearls,sri-jagdamba-pearls-gift-card,yes,,yes,Pearl jewellery only
+no (BuyHatke sells 1 per checkout),buyhatke,SSUNSU,ssunsu-gift-card,no,,yes,not_stated
+no (BuyHatke sells 1 per checkout),buyhatke,Starbucks (In Store),starbucks-(in-store)-gift-card,not_stated,,no,"Beverages, food, and merchandise"
+no (BuyHatke sells 1 per checkout),buyhatke,StayVista,stayvista-gift-card,no,,yes,Eligible properties and services available on StayVista
+no (BuyHatke sells 1 per checkout),buyhatke,Steam,steam-gift-card,not_stated,,yes,"Games, software, and any other item you can purchase on Steam"
+no (BuyHatke sells 1 per checkout),buyhatke,Steam Lysto,steam-lysto-gift-card,not_stated,,yes,not_stated
+no (BuyHatke sells 1 per checkout),buyhatke,Sterling Holidays,sterling-holidays-gift-card,no,,yes,not_stated
+no (BuyHatke sells 1 per checkout),buyhatke,Street Foods By Punjab Grill,street-foods-by-punjab-grill-gift-card,not_stated,,yes,not_stated
+no (BuyHatke sells 1 per checkout),buyhatke,Street Foods By Punjab Grill In Store,street-foods-by-punjab-grill-(in-store)-gift-card,yes,,no,not_stated
+no (BuyHatke sells 1 per checkout),buyhatke,Style Bazaar In Store,style-bazaar-(in-store)-gift-card,not_stated,,no,not_stated
+no (BuyHatke sells 1 per checkout),buyhatke,Superdry Luxe,superdry-luxe-gift-card,not_stated,,not_stated,not_stated
+no (BuyHatke sells 1 per checkout),buyhatke,Surat Diamonds Main,surat-diamonds-main-gift-card,not_stated,,yes,Any jewellery from www.suratdiamond.com only
+no (BuyHatke sells 1 per checkout),buyhatke,Surat Diamonds Solitaire,surat-diamonds-solitaire-gift-card,not_stated,,yes,Any jewellery from https://ringdesign.suratdiamond.com/Default.aspx
+no (BuyHatke sells 1 per checkout),buyhatke,Swiggy One,swiggy-one-gift-card,not_stated,,yes,Swiggy One membership activation only
+no (BuyHatke sells 1 per checkout),buyhatke,Taj Dining,taj-dining-gift-card,no,,yes,not_stated
+no (BuyHatke sells 1 per checkout),buyhatke,Taj Experiences,taj-experiences-gift-card,no,,yes,not_stated
+no (BuyHatke sells 1 per checkout),buyhatke,Taj Experiences In Store,taj-experiences-(in-store)-gift-card,no,,no,not_stated
+no (BuyHatke sells 1 per checkout),buyhatke,Taj Hotels,taj-hotels-gift-card,no,,yes,not_stated
+no (BuyHatke sells 1 per checkout),buyhatke,Taj Hotels J Wellness Circle Bliss Duo In Store,taj-hotels-j-wellness-circle-bliss-duo-(in-store)-gift-card,yes,,no,"The stated spa treatment at participating Spas across Taj, SeleQtions Gateway and Vivanta hotels only"
+no (BuyHatke sells 1 per checkout),buyhatke,Taj Hotels J Wellness Circle Bliss Solo In Store,taj-hotels-j-wellness-circle-bliss-solo-(in-store)-gift-card,yes,,no,"The stated spa treatment at participating Spas across Taj, SeleQtions Gateway and Vivanta hotels only"
+no (BuyHatke sells 1 per checkout),buyhatke,Taj Spa,taj-spa-gift-card,no,,yes,not_stated
+no (BuyHatke sells 1 per checkout),buyhatke,Taneira,taneira-gift-card,no,,yes,not_stated
+no (BuyHatke sells 1 per checkout),buyhatke,Taneira In Store,taneira-(in-store)-gift-card,not_stated,,no,not_stated
+no (BuyHatke sells 1 per checkout),buyhatke,Tanishq Gold Coin,tanishq-gold-coin-gift-card,yes,,yes,not_stated
+no (BuyHatke sells 1 per checkout),buyhatke,Tanishq Gold Coin In Store,tanishq-gold-coin-(in-store)-gift-card,yes,,no,not_stated
+no (BuyHatke sells 1 per checkout),buyhatke,Tanishq Gold Jewellery In Store,tanishq-gold-jewellery-(in-store)-gift-card,yes,,no,not_stated
+no (BuyHatke sells 1 per checkout),buyhatke,Tanishq Studded In Store,tanishq-studded-(in-store)-gift-card,yes,,no,Studded and diamond jewellery only
+no (BuyHatke sells 1 per checkout),buyhatke,Tasva,tasva-gift-card,not_stated,,not_stated,not_stated
+no (BuyHatke sells 1 per checkout),buyhatke,TATA CLiQ Fashion,tata-cliq-fashion-gift-card,no,,yes,not_stated
+no (BuyHatke sells 1 per checkout),buyhatke,Tata CliQ Luxury,tata-cliq-luxury-gift-card,no,,yes,not_stated
+no (BuyHatke sells 1 per checkout),buyhatke,TataCliq Fashion,tatacliq-fashion-gift-card,no,,yes,not_stated
+no (BuyHatke sells 1 per checkout),buyhatke,TBZ (In Store),tbz-(in-store)-gift-card,yes,,no,not_stated
+no (BuyHatke sells 1 per checkout),buyhatke,The Collective,the-collective-gift-card,yes,,yes,not_stated
+no (BuyHatke sells 1 per checkout),buyhatke,The Reading Habit,the-reading-habit-gift-card,yes,,yes,Subscription payments on www.thereadinghabit.in
+no (BuyHatke sells 1 per checkout),buyhatke,The Wellness Co (In Store),the-wellness-co-(in-store)-gift-card,not_stated,,no,not_stated
+no (BuyHatke sells 1 per checkout),buyhatke,Third Wave Coffee,third-wave-coffee-gift-card,no,,yes,All types of orders via Third Wave app
+no (BuyHatke sells 1 per checkout),buyhatke,Tim Hortons In Store,tim-hortons-(in-store)-gift-card,no,,no,not_stated
+no (BuyHatke sells 1 per checkout),buyhatke,Times Prime Power,times-prime-power-gift-card,yes,,yes,Times Prime membership
+no (BuyHatke sells 1 per checkout),buyhatke,Times Prime Prive,times-prime-prive-gift-card,yes,,yes,Times Prime membership
+no (BuyHatke sells 1 per checkout),buyhatke,TimeZone In Store,timezone-(in-store)-gift-card,not_stated,,no,not_stated
+no (BuyHatke sells 1 per checkout),buyhatke,Tinder,tinder-gift-card,yes,,yes,not_stated
+no (BuyHatke sells 1 per checkout),buyhatke,Tira Beauty,tira-beauty-gift-card,not_stated,,yes,not_stated
+no (BuyHatke sells 1 per checkout),buyhatke,Titan Eye Plus,titan-eye-plus-gift-card,not_stated,,not_stated,not_stated
+no (BuyHatke sells 1 per checkout),buyhatke,Titan Eye Plus In Store,titan-eye-plus-(in-store)-gift-card,yes,,no,not_stated
+no (BuyHatke sells 1 per checkout),buyhatke,Toscano In Store,toscano-(in-store)-gift-card,yes,,no,Dine-in only
+no (BuyHatke sells 1 per checkout),buyhatke,Trends Women In Store,trends-women-(in-store)-gift-card,yes,,no,not_stated
+no (BuyHatke sells 1 per checkout),buyhatke,Typsy Beauty,typsy-beauty-gift-card,not_stated,,yes,not_stated
+no (BuyHatke sells 1 per checkout),buyhatke,Unicorn Apple Premium In Store,unicorn-apple-premium-(in-store)-gift-card,yes,,no,Any Apple product sold at Unicorn stores
+no (BuyHatke sells 1 per checkout),buyhatke,UniPin,unipin-gift-card,not_stated,,yes,Game top-ups and game vouchers on UniPin
+no (BuyHatke sells 1 per checkout),buyhatke,Unlimited In Store,unlimited-(in-store)-gift-card,not_stated,,no,not_stated
+no (BuyHatke sells 1 per checkout),buyhatke,Urban Space,urban-space-gift-card,no,,yes,not_stated
+no (BuyHatke sells 1 per checkout),buyhatke,Vaango In Store,vaango-(in-store)-gift-card,not_stated,,no,not_stated
+no (BuyHatke sells 1 per checkout),buyhatke,Valorant,valorant-gift-card,yes,,yes,Valorant Points (VP) at prepaidcards.riotgames.com and the Valorant in-game store
+no (BuyHatke sells 1 per checkout),buyhatke,Van Heusen In Store,van-heusen-(in-store)-gift-card,yes,,no,not_stated
+no (BuyHatke sells 1 per checkout),buyhatke,Vero Moda (In Store),vero-moda-(in-store)-gift-card,yes,,no,not_stated
+no (BuyHatke sells 1 per checkout),buyhatke,Victorias Secret,victorias-secret-gift-card,not_stated,,not_stated,not_stated
+no (BuyHatke sells 1 per checkout),buyhatke,Vinci Botanicals,vinci-botanicals-gift-card,no,,yes,not_stated
+no (BuyHatke sells 1 per checkout),buyhatke,Westside In Store 8 Hr Wait,westside-(in-store%2C-8-hr-wait)-gift-card,yes,,no,not_stated
+no (BuyHatke sells 1 per checkout),buyhatke,Xbox Essential Game Pass,xbox-essential-game-pass-gift-card,not_stated,,yes,not_stated
+no (BuyHatke sells 1 per checkout),buyhatke,Xbox Premium Game Pass,xbox-premium-game-pass-gift-card,not_stated,,yes,not_stated
+no (BuyHatke sells 1 per checkout),buyhatke,Xbox Ultimate Game Pass,xbox-ultimate-game-pass-gift-card,not_stated,,yes,not_stated
+no (BuyHatke sells 1 per checkout),buyhatke,Yatra Hotel,yatra-hotel-gift-card,not_stated,,yes,Domestic Hotel bookings only
+no (BuyHatke sells 1 per checkout),buyhatke,Yatra Hotels Holidays,yatra-hotels-holidays-gift-card,not_stated,,yes,"Hotels (Domestic/International), and Holidays (Domestic/International)"
+no (BuyHatke sells 1 per checkout),buyhatke,YLG (In Store),ylg-(in-store)-gift-card,yes,,no,not_stated
+no (BuyHatke sells 1 per checkout),buyhatke,YouMee,youmee-gift-card,not_stated,,not_stated,not_stated
+no (BuyHatke sells 1 per checkout),buyhatke,Zambar,zambar-gift-card,not_stated,,not_stated,not_stated
+no (BuyHatke sells 1 per checkout),buyhatke,Zambar In Store,zambar-(in-store)-gift-card,yes,,no,not_stated
+no (BuyHatke sells 1 per checkout),buyhatke,Zepto,zepto-gift-card,not_stated,,yes,not_stated
+no (BuyHatke sells 1 per checkout),buyhatke,Zouk,zouk-gift-card,not_stated,,not_stated,not_stated

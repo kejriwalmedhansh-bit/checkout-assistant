@@ -17,25 +17,60 @@ self.__dealoConfig = {
   // URL must contain one of these (case-insensitive) to count as a
   // checkout-like page — generic, not a per-site list.
   CHECKOUT_URL_KEYWORDS: ["cart", "checkout", "bag", "payment"],
+
+  // The three voucher partners. Dealo has to be able to run here — the whole
+  // guided middle of the journey happens on these sites — but it must NOT
+  // appear when someone is merely browsing vouchers, which looks unhinged:
+  // a voucher popup on a voucher site. So these are injected ONLY while a
+  // trip is actually in progress (see shouldRunOn in background.js).
+  VOUCHER_HOSTS: ["gyftr.com", "maximize.money", "buyhatke.com"],
+
+  // Places Dealo must never appear, whatever the address says. The keyword
+  // test below already excludes almost everything that isn't a shop, but
+  // these are the sites where being wrong is most alarming — a shopping
+  // extension surfacing over someone's inbox reads as spyware even when it
+  // does nothing. Matched on the registrable host and its subdomains.
+  NEVER_RUN_HOSTS: [
+    // mail
+    "mail.google.com", "outlook.com", "outlook.live.com", "outlook.office.com",
+    "mail.yahoo.com", "mail.proton.me", "zoho.com", "rediffmail.com",
+    // messaging and social
+    "web.whatsapp.com", "facebook.com", "messenger.com", "instagram.com",
+    "x.com", "twitter.com", "linkedin.com", "reddit.com", "threads.net",
+    "snapchat.com", "discord.com", "telegram.org", "web.telegram.org",
+    // documents and work
+    "docs.google.com", "drive.google.com", "calendar.google.com",
+    "notion.so", "slack.com", "figma.com", "github.com",
+    // Dealo's own site — the extension has nothing to say here
+    "getdealo.in",
+  ],
   // Don't interrupt a checkout for a saving that isn't worth the errand.
   // Buying a voucher is real effort — leave the site, pay, wait for a code,
-  // come back, redeem it. A deal has to clear ONE of these two bars:
+  // come back, redeem it. A deal has to clear ONE of two bars:
   //
-  //   * a decent amount of money (MIN_SAVING_TO_OFFER), or
-  //   * a decent rate (MIN_RATE_TO_OFFER), which is worth doing even on a
-  //     small basket and gets better as the basket grows.
+  //   * a good rate that is also real money — MIN_RATE_TO_OFFER and
+  //     MIN_SAVING_AT_RATE, which must BOTH hold, or
+  //   * enough money that the rate stops mattering — MIN_SAVING_ALONE.
   //
-  // Both are needed because either bar alone is wrong. Amazon's 0.75% rate
-  // is capped by its own ₹50,000 monthly wallet ceiling, so even a ₹200,000
-  // basket only saves ₹375 — never worth the errand, which is exactly the
-  // case that prompted this. But a flat ₹500 bar alone would also silence
-  // Croma at 3% (₹450 on a ₹15,000 order) and Myntra at 5.29%, which are
-  // clearly worth doing.
-  MIN_SAVING_TO_OFFER: 500,
+  // Set 2026-09-07, replacing a flat "₹500 or 3%" where either bar alone was
+  // enough. Rate alone was too loose: boAt's genuine 7% on a ₹1,189 basket is
+  // ₹83, and Dealo was interrupting a checkout to offer it — seen live while
+  // shooting the store screenshots. Money alone was too tight: at a ₹500 bar
+  // Croma's 3% stayed silent until a ₹16,700 basket. Pairing the rate with a
+  // small rupee floor keeps the good rates and drops the trivial ones, while
+  // the standalone rupee bar still catches a big basket at a poor rate.
+  //
+  // MIN_RATE_FLOOR is the exception to MIN_SAVING_ALONE, added 2026-09-07.
+  // Amazon's 0.75% is capped by a ₹50,000 monthly wallet ceiling, so a
+  // ₹200,000 basket saves ₹375 and no more however big the basket gets
+  // (checked live, not assumed). Under the rupee bar alone that cleared ₹300
+  // and Dealo offered it — five separate ₹10,000 vouchers, covering a quarter
+  // of the order, for ₹375. Below this floor the rate is so thin that no
+  // basket size makes the errand worth it, so the rupee bar doesn't apply.
+  // Set at 1% deliberately: the product decision was "₹300 is worth showing
+  // even at 1%", so 1% still qualifies and 0.75% does not.
   MIN_RATE_TO_OFFER: 3,
-  // Anything actually offered therefore saves at least the amount above, so
-  // a known saving is always shown in rupees — the concrete figure lands
-  // harder than a percentage. The percentage is only used when the order
-  // total couldn't be read at all.
-  RUPEE_HEADLINE_FROM: 500,
+  MIN_SAVING_AT_RATE: 200,
+  MIN_SAVING_ALONE: 300,
+  MIN_RATE_FLOOR: 1,
 };
