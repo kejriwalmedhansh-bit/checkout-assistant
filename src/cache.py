@@ -64,13 +64,34 @@ class RateLimiter:
     ttl resets on every .set(), which would silently turn "N per hour" into
     "N since you last went quiet for an hour", not a real rolling cap."""
 
+    # How many allow() calls between sweeps of finished windows. The WhatsApp
+    # limiter is keyed by phone number, so its key space stays small on its
+    # own; the web one is keyed by IP address, where every new visitor is a
+    # new key and nothing would ever remove the old ones. Sweeping is O(keys),
+    # so it happens on an interval rather than on every request.
+    _SWEEP_EVERY = 256
+
     def __init__(self, max_per_window: int, window_seconds: float):
         self.max_per_window = max_per_window
         self.window_seconds = window_seconds
         self._store: dict[Any, tuple[float, int]] = {}
+        self._calls_since_sweep = 0
+
+    def _sweep(self, now: float) -> None:
+        """Forget keys whose window has already elapsed. Dropping one is not a
+        reprieve: an absent key and an expired key both start the next request
+        at a count of zero."""
+        for k in [k for k, (start, _) in self._store.items() if now - start >= self.window_seconds]:
+            self._store.pop(k, None)
 
     def allow(self, key: Any) -> bool:
         now = time.monotonic()
+
+        self._calls_since_sweep += 1
+        if self._calls_since_sweep >= self._SWEEP_EVERY:
+            self._calls_since_sweep = 0
+            self._sweep(now)
+
         start, count = self._store.get(key, (now, 0))
         if now - start >= self.window_seconds:
             start, count = now, 0
@@ -79,6 +100,16 @@ class RateLimiter:
             return False
         self._store[key] = (start, count + 1)
         return True
+
+    def seconds_until_reset(self, key: Any) -> int:
+        """Whole seconds until this key's window rolls over — what to put in a
+        Retry-After header. At least 1, since telling a client to retry in
+        zero seconds invites an immediate second rejection."""
+        entry = self._store.get(key)
+        if entry is None:
+            return 1
+        start, _ = entry
+        return max(1, int(self.window_seconds - (time.monotonic() - start)) + 1)
 
 
 class SessionStore:

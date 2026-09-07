@@ -6,8 +6,9 @@
 """
 from __future__ import annotations
 
-from fastapi import APIRouter
+from fastapi import APIRouter, Depends
 
+from ..rate_limit import enforce_search_rate_limit
 from ...schemas.search import (
     ProductDetailResponse,
     RoutesRequest,
@@ -17,7 +18,12 @@ from ...schemas.search import (
 )
 from ...services import search_service
 
-router = APIRouter(tags=["search"])
+# Every endpoint below spends money to answer — SearchApi for the lookup, then
+# Crawlbase/Apify to read store pages — and none of them needs an account, so
+# the cost guard goes on the whole router rather than being remembered
+# endpoint by endpoint. /voucher-check and /vouchers are deliberately not
+# covered: they answer from local data files and cost nothing to serve.
+router = APIRouter(tags=["search"], dependencies=[Depends(enforce_search_rate_limit)])
 
 
 @router.post("/search", response_model=SearchCandidatesResponse)
