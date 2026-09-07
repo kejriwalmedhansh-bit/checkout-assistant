@@ -37,7 +37,13 @@ def as_int(v):
 
 def stack_limit_from(offer: dict):
     """max_vouchers_per_bill, as a number the pipeline can use. "unlimited" is
-    left as None — the pipeline reads None as no limit, which is what it means."""
+    left as None — the pipeline reads None as no limit, which is what it means.
+
+    Writes `stack_limit` only, which is the SHOP's redemption rule. Maximize's
+    own per-checkout selling cap lives in `reseller_qty_cap` and must never be
+    touched here: the two were sharing a field, so this function was silently
+    erasing a scraped "Max: 4" every time it ran.
+    """
     rule = (offer.get("rules") or {}).get("max_vouchers_per_bill") or {}
     v = rule.get("value")
     if v in (None, "not_stated"):
