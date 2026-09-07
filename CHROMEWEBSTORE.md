@@ -43,12 +43,35 @@ English
 | Asset | Dimensions | Status | Filename |
 |-------|-----------|--------|----------|
 | Store Icon [REQUIRED] | 128×128 PNG | ✅ Ready | `extension/icons/icon128.png` |
-| Screenshot 1 [REQUIRED] | 1280×800 | ⬜ Not created | |
-| Screenshot 2 [RECOMMENDED] | 1280×800 | ⬜ Not created | |
-| Screenshot 3 [RECOMMENDED] | 1280×800 | ⬜ Not created | |
-| Small Promo Tile [RECOMMENDED] | 440×280 | ⬜ Not created | |
+| Screenshot 1 [REQUIRED] | 1280×800 | ✅ Ready | `store-assets/screenshot-1-the-moment.png` |
+| Screenshot 2 [RECOMMENDED] | 1280×800 | ✅ Ready | `store-assets/screenshot-2-which-voucher.png` |
+| Screenshot 3 [RECOMMENDED] | 1280×800 | ✅ Ready | `store-assets/screenshot-3-code-stays-local.png` |
+| Small Promo Tile [RECOMMENDED] | 440×280 | ✅ Ready | `store-assets/promo-tile-440x280.png` |
 
 ### Screenshot Notes
+
+**Shot 2026-09-07, all against live pages — no mockups.** In upload order:
+
+1. `screenshot-1-the-moment.png` — a real boAt cart holding ₹7,134 of stock,
+   with Dealo showing **₹350 saved on this order at Boat** and the
+   voucher → pay → done strip. The product in one image.
+2. `screenshot-2-which-voucher.png` — Dealo on maximize.money, ringing the
+   ₹5,000 button with "1/2 · Tap ₹5,000" and stating UPI 7% ✓ against
+   Card 5.1% ✗. This is the answer to "and then what do I do?".
+3. `screenshot-3-code-stays-local.png` — "Paste your voucher code", with the
+   words *Stays on your device* under the button. Worth including precisely
+   because the all-sites permission will make a reviewer look for where the
+   data goes.
+
+Each was padded to 16:10 on the brand cream rather than cropped, so nothing
+in the frame was cut to hit 1280×800.
+
+**The fourth shot named below is still missing**, and it is the one that needs
+a real purchase: the code card back on the store page, ready to paste into the
+discount box. There is no honest way to stage it without buying a voucher.
+Shoot it the next time you actually buy one.
+
+Original guidance, still worth following if these are ever re-shot:
 
 Take these against a real checkout page — reviewers can tell a mockup, and a real one is more persuasive anyway. The four that tell the story:
 
@@ -141,27 +164,25 @@ _None yet._
 
 ## What still stands between you and submitting
 
-Two of the three original blockers are gone. ~~Host the privacy policy~~ is
-done (URL above). ~~The Render sleep problem~~ is done (paid tier). What is
-left:
+**All three original blockers are cleared as of 2026-09-07.** Kept here struck
+through rather than deleted, so that a rejection can be traced back to what was
+actually done:
 
-1. **Register as a Chrome Web Store developer** — one-time US$5 fee to Google,
-   paid at the Developer Dashboard. Nothing can be uploaded until this clears,
-   and it is the only step with an external dependency, so do it first.
-2. **Take at least one screenshot** at 1280×800. One is the minimum, three or
-   four is much better. Blocked on a practical detail rather than a decision:
-   the screenshots have to be shot in a Chrome profile that actually has the
-   extension loaded, and Dealo is currently loaded in only one of the three
-   profiles on this machine — see [[project-dealo-chrome-profiles]]. A cart
-   page in the wrong profile looks exactly like a broken extension.
+1. ~~Register as a Chrome Web Store developer~~ — **done.** The US$5 fee is
+   paid and the developer account is live.
+2. ~~Take at least one screenshot~~ — **done 2026-09-07.** Three at 1280×800
+   plus the promo tile, in `store-assets/`. See "Screenshot Notes" above for
+   what each one shows and for the fourth shot that is still missing.
 
-Then, before you upload:
+Nothing is blocking submission any more. Before you upload:
 
-4. **Build the ZIP from `extension/` only** — not the repository root. The package must contain `manifest.json` at its top level, and must not contain `.git/`, this file, or the scrape data.
+3. ~~Build the ZIP from `extension/` only~~ — **done 2026-09-07**, and checked rather than assumed: `dealo-v0.1.0.zip` at the repo root, 188 KB, 17 files, `manifest.json` at the top level, no `.git/`, no scrape data, no `PRIVACY.md`. Rebuild it with the command below after any change to `extension/`.
 
 ### Building the upload package
 
     cd ~/checkout-assistant/extension
     zip -r ../dealo-v0.1.0.zip . -x "*.DS_Store" "*/.impeccable/*"
 
-Check before uploading that `manifest.json` sits at the root of the ZIP rather than inside a folder — a nested manifest is the most common upload failure.
+Check before uploading that `manifest.json` sits at the root of the ZIP rather than inside a folder — a nested manifest is the most common upload failure:
+
+    unzip -l ../dealo-v0.1.0.zip | grep manifest.json
