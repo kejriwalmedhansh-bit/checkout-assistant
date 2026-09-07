@@ -11,7 +11,8 @@ When you're on a page that looks like a checkout or cart page, it sends two
 things to Dealo's server:
 
 1. **The store's web address** — just the domain, e.g. `croma.com`. Not the
-   full page address, not the product, not the page contents.
+   full page address, not the product, not the page contents. (The one
+   exception is the affiliate button described below.)
 2. **The order total shown on the page**, if it can read one — a single
    number, used only to work out the actual rupee saving. If it can't read a
    total confidently, nothing is sent for this and the extension shows a
@@ -35,7 +36,9 @@ identity, because the extension never has one.
 
 If no discount is available, the extension offers an "Okay" button. Clicking
 it briefly routes you through Dealo's affiliate link before returning you to
-the same page you were on. If you then complete the purchase, Dealo may earn a
+the same page you were on — this is the one time the address of the page
+you're on is sent to Dealo's server, because that link is what you're being
+sent back to. If you then complete the purchase, Dealo may earn a
 commission from the store, at no extra cost to you. This is how Dealo is paid.
 Nothing about your purchase is shared with Dealo beyond what the store's own
 affiliate programme reports.
@@ -64,6 +67,12 @@ Chrome will warn you that the extension can "read and change all your data on
 all websites." That's because it can't know in advance which store you'll shop
 at — it has to be present on the page to notice you've reached a checkout. It
 does not read or transmit page content beyond the order total described above.
+
+## The full policy
+
+This page covers the Chrome extension specifically. Dealo's full privacy
+policy — covering the website and the WhatsApp bot as well — is at
+https://getdealo.in/privacy/ and says the same things about the extension.
 
 ## Contact
 
