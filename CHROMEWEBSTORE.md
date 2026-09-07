@@ -1,7 +1,7 @@
 # Chrome Web Store Listing — Dealo
 
-> Last Updated: 2026-09-04
-> Status: **not yet submitted** — three blockers remain, see "What still stands between you and submitting" at the bottom.
+> Last Updated: 2026-09-07
+> Status: **not yet submitted** — one blocker left, see "What still stands between you and submitting" at the bottom. The privacy policy is hosted and the Render sleep problem is gone.
 
 ## Store Listing
 
@@ -96,11 +96,15 @@ Copy each cell verbatim into the matching field in the Developer Dashboard.
 
 ## Privacy Policy
 
-**Privacy Policy URL** — ⚠️ **BLOCKER: not yet hosted.**
+**Privacy Policy URL** — ✅ hosted, verified loading 2026-09-07:
 
-The policy text itself is written and accurate, at `extension/PRIVACY.md`. It needs to live at a public URL that loads in a browser. Cheapest route: turn on GitHub Pages for the repo and link the rendered page. A Notion page works too.
+    https://kejriwalmedhansh-bit.github.io/checkout-assistant/privacy.html
 
-The hosted text must stay consistent with the disclosure table above. It currently is — both say the same two fields leave the device, and both say voucher codes never do.
+Served by GitHub Pages straight from `docs/` on `main`, no build step. The
+source is `docs/privacy.html`, word-for-word the same as `extension/PRIVACY.md`.
+**Change the two together** — the hosted text must keep matching the disclosure
+table above, and today it does: both say the same two fields leave the device,
+and both say voucher codes never do.
 
 ## Distribution
 
@@ -118,7 +122,7 @@ The hosted text must stay consistent with the disclosure table above. It current
 
 | Version | Date | Changes | Status |
 |---------|------|---------|--------|
-| 0.1.0 | — | First submission. Checkout detection, rupee saving figure, guided voucher purchase, multi-voucher code handling, final place-order step. | Draft |
+| 0.1.0 | — | First submission. Package built and verified 2026-09-07 as `dealo-v0.1.0.zip` (188 KB, 17 files, `manifest.json` at the root). Checkout detection, rupee saving figure, guided voucher purchase, multi-voucher code handling, final place-order step. | Draft |
 
 ## Review Notes
 
@@ -126,8 +130,8 @@ The hosted text must stay consistent with the disclosure table above. It current
 
 - Desktop Chrome only.
 - India only in practice — all covered stores and vouchers are Indian.
-- The extension deliberately stays silent when the saving is under ₹500 *and* under 3%, so a reviewer testing a small basket may see nothing happen. Worth stating in the submission notes so it isn't mistaken for a broken extension. Suggest to the reviewer a test case that reliably fires: a Myntra cart of ₹5,000, which returns a 5.29% saving.
-- The backend is hosted on Render's free tier, which sleeps when idle. The first request after a quiet period can take several seconds to wake, during which the extension shows nothing. If a reviewer tests once, cold, they may see no panel at all. **Consider paying for an always-on instance before submitting** — this is the single most likely cause of a "doesn't work" rejection.
+- The extension deliberately stays silent when the saving is under ₹500 *and* under 3%, so a reviewer testing a small basket may see nothing happen. Worth stating in the submission notes so it isn't mistaken for a broken extension. Suggest to the reviewer a test case that reliably fires. Verified live 2026-09-07: a boAt (`boat-lifestyle.com`) cart returns 7%, the widest margin of the three and the one least likely to drift below the bar; Myntra at ₹5,000 returns 4.26% and Croma 3%. Re-check these before submitting — they move with the fortnightly voucher refresh, and the 5.29% Myntra figure quoted here previously had already gone stale.
+- ~~Render free-tier sleep~~ — **resolved 2026-09-07.** This was flagged as the single most likely cause of a "doesn't work" rejection: a reviewer hitting a sleeping backend would see no panel at all. The backend is now on Render's paid always-on tier, and a cold `/voucher-check` answered in 0.6s when checked. Nothing to do here before submitting.
 
 ### Rejection History
 
@@ -137,16 +141,23 @@ _None yet._
 
 ## What still stands between you and submitting
 
-In the order they block you:
+Two of the three original blockers are gone. ~~Host the privacy policy~~ is
+done (URL above). ~~The Render sleep problem~~ is done (paid tier). What is
+left:
 
-1. **Register as a Chrome Web Store developer** — one-time US$5 fee to Google, paid at the Developer Dashboard. Nothing can be uploaded until this clears. Do this first; it is the only step with an external dependency.
-2. **Host the privacy policy** at a public URL and paste it into the listing. Required field; submission is impossible without it.
-3. **Take at least one screenshot** at 1280×800. One is the minimum, three or four is much better.
+1. **Register as a Chrome Web Store developer** — one-time US$5 fee to Google,
+   paid at the Developer Dashboard. Nothing can be uploaded until this clears,
+   and it is the only step with an external dependency, so do it first.
+2. **Take at least one screenshot** at 1280×800. One is the minimum, three or
+   four is much better. Blocked on a practical detail rather than a decision:
+   the screenshots have to be shot in a Chrome profile that actually has the
+   extension loaded, and Dealo is currently loaded in only one of the three
+   profiles on this machine — see [[project-dealo-chrome-profiles]]. A cart
+   page in the wrong profile looks exactly like a broken extension.
 
 Then, before you upload:
 
-4. **Consider the Render free-tier sleep problem** described under Known Issues. A reviewer hitting a cold backend sees a dead extension.
-5. **Build the ZIP from `extension/` only** — not the repository root. The package must contain `manifest.json` at its top level, and must not contain `.git/`, this file, or the scrape data.
+4. **Build the ZIP from `extension/` only** — not the repository root. The package must contain `manifest.json` at its top level, and must not contain `.git/`, this file, or the scrape data.
 
 ### Building the upload package
 
