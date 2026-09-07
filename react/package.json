@@ -6,7 +6,7 @@
   "description": "Dealo — public pre-checkout purchase optimization dashboard",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "vite build && node scripts/prerender.mjs",
     "preview": "vite preview",
     "lint": "eslint ."
   },
