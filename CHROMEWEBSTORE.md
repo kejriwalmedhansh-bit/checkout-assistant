@@ -1,7 +1,7 @@
 # Chrome Web Store Listing — Dealo
 
-> Last Updated: 2026-09-04
-> Status: **not yet submitted** — three blockers remain, see "What still stands between you and submitting" at the bottom.
+> Last Updated: 2026-09-07
+> Status: **not yet submitted** — one blocker left, see "What still stands between you and submitting" at the bottom. The privacy policy is hosted and the Render sleep problem is gone.
 
 ## Store Listing
 
@@ -43,12 +43,35 @@ English
 | Asset | Dimensions | Status | Filename |
 |-------|-----------|--------|----------|
 | Store Icon [REQUIRED] | 128×128 PNG | ✅ Ready | `extension/icons/icon128.png` |
-| Screenshot 1 [REQUIRED] | 1280×800 | ⬜ Not created | |
-| Screenshot 2 [RECOMMENDED] | 1280×800 | ⬜ Not created | |
-| Screenshot 3 [RECOMMENDED] | 1280×800 | ⬜ Not created | |
-| Small Promo Tile [RECOMMENDED] | 440×280 | ⬜ Not created | |
+| Screenshot 1 [REQUIRED] | 1280×800 | ✅ Ready | `store-assets/screenshot-1-the-moment.png` |
+| Screenshot 2 [RECOMMENDED] | 1280×800 | ✅ Ready | `store-assets/screenshot-2-which-voucher.png` |
+| Screenshot 3 [RECOMMENDED] | 1280×800 | ✅ Ready | `store-assets/screenshot-3-code-stays-local.png` |
+| Small Promo Tile [RECOMMENDED] | 440×280 | ✅ Ready | `store-assets/promo-tile-440x280.png` |
 
 ### Screenshot Notes
+
+**Shot 2026-09-07, all against live pages — no mockups.** In upload order:
+
+1. `screenshot-1-the-moment.png` — a real boAt cart holding ₹7,134 of stock,
+   with Dealo showing **₹350 saved on this order at Boat** and the
+   voucher → pay → done strip. The product in one image.
+2. `screenshot-2-which-voucher.png` — Dealo on maximize.money, ringing the
+   ₹5,000 button with "1/2 · Tap ₹5,000" and stating UPI 7% ✓ against
+   Card 5.1% ✗. This is the answer to "and then what do I do?".
+3. `screenshot-3-code-stays-local.png` — "Paste your voucher code", with the
+   words *Stays on your device* under the button. Worth including precisely
+   because the all-sites permission will make a reviewer look for where the
+   data goes.
+
+Each was padded to 16:10 on the brand cream rather than cropped, so nothing
+in the frame was cut to hit 1280×800.
+
+**The fourth shot named below is still missing**, and it is the one that needs
+a real purchase: the code card back on the store page, ready to paste into the
+discount box. There is no honest way to stage it without buying a voucher.
+Shoot it the next time you actually buy one.
+
+Original guidance, still worth following if these are ever re-shot:
 
 Take these against a real checkout page — reviewers can tell a mockup, and a real one is more persuasive anyway. The four that tell the story:
 
@@ -96,11 +119,15 @@ Copy each cell verbatim into the matching field in the Developer Dashboard.
 
 ## Privacy Policy
 
-**Privacy Policy URL** — ⚠️ **BLOCKER: not yet hosted.**
+**Privacy Policy URL** — ✅ hosted, verified loading 2026-09-07:
 
-The policy text itself is written and accurate, at `extension/PRIVACY.md`. It needs to live at a public URL that loads in a browser. Cheapest route: turn on GitHub Pages for the repo and link the rendered page. A Notion page works too.
+    https://kejriwalmedhansh-bit.github.io/checkout-assistant/privacy.html
 
-The hosted text must stay consistent with the disclosure table above. It currently is — both say the same two fields leave the device, and both say voucher codes never do.
+Served by GitHub Pages straight from `docs/` on `main`, no build step. The
+source is `docs/privacy.html`, word-for-word the same as `extension/PRIVACY.md`.
+**Change the two together** — the hosted text must keep matching the disclosure
+table above, and today it does: both say the same two fields leave the device,
+and both say voucher codes never do.
 
 ## Distribution
 
@@ -118,7 +145,7 @@ The hosted text must stay consistent with the disclosure table above. It current
 
 | Version | Date | Changes | Status |
 |---------|------|---------|--------|
-| 0.1.0 | — | First submission. Checkout detection, rupee saving figure, guided voucher purchase, multi-voucher code handling, final place-order step. | Draft |
+| 0.1.0 | — | First submission. Package built and verified 2026-09-07 as `dealo-v0.1.0.zip` (188 KB, 17 files, `manifest.json` at the root). Checkout detection, rupee saving figure, guided voucher purchase, multi-voucher code handling, final place-order step. | Draft |
 
 ## Review Notes
 
@@ -126,8 +153,8 @@ The hosted text must stay consistent with the disclosure table above. It current
 
 - Desktop Chrome only.
 - India only in practice — all covered stores and vouchers are Indian.
-- The extension deliberately stays silent when the saving is under ₹500 *and* under 3%, so a reviewer testing a small basket may see nothing happen. Worth stating in the submission notes so it isn't mistaken for a broken extension. Suggest to the reviewer a test case that reliably fires: a Myntra cart of ₹5,000, which returns a 5.29% saving.
-- The backend is hosted on Render's free tier, which sleeps when idle. The first request after a quiet period can take several seconds to wake, during which the extension shows nothing. If a reviewer tests once, cold, they may see no panel at all. **Consider paying for an always-on instance before submitting** — this is the single most likely cause of a "doesn't work" rejection.
+- The extension deliberately stays silent when the saving is under ₹500 *and* under 3%, so a reviewer testing a small basket may see nothing happen. Worth stating in the submission notes so it isn't mistaken for a broken extension. Suggest to the reviewer a test case that reliably fires. Verified live 2026-09-07: a boAt (`boat-lifestyle.com`) cart returns 7%, the widest margin of the three and the one least likely to drift below the bar; Myntra at ₹5,000 returns 4.26% and Croma 3%. Re-check these before submitting — they move with the fortnightly voucher refresh, and the 5.29% Myntra figure quoted here previously had already gone stale.
+- ~~Render free-tier sleep~~ — **resolved 2026-09-07.** This was flagged as the single most likely cause of a "doesn't work" rejection: a reviewer hitting a sleeping backend would see no panel at all. The backend is now on Render's paid always-on tier, and a cold `/voucher-check` answered in 0.6s when checked. Nothing to do here before submitting.
 
 ### Rejection History
 
@@ -137,20 +164,25 @@ _None yet._
 
 ## What still stands between you and submitting
 
-In the order they block you:
+**All three original blockers are cleared as of 2026-09-07.** Kept here struck
+through rather than deleted, so that a rejection can be traced back to what was
+actually done:
 
-1. **Register as a Chrome Web Store developer** — one-time US$5 fee to Google, paid at the Developer Dashboard. Nothing can be uploaded until this clears. Do this first; it is the only step with an external dependency.
-2. **Host the privacy policy** at a public URL and paste it into the listing. Required field; submission is impossible without it.
-3. **Take at least one screenshot** at 1280×800. One is the minimum, three or four is much better.
+1. ~~Register as a Chrome Web Store developer~~ — **done.** The US$5 fee is
+   paid and the developer account is live.
+2. ~~Take at least one screenshot~~ — **done 2026-09-07.** Three at 1280×800
+   plus the promo tile, in `store-assets/`. See "Screenshot Notes" above for
+   what each one shows and for the fourth shot that is still missing.
 
-Then, before you upload:
+Nothing is blocking submission any more. Before you upload:
 
-4. **Consider the Render free-tier sleep problem** described under Known Issues. A reviewer hitting a cold backend sees a dead extension.
-5. **Build the ZIP from `extension/` only** — not the repository root. The package must contain `manifest.json` at its top level, and must not contain `.git/`, this file, or the scrape data.
+3. ~~Build the ZIP from `extension/` only~~ — **done 2026-09-07**, and checked rather than assumed: `dealo-v0.1.0.zip` at the repo root, 188 KB, 17 files, `manifest.json` at the top level, no `.git/`, no scrape data, no `PRIVACY.md`. Rebuild it with the command below after any change to `extension/`.
 
 ### Building the upload package
 
     cd ~/checkout-assistant/extension
     zip -r ../dealo-v0.1.0.zip . -x "*.DS_Store" "*/.impeccable/*"
 
-Check before uploading that `manifest.json` sits at the root of the ZIP rather than inside a folder — a nested manifest is the most common upload failure.
+Check before uploading that `manifest.json` sits at the root of the ZIP rather than inside a folder — a nested manifest is the most common upload failure:
+
+    unzip -l ../dealo-v0.1.0.zip | grep manifest.json
