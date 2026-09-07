@@ -1,5 +1,5 @@
 import { lazy, Suspense } from 'react';
-import { createBrowserRouter, Navigate } from 'react-router-dom';
+import { createBrowserRouter } from 'react-router-dom';
 
 import AppLayout from '@/components/layout/AppLayout';
 import SearchPage from '@/pages/SearchPage';
@@ -20,6 +20,7 @@ const AboutPage = lazy(() => import('@/pages/AboutPage'));
 const ContactPage = lazy(() => import('@/pages/ContactPage'));
 const PrivacyPage = lazy(() => import('@/pages/PrivacyPage'));
 const TermsPage = lazy(() => import('@/pages/TermsPage'));
+const NotFoundPage = lazy(() => import('@/pages/NotFoundPage'));
 
 function lazyPage(Component) {
   return (
@@ -44,7 +45,12 @@ export const router = createBrowserRouter([
       { path: ROUTES.contact, element: lazyPage(ContactPage) },
       { path: ROUTES.privacy, element: lazyPage(PrivacyPage) },
       { path: ROUTES.terms, element: lazyPage(TermsPage) },
+
+      // Anything else. Kept inside AppLayout so a wrong address still lands
+      // in Dealo (sidebar, footer, search) rather than on a bare error page.
+      // It used to redirect silently to the homepage, which told the person
+      // nothing about why they weren't where they asked to be.
+      { path: '*', element: lazyPage(NotFoundPage) },
     ],
   },
-  { path: '*', element: <Navigate to={ROUTES.home} replace /> },
 ]);
