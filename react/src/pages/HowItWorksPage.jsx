@@ -75,6 +75,41 @@ function FaqItem({ q, a, defaultOpen = false }) {
   );
 }
 
+/**
+ * Intrinsic pixel size of each screenshot, so every <img> can declare its
+ * shape up front. The CSS still sizes them; this only tells the browser what
+ * proportion to reserve before the file arrives — without it, lazy-loaded
+ * images pop in and shove the text around them down the page as they land.
+ *
+ * Keep in step with the files in public/how-it-works/.
+ */
+const SHOT_SIZE = {
+  '/how-it-works/search.webp': [700, 652],
+  '/how-it-works/picker.webp': [640, 324],
+  '/how-it-works/quickview.webp': [520, 518],
+  '/how-it-works/voucher.webp': [640, 637],
+  '/how-it-works/checkout.webp': [640, 642],
+  '/how-it-works/makemytrip.webp': [640, 287],
+};
+
+/**
+ * The properties every screenshot on this page shares. `lazy` is safe on all
+ * of them — the first shot sits well below the hero, so none of these is the
+ * image that decides how fast the page feels.
+ *
+ * The shape is given as a CSS `aspect-ratio`, NOT as width/height props: on a
+ * Chakra `Box`, `width` and `height` are style props, so passing the pixel
+ * dimensions there sets the rendered CSS size instead of the HTML attribute.
+ * That silently blew the second Duo shot up to its full 518px and shoved it
+ * over the text above it. `aspectRatio` reserves the same space with no such
+ * ambiguity, and works whether the image is sized by `w="100%"` or `w="56%"`.
+ */
+function imgProps(src) {
+  const size = SHOT_SIZE[src];
+  if (!size) return { loading: 'lazy', decoding: 'async' };
+  return { loading: 'lazy', decoding: 'async', sx: { aspectRatio: `${size[0]} / ${size[1]}` } };
+}
+
 /** The step's screenshot, on an offset colour card with a slight rotation —
  * reads as placed and designed rather than a flat crop in a box. `side`
  * drives float direction (and which way the card leans); `center` is the
@@ -86,7 +121,7 @@ function Shot({ src, alt, side = 'left', center = false }) {
       <Box w={{ base: '72vw', md: '340px' }} maxW={{ base: '300px', md: '340px' }} mx="auto" mb="22px" position="relative">
         <Box position="absolute" inset="14px -14px -14px 14px" borderRadius="20px" bg="brandSoft" transform="rotate(-1.6deg)" />
         <Box position="relative" borderRadius="18px" overflow="hidden" border="1px solid" borderColor="border" boxShadow="0 24px 44px -20px rgba(22,32,43,.34)" bg="surface">
-          <Box as="img" src={src} alt={alt} display="block" w="100%" h="auto" />
+          <Box as="img" src={src} alt={alt} {...imgProps(src)} display="block" w="100%" h="auto" />
         </Box>
       </Box>
     );
@@ -119,7 +154,7 @@ function Shot({ src, alt, side = 'left', center = false }) {
         bg="surface"
         transform={left ? 'rotate(-1.4deg)' : 'rotate(1.4deg)'}
       >
-        <Box as="img" src={src} alt={alt} display="block" w="100%" h="auto" />
+        <Box as="img" src={src} alt={alt} {...imgProps(src)} display="block" w="100%" h="auto" />
       </Box>
     </Box>
   );
@@ -142,6 +177,7 @@ function Duo({ srcA, altA, srcB, altB }) {
       <Box
         as="img"
         src={srcA}
+        {...imgProps(srcA)}
         alt={altA}
         position="absolute"
         top={0}
@@ -157,6 +193,7 @@ function Duo({ srcA, altA, srcB, altB }) {
       <Box
         as="img"
         src={srcB}
+        {...imgProps(srcB)}
         alt={altB}
         position="absolute"
         bottom={0}
@@ -274,7 +311,7 @@ export default function HowItWorksPage() {
 
         {/* ---- step 1 ---- */}
         <Box display="flow-root" mb="60px" textAlign="center">
-          <Shot center src="/how-it-works/search.png" alt="Searching Birkenstock shoes on Dealo" />
+          <Shot center src="/how-it-works/search.webp" alt="Searching Birkenstock shoes on Dealo" />
           <Marker>1</Marker>
           <StepTitle>Tell us what you want</StepTitle>
           <StepBody>
@@ -288,9 +325,9 @@ export default function HowItWorksPage() {
         {/* ---- step 2 ---- */}
         <Box display="flow-root" mb="60px">
           <Duo
-            srcA="/how-it-works/picker.png"
+            srcA="/how-it-works/picker.webp"
             altA="Matching Birkenstock listings on Dealo"
-            srcB="/how-it-works/quickview.png"
+            srcB="/how-it-works/quickview.webp"
             altB="A closer look at one listing"
           />
           <Marker>2</Marker>
@@ -303,7 +340,7 @@ export default function HowItWorksPage() {
 
         {/* ---- step 3 ---- */}
         <Box display="flow-root" mb="60px">
-          <Shot side="right" src="/how-it-works/voucher.png" alt="Dealo recommending a Gift Voucher for Birkenstock, with a check-the-product-first button" />
+          <Shot side="right" src="/how-it-works/voucher.webp" alt="Dealo recommending a Gift Voucher for Birkenstock, with a check-the-product-first button" />
           <Marker>3</Marker>
           <StepTitle>Check the product, then buy the voucher</StepTitle>
           <StepBody>
@@ -314,7 +351,7 @@ export default function HowItWorksPage() {
 
         {/* ---- step 4 ---- */}
         <Box display="flow-root" mb="60px">
-          <Shot side="left" src="/how-it-works/checkout.png" alt="Checking out at Birkenstock India with the voucher applied" />
+          <Shot side="left" src="/how-it-works/checkout.webp" alt="Checking out at Birkenstock India with the voucher applied" />
           <Marker>4</Marker>
           <StepTitle>Check out with the store, directly</StepTitle>
           <StepBody>
@@ -346,7 +383,7 @@ export default function HowItWorksPage() {
         </Text>
 
         <Box display="flow-root" mb="8px">
-          <Shot side="right" src="/how-it-works/makemytrip.png" alt="MakeMyTrip Gift Voucher at 7.5% off on Dealo" />
+          <Shot side="right" src="/how-it-works/makemytrip.webp" alt="MakeMyTrip Gift Voucher at 7.5% off on Dealo" />
           <Marker>✦</Marker>
           <StepTitle>Booking with MakeMyTrip?</StepTitle>
           <StepBody>
