@@ -9,6 +9,7 @@ from __future__ import annotations
 import json
 import math
 import re
+from functools import lru_cache
 from pathlib import Path
 
 from ..category_classifier import classify_product, restriction_mentions_category
@@ -1010,9 +1011,15 @@ def get_best_voucher_deal(merchant_name: str, price: float) -> dict | None:
     # keys like important_instructions_raw/stack_limit_confidence stay on
     # `record`) — always exactly one product per Gyftr brand, unlike
     # Maximize's multi-tier records. Flatten before calculating.
+    per_bill, stated = _brand_vouchers_per_bill(merchant_name)
     voucher = {
         **record,
         **products[0],
+        # The brand's own terms outrank the scrape's stack_limit reading, and
+        # only fall back to it where the terms never said.
+        **({"stack_limit": per_bill,
+            "stack_limit_confidence": "unlimited_stated" if per_bill is None else "stated"}
+           if stated else {}),
         # How many of one denomination Gyftr's own cart will take. Parallel to
         # the field Maximize and BuyHatke deals carry, and read the same way.
         "reseller_stack_limit": _gyftr_qty_per_denomination(),
@@ -1070,6 +1077,7 @@ def get_best_maximize_deal(merchant_name: str, price: float) -> tuple[dict, dict
     # source_url, not voucher_url — calculate_effective_price's generic
     # "gyftr.com/{slug}" fallback is only correct for actual Gyftr vouchers).
     stacks = _store_allows_stacking(merchant_name)
+    per_bill, stated = _brand_vouchers_per_bill(merchant_name)
     store_cap = _store_value_cap(merchant_name)
     tiers = [
         {
@@ -1092,7 +1100,12 @@ def get_best_maximize_deal(merchant_name: str, price: float) -> tuple[dict, dict
             # count describes its own checkout, not what the store accepts.
             # 58 Maximize brands carry "1 voucher" against stores whose own
             # terms say vouchers combine.
-            **({"stack_limit": None, "stack_limit_confidence": "unlimited_stated"} if stacks else {}),
+            # How many the SHOP takes on one bill, from its own terms — a
+            # reseller's per-order voucher count describes its own checkout,
+            # not what the store accepts.
+            **({"stack_limit": per_bill,
+                "stack_limit_confidence": "unlimited_stated" if per_bill is None else "stated"}
+               if stated else {}),
             # The store's own redemption ceiling still applies, whoever sold it.
             **({"value_cap": store_cap} if store_cap else {}),
         }
@@ -1143,6 +1156,72 @@ def _store_allows_stacking(merchant_name: str) -> bool:
     return bool(gyftr) and gyftr.get("stack_limit_confidence") == "unlimited_stated"
 
 
+@lru_cache(maxsize=4096)
+def _brand_vouchers_per_bill(merchant_name: str) -> tuple[int | None, bool]:
+    """How many vouchers this BRAND accepts on one bill, from its own terms.
+
+    Returns (limit, stated). `None` as the limit means no ceiling was named;
+    `stated` is False when the terms never addressed it at all, which leaves
+    the caller on its old fallback rather than inventing permission.
+
+    The brand's terms and important instructions decide this, not the
+    platform's structure — product owner, 2026-09-07: "Gyftr's rules are just
+    a structure; the per-brand instructions and T&Cs are the ones you base
+    your logic on primarily." So a shop that says vouchers cannot be combined
+    gets one voucher, whatever a platform's cart would happily sell, and a
+    shop that names a number gets that number.
+
+    Read across all three sellers' scrapes of the same brand's terms, taking
+    the strictest definite answer. They are three transcriptions of one shop's
+    rules and they disagree for 19 brands; the standing rule is that the more
+    restrictive source wins, because being wrong the other way sends someone
+    to a till with vouchers that will not be accepted.
+    """
+    # Callers pass whatever they have — a shop domain from the extension, a
+    # seller string from a search result, a clean brand name. Only the brand
+    # name reaches a slug, so resolve through each catalogue first; without
+    # this, "netmeds.com" found no terms at all and quietly fell back, costing
+    # a ₹5,000 order the ₹140 the terms would have allowed.
+    names = [merchant_name]
+    for repo in (voucher_repository, maximize_repository, buyhatke_repository):
+        record = repo.get_by_merchant(merchant_name)
+        name = (record or {}).get("brand_name")
+        if name and name not in names:
+            names.append(name)
+
+    entries = []
+    for source in ("gyftr", "maximize", "buyhatke"):
+        slug = next((s for s in (_slug_for(source, n) for n in names) if s), None)
+        if slug:
+            entries.append(_get_voucher_rules(source, slug))
+    # A slug reaches one listing per source, and a brand can have more than one
+    # — Maximize carries both `hidesign` ("Multiple vouchers can be used in one
+    # bill") and `hidesign-462` ("Multiple cards can't be clubbed"). Reading
+    # only the first meant the stricter of the shop's own two answers never
+    # counted, so every listing under the same name is consulted.
+    wanted = {n.lower() for n in names}
+    entries.extend(
+        entry for key, entry in _load_voucher_rules().items()
+        if not key.startswith("_") and (entry.get("brand_name") or "").lower() in wanted
+    )
+
+    limits: list[int | None] = []
+    for entry in entries:
+        rules = ((entry or {}).get("rules") or {})
+        combines = (rules.get("can_combine") or {}).get("value")
+        named = (rules.get("max_cards_per_order") or {}).get("value")
+        if combines == "no":
+            limits.append(1)
+        elif isinstance(named, (int, float)) and named >= 1:
+            limits.append(int(named))
+        elif combines == "yes":
+            limits.append(None)
+    if not limits:
+        return None, False
+    numbers = [n for n in limits if n is not None]
+    return (min(numbers) if numbers else None), True
+
+
 def _store_value_cap(merchant_name: str) -> float | None:
     """A ceiling the STORE puts on redemption, e.g. Amazon's "Gift Vouchers
     over INR 50,000 CANNOT be added to wallet per calendar month".
@@ -1175,6 +1254,7 @@ def get_best_buyhatke_deal(merchant_name: str, price: float) -> tuple[dict, dict
     if record is None:
         return None
     stacks = _store_allows_stacking(merchant_name)
+    per_bill, stated = _brand_vouchers_per_bill(merchant_name)
     store_cap = _store_value_cap(merchant_name)
     tiers = [
         {
@@ -1198,10 +1278,12 @@ def get_best_buyhatke_deal(merchant_name: str, price: float) -> tuple[dict, dict
             # rule that governs redemption. No value or transaction limit is
             # inferred here — inventing one is what produced a wrong ₹2,500
             # ceiling on a brand that visibly sells ₹10,000 vouchers.
-            **({
-                "stack_limit": None,
-                "stack_limit_confidence": "unlimited_stated",
-            } if stacks else {}),
+            # How many the SHOP takes on one bill, from its own terms — a
+            # reseller's per-order voucher count describes its own checkout,
+            # not what the store accepts.
+            **({"stack_limit": per_bill,
+                "stack_limit_confidence": "unlimited_stated" if per_bill is None else "stated"}
+               if stated else {}),
             # The store's own redemption ceiling still applies, whoever sold it.
             **({"value_cap": store_cap} if store_cap else {}),
         }

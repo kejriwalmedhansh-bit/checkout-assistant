@@ -38,6 +38,10 @@ from src.services import voucher_service as vs  # noqa: E402
 # 4. Repeats of the SAME denomination -> allowed on Maximize up to four, and
 #    only where the brand's own terms permit combining vouchers on one bill.
 #    BuyHatke sells one voucher per transaction whatever the denomination.
+# 0. The brand's own terms and important instructions come first. A platform's
+#    rules are the structure; what the shop says it will accept on one bill is
+#    what the plan is built to. Product owner, 2026-09-07. Where three scrapes
+#    of one shop's terms disagree, the strictest definite answer wins.
 # 5. Gyftr's cart takes ten of any one brand-and-denomination and no more
 #    ("Same voucher more than 10 quantity is not allowed!"). Ten ₹10,000 plus
 #    ten ₹2,000 plus ten ₹500 is one legal order; another brand gets its own
@@ -87,6 +91,46 @@ def test_platform_choice():
         if got != expected:
             failures.append(f"{domain} ₹{price:,}: expected {expected}, got {got}  ({why})")
     assert not failures, "\n".join(failures)
+
+
+def test_a_brands_own_terms_cap_the_plan():
+    """Rule 0. A shop that says it takes one voucher per bill is never handed a
+    plan with two, whatever the platform's cart would sell. KALKI is the case
+    that showed it: "Only one code can be used per transaction, either a Gift
+    Voucher or a promo code", while the plan was ten ₹5,000 plus two ₹2,500."""
+    import json
+    from pathlib import Path as _P
+
+    raw = json.loads((_P(__file__).resolve().parents[1] / "data" / "voucher_rules.json").read_text())
+    capped: dict[str, int] = {}
+    for key, entry in raw.items():
+        if key.startswith("_"):
+            continue
+        brand = entry.get("brand_name")
+        rules = entry.get("rules") or {}
+        named = (rules.get("max_cards_per_order") or {}).get("value")
+        limit = 1 if (rules.get("can_combine") or {}).get("value") == "no" else (
+            int(named) if isinstance(named, (int, float)) and named >= 1 else None
+        )
+        if brand and limit is not None:
+            capped[brand] = min(limit, capped.get(brand, limit))
+
+    failures = []
+    for brand, limit in capped.items():
+        for price in (12000, 54999):
+            for getter in (vs.get_best_voucher_deal, vs.get_best_maximize_deal, vs.get_best_buyhatke_deal):
+                result = getter(brand, price)
+                deal = result[0] if isinstance(result, tuple) else result
+                if not deal:
+                    continue
+                bought = sum(b["count"] for b in deal["denomination_breakdown"])
+                if bought > limit:
+                    failures.append(
+                        f"{brand} at ₹{price:,} on {deal['voucher_platform']}: "
+                        f"{deal['purchase_breakdown']} against a stated limit of {limit}"
+                    )
+    assert len(capped) > 100, f"only {len(capped)} brands with a stated limit"
+    assert not failures, "plans exceeding what the shop says it takes:\n" + "\n".join(failures[:10])
 
 
 def test_gyftr_takes_ten_of_one_denomination_and_no_more():
