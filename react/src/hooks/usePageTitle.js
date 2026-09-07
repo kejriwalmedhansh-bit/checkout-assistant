@@ -13,6 +13,18 @@ function setMeta(selector, content) {
 }
 
 /**
+ * The host redirects /privacy to /privacy/, so the slashed form is the only
+ * address that actually answers — and it's the one scripts/prerender.mjs
+ * writes a file for. Clicking a footer link inside the app produces the
+ * unslashed pathname, though, so normalise here: otherwise the same page
+ * claims two different canonical URLs depending on how you arrived, and a
+ * search engine has to guess which one is real.
+ */
+function withTrailingSlash(pathname) {
+  return pathname.endsWith('/') ? pathname : `${pathname}/`;
+}
+
+/**
  * Sets everything a search engine or a link preview (WhatsApp, Twitter,
  * Slack) actually reads for the current page — tab title, meta description,
  * canonical URL, and the Open Graph / Twitter mirrors of title+description —
@@ -27,7 +39,7 @@ export function usePageTitle(title, description, path) {
   useEffect(() => {
     const fullTitle = title ? `${title} — ${SUFFIX}` : SUFFIX;
     const desc = description || DEFAULT_DESCRIPTION;
-    const canonicalUrl = `${SITE_URL}${path ?? location.pathname}`;
+    const canonicalUrl = `${SITE_URL}${withTrailingSlash(path ?? location.pathname)}`;
 
     document.title = fullTitle;
     setMeta('meta[name="description"]', desc);
