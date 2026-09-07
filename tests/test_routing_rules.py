@@ -38,6 +38,10 @@ from src.services import voucher_service as vs  # noqa: E402
 # 4. Repeats of the SAME denomination -> allowed on Maximize up to four, and
 #    only where the brand's own terms permit combining vouchers on one bill.
 #    BuyHatke sells one voucher per transaction whatever the denomination.
+# 5. Gyftr's cart takes ten of any one brand-and-denomination and no more
+#    ("Same voucher more than 10 quantity is not allowed!"). Ten ₹10,000 plus
+#    ten ₹2,000 plus ten ₹500 is one legal order; another brand gets its own
+#    ten. Every brand's own rule still applies on top, and the stricter wins.
 
 CASES = [
     # (shop domain, order, expected platform, rule being protected)
@@ -83,6 +87,31 @@ def test_platform_choice():
         if got != expected:
             failures.append(f"{domain} ₹{price:,}: expected {expected}, got {got}  ({why})")
     assert not failures, "\n".join(failures)
+
+
+def test_gyftr_takes_ten_of_one_denomination_and_no_more():
+    """Rule 5, stated by the product owner 2026-09-07 with the cart's own error
+    message. A ₹54,999 Subway order used to come out as 55x₹1,000, which that
+    cart would have refused."""
+    import json
+    from pathlib import Path as _P
+
+    assert platform_rules.rules_for("gyftr")["vouchers_per_order"] == 10
+
+    raw = json.loads((_P(__file__).resolve().parents[1] / "data" / "gyftr_master.json").read_text())
+    failures = []
+    for record in raw.values():
+        brand = record.get("brand_name")
+        if not brand:
+            continue
+        for price in (12000, 54999):
+            deal = vs.get_best_voucher_deal(brand, price)
+            if not deal:
+                continue
+            over = [b for b in deal["denomination_breakdown"] if b["count"] > 10]
+            if over:
+                failures.append(f"{brand} at ₹{price:,}: {deal['purchase_breakdown']}")
+    assert not failures, "more than ten of one denomination:\n" + "\n".join(failures[:10])
 
 
 def test_maximize_sells_one_custom_amount_voucher_per_order():
@@ -139,7 +168,7 @@ def test_gyftrs_invented_transaction_cap_decides_nothing():
     # Whatever the number, it is not allowed to decide anything for Gyftr.
     assert vs._per_txn_rupee_cap({**subway, **product, "voucher_platform": "Gyftr"}) is None
 
-    for domain, price in (("subway.co.in", 54999), ("baskinrobbinsindia.com", 28999)):
+    for domain, price in (("subway.co.in", 54999), ("baskinrobbinsindia.com", 28999)):  # noqa: E501
         r = vs.get_voucher_check(domain, price)
         if not r or not r.get("has_voucher"):
             continue
