@@ -1,4 +1,4 @@
-import { Fragment, useEffect } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 import { Box, Flex, Text } from '@chakra-ui/react';
 import { useNavigate } from 'react-router-dom';
 
@@ -11,6 +11,7 @@ import { gradients } from '@/theme/foundations/colors';
 import { usePageTitle } from '@/hooks/usePageTitle';
 import { ROUTES } from '@/routes/paths';
 import { useSearchStore } from '@/store/searchStore';
+import { hasAnswered, onConsentChange } from '@/utils/consent';
 import { useUiStore } from '@/store/uiStore';
 
 export default function SearchPage() {
@@ -29,10 +30,19 @@ export default function SearchPage() {
   // First-ever visit: arm the live guided tour here, not in AppLayout —
   // its first step targets this page's own search box, so it only makes
   // sense to start once this page is actually on screen.
+  //
+  // Held back until the recording question has been answered. Both land on
+  // the same first paint otherwise, and a tour highlighting the search box
+  // while a permission card sits in the corner asks a first-time visitor to
+  // read two things at once — so the question goes first, then the tour
+  // starts the moment it's answered.
+  const [consentAnswered, setConsentAnswered] = useState(hasAnswered);
+  useEffect(() => onConsentChange(() => setConsentAnswered(true)), []);
+
   useEffect(() => {
-    if (!onboardingSeen && !tourActive) startTour();
+    if (consentAnswered && !onboardingSeen && !tourActive) startTour();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [consentAnswered]);
 
   const handleSubmit = (q) => {
     if (tourActive) advanceTour();

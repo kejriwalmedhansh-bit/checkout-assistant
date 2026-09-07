@@ -16,6 +16,7 @@ import ProductQuickView from '@/components/dashboard/ProductQuickView';
 import { usePageTitle } from '@/hooks/usePageTitle';
 import { gradients } from '@/theme/foundations/colors';
 import { ROUTES } from '@/routes/paths';
+import { PRIVATE_TEXT_ATTR } from '@/utils/analytics';
 import { useSearchStore } from '@/store/searchStore';
 import { useUiStore } from '@/store/uiStore';
 
@@ -103,7 +104,9 @@ export default function ProductSelectPage() {
                 ? 'Here is what we found for'
                 : 'You searched for'}
           </Text>
-          <Text as="h1" fontSize={{ base: '20px', md: '24px' }} fontWeight={800} letterSpacing="-.02em" color="text" noOfLines={1} m={0}>
+          {/* The query in the visitor's own words — blanked out of session
+              replays (see PRIVATE_TEXT_ATTR in utils/analytics.js). */}
+          <Text as="h1" {...{ [PRIVATE_TEXT_ATTR]: true }} fontSize={{ base: '20px', md: '24px' }} fontWeight={800} letterSpacing="-.02em" color="text" noOfLines={1} m={0}>
             {resolvedQuery || query}
           </Text>
         </Box>
