@@ -105,8 +105,15 @@
   // savings or discounts are excluded outright: on Myntra the pre-discount
   // "Total MRP ₹8,596" sits right above the real "Total Amount ₹4,049", and
   // picking the wrong one would size the voucher twice too large.
-  const TOTAL_LABEL = /(total amount|amount payable|amount to pay|order total|grand total|total payable|net payable|you pay|to be paid)/i;
+  const TOTAL_LABEL = /(total amount|amount payable|amount to pay|order total|grand total|total price|total payable|net payable|you pay|to be paid)/i;
   const NOT_A_TOTAL = /(mrp|saved|savings|discount|cashback|coupon)/i;
+
+  // Every rupee figure in a piece of text, in the order they appear.
+  function amountsIn(text) {
+    return [...text.matchAll(/(?:₹|rs\.?)\s?([\d,]+(?:\.\d{1,2})?)/gi)]
+      .map((m) => parseFloat(m[1].replace(/,/g, "")))
+      .filter((n) => Number.isFinite(n) && n > 0);
+  }
 
   function labelledTotal() {
     let last = null;
@@ -114,19 +121,40 @@
       const t = (el.textContent || "").replace(/\s+/g, " ").trim();
       if (!t || t.length > 60) continue;
       if (!TOTAL_LABEL.test(t) || NOT_A_TOTAL.test(t)) continue;
-      const m = t.match(/(?:₹|rs\.?)\s?([\d,]+(?:\.\d{1,2})?)/i);
-      if (!m) continue;
-      const n = parseFloat(m[1].replace(/,/g, ""));
-      // Last match wins: the final payable line renders below the breakdown.
+      const nums = amountsIn(t);
+      if (!nums.length) continue;
+      // The LAST figure in the row, not the first. A discounted total renders
+      // the old price struck through and the real one after it — Frido's
+      // "Total Price ₹40,000 ₹29,999" — and taking the first figure there
+      // reads the price nobody is paying. Live-tested 2026-09-07: that read
+      // sized a voucher purchase at ₹40,000 for a ₹29,999 order.
+      const n = nums[nums.length - 1];
+      // And the last matching row wins: the final payable line renders below
+      // the breakdown.
       if (Number.isFinite(n) && n > 0) last = n;
     }
     return last;
   }
 
+  // Never plan a purchase bigger than what the shopper is actually going to
+  // pay. When two credible reads disagree, the lower one wins.
+  //
+  // This is not fussiness. Shopify's own /cart.js reports the cart before
+  // discounts applied by a third-party checkout — Frido runs GoKwik, which
+  // takes ₹10,001 off at the checkout step, so cart.js said ₹40,000 while the
+  // shopper owed ₹29,999. Trusting the platform figure there told someone to
+  // buy ₹40,000 of store credit for a ₹29,999 order and strand ₹10,001 in a
+  // wallet they may never spend. Found in live testing 2026-09-07.
+  //
+  // The two errors are not symmetrical, which is why the tie-break is "lower"
+  // and not "the platform knows best": buying too little means paying the
+  // small remainder by card, an annoyance. Buying too much means money the
+  // shopper cannot get back.
   async function readPrice() {
     const fromPlatform = await shopifyCartTotal();
-    if (fromPlatform) return fromPlatform;
-    return labelledTotal() ?? extractPrice();
+    const labelled = labelledTotal();
+    if (fromPlatform && labelled) return Math.min(fromPlatform, labelled);
+    return fromPlatform ?? labelled ?? extractPrice();
   }
 
   function extractPrice() {

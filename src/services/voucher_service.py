@@ -37,6 +37,16 @@ PAYMENT_METHOD_TO_DISCOUNT_KEYS = {
 # (that's `_store_allows_stacking`, a different fact — see its docstring).
 _SINGLE_ITEM_CHECKOUT_PLATFORMS = {"maximize", "buyhatke"}
 
+# Maximize's own quantity selector is capped at "Max: 4" on every product page,
+# for one denomination of one brand. It is a property of the platform, not of a
+# listing, but only some listings carry it as a scraped `stack_limit` — 194 of
+# 399 have none — and a missing one used to mean "no limit at all".
+#
+# That is how a ₹29,999 Frido order came to be planned as six ₹5,000 vouchers
+# bought in a single imaginary checkout, which then beat Gyftr's genuine
+# one-basket route on rate alone. Reported from live use 2026-09-07.
+_MAXIMIZE_MAX_QTY_PER_TXN = 4
+
 # Recommended Route tie-break: a cheaper multi-transaction deal only beats a
 # single-transaction deal when it saves more than this fraction extra on top
 # of the single-transaction price. Below that, the one-click option wins even
@@ -580,7 +590,16 @@ def calculate_effective_price(price: float, voucher: dict, payment_method: str =
         reseller_denom_txns = (
             sum(math.ceil(b["count"] / reseller_limit) for b in denomination_breakdown)
             if reseller_limit
-            else len(denomination_breakdown)
+            # No known limit on a platform that sells one item per checkout.
+            # Counting distinct denominations here was the optimistic reading —
+            # eight ₹5,000 vouchers are one denomination, so eight purchases
+            # scored as one, and the fewer-transactions rule that should have
+            # sent the shopper to Gyftr never fired. When the limit is genuinely
+            # unknown, assume the platform sells one at a time; that is the
+            # assumption that cannot overstate how easy the errand is. Both
+            # current platforms now pass a real limit, so this is a guard for
+            # the next one, not a live path.
+            else sum(b["count"] for b in denomination_breakdown)
         )
 
     txns_needed = max(cap_txns, custom_txns_needed or 1, reseller_denom_txns)
@@ -758,7 +777,8 @@ def get_best_maximize_deal(merchant_name: str, price: float) -> tuple[dict, dict
             # Maximize checkout," and they can legitimately differ (live-
             # confirmed 2026-09-03: Frido's store terms allow combining
             # vouchers, but Maximize itself still caps the order at 4).
-            "reseller_stack_limit": p.get("stack_limit"),
+            # Falls back to the platform's own "Max: 4", never to "unlimited".
+            "reseller_stack_limit": p.get("stack_limit") or _MAXIMIZE_MAX_QTY_PER_TXN,
             # Same correction as BuyHatke: a reseller's per-order voucher
             # count describes its own checkout, not what the store accepts.
             # 58 Maximize brands carry "1 voucher" against stores whose own

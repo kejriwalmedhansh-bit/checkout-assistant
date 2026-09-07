@@ -119,17 +119,33 @@ async function tripUpdate(patch) {
   return next;
 }
 
-// A deal needing several separate voucher purchases (txnsNeeded > 1 — e.g.
-// three ₹2,500 buys instead of one combined checkout) collects one code per
-// purchase as each arrives, rather than asking for all of them at once before
-// any exist. Only once every purchase has a code does the trip move on to
-// "has_code" and send the shopper back to the store.
+// How many voucher CODES this deal ends with — which is not the same number as
+// how many checkouts it takes, and conflating the two lost people's codes.
+//
+// Six ₹5,000 vouchers bought from Gyftr is ONE checkout (Gyftr lets several
+// into one basket) but SIX codes, one printed per voucher. The code-collecting
+// loop used to stop at `txnsNeeded`, so after the first code it declared the
+// shopper finished and sent them back to the store holding ₹5,000 of the
+// ₹30,000 they had just paid for. Reported from live use 2026-09-07: "it asked
+// me to buy 8 vouchers and then would not let me paste the other 7."
+//
+// The panel was already counting vouchers rather than checkouts, which is why
+// it said "VOUCHER 1 OF 8" while the state machine thought one was enough.
+function vouchersNeeded(deal) {
+  const breakdown = deal?.denominationBreakdown || [];
+  const total = breakdown.reduce((n, b) => n + (b.count || 1), 0);
+  return total || deal?.txnsNeeded || 1;
+}
+
+// Collects one code per voucher as each arrives, rather than asking for all of
+// them at once before any exist. Only once every voucher has a code does the
+// trip move on to "has_code" and send the shopper back to the store.
 async function tripAddCode(code, pin) {
   const trip = await tripGet();
   if (!trip) return null;
   const codes = [...(trip.codes || []), { code, pin: pin || null }];
-  const txnsNeeded = trip.deal.txnsNeeded || 1;
-  const next = { ...trip, codes, status: codes.length >= txnsNeeded ? "has_code" : "buying_voucher" };
+  const needed = vouchersNeeded(trip.deal);
+  const next = { ...trip, codes, status: codes.length >= needed ? "has_code" : "buying_voucher" };
   await chrome.storage.local.set({ [TRIP_KEY]: next });
   return next;
 }
