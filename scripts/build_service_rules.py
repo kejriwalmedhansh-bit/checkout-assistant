@@ -42,10 +42,17 @@ OUT = REPO / "data" / "voucher_rules.json"
 # `can_combine` rule extracted from the seller's own terms. Buying four
 # vouchers the shop will not accept together is not a saving.
 PLATFORM_RULES = {
-    "gyftr": {"checkout_model": "multi_item", "vouchers_per_order": "unlimited",
+    # Ten of any ONE brand+denomination per cart — Gyftr's cart says "Same
+    # voucher more than 10 quantity is not allowed!" and the product owner
+    # confirmed it 2026-09-07. It is a per-line limit, not a cart limit: ten
+    # ₹10,000 plus ten ₹2,000 plus ten ₹500 is a legal single order, and other
+    # brands get their own ten each. The brand's own combining rule still
+    # applies on top, and the stricter of the two wins.
+    "gyftr": {"checkout_model": "multi_item", "vouchers_per_order": 10,
               "mixed_denominations": True, "mixed_brands": True,
               "requires_brand_stacking": True,
-              "note": "Any mix of denominations and brands in one order."},
+              "note": "Any mix of denominations and brands in one order, "
+                      "up to ten of each brand-and-denomination."},
     # Four is the platform's own ceiling, confirmed by the product owner
     # 2026-09-07 and visible as "Max: 4" on every Maximize product page. It
     # applies only where the brand permits combining vouchers at all.
