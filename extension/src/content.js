@@ -472,6 +472,9 @@
 
     if (trip.status === "has_code" && backAtStoreFor(trip)) {
       window.__dealoPopup.renderBackAtStore(trip, {
+        // Remembered on the trip rather than in the page, because the whole
+        // point is that it survives the shopper moving from cart to checkout.
+        onStepsToggle: (open) => ask({ type: "tripUpdate", patch: { stepsOpen: open } }),
         onShowWhere: () => {
           const found = findGiftCardField();
           if (found) {
