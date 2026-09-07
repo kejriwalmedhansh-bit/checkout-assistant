@@ -617,6 +617,30 @@ def _clean_instructions(html: str) -> list[str]:
     return result
 
 
+def _per_txn_rupee_cap(voucher: dict) -> float | None:
+    """The most rupees one checkout may spend, where that is a real number.
+
+    BuyHatke publishes one, as `maxAmountPerUserTransaction`. Maximize
+    publishes none. Gyftr's field is not a Gyftr fact at all: build_master.py
+    fills it with `10 x sum(unique denominations)` whenever a brand's terms
+    mention e-Pay stacking and no real stack limit or value cap was found.
+    Subway's "₹26,000" is 10 x (100+250+500+750+1000), and every one of the
+    161 Gyftr values is that formula — a guess about how much e-Pay a shopper
+    might stack, filed under a name that reads like a checkout limit.
+
+    So nothing is decided by it. It was capping the basket AND inventing the
+    extra checkouts that a capped basket implies, in both directions off a
+    number nobody published. Asked where it came from by the product owner,
+    2026-09-07; the honest answer was "we made it up", so it goes.
+
+    Gyftr baskets are still bounded by what the terms actually say — the
+    brand's own stack limit and value cap, both read from its T&Cs.
+    """
+    if (voucher.get("voucher_platform") or "Gyftr").lower() == "gyftr":
+        return None
+    return voucher.get("purchase_cap_per_txn") or None
+
+
 def calculate_effective_price(price: float, voucher: dict, payment_method: str = "upi") -> dict:
     discount_pct = _discount_pct(voucher, payment_method)
     leftover_reusable = _leftover_is_reusable(voucher)
@@ -664,10 +688,11 @@ def calculate_effective_price(price: float, voucher: dict, payment_method: str =
             # claimed here. The rest of the bill goes on the card, which under
             # MAX_CHECKOUTS is the release valve, not a second errand.
             total_cap = min(total_cap, custom_max)
-        if voucher.get("purchase_cap_per_txn"):
-            # One checkout means one transaction's worth of vouchers, on every
-            # platform. See the fixed-denomination branch below.
-            total_cap = min(total_cap, voucher["purchase_cap_per_txn"])
+        txn_cap = _per_txn_rupee_cap(voucher)
+        if txn_cap:
+            # One checkout means one transaction's worth of vouchers. See the
+            # fixed-denomination branch below.
+            total_cap = min(total_cap, txn_cap)
         voucher_amount = min(price, total_cap) if custom_max else 0.0
         remainder = round(max(0.0, price - voucher_amount), 2)
         is_custom = True
@@ -695,15 +720,14 @@ def calculate_effective_price(price: float, voucher: dict, payment_method: str =
             stack_limit = voucher.get("stack_limit")
             if stack_limit is None and voucher.get("stack_limit_confidence") != "unlimited_stated":
                 stack_limit = 1
-            # The most face value one checkout can buy. A brand's own value cap,
-            # and the platform's per-transaction ceiling, are both hard walls:
-            # without the second, Gyftr's ₹26,000 Subway cap turned a ₹54,999
-            # order into three separate checkouts — exactly what MAX_CHECKOUTS
-            # exists to prevent. Buy one checkout's worth; the card covers the
-            # rest.
+            # The most face value one checkout can buy: the brand's own value
+            # cap, and a per-transaction ceiling where a platform genuinely
+            # publishes one (see _per_txn_rupee_cap — Gyftr's is invented, so
+            # it is not one). Buy one checkout's worth; the card covers the rest.
             rupee_cap = voucher.get("value_cap")
-            if voucher.get("purchase_cap_per_txn"):
-                rupee_cap = min(c for c in (rupee_cap, voucher["purchase_cap_per_txn"]) if c)
+            txn_cap = _per_txn_rupee_cap(voucher)
+            if txn_cap:
+                rupee_cap = min(c for c in (rupee_cap, txn_cap) if c)
             if is_single_item_platform:
                 # No cart: one amount only, repeated up to the reseller's own
                 # per-order cap. A constraint on the plan, not a verdict on it.
@@ -736,7 +760,8 @@ def calculate_effective_price(price: float, voucher: dict, payment_method: str =
     # purchase_cap_per_txn silently ignored its own custom_max — telling the
     # customer to buy one voucher bigger than Gyftr actually allows.
     # Bug found via live testing, 2026-08-28.
-    cap_txns = math.ceil(voucher_amount / voucher["purchase_cap_per_txn"]) if voucher.get("purchase_cap_per_txn") and voucher_amount else 1
+    real_txn_cap = _per_txn_rupee_cap(voucher)
+    cap_txns = math.ceil(voucher_amount / real_txn_cap) if real_txn_cap and voucher_amount else 1
 
     # Real number of separate checkouts needed to buy this denomination mix
     # on a single-item-checkout platform: each *distinct* denomination in the
@@ -781,8 +806,8 @@ def calculate_effective_price(price: float, voucher: dict, payment_method: str =
     if custom_txns_needed is not None and custom_txns_needed >= cap_txns:
         per_txn_cap: float | None = voucher.get("custom_max")
         per_txn_cap_kind: str | None = "voucher"
-    elif voucher.get("purchase_cap_per_txn"):
-        per_txn_cap = voucher["purchase_cap_per_txn"]
+    elif real_txn_cap:
+        per_txn_cap = real_txn_cap
         per_txn_cap_kind = "transaction"
     else:
         per_txn_cap = None

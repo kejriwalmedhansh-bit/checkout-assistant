@@ -85,6 +85,69 @@ def test_platform_choice():
     assert not failures, "\n".join(failures)
 
 
+def test_maximize_sells_one_custom_amount_voucher_per_order():
+    """Rule 4, for typed-in amounts. Stated by the product owner 2026-09-07:
+    "No matter the custom amount, on Maximize you can only purchase one custom
+    amount voucher at a time" — one ₹1,400 voucher, never two or three. The
+    quantity cap of four is about repeats of a listed denomination, and does
+    not carry over to amounts you type in."""
+    import json
+    from pathlib import Path as _P
+
+    raw = json.loads((_P(__file__).resolve().parents[1] / "data" / "maximize_master.json").read_text())
+    failures = []
+    checked = 0
+    for record in raw.values():
+        for product in record.get("products", []):
+            if not product.get("is_custom_denom") or product.get("status") == "inactive":
+                continue
+            custom_max = product.get("custom_max")
+            if not custom_max:
+                continue
+            checked += 1
+            # Priced well past one voucher, which is where a second would appear.
+            deal = vs.calculate_effective_price(
+                custom_max * 3,
+                {**record, **product, "voucher_platform": "Maximize", "reseller_stack_limit": 4},
+            )
+            vouchers = sum(b["count"] for b in deal["denomination_breakdown"]) or 1
+            if vouchers > 1 or deal["voucher_amount"] > custom_max:
+                failures.append(
+                    f"{record.get('brand_name')}: {deal['purchase_breakdown']} "
+                    f"(₹{deal['voucher_amount']:,.0f} against a ₹{custom_max:,.0f} maximum)"
+                )
+    assert checked > 100, f"only {checked} custom-amount Maximize brands checked"
+    assert not failures, "more than one typed-in amount per order:\n" + "\n".join(failures[:10])
+
+
+def test_gyftrs_invented_transaction_cap_decides_nothing():
+    """Gyftr's `purchase_cap_per_txn` is not a Gyftr fact: build_master.py fills
+    it with `10 x sum(unique denominations)` for any brand whose terms mention
+    e-Pay stacking. Subway's "₹26,000" is 10 x (100+250+500+750+1000). Asked
+    where the number came from by the product owner 2026-09-07, so it now
+    caps no basket and creates no checkout — a ₹54,999 Subway order is one
+    Gyftr basket, not three."""
+    import json
+    from pathlib import Path as _P
+
+    raw = json.loads((_P(__file__).resolve().parents[1] / "data" / "gyftr_master.json").read_text())
+    subway = next(r for r in raw.values() if (r.get("brand_name") or "").lower() == "subway")
+    product = subway["products"][0]
+    assert product["purchase_cap_per_txn"] == 10 * sum(sorted(set(product["denominations"]))), (
+        "Subway's cap is no longer the 10x formula — check whether Gyftr now publishes a real one"
+    )
+    # Whatever the number, it is not allowed to decide anything for Gyftr.
+    assert vs._per_txn_rupee_cap({**subway, **product, "voucher_platform": "Gyftr"}) is None
+
+    for domain, price in (("subway.co.in", 54999), ("baskinrobbinsindia.com", 28999)):
+        r = vs.get_voucher_check(domain, price)
+        if not r or not r.get("has_voucher"):
+            continue
+        assert r.get("txns_needed", 1) == 1, (
+            f"{domain} at ₹{price:,} wants {r['txns_needed']} checkouts off an invented cap"
+        )
+
+
 def test_never_offers_a_listing_that_is_not_on_sale():
     """The refresh marks listings inactive — out of stock, 0%, loyalty-only.
     Nothing in the service read that flag until 2026-09-07, so a Yatra booking
