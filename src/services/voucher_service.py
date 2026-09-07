@@ -50,6 +50,29 @@ _SINGLE_ITEM_CHECKOUT_PLATFORMS = {
     if platform_rules.sells_one_item_per_checkout(name)
 }
 
+def _is_sellable(product: dict) -> bool:
+    """Is this listing actually on sale right now?
+
+    The fortnightly refresh marks a listing `inactive` when it is out of stock,
+    discounts nothing, is redeemable only by an existing loyalty member, or is
+    publishing another merchant's terms — 111 Gyftr, 46 Maximize and 44
+    BuyHatke listings as of 2026-09-04. Nothing in this service read that flag,
+    so every one of them was still being recommended.
+
+    It surfaced through a Yatra booking: the best rate in the entire catalogue
+    was an inactive 64.75% listing, and Dealo offered it in preference to the
+    live ones. The standing rule is that an out-of-stock voucher is never
+    recommended, and a saving the shopper cannot actually buy is worse than no
+    saving at all — they leave the shop, fail, and do not come back.
+
+    Absent status is treated as sellable: older records predate the field, and
+    silently hiding the whole catalogue would be a worse failure than showing
+    one stale listing.
+    """
+    status = product.get("status")
+    return status is None or status == "active"
+
+
 def _maximize_qty_per_txn(brand_allows_stacking: bool) -> int:
     """Vouchers buyable in one Maximize checkout, for one brand and denomination.
 
@@ -738,7 +761,7 @@ def get_best_voucher_deal(merchant_name: str, price: float) -> dict | None:
     record = voucher_repository.get_by_merchant(merchant_name)
     if record is None:
         return None
-    products = record.get("products") or []
+    products = [p for p in (record.get("products") or []) if _is_sellable(p)]
     if not products:
         return None
     # Gyftr's canonical schema nests the actual rate/denomination/stack_limit
@@ -827,6 +850,7 @@ def get_best_maximize_deal(merchant_name: str, price: float) -> tuple[dict, dict
             **({"value_cap": store_cap} if store_cap else {}),
         }
         for p in (record.get("products") or [])
+        if _is_sellable(p)
     ]
     result = _best_tier_deal(price, tiers, payment_method="upi")
     if result is None:
@@ -935,6 +959,7 @@ def get_best_buyhatke_deal(merchant_name: str, price: float) -> tuple[dict, dict
             **({"value_cap": store_cap} if store_cap else {}),
         }
         for p in (record.get("products") or [])
+        if _is_sellable(p)
     ]
     result = _best_tier_deal(price, tiers, payment_method="upi")
     if result is None:
@@ -1220,7 +1245,7 @@ def _headline_rate(record: dict | None, source: str) -> tuple[float, dict, str |
     no-price brand-voucher shortcut."""
     if record is None:
         return None
-    products = record.get("products") or []
+    products = [p for p in (record.get("products") or []) if _is_sellable(p)]
     if not products:
         return None
     if source == "gyftr":

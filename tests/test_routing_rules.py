@@ -77,6 +77,32 @@ def test_platform_choice():
     assert not failures, "\n".join(failures)
 
 
+def test_never_offers_a_listing_that_is_not_on_sale():
+    """The refresh marks listings inactive — out of stock, 0%, loyalty-only.
+    Nothing in the service read that flag until 2026-09-07, so a Yatra booking
+    was quoted an inactive 64.75% voucher nobody could buy. Guards the rule
+    that an out-of-stock voucher is never recommended."""
+    import json
+    from pathlib import Path as _P
+
+    inactive_rates = set()
+    for src in ("gyftr", "maximize", "buyhatke"):
+        raw = json.loads((_P(__file__).resolve().parents[1] / "data" / f"{src}_master.json").read_text())
+        for record in (raw if isinstance(raw, list) else list(raw.values())):
+            for product in record.get("products", []):
+                if product.get("status") == "inactive" and product.get("best_discount_pct"):
+                    inactive_rates.add((record.get("brand_name"), product["best_discount_pct"]))
+
+    # Yatra is the case that exposed it: an inactive 64.75% beside live ~5%.
+    for price in (2000, 8000, 20000):
+        r = vs.get_voucher_check("yatra.com", price)
+        if not r.get("has_voucher"):
+            continue
+        assert r["pct"] < 60, (
+            f"yatra.com at ₹{price:,} was quoted {r['pct']}%, which is the inactive listing"
+        )
+
+
 def test_buyhatke_never_sells_more_than_one_voucher():
     """Rule 4. BuyHatke is one per transaction whatever the brand's terms say,
     which is why brand stacking is irrelevant to it."""
