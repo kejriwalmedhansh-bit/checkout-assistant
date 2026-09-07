@@ -255,9 +255,21 @@ window.__dealoPopup = (() => {
     });
   }
 
-  function renderNoDeal(onOkay) {
+  // `smallDeal` is a real voucher that didn't clear the worth-the-errand bar
+  // (see config.js). Naming the figure is deliberate: "no discounts available"
+  // on a shop that plainly has one reads as Dealo being broken or lazy, where
+  // "only ₹83 off" reads as Dealo having checked and made a judgement. Same
+  // Okay button either way.
+  function renderNoDeal(onOkay, smallDeal = null) {
+    const message = !smallDeal
+      ? "No discounts available, unfortunately."
+      : smallDeal.priced && smallDeal.saving != null
+        ? `Only ₹${rupees(smallDeal.saving)} off here — not worth the extra steps.`
+        // No readable total, so no honest rupee figure — the rate is all we
+        // know, and it's the rate on the voucher, not on this order.
+        : `Only ${smallDeal.pct}% off here — not worth the extra steps.`;
     const root = card(`
-      <div class="dealo-message">No discounts available, unfortunately.</div>
+      <div class="dealo-message">${esc(message)}</div>
       <button class="dealo-button dealo-secondary" id="dealo-okay">Okay</button>
     `);
     root.querySelector("#dealo-okay").addEventListener("click", () => {
@@ -512,16 +524,44 @@ window.__dealoPopup = (() => {
   // highlighted control at a time — "tap this amount", then "choose UPI".
   // Advances when they actually click the thing, so it follows them rather
   // than racing ahead. Dealo never clicks anything itself.
+  // A step may be a plain {el, label}, or a FUNCTION returning one. Prefer the
+  // function: it is looked up at the moment the shopper reaches that step,
+  // not when the sequence starts.
+  //
+  // That matters on the voucher sites, which redraw as you use them. Tapping
+  // an amount on Maximize re-renders the price options underneath — so a step
+  // that grabbed the "instant discount" box up front would, by the time the
+  // shopper got there, be holding an element the page had already thrown
+  // away, and the pointer would simply never appear. Resolving late is the
+  // difference between the guidance working and silently doing nothing.
+  //
+  // Returns false when nothing could be found to point at, so the caller can
+  // fall back to written instructions instead of a sequence that shows
+  // nothing.
   function guide(steps) {
+    const resolve = (s) => (typeof s === "function" ? s() : s);
+    // Counted up front so the shopper sees a stable "2 of 3" rather than a
+    // total that shrinks under them. Re-resolved at show time regardless.
+    let total = steps.reduce((n, s) => n + (resolve(s) ? 1 : 0), 0);
+    if (!total) return false;
+
     let i = 0;
+    let shown = 0;
     let clearPointer = null;
 
     const show = () => {
       clearPointer?.();
       if (i >= steps.length) return;
-      const step = steps[i];
-      if (!step.el || !step.el.isConnected) { i += 1; return show(); }
-      clearPointer = pointAt(step.el, `${i + 1}/${steps.length} · ${step.label}`, { persist: true });
+      const step = resolve(steps[i]);
+      // Not there any more, or no longer needed — the shopper may have already
+      // done this one themselves.
+      if (!step || !step.el || !step.el.isConnected) {
+        i += 1;
+        total = Math.max(total - 1, shown);
+        return show();
+      }
+      shown += 1;
+      clearPointer = pointAt(step.el, `${shown}/${total} · ${step.label}`, { persist: true });
       const onDone = () => {
         step.el.removeEventListener("click", onDone, true);
         i += 1;
@@ -532,6 +572,7 @@ window.__dealoPopup = (() => {
     };
 
     show();
+    return true;
   }
 
   // When the gift-card box can't be found on this particular page, say so and

@@ -179,18 +179,159 @@ chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
 // simply say when to look again. No timer, and nothing running on pages where
 // nothing is happening.
 function nudge(tabId, force) {
-  chrome.tabs.sendMessage(tabId, { type: "dealoRecheck", force: Boolean(force) })
-    // No listener on this tab — an ordinary page Dealo isn't injected into, or
-    // one loaded before the extension. Nothing to fix, nothing to report.
-    .catch(() => {});
+  return chrome.tabs.sendMessage(tabId, { type: "dealoRecheck", force: Boolean(force) });
 }
 
-chrome.tabs.onUpdated.addListener((tabId, changeInfo) => {
+// --- Where Dealo is allowed to run -----------------------------------------
+//
+// Dealo used to be declared in the manifest as a content script on every http
+// and https page, which meant the browser loaded ~75KB of Dealo into Gmail,
+// into a banking page, into every article anyone read — and only then did
+// Dealo work out it wasn't a shop and go quiet. Being quiet is not the same
+// as not being there.
+//
+// It is now injected deliberately, one page at a time, and only where there
+// is a reason. Three rules, in order of authority:
+//
+//   1. A trip in progress outranks everything. The shopper is mid-purchase on
+//      the voucher partner's site or back at the store, and those pages don't
+//      reliably have a checkout-ish address — losing them there would strand
+//      someone who has already paid for a voucher.
+//   2. Never on the listed inbox/social/document hosts, whatever the address
+//      says, and never on a voucher site outside a trip.
+//   3. Otherwise, the address has to look like a checkout — the same
+//      whole-word test the content script has always used, moved earlier so
+//      that failing it costs nothing instead of costing an injection. The
+//      page-content check (hasCommerceSignal) still runs afterwards, so a
+//      page like github.com/actions/checkout gets Dealo loaded but never sees
+//      a popup.
+const HOST_PERMS = { origins: ["http://*/*", "https://*/*"] };
+
+function hostOf(url) {
+  try { return new URL(url).hostname.replace(/^www\./, ""); } catch (e) { return null; }
+}
+
+function hostMatches(host, listed) {
+  return host === listed || host.endsWith("." + listed);
+}
+
+function urlLooksLikeCheckout(url) {
+  let u;
+  try { u = new URL(url); } catch (e) { return false; }
+  const target = (u.pathname + " " + u.search + " " + u.hash).toLowerCase();
+  return self.__dealoConfig.CHECKOUT_URL_KEYWORDS.some((kw) =>
+    new RegExp(`(^|[^a-z])${kw}([^a-z]|$)`).test(target)
+  );
+}
+
+async function shouldRunOn(url) {
+  if (!url || !/^https?:/.test(url)) return false;
+  const host = hostOf(url);
+  if (!host) return false;
+  const cfg = self.__dealoConfig;
+
+  // 1. Mid-trip: the two hosts this shopper is actually travelling between.
+  const trip = await tripGet();
+  if (trip) {
+    const voucherHost = hostOf(trip.deal?.voucherUrl);
+    if (voucherHost && hostMatches(host, voucherHost)) return true;
+    if (trip.store?.domain && hostMatches(host, trip.store.domain)) return true;
+  }
+
+  // 2. Never here.
+  if (cfg.NEVER_RUN_HOSTS.some((h) => hostMatches(host, h))) return false;
+  if (cfg.VOUCHER_HOSTS.some((h) => hostMatches(host, h))) return false;
+
+  // 3. Does the address look like somewhere money changes hands?
+  return urlLooksLikeCheckout(url);
+}
+
+// Injects Dealo into one tab. Same three files, in the same order, as the
+// manifest used to declare — order matters: config defines __dealoConfig,
+// popup defines __dealoPopup, content uses both.
+async function inject(tabId) {
+  await chrome.scripting.insertCSS({ target: { tabId }, files: ["src/popup.css"] });
+  await chrome.scripting.executeScript({
+    target: { tabId },
+    files: ["src/config.js", "src/popup.js", "src/content.js"],
+  });
+}
+
+// Ask the page to look again; if nobody answers, Dealo isn't in that tab yet,
+// so put it there. Injecting runs content.js, which checks on load — so there
+// is deliberately no nudge after a successful injection, or the page would be
+// checked twice.
+// Flip to true and reload the extension to trace every decision in the service
+// worker console. Off by default — this fires on every navigation.
+const TRACE = true;
+const trace = (...a) => { if (TRACE) console.log("[Dealo]", ...a); };
+
+async function nudgeOrInject(tabId, url, force) {
+  const granted = await chrome.permissions.contains(HOST_PERMS);
+  if (!granted) { trace("no host access yet, skipping", url); return; }
+  const wanted = force || (await shouldRunOn(url));
+  trace(wanted ? "will run on" : "skipping", url);
+  if (!wanted) return;
+  try {
+    await nudge(tabId, force);
+    trace("already there, asked it to look again:", url);
+  } catch (e) {
+    trace("not there yet (" + (e && e.message) + "), injecting into", url);
+    try {
+      await inject(tabId);
+      trace("INJECTED OK:", url);
+    } catch (err) {
+      // Nothing is filtered here, on purpose. An earlier version treated
+      // "Cannot access contents of..." as routine noise and swallowed it —
+      // and that turned out to be the one message that mattered, so an
+      // extension injecting nowhere at all looked, from outside, like it was
+      // working. Silence must never again be indistinguishable from success.
+      console.error("[Dealo] INJECT FAILED:", url, "->", err && err.message);
+    }
+  }
+}
+
+chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
   // A badge belongs to the page it was set for — clear it when that tab moves on.
   if (changeInfo.status === "loading") setBadge(tabId, false);
   // changeInfo.url is set for in-page navigations as well as full loads, and
-  // is visible to us because host_permissions covers ordinary web pages.
-  if (changeInfo.url || changeInfo.status === "complete") nudge(tabId);
+  // is visible to us once the shopper has granted host access.
+  // Deliberately NOT on "loading". A fresh page load fires onUpdated with the
+  // new address long before the page has drawn anything, and Dealo injected
+  // that early looks at an empty document, decides it isn't a checkout, and —
+  // because it only checks a given view once — never looks again. boAt was
+  // the case that showed this: /cart lands on /#cart, Dealo went in too soon,
+  // and the ₹350 panel only appeared if you jogged the address bar by hand.
+  //
+  // "complete" covers real page loads. A bare url change with no status is a
+  // storefront swapping the cart in without a reload (a hash or history
+  // change) — the document is already there, so that one is safe to act on.
+  const settled = changeInfo.status === "complete";
+  const inPageNav = Boolean(changeInfo.url) && changeInfo.status !== "loading";
+  if (settled || inPageNav) {
+    nudgeOrInject(tabId, changeInfo.url || tab?.url);
+  }
+});
+
+// --- First run --------------------------------------------------------------
+//
+// Dealo asks for access on its own screen rather than through Chrome's install
+// warning, so there has to be a screen.
+//
+// Shown on update as well as install, and this is not belt-and-braces — it is
+// the only thing that saves the people who already have Dealo. Version 0.1.0
+// declared host access as *required*, so Chrome granted it at install. 0.2.0
+// makes it optional, and Chrome does not carry a required grant across to an
+// optional one: on updating, every existing shopper silently loses access.
+// Without this, Dealo would simply stop appearing for them, with no screen, no
+// message and nothing to click. Caught on the first real reload, 2026-09-07.
+//
+// The permission check is what stops it being annoying: someone who has
+// already said yes never sees this tab, on install or update.
+chrome.runtime.onInstalled.addListener(async ({ reason }) => {
+  if (reason !== "install" && reason !== "update") return;
+  if (await chrome.permissions.contains(HOST_PERMS)) return;
+  chrome.tabs.create({ url: chrome.runtime.getURL("src/welcome.html") });
 });
 
 // Clicking the toolbar icon did nothing at all — no popup is declared in the
@@ -199,6 +340,16 @@ chrome.tabs.onUpdated.addListener((tabId, changeInfo) => {
 // spot, ignoring both the "already looked at this page" guard and any earlier
 // dismissal: an explicit click is the shopper asking, which outranks Dealo's
 // own judgement about when to keep quiet.
-chrome.action.onClicked.addListener((tab) => {
-  if (tab?.id != null) nudge(tab.id, true);
+chrome.action.onClicked.addListener(async (tab) => {
+  if (tab?.id == null) return;
+  // No access yet — the click is someone looking for Dealo, so show them the
+  // screen that asks for it rather than doing nothing.
+  if (!(await chrome.permissions.contains(HOST_PERMS))) {
+    chrome.tabs.create({ url: chrome.runtime.getURL("src/welcome.html") });
+    return;
+  }
+  // `force` skips the shouldRunOn test as well as the dismissal guard: an
+  // explicit click outranks Dealo's own judgement about where it belongs, so
+  // it works even on a page the address test would have passed over.
+  nudgeOrInject(tab.id, tab.url, true);
 });
