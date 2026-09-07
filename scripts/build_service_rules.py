@@ -28,16 +28,38 @@ OUT = REPO / "data" / "voucher_rules.json"
 
 # What each platform lets a shopper buy in one checkout. The service keys off
 # checkout_model; the extra fields carry the detail behind it.
+# What each platform's own checkout permits. This is the single source of truth
+# for platform behaviour: the pricing code reads it from the generated
+# voucher_rules.json rather than carrying its own copy, because two copies of
+# one fact is how the wrong platform got recommended for a ₹29,999 Frido order.
+#
+# `vouchers_per_order` is now always a number or "unlimited" — never a word
+# like "multiple", which cannot be reasoned about and which the code silently
+# read as "no limit at all".
+#
+# `requires_brand_stacking` says whether buying several vouchers here is only
+# useful when the BRAND itself permits combining them on one bill — the
+# `can_combine` rule extracted from the seller's own terms. Buying four
+# vouchers the shop will not accept together is not a saving.
 PLATFORM_RULES = {
     "gyftr": {"checkout_model": "multi_item", "vouchers_per_order": "unlimited",
               "mixed_denominations": True, "mixed_brands": True,
+              "requires_brand_stacking": True,
               "note": "Any mix of denominations and brands in one order."},
-    "maximize": {"checkout_model": "single_item", "vouchers_per_order": "multiple",
+    # Four is the platform's own ceiling, confirmed by the product owner
+    # 2026-09-07 and visible as "Max: 4" on every Maximize product page. It
+    # applies only where the brand permits combining vouchers at all.
+    "maximize": {"checkout_model": "single_item", "vouchers_per_order": 4,
                  "mixed_denominations": False, "mixed_brands": False,
-                 "note": "Several vouchers per order, all the same denomination and brand."},
+                 "requires_brand_stacking": True,
+                 "note": "Up to four vouchers per order, all the same denomination and brand, "
+                         "and only where the brand allows vouchers to be combined."},
+    # One per transaction whatever the denomination, so brand stacking never
+    # comes into it: a single voucher needs nobody's permission to combine.
     "buyhatke": {"checkout_model": "single_item", "vouchers_per_order": 1,
                  "mixed_denominations": False, "mixed_brands": False,
-                 "note": "One voucher per transaction."},
+                 "requires_brand_stacking": False,
+                 "note": "One voucher per transaction, whatever the denomination."},
 }
 
 SALE_WORDS = re.compile(r"discount|sale item|sale price|slashed|EOSS|full[- ]price", re.I)
