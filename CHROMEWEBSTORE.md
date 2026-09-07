@@ -119,15 +119,22 @@ Copy each cell verbatim into the matching field in the Developer Dashboard.
 
 ## Privacy Policy
 
-**Privacy Policy URL** — ✅ hosted, verified loading 2026-09-07:
+**Privacy Policy URL** — ⚠️ **BLOCKER: not yet hosted.** Being handled
+elsewhere — do not solve it here.
 
-    https://kejriwalmedhansh-bit.github.io/checkout-assistant/privacy.html
+`extension/PRIVACY.md` now points at `https://getdealo.in/privacy/` as the
+full policy. That page did not exist yet when this was written (checked
+2026-09-07, it returned 404), so the link needs to be live before submission.
+It is on the getdealo.in site, which is a separate piece of work — leave it
+alone from this file.
 
-Served by GitHub Pages straight from `docs/` on `main`, no build step. The
-source is `docs/privacy.html`, word-for-word the same as `extension/PRIVACY.md`.
-**Change the two together** — the hosted text must keep matching the disclosure
-table above, and today it does: both say the same two fields leave the device,
-and both say voucher codes never do.
+A GitHub Pages copy of the policy was briefly published here on 2026-09-07 and
+then removed, deliberately, to avoid two privacy pages saying different things
+while the real one was being written. Don't re-add it.
+
+Whatever URL ends up in the listing must stay consistent with the disclosure
+table above **and** with `extension/PRIVACY.md`, which now also discloses that
+the affiliate "Okay" button sends the page address.
 
 ## Distribution
 
@@ -164,17 +171,19 @@ _None yet._
 
 ## What still stands between you and submitting
 
-**All three original blockers are cleared as of 2026-09-07.** Kept here struck
-through rather than deleted, so that a rejection can be traced back to what was
-actually done:
+Two of the three original blockers are cleared as of 2026-09-07. Kept here
+struck through rather than deleted, so that a rejection can be traced back to
+what was actually done:
 
 1. ~~Register as a Chrome Web Store developer~~ — **done.** The US$5 fee is
    paid and the developer account is live.
 2. ~~Take at least one screenshot~~ — **done 2026-09-07.** Three at 1280×800
    plus the promo tile, in `store-assets/`. See "Screenshot Notes" above for
    what each one shows and for the fourth shot that is still missing.
+3. **A live privacy policy URL** — still outstanding, and owned by the
+   getdealo.in work, not by this file. See the Privacy Policy section above.
 
-Nothing is blocking submission any more. Before you upload:
+Before you upload:
 
 3. ~~Build the ZIP from `extension/` only~~ — **done 2026-09-07**, and checked rather than assumed: `dealo-v0.1.0.zip` at the repo root, 188 KB, 17 files, `manifest.json` at the top level, no `.git/`, no scrape data, no `PRIVACY.md`. Rebuild it with the command below after any change to `extension/`.
 
