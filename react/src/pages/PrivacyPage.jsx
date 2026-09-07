@@ -101,12 +101,25 @@ export default function PrivacyPage() {
         never passes through us, and neither do the details behind it.
       </Callout>
 
-      <Callout tone="warn" title="Your visits to this website are recorded">
-        To see where people get stuck, we record a replay of each visit to getdealo.in — your mouse movements,
-        clicks, scrolling, the pages you move through, and the text you type into the search box. It starts as soon
-        as the page opens. It’s a recording of the Dealo window only: we can’t see your other tabs, and the
-        recording stops at the moment you leave for a store or voucher site. These replays are held by our
-        analytics provider, Mixpanel, described below.
+      <Callout tone="warn" title="We ask before recording your visit, and we take no for an answer">
+        To see where people get stuck, we’d like to record a replay of your visit — mouse movements, clicks,
+        scrolling, and the pages you move through. We ask first, and nothing is recorded unless you say yes.
+        <Box as="ul" m="10px 0 0 18px" p={0} sx={{ '& li': { mb: '6px' } }}>
+          <li>
+            <strong>What you type is never recorded</strong>, whichever way you answer. The search box and the
+            places your search is shown back to you are blanked out of every replay.
+          </li>
+          <li>
+            <strong>Say no and there is no recording at all</strong>, and nothing that identifies your browser.
+            We keep a count of how many people reached each step — not tied to you or to anyone — so we can still
+            see where the site loses people.
+          </li>
+          <li>
+            <strong>If you say yes</strong>, the replay shows the Dealo window only. We can’t see your other tabs,
+            and it stops the moment you leave for a store or voucher site. It does show the pages you saw,
+            including the products we showed you.
+          </li>
+        </Box>
       </Callout>
 
       <Section title="What we collect on the website">
@@ -116,15 +129,25 @@ export default function PrivacyPage() {
         short-lived memory cache that speeds up repeat lookups and is wiped whenever the server restarts.
 
         <SubHeading>How you use the site</SubHeading>
-        We record what happens as you use Dealo — a search being run (including the words you searched), which
-        product you picked, the prices and savings you were shown, which buttons and links you tapped, and the
-        replay described above. These are tied to a random identifier created by your browser on your first visit,
-        not to your name.
+        If you agree to be recorded, we keep a record of what happens as you use Dealo — a search being run
+        (including the words you searched), which product you picked, the prices and savings you were shown, which
+        buttons and links you tapped, and the replay described above. These are tied to a random identifier created
+        by your browser, not to your name. Our analytics provider also derives an approximate location — city and
+        region — from your internet connection.
+        <br />
+        <br />
+        If you haven’t agreed, none of that happens: no identifier, no replay, no record of what you searched. All
+        that’s kept is a count of how many people reached each step of the site, with nothing attached to say who
+        they were.
 
         <SubHeading>What your browser keeps</SubHeading>
         Dealo stores a few things on your own device so the site works sensibly:
         <List>
-          <li>That random identifier, so repeat visits count as one person rather than several.</li>
+          <li>Your answer to the recording question, so we don’t ask again every time you open a page.</li>
+          <li>
+            That random identifier, so repeat visits count as one person rather than several — only if you agreed
+            to be recorded. Say no and it is never created; change your mind later and it’s deleted.
+          </li>
           <li>Your last search and its results, so a refresh or a trip to a store doesn’t lose your place.</li>
           <li>Small preferences — whether the sidebar is collapsed, whether you’ve seen the intro tour.</li>
         </List>
@@ -203,14 +226,18 @@ export default function PrivacyPage() {
       <Section title="How long things are kept">
         <List>
           <li><strong>On our server:</strong> nothing is written to disk. Searches and conversations live in memory and are gone on restart.</li>
-          <li><strong>Usage records and session replays:</strong> held by Mixpanel for as long as we keep using the service, unless you ask us to delete yours.</li>
+          <li><strong>Usage records and session replays:</strong> held by Mixpanel for as long as we keep using the service, unless you ask us to delete yours. Only created if you agreed to be recorded.</li>
+          <li><strong>Step counts:</strong> kept indefinitely, because there is nothing personal in them to delete — they are totals, with no person attached.</li>
           <li><strong>On your device:</strong> until you clear your browser’s site data, or remove the extension.</li>
         </List>
       </Section>
 
       <Section title="Your choices">
         <List>
-          <li>Clearing your site data for getdealo.in resets your identifier and removes everything the site kept on your device.</li>
+          <li>
+            Changing your mind: clearing your site data for getdealo.in makes Dealo ask again, and deletes the
+            identifier and everything else the site kept on your device.
+          </li>
           <li>Removing the extension removes everything it stored, including any saved voucher codes.</li>
           <li>You can ask us for a copy of what we hold about you, ask us to correct it, or ask us to delete it — email us and we’ll do it. For the website, tell us roughly when you visited, since we have no name to look you up by. For WhatsApp, your phone number is enough.</li>
         </List>

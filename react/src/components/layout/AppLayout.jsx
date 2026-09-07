@@ -12,6 +12,7 @@ import {
 } from '@chakra-ui/react';
 import { Link as RouterLink, Outlet, useLocation, useNavigate } from 'react-router-dom';
 
+import ConsentBanner from '@/components/common/ConsentBanner';
 import FloatingWhatsAppButton from '@/components/common/FloatingWhatsAppButton';
 import Logo from '@/components/common/Logo';
 import { I } from '@/components/common/icons';
@@ -120,6 +121,11 @@ export default function AppLayout() {
       {/* Covered by the tour's own bottom bar (full-width, bottom:0) while
           the tour is active, so hide it then rather than let it float on
           top of that bar's content. */}
+      {/* Asked once, on whichever page the visitor happens to land on, so it
+          isn't tied to the homepage — a shared link to /results is somebody's
+          first page just as often. */}
+      <ConsentBanner />
+
       {!tourActive && <FloatingWhatsAppButton />}
 
       <Flex direction="column" flex={1} minW={0}>

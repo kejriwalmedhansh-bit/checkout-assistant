@@ -2,6 +2,7 @@ import { Box, Flex, Image, Link, Text } from '@chakra-ui/react';
 
 import Card from '@/components/common/Card';
 import { I } from '@/components/common/icons';
+import { PRIVATE_TEXT_ATTR } from '@/utils/analytics';
 
 /**
  * Product identity — a small thumbnail + name row (shrunk from an earlier
@@ -67,7 +68,12 @@ export default function ProductIdentity({ name, sourceUrl, thumbnail }) {
     <Flex align="center" gap="12px" p="12px 14px">
       {thumb}
       <Text as="h1" fontSize="14px" fontWeight={700} color="text" noOfLines={2} lineHeight={1.3} m={0}>
-        {name}
+        {/* Often the query verbatim: `productName` on ResultsPage falls back
+            to the search text when the store gave no title. Blanked out of
+            session replays either way. */}
+        <Box as="span" {...{ [PRIVATE_TEXT_ATTR]: true }}>
+          {name}
+        </Box>
       </Text>
     </Flex>
   );
