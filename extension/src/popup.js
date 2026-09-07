@@ -351,83 +351,96 @@ window.__dealoPopup = (() => {
   // a completely different website from where it started.
 
   // Step 2 of the journey: they've landed on the voucher partner's site.
-  // Tells them exactly what to buy, and — critically — how to pay for it.
-  function renderVoucherSiteStep(trip, { index = 0, total = 1, want } = {}, { onHaveCode, onAbandon, onShowMe }) {
+  //
+  // Rebuilt 2026-09-07. This screen used to be captioned "VOUCHER 1 OF 8" and
+  // showed one amount at a time, because a plan could once mean several
+  // separate purchases. It cannot any more — every plan Dealo recommends is
+  // buyable in one checkout — so the sequence was describing a journey the
+  // product no longer takes, and a shopper's verdict on it was "what is
+  // happening here looks so confusing, forget the user".
+  //
+  // It now shows the whole basket at once: what to add, what it costs, what
+  // it is worth, and how to pay. Collecting the codes afterwards is a
+  // different job and has its own screen — six vouchers is one purchase but
+  // six codes, and one screen cannot honestly be both.
+  function renderVoucherSiteStep(trip, { want } = {}, { onHaveCode, onAbandon, onShowMe }) {
     const d = trip.deal;
-    // A deal needing several separate purchases lands here once per
-    // purchase — showing the deal's combined total here would send them to
-    // buy the wrong amount, so each visit shows only THIS purchase's figure.
-    const multi = total > 1;
-    // No amount when the cart total couldn't be read — the layout falls back
-    // to naming the brand rather than rendering a sentence with a hole in it
-    // ("Buy of Boat credit", seen in live testing).
-    const amount = want ? `₹${rupees(want)}` : d.voucherAmount ? `₹${rupees(d.voucherAmount)}` : "";
-    // The denominations become tiles that mirror the amount buttons they're
-    // about to press on the voucher site — recognition instead of arithmetic.
-    // As a sentence ("That's 1×₹7,500 + 1×₹1,000") it was near-invisible.
-    // Skipped on a multi-purchase deal: the full breakdown belongs to the
-    // whole deal, not to the single purchase this screen is guiding.
-    // Shown on multi-voucher deals too, not just single ones. Hiding the whole
-    // plan here and captioning the screen "VOUCHER 1 OF 8" told the shopper
-    // only how deep into an errand they were, never how big the errand was —
-    // "what is happening here looks so confusing, forget the user"
-    // (2026-09-07). The tiles are the plan; the counter is the position in it.
-    const tiles = (d.denominationBreakdown || []).length
+    const where = sourceName(d.voucherSource);
+
+    // The basket, as tiles that mirror the buttons they are about to press.
+    // Recognition instead of arithmetic — as a sentence this was invisible.
+    const chips = (d.denominationBreakdown || []).length
       ? `<div class="dealo-chips">${d.denominationBreakdown
           .map((b) => `<span class="dealo-chip">${b.count > 1 ? `<span class="dealo-mult">${b.count}×</span>` : ""}₹${rupees(b.denom)}</span>`)
           .join("")}</div>`
-      : "";
+      : (want ? `<div class="dealo-chips"><span class="dealo-chip">₹${rupees(want)}</span></div>` : "");
 
-    // The whole errand in one line: what it all costs and what it is worth.
-    // Without it, someone eight vouchers deep has no way of checking that the
-    // running total is still the deal they agreed to.
-    const totalLine = (multi && d.priced && d.effectivePrice != null)
-      ? `<div class="dealo-plan-total">${esc(d.purchaseBreakdown || "")} · pay ₹${rupees(d.effectivePrice)} in total</div>`
-      : "";
+    // The three numbers that matter, in the order a person asks for them:
+    // what do I pay, what do I get, what do I save.
+    const priced = d.priced && d.effectivePrice != null;
+    const figure = priced ? `₹${rupees(d.effectivePrice)}` : (want ? `₹${rupees(want)}` : esc(trip.store.brandName));
+    const caption = priced
+      ? `for ₹${rupees(d.voucherAmount)} of ${esc(trip.store.brandName)} credit${d.saving != null ? ` · saves ₹${rupees(d.saving)}` : ""}`
+      : `of ${esc(trip.store.brandName)} credit`;
 
-    // The rate promised back at the store is the UPI rate. Shown as a tick
-    // against a crossed-out number rather than two sentences — it's a
-    // comparison, and a comparison is a picture.
+    // The rate promised back at the store is the UPI rate. A tick against a
+    // crossed-out number rather than two sentences — it is a comparison, and
+    // a comparison is a picture.
     const payRows = (d.cardPct != null && d.pct - d.cardPct >= 0.5)
       ? `<div class="dealo-pay">
-           <div class="dealo-pay-row dealo-good">${svg("check", 17, "#4A9B8E", 2.4)} UPI <span class="dealo-pct">${esc(d.pct)}%</span></div>
-           <div class="dealo-pay-row dealo-bad">${svg("cross", 17, "currentColor", 2.2)} Card <span class="dealo-pct">${esc(d.cardPct)}%</span></div>
+           <div class="dealo-pay-row dealo-good">${svg("check", 17, "#4A9B8E", 2.4)} Pay by UPI <span class="dealo-pct">${esc(d.pct)}%</span></div>
+           <div class="dealo-pay-row dealo-bad">${svg("cross", 17, "currentColor", 2.2)} By card <span class="dealo-pct">${esc(d.cardPct)}%</span></div>
          </div>`
       : `<div class="dealo-pay">
-           <div class="dealo-pay-row dealo-good">${svg("check", 17, "#4A9B8E", 2.4)} UPI <span class="dealo-pct">${esc(d.pct)}%</span></div>
+           <div class="dealo-pay-row dealo-good">${svg("check", 17, "#4A9B8E", 2.4)} Pay by UPI <span class="dealo-pct">${esc(d.pct)}%</span></div>
          </div>`;
 
     const root = card(`
-      ${multi ? `<div class="dealo-step">Voucher ${index + 1} of ${total}</div>` : ""}
-      ${totalLine}
-      <div class="dealo-figure dealo-figure-tight">${amount || esc(trip.store.brandName)}</div>
-      ${amount ? `<div class="dealo-caption">of ${esc(trip.store.brandName)} credit</div>` : `<div class="dealo-caption">credit for your order</div>`}
-      ${tiles}
+      <div class="dealo-eyebrow">Add to your ${esc(where)} basket</div>
+      ${chips}
+      <div class="dealo-figure dealo-figure-tight">${figure}</div>
+      <div class="dealo-caption">${caption}</div>
       ${payRows}
       <button class="dealo-button dealo-ring dealo-withicon" id="dealo-show-me">
-        ${svg("target", 17, "currentColor", 2)} Show me
+        ${svg("target", 17, "currentColor", 2)} Show me how
       </button>
       <button class="dealo-button dealo-secondary dealo-withicon" id="dealo-have-code">
-        ${svg("check", 16, "currentColor", 2.2)} Got the code
+        ${svg("check", 16, "currentColor", 2.2)} I've bought them
       </button>
-      <button class="dealo-link" id="dealo-abandon">Not doing this now</button>
-    `, 2);
+      <button class="dealo-link dealo-centered" id="dealo-abandon">Not doing this now</button>
+    `, 1);
+
     root.querySelector("#dealo-show-me").addEventListener("click", () => onShowMe());
     root.querySelector("#dealo-have-code").addEventListener("click", () => onHaveCode());
     root.querySelector("#dealo-abandon").addEventListener("click", () => { onAbandon(); close(); });
   }
 
-  // Step 2b: somewhere to put the code. Stays on this machine — never sent
-  // to Dealo's servers, which is both the honest promise and less to secure.
+  // Collecting the codes. A separate job from buying them, and shaped like
+  // one: six vouchers arrive as six codes, one at a time, out of an email.
+  //
+  // The progress is shown because it is the answer to the question a shopper
+  // actually has here — how much of this is left. Reported 2026-09-07: asked
+  // for eight codes, allowed to enter one, and told nothing about either.
   function renderCodeEntry(trip, { index = 0, total = 1 } = {}, { onSave }) {
     const multi = total > 1;
-    const isLast = index === total - 1;
+    const isLast = index >= total - 1;
+    const remaining = Math.max(0, total - index - 1);
+    // Filled by codes already saved, not by the one being typed — the bar
+    // must never claim progress the shopper has not made.
+    const pctDone = multi ? Math.round((index / total) * 100) : 0;
+
+    const progress = multi
+      ? `<div class="dealo-eyebrow">Code ${index + 1} of ${total}</div>
+         <div class="dealo-bar"><i style="width:${pctDone}%"></i></div>`
+      : `<div class="dealo-eyebrow">Step 2 of 3</div>`;
+
     const root = card(`
-      <div class="dealo-step">${multi ? `Voucher ${index + 1} of ${total}` : "Step 2 of 3"}</div>
+      ${progress}
       <div class="dealo-message">Paste your voucher code</div>
       <input class="dealo-input" id="dealo-code" type="text" placeholder="Voucher code" autocomplete="off">
       <input class="dealo-input" id="dealo-pin" type="text" placeholder="PIN (if there is one)" autocomplete="off">
-      <button class="dealo-button" id="dealo-save-code">${isLast ? `Save &amp; go back to ${esc(trip.store.brandName)}` : "Save &amp; buy the next voucher"}</button>
+      <button class="dealo-button" id="dealo-save-code">${isLast ? `Save &amp; go back to ${esc(trip.store.brandName)}` : "Save, next code"}</button>
+      ${remaining ? `<div class="dealo-remaining">${remaining} more after this</div>` : ""}
       <div class="dealo-private">
         ${svg("lock", 14, "#4A9B8E", 1.9)}
         <span>Stays on your device</span>
@@ -435,137 +448,16 @@ window.__dealoPopup = (() => {
     `, 2);
     const codeEl = root.querySelector("#dealo-code");
     codeEl.focus();
-    root.querySelector("#dealo-save-code").addEventListener("click", () => {
+    const save = () => {
       const code = codeEl.value.trim();
       if (!code) { codeEl.focus(); return; }
       onSave(code, root.querySelector("#dealo-pin").value.trim());
-    });
-  }
-
-  // Step 3: they're back at the store's checkout, holding a code they now
-  // have to actually use. This is where people give up without help.
-  function renderBackAtStore(trip, { onDone, onShowWhere, onStepsToggle }) {
-    const d = trip.deal;
-    // Open unless the shopper closed them. This is the one screen where the
-    // instructions are the point — they are standing at the discount box with
-    // a code in hand — so hiding them behind a tap by default was backwards.
-    const stepsOpen = trip.stepsOpen !== false;
-    // The store's own one-liner becomes the label on the steps toggle rather
-    // than a sentence sitting on the card — one tap away, not in the way.
-    const how = d.howToRedeemShort || "";
-    // Only claim the voucher covers the order when we actually read the order
-    // total. Saying "that covers the whole order" off an unpriced trip is a
-    // statement we have no basis for — caught in live testing on boAt.
-    // A number, not a sentence: "₹0 left to pay" is read at a glance.
-    const left = !d.priced
-      ? ""
-      : `<div class="dealo-left">₹${rupees(d.remainder)} <span>left to pay</span></div>`;
-    // The brands write these as paragraphs — Amazon's middle step is three
-    // sentences with an "Alternatively…" branch and a sign-up aside. Nobody
-    // reads that mid-checkout, so each step is cut to its first instruction.
-    const steps = (d.howToRedeemSteps || []).slice(0, 3)
-      .map((s) => `<li>${esc(shortenStep(s))}</li>`).join("");
-
-    // The single most useful thing buried in those paragraphs is the redeem
-    // page's address. Pulled out as a button, it replaces reading entirely.
-    // What THIS voucher can't be used for, straight from whoever sold it.
-    // The three sellers genuinely differ — BuyHatke's AJIO card excludes H&M
-    // products, which appears on no other source — so this is never borrowed
-    // from another seller and never silently dropped.
-    const limits = (d.restrictions || []).filter(Boolean).slice(0, 2);
-    const limitBlock = limits.length
-      ? `<div class="dealo-limits">${svg("info", 13, "#C2712F", 2)}
-           <span>${limits.map((l) => esc(shortenStep(l))).join(" ")}</span>
-         </div>`
-      : "";
-
-    const redeemUrl = firstUrlIn(d.howToRedeemSteps || []);
-    const openBtn = redeemUrl
-      ? `<a class="dealo-button dealo-secondary dealo-withicon" id="dealo-open-redeem"
-            href="${esc(redeemUrl)}" target="_blank" rel="noopener noreferrer">
-           ${svg("link", 15, "currentColor", 1.9)} ${esc(prettyHost(redeemUrl))}
-         </a>`
-      : "";
-
-    // Code and PIN are two separate things typed into two separate boxes, so
-    // they get two separate rows with their own Copy buttons. Showing them as
-    // "code · pin" on one line read as a single value, and copying gave you
-    // only half of what you needed at the second box.
-    const field = (label, value, id) => `
-      <div class="dealo-field">
-        <div class="dealo-field-label">${esc(label)}</div>
-        <div class="dealo-field-row">
-          <span class="dealo-code">${esc(value)}</span>
-          <button class="dealo-copy-btn" data-copy="${esc(value)}" id="${id}" aria-label="Copy ${esc(label)}" title="Copy">
-            ${svg("copy", 16, "currentColor", 1.8)}
-          </button>
-        </div>
-      </div>`;
-
-    // One card per voucher bought. On the common single-voucher deal this is
-    // just one card and no dots — unchanged from before. On a deal that
-    // needed several purchases, all their codes already live on the device
-    // (collected earlier in the journey) — swiping between them here means
-    // never switching back to an email or notes app mid-checkout.
-    const codes = trip.codes || [];
-    const multiCode = codes.length > 1;
-    const codeCards = codes.map((c, i) => `
-      <div class="dealo-code-card">
-        ${multiCode ? `<div class="dealo-step">Code ${i + 1} of ${codes.length}</div>` : ""}
-        ${field("Code", c.code, `dealo-copy-code-${i}`)}
-        ${c.pin ? field("PIN", c.pin, `dealo-copy-pin-${i}`) : ""}
-      </div>`).join("");
-    const codeDots = multiCode
-      ? `<div class="dealo-code-dots">${codes.map((_, i) => `<button class="dealo-code-dot${i === 0 ? " dealo-code-dot-on" : ""}" aria-label="Code ${i + 1}"></button>`).join("")}</div>`
-      : "";
-
-    const root = card(`
-      <div class="dealo-code-carousel">${codeCards}</div>
-      ${codeDots}
-      ${left}
-      ${limitBlock}
-      <button class="dealo-button dealo-ring dealo-withicon" id="dealo-where">
-        ${svg("target", 17, "currentColor", 2)} Show me where
-      </button>
-      ${openBtn}
-      ${steps ? `<button class="dealo-explain-toggle dealo-centered">${svg("info", 13, "currentColor", 2)} steps</button>
-                 <div class="dealo-explain"${stepsOpen ? "" : " hidden"}><ol class="dealo-steps">${steps}</ol></div>` : ""}
-      <button class="dealo-link dealo-withicon" id="dealo-done">
-        ${svg("check", 13, "#4A9B8E", 2.4)} code applied
-      </button>
-    `, 3);
-    wireExplainToggle(root, onStepsToggle);
-    if (multiCode) wireCodeCarousel(root);
-    // Confirmation is the icon turning into a tick — "Copied" no longer fits
-    // an icon-sized button, and the tick reads faster anyway.
-    root.querySelectorAll(".dealo-copy-btn").forEach((btn) => {
-      const original = btn.innerHTML;
-      btn.addEventListener("click", () => {
-        copyText(btn.dataset.copy);
-        btn.innerHTML = svg("check", 16, "#4A9B8E", 2.4);
-        setTimeout(() => { btn.innerHTML = original; }, 1600);
-      });
-    });
-    root.querySelector("#dealo-where").addEventListener("click", () => onShowWhere());
-    root.querySelector("#dealo-done").addEventListener("click", () => { onDone(); close(); });
-  }
-
-  // Step 4, the last one: the code's in, and the only thing left is the
-  // shopper's own final tap. Dealo points at the button — it never presses
-  // it. Once they do, Dealo notices the store's own confirmation page on the
-  // next check and closes the loop on its own; "I've placed it" below is
-  // only a fallback for a confirmation page Dealo doesn't recognise.
-  function renderPlaceOrder(trip, { onShowMe, onDone }) {
-    const root = card(`
-      <div class="dealo-message">Voucher applied — place your order</div>
-      <button class="dealo-button dealo-ring dealo-withicon" id="dealo-where">
-        ${svg("target", 17, "currentColor", 2)} Show me the button
-      </button>
-      <div class="dealo-sub">Dealo will notice once your order's confirmed.</div>
-      <button class="dealo-link" id="dealo-done">I've placed it</button>
-    `, 3);
-    root.querySelector("#dealo-where").addEventListener("click", () => onShowMe());
-    root.querySelector("#dealo-done").addEventListener("click", () => { onDone(); close(); });
+    };
+    root.querySelector("#dealo-save-code").addEventListener("click", save);
+    // Six codes is six round trips to the keyboard; Enter saves, so the
+    // shopper never has to reach for the mouse between them.
+    root.querySelectorAll(".dealo-input").forEach((el) =>
+      el.addEventListener("keydown", (e) => { if (e.key === "Enter") save(); }));
   }
 
   // Draws a highlight ring and a pointing label around a real element on the

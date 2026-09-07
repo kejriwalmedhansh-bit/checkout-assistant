@@ -430,15 +430,45 @@
     ];
   }
 
+  // Collecting the codes, one after another, without leaving the loop.
+  //
+  // This used to hand control back to runJourney after every code, which
+  // re-rendered the BUYING screen — "add these to your basket" — at a shopper
+  // who had already bought them. Harmless-looking and completely
+  // disorienting: the six codes they were part-way through entering looked
+  // like six more purchases they had to make.
+  //
+  // Calls itself instead, so entering six codes is six presses of Enter, and
+  // only the last one sends them back to the store.
+  function collectCode(trip, index, total) {
+    window.__dealoPopup.renderCodeEntry(trip, { index, total }, {
+      onSave: async (code, pin) => {
+        const next = await ask({ type: "tripAddCode", code, pin });
+        const updated = next?.trip;
+        if (!updated) return;
+        if (updated.status === "has_code") {
+          location.href = trip.store.returnUrl;
+          return;
+        }
+        collectCode(updated, (updated.codes || []).length, total);
+      },
+    });
+  }
+
   async function runJourney(trip) {
     if (trip.status === "buying_voucher" && onVoucherSiteFor(trip)) {
-      const amounts = perTxnAmounts(trip.deal);
       const codes = trip.codes || [];
-      const index = codes.length; // which purchase they're on right now
-      const total = Math.max(amounts.length, 1);
-      const want = amounts[index];
+      const index = codes.length; // how many codes are already in hand
+      // Every plan is one checkout now, so the buying screen shows the whole
+      // basket rather than stepping through it. `want` is only the amount the
+      // guided pointer aims at — the first denomination in the plan, which is
+      // the button they have to press on the voucher site.
+      const total = Math.max(perTxnAmounts(trip.deal).length, 1);
+      const want = (trip.deal.denominationBreakdown || [])[0]?.denom
+        || perTxnAmounts(trip.deal)[0]
+        || trip.deal.voucherAmount;
 
-      window.__dealoPopup.renderVoucherSiteStep(trip, { index, total, want }, {
+      window.__dealoPopup.renderVoucherSiteStep(trip, { want }, {
         onShowMe: () => {
           // guide() reports whether it found anything at all to point at, so
           // a page it can't read falls back to written steps instead of a
@@ -447,22 +477,7 @@
             window.__dealoPopup.guideUnavailable();
           }
         },
-        onHaveCode: () => {
-          window.__dealoPopup.renderCodeEntry(trip, { index, total }, {
-            onSave: async (code, pin) => {
-              const next = await ask({ type: "tripAddCode", code, pin });
-              const updated = next?.trip;
-              // More purchases still needed: stay on this site and guide the
-              // next one, rather than sending them back with an incomplete
-              // set of codes. Only the last one heads back to the store.
-              if (updated && updated.status !== "has_code") {
-                await runJourney(updated);
-              } else {
-                location.href = trip.store.returnUrl;
-              }
-            },
-          });
-        },
+        onHaveCode: () => collectCode(trip, index, total),
         // Without this, someone who changes their mind gets guided at on every
         // page of the voucher site until the trip expires a week later.
         onAbandon: () => ask({ type: "tripClear" }),
