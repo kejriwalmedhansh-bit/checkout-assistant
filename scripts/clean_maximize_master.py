@@ -117,7 +117,21 @@ def clean():
                 "is_custom_denom": bool(var.get("custom_amount")),
                 "custom_min": var.get("custom_amount_min"),
                 "custom_max": var.get("custom_amount_max"),
-                "stack_limit": var.get("quantity_cap_per_order"),
+                # TWO DIFFERENT FACTS, and they had been sharing one field.
+                #
+                # `reseller_qty_cap` is how many Maximize will SELL in one
+                # checkout — their own "Max: 4", read off the product page.
+                # `stack_limit` is how many the SHOP will ACCEPT on one bill,
+                # which comes from the brand's terms and is written later by
+                # update_masters_from_scrape.py.
+                #
+                # Writing the first into the second meant the second overwrote
+                # it: Frido's Max: 4 was scraped correctly, then replaced by a
+                # rule about redemption, and the pricing code — reading a
+                # missing purchase cap as "no limit" — planned six vouchers in
+                # one imaginary Maximize checkout. Found 2026-09-07.
+                "reseller_qty_cap": var.get("quantity_cap_per_order"),
+                "stack_limit": None,
                 "value_cap": None,
                 "purchase_cap_per_txn": None,
                 "discounts": discounts,

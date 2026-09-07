@@ -73,15 +73,27 @@ def _is_sellable(product: dict) -> bool:
     return status is None or status == "active"
 
 
-def _maximize_qty_per_txn(brand_allows_stacking: bool) -> int:
+def _maximize_qty_per_txn(brand_allows_stacking: bool, listed_cap: int | None = None) -> int:
     """Vouchers buyable in one Maximize checkout, for one brand and denomination.
 
-    The number itself is not decided here — it comes from the rulebook, which
-    records Maximize's own "Max: 4" and the fact that it only applies where the
-    brand permits combining vouchers on one bill. A shopper who buys four
-    vouchers a shop will not accept together has saved nothing.
+    Two limits, both of which must hold:
+
+      * `listed_cap` — what THIS listing's own page says, scraped as "Max: N"
+        and now carried in `reseller_qty_cap`. Present on 350 of 399 listings
+        and equal to 4 on 334 of them, but a handful genuinely differ (2, 3,
+        6, 8, 10), so the listing wins over the platform default where it
+        exists.
+      * the rulebook's ceiling for Maximize, and its rule that any multi-buy
+        needs the brand to permit combining vouchers on one bill. Four
+        vouchers a shop will not accept together is not a saving.
+
+    Where the listing says nothing, the platform rule alone applies — which,
+    with brand stacking unknown, resolves to 1.
     """
-    return platform_rules.max_vouchers_per_checkout("maximize", brand_allows_stacking) or 1
+    allowed = platform_rules.max_vouchers_per_checkout("maximize", brand_allows_stacking) or 1
+    if listed_cap and listed_cap >= 1:
+        return max(1, min(int(listed_cap), allowed))
+    return allowed
 
 # Recommended Route tie-break: a cheaper multi-transaction deal only beats a
 # single-transaction deal when it saves more than this fraction extra on top
@@ -956,7 +968,7 @@ def get_best_maximize_deal(merchant_name: str, price: float) -> tuple[dict, dict
             # scraped from Maximize: Maximize's four applies only where the
             # shop will accept several vouchers on one bill, and `stacks` is
             # that answer, read from the seller's own words.
-            "reseller_stack_limit": _maximize_qty_per_txn(stacks),
+            "reseller_stack_limit": _maximize_qty_per_txn(stacks, p.get("reseller_qty_cap")),
             # Same correction as BuyHatke: a reseller's per-order voucher
             # count describes its own checkout, not what the store accepts.
             # 58 Maximize brands carry "1 voucher" against stores whose own
