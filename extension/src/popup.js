@@ -58,6 +58,7 @@ window.__dealoPopup = (() => {
     target: `<circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="2.6"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/>`,
     info: `<circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 7.6v.1"/>`,
     lock: `<rect x="4" y="10.5" width="16" height="10" rx="2"/><path d="M8 10.5V7a4 4 0 0 1 8 0v3.5"/>`,
+    heart: `<path d="M12 20s-7-4.4-7-9.3A3.9 3.9 0 0 1 12 8a3.9 3.9 0 0 1 7 2.7C19 15.6 12 20 12 20z"/>`,
     link: `<path d="M10 13a5 5 0 0 0 7 0l3-3a5 5 0 0 0-7-7l-1.5 1.5"/><path d="M14 11a5 5 0 0 0-7 0l-3 3a5 5 0 0 0 7 7L12.5 19.5"/>`,
   };
 
@@ -306,8 +307,20 @@ window.__dealoPopup = (() => {
   // (see config.js). Naming the figure is deliberate: "no discounts available"
   // on a shop that plainly has one reads as Dealo being broken or lazy, where
   // "only ₹83 off" reads as Dealo having checked and made a judgement. Same
-  // Okay button either way.
-  function renderNoDeal(onOkay, smallDeal = null) {
+  // two choices either way.
+  //
+  // The affiliate click is a CHOICE here, not a side effect of dismissing the
+  // panel. It used to be the latter: "Okay" quietly sent the shopper through
+  // Dealo's affiliate link and back, which places Dealo's cookie last and
+  // takes the commission from whoever actually sent them to the shop.
+  //
+  // That is precisely what Honey was doing, and in the eighteen months after a
+  // YouTuber demonstrated it Honey lost seven million users, was thrown out of
+  // Awin and Rakuten Advertising for policy violations, and is still in court.
+  // Rakuten's own model is the answer, and the one adopted here: the shopper
+  // presses a button that says what it does, so the commission is consented to
+  // rather than swapped in behind them. Product decision, 2026-09-07.
+  function renderNoDeal(onSupport, onDismiss, smallDeal = null) {
     const message = !smallDeal
       ? "No discounts available, unfortunately."
       : smallDeal.priced && smallDeal.saving != null
@@ -317,10 +330,18 @@ window.__dealoPopup = (() => {
         : `Only ${smallDeal.pct}% off here — not worth the extra steps.`;
     const root = card(`
       <div class="dealo-message">${esc(message)}</div>
-      <button class="dealo-button dealo-secondary" id="dealo-okay">Okay</button>
+      <button class="dealo-button dealo-ring dealo-withicon" id="dealo-support">
+        ${svg("heart", 16, "currentColor", 1.9)} Shop with Dealo's link
+      </button>
+      <div class="dealo-support-note">Pays Dealo a commission from the shop. Your price is the same.</div>
+      <button class="dealo-link dealo-centered" id="dealo-okay">No thanks</button>
     `);
+    root.querySelector("#dealo-support").addEventListener("click", () => {
+      onSupport();
+      close();
+    });
     root.querySelector("#dealo-okay").addEventListener("click", () => {
-      onOkay();
+      onDismiss();
       close();
     });
   }

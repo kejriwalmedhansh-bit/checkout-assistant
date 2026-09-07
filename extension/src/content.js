@@ -638,11 +638,16 @@
       // — it routes through the affiliate link before returning them to the
       // page they were on, which is how Dealo is paid when it has nothing to
       // sell them.
-      const onOkay = () => {
+      // Two different actions now, and the difference is the whole point.
+      // Dismissing costs Dealo nothing and earns Dealo nothing; the affiliate
+      // hop happens only when the shopper presses the button that says so.
+      // See renderNoDeal for why that separation exists.
+      const onSupport = () => {
         markDismissed(domain);
         location.href = affiliateRedirectUrl(location.href);
       };
-      window.__dealoPopup.renderNoDeal(onOkay, tooSmall ? result : null);
+      const onDismiss = () => markDismissed(domain);
+      window.__dealoPopup.renderNoDeal(onSupport, onDismiss, tooSmall ? result : null);
     }
   }
 

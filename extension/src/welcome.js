@@ -6,6 +6,7 @@
 // it. Awaiting the result afterwards is fine; awaiting anything before it is
 // what breaks it, silently, with "must be called during a user gesture".
 const HOST_PERMS = { origins: ["http://*/*", "https://*/*"] };
+const API_BASE = "https://dealo-backend.onrender.com";
 
 const ask = document.getElementById("ask");
 const done = document.getElementById("done");
@@ -43,6 +44,29 @@ grant.addEventListener("click", () => {
 document.getElementById("close").addEventListener("click", () => {
   window.close();
 });
+
+// The two figures on this screen are read from the live catalogue, never
+// written into the page. A rate typed into HTML is true on the day it is typed
+// and quietly false a fortnight later, and this is the first thing a stranger
+// ever reads about Dealo — the worst possible place for a stale number.
+//
+// No host permission is needed for this: the backend answers with
+// Access-Control-Allow-Origin: *, which is why this works on a screen shown
+// BEFORE the shopper has granted anything.
+//
+// If it fails — offline, server asleep, anything — the page keeps the wording
+// it shipped with. A welcome screen must never show a broken figure or a gap.
+(async () => {
+  try {
+    const res = await fetch(`${API_BASE}/headline`, { signal: AbortSignal.timeout(4000) });
+    if (!res.ok) return;
+    const { typical_pct: typical, strong_pct: strong } = await res.json();
+    if (strong) document.getElementById("hl-strong").textContent = `Up to ${strong}%`;
+    if (typical) document.getElementById("hl-typical").textContent = `around ${typical}%`;
+  } catch (e) {
+    // Keep the shipped wording.
+  }
+})();
 
 // Someone who already said yes and reopened this tab shouldn't be asked again.
 chrome.permissions.contains(HOST_PERMS).then((has) => {

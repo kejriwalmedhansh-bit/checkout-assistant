@@ -622,3 +622,11 @@
   text-align: center;
   margin-top: -4px;
 }
+
+#dealo-popup-root .dealo-support-note {
+  font-size: 11.5px;
+  color: #6B7A8D;
+  text-align: center;
+  margin-top: -4px;
+  line-height: 1.4;
+}
