@@ -1011,7 +1011,8 @@ def get_best_voucher_deal(merchant_name: str, price: float) -> dict | None:
     # keys like important_instructions_raw/stack_limit_confidence stay on
     # `record`) — always exactly one product per Gyftr brand, unlike
     # Maximize's multi-tier records. Flatten before calculating.
-    per_bill, stated = _brand_vouchers_per_bill(merchant_name, "gyftr")
+    gyftr_url = f"https://www.gyftr.com/{record.get('slug')}" if record.get("slug") else None
+    per_bill, stated = _listing_vouchers_per_bill("gyftr", gyftr_url, merchant_name)
     voucher = {
         **record,
         **products[0],
@@ -1077,13 +1078,13 @@ def get_best_maximize_deal(merchant_name: str, price: float) -> tuple[dict, dict
     # source_url, not voucher_url — calculate_effective_price's generic
     # "gyftr.com/{slug}" fallback is only correct for actual Gyftr vouchers).
     stacks = _store_allows_stacking(merchant_name)
-    per_bill, stated = _brand_vouchers_per_bill(merchant_name, "maximize")
     store_cap = _store_value_cap(merchant_name)
     tiers = [
         {
             **record, **p,
             "voucher_platform": "Maximize",
             "voucher_url": p.get("source_url"),
+            **_terms_fields(*_listing_vouchers_per_bill("maximize", p.get("source_url"), merchant_name)),
             # Maximize's own real per-order quantity cap, kept under a
             # separate key so it survives the "stacks" override just below —
             # that override answers "how much will the store redeem in
@@ -1100,12 +1101,7 @@ def get_best_maximize_deal(merchant_name: str, price: float) -> tuple[dict, dict
             # count describes its own checkout, not what the store accepts.
             # 58 Maximize brands carry "1 voucher" against stores whose own
             # terms say vouchers combine.
-            # How many the SHOP takes on one bill, from its own terms — a
-            # reseller's per-order voucher count describes its own checkout,
-            # not what the store accepts.
-            **({"stack_limit": per_bill,
-                "stack_limit_confidence": "unlimited_stated" if per_bill is None else "stated"}
-               if stated else {}),
+
             # The store's own redemption ceiling still applies, whoever sold it.
             **({"value_cap": store_cap} if store_cap else {}),
         }
@@ -1154,6 +1150,68 @@ def _store_allows_stacking(merchant_name: str) -> bool:
 
     gyftr = voucher_repository.get_by_merchant(merchant_name)
     return bool(gyftr) and gyftr.get("stack_limit_confidence") == "unlimited_stated"
+
+
+def _terms_fields(per_bill: int | None, stated: bool) -> dict:
+    """The two stack-limit fields a deal carries, or nothing when the terms
+    never said — leaving the caller's existing fallback in place."""
+    if not stated:
+        return {}
+    return {
+        "stack_limit": per_bill,
+        "stack_limit_confidence": "unlimited_stated" if per_bill is None else "stated",
+    }
+
+
+@lru_cache(maxsize=1)
+def _slug_by_listing_url() -> dict[tuple[str, str], str]:
+    """(source, product URL) -> the rules slug for that exact listing.
+
+    One seller can carry the same brand twice with genuinely different
+    products, and the difference is visible in the rate: Maximize sells
+    Hidesign at 7.75% on listing 525 and 13% on listing 462, AJIO Luxe at
+    3.75% on 733 and 7% on 700. The rules file already keeps them apart —
+    `maximize:hidesign` and `maximize:hidesign-462` — but nothing connected a
+    priced product back to its own entry, so both were held to the stricter of
+    the two. data/voucher_offers.json carries the URL each slug was read from,
+    which is the join.
+    """
+    try:
+        offers_path = Path(__file__).resolve().parent.parent.parent / "data" / "voucher_offers.json"
+        with offers_path.open() as f:
+            offers = json.load(f)
+    except (OSError, json.JSONDecodeError):
+        return {}
+    rows = offers if isinstance(offers, list) else list(offers.values())
+    return {
+        (row["source"], row["url"]): row["slug"]
+        for row in rows
+        if row.get("source") and row.get("url") and row.get("slug")
+    }
+
+
+def _listing_vouchers_per_bill(
+    source: str, listing_url: str | None, merchant_name: str
+) -> tuple[int | None, bool]:
+    """`_brand_vouchers_per_bill` for one exact listing where it can be found.
+
+    A shopper is sent to buy one specific voucher, and that voucher's own terms
+    govern the plan — not the strictest of everything the seller lists under
+    the same brand name, which is only the right answer when the listings
+    cannot be told apart.
+    """
+    slug = _slug_by_listing_url().get((source.lower(), listing_url or ""))
+    entry = _get_voucher_rules(source, slug) if slug else None
+    rules = ((entry or {}).get("rules") or {})
+    combines = (rules.get("can_combine") or {}).get("value")
+    named = (rules.get("max_cards_per_order") or {}).get("value")
+    if combines == "no":
+        return 1, True
+    if isinstance(named, (int, float)) and named >= 1:
+        return int(named), True
+    if combines == "yes":
+        return None, True
+    return _brand_vouchers_per_bill(merchant_name, source)
 
 
 @lru_cache(maxsize=8192)
@@ -1264,13 +1322,13 @@ def get_best_buyhatke_deal(merchant_name: str, price: float) -> tuple[dict, dict
     if record is None:
         return None
     stacks = _store_allows_stacking(merchant_name)
-    per_bill, stated = _brand_vouchers_per_bill(merchant_name, "buyhatke")
     store_cap = _store_value_cap(merchant_name)
     tiers = [
         {
             **record, **p,
             "voucher_platform": "BuyHatke",
             "voucher_url": p.get("source_url"),
+            **_terms_fields(*_listing_vouchers_per_bill("buyhatke", p.get("source_url"), merchant_name)),
             # BuyHatke's real per-order quantity cap is always 1 voucher —
             # confirmed by the user's own live testing 2026-09-03: unlike
             # Maximize (which can vary, e.g. Frido allows 4 of the same
@@ -1288,12 +1346,7 @@ def get_best_buyhatke_deal(merchant_name: str, price: float) -> tuple[dict, dict
             # rule that governs redemption. No value or transaction limit is
             # inferred here — inventing one is what produced a wrong ₹2,500
             # ceiling on a brand that visibly sells ₹10,000 vouchers.
-            # How many the SHOP takes on one bill, from its own terms — a
-            # reseller's per-order voucher count describes its own checkout,
-            # not what the store accepts.
-            **({"stack_limit": per_bill,
-                "stack_limit_confidence": "unlimited_stated" if per_bill is None else "stated"}
-               if stated else {}),
+
             # The store's own redemption ceiling still applies, whoever sold it.
             **({"value_cap": store_cap} if store_cap else {}),
         }
