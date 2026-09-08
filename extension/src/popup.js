@@ -575,6 +575,245 @@ window.__dealoPopup = (() => {
   }
 
   // Step 3 done: the moment the shopper actually feels the win.
+  function renderBackAtStore(trip, { onDone, onShowWhere, onStepsToggle }) {
+    const d = trip.deal;
+    // Open unless the shopper closed them. This is the one screen where the
+    // instructions are the point — they are standing at the discount box with
+    // a code in hand — so hiding them behind a tap by default was backwards.
+    const stepsOpen = trip.stepsOpen !== false;
+    // The store's own one-liner becomes the label on the steps toggle rather
+    // than a sentence sitting on the card — one tap away, not in the way.
+    const how = d.howToRedeemShort || "";
+    // Only claim the voucher covers the order when we actually read the order
+    // total. Saying "that covers the whole order" off an unpriced trip is a
+    // statement we have no basis for — caught in live testing on boAt.
+    // A number, not a sentence: "₹0 left to pay" is read at a glance.
+    const left = !d.priced
+      ? ""
+      : `<div class="dealo-left">₹${rupees(d.remainder)} <span>left to pay</span></div>`;
+    // The brands write these as paragraphs — Amazon's middle step is three
+    // sentences with an "Alternatively…" branch and a sign-up aside. Nobody
+    // reads that mid-checkout, so each step is cut to its first instruction.
+    const steps = (d.howToRedeemSteps || []).slice(0, 3)
+      .map((s) => `<li>${esc(shortenStep(s))}</li>`).join("");
+
+    // The single most useful thing buried in those paragraphs is the redeem
+    // page's address. Pulled out as a button, it replaces reading entirely.
+    // What THIS voucher can't be used for, straight from whoever sold it.
+    // The three sellers genuinely differ — BuyHatke's AJIO card excludes H&M
+    // products, which appears on no other source — so this is never borrowed
+    // from another seller and never silently dropped.
+    const limits = (d.restrictions || []).filter(Boolean).slice(0, 2);
+    const limitBlock = limits.length
+      ? `<div class="dealo-limits">${svg("info", 13, "#C2712F", 2)}
+           <span>${limits.map((l) => esc(shortenStep(l))).join(" ")}</span>
+         </div>`
+      : "";
+
+    const redeemUrl = firstUrlIn(d.howToRedeemSteps || []);
+    const openBtn = redeemUrl
+      ? `<a class="dealo-button dealo-secondary dealo-withicon" id="dealo-open-redeem"
+            href="${esc(redeemUrl)}" target="_blank" rel="noopener noreferrer">
+           ${svg("link", 15, "currentColor", 1.9)} ${esc(prettyHost(redeemUrl))}
+         </a>`
+      : "";
+
+    // Code and PIN are two separate things typed into two separate boxes, so
+    // they get two separate rows with their own Copy buttons. Showing them as
+    // "code · pin" on one line read as a single value, and copying gave you
+    // only half of what you needed at the second box.
+    const field = (label, value, id) => `
+      <div class="dealo-field">
+        <div class="dealo-field-label">${esc(label)}</div>
+        <div class="dealo-field-row">
+          <span class="dealo-code">${esc(value)}</span>
+          <button class="dealo-copy-btn" data-copy="${esc(value)}" id="${id}" aria-label="Copy ${esc(label)}" title="Copy">
+            ${svg("copy", 16, "currentColor", 1.8)}
+          </button>
+        </div>
+      </div>`;
+
+    // One card per voucher bought. On the common single-voucher deal this is
+    // just one card and no dots — unchanged from before. On a deal that
+    // needed several purchases, all their codes already live on the device
+    // (collected earlier in the journey) — swiping between them here means
+    // never switching back to an email or notes app mid-checkout.
+    const codes = trip.codes || [];
+    const multiCode = codes.length > 1;
+    const codeCards = codes.map((c, i) => `
+      <div class="dealo-code-card">
+        ${multiCode ? `<div class="dealo-step">Code ${i + 1} of ${codes.length}</div>` : ""}
+        ${field("Code", c.code, `dealo-copy-code-${i}`)}
+        ${c.pin ? field("PIN", c.pin, `dealo-copy-pin-${i}`) : ""}
+      </div>`).join("");
+    const codeDots = multiCode
+      ? `<div class="dealo-code-dots">${codes.map((_, i) => `<button class="dealo-code-dot${i === 0 ? " dealo-code-dot-on" : ""}" aria-label="Code ${i + 1}"></button>`).join("")}</div>`
+      : "";
+
+    const root = card(`
+      <div class="dealo-code-carousel">${codeCards}</div>
+      ${codeDots}
+      ${left}
+      ${limitBlock}
+      <button class="dealo-button dealo-ring dealo-withicon" id="dealo-where">
+        ${svg("target", 17, "currentColor", 2)} Show me where
+      </button>
+      ${openBtn}
+      ${steps ? `<button class="dealo-explain-toggle dealo-centered">${svg("info", 13, "currentColor", 2)} steps</button>
+                 <div class="dealo-explain"${stepsOpen ? "" : " hidden"}><ol class="dealo-steps">${steps}</ol></div>` : ""}
+      <button class="dealo-link dealo-withicon" id="dealo-done">
+        ${svg("check", 13, "#4A9B8E", 2.4)} code applied
+      </button>
+    `, 3);
+    wireExplainToggle(root, onStepsToggle);
+    if (multiCode) wireCodeCarousel(root);
+    // Confirmation is the icon turning into a tick — "Copied" no longer fits
+    // an icon-sized button, and the tick reads faster anyway.
+    root.querySelectorAll(".dealo-copy-btn").forEach((btn) => {
+      const original = btn.innerHTML;
+      btn.addEventListener("click", () => {
+        copyText(btn.dataset.copy);
+        btn.innerHTML = svg("check", 16, "#4A9B8E", 2.4);
+        setTimeout(() => { btn.innerHTML = original; }, 1600);
+      });
+    });
+    root.querySelector("#dealo-where").addEventListener("click", () => onShowWhere());
+    root.querySelector("#dealo-done").addEventListener("click", () => { onDone(); close(); });
+  }
+
+  // Step 4, the last one: the code's in, and the only thing left is the
+  // shopper's own final tap. Dealo points at the button — it never presses
+  // it. Once they do, Dealo notices the store's own confirmation page on the
+  // next check and closes the loop on its own; "I've placed it" below is
+  // only a fallback for a confirmation page Dealo doesn't recognise.
+  function renderPlaceOrder(trip, { onShowMe, onDone }) {
+    const root = card(`
+      <div class="dealo-message">Voucher applied — place your order</div>
+      <button class="dealo-button dealo-ring dealo-withicon" id="dealo-where">
+        ${svg("target", 17, "currentColor", 2)} Show me the button
+      </button>
+      <div class="dealo-sub">Dealo will notice once your order's confirmed.</div>
+      <button class="dealo-link" id="dealo-done">I've placed it</button>
+    `, 3);
+    root.querySelector("#dealo-where").addEventListener("click", () => onShowMe());
+    root.querySelector("#dealo-done").addEventListener("click", () => { onDone(); close(); });
+  }
+
+  // Draws a highlight ring and a pointing label around a real element on the
+  // store's own page — "the gift card box is HERE". Purely visual: Dealo
+  // points, the shopper types. Nothing is filled in for them.
+  function pointAt(el, label, { persist = false } = {}) {
+    document.getElementById("dealo-pointer")?.remove();
+    el.scrollIntoView({ behavior: "smooth", block: "center" });
+
+    const wrap = document.createElement("div");
+    wrap.id = "dealo-pointer";
+    wrap.innerHTML = `<div class="dealo-ring-box"></div><div class="dealo-ring-label">${esc(label)}</div>`;
+    document.documentElement.appendChild(wrap);
+
+    const place = () => {
+      const r = el.getBoundingClientRect();
+      const box = wrap.querySelector(".dealo-ring-box");
+      const tag = wrap.querySelector(".dealo-ring-label");
+      box.style.cssText += `top:${r.top - 6}px;left:${r.left - 6}px;width:${r.width + 12}px;height:${r.height + 12}px;`;
+      // Sit the label above the box, unless that would go off the top.
+      const above = r.top > 54;
+      tag.style.cssText += `top:${above ? r.top - 42 : r.bottom + 12}px;left:${Math.max(8, r.left - 6)}px;`;
+      tag.classList.toggle("dealo-ring-label-below", !above);
+    };
+    place();
+
+    const onMove = () => place();
+    window.addEventListener("scroll", onMove, true);
+    window.addEventListener("resize", onMove);
+    const cleanup = () => {
+      wrap.remove();
+      window.removeEventListener("scroll", onMove, true);
+      window.removeEventListener("resize", onMove);
+    };
+    // A guided step stays put until the shopper does it; a one-off hint fades.
+    if (!persist) setTimeout(cleanup, 9000);
+    return cleanup;
+  }
+
+  // Walks the shopper through a short sequence on someone else's page, one
+  // highlighted control at a time — "tap this amount", then "choose UPI".
+  // Advances when they actually click the thing, so it follows them rather
+  // than racing ahead. Dealo never clicks anything itself.
+  // A step may be a plain {el, label}, or a FUNCTION returning one. Prefer the
+  // function: it is looked up at the moment the shopper reaches that step,
+  // not when the sequence starts.
+  //
+  // That matters on the voucher sites, which redraw as you use them. Tapping
+  // an amount on Maximize re-renders the price options underneath — so a step
+  // that grabbed the "instant discount" box up front would, by the time the
+  // shopper got there, be holding an element the page had already thrown
+  // away, and the pointer would simply never appear. Resolving late is the
+  // difference between the guidance working and silently doing nothing.
+  //
+  // Returns false when nothing could be found to point at, so the caller can
+  // fall back to written instructions instead of a sequence that shows
+  // nothing.
+  function guide(steps) {
+    const resolve = (s) => (typeof s === "function" ? s() : s);
+    // Counted up front so the shopper sees a stable "2 of 3" rather than a
+    // total that shrinks under them. Re-resolved at show time regardless.
+    let total = steps.reduce((n, s) => n + (resolve(s) ? 1 : 0), 0);
+    if (!total) return false;
+
+    let i = 0;
+    let shown = 0;
+    let clearPointer = null;
+
+    const show = () => {
+      clearPointer?.();
+      if (i >= steps.length) return;
+      const step = resolve(steps[i]);
+      // Not there any more, or no longer needed — the shopper may have already
+      // done this one themselves.
+      if (!step || !step.el || !step.el.isConnected) {
+        i += 1;
+        total = Math.max(total - 1, shown);
+        return show();
+      }
+      shown += 1;
+      clearPointer = pointAt(step.el, `${shown}/${total} · ${step.label}`, { persist: true });
+      const onDone = () => {
+        step.el.removeEventListener("click", onDone, true);
+        i += 1;
+        // Let the page react to their click before pointing at the next thing.
+        setTimeout(show, 500);
+      };
+      step.el.addEventListener("click", onDone, true);
+    };
+
+    show();
+    return true;
+  }
+
+  // When the gift-card box can't be found on this particular page, say so and
+  // open the written steps, instead of pointing at something and being wrong.
+  function showWhereFallback() {
+    const root = document.getElementById("dealo-popup-root");
+    const btn = root?.querySelector("#dealo-where");
+    if (btn) {
+      btn.textContent = "Couldn't find it on this page";
+      btn.disabled = true;
+    }
+    const toggle = root?.querySelector(".dealo-explain-toggle");
+    const panel = root?.querySelector(".dealo-explain");
+    if (toggle && panel && panel.hidden) toggle.click();
+  }
+
+  function guideUnavailable() {
+    const btn = document.getElementById("dealo-popup-root")?.querySelector("#dealo-show-me");
+    if (btn) {
+      btn.textContent = "Can't find the buttons here";
+      btn.disabled = true;
+    }
+  }
+
+  // Step 3 done: the moment the shopper actually feels the win.
   function renderTripComplete(trip) {
     const { big, caption } = headlineFigure(trip.deal);
     card(`
