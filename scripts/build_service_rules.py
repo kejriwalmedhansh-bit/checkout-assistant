@@ -125,6 +125,74 @@ def drop_unsupported(rules_by_listing):
     return rules_by_listing
 
 
+# A voucher that converts into an e-Pay balance, a wallet or a brand account is
+# not really a voucher at the till — it is money in a balance, and money adds
+# up. Product owner, 2026-09-08: "If the voucher can be converted to e-Pay that
+# means it is a wallet of sorts, which means multiple vouchers can be combined
+# together." So "only one gift card per order" describes the order form, not
+# the bill: several vouchers go into the balance first and the balance pays.
+#
+# Each listing below states its own wallet in its own words, and the quote is
+# checked against that listing's terms when this runs. Three listings that
+# mention a wallet are deliberately NOT here, because their own terms close it:
+# Himalaya Wellness (both sellers) allows "only one GV converted into e-Pay per
+# day/per transaction", and Kama Ayurveda's e-Pay balance is usable only in
+# store while its online rule stays one per bill.
+WALLET_COMBINES = {
+    "gyftr:nykaa": "Multiple Gift Vouchers CAN be added to the Nykaa Wallet",
+    "gyftr:nykaa-fashion": "Multiple Gift Vouchers CAN be added to the Nykaa Wallet",
+    "gyftr:nykaa-man": "Multiple Gift Vouchers CAN be added to the Nykaa Wallet",
+    "gyftr:dominos": "Multiple Gift Vouchers CAN be combined & added to e-Pay balance",
+    "gyftr:surat-diamonds": "Gift Voucher CAN be used multiple times once converted to e-Pay balance",
+    "gyftr:whats-up-wellness": "Gift Voucher CAN be used multiple times once converted to e-Pay balance",
+    "gyftr:assembly": "Gift Voucher CAN be used multiple times once converted to e-Pay balance",
+    "maximize:dominos": "convert multiple GVs to a single GV via the Gyftr E-Pay app",
+    "maximize:nykaa": "registered users may add multiple cards to Wallet",
+    "buyhatke:nykaa-gift-card": "registered users may add multiple cards to Wallet",
+    "buyhatke:nykaa-fashion-gift-card": "add multiple Nykaa Gift Cards to their Nykaa Wallet",
+    "buyhatke:kalki-gift-card": "The voucher can be converted into e-Pay balance",
+    "buyhatke:lunch-box-gift-card": "add the Gift Card to the EatSure User Account",
+    "buyhatke:firangi-bake-gift-card": "add the Gift Card to the EatSure User Account",
+    "buyhatke:fricken-gift-card": "add the Gift Card to the EatSure User Account",
+    "buyhatke:honest-bowl-gift-card": "add the Gift Card to the EatSure User Account",
+    "buyhatke:thalaiva-biryani-gift-card": "add the Gift Card to the EatSure User Account",
+    "buyhatke:the-biryani-life-gift-card": "add the Gift Card to the EatSure User Account",
+    "buyhatke:thinsane-pizza-gift-card": "add the Gift Card to the EatSure User Account",
+}
+
+
+def apply_wallet_combines(rules_by_listing, terms_for):
+    """Where a listing states a wallet, several vouchers can pay one bill.
+
+    `terms_for(key)` returns everything read for that listing, so the quote can
+    be checked before it is published as evidence — the standing rule is that
+    every rule Dealo states carries the seller's own sentence, and a quote that
+    has drifted out of the terms must fail loudly rather than be asserted.
+    Safe to run twice.
+    """
+    missing = []
+    for key, quote in WALLET_COMBINES.items():
+        entry = rules_by_listing.get(key)
+        if not entry:
+            continue
+        haystack = " ".join((terms_for(key) or "").split()).lower()
+        if quote.lower() not in haystack:
+            missing.append(key)
+            continue
+        rules = entry.get("rules") or {}
+        combines = rules.get("can_combine")
+        if combines:
+            combines.update({"value": "yes", "evidence": quote})
+        named = rules.get("max_cards_per_order")
+        if named and named.get("value") == 1:
+            named.update({"value": None, "evidence": ""})
+    if missing:
+        raise SystemExit(
+            "wallet quote no longer found in these listings' terms: " + ", ".join(missing)
+        )
+    return rules_by_listing
+
+
 SALE_WORDS = re.compile(r"discount|sale item|sale price|slashed|EOSS|full[- ]price", re.I)
 NOT_STATED = {"value": "not_stated", "evidence": ""}
 
@@ -274,6 +342,9 @@ def main() -> None:
         out[key] = {"brand_name": offer["brand_name"], "source": offer["source"],
                     "slug": offer["slug"], "rules": rules}
     drop_unsupported(out)
+    apply_wallet_combines(out, lambda key: " ".join(str(
+        raw.get(key, {}).get("raw", {}).get(f) or "") for f in (
+            "important_instruction", "full_terms", "faqs", "restrictions")))
     OUT.write_text(json.dumps(out, indent=2, ensure_ascii=False) + "\n")
     print(f"{len(out) - 1} listings -> {OUT.name}")
 
