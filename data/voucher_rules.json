@@ -24323,12 +24323,14 @@
     "slug": "beyoung",
     "rules": {
       "can_combine": {
-        "value": "no",
-        "evidence": "Cash on delivery cannot be clubbed with GV"
+        "value": "not_stated",
+        "evidence": "",
+        "corrected": "Quotes “Cash on delivery cannot be clubbed with GV” — about paying cash on delivery."
       },
       "max_cards_per_order": {
-        "value": 1,
-        "evidence": "Cash on delivery cannot be clubbed with GV"
+        "value": null,
+        "evidence": "",
+        "corrected": "Quotes “Cash on delivery cannot be clubbed with GV” — about paying cash on delivery."
       },
       "ceiling_amount": {
         "value": "not_stated",
@@ -25749,12 +25751,14 @@
     "slug": "swiggy-food-discount-voucher",
     "rules": {
       "can_combine": {
-        "value": "no",
-        "evidence": "Offer valid once per user per transaction."
+        "value": "not_stated",
+        "evidence": "",
+        "corrected": "Quotes “Offer valid once per user per transaction” — an offer's usage limit."
       },
       "max_cards_per_order": {
-        "value": 1,
-        "evidence": "Offer valid once per user per transaction."
+        "value": null,
+        "evidence": "",
+        "corrected": "Quotes “Offer valid once per user per transaction” — an offer's usage limit."
       },
       "ceiling_amount": {
         "value": "not_stated",
@@ -33946,12 +33950,14 @@
     "slug": "devagabond-gift-card",
     "rules": {
       "can_combine": {
-        "value": "no",
-        "evidence": "Two coupon codes cannot be clubbed together"
+        "value": "not_stated",
+        "evidence": "",
+        "corrected": "Quotes “Two coupon codes cannot be clubbed together” — about coupon codes."
       },
       "max_cards_per_order": {
-        "value": 1,
-        "evidence": "Two coupon codes cannot be clubbed together"
+        "value": null,
+        "evidence": "",
+        "corrected": "Quotes “Two coupon codes cannot be clubbed together” — about coupon codes."
       },
       "ceiling_amount": {
         "value": "not_stated",
@@ -72206,12 +72212,14 @@
     "slug": "marriott-dining-1-(in-store)-gift-card",
     "rules": {
       "can_combine": {
-        "value": "no",
-        "evidence": "Each Gift Card shall be single use and only one transaction can be performed on Gift Card. Partial redemption of a Gift Card shall not be possible."
+        "value": "not_stated",
+        "evidence": "",
+        "corrected": "Quotes a single-use clause — says a card is spent in one go, not that two cannot be used."
       },
       "max_cards_per_order": {
-        "value": 1,
-        "evidence": "Each Gift Card shall be single use and only one transaction can be performed on Gift Card. Partial redemption of a Gift Card shall not be possible."
+        "value": null,
+        "evidence": "",
+        "corrected": "Quotes a single-use clause — says a card is spent in one go, not that two cannot be used."
       },
       "ceiling_amount": {
         "value": "not_stated",
@@ -72279,12 +72287,14 @@
     "slug": "marriott-dining-2-(in-store)-gift-card",
     "rules": {
       "can_combine": {
-        "value": "no",
-        "evidence": "Each Gift Card shall be single use and only one transaction can be performed on Gift Card. Partial redemption of a Gift Card shall not be possible."
+        "value": "not_stated",
+        "evidence": "",
+        "corrected": "Quotes a single-use clause — says a card is spent in one go, not that two cannot be used."
       },
       "max_cards_per_order": {
-        "value": 1,
-        "evidence": "Each Gift Card shall be single use and only one transaction can be performed on Gift Card. Partial redemption of a Gift Card shall not be possible."
+        "value": null,
+        "evidence": "",
+        "corrected": "Quotes a single-use clause — says a card is spent in one go, not that two cannot be used."
       },
       "ceiling_amount": {
         "value": "not_stated",
@@ -100048,12 +100058,14 @@
     "slug": "amazon-prime-voucher---3-months-membership-550",
     "rules": {
       "can_combine": {
-        "value": "no",
-        "evidence": "Voucher cannot be reused and only one can be applied per customer."
+        "value": "not_stated",
+        "evidence": "",
+        "corrected": "Quotes “Voucher cannot be reused and only one can be applied per customer” — per customer, and about reuse."
       },
       "max_cards_per_order": {
-        "value": 1,
-        "evidence": "Voucher cannot be reused and only one can be applied per customer."
+        "value": null,
+        "evidence": "",
+        "corrected": "Quotes “Voucher cannot be reused and only one can be applied per customer” — per customer, and about reuse."
       },
       "ceiling_amount": {
         "value": "not_stated",
