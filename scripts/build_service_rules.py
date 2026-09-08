@@ -69,6 +69,62 @@ PLATFORM_RULES = {
                  "note": "One voucher per transaction, whatever the denomination."},
 }
 
+# Rules whose extracted answer is not supported by the sentence quoted beside
+# it. Found by reading all 330 listings that answer "no" to can_combine
+# (2026-09-08, at the product owner's request) — every rule Dealo states has to
+# carry the seller's own words, and these six state something the words do not
+# say. Corrected to "not_stated" rather than to "yes": the terms are silent on
+# combining, which is a different thing from permitting it, and silence leaves
+# the service on its existing fallback.
+#
+# Deliberately NOT corrected, because the sentence does support the answer for
+# the purchase Dealo actually plans — an online one:
+#   * "Up to 5 GV/GCs ... at the listed Pizza Hut stores. Only 1 ... on the
+#     mobile app and website" and four others like it. Several in store, one
+#     online. The online half is the half that applies.
+#   * "For Flight Booking, Only One Gift Cards can be used ... Upto 3 ... for
+#     Holiday Packages." One per flight booking, which is the common case.
+# And left for a product decision rather than a data fix: the several listings
+# whose terms say vouchers cannot be combined ON the bill but CAN be merged
+# into one e-Pay balance or wallet first (Domino's, EatSure and its kitchens,
+# Nykaa). Those are buyable in quantity; whether Dealo should send a shopper
+# through a merge step is not a question the terms answer.
+UNSUPPORTED_CAN_COMBINE = {
+    "gyftr:beyoung":
+        "Quotes \u201cCash on delivery cannot be clubbed with GV\u201d \u2014 about paying cash on delivery.",
+    "gyftr:swiggy-food-discount-voucher":
+        "Quotes \u201cOffer valid once per user per transaction\u201d \u2014 an offer's usage limit.",
+    "buyhatke:devagabond-gift-card":
+        "Quotes \u201cTwo coupon codes cannot be clubbed together\u201d \u2014 about coupon codes.",
+    "buyhatke:marriott-dining-1-(in-store)-gift-card":
+        "Quotes a single-use clause \u2014 says a card is spent in one go, not that two cannot be used.",
+    "buyhatke:marriott-dining-2-(in-store)-gift-card":
+        "Quotes a single-use clause \u2014 says a card is spent in one go, not that two cannot be used.",
+    "maximize:amazon-prime-voucher---3-months-membership-550":
+        "Quotes \u201cVoucher cannot be reused and only one can be applied per customer\u201d \u2014 per customer, and about reuse.",
+}
+
+
+def drop_unsupported(rules_by_listing):
+    """Blank out an answer wherever its evidence does not support it.
+
+    Both fields are mapped from the same extracted answer and so carry the same
+    mistake: leaving max_cards_per_order's "1" behind would keep capping the
+    plan at one voucher after the sentence behind it had gone. Written to be
+    safe to run twice — each field is corrected on its own state, not on
+    whether the other one has already been fixed.
+    """
+    for key, why in UNSUPPORTED_CAN_COMBINE.items():
+        rules = (rules_by_listing.get(key) or {}).get("rules") or {}
+        combines = rules.get("can_combine")
+        if combines and combines.get("value") == "no":
+            combines.update({"value": "not_stated", "evidence": "", "corrected": why})
+        named = rules.get("max_cards_per_order")
+        if named and named.get("value") == 1:
+            named.update({"value": None, "evidence": "", "corrected": why})
+    return rules_by_listing
+
+
 SALE_WORDS = re.compile(r"discount|sale item|sale price|slashed|EOSS|full[- ]price", re.I)
 NOT_STATED = {"value": "not_stated", "evidence": ""}
 
@@ -217,6 +273,7 @@ def main() -> None:
             "important_instruction", "full_terms", "faqs", "restrictions")))
         out[key] = {"brand_name": offer["brand_name"], "source": offer["source"],
                     "slug": offer["slug"], "rules": rules}
+    drop_unsupported(out)
     OUT.write_text(json.dumps(out, indent=2, ensure_ascii=False) + "\n")
     print(f"{len(out) - 1} listings -> {OUT.name}")
 
