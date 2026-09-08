@@ -9008,12 +9008,12 @@
     "slug": "nykaa-fashion",
     "rules": {
       "can_combine": {
-        "value": "no",
-        "evidence": "You can redeem only 1 Gift Card per order."
+        "value": "yes",
+        "evidence": "Multiple Gift Vouchers CAN be added to the Nykaa Wallet"
       },
       "max_cards_per_order": {
-        "value": 1,
-        "evidence": "You can redeem only 1 Gift Card per order."
+        "value": null,
+        "evidence": ""
       },
       "ceiling_amount": {
         "value": "not_stated",
@@ -12201,12 +12201,12 @@
     "slug": "surat-diamonds",
     "rules": {
       "can_combine": {
-        "value": "no",
-        "evidence": "Multiple GV/GCs cannot be used against one bill."
+        "value": "yes",
+        "evidence": "Gift Voucher CAN be used multiple times once converted to e-Pay balance"
       },
       "max_cards_per_order": {
-        "value": 1,
-        "evidence": "Multiple GV/GCs cannot be used against one bill."
+        "value": null,
+        "evidence": ""
       },
       "ceiling_amount": {
         "value": "not_stated",
@@ -19058,12 +19058,12 @@
     "slug": "dominos",
     "rules": {
       "can_combine": {
-        "value": "no",
-        "evidence": "Multiple GVs cannot be used in one bill/transaction, however you can convert multiple EGVs to a single EGV via the Gyftr E-Pay app"
+        "value": "yes",
+        "evidence": "Multiple Gift Vouchers CAN be combined & added to e-Pay balance"
       },
       "max_cards_per_order": {
-        "value": 1,
-        "evidence": "Multiple GVs cannot be used in one bill/transaction, however you can convert multiple EGVs to a single EGV via the Gyftr E-Pay app"
+        "value": null,
+        "evidence": ""
       },
       "ceiling_amount": {
         "value": "not_stated",
@@ -21048,12 +21048,12 @@
     "slug": "whats-up-wellness",
     "rules": {
       "can_combine": {
-        "value": "no",
-        "evidence": "The GV/e-Pay can be used over and above any discounts offered by the brand on its website. However, only one code can be redeemed, either a Gift Voucher or a promo code, along with a Brand offer."
+        "value": "yes",
+        "evidence": "Gift Voucher CAN be used multiple times once converted to e-Pay balance"
       },
       "max_cards_per_order": {
-        "value": 1,
-        "evidence": "The GV/e-Pay can be used over and above any discounts offered by the brand on its website. However, only one code can be redeemed, either a Gift Voucher or a promo code, along with a Brand offer."
+        "value": null,
+        "evidence": ""
       },
       "ceiling_amount": {
         "value": "not_stated",
@@ -24974,12 +24974,12 @@
     "slug": "nykaa",
     "rules": {
       "can_combine": {
-        "value": "no",
-        "evidence": "You can redeem only 1 Gift Card per order."
+        "value": "yes",
+        "evidence": "Multiple Gift Vouchers CAN be added to the Nykaa Wallet"
       },
       "max_cards_per_order": {
-        "value": 1,
-        "evidence": "You can redeem only 1 Gift Card per order."
+        "value": null,
+        "evidence": ""
       },
       "ceiling_amount": {
         "value": "not_stated",
@@ -25557,12 +25557,12 @@
     "slug": "assembly",
     "rules": {
       "can_combine": {
-        "value": "no",
-        "evidence": "The Gift voucher can only be availed only once per transaction"
+        "value": "yes",
+        "evidence": "Gift Voucher CAN be used multiple times once converted to e-Pay balance"
       },
       "max_cards_per_order": {
-        "value": 1,
-        "evidence": "The Gift voucher can only be availed only once per transaction"
+        "value": null,
+        "evidence": ""
       },
       "ceiling_amount": {
         "value": "not_stated",
@@ -25683,12 +25683,12 @@
     "slug": "nykaa-man",
     "rules": {
       "can_combine": {
-        "value": "no",
-        "evidence": "You can redeem only 1 Gift Card per order."
+        "value": "yes",
+        "evidence": "Multiple Gift Vouchers CAN be added to the Nykaa Wallet"
       },
       "max_cards_per_order": {
-        "value": 1,
-        "evidence": "You can redeem only 1 Gift Card per order."
+        "value": null,
+        "evidence": ""
       },
       "ceiling_amount": {
         "value": "not_stated",
@@ -36871,12 +36871,12 @@
     "slug": "firangi-bake-gift-card",
     "rules": {
       "can_combine": {
-        "value": "no",
-        "evidence": "Multiple gift cards cannot be clubbed in one order and the user needs to add the Gift Card to the EatSure User Account"
+        "value": "yes",
+        "evidence": "add the Gift Card to the EatSure User Account"
       },
       "max_cards_per_order": {
-        "value": 1,
-        "evidence": "Multiple gift cards cannot be clubbed in one order and the user needs to add the Gift Card to the EatSure User Account"
+        "value": null,
+        "evidence": ""
       },
       "ceiling_amount": {
         "value": "not_stated",
@@ -37585,12 +37585,12 @@
     "slug": "fricken-gift-card",
     "rules": {
       "can_combine": {
-        "value": "no",
-        "evidence": "Multiple gift cards cannot be clubbed in one order and the user needs to add the Gift Card to the EatSure User Account"
+        "value": "yes",
+        "evidence": "add the Gift Card to the EatSure User Account"
       },
       "max_cards_per_order": {
-        "value": 1,
-        "evidence": "Multiple gift cards cannot be clubbed in one order and the user needs to add the Gift Card to the EatSure User Account"
+        "value": null,
+        "evidence": ""
       },
       "ceiling_amount": {
         "value": "not_stated",
@@ -39851,12 +39851,12 @@
     "slug": "honest-bowl-gift-card",
     "rules": {
       "can_combine": {
-        "value": "no",
-        "evidence": "Multiple gift cards cannot be clubbed in one order and the user needs to add the Gift Card to the EatSure User Account"
+        "value": "yes",
+        "evidence": "add the Gift Card to the EatSure User Account"
       },
       "max_cards_per_order": {
-        "value": 1,
-        "evidence": "Multiple gift cards cannot be clubbed in one order and the user needs to add the Gift Card to the EatSure User Account"
+        "value": null,
+        "evidence": ""
       },
       "ceiling_amount": {
         "value": "not_stated",
@@ -42324,12 +42324,12 @@
     "slug": "kalki-gift-card",
     "rules": {
       "can_combine": {
-        "value": "no",
-        "evidence": "Only one code can be used per transaction, either a Gift Voucher or a promo code."
+        "value": "yes",
+        "evidence": "The voucher can be converted into e-Pay balance"
       },
       "max_cards_per_order": {
-        "value": 1,
-        "evidence": "Only one code can be used per transaction, either a Gift Voucher or a promo code."
+        "value": null,
+        "evidence": ""
       },
       "ceiling_amount": {
         "value": "not_stated",
@@ -47614,12 +47614,12 @@
     "slug": "nykaa-fashion-gift-card",
     "rules": {
       "can_combine": {
-        "value": "no",
-        "evidence": "You can redeem only 1 Gift Card per order."
+        "value": "yes",
+        "evidence": "add multiple Nykaa Gift Cards to their Nykaa Wallet"
       },
       "max_cards_per_order": {
-        "value": 1,
-        "evidence": "You can redeem only 1 Gift Card per order."
+        "value": null,
+        "evidence": ""
       },
       "ceiling_amount": {
         "value": "not_stated",
@@ -47683,12 +47683,12 @@
     "slug": "nykaa-gift-card",
     "rules": {
       "can_combine": {
-        "value": "no",
-        "evidence": "You can redeem only 1 Gift Card per order."
+        "value": "yes",
+        "evidence": "registered users may add multiple cards to Wallet"
       },
       "max_cards_per_order": {
-        "value": 1,
-        "evidence": "You can redeem only 1 Gift Card per order."
+        "value": null,
+        "evidence": ""
       },
       "ceiling_amount": {
         "value": "not_stated",
@@ -56608,12 +56608,12 @@
     "slug": "thalaiva-biryani-gift-card",
     "rules": {
       "can_combine": {
-        "value": "no",
-        "evidence": "Multiple gift cards cannot be clubbed in one order and the user needs to add the Gift Card to the EatSure User Account"
+        "value": "yes",
+        "evidence": "add the Gift Card to the EatSure User Account"
       },
       "max_cards_per_order": {
-        "value": 1,
-        "evidence": "Multiple gift cards cannot be clubbed in one order and the user needs to add the Gift Card to the EatSure User Account"
+        "value": null,
+        "evidence": ""
       },
       "ceiling_amount": {
         "value": "not_stated",
@@ -56806,12 +56806,12 @@
     "slug": "the-biryani-life-gift-card",
     "rules": {
       "can_combine": {
-        "value": "no",
-        "evidence": "Multiple gift cards cannot be clubbed in one order and the user needs to add the Gift Card to the EatSure User Account"
+        "value": "yes",
+        "evidence": "add the Gift Card to the EatSure User Account"
       },
       "max_cards_per_order": {
-        "value": 1,
-        "evidence": "Multiple gift cards cannot be clubbed in one order and the user needs to add the Gift Card to the EatSure User Account"
+        "value": null,
+        "evidence": ""
       },
       "ceiling_amount": {
         "value": "not_stated",
@@ -57579,12 +57579,12 @@
     "slug": "thinsane-pizza-gift-card",
     "rules": {
       "can_combine": {
-        "value": "no",
-        "evidence": "Multiple gift cards cannot be clubbed in one order and the user needs to add the Gift Card to the EatSure User Account"
+        "value": "yes",
+        "evidence": "add the Gift Card to the EatSure User Account"
       },
       "max_cards_per_order": {
-        "value": 1,
-        "evidence": "Multiple gift cards cannot be clubbed in one order and the user needs to add the Gift Card to the EatSure User Account"
+        "value": null,
+        "evidence": ""
       },
       "ceiling_amount": {
         "value": "not_stated",
@@ -62655,12 +62655,12 @@
     "slug": "lunch-box-gift-card",
     "rules": {
       "can_combine": {
-        "value": "no",
-        "evidence": "Multiple gift cards cannot be clubbed in one order and the user needs to add the Gift Card to the EatSure User Account"
+        "value": "yes",
+        "evidence": "add the Gift Card to the EatSure User Account"
       },
       "max_cards_per_order": {
-        "value": 1,
-        "evidence": "Multiple gift cards cannot be clubbed in one order and the user needs to add the Gift Card to the EatSure User Account"
+        "value": null,
+        "evidence": ""
       },
       "ceiling_amount": {
         "value": "not_stated",
@@ -87124,12 +87124,12 @@
     "slug": "dominos",
     "rules": {
       "can_combine": {
-        "value": "no",
-        "evidence": "Multiple GVs cannot be used in one bill/transaction, however you can convert multiple GVs to a single GV via the Gyftr E-Pay app."
+        "value": "yes",
+        "evidence": "convert multiple GVs to a single GV via the Gyftr E-Pay app"
       },
       "max_cards_per_order": {
-        "value": 1,
-        "evidence": "Multiple GVs cannot be used in one bill/transaction, however you can convert multiple GVs to a single GV via the Gyftr E-Pay app."
+        "value": null,
+        "evidence": ""
       },
       "ceiling_amount": {
         "value": "not_stated",
@@ -87515,12 +87515,12 @@
     "slug": "nykaa",
     "rules": {
       "can_combine": {
-        "value": "no",
-        "evidence": "Only 1 Gift Card per order is allowed, but registered users may add multiple cards to Wallet."
+        "value": "yes",
+        "evidence": "registered users may add multiple cards to Wallet"
       },
       "max_cards_per_order": {
-        "value": 1,
-        "evidence": "Only 1 Gift Card per order is allowed, but registered users may add multiple cards to Wallet."
+        "value": null,
+        "evidence": ""
       },
       "ceiling_amount": {
         "value": "not_stated",
