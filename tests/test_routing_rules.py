@@ -96,52 +96,57 @@ def test_platform_choice():
 
 
 def test_the_selling_platforms_own_terms_cap_the_plan():
-    """Rule 0. A voucher is planned to the terms the seller you are being sent
-    to publishes for it — not to another seller's terms for the same brand.
-    Those genuinely differ: Westside's Gyftr page says "Multiple GV can be used
-    in one bill", its Maximize page says "Multiple cards can't be clubbed", and
-    per the product owner (2026-09-08) both can be true, because each seller
-    issues its own instrument. Within one seller, the strictest listing wins."""
+    """Rule 0. A plan is held to the terms of the exact listing it sends the
+    shopper to — not another seller's terms for the same brand, and not the
+    strictest of everything that seller lists under the name. Both distinctions
+    are real: Westside reads differently on Gyftr and Maximize because each
+    issues its own voucher (product owner, 2026-09-08), and Maximize's two
+    Hidesign listings are different products at 7.75% and 13%.
+
+    Checked through the deal's own `voucher_url`, which is the listing the
+    shopper is actually sent to buy."""
     import json
     from pathlib import Path as _P
 
     raw = json.loads((_P(__file__).resolve().parents[1] / "data" / "voucher_rules.json").read_text())
-    getters = {
-        "gyftr": vs.get_best_voucher_deal,
-        "maximize": vs.get_best_maximize_deal,
-        "buyhatke": vs.get_best_buyhatke_deal,
-    }
-    # (source, brand) -> strictest number that source states for it
-    capped: dict[tuple[str, str], int] = {}
+    limits = {}
     for key, entry in raw.items():
         if key.startswith("_"):
             continue
-        source = key.split(":", 1)[0]
-        brand = entry.get("brand_name")
         rules = entry.get("rules") or {}
         named = (rules.get("max_cards_per_order") or {}).get("value")
         limit = 1 if (rules.get("can_combine") or {}).get("value") == "no" else (
             int(named) if isinstance(named, (int, float)) and named >= 1 else None
         )
-        if brand and limit is not None and source in getters:
-            spot = (source, brand)
-            capped[spot] = min(limit, capped.get(spot, limit))
+        if limit is not None:
+            limits[key] = limit
 
+    by_url = vs._slug_by_listing_url()
+    getters = (vs.get_best_voucher_deal, vs.get_best_maximize_deal, vs.get_best_buyhatke_deal)
+    brands = {entry.get("brand_name") for entry in raw.values() if isinstance(entry, dict)}
     failures = []
-    for (source, brand), limit in capped.items():
+    checked = 0
+    for brand in sorted(b for b in brands if b):
         for price in (12000, 54999):
-            result = getters[source](brand, price)
-            deal = result[0] if isinstance(result, tuple) else result
-            if not deal:
-                continue
-            bought = sum(b["count"] for b in deal["denomination_breakdown"])
-            if bought > limit:
-                failures.append(
-                    f"{brand} at ₹{price:,} on {source}: {deal['purchase_breakdown']} "
-                    f"against its own stated limit of {limit}"
-                )
-    assert len(capped) > 100, f"only {len(capped)} listings with a stated limit"
-    assert not failures, "plans exceeding what the seller's terms allow:\n" + "\n".join(failures[:10])
+            for getter in getters:
+                result = getter(brand, price)
+                deal = result[0] if isinstance(result, tuple) else result
+                if not deal:
+                    continue
+                source = deal["voucher_platform"].lower()
+                slug = by_url.get((source, deal.get("voucher_url") or ""))
+                limit = limits.get(f"{source}:{slug}") if slug else None
+                if limit is None:
+                    continue
+                checked += 1
+                bought = sum(b["count"] for b in deal["denomination_breakdown"])
+                if bought > limit:
+                    failures.append(
+                        f"{brand} at ₹{price:,} -> {source}:{slug}: "
+                        f"{deal['purchase_breakdown']} against its own stated limit of {limit}"
+                    )
+    assert checked > 100, f"only {checked} priced listings carried a stated limit"
+    assert not failures, "plans exceeding what the listing's terms allow:\n" + "\n".join(failures[:10])
 
 
 def test_gyftr_takes_ten_of_one_denomination_and_no_more():
