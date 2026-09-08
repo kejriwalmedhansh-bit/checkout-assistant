@@ -1011,7 +1011,7 @@ def get_best_voucher_deal(merchant_name: str, price: float) -> dict | None:
     # keys like important_instructions_raw/stack_limit_confidence stay on
     # `record`) — always exactly one product per Gyftr brand, unlike
     # Maximize's multi-tier records. Flatten before calculating.
-    per_bill, stated = _brand_vouchers_per_bill(merchant_name)
+    per_bill, stated = _brand_vouchers_per_bill(merchant_name, "gyftr")
     voucher = {
         **record,
         **products[0],
@@ -1077,7 +1077,7 @@ def get_best_maximize_deal(merchant_name: str, price: float) -> tuple[dict, dict
     # source_url, not voucher_url — calculate_effective_price's generic
     # "gyftr.com/{slug}" fallback is only correct for actual Gyftr vouchers).
     stacks = _store_allows_stacking(merchant_name)
-    per_bill, stated = _brand_vouchers_per_bill(merchant_name)
+    per_bill, stated = _brand_vouchers_per_bill(merchant_name, "maximize")
     store_cap = _store_value_cap(merchant_name)
     tiers = [
         {
@@ -1156,26 +1156,39 @@ def _store_allows_stacking(merchant_name: str) -> bool:
     return bool(gyftr) and gyftr.get("stack_limit_confidence") == "unlimited_stated"
 
 
-@lru_cache(maxsize=4096)
-def _brand_vouchers_per_bill(merchant_name: str) -> tuple[int | None, bool]:
-    """How many vouchers this BRAND accepts on one bill, from its own terms.
+@lru_cache(maxsize=8192)
+def _brand_vouchers_per_bill(merchant_name: str, source: str) -> tuple[int | None, bool]:
+    """How many vouchers accepted on one bill, per the terms `source` publishes.
 
     Returns (limit, stated). `None` as the limit means no ceiling was named;
-    `stated` is False when the terms never addressed it at all, which leaves
+    `stated` is False when that seller's terms never addressed it, which leaves
     the caller on its old fallback rather than inventing permission.
 
-    The brand's terms and important instructions decide this, not the
-    platform's structure — product owner, 2026-09-07: "Gyftr's rules are just
-    a structure; the per-brand instructions and T&Cs are the ones you base
-    your logic on primarily." So a shop that says vouchers cannot be combined
-    gets one voucher, whatever a platform's cart would happily sell, and a
-    shop that names a number gets that number.
+    The terms and important instructions decide this, not the platform's
+    structure — product owner, 2026-09-07: "Gyftr's rules are just a
+    structure; the per-brand instructions and T&Cs are the ones you base your
+    logic on primarily." A shop that says vouchers cannot be combined gets one
+    voucher, whatever a platform's cart would happily sell.
 
-    Read across all three sellers' scrapes of the same brand's terms, taking
-    the strictest definite answer. They are three transcriptions of one shop's
-    rules and they disagree for 19 brands; the standing rule is that the more
-    restrictive source wins, because being wrong the other way sends someone
-    to a till with vouchers that will not be accepted.
+    Answered per SELLER, not per brand. The obvious reading of Westside's
+    Gyftr page saying "Multiple GV can be used in one bill" while its Maximize
+    page says "Multiple cards can't be clubbed" is that one of them is wrong —
+    but the product owner's reading, 2026-09-08, is the right one: "it is very
+    much plausible that the same gift voucher brands have different rules on
+    selling platforms." They are not three transcriptions of one document.
+    Each seller issues its own instrument under its own agreement with the
+    shop — Gyftr's is often an e-Pay balance a till treats as one payment,
+    Maximize's a plain gift card — so they can differ and both be true. 22
+    brands read as contradictions under the merged reading; none of them is
+    necessarily a contradiction at all. Whichever voucher the shopper is being
+    sent to buy, its own terms govern the plan.
+
+    Within one seller a brand can still hold several listings, and those DO
+    describe the same purchase: Maximize carries both `hidesign` ("Multiple
+    vouchers can be used in one bill") and `hidesign-462` ("Multiple cards
+    can't be clubbed"). There the strictest definite answer wins, because
+    being wrong that way costs a saving and being wrong the other way sends
+    someone to a till with vouchers it will not accept.
     """
     # Callers pass whatever they have — a shop domain from the extension, a
     # seller string from a search result, a clean brand name. Only the brand
@@ -1190,19 +1203,16 @@ def _brand_vouchers_per_bill(merchant_name: str) -> tuple[int | None, bool]:
             names.append(name)
 
     entries = []
-    for source in ("gyftr", "maximize", "buyhatke"):
-        slug = next((s for s in (_slug_for(source, n) for n in names) if s), None)
-        if slug:
-            entries.append(_get_voucher_rules(source, slug))
-    # A slug reaches one listing per source, and a brand can have more than one
-    # — Maximize carries both `hidesign` ("Multiple vouchers can be used in one
-    # bill") and `hidesign-462` ("Multiple cards can't be clubbed"). Reading
-    # only the first meant the stricter of the shop's own two answers never
-    # counted, so every listing under the same name is consulted.
+    slug = next((s for s in (_slug_for(source, n) for n in names) if s), None)
+    if slug:
+        entries.append(_get_voucher_rules(source, slug))
+    # A slug reaches one listing, and a seller can carry several for one brand.
+    # Those are the same shopping trip, so the strictest of them applies.
     wanted = {n.lower() for n in names}
+    prefix = source + ":"
     entries.extend(
         entry for key, entry in _load_voucher_rules().items()
-        if not key.startswith("_") and (entry.get("brand_name") or "").lower() in wanted
+        if key.startswith(prefix) and (entry.get("brand_name") or "").lower() in wanted
     )
 
     limits: list[int | None] = []
@@ -1254,7 +1264,7 @@ def get_best_buyhatke_deal(merchant_name: str, price: float) -> tuple[dict, dict
     if record is None:
         return None
     stacks = _store_allows_stacking(merchant_name)
-    per_bill, stated = _brand_vouchers_per_bill(merchant_name)
+    per_bill, stated = _brand_vouchers_per_bill(merchant_name, "buyhatke")
     store_cap = _store_value_cap(merchant_name)
     tiers = [
         {
