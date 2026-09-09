@@ -547,6 +547,16 @@ window.__dealoPopup = (() => {
       clearPointer = pointAt(step.el, `${shown}/${total} · ${step.label}`, { persist: true });
       const onDone = () => {
         step.el.removeEventListener("click", onDone, true);
+        // Some steps take more than one press. Setting the quantity to three
+        // means tapping "+" twice, and advancing after the first tap left the
+        // shopper buying one voucher while Dealo pointed at something else.
+        // A step with `until` stays put until it is genuinely done, and does
+        // not count as a second step when it repeats.
+        if (step.until && !step.until()) {
+          shown -= 1;
+          setTimeout(show, 320);
+          return;
+        }
         i += 1;
         // Let the page react to their click before pointing at the next thing.
         setTimeout(show, 500);
@@ -792,6 +802,16 @@ window.__dealoPopup = (() => {
       clearPointer = pointAt(step.el, `${shown}/${total} · ${step.label}`, { persist: true });
       const onDone = () => {
         step.el.removeEventListener("click", onDone, true);
+        // Some steps take more than one press. Setting the quantity to three
+        // means tapping "+" twice, and advancing after the first tap left the
+        // shopper buying one voucher while Dealo pointed at something else.
+        // A step with `until` stays put until it is genuinely done, and does
+        // not count as a second step when it repeats.
+        if (step.until && !step.until()) {
+          shown -= 1;
+          setTimeout(show, 320);
+          return;
+        }
         i += 1;
         // Let the page react to their click before pointing at the next thing.
         setTimeout(show, 500);
