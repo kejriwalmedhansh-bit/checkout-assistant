@@ -38,6 +38,16 @@ from src.services import voucher_service as vs  # noqa: E402
 # 4. Repeats of the SAME denomination -> allowed on Maximize up to four, and
 #    only where the brand's own terms permit combining vouchers on one bill.
 #    BuyHatke sells one voucher per transaction whatever the denomination.
+# 0. The terms and important instructions come first. A platform's rules are
+#    the structure; what the terms say will be accepted on one bill is what the
+#    plan is built to. Product owner, 2026-09-07. And they are read PER SELLER
+#    (2026-09-08): the same brand can genuinely carry different rules on each
+#    platform, because each issues its own voucher under its own agreement.
+#    Where one seller lists a brand twice, the stricter of the two wins.
+# 5. Gyftr's cart takes ten of any one brand-and-denomination and no more
+#    ("Same voucher more than 10 quantity is not allowed!"). Ten ₹10,000 plus
+#    ten ₹2,000 plus ten ₹500 is one legal order; another brand gets its own
+#    ten. Every brand's own rule still applies on top, and the stricter wins.
 
 CASES = [
     # (shop domain, order, expected platform, rule being protected)
@@ -83,6 +93,85 @@ def test_platform_choice():
         if got != expected:
             failures.append(f"{domain} ₹{price:,}: expected {expected}, got {got}  ({why})")
     assert not failures, "\n".join(failures)
+
+
+def test_the_selling_platforms_own_terms_cap_the_plan():
+    """Rule 0. A plan is held to the terms of the exact listing it sends the
+    shopper to — not another seller's terms for the same brand, and not the
+    strictest of everything that seller lists under the name. Both distinctions
+    are real: Westside reads differently on Gyftr and Maximize because each
+    issues its own voucher (product owner, 2026-09-08), and Maximize's two
+    Hidesign listings are different products at 7.75% and 13%.
+
+    Checked through the deal's own `voucher_url`, which is the listing the
+    shopper is actually sent to buy."""
+    import json
+    from pathlib import Path as _P
+
+    raw = json.loads((_P(__file__).resolve().parents[1] / "data" / "voucher_rules.json").read_text())
+    limits = {}
+    for key, entry in raw.items():
+        if key.startswith("_"):
+            continue
+        rules = entry.get("rules") or {}
+        named = (rules.get("max_cards_per_order") or {}).get("value")
+        limit = 1 if (rules.get("can_combine") or {}).get("value") == "no" else (
+            int(named) if isinstance(named, (int, float)) and named >= 1 else None
+        )
+        if limit is not None:
+            limits[key] = limit
+
+    by_url = vs._slug_by_listing_url()
+    getters = (vs.get_best_voucher_deal, vs.get_best_maximize_deal, vs.get_best_buyhatke_deal)
+    brands = {entry.get("brand_name") for entry in raw.values() if isinstance(entry, dict)}
+    failures = []
+    checked = 0
+    for brand in sorted(b for b in brands if b):
+        for price in (12000, 54999):
+            for getter in getters:
+                result = getter(brand, price)
+                deal = result[0] if isinstance(result, tuple) else result
+                if not deal:
+                    continue
+                source = deal["voucher_platform"].lower()
+                slug = by_url.get((source, deal.get("voucher_url") or ""))
+                limit = limits.get(f"{source}:{slug}") if slug else None
+                if limit is None:
+                    continue
+                checked += 1
+                bought = sum(b["count"] for b in deal["denomination_breakdown"])
+                if bought > limit:
+                    failures.append(
+                        f"{brand} at ₹{price:,} -> {source}:{slug}: "
+                        f"{deal['purchase_breakdown']} against its own stated limit of {limit}"
+                    )
+    assert checked > 100, f"only {checked} priced listings carried a stated limit"
+    assert not failures, "plans exceeding what the listing's terms allow:\n" + "\n".join(failures[:10])
+
+
+def test_gyftr_takes_ten_of_one_denomination_and_no_more():
+    """Rule 5, stated by the product owner 2026-09-07 with the cart's own error
+    message. A ₹54,999 Subway order used to come out as 55x₹1,000, which that
+    cart would have refused."""
+    import json
+    from pathlib import Path as _P
+
+    assert platform_rules.rules_for("gyftr")["vouchers_per_order"] == 10
+
+    raw = json.loads((_P(__file__).resolve().parents[1] / "data" / "gyftr_master.json").read_text())
+    failures = []
+    for record in raw.values():
+        brand = record.get("brand_name")
+        if not brand:
+            continue
+        for price in (12000, 54999):
+            deal = vs.get_best_voucher_deal(brand, price)
+            if not deal:
+                continue
+            over = [b for b in deal["denomination_breakdown"] if b["count"] > 10]
+            if over:
+                failures.append(f"{brand} at ₹{price:,}: {deal['purchase_breakdown']}")
+    assert not failures, "more than ten of one denomination:\n" + "\n".join(failures[:10])
 
 
 def test_maximize_sells_one_custom_amount_voucher_per_order():
@@ -139,7 +228,7 @@ def test_gyftrs_invented_transaction_cap_decides_nothing():
     # Whatever the number, it is not allowed to decide anything for Gyftr.
     assert vs._per_txn_rupee_cap({**subway, **product, "voucher_platform": "Gyftr"}) is None
 
-    for domain, price in (("subway.co.in", 54999), ("baskinrobbinsindia.com", 28999)):
+    for domain, price in (("subway.co.in", 54999), ("baskinrobbinsindia.com", 28999)):  # noqa: E501
         r = vs.get_voucher_check(domain, price)
         if not r or not r.get("has_voucher"):
             continue

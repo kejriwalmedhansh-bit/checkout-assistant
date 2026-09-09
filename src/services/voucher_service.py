@@ -9,6 +9,7 @@ from __future__ import annotations
 import json
 import math
 import re
+from functools import lru_cache
 from pathlib import Path
 
 from ..category_classifier import classify_product, restriction_mentions_category
@@ -94,6 +95,24 @@ def _maximize_qty_per_txn(brand_allows_stacking: bool, listed_cap: int | None = 
     if listed_cap and listed_cap >= 1:
         return max(1, min(int(listed_cap), allowed))
     return allowed
+
+def _gyftr_qty_per_denomination() -> int | None:
+    """Vouchers of ONE denomination Gyftr's cart will hold, for one brand.
+
+    Ten, as the cart itself says: "Same voucher more than 10 quantity is not
+    allowed!". A per-line limit, not a cart limit — ten ₹10,000 plus ten
+    ₹2,000 plus ten ₹500 of the same brand is a legal single order, and a
+    different brand gets its own ten.
+
+    Deliberately NOT gated on whether the brand permits combining vouchers.
+    That gate belongs on the TOTAL for the bill, where `stack_limit` already
+    applies it; applying it here as well turns "the shop takes one voucher"
+    into "one of each denomination", which is not a stricter answer, just a
+    differently shaped one — it quoted a ₹54,999 KALKI order as six different
+    vouchers. One fact, one place.
+    """
+    return platform_rules.rules_for("gyftr").get("vouchers_per_order") or None
+
 
 # Recommended Route tie-break: a cheaper multi-transaction deal only beats a
 # single-transaction deal when it saves more than this fraction extra on top
@@ -270,9 +289,10 @@ def _greedy_voucher_amount(
     fixed_denoms: list[int],
     stack_limit: int | None = None,
     value_cap: float | None = None,
+    per_denom_limit: int | None = None,
 ) -> tuple[int, list[dict]]:
     """Largest sum of denominations (with repetition) within price, stack_limit,
-    and value_cap. Returns (total, breakdown) — breakdown is the actual list of
+    per_denom_limit, and value_cap. Returns (total, breakdown) — breakdown is the actual list of
     {denom, count} purchases that sum to `total`, since Gyftr only sells fixed
     denominations and a customer can't literally buy one voucher for the total
     amount; they need to know exactly which/how-many denominations to buy.
@@ -299,6 +319,8 @@ def _greedy_voucher_amount(
         else:
             room_by_value_count = float("inf")
         count = min(remaining // d, room_by_count, room_by_value_count)
+        if per_denom_limit is not None:
+            count = min(count, per_denom_limit)
         if count > 0:
             breakdown.append({"denom": d, "count": int(count)})
         total += count * d
@@ -314,8 +336,15 @@ def _best_voucher_plan(
     stack_limit: int | None = None,
     value_cap: float | None = None,
     leftover_reusable: bool = False,
+    per_denom_limit: int | None = None,
 ) -> tuple[int, list[dict]]:
     """The cheapest buyable set of fixed-denomination vouchers for `price`.
+
+    `stack_limit` caps vouchers in the plan altogether (the shop's own rule
+    about one bill); `per_denom_limit` caps repeats of any ONE denomination
+    (Gyftr's cart: "Same voucher more than 10 quantity is not allowed"). They
+    are different facts and both bind — ten ₹10,000 plus ten ₹2,000 plus ten
+    ₹500 is one legal Gyftr order, while 55x₹1,000 is not.
 
     Replaces a largest-denomination-first greedy that could only ever build a
     total <= price. That was wrong twice over:
@@ -363,12 +392,24 @@ def _best_voucher_plan(
     step = math.gcd(*denoms)
     units = ceiling // step
     max_count = units if stack_limit is None else stack_limit
-    if units <= 0 or max_count <= 0:
+    per_denom = min(per_denom_limit or units, max_count)
+    if units <= 0 or max_count <= 0 or per_denom <= 0:
         return 0, []
 
-    if units * len(denoms) > _PLAN_SEARCH_MAX_STATES:
+    # Two searches, because a cap on repeats of one denomination costs real
+    # time to honour and only some platforms have one. Without a cap, one
+    # voucher at a time is exact and cheap. With a cap, each denomination has
+    # to be taken 0..per_denom times as a block, which is `per_denom` times
+    # the work — but only up to however many of that denomination could fit.
+    capped = per_denom_limit is not None
+    if capped:
+        states = sum(units * min(per_denom, units // (d // step)) for d in denoms)
+    else:
+        states = units * len(denoms)
+    if states > _PLAN_SEARCH_MAX_STATES:
         return _fallback_voucher_plan(
-            price, denoms, discount_pct, stack_limit, value_cap, leftover_reusable
+            price, denoms, discount_pct, stack_limit, value_cap, leftover_reusable,
+            per_denom_limit=per_denom_limit,
         )
 
     # What a plan costs depends only on the face value it reaches, never on
@@ -378,19 +419,65 @@ def _best_voucher_plan(
     # are the same ₹3,000 but sum to different last bits, and Ajio was being
     # quoted the 21-voucher plan.
     unreachable = units + 1
-    # best[u] = (fewest vouchers making u*step of face value, last denom used)
-    best: list[tuple[int, int | None]] = [(unreachable, None)] * (units + 1)
-    best[0] = (0, None)
-    for u in range(1, units + 1):
+    reached = [unreachable] * (units + 1)
+    reached[0] = 0
+
+    if capped:
+        # One denomination at a time, taken 0..per_denom times as a block, so a
+        # cap on repeats of ONE amount can be honoured — a running "fewest
+        # vouchers so far" cannot tell ten ₹1,000 apart from ten different
+        # amounts, and the old search quoted 55x₹1,000 for a ₹54,999 Subway
+        # order that Gyftr's cart refuses. picks[i][u] is how many of
+        # denoms[i] the best plan for u*step of face value takes.
+        picks: list[list[int]] = []
         for d in denoms:
             span = d // step
-            if span > u:
-                break
-            prev_count, _ = best[u - span]
-            if prev_count == unreachable or prev_count >= max_count:
-                continue
-            if prev_count + 1 < best[u][0]:
-                best[u] = (prev_count + 1, d)
+            before, reached = reached, reached[:]
+            taken = [0] * (units + 1)
+            for u in range(span, units + 1):
+                fewest, chosen_count = reached[u], 0
+                for c in range(1, per_denom + 1):
+                    back = u - c * span
+                    if back < 0:
+                        break
+                    prior = before[back]
+                    if prior == unreachable or prior + c > max_count:
+                        continue
+                    if prior + c < fewest:
+                        fewest, chosen_count = prior + c, c
+                reached[u], taken[u] = fewest, chosen_count
+            picks.append(taken)
+
+        def counts_for(u: int) -> dict[int, int]:
+            counts: dict[int, int] = {}
+            for i in range(len(denoms) - 1, -1, -1):
+                count = picks[i][u]
+                if count:
+                    counts[denoms[i]] = count
+                    u -= count * (denoms[i] // step)
+            return counts
+    else:
+        # No cap on repeats: one voucher at a time is exact, and cheaper.
+        # last_denom[u] is the voucher added last to reach u*step.
+        last_denom: list[int | None] = [None] * (units + 1)
+        for u in range(1, units + 1):
+            for d in denoms:
+                span = d // step
+                if span > u:
+                    break
+                prior = reached[u - span]
+                if prior == unreachable or prior >= max_count:
+                    continue
+                if prior + 1 < reached[u]:
+                    reached[u], last_denom[u] = prior + 1, d
+
+        def counts_for(u: int) -> dict[int, int]:
+            counts: dict[int, int] = {}
+            while u > 0:
+                d = last_denom[u]
+                counts[d] = counts.get(d, 0) + 1
+                u -= d // step
+            return counts
 
     # Buying nothing is the baseline: pay the bill in cash. Ties go to the
     # plan with fewer vouchers, so a voucher that saves the shopper exactly
@@ -402,7 +489,7 @@ def _best_voucher_plan(
         if leftover_reusable else None
     )
     for u in range(1, units + 1):
-        count, _ = best[u]
+        count = reached[u]
         if count == unreachable:
             continue
         face = u * step
@@ -420,12 +507,7 @@ def _best_voucher_plan(
         if key < chosen_key:
             chosen_units, chosen_key = u, key
 
-    counts: dict[int, int] = {}
-    u = chosen_units
-    while u > 0:
-        d = best[u][1]
-        counts[d] = counts.get(d, 0) + 1
-        u -= d // step
+    counts = counts_for(chosen_units)
     breakdown = [{"denom": d, "count": c} for d, c in sorted(counts.items(), reverse=True)]
     return chosen_units * step, breakdown
 
@@ -505,6 +587,7 @@ def _fallback_voucher_plan(
     stack_limit: int | None,
     value_cap: float | None,
     leftover_reusable: bool = False,
+    per_denom_limit: int | None = None,
 ) -> tuple[int, list[dict]]:
     """Approximation for bills too large to search exactly (see
     _PLAN_SEARCH_MAX_STATES): the old greedy, plus every way of closing the
@@ -512,7 +595,9 @@ def _fallback_voucher_plan(
     voucher up a size. Candidates are scored on the same out-of-pocket
     measure the exact search uses and the greedy itself is always in the
     running, so the answer is never worse than the greedy alone."""
-    base_total, base_breakdown = _greedy_voucher_amount(price, denoms, stack_limit, value_cap)
+    base_total, base_breakdown = _greedy_voucher_amount(
+        price, denoms, stack_limit, value_cap, per_denom_limit=per_denom_limit
+    )
     best_total = base_total
     best_counts = {b["denom"]: b["count"] for b in base_breakdown}
     best_cost = _plan_cost(price, base_total, discount_pct, leftover_reusable)
@@ -534,6 +619,8 @@ def _fallback_voucher_plan(
         if leftover_reusable and total - price > min(price * MAX_REUSABLE_OVERSHOOT_RATIO, MAX_REUSABLE_OVERSHOOT_RUPEES):
             return
         if stack_limit is not None and sum(counts.values()) > stack_limit:
+            return
+        if per_denom_limit is not None and any(n > per_denom_limit for n in counts.values()):
             return
         cost = _plan_cost(price, total, discount_pct, leftover_reusable)
         if cost < best_cost:
@@ -738,12 +825,14 @@ def calculate_effective_price(price: float, voucher: dict, payment_method: str =
                     leftover_reusable=leftover_reusable,
                 )
             else:
-                # Gyftr has a cart, so any mix of amounts is one basket.
+                # Gyftr has a cart, so any mix of amounts is one basket — but
+                # only ten of each amount will go in it.
                 amount, denomination_breakdown = _best_voucher_plan(
                     price, fixed_denoms, discount_pct,
                     stack_limit=stack_limit,
                     value_cap=rupee_cap,
                     leftover_reusable=leftover_reusable,
+                    per_denom_limit=voucher.get("reseller_stack_limit"),
                 )
             voucher_amount = float(amount)
             # May now exceed the bill: covering the last ₹499 of a ₹4,999
@@ -922,7 +1011,20 @@ def get_best_voucher_deal(merchant_name: str, price: float) -> dict | None:
     # keys like important_instructions_raw/stack_limit_confidence stay on
     # `record`) — always exactly one product per Gyftr brand, unlike
     # Maximize's multi-tier records. Flatten before calculating.
-    voucher = {**record, **products[0]}
+    gyftr_url = f"https://www.gyftr.com/{record.get('slug')}" if record.get("slug") else None
+    per_bill, stated = _listing_vouchers_per_bill("gyftr", gyftr_url, merchant_name)
+    voucher = {
+        **record,
+        **products[0],
+        # The brand's own terms outrank the scrape's stack_limit reading, and
+        # only fall back to it where the terms never said.
+        **({"stack_limit": per_bill,
+            "stack_limit_confidence": "unlimited_stated" if per_bill is None else "stated"}
+           if stated else {}),
+        # How many of one denomination Gyftr's own cart will take. Parallel to
+        # the field Maximize and BuyHatke deals carry, and read the same way.
+        "reseller_stack_limit": _gyftr_qty_per_denomination(),
+    }
     deal = calculate_effective_price(price, voucher, payment_method="upi")
     if not deal["voucher_discount_pct"]:
         return None
@@ -982,6 +1084,7 @@ def get_best_maximize_deal(merchant_name: str, price: float) -> tuple[dict, dict
             **record, **p,
             "voucher_platform": "Maximize",
             "voucher_url": p.get("source_url"),
+            **_terms_fields(*_listing_vouchers_per_bill("maximize", p.get("source_url"), merchant_name)),
             # Maximize's own real per-order quantity cap, kept under a
             # separate key so it survives the "stacks" override just below —
             # that override answers "how much will the store redeem in
@@ -998,7 +1101,7 @@ def get_best_maximize_deal(merchant_name: str, price: float) -> tuple[dict, dict
             # count describes its own checkout, not what the store accepts.
             # 58 Maximize brands carry "1 voucher" against stores whose own
             # terms say vouchers combine.
-            **({"stack_limit": None, "stack_limit_confidence": "unlimited_stated"} if stacks else {}),
+
             # The store's own redemption ceiling still applies, whoever sold it.
             **({"value_cap": store_cap} if store_cap else {}),
         }
@@ -1049,6 +1152,144 @@ def _store_allows_stacking(merchant_name: str) -> bool:
     return bool(gyftr) and gyftr.get("stack_limit_confidence") == "unlimited_stated"
 
 
+def _terms_fields(per_bill: int | None, stated: bool) -> dict:
+    """The two stack-limit fields a deal carries, or nothing when the terms
+    never said — leaving the caller's existing fallback in place."""
+    if not stated:
+        return {}
+    return {
+        "stack_limit": per_bill,
+        "stack_limit_confidence": "unlimited_stated" if per_bill is None else "stated",
+    }
+
+
+@lru_cache(maxsize=1)
+def _slug_by_listing_url() -> dict[tuple[str, str], str]:
+    """(source, product URL) -> the rules slug for that exact listing.
+
+    One seller can carry the same brand twice with genuinely different
+    products, and the difference is visible in the rate: Maximize sells
+    Hidesign at 7.75% on listing 525 and 13% on listing 462, AJIO Luxe at
+    3.75% on 733 and 7% on 700. The rules file already keeps them apart —
+    `maximize:hidesign` and `maximize:hidesign-462` — but nothing connected a
+    priced product back to its own entry, so both were held to the stricter of
+    the two. data/voucher_offers.json carries the URL each slug was read from,
+    which is the join.
+    """
+    try:
+        offers_path = Path(__file__).resolve().parent.parent.parent / "data" / "voucher_offers.json"
+        with offers_path.open() as f:
+            offers = json.load(f)
+    except (OSError, json.JSONDecodeError):
+        return {}
+    rows = offers if isinstance(offers, list) else list(offers.values())
+    return {
+        (row["source"], row["url"]): row["slug"]
+        for row in rows
+        if row.get("source") and row.get("url") and row.get("slug")
+    }
+
+
+def _listing_vouchers_per_bill(
+    source: str, listing_url: str | None, merchant_name: str
+) -> tuple[int | None, bool]:
+    """`_brand_vouchers_per_bill` for one exact listing where it can be found.
+
+    A shopper is sent to buy one specific voucher, and that voucher's own terms
+    govern the plan — not the strictest of everything the seller lists under
+    the same brand name, which is only the right answer when the listings
+    cannot be told apart.
+    """
+    slug = _slug_by_listing_url().get((source.lower(), listing_url or ""))
+    entry = _get_voucher_rules(source, slug) if slug else None
+    rules = ((entry or {}).get("rules") or {})
+    combines = (rules.get("can_combine") or {}).get("value")
+    named = (rules.get("max_cards_per_order") or {}).get("value")
+    if combines == "no":
+        return 1, True
+    if isinstance(named, (int, float)) and named >= 1:
+        return int(named), True
+    if combines == "yes":
+        return None, True
+    return _brand_vouchers_per_bill(merchant_name, source)
+
+
+@lru_cache(maxsize=8192)
+def _brand_vouchers_per_bill(merchant_name: str, source: str) -> tuple[int | None, bool]:
+    """How many vouchers accepted on one bill, per the terms `source` publishes.
+
+    Returns (limit, stated). `None` as the limit means no ceiling was named;
+    `stated` is False when that seller's terms never addressed it, which leaves
+    the caller on its old fallback rather than inventing permission.
+
+    The terms and important instructions decide this, not the platform's
+    structure — product owner, 2026-09-07: "Gyftr's rules are just a
+    structure; the per-brand instructions and T&Cs are the ones you base your
+    logic on primarily." A shop that says vouchers cannot be combined gets one
+    voucher, whatever a platform's cart would happily sell.
+
+    Answered per SELLER, not per brand. The obvious reading of Westside's
+    Gyftr page saying "Multiple GV can be used in one bill" while its Maximize
+    page says "Multiple cards can't be clubbed" is that one of them is wrong —
+    but the product owner's reading, 2026-09-08, is the right one: "it is very
+    much plausible that the same gift voucher brands have different rules on
+    selling platforms." They are not three transcriptions of one document.
+    Each seller issues its own instrument under its own agreement with the
+    shop — Gyftr's is often an e-Pay balance a till treats as one payment,
+    Maximize's a plain gift card — so they can differ and both be true. 22
+    brands read as contradictions under the merged reading; none of them is
+    necessarily a contradiction at all. Whichever voucher the shopper is being
+    sent to buy, its own terms govern the plan.
+
+    Within one seller a brand can still hold several listings, and those DO
+    describe the same purchase: Maximize carries both `hidesign` ("Multiple
+    vouchers can be used in one bill") and `hidesign-462` ("Multiple cards
+    can't be clubbed"). There the strictest definite answer wins, because
+    being wrong that way costs a saving and being wrong the other way sends
+    someone to a till with vouchers it will not accept.
+    """
+    # Callers pass whatever they have — a shop domain from the extension, a
+    # seller string from a search result, a clean brand name. Only the brand
+    # name reaches a slug, so resolve through each catalogue first; without
+    # this, "netmeds.com" found no terms at all and quietly fell back, costing
+    # a ₹5,000 order the ₹140 the terms would have allowed.
+    names = [merchant_name]
+    for repo in (voucher_repository, maximize_repository, buyhatke_repository):
+        record = repo.get_by_merchant(merchant_name)
+        name = (record or {}).get("brand_name")
+        if name and name not in names:
+            names.append(name)
+
+    entries = []
+    slug = next((s for s in (_slug_for(source, n) for n in names) if s), None)
+    if slug:
+        entries.append(_get_voucher_rules(source, slug))
+    # A slug reaches one listing, and a seller can carry several for one brand.
+    # Those are the same shopping trip, so the strictest of them applies.
+    wanted = {n.lower() for n in names}
+    prefix = source + ":"
+    entries.extend(
+        entry for key, entry in _load_voucher_rules().items()
+        if key.startswith(prefix) and (entry.get("brand_name") or "").lower() in wanted
+    )
+
+    limits: list[int | None] = []
+    for entry in entries:
+        rules = ((entry or {}).get("rules") or {})
+        combines = (rules.get("can_combine") or {}).get("value")
+        named = (rules.get("max_cards_per_order") or {}).get("value")
+        if combines == "no":
+            limits.append(1)
+        elif isinstance(named, (int, float)) and named >= 1:
+            limits.append(int(named))
+        elif combines == "yes":
+            limits.append(None)
+    if not limits:
+        return None, False
+    numbers = [n for n in limits if n is not None]
+    return (min(numbers) if numbers else None), True
+
+
 def _store_value_cap(merchant_name: str) -> float | None:
     """A ceiling the STORE puts on redemption, e.g. Amazon's "Gift Vouchers
     over INR 50,000 CANNOT be added to wallet per calendar month".
@@ -1087,6 +1328,7 @@ def get_best_buyhatke_deal(merchant_name: str, price: float) -> tuple[dict, dict
             **record, **p,
             "voucher_platform": "BuyHatke",
             "voucher_url": p.get("source_url"),
+            **_terms_fields(*_listing_vouchers_per_bill("buyhatke", p.get("source_url"), merchant_name)),
             # BuyHatke's real per-order quantity cap is always 1 voucher —
             # confirmed by the user's own live testing 2026-09-03: unlike
             # Maximize (which can vary, e.g. Frido allows 4 of the same
@@ -1104,10 +1346,7 @@ def get_best_buyhatke_deal(merchant_name: str, price: float) -> tuple[dict, dict
             # rule that governs redemption. No value or transaction limit is
             # inferred here — inventing one is what produced a wrong ₹2,500
             # ceiling on a brand that visibly sells ₹10,000 vouchers.
-            **({
-                "stack_limit": None,
-                "stack_limit_confidence": "unlimited_stated",
-            } if stacks else {}),
+
             # The store's own redemption ceiling still applies, whoever sold it.
             **({"value_cap": store_cap} if store_cap else {}),
         }

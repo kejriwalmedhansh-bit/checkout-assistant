@@ -42,10 +42,17 @@ OUT = REPO / "data" / "voucher_rules.json"
 # `can_combine` rule extracted from the seller's own terms. Buying four
 # vouchers the shop will not accept together is not a saving.
 PLATFORM_RULES = {
-    "gyftr": {"checkout_model": "multi_item", "vouchers_per_order": "unlimited",
+    # Ten of any ONE brand+denomination per cart — Gyftr's cart says "Same
+    # voucher more than 10 quantity is not allowed!" and the product owner
+    # confirmed it 2026-09-07. It is a per-line limit, not a cart limit: ten
+    # ₹10,000 plus ten ₹2,000 plus ten ₹500 is a legal single order, and other
+    # brands get their own ten each. The brand's own combining rule still
+    # applies on top, and the stricter of the two wins.
+    "gyftr": {"checkout_model": "multi_item", "vouchers_per_order": 10,
               "mixed_denominations": True, "mixed_brands": True,
               "requires_brand_stacking": True,
-              "note": "Any mix of denominations and brands in one order."},
+              "note": "Any mix of denominations and brands in one order, "
+                      "up to ten of each brand-and-denomination."},
     # Four is the platform's own ceiling, confirmed by the product owner
     # 2026-09-07 and visible as "Max: 4" on every Maximize product page. It
     # applies only where the brand permits combining vouchers at all.
@@ -61,6 +68,130 @@ PLATFORM_RULES = {
                  "requires_brand_stacking": False,
                  "note": "One voucher per transaction, whatever the denomination."},
 }
+
+# Rules whose extracted answer is not supported by the sentence quoted beside
+# it. Found by reading all 330 listings that answer "no" to can_combine
+# (2026-09-08, at the product owner's request) — every rule Dealo states has to
+# carry the seller's own words, and these six state something the words do not
+# say. Corrected to "not_stated" rather than to "yes": the terms are silent on
+# combining, which is a different thing from permitting it, and silence leaves
+# the service on its existing fallback.
+#
+# Deliberately NOT corrected, because the sentence does support the answer for
+# the purchase Dealo actually plans — an online one:
+#   * "Up to 5 GV/GCs ... at the listed Pizza Hut stores. Only 1 ... on the
+#     mobile app and website" and four others like it. Several in store, one
+#     online. The online half is the half that applies.
+#   * "For Flight Booking, Only One Gift Cards can be used ... Upto 3 ... for
+#     Holiday Packages." One per flight booking, which is the common case.
+# And left for a product decision rather than a data fix: the several listings
+# whose terms say vouchers cannot be combined ON the bill but CAN be merged
+# into one e-Pay balance or wallet first (Domino's, EatSure and its kitchens,
+# Nykaa). Those are buyable in quantity; whether Dealo should send a shopper
+# through a merge step is not a question the terms answer.
+UNSUPPORTED_CAN_COMBINE = {
+    "gyftr:beyoung":
+        "Quotes \u201cCash on delivery cannot be clubbed with GV\u201d \u2014 about paying cash on delivery.",
+    "gyftr:swiggy-food-discount-voucher":
+        "Quotes \u201cOffer valid once per user per transaction\u201d \u2014 an offer's usage limit.",
+    "buyhatke:devagabond-gift-card":
+        "Quotes \u201cTwo coupon codes cannot be clubbed together\u201d \u2014 about coupon codes.",
+    "buyhatke:marriott-dining-1-(in-store)-gift-card":
+        "Quotes a single-use clause \u2014 says a card is spent in one go, not that two cannot be used.",
+    "buyhatke:marriott-dining-2-(in-store)-gift-card":
+        "Quotes a single-use clause \u2014 says a card is spent in one go, not that two cannot be used.",
+    "maximize:amazon-prime-voucher---3-months-membership-550":
+        "Quotes \u201cVoucher cannot be reused and only one can be applied per customer\u201d \u2014 per customer, and about reuse.",
+}
+
+
+def drop_unsupported(rules_by_listing):
+    """Blank out an answer wherever its evidence does not support it.
+
+    Both fields are mapped from the same extracted answer and so carry the same
+    mistake: leaving max_cards_per_order's "1" behind would keep capping the
+    plan at one voucher after the sentence behind it had gone. Written to be
+    safe to run twice — each field is corrected on its own state, not on
+    whether the other one has already been fixed.
+    """
+    for key, why in UNSUPPORTED_CAN_COMBINE.items():
+        rules = (rules_by_listing.get(key) or {}).get("rules") or {}
+        combines = rules.get("can_combine")
+        if combines and combines.get("value") == "no":
+            combines.update({"value": "not_stated", "evidence": "", "corrected": why})
+        named = rules.get("max_cards_per_order")
+        if named and named.get("value") == 1:
+            named.update({"value": None, "evidence": "", "corrected": why})
+    return rules_by_listing
+
+
+# A voucher that converts into an e-Pay balance, a wallet or a brand account is
+# not really a voucher at the till — it is money in a balance, and money adds
+# up. Product owner, 2026-09-08: "If the voucher can be converted to e-Pay that
+# means it is a wallet of sorts, which means multiple vouchers can be combined
+# together." So "only one gift card per order" describes the order form, not
+# the bill: several vouchers go into the balance first and the balance pays.
+#
+# Each listing below states its own wallet in its own words, and the quote is
+# checked against that listing's terms when this runs. Three listings that
+# mention a wallet are deliberately NOT here, because their own terms close it:
+# Himalaya Wellness (both sellers) allows "only one GV converted into e-Pay per
+# day/per transaction", and Kama Ayurveda's e-Pay balance is usable only in
+# store while its online rule stays one per bill.
+WALLET_COMBINES = {
+    "gyftr:nykaa": "Multiple Gift Vouchers CAN be added to the Nykaa Wallet",
+    "gyftr:nykaa-fashion": "Multiple Gift Vouchers CAN be added to the Nykaa Wallet",
+    "gyftr:nykaa-man": "Multiple Gift Vouchers CAN be added to the Nykaa Wallet",
+    "gyftr:dominos": "Multiple Gift Vouchers CAN be combined & added to e-Pay balance",
+    "gyftr:surat-diamonds": "Gift Voucher CAN be used multiple times once converted to e-Pay balance",
+    "gyftr:whats-up-wellness": "Gift Voucher CAN be used multiple times once converted to e-Pay balance",
+    "gyftr:assembly": "Gift Voucher CAN be used multiple times once converted to e-Pay balance",
+    "maximize:dominos": "convert multiple GVs to a single GV via the Gyftr E-Pay app",
+    "maximize:nykaa": "registered users may add multiple cards to Wallet",
+    "buyhatke:nykaa-gift-card": "registered users may add multiple cards to Wallet",
+    "buyhatke:nykaa-fashion-gift-card": "add multiple Nykaa Gift Cards to their Nykaa Wallet",
+    "buyhatke:kalki-gift-card": "The voucher can be converted into e-Pay balance",
+    "buyhatke:lunch-box-gift-card": "add the Gift Card to the EatSure User Account",
+    "buyhatke:firangi-bake-gift-card": "add the Gift Card to the EatSure User Account",
+    "buyhatke:fricken-gift-card": "add the Gift Card to the EatSure User Account",
+    "buyhatke:honest-bowl-gift-card": "add the Gift Card to the EatSure User Account",
+    "buyhatke:thalaiva-biryani-gift-card": "add the Gift Card to the EatSure User Account",
+    "buyhatke:the-biryani-life-gift-card": "add the Gift Card to the EatSure User Account",
+    "buyhatke:thinsane-pizza-gift-card": "add the Gift Card to the EatSure User Account",
+}
+
+
+def apply_wallet_combines(rules_by_listing, terms_for):
+    """Where a listing states a wallet, several vouchers can pay one bill.
+
+    `terms_for(key)` returns everything read for that listing, so the quote can
+    be checked before it is published as evidence — the standing rule is that
+    every rule Dealo states carries the seller's own sentence, and a quote that
+    has drifted out of the terms must fail loudly rather than be asserted.
+    Safe to run twice.
+    """
+    missing = []
+    for key, quote in WALLET_COMBINES.items():
+        entry = rules_by_listing.get(key)
+        if not entry:
+            continue
+        haystack = " ".join((terms_for(key) or "").split()).lower()
+        if quote.lower() not in haystack:
+            missing.append(key)
+            continue
+        rules = entry.get("rules") or {}
+        combines = rules.get("can_combine")
+        if combines:
+            combines.update({"value": "yes", "evidence": quote})
+        named = rules.get("max_cards_per_order")
+        if named and named.get("value") == 1:
+            named.update({"value": None, "evidence": ""})
+    if missing:
+        raise SystemExit(
+            "wallet quote no longer found in these listings' terms: " + ", ".join(missing)
+        )
+    return rules_by_listing
+
 
 SALE_WORDS = re.compile(r"discount|sale item|sale price|slashed|EOSS|full[- ]price", re.I)
 NOT_STATED = {"value": "not_stated", "evidence": ""}
@@ -210,6 +341,10 @@ def main() -> None:
             "important_instruction", "full_terms", "faqs", "restrictions")))
         out[key] = {"brand_name": offer["brand_name"], "source": offer["source"],
                     "slug": offer["slug"], "rules": rules}
+    drop_unsupported(out)
+    apply_wallet_combines(out, lambda key: " ".join(str(
+        raw.get(key, {}).get("raw", {}).get(f) or "") for f in (
+            "important_instruction", "full_terms", "faqs", "restrictions")))
     OUT.write_text(json.dumps(out, indent=2, ensure_ascii=False) + "\n")
     print(f"{len(out) - 1} listings -> {OUT.name}")
 
