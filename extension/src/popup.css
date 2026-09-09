@@ -196,7 +196,7 @@
 
 /* Progress as dots, replacing a "Step 2 of 3" line. */
 #dealo-popup-root .dealo-dots { display: flex; gap: 5px; align-items: center; margin-left: auto; margin-right: 10px; }
-#dealo-popup-root .dealo-dot { width: 7px; height: 7px; border-radius: 50%; background: #C7BFAF; }
+#dealo-popup-root .dealo-dot { width: 14px; height: 4px; border-radius: 2px; background: #C7BFAF; }
 #dealo-popup-root .dealo-dot-on { background: #C2712F; }
 #dealo-popup-root .dealo-dot-done { background: #4A9B8E; }
 

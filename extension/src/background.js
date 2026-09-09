@@ -69,7 +69,20 @@ function setBadge(tabId, on) {
 // code can arrive by email minutes later). One trip at a time — a person is
 // checking out of one shop; starting a new one replaces the old.
 const TRIP_KEY = "dealo_trip";
-const TRIP_TTL_MS = 7 * 24 * 60 * 60 * 1000; // abandoned trips expire after a week
+// A trip outranks everything — it stops Dealo checking the cart at all, because
+// finishing a purchase matters more than starting another. That makes a stale
+// one actively harmful: it takes over the shop for as long as it lives.
+//
+// A week was chosen so a code arriving by email overnight still finds its trip.
+// But a shopper who abandons one mid-way gets a shop that will not check their
+// cart for seven days, and has no idea why. Seen on 2026-09-09, when a trip
+// left over from Sunday's testing greeted the product owner with a three-day-old
+// voucher code the moment they opened Frido.
+//
+// Two days covers every real overnight-code case and bounds the damage of an
+// abandoned one. "Start over" on the panel ends a trip immediately, which is
+// the real fix; this is the backstop for someone who never sees that button.
+const TRIP_TTL_MS = 2 * 24 * 60 * 60 * 1000;
 
 async function tripGet() {
   const stored = await chrome.storage.local.get(TRIP_KEY);
