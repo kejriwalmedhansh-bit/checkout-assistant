@@ -67,19 +67,33 @@ async def headline() -> dict:
     }
 
 
+# Endings that are a country's own second level rather than anyone's name.
+# India's shops live on .co.in more than on anything else, so reading the
+# label before the ending — rather than the second label from the right —
+# is not an edge case here, it is the common case.
+_TWO_PART_ENDINGS = {
+    "co", "com", "net", "org", "gov", "edu", "ac", "gen", "firm", "ind", "res",
+}
+
+
 def _domain_root(domain: str) -> str:
     """The registrable brand label of a host — "ajio" for ajio.com,
-    "steampowered" for store.steampowered.com."""
+    "steampowered" for store.steampowered.com, "subway" for subway.co.in.
+
+    Taking the second label from the right reads "co" out of every .co.in
+    address, and "co" matches no brand, so every Indian shop on one came back
+    as having no voucher unless it happened to be in the hand-written domain
+    map — 10 of its 242 rows. Found 2026-09-09 when subway.co.in answered
+    "no voucher" live while the same shop priced fine by name.
+    """
     parts = domain.strip().lower().lstrip(".").split(".")
+    if len(parts) >= 3 and parts[-2] in _TWO_PART_ENDINGS:
+        return parts[-3]
     return parts[-2] if len(parts) >= 2 else parts[0]
 
 
 @router.get("/voucher-check", response_model=VoucherCheckResponse)
 def voucher_check(domain: str = Query(..., min_length=1), price: float | None = None) -> dict:
-    brand_name = domain_brand_repository.brand_for_domain(domain)
-    if brand_name is None:
-        return {"has_voucher": False}
-
     # The domain map is built from an audit CSV whose row for a domain is
     # sometimes a SUB-brand rather than the parent (ajio.com's only row is
     # "Ajio Luxe", AJIO's premium arm) — telling a shopper on ordinary AJIO
@@ -87,10 +101,21 @@ def voucher_check(domain: str = Query(..., min_length=1), price: float | None = 
     # testing 2026-08-31. The host's own brand label is the more truthful
     # identity, so try it first and keep it only when it resolves to a brand
     # whose name matches it exactly; otherwise fall back to the mapped name.
+    #
+    # Asked BEFORE the map, not after. The map used to gate this: a domain
+    # missing from its 242 rows was answered "no voucher" without the host's
+    # own name ever being tried, so subway.co.in drew a blank while Subway
+    # priced fine by name. An exact brand-name match is its own evidence and
+    # needs no listing to authorise it; the map remains the fallback for hosts
+    # that don't say their brand (lifestylestores.com, tatacliq.com).
     root = _domain_root(domain)
     root_deal = voucher_service.get_voucher_check(root, price) if root else None
     if root_deal and voucher_service.is_exact_brand_match(root, root_deal["brand_name"]):
         return root_deal
+
+    brand_name = domain_brand_repository.brand_for_domain(domain)
+    if brand_name is None:
+        return {"has_voucher": False}
 
     deal = voucher_service.get_voucher_check(brand_name, price)
     if deal is None:
