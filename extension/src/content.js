@@ -35,11 +35,18 @@
   // live testing, path-only matching missed it entirely). The hostname is
   // deliberately excluded, so a store called "cartify.com" isn't a permanent
   // false positive on every page it serves.
+  // The page's own title counts as well as its address. DailyObjects serves
+  // its checkout from /qcp, which says nothing, while titling the page
+  // "Checkout Page | DailyObjects", which says everything — and Dealo stayed
+  // silent on a ₹1,078 order with a live 15% voucher behind it. Found
+  // 2026-09-09. The worker applies the same test before injecting; this one
+  // decides whether the injected script speaks.
   function urlLooksLikeCheckout() {
-    const target = (location.pathname + " " + location.search + " " + location.hash).toLowerCase();
-    return self.__dealoConfig.CHECKOUT_URL_KEYWORDS.some((kw) =>
-      new RegExp(`(^|[^a-z])${kw}([^a-z]|$)`).test(target)
-    );
+    const words = self.__dealoConfig.CHECKOUT_URL_KEYWORDS;
+    const hit = (text) =>
+      Boolean(text) && words.some((kw) => new RegExp(`(^|[^a-z])${kw}([^a-z]|$)`).test(text.toLowerCase()));
+    const address = location.pathname + " " + location.search + " " + location.hash;
+    return hit(address) || hit(document.title);
   }
 
   // Real evidence this is a shop's checkout, not a page that merely says
