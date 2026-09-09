@@ -644,12 +644,15 @@
 
 /* --- Collecting: how much of this is left -------------------------------- */
 
+/* The label sits above the bar, not on it. A negative top margin pulled the
+   bar up under "CODE 3 OF 3" and the two collided — "the progress bar looks
+   weird" (2026-09-09). Thin, full width, and clear of the text. */
 #dealo-popup-root .dealo-bar {
-  height: 4px;
-  background: #EBE4D8;
+  height: 3px;
+  background: #E3DACB;
   border-radius: 99px;
   overflow: hidden;
-  margin-top: -4px;
+  margin-top: 2px;
 }
 #dealo-popup-root .dealo-bar i {
   display: block;
@@ -666,3 +669,7 @@
   text-align: center;
   margin-top: -4px;
 }
+
+/* The step label above a progress bar wants a little room under it, and none
+   of the extra leading that the shared eyebrow style carries. */
+#dealo-popup-root .dealo-eyebrow + .dealo-bar { margin-top: 4px; }

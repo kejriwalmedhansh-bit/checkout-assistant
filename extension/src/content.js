@@ -400,6 +400,55 @@
     return null;
   }
 
+  // The quantity stepper, when the plan needs more than one of the same
+  // voucher. Maximize's is two icon-only buttons with no text and no label,
+  // so plus is told from minus by its icon: the plus carries a vertical
+  // stroke as well as a horizontal one, the minus only the horizontal.
+  //
+  // This step has to come BEFORE the instant-discount one. Changing the
+  // quantity re-renders the price options and puts the selection back on
+  // MaxCoins, so choosing the discount first silently undoes it — reported by
+  // the product owner 2026-09-09, who watched it happen.
+  function quantityBox() {
+    for (const el of document.querySelectorAll("div,span,p,label,h1,h2,h3,h4")) {
+      const t = (el.textContent || "").replace(/\s+/g, " ").trim();
+      if (t.toLowerCase() !== "quantity") continue;
+      const box = el.parentElement;
+      if (box && box.querySelectorAll("button").length >= 2 && box.offsetParent !== null) return box;
+    }
+    return null;
+  }
+
+  function currentQuantity(box) {
+    const m = (box.innerText || "").replace(/\s+/g, " ").match(/quantity\s+(\d+)/i);
+    return m ? parseInt(m[1], 10) : null;
+  }
+
+  function findQuantityControl(count) {
+    if (!count || count < 2) return null; // nothing to change
+    const box = quantityBox();
+    if (!box) return null;
+    const plus = [...box.querySelectorAll("button")].find((b) => {
+      const svg = b.querySelector("svg");
+      if (!svg) return false;
+      // Two strokes = a plus; one = a minus.
+      return svg.querySelectorAll("path, line").length >= 2;
+    });
+    if (!plus) return null;
+    const now = currentQuantity(box);
+    if (now != null && now >= count) return null; // already set
+    return {
+      el: plus,
+      label: `Set the quantity to ${count}`,
+      // Two taps to get from one to three, so the pointer stays until it is.
+      until: () => {
+        const b = quantityBox();
+        const q = b && currentQuantity(b);
+        return q != null && q >= count;
+      },
+    };
+  }
+
   // The UPI payment option — the whole reason the promised rate holds.
   function findUpiControl() {
     const el = visibleControls().find((c) => /^upi$/i.test(textOf(c)));
@@ -455,9 +504,11 @@
   // that exists now is not the one that will be there when the shopper
   // reaches that step — see guide() in popup.js. Anything genuinely absent is
   // skipped rather than approximated.
-  function voucherSiteGuideSteps(want) {
+  function voucherSiteGuideSteps(want, deal) {
+    const count = (deal?.denominationBreakdown || [])[0]?.count || 1;
     return [
       () => findAmountControl(want),
+      () => findQuantityControl(count),
       () => findInstantDiscountControl(),
       () => findUpiControl(),
     ];
@@ -506,7 +557,7 @@
           // guide() reports whether it found anything at all to point at, so
           // a page it can't read falls back to written steps instead of a
           // sequence that shows nothing.
-          if (!window.__dealoPopup.guide(voucherSiteGuideSteps(want))) {
+          if (!window.__dealoPopup.guide(voucherSiteGuideSteps(want, trip.deal))) {
             window.__dealoPopup.guideUnavailable();
           }
         },
