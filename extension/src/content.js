@@ -712,7 +712,9 @@
     const worthTheErrand =
       pct >= cfg.MIN_RATE_FLOOR &&
       ((pct >= cfg.MIN_RATE_TO_OFFER && saving >= cfg.MIN_SAVING_AT_RATE) ||
-        saving >= cfg.MIN_SAVING_ALONE);
+        saving >= cfg.MIN_SAVING_ALONE ||
+        // A strong enough rate stands on its own, however small the basket.
+        pct >= cfg.STRONG_RATE);
     // A rate under the floor is too thin whatever the basket, so it doesn't
     // need a readable total to be judged — and it must not need one. Without
     // this, an Amazon cart whose total Dealo couldn't read fell straight past
