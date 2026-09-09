@@ -46,8 +46,9 @@
   // "checkout". Any ONE of these is enough; none of them is true of GitHub,
   // documentation, or a repo about shopping carts.
   function hasCommerceSignal() {
-    // 1. The page prices something in rupees.
-    const text = document.body?.innerText || "";
+    // 1. The page prices something in rupees. Dealo's own panel is full of
+    // them, so it must not be allowed to vouch for the page it is sitting on.
+    const text = pageTextWithoutDealo();
     if (/(?:₹|\brs\.?\s|\binr\s)\s?\d/i.test(text)) return true;
 
     // 2. The page declares itself a product/order in standard structured data.
@@ -106,7 +107,12 @@
   // "Total MRP ₹8,596" sits right above the real "Total Amount ₹4,049", and
   // picking the wrong one would size the voucher twice too large.
   const TOTAL_LABEL = /(total amount|amount payable|amount to pay|order total|grand total|total price|total payable|net payable|you pay|to be paid)/i;
-  const NOT_A_TOTAL = /(mrp|saved|savings|discount|cashback|coupon)/i;
+  // "applied" earns its place here: shops render the discount as a badge —
+  // Frido's is "₹8,001 applied!" — and put it inside the row labelled Total
+  // Price, so a reader looking for a total finds the discount instead. That
+  // read a ₹16,999 order as ₹8,001 and quoted vouchers for less than half of
+  // it. A figure the page describes as applied is a reduction, never a total.
+  const NOT_A_TOTAL = /(mrp|saved|savings|you save|discount|applied|cashback|coupon)/i;
 
   // Every rupee figure in a piece of text, in the order they appear.
   function amountsIn(text) {
@@ -115,9 +121,36 @@
       .filter((n) => Number.isFinite(n) && n > 0);
   }
 
+  // Dealo's own panel is part of the page once it renders, and it is full of
+  // rupee figures next to the exact words the reader below looks for. Its
+  // trade diagram says "₹14,562 is all you pay", and "you pay" is a total
+  // label — so on its second look Dealo read its own output back as the
+  // shop's price, asked the server about that smaller number, and quoted a
+  // smaller plan. A ₹16,999 Frido order came back as ₹8,000 of vouchers.
+  //
+  // Every read of the page must therefore skip anything Dealo drew itself.
+  // Reported 2026-09-09; caused by copy added the day before.
+  const DEALO_OWN = "#dealo-popup-root, #dealo-pointer";
+
+  function isDealoOwn(el) {
+    return Boolean(el.closest && el.closest(DEALO_OWN));
+  }
+
+  // The page's text with Dealo's own contribution removed.
+  function pageTextWithoutDealo() {
+    const body = document.body?.innerText || "";
+    let text = body;
+    for (const own of document.querySelectorAll(DEALO_OWN)) {
+      const mine = own.innerText;
+      if (mine) text = text.split(mine).join(" ");
+    }
+    return text;
+  }
+
   function labelledTotal() {
     let last = null;
     for (const el of document.querySelectorAll("div,span,p,td,th,li,section,strong,b,h1,h2,h3,h4")) {
+      if (isDealoOwn(el)) continue;
       const t = (el.textContent || "").replace(/\s+/g, " ").trim();
       if (!t || t.length > 60) continue;
       if (!TOTAL_LABEL.test(t) || NOT_A_TOTAL.test(t)) continue;
@@ -176,7 +209,7 @@
       }
     }
 
-    const itemprop = document.querySelector('[itemprop="price"]');
+    const itemprop = [...document.querySelectorAll('[itemprop="price"]')].find((el) => !isDealoOwn(el));
     if (itemprop) {
       const raw = itemprop.getAttribute("content") || itemprop.textContent;
       const n = parseFloat(String(raw).replace(/[^0-9.]/g, ""));
@@ -186,7 +219,7 @@
     // Plain-text fallback: a rupee figure sitting right next to a
     // total-like word, e.g. "Order Total ₹1,289" or "To Pay: Rs. 1,289".
     const totalWordPattern = /(order total|grand total|amount payable|to pay|total amount|total)[^₹\d]{0,20}(?:₹|rs\.?)\s?([\d,]+(?:\.\d+)?)/i;
-    const match = document.body.innerText.match(totalWordPattern);
+    const match = pageTextWithoutDealo().match(totalWordPattern);
     if (match) {
       const n = parseFloat(match[2].replace(/,/g, ""));
       if (!Number.isNaN(n) && n > 0) return n;
