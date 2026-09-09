@@ -487,6 +487,9 @@
 
     if (trip.status === "has_code" && backAtStoreFor(trip)) {
       window.__dealoPopup.renderBackAtStore(trip, {
+        // "Start over" — see renderBackAtStore. Clears the trip so the next
+        // look at this cart is a fresh one.
+        onAbandon: () => ask({ type: "tripClear" }),
         // Remembered on the trip rather than in the page, because the whole
         // point is that it survives the shopper moving from cart to checkout.
         onStepsToggle: (open) => ask({ type: "tripUpdate", patch: { stepsOpen: open } }),

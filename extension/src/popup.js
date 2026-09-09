@@ -99,8 +99,14 @@ window.__dealoPopup = (() => {
     }
   }
 
+  // Where the shopper is in the journey. Marked up as a progress bar, not as
+  // three circles: round, coloured and sitting where buttons sit, they were
+  // read as controls and tapped — "these don't work" (2026-09-09). They are
+  // now bars, which nobody expects to click, and they carry a label for
+  // anyone using a screen reader.
   function dots(step) {
-    return `<span class="dealo-dots">${[1, 2, 3]
+    const names = ["buy the voucher", "enter the code", "place the order"];
+    return `<span class="dealo-dots" role="img" aria-label="Step ${step} of 3, ${esc(names[step - 1] || "")}">${[1, 2, 3]
       .map((n) => `<span class="dealo-dot${n < step ? " dealo-dot-done" : n === step ? " dealo-dot-on" : ""}"></span>`)
       .join("")}</span>`;
   }
@@ -575,7 +581,7 @@ window.__dealoPopup = (() => {
   }
 
   // Step 3 done: the moment the shopper actually feels the win.
-  function renderBackAtStore(trip, { onDone, onShowWhere, onStepsToggle }) {
+  function renderBackAtStore(trip, { onDone, onShowWhere, onStepsToggle, onAbandon }) {
     const d = trip.deal;
     // Open unless the shopper closed them. This is the one screen where the
     // instructions are the point — they are standing at the discount box with
@@ -664,6 +670,7 @@ window.__dealoPopup = (() => {
       <button class="dealo-link dealo-withicon" id="dealo-done">
         ${svg("check", 13, "#4A9B8E", 2.4)} code applied
       </button>
+      <button class="dealo-link dealo-centered" id="dealo-abandon-trip">Start over</button>
     `, 3);
     wireExplainToggle(root, onStepsToggle);
     if (multiCode) wireCodeCarousel(root);
@@ -679,6 +686,11 @@ window.__dealoPopup = (() => {
     });
     root.querySelector("#dealo-where").addEventListener("click", () => onShowWhere());
     root.querySelector("#dealo-done").addEventListener("click", () => { onDone(); close(); });
+    // Every other screen in the journey has a way out; this one did not, so a
+    // trip a shopper had abandoned kept taking over their cart for a week —
+    // including one left over from testing, which greeted the product owner
+    // with a three-day-old voucher code the moment they opened the shop.
+    root.querySelector("#dealo-abandon-trip").addEventListener("click", () => { onAbandon(); close(); });
   }
 
   // Step 4, the last one: the code's in, and the only thing left is the
