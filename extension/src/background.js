@@ -244,16 +244,27 @@ function hostMatches(host, listed) {
   return host === listed || host.endsWith("." + listed);
 }
 
-function urlLooksLikeCheckout(url) {
+// The address is the first signal, but not the only one a shop gives.
+// DailyObjects puts its checkout at /qcp — no cart, no checkout, no bag, no
+// payment — so Dealo never even looked at a page whose own heading said
+// CHECKOUT and which had a live 15% voucher behind it. Found 2026-09-09.
+//
+// The tab's title is the second signal, and it costs nothing: the browser
+// hands it over with the navigation, so a shop that names its page honestly
+// is recognised even when its address does not. A page merely *titled*
+// something cart-ish still has to pass the commerce check once injected, so
+// the cost of being wrong here is one injection, not a wrong popup.
+function looksLikeCheckout(url, title) {
+  const words = self.__dealoConfig.CHECKOUT_URL_KEYWORDS;
+  const hit = (text) =>
+    Boolean(text) && words.some((kw) => new RegExp(`(^|[^a-z])${kw}([^a-z]|$)`).test(text.toLowerCase()));
+
   let u;
-  try { u = new URL(url); } catch (e) { return false; }
-  const target = (u.pathname + " " + u.search + " " + u.hash).toLowerCase();
-  return self.__dealoConfig.CHECKOUT_URL_KEYWORDS.some((kw) =>
-    new RegExp(`(^|[^a-z])${kw}([^a-z]|$)`).test(target)
-  );
+  try { u = new URL(url); } catch (e) { return hit(title); }
+  return hit(u.pathname + " " + u.search + " " + u.hash) || hit(title);
 }
 
-async function shouldRunOn(url) {
+async function shouldRunOn(url, title) {
   if (!url || !/^https?:/.test(url)) return false;
   const host = hostOf(url);
   if (!host) return false;
@@ -272,7 +283,7 @@ async function shouldRunOn(url) {
   if (cfg.VOUCHER_HOSTS.some((h) => hostMatches(host, h))) return false;
 
   // 3. Does the address look like somewhere money changes hands?
-  return urlLooksLikeCheckout(url);
+  return looksLikeCheckout(url, title);
 }
 
 // Injects Dealo into one tab. Same three files, in the same order, as the
@@ -295,10 +306,10 @@ async function inject(tabId) {
 const TRACE = true;
 const trace = (...a) => { if (TRACE) console.log("[Dealo]", ...a); };
 
-async function nudgeOrInject(tabId, url, force) {
+async function nudgeOrInject(tabId, url, force, title) {
   const granted = await chrome.permissions.contains(HOST_PERMS);
   if (!granted) { trace("no host access yet, skipping", url); return; }
-  const wanted = force || (await shouldRunOn(url));
+  const wanted = force || (await shouldRunOn(url, title));
   trace(wanted ? "will run on" : "skipping", url);
   if (!wanted) return;
   try {
@@ -338,7 +349,7 @@ chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
   const settled = changeInfo.status === "complete";
   const inPageNav = Boolean(changeInfo.url) && changeInfo.status !== "loading";
   if (settled || inPageNav) {
-    nudgeOrInject(tabId, changeInfo.url || tab?.url);
+    nudgeOrInject(tabId, changeInfo.url || tab?.url, false, tab?.title);
   }
 });
 
@@ -380,5 +391,5 @@ chrome.action.onClicked.addListener(async (tab) => {
   // `force` skips the shouldRunOn test as well as the dismissal guard: an
   // explicit click outranks Dealo's own judgement about where it belongs, so
   // it works even on a page the address test would have passed over.
-  nudgeOrInject(tab.id, tab.url, true);
+  nudgeOrInject(tab.id, tab.url, true, tab.title);
 });
