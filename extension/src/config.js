@@ -70,7 +70,13 @@ self.__dealoConfig = {
   // Set at 1% deliberately: the product decision was "₹300 is worth showing
   // even at 1%", so 1% still qualifies and 0.75% does not.
   MIN_RATE_TO_OFFER: 3,
-  MIN_SAVING_AT_RATE: 200,
+  MIN_SAVING_AT_RATE: 100,
   MIN_SAVING_ALONE: 300,
   MIN_RATE_FLOOR: 1,
+  // A third way through, added 2026-09-09. A rate this good is worth naming
+  // whatever the basket: DailyObjects discounts 15%, which on a ₹1,078 order
+  // is ₹150 — a bigger share of the bill than the ₹350 boAt deal that was
+  // considered obviously worth showing, and it was being silenced by a flat
+  // rupee floor. The floor itself also drops from ₹200 to ₹100.
+  STRONG_RATE: 10,
 };
