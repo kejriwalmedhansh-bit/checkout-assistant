@@ -1,0 +1,515 @@
+{
+ "_note": "Hand answers from the Shop Check review, 2026-09-10. Re-applied on every refresh so they are never lost.",
+ "answers": [
+  {
+   "brand": "Faasos",
+   "found": "eatsure.com",
+   "answer": "wrong",
+   "domain": null
+  },
+  {
+   "brand": "Lunch Box",
+   "found": "eatsure.com",
+   "answer": "wrong",
+   "domain": null
+  },
+  {
+   "brand": "Oven Story",
+   "found": "eatsure.com",
+   "answer": "wrong",
+   "domain": null
+  },
+  {
+   "brand": "Sweet Truth",
+   "found": "eatsure.com",
+   "answer": "wrong",
+   "domain": null
+  },
+  {
+   "brand": "The Good Bowl",
+   "found": "eatsure.com",
+   "answer": "wrong",
+   "domain": null
+  },
+  {
+   "brand": "Wendy's",
+   "found": "eatsure.com",
+   "answer": "wrong",
+   "domain": null
+  },
+  {
+   "brand": "EatSure",
+   "found": "eatsure.com",
+   "answer": "right",
+   "domain": "eatsure.com"
+  },
+  {
+   "brand": "Riot League of Legends 1660",
+   "found": "riotgames.com",
+   "answer": "right",
+   "domain": "riotgames.com"
+  },
+  {
+   "brand": "Riot League of Legends 2900",
+   "found": "riotgames.com",
+   "answer": "right",
+   "domain": "riotgames.com"
+  },
+  {
+   "brand": "Riot League of Legends 415",
+   "found": "riotgames.com",
+   "answer": "right",
+   "domain": "riotgames.com"
+  },
+  {
+   "brand": "Riot League of Legends 4150",
+   "found": "riotgames.com",
+   "answer": "right",
+   "domain": "riotgames.com"
+  },
+  {
+   "brand": "Riot League of Legends 830",
+   "found": "riotgames.com",
+   "answer": "right",
+   "domain": "riotgames.com"
+  },
+  {
+   "brand": "Valorant",
+   "found": "riotgames.com",
+   "answer": "right",
+   "domain": "riotgames.com"
+  },
+  {
+   "brand": "Valorant Gift Card",
+   "found": "riotgames.com",
+   "answer": "right",
+   "domain": "riotgames.com"
+  },
+  {
+   "brand": "Fastrack SmartWatch (1 Day Wait)",
+   "found": "titan.co.in",
+   "answer": "right",
+   "domain": "titan.co.in"
+  },
+  {
+   "brand": "World of Titan",
+   "found": "titan.co.in",
+   "answer": "right",
+   "domain": "titan.co.in"
+  },
+  {
+   "brand": "World of Titan (1 Day Wait)",
+   "found": "titan.co.in",
+   "answer": "right",
+   "domain": "titan.co.in"
+  },
+  {
+   "brand": "World of Titan 8 Hr Wait",
+   "found": "titan.co.in",
+   "answer": "right",
+   "domain": "titan.co.in"
+  },
+  {
+   "brand": "World of Titan SmartWatch",
+   "found": "titan.co.in",
+   "answer": "right",
+   "domain": "titan.co.in"
+  },
+  {
+   "brand": "Bare Anatomy",
+   "found": "innovist.com",
+   "answer": "wrong",
+   "domain": null
+  },
+  {
+   "brand": "Chemist At Play",
+   "found": "innovist.com",
+   "answer": "wrong",
+   "domain": null
+  },
+  {
+   "brand": "Sun Scoop",
+   "found": "innovist.com",
+   "answer": "right",
+   "domain": "innovist.com"
+  },
+  {
+   "brand": "Innovist",
+   "found": "innovist.com",
+   "answer": "right",
+   "domain": "innovist.com"
+  },
+  {
+   "brand": "Cosmopolitan India",
+   "found": "subscriptions.intoday.in",
+   "answer": "wrong",
+   "domain": null
+  },
+  {
+   "brand": "Reader's Digest",
+   "found": "subscriptions.intoday.in",
+   "answer": "wrong",
+   "domain": null
+  },
+  {
+   "brand": "Armani Exchange Luxe",
+   "found": "luxegiftcard.com",
+   "answer": "wrong",
+   "domain": null
+  },
+  {
+   "brand": "Brooks Brothers-Luxe",
+   "found": "luxegiftcard.com",
+   "answer": "wrong",
+   "domain": null
+  },
+  {
+   "brand": "Coach Luxe",
+   "found": "luxegiftcard.com",
+   "answer": "wrong",
+   "domain": null
+  },
+  {
+   "brand": "Dune London-Luxe",
+   "found": "luxegiftcard.com",
+   "answer": "wrong",
+   "domain": null
+  },
+  {
+   "brand": "Gas-Luxe",
+   "found": "luxegiftcard.com",
+   "answer": "wrong",
+   "domain": null
+  },
+  {
+   "brand": "Hamleys - LUXE",
+   "found": "luxegiftcard.com",
+   "answer": "wrong",
+   "domain": null
+  },
+  {
+   "brand": "Hugo Boss",
+   "found": "luxegiftcard.com",
+   "answer": "wrong",
+   "domain": null
+  },
+  {
+   "brand": "Hugo Boss Luxe",
+   "found": "luxegiftcard.com",
+   "answer": "wrong",
+   "domain": null
+  },
+  {
+   "brand": "Kate Spade-Luxe",
+   "found": "luxegiftcard.com",
+   "answer": "wrong",
+   "domain": null
+  },
+  {
+   "brand": "Michael Kors-Luxe",
+   "found": "luxegiftcard.com",
+   "answer": "wrong",
+   "domain": null
+  },
+  {
+   "brand": "MOTHER CARE-Luxe",
+   "found": "luxegiftcard.com",
+   "answer": "wrong",
+   "domain": null
+  },
+  {
+   "brand": "Satya Paul-Luxe",
+   "found": "luxegiftcard.com",
+   "answer": "wrong",
+   "domain": null
+  },
+  {
+   "brand": "Scotch and Soda-Luxe",
+   "found": "luxegiftcard.com",
+   "answer": "wrong",
+   "domain": null
+  },
+  {
+   "brand": "Scotch Soda Luxe",
+   "found": "luxegiftcard.com",
+   "answer": "wrong",
+   "domain": null
+  },
+  {
+   "brand": "Steve Madde Luxe",
+   "found": "luxegiftcard.com",
+   "answer": "wrong",
+   "domain": null
+  },
+  {
+   "brand": "Superdry - Luxe",
+   "found": "luxegiftcard.com",
+   "answer": "wrong",
+   "domain": null
+  },
+  {
+   "brand": "Tumi - Luxe",
+   "found": "luxegiftcard.com",
+   "answer": "wrong",
+   "domain": null
+  },
+  {
+   "brand": "Armani Exchange-Luxe Gift Card",
+   "found": "luxegiftcard.com",
+   "answer": "wrong",
+   "domain": null
+  },
+  {
+   "brand": "Brooks Brothers -Luxe Gift Card",
+   "found": "luxegiftcard.com",
+   "answer": "wrong",
+   "domain": null
+  },
+  {
+   "brand": "Diesel- Luxe Gift Card",
+   "found": "luxegiftcard.com",
+   "answer": "wrong",
+   "domain": null
+  },
+  {
+   "brand": "GAS-Luxe Gift Card",
+   "found": "luxegiftcard.com",
+   "answer": "wrong",
+   "domain": null
+  },
+  {
+   "brand": "Hamleys-Luxe Gift Card",
+   "found": "luxegiftcard.com",
+   "answer": "wrong",
+   "domain": null
+  },
+  {
+   "brand": "Hunkemoller- Luxe Gift Card",
+   "found": "luxegiftcard.com",
+   "answer": "wrong",
+   "domain": null
+  },
+  {
+   "brand": "Mothercare-Luxe Gift Card",
+   "found": "luxegiftcard.com",
+   "answer": "wrong",
+   "domain": null
+  },
+  {
+   "brand": "MUJI- Luxe Gift Card",
+   "found": "luxegiftcard.com",
+   "answer": "wrong",
+   "domain": null
+  },
+  {
+   "brand": "RITU KUMAR- Luxe Gift Card",
+   "found": "luxegiftcard.com",
+   "answer": "wrong",
+   "domain": null
+  },
+  {
+   "brand": "Satya Paul- Luxe Gift Card",
+   "found": "luxegiftcard.com",
+   "answer": "wrong",
+   "domain": null
+  },
+  {
+   "brand": "Steve Madden-Luxe Gift Card",
+   "found": "luxegiftcard.com",
+   "answer": "wrong",
+   "domain": null
+  },
+  {
+   "brand": "Superdry-Luxe Gift Card",
+   "found": "luxegiftcard.com",
+   "answer": "wrong",
+   "domain": null
+  },
+  {
+   "brand": "TUMI- Luxe Gift Card",
+   "found": "luxegiftcard.com",
+   "answer": "wrong",
+   "domain": null
+  },
+  {
+   "brand": "WEST ELM- Luxe Gift Card",
+   "found": "luxegiftcard.com",
+   "answer": "wrong",
+   "domain": null
+  },
+  {
+   "brand": "BGMI UC Official Voucher",
+   "found": "unipin.com",
+   "answer": "right",
+   "domain": "unipin.com"
+  },
+  {
+   "brand": "BGMI UniPin",
+   "found": "unipin.com",
+   "answer": "right",
+   "domain": "unipin.com"
+  },
+  {
+   "brand": "UniPin BGMI",
+   "found": "unipin.com",
+   "answer": "right",
+   "domain": "unipin.com"
+  },
+  {
+   "brand": "Unipin- BGMI Voucher",
+   "found": "unipin.com",
+   "answer": "right",
+   "domain": "unipin.com"
+  },
+  {
+   "brand": "UniPin",
+   "found": "unipin.com",
+   "answer": "right",
+   "domain": "unipin.com"
+  },
+  {
+   "brand": "Dominos Pizza (Custom)",
+   "found": "brandpts.com",
+   "answer": "wrong",
+   "domain": null
+  },
+  {
+   "brand": "Pronto",
+   "found": "brandpts.com",
+   "answer": "wrong",
+   "domain": null
+  },
+  {
+   "brand": "Wow Chicken",
+   "found": "brandpts.com",
+   "answer": "wrong",
+   "domain": null
+  },
+  {
+   "brand": "Wow Momo",
+   "found": "brandpts.com",
+   "answer": "wrong",
+   "domain": null
+  },
+  {
+   "brand": "Cult",
+   "found": "pinelabs.com",
+   "answer": "wrong",
+   "domain": null
+  },
+  {
+   "brand": "CultFit",
+   "found": "pinelabs.com",
+   "answer": "wrong",
+   "domain": null
+  },
+  {
+   "brand": "American Eagle",
+   "found": "aeo.in",
+   "answer": "right",
+   "domain": "aeo.in"
+  },
+  {
+   "brand": "Tagg",
+   "found": "amdigital.in",
+   "answer": "wrong",
+   "domain": null
+  },
+  {
+   "brand": "EazyDiner",
+   "found": "b.ezyd.in",
+   "answer": "right",
+   "domain": "b.ezyd.in"
+  },
+  {
+   "brand": "EA SPORTS FC 26",
+   "found": "ea.com",
+   "answer": "right",
+   "domain": "ea.com"
+  },
+  {
+   "brand": "ET Prime",
+   "found": "economictimes.indiatimes.com",
+   "answer": "right",
+   "domain": "economictimes.indiatimes.com"
+  },
+  {
+   "brand": "Ferns N Petals",
+   "found": "fnp.com",
+   "answer": "right",
+   "domain": "fnp.com"
+  },
+  {
+   "brand": "Lego",
+   "found": "lego.mybrickhouse.com",
+   "answer": "right",
+   "domain": "lego.mybrickhouse.com"
+  },
+  {
+   "brand": "Nykaa Men",
+   "found": "myglamm.com",
+   "answer": "changed",
+   "domain": "nykaaman.com"
+  },
+  {
+   "brand": "Veridicus",
+   "found": "odhilife.com",
+   "answer": "wrong",
+   "domain": null
+  },
+  {
+   "brand": "Skullcandy",
+   "found": "shop.brandeyes.in",
+   "answer": "right",
+   "domain": "shop.brandeyes.in"
+  },
+  {
+   "brand": "TEGO",
+   "found": "tego.fit",
+   "answer": "right",
+   "domain": "tego.fit"
+  },
+  {
+   "brand": "Things2Do",
+   "found": "things2.do",
+   "answer": "right",
+   "domain": "things2.do"
+  },
+  {
+   "brand": "Third Wave Coffee",
+   "found": "cdn.razorpay.com",
+   "answer": "wrong",
+   "domain": null
+  },
+  {
+   "brand": "Discord",
+   "found": "mintroute.com",
+   "answer": "wrong",
+   "domain": null
+  },
+  {
+   "brand": "Ovenstory",
+   "found": "qwikcilver.com",
+   "answer": "changed",
+   "domain": "ovenstory.in"
+  },
+  {
+   "brand": "Credit Masterclass",
+   "found": "rb.gy",
+   "answer": "wrong",
+   "domain": null
+  },
+  {
+   "brand": "Moba Legends 5v5",
+   "found": "redeemcodenow.com",
+   "answer": "wrong",
+   "domain": null
+  },
+  {
+   "brand": "Rainbow Six Mobile",
+   "found": "redeemnow.com",
+   "answer": "wrong",
+   "domain": null
+  }
+ ]
+}
