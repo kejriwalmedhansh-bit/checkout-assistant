@@ -99,40 +99,59 @@ h1 {
   text-wrap: balance;
 }
 
+h1 em { font-style: normal; color: var(--terra); }
+
 .lede { color: var(--ink-soft); font-size: 15px; }
 
-/* The pivot from "here is the payoff" to "here is what it costs you". Set
-   apart so it can't be skimmed past — this is the sentence being consented to. */
-.ask-line {
-  font-size: 15px;
-  font-weight: 600;
-  color: var(--ink);
-  padding-top: 16px;
-  border-top: 1px solid var(--border);
+/* The picture: a checkout page with the Dealo panel in its corner, drawn in
+   the same colours as the real panel. The ₹520 on ₹4,000 is a real GIVA
+   silver-jewellery rate (13%) from 2026-09-17, labelled as an example by its
+   context, never a promise. */
+.preview {
+  position: relative;
+  height: 220px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  overflow: hidden;
 }
+.pv-line { position: absolute; left: 16px; height: 9px; border-radius: 5px; background: #EFEAE2; }
+.pv-total { position: absolute; left: 16px; top: 128px; font-size: 13px; color: var(--ink-soft); }
+.pv-total b { font-weight: 600; font-variant-numeric: tabular-nums; }
+.pv-pop {
+  position: absolute;
+  right: 14px;
+  bottom: 14px;
+  width: 176px;
+  display: grid;
+  gap: 5px;
+  padding: 11px 12px;
+  background: var(--cream);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  box-shadow: 0 10px 26px rgba(22, 32, 43, .22);
+}
+.pv-mark { font-family: var(--display); font-weight: 700; font-size: 12px; color: #1F3A5F; }
+.pv-mark span { color: var(--terra); }
+.pv-fig { font-size: 24px; font-weight: 500; line-height: 1; color: #1F3A5F; font-variant-numeric: tabular-nums; }
+.pv-cap { font-size: 10.5px; color: var(--muted); }
+.pv-btn { margin-top: 2px; padding: 6px; border-radius: 7px; background: var(--terra); color: #FFFFFF; font-size: 11.5px; font-weight: 600; text-align: center; }
 
-.ledger { list-style: none; display: flex; flex-direction: column; gap: 10px; }
-
-.ledger li {
-  display: flex;
-  align-items: flex-start;
-  gap: 11px;
-  font-size: 14.5px;
+.chips { list-style: none; display: flex; flex-wrap: wrap; gap: 6px; }
+.chips li {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 11px;
+  border-radius: 999px;
+  background: var(--cream);
+  border: 1px solid var(--border);
+  font-size: 12.5px;
   color: var(--ink-soft);
 }
-
-.ledger svg {
-  width: 17px;
-  height: 17px;
-  flex: 0 0 auto;
-  margin-top: 2px;
-  fill: none;
-  stroke-width: 2.6;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-}
-.ledger .yes svg { stroke: var(--teal); }
-.ledger .no svg { stroke: var(--muted); stroke-width: 2.4; }
+.chips svg { width: 13px; height: 13px; fill: none; stroke-width: 2.6; stroke-linecap: round; stroke-linejoin: round; }
+.chips .yes svg { stroke: var(--teal); }
+.chips .no svg { stroke: var(--muted); stroke-width: 2.4; }
 
 .cta {
   font-family: var(--body);

@@ -673,16 +673,15 @@ window.__dealoPopup = (() => {
 
   // When the gift-card box can't be found on this particular page, say so and
   // open the written steps, instead of pointing at something and being wrong.
+  // When the gift-card box can't be found on this page, say so quietly and
+  // leave the written steps to do the work. This used to be a full-width
+  // orange button that read as broken.
   function showWhereFallback() {
-    const root = document.getElementById("dealo-popup-root");
-    const btn = root?.querySelector("#dealo-where");
+    const btn = document.getElementById("dealo-popup-root")?.querySelector("#dealo-where");
     if (btn) {
-      btn.textContent = "Couldn't find it on this page";
+      btn.textContent = "Couldn't spot the box here, follow the steps";
       btn.disabled = true;
     }
-    const toggle = root?.querySelector(".dealo-explain-toggle");
-    const panel = root?.querySelector(".dealo-explain");
-    if (toggle && panel && panel.hidden) toggle.click();
   }
 
   function guideUnavailable() {
@@ -694,30 +693,24 @@ window.__dealoPopup = (() => {
   }
 
   // Step 3 done: the moment the shopper actually feels the win.
-  function renderBackAtStore(trip, { onDone, onShowWhere, onStepsToggle, onAbandon }) {
+  // Step 3: back at the shop with a code. Laid out as a checklist, because the
+  // redeem steps are the point of this screen and a collapsed "steps" link
+  // under two buttons buried them (2026-09-17). Being on the shop is the
+  // first step, already ticked. The code and PIN sit inside the step where
+  // they get pasted, so there is nothing to match up.
+  const VISIT_STEP = /^(please\s+)?(visit|go to|open|log\s*in|login|sign\s*in)\b.*\b(website|web\s*site|app|www\.|https?:)/i;
+  const CODE_STEP = /\b(code|pin|voucher|gift\s*card|e-?gift|apply|redeem)\b/i;
+
+  function renderBackAtStore(trip, { onDone, onShowWhere, onAbandon }) {
     const d = trip.deal;
-    // Open unless the shopper closed them. This is the one screen where the
-    // instructions are the point — they are standing at the discount box with
-    // a code in hand — so hiding them behind a tap by default was backwards.
-    const stepsOpen = trip.stepsOpen !== false;
-    // The store's own one-liner becomes the label on the steps toggle rather
-    // than a sentence sitting on the card — one tap away, not in the way.
-    const how = d.howToRedeemShort || "";
+    const here = location.hostname.replace(/^www\./, "");
     // Only claim the voucher covers the order when we actually read the order
     // total. Saying "that covers the whole order" off an unpriced trip is a
     // statement we have no basis for — caught in live testing on boAt.
-    // A number, not a sentence: "₹0 left to pay" is read at a glance.
     const left = !d.priced
       ? ""
       : `<div class="dealo-left">₹${rupees(d.remainder)} <span>left to pay</span></div>`;
-    // The brands write these as paragraphs — Amazon's middle step is three
-    // sentences with an "Alternatively…" branch and a sign-up aside. Nobody
-    // reads that mid-checkout, so each step is cut to its first instruction.
-    const steps = onlineSteps(d.howToRedeemSteps).slice(0, 3)
-      .map((s) => `<li>${esc(shortenStep(s))}</li>`).join("");
 
-    // The single most useful thing buried in those paragraphs is the redeem
-    // page's address. Pulled out as a button, it replaces reading entirely.
     // What THIS voucher can't be used for, straight from whoever sold it.
     // The three sellers genuinely differ — BuyHatke's AJIO card excludes H&M
     // products, which appears on no other source — so this is never borrowed
@@ -729,18 +722,8 @@ window.__dealoPopup = (() => {
          </div>`
       : "";
 
-    const redeemUrl = firstUrlIn(d.howToRedeemSteps || []);
-    const openBtn = redeemUrl
-      ? `<a class="dealo-button dealo-secondary dealo-withicon" id="dealo-open-redeem"
-            href="${esc(redeemUrl)}" target="_blank" rel="noopener noreferrer">
-           ${svg("link", 15, "currentColor", 1.9)} ${esc(prettyHost(redeemUrl))}
-         </a>`
-      : "";
-
     // Code and PIN are two separate things typed into two separate boxes, so
-    // they get two separate rows with their own Copy buttons. Showing them as
-    // "code · pin" on one line read as a single value, and copying gave you
-    // only half of what you needed at the second box.
+    // they get two separate rows with their own Copy buttons.
     const field = (label, value, id) => `
       <div class="dealo-field">
         <div class="dealo-field-label">${esc(label)}</div>
@@ -751,12 +734,7 @@ window.__dealoPopup = (() => {
           </button>
         </div>
       </div>`;
-
-    // One card per voucher bought. On the common single-voucher deal this is
-    // just one card and no dots — unchanged from before. On a deal that
-    // needed several purchases, all their codes already live on the device
-    // (collected earlier in the journey) — swiping between them here means
-    // never switching back to an email or notes app mid-checkout.
+    // One card per voucher bought, swiped between when there are several.
     const codes = trip.codes || [];
     const multiCode = codes.length > 1;
     const codeCards = codes.map((c, i) => `
@@ -768,24 +746,50 @@ window.__dealoPopup = (() => {
     const codeDots = multiCode
       ? `<div class="dealo-code-dots">${codes.map((_, i) => `<button class="dealo-code-dot${i === 0 ? " dealo-code-dot-on" : ""}" aria-label="Code ${i + 1}"></button>`).join("")}</div>`
       : "";
-
-    const root = card(`
+    const codeBlock = `
       <div class="dealo-code-carousel">${codeCards}</div>
       ${codeDots}
-      ${left}
+      <button class="dealo-where-link" id="dealo-where">${svg("target", 13, "currentColor", 2)} show me where</button>`;
+
+    // The brands write these as paragraphs; each is cut to its first
+    // instruction, in-store steps are gone (see onlineSteps), and "visit our
+    // website" is the step the shopper has already done.
+    const written = onlineSteps(d.howToRedeemSteps).map(shortenStep).filter((s) => !VISIT_STEP.test(s));
+    const redeemUrl = firstUrlIn(d.howToRedeemSteps || []);
+    const todo = [];
+    // A redeem page somewhere other than where they are (amazon.in/gc/redeem)
+    // is a step of its own, as a link.
+    if (redeemUrl && prettyHost(redeemUrl) !== here) {
+      todo.push({ html: `Open <a href="${esc(redeemUrl)}" target="_blank" rel="noopener noreferrer">${esc(prettyHost(redeemUrl))}</a>` });
+    }
+    written.slice(0, 3).forEach((text) => todo.push({ html: esc(text), text }));
+    let codeAt = -1;
+    todo.forEach((t, i) => { if (t.text && CODE_STEP.test(t.text)) codeAt = i; });
+    if (codeAt === -1) {
+      todo.push({ html: "Paste these where the shop asks for a gift card or voucher, then apply" });
+      codeAt = todo.length - 1;
+    }
+
+    const item = (n, html, extra = "", done = false) => `
+      <li class="dealo-check${done ? " dealo-check-done" : ""}">
+        <span class="dealo-check-dot">${done ? svg("check", 12, "#FFFFFF", 3) : n}</span>
+        <div class="dealo-check-text"><span>${html}</span>${extra}</div>
+      </li>`;
+    const checklist = `
+      <ol class="dealo-checklist">
+        ${item(1, `You're on ${esc(here)}`, "", true)}
+        ${todo.map((t, i) => item(i + 2, t.html, i === codeAt ? codeBlock : "")).join("")}
+      </ol>`;
+
+    const root = card(`
+      ${checklist}
       ${limitBlock}
-      <button class="dealo-button dealo-ring dealo-withicon" id="dealo-where">
-        ${svg("target", 17, "currentColor", 2)} Show me where
-      </button>
-      ${openBtn}
-      ${steps ? `<button class="dealo-explain-toggle dealo-centered">${svg("info", 13, "currentColor", 2)} steps</button>
-                 <div class="dealo-explain"${stepsOpen ? "" : " hidden"}><ol class="dealo-steps">${steps}</ol></div>` : ""}
+      ${left}
       <button class="dealo-link dealo-withicon" id="dealo-done">
         ${svg("check", 13, "#4A9B8E", 2.4)} code applied
       </button>
       <button class="dealo-link dealo-centered" id="dealo-abandon-trip">Start over</button>
     `, 3);
-    wireExplainToggle(root, onStepsToggle);
     if (multiCode) wireCodeCarousel(root);
     // Confirmation is the icon turning into a tick — "Copied" no longer fits
     // an icon-sized button, and the tick reads faster anyway.
@@ -800,9 +804,7 @@ window.__dealoPopup = (() => {
     root.querySelector("#dealo-where").addEventListener("click", () => onShowWhere());
     root.querySelector("#dealo-done").addEventListener("click", () => { onDone(); close(); });
     // Every other screen in the journey has a way out; this one did not, so a
-    // trip a shopper had abandoned kept taking over their cart for a week —
-    // including one left over from testing, which greeted the product owner
-    // with a three-day-old voucher code the moment they opened the shop.
+    // trip a shopper had abandoned kept taking over their cart for a week.
     root.querySelector("#dealo-abandon-trip").addEventListener("click", () => { onAbandon(); close(); });
   }
 
@@ -928,16 +930,15 @@ window.__dealoPopup = (() => {
 
   // When the gift-card box can't be found on this particular page, say so and
   // open the written steps, instead of pointing at something and being wrong.
+  // When the gift-card box can't be found on this page, say so quietly and
+  // leave the written steps to do the work. This used to be a full-width
+  // orange button that read as broken.
   function showWhereFallback() {
-    const root = document.getElementById("dealo-popup-root");
-    const btn = root?.querySelector("#dealo-where");
+    const btn = document.getElementById("dealo-popup-root")?.querySelector("#dealo-where");
     if (btn) {
-      btn.textContent = "Couldn't find it on this page";
+      btn.textContent = "Couldn't spot the box here, follow the steps";
       btn.disabled = true;
     }
-    const toggle = root?.querySelector(".dealo-explain-toggle");
-    const panel = root?.querySelector(".dealo-explain");
-    if (toggle && panel && panel.hidden) toggle.click();
   }
 
   function guideUnavailable() {
