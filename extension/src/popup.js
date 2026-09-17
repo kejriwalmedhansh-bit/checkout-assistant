@@ -264,7 +264,29 @@ window.__dealoPopup = (() => {
     });
   }
 
-  function renderVoucherFound(deal, onOpenVoucher) {
+  // Some shops sell several vouchers that each pay for different products —
+  // GIVA's silver jewellery card won't buy a silver coin, MakeMyTrip's hotels
+  // card won't buy a flight. Dealo sees the shop and the total, not the cart,
+  // so it asks. Product decision 2026-09-17: be transparent and let the
+  // shopper say what they are buying, then show that voucher and its terms.
+  function renderPickProduct(deal, onPick) {
+    const choices = deal.product_choices || [];
+    const chips = choices.map((c, i) => `
+      <button class="dealo-choice" data-i="${i}">
+        <span class="dealo-choice-label">${esc(c.choice_label)}</span>
+        <span class="dealo-choice-pct">${esc(+Number(c.pct).toFixed(1))}%</span>
+      </button>`).join("");
+    const root = card(`
+      <div class="dealo-message">What are you buying?</div>
+      <div class="dealo-caption">${esc(deal.brand_name.split(/[\s-]/)[0])} has a different voucher for each</div>
+      <div class="dealo-choices">${chips}</div>
+    `, 1);
+    root.querySelectorAll(".dealo-choice").forEach((btn) => {
+      btn.addEventListener("click", () => onPick(choices[Number(btn.dataset.i)]));
+    });
+  }
+
+  function renderVoucherFound(deal, onOpenVoucher, onChangeChoice = null) {
     const { big, caption } = headlineFigure(deal);
     // The three-icon strip answers "how does this work?" before it's asked:
     // buy a voucher, pay with it, done. That used to be a link to a paragraph.
@@ -289,9 +311,22 @@ window.__dealoPopup = (() => {
          </div>`
       : "";
 
+    // Only on a shop where the shopper picked what they are buying: what this
+    // voucher pays for, in its seller's words, with its terms one tap away.
+    const covers = onChangeChoice
+      ? `<div class="dealo-covers">
+           ${deal.covers ? `<span>${svg("info", 13, "#C2712F", 2)} ${esc(shortenStep(deal.covers))}</span>` : ""}
+           <span class="dealo-covers-links">
+             <a href="${esc(deal.voucher_url)}" target="_blank" rel="noopener noreferrer">read its terms</a>
+             · <button class="dealo-link" id="dealo-change-choice">change</button>
+           </span>
+         </div>`
+      : "";
+
     const root = card(`
       <div class="dealo-figure dealo-figure-tight">${big}</div>
       <div class="dealo-caption">${caption} at ${esc(deal.brand_name)}</div>
+      ${covers}
       ${plan}
       ${strip}
       <button class="dealo-button dealo-ring dealo-withicon" id="dealo-open-voucher">
@@ -307,6 +342,7 @@ window.__dealoPopup = (() => {
       onOpenVoucher();
       close();
     });
+    root.querySelector("#dealo-change-choice")?.addEventListener("click", () => onChangeChoice());
   }
 
   // `smallDeal` is a real voucher that didn't clear the worth-the-errand bar
@@ -857,7 +893,7 @@ window.__dealoPopup = (() => {
   }
 
   return {
-    renderVoucherFound, renderNoDeal, close, copyText, pointAt, guide, showWhereFallback, guideUnavailable,
+    renderVoucherFound, renderPickProduct, renderNoDeal, close, copyText, pointAt, guide, showWhereFallback, guideUnavailable,
     renderVoucherSiteStep, renderCodeEntry, renderBackAtStore, renderPlaceOrder, renderTripComplete,
   };
 })();

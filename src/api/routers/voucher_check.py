@@ -129,7 +129,12 @@ def _store_only_brands() -> frozenset[str]:
             kind = str(product.get("redemption_type") or "").strip().lower()
             if kind:
                 seen.add(kind)
-    return frozenset(name for name, seen in kinds.items() if seen and seen <= _OFFLINE_ONLY)
+    labelled = {name for name, seen in kinds.items() if seen and seen <= _OFFLINE_ONLY}
+    # A label is only the seller's summary. Where the card's own terms say it
+    # works online (Gyftr labels Air India Add-ons offline; its terms say
+    # airindia.com), the terms win.
+    online_by_terms = {_norm(card["name"]) for card in voucher_service._online_cards()}
+    return frozenset(labelled - online_by_terms)
 
 
 def _usable_online(deal: dict | None) -> bool:
@@ -162,7 +167,7 @@ def voucher_check(domain: str = Query(..., min_length=1), price: float | None = 
         and voucher_service.is_exact_brand_match(root, root_deal["brand_name"])
         and _usable_online(root_deal)
     ):
-        return root_deal
+        return _with_product_choices(root, root_deal, price)
 
     brand_name = domain_brand_repository.brand_for_domain(domain)
     if brand_name is None:
@@ -171,4 +176,14 @@ def voucher_check(domain: str = Query(..., min_length=1), price: float | None = 
     deal = voucher_service.get_voucher_check(brand_name, price)
     if not _usable_online(deal):
         return {"has_voucher": False}
-    return deal
+    return _with_product_choices(root, deal, price)
+
+
+def _with_product_choices(root: str, deal: dict, price: float | None) -> dict:
+    """On a shop whose cards each pay for different products, the answer is
+    the list, not whichever card pays most: a 14% hotels-only MakeMyTrip card
+    was otherwise offered to someone booking a flight."""
+    choices = [c for c in voucher_service.product_choices(root or "", price) if _usable_online(c)]
+    if len(choices) < 2:
+        return deal
+    return {**choices[0], "product_choices": choices}

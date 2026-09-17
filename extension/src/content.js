@@ -729,18 +729,28 @@
       // Carry the order total through: the popup needs it to state the saving
       // as a share of THIS order rather than the voucher's headline rate.
       result.cart_total = price;
-      window.__dealoPopup.renderVoucherFound(result, async () => {
+      const offer = (deal, onChangeChoice) => window.__dealoPopup.renderVoucherFound(deal, async () => {
         // Save the trip BEFORE handing them off. This is the moment Dealo used
         // to forget everything — the shopper leaves for the voucher site and
         // there was no way back to what they were buying, for how much, or
         // what to do next. Everything downstream reads this note.
         await ask({
           type: "tripStart",
-          trip: { domain, returnUrl: location.href, cartTotal: price, deal: result },
+          trip: { domain, returnUrl: location.href, cartTotal: price, deal },
         });
-        window.open(result.voucher_url, "_blank");
+        window.open(deal.voucher_url, "_blank");
         markDismissed(domain);
-      });
+      }, onChangeChoice);
+      // A shop whose vouchers each pay for different products: ask first,
+      // then offer the one they picked. See renderPickProduct.
+      if ((result.product_choices || []).length >= 2) {
+        const pick = () => window.__dealoPopup.renderPickProduct(result, (choice) => {
+          offer({ ...choice, cart_total: price }, pick);
+        });
+        pick();
+      } else {
+        offer(result);
+      }
     } else {
       // Two different silences, and saying "no discounts available" for both
       // was a small lie: on a too-small deal there IS one, it just isn't worth
