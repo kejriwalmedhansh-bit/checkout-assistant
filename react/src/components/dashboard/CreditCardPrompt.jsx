@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Box, Button, Flex, Text } from '@chakra-ui/react';
+import { AnimatePresence, motion, useReducedMotion } from 'framer-motion';
 
 import Card from '@/components/common/Card';
 import { I } from '@/components/common/icons';
@@ -27,6 +28,7 @@ import { effectiveCashback, fmt } from '@/utils/format';
  * "buy direct with this card" instead.
  */
 export default function CreditCardPrompt({ route, onPayingByCardChange, onQuoteChange }) {
+  const prefersReduced = useReducedMotion();
   const [stage, setStage] = useState('prompt'); // prompt | declined | picking | selected
   const [options, setOptions] = useState(null); // null = not fetched yet
   const [loadError, setLoadError] = useState(false);
@@ -82,7 +84,15 @@ export default function CreditCardPrompt({ route, onPayingByCardChange, onQuoteC
         Paying by card?
       </Text>
 
+      <AnimatePresence mode="wait" initial={false}>
       {stage === 'prompt' && (
+        <motion.div
+          key="prompt"
+          initial={prefersReduced ? false : { opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={prefersReduced ? undefined : { opacity: 0 }}
+          transition={{ duration: 0.15, ease: [0.16, 1, 0.3, 1] }}
+        >
         <Flex align="center" justify="space-between" gap="12px">
           <Flex align="center" gap="8px">
             <Box color="text2">
@@ -101,9 +111,17 @@ export default function CreditCardPrompt({ route, onPayingByCardChange, onQuoteC
             </Button>
           </Flex>
         </Flex>
+        </motion.div>
       )}
 
       {stage === 'declined' && (
+        <motion.div
+          key="declined"
+          initial={prefersReduced ? false : { opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={prefersReduced ? undefined : { opacity: 0 }}
+          transition={{ duration: 0.15, ease: [0.16, 1, 0.3, 1] }}
+        >
         <Flex align="center" justify="space-between" gap="10px">
           <Flex align="center" gap="8px" color="text2">
             <I.checkCircle size={14} />
@@ -113,9 +131,17 @@ export default function CreditCardPrompt({ route, onPayingByCardChange, onQuoteC
             Have a card?
           </Box>
         </Flex>
+        </motion.div>
       )}
 
       {stage === 'picking' && (
+        <motion.div
+          key="picking"
+          initial={prefersReduced ? false : { opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={prefersReduced ? undefined : { opacity: 0 }}
+          transition={{ duration: 0.15, ease: [0.16, 1, 0.3, 1] }}
+        >
         <Box>
           {options === null && !loadError && (
             <Text fontSize="13px" color="text2">
@@ -189,9 +215,17 @@ export default function CreditCardPrompt({ route, onPayingByCardChange, onQuoteC
             </Flex>
           )}
         </Box>
+        </motion.div>
       )}
 
       {stage === 'selected' && quote && (
+        <motion.div
+          key="selected"
+          initial={prefersReduced ? false : { opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={prefersReduced ? undefined : { opacity: 0 }}
+          transition={{ duration: 0.15, ease: [0.16, 1, 0.3, 1] }}
+        >
         <Flex direction="column" gap="12px">
           <Flex align="center" justify="space-between">
             <Flex align="center" gap="8px" color="text2">
@@ -266,7 +300,9 @@ export default function CreditCardPrompt({ route, onPayingByCardChange, onQuoteC
             </Box>
           )}
         </Flex>
+        </motion.div>
       )}
+      </AnimatePresence>
     </Card>
   );
 }

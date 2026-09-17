@@ -1,7 +1,29 @@
+import { useEffect, useState } from 'react';
 import { Box, Flex, Text } from '@chakra-ui/react';
+import { animate, useReducedMotion } from 'framer-motion';
 
 import { I } from '@/components/common/icons';
 import { fmt } from '@/utils/format';
+
+// Counts up to the real figure once, on mount — a quiet "we just computed
+// this" signal, not a slot-machine effect. Skipped entirely under
+// prefers-reduced-motion, where the final number just renders immediately.
+function useCountUp(target, prefersReduced) {
+  const [value, setValue] = useState(prefersReduced ? target : 0);
+  useEffect(() => {
+    if (prefersReduced) {
+      setValue(target);
+      return undefined;
+    }
+    const controls = animate(0, target, {
+      duration: 0.6,
+      ease: [0.16, 1, 0.3, 1],
+      onUpdate: (v) => setValue(Math.round(v)),
+    });
+    return () => controls.stop();
+  }, [target, prefersReduced]);
+  return value;
+}
 
 /**
  * The savings node — the first stop on the same route the steps below
@@ -30,6 +52,8 @@ import { fmt } from '@/utils/format';
 export default function SavingsBar({ originalPrice, finalPrice, saving, cardCashback = 0, voucherRequired = false }) {
   const voucherSaving = saving > 0 ? saving : 0;
   const totalSaving = voucherSaving + (cardCashback || 0);
+  const prefersReduced = useReducedMotion();
+  const displayedSaving = useCountUp(totalSaving, prefersReduced);
   if (!totalSaving || totalSaving <= 0) return null;
 
   const pct = originalPrice ? Math.round((totalSaving / originalPrice) * 100) : null;
@@ -70,7 +94,7 @@ export default function SavingsBar({ originalPrice, finalPrice, saving, cardCash
             lineHeight={1.1}
             letterSpacing="-.01em"
           >
-            {fmt(totalSaving)}
+            {fmt(displayedSaving)}
           </Text>
           <Flex align="center" gap="6px" fontSize="11px" fontFamily="mono" color="text2">
             <Text as="span" textDecoration="line-through" color="text3">

@@ -7,6 +7,7 @@ import InfoPageShell from '@/components/common/InfoPageShell';
 import { I } from '@/components/common/icons';
 import ALL_BRAND_DEALS from '@/data/allBrandDeals.json';
 import { BRAND_DEALS } from '@/data/brandDeals';
+import { useLenis } from '@/hooks/useLenis';
 import { usePageTitle } from '@/hooks/usePageTitle';
 import { ROUTES } from '@/routes/paths';
 import { track } from '@/utils/analytics';
@@ -135,6 +136,11 @@ function BrandRow({ brand }) {
 export default function BrandsIndexPage() {
   const [query, setQuery] = useState('');
   const [sort, setSort] = useState('rate');
+
+  // The one page long enough (~900 rows) for smooth-scroll to matter —
+  // every other page in the app is short by design (see design-system/dealo/
+  // MASTER.md and CLAUDE.md's no-vertical-scroll homepage).
+  useLenis();
 
   usePageTitle(
     'Gift Voucher deals by store',
