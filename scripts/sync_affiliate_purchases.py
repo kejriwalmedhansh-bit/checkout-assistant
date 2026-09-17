@@ -200,7 +200,7 @@ def fetch_inrdeals(start: date, end: date, client: httpx.Client) -> list[dict]:
 
 def import_events(events: list[dict], client: httpx.Client) -> None:
     settings = get_settings()
-    auth = (settings.MIXPANEL_SERVICE_ACCOUNT_USERNAME, settings.MIXPANEL_SERVICE_ACCOUNT_SECRET)
+    auth = (settings.MIXPANEL_SERVICE_ACCOUNT_USERNAME.strip(), settings.MIXPANEL_SERVICE_ACCOUNT_SECRET.strip())
     for i in range(0, len(events), IMPORT_BATCH):
         batch = events[i: i + IMPORT_BATCH]
         r = client.post(
@@ -219,10 +219,12 @@ def check_credentials() -> int:
     settings = get_settings()
     ok = True
     with httpx.Client(timeout=30.0) as client:
-        r = client.get(
-            "https://eu.mixpanel.com/api/app/me",
-            auth=(settings.MIXPANEL_SERVICE_ACCOUNT_USERNAME, settings.MIXPANEL_SERVICE_ACCOUNT_SECRET),
-        )
+        auth = (settings.MIXPANEL_SERVICE_ACCOUNT_USERNAME.strip(), settings.MIXPANEL_SERVICE_ACCOUNT_SECRET.strip())
+        print(f"[mixpanel] username looks like: {auth[0][:12]}… ({len(auth[0])} chars), secret {len(auth[1])} chars")
+        for host in ("https://eu.mixpanel.com", "https://mixpanel.com"):
+            r = client.get(f"{host}/api/app/me", auth=auth)
+            if r.status_code == 200:
+                break
         projects = ((r.json().get("results") or {}).get("projects") or {}) if r.status_code == 200 else {}
         if str(settings.MIXPANEL_PROJECT_ID) in {str(k) for k in projects}:
             print(f"[mixpanel] OK — service account can reach project {settings.MIXPANEL_PROJECT_ID}")
