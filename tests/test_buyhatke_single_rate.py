@@ -18,16 +18,24 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
 from src.services import voucher_service  # noqa: E402
 
-_ONE_RATE = {"discounts": {"any": 10.0}, "denominations": [500, 1000, 5000], "stack_limit": 10}
+def _chicco_tier() -> dict:
+    """A real one-rate listing: Chicco's discounts read {"any": ...}."""
+    deal = voucher_service.get_best_buyhatke_deal("Chicco", 5000)
+    assert deal is not None, "Chicco prices to nothing"
+    tier = deal[1]
+    assert set(tier["discounts"]) == {"any"}, "Chicco is no longer a one-rate listing; pick another"
+    return tier
 
 
 def test_a_single_rate_is_the_upi_rate():
-    assert voucher_service.calculate_effective_price(5000, _ONE_RATE, "upi")["voucher_discount_pct"] == 10.0
+    tier = _chicco_tier()
+    upi = voucher_service.calculate_effective_price(5000, tier, "upi")["voucher_discount_pct"]
+    assert upi == tier["discounts"]["any"]
 
 
 def test_a_single_rate_is_never_a_card_rate():
     """BuyHatke has no card purchase, so paying by card earns nothing."""
-    assert voucher_service.calculate_effective_price(5000, _ONE_RATE, "card")["voucher_discount_pct"] == 0
+    assert voucher_service.calculate_effective_price(5000, _chicco_tier(), "card")["voucher_discount_pct"] == 0
 
 
 def test_one_rate_brands_in_the_catalogue_price():
