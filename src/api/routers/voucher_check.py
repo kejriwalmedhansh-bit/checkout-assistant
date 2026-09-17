@@ -11,9 +11,17 @@ answer (has_voucher: true/false) either way, not an error to handle.
 """
 from __future__ import annotations
 
+import re
+from functools import lru_cache
+
 from fastapi import APIRouter, Query
 
-from ...repositories import domain_brand_repository
+from ...repositories import (
+    buyhatke_repository,
+    domain_brand_repository,
+    maximize_repository,
+    voucher_repository,
+)
 from ...schemas.voucher_check import VoucherCheckResponse
 from ...services import voucher_service
 
@@ -92,6 +100,45 @@ def _domain_root(domain: str) -> str:
     return parts[-2] if len(parts) >= 2 else parts[0]
 
 
+# The same test scripts/build_domain_brand_map.py uses to keep store-only
+# brands out of the domain map. Repeated here because the map is no longer
+# the only way in: a shop whose address says its own name is answered without
+# the map, so reliancedigital.in reached Reliance Digital's in-store voucher
+# again the moment the two changes met (caught 2026-09-17 before merging).
+# The extension only ever runs on a website, so a voucher no seller lets you
+# spend online is never an answer here, whichever way the brand was found.
+_OFFLINE_ONLY = {"offline", "in-store", "in store", "instore", "store locator"}
+_IN_STORE_NAME = re.compile(r"in.?store|store only|offline", re.I)
+
+
+def _norm(text: str | None) -> str:
+    return re.sub(r"[^a-z0-9]", "", (text or "").lower())
+
+
+@lru_cache(maxsize=1)
+def _store_only_brands() -> frozenset[str]:
+    kinds: dict[str, set[str]] = {}
+    records = (
+        voucher_repository.all_vouchers()
+        + maximize_repository.all_brands()
+        + buyhatke_repository.all_brands()
+    )
+    for record in records:
+        seen = kinds.setdefault(_norm(record.get("brand_name")), set())
+        for product in record.get("products") or []:
+            kind = str(product.get("redemption_type") or "").strip().lower()
+            if kind:
+                seen.add(kind)
+    return frozenset(name for name, seen in kinds.items() if seen and seen <= _OFFLINE_ONLY)
+
+
+def _usable_online(deal: dict | None) -> bool:
+    if not deal:
+        return False
+    brand = deal.get("brand_name") or ""
+    return not _IN_STORE_NAME.search(brand) and _norm(brand) not in _store_only_brands()
+
+
 @router.get("/voucher-check", response_model=VoucherCheckResponse)
 def voucher_check(domain: str = Query(..., min_length=1), price: float | None = None) -> dict:
     # The domain map is built from an audit CSV whose row for a domain is
@@ -110,7 +157,11 @@ def voucher_check(domain: str = Query(..., min_length=1), price: float | None = 
     # that don't say their brand (lifestylestores.com, tatacliq.com).
     root = _domain_root(domain)
     root_deal = voucher_service.get_voucher_check(root, price) if root else None
-    if root_deal and voucher_service.is_exact_brand_match(root, root_deal["brand_name"]):
+    if (
+        root_deal
+        and voucher_service.is_exact_brand_match(root, root_deal["brand_name"])
+        and _usable_online(root_deal)
+    ):
         return root_deal
 
     brand_name = domain_brand_repository.brand_for_domain(domain)
@@ -118,6 +169,6 @@ def voucher_check(domain: str = Query(..., min_length=1), price: float | None = 
         return {"has_voucher": False}
 
     deal = voucher_service.get_voucher_check(brand_name, price)
-    if deal is None:
+    if not _usable_online(deal):
         return {"has_voucher": False}
     return deal

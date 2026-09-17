@@ -47,9 +47,12 @@ def test_a_shop_that_says_its_own_name_needs_no_listing():
     """The hand-written domain map used to gate this: an address missing from
     its rows was answered "no voucher" without the shop's own name ever being
     tried. An exact brand-name match is its own evidence."""
-    answer = voucher_check(domain="subway.co.in", price=12000)
-    assert answer.get("has_voucher"), "subway.co.in still finds nothing"
-    assert answer["brand_name"].lower() == "subway"
+    # Not in the map, and redeemable online. (subway.co.in, the address this
+    # was found on, is the wrong example: Subway's voucher is in-store only on
+    # every seller, so "no voucher" is the right answer there.)
+    answer = voucher_check(domain="hammer.co.in", price=12000)
+    assert answer.get("has_voucher"), "hammer.co.in still finds nothing"
+    assert answer["brand_name"].lower() == "hammer"
 
 
 def test_places_that_are_not_shops_stay_silent():
@@ -66,6 +69,15 @@ def test_a_shop_whose_address_does_not_say_its_name_still_works():
     """What the domain map is actually for."""
     answer = voucher_check(domain="lifestylestores.com", price=12000)
     assert answer.get("has_voucher")
+
+
+def test_a_store_only_voucher_never_answers_at_an_online_checkout():
+    """These shops' vouchers work only at their tills. Reading the shop's
+    name out of its address must not bring them back after the domain map
+    dropped them — the two changes met 2026-09-17 and it did."""
+    for address in ("reliancedigital.in", "vijaysales.com", "helios.co.in", "subway.co.in"):
+        assert not voucher_check(domain=address, price=5000).get("has_voucher"), address
+        assert not voucher_check(domain=address).get("has_voucher"), address
 
 
 if __name__ == "__main__":
