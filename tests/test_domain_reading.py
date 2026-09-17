@@ -80,6 +80,29 @@ def test_a_store_only_voucher_never_answers_at_an_online_checkout():
         assert not voucher_check(domain=address).get("has_voucher"), address
 
 
+def test_a_card_whose_own_terms_say_stores_only_is_not_offered():
+    """Gyftr and Maximize label Victoria's Secret for online use; both of
+    their terms say listed stores only. Caught 2026-09-17."""
+    for price in (3000, None):
+        answer = voucher_check(domain="victoriassecret.in", price=price)
+        assert not answer.get("has_voucher") or answer["voucher_source"] == "buyhatke", answer
+
+
+def test_another_sellers_online_card_for_the_same_brand_still_counts():
+    """Judged per card: Gyftr's Lifestyle card is stores only, BuyHatke's is
+    online only. lifestylestores.com must still find the BuyHatke one."""
+    answer = voucher_check(domain="lifestylestores.com", price=12000)
+    assert answer.get("has_voucher")
+    assert answer["voucher_source"] != "gyftr", answer
+
+
+def test_a_card_labelled_in_store_loses_to_an_online_one():
+    """Maximize's Starbucks card is labelled in-store and paid more than
+    BuyHatke's online card, so it used to win at starbucks.in."""
+    answer = voucher_check(domain="starbucks.in", price=2000)
+    assert not answer.get("has_voucher") or answer["voucher_source"] != "maximize", answer
+
+
 if __name__ == "__main__":
     checks = [v for k, v in sorted(globals().items()) if k.startswith("test_")]
     failed = 0
