@@ -50,3 +50,28 @@ def test_a_shop_with_one_kind_of_voucher_is_not_asked():
 
 def test_choices_come_without_a_price_too():
     assert len(_labels(voucher_check(domain="giva.co"))) >= 3
+
+
+def test_yatra_picks_the_flight_card_that_saves_most_on_this_fare():
+    """Yatra's flight card comes at ₹500 (85%), ₹1,500 (35%) and ₹2,000 (25%),
+    one per bill. On a ₹4,000 fare the ₹1,500 card saves most, not the 85%."""
+    choices = voucher_check(domain="yatra.com", price=4000)["product_choices"]
+    flights = next(c for c in choices if "flight" in c["choice_label"].lower())
+    assert flights["brand_name"] == "Yatra - 1500" and flights["saving"] == 525, flights
+    assert "anything else" in _labels({"product_choices": choices})
+
+
+def test_air_india_add_ons_count_because_their_terms_say_airindia_com():
+    """Gyftr labels the Add-ons card offline; its terms say airindia.com."""
+    assert any("add-on" in l for l in _labels(voucher_check(domain="airindia.com", price=4000)))
+
+
+def test_a_card_whose_dates_have_passed_is_never_a_choice():
+    """Fly Rajasthan only covers journeys from May to July 2026."""
+    names = [c["brand_name"].lower() for c in voucher_check(domain="airindia.com", price=4000)["product_choices"]]
+    assert not any("rajasthan" in n for n in names), names
+
+
+def test_goibibo_still_asks_when_the_general_card_cannot_price_this_order():
+    labels = _labels(voucher_check(domain="goibibo.com", price=4000))
+    assert any("hotel" in l for l in labels) and "anything else" in labels, labels

@@ -8,6 +8,7 @@ from __future__ import annotations
 
 import json
 import math
+from datetime import date
 import re
 from functools import lru_cache
 from pathlib import Path
@@ -1715,28 +1716,56 @@ def _prefer_exact_name_matches(candidates: list[tuple], merchant_name: str, bran
     return exact or candidates
 
 
+_MONTHS = {m: i for i, m in enumerate(
+    ("january", "february", "march", "april", "may", "june", "july",
+     "august", "september", "october", "november", "december"), start=1)}
+
+
+def _window_has_ended(rules: dict, today: date | None = None) -> bool:
+    """True when the card's terms limit it to dates that are already past.
+
+    Air India's "Fly Rajasthan" card is "valid only for journeys between 1st
+    May 2026 and 31st July 2026"; offered at a September checkout, it buys
+    nothing. The last date named in a `date:` exclusion is the window's end.
+    """
+    today = today or date.today()
+    for item in _rule_value(rules, "excludes") or []:
+        text = str(item).lower()
+        if not text.startswith("date:"):
+            continue
+        found = re.findall(r"(\d{1,2})(?:st|nd|rd|th)?\s+([a-z]+)\s+(\d{4})", text)
+        ends = [date(int(y), _MONTHS[m], int(d)) for d, m, y in found if m in _MONTHS]
+        if ends and max(ends) < today:
+            return True
+    return False
+
+
 def _card_refuses_online(source: str, record: dict | None) -> bool:
-    """True when this seller's own terms say its card cannot be spent online.
+    """True when this seller's card cannot be spent at an online checkout now.
 
     Judged per card, not per brand: sellers sell different cards under one
     brand name. Gyftr's Lifestyle card "CANNOT be used Online at
     lifestylestores.com" while BuyHatke's is "redeemable only through online
-    stores and apps of lifestylestores.com". The platform's own online/offline
-    label is not enough either: Gyftr and Maximize both label Victoria's
-    Secret for online use, and both of their terms say listed stores only.
+    stores and apps of lifestylestores.com".
+
+    The card's own terms decide first and its seller's label only when they
+    are silent, the same order build_deals uses: labels have been wrong both
+    ways. Gyftr and Maximize label Victoria's Secret online while both of
+    their terms say stores only; Gyftr labels Air India Add-ons offline while
+    its terms say airindia.com. Maximize's Starbucks card says nothing and is
+    labelled in-store, so the label keeps it off starbucks.in.
     """
     if not record:
         return False
-    # Its own label first: Maximize sells a Starbucks card marked in-store,
-    # and it paid more than BuyHatke's online one, so it won at starbucks.in.
+    rules = _standardised_rules(source, record.get("slug") or "") if record.get("slug") else {}
+    if _window_has_ended(rules):
+        return True
+    said = _rule_value(rules, "works_online")
+    if said in ("yes", "no"):
+        return said == "no"
     kinds = {str(p.get("redemption_type") or "").strip().lower() for p in record.get("products") or [record]}
     kinds.discard("")
-    if kinds and kinds <= {"offline", "in-store", "in store", "instore", "store locator"}:
-        return True
-    slug = record.get("slug")
-    if not slug:
-        return False
-    return _rule_value(_standardised_rules(source, slug), "works_online") == "no"
+    return bool(kinds) and kinds <= {"offline", "in-store", "in store", "instore", "store locator"}
 
 
 # Words a seller adds to a card's name that say nothing about what it buys:
@@ -1749,8 +1778,9 @@ _CARD_NAME_NOISE = re.compile(
 
 def _card_words(name: str) -> list[str]:
     words = re.findall(r"[a-z0-9]+", _CARD_NAME_NOISE.sub(" ", (name or "").lower()))
-    # "Hotels" and "Hotel" are the same card on two sellers.
-    return [w[:-1] if len(w) > 4 and w.endswith("s") else w for w in words]
+    # "Hotels" and "Hotel" are the same card on two sellers, and so are
+    # "Yatra Hotels and Holidays" and "Yatra Hotels Holidays".
+    return [w[:-1] if len(w) > 4 and w.endswith("s") else w for w in words if w != "and"]
 
 
 @lru_cache(maxsize=1)
@@ -1788,10 +1818,60 @@ def _choice_label(card_name: str, shop_label: str, is_plain_brand: bool, covers:
         if short and len(short) <= 45:
             return short[0].upper() + short[1:].lower()
     if not is_plain_brand:
-        rest = " ".join(_card_words(card_name)[len(_card_words(shop_label)):])
+        # The card's own words, minus the brand at the front: "Air India
+        # Add-ons" -> "Add-ons", "Yatra Hotels and Holidays" -> "Hotels and
+        # holidays".
+        words = re.findall(r"[A-Za-z0-9][A-Za-z0-9'-]*", _CARD_NAME_NOISE.sub(" ", card_name))
+        brand = "".join(_card_words(shop_label))
+        # "Giva-Silver Jewellery": the brand can be hyphenated onto the first word.
+        if words and "-" in words[0] and brand.startswith(re.sub(r"[^a-z0-9]", "", words[0].split("-")[0].lower())):
+            words = words[0].split("-", 1) + words[1:]
+        taken = ""
+        while words and brand.startswith(taken + re.sub(r"[^a-z0-9]", "", words[0].lower())):
+            taken += re.sub(r"[^a-z0-9]", "", words.pop(0).lower())
+        rest = " ".join(words)
         if rest:
-            return rest.capitalize()
+            return rest[0].upper() + rest[1:].lower()
     return "Anything else"
+
+
+def _group_by_name(cards) -> dict[str, list[dict]]:
+    groups: dict[str, list[dict]] = {}
+    for card in cards:
+        groups.setdefault(card["key"], []).append(card)
+    return groups
+
+
+_COVERS_FILLER = {
+    "the", "on", "of", "only", "for", "at", "in", "to", "via", "or", "through", "website", "mobile",
+    "app", "booking", "valid", "all", "eligible", "purchase", "product", "made", "desktop", "www", "com",
+}
+
+
+def _split_by_what_they_cover(cards: list[dict], shop_label: str) -> list[list[dict]]:
+    """Cards sharing a name can still buy different things: "Yatra - 500" is
+    flights only, BuyHatke's plain "Yatra" is flights, hotels, buses and
+    holidays. Cards whose terms describe the same things stay together (Air
+    India's card reads "tickets and ancillary products" on all three sellers);
+    a card whose terms say nothing joins the broadest group."""
+    def words(text):
+        return {w for w in _card_words(text) if w not in _COVERS_FILLER and not shop_label.startswith(w)}
+
+    described = sorted((c for c in cards if c["covers"]), key=lambda c: -len(words(c["covers"])))
+    clusters: list[tuple[set, list[dict]]] = []
+    for card in described:
+        mine = words(card["covers"])
+        for seen, members in clusters:
+            if mine and seen and len(mine & seen) / len(mine | seen) >= 0.3:
+                members.append(card)
+                break
+        else:
+            clusters.append((mine, [card]))
+    silent = [c for c in cards if not c["covers"]]
+    if not clusters:
+        return [silent] if silent else []
+    clusters[0][1].extend(silent)
+    return [members for _, members in clusters]
 
 
 def product_choices(shop_label: str, price: float | None = None) -> list[dict]:
@@ -1815,23 +1895,35 @@ def product_choices(shop_label: str, price: float | None = None) -> list[dict]:
     family = [c for c in _online_cards() if c["key"].startswith(label)]
     if not any(c["covers"] for c in family):
         return []
-    groups: dict[str, list[dict]] = {}
-    for card in family:
-        groups.setdefault(card["key"], []).append(card)
+    groups = [g for cards in _group_by_name(family).values() for g in _split_by_what_they_cover(cards, label)]
     if len(groups) < 2:
         return []
 
     choices = []
-    for key, cards in groups.items():
-        best = max(cards, key=lambda c: c["pct"])
-        deal = get_voucher_check(best["name"], price)
-        # A lookup that slid onto a sibling card would answer for the wrong product.
-        if not deal or "".join(_card_words(deal.get("brand_name") or "")) != key:
+    for cards in groups:
+        # Within one kind of product, the card that saves most on THIS order,
+        # not the highest rate: Yatra's flight card is 85% on ₹500, 35% on
+        # ₹1,500 and one per bill, so on a ₹4,000 fare the ₹1,500 one wins.
+        offers = []
+        for name in {c["name"] for c in cards}:
+            # A lookup that slid onto a sibling card would answer for the wrong
+            # product. When this order can't be priced for the card (BuyHatke's
+            # general Goibibo card at ₹4,000 slid onto the hotels-only one),
+            # it is still a choice, stated by its rate.
+            for asked in (price, None) if price else (None,):
+                deal = get_voucher_check(name, asked)
+                if deal and _norm_brand(deal.get("brand_name")) == _norm_brand(name):
+                    offers.append((deal, next(c for c in cards if c["name"] == name)))
+                    break
+        if not offers:
             continue
-        covers = best["covers"] or next((c["covers"] for c in cards if c["covers"]), None)
+        deal, card = max(offers, key=lambda o: (o[0].get("saving") or 0, o[0].get("pct") or 0))
+        if any(c["brand_name"] == deal["brand_name"] and c["voucher_source"] == deal["voucher_source"] for c in choices):
+            continue
+        covers = card["covers"] or next((c["covers"] for c in cards if c["covers"]), None)
         choices.append({
             **deal,
-            "choice_label": _choice_label(best["name"], shop_label, key == label, covers),
+            "choice_label": _choice_label(card["name"], shop_label, card["key"] == label, covers),
             "covers": covers,
         })
     choices.sort(key=lambda c: c.get("pct") or 0, reverse=True)

@@ -129,7 +129,12 @@ def _store_only_brands() -> frozenset[str]:
             kind = str(product.get("redemption_type") or "").strip().lower()
             if kind:
                 seen.add(kind)
-    return frozenset(name for name, seen in kinds.items() if seen and seen <= _OFFLINE_ONLY)
+    labelled = {name for name, seen in kinds.items() if seen and seen <= _OFFLINE_ONLY}
+    # A label is only the seller's summary. Where the card's own terms say it
+    # works online (Gyftr labels Air India Add-ons offline; its terms say
+    # airindia.com), the terms win.
+    online_by_terms = {_norm(card["name"]) for card in voucher_service._online_cards()}
+    return frozenset(labelled - online_by_terms)
 
 
 def _usable_online(deal: dict | None) -> bool:
