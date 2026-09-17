@@ -220,7 +220,6 @@ def check_credentials() -> int:
     ok = True
     with httpx.Client(timeout=30.0) as client:
         auth = (settings.MIXPANEL_SERVICE_ACCOUNT_USERNAME.strip(), settings.MIXPANEL_SERVICE_ACCOUNT_SECRET.strip())
-        print(f"[mixpanel] username looks like: {auth[0][:12]}… ({len(auth[0])} chars), secret {len(auth[1])} chars")
         for host in ("https://eu.mixpanel.com", "https://mixpanel.com"):
             r = client.get(f"{host}/api/app/me", auth=auth)
             if r.status_code == 200:
