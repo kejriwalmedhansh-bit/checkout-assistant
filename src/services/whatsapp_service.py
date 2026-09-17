@@ -48,24 +48,76 @@ _search_rate_limiter = RateLimiter(
 
 
 def _track(event: str, phone: str, **properties) -> None:
-    """Fire-and-forget wrapper around analytics_service.track — creates a
-    background task so a slow/down Mixpanel never delays a WhatsApp reply."""
-    asyncio.create_task(analytics_service.track(event, phone, properties))
+    """Fire-and-forget: a slow/down Mixpanel never delays a WhatsApp reply.
+    Event names must be listed in tracking-plan.json."""
+    analytics_service.fire(analytics_service.whatsapp_event(event, phone, properties))
 
 
-def _affiliate_url(link: str) -> str:
-    """Cuelinks wrapper for merchant store links — mirrors the web frontend's
-    affiliateUrl(). Deliberately NOT applied to Gyftr voucher links.
+def _link_params(phone: str, ctx: str) -> str:
+    return f"surface=whatsapp&did={analytics_service.whatsapp_device_id(phone)}&ctx={ctx}"
 
-    Routes through our own /go redirect (see api/routers/redirect.py)
-    instead of linksredirect.com directly, so the WhatsApp button's URL —
-    visible to Meta's link scanner and, briefly, in-browser on tap — shows
-    our own domain rather than an unfamiliar third-party tracking redirect.
-    """
+
+def _affiliate_url(link: str, phone: str, ctx: str) -> str:
+    """Merchant store link through our own /go redirect (see
+    api/routers/redirect.py), which logs the click, wraps it for commission
+    and stamps the scrambled person id onto it. Meta never reports CTA taps,
+    so /go is the only way a tap on these buttons is ever seen."""
     if not link:
         return link
     settings = get_settings()
-    return f"{settings.PUBLIC_BASE_URL}/go?url={quote(link, safe='')}"
+    return f"{settings.PUBLIC_BASE_URL}/go?url={quote(link, safe='')}&{_link_params(phone, ctx)}"
+
+
+def _outbound_url(link: str, phone: str, kind: str, ctx: str) -> str:
+    """Voucher-partner or card-application link through /out: logged, not
+    affiliate-wrapped."""
+    if not link:
+        return link
+    settings = get_settings()
+    return f"{settings.PUBLIC_BASE_URL}/out?url={quote(link, safe='')}&kind={kind}&{_link_params(phone, ctx)}"
+
+
+# ── website → WhatsApp hand-off ────────────────────────────────────────────────
+
+# The website's WhatsApp buttons pre-fill one of these, followed by
+# "(ref <code>)" where <code> is the visitor's website id (see
+# react/src/utils/whatsappLink.js). Keep both files in step.
+WEBSITE_GREETINGS = (
+    "hi! i'd like to try dealo on whatsapp.",
+    "hi! i have a question about dealo.",
+)
+_REF_RE = re.compile(r"\(ref ([A-Za-z0-9-]{8,40})\)", re.IGNORECASE)
+_UUID_HEX_LEN = 32
+
+
+def _decode_ref(code: str) -> str | None:
+    """A uuid travels as base36 (shorter in the chat box); anything else
+    (older browsers mint a non-uuid id) travels as-is."""
+    if "-" in code:
+        return code
+    try:
+        n = int(code, 36)
+    except ValueError:
+        return None
+    h = f"{n:032x}"
+    if len(h) != _UUID_HEX_LEN:
+        return None
+    return f"{h[:8]}-{h[8:12]}-{h[12:16]}-{h[16:20]}-{h[20:]}"
+
+
+def extract_website_ref(text: str) -> tuple[str, str | None, bool]:
+    """Returns (text without the ref, website visitor id or None, whether what's
+    left is only one of our own pre-filled greetings)."""
+    visitor_id = None
+    match = _REF_RE.search(text or "")
+    if match and (visitor_id := _decode_ref(match.group(1))):
+        text = (text[: match.start()] + text[match.end():]).strip()
+    is_greeting = re.sub(r"\s+", " ", text.strip().lower()) in WEBSITE_GREETINGS
+    return text, visitor_id, is_greeting
+
+
+_CONVERSATION_GAP_SECONDS = 30 * 60
+_active_conversations = TTLCache(default_ttl=_CONVERSATION_GAP_SECONDS)
 
 
 # ── input classification (ported from whatsapp/classifier.py) ───────────────────
@@ -283,7 +335,7 @@ async def _send_voucher_steps(phone: str, route: dict) -> None:
     step_n = 1
 
     if check_page_first:
-        affiliate_link = _affiliate_url(link)
+        affiliate_link = _affiliate_url(link, phone, "check_page_step")
         check_text = (
             f"*Step {step_n} of {total_steps}*\n\n"
             f"Confirm on {merchant} 👇 — right product, size, in stock.\n\n"
@@ -346,7 +398,7 @@ async def _send_voucher_steps(phone: str, route: dict) -> None:
         cap_kind = upi.get("per_txn_cap_kind")
         cap_text = f", *₹{cap:,.0f}* max per transaction" if cap and cap_kind == "transaction" else ""
         step1_text += f"\n\nYou'll need to do this {txns} separate times{cap_text}."
-    voucher_url = voucher["voucher_url"]
+    voucher_url = _outbound_url(voucher["voucher_url"], phone, "voucher_site", "buy_voucher_step")
     if not await send_cta_url(phone, step1_text, "Buy Gift Voucher Now", voucher_url):
         await send_text(phone, f"{step1_text}\n{voucher_url}")
     _track(
@@ -376,7 +428,7 @@ async def _send_voucher_steps(phone: str, route: dict) -> None:
             f"{remainder_line}"
         )
         if link:
-            affiliate_link = _affiliate_url(link)
+            affiliate_link = _affiliate_url(link, phone, "redeem_step")
             if not await send_cta_url(phone, step2_text, f"Open {merchant}", affiliate_link):
                 await send_text(phone, f"{step2_text}\n{affiliate_link}")
         else:
@@ -391,7 +443,7 @@ async def _send_direct_cta(phone: str, route: dict) -> None:
     sellers = route.get("sellers") or []
     link = sellers[0].get("link") if sellers else None
     if link:
-        affiliate_link = _affiliate_url(link)
+        affiliate_link = _affiliate_url(link, phone, "direct_buy_step")
         body_text = f"Best price is at *{merchant}* — ready to buy?"
         if not await send_cta_url(phone, body_text, f"Open {merchant}", affiliate_link):
             await send_text(phone, f"{body_text}\n{affiliate_link}")
@@ -430,7 +482,7 @@ async def _send_card_fomo(phone: str, route: dict) -> bool:
     if not card_saving or card_saving <= 0:
         return False
     card_name = card_fomo.get("card_name", "")
-    apply_url = card_fomo.get("apply_url") or ""
+    apply_url = _outbound_url(card_fomo.get("apply_url") or "", phone, "card_apply", "card_offer")
     body_text = f"💳 Have an *{card_name}* card? You could save an extra *₹{card_saving:,.0f}* on this order."
     if apply_url:
         # Fixed generic label, not f"Apply for {card_name}" — the card name
@@ -442,6 +494,7 @@ async def _send_card_fomo(phone: str, route: dict) -> bool:
             await send_text(phone, f"{body_text}\nDon't have one? Apply here: {apply_url}")
     else:
         await send_text(phone, body_text)
+    _track("WhatsApp Card Offer Shown", phone, card_name=card_name, saving_amount=card_saving, has_apply_link=bool(apply_url))
     return True
 
 
@@ -467,6 +520,7 @@ async def _send_success_flow(phone: str, route: dict, image_url: str | None) -> 
     voucher_platform = "none"
     if voucher:
         voucher_platform = "Maximize" if voucher.get("voucher_source") == "maximize" else "Gyftr"
+    discount_pct = round((savings / listed_price) * 100) if listed_price and savings > 0 else 0
     _track(
         "WhatsApp Recommendation Shown", phone,
         title=route.get("title", ""),
@@ -475,7 +529,18 @@ async def _send_success_flow(phone: str, route: dict, image_url: str | None) -> 
         listed_price=listed_price,
         final_cost=final_cost,
         discount_amount=savings,
-        discount_pct=round((savings / listed_price) * 100) if listed_price and savings > 0 else 0,
+        discount_pct=discount_pct,
+    )
+    _track(
+        "Deal Shown", phone,
+        product_title=route.get("title", ""),
+        merchant=_display_merchant(route),
+        has_voucher=bool(voucher),
+        voucher_platform=voucher_platform,
+        listed_price=listed_price,
+        final_cost=final_cost,
+        saving_amount=savings,
+        saving_pct=discount_pct,
     )
     await asyncio.sleep(_MESSAGE_PACE_SECONDS)
     if route.get("voucher"):
@@ -967,6 +1032,11 @@ async def _send_product_picker(
     flow_sent = await send_product_flow(
         phone, body_text, "Select product", query, products,
     )
+    _track(
+        "WhatsApp Picker Shown", phone,
+        query=query, candidate_count=len(products), approximate=approximate,
+        picker_type="photo_flow" if flow_sent else "text_list",
+    )
     if flow_sent:
         return
     rows = []
@@ -1077,6 +1147,7 @@ async def handle_alternatives(phone: str) -> None:
     alternatives = session.get("routes", {}).get("alternatives", [])
     if not alternatives:
         await send_text(phone, WHATSAPP_NO_ALTERNATIVES_MSG)
+        _track("WhatsApp No Alternatives", phone)
         return
     _track("WhatsApp Alternatives Requested", phone, count=len(alternatives))
     rows = []
@@ -1168,6 +1239,27 @@ async def _send_state_aware_nudge(phone: str) -> None:
     await send_text(phone, WHATSAPP_ONBOARDING_MSG)
 
 
+def _track_conversation_start(phone: str, msg: dict) -> None:
+    """Session Started on the first message after 30 quiet minutes. A
+    click-to-WhatsApp ad puts a `referral` block on the first message; its
+    fields label the whole conversation's source."""
+    if _active_conversations.get(phone):
+        _active_conversations.touch(phone, _CONVERSATION_GAP_SECONDS)
+        return
+    _active_conversations.set(phone, True)
+    referral = msg.get("referral") or {}
+    props = {"entry": "ad" if referral else "message"}
+    if referral:
+        props.update({
+            "ad_source_type": referral.get("source_type", ""),
+            "ad_source_id": referral.get("source_id", ""),
+            "ad_source_url": referral.get("source_url", ""),
+            "ad_headline": referral.get("headline", ""),
+            "ad_click_id": referral.get("ctwa_clid", ""),
+        })
+    _track("Session Started", phone, **props)
+
+
 _SEEN_MESSAGE_TTL_SECONDS = 600  # comfortably longer than Meta's webhook retry window
 _seen_message_ids = TTLCache(default_ttl=_SEEN_MESSAGE_TTL_SECONDS)
 
@@ -1200,6 +1292,7 @@ async def handle_incoming(body: dict) -> None:
             _seen_message_ids.set(msg_id, True)
 
         _track("WhatsApp Message Received", phone, msg_type=msg_type)
+        _track_conversation_start(phone, msg)
 
         if msg_type == "interactive":
             interactive = msg.get("interactive", {})
@@ -1208,6 +1301,7 @@ async def handle_incoming(body: dict) -> None:
                 reply_id = interactive["button_reply"]["id"]
                 reply_title = interactive["button_reply"].get("title", reply_id)
                 message_log.record(phone, "in", f"[tapped] {reply_title}")
+                _track("WhatsApp Button Tapped", phone, button_id=reply_id, button_title=reply_title)
                 if reply_id == "see_alternatives":
                     await send_typing_indicator(msg_id)
                     _run_exclusive(phone, handle_alternatives(phone))
@@ -1300,8 +1394,18 @@ async def _process_text_message(phone: str, msg_id: str | None, text: str) -> No
     overwhelming rather than responsive."""
     await asyncio.sleep(_TEXT_DEBOUNCE_SECONDS)
 
+    text, website_visitor_id, is_website_greeting = extract_website_ref(text)
+    if website_visitor_id:
+        # Carrying the website id as $device_id alongside this phone's
+        # $user_id is what joins the website visits to this person.
+        analytics_service.fire(analytics_service.whatsapp_event(
+            "Identity Linked", phone, {"from_surface": "web"}, device_id=website_visitor_id,
+        ))
+
     is_new = session_store.is_new_user(phone)
-    classification = classify_input(text)
+    classification = (
+        {"type": "unparseable", "reason": "website_greeting"} if is_website_greeting else classify_input(text)
+    )
 
     if is_new:
         await send_text(phone, WHATSAPP_ONBOARDING_MSG)
@@ -1329,4 +1433,5 @@ async def _process_text_message(phone: str, msg_id: str | None, text: str) -> No
         return
 
     _track("WhatsApp Search", phone, query=text, input_type=classification["type"])
+    _track("Product Searched", phone, query=text, input_type=classification["type"])
     await _run_with_typing_keepalive(msg_id, process_and_respond(phone, classification))

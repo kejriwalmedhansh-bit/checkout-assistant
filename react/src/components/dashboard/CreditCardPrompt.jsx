@@ -6,6 +6,7 @@ import Card from '@/components/common/Card';
 import { I } from '@/components/common/icons';
 import { cardOptionsApi } from '@/api/cardOptions.api';
 import { effectiveCashback, fmt } from '@/utils/format';
+import { outboundLink } from '@/utils/analytics';
 
 /**
  * Replaces the old auto-picked "best card" nudge (CardFomo). Nothing shows
@@ -282,7 +283,7 @@ export default function CreditCardPrompt({ route, onPayingByCardChange, onQuoteC
           {quote.apply_url && (
             <Box
               as="a"
-              href={quote.apply_url}
+              href={outboundLink(quote.apply_url, 'card_apply', 'credit_card_prompt')}
               target="_blank"
               rel="noreferrer"
               alignSelf="flex-start"

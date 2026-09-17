@@ -20,6 +20,18 @@ import { normalizeSearchInput } from '@/utils/query';
 import { track } from '@/utils/analytics';
 import { originalPrice, finalPrice, saving } from '@/utils/format';
 
+const PLATFORM_NAMES = { gyftr: 'Gyftr', maximize: 'Maximize', buyhatke: 'BuyHatke' };
+
+function voucherPlatform(source) {
+  return PLATFORM_NAMES[source] || source || 'unknown';
+}
+
+function savingPct(result, rec) {
+  const listed = originalPrice(result, rec);
+  const saved = saving(result, rec);
+  return listed && saved > 0 ? Math.round((saved / listed) * 100) : 0;
+}
+
 const STALE_AFTER_MS = 45 * 60 * 1000; // 45 minutes
 
 export const useSearchStore = create(
@@ -88,6 +100,11 @@ export const useSearchStore = create(
               mode: data.mode || 'products',
               result_count: (data.products || []).length,
             });
+            track('Product Searched', {
+              query: q,
+              input_type: data.mode || 'products',
+              result_count: (data.products || []).length,
+            });
           }
         } catch (err) {
           set({ searchStatus: 'error', error: extractErrorMessage(err) });
@@ -121,6 +138,18 @@ export const useSearchStore = create(
               // Same source label Journey.jsx shows the user ("via Maximize" /
               // "via Gyftr"); null when the route has no voucher at all.
               voucher_aggregator: rec.voucher ? (rec.voucher.voucher_source === 'maximize' ? 'Maximize' : 'Gyftr') : null,
+            });
+            track('Deal Shown', {
+              query: get().query,
+              product_title: title,
+              merchant: rec.merchant,
+              has_voucher: Boolean(rec.voucher),
+              voucher_platform: rec.voucher ? voucherPlatform(rec.voucher.voucher_source) : 'none',
+              listed_price: originalPrice(result, rec),
+              final_cost: finalPrice(rec),
+              saving_amount: saving(result, rec),
+              saving_pct: savingPct(result, rec),
+              alternatives_count: result?.routes?.alternatives?.length ?? 0,
             });
           }
         } catch (err) {

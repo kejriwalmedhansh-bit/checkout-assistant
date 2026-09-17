@@ -10,7 +10,7 @@ import { BRAND_DEALS } from '@/data/brandDeals';
 import { useLenis } from '@/hooks/useLenis';
 import { usePageTitle } from '@/hooks/usePageTitle';
 import { ROUTES } from '@/routes/paths';
-import { track } from '@/utils/analytics';
+import { outboundLink, track } from '@/utils/analytics';
 
 const SOURCE_LABEL = {
   gyftr: 'Gyftr',
@@ -48,7 +48,7 @@ function FlagshipCard({ brand }) {
   // page rather than rendering a card that goes nowhere.
   const linkProps = deal
     ? {
-        href: deal.url,
+        href: outboundLink(deal.url, 'voucher_site', 'brands_popular'),
         isExternal: true,
         onClick: () =>
           track('Clicked Brand Voucher Link', {
@@ -100,7 +100,7 @@ function FlagshipCard({ brand }) {
 function BrandRow({ brand }) {
   return (
     <ChakraLink
-      href={brand.url}
+      href={outboundLink(brand.url, 'voucher_site', 'brands_list')}
       isExternal
       onClick={() => track('Clicked Brand Voucher Link', { brand: brand.name, source: brand.source, pct: brand.pct })}
       display="flex"

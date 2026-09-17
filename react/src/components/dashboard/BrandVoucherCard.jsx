@@ -3,6 +3,7 @@ import { Box, Flex, Link, Text, Wrap, WrapItem } from '@chakra-ui/react';
 import Card from '@/components/common/Card';
 import { I } from '@/components/common/icons';
 import { fmt } from '@/utils/format';
+import { outboundLink } from '@/utils/analytics';
 
 /**
  * Shown instead of the picker when the query directly names a voucher brand
@@ -22,7 +23,7 @@ export default function BrandVoucherCard({ voucher }) {
   // Never fabricate a store link — a guessed gyftr.com/{slug} URL is wrong
   // whenever this voucher actually came from Maximize (or the backend just
   // didn't have a real URL for this brand). Trust > a confident wrong link.
-  const link = voucher.voucher_url || null;
+  const link = voucher.voucher_url ? outboundLink(voucher.voucher_url, 'voucher_site', 'brand_voucher_card') : null;
 
   return (
     <Card p="22px 20px">

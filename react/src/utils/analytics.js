@@ -1,10 +1,12 @@
 import mixpanel from 'mixpanel-browser';
 
-import { MIXPANEL_TOKEN } from '@/config';
+import { API_BASE_URL, MIXPANEL_TOKEN } from '@/config';
 import { clearAnalyticsStorage, isGranted, onConsentChange } from '@/utils/consent';
 
 const USER_ID_KEY = 'dealo_user_id';
 const INTERNAL_TESTER_KEY = 'dealo_internal_tester';
+const FIRST_TOUCH_KEY = 'dealo_first_touch';
+const ATTRIBUTION_PARAMS = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term', 'gclid', 'fbclid'];
 
 /**
  * Elements whose text is the visitor's own words rather than ours: the search
@@ -93,6 +95,10 @@ function environment() {
  * particular person or what they searched for is not on this list.
  */
 const ANONYMOUS_STAGES = new Set([
+  'Session Started',
+  'Page Viewed',
+  'Product Searched',
+  'Deal Shown',
   'Dashboard Opened',
   'Searched',
   'Selected Product',
@@ -119,6 +125,7 @@ function countStage(event) {
       distinct_id: ANONYMOUS_ID,
       time: Math.floor(Date.now() / 1000),
       consent: 'not_granted',
+      surface: 'web',
       environment: environment(),
     },
   }];
@@ -139,6 +146,83 @@ function countStage(event) {
   } catch {
     // Analytics must never break the page.
   }
+}
+
+
+const APP_VERSION = import.meta.env.VITE_APP_VERSION || 'dev';
+
+function prefixed(obj, prefix) {
+  return Object.fromEntries(Object.entries(obj).map(([k, v]) => [`${prefix}${k}`, v]));
+}
+
+/** Where this visit came from: campaign tags, referring site, landing page. */
+function currentTouch() {
+  const params = new URLSearchParams(window.location.search);
+  const touch = { landing_page: window.location.pathname };
+  for (const key of ATTRIBUTION_PARAMS) {
+    const value = params.get(key);
+    if (value) touch[key] = value;
+  }
+  try {
+    const ref = document.referrer ? new URL(document.referrer).hostname : '';
+    touch.referrer_domain = ref && ref !== window.location.hostname ? ref : 'direct';
+  } catch {
+    touch.referrer_domain = 'direct';
+  }
+  return touch;
+}
+
+/** The very first visit's source, kept forever on this browser. */
+function getFirstTouch() {
+  try {
+    const saved = window.localStorage.getItem(FIRST_TOUCH_KEY);
+    if (saved) return JSON.parse(saved);
+    const touch = { ...currentTouch(), seen_at: new Date().toISOString() };
+    window.localStorage.setItem(FIRST_TOUCH_KEY, JSON.stringify(touch));
+    return touch;
+  } catch {
+    return { ...currentTouch(), seen_at: new Date().toISOString() };
+  }
+}
+
+/**
+ * This visitor's id, or null when they haven't agreed to be recorded — links
+ * then carry no id and their clicks are counted anonymously.
+ */
+export function getDealoId() {
+  return isGranted() ? getUserId() : null;
+}
+
+/**
+ * Query string every outbound link carries to the backend's /go and /out
+ * redirects, which log the click and stamp the id onto affiliate links.
+ */
+export function linkParams(ctx) {
+  const params = new URLSearchParams({ surface: 'web', ctx });
+  const id = getDealoId();
+  if (id) params.set('did', id);
+  return params.toString();
+}
+
+/** A shop link through /go: logged, commission-wrapped, id-stamped. */
+export function shopLink(link, ctx) {
+  if (!link) return '#';
+  return `${API_BASE_URL}/go?url=${encodeURIComponent(link)}&${linkParams(ctx)}`;
+}
+
+/** A voucher-partner or card-application link through /out: logged only. */
+export function outboundLink(link, kind, ctx) {
+  if (!link) return undefined;
+  return `${API_BASE_URL}/out?url=${encodeURIComponent(link)}&kind=${kind}&${linkParams(ctx)}`;
+}
+
+let lastViewedPath = null;
+
+/** One Page Viewed per route change. */
+export function trackPageView(pathname) {
+  if (pathname === lastViewedPath) return;
+  lastViewedPath = pathname;
+  track('Page Viewed', { path: pathname });
 }
 
 function startMixpanel() {
@@ -180,11 +264,24 @@ function startMixpanel() {
 
   const userId = getUserId();
 
-  // Use our own id as the distinct_id, so every event and replay is attributed to
-  // the same visitor across sessions instead of the SDK's own '$device:<uuid>'.
-  mixpanel.identify(userId);
+  // Our own id is this browser's $device_id — not a $user_id. Mixpanel's
+  // Simplified ID Merge only joins a device to a person, never two people
+  // together, so an anonymous visitor has to stay a device for the WhatsApp
+  // hand-off (the bot sends this id alongside the phone's $user_id) and a
+  // later affiliate purchase (stamped with this id by /go) to land on the
+  // same person. Set straight into the SDK's persistence because it has no
+  // option to supply the device id itself.
+  if (mixpanel.get_property('$device_id') !== userId || mixpanel.get_property('$user_id')) {
+    mixpanel.unregister('$user_id');
+    mixpanel.register({ distinct_id: `$device:${userId}`, $device_id: userId });
+  }
+
+  const firstTouch = getFirstTouch();
+  mixpanel.register_once(prefixed(firstTouch, 'first_'));
 
   mixpanel.register({
+    surface: 'web',
+    app_version: APP_VERSION,
     // Also carried as a plain event property: it keeps the id queryable in
     // Mixpanel even if distinct_id is later remapped (e.g. to a WhatsApp
     // identity), and it survives a move off Mixpanel entirely.
@@ -201,6 +298,7 @@ function startMixpanel() {
     consent: 'granted',
   });
 
+  mixpanel.track('Session Started', { is_returning_visitor: isReturningVisitor, ...currentTouch() });
   mixpanel.track('Dashboard Opened', { is_returning_visitor: isReturningVisitor });
 }
 
@@ -235,10 +333,37 @@ syncAnalyticsToConsent();
 // The one event that would otherwise be missed: a visitor who lands and leaves
 // without agreeing still counts as an arrival. Fired at module scope rather
 // than in a component so StrictMode's double-mount can't double-count it.
-if (!isGranted()) countStage('Dashboard Opened');
+if (!isGranted()) {
+  countStage('Session Started');
+  countStage('Dashboard Opened');
+}
 
 /** Fire-and-forget event tracking. */
 export function track(event, props = {}) {
   if (isGranted()) mixpanel.track(event, props);
   else countStage(event);
+}
+
+// Shop and partner links are built at render time, which can be before the
+// visitor answers the consent banner. Re-stamping the id at the moment of the
+// click (capture phase, before the browser follows the link) keeps the id on
+// the link in step with their answer.
+if (typeof document !== 'undefined') {
+  document.addEventListener(
+    'click',
+    (e) => {
+      const a = e.target.closest?.(`a[href^="${API_BASE_URL}/go?"], a[href^="${API_BASE_URL}/out?"]`);
+      if (!a) return;
+      try {
+        const url = new URL(a.href);
+        const id = getDealoId();
+        if (id) url.searchParams.set('did', id);
+        else url.searchParams.delete('did');
+        a.href = url.toString();
+      } catch {
+        // Leave the link as rendered.
+      }
+    },
+    true,
+  );
 }

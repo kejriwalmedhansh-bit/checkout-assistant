@@ -1,11 +1,7 @@
 import { Box, Link, Tooltip } from '@chakra-ui/react';
 
 import { track } from '@/utils/analytics';
-
-// Dealo's live WhatsApp number (+91 98744 00045), in the digits-only
-// international format wa.me requires — no spaces, no leading "+".
-const WHATSAPP_NUMBER = '919874400045';
-const DEFAULT_MESSAGE = "Hi! I'd like to try Dealo on WhatsApp.";
+import { botWhatsAppHref } from '@/utils/whatsappLink';
 
 /**
  * Fixed circular WhatsApp launcher, pinned to the bottom-right corner on
@@ -15,7 +11,7 @@ const DEFAULT_MESSAGE = "Hi! I'd like to try Dealo on WhatsApp.";
  * green so it reads instantly as "this opens WhatsApp", not a site action.
  */
 export default function FloatingWhatsAppButton() {
-  const href = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(DEFAULT_MESSAGE)}`;
+  const href = botWhatsAppHref();
 
   return (
     <Box position="fixed" bottom={{ base: '20px', md: '28px' }} right={{ base: '16px', md: '28px' }} zIndex={15}>

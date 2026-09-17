@@ -3,7 +3,7 @@
  * render logic. Keeping the money math here means the route components read the
  * /search contract keys directly and never re-derive backend mechanics.
  */
-import { API_BASE_URL } from '@/config';
+import { shopLink } from '@/utils/analytics';
 
 /** Format a number as INR: '₹' + thousands-separated, rounded. `—` when empty. */
 export function fmt(n) {
@@ -79,15 +79,11 @@ export function cleanInstructions(list) {
 }
 
 /**
- * Affiliate wrapper for merchant store links — deliberately NOT applied to
- * Gyftr voucher links (callers should pass those through unwrapped).
- *
- * Routes through our own backend (/go, see src/api/routers/redirect.py)
- * instead of linking straight to linksredirect.com, so hovering the link
- * shows our domain, not an unfamiliar third-party tracking redirect. The
- * backend does the actual Cuelinks wrap and 302s onward.
+ * Merchant store link through the backend's /go redirect (see
+ * src/api/routers/redirect.py): logs the click, wraps it for commission and
+ * stamps the visitor's id on it. Voucher-partner links use outboundLink.
+ * `ctx` names where on the page the link sits.
  */
-export function affiliateUrl(link) {
-  if (!link) return '#';
-  return `${API_BASE_URL}/go?url=${encodeURIComponent(link)}`;
+export function affiliateUrl(link, ctx) {
+  return shopLink(link, ctx);
 }
