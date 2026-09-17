@@ -56,6 +56,7 @@ window.__dealoPopup = (() => {
     cross: `<path d="M18 6L6 18M6 6l12 12"/>`,
     copy: `<rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h8"/>`,
     target: `<circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="2.6"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/>`,
+    grip: `<circle cx="9" cy="6" r=".6"/><circle cx="15" cy="6" r=".6"/><circle cx="9" cy="12" r=".6"/><circle cx="15" cy="12" r=".6"/><circle cx="9" cy="18" r=".6"/><circle cx="15" cy="18" r=".6"/>`,
     info: `<circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 7.6v.1"/>`,
     lock: `<rect x="4" y="10.5" width="16" height="10" rx="2"/><path d="M8 10.5V7a4 4 0 0 1 8 0v3.5"/>`,
     heart: `<path d="M12 20s-7-4.4-7-9.3A3.9 3.9 0 0 1 12 8a3.9 3.9 0 0 1 7 2.7C19 15.6 12 20 12 20z"/>`,
@@ -77,6 +78,20 @@ window.__dealoPopup = (() => {
     const firstSentence = s.match(/^.*?[.!?](?=\s|$)/);
     if (firstSentence && firstSentence[0].length > 25) s = firstSentence[0];
     return s.length > 110 ? s.slice(0, 107).trimEnd() + "…" : s;
+  }
+
+  // The sellers write one set of steps for the shop and its tills together.
+  // A shopper at an online checkout was told to "share the voucher code with
+  // the cashier before billing" (Skechers, 2026-09-17). Steps that only make
+  // sense at a counter are dropped, and an "Or visit a listed outlet" tail is
+  // cut from the rest. If that would leave nothing, the steps stay as written.
+  const IN_STORE_STEP = /\b(cashier|billing counter|at the (store|outlet|counter)|in[- ]store|walk[- ]?in|visit (the |any |a )?(nearest |listed )?(store|outlet))/i;
+  function onlineSteps(steps) {
+    const all = (steps || []).map((s) => String(s || "")
+      .replace(/\s*,?\s*or\s+visit\b[^.]*?\b(outlets?|stores?)\b\.?/i, "")
+      .trim()).filter(Boolean);
+    const online = all.filter((s) => !IN_STORE_STEP.test(s));
+    return online.length ? online : all;
   }
 
   function firstUrlIn(steps) {
@@ -146,6 +161,52 @@ window.__dealoPopup = (() => {
     });
   }
 
+  // The panel can be dragged by its top bar, because wherever it sits it can
+  // cover something the shopper needs to read — a price, a coupon box, the
+  // pay button (2026-09-17). The spot they drag it to is remembered, measured
+  // from the bottom-right corner so it stays on screen when windows resize.
+  const POSITION_KEY = "dealo_popup_position";
+
+  function placeAt(root, pos) {
+    const card = root.querySelector(".dealo-card");
+    const w = card ? card.offsetWidth : 320;
+    const h = card ? card.offsetHeight : 200;
+    const right = Math.min(Math.max(pos.right, 0), Math.max(window.innerWidth - w, 0));
+    const bottom = Math.min(Math.max(pos.bottom, 0), Math.max(window.innerHeight - h, 0));
+    root.classList.remove("dealo-shifted");
+    root.style.setProperty("right", `${right}px`, "important");
+    root.style.setProperty("bottom", `${bottom}px`, "important");
+    root.style.setProperty("left", "auto", "important");
+    return { right, bottom };
+  }
+
+  function wireDrag(root) {
+    const grip = root.querySelector(".dealo-header");
+    if (!grip) return;
+    grip.addEventListener("pointerdown", (e) => {
+      if (e.button !== 0 || e.target.closest("button, a")) return;
+      const box = root.getBoundingClientRect();
+      const start = { x: e.clientX, y: e.clientY, right: window.innerWidth - box.right, bottom: window.innerHeight - box.bottom };
+      let pos = { right: start.right, bottom: start.bottom };
+      root.classList.add("dealo-dragging");
+      grip.setPointerCapture(e.pointerId);
+      const move = (ev) => {
+        pos = placeAt(root, { right: start.right - (ev.clientX - start.x), bottom: start.bottom - (ev.clientY - start.y) });
+      };
+      const up = () => {
+        root.classList.remove("dealo-dragging");
+        grip.removeEventListener("pointermove", move);
+        grip.removeEventListener("pointerup", up);
+        grip.removeEventListener("pointercancel", up);
+        try { chrome.storage.local.set({ [POSITION_KEY]: pos }); } catch (err) { /* extension reloaded */ }
+      };
+      grip.addEventListener("pointermove", move);
+      grip.addEventListener("pointerup", up);
+      grip.addEventListener("pointercancel", up);
+      e.preventDefault();
+    });
+  }
+
   function mount() {
     let root = document.getElementById("dealo-popup-root");
     if (root) return root;
@@ -153,6 +214,11 @@ window.__dealoPopup = (() => {
     root.id = "dealo-popup-root";
     document.documentElement.appendChild(root);
     if (cornerIsOccupied()) root.classList.add("dealo-shifted");
+    try {
+      chrome.storage.local.get(POSITION_KEY, (stored) => {
+        if (stored && stored[POSITION_KEY] && root.isConnected) placeAt(root, stored[POSITION_KEY]);
+      });
+    } catch (err) { /* extension reloaded; keep the default corner */ }
     return root;
   }
 
@@ -171,8 +237,8 @@ window.__dealoPopup = (() => {
     const root = mount();
     root.innerHTML = `
       <div class="dealo-card" role="dialog" aria-live="polite" aria-label="Dealo savings">
-        <div class="dealo-header">
-          <span class="dealo-brand">deal<span class="dealo-brand-o">o</span></span>
+        <div class="dealo-header" title="Drag to move">
+          <span class="dealo-brand">${svg("grip", 12, "#B8AE9C", 2.4)}deal<span class="dealo-brand-o">o</span></span>
           ${step ? dots(step) : ""}
           <button class="dealo-close" aria-label="Dismiss">&times;</button>
         </div>
@@ -180,6 +246,7 @@ window.__dealoPopup = (() => {
       </div>
     `;
     root.querySelector(".dealo-close").addEventListener("click", close);
+    wireDrag(root);
     escHandler = (e) => { if (e.key === "Escape") close(); };
     document.addEventListener("keydown", escHandler, true);
     return root;
@@ -646,7 +713,7 @@ window.__dealoPopup = (() => {
     // The brands write these as paragraphs — Amazon's middle step is three
     // sentences with an "Alternatively…" branch and a sign-up aside. Nobody
     // reads that mid-checkout, so each step is cut to its first instruction.
-    const steps = (d.howToRedeemSteps || []).slice(0, 3)
+    const steps = onlineSteps(d.howToRedeemSteps).slice(0, 3)
       .map((s) => `<li>${esc(shortenStep(s))}</li>`).join("");
 
     // The single most useful thing buried in those paragraphs is the redeem

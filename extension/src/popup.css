@@ -79,6 +79,9 @@
 }
 
 #dealo-popup-root .dealo-header {
+  cursor: grab;
+  touch-action: none;
+  user-select: none;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -732,4 +735,14 @@
   padding: 0;
   margin: 0;
   font-size: 12.5px;
+}
+
+/* --- Moving the panel out of the way -------------------------------------- */
+#dealo-popup-root .dealo-brand { display: inline-flex; align-items: center; gap: 4px; }
+#dealo-popup-root .dealo-brand svg { margin-left: -4px; }
+#dealo-popup-root.dealo-dragging .dealo-header { cursor: grabbing; }
+#dealo-popup-root.dealo-dragging .dealo-card {
+  box-shadow: 0 16px 40px rgba(22, 32, 43, 0.32);
+  animation: none;
+  opacity: 1;
 }
