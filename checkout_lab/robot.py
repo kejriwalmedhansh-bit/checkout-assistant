@@ -467,8 +467,12 @@ def record_shop(context, site: str, out_dir: Path) -> dict:
             return stop("added_only")
         cart = rec.save(page, "3-cart")
         if cart.get("login_wall"):
-            notes.append("cart asks for a login")
-            return stop("needs_person")
+            # A phone-OTP pop-up over a cart that still shows its prices
+            # (Birkenstock, Jockey, Matrix) is not a wall: the cart is saved and
+            # scoreable, so carry on to checkout.
+            notes.append("cart shows a login or phone-OTP pop-up")
+            if not cart.get("has_rupee_amount"):
+                return stop("needs_person")
         if out_of_time():
             return stop("reached_cart")
 
@@ -486,7 +490,8 @@ def record_shop(context, site: str, out_dir: Path) -> dict:
             checkout = rec.save(page, "4-checkout")
             if checkout.get("login_wall"):
                 notes.append("checkout asks for a login or phone OTP before the pay screen")
-                return stop("needs_person")
+                if not checkout.get("has_rupee_amount"):
+                    return stop("needs_person")
             return stop("reached_checkout")
         if not pressed:
             notes.append("no checkout button found on the cart")
@@ -498,7 +503,8 @@ def record_shop(context, site: str, out_dir: Path) -> dict:
             notes.append("checkout opened as a pop-up: " + ", ".join(sorted({urlparse(u).netloc for u in checkout["popup_checkout_frames"]})))
         if checkout.get("login_wall"):
             notes.append("checkout asks for a login or phone OTP before the pay screen")
-            return stop("needs_person")
+            if not checkout.get("has_rupee_amount"):
+                return stop("needs_person")
         return stop("reached_checkout")
     except PlaywrightError as e:
         notes.append("robot error: " + str(e).splitlines()[0][:200])
