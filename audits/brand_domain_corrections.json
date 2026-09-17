@@ -7,6 +7,8 @@
   {"domain": "urbanlader.com", "why": "Misspelt in the seller's own terms. Replaced by urbanladder.com below."},
   {"domain": "razorpay.com", "why": "A payment company that runs other shops' checkouts, not a shop. Mapping it to a Razorpay Money voucher would offer that voucher on the wrong store's order."},
   {"domain": "money.razorpay.com", "why": "Razorpay's own wallet page, not a shop checkout; same reason as razorpay.com."}
+,
+  {"domain": "muji.in", "why": "Muji vouchers are in-store only (product owner, 2026-09-17). Gyftr's terms agree: select Muji stores only."}
  ],
  "add": [
   {"domain": "urbanladder.com", "brand": "Urban Ladder", "why": "The correctly spelt address for the entry removed above."},
