@@ -13,6 +13,11 @@ name: Sync affiliate purchases to Mixpanel
 on:
   schedule:
     - cron: "17 */3 * * *"
+  # A change to the sync itself re-checks the keys before it can merge.
+  pull_request:
+    paths:
+      - scripts/sync_affiliate_purchases.py
+      - .github/workflows/sync-purchases.yml
   workflow_dispatch:
     inputs:
       days:
@@ -45,4 +50,9 @@ jobs:
           CUELINKS_API_KEY: ${{ secrets.CUELINKS_API_KEY }}
           INRDEALS_API_TOKEN: ${{ secrets.INRDEALS_API_TOKEN }}
           INRDEALS_USERNAME: ${{ secrets.INRDEALS_USERNAME }}
-        run: python scripts/sync_affiliate_purchases.py --days "${{ github.event.inputs.days || '90' }}"
+        run: |
+          if [ "${{ github.event_name }}" = "pull_request" ]; then
+            python scripts/sync_affiliate_purchases.py --check
+          else
+            python scripts/sync_affiliate_purchases.py --days "${{ github.event.inputs.days || '90' }}"
+          fi

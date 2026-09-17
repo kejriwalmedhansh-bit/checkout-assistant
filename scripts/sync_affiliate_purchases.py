@@ -214,11 +214,42 @@ def import_events(events: list[dict], client: httpx.Client) -> None:
         print(f"[mixpanel] imported {len(batch)} event(s): {r.text[:200]}")
 
 
+def check_credentials() -> int:
+    """Confirms every configured key works, sending nothing."""
+    settings = get_settings()
+    ok = True
+    with httpx.Client(timeout=30.0) as client:
+        r = client.get(
+            "https://eu.mixpanel.com/api/app/me",
+            auth=(settings.MIXPANEL_SERVICE_ACCOUNT_USERNAME, settings.MIXPANEL_SERVICE_ACCOUNT_SECRET),
+        )
+        projects = ((r.json().get("results") or {}).get("projects") or {}) if r.status_code == 200 else {}
+        if str(settings.MIXPANEL_PROJECT_ID) in {str(k) for k in projects}:
+            print(f"[mixpanel] OK — service account can reach project {settings.MIXPANEL_PROJECT_ID}")
+        else:
+            ok = False
+            print(f"[mixpanel] FAILED — status {r.status_code}, projects visible: {sorted(projects)}")
+        if settings.CUELINKS_API_KEY:
+            r = client.get(f"{CUELINKS_API_BASE}/transactions", headers=cuelinks_headers(), params={"per_page": 1})
+            print(f"[cuelinks] {'OK' if r.status_code == 200 else 'FAILED'} — status {r.status_code}")
+            ok = ok and r.status_code == 200
+        else:
+            print("[cuelinks] not configured")
+        if settings.INRDEALS_API_TOKEN:
+            print("[inrdeals] token present (checked on the first real sync)")
+        else:
+            print("[inrdeals] not configured yet")
+    return 0 if ok else 1
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     parser.add_argument("--days", type=int, default=LOOKBACK_DAYS)
     parser.add_argument("--dry-run", action="store_true", help="Fetch and print, send nothing")
+    parser.add_argument("--check", action="store_true", help="Only confirm the keys work")
     args = parser.parse_args()
+    if args.check:
+        return check_credentials()
 
     settings = get_settings()
     if not args.dry_run and not (settings.MIXPANEL_SERVICE_ACCOUNT_USERNAME and settings.MIXPANEL_SERVICE_ACCOUNT_SECRET):
