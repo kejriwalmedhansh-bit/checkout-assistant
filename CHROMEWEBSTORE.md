@@ -152,6 +152,7 @@ the affiliate "Okay" button sends the page address.
 
 | Version | Date | Changes | Status |
 |---------|------|---------|--------|
+| 0.2.1 | 2026-09-17 | On shops that sell a different voucher per kind of product (GIVA, MakeMyTrip, Yatra, Air India and 17 more), the popup asks "What are you buying?" first, then shows that voucher, what it covers and a link to its terms. Package `dealo-v0.2.1.zip`. | Draft |
 | 0.1.0 | — | First submission. Package built and verified 2026-09-07 as `dealo-v0.1.0.zip` (188 KB, 17 files, `manifest.json` at the root). Checkout detection, rupee saving figure, guided voucher purchase, multi-voucher code handling, final place-order step. | Draft |
 
 ## Review Notes
@@ -190,8 +191,8 @@ Before you upload:
 ### Building the upload package
 
     cd ~/checkout-assistant/extension
-    zip -r ../dealo-v0.1.0.zip . -x "*.DS_Store" "*/.impeccable/*"
+    zip -r ../dealo-v<version>.zip . -x "*.DS_Store" "*/.impeccable/*" "PRIVACY.md"
 
 Check before uploading that `manifest.json` sits at the root of the ZIP rather than inside a folder — a nested manifest is the most common upload failure:
 
-    unzip -l ../dealo-v0.1.0.zip | grep manifest.json
+    unzip -l ../dealo-v<version>.zip | grep manifest.json
