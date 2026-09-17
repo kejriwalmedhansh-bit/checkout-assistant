@@ -13,9 +13,9 @@ Aeropostale BAGLINE,buyhatke,yes,website,bagline.com,extension list (#26),
 Aeropostale In Store,buyhatke,yes,store only,,web search 2026-09-17,aeropostale.in has been taken over by a gambling site; in India the brand sells via Arvind's aeropostale.nnnow.com
 Affinity - Luzo Gift Card,gyftr,yes,app only,luzo.app,terms: services booked through the Luzo app; real site luzo.app (luzoapp.com is a lookalike),
 Air India,buyhatke + gyftr + maximize,yes,website,airindia.com,extension list (#26),
-Air India Add-ons,gyftr,yes,store only,airindia.com,site did not answer an automatic visit (2026-09-17),
+Air India Add-ons,gyftr,yes,website,airindia.com,voucher terms 2026-09-17,"Gyftr labels it offline, but its terms say airindia.com; seats, baggage, Zip Ahead and sports equipment only"
 Air India Domestic Gift Card,gyftr,yes,website,airindia.com,confirmed 2026-09-10: auto: name in address,
-Air India Fly Rajasthan,gyftr,yes,store only,airindia.com,site did not answer an automatic visit (2026-09-17),
+Air India Fly Rajasthan,gyftr,yes,website,airindia.com,voucher terms 2026-09-17,"terms say airindia.com, but only for Jaipur/Udaipur/Jodhpur journeys from 1 May to 31 July 2026; that window has ended"
 Airtel Xstream,gyftr,no,website,airtelxstream.in,extension list (#26),
 AJIO,buyhatke + gyftr + maximize,yes,website,ajio.com,extension list (#26),
 Ajio Luxe,buyhatke + gyftr + maximize,yes,website,ajio.com,confirmed 2026-09-10: auto: name in address,
@@ -310,7 +310,7 @@ Himalaya Wellness,gyftr,yes,store only,himalayawellness.in,page loaded and check
 Himalaya Wellness In Store,buyhatke,yes,store only,himalayawellness.in,page loaded and checked 2026-09-17,
 Hindustan Times Premium,gyftr,yes,website,hindustantimes.com,extension list (#26),
 Hoichoi,buyhatke + gyftr,yes,website,hoichoi.tv,extension list (#26),
-Holiday Tribe,maximize,yes,store only,holidaytribe.com,page loaded and checked 2026-09-17,
+Holiday Tribe,maximize,yes,website,holidaytribe.com,voucher terms 2026-09-17,Maximize labels it in-store; terms say bookings on the Holiday Tribe website
 Home,buyhatke,yes,website,at-home.co.in,extension list (#26),
 Home Centre,gyftr,yes,store only,homecentre.in,verified in Aug 2026 audit,
 Home Centre Online,gyftr,yes,website,homecentre.in,extension list (#26),
@@ -439,7 +439,7 @@ Louis Philippe In Store,buyhatke,no,store only,louisphilippe.abfrl.in,page loade
 Love Beauty Planet,buyhatke,yes,website,lovebeautyandplanet.in,extension list (#26),
 Lulu Hypermarket,buyhatke + maximize,yes,website,luluhypermarket.in,seller's terms name luluhypermarket.in; web search also shows luluhypermarket.com/en-in — worth a look,
 Lunch Box,buyhatke + gyftr,yes,app only,eatsure.com,terms: only redeemable in the EatSure iOS/Android app (a Rebel Foods brand); eatsure.com rejected as this brand's site on 2026-09-10,
-Luxe Gift Card,gyftr,yes,store only,luxegiftcard.com,page loaded and checked 2026-09-17,
+Luxe Gift Card,gyftr,yes,website,luxegiftcard.com,luxegiftcard.com terms 2026-09-17,"works online only on Armani Exchange, Steve Madden, Diesel, Superdry, Mothercare, GAS and Sunglass Hut (Muji is in-store only, product owner 2026-09-17)"
 Luzo,maximize,yes,store only,luzo.app,verified in Aug 2026 audit,
 "LUZO - Salons, Spas, Clinics",gyftr,yes,website,luzo.app,extension list (#26),
 Luzo salon Spa And Clinics,maximize,yes,store only,luzo.app,page loaded and checked 2026-09-17,
@@ -817,7 +817,7 @@ The Collective,buyhatke + maximize,yes,website,thecollective.in,extension list (
 The Good Bowl,buyhatke + gyftr + maximize,yes,app only,eatsure.com,terms: only redeemable in the EatSure iOS/Android app (a Rebel Foods brand); eatsure.com rejected as this brand's site on 2026-09-10,
 The Leela,maximize,yes,store only,theleela.com,page loaded and checked 2026-09-17,
 The Man Company,buyhatke + gyftr + maximize,yes,website,themancompany.com,extension list (#26),
-The Postcard Hotels,maximize,yes,store only,thepostcardhotel.com,site did not answer an automatic visit (2026-09-17),
+The Postcard Hotels,maximize,yes,website,thepostcardhotel.com,voucher terms 2026-09-17,"terms: online reservations, redeemed at the hotel"
 The Raymond Shop,gyftr + maximize,yes,store only,myraymond.com,page loaded and checked 2026-09-17,
 The Raymond Shop In Store,buyhatke,yes,store only,myraymond.com,page loaded and checked 2026-09-17,
 The Skin Story,gyftr,no,website,theskinstory.in,extension list (#26),
@@ -935,7 +935,7 @@ Wow Momo In Store,buyhatke,yes,store only,wowmomo.com,page loaded and checked 20
 Wow!Chicken,buyhatke + gyftr,yes,store only,wowmomo.com,web search: wowmomo.com (Wow! Chicken by Wow! Momo); terms: accepted at listed outlets,
 Wow!China,gyftr,yes,store only,wowmomo.com,page loaded and checked 2026-09-17,
 Wow!Momo,gyftr,yes,store only,wowmomo.com,page loaded and checked 2026-09-17,
-Wrangler,maximize,yes,store only,wrangler.in,page loaded and checked 2026-09-17,
+Wrangler,maximize,yes,website,wrangler.in,voucher terms 2026-09-17,Maximize labels it in-store; terms say Wrangler's official outlets and webstores
 Wrangler In Store,buyhatke,yes,store only,wrangler.in,page loaded and checked 2026-09-17,
 Wynk Music,gyftr,no,website,wynk.in,extension list (#26),
 Xbox Essential Game Pass,buyhatke,yes,website,xbox.com,confirmed 2026-09-10: auto: name in address,
