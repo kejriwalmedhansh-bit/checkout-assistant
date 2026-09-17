@@ -91,11 +91,18 @@ class Recorder:
             (self.dir / f"{stage}.html.gz").write_bytes(gzip.compress(html.encode()))
             page.screenshot(path=str(self.dir / f"{stage}.jpg"), type="jpeg", quality=45, full_page=False)
             text = page.evaluate("() => document.body ? document.body.innerText : ''") or ""
+            # The shop's own cart total, where the platform publishes it: the
+            # true answer the scoreboard compares Dealo's reading against.
+            shopify_total = page.evaluate(
+                "async () => { if (!window.Shopify && !document.querySelector('script[src*=\"cdn.shopify.com\"]')) return null;"
+                " try { const c = await fetch('/cart.js').then(r => r.json()); return c.item_count ? c.total_price / 100 : null; } catch (e) { return null; } }"
+            )
             info = {
                 "stage": stage,
                 "url": page.url,
                 "title": page.title(),
                 "has_rupee_amount": bool(RUPEE.search(text)),
+                "shopify_cart_total": shopify_total,
                 "login_wall": looks_like_login_wall(page, text),
                 "popup_checkout_frames": [f["url"] for f in frames if any(k in f["url"] for k in POPUP_CHECKOUTS)],
                 "frames": len(frames),
@@ -445,7 +452,17 @@ def record_shop(context, site: str, out_dir: Path) -> dict:
             notes.append("ran out of time after adding")
             return stop("added_only")
 
-        if not open_cart(page, base):
+        if platform == "shopify" and added:
+            # Shopify says itself whether the item is in: the cart page is
+            # /cart, and cart.js holds the count. No guessing from page words
+            # (GIVA's cart didn't use any the check knew).
+            page.goto(base + "/cart", wait_until="domcontentloaded", timeout=30000)
+            settle(page)
+            in_cart = page.evaluate("async () => { try { return (await fetch('/cart.js').then(r => r.json())).item_count } catch (e) { return 0 } }")
+            if not in_cart:
+                notes.append("Shopify's cart is empty after adding")
+                return stop("added_only")
+        elif not open_cart(page, base):
             notes.append("couldn't find a cart page showing the item")
             return stop("added_only")
         cart = rec.save(page, "3-cart")
