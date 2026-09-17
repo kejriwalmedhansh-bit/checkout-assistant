@@ -1722,6 +1722,30 @@ def _prefer_exact_name_matches(candidates: list[tuple], merchant_name: str, bran
     return exact or candidates
 
 
+def _card_refuses_online(source: str, record: dict | None) -> bool:
+    """True when this seller's own terms say its card cannot be spent online.
+
+    Judged per card, not per brand: sellers sell different cards under one
+    brand name. Gyftr's Lifestyle card "CANNOT be used Online at
+    lifestylestores.com" while BuyHatke's is "redeemable only through online
+    stores and apps of lifestylestores.com". The platform's own online/offline
+    label is not enough either: Gyftr and Maximize both label Victoria's
+    Secret for online use, and both of their terms say listed stores only.
+    """
+    if not record:
+        return False
+    # Its own label first: Maximize sells a Starbucks card marked in-store,
+    # and it paid more than BuyHatke's online one, so it won at starbucks.in.
+    kinds = {str(p.get("redemption_type") or "").strip().lower() for p in record.get("products") or [record]}
+    kinds.discard("")
+    if kinds and kinds <= {"offline", "in-store", "in store", "instore", "store locator"}:
+        return True
+    slug = record.get("slug")
+    if not slug:
+        return False
+    return _rule_value(_standardised_rules(source, slug), "works_online") == "no"
+
+
 def get_voucher_check(merchant_name: str, price: float | None = None) -> dict | None:
     """Single merchant-name lookup across all 3 voucher sources, for the
     Chrome extension's checkout-page popup (`GET /voucher-check`). Returns
@@ -1761,6 +1785,9 @@ def get_voucher_check(merchant_name: str, price: float | None = None) -> dict | 
             )
             if c[0] is not None
         ]
+        # The extension only runs on a website, so a card whose own terms
+        # keep it to the tills is never the answer at a checkout page.
+        candidates = [c for c in candidates if not _card_refuses_online(c[1], c[3])]
         if not candidates:
             return None
         candidates = _prefer_exact_name_matches(candidates, merchant_name, brand_index=2)
@@ -1805,10 +1832,15 @@ def get_voucher_check(merchant_name: str, price: float | None = None) -> dict | 
             "restrictions": redeem_limits,
         }
 
-    raw_hits = (
-        ("gyftr", _headline_rate(voucher_repository.get_by_merchant(merchant_name), "gyftr")),
-        ("maximize", _headline_rate(maximize_repository.get_by_merchant(merchant_name), "maximize")),
-        ("buyhatke", _headline_rate(buyhatke_repository.get_by_merchant(merchant_name), "buyhatke")),
+    records = (
+        ("gyftr", voucher_repository.get_by_merchant(merchant_name)),
+        ("maximize", maximize_repository.get_by_merchant(merchant_name)),
+        ("buyhatke", buyhatke_repository.get_by_merchant(merchant_name)),
+    )
+    raw_hits = tuple(
+        (source, _headline_rate(record, source))
+        for source, record in records
+        if not _card_refuses_online(source, record)
     )
     hits = [(pct, product, brand_name, source) for source, hit in raw_hits if hit for pct, product, brand_name in [hit]]
     if not hits:
