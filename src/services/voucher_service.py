@@ -23,12 +23,19 @@ from ..repositories import platform_rules_repository as platform_rules
 # Card rate is sometimes higher than its Credit Card rate (the opposite of
 # Gyftr), so mixing them in would misrepresent what that specific card path
 # actually pays.
+# "any" is BuyHatke's one rate for a brand, which BuyHatke only sells by UPI.
+# The price refresh of 2026-09-04 began writing it under that name whenever
+# BuyHatke printed no per-amount rates, and a lookup that knew only "UPI" then
+# priced 59 online brands (Pepperfry, CaratLane, Chicco, Ray-Ban, Cleartrip...)
+# at 0% — silently dropped from every priced answer on all three surfaces,
+# while the unpriced checkout rate still showed them. Found 2026-09-17.
+# Never a card key: BuyHatke has no card purchase, so a card rate stays 0.
 PAYMENT_METHOD_TO_DISCOUNT_KEYS = {
     "card": ["Credit Card"],
     "netbanking": ["Net Banking"],
-    "upi": ["UPI"],
-    "paytm_upi": ["UPI"],
-    "amazon_pay": ["UPI"],
+    "upi": ["UPI", "any"],
+    "paytm_upi": ["UPI", "any"],
+    "amazon_pay": ["UPI", "any"],
 }
 
 # Gyftr is the only platform confirmed (live-tested 2026-09-03) to let a
