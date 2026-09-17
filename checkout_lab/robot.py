@@ -87,7 +87,7 @@ class Recorder:
                 frames.append({"url": frame.url, "html_bytes": len(html)})
                 if html and any(k in frame.url for k in POPUP_CHECKOUTS):
                     (self.dir / f"{stage}.frame-{len(frames)}.html.gz").write_bytes(gzip.compress(html.encode()))
-            html = page.content()
+            html = snapshot_with_styles(page)
             (self.dir / f"{stage}.html.gz").write_bytes(gzip.compress(html.encode()))
             page.screenshot(path=str(self.dir / f"{stage}.jpg"), type="jpeg", quality=45, full_page=False)
             text = page.evaluate("() => document.body ? document.body.innerText : ''") or ""
@@ -129,6 +129,46 @@ class Recorder:
 
 
 # ---------------------------------------------------------------- helpers ---
+
+def snapshot_with_styles(page: Page) -> str:
+    """The page as a shopper saw it, readable offline: its stylesheets inlined
+    (so layout, and whether a cart panel is open, survive) and every element
+    that was hidden at that moment marked data-dealo-hidden. A closed cart
+    drawer stays closed in the saved copy instead of reading as open."""
+    sheets: list[str] = []
+    try:
+        found = page.evaluate(
+            """() => [...document.styleSheets].map(s => {
+                 try { return {text: [...s.cssRules].map(r => r.cssText).join('\\n')}; }
+                 catch (e) { return {href: s.href}; }
+               })"""
+        )
+    except PlaywrightError:
+        found = []
+    for sheet in found:
+        if sheet.get("text"):
+            sheets.append(sheet["text"])
+        elif sheet.get("href"):
+            try:
+                response = page.context.request.get(sheet["href"], timeout=10000)
+                if response.ok:
+                    sheets.append(response.text())
+            except PlaywrightError:
+                pass
+    try:
+        page.evaluate(
+            """() => { for (const el of document.body ? document.body.querySelectorAll('*') : []) {
+                 const cs = getComputedStyle(el);
+                 if (cs.display === 'none' || cs.visibility === 'hidden') el.setAttribute('data-dealo-hidden', '');
+               } }"""
+        )
+        html = page.content()
+        page.evaluate("() => document.querySelectorAll('[data-dealo-hidden]').forEach(el => el.removeAttribute('data-dealo-hidden'))")
+    except PlaywrightError:
+        html = page.content()
+    style = "<style data-dealo-saved-css>" + "\n".join(sheets).replace("</style", "<\\/style") + "</style>"
+    style += "<style>[data-dealo-hidden]{display:none!important}</style>"
+    return html.replace("</head>", style + "</head>", 1) if "</head>" in html else style + html
 
 def looks_like_login_wall(page: Page, text: str) -> bool:
     try:

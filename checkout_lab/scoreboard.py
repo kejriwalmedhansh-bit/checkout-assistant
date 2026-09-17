@@ -40,6 +40,7 @@ HOOK = """
       urlLooksLikeCheckout, isCheckoutPage, hasCommerceSignal, labelledTotal, extractPrice, findGiftCardField, readPrice,
       urlMightBeCheckout: typeof urlMightBeCheckout === "function" ? urlMightBeCheckout : null,
       looksLikePaymentStep: typeof looksLikePaymentStep === "function" ? looksLikePaymentStep : null,
+      openCartOverPage: typeof openCartOverPage === "function" ? openCartOverPage : null,
     });
     return;
   }
@@ -89,14 +90,15 @@ def score_run(run_dir: Path, extension: Path) -> list[dict]:
             result = json.loads((shop_dir / "result.json").read_text())
             for stage in json.loads(stages_file.read_text()):
                 name = stage.get("stage", "")
-                if not re.match(r"[234]-", name):
-                    continue  # home pages aren't scored
+                if not re.match(r"[1234]-", name):
+                    continue  # home pages are scored too: no cart should be seen open there
                 saved = shop_dir / f"{name}.html.gz"
                 if not saved.exists():
                     continue
                 html = without_shop_scripts(gzip.decompress(saved.read_bytes()).decode("utf-8", "ignore"))
                 url = stage["url"]
                 context = browser.new_context(viewport={"width": 1366, "height": 900})
+                saved_styles = "data-dealo-saved-css" in html
                 page = context.new_page()
 
                 shopify_total = stage.get("shopify_cart_total")
@@ -115,7 +117,8 @@ def score_run(run_dir: Path, extension: Path) -> list[dict]:
 
                 page.route("**/*", serve)
                 row = {"shop": shop_dir.name, "stage": name, "url": url, "robot_outcome": result.get("outcome"),
-                       "platform": result.get("platform"), "shopify_cart_total": stage.get("shopify_cart_total")}
+                       "platform": result.get("platform"), "shopify_cart_total": stage.get("shopify_cart_total"),
+                       "saved_with_styles": saved_styles}
                 try:
                     page.goto(url, wait_until="domcontentloaded", timeout=20000)
                     loads = page.evaluate(
@@ -144,6 +147,7 @@ def score_run(run_dir: Path, extension: Path) -> list[dict]:
                           extractPrice: safe(() => api.extractPrice()),
                           readPrice: await api.readPrice().catch((e) => 'error: ' + e.message),
                           giftBox: gift && typeof gift === 'object' ? (gift.label || 'found') : (gift || null),
+                          cartOverPage: api.openCartOverPage ? safe(() => api.openCartOverPage()) : null,
                         };
                     }""")
                     row.update({"loads": loads, **answer})
@@ -153,7 +157,7 @@ def score_run(run_dir: Path, extension: Path) -> list[dict]:
                     context.close()
                 rows.append(row)
                 print(f"{row['shop']:28s} {name:14s} loads={row.get('loads')} speaks={row.get('isCheckoutPage')} "
-                      f"total={row.get('readPrice')} (shop says {row.get('shopify_cart_total')}) gift={row.get('giftBox')} {row.get('error', '')}", flush=True)
+                      f"total={row.get('readPrice')} (shop says {row.get('shopify_cart_total')}) gift={row.get('giftBox')} over-page={row.get('cartOverPage')} {row.get('error', '')}", flush=True)
         browser.close()
     return rows
 
