@@ -814,3 +814,15 @@
   color: #C2712F;
 }
 #dealo-popup-root .dealo-where-link:disabled { color: #6B7A8D; cursor: default; font-weight: 400; }
+
+/* The amount to type, inside a pointer label. */
+#dealo-pointer .dealo-ring-amount {
+  display: inline-block;
+  margin: 0 1px;
+  padding: 1px 7px;
+  border-radius: 6px;
+  background: #FFFFFF;
+  color: #16202B;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}

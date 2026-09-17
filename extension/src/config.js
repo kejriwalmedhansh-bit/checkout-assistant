@@ -14,9 +14,17 @@ self.__dealoConfig = {
   API_BASE: "https://dealo-backend.onrender.com",
   // Where the dev override above is kept.
   API_BASE_OVERRIDE_KEY: "dealo_api_base",
+  // Set true to log every decision the checkout check makes to the page's own
+  // console as "[Dealo] ...". Off in anything shipped.
+  TRACE: false,
   // URL must contain one of these (case-insensitive) to count as a
   // checkout-like page — generic, not a per-site list.
   CHECKOUT_URL_KEYWORDS: ["cart", "checkout", "bag", "payment"],
+  // Words that mark a page that is only sometimes a checkout. Dealo is loaded
+  // there, but speaks only if the page shows a payable total and a way to pay
+  // (content.js looksLikePaymentStep). MakeMyTrip's flight checkout is
+  // /flight/reviewDetails; AJIO's gift-card step is payment.services.ajio.com/pay.
+  MAYBE_CHECKOUT_URL_KEYWORDS: ["review", "booking", "pay"],
 
   // The three voucher partners. Dealo has to be able to run here — the whole
   // guided middle of the journey happens on these sites — but it must NOT

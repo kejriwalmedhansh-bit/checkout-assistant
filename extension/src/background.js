@@ -244,6 +244,16 @@ function hostMatches(host, listed) {
   return host === listed || host.endsWith("." + listed);
 }
 
+// The website a host belongs to — see siteOf in content.js, which this
+// mirrors. A trip carries on across a shop's own subdomains
+// (payment.services.ajio.com after luxe.ajio.com).
+const TWO_PART_ENDINGS = new Set(["co", "com", "net", "org", "gov", "edu", "ac", "gen", "firm", "ind", "res"]);
+function siteOf(host) {
+  const parts = String(host || "").toLowerCase().replace(/^www\./, "").split(".").filter(Boolean);
+  if (parts.length >= 3 && TWO_PART_ENDINGS.has(parts[parts.length - 2])) return parts.slice(-3).join(".");
+  return parts.slice(-2).join(".");
+}
+
 // The address is the first signal, but not the only one a shop gives.
 // DailyObjects puts its checkout at /qcp — no cart, no checkout, no bag, no
 // payment — so Dealo never even looked at a page whose own heading said
@@ -255,13 +265,19 @@ function hostMatches(host, listed) {
 // something cart-ish still has to pass the commerce check once injected, so
 // the cost of being wrong here is one injection, not a wrong popup.
 function looksLikeCheckout(url, title) {
-  const words = self.__dealoConfig.CHECKOUT_URL_KEYWORDS;
-  const hit = (text) =>
-    Boolean(text) && words.some((kw) => new RegExp(`(^|[^a-z])${kw}([^a-z]|$)`).test(text.toLowerCase()));
+  const cfg = self.__dealoConfig;
+  // Both lists load Dealo; the content script decides whether a "maybe" page
+  // (a booking review, a payment step) is really the last screen before paying.
+  const words = [...cfg.CHECKOUT_URL_KEYWORDS, ...(cfg.MAYBE_CHECKOUT_URL_KEYWORDS || [])];
+  const hit = (text) => {
+    // "reviewDetails" is two words to a person.
+    const t = String(text || "").replace(/([a-z])([A-Z])/g, "$1 $2").toLowerCase();
+    return Boolean(t) && words.some((kw) => new RegExp(`(^|[^a-z])${kw}([^a-z]|$)`).test(t));
+  };
 
   let u;
   try { u = new URL(url); } catch (e) { return hit(title); }
-  return hit(u.pathname + " " + u.search + " " + u.hash) || hit(title);
+  return hit(u.hostname.split(".").slice(0, -2).join(" ") + " " + u.pathname + " " + u.search + " " + u.hash) || hit(title);
 }
 
 async function shouldRunOn(url, title) {
@@ -274,8 +290,8 @@ async function shouldRunOn(url, title) {
   const trip = await tripGet();
   if (trip) {
     const voucherHost = hostOf(trip.deal?.voucherUrl);
-    if (voucherHost && hostMatches(host, voucherHost)) return true;
-    if (trip.store?.domain && hostMatches(host, trip.store.domain)) return true;
+    if (voucherHost && siteOf(host) === siteOf(voucherHost)) return true;
+    if (trip.store?.domain && siteOf(host) === siteOf(trip.store.domain)) return true;
   }
 
   // 2. Never here.
@@ -348,7 +364,12 @@ chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
   // change) — the document is already there, so that one is safe to act on.
   const settled = changeInfo.status === "complete";
   const inPageNav = Boolean(changeInfo.url) && changeInfo.status !== "loading";
-  if (settled || inPageNav) {
+  // A new page starting to load, too. Waiting for "complete" made the panel
+  // take seconds on heavy shops like Skechers (2026-09-17), and an early look
+  // is now safe: a cart that hasn't drawn yet is watched rather than written
+  // off (content.js watchForPrices), and the "complete" nudge looks again.
+  const started = changeInfo.status === "loading" && Boolean(changeInfo.url);
+  if (settled || inPageNav || started) {
     nudgeOrInject(tabId, changeInfo.url || tab?.url, false, tab?.title);
   }
 });

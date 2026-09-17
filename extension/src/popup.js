@@ -578,7 +578,10 @@ window.__dealoPopup = (() => {
 
     const wrap = document.createElement("div");
     wrap.id = "dealo-pointer";
-    wrap.innerHTML = `<div class="dealo-ring-box"></div><div class="dealo-ring-label">${esc(label)}</div>`;
+    // Any rupee amount in the instruction is the thing to type, so it stands
+    // out from the words around it ("Tap Custom, then enter ₹8,999").
+    const labelHtml = esc(label).replace(/₹\s?[\d,]+(?:\.\d+)?/g, (m) => `<span class="dealo-ring-amount">${m}</span>`);
+    wrap.innerHTML = `<div class="dealo-ring-box"></div><div class="dealo-ring-label">${labelHtml}</div>`;
     document.documentElement.appendChild(wrap);
 
     const place = () => {
@@ -835,7 +838,10 @@ window.__dealoPopup = (() => {
 
     const wrap = document.createElement("div");
     wrap.id = "dealo-pointer";
-    wrap.innerHTML = `<div class="dealo-ring-box"></div><div class="dealo-ring-label">${esc(label)}</div>`;
+    // Any rupee amount in the instruction is the thing to type, so it stands
+    // out from the words around it ("Tap Custom, then enter ₹8,999").
+    const labelHtml = esc(label).replace(/₹\s?[\d,]+(?:\.\d+)?/g, (m) => `<span class="dealo-ring-amount">${m}</span>`);
+    wrap.innerHTML = `<div class="dealo-ring-box"></div><div class="dealo-ring-label">${labelHtml}</div>`;
     document.documentElement.appendChild(wrap);
 
     const place = () => {
