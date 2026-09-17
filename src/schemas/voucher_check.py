@@ -39,3 +39,13 @@ class VoucherCheckResponse(BaseModel):
     # selling it — BuyHatke's AJIO card excludes H&M products, a limit that
     # exists on no other source's AJIO card.
     restrictions: list[str] = []
+
+    # --- shops whose cards each pay for different products ---
+    # Filled only when the shop sells several cards that each cover different
+    # things (GIVA silver jewellery vs silver coins, MakeMyTrip hotels vs
+    # flights). The extension cannot see the cart, so it asks the shopper what
+    # they are buying and shows that card. Each entry is a full answer of this
+    # same shape.
+    choice_label: str | None = None
+    covers: str | None = None
+    product_choices: list[dict] = []

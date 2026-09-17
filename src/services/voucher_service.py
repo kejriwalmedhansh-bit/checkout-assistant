@@ -1739,6 +1739,105 @@ def _card_refuses_online(source: str, record: dict | None) -> bool:
     return _rule_value(_standardised_rules(source, slug), "works_online") == "no"
 
 
+# Words a seller adds to a card's name that say nothing about what it buys:
+# "MakeMyTrip Hotel e-Pay", "Yatra - 2000", "Giva Jewellery RDM".
+_CARD_NAME_NOISE = re.compile(
+    r"(?i)\b(gift\s*cards?|gift\s*vouchers?|vouchers?|e-?\s?pay|e-?gift|gyftr|official|main|"
+    r"in\s*app|rdm|\d+\s*(hr|day)s?\s*wait|smart\s*plan)\b|\b\d+\b"
+)
+
+
+def _card_words(name: str) -> list[str]:
+    words = re.findall(r"[a-z0-9]+", _CARD_NAME_NOISE.sub(" ", (name or "").lower()))
+    # "Hotels" and "Hotel" are the same card on two sellers.
+    return [w[:-1] if len(w) > 4 and w.endswith("s") else w for w in words]
+
+
+@lru_cache(maxsize=1)
+def _online_cards() -> tuple[dict, ...]:
+    """Every live card on the three sellers that can be spent online, with
+    what its own terms say it pays for."""
+    cards = []
+    for source, records in (
+        ("gyftr", voucher_repository.all_vouchers()),
+        ("maximize", maximize_repository.all_brands()),
+        ("buyhatke", buyhatke_repository.all_brands()),
+    ):
+        for record in records:
+            live = [p for p in record.get("products") or [] if (p.get("status") or "active") == "active"]
+            if not live or _card_refuses_online(source, record):
+                continue
+            scope = _rule_value(_standardised_rules(source, record.get("slug") or ""), "spend_scope")
+            cards.append({
+                "name": record.get("brand_name") or "",
+                "key": "".join(_card_words(record.get("brand_name") or "")),
+                "covers": None if scope in (None, "not_stated") else scope,
+                "pct": max(p.get("best_discount_pct") or 0 for p in live),
+            })
+    return tuple(cards)
+
+
+def _choice_label(card_name: str, shop_label: str, is_plain_brand: bool, covers: str | None) -> str:
+    """What the shopper taps. The card's own "X only" beats its name when it
+    is short: BuyHatke's "Giva Jewellery RDM" is really "Silver jewellery,
+    perfumes, and candles". A plain-brand card is "Anything else" only when
+    its terms don't narrow it: "Yatra - 500" is flight bookings only."""
+    if covers and re.search(r"(?i)\bonly\b", covers):
+        short = re.split(r"(?i)\s+(?:on|at|via|through)\s+", covers)[0]
+        short = re.sub(r"(?i)^(eligible|purchase of)\s+|\s*\bonly\b\.?$", "", short).strip(" ,.")
+        if short and len(short) <= 45:
+            return short[0].upper() + short[1:].lower()
+    if not is_plain_brand:
+        rest = " ".join(_card_words(card_name)[len(_card_words(shop_label)):])
+        if rest:
+            return rest.capitalize()
+    return "Anything else"
+
+
+def product_choices(shop_label: str, price: float | None = None) -> list[dict]:
+    """The shop's vouchers, one per kind of product, when they differ by product.
+
+    Some shops sell several cards that each pay for different things: GIVA
+    has one for silver jewellery, one for gold and diamond, one for silver
+    coins; MakeMyTrip has hotel-only and holiday-only cards beside a general
+    one. The extension sees the shop and the total, not what is in the cart,
+    so it cannot choose. Product decision 2026-09-17: be transparent and let
+    the shopper say what they are buying, then show that card and its terms.
+
+    Returns [] unless the shop has at least two differently named cards and at
+    least one of them says in its terms that it only covers some products.
+    Each choice is a full voucher-check answer plus `choice_label` (what the
+    shopper taps) and `covers` (the card's own words for what it pays for).
+    """
+    label = "".join(_card_words(shop_label))
+    if len(label) < 4:
+        return []
+    family = [c for c in _online_cards() if c["key"].startswith(label)]
+    if not any(c["covers"] for c in family):
+        return []
+    groups: dict[str, list[dict]] = {}
+    for card in family:
+        groups.setdefault(card["key"], []).append(card)
+    if len(groups) < 2:
+        return []
+
+    choices = []
+    for key, cards in groups.items():
+        best = max(cards, key=lambda c: c["pct"])
+        deal = get_voucher_check(best["name"], price)
+        # A lookup that slid onto a sibling card would answer for the wrong product.
+        if not deal or "".join(_card_words(deal.get("brand_name") or "")) != key:
+            continue
+        covers = best["covers"] or next((c["covers"] for c in cards if c["covers"]), None)
+        choices.append({
+            **deal,
+            "choice_label": _choice_label(best["name"], shop_label, key == label, covers),
+            "covers": covers,
+        })
+    choices.sort(key=lambda c: c.get("pct") or 0, reverse=True)
+    return choices if len(choices) >= 2 else []
+
+
 def get_voucher_check(merchant_name: str, price: float | None = None) -> dict | None:
     """Single merchant-name lookup across all 3 voucher sources, for the
     Chrome extension's checkout-page popup (`GET /voucher-check`). Returns

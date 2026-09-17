@@ -673,3 +673,63 @@
 /* The step label above a progress bar wants a little room under it, and none
    of the extra leading that the shared eyebrow style carries. */
 #dealo-popup-root .dealo-eyebrow + .dealo-bar { margin-top: 4px; }
+
+/* --- Which voucher: shops that sell one per kind of product ------------- */
+#dealo-popup-root .dealo-choices {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 12px 0 2px;
+}
+#dealo-popup-root .dealo-choice {
+  all: unset;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: baseline;
+  gap: 6px;
+  max-width: 100%;
+  box-sizing: border-box;
+  padding: 7px 11px;
+  border-radius: 999px;
+  background: #FFFFFF;
+  border: 1px solid #E3DACB;
+  font-family: "Dealo Inter", -apple-system, sans-serif;
+  font-size: 13px;
+  color: #16202B;
+}
+#dealo-popup-root .dealo-choice:hover,
+#dealo-popup-root .dealo-choice:focus-visible {
+  border-color: #C2712F;
+  outline: none;
+}
+#dealo-popup-root .dealo-choice-pct {
+  font-variant-numeric: tabular-nums;
+  font-weight: 500;
+  color: #1F3A5F;
+}
+#dealo-popup-root .dealo-covers {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin: 8px 0 10px;
+  font-size: 12.5px;
+  line-height: 1.4;
+  color: #7A4A1E;
+  background: #FBEBD9;
+  border-radius: 9px;
+  padding: 8px 10px;
+}
+#dealo-popup-root .dealo-covers svg { vertical-align: -2px; }
+#dealo-popup-root .dealo-covers-links { color: #6B7A8D; }
+#dealo-popup-root .dealo-covers-links a {
+  color: #C2712F;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+#dealo-popup-root .dealo-covers-links .dealo-link {
+  display: inline;
+  width: auto;
+  padding: 0;
+  margin: 0;
+  font-size: 12.5px;
+}
