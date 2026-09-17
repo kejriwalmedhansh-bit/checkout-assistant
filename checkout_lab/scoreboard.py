@@ -41,6 +41,7 @@ HOOK = """
       urlMightBeCheckout: typeof urlMightBeCheckout === "function" ? urlMightBeCheckout : null,
       looksLikePaymentStep: typeof looksLikePaymentStep === "function" ? looksLikePaymentStep : null,
       openCartOverPage: typeof openCartOverPage === "function" ? openCartOverPage : null,
+      isCheckoutPageForced: typeof isCheckoutPageForced === "function" ? isCheckoutPageForced : null,
     });
     return;
   }
@@ -63,6 +64,23 @@ def without_shop_scripts(html: str) -> str:
     )
 
 
+def shop_sites() -> set:
+    """The websites the backend tells the extension to watch on every page:
+    the same map /shop-websites serves."""
+    path = REPO / "data" / "domain_brand_map.json"
+    if not path.exists():
+        return set()
+    return {site_of(d) for d in json.loads(path.read_text())}
+
+
+TWO_PART_ENDINGS = {"co", "com", "net", "org", "gov", "edu", "ac", "gen", "firm", "ind", "res"}
+
+
+def site_of(host: str) -> str:
+    parts = host.lower().removeprefix("www.").split(".")
+    return ".".join(parts[-3:]) if len(parts) >= 3 and parts[-2] in TWO_PART_ENDINGS else ".".join(parts[-2:])
+
+
 def background_gate(extension: Path) -> str:
     src = (extension / "src" / "background.js").read_text()
     match = re.search(r"function looksLikeCheckout\(url, title\) \{.*?\n\}\n", src, re.S)
@@ -79,6 +97,10 @@ def score_run(run_dir: Path, extension: Path) -> list[dict]:
         raise SystemExit("content.js no longer ends with check(); })(); - update the scoreboard hook")
     content_js = content_js.replace("  check();\n})();", HOOK)
     gate_js = background_gate(extension)
+    # The extension only watches every page of a shop when its background code
+    # has that rule; older code has no shopSites() and relies on the address.
+    watches_whole_shops = "shopSites" in (extension / "src" / "background.js").read_text()
+    known_shops = shop_sites() if watches_whole_shops else set()
 
     rows: list[dict] = []
     with sync_playwright() as p:
@@ -148,16 +170,24 @@ def score_run(run_dir: Path, extension: Path) -> list[dict]:
                           readPrice: await api.readPrice().catch((e) => 'error: ' + e.message),
                           giftBox: gift && typeof gift === 'object' ? (gift.label || 'found') : (gift || null),
                           cartOverPage: api.openCartOverPage ? safe(() => api.openCartOverPage()) : null,
+                          speaksOnPanel: api.openCartOverPage && api.isCheckoutPageForced
+                            ? Boolean(safe(() => api.openCartOverPage()) && safe(() => api.isCheckoutPageForced())) : false,
                         };
                     }""")
-                    row.update({"loads": loads, **answer})
+                    from urllib.parse import urlparse as _urlparse
+                    known = site_of(_urlparse(url).hostname or "") in known_shops
+                    row.update({"loads": bool(loads) or known, "loads_reason": "shop website" if known and not loads else "address",
+                                **answer})
+                    # Dealo speaks either because the page is a checkout, or
+                    # because a cart opened over it and its prices say so.
+                    row["wakes"] = bool(row["loads"]) and (row.get("isCheckoutPage") is True or row.get("speaksOnPanel") is True)
                 except Exception as e:  # a page that won't load offline is recorded, not fatal
                     row["error"] = str(e).splitlines()[0][:200]
                 finally:
                     context.close()
                 rows.append(row)
                 print(f"{row['shop']:28s} {name:14s} loads={row.get('loads')} speaks={row.get('isCheckoutPage')} "
-                      f"total={row.get('readPrice')} (shop says {row.get('shopify_cart_total')}) gift={row.get('giftBox')} over-page={row.get('cartOverPage')} {row.get('error', '')}", flush=True)
+                      f"wakes={row.get('wakes')} total={row.get('readPrice')} (shop says {row.get('shopify_cart_total')}) over-page={row.get('cartOverPage')} {row.get('error', '')}", flush=True)
         browser.close()
     return rows
 
