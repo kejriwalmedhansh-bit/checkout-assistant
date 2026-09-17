@@ -1,0 +1,446 @@
+brand,domain,sellers,how_decided
+109F,109f.com,buyhatke,auto: name in address
+Absolute Barbecues (Custom),absolutebarbecues.com,maximize,auto: name in address
+Adani Meet and Greet,adanione.com,buyhatke;gyftr,auto: name in address
+Adventra,adventrasports.com,gyftr,auto: name in address
+Aeropostale BAGLINE,bagline.com,buyhatke;maximize,auto: name in address
+Air India,airindia.com,gyftr,auto: name in address
+Air India Domestic Gift Card,airindia.com,gyftr,auto: name in address
+Air UK Route (1 Day Wait),airindia.com,buyhatke,auto: name in address
+Airtel Xstream,airtelxstream.in,gyftr,auto: name in address
+AJIO,ajio.com,gyftr,auto: name in address
+Ajio Luxe,ajio.com,gyftr,auto: name in address
+Aliste,alistetechnologies.com,buyhatke;gyftr;maximize,auto: name in address
+Amala Earth,amala.earth,buyhatke,auto: name in address
+Amazon,amazon.in,gyftr,auto: name in address
+Amazon Fresh,amazon.in,buyhatke;gyftr,auto: name in address
+Amazon Fresh Voucher,amazon.in,maximize,auto: name in address
+Amazon Pay,amazon.in,buyhatke,auto: name in address
+Amazon Prime 12 Months,amazon.in,buyhatke,auto: name in address
+Amazon Prime Lite Edition,amazon.in,buyhatke;maximize,auto: name in address
+Amazon Prime Membership,amazon.in,gyftr,auto: name in address
+Amazon Prime Shopping Edition,amazon.in,buyhatke,auto: name in address
+Amazon Prime Voucher - 12 months Membership,amazon.in,maximize,auto: name in address
+Amazon Prime Voucher - 3 months Membership,amazon.in,maximize,auto: name in address
+Amazon Shopping,amazon.in,buyhatke,auto: name in address
+Amazon Shopping Voucher,amazon.in,gyftr;maximize,auto: name in address
+AmazonPay (Gift Card),amazon.in,maximize,auto: name in address
+American Eagle,aeo.in,buyhatke;maximize,checked by hand
+Anita Dongre,anitadongre.com,buyhatke,auto: name in address
+Apollo Diagnostics,apollo247.com,maximize,auto: name in address
+APOLLO DIAGNOSTICS,apollodiagnostics.in,gyftr,auto: name in address
+App Store Code,appstore.com,gyftr,auto: name in address
+AppyHigh Prime,appyhigh.com,buyhatke;maximize,auto: name in address
+Archies,archiesonline.com,buyhatke,auto: name in address
+Archies Gallery,archiesonline.com,buyhatke;gyftr;maximize,auto: name in address
+Assembly,assemblytravel.com,buyhatke;gyftr,auto: name in address
+Auric,theauric.com,buyhatke;gyftr;maximize,auto: name in address
+AZA Fashions,azafashions.com,buyhatke,auto: name in address
+Bakingo,bakingo.com,buyhatke;gyftr,auto: name in address
+Bear House,thebearhouse.com,buyhatke,auto: name in address
+Beyoung,beyoung.in,buyhatke;gyftr;maximize,auto: name in address
+BGMI UC Official Voucher,unipin.com,gyftr,checked by hand
+BGMI UniPin,unipin.com,buyhatke,checked by hand
+BIBA,biba.in,buyhatke;gyftr,auto: name in address
+BigBasket,bigbasket.com,buyhatke;gyftr;maximize,auto: name in address
+Bigbasket (Custom),bigbasket.com,maximize,auto: name in address
+Birkenstock,birkenstock.in,buyhatke;maximize,auto: name in address
+Black Decker,appliancesblackanddecker.in,buyhatke,auto: name in address
+Blaupunkt,blaupunktaudio.in,buyhatke;maximize,auto: name in address
+Blissclub,blissclub.com,buyhatke;gyftr;maximize,auto: name in address
+Blue Tokai Coffee,bluetokaicoffee.com,buyhatke,auto: name in address
+Bluestone,bluestone.com,buyhatke,auto: name in address
+BlueStone Diamond,bluestone.com,buyhatke;maximize,auto: name in address
+Bluestone Gemstone Studded,bluestone.com,buyhatke,auto: name in address
+BlueStone Gold,bluestone.com,buyhatke,auto: name in address
+Boat,boat-lifestyle.com,buyhatke;maximize,auto: name in address
+Boditive,boditive.com,buyhatke,auto: name in address
+BookMyShow,bookmyshow.com,maximize,auto: name in address
+BrainGymJr,braingymjr.com,buyhatke;gyftr,auto: name in address
+BrainGymJr Gift Voucher,braingymjr.com,maximize,auto: name in address
+BuyWithEMI,buywithemi.com,buyhatke;maximize,auto: name in address
+CAHOOT,cahoot.in,gyftr,auto: name in address
+Campus,campusshoes.com,buyhatke;gyftr,auto: name in address
+Campus Sutra,campussutra.com,buyhatke,auto: name in address
+Candere Diamond Jewellery,candere.com,buyhatke;gyftr;maximize,auto: name in address
+Candere Gold Coin,candere.com,buyhatke;gyftr;maximize,auto: name in address
+Candere Gold Jewellery,candere.com,buyhatke;gyftr;maximize,auto: name in address
+CaratLane,caratlane.com,buyhatke,auto: name in address
+Cello,celloworld.com,buyhatke;gyftr,auto: name in address
+CGH Earth,cghearth.com,buyhatke;maximize,auto: name in address
+Chicco,chicco.in,buyhatke,auto: name in address
+Cinepolis,cinepolisindia.com,buyhatke;gyftr;maximize,auto: name in address
+Citizen Watches,citizenwatches.store,gyftr,auto: name in address
+Citizen Watches,citizenwatches.co.in,buyhatke,auto: name in address
+CLAYCO,clayco.in,buyhatke;gyftr,auto: name in address
+Cleartax,cleartax.in,buyhatke;gyftr;maximize,auto: name in address
+Cleartrip,cleartrip.com,gyftr;maximize,auto: name in address
+Cleartrip Hotel,cleartrip.com,gyftr,auto: name in address
+ClearTrip Hotels,cleartrip.com,buyhatke,auto: name in address
+Cleartrip Hotels (Custom),cleartrip.com,maximize,auto: name in address
+Cloud tailor,cloudtailor.in,buyhatke,auto: name in address
+Clovia,clovia.com,buyhatke;gyftr,auto: name in address
+Cordelia,cordeliacruises.com,gyftr,auto: name in address
+Cordelia Cruises,cordeliacruises.com,maximize,auto: name in address
+Corseca,corseca.in,buyhatke,auto: name in address
+Cosmus,cosmus.in,buyhatke,auto: name in address
+Croma,croma.com,buyhatke;gyftr;maximize,auto: name in address
+Croma (Custom),croma.com,maximize,auto: name in address
+Crossword,crossword.in,buyhatke;gyftr;maximize,auto: name in address
+Daily Objects,dailyobjects.com,buyhatke;gyftr,auto: name in address
+DANUBE BUILDMART,danubehome.com,buyhatke,auto: name in address
+Decathlon,decathlon.in,gyftr,auto: name in address
+Decathlon - Fixed,decathlon.in,maximize,auto: name in address
+DeVagabond,devagbond.com,buyhatke,auto: name in address
+Discord,discord.com,gyftr,auto: name in address
+Discovery,discoveryplus.in,buyhatke,auto: name in address
+Discovery Plus,discoveryplus.in,buyhatke;gyftr;maximize,auto: name in address
+District,district.in,buyhatke;maximize,auto: name in address
+DocuBay,docubay.com,buyhatke;gyftr,auto: name in address
+Donatekart,donatekart.com,buyhatke;maximize,auto: name in address
+DPauls,dpauls.com,buyhatke;maximize,auto: name in address
+DPauls Travel & Tours,dpauls.com,buyhatke;gyftr,auto: name in address
+DUROFLEX,duroflexworld.com,buyhatke;gyftr;maximize,auto: name in address
+EA SPORTS FC 26,ea.com,gyftr,checked by hand
+EaseMyTrip,easemytrip.com,buyhatke;maximize,auto: name in address
+EaseMyTrip Holiday,easemytrip.com,buyhatke;gyftr;maximize,auto: name in address
+EaseMyTrip Hotel,easemytrip.com,buyhatke;maximize,auto: name in address
+EatSure,eatsure.com,buyhatke;gyftr;maximize,checked by hand
+EazyDiner,eazydiner.com,gyftr,auto: name in address
+EazyDiner,b.ezyd.in,buyhatke,checked by hand
+Elivaas,elivaas.com,gyftr;maximize,auto: name in address
+Elver,elver.in,buyhatke;maximize,auto: name in address
+Epic On 1 month Plan,epicon.in,buyhatke,auto: name in address
+Epic On 1 Year Plan,epicon.in,buyhatke,auto: name in address
+Epic On 3 month Plan,epicon.in,buyhatke,auto: name in address
+Epic On 6 month Plan,epicon.in,buyhatke,auto: name in address
+Estele,estele.co,buyhatke;gyftr;maximize,auto: name in address
+ET Prime,economictimes.indiatimes.com,buyhatke,checked by hand
+Euphoria Diamond,euphoriajewellery.in,maximize,auto: name in address
+Euphoria Diamond Jewellery,euphoriajewellery.in,buyhatke,auto: name in address
+Euphoria Gold Coin,euphoriajewellery.in,buyhatke;maximize,auto: name in address
+Euphoria Gold Jewellery,euphoriajewellery.in,buyhatke,auto: name in address
+Euphoria Jewellery,euphoriajewellery.in,buyhatke,auto: name in address
+Euphoria Jewellery Gold Coin,euphoriajewellery.in,buyhatke;gyftr,auto: name in address
+Euphoria Jewellery Silver Coin,euphoriajewellery.in,buyhatke;gyftr;maximize,auto: name in address
+Euphoria Silver Coin,euphoriajewellery.in,buyhatke,auto: name in address
+ExitLag,exitlag.com,gyftr,auto: name in address
+Fab Hotels,fabhotels.com,buyhatke;gyftr,auto: name in address
+Fastrack SmartWatch (1 Day Wait),titan.co.in,buyhatke,checked by hand
+Femmella,femmella.com,buyhatke;gyftr;maximize,auto: name in address
+Ferns N Petals,fnp.com,buyhatke;gyftr;maximize,checked by hand
+Finusmart,finusmart.com,buyhatke,auto: name in address
+First Cry,firstcry.com,buyhatke;gyftr;maximize,auto: name in address
+Flipkart,flipkart.com,gyftr,auto: name in address
+Flipkart - (Custom),flipkart.com,maximize,auto: name in address
+FlixBus,flixbus.in,buyhatke,auto: name in address
+Flower Aura,floweraura.com,buyhatke;gyftr;maximize,auto: name in address
+Forever New,forevernew.co.in,buyhatke;maximize,auto: name in address
+Foxtale,foxtale.in,buyhatke;gyftr;maximize,auto: name in address
+Freecultr,freecultr.com,gyftr,auto: name in address
+French Accent,getfrenchaccent.com,buyhatke;gyftr,auto: name in address
+FRIDO,myfrido.com,buyhatke;gyftr;maximize,auto: name in address
+FUTURE WORLD - APPLE RESELLER,futureworldindia.co.in,gyftr,auto: name in address
+Future World Apple,futureworldindia.in,buyhatke,auto: name in address
+Gaana,gaana.com,buyhatke;gyftr,auto: name in address
+GIVA Silver Coin,giva.co,gyftr;maximize,auto: name in address
+GIVA Silver Coin (Custom),giva.co,maximize,auto: name in address
+GIVA Silver jewellery,giva.co,gyftr;maximize,auto: name in address
+Global Desi,globaldesi.in,buyhatke,auto: name in address
+GoBaby Travel,gobabytravel.com,buyhatke,auto: name in address
+Goibibo,goibibo.com,buyhatke,auto: name in address
+GoIbibo Hotel,goibibo.com,buyhatke;maximize,auto: name in address
+Hammer,hammeronline.in,buyhatke;gyftr;maximize,auto: name in address
+Haute Sauce,buyhautesauce.com,buyhatke;gyftr,auto: name in address
+Headout,headout.com,maximize,auto: name in address
+Healthians,healthians.com,buyhatke;gyftr,auto: name in address
+HealthKart,healthkart.com,buyhatke;gyftr;maximize,auto: name in address
+Hidesign,hidesign.com,buyhatke;gyftr,auto: name in address
+Hindustan Times Premium,hindustantimes.com,gyftr,auto: name in address
+Hoichoi,hoichoi.tv,buyhatke;gyftr,auto: name in address
+Home,at-home.co.in,buyhatke,auto: name in address
+Home Centre Online,homecentre.in,gyftr,auto: name in address
+HopInTown Plus,hopintown.com,buyhatke,auto: name in address
+Hopscotch,hopscotch.in,maximize,auto: name in address
+House of Vaaree,vaaree.com,buyhatke,auto: name in address
+Hyperice,hyperice.in,gyftr,auto: name in address
+IGP,igp.com,buyhatke;gyftr,auto: name in address
+Ikea,ikea.in,gyftr,auto: name in address
+Ikea,ikea.com,buyhatke,auto: name in address
+Imagine Apple Premium,myimaginestore.com,buyhatke,auto: name in address
+Imagine Apple Premium Reseller,myimaginestore.com,maximize,auto: name in address
+Innovist,innovist.com,buyhatke,checked by hand
+Instafab Plus,instafabplus.com,buyhatke;gyftr,auto: name in address
+INTERMILES,intermiles.com,gyftr,auto: name in address
+IRCTC,irctc.co.in,gyftr,auto: name in address
+Ixigo,ixigo.com,buyhatke;gyftr,auto: name in address
+ixigo hotel,ixigo.com,buyhatke;gyftr,auto: name in address
+JioHotstar,jiohotstar.com,buyhatke;gyftr;maximize,auto: name in address
+Jockey,jockey.in,buyhatke;gyftr,auto: name in address
+Jos Alukkas Coin,josalukkasonline.com,buyhatke,auto: name in address
+Jos Alukkas Diamond,josalukkasonline.com,buyhatke;maximize,auto: name in address
+Jos Alukkas Gold Coin,josalukkasonline.com,maximize,auto: name in address
+Jos Alukkas Gold Jewellery,josalukkasonline.com,maximize,auto: name in address
+Juicy Couture BAGLINE,bagline.com,buyhatke,auto: name in address
+Just Lil Things,justlilthings.in,buyhatke;maximize,auto: name in address
+KALKI,kalkifashion.com,gyftr,auto: name in address
+Kalyan Diamond,kalyanjewellers.net,buyhatke,auto: name in address
+Kalyan Gold Jewellery,kalyanjewellers.net,buyhatke,auto: name in address
+Kama Ayurveda,kamaayurveda.in,buyhatke;gyftr,auto: name in address
+Ketan Diamonds - Diamond Only,ketandiamonds.com,buyhatke;gyftr;maximize,auto: name in address
+Ketan Diamonds - Gold Coin,ketandiamonds.com,buyhatke;gyftr;maximize,auto: name in address
+Ketan Diamonds - Gold Jewellery,ketandiamonds.com,buyhatke;gyftr;maximize,auto: name in address
+KFC,kfc.co.in,gyftr,auto: name in address
+KFC,online.kfc.co.in,buyhatke,auto: name in address
+Kiehl s,kiehls.in,buyhatke,auto: name in address
+Kimirica,kimirica.shop,buyhatke;gyftr;maximize,auto: name in address
+Klook,klook.com,buyhatke;gyftr,auto: name in address
+Leaf Studios,leafstudios.in,buyhatke,auto: name in address
+Lee,lee.in,buyhatke,auto: name in address
+Lee 3 Day Wait,lee.in,buyhatke,auto: name in address
+Lego,lego.mybrickhouse.com,gyftr,checked by hand
+LENSKART,lenskart.com,gyftr,auto: name in address
+Lenskart 3 Day Wait,lenskart.com,buyhatke,auto: name in address
+Levis,levi.in,buyhatke;gyftr,auto: name in address
+Libas,libas.in,gyftr,auto: name in address
+Liberty,libertyshoesonline.com,buyhatke,auto: name in address
+Liberty Online,libertyshoesonline.com,gyftr;maximize,auto: name in address
+Lifestyle,lifestylestores.com,buyhatke,auto: name in address
+Lifestyle Online,lifestylestores.com,gyftr;maximize,auto: name in address
+Lionsgate Play,lionsgateplay.com,buyhatke;gyftr;maximize,auto: name in address
+Live Hindustan,livehindustan.com,buyhatke;gyftr,auto: name in address
+Live Mint,livemint.com,buyhatke,auto: name in address
+LOCCITANE,loccitane.com,buyhatke,auto: name in address
+Lohono Stays,lohono.com,buyhatke;gyftr;maximize,auto: name in address
+Love Beauty Planet,lovebeautyandplanet.in,buyhatke,auto: name in address
+"LUZO - Salons, Spas, Clinics",luzo.app,gyftr,auto: name in address
+MakeMyTrip,nmakemytrip.com,maximize,auto: name in address
+MakeMyTrip,makemytrip.com,buyhatke,auto: name in address
+MakeMyTrip Bus,makemytrip.com,buyhatke;maximize,auto: name in address
+MakeMyTrip Cab,makemytrip.com,maximize,auto: name in address
+MakeMyTrip e-Pay,makemytrip.com,gyftr;maximize,auto: name in address
+Makemytrip Holiday,makemytrip.com,maximize,auto: name in address
+MakeMyTrip Holiday E Pay,makemytrip.com,gyftr;maximize,auto: name in address
+MakeMyTrip Holidays,makemytrip.com,buyhatke,auto: name in address
+Makemytrip Hotel,makemytrip.com,buyhatke;maximize,auto: name in address
+MakeMyTrip Hotel E Pay,makemytrip.com,gyftr;maximize,auto: name in address
+MakeMyTrip International,makemytrip.com,maximize,auto: name in address
+MakeMyTrip Rail,makemytrip.com,buyhatke;maximize,auto: name in address
+Malabar Diamond (Custom),malabargoldanddiamonds.com,maximize,auto: name in address
+Malabar Diamonds,malabargoldanddiamonds.com,buyhatke,auto: name in address
+Malabar Diamonds,malabargoldanddiamonds.co,gyftr,auto: name in address
+Malabar Diamonds 1 Day Wait,malabargoldanddiamonds.com,buyhatke,auto: name in address
+Malabar Gold Coin,malabargoldanddiamonds.com,gyftr;maximize,auto: name in address
+Malabar Gold Jewellery,malabargoldanddiamonds.com,buyhatke,auto: name in address
+Malabar Jewellery,malabargoldanddiamonds.com,gyftr,auto: name in address
+Mamaearth,mamaearth.in,buyhatke;gyftr,auto: name in address
+Maple,maplestore.in,buyhatke,auto: name in address
+Marks & Spencer,marksandspencer.in,gyftr;maximize,auto: name in address
+Marks and Spencer,marksandspencer.in,buyhatke,auto: name in address
+Matrix,matrix.in,gyftr,auto: name in address
+Max Fashion,maxfashion.com,buyhatke,auto: name in address
+Max Fashion Online,maxfashion.com,gyftr,auto: name in address
+McDonalds,mcdonaldsindia.com,buyhatke,auto: name in address
+Me N Moms,menmoms.in,gyftr;maximize,auto: name in address
+Mediwheel,mediwheel.in,buyhatke;gyftr,auto: name in address
+Microsoft Office,microsoft.com,gyftr,auto: name in address
+Microsoft Office,office.com,maximize,auto: name in address
+Microsoft Xbox Game Pass Core,microsoft.com,buyhatke,auto: name in address
+Microsoft Xbox Game Pass Core,xbox.com,gyftr,auto: name in address
+Microsoft Xbox PC Game Pass,microsoft.com,gyftr,auto: name in address
+Milton,milton.in,buyhatke,auto: name in address
+Minecraft Minecoins,minecraft.net,buyhatke,auto: name in address
+Minus30,minus30.co,gyftr;maximize,auto: name in address
+Miraggio,miraggiolife.com,maximize,auto: name in address
+Mokobara,mokobara.com,buyhatke;maximize,auto: name in address
+MS Xbox Game Pass Ultimate,xbox.com,gyftr,auto: name in address
+Muscle Blaze,muscleblaze.com,maximize,auto: name in address
+Muthoot Gold,muthoot.com,buyhatke,auto: name in address
+Muthoot Gold Voucher,muthoot.com,gyftr;maximize,auto: name in address
+MXPlayer,mxplayer.in,buyhatke,auto: name in address
+Myntra,myntra.com,buyhatke;gyftr,auto: name in address
+myUpchar Medicines,myupchar.com,buyhatke,auto: name in address
+Nat Habit,nathabit.in,buyhatke;gyftr,auto: name in address
+Natures Basket,naturesbasket.co.in,buyhatke,auto: name in address
+Neeman's,neemans.com,gyftr;maximize,auto: name in address
+Netmeds,netmeds.com,buyhatke;gyftr;maximize,auto: name in address
+Nilkamal Homes,nilkamalhomes.com,maximize,auto: name in address
+Nintendo,nintendo.com,buyhatke,auto: name in address
+Nintendo eShop Voucher,nintendo.com,gyftr,auto: name in address
+Nintendo Shop,nintendo.com,maximize,auto: name in address
+Nua Woman,nuawoman.com,gyftr,auto: name in address
+Nua Women,nuawoman.com,buyhatke;maximize,auto: name in address
+Nykaa,nykaa.com,buyhatke;gyftr,auto: name in address
+Nykaa (Custom),nykaa.com,maximize,auto: name in address
+Nykaa Fashion,nykaa.com,gyftr,auto: name in address
+Nykaa Fashion,nykaafashion.com,buyhatke;maximize,auto: name in address
+Nykaa LUXE,nykaa.com,buyhatke,auto: name in address
+Nykaa Man,nykaaman.com,buyhatke;gyftr,auto: name in address
+Nykaa Men,nykaaman.com,maximize,checked by hand
+Oberoi Hotels Resorts,oberoihotels.com,buyhatke,auto: name in address
+OLA CABS,olacabs.com,buyhatke;gyftr,auto: name in address
+Origin Nutrition,originnutrition.in,buyhatke,auto: name in address
+Ornaz,ornaz.com,buyhatke,auto: name in address
+OTTplay,ottplay.com,buyhatke,auto: name in address
+Ovenstory,ovenstory.in,maximize,checked by hand
+Palmonas,palmonas.com,gyftr;maximize,auto: name in address
+Pantaloons (4 Hr Wait),pantaloons.com,buyhatke,auto: name in address
+PC Chandra Gems Gold Coin,pcchandraindia.com,buyhatke,auto: name in address
+PC Chandra Gold Coin,pcchandraindia.com,buyhatke;maximize,auto: name in address
+PCJ Diamond,pcjeweller.com,buyhatke,auto: name in address
+PCJ Gold Coin,pcjeweller.com,buyhatke,auto: name in address
+PCJ Gold Jewellery,pcjeweller.com,buyhatke,auto: name in address
+Pepperfry,pepperfry.com,buyhatke;maximize,auto: name in address
+Pepperfry Luxury,pepperfry.com,buyhatke,auto: name in address
+Philips,domesticappliances.philips.co.in,buyhatke;gyftr,auto: name in address
+PhonePe,phonepe.com,buyhatke,auto: name in address
+PhonePe (Fixed),phonepe.com,maximize,auto: name in address
+PhonePe 5000 and 10000,phonepe.com,maximize,auto: name in address
+Photojaanic,photojaanic.com,buyhatke,auto: name in address
+PinePerksRupayPrime-WH,pineperks.in,maximize,auto: name in address
+Pixel Go,pixelgo.com,buyhatke;maximize,auto: name in address
+Pizza Hut,pizzahut.co.in,buyhatke;gyftr,auto: name in address
+Playstation,playstation.com,buyhatke,auto: name in address
+Points for Good,pointsforgood.org,buyhatke;gyftr;maximize,auto: name in address
+Prestige,ttkprestige.com,buyhatke;maximize,auto: name in address
+Prestige,prestige.com,gyftr,auto: name in address
+Prestige Smart Kitchen,prestigesmartkitchen.com,buyhatke,auto: name in address
+Pure Home & Living,purehomeandliving.com,buyhatke;gyftr;maximize,auto: name in address
+PVR INOX,pvrcinemas.com,gyftr,auto: name in address
+Rangriti,rangriti.com,gyftr,auto: name in address
+Ray Ban,ray-ban.com,buyhatke,auto: name in address
+Razer Gold,gold.razer.com,buyhatke;maximize,auto: name in address
+Razorpay Money Bill,money.razorpay.com,maximize,auto: name in address
+Razorpay Money Flex,razorpay.com,buyhatke;maximize,auto: name in address
+Reliance Jio Mart,jiomart.com,gyftr,auto: name in address
+Renee Cosmetics,reneecosmetics.in,buyhatke;gyftr,auto: name in address
+Rentomojo,rentomojo.com,buyhatke,auto: name in address
+Resonate Router UPS,resonate.store,buyhatke;maximize,auto: name in address
+Riot League of Legends 1660,riotgames.com,maximize,checked by hand
+Riot League of Legends 2900,riotgames.com,maximize,checked by hand
+Riot League of Legends 415,riotgames.com,maximize,checked by hand
+Riot League of Legends 4150,riotgames.com,maximize,checked by hand
+Riot League of Legends 830,riotgames.com,maximize,checked by hand
+Roblox,roblox.com,buyhatke;gyftr;maximize,auto: name in address
+Roblox Gift Card,roblox.com,gyftr,auto: name in address
+Salty,salty.co.in,buyhatke,auto: name in address
+Samsonite,samsonite.in,buyhatke,auto: name in address
+Shell (1 Day Wait),shell.com,buyhatke,auto: name in address
+ShemarooMe,shemaroome.com,buyhatke;gyftr,auto: name in address
+ShemarooMe Premium,shemaroome.com,buyhatke,auto: name in address
+Shiv Naresh,shivnaresh.in,buyhatke;gyftr,auto: name in address
+Shiva Organic,shivaorganic.com,buyhatke;gyftr,auto: name in address
+Shoppers Stop,shoppersstop.com,gyftr,auto: name in address
+Shopy Vision,shopyvision.com,buyhatke;gyftr,auto: name in address
+Simple,simpleskincare.in,buyhatke,auto: name in address
+Skechers,skechers.in,buyhatke;gyftr;maximize,auto: name in address
+Skullcandy,skullcandy.in,buyhatke;maximize,auto: name in address
+Skullcandy,shop.brandeyes.in,gyftr,checked by hand
+Smile Foundation,smilefoundationindia.org,buyhatke;maximize,auto: name in address
+Snapdeal 1000,snapdeal.com,buyhatke,auto: name in address
+Snapdeal 500,snapdeal.com,buyhatke,auto: name in address
+Snitch,snitch.com,gyftr,auto: name in address
+Snitch E,snitch.com,buyhatke,auto: name in address
+Soch,soch.com,buyhatke,auto: name in address
+Solara,solara.in,gyftr,auto: name in address
+Sony Playstation,playstation.com,gyftr,auto: name in address
+SonyLiv,sonyliv.com,buyhatke;gyftr,auto: name in address
+SonyLiv 6 Months,sonyliv.com,buyhatke,auto: name in address
+Soulflower,soulflower.in,buyhatke;gyftr;maximize,auto: name in address
+Speedo,speedo.com,gyftr,auto: name in address
+Speedo,speedo.in,buyhatke;maximize,auto: name in address
+SpiceJet,spicejet.com,buyhatke,auto: name in address
+Spotify,spotify.com,gyftr,auto: name in address
+Sri Jagdamba Pearls,jpearls.com,buyhatke,auto: name in address
+SSUNSU,ssunsu.in,buyhatke;gyftr;maximize,auto: name in address
+Starbucks,tatastarbucks.com,buyhatke,auto: name in address
+Starbucks,starbucks.in,maximize,auto: name in address
+StayVista,stayvista.com,buyhatke;maximize,auto: name in address
+Steam Gift Card,steampowered.com,gyftr,auto: name in address
+Steam Wallet,steampowered.com,gyftr,auto: name in address
+Sterling Holidays,sterlingholidays.com,buyhatke;maximize,auto: name in address
+Subway,subway.in,maximize,auto: name in address
+Sun Scoop,innovist.com,buyhatke,checked by hand
+SUPA,supastyle.com,buyhatke,auto: name in address
+Superbottoms,superbottoms.com,buyhatke;gyftr;maximize,auto: name in address
+Surat Diamond,suratdiamond.com,maximize,auto: name in address
+Surat Diamond Solitaire,suratdiamond.com,maximize,auto: name in address
+Surat Diamonds,suratdiamond.com,buyhatke;gyftr,auto: name in address
+Surat Diamonds Main,suratdiamond.com,buyhatke;maximize,auto: name in address
+Surat Diamonds Solitaire,suratdiamond.com,buyhatke,auto: name in address
+Svenklas,svenklas.com,buyhatke,auto: name in address
+Swiggy Money Voucher,swiggy.com,gyftr,auto: name in address
+SWISS BEAUTY,swissbeauty.in,buyhatke;gyftr,auto: name in address
+Taj Hotels,tajhotels.com,buyhatke,auto: name in address
+Tanishq Gold Coin,stores.tanishq.co.in,buyhatke;maximize,auto: name in address
+TATA CLiQ,tatacliq.com,gyftr,auto: name in address
+Tata CliQ Luxury,tatacliq.com,buyhatke;gyftr,auto: name in address
+TataCliq Fashion,tatacliq.com,buyhatke,auto: name in address
+Tattva Spa,tattvaspa.com,buyhatke;gyftr;maximize,auto: name in address
+TEGO,tego.fit,buyhatke;gyftr;maximize,checked by hand
+The Bear House,thebearhouse.com,maximize,auto: name in address
+The Body Shop,thebodyshop.in,buyhatke;gyftr;maximize,auto: name in address
+The Collective,thecollective.in,buyhatke;maximize,auto: name in address
+The Man Company,themancompany.com,buyhatke;gyftr;maximize,auto: name in address
+The Reading Habit,thereadinghabit.in,buyhatke,auto: name in address
+The Skin Story,story.in,gyftr,auto: name in address
+Things2Do,things2.do,buyhatke,checked by hand
+Times Prime Lite,timesprime.com,buyhatke,auto: name in address
+Times Prime Power,timesprime.com,buyhatke,auto: name in address
+Times Prime Prive,timesprime.com,buyhatke,auto: name in address
+Tinder,tinder.com,buyhatke;gyftr;maximize,auto: name in address
+TripXOXO,tripxoxo.com,buyhatke;maximize,auto: name in address
+Troll Beads,trollbeads.in,gyftr,auto: name in address
+Typsy Beauty,typsybeauty.com,buyhatke;gyftr,auto: name in address
+Tzaro,tzaro.com,buyhatke,auto: name in address
+UBER,uber.com,buyhatke;gyftr,auto: name in address
+UniPin,unipin.com,buyhatke;gyftr,checked by hand
+UniPin BGMI,unipin.com,gyftr,checked by hand
+Unipin- BGMI Voucher,unipin.com,maximize,checked by hand
+United Colors of Benetton BAGLINE,bagline.com,buyhatke,auto: name in address
+Urban Ladder,urbanlader.com,buyhatke,auto: name in address
+Urban Ladder,urbanladder.com,maximize,auto: name in address
+Urban Space,urbanspacestore.in,gyftr,auto: name in address
+V Mart (Custom),stores.vmart.co.in,maximize,auto: name in address
+Valorant,riotgames.com,buyhatke;gyftr,checked by hand
+Valorant Gift Card,riotgames.com,gyftr,checked by hand
+Vaya,vaya.in,buyhatke,auto: name in address
+Veridicus,veridicushealthcares.com,gyftr,auto: name in address
+Vinci Botanicals,vincibotanicals.com,buyhatke,auto: name in address
+Vinzberry,vinzberry.com,gyftr,auto: name in address
+Vitamin Haat,vitaminhaat.com,buyhatke,auto: name in address
+VROTT,vrott.tv,buyhatke;gyftr;maximize,auto: name in address
+Wakefit,wakefit.co,buyhatke;maximize,auto: name in address
+Wellbeing Nutrition,wellbeingnutrition.com,buyhatke;gyftr;maximize,auto: name in address
+What's Up Wellness,whatsupwellness.in,gyftr,auto: name in address
+Woggles,woggles.in,buyhatke,auto: name in address
+Wonderchef,wonderchef.com,buyhatke;maximize,auto: name in address
+Woodland,woodlandworldwide.com,buyhatke;gyftr,auto: name in address
+World of Titan,titan.co.in,maximize,checked by hand
+World of Titan (1 Day Wait),titan.co.in,buyhatke,checked by hand
+World of Titan 8 Hr Wait,titan.co.in,buyhatke,checked by hand
+World of Titan SmartWatch,titan.co.in,maximize,checked by hand
+Wynk Music,wynk.in,gyftr,auto: name in address
+Xbox Essential Game Pass,xbox.com,buyhatke,auto: name in address
+Xbox Premium Game Pass,xbox.com,buyhatke,auto: name in address
+Xbox Ultimate Game Pass,xbox.com,buyhatke,auto: name in address
+Xfused,goxfused.com,buyhatke,auto: name in address
+Yalla Ludo,yallaludo.com,gyftr;maximize,auto: name in address
+Yatra,yatra.com,buyhatke;maximize,auto: name in address
+Yatra - 1500,yatra.com,maximize,auto: name in address
+Yatra - 2000,yatra.com,maximize,auto: name in address
+Yatra - 500,yatra.com,maximize,auto: name in address
+Yatra Hotel,yatra.com,buyhatke;maximize,auto: name in address
+Yatra Hotel Gift Card,yatra.com,gyftr,auto: name in address
+Yatra Hotels and Holidays,yatra.com,buyhatke;maximize,auto: name in address
+Yatra Hotels Holidays,yatra.com,buyhatke,auto: name in address
+Yatra Prime,yatra.com,buyhatke,auto: name in address
+Yatra Special,yatra.com,buyhatke,auto: name in address
+Yatra Travel Treat 1000,yatra.com,buyhatke,auto: name in address
+Yatra Voucher,yatra.com,gyftr,auto: name in address
+Zee5,zee5.com,buyhatke;gyftr,auto: name in address
+ZEE5 Regional,zee5.com,buyhatke,auto: name in address
+Zepto,zeptonow.com,buyhatke;gyftr;maximize,auto: name in address
+Zomato,zomato.com,buyhatke,auto: name in address
+Zoomcar,zoomcar.com,gyftr;maximize,auto: name in address
+Zouk,zouk.co.in,gyftr;maximize,auto: name in address

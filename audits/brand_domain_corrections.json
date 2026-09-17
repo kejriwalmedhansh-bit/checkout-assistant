@@ -1,0 +1,16 @@
+{
+ "_note": "Fixes to the brand -> website list that no seller's data would make on its own. Applied last, after both lists are merged, by scripts/build_domain_brand_map.py. Every entry says why.",
+ "remove": [
+  {"domain": "story.in", "why": "Matched to The Skin Story on the single word 'story'. The shop is theskinstory.in, which the older audit already has."},
+  {"domain": "devagbond.com", "why": "This address does not exist (checked 2026-09-10)."},
+  {"domain": "nmakemytrip.com", "why": "This address does not exist (checked 2026-09-10); makemytrip.com is already listed."},
+  {"domain": "urbanlader.com", "why": "Misspelt in the seller's own terms. Replaced by urbanladder.com below."},
+  {"domain": "razorpay.com", "why": "A payment company that runs other shops' checkouts, not a shop. Mapping it to a Razorpay Money voucher would offer that voucher on the wrong store's order."},
+  {"domain": "money.razorpay.com", "why": "Razorpay's own wallet page, not a shop checkout; same reason as razorpay.com."}
+ ],
+ "add": [
+  {"domain": "urbanladder.com", "brand": "Urban Ladder", "why": "The correctly spelt address for the entry removed above."},
+  {"domain": "libertyshoesonline.com", "brand": "Liberty Online", "why": "The shortest-name rule picked 'Liberty', which on Gyftr is the in-store-only voucher. This is Liberty's online shop, so it must resolve to the online voucher."},
+  {"domain": "muscleblaze.com", "brand": "Muscle%20Blaze", "why": "Maximize's catalogue stores the brand under this garbled name (slug muscle-20blaze), and the voucher lookup matches names exactly, so the clean 'Muscle Blaze' finds nothing. Drop this pin once the Maximize data is cleaned."}
+ ]
+}
