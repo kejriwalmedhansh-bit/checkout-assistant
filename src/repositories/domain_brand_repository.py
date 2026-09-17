@@ -33,3 +33,22 @@ def brand_for_domain(domain: str) -> str | None:
     if domain.startswith("www."):
         domain = domain[4:]
     return _domain_to_brand.get(domain)  # type: ignore[union-attr]
+
+
+_TWO_PART_ENDINGS = {"co", "com", "net", "org", "gov", "edu", "ac", "gen", "firm", "ind", "res"}
+
+
+def _site_of(host: str) -> str:
+    parts = host.strip().lower().removeprefix("www.").split(".")
+    if len(parts) >= 3 and parts[-2] in _TWO_PART_ENDINGS:
+        return ".".join(parts[-3:])
+    return ".".join(parts[-2:])
+
+
+def shop_sites() -> list[str]:
+    """Every website Dealo recognises as a shop, as the website itself
+    ("ajio.com" for luxe.ajio.com). The extension loads on every page of
+    these, so it can see a cart that opens as a panel or a pop-up checkout
+    over any page, not only on cart-looking addresses."""
+    _load()
+    return sorted({_site_of(d) for d in _domain_to_brand})  # type: ignore[union-attr]

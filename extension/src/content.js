@@ -735,10 +735,74 @@
     priceWatch = { stop, giveUp: setTimeout(() => { trace("stopped watching", key); stop(); }, WATCH_FOR_PRICES_MS) };
   }
 
+  // --- Carts that open over the page --------------------------------------
+  //
+  // Many shops never give the cart or checkout its own address: the cart slides
+  // in as a panel (Levi's, Jockey) or checkout opens as a pop-up window from
+  // GoKwik, Shopflo or Fastrr over whatever page the shopper was on. The
+  // scoreboard found these behind nearly every remaining miss (2026-09-17).
+  // On a shop Dealo has vouchers for, it is loaded on every page (background.js
+  // shouldRunOn), and this watches for one of these opening.
+  const POPUP_CHECKOUT_FRAME = /gokwik|shopflo|fastrr|shiprocket|zecpe|simpl\.in/i;
+  const CART_PANEL_WORDS = /\b((your|my|shopping)\s*(cart|bag|basket)|cart\s*\(\s*\d|bag\s*\(\s*\d|sub\s*total|order\s*summary|cart\s*total|bag\s*total)\b/i;
+  const CART_PANEL_ACTION = /\b(check\s*out|pay\s*now|place\s*order|proceed\s*to\s*(checkout|pay)|buy\s*now)\b/i;
+
+  function shownOnScreen(el) {
+    const r = el.getBoundingClientRect();
+    if (r.width < 260 || r.height < 280 || r.right <= 0 || r.left >= innerWidth || r.bottom <= 0 || r.top >= innerHeight) return false;
+    for (let node = el; node && node !== document.documentElement; node = node.parentElement) {
+      const cs = getComputedStyle(node);
+      if (cs.display === "none" || cs.visibility === "hidden" || Number(cs.opacity) === 0) return false;
+    }
+    return true;
+  }
+
+  // What is open, if anything: "pop-up checkout", "cart panel", or null.
+  function openCartOverPage() {
+    for (const frame of document.querySelectorAll("iframe")) {
+      if (POPUP_CHECKOUT_FRAME.test(frame.src || "") && shownOnScreen(frame)) return "pop-up checkout";
+    }
+    const candidates = document.querySelectorAll(
+      '[class*="cart" i], [id*="cart" i], [class*="drawer" i], [class*="bag" i], [id*="bag" i], [role="dialog"], aside'
+    );
+    for (const el of candidates) {
+      if (isDealoOwn(el) || !shownOnScreen(el)) continue;
+      const text = el.innerText || "";
+      if (text.length > 15000) continue; // the whole page, not a panel
+      if (CART_PANEL_WORDS.test(text) && CART_PANEL_ACTION.test(text) && /(₹|\brs\.?\s|\binr\s)\s?\d/i.test(text)) return "cart panel";
+    }
+    return null;
+  }
+
+  let panelWatch = null;
+  let panelOffered = false;
+  function watchForCartOverPage() {
+    if (panelWatch) return;
+    let timer = null;
+    const look = () => {
+      timer = null;
+      const open = openCartOverPage();
+      if (!open) { panelOffered = false; return; } // closed: the next opening counts again
+      if (panelOffered || document.getElementById("dealo-popup-root")) return;
+      panelOffered = true;
+      trace(open, "opened over the page, looking");
+      check(false, false, false, open);
+    };
+    panelWatch = new MutationObserver(() => {
+      if (!timer) timer = setTimeout(look, 700);
+    });
+    panelWatch.observe(document.documentElement, { childList: true, subtree: true, attributes: true, attributeFilter: ["class", "style", "open", "aria-hidden"] });
+    look();
+  }
+
   // `fromWorker` is the browser telling Dealo this tab navigated or finished
   // loading. Those arrive right after an early look by design, so the burst
   // limiter must not swallow them.
-  async function check(force = false, isRetry = false, fromWorker = false) {
+  // `overPage` names a cart panel or pop-up checkout that just opened over a
+  // page (watchForCartOverPage): the address says nothing, so the page's own
+  // prices decide, as on a click, and the one-check-per-address guard doesn't
+  // apply because the address hasn't changed.
+  async function check(force = false, isRetry = false, fromWorker = false, overPage = null) {
     // An orphaned copy of this script — the extension was reloaded or removed
     // out from under this tab — can't do anything useful. Go quiet.
     if (extensionGone()) return;
@@ -751,7 +815,7 @@
     // check was skipped. The query string stays out — storefronts rewrite it
     // constantly with tracking parameters that change nothing.
     const key = location.hostname + location.pathname + location.hash;
-    if (!force && !isRetry) {
+    if (!force && !isRetry && !overPage) {
       // One check per page/view — but only once Dealo actually reached a
       // verdict there. "Not a checkout" on a cart that hadn't drawn yet is
       // not one, and must not stop the next look.
@@ -779,7 +843,7 @@
     const trip = tripRes?.trip || null;
     if (trip && await runJourney(trip)) return;
 
-    if (!(force ? isCheckoutPageForced() : isCheckoutPage())) {
+    if (!(force || overPage ? isCheckoutPageForced() : isCheckoutPage())) {
       if (urlLooksLikeCheckout() || urlMightBeCheckout()) {
         if (retriesLeftForKey > 0) {
           retriesLeftForKey -= 1;
@@ -792,6 +856,10 @@
       }
       trace("not a checkout", key);
       lastCheckedKey = key;
+      // Not a checkout by its address or its content, but a cart can still
+      // open over it. Only watched here, never on a page that is a checkout,
+      // so closing Dealo's panel on a cart page can't bring it straight back.
+      watchForCartOverPage();
       return;
     }
     priceWatch?.stop();

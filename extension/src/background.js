@@ -283,6 +283,37 @@ function looksLikeCheckout(url, title) {
   return hit(u.hostname.split(".").slice(0, -2).join(" ") + " " + u.pathname + " " + u.search + " " + u.hash) || hit(title);
 }
 
+// The websites Dealo has vouchers for, from the backend, kept for a day.
+// On these, Dealo loads on every page: a cart that opens as a panel or a
+// pop-up checkout over the home page never changes the address, and the
+// address test below can't see it (Levi's, Neemans, Clayco and others in
+// the scoreboard, 2026-09-17). Everywhere else the address test still decides.
+const SHOP_SITES_KEY = "dealo_shop_sites";
+const SHOP_SITES_MAX_AGE_MS = 24 * 60 * 60 * 1000;
+let shopSitesCache = null;
+
+async function shopSites() {
+  if (shopSitesCache && Date.now() - shopSitesCache.fetchedAt < SHOP_SITES_MAX_AGE_MS) return shopSitesCache.sites;
+  const stored = (await chrome.storage.local.get(SHOP_SITES_KEY))[SHOP_SITES_KEY];
+  if (stored && Date.now() - stored.fetchedAt < SHOP_SITES_MAX_AGE_MS) {
+    shopSitesCache = { sites: new Set(stored.sites), fetchedAt: stored.fetchedAt };
+    return shopSitesCache.sites;
+  }
+  try {
+    const res = await fetch(`${await apiBase()}/shop-websites`, { signal: AbortSignal.timeout(12000) });
+    if (!res.ok) throw new Error(`shop-websites ${res.status}`);
+    const { sites } = await res.json();
+    const fresh = { sites, fetchedAt: Date.now() };
+    await chrome.storage.local.set({ [SHOP_SITES_KEY]: fresh });
+    shopSitesCache = { sites: new Set(sites), fetchedAt: fresh.fetchedAt };
+  } catch (e) {
+    // Unreachable: keep yesterday's list if there is one, else the address
+    // test alone, exactly as before.
+    if (stored) shopSitesCache = { sites: new Set(stored.sites), fetchedAt: Date.now() - SHOP_SITES_MAX_AGE_MS + 60 * 60 * 1000 };
+  }
+  return shopSitesCache?.sites || new Set();
+}
+
 async function shouldRunOn(url, title) {
   if (!url || !/^https?:/.test(url)) return false;
   const host = hostOf(url);
@@ -301,7 +332,11 @@ async function shouldRunOn(url, title) {
   if (cfg.NEVER_RUN_HOSTS.some((h) => hostMatches(host, h))) return false;
   if (cfg.VOUCHER_HOSTS.some((h) => hostMatches(host, h))) return false;
 
-  // 3. Does the address look like somewhere money changes hands?
+  // 3. A shop Dealo has vouchers for: every page, so a cart panel or pop-up
+  //    checkout opening anywhere on it is seen.
+  if ((await shopSites()).has(siteOf(host))) return true;
+
+  // 4. Elsewhere: does the address look like somewhere money changes hands?
   return looksLikeCheckout(url, title);
 }
 

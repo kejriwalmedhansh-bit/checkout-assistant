@@ -144,6 +144,13 @@ def _usable_online(deal: dict | None) -> bool:
     return not _IN_STORE_NAME.search(brand) and _norm(brand) not in _store_only_brands()
 
 
+@router.get("/shop-websites")
+def shop_websites() -> dict:
+    """The websites the extension should watch on every page (see
+    domain_brand_repository.shop_sites). Cached by the extension for a day."""
+    return {"sites": domain_brand_repository.shop_sites()}
+
+
 @router.get("/voucher-check", response_model=VoucherCheckResponse)
 def voucher_check(domain: str = Query(..., min_length=1), price: float | None = None) -> dict:
     # The domain map is built from an audit CSV whose row for a domain is
