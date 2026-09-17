@@ -19,7 +19,7 @@ import { usePageTitle } from '@/hooks/usePageTitle';
  *   - src/cache.py                 — why the server keeps nothing on disk
  *   - extension/src/*.js           — what the extension sends and stores
  */
-const LAST_UPDATED = 'September 7, 2026';
+const LAST_UPDATED = 'September 17, 2026';
 
 function Section({ title, children }) {
   return (
@@ -131,14 +131,20 @@ export default function PrivacyPage() {
         <SubHeading>How you use the site</SubHeading>
         If you agree to be recorded, we keep a record of what happens as you use Dealo — a search being run
         (including the words you searched), which product you picked, the prices and savings you were shown, which
-        buttons and links you tapped, and the replay described above. These are tied to a random identifier created
-        by your browser, not to your name. Our analytics provider also derives an approximate location — city and
-        region — from your internet connection.
+        buttons and links you tapped, the pages you viewed, where your visit came from (the website or ad that sent
+        you, including any campaign tags in the link), and the replay described above. These are tied to a random
+        identifier created by your browser, not to your name. Our analytics provider also derives an approximate
+        location — city and region — from your internet connection.
         <br />
         <br />
         If you haven’t agreed, none of that happens: no identifier, no replay, no record of what you searched. All
-        that’s kept is a count of how many people reached each step of the site, with nothing attached to say who
-        they were.
+        that’s kept is a count of how many people reached each step of the site — including opening a store or
+        voucher link, which our server counts as it forwards you — with nothing attached to say who they were.
+
+        <SubHeading>Links to stores and voucher partners</SubHeading>
+        Store, voucher-partner and card links on Dealo pass through our own server on the way. It records that the
+        link was opened, which store or partner it was for, and where on the page it was — tied to your random
+        identifier if you agreed to be recorded, and to nothing otherwise.
 
         <SubHeading>What your browser keeps</SubHeading>
         Dealo stores a few things on your own device so the site works sensibly:
@@ -170,7 +176,10 @@ export default function PrivacyPage() {
         <SubHeading>One thing to be aware of</SubHeading>
         Your phone number is included in the usage records we send to Mixpanel, so that the steps of one
         conversation can be read together. That means our analytics provider receives your number. We do not send
-        your IP address with those records. WhatsApp messages themselves are carried by Meta, under{' '}
+        your IP address with those records. Store and voucher links the bot sends pass through our server, which
+        records when you open one. If you open WhatsApp from this website after agreeing to be recorded, the
+        pre-filled message ends with a short code: the bot reads it and uses it to connect your website visit to
+        your WhatsApp conversation. WhatsApp messages themselves are carried by Meta, under{' '}
         <Text as="a" href="https://www.whatsapp.com/legal/privacy-policy" target="_blank" rel="noopener noreferrer" color="brand" fontWeight={700} textDecoration="underline">
           WhatsApp’s own privacy policy
         </Text>
@@ -206,7 +215,7 @@ export default function PrivacyPage() {
         We don’t sell your information, and we don’t share it for anyone else’s advertising. It reaches these
         companies only because they do a specific job for Dealo:
         <List>
-          <li><strong>Mixpanel</strong> — our analytics provider. Holds the usage records and session replays described above, on European servers.</li>
+          <li><strong>Mixpanel</strong> — our analytics provider. Holds the usage records and session replays described above, and records of purchases affiliate networks report to us, on European servers.</li>
           <li><strong>Meta (WhatsApp)</strong> — carries messages to and from the Dealo bot. WhatsApp only.</li>
           <li><strong>Search and page-reading services</strong> — receive the product name or link you searched, so they can fetch public store pages on our behalf and read the price. They receive what you searched for, not who you are.</li>
           <li><strong>Affiliate networks</strong> — see the click that sends you to a store, as described below.</li>
@@ -220,7 +229,10 @@ export default function PrivacyPage() {
         an affiliate network, and if you buy something we may earn a commission. The commission is paid by the
         store out of its own margin — it adds nothing to your price, and it isn’t what decides which route Dealo
         shows you. That’s decided by the final price you’d pay. The network sees the click and the resulting
-        purchase; it doesn’t receive your identity from us.
+        purchase. So we can tell which Dealo link led to a sale, each link carries a random code: your random
+        identifier on the website, or a scrambled code on WhatsApp that can’t be turned back into your number. The
+        network never receives your name, phone number or email from us. It reports the sale back to us (store,
+        order value and our commission), and we add it to our usage records.
       </Section>
 
       <Section title="How long things are kept">

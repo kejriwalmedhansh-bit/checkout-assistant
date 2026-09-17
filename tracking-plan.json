@@ -1,0 +1,140 @@
+{
+  "_read_me": [
+    "The one list of every analytics event Dealo sends to Mixpanel (project DealO, EU data residency).",
+    "HOW TO ADD AN EVENT: 1) add it below with a one-line meaning, its surfaces and its properties; 2) fire it in code with a literal name; 3) run .venv/bin/python -m pytest tests/test_tracking_plan.py -q. The test fails if code fires a name that isn't listed here, if a listed event is never fired, or if a name is built dynamically.",
+    "Prefer adding a property to an existing event over a new near-duplicate event.",
+    "Shared funnel (same name on every surface): Session Started -> Product Searched / Checkout Detected -> Deal Shown -> Shop Link Opened / Voucher Site Opened -> Purchase Recorded -> Purchase Status Changed."
+  ],
+  "identity": {
+    "$device_id": "Anonymous id. Website: the visitor's dealo_user_id (only after consent). Extension: an id created at install. WhatsApp: wa-<scrambled phone>. Also sent as dealo_id.",
+    "$user_id": "A known person. Only WhatsApp has one: wa:<phone>. An event carrying both ids joins every earlier event of that device to the person.",
+    "links": "Website -> WhatsApp: the bot's pre-filled message carries (ref <website id>) and the bot fires Identity Linked. Every shop link carries the device id as affiliate subid, so purchases come back already attributed."
+  },
+  "common_properties": {
+    "surface": "web | whatsapp | extension (server events take the surface of the link that was clicked)",
+    "environment": "production | development",
+    "app_version": "Git commit (backend, website) or version number (extension) that sent the event",
+    "is_internal_tester": "True for the team's own devices/phones — filter these out of real numbers",
+    "dealo_id": "The device id (see identity)"
+  },
+  "events": {
+    "Session Started": {
+      "description": "A visit or conversation began. Website: page load. WhatsApp: first message after 30 quiet minutes.",
+      "surfaces": ["web", "whatsapp"],
+      "properties": {
+        "is_returning_visitor": "web: this browser has been here before",
+        "landing_page": "web: path the visit started on",
+        "referrer_domain": "web: site that sent the visitor, or direct",
+        "utm_source, utm_medium, utm_campaign, utm_content, utm_term, gclid, fbclid": "web: campaign tags on the landing URL",
+        "entry": "whatsapp: message | ad",
+        "ad_source_type, ad_source_id, ad_source_url, ad_headline, ad_click_id": "whatsapp: click-to-WhatsApp ad that started the chat"
+      }
+    },
+    "Page Viewed": {
+      "description": "Website route shown (fires on every route change).",
+      "surfaces": ["web"],
+      "properties": {"path": "Route path"}
+    },
+    "Product Searched": {
+      "description": "Someone searched for a product (text or pasted link).",
+      "surfaces": ["web", "whatsapp"],
+      "properties": {"query": "What they typed or pasted", "input_type": "products | url | brand_voucher (web) or product_name | url (whatsapp)", "result_count": "web: candidates returned"}
+    },
+    "Deal Shown": {
+      "description": "Dealo showed its recommended way to buy a product.",
+      "surfaces": ["web", "whatsapp"],
+      "properties": {
+        "product_title": "Product",
+        "merchant": "Shop recommended",
+        "has_voucher": "Whether the route uses a gift voucher",
+        "voucher_platform": "Gyftr | Maximize | BuyHatke | none",
+        "listed_price": "Price before Dealo",
+        "final_cost": "What the shopper pays",
+        "saving_amount": "Rupees saved",
+        "saving_pct": "Percent saved",
+        "alternatives_count": "web: other routes available"
+      }
+    },
+    "Shop Link Opened": {
+      "description": "Someone opened a shop link through /go (fired by the backend for every surface). The affiliate link carries subid=device id, subid2=click_id, subid3=surface.",
+      "surfaces": ["server"],
+      "properties": {
+        "click_id": "Unique per click; comes back on purchases as subid2",
+        "ctx": "Where the link was, e.g. check_page_step, redeem_step, direct_buy_step, product_card",
+        "brand": "Brand matched from the shop domain",
+        "shop_domain": "Shop website",
+        "shop_url": "Exact page opened",
+        "network": "cuelinks | inrdeals",
+        "is_bot": "A link-preview bot, not a person — exclude from funnels",
+        "referrer": "Page the click came from"
+      }
+    },
+    "Voucher Site Opened": {
+      "description": "Someone opened a gift-voucher partner page (Gyftr / Maximize / BuyHatke) through /out.",
+      "surfaces": ["server"],
+      "properties": {"ctx": "Where the link was", "destination_domain": "Partner site", "destination_url": "Exact page", "is_bot": "Link-preview bot", "referrer": "Page the click came from"}
+    },
+    "Card Link Opened": {
+      "description": "Someone opened a credit-card application link through /out.",
+      "surfaces": ["server"],
+      "properties": {"ctx": "Where the link was", "destination_domain": "Link host", "destination_url": "Exact link", "is_bot": "Link-preview bot", "referrer": "Page the click came from"}
+    },
+    "Identity Linked": {
+      "description": "Two surfaces were recognised as the same person (website visitor opened WhatsApp through the website button).",
+      "surfaces": ["whatsapp"],
+      "properties": {"from_surface": "Surface whose id was joined to this person"}
+    },
+    "Purchase Recorded": {
+      "description": "An affiliate network reported a sale from one of our shop links. Sent by scripts/sync_affiliate_purchases.py, timed at the sale date.",
+      "surfaces": ["server"],
+      "properties": {
+        "network": "cuelinks | inrdeals",
+        "transaction_id": "Network's id for the sale",
+        "click_id": "The Shop Link Opened click, when the network returns it",
+        "shop": "Merchant / campaign name",
+        "sale_amount": "Order value",
+        "commission": "Dealo's commission",
+        "currency": "Currency of the amounts",
+        "status": "Network status when first seen, e.g. pending",
+        "click_surface": "Surface the click came from, when returned"
+      }
+    },
+    "Purchase Status Changed": {
+      "description": "A reported sale moved status (e.g. pending -> validated, rejected, paid).",
+      "surfaces": ["server"],
+      "properties": {"network": "cuelinks | inrdeals", "transaction_id": "Network's id for the sale", "status": "New status", "sale_amount": "Order value", "commission": "Dealo's commission", "shop": "Merchant / campaign name"}
+    },
+
+    "Dashboard Opened": {"description": "Website app loaded (legacy; same moment as Session Started).", "surfaces": ["web"], "properties": {"is_returning_visitor": "Seen before on this browser"}},
+    "Searched": {"description": "Website search returned (legacy; see Product Searched).", "surfaces": ["web"], "properties": {"query": "Search text", "mode": "products | url | brand_voucher", "result_count": "Candidates"}},
+    "Selected Product": {"description": "Website visitor picked a product from the candidates.", "surfaces": ["web"], "properties": {"query": "Search text", "title": "Product picked", "source": "Listing source"}},
+    "Viewed Deal": {"description": "Website results shown (legacy; see Deal Shown).", "surfaces": ["web"], "properties": {"merchant": "Shop", "has_voucher": "Uses voucher", "final_cost": "Pay amount", "original_price": "Listed", "final_price": "Pay amount", "discount": "Saving", "voucher_aggregator": "Voucher platform"}},
+    "Clicked Buy Link": {"description": "Website journey step button clicked (voucher or checkout).", "surfaces": ["web"], "properties": {"step": "voucher | checkout", "merchant": "Shop", "has_voucher": "Uses voucher"}},
+    "Clicked Alternatives Toggle": {"description": "Website visitor opened or closed the other routes.", "surfaces": ["web"], "properties": {}},
+    "Clicked Brand Voucher Link": {"description": "Website brand directory voucher link clicked.", "surfaces": ["web"], "properties": {"brand": "Brand", "source": "Voucher platform", "pct": "Discount", "placement": "brand-page | popular | list"}},
+    "Clicked WhatsApp Button": {"description": "Website WhatsApp link clicked.", "surfaces": ["web"], "properties": {"source": "sidebar | contact_page | contact_page_bot"}},
+    "Clicked Floating WhatsApp Button": {"description": "Website floating WhatsApp button clicked.", "surfaces": ["web"], "properties": {}},
+    "Clicked FAQ Item": {"description": "How-it-works FAQ item opened.", "surfaces": ["web"], "properties": {}},
+    "Tour Step Shown": {"description": "Onboarding tour step displayed.", "surfaces": ["web"], "properties": {}},
+    "Tour Skipped": {"description": "Onboarding tour skipped.", "surfaces": ["web"], "properties": {}},
+    "Onboarding Reopened": {"description": "Visitor reopened the onboarding tour.", "surfaces": ["web"], "properties": {"path": "Page", "step_index": "Tour step"}},
+    "Page Not Found": {"description": "Visitor hit a missing page.", "surfaces": ["web"], "properties": {}},
+
+    "WhatsApp Message Received": {"description": "Any inbound WhatsApp message.", "surfaces": ["whatsapp"], "properties": {"msg_type": "text | image | interactive | ..."}},
+    "WhatsApp Onboarded": {"description": "Welcome message sent to a phone not seen since the server last restarted (resets on restart; use Mixpanel's first-time filter for true new users).", "surfaces": ["whatsapp"], "properties": {}},
+    "WhatsApp Nudge Sent": {"description": "Bot couldn't act on a message and nudged the user.", "surfaces": ["whatsapp"], "properties": {"reason": "noise_phrase | opt_out | website_greeting | non_text:<type> | ...", "text": "Message text", "suppressed_first_time": "Nudge skipped after onboarding"}},
+    "WhatsApp Rate Limited": {"description": "Phone hit the hourly search limit.", "surfaces": ["whatsapp"], "properties": {"query": "Search text"}},
+    "WhatsApp Search": {"description": "WhatsApp search started (legacy; see Product Searched).", "surfaces": ["whatsapp"], "properties": {"query": "Search text", "input_type": "product_name | url"}},
+    "WhatsApp Picker Shown": {"description": "Bot asked the user to pick the exact product.", "surfaces": ["whatsapp"], "properties": {"query": "Search text", "candidate_count": "Options", "approximate": "Weak match", "picker_type": "photo_flow | text_list"}},
+    "WhatsApp Product Selected": {"description": "User picked a product.", "surfaces": ["whatsapp"], "properties": {"title": "Product", "price": "Listed price"}},
+    "WhatsApp Recommendation Shown": {"description": "Bot sent the recommended route (legacy; see Deal Shown).", "surfaces": ["whatsapp"], "properties": {"title": "Product", "vendor": "Shop", "voucher_platform": "Platform", "listed_price": "Listed", "final_cost": "Pay", "discount_amount": "Saving", "discount_pct": "Saving %"}},
+    "WhatsApp Buy Step Shown": {"description": "Bot sent the buy step (voucher or direct).", "surfaces": ["whatsapp"], "properties": {"step": "voucher | direct", "platform": "Voucher platform label", "merchant": "Shop", "discount_pct": "Saving %"}},
+    "WhatsApp Card Offer Shown": {"description": "Bot suggested a credit card for extra cashback.", "surfaces": ["whatsapp"], "properties": {"card_name": "Card", "saving_amount": "Extra saving", "has_apply_link": "Apply link included"}},
+    "WhatsApp Button Tapped": {"description": "User tapped a reply button.", "surfaces": ["whatsapp"], "properties": {"button_id": "see_alternatives | pick_again", "button_title": "Label"}},
+    "WhatsApp Alternatives Requested": {"description": "Bot listed other ways to buy.", "surfaces": ["whatsapp"], "properties": {"count": "Alternatives"}},
+    "WhatsApp No Alternatives": {"description": "User asked for other routes but there were none.", "surfaces": ["whatsapp"], "properties": {}},
+    "WhatsApp Alternative Selected": {"description": "User picked an alternative route.", "surfaces": ["whatsapp"], "properties": {"merchant": "Shop"}},
+    "WhatsApp Dead End": {"description": "Bot couldn't produce a result.", "surfaces": ["whatsapp"], "properties": {"stage": "no_route | no_candidates | exception | bad_selection_id | pick_again_empty", "query": "Search text or error"}},
+    "WhatsApp Session Expired": {"description": "User replied after their session expired.", "surfaces": ["whatsapp"], "properties": {"at": "Which step"}}
+  }
+}

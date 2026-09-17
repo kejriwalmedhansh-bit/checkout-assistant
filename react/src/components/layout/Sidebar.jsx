@@ -7,6 +7,8 @@ import LogoIcon from '@/components/common/LogoIcon';
 import WhatsAppButton from '@/components/common/WhatsAppButton';
 import { ROUTES } from '@/routes/paths';
 import { useUiStore } from '@/store/uiStore';
+import { track } from '@/utils/analytics';
+import { botWhatsAppHref } from '@/utils/whatsappLink';
 
 /** Fixed icon-slot width — keeps every icon on one vertical center line. */
 const ICON_SLOT = 34;
@@ -130,9 +132,7 @@ function SidebarFooterItem({ icon: Icon, label, onClick, href, isExternal, onNav
 }
 
 function SidebarFooter({ onNavigate, collapsed, onOpenOnboarding }) {
-  const WHATSAPP_NUMBER = '919874400045';
-  const DEFAULT_MESSAGE = "Hi! I'd like to try Dealo on WhatsApp.";
-  const whatsappHref = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(DEFAULT_MESSAGE)}`;
+  const whatsappHref = botWhatsAppHref();
 
   return (
     <Flex direction="column" gap="3px">
@@ -141,7 +141,7 @@ function SidebarFooter({ onNavigate, collapsed, onOpenOnboarding }) {
         label="Chat on WhatsApp"
         href={whatsappHref}
         isExternal
-        onClick={() => window.__dealo?.track?.('Clicked WhatsApp Button')}
+        onClick={() => track('Clicked WhatsApp Button', { source: 'sidebar' })}
         collapsed={collapsed}
       />
       <SidebarFooterItem

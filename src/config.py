@@ -65,6 +65,12 @@ class Settings(BaseSettings):
     # reusing it here needs no new credential. Overridable via env if the
     # project token ever changes.
     MIXPANEL_TOKEN: str = "5dcefbba60138d48545e132490cd1e4d"
+    # Scrambles a WhatsApp phone into the id sent to affiliate networks
+    # (analytics_service.whatsapp_device_id). Never change it once live:
+    # purchases reported weeks later are matched on the scrambled id.
+    ANALYTICS_ID_SECRET: str = "dealo-wa-id-v1"
+    # Comma-separated team phones (E.164, no "+"), tagged is_internal_tester.
+    INTERNAL_PHONES: str = ""
 
     # --- Caching / sessions (stateless, in-memory) ---
     SEARCH_CACHE_TTL_SECONDS: int = 86400  # 24h — protects the SearchApi budget
@@ -84,6 +90,18 @@ class Settings(BaseSettings):
     # Fixed per-publisher tracking id (see constants.INRDEALS_BASE) — not a
     # secret, same category as CUELINKS_CID above.
     INRDEALS_PUBLISHER_ID: str = "med579083413"
+    # Reports API (scripts/sync_affiliate_purchases.py): token issued by the
+    # INRDeals account manager; username is the INRDeals login id.
+    INRDEALS_API_TOKEN: str = ""
+    INRDEALS_USERNAME: str = ""
+
+    # --- Mixpanel import (scripts/sync_affiliate_purchases.py only) ---
+    # Service account (Mixpanel -> Organization settings -> Service accounts).
+    # /import needs it: purchases arrive days after the click, past the 5-day
+    # window the public /track endpoint accepts.
+    MIXPANEL_PROJECT_ID: str = "4048546"
+    MIXPANEL_SERVICE_ACCOUNT_USERNAME: str = ""
+    MIXPANEL_SERVICE_ACCOUNT_SECRET: str = ""
 
     # --- This backend's own public URL, no trailing slash ---
     # Used to build /go redirect links (see api/routers/redirect.py) so
