@@ -1,5 +1,6 @@
 import { Fragment, useEffect, useState } from 'react';
 import { Box, Flex, Text } from '@chakra-ui/react';
+import { motion, useReducedMotion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 
 import FloatingOutlines from '@/components/common/FloatingOutlines';
@@ -24,8 +25,23 @@ export default function SearchPage() {
   const startTour = useUiStore((s) => s.startTour);
   const advanceTour = useUiStore((s) => s.advanceTour);
   const { active: searchBoxHighlighted, dim: searchBoxDim } = useTourHighlight('search-box');
+  const prefersReduced = useReducedMotion();
 
   const heroGlow = gradients.promptHero;
+
+  // Same easing/duration family as ProductQuickView's motion.div, kept
+  // consistent across the app. A short, single fade+rise on first paint —
+  // no bounce, no scale, no color shift: the Ledger direction treats
+  // legibility itself as the trust signal, so entrance motion here is a
+  // quiet acknowledgement the page is ready, not a flourish.
+  const fadeUp = (delay = 0) =>
+    prefersReduced
+      ? {}
+      : {
+          initial: { opacity: 0, y: 10 },
+          animate: { opacity: 1, y: 0 },
+          transition: { duration: 0.35, delay, ease: [0.16, 1, 0.3, 1] },
+        };
 
   // First-ever visit: arm the live guided tour here, not in AppLayout —
   // its first step targets this page's own search box, so it only makes
@@ -100,7 +116,8 @@ export default function SearchPage() {
             including this one, so a second copy a few pixels below it
             was pure duplication, not reinforcement. */}
         <Text
-          as="h1"
+          as={motion.h1}
+          {...fadeUp(0)}
           fontSize={{ base: '24px', md: '38px' }}
           fontWeight={800}
           letterSpacing="-.03em"
@@ -115,6 +132,8 @@ export default function SearchPage() {
         </Text>
 
         <Box
+          as={motion.div}
+          {...fadeUp(0.08)}
           position="relative"
           zIndex={searchBoxHighlighted && searchBoxDim ? 201 : undefined}
           w="100%"
@@ -143,6 +162,8 @@ export default function SearchPage() {
             the caption underneath gives the one fact a picture can't:
             that it only takes 30 seconds. */}
         <Box
+          as={motion.div}
+          {...fadeUp(0.16)}
           w="100%"
           mt={{ base: '28px', md: '44px' }}
           bg="surface"
@@ -162,6 +183,9 @@ export default function SearchPage() {
               <Fragment key={step.label}>
                 <Flex direction="column" align="center" gap="6px" minW="0" px="4px">
                   <Flex
+                    as={motion.div}
+                    whileHover={prefersReduced ? undefined : { scale: 1.06 }}
+                    transition={{ duration: 0.15, ease: [0.16, 1, 0.3, 1] }}
                     w="42px"
                     h="42px"
                     flex="0 0 42px"
