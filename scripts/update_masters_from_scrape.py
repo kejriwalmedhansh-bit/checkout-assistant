@@ -92,8 +92,12 @@ def main() -> None:
                           if d.get("saving_pct") is not None}
                 own = [priced[v] for v in (product.get("denominations") or [])
                        if v in priced]
-                if own and len(offer.get("methods") or {}) == 1 and "any" in offer["methods"]:
-                    new_rates = {"UPI": max(own)}
+                only_any = len(offer.get("methods") or {}) == 1 and "any" in offer["methods"]
+                if only_any:
+                    # BuyHatke sells only by UPI, and the pricing reads "UPI".
+                    # Falling through with the raw "any" key when no amount
+                    # carried its own rate is what zeroed 59 brands' prices.
+                    new_rates = {"UPI": max(own) if own else offer["methods"]["any"]["saving_pct"]}
                 else:
                     new_rates = {m: d["saving_pct"]
                                  for m, d in (offer.get("methods") or {}).items()}
