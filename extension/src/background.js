@@ -30,7 +30,10 @@ async function fetchVoucherCheck(domain, price) {
   const base = await apiBase();
   const params = new URLSearchParams({ domain });
   if (price != null) params.set("price", String(price));
-  const res = await fetch(`${base}/voucher-check?${params.toString()}`);
+  // A time limit. Without one, a slow reply left the page waiting forever and
+  // Dealo silently never appeared: seen in a live test on Chicco, where the
+  // reply took 17 seconds to read on an overloaded machine (2026-09-17).
+  const res = await fetch(`${base}/voucher-check?${params.toString()}`, { signal: AbortSignal.timeout(12000) });
   if (!res.ok) throw new Error(`voucher-check failed: ${res.status}`);
   return res.json();
 }
@@ -305,12 +308,28 @@ async function shouldRunOn(url, title) {
 // Injects Dealo into one tab. Same three files, in the same order, as the
 // manifest used to declare — order matters: config defines __dealoConfig,
 // popup defines __dealoPopup, content uses both.
+// Two navigation events for one page arrive together (a load starting and the
+// address settling), and each used to inject its own copy of Dealo, so one
+// cart ran two or three full checks. One injection per tab at a time.
+const injecting = new Set();
+
 async function inject(tabId) {
-  await chrome.scripting.insertCSS({ target: { tabId }, files: ["src/popup.css"] });
-  await chrome.scripting.executeScript({
-    target: { tabId },
-    files: ["src/config.js", "src/popup.js", "src/content.js"],
-  });
+  if (injecting.has(tabId)) return;
+  injecting.add(tabId);
+  try {
+    await chrome.scripting.insertCSS({ target: { tabId }, files: ["src/popup.css"] });
+    await chrome.scripting.executeScript({
+      target: { tabId },
+      files: ["src/config.js", "src/popup.js", "src/content.js"],
+      // Chrome otherwise holds the script until the page is completely idle,
+      // 8 to 10 seconds on heavy shops in a live test: the slow panel on
+      // Skechers. Starting at once is safe now that a cart that hasn't drawn
+      // yet is watched rather than written off.
+      injectImmediately: true,
+    });
+  } finally {
+    injecting.delete(tabId);
+  }
 }
 
 // Ask the page to look again; if nobody answers, Dealo isn't in that tab yet,

@@ -1,6 +1,15 @@
 // Orchestrator: is this a checkout page? -> read domain + price -> ask the
 // background worker -> show whichever popup case applies.
 (() => {
+  // One copy per page. A second injection (two navigation events at once, or
+  // a retry) would otherwise start a second full check alongside the first.
+  // Only a LIVE copy counts: after the extension updates or reloads, the copy
+  // already in an open tab is cut off and must not block its replacement. The
+  // old copy's own check of its connection is what says so.
+  if (typeof window.__dealoContentAlive === "function" && window.__dealoContentAlive()) return;
+  window.__dealoContentAlive = () => {
+    try { return Boolean(chrome.runtime?.id); } catch (e) { return false; }
+  };
   const DISMISS_KEY_PREFIX = "dealo-dismissed:";
   // Keyed on host+path+hash, not the full URL: storefronts rewrite their own
   // query string constantly (tracking params, step markers, login referrers),
