@@ -4,6 +4,7 @@ import InfoPageShell from '@/components/common/InfoPageShell';
 import { I } from '@/components/common/icons';
 import { usePageTitle } from '@/hooks/usePageTitle';
 import { track } from '@/utils/analytics';
+import { botWhatsAppHref } from '@/utils/whatsappLink';
 
 // Support goes to the founder's personal number — the chatbot number
 // (919874400045, used elsewhere for "use Dealo on WhatsApp instead of the
@@ -68,7 +69,14 @@ export default function ContactPage() {
 
       <Text fontSize="12.5px" color="text3" lineHeight={1.6}>
         Looking to use Dealo on WhatsApp instead of the website?{' '}
-        <ChakraLink href="https://wa.me/919874400045" isExternal color="brand" fontWeight={700} textDecoration="underline">
+        <ChakraLink
+          href={botWhatsAppHref()}
+          isExternal
+          onClick={() => track('Clicked WhatsApp Button', { source: 'contact_page_bot' })}
+          color="brand"
+          fontWeight={700}
+          textDecoration="underline"
+        >
           Chat with the Dealo bot
         </ChakraLink>{' '}
         — that's a different number from support above.

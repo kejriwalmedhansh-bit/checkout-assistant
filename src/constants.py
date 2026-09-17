@@ -37,6 +37,12 @@ CUELINKS_BASE = "https://linksredirect.com/?cid={cid}&source=linkkit&url={url}"
 # from affiliate_coverage.json, or the link won't track correctly.
 INRDEALS_BASE = "https://inr.deals/track?id={publisher_id}&src=dealo-backend&campaign={campaign_type}&url={url}"
 
+# Destinations /out will forward to (voucher partners, card-application short
+# links), matched with subdomains. Anything else is refused so /out can't be
+# used as an open redirect. tests/test_tracking_plan.py checks every voucher
+# and card link in data/ and react/src/data/ is covered.
+OUTBOUND_ALLOWED_HOSTS = ("gyftr.com", "maximize.money", "buyhatke.com", "bitli.in")
+
 # --- L1 merchant guards (ported from pipeline.py) ---
 MANUAL_TRUSTED_MERCHANTS = [
     "Amazon", "Flipkart", "Myntra", "Nykaa", "AJIO", "Croma",

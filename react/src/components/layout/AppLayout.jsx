@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
   Box,
   Button,
@@ -20,7 +20,7 @@ import Spotlight from '@/components/onboarding/Spotlight';
 import { TOUR_STEPS } from '@/components/onboarding/tourSteps';
 import { PageHeaderContext } from '@/hooks/usePageHeader';
 import { ROUTES } from '@/routes/paths';
-import { track } from '@/utils/analytics';
+import { track, trackPageView } from '@/utils/analytics';
 import { useUiStore } from '@/store/uiStore';
 import Footer from './Footer';
 import SidebarContent from './Sidebar';
@@ -37,6 +37,10 @@ export default function AppLayout() {
   const drawer = useDisclosure();
   const navigate = useNavigate();
   const location = useLocation();
+
+  useEffect(() => {
+    trackPageView(location.pathname);
+  }, [location.pathname]);
   const collapsed = useUiStore((s) => s.sidebarCollapsed);
   const toggleSidebar = useUiStore((s) => s.toggleSidebar);
   const startTourAtStep = useUiStore((s) => s.startTourAtStep);

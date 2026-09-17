@@ -5,7 +5,7 @@ import { I } from '@/components/common/icons';
 import InfoNote from '@/components/common/InfoNote';
 import { fmt, affiliateUrl, paidForVoucher } from '@/utils/format';
 import { useUiStore } from '@/store/uiStore';
-import { track } from '@/utils/analytics';
+import { outboundLink, track } from '@/utils/analytics';
 import JourneyRow from './JourneyRow';
 import JourneyChips from './JourneyChips';
 import JourneyPanels from './JourneyPanels';
@@ -186,7 +186,7 @@ export default function Journey({ rec, payingByCard = false, skipVoucher = false
             Listed at {fmt(rec.listed_price ? Math.round(rec.listed_price) : null)}
           </Text>
         }
-        link={sellerLink ? { href: affiliateUrl(sellerLink), label: 'Open store' } : undefined}
+        link={sellerLink ? { href: affiliateUrl(sellerLink, 'direct_buy_step'), label: 'Open store' } : undefined}
         checked={checked.checkout}
         pending={pending.checkout}
         current
@@ -230,7 +230,7 @@ export default function Journey({ rec, payingByCard = false, skipVoucher = false
           stepNumber={1}
           totalSteps={2}
           nextLabel={`Step 2 — Checkout at ${rec.merchant}`}
-          preCheck={sellerLink ? { href: affiliateUrl(sellerLink), merchantName: rec.merchant } : undefined}
+          preCheck={sellerLink ? { href: affiliateUrl(sellerLink, 'check_page_step'), merchantName: rec.merchant } : undefined}
           facts={
             <>
               {singleVoucher ? (
@@ -299,7 +299,7 @@ export default function Journey({ rec, payingByCard = false, skipVoucher = false
           // third party. The partner is still named just above (the "via
           // {sourceLabel}" badge and "Why {sourceLabel}?" note), for anyone
           // who wants to know before they tap.
-          link={v.voucher_url ? { href: v.voucher_url, label: 'Buy Gift Voucher' } : undefined}
+          link={v.voucher_url ? { href: outboundLink(v.voucher_url, 'voucher_site', 'buy_voucher_step'), label: 'Buy Gift Voucher' } : undefined}
           checked={checked.voucher}
           pending={pending.voucher}
           onCheck={check('voucher')}
@@ -334,7 +334,7 @@ export default function Journey({ rec, payingByCard = false, skipVoucher = false
               )}
             </>
           }
-          link={sellerLink ? { href: affiliateUrl(sellerLink), label: 'Open store' } : undefined}
+          link={sellerLink ? { href: affiliateUrl(sellerLink, 'redeem_step'), label: 'Open store' } : undefined}
           checked={checked.checkout}
           pending={pending.checkout}
           current={currentStep === 'checkout'}

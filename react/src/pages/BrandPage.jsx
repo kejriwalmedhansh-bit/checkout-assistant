@@ -8,7 +8,7 @@ import { I } from '@/components/common/icons';
 import { getBrandDeal } from '@/data/brandDeals';
 import { useJsonLd } from '@/hooks/useJsonLd';
 import { usePageTitle } from '@/hooks/usePageTitle';
-import { track } from '@/utils/analytics';
+import { outboundLink, track } from '@/utils/analytics';
 import { ROUTES } from '@/routes/paths';
 
 const SITE_URL = 'https://getdealo.in';
@@ -205,7 +205,7 @@ export default function BrandPage() {
           search only when no live row exists for this brand. */}
       <Button
         as={deal ? 'a' : 'button'}
-        href={deal ? deal.url : undefined}
+        href={deal ? outboundLink(deal.url, 'voucher_site', 'brand_page') : undefined}
         target={deal ? '_blank' : undefined}
         rel={deal ? 'noopener noreferrer' : undefined}
         variant="solid"

@@ -149,7 +149,7 @@ export default function ResultsPage() {
   // both link here so someone can verify it's the right item before buying
   // a voucher for it.
   const vendorLink = activeRoute?.sellers?.[0]?.link;
-  const sourceUrl = result?.mode === 'url' ? query : vendorLink ? affiliateUrl(vendorLink) : null;
+  const sourceUrl = result?.mode === 'url' ? query : vendorLink ? affiliateUrl(vendorLink, 'product_card') : null;
 
   return (
     <Box ref={scrollRef} maxW="640px" mx="auto">
