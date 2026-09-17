@@ -79,6 +79,9 @@
 }
 
 #dealo-popup-root .dealo-header {
+  cursor: grab;
+  touch-action: none;
+  user-select: none;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -733,3 +736,81 @@
   margin: 0;
   font-size: 12.5px;
 }
+
+/* --- Moving the panel out of the way -------------------------------------- */
+#dealo-popup-root .dealo-brand { display: inline-flex; align-items: center; }
+#dealo-popup-root .dealo-brand svg { margin: 0 4px 0 -4px; }
+#dealo-popup-root.dealo-dragging .dealo-header { cursor: grabbing; }
+#dealo-popup-root.dealo-dragging .dealo-card {
+  box-shadow: 0 16px 40px rgba(22, 32, 43, 0.32);
+  animation: none;
+  opacity: 1;
+}
+
+/* --- Back at the shop: the redeem steps as a checklist -------------------- */
+#dealo-popup-root .dealo-checklist {
+  list-style: none;
+  margin: 2px 0 12px;
+  padding: 0;
+  display: grid;
+}
+#dealo-popup-root .dealo-check {
+  display: grid;
+  grid-template-columns: 22px 1fr;
+  gap: 10px;
+  position: relative;
+  padding-bottom: 14px;
+}
+#dealo-popup-root .dealo-check:last-child { padding-bottom: 0; }
+#dealo-popup-root .dealo-check:not(:last-child)::before {
+  content: "";
+  position: absolute;
+  left: 10px;
+  top: 24px;
+  bottom: 2px;
+  width: 2px;
+  background: #E3DACB;
+}
+#dealo-popup-root .dealo-check-dot {
+  width: 22px;
+  height: 22px;
+  box-sizing: border-box;
+  border-radius: 50%;
+  border: 2px solid #C2712F;
+  background: #F5F0E8;
+  color: #C2712F;
+  font-family: "Dealo Inter", -apple-system, sans-serif;
+  font-size: 11.5px;
+  font-weight: 500;
+  display: grid;
+  place-items: center;
+  position: relative;
+  z-index: 1;
+}
+#dealo-popup-root .dealo-check-done .dealo-check-dot { background: #4A9B8E; border-color: #4A9B8E; }
+#dealo-popup-root .dealo-check-text {
+  font-family: "Dealo Inter", -apple-system, sans-serif;
+  font-size: 14px;
+  line-height: 1.4;
+  color: #16202B;
+  display: grid;
+  gap: 8px;
+  min-width: 0;
+  padding-top: 1px;
+}
+#dealo-popup-root .dealo-check-done .dealo-check-text { color: #6B7A8D; }
+#dealo-popup-root .dealo-check-text a { color: #C2712F; text-decoration: underline; text-underline-offset: 2px; }
+#dealo-popup-root .dealo-check-text .dealo-field { margin: 0; }
+#dealo-popup-root .dealo-where-link {
+  all: unset;
+  cursor: pointer;
+  justify-self: start;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-family: "Dealo Inter", -apple-system, sans-serif;
+  font-size: 12.5px;
+  font-weight: 500;
+  color: #C2712F;
+}
+#dealo-popup-root .dealo-where-link:disabled { color: #6B7A8D; cursor: default; font-weight: 400; }

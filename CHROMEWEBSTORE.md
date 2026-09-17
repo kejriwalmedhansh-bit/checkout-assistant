@@ -152,6 +152,7 @@ the affiliate "Okay" button sends the page address.
 
 | Version | Date | Changes | Status |
 |---------|------|---------|--------|
+| 0.2.2 | 2026-09-17 | Panel can be dragged out of the way (position remembered). Redeem steps shown as a checklist with the code and PIN in the step where they're pasted; in-store steps dropped. New welcome page: a picture of the panel, "Free discounts, right at checkout". Package `dealo-v0.2.2.zip`. Supersedes 0.2.1, which was built but not uploaded. | Draft |
 | 0.2.1 | 2026-09-17 | On shops that sell a different voucher per kind of product (GIVA, MakeMyTrip, Yatra, Air India and 17 more), the popup asks "What are you buying?" first, then shows that voucher, what it covers and a link to its terms. Package `dealo-v0.2.1.zip`. | Draft |
 | 0.1.0 | — | First submission. Package built and verified 2026-09-07 as `dealo-v0.1.0.zip` (188 KB, 17 files, `manifest.json` at the root). Checkout detection, rupee saving figure, guided voucher purchase, multi-voucher code handling, final place-order step. | Draft |
 
