@@ -30,7 +30,10 @@ async function fetchVoucherCheck(domain, price) {
   const base = await apiBase();
   const params = new URLSearchParams({ domain });
   if (price != null) params.set("price", String(price));
-  const res = await fetch(`${base}/voucher-check?${params.toString()}`);
+  // A time limit. Without one, a slow reply left the page waiting forever and
+  // Dealo silently never appeared: seen in a live test on Chicco, where the
+  // reply took 17 seconds to read on an overloaded machine (2026-09-17).
+  const res = await fetch(`${base}/voucher-check?${params.toString()}`, { signal: AbortSignal.timeout(12000) });
   if (!res.ok) throw new Error(`voucher-check failed: ${res.status}`);
   return res.json();
 }
@@ -244,6 +247,16 @@ function hostMatches(host, listed) {
   return host === listed || host.endsWith("." + listed);
 }
 
+// The website a host belongs to — see siteOf in content.js, which this
+// mirrors. A trip carries on across a shop's own subdomains
+// (payment.services.ajio.com after luxe.ajio.com).
+const TWO_PART_ENDINGS = new Set(["co", "com", "net", "org", "gov", "edu", "ac", "gen", "firm", "ind", "res"]);
+function siteOf(host) {
+  const parts = String(host || "").toLowerCase().replace(/^www\./, "").split(".").filter(Boolean);
+  if (parts.length >= 3 && TWO_PART_ENDINGS.has(parts[parts.length - 2])) return parts.slice(-3).join(".");
+  return parts.slice(-2).join(".");
+}
+
 // The address is the first signal, but not the only one a shop gives.
 // DailyObjects puts its checkout at /qcp — no cart, no checkout, no bag, no
 // payment — so Dealo never even looked at a page whose own heading said
@@ -255,13 +268,19 @@ function hostMatches(host, listed) {
 // something cart-ish still has to pass the commerce check once injected, so
 // the cost of being wrong here is one injection, not a wrong popup.
 function looksLikeCheckout(url, title) {
-  const words = self.__dealoConfig.CHECKOUT_URL_KEYWORDS;
-  const hit = (text) =>
-    Boolean(text) && words.some((kw) => new RegExp(`(^|[^a-z])${kw}([^a-z]|$)`).test(text.toLowerCase()));
+  const cfg = self.__dealoConfig;
+  // Both lists load Dealo; the content script decides whether a "maybe" page
+  // (a booking review, a payment step) is really the last screen before paying.
+  const words = [...cfg.CHECKOUT_URL_KEYWORDS, ...(cfg.MAYBE_CHECKOUT_URL_KEYWORDS || [])];
+  const hit = (text) => {
+    // "reviewDetails" is two words to a person.
+    const t = String(text || "").replace(/([a-z])([A-Z])/g, "$1 $2").toLowerCase();
+    return Boolean(t) && words.some((kw) => new RegExp(`(^|[^a-z])${kw}([^a-z]|$)`).test(t));
+  };
 
   let u;
   try { u = new URL(url); } catch (e) { return hit(title); }
-  return hit(u.pathname + " " + u.search + " " + u.hash) || hit(title);
+  return hit(u.hostname.split(".").slice(0, -2).join(" ") + " " + u.pathname + " " + u.search + " " + u.hash) || hit(title);
 }
 
 async function shouldRunOn(url, title) {
@@ -274,8 +293,8 @@ async function shouldRunOn(url, title) {
   const trip = await tripGet();
   if (trip) {
     const voucherHost = hostOf(trip.deal?.voucherUrl);
-    if (voucherHost && hostMatches(host, voucherHost)) return true;
-    if (trip.store?.domain && hostMatches(host, trip.store.domain)) return true;
+    if (voucherHost && siteOf(host) === siteOf(voucherHost)) return true;
+    if (trip.store?.domain && siteOf(host) === siteOf(trip.store.domain)) return true;
   }
 
   // 2. Never here.
@@ -289,12 +308,28 @@ async function shouldRunOn(url, title) {
 // Injects Dealo into one tab. Same three files, in the same order, as the
 // manifest used to declare — order matters: config defines __dealoConfig,
 // popup defines __dealoPopup, content uses both.
+// Two navigation events for one page arrive together (a load starting and the
+// address settling), and each used to inject its own copy of Dealo, so one
+// cart ran two or three full checks. One injection per tab at a time.
+const injecting = new Set();
+
 async function inject(tabId) {
-  await chrome.scripting.insertCSS({ target: { tabId }, files: ["src/popup.css"] });
-  await chrome.scripting.executeScript({
-    target: { tabId },
-    files: ["src/config.js", "src/popup.js", "src/content.js"],
-  });
+  if (injecting.has(tabId)) return;
+  injecting.add(tabId);
+  try {
+    await chrome.scripting.insertCSS({ target: { tabId }, files: ["src/popup.css"] });
+    await chrome.scripting.executeScript({
+      target: { tabId },
+      files: ["src/config.js", "src/popup.js", "src/content.js"],
+      // Chrome otherwise holds the script until the page is completely idle,
+      // 8 to 10 seconds on heavy shops in a live test: the slow panel on
+      // Skechers. Starting at once is safe now that a cart that hasn't drawn
+      // yet is watched rather than written off.
+      injectImmediately: true,
+    });
+  } finally {
+    injecting.delete(tabId);
+  }
 }
 
 // Ask the page to look again; if nobody answers, Dealo isn't in that tab yet,
@@ -348,7 +383,12 @@ chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
   // change) — the document is already there, so that one is safe to act on.
   const settled = changeInfo.status === "complete";
   const inPageNav = Boolean(changeInfo.url) && changeInfo.status !== "loading";
-  if (settled || inPageNav) {
+  // A new page starting to load, too. Waiting for "complete" made the panel
+  // take seconds on heavy shops like Skechers (2026-09-17), and an early look
+  // is now safe: a cart that hasn't drawn yet is watched rather than written
+  // off (content.js watchForPrices), and the "complete" nudge looks again.
+  const started = changeInfo.status === "loading" && Boolean(changeInfo.url);
+  if (settled || inPageNav || started) {
     nudgeOrInject(tabId, changeInfo.url || tab?.url, false, tab?.title);
   }
 });

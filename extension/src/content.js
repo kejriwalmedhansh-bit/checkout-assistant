@@ -1,6 +1,15 @@
 // Orchestrator: is this a checkout page? -> read domain + price -> ask the
 // background worker -> show whichever popup case applies.
 (() => {
+  // One copy per page. A second injection (two navigation events at once, or
+  // a retry) would otherwise start a second full check alongside the first.
+  // Only a LIVE copy counts: after the extension updates or reloads, the copy
+  // already in an open tab is cut off and must not block its replacement. The
+  // old copy's own check of its connection is what says so.
+  if (typeof window.__dealoContentAlive === "function" && window.__dealoContentAlive()) return;
+  window.__dealoContentAlive = () => {
+    try { return Boolean(chrome.runtime?.id); } catch (e) { return false; }
+  };
   const DISMISS_KEY_PREFIX = "dealo-dismissed:";
   // Keyed on host+path+hash, not the full URL: storefronts rewrite their own
   // query string constantly (tracking params, step markers, login referrers),
@@ -10,6 +19,7 @@
   let lastCheckedKey = null;
   let lastCheckedAt = 0;
   const MIN_RECHECK_MS = 3000;
+  const trace = (...a) => { if (self.__dealoConfig?.TRACE) console.debug("[Dealo]", ...a); };
 
   // A cart-shaped address whose page has not drawn its prices yet is the
   // ordinary state of a single-page storefront for the first second or so
@@ -21,6 +31,9 @@
   // not as "no", and is looked at again a few times before giving up.
   const SIGNAL_RETRY_MS = 1200;
   const SIGNAL_RETRIES = 4;
+  // After the retries, a cart-shaped page is still watched for this long in
+  // case its prices draw late (see watchForPrices).
+  const WATCH_FOR_PRICES_MS = 15000;
   let retriesLeftForKey = SIGNAL_RETRIES;
   let retryKey = null;
 
@@ -41,12 +54,28 @@
   // silent on a ₹1,078 order with a live 15% voucher behind it. Found
   // 2026-09-09. The worker applies the same test before injecting; this one
   // decides whether the injected script speaks.
+  // "reviewDetails" is two words to a person, so an address is split at its
+  // camelCase joins before the whole-word test (MakeMyTrip's flight checkout
+  // is /flight/reviewDetails).
+  function wordsIn(text) {
+    return String(text || "").replace(/([a-z])([A-Z])/g, "$1 $2").toLowerCase();
+  }
+  function hitsAny(text, words) {
+    const t = wordsIn(text);
+    return Boolean(t) && words.some((kw) => new RegExp(`(^|[^a-z])${kw}([^a-z]|$)`).test(t));
+  }
+  function addressAndTitle() {
+    return [location.pathname + " " + location.search + " " + location.hash, document.title];
+  }
   function urlLooksLikeCheckout() {
     const words = self.__dealoConfig.CHECKOUT_URL_KEYWORDS;
-    const hit = (text) =>
-      Boolean(text) && words.some((kw) => new RegExp(`(^|[^a-z])${kw}([^a-z]|$)`).test(text.toLowerCase()));
-    const address = location.pathname + " " + location.search + " " + location.hash;
-    return hit(address) || hit(document.title);
+    return addressAndTitle().some((t) => hitsAny(t, words));
+  }
+  // Addresses that are only sometimes a checkout: a booking review, a payment
+  // step. These need the page itself to prove it (see looksLikePaymentStep).
+  function urlMightBeCheckout() {
+    const words = self.__dealoConfig.MAYBE_CHECKOUT_URL_KEYWORDS || [];
+    return addressAndTitle().some((t) => hitsAny(t, words));
   }
 
   // Real evidence this is a shop's checkout, not a page that merely says
@@ -69,12 +98,42 @@
     return /\b(place order|proceed to pay|proceed to checkout|order total|order summary|add to cart|delivery address|payment method)\b/i.test(text);
   }
 
+  // What only the last screen before paying says: a payable total with a
+  // figure, and a way to pay or finish booking. MakeMyTrip's flight review
+  // ("Complete your booking", "Total Amount ₹66,343") has both; a product's
+  // reviews page has neither.
+  const PAY_STEP = /\b(proceed to pay|pay now|continue to pay|make payment|complete (your )?booking|place (your )?order|confirm (and|&) pay|pay securely|pay ₹)/i;
+  function looksLikePaymentStep() {
+    return labelledTotal() != null && PAY_STEP.test(pageTextWithoutDealo());
+  }
+
   function isCheckoutPage() {
-    return urlLooksLikeCheckout() && hasCommerceSignal();
+    if (urlLooksLikeCheckout() && hasCommerceSignal()) return true;
+    return urlMightBeCheckout() && looksLikePaymentStep();
+  }
+
+  // Clicking the Dealo icon is the shopper saying "this is my checkout", so
+  // the address test doesn't apply; the page must still price something.
+  // MakeMyTrip's review page stayed silent even on a click (2026-09-17).
+  function isCheckoutPageForced() {
+    return hasCommerceSignal() || looksLikePaymentStep();
   }
 
   function getDomain() {
     return location.hostname.replace(/^www\./, "");
+  }
+
+  // The website a host belongs to: "ajio.com" for payment.services.ajio.com
+  // and luxe.ajio.com, "skechers.in" for www.skechers.in, "pizzahut.co.in"
+  // for order.pizzahut.co.in. Shops move checkout and payment onto their own
+  // subdomains, and a trip started on one must carry on across the others:
+  // AJIO's gift-card box lives on payment.services.ajio.com, and Dealo went
+  // quiet there with the code in hand (2026-09-17).
+  const TWO_PART_ENDINGS = new Set(["co", "com", "net", "org", "gov", "edu", "ac", "gen", "firm", "ind", "res"]);
+  function siteOf(host) {
+    const parts = String(host || "").toLowerCase().replace(/^www\./, "").split(".").filter(Boolean);
+    if (parts.length >= 3 && TWO_PART_ENDINGS.has(parts[parts.length - 2])) return parts.slice(-3).join(".");
+    return parts.slice(-2).join(".");
   }
 
   // Best-effort price read. Tries the two standard, structured places a
@@ -283,12 +342,12 @@
   // pick the thread back up instead of behaving like a fresh page.
   function onVoucherSiteFor(trip) {
     const voucherHost = hostOf(trip?.deal?.voucherUrl);
-    return Boolean(voucherHost) && getDomain() === voucherHost;
+    return Boolean(voucherHost) && siteOf(getDomain()) === siteOf(voucherHost);
   }
 
   // ...or they've come back to the store they started from, code in hand.
   function backAtStoreFor(trip) {
-    return getDomain() === trip?.store?.domain;
+    return Boolean(trip?.store?.domain) && siteOf(getDomain()) === siteOf(trip.store.domain);
   }
 
   // Finds the store's gift-card / voucher-code box so Dealo can point at it.
@@ -641,7 +700,45 @@
   // `force` is a shopper clicking the Dealo icon: an explicit request, which
   // outranks both the "already looked at this page" guard and an earlier
   // dismissal of this store.
-  async function check(force = false, isRetry = false) {
+  // A cart-shaped page with no prices after the retries is usually a cart
+  // that hasn't drawn yet, not a page that isn't a cart. boAt opens /cart as a
+  // panel that renders after the page settles, and Dealo, having already
+  // decided "not a checkout" on the empty page, stayed silent: the ₹350 panel
+  // only appeared when the shopper clicked the Dealo icon (2026-09-17). So
+  // watch the page for a while, and look again once when something that
+  // might be a price appears.
+  let priceWatch = null;
+  function watchForPrices(key) {
+    if (priceWatch) return;
+    trace("no prices yet, watching", key);
+    let timer = null;
+    const observer = new MutationObserver(() => {
+      if (timer) return;
+      timer = setTimeout(() => {
+        timer = null;
+        const now = location.hostname + location.pathname + location.hash;
+        if (now !== key) return stop();
+        if (isCheckoutPage()) {
+          trace("prices appeared, looking again", key);
+          stop();
+          check(false, true);
+        }
+      }, 400);
+    });
+    const stop = () => {
+      observer.disconnect();
+      clearTimeout(timer);
+      clearTimeout(priceWatch?.giveUp);
+      priceWatch = null;
+    };
+    observer.observe(document.documentElement, { childList: true, subtree: true, characterData: true });
+    priceWatch = { stop, giveUp: setTimeout(() => { trace("stopped watching", key); stop(); }, WATCH_FOR_PRICES_MS) };
+  }
+
+  // `fromWorker` is the browser telling Dealo this tab navigated or finished
+  // loading. Those arrive right after an early look by design, so the burst
+  // limiter must not swallow them.
+  async function check(force = false, isRetry = false, fromWorker = false) {
     // An orphaned copy of this script — the extension was reloaded or removed
     // out from under this tab — can't do anything useful. Go quiet.
     if (extensionGone()) return;
@@ -655,8 +752,11 @@
     // constantly with tracking parameters that change nothing.
     const key = location.hostname + location.pathname + location.hash;
     if (!force && !isRetry) {
-      if (key === lastCheckedKey) return;               // one check per page/view
-      if (now - lastCheckedAt < MIN_RECHECK_MS) return; // and never in a burst
+      // One check per page/view — but only once Dealo actually reached a
+      // verdict there. "Not a checkout" on a cart that hadn't drawn yet is
+      // not one, and must not stop the next look.
+      if (key === lastCheckedKey) { trace("already decided here", key); return; }
+      if (!fromWorker && now - lastCheckedAt < MIN_RECHECK_MS) { trace("too soon", key); return; }
     }
     // A retry is Dealo looking again at a page it has not yet made up its mind
     // about, so the burst limiter must not swallow it — the retries are
@@ -679,22 +779,30 @@
     const trip = tripRes?.trip || null;
     if (trip && await runJourney(trip)) return;
 
-    if (!isCheckoutPage()) {
-      if (urlLooksLikeCheckout() && retriesLeftForKey > 0) {
-        retriesLeftForKey -= 1;
-        setTimeout(() => check(force, true), SIGNAL_RETRY_MS);
+    if (!(force ? isCheckoutPageForced() : isCheckoutPage())) {
+      if (urlLooksLikeCheckout() || urlMightBeCheckout()) {
+        if (retriesLeftForKey > 0) {
+          retriesLeftForKey -= 1;
+          trace("cart-shaped but no prices yet, retrying", key);
+          setTimeout(() => check(force, true), SIGNAL_RETRY_MS);
+        } else {
+          watchForPrices(key);
+        }
         return; // deliberately without setting lastCheckedKey — not a decision
       }
+      trace("not a checkout", key);
       lastCheckedKey = key;
       return;
     }
+    priceWatch?.stop();
     lastCheckedKey = key;
 
     const domain = getDomain();
-    if (!force && isDismissed(domain)) return;
+    if (!force && isDismissed(domain)) { trace("dismissed earlier in this tab", domain); return; }
 
     const price = await readPrice();
     const result = await askBackground(domain, price);
+    trace("asked about", domain, "at", price, "->", result);
     if (!result) return; // backend unreachable — stay silent, no broken UI
 
     // A voucher worth less than the errand is worse than no voucher: the
@@ -783,7 +891,7 @@
   //   * popstate/hashchange here, which catch a cart drawer opening on the
   //     spot without waiting for a round trip.
   chrome.runtime.onMessage.addListener((msg) => {
-    if (msg?.type === "dealoRecheck") check(msg.force);
+    if (msg?.type === "dealoRecheck") check(msg.force, false, true);
   });
   addEventListener("popstate", () => check());
   addEventListener("hashchange", () => check());
