@@ -11,6 +11,11 @@
  "add": [
   {"domain": "urbanladder.com", "brand": "Urban Ladder", "why": "The correctly spelt address for the entry removed above."},
   {"domain": "libertyshoesonline.com", "brand": "Liberty Online", "why": "The shortest-name rule picked 'Liberty', which on Gyftr is the in-store-only voucher. This is Liberty's online shop, so it must resolve to the online voucher."},
-  {"domain": "muscleblaze.com", "brand": "Muscle%20Blaze", "why": "Maximize's catalogue stores the brand under this garbled name (slug muscle-20blaze), and the voucher lookup matches names exactly, so the clean 'Muscle Blaze' finds nothing. Drop this pin once the Maximize data is cleaned."}
+  {"domain": "muscleblaze.com", "brand": "Muscle%20Blaze", "why": "Maximize's catalogue stores the brand under this garbled name (slug muscle-20blaze), and the voucher lookup matches names exactly, so the clean 'Muscle Blaze' finds nothing. Drop this pin once the Maximize data is cleaned."},
+  {"domain": "devagabond.com", "brand": "DeVagabond", "why": "The real address (devagbond.com, removed above, was a misspelling). Checked by web search and by loading the page, 2026-09-17."},
+  {"domain": "cafecoffeeday.com", "brand": "Cafe Coffee Day", "why": "BuyHatke's terms say the card number is shared at website checkout. Official site confirmed by web search, 2026-09-17."},
+  {"domain": "gasjeans.in", "brand": "Gas-Luxe", "why": "The Luxe Gift Card's own terms list gasjeans.in as one of 8 brand sites where it can be used online (luxegiftcard.com/terms-and-conditions, 2026-09-17)."},
+  {"domain": "modernbazaar.online", "brand": "Modern Bazaar", "why": "The voucher works online and in store. Official site confirmed by web search and by loading the page, 2026-09-17."},
+  {"domain": "tirabeauty.com", "brand": "Tira Beauty", "why": "Voucher terms: Tira website, app and stores. Official site confirmed by web search, 2026-09-17."}
  ]
 }
