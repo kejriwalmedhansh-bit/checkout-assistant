@@ -365,7 +365,7 @@
     "slug": "pizza-hut",
     "brand_name": "Pizza Hut",
     "url": "https://www.gyftr.com/pizza-hut",
-    "collected_at": "2026-09-03T13:21:41+00:00",
+    "collected_at": "2026-09-18T12:49:23+00:00",
     "best_saving_pct": 8.5,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -615,7 +615,7 @@
     "slug": "costa-coffee",
     "brand_name": "Costa Coffee",
     "url": "https://www.gyftr.com/costa-coffee",
-    "collected_at": "2026-09-03T13:22:01+00:00",
+    "collected_at": "2026-09-18T12:50:04+00:00",
     "best_saving_pct": 3.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -913,7 +913,7 @@
         "value": 250
       }
     ],
-    "custom_amount": true,
+    "custom_amount": false,
     "rules": {
       "can_combine_with_store_offers": {
         "value": "no",
@@ -962,7 +962,7 @@
     "slug": "baskin-robbins",
     "brand_name": "Baskin Robbins",
     "url": "https://www.gyftr.com/baskin-robbins",
-    "collected_at": "2026-09-03T13:22:17+00:00",
+    "collected_at": "2026-09-18T12:50:28+00:00",
     "best_saving_pct": 17.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -1041,7 +1041,7 @@
         "value": 250
       }
     ],
-    "custom_amount": true,
+    "custom_amount": false,
     "rules": {
       "can_combine_with_store_offers": {
         "value": "yes",
@@ -1082,7 +1082,7 @@
     "slug": "hidesign",
     "brand_name": "Hidesign",
     "url": "https://www.gyftr.com/hidesign",
-    "collected_at": "2026-09-03T13:22:38+00:00",
+    "collected_at": "2026-09-18T12:50:08+00:00",
     "best_saving_pct": 6.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -1164,7 +1164,7 @@
         "value": 2000
       }
     ],
-    "custom_amount": true,
+    "custom_amount": false,
     "rules": {
       "can_combine_with_store_offers": {
         "value": "yes",
@@ -1200,7 +1200,7 @@
     "slug": "croma",
     "brand_name": "Croma",
     "url": "https://www.gyftr.com/croma",
-    "collected_at": "2026-09-03T13:22:41+00:00",
+    "collected_at": "2026-09-18T12:50:41+00:00",
     "best_saving_pct": 3.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -1301,7 +1301,7 @@
     "slug": "home-centre",
     "brand_name": "Home Centre",
     "url": "https://www.gyftr.com/home-centre",
-    "collected_at": "2026-09-03T13:22:45+00:00",
+    "collected_at": "2026-09-18T12:50:33+00:00",
     "best_saving_pct": 4.5,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -1365,22 +1365,19 @@
         "value": 500
       },
       {
-        "value": 250
+        "value": 2000
       },
       {
-        "value": 100
+        "value": 10000
       },
       {
         "value": 5000
       },
       {
-        "value": 2000
-      },
-      {
         "value": 1000
       }
     ],
-    "custom_amount": true,
+    "custom_amount": false,
     "rules": {
       "can_combine_with_store_offers": {
         "value": "yes",
@@ -1423,7 +1420,7 @@
     "slug": "levis",
     "brand_name": "Levis",
     "url": "https://www.gyftr.com/levis",
-    "collected_at": "2026-09-03T13:22:52+00:00",
+    "collected_at": "2026-09-18T12:50:40+00:00",
     "best_saving_pct": 0.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -1887,7 +1884,7 @@
     "slug": "mainland-china",
     "brand_name": "Mainland China",
     "url": "https://www.gyftr.com/mainland-china",
-    "collected_at": "2026-09-03T13:23:35+00:00",
+    "collected_at": "2026-09-18T12:51:26+00:00",
     "best_saving_pct": 10.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -2112,7 +2109,7 @@
     "slug": "sweet-bengal",
     "brand_name": "Sweet Bengal",
     "url": "https://www.gyftr.com/sweet-bengal",
-    "collected_at": "2026-09-03T13:24:01+00:00",
+    "collected_at": "2026-09-18T12:52:36+00:00",
     "best_saving_pct": 12.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -2166,7 +2163,19 @@
         "value": 1000
       },
       {
+        "value": 5000
+      },
+      {
+        "value": 500
+      },
+      {
+        "value": 2000
+      },
+      {
         "value": 7500
+      },
+      {
+        "value": 10000
       }
     ],
     "custom_amount": false,
@@ -2213,7 +2222,7 @@
     "slug": "myntra",
     "brand_name": "Myntra",
     "url": "https://www.gyftr.com/myntra",
-    "collected_at": "2026-09-03T13:24:03+00:00",
+    "collected_at": "2026-09-18T12:51:50+00:00",
     "best_saving_pct": 3.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -2288,7 +2297,7 @@
         "value": 5000
       }
     ],
-    "custom_amount": true,
+    "custom_amount": false,
     "rules": {
       "can_combine_with_store_offers": {
         "value": "no",
@@ -2339,7 +2348,7 @@
     "slug": "titan",
     "brand_name": "Titan",
     "url": "https://www.gyftr.com/titan",
-    "collected_at": "2026-09-03T13:24:14+00:00",
+    "collected_at": "2026-09-18T12:51:53+00:00",
     "best_saving_pct": 8.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -2460,7 +2469,7 @@
     "slug": "fastrack",
     "brand_name": "Fastrack",
     "url": "https://www.gyftr.com/fastrack",
-    "collected_at": "2026-09-03T13:24:26+00:00",
+    "collected_at": "2026-09-18T12:51:56+00:00",
     "best_saving_pct": 8.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -2534,7 +2543,7 @@
         "value": 100
       }
     ],
-    "custom_amount": true,
+    "custom_amount": false,
     "rules": {
       "can_combine_with_store_offers": {
         "value": "yes",
@@ -2581,7 +2590,7 @@
     "slug": "prestige",
     "brand_name": "Prestige",
     "url": "https://www.gyftr.com/prestige",
-    "collected_at": "2026-09-03T13:24:45+00:00",
+    "collected_at": "2026-09-18T12:52:02+00:00",
     "best_saving_pct": 0.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -2698,7 +2707,7 @@
     "slug": "westside",
     "brand_name": "Westside",
     "url": "https://www.gyftr.com/westside",
-    "collected_at": "2026-09-03T13:24:50+00:00",
+    "collected_at": "2026-09-18T12:52:32+00:00",
     "best_saving_pct": 0.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -2717,42 +2726,42 @@
     "available": true,
     "methods": {
       "Credit Card": {
-        "saving_pct": 5.0,
+        "saving_pct": 9.0,
         "processing_fee": false,
         "processing_fee_pct": 0.0
       },
       "Net Banking": {
-        "saving_pct": 5.0,
+        "saving_pct": 9.0,
         "processing_fee": false,
         "processing_fee_pct": 0.0
       },
       "Debit Card": {
-        "saving_pct": 5.0,
+        "saving_pct": 9.0,
         "processing_fee": false,
         "processing_fee_pct": 0.0
       },
       "MobiKwik": {
-        "saving_pct": 5.0,
+        "saving_pct": 9.0,
         "processing_fee": false,
         "processing_fee_pct": 0.0
       },
       "UPI": {
-        "saving_pct": 6.0,
+        "saving_pct": 10.0,
         "processing_fee": false,
         "processing_fee_pct": 0.0
       },
       "Amazon Pay": {
-        "saving_pct": 5.0,
+        "saving_pct": 9.0,
         "processing_fee": false,
         "processing_fee_pct": 0.0
       },
       "e-Pay": {
-        "saving_pct": 6.0,
+        "saving_pct": 10.0,
         "processing_fee": false,
         "processing_fee_pct": 0.0
       },
       "PAYTM UPI": {
-        "saving_pct": 6.0,
+        "saving_pct": 10.0,
         "processing_fee": false,
         "processing_fee_pct": 0.0
       },
@@ -2776,7 +2785,7 @@
         "value": 100
       }
     ],
-    "custom_amount": true,
+    "custom_amount": false,
     "rules": {
       "can_combine_with_store_offers": {
         "value": "yes",
@@ -2808,11 +2817,11 @@
     "slug": "william-penn",
     "brand_name": "William Penn",
     "url": "https://www.gyftr.com/william-penn",
-    "collected_at": "2026-09-03T13:24:54+00:00",
-    "best_saving_pct": 6.0,
+    "collected_at": "2026-09-18T12:52:06+00:00",
+    "best_saving_pct": 10.0,
     "best_saving_method": "UPI",
     "has_terms": true,
-    "max_saving_pct": 6.0,
+    "max_saving_pct": 10.0,
     "recommendable": true,
     "rules_source": "read",
     "platform_buying": {
@@ -2892,7 +2901,7 @@
         "value": 1000
       }
     ],
-    "custom_amount": true,
+    "custom_amount": false,
     "rules": {
       "can_combine_with_store_offers": {
         "value": "yes",
@@ -2934,7 +2943,7 @@
     "slug": "woodland",
     "brand_name": "Woodland",
     "url": "https://www.gyftr.com/woodland",
-    "collected_at": "2026-09-03T13:25:14+00:00",
+    "collected_at": "2026-09-18T12:52:09+00:00",
     "best_saving_pct": 10.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -3021,7 +3030,7 @@
         "value": 3000
       }
     ],
-    "custom_amount": true,
+    "custom_amount": false,
     "rules": {
       "can_combine_with_store_offers": {
         "value": "yes",
@@ -3067,7 +3076,7 @@
     "slug": "hush-puppies",
     "brand_name": "Hush Puppies",
     "url": "https://www.gyftr.com/hush-puppies",
-    "collected_at": "2026-09-03T13:25:28+00:00",
+    "collected_at": "2026-09-18T12:52:13+00:00",
     "best_saving_pct": 7.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -3136,9 +3145,6 @@
         "value": 1000
       },
       {
-        "value": 500
-      },
-      {
         "value": 2000
       },
       {
@@ -3185,7 +3191,7 @@
     "slug": "lifestyle",
     "brand_name": "Lifestyle",
     "url": "https://www.gyftr.com/lifestyle",
-    "collected_at": "2026-09-03T13:25:32+00:00",
+    "collected_at": "2026-09-18T12:52:19+00:00",
     "best_saving_pct": 5.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -3300,7 +3306,7 @@
     "slug": "shoppers-stop",
     "brand_name": "Shoppers Stop",
     "url": "https://www.gyftr.com/shoppers-stop",
-    "collected_at": "2026-09-03T13:25:38+00:00",
+    "collected_at": "2026-09-18T12:52:25+00:00",
     "best_saving_pct": 0.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -3392,7 +3398,7 @@
     "slug": "tanishq",
     "brand_name": "Tanishq",
     "url": "https://www.gyftr.com/tanishq",
-    "collected_at": "2026-09-03T13:25:45+00:00",
+    "collected_at": "2026-09-18T12:52:28+00:00",
     "best_saving_pct": 0.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -3519,7 +3525,7 @@
     "slug": "helios",
     "brand_name": "Helios",
     "url": "https://www.gyftr.com/helios",
-    "collected_at": "2026-09-03T13:26:00+00:00",
+    "collected_at": "2026-09-18T12:52:32+00:00",
     "best_saving_pct": 5.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -3675,7 +3681,7 @@
         "processing_fee_pct": 1.0
       },
       "UPI": {
-        "saving_pct": 0.75,
+        "saving_pct": 1.0,
         "processing_fee": false,
         "processing_fee_pct": 0.0
       },
@@ -3685,7 +3691,7 @@
         "processing_fee_pct": 0.0
       },
       "PAYTM UPI": {
-        "saving_pct": 0.75,
+        "saving_pct": 1.0,
         "processing_fee": false,
         "processing_fee_pct": 0.0
       }
@@ -3713,7 +3719,7 @@
         "value": 1000
       }
     ],
-    "custom_amount": true,
+    "custom_amount": false,
     "rules": {
       "excludes": {
         "value": [
@@ -3759,11 +3765,11 @@
     "slug": "amazon",
     "brand_name": "Amazon",
     "url": "https://www.gyftr.com/amazon",
-    "collected_at": "2026-09-03T13:26:13+00:00",
-    "best_saving_pct": 0.75,
+    "collected_at": "2026-09-18T12:52:36+00:00",
+    "best_saving_pct": 1.0,
     "best_saving_method": "UPI",
     "has_terms": true,
-    "max_saving_pct": 0.75,
+    "max_saving_pct": 1.0,
     "recommendable": true,
     "rules_source": "read",
     "platform_buying": {
@@ -3840,7 +3846,7 @@
         "value": 1500
       }
     ],
-    "custom_amount": true,
+    "custom_amount": false,
     "rules": {
       "can_combine_with_store_offers": {
         "value": "yes",
@@ -3882,7 +3888,7 @@
     "slug": "fab-hotels",
     "brand_name": "Fab Hotels",
     "url": "https://www.gyftr.com/fab-hotels",
-    "collected_at": "2026-09-03T13:26:18+00:00",
+    "collected_at": "2026-09-18T12:53:10+00:00",
     "best_saving_pct": 10.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -3962,7 +3968,7 @@
         "value": 100
       }
     ],
-    "custom_amount": true,
+    "custom_amount": false,
     "rules": {
       "can_combine_with_store_offers": {
         "value": "yes",
@@ -4000,7 +4006,7 @@
     "slug": "relaxo",
     "brand_name": "Relaxo",
     "url": "https://www.gyftr.com/relaxo",
-    "collected_at": "2026-09-03T13:26:39+00:00",
+    "collected_at": "2026-09-18T12:52:46+00:00",
     "best_saving_pct": 8.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -4081,7 +4087,7 @@
         "value": 250
       }
     ],
-    "custom_amount": true,
+    "custom_amount": false,
     "rules": {
       "can_combine_with_store_offers": {
         "value": "yes",
@@ -4117,7 +4123,7 @@
     "slug": "crossword",
     "brand_name": "Crossword",
     "url": "https://www.gyftr.com/crossword",
-    "collected_at": "2026-09-03T13:26:48+00:00",
+    "collected_at": "2026-09-18T12:52:49+00:00",
     "best_saving_pct": 8.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -4200,7 +4206,7 @@
         "value": 250
       }
     ],
-    "custom_amount": true,
+    "custom_amount": false,
     "rules": {
       "can_combine_with_store_offers": {
         "value": "yes",
@@ -4247,7 +4253,7 @@
     "slug": "aurelia",
     "brand_name": "Aurelia",
     "url": "https://www.gyftr.com/aurelia",
-    "collected_at": "2026-09-03T13:27:13+00:00",
+    "collected_at": "2026-09-18T12:53:16+00:00",
     "best_saving_pct": 9.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -4308,7 +4314,7 @@
         "value": 1000
       }
     ],
-    "custom_amount": true,
+    "custom_amount": false,
     "rules": {
       "can_combine_with_store_offers": {
         "value": "yes",
@@ -4344,7 +4350,7 @@
     "slug": "pc-jeweller-gold-coin",
     "brand_name": "PC Jeweller Gold Coin",
     "url": "https://www.gyftr.com/pc-jeweller-gold-coin",
-    "collected_at": "2026-09-03T13:27:14+00:00",
+    "collected_at": "2026-09-18T12:53:13+00:00",
     "best_saving_pct": 0.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -4582,7 +4588,7 @@
     "slug": "kalyan-gold-jewellery",
     "brand_name": "Kalyan Gold Jewellery",
     "url": "https://www.gyftr.com/kalyan-gold-jewellery",
-    "collected_at": "2026-09-03T13:27:24+00:00",
+    "collected_at": "2026-09-18T12:53:23+00:00",
     "best_saving_pct": 2.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -4655,7 +4661,7 @@
         "value": 2000
       }
     ],
-    "custom_amount": true,
+    "custom_amount": false,
     "rules": {
       "can_combine_with_store_offers": {
         "value": "yes",
@@ -4691,7 +4697,7 @@
     "slug": "pc-jeweller-gold",
     "brand_name": "PC Jeweller Gold",
     "url": "https://www.gyftr.com/pc-jeweller-gold",
-    "collected_at": "2026-09-03T13:27:45+00:00",
+    "collected_at": "2026-09-18T12:53:35+00:00",
     "best_saving_pct": 1.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -4761,7 +4767,7 @@
         "value": 2000
       }
     ],
-    "custom_amount": true,
+    "custom_amount": false,
     "rules": {
       "can_combine_with_store_offers": {
         "value": "yes",
@@ -4797,7 +4803,7 @@
     "slug": "pc-jeweller-diamond",
     "brand_name": "PC Jeweller Diamond",
     "url": "https://www.gyftr.com/pc-jeweller-diamond",
-    "collected_at": "2026-09-03T13:27:58+00:00",
+    "collected_at": "2026-09-18T12:53:39+00:00",
     "best_saving_pct": 3.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -4990,7 +4996,7 @@
         "value": 250
       }
     ],
-    "custom_amount": true,
+    "custom_amount": false,
     "rules": {
       "can_combine_with_store_offers": {
         "value": "yes",
@@ -5026,7 +5032,7 @@
     "slug": "biba",
     "brand_name": "BIBA",
     "url": "https://www.gyftr.com/biba",
-    "collected_at": "2026-09-03T13:28:22+00:00",
+    "collected_at": "2026-09-18T12:53:44+00:00",
     "best_saving_pct": 8.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -5154,7 +5160,7 @@
     "slug": "pvr",
     "brand_name": "PVR INOX",
     "url": "https://www.gyftr.com/pvr",
-    "collected_at": "2026-09-03T13:28:28+00:00",
+    "collected_at": "2026-09-18T12:53:48+00:00",
     "best_saving_pct": 16.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -5225,7 +5231,7 @@
         "value": 1000
       }
     ],
-    "custom_amount": true,
+    "custom_amount": false,
     "rules": {
       "can_combine_with_store_offers": {
         "value": "yes",
@@ -5263,7 +5269,7 @@
     "slug": "gyftr-pay",
     "brand_name": "GyFTR PAY",
     "url": "https://www.gyftr.com/gyftr-pay",
-    "collected_at": "2026-09-03T13:28:41+00:00",
+    "collected_at": "2026-09-18T12:53:51+00:00",
     "best_saving_pct": 0.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -5349,7 +5355,7 @@
         "value": 100
       }
     ],
-    "custom_amount": true,
+    "custom_amount": false,
     "rules": {
       "can_combine_with_store_offers": {
         "value": "no",
@@ -5392,7 +5398,7 @@
     "slug": "beer-cafe",
     "brand_name": "Beer Cafe",
     "url": "https://www.gyftr.com/beer-cafe",
-    "collected_at": "2026-09-03T13:29:03+00:00",
+    "collected_at": "2026-09-18T12:53:57+00:00",
     "best_saving_pct": 5.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -5598,7 +5604,7 @@
         "value": 500
       }
     ],
-    "custom_amount": true,
+    "custom_amount": false,
     "rules": {
       "max_vouchers_per_bill": {
         "value": 1,
@@ -5638,7 +5644,7 @@
     "slug": "points-for-good",
     "brand_name": "Points for Good",
     "url": "https://www.gyftr.com/points-for-good",
-    "collected_at": "2026-09-03T13:29:18+00:00",
+    "collected_at": "2026-09-18T12:54:02+00:00",
     "best_saving_pct": 0.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -5763,7 +5769,7 @@
     "slug": "apollo-pharmacy",
     "brand_name": "Apollo Pharmacy",
     "url": "https://www.gyftr.com/apollo-pharmacy",
-    "collected_at": "2026-09-03T13:29:19+00:00",
+    "collected_at": "2026-09-18T12:54:05+00:00",
     "best_saving_pct": 11.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -5879,7 +5885,7 @@
     "slug": "luxe-gift-card",
     "brand_name": "Luxe Gift Card",
     "url": "https://www.gyftr.com/luxe-gift-card",
-    "collected_at": "2026-09-03T13:29:43+00:00",
+    "collected_at": "2026-09-18T12:54:09+00:00",
     "best_saving_pct": 10.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -5948,7 +5954,7 @@
         "value": 100
       }
     ],
-    "custom_amount": true,
+    "custom_amount": false,
     "rules": {
       "can_combine_with_store_offers": {
         "value": "yes",
@@ -5976,7 +5982,7 @@
     "slug": "the-body-shop",
     "brand_name": "The Body Shop",
     "url": "https://www.gyftr.com/the-body-shop",
-    "collected_at": "2026-09-03T13:29:47+00:00",
+    "collected_at": "2026-09-18T12:54:12+00:00",
     "best_saving_pct": 3.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -5995,6 +6001,11 @@
     "available": true,
     "methods": {
       "Credit Card": {
+        "saving_pct": 1.0,
+        "processing_fee": false,
+        "processing_fee_pct": 0.0
+      },
+      "Net Banking": {
         "saving_pct": 1.0,
         "processing_fee": false,
         "processing_fee_pct": 0.0
@@ -6100,7 +6111,7 @@
     "slug": "bigbasket",
     "brand_name": "BigBasket",
     "url": "https://www.gyftr.com/bigbasket",
-    "collected_at": "2026-09-03T13:29:53+00:00",
+    "collected_at": "2026-09-18T12:54:16+00:00",
     "best_saving_pct": 3.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -6200,7 +6211,7 @@
     "slug": "uber",
     "brand_name": "UBER",
     "url": "https://www.gyftr.com/uber",
-    "collected_at": "2026-09-03T13:29:58+00:00",
+    "collected_at": "2026-09-18T12:54:21+00:00",
     "best_saving_pct": 3.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -6271,7 +6282,7 @@
         "value": 100
       }
     ],
-    "custom_amount": true,
+    "custom_amount": false,
     "rules": {
       "can_combine_with_store_offers": {
         "value": "yes",
@@ -6321,7 +6332,7 @@
     "slug": "ketan-diamonds-gold-jewellery",
     "brand_name": "Ketan Diamonds Gold Jewellery",
     "url": "https://www.gyftr.com/ketan-diamonds-gold-jewellery",
-    "collected_at": "2026-09-03T13:30:16+00:00",
+    "collected_at": "2026-09-18T12:54:29+00:00",
     "best_saving_pct": 8.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -6511,7 +6522,7 @@
         "value": 2000
       }
     ],
-    "custom_amount": true,
+    "custom_amount": false,
     "rules": {
       "can_combine_with_store_offers": {
         "value": "yes",
@@ -6561,7 +6572,7 @@
     "slug": "ketan-diamonds-gold-coin",
     "brand_name": "Ketan Diamonds Gold Coin",
     "url": "https://www.gyftr.com/ketan-diamonds-gold-coin",
-    "collected_at": "2026-09-03T13:30:22+00:00",
+    "collected_at": "2026-09-18T12:54:34+00:00",
     "best_saving_pct": 3.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -6682,7 +6693,7 @@
     "slug": "luxe-gift-card-armani-exchange",
     "brand_name": "Armani Exchange-Luxe Gift Card",
     "url": "https://www.gyftr.com/luxe-gift-card-armani-exchange",
-    "collected_at": "2026-09-03T13:30:32+00:00",
+    "collected_at": "2026-09-18T12:54:37+00:00",
     "best_saving_pct": 0.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -6926,7 +6937,7 @@
     "slug": "luxe-gift-card-coach",
     "brand_name": "Coach-Luxe Gift Card",
     "url": "https://www.gyftr.com/luxe-gift-card-coach",
-    "collected_at": "2026-09-03T13:30:55+00:00",
+    "collected_at": "2026-09-18T12:54:42+00:00",
     "best_saving_pct": 0.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -7047,7 +7058,7 @@
     "slug": "luxe-gift-card-gas",
     "brand_name": "GAS-Luxe Gift Card",
     "url": "https://www.gyftr.com/luxe-gift-card-gas",
-    "collected_at": "2026-09-03T13:30:57+00:00",
+    "collected_at": "2026-09-18T12:54:45+00:00",
     "best_saving_pct": 0.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -7173,7 +7184,7 @@
     "slug": "luxe-gift-card-hamleys",
     "brand_name": "Hamleys-Luxe Gift Card",
     "url": "https://www.gyftr.com/luxe-gift-card-hamleys",
-    "collected_at": "2026-09-03T13:31:05+00:00",
+    "collected_at": "2026-09-18T12:54:48+00:00",
     "best_saving_pct": 10.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -7284,7 +7295,7 @@
     "slug": "luxe-gift-card-hugo-boss",
     "brand_name": "Hugo Boss-Luxe Gift Card",
     "url": "https://www.gyftr.com/luxe-gift-card-hugo-boss",
-    "collected_at": "2026-09-03T13:31:16+00:00",
+    "collected_at": "2026-09-18T12:54:52+00:00",
     "best_saving_pct": 10.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -7395,7 +7406,7 @@
     "slug": "luxe-gift-card-michael-kors",
     "brand_name": "Michael Kors-Luxe Gift Card",
     "url": "https://www.gyftr.com/luxe-gift-card-michael-kors",
-    "collected_at": "2026-09-03T13:31:25+00:00",
+    "collected_at": "2026-09-18T12:54:55+00:00",
     "best_saving_pct": 10.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -7634,7 +7645,7 @@
     "slug": "luxe-gift-card-mothercare",
     "brand_name": "Mothercare-Luxe Gift Card",
     "url": "https://www.gyftr.com/luxe-gift-card-mothercare",
-    "collected_at": "2026-09-03T13:31:41+00:00",
+    "collected_at": "2026-09-18T12:55:00+00:00",
     "best_saving_pct": 0.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -7760,7 +7771,7 @@
     "slug": "luxe-gift-card-superdry",
     "brand_name": "Superdry-Luxe Gift Card",
     "url": "https://www.gyftr.com/luxe-gift-card-superdry",
-    "collected_at": "2026-09-03T13:31:47+00:00",
+    "collected_at": "2026-09-18T12:55:03+00:00",
     "best_saving_pct": 13.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -7875,7 +7886,7 @@
     "slug": "luxe-gift-card-steve-madden",
     "brand_name": "Steve Madden-Luxe Gift Card",
     "url": "https://www.gyftr.com/luxe-gift-card-steve-madden",
-    "collected_at": "2026-09-03T13:31:56+00:00",
+    "collected_at": "2026-09-18T12:55:33+00:00",
     "best_saving_pct": 10.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -7992,7 +8003,7 @@
     "slug": "zee5",
     "brand_name": "Zee5",
     "url": "https://www.gyftr.com/zee5",
-    "collected_at": "2026-09-03T13:32:07+00:00",
+    "collected_at": "2026-09-18T12:55:24+00:00",
     "best_saving_pct": 23.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -8111,7 +8122,7 @@
     "slug": "the-man-company",
     "brand_name": "The Man Company",
     "url": "https://www.gyftr.com/the-man-company",
-    "collected_at": "2026-09-03T13:32:15+00:00",
+    "collected_at": "2026-09-18T12:55:32+00:00",
     "best_saving_pct": 16.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -8425,7 +8436,7 @@
         "value": 2500
       }
     ],
-    "custom_amount": true,
+    "custom_amount": false,
     "rules": {
       "can_combine_with_store_offers": {
         "value": "yes",
@@ -8469,7 +8480,7 @@
     "slug": "candere-diamond-jewellery",
     "brand_name": "Candere Diamond Jewellery",
     "url": "https://www.gyftr.com/candere-diamond-jewellery",
-    "collected_at": "2026-09-03T13:32:36+00:00",
+    "collected_at": "2026-09-18T12:55:46+00:00",
     "best_saving_pct": 7.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -8547,7 +8558,7 @@
         "value": 100
       }
     ],
-    "custom_amount": true,
+    "custom_amount": false,
     "rules": {
       "can_combine_with_store_offers": {
         "value": "no",
@@ -8581,7 +8592,7 @@
     "slug": "skullcandy",
     "brand_name": "Skullcandy",
     "url": "https://www.gyftr.com/skullcandy",
-    "collected_at": "2026-09-03T13:32:55+00:00",
+    "collected_at": "2026-09-18T12:56:29+00:00",
     "best_saving_pct": 10.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -8664,7 +8675,7 @@
         "value": 100
       }
     ],
-    "custom_amount": true,
+    "custom_amount": false,
     "rules": {
       "can_combine_with_store_offers": {
         "value": "no",
@@ -8714,7 +8725,7 @@
     "slug": "netmeds",
     "brand_name": "Netmeds",
     "url": "https://www.gyftr.com/netmeds",
-    "collected_at": "2026-09-03T13:32:56+00:00",
+    "collected_at": "2026-09-18T12:56:01+00:00",
     "best_saving_pct": 10.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -8832,7 +8843,7 @@
     "slug": "elleven",
     "brand_name": "Elleven",
     "url": "https://www.gyftr.com/elleven",
-    "collected_at": "2026-09-03T13:33:02+00:00",
+    "collected_at": "2026-09-18T12:56:10+00:00",
     "best_saving_pct": 0.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -8920,7 +8931,7 @@
         "value": 2000
       }
     ],
-    "custom_amount": true,
+    "custom_amount": false,
     "rules": {
       "delivery_wait": {
         "value": "some billers take up to 3 business days to accept the payment",
@@ -8956,7 +8967,7 @@
     "slug": "fastag-recharge",
     "brand_name": "Fastag Recharge",
     "url": "https://www.gyftr.com/fastag-recharge",
-    "collected_at": "2026-09-03T13:33:05+00:00",
+    "collected_at": "2026-09-18T12:56:28+00:00",
     "best_saving_pct": 0.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -9279,7 +9290,7 @@
         "value": 100
       }
     ],
-    "custom_amount": true,
+    "custom_amount": false,
     "rules": {
       "can_combine_with_store_offers": {
         "value": "yes",
@@ -9322,7 +9333,7 @@
     "slug": "skechers",
     "brand_name": "Skechers",
     "url": "https://www.gyftr.com/skechers",
-    "collected_at": "2026-09-03T13:33:35+00:00",
+    "collected_at": "2026-09-18T12:56:42+00:00",
     "best_saving_pct": 10.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -9441,7 +9452,7 @@
     "slug": "decathlon",
     "brand_name": "Decathlon",
     "url": "https://www.gyftr.com/decathlon",
-    "collected_at": "2026-09-03T13:33:57+00:00",
+    "collected_at": "2026-09-18T12:56:47+00:00",
     "best_saving_pct": 4.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -9556,7 +9567,7 @@
     "slug": "tata-cliq",
     "brand_name": "TATA CLiQ",
     "url": "https://www.gyftr.com/tata-cliq",
-    "collected_at": "2026-09-03T13:34:04+00:00",
+    "collected_at": "2026-09-18T12:56:51+00:00",
     "best_saving_pct": 10.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -9627,10 +9638,16 @@
         "value": 2500
       },
       {
+        "value": 5000
+      },
+      {
         "value": 10000
       },
       {
         "value": 3000
+      },
+      {
+        "value": 100000
       },
       {
         "value": 2000
@@ -9668,7 +9685,7 @@
     "slug": "malabar-gold-coin",
     "brand_name": "Malabar Gold Coin",
     "url": "https://www.gyftr.com/malabar-gold-coin",
-    "collected_at": "2026-09-03T13:34:08+00:00",
+    "collected_at": "2026-09-18T12:57:23+00:00",
     "best_saving_pct": 3.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -9900,7 +9917,7 @@
     "slug": "luxe-gift-card-emporio-armani",
     "brand_name": "Emporio Armani- Luxe Gift Card",
     "url": "https://www.gyftr.com/luxe-gift-card-emporio-armani",
-    "collected_at": "2026-09-03T13:34:39+00:00",
+    "collected_at": "2026-09-18T12:57:28+00:00",
     "best_saving_pct": 10.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -10021,7 +10038,7 @@
     "slug": "luxe-gift-card-scotch-soda",
     "brand_name": "Scotch & Soda -Luxe Gift Card",
     "url": "https://www.gyftr.com/luxe-gift-card-scotch-soda",
-    "collected_at": "2026-09-03T13:34:43+00:00",
+    "collected_at": "2026-09-18T12:57:31+00:00",
     "best_saving_pct": 0.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -10253,7 +10270,7 @@
     "slug": "luxe-gift-card---dune",
     "brand_name": "Dune-Luxe Gift Card",
     "url": "https://www.gyftr.com/luxe-gift-card---dune",
-    "collected_at": "2026-09-03T13:35:06+00:00",
+    "collected_at": "2026-09-18T12:58:22+00:00",
     "best_saving_pct": 0.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -10327,7 +10344,7 @@
         "value": 2500
       }
     ],
-    "custom_amount": true,
+    "custom_amount": false,
     "rules": {
       "can_combine_with_store_offers": {
         "value": "yes",
@@ -10373,7 +10390,7 @@
     "slug": "ketan-diamonds-diamond-only",
     "brand_name": "Ketan Diamonds Diamond Only",
     "url": "https://www.gyftr.com/ketan-diamonds-diamond-only",
-    "collected_at": "2026-09-03T13:35:13+00:00",
+    "collected_at": "2026-09-18T12:57:37+00:00",
     "best_saving_pct": 13.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -10443,7 +10460,7 @@
         "value": 2000
       }
     ],
-    "custom_amount": true,
+    "custom_amount": false,
     "rules": {
       "can_combine_with_store_offers": {
         "value": "yes",
@@ -10493,7 +10510,7 @@
     "slug": "euphoria-jewellery-gold-coin",
     "brand_name": "Euphoria Jewellery Gold Coin",
     "url": "https://www.gyftr.com/euphoria-jewellery-gold-coin",
-    "collected_at": "2026-09-03T13:35:16+00:00",
+    "collected_at": "2026-09-18T12:57:40+00:00",
     "best_saving_pct": 4.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -10604,7 +10621,7 @@
     "slug": "lifestyle-online",
     "brand_name": "Lifestyle Online",
     "url": "https://www.gyftr.com/lifestyle-online",
-    "collected_at": "2026-09-03T13:35:33+00:00",
+    "collected_at": "2026-09-18T12:57:43+00:00",
     "best_saving_pct": 8.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -10717,7 +10734,7 @@
     "slug": "taneira",
     "brand_name": "Taneira",
     "url": "https://www.gyftr.com/taneira",
-    "collected_at": "2026-09-03T13:35:40+00:00",
+    "collected_at": "2026-09-18T12:57:46+00:00",
     "best_saving_pct": 8.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -10837,7 +10854,7 @@
     "slug": "swiggy-gv",
     "brand_name": "Swiggy Money Voucher",
     "url": "https://www.gyftr.com/swiggy-gv",
-    "collected_at": "2026-09-03T13:35:50+00:00",
+    "collected_at": "2026-09-18T12:57:51+00:00",
     "best_saving_pct": 2.5,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -10912,7 +10929,7 @@
         "value": 5000
       }
     ],
-    "custom_amount": true,
+    "custom_amount": false,
     "rules": {
       "can_combine_with_store_offers": {
         "value": "yes",
@@ -10948,7 +10965,7 @@
     "slug": "vijay-sales",
     "brand_name": "Vijay Sales",
     "url": "https://www.gyftr.com/vijay-sales",
-    "collected_at": "2026-09-03T13:35:59+00:00",
+    "collected_at": "2026-09-18T12:58:05+00:00",
     "best_saving_pct": 2.5,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -11024,7 +11041,7 @@
         "value": 100
       }
     ],
-    "custom_amount": true,
+    "custom_amount": false,
     "rules": {
       "can_combine_with_store_offers": {
         "value": "yes",
@@ -11060,7 +11077,7 @@
     "slug": "healthians",
     "brand_name": "Healthians",
     "url": "https://www.gyftr.com/healthians",
-    "collected_at": "2026-09-03T13:36:06+00:00",
+    "collected_at": "2026-09-18T12:58:09+00:00",
     "best_saving_pct": 15.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -11171,7 +11188,7 @@
     "slug": "skinn",
     "brand_name": "Skinn",
     "url": "https://www.gyftr.com/skinn",
-    "collected_at": "2026-09-03T13:36:19+00:00",
+    "collected_at": "2026-09-18T12:58:22+00:00",
     "best_saving_pct": 0.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -11289,7 +11306,7 @@
     "slug": "mia",
     "brand_name": "Mia",
     "url": "https://www.gyftr.com/mia",
-    "collected_at": "2026-09-03T13:36:22+00:00",
+    "collected_at": "2026-09-18T12:58:15+00:00",
     "best_saving_pct": 3.5,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -11645,7 +11662,7 @@
     "slug": "reliance-my-jio-store",
     "brand_name": "Reliance My Jio Store",
     "url": "https://www.gyftr.com/reliance-my-jio-store",
-    "collected_at": "2026-09-03T13:36:56+00:00",
+    "collected_at": "2026-09-18T12:58:42+00:00",
     "best_saving_pct": 0.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -11721,7 +11738,7 @@
         "value": 100
       }
     ],
-    "custom_amount": true,
+    "custom_amount": false,
     "rules": {
       "can_combine_with_store_offers": {
         "value": "yes",
@@ -11761,7 +11778,7 @@
     "slug": "chumbak",
     "brand_name": "Chumbak",
     "url": "https://www.gyftr.com/chumbak",
-    "collected_at": "2026-09-03T13:36:56+00:00",
+    "collected_at": "2026-09-18T12:58:55+00:00",
     "best_saving_pct": 13.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -11865,7 +11882,7 @@
     "slug": "hoichoi",
     "brand_name": "Hoichoi",
     "url": "https://www.gyftr.com/hoichoi",
-    "collected_at": "2026-09-03T13:36:58+00:00",
+    "collected_at": "2026-09-18T12:58:38+00:00",
     "best_saving_pct": 0.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -11950,7 +11967,7 @@
         "value": 2500
       }
     ],
-    "custom_amount": true,
+    "custom_amount": false,
     "rules": {
       "can_combine_with_store_offers": {
         "value": "yes",
@@ -12005,7 +12022,7 @@
     "slug": "reliance-digital",
     "brand_name": "Reliance Digital",
     "url": "https://www.gyftr.com/reliance-digital",
-    "collected_at": "2026-09-03T13:37:02+00:00",
+    "collected_at": "2026-09-18T12:58:45+00:00",
     "best_saving_pct": 0.5,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -12154,7 +12171,7 @@
     "slug": "reliance-trends-footwear",
     "brand_name": "Reliance Trends Footwear",
     "url": "https://www.gyftr.com/reliance-trends-footwear",
-    "collected_at": "2026-09-03T13:37:23+00:00",
+    "collected_at": "2026-09-18T12:58:49+00:00",
     "best_saving_pct": 6.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -12300,7 +12317,7 @@
     "slug": "reliance-trends",
     "brand_name": "Reliance Trends",
     "url": "https://www.gyftr.com/reliance-trends",
-    "collected_at": "2026-09-03T13:37:29+00:00",
+    "collected_at": "2026-09-18T12:58:54+00:00",
     "best_saving_pct": 5.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -12546,7 +12563,7 @@
     "slug": "reliance-smart",
     "brand_name": "Reliance Smart",
     "url": "https://www.gyftr.com/reliance-smart",
-    "collected_at": "2026-09-03T13:37:38+00:00",
+    "collected_at": "2026-09-18T12:59:00+00:00",
     "best_saving_pct": 0.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -12622,7 +12639,7 @@
         "value": 250
       }
     ],
-    "custom_amount": true,
+    "custom_amount": false,
     "rules": {
       "can_combine_with_store_offers": {
         "value": "yes",
@@ -12669,7 +12686,7 @@
     "slug": "barbeque-nation",
     "brand_name": "Barbeque Nation",
     "url": "https://www.gyftr.com/barbeque-nation",
-    "collected_at": "2026-09-03T13:38:05+00:00",
+    "collected_at": "2026-09-18T12:59:08+00:00",
     "best_saving_pct": 5.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -12753,7 +12770,7 @@
         "value": 100
       }
     ],
-    "custom_amount": true,
+    "custom_amount": false,
     "rules": {
       "can_combine_with_store_offers": {
         "value": "no",
@@ -12796,7 +12813,7 @@
     "slug": "organic-india",
     "brand_name": "ORGANIC INDIA",
     "url": "https://www.gyftr.com/organic-india",
-    "collected_at": "2026-09-03T13:38:13+00:00",
+    "collected_at": "2026-09-18T12:59:15+00:00",
     "best_saving_pct": 10.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -12937,7 +12954,7 @@
     "slug": "reliance-jewels",
     "brand_name": "Reliance Jewels",
     "url": "https://www.gyftr.com/reliance-jewels",
-    "collected_at": "2026-09-03T13:38:13+00:00",
+    "collected_at": "2026-09-18T13:00:02+00:00",
     "best_saving_pct": 0.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -13069,42 +13086,37 @@
     "available": true,
     "methods": {
       "Credit Card": {
-        "saving_pct": 6.0,
+        "saving_pct": 10.0,
         "processing_fee": false,
         "processing_fee_pct": 0.0
       },
       "Net Banking": {
-        "saving_pct": 6.0,
+        "saving_pct": 10.0,
         "processing_fee": false,
         "processing_fee_pct": 0.0
       },
       "Debit Card": {
-        "saving_pct": 6.0,
+        "saving_pct": 10.0,
         "processing_fee": false,
         "processing_fee_pct": 0.0
       },
       "MobiKwik": {
-        "saving_pct": 6.0,
+        "saving_pct": 10.0,
         "processing_fee": false,
         "processing_fee_pct": 0.0
       },
       "UPI": {
-        "saving_pct": 8.0,
+        "saving_pct": 12.0,
         "processing_fee": false,
         "processing_fee_pct": 0.0
       },
       "e-Pay": {
-        "saving_pct": 8.0,
+        "saving_pct": 12.0,
         "processing_fee": false,
         "processing_fee_pct": 0.0
       },
       "PAYTM UPI": {
-        "saving_pct": 8.0,
-        "processing_fee": false,
-        "processing_fee_pct": 0.0
-      },
-      "Paytm Wallet": {
-        "saving_pct": 6.0,
+        "saving_pct": 12.0,
         "processing_fee": false,
         "processing_fee_pct": 0.0
       }
@@ -13129,7 +13141,7 @@
         "value": 250
       }
     ],
-    "custom_amount": true,
+    "custom_amount": false,
     "rules": {
       "can_combine_with_store_offers": {
         "value": "no",
@@ -13165,11 +13177,11 @@
     "slug": "cafe-delhi-heights",
     "brand_name": "Cafe Delhi Heights",
     "url": "https://www.gyftr.com/cafe-delhi-heights",
-    "collected_at": "2026-09-03T13:38:44+00:00",
-    "best_saving_pct": 8.0,
+    "collected_at": "2026-09-18T12:59:32+00:00",
+    "best_saving_pct": 12.0,
     "best_saving_method": "UPI",
     "has_terms": true,
-    "max_saving_pct": 8.0,
+    "max_saving_pct": 12.0,
     "recommendable": true,
     "rules_source": "read",
     "platform_buying": {
@@ -13246,7 +13258,7 @@
         "value": 100
       }
     ],
-    "custom_amount": true,
+    "custom_amount": false,
     "rules": {
       "can_combine_with_store_offers": {
         "value": "yes",
@@ -13288,7 +13300,7 @@
     "slug": "wildcraft",
     "brand_name": "Wildcraft",
     "url": "https://www.gyftr.com/wildcraft",
-    "collected_at": "2026-09-03T13:38:44+00:00",
+    "collected_at": "2026-09-18T12:59:29+00:00",
     "best_saving_pct": 7.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -13375,7 +13387,7 @@
         "value": 100
       }
     ],
-    "custom_amount": true,
+    "custom_amount": false,
     "rules": {
       "can_combine_with_store_offers": {
         "value": "yes",
@@ -13417,7 +13429,7 @@
     "slug": "wow-momo",
     "brand_name": "Wow!Momo",
     "url": "https://www.gyftr.com/wow-momo",
-    "collected_at": "2026-09-03T13:38:56+00:00",
+    "collected_at": "2026-09-18T12:59:36+00:00",
     "best_saving_pct": 9.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -13493,7 +13505,7 @@
         "value": 100
       }
     ],
-    "custom_amount": true,
+    "custom_amount": false,
     "rules": {
       "can_combine_with_store_offers": {
         "value": "yes",
@@ -13535,7 +13547,7 @@
     "slug": "wow-china",
     "brand_name": "Wow!China",
     "url": "https://www.gyftr.com/wow-china",
-    "collected_at": "2026-09-03T13:39:10+00:00",
+    "collected_at": "2026-09-18T12:59:39+00:00",
     "best_saving_pct": 9.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -13734,7 +13746,7 @@
         "value": 100
       }
     ],
-    "custom_amount": true,
+    "custom_amount": false,
     "rules": {
       "can_combine_with_store_offers": {
         "value": "no",
@@ -13781,7 +13793,7 @@
     "slug": "truefitt-&-hill",
     "brand_name": "TRUEFITT & HILL",
     "url": "https://www.gyftr.com/truefitt-&-hill",
-    "collected_at": "2026-09-03T13:39:41+00:00",
+    "collected_at": "2026-09-18T12:59:43+00:00",
     "best_saving_pct": 20.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -13893,7 +13905,7 @@
     "slug": "estele",
     "brand_name": "Estele",
     "url": "https://www.gyftr.com/estele",
-    "collected_at": "2026-09-03T13:39:51+00:00",
+    "collected_at": "2026-09-18T12:59:47+00:00",
     "best_saving_pct": 0.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -14014,7 +14026,7 @@
     "slug": "timezone",
     "brand_name": "Timezone",
     "url": "https://www.gyftr.com/timezone",
-    "collected_at": "2026-09-03T13:40:11+00:00",
+    "collected_at": "2026-09-18T12:59:50+00:00",
     "best_saving_pct": 0.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -14174,13 +14186,7 @@
         "value": 2000
       },
       {
-        "value": 10000
-      },
-      {
         "value": 7500
-      },
-      {
-        "value": 5000
       },
       {
         "value": 1000
@@ -14245,7 +14251,7 @@
     "slug": "itc-hotels",
     "brand_name": "ITC Hotels",
     "url": "https://www.gyftr.com/itc-hotels",
-    "collected_at": "2026-09-03T13:40:50+00:00",
+    "collected_at": "2026-09-18T13:00:14+00:00",
     "best_saving_pct": 9.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -14337,7 +14343,7 @@
     "slug": "veridicus",
     "brand_name": "Veridicus",
     "url": "https://www.gyftr.com/veridicus",
-    "collected_at": "2026-09-03T13:51:59+00:00",
+    "collected_at": "2026-09-18T13:00:54+00:00",
     "best_saving_pct": 0.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -14407,7 +14413,7 @@
     "slug": "ovenstory-pizza",
     "brand_name": "Ovenstory Pizza",
     "url": "https://www.gyftr.com/ovenstory-pizza",
-    "collected_at": "2026-09-03T14:02:24+00:00",
+    "collected_at": "2026-09-18T13:01:50+00:00",
     "best_saving_pct": 0.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -14490,7 +14496,7 @@
         "value": 1500
       }
     ],
-    "custom_amount": true,
+    "custom_amount": false,
     "rules": {
       "can_combine_with_store_offers": {
         "value": "no",
@@ -14532,7 +14538,7 @@
     "slug": "behrouz-biryani",
     "brand_name": "Behrouz Biryani",
     "url": "https://www.gyftr.com/behrouz-biryani",
-    "collected_at": "2026-09-03T14:02:24+00:00",
+    "collected_at": "2026-09-18T13:00:54+00:00",
     "best_saving_pct": 12.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -14619,7 +14625,7 @@
     "slug": "airtel-xstream",
     "brand_name": "Airtel Xstream",
     "url": "https://www.gyftr.com/airtel-xstream",
-    "collected_at": "2026-09-03T14:13:22+00:00",
+    "collected_at": "2026-09-18T13:02:13+00:00",
     "best_saving_pct": 0.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -14679,9 +14685,6 @@
     },
     "denominations": [
       {
-        "value": 3000
-      },
-      {
         "value": 5000
       },
       {
@@ -14727,7 +14730,7 @@
     "slug": "v-mart",
     "brand_name": "V Mart",
     "url": "https://www.gyftr.com/v-mart",
-    "collected_at": "2026-09-03T14:13:24+00:00",
+    "collected_at": "2026-09-18T13:01:40+00:00",
     "best_saving_pct": 0.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -14827,7 +14830,7 @@
     "slug": "freecultr",
     "brand_name": "Freecultr",
     "url": "https://www.gyftr.com/freecultr",
-    "collected_at": "2026-09-03T14:13:25+00:00",
+    "collected_at": "2026-09-18T13:01:24+00:00",
     "best_saving_pct": 20.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -14910,7 +14913,7 @@
     "slug": "troll-beads",
     "brand_name": "Troll Beads",
     "url": "https://www.gyftr.com/troll-beads",
-    "collected_at": "2026-09-03T14:13:41+00:00",
+    "collected_at": "2026-09-18T13:01:56+00:00",
     "best_saving_pct": 0.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -14975,12 +14978,6 @@
     },
     "denominations": [
       {
-        "value": 500
-      },
-      {
-        "value": 1000
-      },
-      {
         "value": 2000
       }
     ],
@@ -15012,7 +15009,7 @@
     "slug": "superbottoms",
     "brand_name": "Superbottoms",
     "url": "https://www.gyftr.com/superbottoms",
-    "collected_at": "2026-09-03T14:36:00+00:00",
+    "collected_at": "2026-09-18T13:03:05+00:00",
     "best_saving_pct": 15.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -15090,7 +15087,7 @@
         "value": 100
       }
     ],
-    "custom_amount": true,
+    "custom_amount": false,
     "rules": {
       "max_vouchers_per_bill": {
         "value": "unlimited",
@@ -15130,7 +15127,7 @@
     "slug": "smile-foundation",
     "brand_name": "Smile Foundation",
     "url": "https://www.gyftr.com/smile-foundation",
-    "collected_at": "2026-09-03T14:36:00+00:00",
+    "collected_at": "2026-09-18T13:02:37+00:00",
     "best_saving_pct": 0.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -15245,52 +15242,50 @@
     "available": true,
     "methods": {
       "Credit Card": {
-        "saving_pct": 10.0,
+        "saving_pct": 5.0,
         "processing_fee": false,
         "processing_fee_pct": 0.0
       },
       "Net Banking": {
-        "saving_pct": 10.0,
+        "saving_pct": 5.0,
         "processing_fee": false,
         "processing_fee_pct": 0.0
       },
       "Debit Card": {
-        "saving_pct": 10.0,
+        "saving_pct": 5.0,
         "processing_fee": false,
         "processing_fee_pct": 0.0
       },
       "MobiKwik": {
-        "saving_pct": 10.0,
+        "saving_pct": 5.0,
         "processing_fee": false,
         "processing_fee_pct": 0.0
       },
       "UPI": {
-        "saving_pct": 12.0,
+        "saving_pct": 5.0,
         "processing_fee": false,
         "processing_fee_pct": 0.0
       },
       "Amazon Pay": {
-        "saving_pct": 10.0,
+        "saving_pct": 5.0,
         "processing_fee": false,
         "processing_fee_pct": 0.0
       },
       "e-Pay": {
-        "saving_pct": 12.0,
+        "saving_pct": 5.0,
         "processing_fee": false,
         "processing_fee_pct": 0.0
       },
       "PAYTM UPI": {
-        "saving_pct": 12.0,
-        "processing_fee": false,
-        "processing_fee_pct": 0.0
-      },
-      "Paytm Wallet": {
-        "saving_pct": 10.0,
+        "saving_pct": 5.0,
         "processing_fee": false,
         "processing_fee_pct": 0.0
       }
     },
     "denominations": [
+      {
+        "value": 5000
+      },
       {
         "value": 1000
       },
@@ -15334,11 +15329,11 @@
     "slug": "healthkart",
     "brand_name": "HealthKart",
     "url": "https://www.gyftr.com/healthkart",
-    "collected_at": "2026-09-03T14:40:16+00:00",
-    "best_saving_pct": 12.0,
+    "collected_at": "2026-09-18T13:02:49+00:00",
+    "best_saving_pct": 5.0,
     "best_saving_method": "UPI",
     "has_terms": true,
-    "max_saving_pct": 12.0,
+    "max_saving_pct": 5.0,
     "recommendable": true,
     "rules_source": "read",
     "platform_buying": {
@@ -15453,7 +15448,7 @@
     "slug": "cleartrip-hotel",
     "brand_name": "Cleartrip Hotel",
     "url": "https://www.gyftr.com/cleartrip-hotel",
-    "collected_at": "2026-09-03T14:40:17+00:00",
+    "collected_at": "2026-09-18T13:02:43+00:00",
     "best_saving_pct": 7.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -15562,7 +15557,7 @@
     "slug": "cleartrip-generic",
     "brand_name": "Cleartrip",
     "url": "https://www.gyftr.com/cleartrip-generic",
-    "collected_at": "2026-09-03T14:40:38+00:00",
+    "collected_at": "2026-09-18T13:02:46+00:00",
     "best_saving_pct": 6.5,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -15653,7 +15648,7 @@
     "slug": "the-skin-story",
     "brand_name": "The Skin Story",
     "url": "https://www.gyftr.com/the-skin-story",
-    "collected_at": "2026-09-03T14:50:52+00:00",
+    "collected_at": "2026-09-18T13:03:36+00:00",
     "best_saving_pct": 0.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -15736,7 +15731,7 @@
     "slug": "shiv-naresh",
     "brand_name": "Shiv Naresh",
     "url": "https://www.gyftr.com/shiv-naresh",
-    "collected_at": "2026-09-03T15:01:49+00:00",
+    "collected_at": "2026-09-18T13:03:18+00:00",
     "best_saving_pct": 0.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -15843,7 +15838,7 @@
     "slug": "chicago-pizza",
     "brand_name": "Chicago Pizza",
     "url": "https://www.gyftr.com/chicago-pizza",
-    "collected_at": "2026-09-03T15:12:50+00:00",
+    "collected_at": "2026-09-18T13:03:46+00:00",
     "best_saving_pct": 0.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -15947,7 +15942,7 @@
     "slug": "nykaa-fashion",
     "brand_name": "Nykaa Fashion",
     "url": "https://www.gyftr.com/nykaa-fashion",
-    "collected_at": "2026-09-03T15:12:53+00:00",
+    "collected_at": "2026-09-18T13:03:16+00:00",
     "best_saving_pct": 4.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -16005,7 +16000,7 @@
         "value": 100
       }
     ],
-    "custom_amount": true,
+    "custom_amount": false,
     "rules": {
       "max_vouchers_per_bill": {
         "value": "unlimited",
@@ -16037,7 +16032,7 @@
     "slug": "gv-irctc",
     "brand_name": "IRCTC",
     "url": "https://www.gyftr.com/gv-irctc",
-    "collected_at": "2026-09-03T15:12:53+00:00",
+    "collected_at": "2026-09-18T13:03:21+00:00",
     "best_saving_pct": 0.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -16107,7 +16102,7 @@
     "slug": "swiggy-one-lite-membership",
     "brand_name": "Swiggy One Lite Membership",
     "url": "https://www.gyftr.com/swiggy-one-lite-membership",
-    "collected_at": "2026-09-03T15:12:55+00:00",
+    "collected_at": "2026-09-18T13:03:53+00:00",
     "best_saving_pct": 0.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -16226,7 +16221,7 @@
     "slug": "tata-cliq-luxury",
     "brand_name": "Tata CliQ Luxury",
     "url": "https://www.gyftr.com/tata-cliq-luxury",
-    "collected_at": "2026-09-03T15:17:34+00:00",
+    "collected_at": "2026-09-18T13:03:56+00:00",
     "best_saving_pct": 9.5,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -16485,7 +16480,7 @@
     "slug": "makemytrip-holiday-e-pay",
     "brand_name": "MakeMyTrip Holiday e-Pay",
     "url": "https://www.gyftr.com/makemytrip-holiday-e-pay",
-    "collected_at": "2026-09-03T15:18:54+00:00",
+    "collected_at": "2026-09-18T13:04:09+00:00",
     "best_saving_pct": 13.5,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -16608,7 +16603,7 @@
     "slug": "cult-gift-card",
     "brand_name": "Cult Gift Card",
     "url": "https://www.gyftr.com/cult-gift-card",
-    "collected_at": "2026-09-03T15:19:27+00:00",
+    "collected_at": "2026-09-18T13:04:17+00:00",
     "best_saving_pct": 2.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -16691,7 +16686,7 @@
         "value": 5000
       }
     ],
-    "custom_amount": true,
+    "custom_amount": false,
     "rules": {
       "can_combine_with_store_offers": {
         "value": "yes",
@@ -16730,7 +16725,7 @@
     "slug": "marks-&-spencer",
     "brand_name": "Marks & Spencer",
     "url": "https://www.gyftr.com/marks-&-spencer",
-    "collected_at": "2026-09-03T15:20:13+00:00",
+    "collected_at": "2026-09-18T13:04:29+00:00",
     "best_saving_pct": 10.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -16865,7 +16860,7 @@
     "slug": "fashion-factory",
     "brand_name": "Fashion Factory",
     "url": "https://www.gyftr.com/fashion-factory",
-    "collected_at": "2026-09-03T15:20:36+00:00",
+    "collected_at": "2026-09-18T13:04:32+00:00",
     "best_saving_pct": 5.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -16910,9 +16905,6 @@
       }
     },
     "denominations": [
-      {
-        "value": 1000
-      },
       {
         "value": 5000
       },
@@ -16964,7 +16956,7 @@
     "slug": "muthoot-gold-voucher",
     "brand_name": "Muthoot Gold Voucher",
     "url": "https://www.gyftr.com/muthoot-gold-voucher",
-    "collected_at": "2026-09-03T15:20:47+00:00",
+    "collected_at": "2026-09-18T13:04:35+00:00",
     "best_saving_pct": 2.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -17069,7 +17061,7 @@
     "slug": "shopy-vision",
     "brand_name": "Shopy Vision",
     "url": "https://www.gyftr.com/shopy-vision",
-    "collected_at": "2026-09-03T15:21:27+00:00",
+    "collected_at": "2026-09-18T13:04:47+00:00",
     "best_saving_pct": 0.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -17134,6 +17126,12 @@
     },
     "denominations": [
       {
+        "value": 2000
+      },
+      {
+        "value": 1000
+      },
+      {
         "value": 250
       },
       {
@@ -17186,7 +17184,7 @@
     "slug": "flower-aura",
     "brand_name": "Flower Aura",
     "url": "https://www.gyftr.com/flower-aura",
-    "collected_at": "2026-09-03T15:22:02+00:00",
+    "collected_at": "2026-09-18T13:04:53+00:00",
     "best_saving_pct": 20.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -17253,9 +17251,6 @@
       },
       {
         "value": 500
-      },
-      {
-        "value": 1000
       }
     ],
     "custom_amount": false,
@@ -17298,7 +17293,7 @@
     "slug": "ixigo",
     "brand_name": "Ixigo",
     "url": "https://www.gyftr.com/ixigo",
-    "collected_at": "2026-09-03T15:22:53+00:00",
+    "collected_at": "2026-09-18T13:05:51+00:00",
     "best_saving_pct": 8.5,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -17412,7 +17407,7 @@
     "slug": "vrott",
     "brand_name": "VROTT",
     "url": "https://www.gyftr.com/vrott",
-    "collected_at": "2026-09-03T15:23:03+00:00",
+    "collected_at": "2026-09-18T13:05:07+00:00",
     "best_saving_pct": 42.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -17527,7 +17522,7 @@
     "slug": "dpauls-travel-&-tours",
     "brand_name": "DPauls Travel & Tours",
     "url": "https://www.gyftr.com/dpauls-travel-&-tours",
-    "collected_at": "2026-09-03T15:23:17+00:00",
+    "collected_at": "2026-09-18T13:05:10+00:00",
     "best_saving_pct": 0.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -17607,7 +17602,7 @@
         "value": 100
       }
     ],
-    "custom_amount": true,
+    "custom_amount": false,
     "rules": {
       "excludes": {
         "value": [
@@ -17645,7 +17640,7 @@
     "slug": "campus",
     "brand_name": "Campus",
     "url": "https://www.gyftr.com/campus",
-    "collected_at": "2026-09-03T15:23:49+00:00",
+    "collected_at": "2026-09-18T13:05:17+00:00",
     "best_saving_pct": 14.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -17767,7 +17762,7 @@
     "slug": "amazon-prime-membership",
     "brand_name": "Amazon Prime Membership",
     "url": "https://www.gyftr.com/amazon-prime-membership",
-    "collected_at": "2026-09-03T15:41:25+00:00",
+    "collected_at": "2026-09-18T13:06:12+00:00",
     "best_saving_pct": 10.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -17838,7 +17833,7 @@
         "value": 2000
       }
     ],
-    "custom_amount": true,
+    "custom_amount": false,
     "rules": {
       "can_combine_with_store_offers": {
         "value": "yes",
@@ -17870,7 +17865,7 @@
     "slug": "aliste",
     "brand_name": "Aliste",
     "url": "https://www.gyftr.com/aliste",
-    "collected_at": "2026-09-03T15:41:29+00:00",
+    "collected_at": "2026-09-18T13:05:26+00:00",
     "best_saving_pct": 0.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -17974,7 +17969,7 @@
     "slug": "cleartax",
     "brand_name": "Cleartax",
     "url": "https://www.gyftr.com/cleartax",
-    "collected_at": "2026-09-03T15:41:42+00:00",
+    "collected_at": "2026-09-18T13:05:29+00:00",
     "best_saving_pct": 72.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -18090,7 +18085,7 @@
     "slug": "jio-hotstar",
     "brand_name": "JioHotstar",
     "url": "https://www.gyftr.com/jio-hotstar",
-    "collected_at": "2026-09-03T15:42:03+00:00",
+    "collected_at": "2026-09-18T13:05:48+00:00",
     "best_saving_pct": 7.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -18212,7 +18207,7 @@
     "slug": "allen-solly-gift-voucher",
     "brand_name": "Allen Solly Gift Voucher",
     "url": "https://www.gyftr.com/allen-solly-gift-voucher",
-    "collected_at": "2026-09-03T15:42:05+00:00",
+    "collected_at": "2026-09-18T13:05:51+00:00",
     "best_saving_pct": 2.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -18467,7 +18462,7 @@
     "slug": "peter-england-gift-voucher",
     "brand_name": "Peter England Gift Voucher",
     "url": "https://www.gyftr.com/peter-england-gift-voucher",
-    "collected_at": "2026-09-03T15:42:25+00:00",
+    "collected_at": "2026-09-18T13:05:55+00:00",
     "best_saving_pct": 2.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -18589,7 +18584,7 @@
     "slug": "planet-fashion-gift-voucher",
     "brand_name": "Planet Fashion Gift Voucher",
     "url": "https://www.gyftr.com/planet-fashion-gift-voucher",
-    "collected_at": "2026-09-03T15:42:29+00:00",
+    "collected_at": "2026-09-18T13:05:59+00:00",
     "best_saving_pct": 2.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -18711,7 +18706,7 @@
     "slug": "louis-philippe-gift-voucher",
     "brand_name": "Louis Philippe Gift Voucher",
     "url": "https://www.gyftr.com/louis-philippe-gift-voucher",
-    "collected_at": "2026-09-03T15:42:30+00:00",
+    "collected_at": "2026-09-18T13:06:02+00:00",
     "best_saving_pct": 2.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -18964,7 +18959,7 @@
     "slug": "simon-carter-gift-voucher",
     "brand_name": "Simon Carter Gift Voucher",
     "url": "https://www.gyftr.com/simon-carter-gift-voucher",
-    "collected_at": "2026-09-03T15:42:52+00:00",
+    "collected_at": "2026-09-18T13:06:05+00:00",
     "best_saving_pct": 2.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -19053,7 +19048,7 @@
         "value": 1000
       }
     ],
-    "custom_amount": true,
+    "custom_amount": false,
     "rules": {
       "can_combine_with_store_offers": {
         "value": "no",
@@ -19089,7 +19084,7 @@
     "slug": "oven-story",
     "brand_name": "Oven Story",
     "url": "https://www.gyftr.com/oven-story",
-    "collected_at": "2026-09-03T15:42:56+00:00",
+    "collected_at": "2026-09-18T13:06:08+00:00",
     "best_saving_pct": 12.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -19164,7 +19159,7 @@
         "value": 2000
       }
     ],
-    "custom_amount": true,
+    "custom_amount": false,
     "rules": {
       "can_combine_with_store_offers": {
         "value": "no",
@@ -19204,7 +19199,7 @@
     "slug": "faasos",
     "brand_name": "Faasos",
     "url": "https://www.gyftr.com/faasos",
-    "collected_at": "2026-09-03T15:42:58+00:00",
+    "collected_at": "2026-09-18T13:06:10+00:00",
     "best_saving_pct": 10.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -19287,7 +19282,7 @@
         "value": 250
       }
     ],
-    "custom_amount": true,
+    "custom_amount": false,
     "rules": {
       "can_combine_with_store_offers": {
         "value": "no",
@@ -19327,7 +19322,7 @@
     "slug": "lunch-box",
     "brand_name": "Lunch Box",
     "url": "https://www.gyftr.com/lunch-box",
-    "collected_at": "2026-09-03T15:42:59+00:00",
+    "collected_at": "2026-09-18T13:06:39+00:00",
     "best_saving_pct": 12.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -19417,7 +19412,7 @@
         "value": 100
       }
     ],
-    "custom_amount": true,
+    "custom_amount": false,
     "rules": {
       "can_combine_with_store_offers": {
         "value": "yes",
@@ -19461,7 +19456,7 @@
     "slug": "victoria's-secret-beauty",
     "brand_name": "VICTORIA'S SECRET BEAUTY",
     "url": "https://www.gyftr.com/victoria's-secret-beauty",
-    "collected_at": "2026-09-03T15:43:15+00:00",
+    "collected_at": "2026-09-18T13:06:14+00:00",
     "best_saving_pct": 10.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -19536,7 +19531,13 @@
         "value": 5000
       },
       {
+        "value": 2500
+      },
+      {
         "value": 7500
+      },
+      {
+        "value": 1000
       },
       {
         "value": 500
@@ -19548,7 +19549,7 @@
         "value": 100
       }
     ],
-    "custom_amount": true,
+    "custom_amount": false,
     "rules": {
       "can_combine_with_store_offers": {
         "value": "yes",
@@ -19580,7 +19581,7 @@
     "slug": "victoria's-secret",
     "brand_name": "VICTORIA'S SECRET",
     "url": "https://www.gyftr.com/victoria's-secret",
-    "collected_at": "2026-09-03T15:43:18+00:00",
+    "collected_at": "2026-09-18T13:06:17+00:00",
     "best_saving_pct": 10.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -19649,15 +19650,6 @@
         "value": 10000
       },
       {
-        "value": 500
-      },
-      {
-        "value": 3000
-      },
-      {
-        "value": 1500
-      },
-      {
         "value": 100
       },
       {
@@ -19667,13 +19659,10 @@
         "value": 7500
       },
       {
-        "value": 2000
-      },
-      {
         "value": 100
       }
     ],
-    "custom_amount": true,
+    "custom_amount": false,
     "rules": {
       "can_combine_with_store_offers": {
         "value": "yes",
@@ -19717,7 +19706,7 @@
     "slug": "r&b",
     "brand_name": "R&B",
     "url": "https://www.gyftr.com/r&b",
-    "collected_at": "2026-09-03T15:43:22+00:00",
+    "collected_at": "2026-09-18T13:06:20+00:00",
     "best_saving_pct": 10.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -19816,7 +19805,7 @@
         "value": 100
       }
     ],
-    "custom_amount": true,
+    "custom_amount": false,
     "rules": {
       "can_combine_with_store_offers": {
         "value": "yes",
@@ -19860,7 +19849,7 @@
     "slug": "inglot",
     "brand_name": "Inglot",
     "url": "https://www.gyftr.com/inglot",
-    "collected_at": "2026-09-03T15:43:23+00:00",
+    "collected_at": "2026-09-18T13:06:23+00:00",
     "best_saving_pct": 10.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -19983,7 +19972,7 @@
         "value": 1000
       }
     ],
-    "custom_amount": true,
+    "custom_amount": false,
     "rules": {
       "can_combine_with_store_offers": {
         "value": "yes",
@@ -20033,7 +20022,7 @@
     "slug": "aldo",
     "brand_name": "ALDO",
     "url": "https://www.gyftr.com/aldo",
-    "collected_at": "2026-09-03T15:43:41+00:00",
+    "collected_at": "2026-09-18T13:06:25+00:00",
     "best_saving_pct": 10.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -20132,7 +20121,7 @@
         "value": 3000
       }
     ],
-    "custom_amount": true,
+    "custom_amount": false,
     "rules": {
       "can_combine_with_store_offers": {
         "value": "yes",
@@ -20182,7 +20171,7 @@
     "slug": "call-it-spring",
     "brand_name": "Call it Spring",
     "url": "https://www.gyftr.com/call-it-spring",
-    "collected_at": "2026-09-03T15:43:51+00:00",
+    "collected_at": "2026-09-18T13:06:31+00:00",
     "best_saving_pct": 10.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -20287,7 +20276,7 @@
         "value": 3000
       }
     ],
-    "custom_amount": true,
+    "custom_amount": false,
     "rules": {
       "can_combine_with_store_offers": {
         "value": "yes",
@@ -20337,7 +20326,7 @@
     "slug": "bath-&-body-works",
     "brand_name": "Bath & Body Works",
     "url": "https://www.gyftr.com/bath-&-body-works",
-    "collected_at": "2026-09-03T15:43:53+00:00",
+    "collected_at": "2026-09-18T13:06:29+00:00",
     "best_saving_pct": 10.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -20406,7 +20395,7 @@
         "value": 100
       }
     ],
-    "custom_amount": true,
+    "custom_amount": false,
     "rules": {
       "can_combine_with_store_offers": {
         "value": "yes",
@@ -20456,7 +20445,7 @@
     "slug": "beverly-hills-polo-club",
     "brand_name": "Beverly Hills Polo Club",
     "url": "https://www.gyftr.com/beverly-hills-polo-club",
-    "collected_at": "2026-09-03T15:43:59+00:00",
+    "collected_at": "2026-09-18T13:06:34+00:00",
     "best_saving_pct": 10.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -20560,7 +20549,7 @@
     "slug": "pret-a-manger-luxe-gift-card",
     "brand_name": "Pret A Manger-Luxe Gift Card",
     "url": "https://www.gyftr.com/pret-a-manger-luxe-gift-card",
-    "collected_at": "2026-09-03T15:44:18+00:00",
+    "collected_at": "2026-09-18T13:06:39+00:00",
     "best_saving_pct": 10.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -20659,7 +20648,7 @@
         "value": 10000
       }
     ],
-    "custom_amount": true,
+    "custom_amount": false,
     "rules": {
       "can_combine_with_store_offers": {
         "value": "yes",
@@ -20709,7 +20698,7 @@
     "slug": "charles-&-keith",
     "brand_name": "CHARLES & KEITH",
     "url": "https://www.gyftr.com/charles-&-keith",
-    "collected_at": "2026-09-03T15:44:18+00:00",
+    "collected_at": "2026-09-18T13:06:37+00:00",
     "best_saving_pct": 10.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -20817,7 +20806,7 @@
     "slug": "bally-luxe-gift-card",
     "brand_name": "Bally-Luxe Gift Card",
     "url": "https://www.gyftr.com/bally-luxe-gift-card",
-    "collected_at": "2026-09-03T15:44:24+00:00",
+    "collected_at": "2026-09-18T13:06:43+00:00",
     "best_saving_pct": 10.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -20934,7 +20923,7 @@
     "slug": "adidas-kids-luxe-gift-card",
     "brand_name": "Adidas Kids-Luxe Gift Card",
     "url": "https://www.gyftr.com/adidas-kids-luxe-gift-card",
-    "collected_at": "2026-09-03T15:44:28+00:00",
+    "collected_at": "2026-09-18T13:07:26+00:00",
     "best_saving_pct": 10.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -21044,7 +21033,7 @@
     "slug": "ea-7--luxe-gift-card",
     "brand_name": "EA-7- Luxe Gift Card",
     "url": "https://www.gyftr.com/ea-7--luxe-gift-card",
-    "collected_at": "2026-09-03T15:44:46+00:00",
+    "collected_at": "2026-09-18T13:06:49+00:00",
     "best_saving_pct": 10.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -21139,7 +21128,7 @@
     "slug": "giorgio-armani--luxe-gift-card",
     "brand_name": "Giorgio Armani- Luxe Gift Card",
     "url": "https://www.gyftr.com/giorgio-armani--luxe-gift-card",
-    "collected_at": "2026-09-03T15:44:49+00:00",
+    "collected_at": "2026-09-18T13:07:29+00:00",
     "best_saving_pct": 10.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -21249,7 +21238,7 @@
     "slug": "canali--luxe-gift-card",
     "brand_name": "Canali- Luxe Gift Card",
     "url": "https://www.gyftr.com/canali--luxe-gift-card",
-    "collected_at": "2026-09-03T15:44:54+00:00",
+    "collected_at": "2026-09-18T13:06:46+00:00",
     "best_saving_pct": 10.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -21359,7 +21348,7 @@
     "slug": "hunkemoller--luxe-gift-card",
     "brand_name": "Hunkemoller- Luxe Gift Card",
     "url": "https://www.gyftr.com/hunkemoller--luxe-gift-card",
-    "collected_at": "2026-09-03T15:44:56+00:00",
+    "collected_at": "2026-09-18T13:06:53+00:00",
     "best_saving_pct": 10.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -21470,7 +21459,7 @@
     "slug": "kate-spade--luxe-gift-card",
     "brand_name": "Kate Spade- Luxe Gift Card",
     "url": "https://www.gyftr.com/kate-spade--luxe-gift-card",
-    "collected_at": "2026-09-03T15:45:11+00:00",
+    "collected_at": "2026-09-18T13:06:55+00:00",
     "best_saving_pct": 10.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -21581,7 +21570,7 @@
     "slug": "la-martina--luxe-gift-card",
     "brand_name": "La Martina- Luxe Gift Card",
     "url": "https://www.gyftr.com/la-martina--luxe-gift-card",
-    "collected_at": "2026-09-03T15:45:15+00:00",
+    "collected_at": "2026-09-18T13:06:58+00:00",
     "best_saving_pct": 10.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -21679,7 +21668,7 @@
     "slug": "pottery-barn--luxe-gift-card",
     "brand_name": "Pottery Barn- Luxe Gift Card",
     "url": "https://www.gyftr.com/pottery-barn--luxe-gift-card",
-    "collected_at": "2026-09-03T15:45:18+00:00",
+    "collected_at": "2026-09-18T13:07:01+00:00",
     "best_saving_pct": 10.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -21760,6 +21749,9 @@
         "value": 10000
       },
       {
+        "value": 5000
+      },
+      {
         "value": 2500
       },
       {
@@ -21798,7 +21790,7 @@
     "slug": "malabar-diamonds",
     "brand_name": "Malabar Diamonds",
     "url": "https://www.gyftr.com/malabar-diamonds",
-    "collected_at": "2026-09-03T15:45:20+00:00",
+    "collected_at": "2026-09-18T13:07:40+00:00",
     "best_saving_pct": 5.5,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -21930,7 +21922,7 @@
     "slug": "malabar-jewellery",
     "brand_name": "Malabar Jewellery",
     "url": "https://www.gyftr.com/malabar-jewellery",
-    "collected_at": "2026-09-03T15:45:35+00:00",
+    "collected_at": "2026-09-18T13:07:05+00:00",
     "best_saving_pct": 4.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -22041,7 +22033,7 @@
     "slug": "cahoot",
     "brand_name": "CAHOOT",
     "url": "https://www.gyftr.com/cahoot",
-    "collected_at": "2026-09-03T15:45:38+00:00",
+    "collected_at": "2026-09-18T13:07:10+00:00",
     "best_saving_pct": 12.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -22146,7 +22138,7 @@
     "slug": "easemytrip-holiday",
     "brand_name": "EaseMyTrip Holiday",
     "url": "https://www.gyftr.com/easemytrip-holiday",
-    "collected_at": "2026-09-03T15:45:40+00:00",
+    "collected_at": "2026-09-18T13:07:07+00:00",
     "best_saving_pct": 0.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -22212,9 +22204,6 @@
         "value": 2000
       },
       {
-        "value": 10000
-      },
-      {
         "value": 5000
       }
     ],
@@ -22258,7 +22247,7 @@
     "slug": "tanishq-diamond-jewellery",
     "brand_name": "Tanishq Diamond Jewellery",
     "url": "https://www.gyftr.com/tanishq-diamond-jewellery",
-    "collected_at": "2026-09-03T15:45:43+00:00",
+    "collected_at": "2026-09-18T13:07:12+00:00",
     "best_saving_pct": 0.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -22336,7 +22325,7 @@
         "value": 100
       }
     ],
-    "custom_amount": true,
+    "custom_amount": false,
     "rules": {
       "can_combine_with_store_offers": {
         "value": "no",
@@ -22380,7 +22369,7 @@
     "slug": "surat-diamonds",
     "brand_name": "Surat Diamonds",
     "url": "https://www.gyftr.com/surat-diamonds",
-    "collected_at": "2026-09-03T15:46:00+00:00",
+    "collected_at": "2026-09-18T13:07:15+00:00",
     "best_saving_pct": 18.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -22484,7 +22473,7 @@
     "slug": "hindustan-times-premium",
     "brand_name": "Hindustan Times Premium",
     "url": "https://www.gyftr.com/hindustan-times-premium",
-    "collected_at": "2026-09-03T15:46:03+00:00",
+    "collected_at": "2026-09-18T13:07:29+00:00",
     "best_saving_pct": 40.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -22594,7 +22583,7 @@
     "slug": "live-hindustan",
     "brand_name": "Live Hindustan",
     "url": "https://www.gyftr.com/live-hindustan",
-    "collected_at": "2026-09-03T15:46:06+00:00",
+    "collected_at": "2026-09-18T13:08:05+00:00",
     "best_saving_pct": 40.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -22704,7 +22693,7 @@
     "slug": "easybuy",
     "brand_name": "EasyBuy",
     "url": "https://www.gyftr.com/easybuy",
-    "collected_at": "2026-09-03T15:46:22+00:00",
+    "collected_at": "2026-09-18T13:07:33+00:00",
     "best_saving_pct": 8.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -22800,7 +22789,7 @@
         "value": 100
       }
     ],
-    "custom_amount": true,
+    "custom_amount": false,
     "rules": {
       "can_combine_with_store_offers": {
         "value": "no",
@@ -22844,7 +22833,7 @@
     "slug": "raymond---ready-to-wear",
     "brand_name": "Raymond - Ready to Wear",
     "url": "https://www.gyftr.com/raymond---ready-to-wear",
-    "collected_at": "2026-09-03T15:46:37+00:00",
+    "collected_at": "2026-09-18T13:08:37+00:00",
     "best_saving_pct": 10.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -22925,7 +22914,7 @@
         "value": 100
       }
     ],
-    "custom_amount": true,
+    "custom_amount": false,
     "rules": {
       "can_combine_with_store_offers": {
         "value": "yes",
@@ -22967,7 +22956,7 @@
     "slug": "wow-chicken",
     "brand_name": "Wow!Chicken",
     "url": "https://www.gyftr.com/wow-chicken",
-    "collected_at": "2026-09-03T15:46:40+00:00",
+    "collected_at": "2026-09-18T13:07:43+00:00",
     "best_saving_pct": 9.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -23063,7 +23052,7 @@
         "value": 100
       }
     ],
-    "custom_amount": true,
+    "custom_amount": false,
     "rules": {
       "can_combine_with_store_offers": {
         "value": "no",
@@ -23101,7 +23090,7 @@
     "slug": "park-avenue",
     "brand_name": "Park Avenue",
     "url": "https://www.gyftr.com/park-avenue",
-    "collected_at": "2026-09-03T15:46:44+00:00",
+    "collected_at": "2026-09-18T13:07:47+00:00",
     "best_saving_pct": 10.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -23197,7 +23186,7 @@
         "value": 100
       }
     ],
-    "custom_amount": true,
+    "custom_amount": false,
     "rules": {
       "can_combine_with_store_offers": {
         "value": "no",
@@ -23241,7 +23230,7 @@
     "slug": "parx",
     "brand_name": "Parx",
     "url": "https://www.gyftr.com/parx",
-    "collected_at": "2026-09-03T15:47:01+00:00",
+    "collected_at": "2026-09-18T13:07:50+00:00",
     "best_saving_pct": 10.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -23337,7 +23326,7 @@
         "value": 1500
       }
     ],
-    "custom_amount": true,
+    "custom_amount": false,
     "rules": {
       "can_combine_with_store_offers": {
         "value": "no",
@@ -23381,7 +23370,7 @@
     "slug": "colorplus",
     "brand_name": "ColorPlus",
     "url": "https://www.gyftr.com/colorplus",
-    "collected_at": "2026-09-03T15:47:05+00:00",
+    "collected_at": "2026-09-18T13:07:53+00:00",
     "best_saving_pct": 10.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -23468,7 +23457,7 @@
         "value": 100
       }
     ],
-    "custom_amount": true,
+    "custom_amount": false,
     "rules": {
       "can_combine_with_store_offers": {
         "value": "no",
@@ -23504,7 +23493,7 @@
     "slug": "future-world",
     "brand_name": "FUTURE WORLD - APPLE RESELLER",
     "url": "https://www.gyftr.com/future-world",
-    "collected_at": "2026-09-03T15:47:07+00:00",
+    "collected_at": "2026-09-18T13:07:58+00:00",
     "best_saving_pct": 3.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -23607,7 +23596,7 @@
     "slug": "starbucks",
     "brand_name": "Starbucks",
     "url": "https://www.gyftr.com/starbucks",
-    "collected_at": "2026-09-03T15:47:07+00:00",
+    "collected_at": "2026-09-18T13:07:55+00:00",
     "best_saving_pct": 8.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -23691,7 +23680,7 @@
         "value": 100
       }
     ],
-    "custom_amount": true,
+    "custom_amount": false,
     "rules": {
       "excludes": {
         "value": [
@@ -23729,7 +23718,7 @@
     "slug": "pigeon",
     "brand_name": "Pigeon",
     "url": "https://www.gyftr.com/pigeon",
-    "collected_at": "2026-09-03T15:47:26+00:00",
+    "collected_at": "2026-09-18T13:08:00+00:00",
     "best_saving_pct": 10.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -23819,7 +23808,7 @@
         "value": 100
       }
     ],
-    "custom_amount": true,
+    "custom_amount": false,
     "rules": {
       "can_combine_with_store_offers": {
         "value": "no",
@@ -23851,7 +23840,7 @@
     "slug": "foxtale",
     "brand_name": "Foxtale",
     "url": "https://www.gyftr.com/foxtale",
-    "collected_at": "2026-09-03T15:47:32+00:00",
+    "collected_at": "2026-09-18T13:08:04+00:00",
     "best_saving_pct": 20.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -23937,7 +23926,7 @@
         "value": 100
       }
     ],
-    "custom_amount": true,
+    "custom_amount": false,
     "rules": {
       "can_combine_with_store_offers": {
         "value": "yes",
@@ -23965,7 +23954,7 @@
     "slug": "rangriti",
     "brand_name": "Rangriti",
     "url": "https://www.gyftr.com/rangriti",
-    "collected_at": "2026-09-03T15:47:50+00:00",
+    "collected_at": "2026-09-18T13:08:08+00:00",
     "best_saving_pct": 8.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -24045,7 +24034,7 @@
         "value": 100
       }
     ],
-    "custom_amount": true,
+    "custom_amount": false,
     "rules": {
       "can_combine_with_store_offers": {
         "value": "yes",
@@ -24087,7 +24076,7 @@
     "slug": "ssunsu",
     "brand_name": "SSUNSU",
     "url": "https://www.gyftr.com/ssunsu",
-    "collected_at": "2026-09-03T15:47:55+00:00",
+    "collected_at": "2026-09-18T13:08:11+00:00",
     "best_saving_pct": 12.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -24219,7 +24208,7 @@
     "slug": "fastrack-smartwatches",
     "brand_name": "Fastrack Smartwatches",
     "url": "https://www.gyftr.com/fastrack-smartwatches",
-    "collected_at": "2026-09-03T15:48:06+00:00",
+    "collected_at": "2026-09-18T13:08:14+00:00",
     "best_saving_pct": 8.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -24360,7 +24349,7 @@
     "slug": "titan-smartwatches",
     "brand_name": "Titan Smartwatches",
     "url": "https://www.gyftr.com/titan-smartwatches",
-    "collected_at": "2026-09-03T15:48:11+00:00",
+    "collected_at": "2026-09-18T13:08:17+00:00",
     "best_saving_pct": 8.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -24498,7 +24487,7 @@
     "slug": "lenskart",
     "brand_name": "LENSKART",
     "url": "https://www.gyftr.com/lenskart",
-    "collected_at": "2026-09-03T15:48:13+00:00",
+    "collected_at": "2026-09-18T13:08:20+00:00",
     "best_saving_pct": 10.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -24585,7 +24574,7 @@
         "value": 5000
       }
     ],
-    "custom_amount": true,
+    "custom_amount": false,
     "rules": {
       "can_combine_with_store_offers": {
         "value": "yes",
@@ -24627,7 +24616,7 @@
     "slug": "mediwheel",
     "brand_name": "Mediwheel",
     "url": "https://www.gyftr.com/mediwheel",
-    "collected_at": "2026-09-03T15:48:17+00:00",
+    "collected_at": "2026-09-18T13:08:23+00:00",
     "best_saving_pct": 22.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -24756,7 +24745,7 @@
     "slug": "air-india",
     "brand_name": "Air India",
     "url": "https://www.gyftr.com/air-india",
-    "collected_at": "2026-09-03T15:48:31+00:00",
+    "collected_at": "2026-09-18T13:08:26+00:00",
     "best_saving_pct": 5.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -24836,7 +24825,7 @@
         "value": 100
       }
     ],
-    "custom_amount": true,
+    "custom_amount": false,
     "rules": {
       "can_combine_with_store_offers": {
         "value": "yes",
@@ -24878,7 +24867,7 @@
     "slug": "cello",
     "brand_name": "Cello",
     "url": "https://www.gyftr.com/cello",
-    "collected_at": "2026-09-03T15:48:35+00:00",
+    "collected_at": "2026-09-18T13:08:29+00:00",
     "best_saving_pct": 13.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -24989,7 +24978,7 @@
     "slug": "matrix",
     "brand_name": "Matrix",
     "url": "https://www.gyftr.com/matrix",
-    "collected_at": "2026-09-03T15:48:38+00:00",
+    "collected_at": "2026-09-18T13:08:31+00:00",
     "best_saving_pct": 13.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -25067,7 +25056,7 @@
         "value": 100
       }
     ],
-    "custom_amount": true,
+    "custom_amount": false,
     "rules": {
       "can_combine_with_store_offers": {
         "value": "no",
@@ -25115,7 +25104,7 @@
     "slug": "tattva-spa",
     "brand_name": "Tattva Spa",
     "url": "https://www.gyftr.com/tattva-spa",
-    "collected_at": "2026-09-03T15:48:40+00:00",
+    "collected_at": "2026-09-18T13:08:34+00:00",
     "best_saving_pct": 15.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -25226,7 +25215,7 @@
     "slug": "valorant",
     "brand_name": "Valorant",
     "url": "https://www.gyftr.com/valorant",
-    "collected_at": "2026-09-03T15:49:05+00:00",
+    "collected_at": "2026-09-18T13:08:44+00:00",
     "best_saving_pct": 5.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -25286,9 +25275,6 @@
     },
     "denominations": [
       {
-        "value": 1000
-      },
-      {
         "value": 2000
       },
       {
@@ -25341,7 +25327,7 @@
     "slug": "home-centre-online",
     "brand_name": "Home Centre Online",
     "url": "https://www.gyftr.com/home-centre-online",
-    "collected_at": "2026-09-03T15:49:11+00:00",
+    "collected_at": "2026-09-18T13:09:09+00:00",
     "best_saving_pct": 8.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -25405,9 +25391,6 @@
       },
       {
         "value": 150
-      },
-      {
-        "value": 1000
       }
     ],
     "custom_amount": false,
@@ -25446,7 +25429,7 @@
     "slug": "steam-wallet",
     "brand_name": "Steam Wallet",
     "url": "https://www.gyftr.com/steam-wallet",
-    "collected_at": "2026-09-03T15:49:12+00:00",
+    "collected_at": "2026-09-18T13:08:42+00:00",
     "best_saving_pct": 2.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -25558,7 +25541,7 @@
     "slug": "duroflex",
     "brand_name": "DUROFLEX",
     "url": "https://www.gyftr.com/duroflex",
-    "collected_at": "2026-09-03T15:49:31+00:00",
+    "collected_at": "2026-09-18T13:09:17+00:00",
     "best_saving_pct": 11.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -25635,7 +25618,7 @@
         "value": 500
       }
     ],
-    "custom_amount": true,
+    "custom_amount": false,
     "rules": {
       "can_combine_with_store_offers": {
         "value": "yes",
@@ -25671,7 +25654,7 @@
     "slug": "nat-habit",
     "brand_name": "Nat Habit",
     "url": "https://www.gyftr.com/nat-habit",
-    "collected_at": "2026-09-03T15:49:32+00:00",
+    "collected_at": "2026-09-18T13:08:55+00:00",
     "best_saving_pct": 22.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -25780,7 +25763,7 @@
     "slug": "frido",
     "brand_name": "FRIDO",
     "url": "https://www.gyftr.com/frido",
-    "collected_at": "2026-09-03T15:49:36+00:00",
+    "collected_at": "2026-09-18T13:09:01+00:00",
     "best_saving_pct": 14.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -25848,16 +25831,10 @@
         "value": 10000
       },
       {
-        "value": 1500
-      },
-      {
         "value": 2500
       },
       {
         "value": 2000
-      },
-      {
-        "value": 3000
       },
       {
         "value": 7500
@@ -25913,7 +25890,7 @@
     "slug": "ikea",
     "brand_name": "Ikea",
     "url": "https://www.gyftr.com/ikea",
-    "collected_at": "2026-09-03T15:49:45+00:00",
+    "collected_at": "2026-09-18T13:08:58+00:00",
     "best_saving_pct": 6.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -26020,7 +25997,7 @@
     "slug": "unipin",
     "brand_name": "UniPin",
     "url": "https://www.gyftr.com/unipin",
-    "collected_at": "2026-09-03T15:49:51+00:00",
+    "collected_at": "2026-09-18T13:09:54+00:00",
     "best_saving_pct": 5.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -26035,7 +26012,7 @@
     }
   },
   "gyftr:unipin-bgmi": {
-    "available": true,
+    "available": false,
     "methods": {
       "Credit Card": {
         "saving_pct": 5.0,
@@ -26083,11 +26060,7 @@
         "processing_fee_pct": 0.0
       }
     },
-    "denominations": [
-      {
-        "value": 7500
-      }
-    ],
+    "denominations": [],
     "custom_amount": false,
     "rules": {
       "excludes": {
@@ -26122,12 +26095,12 @@
     "slug": "unipin-bgmi",
     "brand_name": "UniPin BGMI",
     "url": "https://www.gyftr.com/unipin-bgmi",
-    "collected_at": "2026-09-03T15:49:55+00:00",
+    "collected_at": "2026-09-18T13:09:05+00:00",
     "best_saving_pct": 5.0,
     "best_saving_method": "UPI",
     "has_terms": true,
     "max_saving_pct": 5.0,
-    "recommendable": true,
+    "recommendable": false,
     "rules_source": "read",
     "platform_buying": {
       "vouchers_per_order": "unlimited",
@@ -26202,7 +26175,7 @@
         "value": 5000
       }
     ],
-    "custom_amount": true,
+    "custom_amount": false,
     "rules": {
       "can_combine_with_store_offers": {
         "value": "yes",
@@ -26248,7 +26221,7 @@
     "slug": "apparel-group",
     "brand_name": "Apparel Group",
     "url": "https://www.gyftr.com/apparel-group",
-    "collected_at": "2026-09-03T15:50:11+00:00",
+    "collected_at": "2026-09-18T13:09:12+00:00",
     "best_saving_pct": 10.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -26330,7 +26303,7 @@
         "value": 500
       }
     ],
-    "custom_amount": true,
+    "custom_amount": false,
     "rules": {
       "can_combine_with_store_offers": {
         "value": "yes",
@@ -26362,7 +26335,7 @@
     "slug": "soch-apparels",
     "brand_name": "Soch",
     "url": "https://www.gyftr.com/soch-apparels",
-    "collected_at": "2026-09-03T15:50:13+00:00",
+    "collected_at": "2026-09-18T13:09:15+00:00",
     "best_saving_pct": 8.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -26435,7 +26408,7 @@
         "value": 1000
       }
     ],
-    "custom_amount": true,
+    "custom_amount": false,
     "rules": {
       "can_combine_with_store_offers": {
         "value": "yes",
@@ -26463,7 +26436,7 @@
     "slug": "femmella",
     "brand_name": "Femmella",
     "url": "https://www.gyftr.com/femmella",
-    "collected_at": "2026-09-03T15:50:17+00:00",
+    "collected_at": "2026-09-18T13:09:18+00:00",
     "best_saving_pct": 14.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -26548,7 +26521,7 @@
     "slug": "microsoft-xbox-game-pass-core",
     "brand_name": "Microsoft Xbox Game Pass Core",
     "url": "https://www.gyftr.com/microsoft-xbox-game-pass-core",
-    "collected_at": "2026-09-03T15:50:39+00:00",
+    "collected_at": "2026-09-18T13:09:22+00:00",
     "best_saving_pct": 6.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -26563,7 +26536,7 @@
     }
   },
   "gyftr:tanishq-gold-coin": {
-    "available": true,
+    "available": false,
     "methods": {
       "Credit Card": {
         "saving_pct": 0.0,
@@ -26606,11 +26579,7 @@
         "processing_fee_pct": 0.0
       }
     },
-    "denominations": [
-      {
-        "value": 5000
-      }
-    ],
+    "denominations": [],
     "custom_amount": false,
     "rules": {
       "can_combine_with_store_offers": {
@@ -26655,12 +26624,12 @@
     "slug": "tanishq-gold-coin",
     "brand_name": "Tanishq Gold Coin",
     "url": "https://www.gyftr.com/tanishq-gold-coin",
-    "collected_at": "2026-09-03T15:50:44+00:00",
+    "collected_at": "2026-09-18T13:09:27+00:00",
     "best_saving_pct": 1.0,
     "best_saving_method": "UPI",
     "has_terms": true,
     "max_saving_pct": 1.0,
-    "recommendable": true,
+    "recommendable": false,
     "rules_source": "read",
     "platform_buying": {
       "vouchers_per_order": "unlimited",
@@ -26772,7 +26741,7 @@
     "slug": "typsy-beauty",
     "brand_name": "Typsy Beauty",
     "url": "https://www.gyftr.com/typsy-beauty",
-    "collected_at": "2026-09-03T15:50:57+00:00",
+    "collected_at": "2026-09-18T13:09:29+00:00",
     "best_saving_pct": 18.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -26861,7 +26830,7 @@
         "value": 10000
       }
     ],
-    "custom_amount": true,
+    "custom_amount": false,
     "rules": {
       "can_combine_with_store_offers": {
         "value": "no",
@@ -26903,7 +26872,7 @@
     "slug": "pure-home-living",
     "brand_name": "Pure Home + Living",
     "url": "https://www.gyftr.com/pure-home-living",
-    "collected_at": "2026-09-03T15:51:00+00:00",
+    "collected_at": "2026-09-18T13:09:32+00:00",
     "best_saving_pct": 10.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -27022,7 +26991,7 @@
     "slug": "reliance-smart-bazaar",
     "brand_name": "Reliance Smart Bazaar",
     "url": "https://www.gyftr.com/reliance-smart-bazaar",
-    "collected_at": "2026-09-03T15:51:01+00:00",
+    "collected_at": "2026-09-18T13:10:04+00:00",
     "best_saving_pct": 1.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -27101,7 +27070,7 @@
         "value": 50
       }
     ],
-    "custom_amount": true,
+    "custom_amount": false,
     "rules": {
       "can_combine_with_store_offers": {
         "value": "yes",
@@ -27143,7 +27112,7 @@
     "slug": "blissclub",
     "brand_name": "Blissclub",
     "url": "https://www.gyftr.com/blissclub",
-    "collected_at": "2026-09-03T15:51:08+00:00",
+    "collected_at": "2026-09-18T13:09:39+00:00",
     "best_saving_pct": 17.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -27189,19 +27158,7 @@
     },
     "denominations": [
       {
-        "value": 2000
-      },
-      {
-        "value": 3000
-      },
-      {
         "value": 1000
-      },
-      {
-        "value": 5000
-      },
-      {
-        "value": 4000
       }
     ],
     "custom_amount": false,
@@ -27242,7 +27199,7 @@
     "slug": "sony-playstation",
     "brand_name": "Sony Playstation",
     "url": "https://www.gyftr.com/sony-playstation",
-    "collected_at": "2026-09-03T15:51:10+00:00",
+    "collected_at": "2026-09-18T13:09:43+00:00",
     "best_saving_pct": 0.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -27270,10 +27227,7 @@
         "value": 500
       },
       {
-        "value": 1500
-      },
-      {
-        "value": 2000
+        "value": 1000
       }
     ],
     "custom_amount": false,
@@ -27320,7 +27274,7 @@
     "slug": "yatra-voucher",
     "brand_name": "Yatra Voucher",
     "url": "https://www.gyftr.com/yatra-voucher",
-    "collected_at": "2026-09-03T15:51:11+00:00",
+    "collected_at": "2026-09-18T13:09:46+00:00",
     "best_saving_pct": 0.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -27403,7 +27357,7 @@
         "value": 1000
       }
     ],
-    "custom_amount": true,
+    "custom_amount": false,
     "rules": {
       "can_combine_with_store_offers": {
         "value": "yes",
@@ -27443,7 +27397,7 @@
     "slug": "speedo",
     "brand_name": "Speedo",
     "url": "https://www.gyftr.com/speedo",
-    "collected_at": "2026-09-03T15:51:18+00:00",
+    "collected_at": "2026-09-18T13:09:49+00:00",
     "best_saving_pct": 13.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -27564,7 +27518,7 @@
     "slug": "nestasia",
     "brand_name": "Nestasia",
     "url": "https://www.gyftr.com/nestasia",
-    "collected_at": "2026-09-03T15:51:18+00:00",
+    "collected_at": "2026-09-18T13:09:36+00:00",
     "best_saving_pct": 13.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -27684,7 +27638,7 @@
     "slug": "shemaroome",
     "brand_name": "ShemarooMe",
     "url": "https://www.gyftr.com/shemaroome",
-    "collected_at": "2026-09-03T15:51:20+00:00",
+    "collected_at": "2026-09-18T13:09:52+00:00",
     "best_saving_pct": 30.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -27787,7 +27741,7 @@
     "slug": "taj-wellness-gift-card",
     "brand_name": "Taj Hotels J Wellness Circle",
     "url": "https://www.gyftr.com/taj-wellness-gift-card",
-    "collected_at": "2026-09-03T15:51:20+00:00",
+    "collected_at": "2026-09-18T13:10:34+00:00",
     "best_saving_pct": 8.5,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -27873,7 +27827,7 @@
     "slug": "ms-xbox-game-pass-ultimate",
     "brand_name": "MS Xbox Game Pass Ultimate",
     "url": "https://www.gyftr.com/ms-xbox-game-pass-ultimate",
-    "collected_at": "2026-09-03T15:51:34+00:00",
+    "collected_at": "2026-09-18T13:10:44+00:00",
     "best_saving_pct": 6.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -27977,7 +27931,7 @@
     "slug": "ajio-luxe",
     "brand_name": "Ajio Luxe",
     "url": "https://www.gyftr.com/ajio-luxe",
-    "collected_at": "2026-09-03T15:51:38+00:00",
+    "collected_at": "2026-09-18T13:10:07+00:00",
     "best_saving_pct": 3.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -28049,6 +28003,9 @@
         "value": 999
       },
       {
+        "value": 585
+      },
+      {
         "value": 420
       },
       {
@@ -28098,7 +28055,7 @@
     "slug": "tinder",
     "brand_name": "Tinder",
     "url": "https://www.gyftr.com/tinder",
-    "collected_at": "2026-09-03T15:51:38+00:00",
+    "collected_at": "2026-09-18T13:10:10+00:00",
     "best_saving_pct": 7.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -28171,7 +28128,7 @@
         "value": 5000
       }
     ],
-    "custom_amount": true,
+    "custom_amount": false,
     "rules": {
       "can_combine_with_store_offers": {
         "value": "no",
@@ -28214,7 +28171,7 @@
     "slug": "manyavar",
     "brand_name": "Manyavar",
     "url": "https://www.gyftr.com/manyavar",
-    "collected_at": "2026-09-03T15:51:46+00:00",
+    "collected_at": "2026-09-18T13:10:12+00:00",
     "best_saving_pct": 0.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -28320,7 +28277,7 @@
     "slug": "french-accent",
     "brand_name": "French Accent",
     "url": "https://www.gyftr.com/french-accent",
-    "collected_at": "2026-09-03T15:51:48+00:00",
+    "collected_at": "2026-09-18T13:10:15+00:00",
     "best_saving_pct": 0.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -28425,7 +28382,7 @@
     "slug": "haute-sauce",
     "brand_name": "Haute Sauce",
     "url": "https://www.gyftr.com/haute-sauce",
-    "collected_at": "2026-09-03T15:51:48+00:00",
+    "collected_at": "2026-09-18T13:10:17+00:00",
     "best_saving_pct": 0.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -28530,7 +28487,7 @@
     "slug": "instafab-plus",
     "brand_name": "Instafab Plus",
     "url": "https://www.gyftr.com/instafab-plus",
-    "collected_at": "2026-09-03T15:51:57+00:00",
+    "collected_at": "2026-09-18T13:10:19+00:00",
     "best_saving_pct": 0.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -28716,7 +28673,7 @@
         "value": 500
       }
     ],
-    "custom_amount": true,
+    "custom_amount": false,
     "rules": {
       "can_combine_with_store_offers": {
         "value": "yes",
@@ -28752,7 +28709,7 @@
     "slug": "urban-space",
     "brand_name": "Urban Space",
     "url": "https://www.gyftr.com/urban-space",
-    "collected_at": "2026-09-03T15:52:03+00:00",
+    "collected_at": "2026-09-18T13:10:22+00:00",
     "best_saving_pct": 8.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -28839,7 +28796,7 @@
         "value": 7500
       }
     ],
-    "custom_amount": true,
+    "custom_amount": false,
     "rules": {
       "partial_redemption": {
         "value": "yes",
@@ -28863,7 +28820,7 @@
     "slug": "landline-bill-payment",
     "brand_name": "Landline Bill Payment",
     "url": "https://www.gyftr.com/landline-bill-payment",
-    "collected_at": "2026-09-03T15:52:05+00:00",
+    "collected_at": "2026-09-18T13:10:26+00:00",
     "best_saving_pct": 0.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -28950,7 +28907,7 @@
         "value": 100
       }
     ],
-    "custom_amount": true,
+    "custom_amount": false,
     "rules": {
       "partial_redemption": {
         "value": "yes",
@@ -28974,7 +28931,7 @@
     "slug": "gas-bill-payment",
     "brand_name": "Gas Bill Payment",
     "url": "https://www.gyftr.com/gas-bill-payment",
-    "collected_at": "2026-09-03T15:52:12+00:00",
+    "collected_at": "2026-09-18T13:10:28+00:00",
     "best_saving_pct": 0.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -29061,7 +29018,7 @@
         "value": 7500
       }
     ],
-    "custom_amount": true,
+    "custom_amount": false,
     "rules": {
       "partial_redemption": {
         "value": "yes",
@@ -29085,7 +29042,7 @@
     "slug": "mobile-prepaid-recharge",
     "brand_name": "Mobile Prepaid - Recharge",
     "url": "https://www.gyftr.com/mobile-prepaid-recharge",
-    "collected_at": "2026-09-03T15:52:14+00:00",
+    "collected_at": "2026-09-18T13:10:31+00:00",
     "best_saving_pct": 0.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -29172,7 +29129,7 @@
         "value": 250
       }
     ],
-    "custom_amount": true,
+    "custom_amount": false,
     "rules": {
       "one_time_use": {
         "value": "no",
@@ -29200,7 +29157,7 @@
     "slug": "water-bill-payment",
     "brand_name": "Water Bill Payment",
     "url": "https://www.gyftr.com/water-bill-payment",
-    "collected_at": "2026-09-03T15:52:15+00:00",
+    "collected_at": "2026-09-18T13:11:01+00:00",
     "best_saving_pct": 0.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -29287,7 +29244,7 @@
         "value": 250
       }
     ],
-    "custom_amount": true,
+    "custom_amount": false,
     "rules": {
       "delivery_wait": {
         "value": "some billers take up to 3 business days to accept the payment",
@@ -29319,7 +29276,7 @@
     "slug": "electricity-bill-payment",
     "brand_name": "Electricity Bill Payment",
     "url": "https://www.gyftr.com/electricity-bill-payment",
-    "collected_at": "2026-09-03T15:52:16+00:00",
+    "collected_at": "2026-09-18T13:10:37+00:00",
     "best_saving_pct": 0.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -29399,7 +29356,7 @@
         "value": 2000
       }
     ],
-    "custom_amount": true,
+    "custom_amount": false,
     "rules": {
       "can_combine_with_store_offers": {
         "value": "yes",
@@ -29435,7 +29392,7 @@
     "slug": "himalaya-wellness",
     "brand_name": "Himalaya Wellness",
     "url": "https://www.gyftr.com/himalaya-wellness",
-    "collected_at": "2026-09-03T15:52:30+00:00",
+    "collected_at": "2026-09-18T13:10:40+00:00",
     "best_saving_pct": 4.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -29535,7 +29492,7 @@
     "slug": "liberty",
     "brand_name": "Liberty",
     "url": "https://www.gyftr.com/liberty",
-    "collected_at": "2026-09-03T15:52:32+00:00",
+    "collected_at": "2026-09-18T13:11:17+00:00",
     "best_saving_pct": 8.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -29652,7 +29609,7 @@
     "slug": "liberty-online",
     "brand_name": "Liberty Online",
     "url": "https://www.gyftr.com/liberty-online",
-    "collected_at": "2026-09-03T15:52:33+00:00",
+    "collected_at": "2026-09-18T13:10:43+00:00",
     "best_saving_pct": 9.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -29752,7 +29709,7 @@
     "slug": "charles-tyrwitt",
     "brand_name": "CHARLES TYRWHITT- Luxe Gift Card",
     "url": "https://www.gyftr.com/charles-tyrwitt",
-    "collected_at": "2026-09-03T15:52:34+00:00",
+    "collected_at": "2026-09-18T13:10:47+00:00",
     "best_saving_pct": 10.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -29859,7 +29816,7 @@
     "slug": "paul-and-shark",
     "brand_name": "PAUL SHARK- Luxe Gift Card",
     "url": "https://www.gyftr.com/paul-and-shark",
-    "collected_at": "2026-09-03T15:52:45+00:00",
+    "collected_at": "2026-09-18T13:10:53+00:00",
     "best_saving_pct": 10.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -29954,7 +29911,7 @@
     "slug": "the-white-crow",
     "brand_name": "The White Crow-Luxe Gift Card",
     "url": "https://www.gyftr.com/the-white-crow",
-    "collected_at": "2026-09-03T15:52:56+00:00",
+    "collected_at": "2026-09-18T13:11:00+00:00",
     "best_saving_pct": 10.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -30071,7 +30028,7 @@
     "slug": "maje",
     "brand_name": "MAJE- Luxe Gift Card",
     "url": "https://www.gyftr.com/maje",
-    "collected_at": "2026-09-03T15:53:01+00:00",
+    "collected_at": "2026-09-18T13:10:50+00:00",
     "best_saving_pct": 0.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -30178,7 +30135,7 @@
     "slug": "sandro",
     "brand_name": "Sandro-Luxe Gift Card",
     "url": "https://www.gyftr.com/sandro",
-    "collected_at": "2026-09-03T15:53:05+00:00",
+    "collected_at": "2026-09-18T13:10:55+00:00",
     "best_saving_pct": 10.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -30286,7 +30243,7 @@
     "slug": "superdry-sport",
     "brand_name": "SUPERDRY SPORT- Luxe Gift Card",
     "url": "https://www.gyftr.com/superdry-sport",
-    "collected_at": "2026-09-03T15:53:06+00:00",
+    "collected_at": "2026-09-18T13:10:58+00:00",
     "best_saving_pct": 10.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -30406,7 +30363,7 @@
     "slug": "bottega-veneta",
     "brand_name": "BOTTEGA VENETA- Luxe Gift Card",
     "url": "https://www.gyftr.com/bottega-veneta",
-    "collected_at": "2026-09-03T15:53:17+00:00",
+    "collected_at": "2026-09-18T13:11:52+00:00",
     "best_saving_pct": null,
     "best_saving_method": null,
     "has_terms": true,
@@ -30497,7 +30454,7 @@
     "slug": "jimmy-choo",
     "brand_name": "JIMMY CHOO- Luxe Gift Card",
     "url": "https://www.gyftr.com/jimmy-choo",
-    "collected_at": "2026-09-03T15:53:22+00:00",
+    "collected_at": "2026-09-18T13:11:04+00:00",
     "best_saving_pct": 10.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -30592,7 +30549,7 @@
     "slug": "tory-burch",
     "brand_name": "TORY BURCH- Luxe Gift Card",
     "url": "https://www.gyftr.com/tory-burch",
-    "collected_at": "2026-09-03T15:53:27+00:00",
+    "collected_at": "2026-09-18T13:11:07+00:00",
     "best_saving_pct": 10.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -30703,7 +30660,7 @@
     "slug": "valentino",
     "brand_name": "VALENTINO- Luxe Gift Card",
     "url": "https://www.gyftr.com/valentino",
-    "collected_at": "2026-09-03T15:53:41+00:00",
+    "collected_at": "2026-09-18T13:11:09+00:00",
     "best_saving_pct": 10.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -30824,7 +30781,7 @@
     "slug": "versace",
     "brand_name": "VERSACE- Luxe Gift Card",
     "url": "https://www.gyftr.com/versace",
-    "collected_at": "2026-09-03T15:53:42+00:00",
+    "collected_at": "2026-09-18T13:11:12+00:00",
     "best_saving_pct": 0.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -30944,7 +30901,7 @@
     "slug": "h-by-hamleys",
     "brand_name": "H BY HAMLEYS- Luxe Gift Card",
     "url": "https://www.gyftr.com/h-by-hamleys",
-    "collected_at": "2026-09-03T15:53:47+00:00",
+    "collected_at": "2026-09-18T13:11:15+00:00",
     "best_saving_pct": 0.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -31047,7 +31004,7 @@
     "slug": "rowan",
     "brand_name": "ROWAN- Luxe Gift Card",
     "url": "https://www.gyftr.com/rowan",
-    "collected_at": "2026-09-03T15:53:50+00:00",
+    "collected_at": "2026-09-18T13:11:20+00:00",
     "best_saving_pct": 10.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -31269,7 +31226,7 @@
     "slug": "west-elm",
     "brand_name": "WEST ELM- Luxe Gift Card",
     "url": "https://www.gyftr.com/west-elm",
-    "collected_at": "2026-09-03T15:54:02+00:00",
+    "collected_at": "2026-09-18T13:11:50+00:00",
     "best_saving_pct": 10.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -31380,7 +31337,7 @@
     "slug": "tods",
     "brand_name": "TODS- Luxe Gift Card",
     "url": "https://www.gyftr.com/tods",
-    "collected_at": "2026-09-03T15:54:05+00:00",
+    "collected_at": "2026-09-18T13:11:25+00:00",
     "best_saving_pct": 10.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -31487,7 +31444,7 @@
     "slug": "muji",
     "brand_name": "MUJI- Luxe Gift Card",
     "url": "https://www.gyftr.com/muji",
-    "collected_at": "2026-09-03T15:54:17+00:00",
+    "collected_at": "2026-09-18T13:11:20+00:00",
     "best_saving_pct": 10.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -31599,7 +31556,7 @@
     "slug": "abraham-and-thakore",
     "brand_name": "Abraham & Thakore- Luxe Gift Card",
     "url": "https://www.gyftr.com/abraham-and-thakore",
-    "collected_at": "2026-09-03T15:54:20+00:00",
+    "collected_at": "2026-09-18T13:11:31+00:00",
     "best_saving_pct": 10.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -31694,7 +31651,7 @@
     "slug": "ferragamo",
     "brand_name": "FERRAGAMO- Luxe Gift Card",
     "url": "https://www.gyftr.com/ferragamo",
-    "collected_at": "2026-09-03T15:54:21+00:00",
+    "collected_at": "2026-09-18T13:11:33+00:00",
     "best_saving_pct": 10.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -31801,7 +31758,7 @@
     "slug": "ritu-kumar",
     "brand_name": "RITU KUMAR- Luxe Gift Card",
     "url": "https://www.gyftr.com/ritu-kumar",
-    "collected_at": "2026-09-03T15:54:31+00:00",
+    "collected_at": "2026-09-18T13:11:28+00:00",
     "best_saving_pct": 10.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -31922,7 +31879,7 @@
     "slug": "tumi",
     "brand_name": "TUMI- Luxe Gift Card",
     "url": "https://www.gyftr.com/tumi",
-    "collected_at": "2026-09-03T15:54:40+00:00",
+    "collected_at": "2026-09-18T13:11:36+00:00",
     "best_saving_pct": 0.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -32030,7 +31987,7 @@
     "slug": "sunglass-hut",
     "brand_name": "Sunglass Hut- Luxe Gift Card",
     "url": "https://www.gyftr.com/sunglass-hut",
-    "collected_at": "2026-09-03T15:54:42+00:00",
+    "collected_at": "2026-09-18T13:11:38+00:00",
     "best_saving_pct": 10.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -32108,7 +32065,7 @@
         "value": 2000
       }
     ],
-    "custom_amount": true,
+    "custom_amount": false,
     "rules": {
       "can_combine_with_store_offers": {
         "value": "yes",
@@ -32144,7 +32101,7 @@
     "slug": "me-n-moms",
     "brand_name": "Me N Moms",
     "url": "https://www.gyftr.com/me-n-moms",
-    "collected_at": "2026-09-03T15:54:43+00:00",
+    "collected_at": "2026-09-18T13:11:41+00:00",
     "best_saving_pct": 11.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -32224,7 +32181,7 @@
         "value": 500
       }
     ],
-    "custom_amount": true,
+    "custom_amount": false,
     "rules": {
       "can_combine_with_store_offers": {
         "value": "yes",
@@ -32266,7 +32223,7 @@
     "slug": "absolute-barbeque",
     "brand_name": "Absolute Barbeque",
     "url": "https://www.gyftr.com/absolute-barbeque",
-    "collected_at": "2026-09-03T15:54:56+00:00",
+    "collected_at": "2026-09-18T13:11:47+00:00",
     "best_saving_pct": 10.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -32282,7 +32239,7 @@
     "confirm_with_cashier": true
   },
   "gyftr:roblox": {
-    "available": true,
+    "available": false,
     "methods": {
       "Credit Card": {
         "saving_pct": 4.0,
@@ -32325,14 +32282,7 @@
         "processing_fee_pct": 0.0
       }
     },
-    "denominations": [
-      {
-        "value": 940
-      },
-      {
-        "value": 1880
-      }
-    ],
+    "denominations": [],
     "custom_amount": false,
     "rules": {
       "can_combine_with_store_offers": {
@@ -32379,12 +32329,12 @@
     "slug": "roblox",
     "brand_name": "Roblox",
     "url": "https://www.gyftr.com/roblox",
-    "collected_at": "2026-09-03T15:55:03+00:00",
+    "collected_at": "2026-09-18T13:12:45+00:00",
     "best_saving_pct": 6.0,
     "best_saving_method": "UPI",
     "has_terms": true,
     "max_saving_pct": 6.0,
-    "recommendable": true,
+    "recommendable": false,
     "rules_source": "read",
     "platform_buying": {
       "vouchers_per_order": "unlimited",
@@ -32456,7 +32406,7 @@
         "value": 2000
       }
     ],
-    "custom_amount": true,
+    "custom_amount": false,
     "rules": {
       "can_combine_with_store_offers": {
         "value": "yes",
@@ -32492,7 +32442,7 @@
     "slug": "neemans",
     "brand_name": "Neemans",
     "url": "https://www.gyftr.com/neemans",
-    "collected_at": "2026-09-03T15:55:05+00:00",
+    "collected_at": "2026-09-18T13:11:44+00:00",
     "best_saving_pct": 10.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -32557,10 +32507,10 @@
     },
     "denominations": [
       {
-        "value": 1000
+        "value": 7500
       },
       {
-        "value": 10000
+        "value": 1000
       },
       {
         "value": 5000
@@ -32609,7 +32559,7 @@
     "slug": "klook",
     "brand_name": "Klook",
     "url": "https://www.gyftr.com/klook",
-    "collected_at": "2026-09-03T15:55:14+00:00",
+    "collected_at": "2026-09-18T13:11:50+00:00",
     "best_saving_pct": 8.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -32627,42 +32577,42 @@
     "available": true,
     "methods": {
       "Credit Card": {
-        "saving_pct": 25.0,
+        "saving_pct": 5.0,
         "processing_fee": false,
         "processing_fee_pct": 0.0
       },
       "Net Banking": {
-        "saving_pct": 25.0,
+        "saving_pct": 5.0,
         "processing_fee": false,
         "processing_fee_pct": 0.0
       },
       "Debit Card": {
-        "saving_pct": 25.0,
+        "saving_pct": 5.0,
         "processing_fee": false,
         "processing_fee_pct": 0.0
       },
       "MobiKwik": {
-        "saving_pct": 25.0,
+        "saving_pct": 5.0,
         "processing_fee": false,
         "processing_fee_pct": 0.0
       },
       "UPI": {
-        "saving_pct": 25.0,
+        "saving_pct": 7.0,
         "processing_fee": false,
         "processing_fee_pct": 0.0
       },
       "Amazon Pay": {
-        "saving_pct": 25.0,
+        "saving_pct": 5.0,
         "processing_fee": false,
         "processing_fee_pct": 0.0
       },
       "e-Pay": {
-        "saving_pct": 25.0,
+        "saving_pct": 7.0,
         "processing_fee": false,
         "processing_fee_pct": 0.0
       },
       "PAYTM UPI": {
-        "saving_pct": 25.0,
+        "saving_pct": 7.0,
         "processing_fee": false,
         "processing_fee_pct": 0.0
       },
@@ -32725,11 +32675,11 @@
     "slug": "subway",
     "brand_name": "Subway",
     "url": "https://www.gyftr.com/subway",
-    "collected_at": "2026-09-03T15:55:16+00:00",
-    "best_saving_pct": 25.0,
+    "collected_at": "2026-09-18T13:12:18+00:00",
+    "best_saving_pct": 7.0,
     "best_saving_method": "UPI",
     "has_terms": true,
-    "max_saving_pct": 25.0,
+    "max_saving_pct": 7.0,
     "recommendable": true,
     "rules_source": "read",
     "platform_buying": {
@@ -32809,7 +32759,7 @@
         "value": 100
       }
     ],
-    "custom_amount": true,
+    "custom_amount": false,
     "rules": {
       "can_combine_with_store_offers": {
         "value": "yes",
@@ -32845,7 +32795,7 @@
     "slug": "citizen-watches",
     "brand_name": "Citizen Watches",
     "url": "https://www.gyftr.com/citizen-watches",
-    "collected_at": "2026-09-03T15:55:19+00:00",
+    "collected_at": "2026-09-18T13:11:55+00:00",
     "best_saving_pct": 15.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -32948,7 +32898,7 @@
     "slug": "tim-hortons",
     "brand_name": "Tim Hortons",
     "url": "https://www.gyftr.com/tim-hortons",
-    "collected_at": "2026-09-03T15:55:21+00:00",
+    "collected_at": "2026-09-18T13:11:58+00:00",
     "best_saving_pct": 8.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -33026,7 +32976,7 @@
         "value": 100
       }
     ],
-    "custom_amount": true,
+    "custom_amount": false,
     "rules": {
       "can_combine_with_store_offers": {
         "value": "yes",
@@ -33068,7 +33018,7 @@
     "slug": "nua-woman",
     "brand_name": "Nua Woman",
     "url": "https://www.gyftr.com/nua-woman",
-    "collected_at": "2026-09-03T15:55:28+00:00",
+    "collected_at": "2026-09-18T13:12:01+00:00",
     "best_saving_pct": 27.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -33148,7 +33098,7 @@
         "value": 100
       }
     ],
-    "custom_amount": true,
+    "custom_amount": false,
     "rules": {
       "can_combine_with_store_offers": {
         "value": "yes",
@@ -33184,7 +33134,7 @@
     "slug": "kimirica",
     "brand_name": "Kimirica",
     "url": "https://www.gyftr.com/kimirica",
-    "collected_at": "2026-09-03T15:55:29+00:00",
+    "collected_at": "2026-09-18T13:12:04+00:00",
     "best_saving_pct": 17.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -33294,7 +33244,7 @@
     "slug": "clayco",
     "brand_name": "CLAYCO",
     "url": "https://www.gyftr.com/clayco",
-    "collected_at": "2026-09-03T15:55:31+00:00",
+    "collected_at": "2026-09-18T13:12:06+00:00",
     "best_saving_pct": 22.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -33360,6 +33310,9 @@
         "value": 1000
       },
       {
+        "value": 500
+      },
+      {
         "value": 2000
       }
     ],
@@ -33409,7 +33362,7 @@
     "slug": "apollo-diagnostics",
     "brand_name": "APOLLO DIAGNOSTICS",
     "url": "https://www.gyftr.com/apollo-diagnostics",
-    "collected_at": "2026-09-03T15:55:33+00:00",
+    "collected_at": "2026-09-18T13:12:09+00:00",
     "best_saving_pct": 0.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -33511,7 +33464,7 @@
     "slug": "ixigo-hotel",
     "brand_name": "ixigo hotel",
     "url": "https://www.gyftr.com/ixigo-hotel",
-    "collected_at": "2026-09-03T15:55:40+00:00",
+    "collected_at": "2026-09-18T13:12:12+00:00",
     "best_saving_pct": 0.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -33614,7 +33567,7 @@
     "slug": "ajio",
     "brand_name": "AJIO",
     "url": "https://www.gyftr.com/ajio",
-    "collected_at": "2026-09-03T15:55:42+00:00",
+    "collected_at": "2026-09-18T13:12:14+00:00",
     "best_saving_pct": 5.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -33729,7 +33682,7 @@
     "slug": "lions-gate",
     "brand_name": "Lionsgate Play",
     "url": "https://www.gyftr.com/lions-gate",
-    "collected_at": "2026-09-03T15:55:43+00:00",
+    "collected_at": "2026-09-18T13:12:17+00:00",
     "best_saving_pct": 23.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -33813,7 +33766,7 @@
     "slug": "iocl",
     "brand_name": "IOCL",
     "url": "https://www.gyftr.com/iocl",
-    "collected_at": "2026-09-03T15:55:45+00:00",
+    "collected_at": "2026-09-18T13:13:01+00:00",
     "best_saving_pct": 0.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -33879,7 +33832,7 @@
     },
     "denominations": [
       {
-        "value": 2000
+        "value": 5000
       },
       {
         "value": 1000
@@ -33938,7 +33891,7 @@
     "slug": "yatra-hotel-gift-card",
     "brand_name": "Yatra Hotel Gift Card",
     "url": "https://www.gyftr.com/yatra-hotel-gift-card",
-    "collected_at": "2026-09-03T15:55:54+00:00",
+    "collected_at": "2026-09-18T13:12:59+00:00",
     "best_saving_pct": 13.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -34018,7 +33971,7 @@
         "value": 10
       }
     ],
-    "custom_amount": true,
+    "custom_amount": false,
     "rules": {
       "can_combine_with_store_offers": {
         "value": "yes",
@@ -34054,7 +34007,7 @@
     "slug": "wellbeing-nutrition",
     "brand_name": "Wellbeing Nutrition",
     "url": "https://www.gyftr.com/wellbeing-nutrition",
-    "collected_at": "2026-09-03T15:56:07+00:00",
+    "collected_at": "2026-09-18T13:12:28+00:00",
     "best_saving_pct": 14.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -34155,7 +34108,7 @@
     "slug": "philips",
     "brand_name": "Philips",
     "url": "https://www.gyftr.com/philips",
-    "collected_at": "2026-09-03T15:56:13+00:00",
+    "collected_at": "2026-09-18T13:12:22+00:00",
     "best_saving_pct": 10.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -34227,7 +34180,7 @@
         "value": 2000
       }
     ],
-    "custom_amount": true,
+    "custom_amount": false,
     "rules": {
       "can_combine_with_store_offers": {
         "value": "yes",
@@ -34263,7 +34216,7 @@
     "slug": "zouk",
     "brand_name": "Zouk",
     "url": "https://www.gyftr.com/zouk",
-    "collected_at": "2026-09-03T15:56:15+00:00",
+    "collected_at": "2026-09-18T13:12:25+00:00",
     "best_saving_pct": 13.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -34355,7 +34308,7 @@
         "value": 1000
       }
     ],
-    "custom_amount": true,
+    "custom_amount": false,
     "rules": {
       "can_combine_with_store_offers": {
         "value": "no",
@@ -34401,7 +34354,7 @@
     "slug": "dominos",
     "brand_name": "DOMINO'S",
     "url": "https://www.gyftr.com/dominos",
-    "collected_at": "2026-09-03T15:56:18+00:00",
+    "collected_at": "2026-09-18T13:12:31+00:00",
     "best_saving_pct": 17.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -34504,7 +34457,7 @@
     "slug": "milkbasket",
     "brand_name": "Milkbasket",
     "url": "https://www.gyftr.com/milkbasket",
-    "collected_at": "2026-09-03T15:56:30+00:00",
+    "collected_at": "2026-09-18T13:12:34+00:00",
     "best_saving_pct": 3.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -34582,7 +34535,7 @@
         "value": 2000
       }
     ],
-    "custom_amount": true,
+    "custom_amount": false,
     "rules": {
       "can_combine_with_store_offers": {
         "value": "yes",
@@ -34624,7 +34577,7 @@
     "slug": "lohono-stays",
     "brand_name": "Lohono Stays",
     "url": "https://www.gyftr.com/lohono-stays",
-    "collected_at": "2026-09-03T15:56:35+00:00",
+    "collected_at": "2026-09-18T13:12:36+00:00",
     "best_saving_pct": 11.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -34704,7 +34657,7 @@
         "value": 100
       }
     ],
-    "custom_amount": true,
+    "custom_amount": false,
     "rules": {
       "can_combine_with_store_offers": {
         "value": "yes",
@@ -34732,7 +34685,7 @@
     "slug": "next",
     "brand_name": "NEXT",
     "url": "https://www.gyftr.com/next",
-    "collected_at": "2026-09-03T15:56:40+00:00",
+    "collected_at": "2026-09-18T13:12:39+00:00",
     "best_saving_pct": 3.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -34816,7 +34769,7 @@
         "value": 1000
       }
     ],
-    "custom_amount": true,
+    "custom_amount": false,
     "rules": {
       "can_combine_with_store_offers": {
         "value": "yes",
@@ -34844,7 +34797,7 @@
     "slug": "mango",
     "brand_name": "Mango",
     "url": "https://www.gyftr.com/mango",
-    "collected_at": "2026-09-03T15:56:46+00:00",
+    "collected_at": "2026-09-18T13:12:42+00:00",
     "best_saving_pct": 3.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -34966,7 +34919,7 @@
     "slug": "zoomcar",
     "brand_name": "Zoomcar",
     "url": "https://www.gyftr.com/zoomcar",
-    "collected_at": "2026-09-03T15:56:56+00:00",
+    "collected_at": "2026-09-18T13:12:45+00:00",
     "best_saving_pct": 10.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -35041,7 +34994,7 @@
         "value": 250
       }
     ],
-    "custom_amount": true,
+    "custom_amount": false,
     "rules": {
       "can_combine_with_store_offers": {
         "value": "yes",
@@ -35077,7 +35030,7 @@
     "slug": "style-bazaar",
     "brand_name": "STYLE BAAZAR",
     "url": "https://www.gyftr.com/style-bazaar",
-    "collected_at": "2026-09-03T15:57:00+00:00",
+    "collected_at": "2026-09-18T13:13:33+00:00",
     "best_saving_pct": 6.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -35156,7 +35109,7 @@
         "value": 1000
       }
     ],
-    "custom_amount": true,
+    "custom_amount": false,
     "rules": {
       "can_combine_with_store_offers": {
         "value": "yes",
@@ -35188,7 +35141,7 @@
     "slug": "soulflower",
     "brand_name": "Soulflower",
     "url": "https://www.gyftr.com/soulflower",
-    "collected_at": "2026-09-03T15:57:03+00:00",
+    "collected_at": "2026-09-18T13:12:49+00:00",
     "best_saving_pct": 17.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -35307,7 +35260,7 @@
     "slug": "elivaas",
     "brand_name": "Elivaas",
     "url": "https://www.gyftr.com/elivaas",
-    "collected_at": "2026-09-03T15:57:10+00:00",
+    "collected_at": "2026-09-18T13:12:52+00:00",
     "best_saving_pct": 13.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -35385,7 +35338,7 @@
         "value": 100
       }
     ],
-    "custom_amount": true,
+    "custom_amount": false,
     "rules": {
       "can_combine_with_store_offers": {
         "value": "yes",
@@ -35417,7 +35370,7 @@
     "slug": "palmonas",
     "brand_name": "Palmonas",
     "url": "https://www.gyftr.com/palmonas",
-    "collected_at": "2026-09-03T15:57:20+00:00",
+    "collected_at": "2026-09-18T13:12:55+00:00",
     "best_saving_pct": 13.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -35435,37 +35388,37 @@
     "available": true,
     "methods": {
       "Credit Card": {
-        "saving_pct": 11.0,
+        "saving_pct": 5.0,
         "processing_fee": false,
         "processing_fee_pct": 0.0
       },
       "Net Banking": {
-        "saving_pct": 11.0,
+        "saving_pct": 5.0,
         "processing_fee": false,
         "processing_fee_pct": 0.0
       },
       "Debit Card": {
-        "saving_pct": 11.0,
+        "saving_pct": 5.0,
         "processing_fee": false,
         "processing_fee_pct": 0.0
       },
       "MobiKwik": {
-        "saving_pct": 11.0,
+        "saving_pct": 5.0,
         "processing_fee": false,
         "processing_fee_pct": 0.0
       },
       "UPI": {
-        "saving_pct": 13.0,
+        "saving_pct": 5.0,
         "processing_fee": false,
         "processing_fee_pct": 0.0
       },
       "Amazon Pay": {
-        "saving_pct": 11.0,
+        "saving_pct": 5.0,
         "processing_fee": false,
         "processing_fee_pct": 0.0
       },
       "e-Pay": {
-        "saving_pct": 13.0,
+        "saving_pct": 5.0,
         "processing_fee": false,
         "processing_fee_pct": 0.0
       },
@@ -35475,7 +35428,7 @@
         "processing_fee_pct": 0.0
       },
       "PAYTM UPI": {
-        "saving_pct": 13.0,
+        "saving_pct": 5.0,
         "processing_fee": false,
         "processing_fee_pct": 0.0
       }
@@ -35500,7 +35453,7 @@
         "value": 1000
       }
     ],
-    "custom_amount": true,
+    "custom_amount": false,
     "rules": {
       "can_combine_with_store_offers": {
         "value": "yes",
@@ -35542,11 +35495,11 @@
     "slug": "columbia-sportswear",
     "brand_name": "Columbia Sportswear",
     "url": "https://www.gyftr.com/columbia-sportswear",
-    "collected_at": "2026-09-03T15:57:24+00:00",
-    "best_saving_pct": 13.0,
+    "collected_at": "2026-09-18T13:12:58+00:00",
+    "best_saving_pct": 5.0,
     "best_saving_method": "UPI",
     "has_terms": true,
-    "max_saving_pct": 13.0,
+    "max_saving_pct": 11.0,
     "recommendable": true,
     "rules_source": "read",
     "platform_buying": {
@@ -35627,7 +35580,7 @@
         "value": 500
       }
     ],
-    "custom_amount": true,
+    "custom_amount": false,
     "rules": {
       "can_combine_with_store_offers": {
         "value": "no",
@@ -35663,7 +35616,7 @@
     "slug": "pronto",
     "brand_name": "Pronto",
     "url": "https://www.gyftr.com/pronto",
-    "collected_at": "2026-09-03T15:57:30+00:00",
+    "collected_at": "2026-09-18T13:13:29+00:00",
     "best_saving_pct": 18.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -35763,7 +35716,7 @@
     "slug": "minus30",
     "brand_name": "Minus30",
     "url": "https://www.gyftr.com/minus30",
-    "collected_at": "2026-09-03T15:57:38+00:00",
+    "collected_at": "2026-09-18T13:13:52+00:00",
     "best_saving_pct": 17.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -35844,7 +35797,7 @@
         "value": 3000
       }
     ],
-    "custom_amount": true,
+    "custom_amount": false,
     "rules": {
       "can_combine_with_store_offers": {
         "value": "yes",
@@ -35892,7 +35845,7 @@
     "slug": "cordelia",
     "brand_name": "Cordelia",
     "url": "https://www.gyftr.com/cordelia",
-    "collected_at": "2026-09-03T15:57:40+00:00",
+    "collected_at": "2026-09-18T13:13:04+00:00",
     "best_saving_pct": 13.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -35975,7 +35928,7 @@
         "value": 500
       }
     ],
-    "custom_amount": true,
+    "custom_amount": false,
     "rules": {
       "one_time_use": {
         "value": "yes",
@@ -36003,7 +35956,7 @@
     "slug": "kalki",
     "brand_name": "KALKI",
     "url": "https://www.gyftr.com/kalki",
-    "collected_at": "2026-09-03T15:57:41+00:00",
+    "collected_at": "2026-09-18T13:13:07+00:00",
     "best_saving_pct": 13.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -36125,7 +36078,7 @@
     "slug": "porter",
     "brand_name": "Porter Packers and Movers",
     "url": "https://www.gyftr.com/porter",
-    "collected_at": "2026-09-03T15:57:47+00:00",
+    "collected_at": "2026-09-18T13:13:10+00:00",
     "best_saving_pct": 11.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -36231,7 +36184,7 @@
     "slug": "roblox-gift-card",
     "brand_name": "Roblox Gift Card",
     "url": "https://www.gyftr.com/roblox-gift-card",
-    "collected_at": "2026-09-03T15:57:55+00:00",
+    "collected_at": "2026-09-18T13:13:12+00:00",
     "best_saving_pct": 5.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -36294,9 +36247,6 @@
         "value": 250
       },
       {
-        "value": 500
-      },
-      {
         "value": 2500
       },
       {
@@ -36339,7 +36289,7 @@
     "slug": "steam-gift-card",
     "brand_name": "Steam Gift Card",
     "url": "https://www.gyftr.com/steam-gift-card",
-    "collected_at": "2026-09-03T15:58:00+00:00",
+    "collected_at": "2026-09-18T13:13:15+00:00",
     "best_saving_pct": 2.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -36406,7 +36356,7 @@
         "value": 100
       }
     ],
-    "custom_amount": true,
+    "custom_amount": false,
     "rules": {
       "can_combine_with_store_offers": {
         "value": "yes",
@@ -36442,7 +36392,7 @@
     "slug": "adventra",
     "brand_name": "Adventra",
     "url": "https://www.gyftr.com/adventra",
-    "collected_at": "2026-09-03T15:58:03+00:00",
+    "collected_at": "2026-09-18T13:13:17+00:00",
     "best_saving_pct": 15.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -36515,7 +36465,7 @@
         "value": 5000
       }
     ],
-    "custom_amount": true,
+    "custom_amount": false,
     "rules": {
       "can_combine_with_store_offers": {
         "value": "yes",
@@ -36551,7 +36501,7 @@
     "slug": "tasva",
     "brand_name": "Tasva",
     "url": "https://www.gyftr.com/tasva",
-    "collected_at": "2026-09-03T15:58:05+00:00",
+    "collected_at": "2026-09-18T13:13:20+00:00",
     "best_saving_pct": 7.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -36633,7 +36583,7 @@
         "value": 10000
       }
     ],
-    "custom_amount": true,
+    "custom_amount": false,
     "rules": {
       "can_combine_with_store_offers": {
         "value": "yes",
@@ -36665,7 +36615,7 @@
     "slug": "nautica",
     "brand_name": "Nautica",
     "url": "https://www.gyftr.com/nautica",
-    "collected_at": "2026-09-03T15:58:18+00:00",
+    "collected_at": "2026-09-18T13:13:22+00:00",
     "best_saving_pct": 3.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -36768,7 +36718,7 @@
     "slug": "valorant-gift-card",
     "brand_name": "Valorant Gift Card",
     "url": "https://www.gyftr.com/valorant-gift-card",
-    "collected_at": "2026-09-03T15:58:20+00:00",
+    "collected_at": "2026-09-18T13:13:26+00:00",
     "best_saving_pct": 5.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -36865,7 +36815,7 @@
     "slug": "blinkit-gift-card",
     "brand_name": "Blinkit Gift Card",
     "url": "https://www.gyftr.com/blinkit-gift-card",
-    "collected_at": "2026-09-03T15:58:22+00:00",
+    "collected_at": "2026-09-18T13:13:29+00:00",
     "best_saving_pct": 2.5,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -36880,7 +36830,7 @@
     }
   },
   "gyftr:air-india-fly-rajasthan": {
-    "available": true,
+    "available": false,
     "methods": {
       "Credit Card": {
         "saving_pct": 8.0,
@@ -36918,23 +36868,7 @@
         "processing_fee_pct": 0.0
       }
     },
-    "denominations": [
-      {
-        "value": 7500
-      },
-      {
-        "value": 10000
-      },
-      {
-        "value": 1000
-      },
-      {
-        "value": 2000
-      },
-      {
-        "value": 5000
-      }
-    ],
+    "denominations": [],
     "custom_amount": false,
     "rules": {
       "can_combine_with_store_offers": {
@@ -36987,12 +36921,12 @@
     "slug": "air-india-fly-rajasthan",
     "brand_name": "Air India Fly Rajasthan",
     "url": "https://www.gyftr.com/air-india-fly-rajasthan",
-    "collected_at": "2026-09-03T15:58:27+00:00",
+    "collected_at": "2026-09-18T13:14:25+00:00",
     "best_saving_pct": 10.0,
     "best_saving_method": "UPI",
     "has_terms": true,
     "max_saving_pct": 10.0,
-    "recommendable": true,
+    "recommendable": false,
     "rules_source": "read",
     "platform_buying": {
       "vouchers_per_order": "unlimited",
@@ -37002,7 +36936,7 @@
     }
   },
   "gyftr:air-india-add-ons": {
-    "available": true,
+    "available": false,
     "methods": {
       "Credit Card": {
         "saving_pct": 15.0,
@@ -37040,20 +36974,7 @@
         "processing_fee_pct": 0.0
       }
     },
-    "denominations": [
-      {
-        "value": 1000
-      },
-      {
-        "value": 2000
-      },
-      {
-        "value": 500
-      },
-      {
-        "value": 1500
-      }
-    ],
+    "denominations": [],
     "custom_amount": false,
     "rules": {
       "can_combine_with_store_offers": {
@@ -37105,12 +37026,12 @@
     "slug": "air-india-add-ons",
     "brand_name": "Air India Add-ons",
     "url": "https://www.gyftr.com/air-india-add-ons",
-    "collected_at": "2026-09-03T15:58:37+00:00",
+    "collected_at": "2026-09-18T13:13:41+00:00",
     "best_saving_pct": 17.0,
     "best_saving_method": "UPI",
     "has_terms": true,
     "max_saving_pct": 17.0,
-    "recommendable": true,
+    "recommendable": false,
     "rules_source": "read",
     "platform_buying": {
       "vouchers_per_order": "unlimited",
@@ -37217,7 +37138,7 @@
     "slug": "ea-sports-fc-26",
     "brand_name": "EA SPORTS FC 26",
     "url": "https://www.gyftr.com/ea-sports-fc-26",
-    "collected_at": "2026-09-03T15:58:39+00:00",
+    "collected_at": "2026-09-18T13:13:36+00:00",
     "best_saving_pct": 3.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -37232,7 +37153,7 @@
     }
   },
   "gyftr:discord": {
-    "available": true,
+    "available": false,
     "methods": {
       "Credit Card": {
         "saving_pct": 0.0,
@@ -37270,11 +37191,7 @@
         "processing_fee_pct": 0.0
       }
     },
-    "denominations": [
-      {
-        "value": 950
-      }
-    ],
+    "denominations": [],
     "custom_amount": false,
     "rules": {
       "one_time_use": {
@@ -37295,12 +37212,12 @@
     "slug": "discord",
     "brand_name": "Discord",
     "url": "https://www.gyftr.com/discord",
-    "collected_at": "2026-09-03T15:58:40+00:00",
+    "collected_at": "2026-09-18T13:13:38+00:00",
     "best_saving_pct": 1.0,
     "best_saving_method": "UPI",
     "has_terms": true,
     "max_saving_pct": 1.0,
-    "recommendable": true,
+    "recommendable": false,
     "rules_source": "read",
     "platform_buying": {
       "vouchers_per_order": "unlimited",
@@ -37407,7 +37324,7 @@
     "slug": "nintendo-eshop-voucher",
     "brand_name": "Nintendo eShop Voucher",
     "url": "https://www.gyftr.com/nintendo-eshop-voucher",
-    "collected_at": "2026-09-03T15:58:59+00:00",
+    "collected_at": "2026-09-18T13:14:27+00:00",
     "best_saving_pct": 5.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -37514,7 +37431,7 @@
     "slug": "yalla-ludo",
     "brand_name": "Yalla Ludo",
     "url": "https://www.gyftr.com/yalla-ludo",
-    "collected_at": "2026-09-03T15:59:00+00:00",
+    "collected_at": "2026-09-18T13:13:41+00:00",
     "best_saving_pct": 1.5,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -37595,7 +37512,7 @@
         "value": 1000
       }
     ],
-    "custom_amount": true,
+    "custom_amount": false,
     "rules": {
       "can_combine_with_store_offers": {
         "value": "yes",
@@ -37631,7 +37548,7 @@
     "slug": "snitch",
     "brand_name": "Snitch",
     "url": "https://www.gyftr.com/snitch",
-    "collected_at": "2026-09-03T15:59:02+00:00",
+    "collected_at": "2026-09-18T13:13:47+00:00",
     "best_saving_pct": 7.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -37750,7 +37667,7 @@
     "slug": "moba-legends-5v5",
     "brand_name": "Moba Legends 5v5",
     "url": "https://www.gyftr.com/moba-legends-5v5",
-    "collected_at": "2026-09-03T15:59:03+00:00",
+    "collected_at": "2026-09-18T13:13:45+00:00",
     "best_saving_pct": 7.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -37823,7 +37740,7 @@
         "value": 100
       }
     ],
-    "custom_amount": true,
+    "custom_amount": false,
     "rules": {
       "can_combine_with_store_offers": {
         "value": "yes",
@@ -37855,7 +37772,7 @@
     "slug": "whats-up-wellness",
     "brand_name": "What's Up Wellness",
     "url": "https://www.gyftr.com/whats-up-wellness",
-    "collected_at": "2026-09-03T15:59:18+00:00",
+    "collected_at": "2026-09-18T13:13:50+00:00",
     "best_saving_pct": 15.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -37976,7 +37893,7 @@
     "slug": "hoora",
     "brand_name": "Hoora",
     "url": "https://www.gyftr.com/hoora",
-    "collected_at": "2026-09-03T15:59:20+00:00",
+    "collected_at": "2026-09-18T13:14:23+00:00",
     "best_saving_pct": 16.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -38094,7 +38011,7 @@
     "slug": "rainbow-six-mobile",
     "brand_name": "Rainbow Six Mobile",
     "url": "https://www.gyftr.com/rainbow-six-mobile",
-    "collected_at": "2026-09-03T15:59:22+00:00",
+    "collected_at": "2026-09-18T13:13:55+00:00",
     "best_saving_pct": 11.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -38109,7 +38026,7 @@
     }
   },
   "gyftr:exitlag": {
-    "available": true,
+    "available": false,
     "methods": {
       "Credit Card": {
         "saving_pct": 0.0,
@@ -38152,14 +38069,7 @@
         "processing_fee_pct": 0.0
       }
     },
-    "denominations": [
-      {
-        "value": 475
-      },
-      {
-        "value": 1425
-      }
-    ],
+    "denominations": [],
     "custom_amount": false,
     "rules": {
       "one_time_use": {
@@ -38180,7 +38090,7 @@
     "slug": "exitlag",
     "brand_name": "ExitLag",
     "url": "https://www.gyftr.com/exitlag",
-    "collected_at": "2026-09-03T15:59:22+00:00",
+    "collected_at": "2026-09-18T13:13:58+00:00",
     "best_saving_pct": 0.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -38280,7 +38190,7 @@
     "slug": "cinepolis",
     "brand_name": "Cinepolis",
     "url": "https://www.gyftr.com/cinepolis",
-    "collected_at": "2026-09-03T15:59:37+00:00",
+    "collected_at": "2026-09-18T13:14:01+00:00",
     "best_saving_pct": 14.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -38334,15 +38244,6 @@
       }
     },
     "denominations": [
-      {
-        "value": 10000
-      },
-      {
-        "value": 7500
-      },
-      {
-        "value": 5000
-      },
       {
         "value": 2000
       }
@@ -38402,7 +38303,7 @@
     "slug": "air-india-domestic-gift-card",
     "brand_name": "Air India Domestic Gift Card",
     "url": "https://www.gyftr.com/air-india-domestic-gift-card",
-    "collected_at": "2026-09-03T15:59:39+00:00",
+    "collected_at": "2026-09-18T13:14:04+00:00",
     "best_saving_pct": 9.5,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -38480,7 +38381,7 @@
         "value": 10000
       }
     ],
-    "custom_amount": true,
+    "custom_amount": false,
     "rules": {
       "one_time_use": {
         "value": "yes",
@@ -38512,7 +38413,7 @@
     "slug": "giva-gold-jewellery",
     "brand_name": "Giva-Gold Jewellery",
     "url": "https://www.gyftr.com/giva-gold-jewellery",
-    "collected_at": "2026-09-03T15:59:40+00:00",
+    "collected_at": "2026-09-18T13:14:09+00:00",
     "best_saving_pct": 4.5,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -38618,7 +38519,7 @@
     "slug": "microsoft-office",
     "brand_name": "Microsoft Office",
     "url": "https://www.gyftr.com/microsoft-office",
-    "collected_at": "2026-09-03T15:59:41+00:00",
+    "collected_at": "2026-09-18T13:14:06+00:00",
     "best_saving_pct": 6.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -38696,7 +38597,7 @@
         "value": 100
       }
     ],
-    "custom_amount": true,
+    "custom_amount": false,
     "rules": {
       "can_combine_with_store_offers": {
         "value": "yes",
@@ -38745,7 +38646,7 @@
     "slug": "giva-silver-jewellery",
     "brand_name": "Giva-Silver Jewellery",
     "url": "https://www.gyftr.com/giva-silver-jewellery",
-    "collected_at": "2026-09-03T15:59:55+00:00",
+    "collected_at": "2026-09-18T13:14:11+00:00",
     "best_saving_pct": 13.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -38824,7 +38725,7 @@
         "value": 2000
       }
     ],
-    "custom_amount": true,
+    "custom_amount": false,
     "rules": {
       "can_combine_with_store_offers": {
         "value": "yes",
@@ -38868,7 +38769,7 @@
     "slug": "giva-silver-coin",
     "brand_name": "Giva-Silver Coin",
     "url": "https://www.gyftr.com/giva-silver-coin",
-    "collected_at": "2026-09-03T15:59:57+00:00",
+    "collected_at": "2026-09-18T13:14:14+00:00",
     "best_saving_pct": 0.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -38938,9 +38839,6 @@
         "value": 7500
       },
       {
-        "value": 15
-      },
-      {
         "value": 1900
       },
       {
@@ -38981,7 +38879,7 @@
     "slug": "bgmi-uc-official-voucher",
     "brand_name": "BGMI UC Official Voucher",
     "url": "https://www.gyftr.com/bgmi-uc-official-voucher",
-    "collected_at": "2026-09-03T15:59:58+00:00",
+    "collected_at": "2026-09-18T13:14:17+00:00",
     "best_saving_pct": 10.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -39041,13 +38939,7 @@
     },
     "denominations": [
       {
-        "value": 5000
-      },
-      {
         "value": 2000
-      },
-      {
-        "value": 500
       },
       {
         "value": 2500
@@ -39095,7 +38987,7 @@
     "slug": "firstcry",
     "brand_name": "FirstCry",
     "url": "https://www.gyftr.com/firstcry",
-    "collected_at": "2026-09-03T16:00:01+00:00",
+    "collected_at": "2026-09-18T13:14:20+00:00",
     "best_saving_pct": 6.5,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -39114,42 +39006,42 @@
     "available": true,
     "methods": {
       "Credit Card": {
-        "saving_pct": 0.0,
+        "saving_pct": 20.0,
         "processing_fee": false,
         "processing_fee_pct": 0.0
       },
       "Net Banking": {
-        "saving_pct": 0.0,
+        "saving_pct": 20.0,
         "processing_fee": false,
         "processing_fee_pct": 0.0
       },
       "Debit Card": {
-        "saving_pct": 0.0,
+        "saving_pct": 20.0,
         "processing_fee": false,
         "processing_fee_pct": 0.0
       },
       "MobiKwik": {
-        "saving_pct": 0.0,
+        "saving_pct": 20.0,
         "processing_fee": false,
         "processing_fee_pct": 0.0
       },
       "UPI": {
-        "saving_pct": 0.0,
+        "saving_pct": 22.0,
         "processing_fee": false,
         "processing_fee_pct": 0.0
       },
       "Amazon Pay": {
-        "saving_pct": 0.0,
+        "saving_pct": 20.0,
         "processing_fee": false,
         "processing_fee_pct": 0.0
       },
       "e-Pay": {
-        "saving_pct": 0.0,
+        "saving_pct": 22.0,
         "processing_fee": false,
         "processing_fee_pct": 0.0
       },
-      "Payzapp": {
-        "saving_pct": 0.0,
+      "PAYTM UPI": {
+        "saving_pct": 22.0,
         "processing_fee": false,
         "processing_fee_pct": 0.0
       }
@@ -39203,12 +39095,12 @@
     "slug": "vinzberry",
     "brand_name": "Vinzberry",
     "url": "https://www.gyftr.com/vinzberry",
-    "collected_at": "2026-09-03T16:00:14+00:00",
-    "best_saving_pct": 0.0,
+    "collected_at": "2026-09-18T13:14:23+00:00",
+    "best_saving_pct": 22.0,
     "best_saving_method": "UPI",
     "has_terms": true,
-    "max_saving_pct": 0.0,
-    "recommendable": false,
+    "max_saving_pct": 22.0,
+    "recommendable": true,
     "rules_source": "read",
     "platform_buying": {
       "vouchers_per_order": "unlimited",
@@ -39316,7 +39208,7 @@
     "slug": "luzo",
     "brand_name": "LUZO - Salons, Spas, Clinics",
     "url": "https://www.gyftr.com/luzo",
-    "collected_at": "2026-09-03T16:00:17+00:00",
+    "collected_at": "2026-09-18T13:15:10+00:00",
     "best_saving_pct": 9.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -39417,7 +39309,7 @@
     "slug": "solara",
     "brand_name": "Solara",
     "url": "https://www.gyftr.com/solara",
-    "collected_at": "2026-09-03T16:00:21+00:00",
+    "collected_at": "2026-09-18T13:14:54+00:00",
     "best_saving_pct": 9.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -39626,7 +39518,7 @@
     "slug": "libas",
     "brand_name": "Libas",
     "url": "https://www.gyftr.com/libas",
-    "collected_at": "2026-09-03T16:00:35+00:00",
+    "collected_at": "2026-09-18T13:14:31+00:00",
     "best_saving_pct": 8.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -39707,7 +39599,7 @@
         "value": 10000
       }
     ],
-    "custom_amount": true,
+    "custom_amount": false,
     "rules": {
       "can_combine_with_store_offers": {
         "value": "no",
@@ -39749,7 +39641,7 @@
     "slug": "farzi-cafe",
     "brand_name": "Farzi Cafe",
     "url": "https://www.gyftr.com/farzi-cafe",
-    "collected_at": "2026-09-03T16:00:41+00:00",
+    "collected_at": "2026-09-18T13:14:34+00:00",
     "best_saving_pct": 15.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -39831,7 +39723,7 @@
         "value": 500
       }
     ],
-    "custom_amount": true,
+    "custom_amount": false,
     "rules": {
       "can_combine_with_store_offers": {
         "value": "no",
@@ -39869,7 +39761,7 @@
     "slug": "swan",
     "brand_name": "Swan",
     "url": "https://www.gyftr.com/swan",
-    "collected_at": "2026-09-03T16:00:43+00:00",
+    "collected_at": "2026-09-18T13:14:37+00:00",
     "best_saving_pct": 15.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -39951,7 +39843,7 @@
         "value": 5000
       }
     ],
-    "custom_amount": true,
+    "custom_amount": false,
     "rules": {
       "can_combine_with_store_offers": {
         "value": "no",
@@ -39993,7 +39885,7 @@
     "slug": "masala-library",
     "brand_name": "Masala Library",
     "url": "https://www.gyftr.com/masala-library",
-    "collected_at": "2026-09-03T16:00:52+00:00",
+    "collected_at": "2026-09-18T13:14:40+00:00",
     "best_saving_pct": 15.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -40075,7 +39967,7 @@
         "value": 100
       }
     ],
-    "custom_amount": true,
+    "custom_amount": false,
     "rules": {
       "can_combine_with_store_offers": {
         "value": "no",
@@ -40118,7 +40010,7 @@
     "slug": "bo-tai",
     "brand_name": "Bo TAi",
     "url": "https://www.gyftr.com/bo-tai",
-    "collected_at": "2026-09-03T16:00:56+00:00",
+    "collected_at": "2026-09-18T13:14:43+00:00",
     "best_saving_pct": 15.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -40200,7 +40092,7 @@
         "value": 100
       }
     ],
-    "custom_amount": true,
+    "custom_amount": false,
     "rules": {
       "can_combine_with_store_offers": {
         "value": "no",
@@ -40242,7 +40134,7 @@
     "slug": "made-in-punjab",
     "brand_name": "Made In Punjab",
     "url": "https://www.gyftr.com/made-in-punjab",
-    "collected_at": "2026-09-03T16:01:00+00:00",
+    "collected_at": "2026-09-18T13:14:45+00:00",
     "best_saving_pct": 15.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -40324,7 +40216,7 @@
         "value": 7500
       }
     ],
-    "custom_amount": true,
+    "custom_amount": false,
     "rules": {
       "can_combine_with_store_offers": {
         "value": "no",
@@ -40366,7 +40258,7 @@
     "slug": "pa-pa-ya",
     "brand_name": "Pa Pa Ya",
     "url": "https://www.gyftr.com/pa-pa-ya",
-    "collected_at": "2026-09-03T16:01:02+00:00",
+    "collected_at": "2026-09-18T13:14:48+00:00",
     "best_saving_pct": 15.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -40483,7 +40375,7 @@
     "slug": "cut-and-style-luzo-gift-card",
     "brand_name": "Cut & Style - Luzo Gift Card",
     "url": "https://www.gyftr.com/cut-and-style-luzo-gift-card",
-    "collected_at": "2026-09-03T16:01:09+00:00",
+    "collected_at": "2026-09-18T13:14:50+00:00",
     "best_saving_pct": 9.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -40599,7 +40491,7 @@
     "slug": "bounce-luzo-gift-card",
     "brand_name": "Bounce - Luzo Gift Card",
     "url": "https://www.gyftr.com/bounce-luzo-gift-card",
-    "collected_at": "2026-09-03T16:01:28+00:00",
+    "collected_at": "2026-09-18T13:15:29+00:00",
     "best_saving_pct": 9.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -40715,7 +40607,7 @@
     "slug": "bblunt-luzo-gift-card",
     "brand_name": "Bblunt - Luzo Gift Card",
     "url": "https://www.gyftr.com/bblunt-luzo-gift-card",
-    "collected_at": "2026-09-03T16:01:28+00:00",
+    "collected_at": "2026-09-18T13:14:54+00:00",
     "best_saving_pct": 9.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -40802,7 +40694,7 @@
     "slug": "enrich-luzo-gift-card",
     "brand_name": "Enrich - Luzo Gift Card",
     "url": "https://www.gyftr.com/enrich-luzo-gift-card",
-    "collected_at": "2026-09-03T16:01:30+00:00",
+    "collected_at": "2026-09-18T13:14:58+00:00",
     "best_saving_pct": 9.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -40918,7 +40810,7 @@
     "slug": "jcb-luzo-gift-card",
     "brand_name": "JCB - Luzo Gift Card",
     "url": "https://www.gyftr.com/jcb-luzo-gift-card",
-    "collected_at": "2026-09-03T16:01:38+00:00",
+    "collected_at": "2026-09-18T13:15:00+00:00",
     "best_saving_pct": 9.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -41034,7 +40926,7 @@
     "slug": "lakme-luzo-gift-card",
     "brand_name": "Lakme - Luzo Gift Card",
     "url": "https://www.gyftr.com/lakme-luzo-gift-card",
-    "collected_at": "2026-09-03T16:01:50+00:00",
+    "collected_at": "2026-09-18T13:15:02+00:00",
     "best_saving_pct": 9.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -41150,7 +41042,7 @@
     "slug": "bubbles-luzo-gift-card",
     "brand_name": "Bubbles - Luzo Gift Card",
     "url": "https://www.gyftr.com/bubbles-luzo-gift-card",
-    "collected_at": "2026-09-03T16:01:52+00:00",
+    "collected_at": "2026-09-18T13:15:05+00:00",
     "best_saving_pct": 9.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -41237,7 +41129,7 @@
     "slug": "affinity-luzo-gift-card",
     "brand_name": "Affinity - Luzo Gift Card",
     "url": "https://www.gyftr.com/affinity-luzo-gift-card",
-    "collected_at": "2026-09-03T16:01:53+00:00",
+    "collected_at": "2026-09-18T13:15:08+00:00",
     "best_saving_pct": 9.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -41324,7 +41216,7 @@
     "slug": "looks-luzo-gift-card",
     "brand_name": "Looks - Luzo Gift Card",
     "url": "https://www.gyftr.com/looks-luzo-gift-card",
-    "collected_at": "2026-09-03T16:01:55+00:00",
+    "collected_at": "2026-09-18T13:15:10+00:00",
     "best_saving_pct": 9.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -41440,7 +41332,7 @@
     "slug": "geetanjali-luzo-gift-card",
     "brand_name": "Geetanjali - Luzo Gift Card",
     "url": "https://www.gyftr.com/geetanjali-luzo-gift-card",
-    "collected_at": "2026-09-03T16:02:19+00:00",
+    "collected_at": "2026-09-18T13:15:14+00:00",
     "best_saving_pct": 9.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -41556,7 +41448,7 @@
     "slug": "jawed-habib-luzo-gift-card",
     "brand_name": "Jawed Habib - Luzo Gift Card",
     "url": "https://www.gyftr.com/jawed-habib-luzo-gift-card",
-    "collected_at": "2026-09-03T16:02:22+00:00",
+    "collected_at": "2026-09-18T13:15:17+00:00",
     "best_saving_pct": 9.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -41672,7 +41564,7 @@
     "slug": "toni-and-guy-luzo-gift-card",
     "brand_name": "Toni & Guy - Luzo Gift Card",
     "url": "https://www.gyftr.com/toni-and-guy-luzo-gift-card",
-    "collected_at": "2026-09-03T16:02:22+00:00",
+    "collected_at": "2026-09-18T13:15:35+00:00",
     "best_saving_pct": 9.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -41784,7 +41676,7 @@
     "slug": "naturals-luzo-gift-card",
     "brand_name": "Naturals - Luzo Gift Card",
     "url": "https://www.gyftr.com/naturals-luzo-gift-card",
-    "collected_at": "2026-09-03T16:02:33+00:00",
+    "collected_at": "2026-09-18T13:15:19+00:00",
     "best_saving_pct": 9.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -41802,42 +41694,42 @@
     "available": true,
     "methods": {
       "Credit Card": {
-        "saving_pct": 0.0,
+        "saving_pct": 2.0,
         "processing_fee": false,
         "processing_fee_pct": 0.0
       },
       "Net Banking": {
-        "saving_pct": 0.0,
+        "saving_pct": 2.0,
         "processing_fee": false,
         "processing_fee_pct": 0.0
       },
       "Debit Card": {
-        "saving_pct": 0.0,
+        "saving_pct": 2.0,
         "processing_fee": false,
         "processing_fee_pct": 0.0
       },
       "MobiKwik": {
-        "saving_pct": 0.0,
+        "saving_pct": 2.0,
         "processing_fee": false,
         "processing_fee_pct": 0.0
       },
       "UPI": {
-        "saving_pct": 0.0,
+        "saving_pct": 3.0,
         "processing_fee": false,
         "processing_fee_pct": 0.0
       },
       "Amazon Pay": {
-        "saving_pct": 0.0,
+        "saving_pct": 2.0,
         "processing_fee": false,
         "processing_fee_pct": 0.0
       },
       "e-Pay": {
-        "saving_pct": 0.0,
+        "saving_pct": 3.0,
         "processing_fee": false,
         "processing_fee_pct": 0.0
       },
-      "Payzapp": {
-        "saving_pct": 0.0,
+      "PAYTM UPI": {
+        "saving_pct": 3.0,
         "processing_fee": false,
         "processing_fee_pct": 0.0
       }
@@ -41848,6 +41740,9 @@
       },
       {
         "value": 1000
+      },
+      {
+        "value": 100
       },
       {
         "value": 10000
@@ -41887,12 +41782,12 @@
     "slug": "imagine",
     "brand_name": "Imagine",
     "url": "https://www.gyftr.com/imagine",
-    "collected_at": "2026-09-03T16:02:53+00:00",
-    "best_saving_pct": 0.0,
+    "collected_at": "2026-09-18T13:15:28+00:00",
+    "best_saving_pct": 3.0,
     "best_saving_method": "UPI",
     "has_terms": true,
-    "max_saving_pct": 0.0,
-    "recommendable": false,
+    "max_saving_pct": 3.0,
+    "recommendable": true,
     "rules_source": "read",
     "platform_buying": {
       "vouchers_per_order": "unlimited",
@@ -42003,7 +41898,7 @@
     "slug": "dreamfolks-club-membership",
     "brand_name": "DreamFolks Club Membership",
     "url": "https://www.gyftr.com/dreamfolks-club-membership",
-    "collected_at": "2026-09-03T16:02:54+00:00",
+    "collected_at": "2026-09-18T13:15:22+00:00",
     "best_saving_pct": 0.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -42021,42 +41916,42 @@
     "available": true,
     "methods": {
       "Credit Card": {
-        "saving_pct": 0.0,
+        "saving_pct": 2.0,
         "processing_fee": false,
         "processing_fee_pct": 0.0
       },
       "Net Banking": {
-        "saving_pct": 0.0,
+        "saving_pct": 2.0,
         "processing_fee": false,
         "processing_fee_pct": 0.0
       },
       "Debit Card": {
-        "saving_pct": 0.0,
+        "saving_pct": 2.0,
         "processing_fee": false,
         "processing_fee_pct": 0.0
       },
       "MobiKwik": {
-        "saving_pct": 0.0,
+        "saving_pct": 2.0,
         "processing_fee": false,
         "processing_fee_pct": 0.0
       },
       "UPI": {
-        "saving_pct": 0.0,
+        "saving_pct": 4.0,
         "processing_fee": false,
         "processing_fee_pct": 0.0
       },
       "Amazon Pay": {
-        "saving_pct": 0.0,
+        "saving_pct": 2.0,
         "processing_fee": false,
         "processing_fee_pct": 0.0
       },
       "e-Pay": {
-        "saving_pct": 0.0,
+        "saving_pct": 4.0,
         "processing_fee": false,
         "processing_fee_pct": 0.0
       },
-      "Payzapp": {
-        "saving_pct": 0.0,
+      "PAYTM UPI": {
+        "saving_pct": 4.0,
         "processing_fee": false,
         "processing_fee_pct": 0.0
       }
@@ -42110,12 +42005,12 @@
     "slug": "lego",
     "brand_name": "Lego",
     "url": "https://www.gyftr.com/lego",
-    "collected_at": "2026-09-03T16:02:58+00:00",
-    "best_saving_pct": 0.0,
+    "collected_at": "2026-09-18T13:15:34+00:00",
+    "best_saving_pct": 4.0,
     "best_saving_method": "UPI",
     "has_terms": true,
-    "max_saving_pct": 0.0,
-    "recommendable": false,
+    "max_saving_pct": 4.0,
+    "recommendable": true,
     "rules_source": "read",
     "platform_buying": {
       "vouchers_per_order": "unlimited",
@@ -42198,7 +42093,7 @@
     "slug": "mac",
     "brand_name": "Mac",
     "url": "https://www.gyftr.com/mac",
-    "collected_at": "2026-09-03T16:14:29+00:00",
+    "collected_at": "2026-09-18T12:51:18+00:00",
     "best_saving_pct": 10.0,
     "best_saving_method": "UPI",
     "has_terms": false,
@@ -42288,7 +42183,7 @@
     "slug": "sigree",
     "brand_name": "SIGREE",
     "url": "https://www.gyftr.com/sigree",
-    "collected_at": "2026-09-03T16:14:57+00:00",
+    "collected_at": "2026-09-18T12:51:57+00:00",
     "best_saving_pct": 0.0,
     "best_saving_method": "UPI",
     "has_terms": false,
@@ -42304,7 +42199,7 @@
     "confirm_with_cashier": true
   },
   "gyftr:flipkart": {
-    "available": false,
+    "available": true,
     "methods": {
       "Credit Card": {
         "saving_pct": 0.0,
@@ -42317,22 +42212,38 @@
         "processing_fee_pct": 0.0
       },
       "UPI": {
-        "saving_pct": 1.5,
+        "saving_pct": 1.25,
         "processing_fee": false,
         "processing_fee_pct": 0.0
       },
       "e-Pay": {
-        "saving_pct": 1.5,
+        "saving_pct": 1.25,
         "processing_fee": false,
         "processing_fee_pct": 0.0
       },
       "PAYTM UPI": {
-        "saving_pct": 1.5,
+        "saving_pct": 1.25,
         "processing_fee": false,
         "processing_fee_pct": 0.0
       }
     },
-    "denominations": [],
+    "denominations": [
+      {
+        "value": 10000
+      },
+      {
+        "value": 250
+      },
+      {
+        "value": 2000
+      },
+      {
+        "value": 500
+      },
+      {
+        "value": 1000
+      }
+    ],
     "custom_amount": false,
     "rules": {
       "max_vouchers_per_bill": {
@@ -42365,12 +42276,12 @@
     "slug": "flipkart",
     "brand_name": "Flipkart",
     "url": "https://www.gyftr.com/flipkart",
-    "collected_at": "2026-09-03T16:15:25+00:00",
-    "best_saving_pct": 1.5,
+    "collected_at": "2026-09-18T12:52:41+00:00",
+    "best_saving_pct": 1.25,
     "best_saving_method": "UPI",
     "has_terms": false,
-    "max_saving_pct": 1.5,
-    "recommendable": false,
+    "max_saving_pct": 1.25,
+    "recommendable": true,
     "rules_source": "read",
     "platform_buying": {
       "vouchers_per_order": "unlimited",
@@ -42528,7 +42439,7 @@
     "slug": "kalyan-gold-coins",
     "brand_name": "Kalyan Gold Coins",
     "url": "https://www.gyftr.com/kalyan-gold-coins",
-    "collected_at": "2026-09-03T16:16:20+00:00",
+    "collected_at": "2026-09-18T12:53:18+00:00",
     "best_saving_pct": 0.0,
     "best_saving_method": "UPI",
     "has_terms": false,
@@ -42616,7 +42527,7 @@
     "slug": "kalyan-diamond-jewellery",
     "brand_name": "Kalyan Diamond Jewellery",
     "url": "https://www.gyftr.com/kalyan-diamond-jewellery",
-    "collected_at": "2026-09-03T16:16:48+00:00",
+    "collected_at": "2026-09-18T12:53:57+00:00",
     "best_saving_pct": 3.0,
     "best_saving_method": "UPI",
     "has_terms": false,
@@ -42740,7 +42651,7 @@
     "slug": "ola-cabs",
     "brand_name": "OLA CABS",
     "url": "https://www.gyftr.com/ola-cabs",
-    "collected_at": "2026-09-03T16:16:51+00:00",
+    "collected_at": "2026-09-18T12:53:54+00:00",
     "best_saving_pct": 0.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -42823,7 +42734,7 @@
     "slug": "seniority",
     "brand_name": "Seniority",
     "url": "https://www.gyftr.com/seniority",
-    "collected_at": "2026-09-03T16:17:19+00:00",
+    "collected_at": "2026-09-18T12:57:23+00:00",
     "best_saving_pct": 0.0,
     "best_saving_method": "UPI",
     "has_terms": false,
@@ -42906,7 +42817,7 @@
     "slug": "docubay",
     "brand_name": "DocuBay",
     "url": "https://www.gyftr.com/docubay",
-    "collected_at": "2026-09-03T16:17:47+00:00",
+    "collected_at": "2026-09-18T12:57:20+00:00",
     "best_saving_pct": 0.0,
     "best_saving_method": "UPI",
     "has_terms": false,
@@ -43030,7 +42941,7 @@
     "slug": "taj-hotels",
     "brand_name": "Taj Experiences",
     "url": "https://www.gyftr.com/taj-hotels",
-    "collected_at": "2026-09-03T16:17:51+00:00",
+    "collected_at": "2026-09-18T12:57:56+00:00",
     "best_saving_pct": 13.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -43106,7 +43017,7 @@
     "slug": "jiosaavn",
     "brand_name": "JioSaavn",
     "url": "https://www.gyftr.com/jiosaavn",
-    "collected_at": "2026-09-03T16:18:19+00:00",
+    "collected_at": "2026-09-18T13:00:25+00:00",
     "best_saving_pct": 0.0,
     "best_saving_method": "UPI",
     "has_terms": false,
@@ -43171,28 +43082,10 @@
     },
     "denominations": [
       {
-        "value": 500
-      },
-      {
-        "value": 1000
-      },
-      {
-        "value": 100
-      },
-      {
-        "value": 3000
-      },
-      {
-        "value": 5000
-      },
-      {
-        "value": 2000
-      },
-      {
         "value": 100
       }
     ],
-    "custom_amount": true,
+    "custom_amount": false,
     "rules": {
       "can_combine_with_store_offers": {
         "value": "yes",
@@ -43224,7 +43117,7 @@
     "slug": "wonderchef",
     "brand_name": "Wonderchef",
     "url": "https://www.gyftr.com/wonderchef",
-    "collected_at": "2026-09-03T16:18:22+00:00",
+    "collected_at": "2026-09-18T13:00:06+00:00",
     "best_saving_pct": 12.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -43303,7 +43196,7 @@
         "value": 2000
       }
     ],
-    "custom_amount": true,
+    "custom_amount": false,
     "rules": {
       "can_combine_with_store_offers": {
         "value": "yes",
@@ -43345,7 +43238,7 @@
     "slug": "beyoung",
     "brand_name": "Beyoung",
     "url": "https://www.gyftr.com/beyoung",
-    "collected_at": "2026-09-03T16:18:25+00:00",
+    "collected_at": "2026-09-18T13:00:47+00:00",
     "best_saving_pct": 23.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -43455,7 +43348,7 @@
     "slug": "hammer",
     "brand_name": "Hammer",
     "url": "https://www.gyftr.com/hammer",
-    "collected_at": "2026-09-03T16:18:28+00:00",
+    "collected_at": "2026-09-18T13:01:06+00:00",
     "best_saving_pct": 25.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -43541,7 +43434,7 @@
     "slug": "swiggy-instamart",
     "brand_name": "Swiggy Instamart",
     "url": "https://www.gyftr.com/swiggy-instamart",
-    "collected_at": "2026-09-03T16:18:55+00:00",
+    "collected_at": "2026-09-18T13:01:16+00:00",
     "best_saving_pct": 3.0,
     "best_saving_method": "UPI",
     "has_terms": false,
@@ -43619,6 +43512,9 @@
       },
       {
         "value": 1000
+      },
+      {
+        "value": 100
       }
     ],
     "custom_amount": false,
@@ -43657,7 +43553,7 @@
     "slug": "eatsure",
     "brand_name": "EatSure",
     "url": "https://www.gyftr.com/eatsure",
-    "collected_at": "2026-09-03T16:18:59+00:00",
+    "collected_at": "2026-09-18T13:00:58+00:00",
     "best_saving_pct": 12.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -43737,7 +43633,7 @@
         "value": 1000
       }
     ],
-    "custom_amount": true,
+    "custom_amount": false,
     "rules": {
       "can_combine_with_store_offers": {
         "value": "no",
@@ -43773,7 +43669,7 @@
     "slug": "sweet-truth",
     "brand_name": "Sweet Truth",
     "url": "https://www.gyftr.com/sweet-truth",
-    "collected_at": "2026-09-03T16:19:02+00:00",
+    "collected_at": "2026-09-18T13:01:01+00:00",
     "best_saving_pct": 12.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -43888,7 +43784,7 @@
     "slug": "daily-objects",
     "brand_name": "Daily Objects",
     "url": "https://www.gyftr.com/daily-objects",
-    "collected_at": "2026-09-03T16:19:05+00:00",
+    "collected_at": "2026-09-18T13:01:04+00:00",
     "best_saving_pct": 15.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -44083,7 +43979,7 @@
     "slug": "hyperice",
     "brand_name": "Hyperice",
     "url": "https://www.gyftr.com/hyperice",
-    "collected_at": "2026-09-03T16:19:36+00:00",
+    "collected_at": "2026-09-18T13:01:36+00:00",
     "best_saving_pct": 0.0,
     "best_saving_method": "UPI",
     "has_terms": false,
@@ -44111,7 +44007,7 @@
         "processing_fee_pct": 1.0
       },
       "UPI": {
-        "saving_pct": 1.25,
+        "saving_pct": 1.75,
         "processing_fee": false,
         "processing_fee_pct": 0.0
       },
@@ -44121,7 +44017,7 @@
         "processing_fee_pct": 0.0
       },
       "PAYTM UPI": {
-        "saving_pct": 1.25,
+        "saving_pct": 1.75,
         "processing_fee": false,
         "processing_fee_pct": 0.0
       }
@@ -44138,12 +44034,9 @@
       },
       {
         "value": 100
-      },
-      {
-        "value": 250
       }
     ],
-    "custom_amount": true,
+    "custom_amount": false,
     "rules": {
       "can_combine_with_store_offers": {
         "value": "yes",
@@ -44200,11 +44093,11 @@
     "slug": "amazon-shopping-voucher",
     "brand_name": "Amazon Shopping Voucher",
     "url": "https://www.gyftr.com/amazon-shopping-voucher",
-    "collected_at": "2026-09-03T16:19:40+00:00",
-    "best_saving_pct": 1.25,
+    "collected_at": "2026-09-18T13:01:20+00:00",
+    "best_saving_pct": 1.75,
     "best_saving_method": "UPI",
     "has_terms": true,
-    "max_saving_pct": 1.25,
+    "max_saving_pct": 1.75,
     "recommendable": true,
     "rules_source": "read",
     "platform_buying": {
@@ -44279,7 +44172,7 @@
     "slug": "wynk-music",
     "brand_name": "Wynk Music",
     "url": "https://www.gyftr.com/wynk-music",
-    "collected_at": "2026-09-03T16:20:08+00:00",
+    "collected_at": "2026-09-18T13:02:20+00:00",
     "best_saving_pct": 0.0,
     "best_saving_method": "UPI",
     "has_terms": false,
@@ -44397,7 +44290,7 @@
     "slug": "nykaa",
     "brand_name": "Nykaa",
     "url": "https://www.gyftr.com/nykaa",
-    "collected_at": "2026-09-03T16:20:11+00:00",
+    "collected_at": "2026-09-18T13:01:59+00:00",
     "best_saving_pct": 5.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -44473,7 +44366,7 @@
         "value": 100
       }
     ],
-    "custom_amount": true,
+    "custom_amount": false,
     "rules": {
       "can_combine_with_store_offers": {
         "value": "yes",
@@ -44515,7 +44408,7 @@
     "slug": "fitpass",
     "brand_name": "FITPASS",
     "url": "https://www.gyftr.com/fitpass",
-    "collected_at": "2026-09-03T16:20:14+00:00",
+    "collected_at": "2026-09-18T13:02:32+00:00",
     "best_saving_pct": 22.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -44570,16 +44463,7 @@
     },
     "denominations": [
       {
-        "value": 500
-      },
-      {
         "value": 2000
-      },
-      {
-        "value": 250
-      },
-      {
-        "value": 1000
       }
     ],
     "custom_amount": false,
@@ -44614,7 +44498,7 @@
     "slug": "zomato-gift-card",
     "brand_name": "Zomato Gift Card",
     "url": "https://www.gyftr.com/zomato-gift-card",
-    "collected_at": "2026-09-03T16:20:17+00:00",
+    "collected_at": "2026-09-18T13:02:05+00:00",
     "best_saving_pct": 2.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -44711,7 +44595,7 @@
     "slug": "swiss-beauty",
     "brand_name": "SWISS BEAUTY",
     "url": "https://www.gyftr.com/swiss-beauty",
-    "collected_at": "2026-09-03T16:20:45+00:00",
+    "collected_at": "2026-09-18T13:02:34+00:00",
     "best_saving_pct": 15.0,
     "best_saving_method": "UPI",
     "has_terms": false,
@@ -44789,7 +44673,7 @@
         "value": 1000
       }
     ],
-    "custom_amount": true,
+    "custom_amount": false,
     "rules": {
       "can_combine_with_store_offers": {
         "value": "yes",
@@ -44833,7 +44717,7 @@
     "slug": "american-tourister",
     "brand_name": "American Tourister",
     "url": "https://www.gyftr.com/american-tourister",
-    "collected_at": "2026-09-03T16:20:48+00:00",
+    "collected_at": "2026-09-18T13:02:16+00:00",
     "best_saving_pct": 5.5,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -44912,7 +44796,7 @@
         "value": 7500
       }
     ],
-    "custom_amount": true,
+    "custom_amount": false,
     "rules": {
       "can_combine_with_store_offers": {
         "value": "yes",
@@ -44955,7 +44839,7 @@
     "slug": "samsonite",
     "brand_name": "Samsonite",
     "url": "https://www.gyftr.com/samsonite",
-    "collected_at": "2026-09-03T16:20:51+00:00",
+    "collected_at": "2026-09-18T13:02:20+00:00",
     "best_saving_pct": 5.5,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -45026,9 +44910,6 @@
       },
       {
         "value": 1000
-      },
-      {
-        "value": 5000
       }
     ],
     "custom_amount": false,
@@ -45071,7 +44952,7 @@
     "slug": "tanishq-gold-jewellery",
     "brand_name": "Tanishq Gold Jewellery",
     "url": "https://www.gyftr.com/tanishq-gold-jewellery",
-    "collected_at": "2026-09-03T16:20:54+00:00",
+    "collected_at": "2026-09-18T13:03:07+00:00",
     "best_saving_pct": 2.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -45155,7 +45036,7 @@
     "slug": "renee-cosmetics",
     "brand_name": "Renee Cosmetics",
     "url": "https://www.gyftr.com/renee-cosmetics",
-    "collected_at": "2026-09-03T16:21:22+00:00",
+    "collected_at": "2026-09-18T13:02:49+00:00",
     "best_saving_pct": 15.0,
     "best_saving_method": "UPI",
     "has_terms": false,
@@ -45270,7 +45151,7 @@
     "slug": "max-fashion-online",
     "brand_name": "Max Fashion Online",
     "url": "https://www.gyftr.com/max-fashion-online",
-    "collected_at": "2026-09-03T16:21:25+00:00",
+    "collected_at": "2026-09-18T13:02:41+00:00",
     "best_saving_pct": 9.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -45492,7 +45373,7 @@
     "slug": "tego",
     "brand_name": "TEGO",
     "url": "https://www.gyftr.com/tego",
-    "collected_at": "2026-09-03T16:21:31+00:00",
+    "collected_at": "2026-09-18T13:03:10+00:00",
     "best_saving_pct": 0.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -45604,7 +45485,7 @@
     "slug": "nykaa-man",
     "brand_name": "Nykaa Man",
     "url": "https://www.gyftr.com/nykaa-man",
-    "collected_at": "2026-09-03T16:21:34+00:00",
+    "collected_at": "2026-09-18T13:03:13+00:00",
     "best_saving_pct": 4.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -45679,7 +45560,7 @@
     "slug": "swiggy-food-discount-voucher",
     "brand_name": "Swiggy Food Discount Voucher",
     "url": "https://www.gyftr.com/swiggy-food-discount-voucher",
-    "collected_at": "2026-09-03T16:22:02+00:00",
+    "collected_at": "2026-09-18T13:04:05+00:00",
     "best_saving_pct": 12.0,
     "best_saving_method": "UPI",
     "has_terms": false,
@@ -45759,7 +45640,7 @@
         "value": 1500
       }
     ],
-    "custom_amount": true,
+    "custom_amount": false,
     "rules": {
       "can_combine_with_store_offers": {
         "value": "no",
@@ -45795,7 +45676,7 @@
     "slug": "wendy's",
     "brand_name": "Wendy's",
     "url": "https://www.gyftr.com/wendy's",
-    "collected_at": "2026-09-03T16:22:05+00:00",
+    "collected_at": "2026-09-18T13:03:49+00:00",
     "best_saving_pct": 12.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -45875,7 +45756,7 @@
         "value": 100
       }
     ],
-    "custom_amount": true,
+    "custom_amount": false,
     "rules": {
       "can_combine_with_store_offers": {
         "value": "no",
@@ -45911,7 +45792,7 @@
     "slug": "the-good-bowl",
     "brand_name": "The Good Bowl",
     "url": "https://www.gyftr.com/the-good-bowl",
-    "collected_at": "2026-09-03T16:22:10+00:00",
+    "collected_at": "2026-09-18T13:03:52+00:00",
     "best_saving_pct": 12.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -46009,7 +45890,7 @@
     "slug": "hppay",
     "brand_name": "HP Pay",
     "url": "https://www.gyftr.com/hppay",
-    "collected_at": "2026-09-03T16:22:14+00:00",
+    "collected_at": "2026-09-18T13:04:44+00:00",
     "best_saving_pct": 0.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -46115,7 +45996,7 @@
     "slug": "igp",
     "brand_name": "IGP",
     "url": "https://www.gyftr.com/igp",
-    "collected_at": "2026-09-03T16:22:17+00:00",
+    "collected_at": "2026-09-18T13:03:58+00:00",
     "best_saving_pct": 18.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -46205,7 +46086,7 @@
     "slug": "black-+-decker",
     "brand_name": "Black + Decker",
     "url": "https://www.gyftr.com/black-+-decker",
-    "collected_at": "2026-09-03T16:22:45+00:00",
+    "collected_at": "2026-09-18T13:04:26+00:00",
     "best_saving_pct": null,
     "best_saving_method": null,
     "has_terms": false,
@@ -46337,7 +46218,7 @@
     "slug": "makemytrip-hotel-e-pay",
     "brand_name": "MakeMyTrip Hotel e-Pay",
     "url": "https://www.gyftr.com/makemytrip-hotel-e-pay",
-    "collected_at": "2026-09-03T16:22:48+00:00",
+    "collected_at": "2026-09-18T13:04:11+00:00",
     "best_saving_pct": 14.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -46465,7 +46346,7 @@
     "slug": "reliance-jio-mart",
     "brand_name": "Reliance Jio Mart",
     "url": "https://www.gyftr.com/reliance-jio-mart",
-    "collected_at": "2026-09-03T16:22:51+00:00",
+    "collected_at": "2026-09-18T13:04:14+00:00",
     "best_saving_pct": 0.5,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -46557,7 +46438,7 @@
     "slug": "mamaearth",
     "brand_name": "Mamaearth",
     "url": "https://www.gyftr.com/mamaearth",
-    "collected_at": "2026-09-03T16:23:19+00:00",
+    "collected_at": "2026-09-18T13:04:47+00:00",
     "best_saving_pct": 15.0,
     "best_saving_method": "UPI",
     "has_terms": false,
@@ -46640,7 +46521,7 @@
     "slug": "intermiles",
     "brand_name": "INTERMILES",
     "url": "https://www.gyftr.com/intermiles",
-    "collected_at": "2026-09-03T16:23:47+00:00",
+    "collected_at": "2026-09-18T13:05:03+00:00",
     "best_saving_pct": 0.0,
     "best_saving_method": "UPI",
     "has_terms": false,
@@ -46765,7 +46646,7 @@
     "confirm_with_cashier": true
   },
   "gyftr:bakingo": {
-    "available": false,
+    "available": true,
     "methods": {
       "Credit Card": {
         "saving_pct": 18.0,
@@ -46808,7 +46689,17 @@
         "processing_fee_pct": 0.0
       }
     },
-    "denominations": [],
+    "denominations": [
+      {
+        "value": 1000
+      },
+      {
+        "value": 250
+      },
+      {
+        "value": 500
+      }
+    ],
     "custom_amount": false,
     "rules": {
       "can_combine_with_store_offers": {
@@ -46845,12 +46736,12 @@
     "slug": "bakingo",
     "brand_name": "Bakingo",
     "url": "https://www.gyftr.com/bakingo",
-    "collected_at": "2026-09-03T16:24:19+00:00",
+    "collected_at": "2026-09-18T13:04:51+00:00",
     "best_saving_pct": 20.0,
     "best_saving_method": "UPI",
     "has_terms": false,
     "max_saving_pct": 20.0,
-    "recommendable": false,
+    "recommendable": true,
     "rules_source": "read",
     "platform_buying": {
       "vouchers_per_order": "unlimited",
@@ -46936,7 +46827,7 @@
     "slug": "quick-heal",
     "brand_name": "Quick Heal",
     "url": "https://www.gyftr.com/quick-heal",
-    "collected_at": "2026-09-03T16:24:46+00:00",
+    "collected_at": "2026-09-18T13:05:22+00:00",
     "best_saving_pct": 25.0,
     "best_saving_method": "UPI",
     "has_terms": false,
@@ -47027,7 +46918,7 @@
     "slug": "amazon-fresh",
     "brand_name": "Amazon Fresh",
     "url": "https://www.gyftr.com/amazon-fresh",
-    "collected_at": "2026-09-03T16:24:50+00:00",
+    "collected_at": "2026-09-18T13:05:13+00:00",
     "best_saving_pct": 1.5,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -47120,7 +47011,7 @@
     "slug": "-bpcl-",
     "brand_name": "BPCL SmartDrive Fuel e-voucher",
     "url": "https://www.gyftr.com/-bpcl-",
-    "collected_at": "2026-09-03T16:24:53+00:00",
+    "collected_at": "2026-09-18T13:05:20+00:00",
     "best_saving_pct": 0.0,
     "best_saving_method": "UPI",
     "has_terms": true,
@@ -47212,7 +47103,7 @@
     "slug": "spotify",
     "brand_name": "Spotify",
     "url": "https://www.gyftr.com/spotify",
-    "collected_at": "2026-09-03T16:25:21+00:00",
+    "collected_at": "2026-09-18T13:06:02+00:00",
     "best_saving_pct": 3.0,
     "best_saving_method": "UPI",
     "has_terms": false,
@@ -47297,7 +47188,7 @@
     "slug": "eazydiner",
     "brand_name": "EazyDiner",
     "url": "https://www.gyftr.com/eazydiner",
-    "collected_at": "2026-09-03T16:25:49+00:00",
+    "collected_at": "2026-09-18T13:07:43+00:00",
     "best_saving_pct": 19.0,
     "best_saving_method": "UPI",
     "has_terms": false,
@@ -47380,7 +47271,7 @@
     "slug": "clovia",
     "brand_name": "Clovia",
     "url": "https://www.gyftr.com/clovia",
-    "collected_at": "2026-09-03T16:26:16+00:00",
+    "collected_at": "2026-09-18T13:08:01+00:00",
     "best_saving_pct": 10.0,
     "best_saving_method": "UPI",
     "has_terms": false,
@@ -47468,7 +47359,7 @@
     "slug": "shiva-organic",
     "brand_name": "Shiva Organic",
     "url": "https://www.gyftr.com/shiva-organic",
-    "collected_at": "2026-09-03T16:26:44+00:00",
+    "collected_at": "2026-09-18T13:08:52+00:00",
     "best_saving_pct": 16.0,
     "best_saving_method": "UPI",
     "has_terms": false,
@@ -47555,7 +47446,7 @@
     "slug": "malabar-silver-coin",
     "brand_name": "Malabar Silver Coin",
     "url": "https://www.gyftr.com/malabar-silver-coin",
-    "collected_at": "2026-09-03T16:27:12+00:00",
+    "collected_at": "2026-09-18T13:08:39+00:00",
     "best_saving_pct": 2.0,
     "best_saving_method": "UPI",
     "has_terms": false,
@@ -47645,7 +47536,7 @@
     "slug": "zepto",
     "brand_name": "Zepto",
     "url": "https://www.gyftr.com/zepto",
-    "collected_at": "2026-09-03T16:27:40+00:00",
+    "collected_at": "2026-09-18T13:09:02+00:00",
     "best_saving_pct": 0.0,
     "best_saving_method": "UPI",
     "has_terms": false,
@@ -47776,7 +47667,7 @@
     "slug": "barbeque-nation-value-voucher",
     "brand_name": "Barbeque Nation Value Voucher",
     "url": "https://www.gyftr.com/barbeque-nation-value-voucher",
-    "collected_at": "2026-09-03T16:28:07+00:00",
+    "collected_at": "2026-09-18T13:09:34+00:00",
     "best_saving_pct": 0.0,
     "best_saving_method": "UPI",
     "has_terms": false,
@@ -47873,7 +47764,7 @@
     "slug": "adani-meet-and-greet",
     "brand_name": "Adani Meet and Greet",
     "url": "https://www.gyftr.com/adani-meet-and-greet",
-    "collected_at": "2026-09-03T16:28:35+00:00",
+    "collected_at": "2026-09-18T13:09:54+00:00",
     "best_saving_pct": 5.0,
     "best_saving_method": "UPI",
     "has_terms": false,
@@ -47888,7 +47779,7 @@
     }
   },
   "gyftr:app-store-code": {
-    "available": false,
+    "available": true,
     "methods": {
       "Credit Card": {
         "saving_pct": 0.0,
@@ -47931,7 +47822,11 @@
         "processing_fee_pct": 0.0
       }
     },
-    "denominations": [],
+    "denominations": [
+      {
+        "value": 100
+      }
+    ],
     "custom_amount": false,
     "rules": {
       "works_online": {
@@ -47948,7 +47843,7 @@
     "slug": "app-store-code",
     "brand_name": "App Store Code",
     "url": "https://www.gyftr.com/app-store-code",
-    "collected_at": "2026-09-03T16:29:03+00:00",
+    "collected_at": "2026-09-18T13:09:24+00:00",
     "best_saving_pct": 0.0,
     "best_saving_method": "UPI",
     "has_terms": false,
@@ -48025,7 +47920,7 @@
     "slug": "microsoft-xbox-pc-game-pass",
     "brand_name": "Microsoft Xbox PC Game Pass",
     "url": "https://www.gyftr.com/microsoft-xbox-pc-game-pass",
-    "collected_at": "2026-09-03T16:29:30+00:00",
+    "collected_at": "2026-09-18T13:10:23+00:00",
     "best_saving_pct": 0.0,
     "best_saving_method": "UPI",
     "has_terms": false,
