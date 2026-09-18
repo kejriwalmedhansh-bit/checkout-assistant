@@ -1,7 +1,7 @@
 # Chrome Web Store Listing — Dealo
 
 > Last Updated: 2026-09-18
-> Status: **not yet submitted** — one blocker left, see "What still stands between you and submitting" at the bottom. The privacy policy is hosted and the Render sleep problem is gone.
+> Status: **submitted 2026-09-18, pending review.** Item ID `fjbkoahbajnddoohobplmafmeiddnkoi`, developer account medhansh@getdealo.in. Host access is optional, so the dashboard asks no host justification; that reason went into Test instructions.
 
 ## Store Listing
 
@@ -148,7 +148,7 @@ the affiliate "Okay" button sends the page address.
 ## Developer Info
 
 **Publisher Name**: _to fill in — the name that appears publicly under the listing_
-**Contact Email**: kejriwalmedhansh@gmail.com
+**Contact Email**: medhansh@getdealo.in (verified)
 **Support URL / Email**: kejriwalmedhansh@gmail.com
 **Homepage URL**: _optional_
 
@@ -156,7 +156,7 @@ the affiliate "Okay" button sends the page address.
 
 | Version | Date | Changes | Status |
 |---------|------|---------|--------|
-| 0.2.4 | 2026-09-18 | Reads the right order total on shops whose payable line just says "Total" (Decathlon, Tata CLiQ). Says what the vouchers don't cover ("+ ₹500 by UPI or card"). On Gyftr, shows the buying steps as a picture: log in, add to cart, pay by UPI, copy code and PIN. "That's all my codes" when fewer codes arrive than planned. The copy button works on pages that hold on to focus (Nykaa). Clearer wording when a saving is too small to be worth it. Faster panel. Package `dealo-v0.2.4.zip`. First version submitted. | Ready to submit |
+| 0.2.4 | 2026-09-18 | Reads the right order total on shops whose payable line just says "Total" (Decathlon, Tata CLiQ). Says what the vouchers don't cover ("+ ₹500 by UPI or card"). On Gyftr, shows the buying steps as a picture: log in, add to cart, pay by UPI, copy code and PIN. "That's all my codes" when fewer codes arrive than planned. The copy button works on pages that hold on to focus (Nykaa). Clearer wording when a saving is too small to be worth it. Faster panel. Package `dealo-v0.2.4.zip`. First version submitted. | Submitted 2026-09-18 |
 | 0.2.3 | 2026-09-17 | Dealo appears on carts that draw late (boAt), on booking review and payment pages (MakeMyTrip, AJIO's payment site) and across a shop's own subdomains. It starts as soon as a page begins loading instead of waiting for it to finish, runs one copy per page, and gives up on a slow backend reply after 12 seconds instead of waiting forever. Amounts in pointer labels are highlighted. Package `dealo-v0.2.3.zip`. | Draft |
 | 0.2.2 | 2026-09-17 | Panel can be dragged out of the way (position remembered). Redeem steps shown as a checklist with the code and PIN in the step where they're pasted; in-store steps dropped. New welcome page: a picture of the panel, "Free discounts, right at checkout". Package `dealo-v0.2.2.zip`. Supersedes 0.2.1, which was built but not uploaded. | Draft |
 | 0.2.1 | 2026-09-17 | On shops that sell a different voucher per kind of product (GIVA, MakeMyTrip, Yatra, Air India and 17 more), the popup asks "What are you buying?" first, then shows that voucher, what it covers and a link to its terms. Package `dealo-v0.2.1.zip`. | Draft |
