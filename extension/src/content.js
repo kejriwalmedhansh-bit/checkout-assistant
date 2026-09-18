@@ -29,8 +29,10 @@
   // appeared only if you jogged the address bar. So a cart-shaped address
   // that hasn't produced a commerce signal yet is treated as "too early",
   // not as "no", and is looked at again a few times before giving up.
-  const SIGNAL_RETRY_MS = 1200;
-  const SIGNAL_RETRIES = 4;
+  // Looked at twice as often as before, for twice as many times: the same
+  // ~5 seconds of patience, but the panel follows the cart by at most 0.6s.
+  const SIGNAL_RETRY_MS = 600;
+  const SIGNAL_RETRIES = 8;
   // After the retries, a cart-shaped page is still watched for this long in
   // case its prices draw late (see watchForPrices).
   const WATCH_FOR_PRICES_MS = 15000;
@@ -146,6 +148,17 @@
   // either works or doesn't, and it beats every guess below because it's the
   // shop's own number. Live testing on boAt found 53 rupee amounts on the cart
   // page and no safe way to pick the right one — this is that fix.
+  // Asked once, early, and reused for a few seconds: the request took two
+  // seconds on boAt while the page was still loading, and used to start only
+  // after Dealo had decided the page was a cart.
+  let cartTotalAsked = null;
+  function shopifyCartTotalEarly() {
+    if (!cartTotalAsked || performance.now() - cartTotalAsked.at > 8000) {
+      cartTotalAsked = { at: performance.now(), answer: shopifyCartTotal() };
+    }
+    return cartTotalAsked.answer;
+  }
+
   async function shopifyCartTotal() {
     try {
       const res = await fetch("/cart.js", { credentials: "same-origin" });
@@ -179,6 +192,13 @@
   // read a ₹16,999 order as ₹8,001 and quoted vouchers for less than half of
   // it. A figure the page describes as applied is a reduction, never a total.
   const NOT_A_TOTAL = /(mrp|saved|savings|you save|discount|applied|cashback|coupon)/i;
+  // A row that is nothing but the word "Total" and its figure. Decathlon's
+  // and Tata CLiQ's payable line reads exactly that — "Total ₹6,999" — and
+  // with no stronger label on the page Dealo fell through to the rough text
+  // search below, which took "Total MRP ₹10,999" on Decathlon and the
+  // ₹11,414 subtotal on Tata CLiQ. Live-tested 2026-09-18. Trusted only when
+  // no strong label exists, so "Total Amount" on Myntra still wins.
+  const BARE_TOTAL = /^total\s*:?\s*(?:₹|rs\.?)/i;
 
   // Every rupee figure in a piece of text, in the order they appear.
   function amountsIn(text) {
@@ -215,10 +235,15 @@
 
   function labelledTotal() {
     let last = null;
+    let bare = null;
     for (const el of document.querySelectorAll("div,span,p,td,th,li,section,strong,b,h1,h2,h3,h4")) {
       if (isDealoOwn(el)) continue;
       const t = (el.textContent || "").replace(/\s+/g, " ").trim();
       if (!t || t.length > 60) continue;
+      if (BARE_TOTAL.test(t) && !NOT_A_TOTAL.test(t)) {
+        const figures = amountsIn(t);
+        if (figures.length) bare = figures[figures.length - 1];
+      }
       if (!TOTAL_LABEL.test(t) || NOT_A_TOTAL.test(t)) continue;
       const nums = amountsIn(t);
       if (!nums.length) continue;
@@ -232,7 +257,7 @@
       // the breakdown.
       if (Number.isFinite(n) && n > 0) last = n;
     }
-    return last;
+    return last ?? bare;
   }
 
   // Never plan a purchase bigger than what the shopper is actually going to
@@ -250,7 +275,7 @@
   // small remainder by card, an annoyance. Buying too much means money the
   // shopper cannot get back.
   async function readPrice() {
-    const fromPlatform = await shopifyCartTotal();
+    const fromPlatform = await shopifyCartTotalEarly();
     const labelled = labelledTotal();
     if (fromPlatform && labelled) return Math.min(fromPlatform, labelled);
     return fromPlatform ?? labelled ?? extractPrice();
@@ -284,13 +309,17 @@
 
     // Plain-text fallback: a rupee figure sitting right next to a
     // total-like word, e.g. "Order Total ₹1,289" or "To Pay: Rs. 1,289".
-    const totalWordPattern = /(order total|grand total|amount payable|to pay|total amount|total)[^₹\d]{0,20}(?:₹|rs\.?)\s?([\d,]+(?:\.\d+)?)/i;
-    const match = pageTextWithoutDealo().match(totalWordPattern);
-    if (match) {
-      const n = parseFloat(match[2].replace(/,/g, ""));
-      if (!Number.isNaN(n) && n > 0) return n;
+    // Never a row that is the price before discounts: the first "total" on
+    // Decathlon's cart is "Total MRP ₹10,999", on Tata CLiQ "Bag Total", and
+    // taking it sized the vouchers for money nobody was paying (2026-09-18).
+    const totalWordPattern = /(sub\s*total|bag total|order total|grand total|amount payable|to pay|total amount|total)([^₹\d]{0,20})(?:₹|rs\.?)\s?([\d,]+(?:\.\d+)?)/gi;
+    let found = null;
+    for (const match of pageTextWithoutDealo().matchAll(totalWordPattern)) {
+      if (/^(sub\s*total|bag total)$/i.test(match[1]) || NOT_A_TOTAL.test(match[2])) continue;
+      const n = parseFloat(match[3].replace(/,/g, ""));
+      if (!Number.isNaN(n) && n > 0) found = n;
     }
-    return null;
+    return found;
   }
 
   function isDismissed(domain) {
@@ -602,6 +631,10 @@
         }
         collectCode(updated, (updated.codes || []).length, total);
       },
+      onFinish: async () => {
+        await ask({ type: "tripUpdate", patch: { status: "has_code" } });
+        location.href = trip.store.returnUrl;
+      },
     });
   }
 
@@ -896,5 +929,9 @@
   addEventListener("popstate", () => check());
   addEventListener("hashchange", () => check());
 
+  // Start the slow parts now, while the page is still drawing: the backend
+  // connection, and on a cart-shaped page, the shop's own cart total.
+  ask({ type: "warm" });
+  if (urlLooksLikeCheckout()) shopifyCartTotalEarly();
   check();
 })();

@@ -170,9 +170,33 @@ async function tripClear() {
   await chrome.storage.local.remove(TRIP_KEY);
 }
 
+// The same shop and total asked again within a few minutes (a cart reopened,
+// cart to checkout, the page nudged twice) is answered from memory. Prices
+// on the voucher sites don't move within minutes.
+const ANSWER_TTL_MS = 5 * 60 * 1000;
+const answers = new Map();
+
+async function voucherCheckRemembered(domain, price) {
+  const key = `${domain}|${price ?? ""}`;
+  const kept = answers.get(key);
+  if (kept && Date.now() - kept.at < ANSWER_TTL_MS) return kept.result;
+  const result = await voucherCheckWithRetry(domain, price);
+  answers.set(key, { result, at: Date.now() });
+  return result;
+}
+
 const HANDLERS = {
+  // Sent the moment Dealo lands on a shop page, while the page is still
+  // drawing. Opening the connection to the backend here, instead of on the
+  // first real question, took about two seconds off the panel in a timed
+  // live test on boAt (2026-09-18).
+  warm: async () => {
+    const base = await apiBase();
+    fetch(`${base}/health`, { signal: AbortSignal.timeout(8000) }).catch(() => {});
+    return {};
+  },
   voucherCheck: async (msg, tabId) => {
-    const result = await voucherCheckWithRetry(msg.domain, msg.price);
+    const result = await voucherCheckRemembered(msg.domain, msg.price);
     setBadge(tabId, Boolean(result.has_voucher));
     return { result };
   },

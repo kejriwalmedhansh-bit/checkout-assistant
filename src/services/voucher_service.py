@@ -267,6 +267,22 @@ MAX_REUSABLE_OVERSHOOT_RATIO = 1.0
 # is ₹1, and the largest is ₹176 (measured across the catalogue 2026-09-05).
 MAX_REUSABLE_OVERSHOOT_RUPEES = 250.0
 
+# The hard limit over both of the above, whether the change is reusable or
+# burned: never ask a shopper to buy more than ₹10 of voucher past their bill.
+# A ₹11,414 Tata CLiQ order was quoted ₹11,500 of vouchers — ₹86 bought for
+# nothing — and the product owner's rule is that overpaying by more than ₹10
+# is not acceptable, however the arithmetic scores it. Below the bill, the
+# rest goes on UPI or card, and the panel says so. Set 2026-09-18.
+MAX_OVERSHOOT_RUPEES = 10.0
+
+
+def _overshoot_ceiling(price: float, leftover_reusable: bool) -> float:
+    """The most face value any plan may buy for a bill of `price`."""
+    ceiling = price + MAX_OVERSHOOT_RUPEES
+    if leftover_reusable:
+        ceiling = min(ceiling, price + min(price * MAX_REUSABLE_OVERSHOOT_RATIO, MAX_REUSABLE_OVERSHOOT_RUPEES))
+    return ceiling
+
 
 
 def _plan_cost(
@@ -492,16 +508,13 @@ def _best_voucher_plan(
     # nothing is never recommended.
     chosen_units = 0
     chosen_key = (round(float(price), 2), 0.0, 0)
-    max_face = (
-        price + min(price * MAX_REUSABLE_OVERSHOOT_RATIO, MAX_REUSABLE_OVERSHOOT_RUPEES)
-        if leftover_reusable else None
-    )
+    max_face = _overshoot_ceiling(price, leftover_reusable)
     for u in range(1, units + 1):
         count = reached[u]
         if count == unreachable:
             continue
         face = u * step
-        if max_face is not None and face > max_face:
+        if face > max_face:
             continue
         # Once the change is reusable every fully-covering plan scores the same,
         # so the tie-break decides what actually gets bought. Least money parked
@@ -566,10 +579,7 @@ def _single_checkout_plan(
     # of credit nobody asked for. Where the change is simply burned there is
     # nothing to protect the shopper from — a plan only wins there by costing
     # less today — so the bound is just "nothing a voucher can never repay".
-    max_face = (
-        price + min(price * MAX_REUSABLE_OVERSHOOT_RATIO, MAX_REUSABLE_OVERSHOOT_RUPEES)
-        if leftover_reusable else price + denoms[-1] * max_count
-    )
+    max_face = _overshoot_ceiling(price, leftover_reusable)
     chosen: tuple[int, int] | None = None
     chosen_key = (round(float(price), 2), 0.0, 0)
     for d in denoms:
@@ -624,7 +634,7 @@ def _fallback_voucher_plan(
         total = sum(d * n for d, n in counts.items())
         if value_cap is not None and total > value_cap:
             return
-        if leftover_reusable and total - price > min(price * MAX_REUSABLE_OVERSHOOT_RATIO, MAX_REUSABLE_OVERSHOOT_RUPEES):
+        if total > _overshoot_ceiling(price, leftover_reusable):
             return
         if stack_limit is not None and sum(counts.values()) > stack_limit:
             return
@@ -797,6 +807,30 @@ def calculate_effective_price(price: float, voucher: dict, payment_method: str =
         # several go in one Gyftr basket, and a cartless platform was already
         # held to a single voucher above.
         custom_txns_needed = 1 if custom_units else 0
+
+        # Maximize sells some brands both ways: type any amount, or press a
+        # fixed button. Only the fixed buttons take a quantity — Pepperfry's
+        # ₹10,000 goes up to "Max: 4" in one order — so on a big bill the
+        # typed-in route (one voucher, ₹10,000 at most) left ₹83,700 of a
+        # ₹93,700 order on the card when 4x₹10,000 was one checkout away.
+        # Reported in live testing 2026-09-18. Both are planned; the cheaper
+        # one for the shopper today wins.
+        fixed_too = sorted({int(x) for x in (voucher.get("denominations") or []) if x})
+        if is_single_item_platform and fixed_too:
+            stack_limit = voucher.get("stack_limit")
+            alt_amount, alt_breakdown = _single_checkout_plan(
+                price, fixed_too, discount_pct,
+                max_count=min(one_order_count, stack_limit) if stack_limit else one_order_count,
+                value_cap=min(c for c in (voucher.get("value_cap"), txn_cap, float("inf")) if c),
+                leftover_reusable=leftover_reusable,
+            )
+            if alt_amount and _plan_cost(price, alt_amount, discount_pct) < _plan_cost(price, voucher_amount, discount_pct):
+                voucher_amount = float(alt_amount)
+                denomination_breakdown = alt_breakdown
+                remainder = round(max(0.0, price - voucher_amount), 2)
+                is_custom = False
+                custom_units = 0
+                custom_txns_needed = None
     else:
         is_custom, fixed_denoms = _parse_denominations(voucher)
         if is_custom or not fixed_denoms:
