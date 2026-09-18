@@ -29,8 +29,10 @@
   // appeared only if you jogged the address bar. So a cart-shaped address
   // that hasn't produced a commerce signal yet is treated as "too early",
   // not as "no", and is looked at again a few times before giving up.
-  const SIGNAL_RETRY_MS = 1200;
-  const SIGNAL_RETRIES = 4;
+  // Looked at twice as often as before, for twice as many times: the same
+  // ~5 seconds of patience, but the panel follows the cart by at most 0.6s.
+  const SIGNAL_RETRY_MS = 600;
+  const SIGNAL_RETRIES = 8;
   // After the retries, a cart-shaped page is still watched for this long in
   // case its prices draw late (see watchForPrices).
   const WATCH_FOR_PRICES_MS = 15000;
@@ -146,6 +148,17 @@
   // either works or doesn't, and it beats every guess below because it's the
   // shop's own number. Live testing on boAt found 53 rupee amounts on the cart
   // page and no safe way to pick the right one — this is that fix.
+  // Asked once, early, and reused for a few seconds: the request took two
+  // seconds on boAt while the page was still loading, and used to start only
+  // after Dealo had decided the page was a cart.
+  let cartTotalAsked = null;
+  function shopifyCartTotalEarly() {
+    if (!cartTotalAsked || performance.now() - cartTotalAsked.at > 8000) {
+      cartTotalAsked = { at: performance.now(), answer: shopifyCartTotal() };
+    }
+    return cartTotalAsked.answer;
+  }
+
   async function shopifyCartTotal() {
     try {
       const res = await fetch("/cart.js", { credentials: "same-origin" });
@@ -250,7 +263,7 @@
   // small remainder by card, an annoyance. Buying too much means money the
   // shopper cannot get back.
   async function readPrice() {
-    const fromPlatform = await shopifyCartTotal();
+    const fromPlatform = await shopifyCartTotalEarly();
     const labelled = labelledTotal();
     if (fromPlatform && labelled) return Math.min(fromPlatform, labelled);
     return fromPlatform ?? labelled ?? extractPrice();
@@ -896,5 +909,9 @@
   addEventListener("popstate", () => check());
   addEventListener("hashchange", () => check());
 
+  // Start the slow parts now, while the page is still drawing: the backend
+  // connection, and on a cart-shaped page, the shop's own cart total.
+  ask({ type: "warm" });
+  if (urlLooksLikeCheckout()) shopifyCartTotalEarly();
   check();
 })();
