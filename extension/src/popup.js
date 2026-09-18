@@ -774,7 +774,12 @@ window.__dealoPopup = (() => {
     // Only claim the voucher covers the order when we actually read the order
     // total. Saying "that covers the whole order" off an unpriced trip is a
     // statement we have no basis for — caught in live testing on boAt.
-    const left = !d.priced
+    // And only while every planned code is in hand: after "That's all my
+    // codes" the plan's figure no longer describes what was bought, and
+    // "₹0 left to pay" on three codes of seven is simply false (2026-09-18).
+    const planned = (d.denominationBreakdown || []).reduce((n, b) => n + (b.count || 1), 0);
+    const allCodes = !planned || (trip.codes || []).length >= planned;
+    const left = !d.priced || !allCodes
       ? ""
       : `<div class="dealo-left">₹${rupees(d.remainder)} <span>left to pay</span></div>`;
 
