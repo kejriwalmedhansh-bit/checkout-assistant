@@ -192,6 +192,13 @@
   // read a ₹16,999 order as ₹8,001 and quoted vouchers for less than half of
   // it. A figure the page describes as applied is a reduction, never a total.
   const NOT_A_TOTAL = /(mrp|saved|savings|you save|discount|applied|cashback|coupon)/i;
+  // A row that is nothing but the word "Total" and its figure. Decathlon's
+  // and Tata CLiQ's payable line reads exactly that — "Total ₹6,999" — and
+  // with no stronger label on the page Dealo fell through to the rough text
+  // search below, which took "Total MRP ₹10,999" on Decathlon and the
+  // ₹11,414 subtotal on Tata CLiQ. Live-tested 2026-09-18. Trusted only when
+  // no strong label exists, so "Total Amount" on Myntra still wins.
+  const BARE_TOTAL = /^total\s*:?\s*(?:₹|rs\.?)/i;
 
   // Every rupee figure in a piece of text, in the order they appear.
   function amountsIn(text) {
@@ -228,10 +235,15 @@
 
   function labelledTotal() {
     let last = null;
+    let bare = null;
     for (const el of document.querySelectorAll("div,span,p,td,th,li,section,strong,b,h1,h2,h3,h4")) {
       if (isDealoOwn(el)) continue;
       const t = (el.textContent || "").replace(/\s+/g, " ").trim();
       if (!t || t.length > 60) continue;
+      if (BARE_TOTAL.test(t) && !NOT_A_TOTAL.test(t)) {
+        const figures = amountsIn(t);
+        if (figures.length) bare = figures[figures.length - 1];
+      }
       if (!TOTAL_LABEL.test(t) || NOT_A_TOTAL.test(t)) continue;
       const nums = amountsIn(t);
       if (!nums.length) continue;
@@ -245,7 +257,7 @@
       // the breakdown.
       if (Number.isFinite(n) && n > 0) last = n;
     }
-    return last;
+    return last ?? bare;
   }
 
   // Never plan a purchase bigger than what the shopper is actually going to
@@ -297,13 +309,17 @@
 
     // Plain-text fallback: a rupee figure sitting right next to a
     // total-like word, e.g. "Order Total ₹1,289" or "To Pay: Rs. 1,289".
-    const totalWordPattern = /(order total|grand total|amount payable|to pay|total amount|total)[^₹\d]{0,20}(?:₹|rs\.?)\s?([\d,]+(?:\.\d+)?)/i;
-    const match = pageTextWithoutDealo().match(totalWordPattern);
-    if (match) {
-      const n = parseFloat(match[2].replace(/,/g, ""));
-      if (!Number.isNaN(n) && n > 0) return n;
+    // Never a row that is the price before discounts: the first "total" on
+    // Decathlon's cart is "Total MRP ₹10,999", on Tata CLiQ "Bag Total", and
+    // taking it sized the vouchers for money nobody was paying (2026-09-18).
+    const totalWordPattern = /(sub\s*total|bag total|order total|grand total|amount payable|to pay|total amount|total)([^₹\d]{0,20})(?:₹|rs\.?)\s?([\d,]+(?:\.\d+)?)/gi;
+    let found = null;
+    for (const match of pageTextWithoutDealo().matchAll(totalWordPattern)) {
+      if (/^(sub\s*total|bag total)$/i.test(match[1]) || NOT_A_TOTAL.test(match[2])) continue;
+      const n = parseFloat(match[3].replace(/,/g, ""));
+      if (!Number.isNaN(n) && n > 0) found = n;
     }
-    return null;
+    return found;
   }
 
   function isDismissed(domain) {
@@ -614,6 +630,10 @@
           return;
         }
         collectCode(updated, (updated.codes || []).length, total);
+      },
+      onFinish: async () => {
+        await ask({ type: "tripUpdate", patch: { status: "has_code" } });
+        location.href = trip.store.returnUrl;
       },
     });
   }

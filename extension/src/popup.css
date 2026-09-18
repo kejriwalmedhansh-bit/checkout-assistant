@@ -826,3 +826,20 @@
   font-weight: 700;
   font-variant-numeric: tabular-nums;
 }
+
+/* What the vouchers don't cover, said out loud under the plan. */
+#dealo-popup-root .dealo-plan-rest {
+  font-size: 12.5px;
+  color: #6B7A8D;
+  text-align: center;
+  margin-top: 6px;
+  font-variant-numeric: tabular-nums;
+}
+#dealo-popup-root .dealo-plan-rest-left { text-align: left; margin-top: 4px; }
+
+/* Four steps in the width that held three. */
+#dealo-popup-root .dealo-journey-tight { gap: 4px; margin: 12px 0 10px; }
+#dealo-popup-root .dealo-journey-tight .dealo-j-step { padding: 8px 2px; }
+#dealo-popup-root .dealo-journey-tight .dealo-j-step span { font-size: 10px; text-align: center; line-height: 1.2; }
+
+#dealo-popup-root .dealo-support-btn { margin-top: 14px; }

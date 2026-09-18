@@ -199,7 +199,16 @@ def test_maximize_sells_one_custom_amount_voucher_per_order():
                 custom_max * 3,
                 {**record, **product, "voucher_platform": "Maximize", "reseller_stack_limit": 4},
             )
-            vouchers = sum(b["count"] for b in deal["denomination_breakdown"]) or 1
+            breakdown = deal["denomination_breakdown"]
+            if not deal["is_custom"]:
+                # The listing's fixed buttons won instead (see Pepperfry,
+                # 2026-09-18): still one checkout — one listed amount,
+                # repeated no more than the quantity cap allows.
+                listed = {int(x) for x in product.get("denominations") or []}
+                if len(breakdown) != 1 or breakdown[0]["denom"] not in listed or breakdown[0]["count"] > 4:
+                    failures.append(f"{record.get('brand_name')}: {deal['purchase_breakdown']} is not one listed amount")
+                continue
+            vouchers = sum(b["count"] for b in breakdown) or 1
             if vouchers > 1 or deal["voucher_amount"] > custom_max:
                 failures.append(
                     f"{record.get('brand_name')}: {deal['purchase_breakdown']} "
@@ -298,3 +307,34 @@ if __name__ == "__main__":
             print(f"  FAIL  {check.__name__}\n        {e}")
     print(f"\n{len(checks) - failed}/{len(checks)} passed")
     sys.exit(1 if failed else 0)
+
+
+def test_never_buys_more_than_ten_rupees_past_the_bill():
+    """Product owner, 2026-09-18: a ₹11,414 Tata CLiQ order was quoted ₹11,500
+    of vouchers. Overpaying by more than ₹10 is not acceptable; the rest of the
+    bill goes on UPI or card instead."""
+    denoms = [500, 1000, 2000, 5000, 10000]
+    for reusable in (False, True):
+        face, _ = vs._best_voucher_plan(11414, denoms, 10.0, leftover_reusable=reusable, per_denom_limit=10)
+        assert face <= 11414 + vs.MAX_OVERSHOOT_RUPEES, (reusable, face)
+        face, _ = vs._single_checkout_plan(11414, denoms, 10.0, max_count=4, leftover_reusable=reusable)
+        assert face <= 11414 + vs.MAX_OVERSHOOT_RUPEES, (reusable, face)
+    # Rounding up by a rupee is still the right call.
+    face, _ = vs._best_voucher_plan(4999, [500, 2000, 5000], 10.0)
+    assert face == 5000
+
+
+def test_fixed_buttons_beat_one_typed_amount_on_a_big_bill():
+    """Maximize sells Pepperfry both as a typed-in amount (one per order, up to
+    ₹10,000) and as fixed buttons (₹10,000, up to four per order). A ₹93,700
+    order was quoted one ₹10,000 voucher; four is one checkout. 2026-09-18."""
+    voucher = {
+        "voucher_platform": "Maximize", "slug": "pepperfry", "brand_name": "Pepperfry",
+        "is_custom_denom": True, "custom_min": 100, "custom_max": 10000,
+        "denominations": [200, 500, 1000, 2000, 5000, 10000],
+        "reseller_stack_limit": 4, "stack_limit": 5,
+        "best_discount_pct": 6.75, "discounts": {"UPI": 6.75},
+    }
+    deal = vs.calculate_effective_price(93700, voucher)
+    assert deal["denomination_breakdown"] == [{"denom": 10000, "count": 4}], deal["purchase_breakdown"]
+    assert deal["voucher_amount"] == 40000

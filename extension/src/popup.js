@@ -22,22 +22,31 @@ window.__dealoPopup = (() => {
   // Copying the code is the single most important action in the journey, and
   // the modern clipboard API is blocked outright on some pages. Fall back to
   // the old select-and-copy trick rather than silently failing there.
+  //
+  // Copied inside the click itself, by answering the browser's own copy event
+  // with the code, so nothing depends on selecting text on the shop's page. On
+  // Nykaa's payment page the code never reached the clipboard (2026-09-18):
+  // the page keeps focus in its own form, so the old select-a-hidden-box trick
+  // selected nothing, and the modern API had already refused. The modern API
+  // stays as a second attempt, never the only one.
   function copyText(text) {
-    if (navigator.clipboard?.writeText) {
-      navigator.clipboard.writeText(text).catch(() => legacyCopy(text));
-    } else {
-      legacyCopy(text);
+    if (!copyInGesture(text) && navigator.clipboard?.writeText) {
+      navigator.clipboard.writeText(text).catch(() => {});
     }
   }
 
-  function legacyCopy(text) {
-    const ta = document.createElement("textarea");
-    ta.value = text;
-    ta.style.cssText = "position:fixed;opacity:0;pointer-events:none;";
-    document.body.appendChild(ta);
-    ta.select();
-    try { document.execCommand("copy"); } catch (e) { /* nothing more we can do */ }
-    ta.remove();
+  function copyInGesture(text) {
+    let delivered = false;
+    const onCopy = (e) => {
+      e.clipboardData.setData("text/plain", text);
+      e.preventDefault();
+      e.stopImmediatePropagation();
+      delivered = true;
+    };
+    document.addEventListener("copy", onCopy, true);
+    try { document.execCommand("copy"); } catch (e) { /* the modern API gets its turn */ }
+    document.removeEventListener("copy", onCopy, true);
+    return delivered;
   }
 
   // "a AJIO Gift Voucher" read as broken in live testing — brand names start
@@ -60,6 +69,9 @@ window.__dealoPopup = (() => {
     info: `<circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 7.6v.1"/>`,
     lock: `<rect x="4" y="10.5" width="16" height="10" rx="2"/><path d="M8 10.5V7a4 4 0 0 1 8 0v3.5"/>`,
     heart: `<path d="M12 20s-7-4.4-7-9.3A3.9 3.9 0 0 1 12 8a3.9 3.9 0 0 1 7 2.7C19 15.6 12 20 12 20z"/>`,
+    user: `<circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/>`,
+    cart: `<circle cx="9" cy="20" r="1.4"/><circle cx="18" cy="20" r="1.4"/><path d="M2 3h3l2.6 12.4a2 2 0 0 0 2 1.6h8.2a2 2 0 0 0 2-1.5L21.5 8H6"/>`,
+    phone: `<rect x="6" y="2.5" width="12" height="19" rx="2.5"/><path d="M11 18.5h2"/>`,
     link: `<path d="M10 13a5 5 0 0 0 7 0l3-3a5 5 0 0 0-7-7l-1.5 1.5"/><path d="M14 11a5 5 0 0 0-7 0l-3 3a5 5 0 0 0 7 7L12.5 19.5"/>`,
   };
 
@@ -371,11 +383,19 @@ window.__dealoPopup = (() => {
     // a shopper described as being asked to buy blindly: "I wouldn't trust
     // Dealo to randomly have me buy vouchers and then expect everything to
     // work out. That's not how a user thinks." (2026-09-07)
+    //
+    // And what the vouchers do NOT cover, in the same breath. Denominations
+    // rarely add up to the bill exactly — Lenskart's ₹1,500 order takes one
+    // ₹1,000 voucher — and leaving the other ₹500 unsaid read as Dealo hiding
+    // it. "We need to be very transparent" (product owner, 2026-09-18).
+    const rest = deal.priced && deal.remainder >= 1
+      ? `<div class="dealo-plan-rest">+ ₹${rupees(deal.remainder)} by UPI or card at ${esc(deal.brand_name)}</div>`
+      : "";
     const plan = deal.purchase_breakdown
       ? `<div class="dealo-plan">
            <span class="dealo-plan-buy">${esc(deal.purchase_breakdown)}</span>
            <span class="dealo-plan-where">at ${esc(sourceName(deal.voucher_source))}</span>
-         </div>`
+         </div>${rest}`
       : "";
 
     // Only on a shop where the shopper picked what they are buying: what this
@@ -430,20 +450,30 @@ window.__dealoPopup = (() => {
   // presses a button that says what it does, so the commission is consented to
   // rather than swapped in behind them. Product decision, 2026-09-07.
   function renderNoDeal(onSupport, onDismiss, smallDeal = null) {
-    const message = !smallDeal
-      ? "No discounts available, unfortunately."
+    //
+    // Worded as a finding, not an opinion. "Only ₹225 off here — not worth the
+    // extra steps" read as Dealo shrugging at the shopper's order (Amazon,
+    // 2026-09-18): the figure stays, the verdict goes, and the ask is stated
+    // plainly with what it costs them, which is nothing.
+    const found = !smallDeal
+      ? null
       : smallDeal.priced && smallDeal.saving != null
-        ? `Only ₹${rupees(smallDeal.saving)} off here — not worth the extra steps.`
+        ? `₹${rupees(smallDeal.saving)}`
         // No readable total, so no honest rupee figure — the rate is all we
         // know, and it's the rate on the voucher, not on this order.
-        : `Only ${smallDeal.pct}% off here — not worth the extra steps.`;
+        : `${smallDeal.pct}%`;
+    const head = found
+      ? `<div class="dealo-message">No voucher worth it on this order</div>
+         <div class="dealo-caption">The best one available saves ${esc(found)}.</div>`
+      : `<div class="dealo-message">No voucher for this order</div>
+         <div class="dealo-caption">Dealo checked Gyftr, Maximize and BuyHatke.</div>`;
     const root = card(`
-      <div class="dealo-message">${esc(message)}</div>
-      <button class="dealo-button dealo-ring dealo-withicon" id="dealo-support">
-        ${svg("heart", 16, "currentColor", 1.9)} Shop with Dealo's link
+      ${head}
+      <button class="dealo-button dealo-secondary dealo-withicon dealo-support-btn" id="dealo-support">
+        ${svg("heart", 15, "currentColor", 1.9)} Support Dealo at no cost
       </button>
-      <div class="dealo-support-note">Pays Dealo a commission from the shop. Your price is the same.</div>
-      <button class="dealo-link dealo-centered" id="dealo-okay">No thanks</button>
+      <div class="dealo-support-note">Reopens this page through Dealo's partner link. Your price doesn't change.</div>
+      <button class="dealo-link dealo-centered" id="dealo-okay">Close</button>
     `);
     root.querySelector("#dealo-support").addEventListener("click", () => {
       onSupport();
@@ -486,11 +516,40 @@ window.__dealoPopup = (() => {
 
     // The three numbers that matter, in the order a person asks for them:
     // what do I pay, what do I get, what do I save.
-    const priced = d.priced && d.effectivePrice != null;
-    const figure = priced ? `₹${rupees(d.effectivePrice)}` : (want ? `₹${rupees(want)}` : esc(trip.store.brandName));
+    //
+    // The big figure is what they pay HERE, for the basket above. It used to be
+    // the whole trip's cost — vouchers plus whatever the vouchers don't cover —
+    // so on AJIO it read ₹27,292 beside Gyftr's own ₹27,075 for the same
+    // basket, and the difference was nowhere on screen (2026-09-18). The part
+    // still owed at the shop now gets its own line.
+    const priced = d.priced && d.voucherAmount && d.saving != null;
+    const payHere = priced ? d.voucherAmount - d.saving : null;
+    const figure = priced ? `₹${rupees(payHere)}` : (want ? `₹${rupees(want)}` : esc(trip.store.brandName));
     const caption = priced
-      ? `for ₹${rupees(d.voucherAmount)} of ${esc(trip.store.brandName)} credit${d.saving != null ? ` · saves ₹${rupees(d.saving)}` : ""}`
+      ? `for ₹${rupees(d.voucherAmount)} of ${esc(trip.store.brandName)} credit · saves ₹${rupees(d.saving)}`
       : `of ${esc(trip.store.brandName)} credit`;
+    const rest = priced && d.remainder >= 1
+      ? `<div class="dealo-plan-rest dealo-plan-rest-left">+ ₹${rupees(d.remainder)} by UPI or card at ${esc(trip.store.brandName)}</div>`
+      : "";
+
+    // On Gyftr the pointing tour misfired more than it helped ("completely get
+    // rid of this show me how tool tip on gyftr", 2026-09-18), so the steps are
+    // drawn instead, like the voucher -> pay -> done strip on the first screen.
+    // Maximize keeps the tour: there it points at the buttons reliably.
+    const onGyftr = (d.voucherSource || "").toLowerCase() === "gyftr";
+    const step = (icon, color, label) =>
+      `<div class="dealo-j-step">${svg(icon, 19, color, 1.8)}<span>${label}</span></div>`;
+    const arrow = svg("arrow", 12, "#C7BFAF", 2.2);
+    const howTo = onGyftr
+      ? `<div class="dealo-journey dealo-journey-tight" role="img" aria-label="Log in to Gyftr, add these to the cart, pay by UPI, then copy each code and PIN">
+           ${step("user", "#1F3A5F", "log in")}${arrow}
+           ${step("cart", "#C2712F", "add to cart")}${arrow}
+           ${step("phone", "#4A9B8E", "pay by UPI")}${arrow}
+           ${step("copy", "#1F3A5F", "copy code + PIN")}
+         </div>`
+      : `<button class="dealo-button dealo-ring dealo-withicon" id="dealo-show-me">
+           ${svg("target", 17, "currentColor", 2)} Show me how
+         </button>`;
 
     // The rate promised back at the store is the UPI rate. A tick against a
     // crossed-out number rather than two sentences — it is a comparison, and
@@ -509,17 +568,16 @@ window.__dealoPopup = (() => {
       ${chips}
       <div class="dealo-figure dealo-figure-tight">${figure}</div>
       <div class="dealo-caption">${caption}</div>
+      ${rest}
       ${payRows}
-      <button class="dealo-button dealo-ring dealo-withicon" id="dealo-show-me">
-        ${svg("target", 17, "currentColor", 2)} Show me how
-      </button>
-      <button class="dealo-button dealo-secondary dealo-withicon" id="dealo-have-code">
+      ${howTo}
+      <button class="dealo-button ${onGyftr ? "dealo-ring" : "dealo-secondary"} dealo-withicon" id="dealo-have-code">
         ${svg("check", 16, "currentColor", 2.2)} I've bought them
       </button>
       <button class="dealo-link dealo-centered" id="dealo-abandon">Not doing this now</button>
     `, 1);
 
-    root.querySelector("#dealo-show-me").addEventListener("click", () => onShowMe());
+    root.querySelector("#dealo-show-me")?.addEventListener("click", () => onShowMe());
     root.querySelector("#dealo-have-code").addEventListener("click", () => onHaveCode());
     root.querySelector("#dealo-abandon").addEventListener("click", () => { onAbandon(); close(); });
   }
@@ -530,7 +588,7 @@ window.__dealoPopup = (() => {
   // The progress is shown because it is the answer to the question a shopper
   // actually has here — how much of this is left. Reported 2026-09-07: asked
   // for eight codes, allowed to enter one, and told nothing about either.
-  function renderCodeEntry(trip, { index = 0, total = 1 } = {}, { onSave }) {
+  function renderCodeEntry(trip, { index = 0, total = 1 } = {}, { onSave, onFinish }) {
     const multi = total > 1;
     const isLast = index >= total - 1;
     const remaining = Math.max(0, total - index - 1);
@@ -550,6 +608,11 @@ window.__dealoPopup = (() => {
       <input class="dealo-input" id="dealo-pin" type="text" placeholder="PIN (if there is one)" autocomplete="off">
       <button class="dealo-button" id="dealo-save-code">${isLast ? `Save &amp; go back to ${esc(trip.store.brandName)}` : "Save, next code"}</button>
       ${remaining ? `<div class="dealo-remaining">${remaining} more after this</div>` : ""}
+      ${index > 0 && !isLast && onFinish
+        // Dealo's count is its plan; the shopper's email is the truth. Asked
+        // for seven codes after buying three (Myntra, 2026-09-18) there was
+        // no way out but to invent four.
+        ? `<button class="dealo-link dealo-centered" id="dealo-codes-done">That's all my codes</button>` : ""}
       <div class="dealo-private">
         ${svg("lock", 14, "#4A9B8E", 1.9)}
         <span>Stays on your device</span>
@@ -563,6 +626,7 @@ window.__dealoPopup = (() => {
       onSave(code, root.querySelector("#dealo-pin").value.trim());
     };
     root.querySelector("#dealo-save-code").addEventListener("click", save);
+    root.querySelector("#dealo-codes-done")?.addEventListener("click", () => onFinish());
     // Six codes is six round trips to the keyboard; Enter saves, so the
     // shopper never has to reach for the mouse between them.
     root.querySelectorAll(".dealo-input").forEach((el) =>
