@@ -1,6 +1,6 @@
 # Chrome Web Store Listing — Dealo
 
-> Last Updated: 2026-09-07
+> Last Updated: 2026-09-18
 > Status: **not yet submitted** — one blocker left, see "What still stands between you and submitting" at the bottom. The privacy policy is hosted and the Render sleep problem is gone.
 
 ## Store Listing
@@ -89,6 +89,7 @@ Copy each cell verbatim into the matching field in the Developer Dashboard.
 | Permission | Type | Justification |
 |------------|------|---------------|
 | `storage` | permissions | Buying a gift voucher takes the shopper away from the store to a different website and back again, across several page loads. The extension stores what the shopper was buying, the order total, and which voucher was suggested, so it can resume where it left off when they return. It also stores the voucher codes they purchase, locally, so they can be pasted into the store's discount box. None of this is transmitted anywhere; it is read only by this extension on this machine, and is deleted when the purchase completes or after seven days. |
+| `scripting` | permissions | Dealo does not run on every website. It adds its savings panel to a page only when that page is a store checkout or cart, a store it has vouchers for, or the voucher site the shopper is buying from mid-purchase. This permission is how it adds that panel to those pages, and only those. The panel reads the order total on the page and shows the saving; it never changes the store's page, fills in forms or presses buttons on the shopper's behalf. |
 | `http://*/*`, `https://*/*` | host_permissions | The extension has to be present on the shopper's checkout page to detect that they have reached one, and it cannot know in advance which of roughly 900 supported stores they will shop at. Host access serves two functions: the extension reads the order total from the checkout page in order to state the saving in rupees, and the background service worker is notified when a tab's address changes, so it can re-check when a store opens its cart without a full page reload. It also covers requests to the extension's own backend at dealo-backend.onrender.com. No page content beyond the store domain and the order total ever leaves the device. |
 
 **Note on the breadth of host access.** This will draw reviewer attention and it is worth pre-empting in the submission notes. `activeTab` was considered and rejected: it grants access only on a direct click of the extension icon, and the entire value of the extension is that it warns the shopper *before* they pay without being asked. A fixed allowlist of store domains was also considered and rejected: Dealo covers roughly 1,500 brand listings across three voucher platforms, of which only 242 currently have a confirmed domain mapping, so an allowlist would silently disable the extension for most of its own catalogue.
@@ -119,8 +120,11 @@ Copy each cell verbatim into the matching field in the Developer Dashboard.
 
 ## Privacy Policy
 
-**Privacy Policy URL** — ⚠️ **BLOCKER: not yet hosted.** Being handled
-elsewhere — do not solve it here.
+**Privacy Policy URL** — `https://getdealo.in/privacy/` — **live**, checked
+2026-09-18: it names the store domain and the order total as the only things
+sent, and says voucher codes stay on the device. Matches the disclosure above.
+
+(History, kept for traceability: before this it was a blocker.)
 
 `extension/PRIVACY.md` now points at `https://getdealo.in/privacy/` as the
 full policy. That page did not exist yet when this was written (checked
@@ -152,6 +156,7 @@ the affiliate "Okay" button sends the page address.
 
 | Version | Date | Changes | Status |
 |---------|------|---------|--------|
+| 0.2.4 | 2026-09-18 | Reads the right order total on shops whose payable line just says "Total" (Decathlon, Tata CLiQ). Says what the vouchers don't cover ("+ ₹500 by UPI or card"). On Gyftr, shows the buying steps as a picture: log in, add to cart, pay by UPI, copy code and PIN. "That's all my codes" when fewer codes arrive than planned. The copy button works on pages that hold on to focus (Nykaa). Clearer wording when a saving is too small to be worth it. Faster panel. Package `dealo-v0.2.4.zip`. First version submitted. | Ready to submit |
 | 0.2.3 | 2026-09-17 | Dealo appears on carts that draw late (boAt), on booking review and payment pages (MakeMyTrip, AJIO's payment site) and across a shop's own subdomains. It starts as soon as a page begins loading instead of waiting for it to finish, runs one copy per page, and gives up on a slow backend reply after 12 seconds instead of waiting forever. Amounts in pointer labels are highlighted. Package `dealo-v0.2.3.zip`. | Draft |
 | 0.2.2 | 2026-09-17 | Panel can be dragged out of the way (position remembered). Redeem steps shown as a checklist with the code and PIN in the step where they're pasted; in-store steps dropped. New welcome page: a picture of the panel, "Free discounts, right at checkout". Package `dealo-v0.2.2.zip`. Supersedes 0.2.1, which was built but not uploaded. | Draft |
 | 0.2.1 | 2026-09-17 | On shops that sell a different voucher per kind of product (GIVA, MakeMyTrip, Yatra, Air India and 17 more), the popup asks "What are you buying?" first, then shows that voucher, what it covers and a link to its terms. Package `dealo-v0.2.1.zip`. | Draft |
@@ -183,8 +188,7 @@ what was actually done:
 2. ~~Take at least one screenshot~~ — **done 2026-09-07.** Three at 1280×800
    plus the promo tile, in `store-assets/`. See "Screenshot Notes" above for
    what each one shows and for the fourth shot that is still missing.
-3. **A live privacy policy URL** — still outstanding, and owned by the
-   getdealo.in work, not by this file. See the Privacy Policy section above.
+3. ~~A live privacy policy URL~~ — **done**, live at https://getdealo.in/privacy/ (checked 2026-09-18).
 
 Before you upload:
 
