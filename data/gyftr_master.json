@@ -36,7 +36,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 88500,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -93,7 +93,7 @@
         "value_cap": 20000,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -145,7 +145,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 86000,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -199,7 +199,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -252,7 +252,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -304,7 +304,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -356,7 +356,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -412,7 +412,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 19000,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -466,7 +466,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 87500,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -522,7 +522,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -572,7 +572,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -600,12 +600,11 @@
         "source_url": null,
         "redemption_type": "Both",
         "denominations": [
-          100,
-          250,
           500,
           1000,
           2000,
-          5000
+          5000,
+          10000
         ],
         "is_custom_denom": false,
         "custom_min": null,
@@ -626,7 +625,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 87500,
         "status": "inactive",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -681,7 +680,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -733,7 +732,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 85000,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -784,7 +783,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -831,7 +830,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "inactive",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -884,7 +883,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -931,7 +930,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "inactive",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -984,7 +983,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -1035,7 +1034,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -1063,8 +1062,12 @@
         "source_url": null,
         "redemption_type": "Online",
         "denominations": [
+          500,
           1000,
-          7500
+          2000,
+          5000,
+          7500,
+          10000
         ],
         "is_custom_denom": false,
         "custom_min": null,
@@ -1083,7 +1086,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 260000,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -1139,7 +1142,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -1192,7 +1195,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -1244,7 +1247,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 87500,
         "status": "inactive",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -1300,7 +1303,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 85000,
         "status": "inactive",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -1337,23 +1340,23 @@
         "custom_min": null,
         "custom_max": null,
         "discounts": {
-          "Credit Card": 5.0,
-          "Net Banking": 5.0,
-          "Debit Card": 5.0,
-          "MobiKwik": 5.0,
-          "UPI": 6.0,
-          "Amazon Pay": 5.0,
-          "e-Pay": 6.0,
-          "PAYTM UPI": 6.0,
+          "Credit Card": 9.0,
+          "Net Banking": 9.0,
+          "Debit Card": 9.0,
+          "MobiKwik": 9.0,
+          "UPI": 10.0,
+          "Amazon Pay": 9.0,
+          "e-Pay": 10.0,
+          "PAYTM UPI": 10.0,
           "Paytm Wallet": 5.0
         },
         "best_payment_method": "UPI",
-        "best_discount_pct": 6.0,
+        "best_discount_pct": 10.0,
         "stack_limit": null,
         "value_cap": null,
         "purchase_cap_per_txn": 80000,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -1408,7 +1411,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 87500,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -1465,7 +1468,7 @@
         "value_cap": 20000,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -1493,7 +1496,6 @@
         "source_url": null,
         "redemption_type": "Offline",
         "denominations": [
-          500,
           1000,
           2000,
           5000
@@ -1518,7 +1520,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -1569,7 +1571,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "inactive",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -1619,7 +1621,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "inactive",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -1672,7 +1674,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -1726,7 +1728,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -1768,17 +1770,17 @@
         "discounts": {
           "Credit Card": 0.0,
           "Debit Card": 0.0,
-          "UPI": 0.75,
+          "UPI": 1.0,
           "e-Pay": 0.0,
-          "PAYTM UPI": 0.75
+          "PAYTM UPI": 1.0
         },
         "best_payment_method": "UPI",
-        "best_discount_pct": 0.75,
+        "best_discount_pct": 1.0,
         "stack_limit": null,
         "value_cap": 50000.0,
         "purchase_cap_per_txn": 187500,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -1834,7 +1836,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -1874,17 +1876,17 @@
         "discounts": {
           "Credit Card": 0.0,
           "Debit Card": 0.0,
-          "UPI": 1.5,
-          "e-Pay": 1.5,
-          "PAYTM UPI": 1.5
+          "UPI": 1.25,
+          "e-Pay": 1.25,
+          "PAYTM UPI": 1.25
         },
         "best_payment_method": "UPI",
-        "best_discount_pct": 1.5,
+        "best_discount_pct": 1.25,
         "stack_limit": 15,
         "value_cap": null,
         "purchase_cap_per_txn": null,
-        "status": "inactive",
-        "last_scraped": "2026-09-04"
+        "status": "active",
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -1934,7 +1936,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "inactive",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -1988,7 +1990,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 85000,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -2041,7 +2043,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 37500,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -2085,7 +2087,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "inactive",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -2135,7 +2137,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "inactive",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -2190,7 +2192,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -2244,7 +2246,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -2296,7 +2298,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -2343,7 +2345,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "inactive",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -2395,7 +2397,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -2446,7 +2448,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -2497,7 +2499,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 27500,
         "status": "inactive",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -2553,7 +2555,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 87500,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -2607,7 +2609,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -2664,7 +2666,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 187500,
         "status": "inactive",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -2715,7 +2717,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "inactive",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -2770,7 +2772,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 38500,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -2825,7 +2827,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -2876,7 +2878,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "inactive",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -2930,7 +2932,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -2982,7 +2984,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -3032,7 +3034,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -3072,6 +3074,7 @@
         "custom_max": null,
         "discounts": {
           "Credit Card": 1.0,
+          "Net Banking": 1.0,
           "Debit Card": 1.0,
           "MobiKwik": 1.0,
           "UPI": 3.0,
@@ -3085,7 +3088,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -3144,7 +3147,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -3199,7 +3202,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 87500,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -3250,7 +3253,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -3302,7 +3305,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -3354,7 +3357,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "inactive",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -3407,7 +3410,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -3458,7 +3461,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "inactive",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -3510,7 +3513,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "inactive",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -3563,7 +3566,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -3613,7 +3616,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -3663,7 +3666,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -3714,7 +3717,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "inactive",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -3766,7 +3769,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "inactive",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -3819,7 +3822,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -3869,7 +3872,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -3920,7 +3923,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -3973,7 +3976,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 37500,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -4027,7 +4030,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -4082,7 +4085,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -4137,7 +4140,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -4191,7 +4194,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 110000,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -4246,7 +4249,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 52500,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -4298,7 +4301,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "inactive",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -4354,7 +4357,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 263500,
         "status": "inactive",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -4409,7 +4412,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -4461,7 +4464,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -4508,7 +4511,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "inactive",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -4564,7 +4567,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 85000,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -4616,7 +4619,7 @@
         "value_cap": 10000,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -4668,7 +4671,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -4717,7 +4720,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "inactive",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -4744,8 +4747,10 @@
           2000,
           2500,
           3000,
+          5000,
           7500,
-          10000
+          10000,
+          100000
         ],
         "is_custom_denom": false,
         "custom_min": null,
@@ -4767,7 +4772,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -4819,7 +4824,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "inactive",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -4869,7 +4874,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -4921,7 +4926,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "inactive",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -4971,7 +4976,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -5023,7 +5028,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "inactive",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -5076,7 +5081,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -5129,7 +5134,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -5180,7 +5185,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -5233,7 +5238,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -5286,7 +5291,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -5341,7 +5346,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -5394,7 +5399,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 85000,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -5446,7 +5451,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 17500,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -5497,7 +5502,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -5548,7 +5553,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "inactive",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -5600,7 +5605,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -5651,7 +5656,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "inactive",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -5704,7 +5709,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 37500,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -5753,7 +5758,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "inactive",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -5806,7 +5811,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "inactive",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -5863,7 +5868,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -5920,7 +5925,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -5976,7 +5981,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -6024,7 +6029,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "inactive",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -6080,7 +6085,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "inactive",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -6133,7 +6138,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -6189,7 +6194,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 32500,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -6245,7 +6250,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "inactive",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -6300,7 +6305,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -6354,7 +6359,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 60000,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -6392,22 +6397,21 @@
         "custom_min": null,
         "custom_max": null,
         "discounts": {
-          "Credit Card": 6.0,
-          "Net Banking": 6.0,
-          "Debit Card": 6.0,
-          "MobiKwik": 6.0,
-          "UPI": 8.0,
-          "e-Pay": 8.0,
-          "PAYTM UPI": 8.0,
-          "Paytm Wallet": 6.0
+          "Credit Card": 10.0,
+          "Net Banking": 10.0,
+          "Debit Card": 10.0,
+          "MobiKwik": 10.0,
+          "UPI": 12.0,
+          "e-Pay": 12.0,
+          "PAYTM UPI": 12.0
         },
         "best_payment_method": "UPI",
-        "best_discount_pct": 8.0,
+        "best_discount_pct": 12.0,
         "stack_limit": null,
         "value_cap": null,
         "purchase_cap_per_txn": 32500,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -6461,7 +6465,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 38500,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -6513,7 +6517,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 8500,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -6569,7 +6573,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 75000,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -6621,7 +6625,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "inactive",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -6672,7 +6676,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "inactive",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -6725,7 +6729,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "inactive",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -6776,7 +6780,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -6825,7 +6829,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "inactive",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -6853,12 +6857,7 @@
         "source_url": null,
         "redemption_type": "Offline",
         "denominations": [
-          100,
-          500,
-          1000,
-          2000,
-          3000,
-          5000
+          100
         ],
         "is_custom_denom": false,
         "custom_min": null,
@@ -6880,7 +6879,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 115000,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -6910,9 +6909,7 @@
         "denominations": [
           1000,
           2000,
-          5000,
-          7500,
-          10000
+          7500
         ],
         "is_custom_denom": false,
         "custom_min": null,
@@ -6932,7 +6929,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -6985,7 +6982,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 50000,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -7037,7 +7034,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -7084,7 +7081,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "inactive",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -7130,7 +7127,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "inactive",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -7187,7 +7184,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 52500,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -7235,7 +7232,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "inactive",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -7259,6 +7256,7 @@
         "source_url": null,
         "redemption_type": "Online",
         "denominations": [
+          100,
           250,
           500,
           1000,
@@ -7285,7 +7283,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 52500,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -7340,7 +7338,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 50000,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -7394,7 +7392,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -7444,7 +7442,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "inactive",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -7491,7 +7489,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "inactive",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -7520,7 +7518,6 @@
         "redemption_type": "Online",
         "denominations": [
           100,
-          250,
           1000,
           2000,
           10000
@@ -7531,17 +7528,17 @@
         "discounts": {
           "Credit Card": 0.0,
           "Debit Card": 0.0,
-          "UPI": 1.25,
+          "UPI": 1.75,
           "e-Pay": 0.0,
-          "PAYTM UPI": 1.25
+          "PAYTM UPI": 1.75
         },
         "best_payment_method": "UPI",
-        "best_discount_pct": 1.25,
+        "best_discount_pct": 1.75,
         "stack_limit": null,
         "value_cap": 50000.0,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -7594,7 +7591,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -7641,7 +7638,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "inactive",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -7673,7 +7670,6 @@
           500,
           1000,
           2000,
-          3000,
           5000
         ],
         "is_custom_denom": false,
@@ -7695,7 +7691,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "inactive",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -7742,7 +7738,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "inactive",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -7789,7 +7785,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "inactive",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -7842,7 +7838,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 200000,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -7898,7 +7894,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -7926,9 +7922,6 @@
         "source_url": null,
         "redemption_type": "Online",
         "denominations": [
-          250,
-          500,
-          1000,
           2000
         ],
         "is_custom_denom": false,
@@ -7949,7 +7942,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 37500,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -7996,7 +7989,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "inactive",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -8049,7 +8042,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -8102,7 +8095,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -8132,7 +8125,6 @@
         "denominations": [
           1000,
           2000,
-          5000,
           10000
         ],
         "is_custom_denom": false,
@@ -8154,7 +8146,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -8201,7 +8193,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "inactive",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -8250,7 +8242,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "inactive",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -8278,8 +8270,6 @@
         "source_url": null,
         "redemption_type": "Online",
         "denominations": [
-          500,
-          1000,
           2000
         ],
         "is_custom_denom": false,
@@ -8302,7 +8292,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -8355,7 +8345,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "inactive",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -8406,7 +8396,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -8457,7 +8447,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -8510,7 +8500,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -8541,29 +8531,29 @@
         "redemption_type": "Both",
         "denominations": [
           1000,
-          2000
+          2000,
+          5000
         ],
         "is_custom_denom": false,
         "custom_min": null,
         "custom_max": null,
         "discounts": {
-          "Credit Card": 10.0,
-          "Net Banking": 10.0,
-          "Debit Card": 10.0,
-          "MobiKwik": 10.0,
-          "UPI": 12.0,
-          "Amazon Pay": 10.0,
-          "e-Pay": 12.0,
-          "PAYTM UPI": 12.0,
-          "Paytm Wallet": 10.0
+          "Credit Card": 5.0,
+          "Net Banking": 5.0,
+          "Debit Card": 5.0,
+          "MobiKwik": 5.0,
+          "UPI": 5.0,
+          "Amazon Pay": 5.0,
+          "e-Pay": 5.0,
+          "PAYTM UPI": 5.0
         },
-        "best_payment_method": "UPI",
-        "best_discount_pct": 12.0,
+        "best_payment_method": "Credit Card",
+        "best_discount_pct": 5.0,
         "stack_limit": null,
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -8610,7 +8600,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "inactive",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -8657,7 +8647,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "inactive",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -8714,7 +8704,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 111000,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -8763,7 +8753,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "inactive",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -8816,7 +8806,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 180000,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -8871,7 +8861,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 180000,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -8922,7 +8912,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "inactive",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -8971,7 +8961,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "inactive",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -9019,7 +9009,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "inactive",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -9065,7 +9055,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "inactive",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -9119,7 +9109,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 50000,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -9174,7 +9164,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 50000,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -9225,7 +9215,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 53500,
         "status": "inactive",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -9280,7 +9270,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -9333,7 +9323,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -9387,7 +9377,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -9440,7 +9430,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -9493,7 +9483,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -9545,7 +9535,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -9599,7 +9589,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 32500,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -9649,7 +9639,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "inactive",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -9705,7 +9695,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 255000,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -9760,7 +9750,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -9788,7 +9778,6 @@
         "source_url": null,
         "redemption_type": "Online",
         "denominations": [
-          1000,
           2000,
           5000
         ],
@@ -9808,7 +9797,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -9855,7 +9844,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "inactive",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -9906,7 +9895,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "inactive",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -9958,7 +9947,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -10009,8 +9998,8 @@
         "stack_limit": 1,
         "value_cap": null,
         "purchase_cap_per_txn": null,
-        "status": "inactive",
-        "last_scraped": "2026-09-04"
+        "status": "active",
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -10039,7 +10028,9 @@
         "redemption_type": "Online",
         "denominations": [
           250,
-          500
+          500,
+          1000,
+          2000
         ],
         "is_custom_denom": false,
         "custom_min": null,
@@ -10061,7 +10052,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -10108,7 +10099,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "inactive",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -10138,7 +10129,6 @@
         "redemption_type": "Online",
         "denominations": [
           500,
-          1000,
           1500,
           2000
         ],
@@ -10161,7 +10151,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -10211,7 +10201,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -10262,7 +10252,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "inactive",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -10308,7 +10298,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -10361,7 +10351,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 35000,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -10411,7 +10401,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 37500,
         "status": "inactive",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -10465,7 +10455,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "inactive",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -10517,7 +10507,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -10564,7 +10554,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "inactive",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -10616,7 +10606,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -10671,7 +10661,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "inactive",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -10727,7 +10717,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -10783,7 +10773,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "inactive",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -10837,7 +10827,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "inactive",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -10893,7 +10883,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -10949,7 +10939,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "inactive",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -11005,7 +10995,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "inactive",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -11060,7 +11050,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 52500,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -11114,7 +11104,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 50000,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -11170,7 +11160,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 52500,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -11229,7 +11219,7 @@
         "value_cap": 25000,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -11259,7 +11249,9 @@
         "denominations": [
           100,
           500,
+          1000,
           1500,
+          2500,
           5000,
           7500,
           10000
@@ -11284,7 +11276,7 @@
         "value_cap": 25000,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -11313,11 +11305,7 @@
         "redemption_type": "Offline",
         "denominations": [
           100,
-          500,
           1000,
-          1500,
-          2000,
-          3000,
           7500,
           10000
         ],
@@ -11341,7 +11329,7 @@
         "value_cap": 25000,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -11400,7 +11388,7 @@
         "value_cap": 25000,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -11459,7 +11447,7 @@
         "value_cap": 25000,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -11519,7 +11507,7 @@
         "value_cap": 25000,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -11578,7 +11566,7 @@
         "value_cap": 25000,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -11628,7 +11616,7 @@
         "value_cap": 25000,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -11687,7 +11675,7 @@
         "value_cap": 25000,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -11736,7 +11724,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -11787,7 +11775,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -11838,7 +11826,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -11888,7 +11876,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -11938,7 +11926,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -11988,7 +11976,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -12038,7 +12026,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -12088,7 +12076,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -12138,7 +12126,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -12187,7 +12175,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -12218,6 +12206,7 @@
           2000,
           2500,
           3000,
+          5000,
           7500,
           10000,
           25000,
@@ -12243,7 +12232,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -12300,7 +12289,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -12351,7 +12340,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "inactive",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -12404,7 +12393,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 35000,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -12434,8 +12423,7 @@
         "denominations": [
           1000,
           2000,
-          5000,
-          10000
+          5000
         ],
         "is_custom_denom": false,
         "custom_min": null,
@@ -12456,7 +12444,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "inactive",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -12508,7 +12496,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 30000,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -12555,7 +12543,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "inactive",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -12606,7 +12594,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -12657,7 +12645,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -12709,7 +12697,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -12756,7 +12744,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "inactive",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -12809,7 +12797,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 18500,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -12869,7 +12857,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 330000,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -12929,7 +12917,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 330000,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -12989,7 +12977,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 330000,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -13049,7 +13037,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 330000,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -13102,7 +13090,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -13159,7 +13147,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 261000,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -13213,7 +13201,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 81000,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -13263,7 +13251,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "inactive",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -13320,7 +13308,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 127500,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -13367,7 +13355,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "inactive",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -13423,7 +13411,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 140000,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -13477,7 +13465,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 85000,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -13534,7 +13522,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -13591,7 +13579,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -13647,7 +13635,7 @@
         "value_cap": 100000,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -13704,7 +13692,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -13758,7 +13746,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -13812,7 +13800,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 85000,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -13863,7 +13851,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -13916,7 +13904,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 110000,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -13960,7 +13948,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "inactive",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -13988,7 +13976,6 @@
         "source_url": null,
         "redemption_type": "Online",
         "denominations": [
-          1000,
           2000,
           5000,
           7500,
@@ -14013,7 +14000,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -14042,8 +14029,7 @@
         "redemption_type": "Online",
         "denominations": [
           150,
-          500,
-          1000
+          500
         ],
         "is_custom_denom": false,
         "custom_min": null,
@@ -14064,7 +14050,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 16500,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -14118,7 +14104,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 22950,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -14172,7 +14158,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 260000,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -14225,7 +14211,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 35000,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -14254,10 +14240,8 @@
         "redemption_type": "Both",
         "denominations": [
           1000,
-          1500,
           2000,
           2500,
-          3000,
           5000,
           7500,
           10000
@@ -14282,7 +14266,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -14335,7 +14319,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 85000,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -14385,7 +14369,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 1000,
         "status": "inactive",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -14436,8 +14420,8 @@
         "stack_limit": null,
         "value_cap": null,
         "purchase_cap_per_txn": 94000,
-        "status": "active",
-        "last_scraped": "2026-09-04"
+        "status": "inactive",
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -14486,7 +14470,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "inactive",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -14536,7 +14520,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 85000,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -14590,7 +14574,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 111000,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -14643,7 +14627,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 35000,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -14690,7 +14674,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "inactive",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -14740,7 +14724,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -14770,7 +14754,9 @@
         "product_name": "App Store Code",
         "source_url": null,
         "redemption_type": "Online",
-        "denominations": [],
+        "denominations": [
+          100
+        ],
         "is_custom_denom": false,
         "custom_min": null,
         "custom_max": null,
@@ -14790,7 +14776,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "inactive",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -14848,8 +14834,8 @@
         "stack_limit": 10,
         "value_cap": null,
         "purchase_cap_per_txn": null,
-        "status": "active",
-        "last_scraped": "2026-09-04"
+        "status": "inactive",
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -14903,7 +14889,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 45000,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -14960,7 +14946,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 262500,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -15017,7 +15003,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -15072,7 +15058,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 185000,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -15126,7 +15112,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 85500,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -15155,11 +15141,7 @@
         "source_url": null,
         "redemption_type": "Online",
         "denominations": [
-          1000,
-          2000,
-          3000,
-          4000,
-          5000
+          1000
         ],
         "is_custom_denom": false,
         "custom_min": null,
@@ -15177,7 +15159,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "inactive",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -15206,8 +15188,7 @@
         "redemption_type": "Online",
         "denominations": [
           500,
-          1500,
-          2000
+          1000
         ],
         "is_custom_denom": false,
         "custom_min": null,
@@ -15221,7 +15202,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "inactive",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -15275,7 +15256,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -15328,7 +15309,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -15379,7 +15360,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -15429,7 +15410,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -15479,7 +15460,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "inactive",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -15532,7 +15513,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 170000,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -15566,6 +15547,7 @@
           160,
           280,
           420,
+          585,
           740,
           930,
           999,
@@ -15590,7 +15572,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -15644,7 +15626,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 260000,
         "status": "inactive",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -15695,7 +15677,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 35000,
         "status": "inactive",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -15746,7 +15728,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 35000,
         "status": "inactive",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -15797,7 +15779,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 35000,
         "status": "inactive",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -15850,7 +15832,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 85000,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -15906,7 +15888,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 263500,
         "status": "inactive",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -15962,7 +15944,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 263500,
         "status": "inactive",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -16018,7 +16000,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 263500,
         "status": "inactive",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -16074,7 +16056,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 263500,
         "status": "inactive",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -16130,7 +16112,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 263500,
         "status": "inactive",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -16186,7 +16168,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 263500,
         "status": "inactive",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -16239,7 +16221,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 36000,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -16293,7 +16275,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 87500,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -16346,7 +16328,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 87500,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -16396,7 +16378,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -16448,7 +16430,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "inactive",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -16498,7 +16480,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -16548,7 +16530,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -16598,7 +16580,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -16648,7 +16630,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -16700,7 +16682,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "inactive",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -16750,7 +16732,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -16800,7 +16782,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -16850,7 +16832,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -16902,7 +16884,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "inactive",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -16954,7 +16936,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "inactive",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -17004,7 +16986,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -17054,7 +17036,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -17104,7 +17086,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -17154,7 +17136,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -17204,7 +17186,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -17254,7 +17236,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -17304,7 +17286,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -17354,7 +17336,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -17406,7 +17388,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "inactive",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -17456,7 +17438,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -17509,7 +17491,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 35000,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -17562,7 +17544,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 35000,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -17616,7 +17598,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 85000,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -17647,7 +17629,7 @@
           1000,
           2000,
           5000,
-          10000
+          7500
         ],
         "is_custom_denom": false,
         "custom_min": null,
@@ -17669,7 +17651,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -17718,8 +17700,8 @@
         "stack_limit": null,
         "value_cap": null,
         "purchase_cap_per_txn": null,
-        "status": "active",
-        "last_scraped": "2026-09-04"
+        "status": "inactive",
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -17757,23 +17739,23 @@
         "custom_min": null,
         "custom_max": null,
         "discounts": {
-          "Credit Card": 25.0,
-          "Net Banking": 25.0,
-          "Debit Card": 25.0,
-          "MobiKwik": 25.0,
-          "UPI": 25.0,
-          "Amazon Pay": 25.0,
-          "e-Pay": 25.0,
-          "PAYTM UPI": 25.0,
+          "Credit Card": 5.0,
+          "Net Banking": 5.0,
+          "Debit Card": 5.0,
+          "MobiKwik": 5.0,
+          "UPI": 7.0,
+          "Amazon Pay": 5.0,
+          "e-Pay": 7.0,
+          "PAYTM UPI": 7.0,
           "Paytm Wallet": 7.0
         },
-        "best_payment_method": "Credit Card",
-        "best_discount_pct": 25.0,
+        "best_payment_method": "UPI",
+        "best_discount_pct": 7.0,
         "stack_limit": null,
         "value_cap": null,
         "purchase_cap_per_txn": 26000,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -17828,7 +17810,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 185000,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -17879,7 +17861,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 15000,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -17932,7 +17914,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 35000,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -17988,7 +17970,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 85000,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -18040,7 +18022,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 35000,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -18068,6 +18050,7 @@
         "source_url": null,
         "redemption_type": "Online",
         "denominations": [
+          500,
           1000,
           2000,
           5000
@@ -18091,7 +18074,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "inactive",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -18141,7 +18124,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "inactive",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -18192,7 +18175,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 85000,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -18246,7 +18229,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -18295,7 +18278,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "inactive",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -18325,7 +18308,7 @@
         "denominations": [
           500,
           1000,
-          2000
+          5000
         ],
         "is_custom_denom": false,
         "custom_min": null,
@@ -18347,7 +18330,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -18400,7 +18383,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 85000,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -18452,7 +18435,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 35000,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -18506,7 +18489,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 85000,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -18563,7 +18546,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 128500,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -18615,7 +18598,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 36000,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -18669,7 +18652,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 185000,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -18723,7 +18706,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 180000,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -18778,7 +18761,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 185000,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -18831,7 +18814,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 90000,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -18884,7 +18867,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 37500,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -18938,7 +18921,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 185000,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -18993,7 +18976,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -19047,7 +19030,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 110000,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -19086,23 +19069,23 @@
         "custom_min": null,
         "custom_max": null,
         "discounts": {
-          "Credit Card": 11.0,
-          "Net Banking": 11.0,
-          "Debit Card": 11.0,
-          "MobiKwik": 11.0,
-          "UPI": 13.0,
-          "Amazon Pay": 11.0,
-          "e-Pay": 13.0,
+          "Credit Card": 5.0,
+          "Net Banking": 5.0,
+          "Debit Card": 5.0,
+          "MobiKwik": 5.0,
+          "UPI": 5.0,
+          "Amazon Pay": 5.0,
+          "e-Pay": 5.0,
           "Payzapp": 11.0,
-          "PAYTM UPI": 13.0
+          "PAYTM UPI": 5.0
         },
-        "best_payment_method": "UPI",
-        "best_discount_pct": 13.0,
+        "best_payment_method": "Payzapp",
+        "best_discount_pct": 11.0,
         "stack_limit": null,
         "value_cap": null,
         "purchase_cap_per_txn": 185000,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -19150,7 +19133,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "inactive",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -19205,7 +19188,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 61000,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -19261,7 +19244,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 290000,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -19316,7 +19299,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 110000,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -19374,7 +19357,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -19424,7 +19407,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -19454,7 +19437,6 @@
         "denominations": [
           150,
           250,
-          500,
           2500
         ],
         "is_custom_denom": false,
@@ -19476,7 +19458,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -19529,7 +19511,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 80000,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -19582,7 +19564,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -19637,7 +19619,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 187500,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -19687,7 +19669,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 14250,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -19740,7 +19722,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -19791,8 +19773,8 @@
         "stack_limit": 3,
         "value_cap": null,
         "purchase_cap_per_txn": null,
-        "status": "active",
-        "last_scraped": "2026-09-04"
+        "status": "inactive",
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -19844,8 +19826,8 @@
         "stack_limit": null,
         "value_cap": null,
         "purchase_cap_per_txn": null,
-        "status": "active",
-        "last_scraped": "2026-09-04"
+        "status": "inactive",
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -19895,7 +19877,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 47500,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -19942,8 +19924,8 @@
         "stack_limit": null,
         "value_cap": null,
         "purchase_cap_per_txn": null,
-        "status": "active",
-        "last_scraped": "2026-09-04"
+        "status": "inactive",
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -19994,7 +19976,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 39900,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -20046,7 +20028,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 109250,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -20098,7 +20080,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 8690,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -20153,7 +20135,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 127500,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -20207,7 +20189,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 62500,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -20260,7 +20242,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -20312,7 +20294,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 21920,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -20362,7 +20344,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "inactive",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -20412,7 +20394,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 35000,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -20440,10 +20422,7 @@
         "source_url": null,
         "redemption_type": "Online",
         "denominations": [
-          2000,
-          5000,
-          7500,
-          10000
+          2000
         ],
         "is_custom_denom": false,
         "custom_min": null,
@@ -20463,7 +20442,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -20514,7 +20493,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -20568,7 +20547,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 185000,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -20623,7 +20602,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 185000,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -20678,7 +20657,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 185000,
         "status": "inactive",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -20707,7 +20686,6 @@
         "source_url": null,
         "redemption_type": "Online",
         "denominations": [
-          15,
           30,
           75,
           380,
@@ -20735,7 +20713,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 144500,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -20764,11 +20742,9 @@
         "redemption_type": "Both",
         "denominations": [
           250,
-          500,
           1000,
           2000,
-          2500,
-          5000
+          2500
         ],
         "is_custom_denom": false,
         "custom_min": null,
@@ -20789,7 +20765,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -20828,22 +20804,22 @@
         "custom_min": null,
         "custom_max": null,
         "discounts": {
-          "Credit Card": 0.0,
-          "Net Banking": 0.0,
-          "Debit Card": 0.0,
-          "MobiKwik": 0.0,
-          "UPI": 0.0,
-          "Amazon Pay": 0.0,
-          "e-Pay": 0.0,
-          "Payzapp": 0.0
+          "Credit Card": 20.0,
+          "Net Banking": 20.0,
+          "Debit Card": 20.0,
+          "MobiKwik": 20.0,
+          "UPI": 22.0,
+          "Amazon Pay": 20.0,
+          "e-Pay": 22.0,
+          "PAYTM UPI": 22.0
         },
-        "best_payment_method": "Credit Card",
-        "best_discount_pct": 0.0,
+        "best_payment_method": "UPI",
+        "best_discount_pct": 22.0,
         "stack_limit": null,
         "value_cap": null,
         "purchase_cap_per_txn": 62500,
-        "status": "inactive",
-        "last_scraped": "2026-09-04"
+        "status": "active",
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -20898,7 +20874,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 207500,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -20952,7 +20928,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 185000,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -21005,7 +20981,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 290000,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -21057,7 +21033,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 185000,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -21112,7 +21088,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 265000,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -21167,7 +21143,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 265000,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -21222,7 +21198,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 265000,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -21277,7 +21253,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 265000,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -21332,7 +21308,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 265000,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -21387,7 +21363,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 265000,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -21441,7 +21417,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 207500,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -21495,7 +21471,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 207500,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -21549,7 +21525,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 207500,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -21603,7 +21579,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 207500,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -21657,7 +21633,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 207500,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -21711,7 +21687,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 207500,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -21765,7 +21741,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 207500,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -21819,7 +21795,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 207500,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -21873,7 +21849,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 207500,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -21927,7 +21903,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 207500,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -21981,7 +21957,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 207500,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -22035,7 +22011,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 207500,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -22089,7 +22065,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 207500,
         "status": "active",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
@@ -22140,7 +22116,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "inactive",
-        "last_scraped": "2026-09-04"
+        "last_scraped": "2026-09-18"
       }
     ],
     "description": null,
