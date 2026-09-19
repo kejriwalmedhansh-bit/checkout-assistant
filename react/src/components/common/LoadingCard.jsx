@@ -136,7 +136,7 @@ function Bone({ w, h = '10px', borderRadius = '99px', order = 0, ...rest }) {
       w={w}
       h={h}
       borderRadius={borderRadius}
-      bg="#F2F0EA"
+      bg="#EFECE4"
       position="relative"
       overflow="hidden"
       sx={{
@@ -144,7 +144,7 @@ function Bone({ w, h = '10px', borderRadius = '99px', order = 0, ...rest }) {
           content: '""',
           position: 'absolute',
           inset: 0,
-          bg: '#DEDACD',
+          bg: '#D5D0C0',
           transformOrigin: 'left',
           transform: 'scaleX(0)',
           animation: `dealoBoneFill 1.8s cubic-bezier(0.65, 0, 0.35, 1) ${order * 0.1}s infinite`,
@@ -154,7 +154,18 @@ function Bone({ w, h = '10px', borderRadius = '99px', order = 0, ...rest }) {
           '60%': { transform: 'scaleX(1)', opacity: 1 },
           '85%, 100%': { transform: 'scaleX(1)', opacity: 0 },
         },
-        '@media (prefers-reduced-motion: reduce)': { '&::after': { animation: 'none' } },
+        // Phones with Reduce Motion on still need to see that something is
+        // happening: no sliding, just a slow fade in and out.
+        '@keyframes dealoBonePulse': {
+          '0%, 100%': { opacity: 0 },
+          '50%': { opacity: 0.7 },
+        },
+        '@media (prefers-reduced-motion: reduce)': {
+          '&::after': {
+            transform: 'none',
+            animation: `dealoBonePulse 1.8s ease-in-out ${order * 0.1}s infinite`,
+          },
+        },
       }}
       {...rest}
     />
