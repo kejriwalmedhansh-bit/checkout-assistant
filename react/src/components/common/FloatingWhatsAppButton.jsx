@@ -1,7 +1,9 @@
 import { Box, Link, Tooltip } from '@chakra-ui/react';
+import { useLocation } from 'react-router-dom';
 
 import { track } from '@/utils/analytics';
 import { botWhatsAppHref } from '@/utils/whatsappLink';
+import { ROUTES } from '@/routes/paths';
 
 /**
  * Fixed circular WhatsApp launcher, pinned to the bottom-right corner on
@@ -12,35 +14,54 @@ import { botWhatsAppHref } from '@/utils/whatsappLink';
  */
 export default function FloatingWhatsAppButton() {
   const href = botWhatsAppHref();
+  // The text label only on the homepage. On the product list and results
+  // it sat on top of the Buy button and the step text; the round icon alone
+  // is enough there.
+  const showLabel = useLocation().pathname === ROUTES.home;
 
   return (
-    <Box position="fixed" bottom={{ base: '20px', md: '28px' }} right={{ base: '16px', md: '28px' }} zIndex={15}>
+    <Box
+      position="fixed"
+      // Clear of the iPhone home bar / Android gesture bar on any phone.
+      bottom={{ base: 'calc(16px + env(safe-area-inset-bottom))', md: '28px' }}
+      right={{ base: 'calc(16px + env(safe-area-inset-right))', md: '28px' }}
+      zIndex={15}
+    >
       {/* Mobile-only label: there's no hover on a phone, so the Tooltip
           below never gets a chance to show there. Absolutely positioned
           off the button's own left edge, so it floats over the page
           instead of taking up any layout space or pushing the button
           around. Desktop keeps the hover Tooltip only — this stays
           hidden there since it'd be redundant with it. */}
-      <Box
-        display={{ base: 'block', md: 'none' }}
-        position="absolute"
-        top="50%"
-        right="100%"
-        mr="10px"
-        transform="translateY(-50%)"
-        whiteSpace="nowrap"
-        bg="surface"
-        color="text"
-        fontSize="12px"
-        fontWeight={600}
-        px="10px"
-        py="6px"
-        borderRadius="full"
-        boxShadow="0 4px 12px rgba(10,12,10,.18)"
-        pointerEvents="none"
-      >
-        Dealo works on WhatsApp too
-      </Box>
+      {showLabel && (
+        <Box
+          display={{ base: 'block', md: 'none' }}
+          position="absolute"
+          top="50%"
+          right="100%"
+          mr="10px"
+          transform="translateY(-50%)"
+          whiteSpace="nowrap"
+          bg="surface"
+          color="text"
+          fontSize="12px"
+          fontWeight={600}
+          px="10px"
+          py="6px"
+          borderRadius="full"
+          boxShadow="0 4px 12px rgba(10,12,10,.18)"
+          pointerEvents="none"
+          sx={{
+            animation: 'dealoLabelIn .4s cubic-bezier(0.23, 1, 0.32, 1) .8s backwards',
+            '@keyframes dealoLabelIn': {
+              from: { opacity: 0, transform: 'translate(6px, -50%)' },
+            },
+            '@media (prefers-reduced-motion: reduce)': { animation: 'none' },
+          }}
+        >
+          Dealo works on WhatsApp too
+        </Box>
+      )}
 
       <Tooltip label="Dealo works on WhatsApp too" placement="left" hasArrow openDelay={250}>
         <Link
@@ -56,8 +77,14 @@ export default function FloatingWhatsAppButton() {
           borderRadius="full"
           bg="#25D366"
           boxShadow="0 6px 18px rgba(10,12,10,.28)"
-          transition="transform .15s ease, box-shadow .15s ease"
-          _hover={{ textDecoration: 'none', transform: 'scale(1.06)', boxShadow: '0 8px 22px rgba(10,12,10,.34)' }}
+          transition="transform .16s cubic-bezier(0.23, 1, 0.32, 1), box-shadow .16s ease"
+          _hover={{ textDecoration: 'none' }}
+          _active={{ transform: 'scale(0.94)' }}
+          sx={{
+            '@media (hover: hover) and (pointer: fine)': {
+              '&:hover': { transform: 'scale(1.05)', boxShadow: '0 8px 22px rgba(10,12,10,.34)' },
+            },
+          }}
         >
           <Box as="svg" viewBox="0 0 32 32" w="28px" h="28px" fill="#fff" aria-hidden="true">
             <path d="M16 3C9.1 3 3.5 8.6 3.5 15.5c0 2.4.7 4.7 1.9 6.7L3 29l7-1.9c1.9 1.1 4 1.6 6 1.6 6.9 0 12.5-5.6 12.5-12.5S22.9 3 16 3zm0 2c5.8 0 10.5 4.7 10.5 10.5S21.8 26 16 26c-1.9 0-3.7-.5-5.3-1.5l-.4-.2-4.2 1.1 1.1-4.1-.2-.4c-1.1-1.7-1.6-3.6-1.6-5.6C5.5 9.7 10.2 5 16 5z" />

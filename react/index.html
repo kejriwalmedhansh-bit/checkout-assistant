@@ -90,12 +90,13 @@
     <!--
       First-paint canvas colour. Chakra only applies the `bg` token once the JS
       bundle has loaded and React has rendered, so without this the browser
-      paints its default white first — a visible flash before the dark theme
-      lands. Must stay in sync with the `bg` token in
-      src/theme/foundations/colors.js.
+      paints its default colour first. Must stay in sync with the `bg` token in
+      src/theme/foundations/colors.js — this used to be the old dark theme's
+      #121311, which showed as a black strip down the right edge of the phone
+      whenever anything on the page was wider than the screen.
     -->
     <style>
-      html { background-color: #121311; }
+      html { background-color: #FAFAF7; }
     </style>
   </head>
   <body>

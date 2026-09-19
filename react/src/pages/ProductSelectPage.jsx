@@ -121,7 +121,7 @@ export default function ProductSelectPage() {
           />
         </Box>
 
-        {searchStatus === 'loading' && <LoadingCard tips={PICKER_TIPS} />}
+        {searchStatus === 'loading' && <LoadingCard tips={PICKER_TIPS} variant="products" />}
 
         {searchStatus === 'error' && <ErrorBox message={error || 'Search failed.'} />}
 

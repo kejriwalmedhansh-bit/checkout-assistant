@@ -73,13 +73,12 @@ export default function JourneyChips({ steps, activeIndex, onSelect }) {
                 sx={
                   active
                     ? {
+                        // Nudges toward the next step a few times, then rests.
                         '@keyframes dealoChipFlow': {
-                          '0%': { opacity: 0, transform: 'translateX(-3px)' },
-                          '30%': { opacity: 1, transform: 'translateX(0)' },
-                          '70%': { opacity: 1, transform: 'translateX(1px)' },
-                          '100%': { opacity: 0, transform: 'translateX(4px)' },
+                          '0%, 100%': { opacity: 1, transform: 'translateX(0)' },
+                          '50%': { opacity: 0.4, transform: 'translateX(3px)' },
                         },
-                        animation: 'dealoChipFlow 1.3s ease-in-out infinite',
+                        animation: 'dealoChipFlow 1.4s cubic-bezier(0.65, 0, 0.35, 1) .6s 3',
                         '@media (prefers-reduced-motion: reduce)': { animation: 'none', opacity: 1, transform: 'none' },
                       }
                     : undefined

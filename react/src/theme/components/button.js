@@ -23,7 +23,10 @@ export const buttonTheme = {
     whiteSpace: 'nowrap',
     transitionProperty: 'common',
     transitionDuration: 'fast',
-    _active: { transform: 'translateY(1px) scale(0.99)' },
+    transitionTimingFunction: 'cubic-bezier(0.23, 1, 0.32, 1)',
+    // A small sink on press so every tap visibly registers — the main
+    // feedback on a phone, where there's no hover.
+    _active: { transform: 'scale(0.97)' },
     // boxShadow: 'ring' is the primary visual focus cue everywhere in the
     // app (see file header), but it isn't reflected in computed `outline`,
     // so a real outline sits alongside it as a keyboard-focus fallback that

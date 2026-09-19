@@ -28,6 +28,9 @@ export default function SearchBox({
   const submit = () => {
     const q = value.trim();
     if (!q || isLoading) return;
+    // Close the phone keyboard before the page changes, so the next page
+    // opens at full height instead of squeezed above a keyboard.
+    inputRef.current?.blur();
     onSubmit?.(q);
   };
 

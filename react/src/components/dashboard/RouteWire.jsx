@@ -20,7 +20,7 @@ export default function RouteWire({ animated = true }) {
         sx={
           animated
             ? {
-                animation: 'dealo-wire-flow 1.1s linear infinite',
+                animation: 'dealo-wire-flow 2.2s linear infinite',
                 '@keyframes dealo-wire-flow': {
                   from: { backgroundPositionY: '0px' },
                   to: { backgroundPositionY: '10px' },
