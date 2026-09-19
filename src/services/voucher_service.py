@@ -722,6 +722,57 @@ def _clean_instructions(html: str) -> list[str]:
     return result
 
 
+def _typed_amount(price: float, voucher: dict) -> int:
+    """The one typed-in Gyftr voucher that best covers `price`, or 0.
+
+    `typed_min`/`typed_max` come from the "type any amount" box on the brand's
+    Gyftr page (service_type 3 in Gyftr's feed). Rounded up to whole rupees,
+    which the box takes — under ₹1 over the bill, inside the ₹10 rule.
+    """
+    lo, hi = voucher.get("typed_min"), voucher.get("typed_max")
+    if not lo or not hi or price <= 0:
+        return 0
+    amount = min(math.ceil(price), int(hi))
+    if voucher.get("value_cap"):
+        amount = min(amount, int(voucher["value_cap"]))
+    return amount if amount >= lo else 0
+
+
+def _typed_and_fixed_plan(price: float, voucher: dict, fixed_denoms: list[int]) -> tuple[int, list[dict]]:
+    """Fixed cards for most of the bill, one typed amount for the rest.
+
+    The cards are bought largest first up to the bill less the box's minimum,
+    so whatever is left can always be typed. Respects the store's cap on
+    vouchers per bill (the typed one counts), Gyftr's ten of a kind, and the
+    brand's value cap. Returns (0, []) when no such mix is possible.
+    """
+    lo, hi = voucher.get("typed_min"), voucher.get("typed_max")
+    if not lo or not hi:
+        return 0, []
+    target = math.ceil(price)
+    # Room for at least one card as well as the box's minimum; the card
+    # search below misbehaves on a negative bill (a ₹99 Amazon order came
+    # back as ₹9,849 of vouchers).
+    if target - lo < min(fixed_denoms):
+        return 0, []
+    stack_limit = voucher.get("stack_limit")
+    if stack_limit is None and voucher.get("stack_limit_confidence") != "unlimited_stated":
+        stack_limit = 1
+    if stack_limit is not None and stack_limit < 2:
+        return 0, []
+    value_cap = voucher.get("value_cap")
+    cards, plan = _greedy_voucher_amount(
+        target - lo, fixed_denoms,
+        stack_limit=stack_limit - 1 if stack_limit is not None else None,
+        value_cap=value_cap - lo if value_cap else None,
+        per_denom_limit=voucher.get("reseller_stack_limit") or _gyftr_qty_per_denomination(),
+    )
+    typed = min(target - cards, hi, (value_cap - cards) if value_cap else hi)
+    if not cards or typed < lo:
+        return 0, []
+    return cards + int(typed), plan + [{"denom": int(typed), "count": 1, "typed": True}]
+
+
 def _per_txn_rupee_cap(voucher: dict) -> float | None:
     """The most rupees one checkout may spend, where that is a real number.
 
@@ -833,7 +884,13 @@ def calculate_effective_price(price: float, voucher: dict, payment_method: str =
                 custom_txns_needed = None
     else:
         is_custom, fixed_denoms = _parse_denominations(voucher)
-        if is_custom or not fixed_denoms:
+        # A Gyftr brand that sells no fixed card at all, only the typed box
+        # (The Body Shop), is planned entirely by the typed-amount step below.
+        typed_only = bool(voucher.get("typed_max")) and not fixed_denoms
+        if typed_only:
+            is_custom = False
+            voucher_amount, remainder = 0.0, round(float(price), 2)
+        elif is_custom or not fixed_denoms:
             voucher_amount = price
             remainder = 0.0
             is_custom = True
@@ -880,6 +937,33 @@ def calculate_effective_price(price: float, voucher: dict, payment_method: str =
             # May now exceed the bill: covering the last ₹499 of a ₹4,999
             # purchase by buying ₹5,000 is cheaper than paying it in cash, so
             # the cash remainder floors at zero instead of going negative.
+            remainder = round(max(0.0, price - voucher_amount), 2)
+
+        # Gyftr sells most brands two ways on one page: fixed cards, and a box
+        # to type any amount in (Croma, Titan: ₹100-10,000). A ₹4,370 order is
+        # one typed ₹4,370 voucher, not 2x₹2,000 with ₹370 on the card, and a
+        # ₹12,345 one is ₹10,000 + ₹2,000 cards plus a typed ₹345. The cart
+        # takes typed and fixed together (seen in the product owner's cart,
+        # 2026-09-19), but never two typed amounts: the second is refused
+        # (same test), and a typed amount has no quantity. So one at most.
+        # Whichever costs the shopper less today wins; on a tie, fewer
+        # vouchers.
+        if discount_pct > 0:
+            options = []
+            typed = _typed_amount(price, voucher)
+            if typed:
+                options.append((typed, [{"denom": typed, "count": 1, "typed": True}]))
+            if fixed_denoms:
+                options.append(_typed_and_fixed_plan(price, voucher, fixed_denoms))
+            best_key = (round(_plan_cost(price, voucher_amount, discount_pct), 2),
+                        sum(b["count"] for b in denomination_breakdown))
+            for face, plan in options:
+                if not face:
+                    continue
+                key = (round(_plan_cost(price, face, discount_pct), 2),
+                       sum(b["count"] for b in plan))
+                if not voucher_amount or key < best_key:
+                    voucher_amount, denomination_breakdown, best_key = float(face), plan, key
             remainder = round(max(0.0, price - voucher_amount), 2)
 
     # Two unrelated caps can both apply to a custom-amount voucher (e.g.

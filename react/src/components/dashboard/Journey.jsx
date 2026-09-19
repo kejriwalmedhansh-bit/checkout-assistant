@@ -204,7 +204,9 @@ export default function Journey({ rec, payingByCard = false, skipVoucher = false
   // The literal instruction, stated as a plain sentence rather than left to
   // be inferred from a row of number pills — this is the exact detail user
   // testing showed people missing ("how many denominations do I even buy?").
-  const denominationSentence = `Buy a ${fmt(v.upi?.voucher_amount)} Gift Voucher`;
+  const denominationSentence = breakdown[0]?.typed
+    ? `Type ${fmt(v.upi?.voucher_amount)} in the amount box`
+    : `Buy a ${fmt(v.upi?.voucher_amount)} Gift Voucher`;
 
   return (
     <Box>
@@ -251,8 +253,8 @@ export default function Journey({ rec, payingByCard = false, skipVoucher = false
                       borderBottom="1px dashed"
                       borderColor="border"
                     >
-                      <Text>{b.count} ×</Text>
-                      <Text>{fmt(b.denom)} voucher</Text>
+                      <Text>{b.typed ? 'type' : `${b.count} ×`}</Text>
+                      <Text>{fmt(b.denom)} {b.typed ? 'in amount box' : 'voucher'}</Text>
                     </Flex>
                   ))}
                   <Flex justify="space-between" fontFamily="mono" fontSize="15px" fontWeight={800} color="amber" pt="6px">

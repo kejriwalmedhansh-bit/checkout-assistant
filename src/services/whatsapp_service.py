@@ -297,7 +297,9 @@ def _voucher_box(denom_breakdown: list[dict], discount_pct: float) -> str:
     value; since that's not what actually gets paid (the whole point of
     buying a voucher is the discount), it's immediately followed by the
     real pay amount so "Total ₹7,000" can't misread as the cost."""
-    lines = [f"• *{b['count']} × ₹{b['denom']:,}*" for b in denom_breakdown]
+    # A typed amount is not a card to pick: it goes in the amount box.
+    lines = [f"• *₹{b['denom']:,}* typed into the amount box" if b.get("typed")
+             else f"• *{b['count']} × ₹{b['denom']:,}*" for b in denom_breakdown]
     total = sum(b["count"] * b["denom"] for b in denom_breakdown)
     pay = round(total * (100 - discount_pct) / 100)
     total_line = (
@@ -387,6 +389,9 @@ async def _send_voucher_steps(phone: str, route: dict) -> None:
             f"Buy exactly *{breakdown}* {voucher_brand} {voucher_word} on {platform_label} first "
             f"— *{discount_pct}% off*."
         )
+        if denom_breakdown and denom_breakdown[0].get("typed"):
+            # No card of that amount exists: it is typed into the amount box.
+            step1_text += f"\n\nType *{breakdown}* into the amount box, then add it to your cart."
     if txns > 1:
         # The cap number is only worth repeating here when it's the
         # per-transaction platform limit — a real constraint the box above

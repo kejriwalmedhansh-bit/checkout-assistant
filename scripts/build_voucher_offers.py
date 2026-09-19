@@ -207,11 +207,25 @@ def from_gyftr(rec: dict) -> dict:
                          "processing_fee": applies,
                          "processing_fee_pct": charge if applies else 0.0}
 
+    # Only service_type 1 is a card. The typed box (3) and e-Pay (2) each
+    # report a price too — ₹100, their minimum — which read as a ₹100 card on
+    # some 130 brands that sell none. Scrapes older than the field keep every
+    # row, as before, and say nothing about the typed box either way.
+    typed_known = any("service_type" in d for d in denoms)
+    cards = [d for d in denoms if d.get("service_type") in (None, 1)]
+    typed_rows = [d for d in denoms if d.get("service_type") == 3 and d.get("max_value")]
+    typed = {}
+    if typed_known:
+        typed["typed_range"] = ([min(num(d["value"]) for d in typed_rows),
+                                 max(num(d["max_value"]) for d in typed_rows)]
+                                if typed_rows else None)
+
     return {
         # stock_left reads 0 on listings plainly on sale, so it says nothing.
         "available": bool(denoms) and "sold out" not in page.lower(),
         "methods": methods,
-        "denominations": [{"value": d["value"]} for d in denoms if d.get("value")],
+        "denominations": [{"value": d["value"]} for d in cards if d.get("value")],
+        **typed,
         "custom_amount": is_custom_amount(
             denoms, max((d.get("max_value") or 0) for d in denoms) if denoms else 0),
         "rules": rules,
