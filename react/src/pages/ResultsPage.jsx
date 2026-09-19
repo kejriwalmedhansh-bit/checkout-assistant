@@ -15,6 +15,7 @@ import RouteWire from '@/components/dashboard/RouteWire';
 import RouteCard from '@/components/dashboard/RouteCard';
 import CreditCardPrompt from '@/components/dashboard/CreditCardPrompt';
 import AlternativesToggle from '@/components/dashboard/AlternativesToggle';
+import DropOffQuestion from '@/components/dashboard/DropOffQuestion';
 import { usePageHeader } from '@/hooks/usePageHeader';
 import { usePageTitle } from '@/hooks/usePageTitle';
 import { ROUTES } from '@/routes/paths';
@@ -266,6 +267,7 @@ export default function ResultsPage() {
               selectedMerchant={selectedAlt?.merchant}
             />
           </Flex>
+          <DropOffQuestion merchant={activeRoute.merchant} hasVoucher={!!activeRoute.voucher} />
         </motion.div>
       )}
     </Box>
