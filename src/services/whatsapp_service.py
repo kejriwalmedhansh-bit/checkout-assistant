@@ -297,7 +297,9 @@ def _voucher_box(denom_breakdown: list[dict], discount_pct: float) -> str:
     value; since that's not what actually gets paid (the whole point of
     buying a voucher is the discount), it's immediately followed by the
     real pay amount so "Total ₹7,000" can't misread as the cost."""
-    lines = [f"• *{b['count']} × ₹{b['denom']:,}*" for b in denom_breakdown]
+    # A typed amount is not a card to pick: it goes in the amount box.
+    lines = [f"• *₹{b['denom']:,}* typed into the amount box" if b.get("typed")
+             else f"• *{b['count']} × ₹{b['denom']:,}*" for b in denom_breakdown]
     total = sum(b["count"] * b["denom"] for b in denom_breakdown)
     pay = round(total * (100 - discount_pct) / 100)
     total_line = (

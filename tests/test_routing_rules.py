@@ -363,14 +363,26 @@ def test_gyftr_types_one_exact_amount_when_it_covers_more():
     assert vs.calculate_effective_price(4369.5, _gyftr_croma())["voucher_amount"] == 4370
 
 
-def test_gyftr_typed_amount_is_one_voucher_within_its_range():
-    """Only one typed voucher is planned: whether Gyftr's cart takes several,
-    or typed and fixed together, needs a login to see and has not been
-    checked. So past ₹10,000 the fixed cards win, and below the box's ₹100
-    minimum it is not offered at all."""
+def test_gyftr_mixes_cards_with_one_typed_amount():
+    """The cart takes fixed cards and a typed amount together (product owner's
+    own Croma cart, 2026-09-19: ₹5,000 card + typed ₹10,000) but refuses a
+    second typed amount, and a typed amount has no quantity. So one only.
+    Below the box's ₹100 minimum it is not offered at all."""
     deal = vs.calculate_effective_price(12345, _gyftr_croma())
-    assert not any(b.get("typed") for b in deal["denomination_breakdown"])
-    assert deal["voucher_amount"] == 12000
+    assert deal["denomination_breakdown"] == [
+        {"denom": 10000, "count": 1}, {"denom": 2000, "count": 1},
+        {"denom": 345, "count": 1, "typed": True}]
+    assert deal["remainder_at_checkout"] == 0
+    # Big bills still honour ten of a kind, with one typed amount on top.
+    big = vs.calculate_effective_price(123456, _gyftr_croma())
+    assert sum(1 for b in big["denomination_breakdown"] if b.get("typed")) <= 1
+    assert all(b["count"] <= 10 for b in big["denomination_breakdown"])
+    # A bill too small for a card plus the box's minimum gets no mix.
+    for tiny in (99, 154, 437):
+        assert vs.calculate_effective_price(tiny, _gyftr_croma(typed_min=1000))["voucher_amount"] <= tiny + 10
+    # A shop that takes one voucher per bill gets no mix.
+    one = vs.calculate_effective_price(12345, _gyftr_croma(stack_limit=1, stack_limit_confidence=None))
+    assert len(one["denomination_breakdown"]) == 1
     small = vs.calculate_effective_price(99, _gyftr_croma(denominations=[]))
     assert small["voucher_amount"] == 0 and small["remainder_at_checkout"] == 99
     # A brand sold only through the box (The Body Shop) is still priced.
