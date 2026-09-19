@@ -32,14 +32,16 @@ function TapCue({ color }) {
           mt={i === 0 ? 0 : '-4px'}
           display="block"
           sx={{
+            // Plays three times to point at the button, then rests fully
+            // visible — a cue that never stops reads as nagging. Starts and
+            // ends on the resting frame so the stop is invisible.
             '@keyframes dealoChevronFall': {
-              '0%': { opacity: 0, transform: 'translateY(-3px)' },
-              '35%': { opacity: 1, transform: 'translateY(0)' },
-              '65%': { opacity: 1, transform: 'translateY(2px)' },
-              '100%': { opacity: 0, transform: 'translateY(6px)' },
+              '0%, 100%': { opacity: 1, transform: 'translateY(0)' },
+              '45%': { opacity: 0, transform: 'translateY(5px)' },
+              '46%': { opacity: 0, transform: 'translateY(-4px)' },
             },
-            animation: `dealoChevronFall 1.6s ease-in-out infinite`,
-            animationDelay: `${i * 0.18}s`,
+            animation: `dealoChevronFall 1.4s cubic-bezier(0.65, 0, 0.35, 1) 3`,
+            animationDelay: `${0.6 + i * 0.12}s`,
             '@media (prefers-reduced-motion: reduce)': { animation: 'none', opacity: 1 },
           }}
         >
@@ -72,8 +74,9 @@ function PingRings({ color }) {
               '0%': { boxShadow: `0 0 0 0px ${color}`, opacity: 0.7 },
               '100%': { boxShadow: `0 0 0 10px ${color}`, opacity: 0 },
             },
-            animation: `dealoPing 2s cubic-bezier(0,.5,.5,1) infinite`,
-            animationDelay: i === 1 ? '0.65s' : '0s',
+            // A few rings to draw the eye on arrival, then still.
+            animation: `dealoPing 2s cubic-bezier(0.23, 1, 0.32, 1) 3 backwards`,
+            animationDelay: i === 1 ? '1.25s' : '0.6s',
             '@media (prefers-reduced-motion: reduce)': { animation: 'none', display: 'none' },
           }}
         />
@@ -188,25 +191,17 @@ export default function JourneyRow({
       py={{ base: '18px', md: '22px' }}
       textAlign="center"
       position="relative"
-      transition="background 1.4s ease, border-color .3s ease"
+      transition="background .4s ease, border-color .3s ease"
       sx={{
         '@keyframes dealoCurrentArrive': {
           '0%': { transform: 'scale(.97)', boxShadow: '0 0 0 0 transparent' },
           '100%': { transform: 'scale(1)' },
         },
-        '@keyframes dealoCurrentGlow': {
-          '0%, 100%': {
-            boxShadow: `0 0 0 1px var(--chakra-colors-${t.color}), 0 0 14px -6px var(--chakra-colors-${t.color})`,
-          },
-          '50%': {
-            boxShadow: `0 0 0 1.5px var(--chakra-colors-${t.color}), 0 0 28px -5px var(--chakra-colors-${t.color})`,
-          },
-        },
         boxShadow: currentActive
           ? `0 0 0 1px var(--chakra-colors-${t.color}), 0 0 14px -6px var(--chakra-colors-${t.color})`
           : 'none',
         animation: currentActive
-          ? 'dealoCurrentArrive .45s cubic-bezier(.16,1,.3,1), dealoCurrentGlow 2.4s ease-in-out .45s infinite'
+          ? 'dealoCurrentArrive .45s cubic-bezier(0.23, 1, 0.32, 1)'
           : 'none',
         '@media (prefers-reduced-motion: reduce)': {
           animation: 'none',
@@ -234,13 +229,13 @@ export default function JourneyRow({
             sx={{
               '@keyframes dealoStepPulse': { '0%, 100%': { opacity: 0.55 }, '50%': { opacity: 1 } },
               '@keyframes dealoStepPop': {
-                '0%': { transform: 'scale(.7)' },
+                '0%': { transform: 'scale(.85)' },
                 '100%': { transform: 'scale(1)' },
               },
               animation: pending
-                ? 'dealoStepPulse .6s ease-in-out infinite'
+                ? 'dealoStepPulse 1.6s ease-in-out infinite'
                 : checked
-                  ? 'dealoStepPop .35s cubic-bezier(.16,1,.3,1)'
+                  ? 'dealoStepPop .35s cubic-bezier(0.23, 1, 0.32, 1)'
                   : 'none',
             }}
           >
@@ -297,7 +292,7 @@ export default function JourneyRow({
               '0%, 100%': { boxShadow: '0 0 0 0px rgba(184,132,42,.35)' },
               '50%': { boxShadow: '0 0 0 7px rgba(184,132,42,0)' },
             },
-            animation: 'dealoPrecheckGlow 1.8s ease-in-out infinite',
+            animation: 'dealoPrecheckGlow 2s ease-out 1.2s 2',
             '@media (prefers-reduced-motion: reduce)': { animation: 'none' },
           }}
         >

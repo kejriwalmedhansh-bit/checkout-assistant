@@ -292,7 +292,7 @@ export default function HowItWorksPage() {
   usePageHeader({ left: backControl });
 
   return (
-    <Box maxW="680px" mx="auto">
+    <Box w="100%" maxW="680px" mx="auto">
       <Flex display={{ base: 'none', lg: 'flex' }} align="center" gap="6px" mb="14px">
         {backControl}
       </Flex>

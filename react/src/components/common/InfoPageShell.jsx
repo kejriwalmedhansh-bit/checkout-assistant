@@ -14,7 +14,7 @@ export default function InfoPageShell({ title, subtitle, maxW = '680px', childre
   usePageHeader({ left: backControl });
 
   return (
-    <Box maxW={maxW} mx="auto">
+    <Box w="100%" maxW={maxW} mx="auto">
       <Flex display={{ base: 'none', lg: 'flex' }} align="center" gap="6px" mb="14px">
         {backControl}
       </Flex>

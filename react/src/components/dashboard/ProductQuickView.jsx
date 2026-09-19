@@ -184,7 +184,7 @@ export default function ProductQuickView({ products, index, onIndexChange, onSel
                   h="6px"
                   borderRadius="4px"
                   bg={i === index ? 'brass' : 'border'}
-                  transition="all .2s ease"
+                  transition="width .25s cubic-bezier(0.23, 1, 0.32, 1), background .2s ease"
                 />
               ))}
             </Flex>

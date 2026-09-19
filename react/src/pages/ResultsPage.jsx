@@ -153,7 +153,7 @@ export default function ResultsPage() {
   const sourceUrl = result?.mode === 'url' ? query : vendorLink ? affiliateUrl(vendorLink, 'product_card') : null;
 
   return (
-    <Box ref={scrollRef} maxW="640px" mx="auto">
+    <Box ref={scrollRef} w="100%" maxW="640px" mx="auto">
       {/* `lg`+ only — below that, the mobile top bar carries these instead
           (see usePageHeader above); it has no equivalent above `lg`. */}
       <Flex display={{ base: 'none', lg: 'flex' }} align="center" gap="6px" mb="14px">

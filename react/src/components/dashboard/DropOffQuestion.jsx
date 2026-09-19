@@ -107,7 +107,6 @@ export default function DropOffQuestion({ merchant, hasVoucher }) {
   const reduceMotion = useReducedMotion();
   const buyLinkClicked = useUiStore((s) => s.buyLinkClicked);
   const tourActive = useUiStore((s) => s.tourActive);
-  const setPromptVisible = useUiStore((s) => s.setDropOffPromptVisible);
 
   const [armed, setArmed] = useState(false);
   // hidden → dot (round button pops in) → pill (stretched, with the question)
@@ -146,11 +145,6 @@ export default function DropOffQuestion({ merchant, hasVoucher }) {
     },
     [merchant, hasVoucher],
   );
-
-  useEffect(() => {
-    setPromptVisible(stage !== 'hidden');
-  }, [stage, setPromptVisible]);
-  useEffect(() => () => setPromptVisible(false), [setPromptVisible]);
 
   // Leaving within the site (Back, the page's own back arrow, the logo…):
   // hold the navigation while the pill shows. Nothing is blocked after that —

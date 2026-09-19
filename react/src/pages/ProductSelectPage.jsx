@@ -91,7 +91,7 @@ export default function ProductSelectPage() {
         />
       </Box>
 
-      <Box maxW="680px" mx="auto" position="relative" zIndex={1}>
+      <Box w="100%" maxW="680px" mx="auto" position="relative" zIndex={1}>
         <Box mb="10px" ml="-10px">
           <BackButton fallback={ROUTES.home} label="Back to search" />
         </Box>
@@ -121,7 +121,7 @@ export default function ProductSelectPage() {
           />
         </Box>
 
-        {searchStatus === 'loading' && <LoadingCard tips={PICKER_TIPS} />}
+        {searchStatus === 'loading' && <LoadingCard tips={PICKER_TIPS} variant="products" />}
 
         {searchStatus === 'error' && <ErrorBox message={error || 'Search failed.'} />}
 
