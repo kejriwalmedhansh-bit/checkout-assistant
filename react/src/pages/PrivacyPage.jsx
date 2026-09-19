@@ -108,7 +108,7 @@ export default function PrivacyPage() {
           <li>
             <strong>What you type is never recorded</strong>, whichever way you answer. The search box and the
             places your search is shown back to you are blanked out of every replay. The one exception is a comment
-            you choose to send us in the short “What stopped you?” question — that’s sent as your answer.
+            you choose to send us after the short “Not buying? Tell us why” question — that’s sent as your answer.
           </li>
           <li>
             <strong>Say no and there is no recording at all</strong>, and nothing that identifies your browser.
@@ -132,7 +132,7 @@ export default function PrivacyPage() {
         <SubHeading>How you use the site</SubHeading>
         If you agree to be recorded, we keep a record of what happens as you use Dealo — a search being run
         (including the words you searched), which product you picked, the prices and savings you were shown, which
-        buttons and links you tapped, the pages you viewed, your answer if you reply to the “What stopped you?”
+        buttons and links you tapped, the pages you viewed, your answer if you reply to the “Not buying? Tell us why”
         question (including any comment you type there), where your visit came from (the website or ad that sent
         you, including any campaign tags in the link), and the replay described above. These are tied to a random
         identifier created by your browser, not to your name. Our analytics provider also derives an approximate
@@ -159,7 +159,7 @@ export default function PrivacyPage() {
           <li>Your last search and its results, so a refresh or a trip to a store doesn’t lose your place.</li>
           <li>
             Small preferences — whether the sidebar is collapsed, whether you’ve seen the intro tour, whether
-            we’ve already asked “What stopped you?” (we only ask once).
+            we’ve already asked why you didn’t buy (we only ask once).
           </li>
         </List>
         Clearing your browser’s site data for getdealo.in removes all of it, and gives you a fresh identifier.

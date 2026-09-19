@@ -48,6 +48,11 @@ export const useUiStore = create(
       // them. Not persisted: it describes this visit only.
       buyLinkClicked: false,
       markBuyLinkClicked: () => set({ buyLinkClicked: true }),
+      // True while the "Not buying? Tell us why" pill is on screen. The
+      // floating WhatsApp button hides its phone-only label then, since both
+      // sit along the bottom edge and would overlap. Not persisted.
+      dropOffPromptVisible: false,
+      setDropOffPromptVisible: (value) => set({ dropOffPromptVisible: value }),
       skipTour: () => {
         set({ tourActive: false, tourStep: 0 });
         get().markOnboardingSeen();

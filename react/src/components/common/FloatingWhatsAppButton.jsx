@@ -1,5 +1,6 @@
 import { Box, Link, Tooltip } from '@chakra-ui/react';
 
+import { useUiStore } from '@/store/uiStore';
 import { track } from '@/utils/analytics';
 import { botWhatsAppHref } from '@/utils/whatsappLink';
 
@@ -12,6 +13,9 @@ import { botWhatsAppHref } from '@/utils/whatsappLink';
  */
 export default function FloatingWhatsAppButton() {
   const href = botWhatsAppHref();
+  // The drop-off feedback pill sits along the same bottom edge; the label
+  // steps aside while it's up so the two don't overlap on a phone.
+  const dropOffPromptVisible = useUiStore((s) => s.dropOffPromptVisible);
 
   return (
     <Box position="fixed" bottom={{ base: '20px', md: '28px' }} right={{ base: '16px', md: '28px' }} zIndex={15}>
@@ -22,7 +26,7 @@ export default function FloatingWhatsAppButton() {
           around. Desktop keeps the hover Tooltip only — this stays
           hidden there since it'd be redundant with it. */}
       <Box
-        display={{ base: 'block', md: 'none' }}
+        display={{ base: dropOffPromptVisible ? 'none' : 'block', md: 'none' }}
         position="absolute"
         top="50%"
         right="100%"
