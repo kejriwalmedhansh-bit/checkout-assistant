@@ -13,10 +13,12 @@ const TIP_MS = 5000;
  * building routes, ProductSelectPage fetching candidates).
  *
  * Instead of bouncing dots, it shows the outline of what's about to arrive —
- * a faint preview of the product list or of the savings + steps — with a
- * soft light passing left to right across every grey block. That tells the
- * user "your answer is being put together, and it will look like this", and
- * the real content lands in the same place without a jump.
+ * a faint preview of the product list or of the savings + steps — each
+ * grey block filling left to right like a loading bar, top to bottom. Both
+ * previews use the same neutral colours so the two waits look like one
+ * product. That tells the user "your answer is being put together, and it
+ * will look like this", and the real content lands in the same place
+ * without a jump.
  *
  * Above it, a rotating tip (first, so it's on screen even on short phones).
  * Dealo's core trust gap is that gift vouchers are an unfamiliar concept (see
@@ -122,37 +124,37 @@ function TipText({ children }) {
   );
 }
 
-// Base colour and the lighter band that sweeps across it, per tone.
-const TONES = {
-  neutral: ['#EFEDE5', '#FAF9F5'],
-  green: ['#D3E6D9', '#E9F3EC'],
-};
-
 /**
- * One grey placeholder block. A lighter band slides across it left to right,
- * on a loop. The band is sized to the screen, not the block, so every block
- * on the page moves at the same speed and the light reads as one wave
- * passing over the whole preview.
+ * One grey placeholder block that fills up left to right like a loading bar,
+ * then fades and starts again. `order` staggers the start from the top of
+ * the preview down, so the fill flows through the outline block by block.
+ * Moves with transform only.
  */
-function Bone({ w, h = '10px', tone = 'neutral', borderRadius = '99px', ...rest }) {
-  const [base, light] = TONES[tone];
+function Bone({ w, h = '10px', borderRadius = '99px', order = 0, ...rest }) {
   return (
     <Box
       w={w}
       h={h}
       borderRadius={borderRadius}
-      bg={base}
+      bg="#F2F0EA"
+      position="relative"
+      overflow="hidden"
       sx={{
-        backgroundImage: `linear-gradient(90deg, ${base} 0%, ${base} 35%, ${light} 50%, ${base} 65%, ${base} 100%)`,
-        backgroundSize: '200vw 100%',
-        backgroundRepeat: 'no-repeat',
-        backgroundPosition: '-150vw 0',
-        animation: 'dealoBoneSweep 1.6s ease-in-out infinite',
-        '@keyframes dealoBoneSweep': {
-          from: { backgroundPosition: '-150vw 0' },
-          to: { backgroundPosition: '0vw 0' },
+        '&::after': {
+          content: '""',
+          position: 'absolute',
+          inset: 0,
+          bg: '#DEDACD',
+          transformOrigin: 'left',
+          transform: 'scaleX(0)',
+          animation: `dealoBoneFill 1.8s cubic-bezier(0.65, 0, 0.35, 1) ${order * 0.1}s infinite`,
         },
-        '@media (prefers-reduced-motion: reduce)': { animation: 'none' },
+        '@keyframes dealoBoneFill': {
+          '0%': { transform: 'scaleX(0)', opacity: 1 },
+          '60%': { transform: 'scaleX(1)', opacity: 1 },
+          '85%, 100%': { transform: 'scaleX(1)', opacity: 0 },
+        },
+        '@media (prefers-reduced-motion: reduce)': { '&::after': { animation: 'none' } },
       }}
       {...rest}
     />
@@ -164,27 +166,25 @@ function RoutesOutline() {
   return (
     <Flex direction="column" gap="10px">
       <Card p="14px" display="flex" alignItems="center" gap="12px" boxShadow="none">
-        <Bone w="44px" h="44px" flex="0 0 44px" borderRadius="10px" />
+        <Bone w="44px" h="44px" flex="0 0 44px" borderRadius="10px" order={0} />
         <Flex direction="column" gap="8px" flex="1">
-          <Bone w="70%" h="12px" />
-          <Bone w="40%" />
+          <Bone w="70%" h="12px" order={1} />
+          <Bone w="40%" order={2} />
         </Flex>
       </Card>
-      <Box bg="greenSoft" border="1px solid" borderColor="border" borderRadius="md" p="16px">
-        <Flex align="center" gap="14px">
-          <Bone w="40px" h="40px" flex="0 0 40px" borderRadius="50%" tone="green" />
-          <Flex direction="column" gap="8px" flex="1">
-            <Bone w="30%" tone="green" />
-            <Bone w="55%" h="18px" tone="green" />
-          </Flex>
+      <Card p="16px" display="flex" alignItems="center" gap="14px" boxShadow="none">
+        <Bone w="40px" h="40px" flex="0 0 40px" borderRadius="50%" order={3} />
+        <Flex direction="column" gap="8px" flex="1">
+          <Bone w="30%" order={4} />
+          <Bone w="55%" h="18px" order={5} />
         </Flex>
-      </Box>
+      </Card>
       <Card p="18px" boxShadow="none">
         <Flex direction="column" align="center" gap="10px">
-          <Bone w="30px" h="30px" borderRadius="50%" />
-          <Bone w="50%" h="14px" />
-          <Bone w="35%" />
-          <Bone w="100%" h="44px" mt="8px" borderRadius="12px" />
+          <Bone w="30px" h="30px" borderRadius="50%" order={6} />
+          <Bone w="50%" h="14px" order={7} />
+          <Bone w="35%" order={8} />
+          <Bone w="100%" h="44px" mt="8px" borderRadius="12px" order={9} />
         </Flex>
       </Card>
     </Flex>
@@ -197,12 +197,12 @@ function ProductsOutline() {
     <Flex direction="column" gap="10px">
       {[0, 1, 2].map((i) => (
         <Card key={i} p="14px" display="flex" alignItems="center" gap="12px" boxShadow="none">
-          <Bone w="56px" h="56px" flex="0 0 56px" borderRadius="10px" />
+          <Bone w="56px" h="56px" flex="0 0 56px" borderRadius="10px" order={i * 3} />
           <Flex direction="column" gap="8px" flex="1" minW={0}>
-            <Bone w={['80%', '65%', '72%'][i]} h="12px" />
-            <Bone w="45%" />
+            <Bone w={['80%', '65%', '72%'][i]} h="12px" order={i * 3 + 1} />
+            <Bone w="45%" order={i * 3 + 2} />
           </Flex>
-          <Bone w="56px" h="28px" flex="0 0 56px" borderRadius="8px" />
+          <Bone w="56px" h="28px" flex="0 0 56px" borderRadius="8px" order={i * 3 + 1} />
         </Card>
       ))}
     </Flex>
