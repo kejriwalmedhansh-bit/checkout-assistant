@@ -2,23 +2,29 @@ import { useEffect, useState } from 'react';
 import { Box, Flex, Text } from '@chakra-ui/react';
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion';
 
-import { EASE_OUT, EASE_IN_OUT_CSS } from '@/theme/motion';
+import { EASE_OUT } from '@/theme/motion';
 import Card from './Card';
 import { I } from './icons';
+
+const TIP_MS = 5000;
 
 /**
  * Waiting state for any page blocked on a real network call (ResultsPage
  * building routes, ProductSelectPage fetching candidates).
  *
  * Instead of bouncing dots, it shows the outline of what's about to arrive —
- * a faint preview of the product list or of the savings + steps — with one
- * slow light sweep across it. That tells the user "your answer is being put
- * together, and it will look like this", and the real content lands in the
- * same place without a jump.
+ * a faint preview of the product list or of the savings + steps — each
+ * grey block filling left to right like a loading bar, all together. Both
+ * previews use the same neutral colours so the two waits look like one
+ * product. That tells the user "your answer is being put together, and it
+ * will look like this", and the real content lands in the same place
+ * without a jump.
  *
- * Above it, a rotating tip (first, so it's on screen even on short phones). Dealo's core trust gap is that gift vouchers
- * are an unfamiliar concept (see PRODUCT.md), so this dead time is spent on
- * that. Tips loop since there's no "final" tip to land on.
+ * Above it, a rotating tip (first, so it's on screen even on short phones).
+ * Dealo's core trust gap is that gift vouchers are an unfamiliar concept (see
+ * PRODUCT.md), so this dead time is spent on that. A thin bar per tip fills
+ * while each one is showing, like story progress — it says how long until
+ * the next tip, and doubles as a sign that work is under way.
  *
  * @param {string[]} tips
  * @param {'routes'|'products'} variant  which page's outline to preview
@@ -27,81 +33,151 @@ export default function LoadingCard({ tips, variant = 'routes' }) {
   const [idx, setIdx] = useState(0);
   const prefersReduced = useReducedMotion();
   useEffect(() => {
-    const t = setInterval(() => setIdx((i) => (i + 1) % tips.length), 5000);
+    const t = setInterval(() => setIdx((i) => (i + 1) % tips.length), TIP_MS);
     return () => clearInterval(t);
   }, [tips]);
 
   const tip = tips[idx];
 
   return (
-    <Flex justify="center" pt={{ base: '8px', md: '40px' }} w="100%">
+    <Flex justify="center" pt={{ base: '4px', md: '40px' }} w="100%">
       <Box w="100%" maxW="440px" role="status" aria-live="polite" aria-label="Finding the best price">
-        <Flex mb="14px" gap="10px" align="flex-start" bg="brandSoft" borderRadius="sm" px="14px" py="12px" minH="64px">
-          <Flex color="brand" flex="0 0 auto" mt="2px">
-            <I.bulb size={16} />
-          </Flex>
-          <Box position="relative" flex="1" minW={0}>
-            {prefersReduced ? (
-              <Text fontSize="13.5px" color="text" lineHeight={1.5}>
-                {tip}
+        <Card p="14px 16px 12px" mb="12px" boxShadow="none">
+          <Flex gap="12px" align="center" minH="44px">
+            <Flex
+              flex="0 0 36px"
+              w="36px"
+              h="36px"
+              borderRadius="50%"
+              bg="brandSoft"
+              color="brand"
+              align="center"
+              justify="center"
+            >
+              <I.bulb size={17} />
+            </Flex>
+            <Box position="relative" flex="1" minW={0}>
+              <Text
+                fontSize="10.5px"
+                fontWeight={700}
+                letterSpacing=".08em"
+                textTransform="uppercase"
+                color="text3"
+                mb="2px"
+              >
+                Good to know
               </Text>
-            ) : (
-              <AnimatePresence mode="wait" initial={false}>
-                <motion.div
-                  key={idx}
-                  initial={{ opacity: 0, transform: 'translateY(4px)', filter: 'blur(2px)' }}
-                  animate={{ opacity: 1, transform: 'translateY(0px)', filter: 'blur(0px)' }}
-                  exit={{ opacity: 0, transform: 'translateY(-4px)', filter: 'blur(2px)' }}
-                  transition={{ duration: 0.3, ease: EASE_OUT }}
-                >
-                  <Text fontSize="13.5px" color="text" lineHeight={1.5}>
-                    {tip}
-                  </Text>
-                </motion.div>
-              </AnimatePresence>
-            )}
-          </Box>
-        </Flex>
-        <Shimmer animated={!prefersReduced}>{variant === 'products' ? <ProductsOutline /> : <RoutesOutline />}</Shimmer>
+              {prefersReduced ? (
+                <TipText>{tip}</TipText>
+              ) : (
+                <AnimatePresence mode="wait" initial={false}>
+                  <motion.div
+                    key={idx}
+                    initial={{ opacity: 0, transform: 'translateY(4px)', filter: 'blur(2px)' }}
+                    animate={{ opacity: 1, transform: 'translateY(0px)', filter: 'blur(0px)' }}
+                    exit={{ opacity: 0, transform: 'translateY(-4px)', filter: 'blur(2px)' }}
+                    transition={{ duration: 0.3, ease: EASE_OUT }}
+                  >
+                    <TipText>{tip}</TipText>
+                  </motion.div>
+                </AnimatePresence>
+              )}
+            </Box>
+          </Flex>
+
+          <Flex gap="4px" mt="12px" aria-hidden="true">
+            {tips.map((_, i) => (
+              <Box key={i} flex="1" h="3px" borderRadius="99px" bg="surface3" overflow="hidden">
+                <Box
+                  // Remount the current bar on every tip so its fill restarts.
+                  key={i === idx ? `on-${idx}` : 'off'}
+                  h="100%"
+                  bg="brand"
+                  opacity={0.55}
+                  transformOrigin="left"
+                  transform={i < idx || (i === idx && prefersReduced) ? 'scaleX(1)' : 'scaleX(0)'}
+                  sx={
+                    i === idx && !prefersReduced
+                      ? {
+                          animation: `dealoTipFill ${TIP_MS}ms linear forwards`,
+                          '@keyframes dealoTipFill': { to: { transform: 'scaleX(1)' } },
+                        }
+                      : undefined
+                  }
+                />
+              </Box>
+            ))}
+          </Flex>
+        </Card>
+
+        {/* Fades in rather than popping, so the first fill doesn't start
+            on a hard cut. */}
+        <Box
+          sx={{
+            animation: 'dealoOutlineIn .35s ease-out both',
+            '@keyframes dealoOutlineIn': { from: { opacity: 0 } },
+          }}
+        >
+          {variant === 'products' ? <ProductsOutline /> : <RoutesOutline />}
+        </Box>
       </Box>
     </Flex>
   );
 }
 
-/** One slow band of light passing over the outline. Moves with transform only. */
-function Shimmer({ animated, children }) {
+function TipText({ children }) {
   return (
-    <Box
-      position="relative"
-      overflow="hidden"
-      borderRadius="md"
-      sx={
-        animated
-          ? {
-              '&::after': {
-                content: '""',
-                position: 'absolute',
-                inset: 0,
-                pointerEvents: 'none',
-                background: 'linear-gradient(100deg, transparent 20%, rgba(255,255,255,.65) 50%, transparent 80%)',
-                transform: 'translateX(-100%)',
-                animation: `dealoShimmer 1.8s ${EASE_IN_OUT_CSS} infinite`,
-              },
-              '@keyframes dealoShimmer': {
-                '0%': { transform: 'translateX(-100%)' },
-                '70%, 100%': { transform: 'translateX(100%)' },
-              },
-            }
-          : undefined
-      }
-    >
+    <Text fontSize="14px" fontWeight={600} color="text" lineHeight={1.4}>
       {children}
-    </Box>
+    </Text>
   );
 }
 
-function Bar({ w, h = '10px', bg = 'surface3', ...rest }) {
-  return <Box w={w} h={h} bg={bg} borderRadius="99px" {...rest} />;
+/**
+ * One grey placeholder block that fills up left to right like a loading bar,
+ * then fades and starts again. Every block runs on the same clock with no
+ * delay, so the whole preview fills as one. Moves with transform only.
+ */
+function Bone({ w, h = '10px', borderRadius = '99px', ...rest }) {
+  return (
+    <Box
+      w={w}
+      h={h}
+      borderRadius={borderRadius}
+      bg="#EFECE4"
+      position="relative"
+      overflow="hidden"
+      sx={{
+        '&::after': {
+          content: '""',
+          position: 'absolute',
+          inset: 0,
+          bg: '#D5D0C0',
+          transformOrigin: 'left',
+          transform: 'scaleX(0)',
+          animation: 'dealoBoneFill 1.8s cubic-bezier(0.65, 0, 0.35, 1) infinite',
+        },
+        '@keyframes dealoBoneFill': {
+          '0%': { transform: 'scaleX(0)', opacity: 1 },
+          '60%': { transform: 'scaleX(1)', opacity: 1 },
+          '85%, 100%': { transform: 'scaleX(1)', opacity: 0 },
+        },
+        // Phones with Reduce Motion on still need to see that something is
+        // happening: no sliding, just a slow fade in and out.
+        '@keyframes dealoBonePulse': {
+          '0%, 100%': { opacity: 0 },
+          '50%': { opacity: 0.7 },
+        },
+        '@media (prefers-reduced-motion: reduce)': {
+          '&::after': {
+            transform: 'none',
+            animation: 'dealoBonePulse 1.8s ease-in-out infinite',
+          },
+        },
+      }}
+      {...rest}
+    />
+  );
 }
 
 /** The results page, in outline: product, savings band, first step. */
@@ -109,27 +185,25 @@ function RoutesOutline() {
   return (
     <Flex direction="column" gap="10px">
       <Card p="14px" display="flex" alignItems="center" gap="12px" boxShadow="none">
-        <Box w="44px" h="44px" flex="0 0 44px" borderRadius="10px" bg="surface3" />
+        <Bone w="44px" h="44px" flex="0 0 44px" borderRadius="10px" />
         <Flex direction="column" gap="8px" flex="1">
-          <Bar w="70%" h="12px" />
-          <Bar w="40%" />
+          <Bone w="70%" h="12px" />
+          <Bone w="40%" />
         </Flex>
       </Card>
-      <Box bg="greenSoft" border="1px solid" borderColor="border" borderRadius="md" p="16px">
-        <Flex align="center" gap="14px">
-          <Box w="40px" h="40px" flex="0 0 40px" borderRadius="50%" bg="rgba(31,122,82,.14)" />
-          <Flex direction="column" gap="8px" flex="1">
-            <Bar w="30%" bg="rgba(31,122,82,.14)" />
-            <Bar w="55%" h="18px" bg="rgba(31,122,82,.14)" />
-          </Flex>
+      <Card p="16px" display="flex" alignItems="center" gap="14px" boxShadow="none">
+        <Bone w="40px" h="40px" flex="0 0 40px" borderRadius="50%" />
+        <Flex direction="column" gap="8px" flex="1">
+          <Bone w="30%" />
+          <Bone w="55%" h="18px" />
         </Flex>
-      </Box>
+      </Card>
       <Card p="18px" boxShadow="none">
         <Flex direction="column" align="center" gap="10px">
-          <Box w="30px" h="30px" borderRadius="50%" bg="surface3" />
-          <Bar w="50%" h="14px" />
-          <Bar w="35%" />
-          <Box w="100%" h="44px" mt="8px" borderRadius="sm" bg="surface3" />
+          <Bone w="30px" h="30px" borderRadius="50%" />
+          <Bone w="50%" h="14px" />
+          <Bone w="35%" />
+          <Bone w="100%" h="44px" mt="8px" borderRadius="12px" />
         </Flex>
       </Card>
     </Flex>
@@ -142,12 +216,12 @@ function ProductsOutline() {
     <Flex direction="column" gap="10px">
       {[0, 1, 2].map((i) => (
         <Card key={i} p="14px" display="flex" alignItems="center" gap="12px" boxShadow="none">
-          <Box w="56px" h="56px" flex="0 0 56px" borderRadius="10px" bg="surface3" />
+          <Bone w="56px" h="56px" flex="0 0 56px" borderRadius="10px" />
           <Flex direction="column" gap="8px" flex="1" minW={0}>
-            <Bar w={['80%', '65%', '72%'][i]} h="12px" />
-            <Bar w="45%" />
+            <Bone w={['80%', '65%', '72%'][i]} h="12px" />
+            <Bone w="45%" />
           </Flex>
-          <Bar w="56px" h="28px" flex="0 0 56px" borderRadius="8px" />
+          <Bone w="56px" h="28px" flex="0 0 56px" borderRadius="8px" />
         </Card>
       ))}
     </Flex>

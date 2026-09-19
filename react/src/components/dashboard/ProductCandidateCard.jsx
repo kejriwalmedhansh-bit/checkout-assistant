@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { Box, Flex, Image, Text } from '@chakra-ui/react';
 
 import Card from '@/components/common/Card';
@@ -39,6 +40,16 @@ export default function ProductCandidateCard({ product, onSelect, onEnlarge, isS
   // _live_price_candidate in src/services/search_service.py.
   const isVerifiedLive = token?.startsWith('live-price:');
   const { active: thumbnailHighlighted, dim: thumbnailDim } = useTourHighlight(tourId);
+  // Set the moment "Find Better Price" is tapped. The pill fills and sinks
+  // and the page changes a beat later, so the tap is actually seen — going
+  // straight to the next page made it feel like nothing had been pressed.
+  const [pressed, setPressed] = useState(false);
+  const choose = () => {
+    if (pressed) return;
+    setPressed(true);
+    navigator.vibrate?.(10); // a tiny tick on Android; iPhones ignore it
+    setTimeout(() => onSelect(token, title, price, source, thumbnail), 160);
+  };
 
   return (
     <Card
@@ -63,6 +74,8 @@ export default function ProductCandidateCard({ product, onSelect, onEnlarge, isS
         '@media (hover: hover) and (pointer: fine)': {
           '&:hover': { borderColor: 'brand', boxShadow: '0 10px 24px rgba(20,32,54,.12)', transform: 'translateY(-2px)' },
         },
+        // Pressing the pill shouldn't also sink the whole card behind it.
+        '&:has([data-pill]:active)': { transform: 'none' },
         ...REDUCED_MOTION_SX,
       }}
     >
@@ -165,15 +178,17 @@ export default function ProductCandidateCard({ product, onSelect, onEnlarge, isS
               role="button"
               tabIndex={0}
               aria-label="Find better price for this product"
+              data-pill=""
+              data-pressed={pressed || undefined}
               onClick={(e) => {
                 e.stopPropagation();
-                onSelect(token, title, price, source, thumbnail);
+                choose();
               }}
               onKeyDown={(e) => {
                 if (e.key === 'Enter' || e.key === ' ') {
                   e.preventDefault();
                   e.stopPropagation();
-                  onSelect(token, title, price, source, thumbnail);
+                  choose();
                 }
               }}
               align="center"
@@ -186,18 +201,25 @@ export default function ProductCandidateCard({ product, onSelect, onEnlarge, isS
               fontWeight={800}
               whiteSpace="nowrap"
               borderRadius="999px"
-              px="10px"
-              py="5px"
+              px={{ base: '12px', md: '10px' }}
+              py={{ base: '7px', md: '5px' }}
               cursor="pointer"
-              transition="background .18s ease, color .18s ease"
+              transition="background .12s ease, color .12s ease, transform .16s cubic-bezier(0.23, 1, 0.32, 1), box-shadow .16s ease"
+              boxShadow="inset 0 0 0 1px rgba(30,50,80,.10)"
               _hover={{ bg: 'brand', color: 'onBrand' }}
+              _active={{ bg: 'brand', color: 'onBrand', transform: 'scale(0.94)', transitionDuration: '.08s' }}
+              sx={{
+                '&[data-pressed]': { bg: 'brand', color: 'onBrand', transform: 'scale(0.96)' },
+                '&[data-pressed] .pill-arrow': { transform: 'translateX(4px)' },
+              }}
               _focusVisible={{ outline: '2px solid', outlineColor: 'brand', outlineOffset: '2px' }}
             >
               <I.trendUp size={13} />
               Find Better Price
               <Box
+                className="pill-arrow"
                 display="inline-flex"
-                transition="transform .18s cubic-bezier(.16,.68,.32,1)"
+                transition="transform .18s cubic-bezier(0.23, 1, 0.32, 1)"
                 _groupHover={{ transform: 'translateX(4px)' }}
                 sx={REDUCED_MOTION_SX}
               >

@@ -10,7 +10,7 @@ import {
   Link,
   useDisclosure,
 } from '@chakra-ui/react';
-import { Link as RouterLink, Outlet, useLocation, useNavigate } from 'react-router-dom';
+import { Link as RouterLink, Outlet, ScrollRestoration, useLocation, useNavigate } from 'react-router-dom';
 
 import ConsentBanner from '@/components/common/ConsentBanner';
 import FloatingWhatsAppButton from '@/components/common/FloatingWhatsAppButton';
@@ -119,6 +119,11 @@ export default function AppLayout() {
           </DrawerBody>
         </DrawerContent>
       </Drawer>
+
+      {/* Every new page opens at the top; Back returns to where you were.
+          Without this, tapping a product lower down the list opened the
+          results page still scrolled down, with its top hidden. */}
+      <ScrollRestoration />
 
       <Spotlight />
 
