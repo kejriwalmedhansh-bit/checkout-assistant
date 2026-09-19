@@ -14,7 +14,7 @@ const TIP_MS = 5000;
  *
  * Instead of bouncing dots, it shows the outline of what's about to arrive —
  * a faint preview of the product list or of the savings + steps — each
- * grey block filling left to right like a loading bar, top to bottom. Both
+ * grey block filling left to right like a loading bar, all together. Both
  * previews use the same neutral colours so the two waits look like one
  * product. That tells the user "your answer is being put together, and it
  * will look like this", and the real content lands in the same place
@@ -110,7 +110,16 @@ export default function LoadingCard({ tips, variant = 'routes' }) {
           </Flex>
         </Card>
 
-        {variant === 'products' ? <ProductsOutline /> : <RoutesOutline />}
+        {/* Fades in rather than popping, so the first fill doesn't start
+            on a hard cut. */}
+        <Box
+          sx={{
+            animation: 'dealoOutlineIn .35s ease-out both',
+            '@keyframes dealoOutlineIn': { from: { opacity: 0 } },
+          }}
+        >
+          {variant === 'products' ? <ProductsOutline /> : <RoutesOutline />}
+        </Box>
       </Box>
     </Flex>
   );
@@ -126,11 +135,10 @@ function TipText({ children }) {
 
 /**
  * One grey placeholder block that fills up left to right like a loading bar,
- * then fades and starts again. `order` staggers the start from the top of
- * the preview down, so the fill flows through the outline block by block.
- * Moves with transform only.
+ * then fades and starts again. Every block runs on the same clock with no
+ * delay, so the whole preview fills as one. Moves with transform only.
  */
-function Bone({ w, h = '10px', borderRadius = '99px', order = 0, ...rest }) {
+function Bone({ w, h = '10px', borderRadius = '99px', ...rest }) {
   return (
     <Box
       w={w}
@@ -147,7 +155,7 @@ function Bone({ w, h = '10px', borderRadius = '99px', order = 0, ...rest }) {
           bg: '#D5D0C0',
           transformOrigin: 'left',
           transform: 'scaleX(0)',
-          animation: `dealoBoneFill 1.8s cubic-bezier(0.65, 0, 0.35, 1) ${order * 0.1}s infinite`,
+          animation: 'dealoBoneFill 1.8s cubic-bezier(0.65, 0, 0.35, 1) infinite',
         },
         '@keyframes dealoBoneFill': {
           '0%': { transform: 'scaleX(0)', opacity: 1 },
@@ -163,7 +171,7 @@ function Bone({ w, h = '10px', borderRadius = '99px', order = 0, ...rest }) {
         '@media (prefers-reduced-motion: reduce)': {
           '&::after': {
             transform: 'none',
-            animation: `dealoBonePulse 1.8s ease-in-out ${order * 0.1}s infinite`,
+            animation: 'dealoBonePulse 1.8s ease-in-out infinite',
           },
         },
       }}
@@ -177,25 +185,25 @@ function RoutesOutline() {
   return (
     <Flex direction="column" gap="10px">
       <Card p="14px" display="flex" alignItems="center" gap="12px" boxShadow="none">
-        <Bone w="44px" h="44px" flex="0 0 44px" borderRadius="10px" order={0} />
+        <Bone w="44px" h="44px" flex="0 0 44px" borderRadius="10px" />
         <Flex direction="column" gap="8px" flex="1">
-          <Bone w="70%" h="12px" order={1} />
-          <Bone w="40%" order={2} />
+          <Bone w="70%" h="12px" />
+          <Bone w="40%" />
         </Flex>
       </Card>
       <Card p="16px" display="flex" alignItems="center" gap="14px" boxShadow="none">
-        <Bone w="40px" h="40px" flex="0 0 40px" borderRadius="50%" order={3} />
+        <Bone w="40px" h="40px" flex="0 0 40px" borderRadius="50%" />
         <Flex direction="column" gap="8px" flex="1">
-          <Bone w="30%" order={4} />
-          <Bone w="55%" h="18px" order={5} />
+          <Bone w="30%" />
+          <Bone w="55%" h="18px" />
         </Flex>
       </Card>
       <Card p="18px" boxShadow="none">
         <Flex direction="column" align="center" gap="10px">
-          <Bone w="30px" h="30px" borderRadius="50%" order={6} />
-          <Bone w="50%" h="14px" order={7} />
-          <Bone w="35%" order={8} />
-          <Bone w="100%" h="44px" mt="8px" borderRadius="12px" order={9} />
+          <Bone w="30px" h="30px" borderRadius="50%" />
+          <Bone w="50%" h="14px" />
+          <Bone w="35%" />
+          <Bone w="100%" h="44px" mt="8px" borderRadius="12px" />
         </Flex>
       </Card>
     </Flex>
@@ -208,12 +216,12 @@ function ProductsOutline() {
     <Flex direction="column" gap="10px">
       {[0, 1, 2].map((i) => (
         <Card key={i} p="14px" display="flex" alignItems="center" gap="12px" boxShadow="none">
-          <Bone w="56px" h="56px" flex="0 0 56px" borderRadius="10px" order={i * 3} />
+          <Bone w="56px" h="56px" flex="0 0 56px" borderRadius="10px" />
           <Flex direction="column" gap="8px" flex="1" minW={0}>
-            <Bone w={['80%', '65%', '72%'][i]} h="12px" order={i * 3 + 1} />
-            <Bone w="45%" order={i * 3 + 2} />
+            <Bone w={['80%', '65%', '72%'][i]} h="12px" />
+            <Bone w="45%" />
           </Flex>
-          <Bone w="56px" h="28px" flex="0 0 56px" borderRadius="8px" order={i * 3 + 1} />
+          <Bone w="56px" h="28px" flex="0 0 56px" borderRadius="8px" />
         </Card>
       ))}
     </Flex>
