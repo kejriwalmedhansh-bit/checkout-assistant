@@ -211,4 +211,26 @@ export const I = {
       <path d="M12 2a7 7 0 0 0-4 12.7c.6.5 1 1.2 1 2.05V17h6v-.25c0-.85.4-1.55 1-2.05A7 7 0 0 0 12 2Z" />
     </BaseIcon>
   ),
+  help: (p) => (
+    <BaseIcon {...p}>
+      <circle cx="12" cy="12" r="9" />
+      <path d="M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.7.3-1 .8-1 1.5M12 17h.01" />
+    </BaseIcon>
+  ),
+  shield: (p) => (
+    <BaseIcon {...p}>
+      <path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z" />
+      <path d="M12 9v4M12 16h.01" />
+    </BaseIcon>
+  ),
+  list: (p) => (
+    <BaseIcon {...p}>
+      <path d="M4 6h16M4 12h16M4 18h10" />
+    </BaseIcon>
+  ),
+  message: (p) => (
+    <BaseIcon {...p}>
+      <path d="M4 5h16v11H9l-5 4z" />
+    </BaseIcon>
+  ),
 };

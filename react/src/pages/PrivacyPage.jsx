@@ -19,7 +19,7 @@ import { usePageTitle } from '@/hooks/usePageTitle';
  *   - src/cache.py                 — why the server keeps nothing on disk
  *   - extension/src/*.js           — what the extension sends and stores
  */
-const LAST_UPDATED = 'September 17, 2026';
+const LAST_UPDATED = 'September 19, 2026';
 
 function Section({ title, children }) {
   return (
@@ -107,7 +107,8 @@ export default function PrivacyPage() {
         <Box as="ul" m="10px 0 0 18px" p={0} sx={{ '& li': { mb: '6px' } }}>
           <li>
             <strong>What you type is never recorded</strong>, whichever way you answer. The search box and the
-            places your search is shown back to you are blanked out of every replay.
+            places your search is shown back to you are blanked out of every replay. The one exception is a comment
+            you choose to send us in the short “What stopped you?” question — that’s sent as your answer.
           </li>
           <li>
             <strong>Say no and there is no recording at all</strong>, and nothing that identifies your browser.
@@ -131,7 +132,8 @@ export default function PrivacyPage() {
         <SubHeading>How you use the site</SubHeading>
         If you agree to be recorded, we keep a record of what happens as you use Dealo — a search being run
         (including the words you searched), which product you picked, the prices and savings you were shown, which
-        buttons and links you tapped, the pages you viewed, where your visit came from (the website or ad that sent
+        buttons and links you tapped, the pages you viewed, your answer if you reply to the “What stopped you?”
+        question (including any comment you type there), where your visit came from (the website or ad that sent
         you, including any campaign tags in the link), and the replay described above. These are tied to a random
         identifier created by your browser, not to your name. Our analytics provider also derives an approximate
         location — city and region — from your internet connection.
@@ -155,7 +157,10 @@ export default function PrivacyPage() {
             to be recorded. Say no and it is never created; change your mind later and it’s deleted.
           </li>
           <li>Your last search and its results, so a refresh or a trip to a store doesn’t lose your place.</li>
-          <li>Small preferences — whether the sidebar is collapsed, whether you’ve seen the intro tour.</li>
+          <li>
+            Small preferences — whether the sidebar is collapsed, whether you’ve seen the intro tour, whether
+            we’ve already asked “What stopped you?” (we only ask once).
+          </li>
         </List>
         Clearing your browser’s site data for getdealo.in removes all of it, and gives you a fresh identifier.
 

@@ -43,6 +43,11 @@ export const useUiStore = create(
           set({ tourStep: next });
         }
       },
+      // Set the first time a Buy button on the steps is tapped this visit.
+      // Anyone who tapped one isn't a drop-off, so DropOffQuestion never asks
+      // them. Not persisted: it describes this visit only.
+      buyLinkClicked: false,
+      markBuyLinkClicked: () => set({ buyLinkClicked: true }),
       skipTour: () => {
         set({ tourActive: false, tourStep: 0 });
         get().markOnboardingSeen();
