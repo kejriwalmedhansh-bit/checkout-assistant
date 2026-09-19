@@ -63,6 +63,7 @@ export default function Journey({ rec, payingByCard = false, skipVoucher = false
   const tourActive = useUiStore((s) => s.tourActive);
   const tourStep = useUiStore((s) => s.tourStep);
   const advanceTour = useUiStore((s) => s.advanceTour);
+  const markBuyLinkClicked = useUiStore((s) => s.markBuyLinkClicked);
   // Tour steps 2 and 3 (see tourSteps.js) target this component's own
   // voucher-buy and checkout-open buttons — advancing here, at the same
   // click that already checks the step off, keeps the tour tied to the
@@ -73,6 +74,7 @@ export default function Journey({ rec, payingByCard = false, skipVoucher = false
   // easy to miss; this makes the confirmation a moment you actually notice.
   const check = (key) => () => {
     track('Clicked Buy Link', { step: key, merchant: rec.merchant, has_voucher: Boolean(v) });
+    markBuyLinkClicked();
     if (tourActive && tourStep === TOUR_STEP_FOR_KEY[key]) advanceTour();
     setPending((p) => ({ ...p, [key]: true }));
     setTimeout(() => {

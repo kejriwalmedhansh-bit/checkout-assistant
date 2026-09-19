@@ -211,4 +211,12 @@ export const I = {
       <path d="M12 2a7 7 0 0 0-4 12.7c.6.5 1 1.2 1 2.05V17h6v-.25c0-.85.4-1.55 1-2.05A7 7 0 0 0 12 2Z" />
     </BaseIcon>
   ),
+  // Square note with lines — the feedback icon. Deliberately not a round
+  // speech bubble: that reads as WhatsApp, whose button sits right beside it.
+  feedback: (p) => (
+    <BaseIcon {...p}>
+      <path d="M20 15a2 2 0 0 1-2 2H8l-4 4V5a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2z" />
+      <path d="M8 8h8M8 12h5" />
+    </BaseIcon>
+  ),
 };
