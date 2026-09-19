@@ -225,7 +225,10 @@ async def scrape_gyftr(page, target: dict) -> dict:
              "discount": p.get("discount"), "discount_type": p.get("discount_type"),
              "offer_type": p.get("offer_type"),
              # max_value is the per-voucher ceiling on custom-amount brands
-             "max_value": p.get("max_value"), "stock_left": p.get("stock_left")}
+             "max_value": p.get("max_value"), "stock_left": p.get("stock_left"),
+             # 1 = a fixed card, 3 = the page's "type any amount" box (mrp to
+             # max_value), 2 = e-Pay, a wallet top-up sold on its own page.
+             "service_type": p.get("service_type")}
             for p in (data.get("products") or [])
         ]
         raw["default_discount_pct"] = brand.get("defaut_pg_dis")

@@ -69,6 +69,8 @@ class RoutesRequest(BaseModel):
 class DenominationPurchase(BaseModel):
     denom: int
     count: int
+    # Typed into the seller's own amount box rather than picked as a card.
+    typed: bool = False
 
 
 class VoucherUpi(BaseModel):

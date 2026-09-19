@@ -387,6 +387,9 @@ async def _send_voucher_steps(phone: str, route: dict) -> None:
             f"Buy exactly *{breakdown}* {voucher_brand} {voucher_word} on {platform_label} first "
             f"— *{discount_pct}% off*."
         )
+        if denom_breakdown and denom_breakdown[0].get("typed"):
+            # No card of that amount exists: it is typed into the amount box.
+            step1_text += f"\n\nType *{breakdown}* into the amount box, then add it to your cart."
     if txns > 1:
         # The cap number is only worth repeating here when it's the
         # per-transaction platform limit — a real constraint the box above

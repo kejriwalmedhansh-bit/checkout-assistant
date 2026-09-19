@@ -338,3 +338,60 @@ def test_fixed_buttons_beat_one_typed_amount_on_a_big_bill():
     deal = vs.calculate_effective_price(93700, voucher)
     assert deal["denomination_breakdown"] == [{"denom": 10000, "count": 4}], deal["purchase_breakdown"]
     assert deal["voucher_amount"] == 40000
+
+
+def _gyftr_croma(**over):
+    # Croma on Gyftr, 2026-09-19: fixed cards, plus a box to type ₹100-10,000.
+    return {
+        "voucher_platform": "Gyftr", "slug": "croma", "brand_name": "Croma",
+        "denominations": [500, 1000, 2000, 3000, 5000, 10000],
+        "typed_min": 100, "typed_max": 10000,
+        "stack_limit_confidence": "unlimited_stated",
+        "best_discount_pct": 3.0, "discounts": {"UPI": 3.0},
+        **over,
+    }
+
+
+def test_gyftr_types_one_exact_amount_when_it_covers_more():
+    """Gyftr's page lets the shopper type any amount for 128 brands. A ₹4,370
+    Croma order is one typed ₹4,370 voucher, not 2x₹2,000 with ₹370 on the
+    card — and never "3x₹100", a card Croma does not sell. 2026-09-19."""
+    deal = vs.calculate_effective_price(4370, _gyftr_croma())
+    assert deal["denomination_breakdown"] == [{"denom": 4370, "count": 1, "typed": True}]
+    assert deal["remainder_at_checkout"] == 0
+    # Paise round up to the rupee the box takes: well inside the ₹10 rule.
+    assert vs.calculate_effective_price(4369.5, _gyftr_croma())["voucher_amount"] == 4370
+
+
+def test_gyftr_typed_amount_is_one_voucher_within_its_range():
+    """Only one typed voucher is planned: whether Gyftr's cart takes several,
+    or typed and fixed together, needs a login to see and has not been
+    checked. So past ₹10,000 the fixed cards win, and below the box's ₹100
+    minimum it is not offered at all."""
+    deal = vs.calculate_effective_price(12345, _gyftr_croma())
+    assert not any(b.get("typed") for b in deal["denomination_breakdown"])
+    assert deal["voucher_amount"] == 12000
+    small = vs.calculate_effective_price(99, _gyftr_croma(denominations=[]))
+    assert small["voucher_amount"] == 0 and small["remainder_at_checkout"] == 99
+    # A brand sold only through the box (The Body Shop) is still priced.
+    only = vs.calculate_effective_price(2500, _gyftr_croma(denominations=[]))
+    assert only["denomination_breakdown"] == [{"denom": 2500, "count": 1, "typed": True}]
+
+
+def test_gyftr_box_and_epay_minimums_are_not_cards():
+    """Gyftr's feed lists the typed box (service_type 3) and e-Pay (2) with a
+    ₹100 price of their own. Neither is a card, so neither is a denomination."""
+    sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "scripts"))
+    from build_voucher_offers import from_gyftr
+
+    rows = [
+        {"value": 2000, "max_value": 0, "service_type": 1},
+        {"value": 100, "max_value": 10000, "service_type": 3},
+        {"value": 100, "max_value": 10000, "service_type": 2},
+    ]
+    offer = from_gyftr({"raw": {"denominations": rows, "payment_methods": {}}})
+    assert [d["value"] for d in offer["denominations"]] == [2000]
+    assert offer["typed_range"] == [100, 10000]
+    # A scrape from before the field existed says nothing about the box.
+    old = from_gyftr({"raw": {"denominations": [{"value": 2000, "max_value": 0}], "payment_methods": {}}})
+    assert "typed_range" not in old

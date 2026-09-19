@@ -722,6 +722,22 @@ def _clean_instructions(html: str) -> list[str]:
     return result
 
 
+def _typed_amount(price: float, voucher: dict) -> int:
+    """The one typed-in Gyftr voucher that best covers `price`, or 0.
+
+    `typed_min`/`typed_max` come from the "type any amount" box on the brand's
+    Gyftr page (service_type 3 in Gyftr's feed). Rounded up to whole rupees,
+    which the box takes — under ₹1 over the bill, inside the ₹10 rule.
+    """
+    lo, hi = voucher.get("typed_min"), voucher.get("typed_max")
+    if not lo or not hi or price <= 0:
+        return 0
+    amount = min(math.ceil(price), int(hi))
+    if voucher.get("value_cap"):
+        amount = min(amount, int(voucher["value_cap"]))
+    return amount if amount >= lo else 0
+
+
 def _per_txn_rupee_cap(voucher: dict) -> float | None:
     """The most rupees one checkout may spend, where that is a real number.
 
@@ -833,7 +849,13 @@ def calculate_effective_price(price: float, voucher: dict, payment_method: str =
                 custom_txns_needed = None
     else:
         is_custom, fixed_denoms = _parse_denominations(voucher)
-        if is_custom or not fixed_denoms:
+        # A Gyftr brand that sells no fixed card at all, only the typed box
+        # (The Body Shop), is planned entirely by the typed-amount step below.
+        typed_only = bool(voucher.get("typed_max")) and not fixed_denoms
+        if typed_only:
+            is_custom = False
+            voucher_amount, remainder = 0.0, round(float(price), 2)
+        elif is_custom or not fixed_denoms:
             voucher_amount = price
             remainder = 0.0
             is_custom = True
@@ -881,6 +903,23 @@ def calculate_effective_price(price: float, voucher: dict, payment_method: str =
             # purchase by buying ₹5,000 is cheaper than paying it in cash, so
             # the cash remainder floors at zero instead of going negative.
             remainder = round(max(0.0, price - voucher_amount), 2)
+
+        # Gyftr sells most brands two ways on one page: fixed cards, and a box
+        # to type any amount in (Croma, Titan: ₹100-10,000). A ₹4,370 order is
+        # one typed ₹4,370 voucher, not 2x₹2,000 with ₹370 on the card. Only
+        # ONE typed voucher is planned: adding to Gyftr's cart needs a login,
+        # so whether it takes several typed amounts, or typed and fixed
+        # together, has not been seen yet. Whichever costs the shopper less
+        # today wins; on a tie, fewer vouchers.
+        typed = _typed_amount(price, voucher) if discount_pct > 0 else 0
+        if typed:
+            fixed_key = (round(_plan_cost(price, voucher_amount, discount_pct), 2),
+                         sum(b["count"] for b in denomination_breakdown))
+            typed_key = (round(_plan_cost(price, typed, discount_pct), 2), 1)
+            if not voucher_amount or typed_key < fixed_key:
+                voucher_amount = float(typed)
+                denomination_breakdown = [{"denom": typed, "count": 1, "typed": True}]
+                remainder = round(max(0.0, price - voucher_amount), 2)
 
     # Two unrelated caps can both apply to a custom-amount voucher (e.g.
     # Archies Gallery): `custom_max` limits how big a SINGLE voucher can be

@@ -117,6 +117,14 @@ def main() -> None:
                     product["denominations"] = denoms
                     stats["denominations updated"] += 1
 
+                # Gyftr's "type any amount" box. Absent means the scrape did not
+                # look; None means it looked and the brand has no box.
+                if "typed_range" in offer:
+                    lo, hi = (as_int(x) for x in offer["typed_range"]) if offer["typed_range"] else (None, None)
+                    if (product.get("typed_min"), product.get("typed_max")) != (lo, hi):
+                        product["typed_min"], product["typed_max"] = lo, hi
+                        stats["typed amount updated"] += 1
+
                 # A refresh is allowed to correct this flag, but never to set
                 # it in a shape the app cannot price. calculate_effective_price
                 # reads a custom listing off custom_max and quotes nothing when

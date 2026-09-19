@@ -123,7 +123,11 @@
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
     },
-    "confirm_with_cashier": true
+    "confirm_with_cashier": true,
+    "typed_range": [
+      100,
+      10000
+    ]
   },
   "gyftr:archies-gallery": {
     "available": true,
@@ -257,7 +261,11 @@
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
     },
-    "confirm_with_cashier": true
+    "confirm_with_cashier": true,
+    "typed_range": [
+      100,
+      10000
+    ]
   },
   "gyftr:pizza-hut": {
     "available": true,
@@ -378,7 +386,8 @@
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
     },
-    "confirm_with_cashier": true
+    "confirm_with_cashier": true,
+    "typed_range": null
   },
   "gyftr:bata": {
     "available": true,
@@ -449,9 +458,6 @@
         "value": 4000
       },
       {
-        "value": 100
-      },
-      {
         "value": 1000
       }
     ],
@@ -515,7 +521,11 @@
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
     },
-    "confirm_with_cashier": true
+    "confirm_with_cashier": true,
+    "typed_range": [
+      100,
+      10000
+    ]
   },
   "gyftr:costa-coffee": {
     "available": true,
@@ -628,7 +638,8 @@
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
     },
-    "confirm_with_cashier": true
+    "confirm_with_cashier": true,
+    "typed_range": null
   },
   "gyftr:kfc": {
     "available": true,
@@ -729,7 +740,8 @@
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
     },
-    "confirm_with_cashier": true
+    "confirm_with_cashier": true,
+    "typed_range": null
   },
   "gyftr:ferns-n-petals": {
     "available": true,
@@ -842,7 +854,8 @@
       "mixed_denominations": true,
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
-    }
+    },
+    "typed_range": null
   },
   "gyftr:baskin-robbins": {
     "available": true,
@@ -975,7 +988,11 @@
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
     },
-    "confirm_with_cashier": true
+    "confirm_with_cashier": true,
+    "typed_range": [
+      100,
+      10000
+    ]
   },
   "gyftr:hidesign": {
     "available": true,
@@ -1022,9 +1039,6 @@
       }
     },
     "denominations": [
-      {
-        "value": 100
-      },
       {
         "value": 5000
       },
@@ -1095,7 +1109,11 @@
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
     },
-    "confirm_with_cashier": true
+    "confirm_with_cashier": true,
+    "typed_range": [
+      100,
+      10000
+    ]
   },
   "gyftr:croma": {
     "available": true,
@@ -1144,9 +1162,6 @@
     "denominations": [
       {
         "value": 5000
-      },
-      {
-        "value": 100
       },
       {
         "value": 3000
@@ -1213,7 +1228,11 @@
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
     },
-    "confirm_with_cashier": true
+    "confirm_with_cashier": true,
+    "typed_range": [
+      100,
+      10000
+    ]
   },
   "gyftr:home-centre": {
     "available": true,
@@ -1314,7 +1333,8 @@
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
     },
-    "confirm_with_cashier": true
+    "confirm_with_cashier": true,
+    "typed_range": null
   },
   "gyftr:levis": {
     "available": true,
@@ -1433,7 +1453,8 @@
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
     },
-    "confirm_with_cashier": true
+    "confirm_with_cashier": true,
+    "typed_range": null
   },
   "gyftr:pantaloons": {
     "available": true,
@@ -1480,9 +1501,6 @@
       }
     },
     "denominations": [
-      {
-        "value": 100
-      },
       {
         "value": 1000
       },
@@ -1552,7 +1570,11 @@
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
     },
-    "confirm_with_cashier": true
+    "confirm_with_cashier": true,
+    "typed_range": [
+      100,
+      10000
+    ]
   },
   "gyftr:the-raymond-shop": {
     "available": true,
@@ -1601,16 +1623,10 @@
         "value": 1000
       },
       {
-        "value": 100
-      },
-      {
         "value": 500
       },
       {
         "value": 2000
-      },
-      {
-        "value": 100
       }
     ],
     "custom_amount": true,
@@ -1664,7 +1680,11 @@
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
     },
-    "confirm_with_cashier": true
+    "confirm_with_cashier": true,
+    "typed_range": [
+      100,
+      10000
+    ]
   },
   "gyftr:bobbi-brown": {
     "available": true,
@@ -1774,7 +1794,8 @@
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
     },
-    "confirm_with_cashier": true
+    "confirm_with_cashier": true,
+    "typed_range": null
   },
   "gyftr:mainland-china": {
     "available": true,
@@ -1897,7 +1918,8 @@
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
     },
-    "confirm_with_cashier": true
+    "confirm_with_cashier": true,
+    "typed_range": null
   },
   "gyftr:oh-calcutta": {
     "available": true,
@@ -2020,7 +2042,8 @@
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
     },
-    "confirm_with_cashier": true
+    "confirm_with_cashier": true,
+    "typed_range": null
   },
   "gyftr:sweet-bengal": {
     "available": true,
@@ -2122,7 +2145,8 @@
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
     },
-    "confirm_with_cashier": true
+    "confirm_with_cashier": true,
+    "typed_range": null
   },
   "gyftr:myntra": {
     "available": true,
@@ -2234,7 +2258,8 @@
       "mixed_denominations": true,
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
-    }
+    },
+    "typed_range": null
   },
   "gyftr:titan": {
     "available": true,
@@ -2286,9 +2311,6 @@
       },
       {
         "value": 2000
-      },
-      {
-        "value": 100
       },
       {
         "value": 500
@@ -2361,7 +2383,11 @@
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
     },
-    "confirm_with_cashier": true
+    "confirm_with_cashier": true,
+    "typed_range": [
+      100,
+      10000
+    ]
   },
   "gyftr:fastrack": {
     "available": true,
@@ -2482,7 +2508,8 @@
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
     },
-    "confirm_with_cashier": true
+    "confirm_with_cashier": true,
+    "typed_range": null
   },
   "gyftr:prestige": {
     "available": true,
@@ -2534,13 +2561,7 @@
         "value": 500
       },
       {
-        "value": 100
-      },
-      {
         "value": 5000
-      },
-      {
-        "value": 100
       }
     ],
     "custom_amount": false,
@@ -2603,7 +2624,11 @@
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
     },
-    "confirm_with_cashier": true
+    "confirm_with_cashier": true,
+    "typed_range": [
+      100,
+      10000
+    ]
   },
   "gyftr:westside": {
     "available": true,
@@ -2720,7 +2745,8 @@
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
     },
-    "confirm_with_cashier": true
+    "confirm_with_cashier": true,
+    "typed_range": null
   },
   "gyftr:william-penn": {
     "available": true,
@@ -2780,9 +2806,6 @@
       },
       {
         "value": 5000
-      },
-      {
-        "value": 100
       }
     ],
     "custom_amount": false,
@@ -2830,7 +2853,8 @@
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
     },
-    "confirm_with_cashier": true
+    "confirm_with_cashier": true,
+    "typed_range": null
   },
   "gyftr:woodland": {
     "available": true,
@@ -2890,9 +2914,6 @@
       },
       {
         "value": 5000
-      },
-      {
-        "value": 100
       },
       {
         "value": 250
@@ -2956,7 +2977,11 @@
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
     },
-    "confirm_with_cashier": true
+    "confirm_with_cashier": true,
+    "typed_range": [
+      100,
+      10000
+    ]
   },
   "gyftr:hush-puppies": {
     "available": true,
@@ -3016,9 +3041,6 @@
       },
       {
         "value": 7500
-      },
-      {
-        "value": 100
       },
       {
         "value": 4000
@@ -3089,7 +3111,11 @@
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
     },
-    "confirm_with_cashier": true
+    "confirm_with_cashier": true,
+    "typed_range": [
+      100,
+      10000
+    ]
   },
   "gyftr:lifestyle": {
     "available": true,
@@ -3204,7 +3230,8 @@
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
     },
-    "confirm_with_cashier": true
+    "confirm_with_cashier": true,
+    "typed_range": null
   },
   "gyftr:shoppers-stop": {
     "available": true,
@@ -3319,7 +3346,8 @@
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
     },
-    "confirm_with_cashier": true
+    "confirm_with_cashier": true,
+    "typed_range": null
   },
   "gyftr:tanishq": {
     "available": true,
@@ -3411,7 +3439,8 @@
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
     },
-    "confirm_with_cashier": true
+    "confirm_with_cashier": true,
+    "typed_range": null
   },
   "gyftr:helios": {
     "available": true,
@@ -3538,7 +3567,8 @@
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
     },
-    "confirm_with_cashier": true
+    "confirm_with_cashier": true,
+    "typed_range": null
   },
   "gyftr:titan-eye-plus": {
     "available": true,
@@ -3665,7 +3695,8 @@
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
     },
-    "confirm_with_cashier": true
+    "confirm_with_cashier": true,
+    "typed_range": null
   },
   "gyftr:amazon": {
     "available": true,
@@ -3711,9 +3742,6 @@
       },
       {
         "value": 250
-      },
-      {
-        "value": 100
       },
       {
         "value": 1000
@@ -3777,7 +3805,11 @@
       "mixed_denominations": true,
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
-    }
+    },
+    "typed_range": [
+      100,
+      10000
+    ]
   },
   "gyftr:fab-hotels": {
     "available": true,
@@ -3826,9 +3858,6 @@
     "denominations": [
       {
         "value": 1000
-      },
-      {
-        "value": 100
       },
       {
         "value": 500
@@ -3900,7 +3929,11 @@
       "mixed_denominations": true,
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
-    }
+    },
+    "typed_range": [
+      100,
+      10000
+    ]
   },
   "gyftr:relaxo": {
     "available": true,
@@ -3963,9 +3996,6 @@
       },
       {
         "value": 1000
-      },
-      {
-        "value": 100
       }
     ],
     "custom_amount": false,
@@ -4019,7 +4049,8 @@
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
     },
-    "confirm_with_cashier": true
+    "confirm_with_cashier": true,
+    "typed_range": null
   },
   "gyftr:crossword": {
     "available": true,
@@ -4135,7 +4166,11 @@
       "mixed_denominations": true,
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
-    }
+    },
+    "typed_range": [
+      250,
+      10000
+    ]
   },
   "gyftr:aurelia": {
     "available": true,
@@ -4198,9 +4233,6 @@
       },
       {
         "value": 500
-      },
-      {
-        "value": 100
       },
       {
         "value": 250
@@ -4266,7 +4298,11 @@
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
     },
-    "confirm_with_cashier": true
+    "confirm_with_cashier": true,
+    "typed_range": [
+      100,
+      10000
+    ]
   },
   "gyftr:pc-jeweller-gold-coin": {
     "available": true,
@@ -4298,9 +4334,6 @@
       }
     },
     "denominations": [
-      {
-        "value": 100
-      },
       {
         "value": 2000
       },
@@ -4363,7 +4396,11 @@
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
     },
-    "confirm_with_cashier": true
+    "confirm_with_cashier": true,
+    "typed_range": [
+      100,
+      10000
+    ]
   },
   "gyftr:w": {
     "available": true,
@@ -4425,9 +4462,6 @@
         "value": 1000
       },
       {
-        "value": 100
-      },
-      {
         "value": 5000
       }
     ],
@@ -4480,7 +4514,11 @@
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
     },
-    "confirm_with_cashier": true
+    "confirm_with_cashier": true,
+    "typed_range": [
+      100,
+      10000
+    ]
   },
   "gyftr:kalyan-gold-jewellery": {
     "available": true,
@@ -4601,7 +4639,8 @@
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
     },
-    "confirm_with_cashier": true
+    "confirm_with_cashier": true,
+    "typed_range": null
   },
   "gyftr:pc-jeweller-gold": {
     "available": true,
@@ -4653,9 +4692,6 @@
       },
       {
         "value": 5000
-      },
-      {
-        "value": 100
       },
       {
         "value": 2000
@@ -4710,7 +4746,11 @@
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
     },
-    "confirm_with_cashier": true
+    "confirm_with_cashier": true,
+    "typed_range": [
+      100,
+      10000
+    ]
   },
   "gyftr:pc-jeweller-diamond": {
     "available": true,
@@ -4757,9 +4797,6 @@
       }
     },
     "denominations": [
-      {
-        "value": 100
-      },
       {
         "value": 500
       },
@@ -4816,7 +4853,11 @@
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
     },
-    "confirm_with_cashier": true
+    "confirm_with_cashier": true,
+    "typed_range": [
+      100,
+      10000
+    ]
   },
   "gyftr:kama-ayurveda": {
     "available": true,
@@ -4860,9 +4901,6 @@
     "denominations": [
       {
         "value": 2000
-      },
-      {
-        "value": 100
       },
       {
         "value": 500
@@ -4922,7 +4960,11 @@
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
     },
-    "confirm_with_cashier": true
+    "confirm_with_cashier": true,
+    "typed_range": [
+      100,
+      10000
+    ]
   },
   "gyftr:biba": {
     "available": true,
@@ -4987,12 +5029,6 @@
         "value": 2000
       },
       {
-        "value": 100
-      },
-      {
-        "value": 100
-      },
-      {
         "value": 250
       }
     ],
@@ -5044,7 +5080,11 @@
       "mixed_denominations": true,
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
-    }
+    },
+    "typed_range": [
+      100,
+      10000
+    ]
   },
   "gyftr:pvr": {
     "available": true,
@@ -5172,7 +5212,8 @@
       "mixed_denominations": true,
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
-    }
+    },
+    "typed_range": null
   },
   "gyftr:gyftr-pay": {
     "available": true,
@@ -5214,9 +5255,6 @@
       },
       {
         "value": 250
-      },
-      {
-        "value": 100
       },
       {
         "value": 500
@@ -5281,7 +5319,11 @@
       "mixed_denominations": true,
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
-    }
+    },
+    "typed_range": [
+      100,
+      10000
+    ]
   },
   "gyftr:beer-cafe": {
     "available": true,
@@ -5411,7 +5453,11 @@
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
     },
-    "confirm_with_cashier": true
+    "confirm_with_cashier": true,
+    "typed_range": [
+      100,
+      10000
+    ]
   },
   "gyftr:puma": {
     "available": true,
@@ -5544,7 +5590,8 @@
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
     },
-    "confirm_with_cashier": true
+    "confirm_with_cashier": true,
+    "typed_range": null
   },
   "gyftr:points-for-good": {
     "available": true,
@@ -5656,7 +5703,11 @@
       "mixed_denominations": true,
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
-    }
+    },
+    "typed_range": [
+      100,
+      10000
+    ]
   },
   "gyftr:apollo-pharmacy": {
     "available": true,
@@ -5782,7 +5833,8 @@
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
     },
-    "confirm_with_cashier": true
+    "confirm_with_cashier": true,
+    "typed_range": null
   },
   "gyftr:luxe-gift-card": {
     "available": true,
@@ -5898,7 +5950,8 @@
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
     },
-    "confirm_with_cashier": true
+    "confirm_with_cashier": true,
+    "typed_range": null
   },
   "gyftr:the-body-shop": {
     "available": true,
@@ -5949,11 +6002,7 @@
         "processing_fee_pct": 0.0
       }
     },
-    "denominations": [
-      {
-        "value": 100
-      }
-    ],
+    "denominations": [],
     "custom_amount": false,
     "rules": {
       "can_combine_with_store_offers": {
@@ -5995,7 +6044,11 @@
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
     },
-    "confirm_with_cashier": true
+    "confirm_with_cashier": true,
+    "typed_range": [
+      100,
+      10000
+    ]
   },
   "gyftr:bigbasket": {
     "available": true,
@@ -6123,7 +6176,8 @@
       "mixed_denominations": true,
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
-    }
+    },
+    "typed_range": null
   },
   "gyftr:uber": {
     "available": true,
@@ -6223,7 +6277,8 @@
       "mixed_denominations": true,
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
-    }
+    },
+    "typed_range": null
   },
   "gyftr:ketan-diamonds-gold-jewellery": {
     "available": true,
@@ -6277,9 +6332,6 @@
     "denominations": [
       {
         "value": 5000
-      },
-      {
-        "value": 100
       }
     ],
     "custom_amount": false,
@@ -6344,7 +6396,11 @@
       "mixed_denominations": true,
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
-    }
+    },
+    "typed_range": [
+      100,
+      10000
+    ]
   },
   "gyftr:jockey": {
     "available": true,
@@ -6396,9 +6452,6 @@
       }
     },
     "denominations": [
-      {
-        "value": 100
-      },
       {
         "value": 250
       },
@@ -6463,7 +6516,11 @@
       "mixed_denominations": true,
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
-    }
+    },
+    "typed_range": [
+      100,
+      10000
+    ]
   },
   "gyftr:ketan-diamonds-gold-coin": {
     "available": true,
@@ -6515,9 +6572,6 @@
       }
     },
     "denominations": [
-      {
-        "value": 100
-      },
       {
         "value": 2000
       }
@@ -6584,7 +6638,11 @@
       "mixed_denominations": true,
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
-    }
+    },
+    "typed_range": [
+      100,
+      10000
+    ]
   },
   "gyftr:luxe-gift-card-armani-exchange": {
     "available": true,
@@ -6706,7 +6764,8 @@
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
     },
-    "confirm_with_cashier": true
+    "confirm_with_cashier": true,
+    "typed_range": null
   },
   "gyftr:luxe-gift-card-diesel": {
     "available": true,
@@ -6832,7 +6891,8 @@
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
     },
-    "confirm_with_cashier": true
+    "confirm_with_cashier": true,
+    "typed_range": null
   },
   "gyftr:luxe-gift-card-coach": {
     "available": true,
@@ -6950,7 +7010,8 @@
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
     },
-    "confirm_with_cashier": true
+    "confirm_with_cashier": true,
+    "typed_range": null
   },
   "gyftr:luxe-gift-card-gas": {
     "available": true,
@@ -7071,7 +7132,8 @@
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
     },
-    "confirm_with_cashier": true
+    "confirm_with_cashier": true,
+    "typed_range": null
   },
   "gyftr:luxe-gift-card-hamleys": {
     "available": true,
@@ -7197,7 +7259,8 @@
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
     },
-    "confirm_with_cashier": true
+    "confirm_with_cashier": true,
+    "typed_range": null
   },
   "gyftr:luxe-gift-card-hugo-boss": {
     "available": true,
@@ -7308,7 +7371,8 @@
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
     },
-    "confirm_with_cashier": true
+    "confirm_with_cashier": true,
+    "typed_range": null
   },
   "gyftr:luxe-gift-card-michael-kors": {
     "available": true,
@@ -7419,7 +7483,8 @@
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
     },
-    "confirm_with_cashier": true
+    "confirm_with_cashier": true,
+    "typed_range": null
   },
   "gyftr:luxe-gift-card-satya-paul": {
     "available": true,
@@ -7537,7 +7602,8 @@
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
     },
-    "confirm_with_cashier": true
+    "confirm_with_cashier": true,
+    "typed_range": null
   },
   "gyftr:luxe-gift-card-mothercare": {
     "available": true,
@@ -7658,7 +7724,8 @@
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
     },
-    "confirm_with_cashier": true
+    "confirm_with_cashier": true,
+    "typed_range": null
   },
   "gyftr:luxe-gift-card-superdry": {
     "available": true,
@@ -7784,7 +7851,8 @@
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
     },
-    "confirm_with_cashier": true
+    "confirm_with_cashier": true,
+    "typed_range": null
   },
   "gyftr:luxe-gift-card-steve-madden": {
     "available": true,
@@ -7899,7 +7967,8 @@
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
     },
-    "confirm_with_cashier": true
+    "confirm_with_cashier": true,
+    "typed_range": null
   },
   "gyftr:zee5": {
     "available": true,
@@ -8015,7 +8084,8 @@
       "mixed_denominations": true,
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
-    }
+    },
+    "typed_range": null
   },
   "gyftr:the-man-company": {
     "available": true,
@@ -8134,7 +8204,8 @@
       "mixed_denominations": true,
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
-    }
+    },
+    "typed_range": null
   },
   "gyftr:candere-gold-coin": {
     "available": true,
@@ -8194,9 +8265,6 @@
         "value": 2500
       },
       {
-        "value": 100
-      },
-      {
         "value": 1000
       }
     ],
@@ -8252,7 +8320,11 @@
       "mixed_denominations": true,
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
-    }
+    },
+    "typed_range": [
+      100,
+      10000
+    ]
   },
   "gyftr:candere-gold-jewellery": {
     "available": true,
@@ -8299,9 +8371,6 @@
       }
     },
     "denominations": [
-      {
-        "value": 100
-      },
       {
         "value": 5000
       },
@@ -8370,7 +8439,11 @@
       "mixed_denominations": true,
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
-    }
+    },
+    "typed_range": [
+      100,
+      10000
+    ]
   },
   "gyftr:candere-diamond-jewellery": {
     "available": true,
@@ -8417,9 +8490,6 @@
       }
     },
     "denominations": [
-      {
-        "value": 100
-      },
       {
         "value": 1000
       },
@@ -8492,7 +8562,11 @@
       "mixed_denominations": true,
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
-    }
+    },
+    "typed_range": [
+      100,
+      10000
+    ]
   },
   "gyftr:skullcandy": {
     "available": true,
@@ -8550,12 +8624,6 @@
       },
       {
         "value": 3000
-      },
-      {
-        "value": 100
-      },
-      {
-        "value": 100
       }
     ],
     "custom_amount": false,
@@ -8604,7 +8672,11 @@
       "mixed_denominations": true,
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
-    }
+    },
+    "typed_range": [
+      100,
+      10000
+    ]
   },
   "gyftr:netmeds": {
     "available": true,
@@ -8670,9 +8742,6 @@
       },
       {
         "value": 1000
-      },
-      {
-        "value": 100
       }
     ],
     "custom_amount": false,
@@ -8737,7 +8806,8 @@
       "mixed_denominations": true,
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
-    }
+    },
+    "typed_range": null
   },
   "gyftr:elleven": {
     "available": true,
@@ -8856,7 +8926,8 @@
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
     },
-    "confirm_with_cashier": true
+    "confirm_with_cashier": true,
+    "typed_range": null
   },
   "gyftr:fastag-recharge": {
     "available": true,
@@ -8979,7 +9050,11 @@
       "mixed_denominations": true,
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
-    }
+    },
+    "typed_range": [
+      100,
+      10000
+    ]
   },
   "gyftr:max": {
     "available": true,
@@ -9090,7 +9165,8 @@
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
     },
-    "confirm_with_cashier": true
+    "confirm_with_cashier": true,
+    "typed_range": null
   },
   "gyftr:sonyliv": {
     "available": true,
@@ -9219,7 +9295,8 @@
       "mixed_denominations": true,
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
-    }
+    },
+    "typed_range": null
   },
   "gyftr:skechers": {
     "available": true,
@@ -9281,13 +9358,7 @@
         "value": 2000
       },
       {
-        "value": 100
-      },
-      {
         "value": 500
-      },
-      {
-        "value": 100
       }
     ],
     "custom_amount": false,
@@ -9346,7 +9417,11 @@
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
     },
-    "confirm_with_cashier": true
+    "confirm_with_cashier": true,
+    "typed_range": [
+      100,
+      10000
+    ]
   },
   "gyftr:decathlon": {
     "available": true,
@@ -9465,7 +9540,8 @@
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
     },
-    "confirm_with_cashier": true
+    "confirm_with_cashier": true,
+    "typed_range": null
   },
   "gyftr:tata-cliq": {
     "available": true,
@@ -9579,7 +9655,8 @@
       "mixed_denominations": true,
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
-    }
+    },
+    "typed_range": null
   },
   "gyftr:malabar-gold-coin": {
     "available": true,
@@ -9698,7 +9775,8 @@
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
     },
-    "confirm_with_cashier": true
+    "confirm_with_cashier": true,
+    "typed_range": null
   },
   "gyftr:luxe-gift-card-brooks-brothers": {
     "available": true,
@@ -9819,7 +9897,8 @@
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
     },
-    "confirm_with_cashier": true
+    "confirm_with_cashier": true,
+    "typed_range": null
   },
   "gyftr:luxe-gift-card-emporio-armani": {
     "available": true,
@@ -9930,7 +10009,8 @@
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
     },
-    "confirm_with_cashier": true
+    "confirm_with_cashier": true,
+    "typed_range": null
   },
   "gyftr:luxe-gift-card-scotch-soda": {
     "available": true,
@@ -10051,7 +10131,8 @@
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
     },
-    "confirm_with_cashier": true
+    "confirm_with_cashier": true,
+    "typed_range": null
   },
   "gyftr:luxe-gift-card---paul-smith": {
     "available": true,
@@ -10162,7 +10243,8 @@
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
     },
-    "confirm_with_cashier": true
+    "confirm_with_cashier": true,
+    "typed_range": null
   },
   "gyftr:luxe-gift-card---dune": {
     "available": true,
@@ -10283,7 +10365,8 @@
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
     },
-    "confirm_with_cashier": true
+    "confirm_with_cashier": true,
+    "typed_range": null
   },
   "gyftr:ketan-diamonds-diamond-only": {
     "available": true,
@@ -10327,9 +10410,6 @@
     "denominations": [
       {
         "value": 1000
-      },
-      {
-        "value": 100
       },
       {
         "value": 5000
@@ -10402,7 +10482,11 @@
       "mixed_denominations": true,
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
-    }
+    },
+    "typed_range": [
+      100,
+      10000
+    ]
   },
   "gyftr:euphoria-jewellery-gold-coin": {
     "available": true,
@@ -10446,9 +10530,6 @@
     "denominations": [
       {
         "value": 250
-      },
-      {
-        "value": 100
       },
       {
         "value": 10000
@@ -10522,7 +10603,11 @@
       "mixed_denominations": true,
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
-    }
+    },
+    "typed_range": [
+      100,
+      10000
+    ]
   },
   "gyftr:lifestyle-online": {
     "available": true,
@@ -10633,7 +10718,8 @@
       "mixed_denominations": true,
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
-    }
+    },
+    "typed_range": null
   },
   "gyftr:taneira": {
     "available": true,
@@ -10747,7 +10833,8 @@
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
     },
-    "confirm_with_cashier": true
+    "confirm_with_cashier": true,
+    "typed_range": null
   },
   "gyftr:swiggy-gv": {
     "available": true,
@@ -10866,7 +10953,8 @@
       "mixed_denominations": true,
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
-    }
+    },
+    "typed_range": null
   },
   "gyftr:vijay-sales": {
     "available": true,
@@ -10923,9 +11011,6 @@
         "value": 1000
       },
       {
-        "value": 100
-      },
-      {
         "value": 5000
       }
     ],
@@ -10978,7 +11063,11 @@
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
     },
-    "confirm_with_cashier": true
+    "confirm_with_cashier": true,
+    "typed_range": [
+      100,
+      10000
+    ]
   },
   "gyftr:healthians": {
     "available": true,
@@ -11026,9 +11115,6 @@
     },
     "denominations": [
       {
-        "value": 100
-      },
-      {
         "value": 500
       },
       {
@@ -11036,9 +11122,6 @@
       },
       {
         "value": 1000
-      },
-      {
-        "value": 100
       }
     ],
     "custom_amount": false,
@@ -11089,7 +11172,11 @@
       "mixed_denominations": true,
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
-    }
+    },
+    "typed_range": [
+      100,
+      10000
+    ]
   },
   "gyftr:skinn": {
     "available": true,
@@ -11201,7 +11288,8 @@
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
     },
-    "confirm_with_cashier": true
+    "confirm_with_cashier": true,
+    "typed_range": null
   },
   "gyftr:mia": {
     "available": true,
@@ -11319,7 +11407,8 @@
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
     },
-    "confirm_with_cashier": true
+    "confirm_with_cashier": true,
+    "typed_range": null
   },
   "gyftr:titan-minimals": {
     "available": true,
@@ -11422,7 +11511,8 @@
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
     },
-    "confirm_with_cashier": true
+    "confirm_with_cashier": true,
+    "typed_range": null
   },
   "gyftr:fastrack-bags": {
     "available": true,
@@ -11538,7 +11628,8 @@
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
     },
-    "confirm_with_cashier": true
+    "confirm_with_cashier": true,
+    "typed_range": null
   },
   "gyftr:reliance-my-jio-store": {
     "available": true,
@@ -11675,7 +11766,8 @@
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
     },
-    "confirm_with_cashier": true
+    "confirm_with_cashier": true,
+    "typed_range": null
   },
   "gyftr:chumbak": {
     "available": true,
@@ -11733,9 +11825,6 @@
       },
       {
         "value": 1000
-      },
-      {
-        "value": 100
       }
     ],
     "custom_amount": false,
@@ -11791,7 +11880,8 @@
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
     },
-    "confirm_with_cashier": true
+    "confirm_with_cashier": true,
+    "typed_range": null
   },
   "gyftr:hoichoi": {
     "available": true,
@@ -11894,7 +11984,8 @@
       "mixed_denominations": true,
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
-    }
+    },
+    "typed_range": null
   },
   "gyftr:reliance-digital": {
     "available": true,
@@ -11956,9 +12047,6 @@
       },
       {
         "value": 3000
-      },
-      {
-        "value": 250
       },
       {
         "value": 1500
@@ -12035,7 +12123,11 @@
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
     },
-    "confirm_with_cashier": true
+    "confirm_with_cashier": true,
+    "typed_range": [
+      250,
+      10000
+    ]
   },
   "gyftr:reliance-trends-footwear": {
     "available": true,
@@ -12184,7 +12276,8 @@
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
     },
-    "confirm_with_cashier": true
+    "confirm_with_cashier": true,
+    "typed_range": null
   },
   "gyftr:reliance-trends": {
     "available": true,
@@ -12330,7 +12423,8 @@
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
     },
-    "confirm_with_cashier": true
+    "confirm_with_cashier": true,
+    "typed_range": null
   },
   "gyftr:reliance-smart-point": {
     "available": true,
@@ -12440,7 +12534,8 @@
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
     },
-    "confirm_with_cashier": true
+    "confirm_with_cashier": true,
+    "typed_range": null
   },
   "gyftr:reliance-smart": {
     "available": true,
@@ -12576,7 +12671,8 @@
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
     },
-    "confirm_with_cashier": true
+    "confirm_with_cashier": true,
+    "typed_range": null
   },
   "gyftr:barbeque-nation": {
     "available": true,
@@ -12623,9 +12719,6 @@
       }
     },
     "denominations": [
-      {
-        "value": 100
-      },
       {
         "value": 500
       },
@@ -12699,7 +12792,11 @@
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
     },
-    "confirm_with_cashier": true
+    "confirm_with_cashier": true,
+    "typed_range": [
+      100,
+      10000
+    ]
   },
   "gyftr:organic-india": {
     "available": true,
@@ -12762,12 +12859,6 @@
       },
       {
         "value": 1000
-      },
-      {
-        "value": 100
-      },
-      {
-        "value": 100
       }
     ],
     "custom_amount": false,
@@ -12826,7 +12917,11 @@
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
     },
-    "confirm_with_cashier": true
+    "confirm_with_cashier": true,
+    "typed_range": [
+      100,
+      10000
+    ]
   },
   "gyftr:reliance-jewels": {
     "available": true,
@@ -12967,7 +13062,8 @@
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
     },
-    "confirm_with_cashier": true
+    "confirm_with_cashier": true,
+    "typed_range": null
   },
   "gyftr:euphoria-jewellery-silver-coin": {
     "available": true,
@@ -13016,9 +13112,6 @@
     "denominations": [
       {
         "value": 1000
-      },
-      {
-        "value": 100
       },
       {
         "value": 500
@@ -13080,7 +13173,11 @@
       "mixed_denominations": true,
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
-    }
+    },
+    "typed_range": [
+      100,
+      10000
+    ]
   },
   "gyftr:cafe-delhi-heights": {
     "available": true,
@@ -13123,9 +13220,6 @@
     },
     "denominations": [
       {
-        "value": 100
-      },
-      {
         "value": 1000
       },
       {
@@ -13133,9 +13227,6 @@
       },
       {
         "value": 500
-      },
-      {
-        "value": 100
       },
       {
         "value": 250
@@ -13190,7 +13281,11 @@
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
     },
-    "confirm_with_cashier": true
+    "confirm_with_cashier": true,
+    "typed_range": [
+      100,
+      10000
+    ]
   },
   "gyftr:wildcraft": {
     "available": true,
@@ -13253,9 +13348,6 @@
       },
       {
         "value": 2000
-      },
-      {
-        "value": 100
       }
     ],
     "custom_amount": false,
@@ -13313,7 +13405,8 @@
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
     },
-    "confirm_with_cashier": true
+    "confirm_with_cashier": true,
+    "typed_range": null
   },
   "gyftr:wow-momo": {
     "available": true,
@@ -13442,7 +13535,11 @@
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
     },
-    "confirm_with_cashier": true
+    "confirm_with_cashier": true,
+    "typed_range": [
+      100,
+      10000
+    ]
   },
   "gyftr:wow-china": {
     "available": true,
@@ -13560,7 +13657,11 @@
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
     },
-    "confirm_with_cashier": true
+    "confirm_with_cashier": true,
+    "typed_range": [
+      100,
+      10000
+    ]
   },
   "gyftr:braingymjr": {
     "available": true,
@@ -13738,12 +13839,6 @@
       },
       {
         "value": 2500
-      },
-      {
-        "value": 100
-      },
-      {
-        "value": 100
       }
     ],
     "custom_amount": false,
@@ -13806,7 +13901,11 @@
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
     },
-    "confirm_with_cashier": true
+    "confirm_with_cashier": true,
+    "typed_range": [
+      100,
+      10000
+    ]
   },
   "gyftr:estele": {
     "available": true,
@@ -13917,7 +14016,8 @@
       "mixed_denominations": true,
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
-    }
+    },
+    "typed_range": null
   },
   "gyftr:timezone": {
     "available": true,
@@ -14039,7 +14139,8 @@
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
     },
-    "confirm_with_cashier": true
+    "confirm_with_cashier": true,
+    "typed_range": null
   },
   "gyftr:gaanaplus": {
     "available": true,
@@ -14140,7 +14241,8 @@
       "mixed_denominations": true,
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
-    }
+    },
+    "typed_range": null
   },
   "gyftr:itc-hotels": {
     "available": true,
@@ -14264,7 +14366,8 @@
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
     },
-    "confirm_with_cashier": true
+    "confirm_with_cashier": true,
+    "typed_range": null
   },
   "gyftr:veridicus": {
     "available": false,
@@ -14355,7 +14458,8 @@
       "mixed_denominations": true,
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
-    }
+    },
+    "typed_range": null
   },
   "gyftr:ovenstory-pizza": {
     "available": false,
@@ -14425,7 +14529,8 @@
       "mixed_denominations": true,
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
-    }
+    },
+    "typed_range": null
   },
   "gyftr:behrouz-biryani": {
     "available": true,
@@ -14477,9 +14582,6 @@
       }
     },
     "denominations": [
-      {
-        "value": 100
-      },
       {
         "value": 1000
       },
@@ -14550,7 +14652,11 @@
       "mixed_denominations": true,
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
-    }
+    },
+    "typed_range": [
+      100,
+      10000
+    ]
   },
   "gyftr:airtel-xstream": {
     "available": false,
@@ -14637,7 +14743,8 @@
       "mixed_denominations": true,
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
-    }
+    },
+    "typed_range": null
   },
   "gyftr:v-mart": {
     "available": true,
@@ -14743,7 +14850,8 @@
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
     },
-    "confirm_with_cashier": true
+    "confirm_with_cashier": true,
+    "typed_range": null
   },
   "gyftr:freecultr": {
     "available": true,
@@ -14842,7 +14950,8 @@
       "mixed_denominations": true,
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
-    }
+    },
+    "typed_range": null
   },
   "gyftr:troll-beads": {
     "available": false,
@@ -14925,7 +15034,8 @@
       "mixed_denominations": true,
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
-    }
+    },
+    "typed_range": null
   },
   "gyftr:superbottoms": {
     "available": true,
@@ -15021,7 +15131,8 @@
       "mixed_denominations": true,
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
-    }
+    },
+    "typed_range": null
   },
   "gyftr:smile-foundation": {
     "available": true,
@@ -15072,9 +15183,6 @@
         "value": 1000
       },
       {
-        "value": 100
-      },
-      {
         "value": 5000
       },
       {
@@ -15082,9 +15190,6 @@
       },
       {
         "value": 500
-      },
-      {
-        "value": 100
       }
     ],
     "custom_amount": false,
@@ -15139,7 +15244,11 @@
       "mixed_denominations": true,
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
-    }
+    },
+    "typed_range": [
+      100,
+      10000
+    ]
   },
   "gyftr:discovery-plus": {
     "available": true,
@@ -15342,7 +15451,8 @@
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
     },
-    "confirm_with_cashier": true
+    "confirm_with_cashier": true,
+    "typed_range": null
   },
   "gyftr:cleartrip-hotel": {
     "available": true,
@@ -15460,7 +15570,8 @@
       "mixed_denominations": true,
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
-    }
+    },
+    "typed_range": null
   },
   "gyftr:cleartrip-generic": {
     "available": true,
@@ -15569,7 +15680,8 @@
       "mixed_denominations": true,
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
-    }
+    },
+    "typed_range": null
   },
   "gyftr:the-skin-story": {
     "available": false,
@@ -15660,7 +15772,8 @@
       "mixed_denominations": true,
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
-    }
+    },
+    "typed_range": null
   },
   "gyftr:shiv-naresh": {
     "available": false,
@@ -15743,7 +15856,8 @@
       "mixed_denominations": true,
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
-    }
+    },
+    "typed_range": null
   },
   "gyftr:chicago-pizza": {
     "available": false,
@@ -15851,7 +15965,8 @@
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
     },
-    "confirm_with_cashier": true
+    "confirm_with_cashier": true,
+    "typed_range": null
   },
   "gyftr:nykaa-fashion": {
     "available": true,
@@ -15955,7 +16070,8 @@
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
     },
-    "confirm_with_cashier": true
+    "confirm_with_cashier": true,
+    "typed_range": null
   },
   "gyftr:gv-irctc": {
     "available": true,
@@ -15995,9 +16111,6 @@
       },
       {
         "value": 500
-      },
-      {
-        "value": 100
       }
     ],
     "custom_amount": false,
@@ -16044,7 +16157,8 @@
       "mixed_denominations": true,
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
-    }
+    },
+    "typed_range": null
   },
   "gyftr:swiggy-one-lite-membership": {
     "available": false,
@@ -16114,7 +16228,8 @@
       "mixed_denominations": true,
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
-    }
+    },
+    "typed_range": null
   },
   "gyftr:tata-cliq-luxury": {
     "available": true,
@@ -16233,7 +16348,8 @@
       "mixed_denominations": true,
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
-    }
+    },
+    "typed_range": null
   },
   "gyftr:makemytrip-e-pay": {
     "available": true,
@@ -16359,7 +16475,8 @@
       "mixed_denominations": true,
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
-    }
+    },
+    "typed_range": null
   },
   "gyftr:makemytrip-holiday-e-pay": {
     "available": true,
@@ -16492,7 +16609,8 @@
       "mixed_denominations": true,
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
-    }
+    },
+    "typed_range": null
   },
   "gyftr:cult-gift-card": {
     "available": true,
@@ -16615,7 +16733,8 @@
       "mixed_denominations": true,
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
-    }
+    },
+    "typed_range": null
   },
   "gyftr:marks-&-spencer": {
     "available": true,
@@ -16672,9 +16791,6 @@
       },
       {
         "value": 2000
-      },
-      {
-        "value": 100
       },
       {
         "value": 7500
@@ -16738,7 +16854,11 @@
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
     },
-    "confirm_with_cashier": true
+    "confirm_with_cashier": true,
+    "typed_range": [
+      100,
+      10000
+    ]
   },
   "gyftr:fashion-factory": {
     "available": true,
@@ -16873,7 +16993,8 @@
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
     },
-    "confirm_with_cashier": true
+    "confirm_with_cashier": true,
+    "typed_range": null
   },
   "gyftr:muthoot-gold-voucher": {
     "available": true,
@@ -16968,7 +17089,8 @@
       "mixed_denominations": true,
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
-    }
+    },
+    "typed_range": null
   },
   "gyftr:shopy-vision": {
     "available": true,
@@ -17073,7 +17195,8 @@
       "mixed_denominations": true,
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
-    }
+    },
+    "typed_range": null
   },
   "gyftr:flower-aura": {
     "available": true,
@@ -17196,7 +17319,8 @@
       "mixed_denominations": true,
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
-    }
+    },
+    "typed_range": null
   },
   "gyftr:ixigo": {
     "available": true,
@@ -17305,7 +17429,8 @@
       "mixed_denominations": true,
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
-    }
+    },
+    "typed_range": null
   },
   "gyftr:vrott": {
     "available": true,
@@ -17419,7 +17544,8 @@
       "mixed_denominations": true,
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
-    }
+    },
+    "typed_range": null
   },
   "gyftr:dpauls-travel-&-tours": {
     "available": true,
@@ -17534,7 +17660,8 @@
       "mixed_denominations": true,
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
-    }
+    },
+    "typed_range": null
   },
   "gyftr:campus": {
     "available": true,
@@ -17593,13 +17720,7 @@
         "value": 1000
       },
       {
-        "value": 100
-      },
-      {
         "value": 2000
-      },
-      {
-        "value": 100
       }
     ],
     "custom_amount": false,
@@ -17653,7 +17774,11 @@
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
     },
-    "confirm_with_cashier": true
+    "confirm_with_cashier": true,
+    "typed_range": [
+      100,
+      10000
+    ]
   },
   "gyftr:amazon-prime-membership": {
     "available": true,
@@ -17824,9 +17949,6 @@
         "value": 5000
       },
       {
-        "value": 100
-      },
-      {
         "value": 3000
       },
       {
@@ -17877,7 +17999,11 @@
       "mixed_denominations": true,
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
-    }
+    },
+    "typed_range": [
+      100,
+      10000
+    ]
   },
   "gyftr:cleartax": {
     "available": true,
@@ -17981,7 +18107,8 @@
       "mixed_denominations": true,
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
-    }
+    },
+    "typed_range": null
   },
   "gyftr:jio-hotstar": {
     "available": true,
@@ -18097,7 +18224,8 @@
       "mixed_denominations": true,
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
-    }
+    },
+    "typed_range": null
   },
   "gyftr:allen-solly-gift-voucher": {
     "available": false,
@@ -18225,7 +18353,8 @@
       "evidence": "Customers can only redeem if they are registered as loyalty members"
     },
     "hidden_reason": "only redeemable by an existing loyalty member",
-    "confirm_with_cashier": true
+    "confirm_with_cashier": true,
+    "typed_range": null
   },
   "gyftr:american-eagle-gift-voucher": {
     "available": true,
@@ -18348,7 +18477,8 @@
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
     },
-    "confirm_with_cashier": true
+    "confirm_with_cashier": true,
+    "typed_range": null
   },
   "gyftr:peter-england-gift-voucher": {
     "available": false,
@@ -18480,7 +18610,8 @@
       "evidence": "Customers can only redeem if they are registered as loyalty members"
     },
     "hidden_reason": "only redeemable by an existing loyalty member",
-    "confirm_with_cashier": true
+    "confirm_with_cashier": true,
+    "typed_range": null
   },
   "gyftr:planet-fashion-gift-voucher": {
     "available": false,
@@ -18602,7 +18733,8 @@
       "evidence": "Customer can only redeem if they are registered as loyalty members"
     },
     "hidden_reason": "only redeemable by an existing loyalty member",
-    "confirm_with_cashier": true
+    "confirm_with_cashier": true,
+    "typed_range": null
   },
   "gyftr:louis-philippe-gift-voucher": {
     "available": true,
@@ -18719,7 +18851,8 @@
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
     },
-    "confirm_with_cashier": true
+    "confirm_with_cashier": true,
+    "typed_range": null
   },
   "gyftr:van-heusen-gift-voucher": {
     "available": false,
@@ -18845,7 +18978,8 @@
       "evidence": "Customers can only redeem if they are registered as loyalty members"
     },
     "hidden_reason": "only redeemable by an existing loyalty member",
-    "confirm_with_cashier": true
+    "confirm_with_cashier": true,
+    "typed_range": null
   },
   "gyftr:simon-carter-gift-voucher": {
     "available": false,
@@ -18977,7 +19111,8 @@
       "evidence": "Customers can only redeem if they are registered as loyalty members"
     },
     "hidden_reason": "only redeemable by an existing loyalty member",
-    "confirm_with_cashier": true
+    "confirm_with_cashier": true,
+    "typed_range": null
   },
   "gyftr:oven-story": {
     "available": true,
@@ -19031,9 +19166,6 @@
     "denominations": [
       {
         "value": 2000
-      },
-      {
-        "value": 100
       },
       {
         "value": 250
@@ -19096,7 +19228,11 @@
       "mixed_denominations": true,
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
-    }
+    },
+    "typed_range": [
+      100,
+      10000
+    ]
   },
   "gyftr:faasos": {
     "available": true,
@@ -19145,9 +19281,6 @@
     "denominations": [
       {
         "value": 1000
-      },
-      {
-        "value": 100
       },
       {
         "value": 1500
@@ -19211,7 +19344,11 @@
       "mixed_denominations": true,
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
-    }
+    },
+    "typed_range": [
+      100,
+      10000
+    ]
   },
   "gyftr:lunch-box": {
     "available": true,
@@ -19265,9 +19402,6 @@
     "denominations": [
       {
         "value": 2000
-      },
-      {
-        "value": 100
       },
       {
         "value": 500
@@ -19334,7 +19468,11 @@
       "mixed_denominations": true,
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
-    }
+    },
+    "typed_range": [
+      100,
+      10000
+    ]
   },
   "gyftr:victoria's-secret-beauty": {
     "available": true,
@@ -19407,9 +19545,6 @@
       },
       {
         "value": 2500
-      },
-      {
-        "value": 100
       }
     ],
     "custom_amount": false,
@@ -19469,7 +19604,8 @@
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
     },
-    "confirm_with_cashier": true
+    "confirm_with_cashier": true,
+    "typed_range": null
   },
   "gyftr:victoria's-secret": {
     "available": true,
@@ -19525,9 +19661,6 @@
         "value": 10000
       },
       {
-        "value": 100
-      },
-      {
         "value": 5000
       },
       {
@@ -19544,9 +19677,6 @@
       },
       {
         "value": 1500
-      },
-      {
-        "value": 100
       }
     ],
     "custom_amount": false,
@@ -19594,7 +19724,11 @@
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
     },
-    "confirm_with_cashier": true
+    "confirm_with_cashier": true,
+    "typed_range": [
+      100,
+      10000
+    ]
   },
   "gyftr:r&b": {
     "available": true,
@@ -19650,16 +19784,10 @@
         "value": 10000
       },
       {
-        "value": 100
-      },
-      {
         "value": 1000
       },
       {
         "value": 7500
-      },
-      {
-        "value": 100
       }
     ],
     "custom_amount": false,
@@ -19719,7 +19847,11 @@
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
     },
-    "confirm_with_cashier": true
+    "confirm_with_cashier": true,
+    "typed_range": [
+      100,
+      10000
+    ]
   },
   "gyftr:inglot": {
     "available": true,
@@ -19781,9 +19913,6 @@
         "value": 10000
       },
       {
-        "value": 100
-      },
-      {
         "value": 500
       },
       {
@@ -19800,9 +19929,6 @@
       },
       {
         "value": 1000
-      },
-      {
-        "value": 100
       }
     ],
     "custom_amount": false,
@@ -19862,7 +19988,11 @@
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
     },
-    "confirm_with_cashier": true
+    "confirm_with_cashier": true,
+    "typed_range": [
+      100,
+      10000
+    ]
   },
   "gyftr:aldo": {
     "available": true,
@@ -19915,9 +20045,6 @@
     },
     "denominations": [
       {
-        "value": 100
-      },
-      {
         "value": 5000
       },
       {
@@ -19946,9 +20073,6 @@
       },
       {
         "value": 7500
-      },
-      {
-        "value": 100
       },
       {
         "value": 2500
@@ -20035,7 +20159,11 @@
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
     },
-    "confirm_with_cashier": true
+    "confirm_with_cashier": true,
+    "typed_range": [
+      100,
+      10000
+    ]
   },
   "gyftr:call-it-spring": {
     "available": true,
@@ -20103,16 +20231,10 @@
         "value": 1000
       },
       {
-        "value": 100
-      },
-      {
         "value": 5000
       },
       {
         "value": 500
-      },
-      {
-        "value": 100
       },
       {
         "value": 10000
@@ -20184,7 +20306,11 @@
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
     },
-    "confirm_with_cashier": true
+    "confirm_with_cashier": true,
+    "typed_range": [
+      100,
+      10000
+    ]
   },
   "gyftr:bath-&-body-works": {
     "available": true,
@@ -20339,7 +20465,11 @@
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
     },
-    "confirm_with_cashier": true
+    "confirm_with_cashier": true,
+    "typed_range": [
+      100,
+      10000
+    ]
   },
   "gyftr:beverly-hills-polo-club": {
     "available": true,
@@ -20458,7 +20588,8 @@
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
     },
-    "confirm_with_cashier": true
+    "confirm_with_cashier": true,
+    "typed_range": null
   },
   "gyftr:pret-a-manger-luxe-gift-card": {
     "available": true,
@@ -20562,7 +20693,8 @@
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
     },
-    "confirm_with_cashier": true
+    "confirm_with_cashier": true,
+    "typed_range": null
   },
   "gyftr:charles-&-keith": {
     "available": true,
@@ -20615,9 +20747,6 @@
     },
     "denominations": [
       {
-        "value": 100
-      },
-      {
         "value": 1500
       },
       {
@@ -20637,9 +20766,6 @@
       },
       {
         "value": 2500
-      },
-      {
-        "value": 100
       },
       {
         "value": 2000
@@ -20711,7 +20837,11 @@
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
     },
-    "confirm_with_cashier": true
+    "confirm_with_cashier": true,
+    "typed_range": [
+      100,
+      10000
+    ]
   },
   "gyftr:bally-luxe-gift-card": {
     "available": true,
@@ -20819,7 +20949,8 @@
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
     },
-    "confirm_with_cashier": true
+    "confirm_with_cashier": true,
+    "typed_range": null
   },
   "gyftr:adidas-kids-luxe-gift-card": {
     "available": true,
@@ -20936,7 +21067,8 @@
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
     },
-    "confirm_with_cashier": true
+    "confirm_with_cashier": true,
+    "typed_range": null
   },
   "gyftr:ea-7--luxe-gift-card": {
     "available": true,
@@ -21046,7 +21178,8 @@
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
     },
-    "confirm_with_cashier": true
+    "confirm_with_cashier": true,
+    "typed_range": null
   },
   "gyftr:giorgio-armani--luxe-gift-card": {
     "available": true,
@@ -21141,7 +21274,8 @@
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
     },
-    "confirm_with_cashier": true
+    "confirm_with_cashier": true,
+    "typed_range": null
   },
   "gyftr:canali--luxe-gift-card": {
     "available": true,
@@ -21251,7 +21385,8 @@
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
     },
-    "confirm_with_cashier": true
+    "confirm_with_cashier": true,
+    "typed_range": null
   },
   "gyftr:hunkemoller--luxe-gift-card": {
     "available": true,
@@ -21361,7 +21496,8 @@
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
     },
-    "confirm_with_cashier": true
+    "confirm_with_cashier": true,
+    "typed_range": null
   },
   "gyftr:kate-spade--luxe-gift-card": {
     "available": true,
@@ -21472,7 +21608,8 @@
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
     },
-    "confirm_with_cashier": true
+    "confirm_with_cashier": true,
+    "typed_range": null
   },
   "gyftr:la-martina--luxe-gift-card": {
     "available": true,
@@ -21583,7 +21720,8 @@
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
     },
-    "confirm_with_cashier": true
+    "confirm_with_cashier": true,
+    "typed_range": null
   },
   "gyftr:pottery-barn--luxe-gift-card": {
     "available": true,
@@ -21681,7 +21819,8 @@
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
     },
-    "confirm_with_cashier": true
+    "confirm_with_cashier": true,
+    "typed_range": null
   },
   "gyftr:malabar-diamonds": {
     "available": true,
@@ -21803,7 +21942,8 @@
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
     },
-    "confirm_with_cashier": true
+    "confirm_with_cashier": true,
+    "typed_range": null
   },
   "gyftr:malabar-jewellery": {
     "available": true,
@@ -21935,7 +22075,8 @@
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
     },
-    "confirm_with_cashier": true
+    "confirm_with_cashier": true,
+    "typed_range": null
   },
   "gyftr:cahoot": {
     "available": true,
@@ -22045,7 +22186,8 @@
       "mixed_denominations": true,
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
-    }
+    },
+    "typed_range": null
   },
   "gyftr:easemytrip-holiday": {
     "available": true,
@@ -22150,7 +22292,8 @@
       "mixed_denominations": true,
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
-    }
+    },
+    "typed_range": null
   },
   "gyftr:tanishq-diamond-jewellery": {
     "available": true,
@@ -22260,7 +22403,8 @@
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
     },
-    "confirm_with_cashier": true
+    "confirm_with_cashier": true,
+    "typed_range": null
   },
   "gyftr:surat-diamonds": {
     "available": true,
@@ -22313,16 +22457,10 @@
     },
     "denominations": [
       {
-        "value": 100
-      },
-      {
         "value": 1000
       },
       {
         "value": 2000
-      },
-      {
-        "value": 100
       }
     ],
     "custom_amount": false,
@@ -22381,7 +22519,11 @@
       "mixed_denominations": true,
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
-    }
+    },
+    "typed_range": [
+      100,
+      10000
+    ]
   },
   "gyftr:hindustan-times-premium": {
     "available": true,
@@ -22485,7 +22627,8 @@
       "mixed_denominations": true,
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
-    }
+    },
+    "typed_range": null
   },
   "gyftr:live-hindustan": {
     "available": true,
@@ -22595,7 +22738,8 @@
       "mixed_denominations": true,
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
-    }
+    },
+    "typed_range": null
   },
   "gyftr:easybuy": {
     "available": true,
@@ -22706,7 +22850,8 @@
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
     },
-    "confirm_with_cashier": true
+    "confirm_with_cashier": true,
+    "typed_range": null
   },
   "gyftr:raymond---ready-to-wear": {
     "available": true,
@@ -22784,9 +22929,6 @@
       },
       {
         "value": 2500
-      },
-      {
-        "value": 100
       }
     ],
     "custom_amount": false,
@@ -22846,7 +22988,8 @@
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
     },
-    "confirm_with_cashier": true
+    "confirm_with_cashier": true,
+    "typed_range": null
   },
   "gyftr:wow-chicken": {
     "available": true,
@@ -22969,7 +23112,8 @@
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
     },
-    "confirm_with_cashier": true
+    "confirm_with_cashier": true,
+    "typed_range": null
   },
   "gyftr:park-avenue": {
     "available": true,
@@ -23047,9 +23191,6 @@
       },
       {
         "value": 1500
-      },
-      {
-        "value": 100
       }
     ],
     "custom_amount": false,
@@ -23103,7 +23244,8 @@
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
     },
-    "confirm_with_cashier": true
+    "confirm_with_cashier": true,
+    "typed_range": null
   },
   "gyftr:parx": {
     "available": true,
@@ -23181,9 +23323,6 @@
       },
       {
         "value": 1500
-      },
-      {
-        "value": 100
       }
     ],
     "custom_amount": false,
@@ -23243,7 +23382,8 @@
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
     },
-    "confirm_with_cashier": true
+    "confirm_with_cashier": true,
+    "typed_range": null
   },
   "gyftr:colorplus": {
     "available": true,
@@ -23320,9 +23460,6 @@
         "value": 2000
       },
       {
-        "value": 100
-      },
-      {
         "value": 1500
       }
     ],
@@ -23383,7 +23520,8 @@
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
     },
-    "confirm_with_cashier": true
+    "confirm_with_cashier": true,
+    "typed_range": null
   },
   "gyftr:future-world": {
     "available": true,
@@ -23506,7 +23644,8 @@
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
     },
-    "confirm_with_cashier": true
+    "confirm_with_cashier": true,
+    "typed_range": null
   },
   "gyftr:starbucks": {
     "available": true,
@@ -23609,7 +23748,8 @@
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
     },
-    "confirm_with_cashier": true
+    "confirm_with_cashier": true,
+    "typed_range": null
   },
   "gyftr:pigeon": {
     "available": true,
@@ -23731,7 +23871,11 @@
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
     },
-    "confirm_with_cashier": true
+    "confirm_with_cashier": true,
+    "typed_range": [
+      100,
+      10000
+    ]
   },
   "gyftr:foxtale": {
     "available": true,
@@ -23803,9 +23947,6 @@
       },
       {
         "value": 2500
-      },
-      {
-        "value": 100
       }
     ],
     "custom_amount": false,
@@ -23852,7 +23993,8 @@
       "mixed_denominations": true,
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
-    }
+    },
+    "typed_range": null
   },
   "gyftr:rangriti": {
     "available": true,
@@ -23921,9 +24063,6 @@
       },
       {
         "value": 1500
-      },
-      {
-        "value": 100
       }
     ],
     "custom_amount": false,
@@ -23966,7 +24105,8 @@
       "mixed_denominations": true,
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
-    }
+    },
+    "typed_range": null
   },
   "gyftr:ssunsu": {
     "available": true,
@@ -24029,9 +24169,6 @@
       },
       {
         "value": 500
-      },
-      {
-        "value": 100
       }
     ],
     "custom_amount": false,
@@ -24088,7 +24225,11 @@
       "mixed_denominations": true,
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
-    }
+    },
+    "typed_range": [
+      100,
+      10000
+    ]
   },
   "gyftr:fastrack-smartwatches": {
     "available": true,
@@ -24221,7 +24362,8 @@
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
     },
-    "confirm_with_cashier": true
+    "confirm_with_cashier": true,
+    "typed_range": null
   },
   "gyftr:titan-smartwatches": {
     "available": true,
@@ -24362,7 +24504,8 @@
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
     },
-    "confirm_with_cashier": true
+    "confirm_with_cashier": true,
+    "typed_range": null
   },
   "gyftr:lenskart": {
     "available": true,
@@ -24500,7 +24643,8 @@
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
     },
-    "confirm_with_cashier": true
+    "confirm_with_cashier": true,
+    "typed_range": null
   },
   "gyftr:mediwheel": {
     "available": true,
@@ -24560,9 +24704,6 @@
       },
       {
         "value": 500
-      },
-      {
-        "value": 100
       },
       {
         "value": 2000
@@ -24628,7 +24769,11 @@
       "mixed_denominations": true,
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
-    }
+    },
+    "typed_range": [
+      100,
+      10000
+    ]
   },
   "gyftr:air-india": {
     "available": true,
@@ -24757,7 +24902,8 @@
       "mixed_denominations": true,
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
-    }
+    },
+    "typed_range": null
   },
   "gyftr:cello": {
     "available": true,
@@ -24820,9 +24966,6 @@
       },
       {
         "value": 1000
-      },
-      {
-        "value": 100
       }
     ],
     "custom_amount": false,
@@ -24879,7 +25022,11 @@
       "mixed_denominations": true,
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
-    }
+    },
+    "typed_range": [
+      100,
+      10000
+    ]
   },
   "gyftr:matrix": {
     "available": true,
@@ -24990,7 +25137,8 @@
       "mixed_denominations": true,
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
-    }
+    },
+    "typed_range": null
   },
   "gyftr:tattva-spa": {
     "available": true,
@@ -25048,12 +25196,6 @@
       },
       {
         "value": 1500
-      },
-      {
-        "value": 100
-      },
-      {
-        "value": 100
       }
     ],
     "custom_amount": false,
@@ -25117,7 +25259,11 @@
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
     },
-    "confirm_with_cashier": true
+    "confirm_with_cashier": true,
+    "typed_range": [
+      100,
+      10000
+    ]
   },
   "gyftr:valorant": {
     "available": true,
@@ -25227,7 +25373,8 @@
       "mixed_denominations": true,
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
-    }
+    },
+    "typed_range": null
   },
   "gyftr:home-centre-online": {
     "available": true,
@@ -25339,7 +25486,8 @@
       "mixed_denominations": true,
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
-    }
+    },
+    "typed_range": null
   },
   "gyftr:steam-wallet": {
     "available": true,
@@ -25441,7 +25589,8 @@
       "mixed_denominations": true,
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
-    }
+    },
+    "typed_range": null
   },
   "gyftr:duroflex": {
     "available": true,
@@ -25553,7 +25702,8 @@
       "mixed_denominations": true,
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
-    }
+    },
+    "typed_range": null
   },
   "gyftr:nat-habit": {
     "available": true,
@@ -25612,9 +25762,6 @@
         "value": 2000
       },
       {
-        "value": 100
-      },
-      {
         "value": 500
       }
     ],
@@ -25666,7 +25813,11 @@
       "mixed_denominations": true,
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
-    }
+    },
+    "typed_range": [
+      100,
+      10000
+    ]
   },
   "gyftr:frido": {
     "available": true,
@@ -25775,7 +25926,8 @@
       "mixed_denominations": true,
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
-    }
+    },
+    "typed_range": null
   },
   "gyftr:ikea": {
     "available": true,
@@ -25903,7 +26055,8 @@
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
     },
-    "confirm_with_cashier": true
+    "confirm_with_cashier": true,
+    "typed_range": null
   },
   "gyftr:unipin": {
     "available": false,
@@ -26009,7 +26162,8 @@
       "mixed_denominations": true,
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
-    }
+    },
+    "typed_range": null
   },
   "gyftr:unipin-bgmi": {
     "available": false,
@@ -26107,7 +26261,8 @@
       "mixed_denominations": true,
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
-    }
+    },
+    "typed_range": null
   },
   "gyftr:apparel-group": {
     "available": true,
@@ -26159,9 +26314,6 @@
       }
     },
     "denominations": [
-      {
-        "value": 100
-      },
       {
         "value": 500
       },
@@ -26234,7 +26386,11 @@
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
     },
-    "confirm_with_cashier": true
+    "confirm_with_cashier": true,
+    "typed_range": [
+      100,
+      10000
+    ]
   },
   "gyftr:soch-apparels": {
     "available": true,
@@ -26348,7 +26504,11 @@
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
     },
-    "confirm_with_cashier": true
+    "confirm_with_cashier": true,
+    "typed_range": [
+      100,
+      10000
+    ]
   },
   "gyftr:femmella": {
     "available": true,
@@ -26395,9 +26555,6 @@
       }
     },
     "denominations": [
-      {
-        "value": 100
-      },
       {
         "value": 2000
       },
@@ -26448,7 +26605,11 @@
       "mixed_denominations": true,
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
-    }
+    },
+    "typed_range": [
+      100,
+      10000
+    ]
   },
   "gyftr:microsoft-xbox-game-pass-core": {
     "available": true,
@@ -26533,7 +26694,8 @@
       "mixed_denominations": true,
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
-    }
+    },
+    "typed_range": null
   },
   "gyftr:tanishq-gold-coin": {
     "available": false,
@@ -26637,7 +26799,8 @@
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
     },
-    "confirm_with_cashier": true
+    "confirm_with_cashier": true,
+    "typed_range": null
   },
   "gyftr:typsy-beauty": {
     "available": true,
@@ -26753,7 +26916,8 @@
       "mixed_denominations": true,
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
-    }
+    },
+    "typed_range": null
   },
   "gyftr:pure-home-living": {
     "available": true,
@@ -26813,9 +26977,6 @@
       },
       {
         "value": 2000
-      },
-      {
-        "value": 100
       },
       {
         "value": 500
@@ -26885,7 +27046,11 @@
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
     },
-    "confirm_with_cashier": true
+    "confirm_with_cashier": true,
+    "typed_range": [
+      100,
+      10000
+    ]
   },
   "gyftr:reliance-smart-bazaar": {
     "available": true,
@@ -27004,7 +27169,8 @@
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
     },
-    "confirm_with_cashier": true
+    "confirm_with_cashier": true,
+    "typed_range": null
   },
   "gyftr:blissclub": {
     "available": true,
@@ -27056,9 +27222,6 @@
       },
       {
         "value": 5000
-      },
-      {
-        "value": 100
       },
       {
         "value": 1000
@@ -27125,7 +27288,11 @@
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
     },
-    "confirm_with_cashier": true
+    "confirm_with_cashier": true,
+    "typed_range": [
+      100,
+      10000
+    ]
   },
   "gyftr:sony-playstation": {
     "available": true,
@@ -27211,7 +27378,8 @@
       "mixed_denominations": true,
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
-    }
+    },
+    "typed_range": null
   },
   "gyftr:yatra-voucher": {
     "available": true,
@@ -27286,7 +27454,8 @@
       "mixed_denominations": true,
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
-    }
+    },
+    "typed_range": null
   },
   "gyftr:speedo": {
     "available": true,
@@ -27409,7 +27578,11 @@
       "mixed_denominations": true,
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
-    }
+    },
+    "typed_range": [
+      100,
+      10000
+    ]
   },
   "gyftr:nestasia": {
     "available": true,
@@ -27531,7 +27704,8 @@
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
     },
-    "confirm_with_cashier": true
+    "confirm_with_cashier": true,
+    "typed_range": null
   },
   "gyftr:shemaroome": {
     "available": true,
@@ -27650,7 +27824,8 @@
       "mixed_denominations": true,
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
-    }
+    },
+    "typed_range": null
   },
   "gyftr:taj-wellness-gift-card": {
     "available": true,
@@ -27754,7 +27929,8 @@
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
     },
-    "confirm_with_cashier": true
+    "confirm_with_cashier": true,
+    "typed_range": null
   },
   "gyftr:ms-xbox-game-pass-ultimate": {
     "available": true,
@@ -27839,7 +28015,8 @@
       "mixed_denominations": true,
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
-    }
+    },
+    "typed_range": null
   },
   "gyftr:ajio-luxe": {
     "available": true,
@@ -27943,7 +28120,8 @@
       "mixed_denominations": true,
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
-    }
+    },
+    "typed_range": null
   },
   "gyftr:tinder": {
     "available": true,
@@ -28067,7 +28245,8 @@
       "mixed_denominations": true,
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
-    }
+    },
+    "typed_range": null
   },
   "gyftr:manyavar": {
     "available": true,
@@ -28117,9 +28296,6 @@
       },
       {
         "value": 10000
-      },
-      {
-        "value": 100
       },
       {
         "value": 7500
@@ -28184,7 +28360,11 @@
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
     },
-    "confirm_with_cashier": true
+    "confirm_with_cashier": true,
+    "typed_range": [
+      100,
+      10000
+    ]
   },
   "gyftr:french-accent": {
     "available": true,
@@ -28289,7 +28469,8 @@
       "mixed_denominations": true,
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
-    }
+    },
+    "typed_range": null
   },
   "gyftr:haute-sauce": {
     "available": true,
@@ -28394,7 +28575,8 @@
       "mixed_denominations": true,
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
-    }
+    },
+    "typed_range": null
   },
   "gyftr:instafab-plus": {
     "available": true,
@@ -28499,7 +28681,8 @@
       "mixed_denominations": true,
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
-    }
+    },
+    "typed_range": null
   },
   "gyftr:mobile-postpaid-bill-payment": {
     "available": true,
@@ -28610,7 +28793,11 @@
       "mixed_denominations": true,
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
-    }
+    },
+    "typed_range": [
+      100,
+      10000
+    ]
   },
   "gyftr:urban-space": {
     "available": true,
@@ -28659,9 +28846,6 @@
     "denominations": [
       {
         "value": 5000
-      },
-      {
-        "value": 100
       },
       {
         "value": 1000
@@ -28721,7 +28905,11 @@
       "mixed_denominations": true,
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
-    }
+    },
+    "typed_range": [
+      100,
+      10000
+    ]
   },
   "gyftr:landline-bill-payment": {
     "available": true,
@@ -28832,7 +29020,11 @@
       "mixed_denominations": true,
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
-    }
+    },
+    "typed_range": [
+      100,
+      10000
+    ]
   },
   "gyftr:gas-bill-payment": {
     "available": true,
@@ -28943,7 +29135,11 @@
       "mixed_denominations": true,
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
-    }
+    },
+    "typed_range": [
+      100,
+      10000
+    ]
   },
   "gyftr:mobile-prepaid-recharge": {
     "available": true,
@@ -29054,7 +29250,11 @@
       "mixed_denominations": true,
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
-    }
+    },
+    "typed_range": [
+      100,
+      10000
+    ]
   },
   "gyftr:water-bill-payment": {
     "available": true,
@@ -29169,7 +29369,11 @@
       "mixed_denominations": true,
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
-    }
+    },
+    "typed_range": [
+      100,
+      10000
+    ]
   },
   "gyftr:electricity-bill-payment": {
     "available": true,
@@ -29288,7 +29492,11 @@
       "mixed_denominations": true,
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
-    }
+    },
+    "typed_range": [
+      100,
+      10000
+    ]
   },
   "gyftr:himalaya-wellness": {
     "available": true,
@@ -29405,7 +29613,11 @@
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
     },
-    "confirm_with_cashier": true
+    "confirm_with_cashier": true,
+    "typed_range": [
+      100,
+      10000
+    ]
   },
   "gyftr:liberty": {
     "available": true,
@@ -29505,7 +29717,8 @@
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
     },
-    "confirm_with_cashier": true
+    "confirm_with_cashier": true,
+    "typed_range": null
   },
   "gyftr:liberty-online": {
     "available": true,
@@ -29621,7 +29834,8 @@
       "mixed_denominations": true,
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
-    }
+    },
+    "typed_range": null
   },
   "gyftr:charles-tyrwitt": {
     "available": true,
@@ -29722,7 +29936,8 @@
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
     },
-    "confirm_with_cashier": true
+    "confirm_with_cashier": true,
+    "typed_range": null
   },
   "gyftr:paul-and-shark": {
     "available": true,
@@ -29829,7 +30044,8 @@
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
     },
-    "confirm_with_cashier": true
+    "confirm_with_cashier": true,
+    "typed_range": null
   },
   "gyftr:the-white-crow": {
     "available": true,
@@ -29924,7 +30140,8 @@
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
     },
-    "confirm_with_cashier": true
+    "confirm_with_cashier": true,
+    "typed_range": null
   },
   "gyftr:maje": {
     "available": true,
@@ -30041,7 +30258,8 @@
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
     },
-    "confirm_with_cashier": true
+    "confirm_with_cashier": true,
+    "typed_range": null
   },
   "gyftr:sandro": {
     "available": true,
@@ -30148,7 +30366,8 @@
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
     },
-    "confirm_with_cashier": true
+    "confirm_with_cashier": true,
+    "typed_range": null
   },
   "gyftr:superdry-sport": {
     "available": true,
@@ -30256,7 +30475,8 @@
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
     },
-    "confirm_with_cashier": true
+    "confirm_with_cashier": true,
+    "typed_range": null
   },
   "gyftr:bottega-veneta": {
     "available": true,
@@ -30376,7 +30596,8 @@
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
     },
-    "confirm_with_cashier": true
+    "confirm_with_cashier": true,
+    "typed_range": null
   },
   "gyftr:jimmy-choo": {
     "available": true,
@@ -30467,7 +30688,8 @@
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
     },
-    "confirm_with_cashier": true
+    "confirm_with_cashier": true,
+    "typed_range": null
   },
   "gyftr:tory-burch": {
     "available": true,
@@ -30562,7 +30784,8 @@
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
     },
-    "confirm_with_cashier": true
+    "confirm_with_cashier": true,
+    "typed_range": null
   },
   "gyftr:valentino": {
     "available": true,
@@ -30673,7 +30896,8 @@
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
     },
-    "confirm_with_cashier": true
+    "confirm_with_cashier": true,
+    "typed_range": null
   },
   "gyftr:versace": {
     "available": true,
@@ -30794,7 +31018,8 @@
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
     },
-    "confirm_with_cashier": true
+    "confirm_with_cashier": true,
+    "typed_range": null
   },
   "gyftr:h-by-hamleys": {
     "available": true,
@@ -30914,7 +31139,8 @@
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
     },
-    "confirm_with_cashier": true
+    "confirm_with_cashier": true,
+    "typed_range": null
   },
   "gyftr:rowan": {
     "available": true,
@@ -31017,7 +31243,8 @@
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
     },
-    "confirm_with_cashier": true
+    "confirm_with_cashier": true,
+    "typed_range": null
   },
   "gyftr:villeroy-and-boch": {
     "available": true,
@@ -31128,7 +31355,8 @@
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
     },
-    "confirm_with_cashier": true
+    "confirm_with_cashier": true,
+    "typed_range": null
   },
   "gyftr:west-elm": {
     "available": true,
@@ -31239,7 +31467,8 @@
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
     },
-    "confirm_with_cashier": true
+    "confirm_with_cashier": true,
+    "typed_range": null
   },
   "gyftr:tods": {
     "available": true,
@@ -31350,7 +31579,8 @@
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
     },
-    "confirm_with_cashier": true
+    "confirm_with_cashier": true,
+    "typed_range": null
   },
   "gyftr:muji": {
     "available": true,
@@ -31457,7 +31687,8 @@
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
     },
-    "confirm_with_cashier": true
+    "confirm_with_cashier": true,
+    "typed_range": null
   },
   "gyftr:abraham-and-thakore": {
     "available": true,
@@ -31569,7 +31800,8 @@
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
     },
-    "confirm_with_cashier": true
+    "confirm_with_cashier": true,
+    "typed_range": null
   },
   "gyftr:ferragamo": {
     "available": true,
@@ -31664,7 +31896,8 @@
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
     },
-    "confirm_with_cashier": true
+    "confirm_with_cashier": true,
+    "typed_range": null
   },
   "gyftr:ritu-kumar": {
     "available": true,
@@ -31771,7 +32004,8 @@
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
     },
-    "confirm_with_cashier": true
+    "confirm_with_cashier": true,
+    "typed_range": null
   },
   "gyftr:tumi": {
     "available": true,
@@ -31892,7 +32126,8 @@
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
     },
-    "confirm_with_cashier": true
+    "confirm_with_cashier": true,
+    "typed_range": null
   },
   "gyftr:sunglass-hut": {
     "available": true,
@@ -32000,7 +32235,8 @@
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
     },
-    "confirm_with_cashier": true
+    "confirm_with_cashier": true,
+    "typed_range": null
   },
   "gyftr:me-n-moms": {
     "available": true,
@@ -32059,9 +32295,6 @@
         "value": 500
       },
       {
-        "value": 100
-      },
-      {
         "value": 2000
       }
     ],
@@ -32113,7 +32346,11 @@
       "mixed_denominations": true,
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
-    }
+    },
+    "typed_range": [
+      100,
+      10000
+    ]
   },
   "gyftr:absolute-barbeque": {
     "available": true,
@@ -32175,9 +32412,6 @@
         "value": 5000
       },
       {
-        "value": 100
-      },
-      {
         "value": 500
       }
     ],
@@ -32236,7 +32470,11 @@
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
     },
-    "confirm_with_cashier": true
+    "confirm_with_cashier": true,
+    "typed_range": [
+      100,
+      10000
+    ]
   },
   "gyftr:roblox": {
     "available": false,
@@ -32341,7 +32579,8 @@
       "mixed_denominations": true,
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
-    }
+    },
+    "typed_range": null
   },
   "gyftr:neemans": {
     "available": true,
@@ -32395,9 +32634,6 @@
     "denominations": [
       {
         "value": 500
-      },
-      {
-        "value": 100
       },
       {
         "value": 1000
@@ -32454,7 +32690,11 @@
       "mixed_denominations": true,
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
-    }
+    },
+    "typed_range": [
+      100,
+      10000
+    ]
   },
   "gyftr:klook": {
     "available": true,
@@ -32571,7 +32811,8 @@
       "mixed_denominations": true,
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
-    }
+    },
+    "typed_range": null
   },
   "gyftr:subway": {
     "available": true,
@@ -32688,7 +32929,8 @@
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
     },
-    "confirm_with_cashier": true
+    "confirm_with_cashier": true,
+    "typed_range": null
   },
   "gyftr:citizen-watches": {
     "available": true,
@@ -32754,9 +32996,6 @@
       },
       {
         "value": 5000
-      },
-      {
-        "value": 100
       }
     ],
     "custom_amount": false,
@@ -32807,7 +33046,11 @@
       "mixed_denominations": true,
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
-    }
+    },
+    "typed_range": [
+      100,
+      10000
+    ]
   },
   "gyftr:tim-hortons": {
     "available": true,
@@ -32911,7 +33154,8 @@
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
     },
-    "confirm_with_cashier": true
+    "confirm_with_cashier": true,
+    "typed_range": null
   },
   "gyftr:nua-woman": {
     "available": true,
@@ -32971,9 +33215,6 @@
       },
       {
         "value": 1000
-      },
-      {
-        "value": 100
       }
     ],
     "custom_amount": false,
@@ -33030,7 +33271,11 @@
       "mixed_denominations": true,
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
-    }
+    },
+    "typed_range": [
+      100,
+      10000
+    ]
   },
   "gyftr:kimirica": {
     "available": true,
@@ -33093,9 +33338,6 @@
       },
       {
         "value": 1000
-      },
-      {
-        "value": 100
       }
     ],
     "custom_amount": false,
@@ -33146,7 +33388,11 @@
       "mixed_denominations": true,
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
-    }
+    },
+    "typed_range": [
+      100,
+      10000
+    ]
   },
   "gyftr:clayco": {
     "available": true,
@@ -33256,7 +33502,8 @@
       "mixed_denominations": true,
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
-    }
+    },
+    "typed_range": null
   },
   "gyftr:apollo-diagnostics": {
     "available": true,
@@ -33374,7 +33621,8 @@
       "mixed_denominations": true,
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
-    }
+    },
+    "typed_range": null
   },
   "gyftr:ixigo-hotel": {
     "available": true,
@@ -33476,7 +33724,8 @@
       "mixed_denominations": true,
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
-    }
+    },
+    "typed_range": null
   },
   "gyftr:ajio": {
     "available": true,
@@ -33579,7 +33828,8 @@
       "mixed_denominations": true,
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
-    }
+    },
+    "typed_range": null
   },
   "gyftr:lions-gate": {
     "available": true,
@@ -33694,7 +33944,8 @@
       "mixed_denominations": true,
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
-    }
+    },
+    "typed_range": null
   },
   "gyftr:iocl": {
     "available": true,
@@ -33779,7 +34030,8 @@
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
     },
-    "confirm_with_cashier": true
+    "confirm_with_cashier": true,
+    "typed_range": null
   },
   "gyftr:yatra-hotel-gift-card": {
     "available": true,
@@ -33903,7 +34155,8 @@
       "mixed_denominations": true,
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
-    }
+    },
+    "typed_range": null
   },
   "gyftr:wellbeing-nutrition": {
     "available": true,
@@ -33966,9 +34219,6 @@
       },
       {
         "value": 1000
-      },
-      {
-        "value": 10
       }
     ],
     "custom_amount": false,
@@ -34019,7 +34269,11 @@
       "mixed_denominations": true,
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
-    }
+    },
+    "typed_range": [
+      10,
+      10000
+    ]
   },
   "gyftr:philips": {
     "available": true,
@@ -34120,7 +34374,8 @@
       "mixed_denominations": true,
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
-    }
+    },
+    "typed_range": null
   },
   "gyftr:zouk": {
     "available": true,
@@ -34174,9 +34429,6 @@
         "value": 1000
       },
       {
-        "value": 100
-      },
-      {
         "value": 2000
       }
     ],
@@ -34228,7 +34480,11 @@
       "mixed_denominations": true,
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
-    }
+    },
+    "typed_range": [
+      100,
+      10000
+    ]
   },
   "gyftr:dominos": {
     "available": true,
@@ -34366,7 +34622,11 @@
       "mixed_denominations": true,
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
-    }
+    },
+    "typed_range": [
+      100,
+      10000
+    ]
   },
   "gyftr:milkbasket": {
     "available": true,
@@ -34469,7 +34729,8 @@
       "mixed_denominations": true,
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
-    }
+    },
+    "typed_range": null
   },
   "gyftr:lohono-stays": {
     "available": true,
@@ -34521,9 +34782,6 @@
       },
       {
         "value": 500
-      },
-      {
-        "value": 100
       },
       {
         "value": 1000
@@ -34589,7 +34847,11 @@
       "mixed_denominations": true,
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
-    }
+    },
+    "typed_range": [
+      100,
+      10000
+    ]
   },
   "gyftr:next": {
     "available": true,
@@ -34652,9 +34914,6 @@
       },
       {
         "value": 2000
-      },
-      {
-        "value": 100
       }
     ],
     "custom_amount": false,
@@ -34698,7 +34957,11 @@
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
     },
-    "confirm_with_cashier": true
+    "confirm_with_cashier": true,
+    "typed_range": [
+      100,
+      10000
+    ]
   },
   "gyftr:mango": {
     "available": true,
@@ -34750,9 +35013,6 @@
       }
     },
     "denominations": [
-      {
-        "value": 100
-      },
       {
         "value": 500
       },
@@ -34810,7 +35070,11 @@
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
     },
-    "confirm_with_cashier": true
+    "confirm_with_cashier": true,
+    "typed_range": [
+      100,
+      10000
+    ]
   },
   "gyftr:zoomcar": {
     "available": true,
@@ -34931,7 +35195,8 @@
       "mixed_denominations": true,
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
-    }
+    },
+    "typed_range": null
   },
   "gyftr:style-bazaar": {
     "available": true,
@@ -34978,9 +35243,6 @@
       }
     },
     "denominations": [
-      {
-        "value": 100
-      },
       {
         "value": 1000
       },
@@ -35043,7 +35305,11 @@
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
     },
-    "confirm_with_cashier": true
+    "confirm_with_cashier": true,
+    "typed_range": [
+      100,
+      10000
+    ]
   },
   "gyftr:soulflower": {
     "available": true,
@@ -35095,9 +35361,6 @@
       },
       {
         "value": 10000
-      },
-      {
-        "value": 100
       },
       {
         "value": 5000
@@ -35153,7 +35416,11 @@
       "mixed_denominations": true,
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
-    }
+    },
+    "typed_range": [
+      100,
+      10000
+    ]
   },
   "gyftr:elivaas": {
     "available": true,
@@ -35272,7 +35539,8 @@
       "mixed_denominations": true,
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
-    }
+    },
+    "typed_range": null
   },
   "gyftr:palmonas": {
     "available": true,
@@ -35333,9 +35601,6 @@
       },
       {
         "value": 2500
-      },
-      {
-        "value": 100
       }
     ],
     "custom_amount": false,
@@ -35382,7 +35647,11 @@
       "mixed_denominations": true,
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
-    }
+    },
+    "typed_range": [
+      100,
+      10000
+    ]
   },
   "gyftr:columbia-sportswear": {
     "available": true,
@@ -35447,9 +35716,6 @@
         "value": 500
       },
       {
-        "value": 100
-      },
-      {
         "value": 1000
       }
     ],
@@ -35508,7 +35774,11 @@
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
     },
-    "confirm_with_cashier": true
+    "confirm_with_cashier": true,
+    "typed_range": [
+      100,
+      10000
+    ]
   },
   "gyftr:pronto": {
     "available": true,
@@ -35628,7 +35898,11 @@
       "mixed_denominations": true,
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
-    }
+    },
+    "typed_range": [
+      100,
+      10000
+    ]
   },
   "gyftr:minus30": {
     "available": false,
@@ -35728,7 +36002,8 @@
       "mixed_denominations": true,
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
-    }
+    },
+    "typed_range": null
   },
   "gyftr:cordelia": {
     "available": true,
@@ -35789,9 +36064,6 @@
       },
       {
         "value": 2500
-      },
-      {
-        "value": 100
       },
       {
         "value": 3000
@@ -35857,7 +36129,11 @@
       "mixed_denominations": true,
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
-    }
+    },
+    "typed_range": [
+      100,
+      10000
+    ]
   },
   "gyftr:kalki": {
     "available": true,
@@ -35922,9 +36198,6 @@
         "value": 2500
       },
       {
-        "value": 100
-      },
-      {
         "value": 500
       }
     ],
@@ -35969,7 +36242,11 @@
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
     },
-    "confirm_with_cashier": true
+    "confirm_with_cashier": true,
+    "typed_range": [
+      100,
+      10000
+    ]
   },
   "gyftr:porter": {
     "available": true,
@@ -36090,7 +36367,8 @@
       "mixed_denominations": true,
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
-    }
+    },
+    "typed_range": null
   },
   "gyftr:roblox-gift-card": {
     "available": true,
@@ -36196,7 +36474,8 @@
       "mixed_denominations": true,
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
-    }
+    },
+    "typed_range": null
   },
   "gyftr:steam-gift-card": {
     "available": true,
@@ -36301,7 +36580,8 @@
       "mixed_denominations": true,
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
-    }
+    },
+    "typed_range": null
   },
   "gyftr:adventra": {
     "available": true,
@@ -36351,9 +36631,6 @@
       },
       {
         "value": 5000
-      },
-      {
-        "value": 100
       }
     ],
     "custom_amount": false,
@@ -36404,7 +36681,11 @@
       "mixed_denominations": true,
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
-    }
+    },
+    "typed_range": [
+      100,
+      10000
+    ]
   },
   "gyftr:tasva": {
     "available": true,
@@ -36448,9 +36729,6 @@
     "denominations": [
       {
         "value": 2000
-      },
-      {
-        "value": 100
       },
       {
         "value": 500
@@ -36514,7 +36792,11 @@
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
     },
-    "confirm_with_cashier": true
+    "confirm_with_cashier": true,
+    "typed_range": [
+      100,
+      10000
+    ]
   },
   "gyftr:nautica": {
     "available": true,
@@ -36563,9 +36845,6 @@
     "denominations": [
       {
         "value": 1000
-      },
-      {
-        "value": 100
       },
       {
         "value": 5000
@@ -36628,7 +36907,11 @@
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
     },
-    "confirm_with_cashier": true
+    "confirm_with_cashier": true,
+    "typed_range": [
+      100,
+      10000
+    ]
   },
   "gyftr:valorant-gift-card": {
     "available": true,
@@ -36730,7 +37013,8 @@
       "mixed_denominations": true,
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
-    }
+    },
+    "typed_range": null
   },
   "gyftr:blinkit-gift-card": {
     "available": true,
@@ -36827,7 +37111,8 @@
       "mixed_denominations": true,
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
-    }
+    },
+    "typed_range": null
   },
   "gyftr:air-india-fly-rajasthan": {
     "available": false,
@@ -36933,7 +37218,8 @@
       "mixed_denominations": true,
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
-    }
+    },
+    "typed_range": null
   },
   "gyftr:air-india-add-ons": {
     "available": false,
@@ -37038,7 +37324,8 @@
       "mixed_denominations": true,
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
-    }
+    },
+    "typed_range": null
   },
   "gyftr:ea-sports-fc-26": {
     "available": true,
@@ -37150,7 +37437,8 @@
       "mixed_denominations": true,
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
-    }
+    },
+    "typed_range": null
   },
   "gyftr:discord": {
     "available": false,
@@ -37224,7 +37512,8 @@
       "mixed_denominations": true,
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
-    }
+    },
+    "typed_range": null
   },
   "gyftr:nintendo-eshop-voucher": {
     "available": true,
@@ -37336,7 +37625,8 @@
       "mixed_denominations": true,
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
-    }
+    },
+    "typed_range": null
   },
   "gyftr:yalla-ludo": {
     "available": true,
@@ -37443,7 +37733,8 @@
       "mixed_denominations": true,
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
-    }
+    },
+    "typed_range": null
   },
   "gyftr:snitch": {
     "available": true,
@@ -37490,9 +37781,6 @@
       }
     },
     "denominations": [
-      {
-        "value": 100
-      },
       {
         "value": 250
       },
@@ -37561,7 +37849,11 @@
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
     },
-    "confirm_with_cashier": true
+    "confirm_with_cashier": true,
+    "typed_range": [
+      100,
+      10000
+    ]
   },
   "gyftr:moba-legends-5v5": {
     "available": true,
@@ -37679,7 +37971,8 @@
       "mixed_denominations": true,
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
-    }
+    },
+    "typed_range": null
   },
   "gyftr:whats-up-wellness": {
     "available": true,
@@ -37735,9 +38028,6 @@
       },
       {
         "value": 2000
-      },
-      {
-        "value": 100
       }
     ],
     "custom_amount": false,
@@ -37784,7 +38074,11 @@
       "mixed_denominations": true,
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
-    }
+    },
+    "typed_range": [
+      100,
+      10000
+    ]
   },
   "gyftr:hoora": {
     "available": true,
@@ -37905,7 +38199,8 @@
       "mixed_denominations": true,
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
-    }
+    },
+    "typed_range": null
   },
   "gyftr:rainbow-six-mobile": {
     "available": true,
@@ -38023,7 +38318,8 @@
       "mixed_denominations": true,
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
-    }
+    },
+    "typed_range": null
   },
   "gyftr:exitlag": {
     "available": false,
@@ -38102,7 +38398,8 @@
       "mixed_denominations": true,
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
-    }
+    },
+    "typed_range": null
   },
   "gyftr:cinepolis": {
     "available": true,
@@ -38202,7 +38499,8 @@
       "mixed_denominations": true,
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
-    }
+    },
+    "typed_range": null
   },
   "gyftr:air-india-domestic-gift-card": {
     "available": true,
@@ -38315,7 +38613,8 @@
       "mixed_denominations": true,
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
-    }
+    },
+    "typed_range": null
   },
   "gyftr:giva-gold-jewellery": {
     "available": true,
@@ -38362,9 +38661,6 @@
       }
     },
     "denominations": [
-      {
-        "value": 100
-      },
       {
         "value": 500
       },
@@ -38426,7 +38722,11 @@
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
     },
-    "confirm_with_cashier": true
+    "confirm_with_cashier": true,
+    "typed_range": [
+      100,
+      10000
+    ]
   },
   "gyftr:microsoft-office": {
     "available": true,
@@ -38531,7 +38831,8 @@
       "mixed_denominations": true,
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
-    }
+    },
+    "typed_range": null
   },
   "gyftr:giva-silver-jewellery": {
     "available": true,
@@ -38592,9 +38893,6 @@
       },
       {
         "value": 2000
-      },
-      {
-        "value": 100
       }
     ],
     "custom_amount": false,
@@ -38659,7 +38957,11 @@
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
     },
-    "confirm_with_cashier": true
+    "confirm_with_cashier": true,
+    "typed_range": [
+      100,
+      10000
+    ]
   },
   "gyftr:giva-silver-coin": {
     "available": true,
@@ -38717,9 +39019,6 @@
       },
       {
         "value": 5000
-      },
-      {
-        "value": 100
       },
       {
         "value": 2000
@@ -38782,7 +39081,11 @@
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
     },
-    "confirm_with_cashier": true
+    "confirm_with_cashier": true,
+    "typed_range": [
+      100,
+      10000
+    ]
   },
   "gyftr:bgmi-uc-official-voucher": {
     "available": true,
@@ -38891,7 +39194,8 @@
       "mixed_denominations": true,
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
-    }
+    },
+    "typed_range": null
   },
   "gyftr:firstcry": {
     "available": true,
@@ -39000,7 +39304,8 @@
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
     },
-    "confirm_with_cashier": true
+    "confirm_with_cashier": true,
+    "typed_range": null
   },
   "gyftr:vinzberry": {
     "available": true,
@@ -39107,7 +39412,8 @@
       "mixed_denominations": true,
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
-    }
+    },
+    "typed_range": null
   },
   "gyftr:luzo": {
     "available": true,
@@ -39220,7 +39526,8 @@
       "mixed_denominations": true,
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
-    }
+    },
+    "typed_range": null
   },
   "gyftr:solara": {
     "available": true,
@@ -39321,7 +39628,8 @@
       "mixed_denominations": true,
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
-    }
+    },
+    "typed_range": null
   },
   "gyftr:health-and-glow": {
     "available": true,
@@ -39378,9 +39686,6 @@
         "value": 10000
       },
       {
-        "value": 100
-      },
-      {
         "value": 1000
       },
       {
@@ -39428,7 +39733,11 @@
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
     },
-    "confirm_with_cashier": true
+    "confirm_with_cashier": true,
+    "typed_range": [
+      100,
+      10000
+    ]
   },
   "gyftr:libas": {
     "available": true,
@@ -39530,7 +39839,8 @@
       "mixed_denominations": true,
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
-    }
+    },
+    "typed_range": null
   },
   "gyftr:farzi-cafe": {
     "available": true,
@@ -39582,9 +39892,6 @@
       },
       {
         "value": 5000
-      },
-      {
-        "value": 100
       },
       {
         "value": 2500
@@ -39654,7 +39961,11 @@
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
     },
-    "confirm_with_cashier": true
+    "confirm_with_cashier": true,
+    "typed_range": [
+      100,
+      10000
+    ]
   },
   "gyftr:swan": {
     "available": true,
@@ -39714,9 +40025,6 @@
         "value": 5000
       },
       {
-        "value": 100
-      },
-      {
         "value": 7500
       },
       {
@@ -39774,7 +40082,11 @@
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
     },
-    "confirm_with_cashier": true
+    "confirm_with_cashier": true,
+    "typed_range": [
+      100,
+      10000
+    ]
   },
   "gyftr:masala-library": {
     "available": true,
@@ -39832,9 +40144,6 @@
       },
       {
         "value": 10000
-      },
-      {
-        "value": 100
       },
       {
         "value": 500
@@ -39898,7 +40207,11 @@
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
     },
-    "confirm_with_cashier": true
+    "confirm_with_cashier": true,
+    "typed_range": [
+      100,
+      10000
+    ]
   },
   "gyftr:bo-tai": {
     "available": true,
@@ -39962,9 +40275,6 @@
       },
       {
         "value": 500
-      },
-      {
-        "value": 100
       }
     ],
     "custom_amount": false,
@@ -40023,7 +40333,11 @@
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
     },
-    "confirm_with_cashier": true
+    "confirm_with_cashier": true,
+    "typed_range": [
+      100,
+      10000
+    ]
   },
   "gyftr:made-in-punjab": {
     "available": true,
@@ -40087,9 +40401,6 @@
       },
       {
         "value": 500
-      },
-      {
-        "value": 100
       }
     ],
     "custom_amount": false,
@@ -40147,7 +40458,11 @@
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
     },
-    "confirm_with_cashier": true
+    "confirm_with_cashier": true,
+    "typed_range": [
+      100,
+      10000
+    ]
   },
   "gyftr:pa-pa-ya": {
     "available": true,
@@ -40210,9 +40525,6 @@
         "value": 5000
       },
       {
-        "value": 100
-      },
-      {
         "value": 7500
       }
     ],
@@ -40271,7 +40583,11 @@
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
     },
-    "confirm_with_cashier": true
+    "confirm_with_cashier": true,
+    "typed_range": [
+      100,
+      10000
+    ]
   },
   "gyftr:cut-and-style-luzo-gift-card": {
     "available": true,
@@ -40387,7 +40703,8 @@
       "mixed_denominations": true,
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
-    }
+    },
+    "typed_range": null
   },
   "gyftr:bounce-luzo-gift-card": {
     "available": true,
@@ -40503,7 +40820,8 @@
       "mixed_denominations": true,
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
-    }
+    },
+    "typed_range": null
   },
   "gyftr:bblunt-luzo-gift-card": {
     "available": true,
@@ -40619,7 +40937,8 @@
       "mixed_denominations": true,
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
-    }
+    },
+    "typed_range": null
   },
   "gyftr:enrich-luzo-gift-card": {
     "available": true,
@@ -40706,7 +41025,8 @@
       "mixed_denominations": true,
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
-    }
+    },
+    "typed_range": null
   },
   "gyftr:jcb-luzo-gift-card": {
     "available": true,
@@ -40822,7 +41142,8 @@
       "mixed_denominations": true,
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
-    }
+    },
+    "typed_range": null
   },
   "gyftr:lakme-luzo-gift-card": {
     "available": true,
@@ -40938,7 +41259,8 @@
       "mixed_denominations": true,
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
-    }
+    },
+    "typed_range": null
   },
   "gyftr:bubbles-luzo-gift-card": {
     "available": true,
@@ -41054,7 +41376,8 @@
       "mixed_denominations": true,
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
-    }
+    },
+    "typed_range": null
   },
   "gyftr:affinity-luzo-gift-card": {
     "available": true,
@@ -41141,7 +41464,8 @@
       "mixed_denominations": true,
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
-    }
+    },
+    "typed_range": null
   },
   "gyftr:looks-luzo-gift-card": {
     "available": true,
@@ -41228,7 +41552,8 @@
       "mixed_denominations": true,
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
-    }
+    },
+    "typed_range": null
   },
   "gyftr:geetanjali-luzo-gift-card": {
     "available": true,
@@ -41344,7 +41669,8 @@
       "mixed_denominations": true,
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
-    }
+    },
+    "typed_range": null
   },
   "gyftr:jawed-habib-luzo-gift-card": {
     "available": true,
@@ -41460,7 +41786,8 @@
       "mixed_denominations": true,
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
-    }
+    },
+    "typed_range": null
   },
   "gyftr:toni-and-guy-luzo-gift-card": {
     "available": true,
@@ -41576,7 +41903,8 @@
       "mixed_denominations": true,
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
-    }
+    },
+    "typed_range": null
   },
   "gyftr:naturals-luzo-gift-card": {
     "available": true,
@@ -41688,7 +42016,8 @@
       "mixed_denominations": true,
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
-    }
+    },
+    "typed_range": null
   },
   "gyftr:imagine": {
     "available": true,
@@ -41910,7 +42239,8 @@
       "mixed_denominations": true,
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
-    }
+    },
+    "typed_range": null
   },
   "gyftr:lego": {
     "available": true,
@@ -42106,7 +42436,8 @@
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
     },
-    "confirm_with_cashier": true
+    "confirm_with_cashier": true,
+    "typed_range": null
   },
   "gyftr:sigree": {
     "available": false,
@@ -42196,7 +42527,8 @@
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
     },
-    "confirm_with_cashier": true
+    "confirm_with_cashier": true,
+    "typed_range": null
   },
   "gyftr:flipkart": {
     "available": true,
@@ -42288,7 +42620,8 @@
       "mixed_denominations": true,
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
-    }
+    },
+    "typed_range": null
   },
   "gyftr:readers-digest": {
     "available": false,
@@ -42375,7 +42708,8 @@
       "mixed_denominations": true,
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
-    }
+    },
+    "typed_range": null
   },
   "gyftr:kalyan-gold-coins": {
     "available": false,
@@ -42452,7 +42786,8 @@
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
     },
-    "confirm_with_cashier": true
+    "confirm_with_cashier": true,
+    "typed_range": null
   },
   "gyftr:kalyan-diamond-jewellery": {
     "available": false,
@@ -42540,7 +42875,8 @@
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
     },
-    "confirm_with_cashier": true
+    "confirm_with_cashier": true,
+    "typed_range": null
   },
   "gyftr:ola-cabs": {
     "available": true,
@@ -42663,7 +42999,8 @@
       "mixed_denominations": true,
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
-    }
+    },
+    "typed_range": null
   },
   "gyftr:seniority": {
     "available": false,
@@ -42746,7 +43083,8 @@
       "mixed_denominations": true,
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
-    }
+    },
+    "typed_range": null
   },
   "gyftr:docubay": {
     "available": false,
@@ -42829,7 +43167,8 @@
       "mixed_denominations": true,
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
-    }
+    },
+    "typed_range": null
   },
   "gyftr:taj-hotels": {
     "available": true,
@@ -42954,7 +43293,8 @@
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
     },
-    "confirm_with_cashier": true
+    "confirm_with_cashier": true,
+    "typed_range": null
   },
   "gyftr:jiosaavn": {
     "available": false,
@@ -43029,7 +43369,8 @@
       "mixed_denominations": true,
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
-    }
+    },
+    "typed_range": null
   },
   "gyftr:wonderchef": {
     "available": true,
@@ -43130,7 +43471,8 @@
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
     },
-    "confirm_with_cashier": true
+    "confirm_with_cashier": true,
+    "typed_range": null
   },
   "gyftr:beyoung": {
     "available": true,
@@ -43185,12 +43527,6 @@
       },
       {
         "value": 1000
-      },
-      {
-        "value": 100
-      },
-      {
-        "value": 100
       },
       {
         "value": 2000
@@ -43250,7 +43586,11 @@
       "mixed_denominations": true,
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
-    }
+    },
+    "typed_range": [
+      100,
+      10000
+    ]
   },
   "gyftr:hammer": {
     "available": true,
@@ -43360,7 +43700,8 @@
       "mixed_denominations": true,
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
-    }
+    },
+    "typed_range": null
   },
   "gyftr:swiggy-instamart": {
     "available": false,
@@ -43446,7 +43787,8 @@
       "mixed_denominations": true,
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
-    }
+    },
+    "typed_range": null
   },
   "gyftr:eatsure": {
     "available": true,
@@ -43512,9 +43854,6 @@
       },
       {
         "value": 1000
-      },
-      {
-        "value": 100
       }
     ],
     "custom_amount": false,
@@ -43565,7 +43904,11 @@
       "mixed_denominations": true,
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
-    }
+    },
+    "typed_range": [
+      100,
+      10000
+    ]
   },
   "gyftr:sweet-truth": {
     "available": true,
@@ -43619,9 +43962,6 @@
     "denominations": [
       {
         "value": 2000
-      },
-      {
-        "value": 100
       },
       {
         "value": 1500
@@ -43681,7 +44021,11 @@
       "mixed_denominations": true,
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
-    }
+    },
+    "typed_range": [
+      100,
+      10000
+    ]
   },
   "gyftr:daily-objects": {
     "available": true,
@@ -43796,7 +44140,8 @@
       "mixed_denominations": true,
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
-    }
+    },
+    "typed_range": null
   },
   "gyftr:auric": {
     "available": true,
@@ -43904,7 +44249,8 @@
       "mixed_denominations": true,
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
-    }
+    },
+    "typed_range": null
   },
   "gyftr:hyperice": {
     "available": false,
@@ -43991,7 +44337,8 @@
       "mixed_denominations": true,
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
-    }
+    },
+    "typed_range": null
   },
   "gyftr:amazon-shopping-voucher": {
     "available": true,
@@ -44031,9 +44378,6 @@
       },
       {
         "value": 2000
-      },
-      {
-        "value": 100
       }
     ],
     "custom_amount": false,
@@ -44105,7 +44449,11 @@
       "mixed_denominations": true,
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
-    }
+    },
+    "typed_range": [
+      100,
+      10000
+    ]
   },
   "gyftr:wynk-music": {
     "available": false,
@@ -44184,7 +44532,8 @@
       "mixed_denominations": true,
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
-    }
+    },
+    "typed_range": null
   },
   "gyftr:nykaa": {
     "available": true,
@@ -44303,7 +44652,8 @@
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
     },
-    "confirm_with_cashier": true
+    "confirm_with_cashier": true,
+    "typed_range": null
   },
   "gyftr:fitpass": {
     "available": true,
@@ -44354,16 +44704,10 @@
         "value": 1000
       },
       {
-        "value": 100
-      },
-      {
         "value": 500
       },
       {
         "value": 2000
-      },
-      {
-        "value": 100
       }
     ],
     "custom_amount": false,
@@ -44420,7 +44764,11 @@
       "mixed_denominations": true,
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
-    }
+    },
+    "typed_range": [
+      100,
+      10000
+    ]
   },
   "gyftr:zomato-gift-card": {
     "available": true,
@@ -44510,7 +44858,8 @@
       "mixed_denominations": true,
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
-    }
+    },
+    "typed_range": null
   },
   "gyftr:swiss-beauty": {
     "available": false,
@@ -44607,7 +44956,8 @@
       "mixed_denominations": true,
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
-    }
+    },
+    "typed_range": null
   },
   "gyftr:american-tourister": {
     "available": true,
@@ -44730,7 +45080,11 @@
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
     },
-    "confirm_with_cashier": true
+    "confirm_with_cashier": true,
+    "typed_range": [
+      1000,
+      10000
+    ]
   },
   "gyftr:samsonite": {
     "available": true,
@@ -44852,7 +45206,11 @@
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
     },
-    "confirm_with_cashier": true
+    "confirm_with_cashier": true,
+    "typed_range": [
+      1000,
+      10000
+    ]
   },
   "gyftr:tanishq-gold-jewellery": {
     "available": true,
@@ -44965,7 +45323,8 @@
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
     },
-    "confirm_with_cashier": true
+    "confirm_with_cashier": true,
+    "typed_range": null
   },
   "gyftr:renee-cosmetics": {
     "available": false,
@@ -45048,7 +45407,8 @@
       "mixed_denominations": true,
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
-    }
+    },
+    "typed_range": null
   },
   "gyftr:max-fashion-online": {
     "available": true,
@@ -45163,7 +45523,8 @@
       "mixed_denominations": true,
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
-    }
+    },
+    "typed_range": null
   },
   "gyftr:assembly": {
     "available": true,
@@ -45282,7 +45643,8 @@
       "mixed_denominations": true,
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
-    }
+    },
+    "typed_range": null
   },
   "gyftr:tego": {
     "available": true,
@@ -45385,7 +45747,8 @@
       "mixed_denominations": true,
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
-    }
+    },
+    "typed_range": null
   },
   "gyftr:nykaa-man": {
     "available": true,
@@ -45498,7 +45861,8 @@
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
     },
-    "confirm_with_cashier": true
+    "confirm_with_cashier": true,
+    "typed_range": null
   },
   "gyftr:swiggy-food-discount-voucher": {
     "available": false,
@@ -45572,7 +45936,8 @@
       "mixed_denominations": true,
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
-    }
+    },
+    "typed_range": null
   },
   "gyftr:wendy's": {
     "available": true,
@@ -45624,9 +45989,6 @@
       }
     },
     "denominations": [
-      {
-        "value": 100
-      },
       {
         "value": 500
       },
@@ -45688,7 +46050,11 @@
       "mixed_denominations": true,
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
-    }
+    },
+    "typed_range": [
+      100,
+      10000
+    ]
   },
   "gyftr:the-good-bowl": {
     "available": true,
@@ -45751,9 +46117,6 @@
       },
       {
         "value": 1000
-      },
-      {
-        "value": 100
       }
     ],
     "custom_amount": false,
@@ -45804,7 +46167,11 @@
       "mixed_denominations": true,
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
-    }
+    },
+    "typed_range": [
+      100,
+      10000
+    ]
   },
   "gyftr:hppay": {
     "available": true,
@@ -45903,7 +46270,8 @@
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
     },
-    "confirm_with_cashier": true
+    "confirm_with_cashier": true,
+    "typed_range": null
   },
   "gyftr:igp": {
     "available": true,
@@ -46008,7 +46376,8 @@
       "mixed_denominations": true,
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
-    }
+    },
+    "typed_range": null
   },
   "gyftr:black-+-decker": {
     "available": false,
@@ -46230,7 +46599,8 @@
       "mixed_denominations": true,
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
-    }
+    },
+    "typed_range": null
   },
   "gyftr:reliance-jio-mart": {
     "available": true,
@@ -46358,7 +46728,8 @@
       "mixed_denominations": true,
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
-    }
+    },
+    "typed_range": null
   },
   "gyftr:mamaearth": {
     "available": false,
@@ -46450,7 +46821,8 @@
       "mixed_denominations": true,
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
-    }
+    },
+    "typed_range": null
   },
   "gyftr:intermiles": {
     "available": false,
@@ -46533,7 +46905,8 @@
       "mixed_denominations": true,
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
-    }
+    },
+    "typed_range": null
   },
   "gyftr:grt-jewellers": {
     "available": true,
@@ -46579,9 +46952,6 @@
         "value": 10000
       },
       {
-        "value": 100
-      },
-      {
         "value": 5000
       },
       {
@@ -46589,9 +46959,6 @@
       },
       {
         "value": 2500
-      },
-      {
-        "value": 100
       }
     ],
     "custom_amount": true,
@@ -46643,7 +47010,11 @@
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
     },
-    "confirm_with_cashier": true
+    "confirm_with_cashier": true,
+    "typed_range": [
+      100,
+      10000
+    ]
   },
   "gyftr:bakingo": {
     "available": true,
@@ -46748,7 +47119,8 @@
       "mixed_denominations": true,
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
-    }
+    },
+    "typed_range": null
   },
   "gyftr:quick-heal": {
     "available": false,
@@ -46839,7 +47211,8 @@
       "mixed_denominations": true,
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
-    }
+    },
+    "typed_range": null
   },
   "gyftr:amazon-fresh": {
     "available": true,
@@ -46930,7 +47303,8 @@
       "mixed_denominations": true,
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
-    }
+    },
+    "typed_range": null
   },
   "gyftr:-bpcl-": {
     "available": true,
@@ -47024,7 +47398,8 @@
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
     },
-    "confirm_with_cashier": true
+    "confirm_with_cashier": true,
+    "typed_range": null
   },
   "gyftr:spotify": {
     "available": false,
@@ -47115,7 +47490,8 @@
       "mixed_denominations": true,
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
-    }
+    },
+    "typed_range": null
   },
   "gyftr:eazydiner": {
     "available": false,
@@ -47200,7 +47576,8 @@
       "mixed_denominations": true,
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
-    }
+    },
+    "typed_range": null
   },
   "gyftr:clovia": {
     "available": false,
@@ -47283,7 +47660,8 @@
       "mixed_denominations": true,
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
-    }
+    },
+    "typed_range": null
   },
   "gyftr:shiva-organic": {
     "available": false,
@@ -47371,7 +47749,8 @@
       "mixed_denominations": true,
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
-    }
+    },
+    "typed_range": null
   },
   "gyftr:malabar-silver-coin": {
     "available": false,
@@ -47459,7 +47838,8 @@
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
     },
-    "confirm_with_cashier": true
+    "confirm_with_cashier": true,
+    "typed_range": null
   },
   "gyftr:zepto": {
     "available": false,
@@ -47548,7 +47928,8 @@
       "mixed_denominations": true,
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
-    }
+    },
+    "typed_range": null
   },
   "gyftr:barbeque-nation-value-voucher": {
     "available": false,
@@ -47679,7 +48060,8 @@
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
     },
-    "confirm_with_cashier": true
+    "confirm_with_cashier": true,
+    "typed_range": null
   },
   "gyftr:adani-meet-and-greet": {
     "available": false,
@@ -47776,7 +48158,8 @@
       "mixed_denominations": true,
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
-    }
+    },
+    "typed_range": null
   },
   "gyftr:app-store-code": {
     "available": true,
@@ -47855,7 +48238,8 @@
       "mixed_denominations": true,
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
-    }
+    },
+    "typed_range": null
   },
   "gyftr:microsoft-xbox-pc-game-pass": {
     "available": false,
@@ -47932,7 +48316,8 @@
       "mixed_denominations": true,
       "mixed_brands": true,
       "note": "Any mix of denominations and brands in a single order."
-    }
+    },
+    "typed_range": null
   },
   "buyhatke:abraham-thakore-luxe-(in-store)-gift-card": {
     "available": true,
