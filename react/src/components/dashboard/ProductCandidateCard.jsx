@@ -96,82 +96,110 @@ export default function ProductCandidateCard({ product, onSelect, onEnlarge, isS
           </Flex>
         </Box>
 
-        <Box minW={0} flex="1">
-          <Text fontSize="13.5px" fontWeight={600} color="text" lineHeight={1.35}>
-            {displayTitle || 'Product'}
-            {isTruncated && (
-              <Box as="span" color="brand" fontWeight={800} ml="2px">
-                …
-              </Box>
+        {/* Phones: name on top with the full width, price and button on
+            one line beneath it. Side by side, the nowrap button left the
+            name a ~40px column that broke words mid-way ("Airdope-s").
+            Wider screens keep all three in one row. */}
+        <Flex
+          flex="1"
+          minW={0}
+          direction={{ base: 'column', md: 'row' }}
+          align={{ base: 'stretch', md: 'center' }}
+          gap={{ base: '8px', md: '14px' }}
+        >
+          <Box minW={0} flex="1">
+            <Text fontSize="13.5px" fontWeight={600} color="text" lineHeight={1.35}>
+              {displayTitle || 'Product'}
+              {isTruncated && (
+                <Box as="span" color="brand" fontWeight={800} ml="2px">
+                  …
+                </Box>
+              )}
+            </Text>
+            {isVerifiedLive && (
+              <Text fontSize="11px" fontWeight={600} color="green.500" mt="2px">
+                Verified from your link
+              </Text>
             )}
-          </Text>
-          {isVerifiedLive && (
-            <Text fontSize="11px" fontWeight={600} color="green.500" mt="2px">
-              Verified from your link
-            </Text>
-          )}
-        </Box>
+          </Box>
 
-        <Box flex="0 0 auto" textAlign="right">
-          {price != null && (
-            <Text
-              fontFamily="mono"
-              fontSize="12.5px"
-              fontWeight={500}
-              color="text3"
-              transition="opacity .18s ease"
-              _groupHover={{ opacity: 0.5 }}
-            >
-              <Box as="span" fontSize="10px" textTransform="uppercase" letterSpacing=".05em" mr="4px">
-                Listed
-              </Box>
-              {fmt(price)}
-            </Text>
-          )}
           <Flex
-            role="button"
-            tabIndex={0}
-            aria-label="Find better price for this product"
-            onClick={(e) => {
-              e.stopPropagation();
-              onSelect(token, title, price, source, thumbnail);
-            }}
-            onKeyDown={(e) => {
-              if (e.key === 'Enter' || e.key === ' ') {
-                e.preventDefault();
+            flex="0 0 auto"
+            direction={{ base: 'row', md: 'column' }}
+            align={{ base: 'center', md: 'flex-end' }}
+            justify={{ base: 'space-between', md: 'flex-start' }}
+            gap={{ base: '8px', md: 0 }}
+            wrap={{ base: 'wrap', md: 'nowrap' }}
+            textAlign="right"
+          >
+            {price != null && (
+              <Text
+                fontFamily="mono"
+                fontSize="12.5px"
+                fontWeight={500}
+                color="text3"
+                transition="opacity .18s ease"
+                _groupHover={{ opacity: 0.5 }}
+              >
+                <Box
+                  as="span"
+                  // Phones drop the label to keep price and button on one line.
+                  display={{ base: 'none', md: 'inline' }}
+                  fontSize="10px"
+                  textTransform="uppercase"
+                  letterSpacing=".05em"
+                  mr="4px"
+                >
+                  Listed
+                </Box>
+                {fmt(price)}
+              </Text>
+            )}
+            <Flex
+              role="button"
+              tabIndex={0}
+              aria-label="Find better price for this product"
+              onClick={(e) => {
                 e.stopPropagation();
                 onSelect(token, title, price, source, thumbnail);
-              }
-            }}
-            align="center"
-            justify="center"
-            gap="5px"
-            mt="6px"
-            bg="brandSoft"
-            color="brand"
-            fontSize="12px"
-            fontWeight={800}
-            whiteSpace="nowrap"
-            borderRadius="999px"
-            px="10px"
-            py="5px"
-            cursor="pointer"
-            transition="background .18s ease, color .18s ease"
-            _hover={{ bg: 'brand', color: 'onBrand' }}
-            _focusVisible={{ outline: '2px solid', outlineColor: 'brand', outlineOffset: '2px' }}
-          >
-            <I.trendUp size={13} />
-            Find Better Price
-            <Box
-              display="inline-flex"
-              transition="transform .18s cubic-bezier(.16,.68,.32,1)"
-              _groupHover={{ transform: 'translateX(4px)' }}
-              sx={REDUCED_MOTION_SX}
+              }}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  onSelect(token, title, price, source, thumbnail);
+                }
+              }}
+              align="center"
+              justify="center"
+              gap="5px"
+              mt={{ base: 0, md: '6px' }}
+              bg="brandSoft"
+              color="brand"
+              fontSize="12px"
+              fontWeight={800}
+              whiteSpace="nowrap"
+              borderRadius="999px"
+              px="10px"
+              py="5px"
+              cursor="pointer"
+              transition="background .18s ease, color .18s ease"
+              _hover={{ bg: 'brand', color: 'onBrand' }}
+              _focusVisible={{ outline: '2px solid', outlineColor: 'brand', outlineOffset: '2px' }}
             >
-              <I.chevRight size={12} />
-            </Box>
+              <I.trendUp size={13} />
+              Find Better Price
+              <Box
+                display="inline-flex"
+                transition="transform .18s cubic-bezier(.16,.68,.32,1)"
+                _groupHover={{ transform: 'translateX(4px)' }}
+                sx={REDUCED_MOTION_SX}
+              >
+                <I.chevRight size={12} />
+              </Box>
+            </Flex>
           </Flex>
-        </Box>
+        </Flex>
       </Flex>
     </Card>
   );
