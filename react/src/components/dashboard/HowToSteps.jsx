@@ -2,6 +2,7 @@ import { Flex } from '@chakra-ui/react';
 
 import { I } from '@/components/common/icons';
 import InfoNote from '@/components/common/InfoNote';
+import { voucherSourceName } from '@/utils/voucherSource';
 
 /**
  * A voucher route was already checked against Gyftr's stacking, denomination
@@ -20,7 +21,7 @@ import InfoNote from '@/components/common/InfoNote';
 export default function HowToSteps({ rec, skipVoucher = false }) {
   const v = skipVoucher ? null : rec.voucher || null;
   if (!v) return null;
-  const sourceLabel = v.voucher_source === 'maximize' ? 'Maximize' : 'Gyftr';
+  const sourceLabel = voucherSourceName(v.voucher_source);
 
   return (
     <Flex gap="6px" align="baseline">

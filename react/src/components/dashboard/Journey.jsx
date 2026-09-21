@@ -2,9 +2,9 @@ import { useEffect, useState } from 'react';
 import { Box, Flex, Text } from '@chakra-ui/react';
 
 import { I } from '@/components/common/icons';
-import InfoNote from '@/components/common/InfoNote';
 import { fmt, affiliateUrl, paidForVoucher } from '@/utils/format';
 import { useUiStore } from '@/store/uiStore';
+import { voucherSourceName } from '@/utils/voucherSource';
 import { outboundLink, track } from '@/utils/analytics';
 import JourneyRow from './JourneyRow';
 import JourneyChips from './JourneyChips';
@@ -49,7 +49,10 @@ export default function Journey({ rec, payingByCard = false, skipVoucher = false
   // and remainder don't depend on payment method (same real vouchers either
   // way), so those keep reading from `v.upi` unchanged below.
   const priceSet = payingByCard ? v?.card : v?.upi;
-  const sourceLabel = v?.voucher_source === 'maximize' ? 'Maximize' : 'Gyftr';
+  const sourceLabel = voucherSourceName(v?.voucher_source);
+  // The shop as a place — "Vijay Sales", not "Vijay Sales (in-store)"; the
+  // in-store fact is said once, on step 2.
+  const shopName = rec.merchant.replace(/\s*\(in-store\)\s*$/i, '');
   const sellerLink = rec.sellers?.[0]?.link;
   const [checked, setChecked] = useState({ voucher: false, checkout: false });
   const [pending, setPending] = useState({ voucher: false, checkout: false });
@@ -203,19 +206,39 @@ export default function Journey({ rec, payingByCard = false, skipVoucher = false
 
   const breakdown = v.upi?.denomination_breakdown || [];
   const singleVoucher = breakdown.length <= 1;
-  // The literal instruction, stated as a plain sentence rather than left to
-  // be inferred from a row of number pills — this is the exact detail user
-  // testing showed people missing ("how many denominations do I even buy?").
+  // The literal instruction, stated as a plain line rather than left to be
+  // inferred — the exact detail user testing showed people missing ("how
+  // many denominations do I even buy?"). One voucher reads "1 × ₹2,500
+  // voucher", the same shape as each line of the multi-voucher list.
   const denominationSentence = breakdown[0]?.typed
     ? `Type ${fmt(v.upi?.voucher_amount)} in the amount box`
-    : `Buy a ${fmt(v.upi?.voucher_amount)} Gift Voucher`;
+    : `1 × ${fmt(v.upi?.voucher_amount)} voucher`;
+  const remainder = v.upi?.remainder || 0;
 
   return (
     <Box>
+      {/* The two tabs are the two places the shopper goes, each with what
+          they pay there — the site name used to hide in a small pill, and
+          "why this extra ₹150?" was a real question (Raj, 2026-09-20). The
+          two amounts add up to "You pay" below, so there's no separate sum. */}
       <JourneyChips
         steps={[
-          { key: 'voucher', icon: I.ticket, label: 'Voucher', done: checked.voucher },
-          { key: 'checkout', icon: I.cart, label: 'Checkout', done: checked.checkout },
+          {
+            key: 'voucher',
+            icon: I.ticket,
+            label: sourceLabel,
+            sub: `Voucher · ${fmt(paid)}`,
+            done: checked.voucher,
+          },
+          {
+            key: 'checkout',
+            icon: I.cart,
+            label: shopName,
+            sub: remainder
+              ? `Pay the rest · ${fmt(remainder)}`
+              : 'Pay with it · ₹0 more',
+            done: checked.checkout,
+          },
         ]}
         activeIndex={viewIndex}
         onSelect={setViewIndex}
@@ -228,82 +251,48 @@ export default function Journey({ rec, payingByCard = false, skipVoucher = false
           tone="voucher"
           icon={I.ticket}
           tourId="voucher-buy"
-          label="Buy a Gift Voucher"
-          badge={`via ${sourceLabel} · saves ${fmt((v.upi?.voucher_amount ?? 0) - (paid ?? 0))}`}
+          label={`Buy a ${shopName} voucher`}
+          badge={`on ${sourceLabel} · ${priceSet?.pct}% off`}
           current={currentStep === 'voucher'}
           stepNumber={1}
           totalSteps={2}
-          nextLabel={`Step 2 — Checkout at ${rec.merchant}`}
-          preCheck={sellerLink ? { href: affiliateUrl(sellerLink, 'check_page_step'), merchantName: rec.merchant } : undefined}
+          nextLabel={`Step 2 — Pay at ${shopName}`}
+          preCheck={sellerLink ? { href: affiliateUrl(sellerLink, 'check_page_step'), merchantName: shopName } : undefined}
           facts={
-            <>
-              {singleVoucher ? (
-                <Text fontSize="17px" color="text" fontWeight={800} fontFamily="mono">
-                  {denominationSentence}
+            singleVoucher ? (
+              <Text fontSize="17px" color="text" fontWeight={800} fontFamily="mono">
+                {denominationSentence}
+              </Text>
+            ) : (
+              <Box>
+                <Text fontSize="12px" color="text2" fontWeight={600}>
+                  Add to your {sourceLabel} cart, one checkout
                 </Text>
-              ) : (
-                <Box maxW="240px" mx="auto">
+                <Flex wrap="wrap" gap="6px" justify="center" mt="8px">
                   {breakdown.map((b, i) => (
-                    <Flex
+                    <Text
                       key={i}
-                      justify="space-between"
+                      as="span"
                       fontFamily="mono"
-                      fontSize="14px"
+                      fontSize="13px"
                       fontWeight={700}
                       color="text"
-                      py="5px"
-                      borderBottom="1px dashed"
+                      bg="bg"
+                      border="1px"
+                      borderStyle={b.typed ? 'dashed' : 'solid'}
                       borderColor="border"
+                      borderRadius="6px"
+                      px="8px"
+                      py="3px"
                     >
-                      <Text>{b.typed ? 'type' : `${b.count} ×`}</Text>
-                      <Text>{fmt(b.denom)} {b.typed ? 'in amount box' : 'voucher'}</Text>
-                    </Flex>
+                      {b.typed ? `type ${fmt(b.denom)}` : `${b.count} × ${fmt(b.denom)}`}
+                    </Text>
                   ))}
-                  <Flex justify="space-between" fontFamily="mono" fontSize="15px" fontWeight={800} color="amber" pt="6px">
-                    <Text>Total</Text>
-                    <Text>{fmt(v.upi?.voucher_amount)}</Text>
-                  </Flex>
-                  <InfoNote
-                    short="No need for separate purchases — one cart."
-                    full={`Add all ${breakdown.length} vouchers to your ${sourceLabel} cart and check out once — you don't need to buy them one at a time.`}
-                    fontSize="10.5px"
-                    mt="6px"
-                  />
-                </Box>
-              )}
-              <InfoNote
-                short={
-                  v.upi?.remainder
-                    ? `${priceSet?.pct}% off — voucher costs ${fmt(paid)} + ${fmt(v.upi.remainder)} at checkout`
-                    : `${priceSet?.pct}% off — voucher costs ${fmt(paid)}`
-                }
-                full={
-                  v.upi?.remainder
-                    ? `Buying the voucher costs ${fmt(paid)} for ${fmt(v.upi?.voucher_amount)} of ${rec.merchant} credit. The vouchers don't quite cover the full price, so you'll pay ${fmt(v.upi.remainder)} more at checkout — your total comes to ${fmt(paid + v.upi.remainder)}, matching the "You pay" total above.`
-                    : `This is the step that actually saves you money — you pay ${fmt(paid)} for ${fmt(v.upi?.voucher_amount)} of ${rec.merchant} credit, which covers your whole order.`
-                }
-                fontSize="11.5px"
-                color="amber"
-                fontWeight={700}
-                mt="8px"
-              />
-              <InfoNote
-                short={`Why ${sourceLabel}?`}
-                full={`${sourceLabel} is one of the trusted voucher partners Dealo checks — we compare all of them and route you to whichever has the best deal for ${rec.merchant} right now, so which partner shows up can change from product to product.`}
-                fontSize="10.5px"
-                color="text3"
-                mt="6px"
-              />
-            </>
+                </Flex>
+              </Box>
+            )
           }
-          caption={`Opens ${sourceLabel}.`}
-          // Deliberately not "Buy on {sourceLabel}" — the partner name
-          // (Gyftr/Maximize) means nothing to a first-time user at the one
-          // moment they most need confidence, and reads as an unexplained
-          // third party. The partner is still named just above (the "via
-          // {sourceLabel}" badge and "Why {sourceLabel}?" note), for anyone
-          // who wants to know before they tap.
-          link={v.voucher_url ? { href: outboundLink(v.voucher_url, 'voucher_site', 'buy_voucher_step'), label: 'Buy Gift Voucher' } : undefined}
+          link={v.voucher_url ? { href: outboundLink(v.voucher_url, 'voucher_site', 'buy_voucher_step'), label: `Buy on ${sourceLabel} ↗` } : undefined}
           checked={checked.voucher}
           pending={pending.voucher}
           onCheck={check('voucher')}
@@ -313,42 +302,40 @@ export default function Journey({ rec, payingByCard = false, skipVoucher = false
           tone="checkout"
           icon={I.cart}
           tourId="checkout-open"
-          label={`Checkout at ${rec.merchant}`}
+          label={`Pay at ${shopName}${v.offline_only ? ' (in store)' : ''}`}
           facts={
             <>
-              <Text fontSize="11.5px" color="text2" fontFamily="mono">
-                Listed at {fmt(rec.listed_price ? Math.round(rec.listed_price) : null)}
+              {/* The shop's own redeem step leads; it used to sit in the
+                  hint underneath, which now stays off for this step so the
+                  same sentence isn't shown twice. */}
+              <Text fontSize="16px" color="text" fontWeight={800} lineHeight={1.3}>
+                {redeemStepSentence ? redeemStepSentence[0].toUpperCase() + redeemStepSentence.slice(1) : 'Apply your voucher code at checkout.'}
               </Text>
-              <Text fontSize="17px" color="text" fontWeight={800} fontFamily="mono" mt="8px">
-                {v.upi?.remainder ? `Apply code, pay ${fmt(v.upi.remainder)} remaining` : 'Apply code — covers your order'}
+              <Text fontSize="12.5px" color="text2" mt="6px">
+                {remainder ? `Then pay the last ${fmt(remainder)} any way you like` : 'It covers your whole order'}
               </Text>
               {v.offline_only && (
                 <Flex gap="6px" align="flex-start" mt="8px" bg="amberSoft" border="1px solid" borderColor="amber" borderRadius="xs" px="10px" py="8px">
                   <Flex color="amber" flex="0 0 auto" mt="1px">
                     <I.alert size={13} />
                   </Flex>
-                  <Text fontSize="11px" color="text" lineHeight={1.4}>
+                  <Text fontSize="11px" color="text" lineHeight={1.4} textAlign="left">
                     <Text as="span" fontWeight={700}>
                       In-store only
                     </Text>{' '}
-                    — accepted at listed {rec.merchant.replace(/\s*\(in-store\)\s*$/i, '')} outlets, not
-                    online.{v.how_to_redeem_short ? ` ${v.how_to_redeem_short}` : ''}
+                    — accepted at listed {shopName} outlets, not online.
                   </Text>
                 </Flex>
               )}
             </>
           }
-          link={sellerLink ? { href: affiliateUrl(sellerLink, 'redeem_step'), label: 'Open store' } : undefined}
+          link={sellerLink ? { href: affiliateUrl(sellerLink, 'redeem_step'), label: `Open ${shopName} ↗` } : undefined}
           checked={checked.checkout}
           pending={pending.checkout}
           current={currentStep === 'checkout'}
           stepNumber={2}
           totalSteps={2}
           onCheck={check('checkout')}
-          hintText={HINT_TEXT.checkout}
-          hintDetail={HINT_DETAIL.checkout}
-          hintVisible={hintVisible('checkout')}
-          onHideHint={hideHint('checkout')}
         />,
         ]}
       </JourneyPanels>

@@ -3,6 +3,7 @@ import { Box, Button, Flex, Text } from '@chakra-ui/react';
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion';
 
 import Card from '@/components/common/Card';
+import PeekCard from '@/components/common/PeekCard';
 import { I } from '@/components/common/icons';
 import { cardOptionsApi } from '@/api/cardOptions.api';
 import { effectiveCashback, fmt } from '@/utils/format';
@@ -79,11 +80,19 @@ export default function CreditCardPrompt({ route, onPayingByCardChange, onQuoteC
     setStage('prompt');
   };
 
+  // Until they answer, the question wears the same peeking card as the
+  // homepage teaser, so it reads as the thing the homepage pointed to.
+  const asking = stage === 'prompt';
+
   return (
-    <Card p="16px 18px" bg="surface2">
-      <Text fontSize="11px" color="text3" fontWeight={500} letterSpacing=".06em" textTransform="uppercase" mb="10px">
-        Paying by card?
-      </Text>
+    <Box>
+    {asking && <PeekCard />}
+    <Card p="16px 18px" bg={asking ? 'surface' : 'surface2'} position="relative" mt={asking ? '-1px' : undefined}>
+      {!asking && (
+        <Text fontSize="11px" color="text3" fontWeight={500} letterSpacing=".06em" textTransform="uppercase" mb="10px">
+          Paying by card?
+        </Text>
+      )}
 
       <AnimatePresence mode="wait" initial={false}>
       {stage === 'prompt' && (
@@ -95,14 +104,14 @@ export default function CreditCardPrompt({ route, onPayingByCardChange, onQuoteC
           transition={{ duration: 0.15, ease: [0.16, 1, 0.3, 1] }}
         >
         <Flex align="center" justify="space-between" gap="12px">
-          <Flex align="center" gap="8px">
-            <Box color="text2">
-              <I.pay size={18} />
-            </Box>
-            <Text fontSize="15px" fontWeight={600} color="text">
+          <Box minW={0}>
+            <Text fontSize="15px" fontWeight={800} color="text" letterSpacing="-.01em">
               Have a credit card?
             </Text>
-          </Flex>
+            <Text fontSize="12px" color="text2" mt="2px">
+              See if it beats UPI on this order
+            </Text>
+          </Box>
           <Flex gap="8px" flex="0 0 auto">
             <Button size="sm" variant="outline" onClick={decline}>
               No
@@ -305,5 +314,6 @@ export default function CreditCardPrompt({ route, onPayingByCardChange, onQuoteC
       )}
       </AnimatePresence>
     </Card>
+    </Box>
   );
 }

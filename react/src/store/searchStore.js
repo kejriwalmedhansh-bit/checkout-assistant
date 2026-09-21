@@ -137,7 +137,7 @@ export const useSearchStore = create(
               discount: saving(result, rec),
               // Same source label Journey.jsx shows the user ("via Maximize" /
               // "via Gyftr"); null when the route has no voucher at all.
-              voucher_aggregator: rec.voucher ? (rec.voucher.voucher_source === 'maximize' ? 'Maximize' : 'Gyftr') : null,
+              voucher_aggregator: rec.voucher ? voucherPlatform(rec.voucher.voucher_source) : null,
             });
             track('Deal Shown', {
               query: get().query,
