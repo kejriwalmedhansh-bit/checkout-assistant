@@ -43,12 +43,20 @@ English
 | Asset | Dimensions | Status | Filename |
 |-------|-----------|--------|----------|
 | Store Icon [REQUIRED] | 128×128 PNG | ✅ Ready | `extension/icons/icon128.png` |
-| Screenshot 1 [REQUIRED] | 1280×800 | ✅ Ready | `store-assets/screenshot-1-the-moment.png` |
-| Screenshot 2 [RECOMMENDED] | 1280×800 | ✅ Ready | `store-assets/screenshot-2-which-voucher.png` |
-| Screenshot 3 [RECOMMENDED] | 1280×800 | ✅ Ready | `store-assets/screenshot-3-code-stays-local.png` |
+| Screenshot 1 [REQUIRED] | 1280×800 | ✅ Ready | `store-assets/screenshot-1-see-your-saving.png` |
+| Screenshot 2 [RECOMMENDED] | 1280×800 | ✅ Ready | `store-assets/screenshot-2-know-what-to-buy.png` |
+| Screenshot 3 [RECOMMENDED] | 1280×800 | ✅ Ready | `store-assets/screenshot-3-codes-ready-to-paste.png` |
+| Screenshot 4 [RECOMMENDED] | 1280×800 | ✅ Ready | `store-assets/screenshot-4-small-when-you-need-room.png` |
 | Small Promo Tile [RECOMMENDED] | 440×280 | ✅ Ready | `store-assets/promo-tile-440x280.png` |
 
 ### Screenshot Notes
+
+**Replaced for 0.2.5 (2026-09-21).** The 0.2.4 set showed the old pop-up. The
+new four are real captures of the 0.2.5 pop-up (a MakeMyTrip ₹8,829 order,
+₹600 / 7.5% via Gyftr), set beside a plain, brand-free checkout with a
+headline, laid out in the Figma file "Dealo — Chrome Web Store images
+(v0.2.5)". Upload order: see your saving → know what to buy → codes ready to
+paste → small when you need room. The history below is the 0.2.4 set.
 
 **Shot 2026-09-07, all against live pages — no mockups.** In upload order:
 
