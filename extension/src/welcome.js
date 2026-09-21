@@ -44,6 +44,20 @@ document.getElementById("close").addEventListener("click", () => {
   window.close();
 });
 
+// The usage question. Saved the moment it is ticked or unticked, not on the
+// Start button: that button's click has to reach chrome.permissions.request()
+// with nothing before it (see the note at the top). Both panels show the same
+// answer, so it can be changed after access is granted too.
+const CONSENT_KEY = "dealo_usage_consent";
+const boxes = [...document.querySelectorAll(".consent-box")];
+chrome.storage.local.get(CONSENT_KEY).then((s) => {
+  boxes.forEach((b) => { b.checked = s[CONSENT_KEY] === true; });
+});
+boxes.forEach((box) => box.addEventListener("change", () => {
+  boxes.forEach((b) => { b.checked = box.checked; });
+  chrome.storage.local.set({ [CONSENT_KEY]: box.checked });
+}));
+
 // Someone who already said yes and reopened this tab shouldn't be asked again.
 chrome.permissions.contains(HOST_PERMS).then((has) => {
   if (has) showDone();

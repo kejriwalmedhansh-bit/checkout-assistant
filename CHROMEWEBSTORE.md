@@ -23,7 +23,7 @@ If you decide it's worth it, Dealo walks you through the rest: which voucher to 
 
 Dealo never completes a purchase for you. Every payment is yours to make.
 
-On privacy: Dealo has no accounts and no login. When you reach a checkout it sends two things to its server — the store's domain, such as croma.com, and the order total shown on the page. It also keeps anonymous usage records (which steps and buttons are used, under a random install id) so we can see where people get stuck. It never sends your name, your card details, or what's in your cart. Voucher codes you buy stay on your own computer and are never transmitted.
+On privacy: Dealo has no accounts and no login. When you reach a checkout it sends two things to its server — the store's domain, such as croma.com, and the order total shown on the page. If you tick the box to allow it, it also keeps anonymous usage records (which steps and buttons are used, under a random id) so we can see where people get stuck. It never sends your name, your card details, or what's in your cart. Voucher codes you buy stay on your own computer and are never transmitted.
 
 Dealo earns affiliate commission from stores when you shop through it, at no extra cost to you. That is how it is paid, and it is the only way it is paid.
 
@@ -108,7 +108,7 @@ Copy each cell verbatim into the matching field in the Developer Dashboard.
 | Personal communications | No | No | — | No |
 | Location | No | No | — | No |
 | Web history | No | No | Pages are inspected locally to detect a checkout, but no browsing history is recorded or transmitted. | No |
-| User activity | **Yes** | **Yes** | From 0.2.5: which Dealo steps were shown and which of Dealo's own buttons were pressed, under a random id made at install (not linked to name, email or phone). Sent to Mixpanel, Dealo's analytics provider, to see where people get stuck. Never voucher codes, cart contents or page addresses. | No (Mixpanel processes it for Dealo) |
+| User activity | **Yes** | **Yes** | From 0.2.5, only after the shopper ticks "Share anonymous usage" on the welcome screen (unticked by default): which Dealo steps were shown and which of Dealo's own buttons were pressed, under a random id made at install (not linked to name, email or phone). Sent to Mixpanel, Dealo's analytics provider, to see where people get stuck. Never voucher codes, cart contents or page addresses. | No (Mixpanel processes it for Dealo) |
 | Website content | **Yes** | **Yes** | Two values only: the store's domain (e.g. `croma.com`) and the order total displayed on the checkout page. Both are needed to determine whether a voucher exists for that store and what it would save on this order. From 0.2.5 they also go into the usage records above. Not tied to a name, email or phone — the extension has no accounts. | No |
 
 ### Data Use Certification

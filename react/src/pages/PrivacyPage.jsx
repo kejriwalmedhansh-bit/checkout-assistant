@@ -207,11 +207,12 @@ export default function PrivacyPage() {
           <li>Whether you’ve already dismissed the popup for a store, so it doesn’t ask twice.</li>
           <li>A note of a purchase you’re part-way through — the store, the total, the suggested voucher — because buying a voucher means leaving the store and coming back. Discarded after two days, or as soon as the purchase is done.</li>
           <li>Voucher codes you’ve bought, so you can paste them back into the store’s discount box. These stay on your machine. Our servers never receive them.</li>
-          <li>A random identifier made when you install the extension, used only for the usage records below.</li>
+          <li>If you agree to usage records, a random identifier used only for them (see below).</li>
         </List>
 
         <SubHeading>Usage records</SubHeading>
-        So we can see where people get stuck, the extension sends Mixpanel a short record when it finds a checkout,
+        Only if you tick “Share anonymous usage” on the extension’s welcome screen — it starts unticked, and you can
+        untick it there any time. Then, so we can see where people get stuck, the extension sends Mixpanel a short record when it finds a checkout,
         shows a deal, moves to the next step, or you press one of its buttons. Each record carries the store’s
         domain, the order total and saving it worked out, which step or button it was, the extension’s version, and
         the random identifier above, so the steps of one purchase can be read together. The identifier is not linked
