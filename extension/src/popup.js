@@ -511,7 +511,7 @@ window.__dealoPopup = (() => {
     const chips = (d.denominationBreakdown || []).length
       ? `<div class="dealo-chips">${d.denominationBreakdown
           // A typed amount has no button to mirror: it goes in Gyftr's amount box.
-          .map((b) => `<span class="dealo-chip">${b.typed ? `<span class="dealo-mult">type</span>` : ""}${b.count > 1 ? `<span class="dealo-mult">${b.count}×</span>` : ""}₹${rupees(b.denom)}</span>`)
+          .map((b) => `<span class="dealo-chip">${b.typed ? `<span class="dealo-mult">type&nbsp;</span>` : ""}${b.count > 1 ? `<span class="dealo-mult">${b.count}×</span>` : ""}₹${rupees(b.denom)}</span>`)
           .join("")}</div>`
       : (want ? `<div class="dealo-chips"><span class="dealo-chip">₹${rupees(want)}</span></div>` : "");
 
