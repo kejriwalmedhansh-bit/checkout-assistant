@@ -55,6 +55,12 @@
         <li class="yes"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5" /></svg>Never sees your card</li>
       </ul>
 
+      <!-- Asked, not assumed: usage records need a yes (see track in
+           background.js). Unticked until the shopper ticks it. -->
+      <label class="consent">
+        <input type="checkbox" class="consent-box" id="consent" />
+        <span>Share anonymous usage to help improve Dealo <small>No names, codes or card details</small></span>
+      </label>
       <button id="grant" class="cta" type="button">Start saving</button>
       <p class="foot" id="foot">Chrome asks once. Turn it off any time.</p>
     </section>
@@ -67,6 +73,10 @@
       </div>
       <h1>You're all set</h1>
       <p class="lede">Shop as usual. Dealo only pops up at checkout when there's money to save.</p>
+      <label class="consent">
+        <input type="checkbox" class="consent-box" id="consent-done" />
+        <span>Share anonymous usage to help improve Dealo <small>No names, codes or card details</small></span>
+      </label>
       <button id="close" class="cta secondary" type="button">Close this tab</button>
     </section>
   </main>

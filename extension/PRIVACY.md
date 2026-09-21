@@ -34,14 +34,16 @@ name, email address or phone number.
 
 ## Usage records
 
-So Dealo can see where people get stuck, the extension sends a short record to
+Only if you tick "Share anonymous usage" on the extension's welcome screen
+(unticked unless you tick it; you can untick it there any time). Then, so Dealo
+can see where people get stuck, the extension sends a short record to
 Mixpanel, Dealo's analytics provider (European servers), when it finds a
 checkout, shows a deal, moves to the next step, or you press one of its
 buttons. Each record carries:
 
 - the store's domain, and the order total and saving it worked out
 - which step or button it was, and the extension's version
-- a random identifier made when you install the extension, so the steps of one
+- a random identifier, made when you agree, so the steps of one
   purchase can be read together
 
 The identifier is not linked to your name, email or phone number. Records never

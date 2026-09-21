@@ -246,3 +246,24 @@ h1 em { font-style: normal; color: var(--terra); }
 }
 
 [hidden] { display: none !important; }
+
+/* The usage question. Quiet, but a real choice: unticked by default. */
+.consent {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin: 18px 0 14px;
+  font-size: 13.5px;
+  color: var(--ink-soft);
+  text-align: left;
+  cursor: pointer;
+}
+.consent input {
+  flex-shrink: 0;
+  width: 18px;
+  height: 18px;
+  margin-top: 1px;
+  accent-color: var(--teal);
+  cursor: pointer;
+}
+.consent small { display: block; font-size: 12px; color: var(--muted); margin-top: 2px; }

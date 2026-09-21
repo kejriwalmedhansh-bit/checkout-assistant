@@ -212,10 +212,19 @@ async function deviceId() {
 // team testing, and it must not count as a real shopper.
 const FROM_STORE = Boolean(chrome.runtime.getManifest().update_url);
 
+// Nothing is sent unless the shopper ticked "Share anonymous usage" on the
+// welcome screen. The Chrome Web Store requires a yes before collecting
+// browsing activity, and a privacy-policy mention is not one (checked against
+// its review rules, 2026-09-21). Unanswered counts as no — including everyone
+// who installed before the question existed.
+const CONSENT_KEY = "dealo_usage_consent";
+
 // Never throws and never waits on anything a shopper is doing: analytics must
 // not be able to break Dealo.
 async function track(event, props = {}) {
   try {
+    const consent = await chrome.storage.local.get(CONSENT_KEY);
+    if (consent[CONSENT_KEY] !== true) return;
     const id = await deviceId();
     const payload = [{
       event,
@@ -429,7 +438,7 @@ async function inject(tabId) {
 // checked twice.
 // Flip to true and reload the extension to trace every decision in the service
 // worker console. Off by default — this fires on every navigation.
-const TRACE = true;
+const TRACE = false;
 const trace = (...a) => { if (TRACE) console.log("[Dealo]", ...a); };
 
 async function nudgeOrInject(tabId, url, force, title) {

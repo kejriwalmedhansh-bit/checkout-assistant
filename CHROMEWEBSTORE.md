@@ -23,7 +23,7 @@ If you decide it's worth it, Dealo walks you through the rest: which voucher to 
 
 Dealo never completes a purchase for you. Every payment is yours to make.
 
-On privacy: Dealo has no accounts and no login. When you reach a checkout it sends two things to its server — the store's domain, such as croma.com, and the order total shown on the page. It also keeps anonymous usage records (which steps and buttons are used, under a random install id) so we can see where people get stuck. It never sends your name, your card details, or what's in your cart. Voucher codes you buy stay on your own computer and are never transmitted.
+On privacy: Dealo has no accounts and no login. When you reach a checkout it sends two things to its server — the store's domain, such as croma.com, and the order total shown on the page. If you tick the box to allow it, it also keeps anonymous usage records (which steps and buttons are used, under a random id) so we can see where people get stuck. It never sends your name, your card details, or what's in your cart. Voucher codes you buy stay on your own computer and are never transmitted.
 
 Dealo earns affiliate commission from stores when you shop through it, at no extra cost to you. That is how it is paid, and it is the only way it is paid.
 
@@ -43,12 +43,20 @@ English
 | Asset | Dimensions | Status | Filename |
 |-------|-----------|--------|----------|
 | Store Icon [REQUIRED] | 128×128 PNG | ✅ Ready | `extension/icons/icon128.png` |
-| Screenshot 1 [REQUIRED] | 1280×800 | ✅ Ready | `store-assets/screenshot-1-the-moment.png` |
-| Screenshot 2 [RECOMMENDED] | 1280×800 | ✅ Ready | `store-assets/screenshot-2-which-voucher.png` |
-| Screenshot 3 [RECOMMENDED] | 1280×800 | ✅ Ready | `store-assets/screenshot-3-code-stays-local.png` |
+| Screenshot 1 [REQUIRED] | 1280×800 | ✅ Ready | `store-assets/screenshot-1-see-your-saving.png` |
+| Screenshot 2 [RECOMMENDED] | 1280×800 | ✅ Ready | `store-assets/screenshot-2-know-what-to-buy.png` |
+| Screenshot 3 [RECOMMENDED] | 1280×800 | ✅ Ready | `store-assets/screenshot-3-codes-ready-to-paste.png` |
+| Screenshot 4 [RECOMMENDED] | 1280×800 | ✅ Ready | `store-assets/screenshot-4-small-when-you-need-room.png` |
 | Small Promo Tile [RECOMMENDED] | 440×280 | ✅ Ready | `store-assets/promo-tile-440x280.png` |
 
 ### Screenshot Notes
+
+**Replaced for 0.2.5 (2026-09-21).** The 0.2.4 set showed the old pop-up. The
+new four are real captures of the 0.2.5 pop-up (a MakeMyTrip ₹8,829 order,
+₹600 / 7.5% via Gyftr), set beside a plain, brand-free checkout with a
+headline, laid out in the Figma file "Dealo — Chrome Web Store images
+(v0.2.5)". Upload order: see your saving → know what to buy → codes ready to
+paste → small when you need room. The history below is the 0.2.4 set.
 
 **Shot 2026-09-07, all against live pages — no mockups.** In upload order:
 
@@ -108,7 +116,7 @@ Copy each cell verbatim into the matching field in the Developer Dashboard.
 | Personal communications | No | No | — | No |
 | Location | No | No | — | No |
 | Web history | No | No | Pages are inspected locally to detect a checkout, but no browsing history is recorded or transmitted. | No |
-| User activity | **Yes** | **Yes** | From 0.2.5: which Dealo steps were shown and which of Dealo's own buttons were pressed, under a random id made at install (not linked to name, email or phone). Sent to Mixpanel, Dealo's analytics provider, to see where people get stuck. Never voucher codes, cart contents or page addresses. | No (Mixpanel processes it for Dealo) |
+| User activity | **Yes** | **Yes** | From 0.2.5, only after the shopper ticks "Share anonymous usage" on the welcome screen (unticked by default): which Dealo steps were shown and which of Dealo's own buttons were pressed, under a random id made at install (not linked to name, email or phone). Sent to Mixpanel, Dealo's analytics provider, to see where people get stuck. Never voucher codes, cart contents or page addresses. | No (Mixpanel processes it for Dealo) |
 | Website content | **Yes** | **Yes** | Two values only: the store's domain (e.g. `croma.com`) and the order total displayed on the checkout page. Both are needed to determine whether a voucher exists for that store and what it would save on this order. From 0.2.5 they also go into the usage records above. Not tied to a name, email or phone — the extension has no accounts. | No |
 
 ### Data Use Certification
