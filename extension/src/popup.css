@@ -843,3 +843,70 @@
 #dealo-popup-root .dealo-journey-tight .dealo-j-step span { font-size: 10px; text-align: center; line-height: 1.2; }
 
 #dealo-popup-root .dealo-support-btn { margin-top: 14px; }
+
+/* --- The voucher's own rate, beside the rupee figure (2026-09-21) --------- */
+#dealo-popup-root .dealo-figure-row { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+#dealo-popup-root .dealo-pct-badge {
+  font-variant-numeric: tabular-nums;
+  font-size: 13px;
+  font-weight: 600;
+  color: #2F7A6E;
+  background: #E1EFEC;
+  border-radius: 99px;
+  padding: 4px 10px;
+  margin-top: 2px;
+  white-space: nowrap;
+}
+
+/* "Buy at Gyftr" over the amount tiles on the first screen. */
+#dealo-popup-root .dealo-eyebrow-plan { margin-top: 14px; }
+#dealo-popup-root .dealo-eyebrow-plan + .dealo-chips { margin-top: 6px; }
+
+/* "Done, go to <shop>" on the code screen: a real button, not grey text. */
+#dealo-popup-root #dealo-codes-done { margin-top: 10px; }
+/* A long shop name ("MakeMyTrip e-Pay") trails off rather than wrapping the
+   button onto two ragged lines in the small panel. */
+#dealo-popup-root .dealo-fit { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+/* "1 more after this" sat on the button's bottom edge. */
+#dealo-popup-root #dealo-save-code + .dealo-remaining { margin-top: 6px; }
+
+/* --- Make smaller / bigger ------------------------------------------------ */
+#dealo-popup-root .dealo-size {
+  cursor: pointer;
+  border: none;
+  background: none;
+  color: #6B7A8D;
+  padding: 4px;
+  margin-left: auto;
+  border-radius: 6px;
+  display: inline-flex;
+}
+#dealo-popup-root .dealo-dots + .dealo-size { margin-left: 0; }
+#dealo-popup-root .dealo-size:hover { color: #16202B; background: #EBE4D8; }
+
+/* Compact: the figure, the amounts, the rate and the next button stay; what
+   explains them goes. Tap the same button to get it all back. */
+#dealo-popup-root.dealo-compact .dealo-card { width: 264px; padding: 12px 14px; }
+#dealo-popup-root.dealo-compact .dealo-header { margin-bottom: 6px; }
+#dealo-popup-root.dealo-compact .dealo-figure { font-size: 24px; }
+#dealo-popup-root.dealo-compact .dealo-caption { font-size: 12px; }
+#dealo-popup-root.dealo-compact .dealo-chips { gap: 5px; margin: 8px 0 2px; }
+#dealo-popup-root.dealo-compact .dealo-chip { font-size: 13.5px; padding: 5px 9px; border-radius: 8px; }
+#dealo-popup-root.dealo-compact .dealo-eyebrow-plan { margin-top: 10px; }
+#dealo-popup-root.dealo-compact .dealo-button { padding: 9px 10px; font-size: 13.5px; }
+#dealo-popup-root.dealo-compact .dealo-pay { margin: 8px 0 8px; }
+#dealo-popup-root.dealo-compact .dealo-pay-row { padding-top: 7px; padding-bottom: 7px; }
+#dealo-popup-root.dealo-compact .dealo-input { margin: 6px 0; }
+#dealo-popup-root.dealo-compact .dealo-journey,
+#dealo-popup-root.dealo-compact .dealo-explain-toggle,
+#dealo-popup-root.dealo-compact .dealo-explain,
+#dealo-popup-root.dealo-compact .dealo-covers,
+#dealo-popup-root.dealo-compact .dealo-pay-row.dealo-bad,
+#dealo-popup-root.dealo-compact .dealo-private,
+#dealo-popup-root.dealo-compact .dealo-support-note,
+#dealo-popup-root.dealo-compact .dealo-limits,
+#dealo-popup-root.dealo-compact .dealo-check:not(:has(.dealo-code-carousel)) { display: none; }
+/* The drawn steps that used to sit above the main button are gone, so the
+   button needs its own gap. */
+#dealo-popup-root.dealo-compact #dealo-open-voucher,
+#dealo-popup-root.dealo-compact #dealo-have-code { margin-top: 12px; }

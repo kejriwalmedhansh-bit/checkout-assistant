@@ -41,8 +41,8 @@
       "properties": {"query": "What they typed or pasted", "input_type": "products | url | brand_voucher (web) or product_name | url (whatsapp)", "result_count": "web: candidates returned"}
     },
     "Deal Shown": {
-      "description": "Dealo showed its recommended way to buy a product.",
-      "surfaces": ["web", "whatsapp"],
+      "description": "Dealo showed its recommended way to buy a product. Extension: the voucher panel appeared at a checkout (listed_price is the cart total read off the page).",
+      "surfaces": ["web", "whatsapp", "extension"],
       "properties": {
         "product_title": "Product",
         "merchant": "Shop recommended",
@@ -139,6 +139,12 @@
     "WhatsApp No Alternatives": {"description": "User asked for other routes but there were none.", "surfaces": ["whatsapp"], "properties": {}},
     "WhatsApp Alternative Selected": {"description": "User picked an alternative route.", "surfaces": ["whatsapp"], "properties": {"merchant": "Shop"}},
     "WhatsApp Dead End": {"description": "Bot couldn't produce a result.", "surfaces": ["whatsapp"], "properties": {"stage": "no_route | no_candidates | exception | bad_selection_id | pick_again_empty", "query": "Search text or error"}},
-    "WhatsApp Session Expired": {"description": "User replied after their session expired.", "surfaces": ["whatsapp"], "properties": {"at": "Which step"}}
+    "WhatsApp Session Expired": {"description": "User replied after their session expired.", "surfaces": ["whatsapp"], "properties": {"at": "Which step"}},
+    "Checkout Detected": {"description": "Extension: Dealo recognised a checkout page and asked whether a voucher exists. Fired once per page view that reaches a verdict.", "surfaces": ["extension"], "properties": {"shop_domain": "Shop's domain, e.g. croma.com (never the page address)", "cart_total": "Order total read off the page, or null", "result": "deal | too_small | no_voucher", "voucher_platform": "Gyftr | Maximize | BuyHatke | none", "saving_amount": "Rupees the best voucher saves", "saving_pct": "The voucher's rate", "product_choices": "How many voucher kinds the shop has (2+ means the shopper was asked what they are buying)"}},
+    "Extension Installed": {"description": "The extension was installed or updated.", "surfaces": ["extension"], "properties": {"reason": "install | update", "previous_version": "Version before an update"}},
+    "Extension Access Granted": {"description": "The shopper allowed Dealo onto shop pages (the welcome screen's one job). Without it Dealo never appears.", "surfaces": ["extension"], "properties": {}},
+    "Extension Screen Shown": {"description": "A step of the guided journey after the first panel.", "surfaces": ["extension"], "properties": {"screen": "voucher_site | code_entry | back_at_store | place_order", "shop_domain": "Where it appeared (the voucher site's domain on voucher_site and code_entry)", "codes_saved": "Codes already entered", "codes_planned": "Codes the plan expects"}},
+    "Extension Button Tapped": {"description": "A button on the extension panel was pressed. Voucher codes and PINs are never sent, only that one was saved or copied.", "surfaces": ["extension"], "properties": {"button": "get_voucher | how_it_works | pick_product | bought_vouchers | show_me_how | not_now | save_code | codes_done | copy_code | copy_pin | show_me_where | code_applied | start_over | show_me_order_button | order_placed | support_dealo | no_deal_close | close | make_smaller | make_bigger", "step": "1 buy, 2 enter code, 3 use it (null off the journey)", "shop_domain": "Where the panel was", "choice": "pick_product: the voucher kind picked", "code_index, codes_planned, codes_saved": "save_code and codes_done: progress through the codes"}},
+    "Extension Order Completed": {"description": "The shopper finished an order with the voucher, as far as the extension can tell.", "surfaces": ["extension"], "properties": {"confirmed_by": "order_page (the shop's own confirmation) | shopper_said (pressed I've placed it)", "merchant": "Shop", "voucher_platform": "Where the vouchers were bought", "saving_amount": "Rupees saved", "saving_pct": "Voucher rate", "cart_total": "Order total when the trip began", "codes_used": "How many codes were entered"}}
   }
 }

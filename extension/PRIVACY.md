@@ -1,6 +1,6 @@
 # Dealo Chrome Extension — Privacy
 
-_Last updated: 2026-09-04_
+_Last updated: 2026-09-21_
 
 Dealo's Chrome extension checks whether a gift-voucher discount exists for the
 store you're buying from, and tells you before you pay.
@@ -29,8 +29,24 @@ gift voucher exist for this store, and what would it save?"
 - Your browsing history, or the pages you visit outside a checkout page
 - Cookies, login sessions, or anything that identifies you personally
 
-Dealo has no account system in the extension. Nothing sent is tied to an
-identity, because the extension never has one.
+Dealo has no account system in the extension. Nothing it sends is tied to your
+name, email address or phone number.
+
+## Usage records
+
+So Dealo can see where people get stuck, the extension sends a short record to
+Mixpanel, Dealo's analytics provider (European servers), when it finds a
+checkout, shows a deal, moves to the next step, or you press one of its
+buttons. Each record carries:
+
+- the store's domain, and the order total and saving it worked out
+- which step or button it was, and the extension's version
+- a random identifier made when you install the extension, so the steps of one
+  purchase can be read together
+
+The identifier is not linked to your name, email or phone number. Records never
+contain voucher codes or PINs, what's in your cart, or the address of any page.
+Removing the extension deletes the identifier; reinstalling makes a new one.
 
 ## Affiliate links
 
@@ -46,7 +62,7 @@ affiliate programme reports.
 ## What's stored on your device
 
 Three things, all of which stay on your computer and are never sent to Dealo
-or anyone else:
+or anyone else (the random identifier above is also kept here):
 
 1. **Whether you've already dismissed the popup** for a given store during
    this browsing session, so it doesn't ask twice. Cleared when you close the
@@ -54,7 +70,7 @@ or anyone else:
 2. **The purchase you're part-way through** — which store, the order total,
    and which voucher was suggested. Buying a voucher means leaving the store
    and coming back, so without this note the extension would forget what you
-   were doing the moment you left. Kept for up to seven days, then discarded;
+   were doing the moment you left. Kept for up to two days, then discarded;
    cleared as soon as the purchase is finished.
 3. **Voucher codes you've bought**, held only so you can copy them back into
    the store's discount box without hunting through your email. These are
