@@ -185,7 +185,74 @@ async function voucherCheckRemembered(domain, price) {
   return result;
 }
 
+// --- Analytics --------------------------------------------------------------
+//
+// The extension's side of the one Mixpanel funnel the website and WhatsApp
+// already feed (tracking-plan.json is the rulebook). Sent from here, never from
+// the shop's page: the page's own network rules would block it, and here it
+// belongs to the extension.
+//
+// The id is a random number made once per install. It is not tied to a name,
+// an email or a phone — it only lets Mixpanel tell "the same browser again"
+// from "someone new", which is what a funnel needs. Voucher codes, cart
+// contents and page addresses are never sent; the shop's domain is.
+const MIXPANEL_TOKEN = "5dcefbba60138d48545e132490cd1e4d";
+const MIXPANEL_URL = "https://api-eu.mixpanel.com/track";
+const DEVICE_KEY = "dealo_device_id";
+
+async function deviceId() {
+  const stored = await chrome.storage.local.get(DEVICE_KEY);
+  if (stored[DEVICE_KEY]) return stored[DEVICE_KEY];
+  const id = crypto.randomUUID();
+  await chrome.storage.local.set({ [DEVICE_KEY]: id });
+  return id;
+}
+
+// A copy loaded by hand (unpacked) has no store update address: that is the
+// team testing, and it must not count as a real shopper.
+const FROM_STORE = Boolean(chrome.runtime.getManifest().update_url);
+
+// Never throws and never waits on anything a shopper is doing: analytics must
+// not be able to break Dealo.
+async function track(event, props = {}) {
+  try {
+    const id = await deviceId();
+    const payload = [{
+      event,
+      properties: {
+        token: MIXPANEL_TOKEN,
+        time: Date.now(),
+        $insert_id: crypto.randomUUID().replace(/-/g, ""),
+        distinct_id: `$device:${id}`,
+        $device_id: id,
+        dealo_id: id,
+        surface: "extension",
+        environment: FROM_STORE ? "production" : "development",
+        app_version: chrome.runtime.getManifest().version,
+        is_internal_tester: !FROM_STORE,
+        ...props,
+      },
+    }];
+    await fetch(MIXPANEL_URL, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+      signal: AbortSignal.timeout(8000),
+    });
+  } catch (e) { /* offline, blocked, or torn down: drop it */ }
+}
+
+chrome.permissions.onAdded.addListener((perms) => {
+  if ((perms.origins || []).length) track("Extension Access Granted");
+});
+
 const HANDLERS = {
+  // Events from the page. The name was written literally where it was fired;
+  // this only carries it here.
+  track: async ({ event, props }) => {
+    track(event, props);
+    return {};
+  },
   // Sent the moment Dealo lands on a shop page, while the page is still
   // drawing. Opening the connection to the backend here, instead of on the
   // first real question, took about two seconds off the panel in a timed
@@ -432,8 +499,9 @@ chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
 //
 // The permission check is what stops it being annoying: someone who has
 // already said yes never sees this tab, on install or update.
-chrome.runtime.onInstalled.addListener(async ({ reason }) => {
+chrome.runtime.onInstalled.addListener(async ({ reason, previousVersion }) => {
   if (reason !== "install" && reason !== "update") return;
+  track("Extension Installed", { reason, previous_version: previousVersion || null });
   if (await chrome.permissions.contains(HOST_PERMS)) return;
   chrome.tabs.create({ url: chrome.runtime.getURL("src/welcome.html") });
 });

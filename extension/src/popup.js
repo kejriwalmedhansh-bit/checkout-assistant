@@ -1,8 +1,33 @@
 // Builds and injects the floating checkout popup. Two variants:
 //   Case A — a real voucher deal was found (renderVoucherFound)
 //   Case B — nothing found, "Honey"-style Okay button (renderNoDeal)
+// Hands an analytics event to the background worker, which sends it (see
+// track in background.js). Top level, not inside the popup, so content.js —
+// loaded after this file into the same page — can call it too. Only the
+// shop's domain goes with it, never the page address.
+function track(event, props = {}) {
+  try {
+    chrome.runtime.sendMessage({
+      type: "track",
+      event,
+      props: { shop_domain: location.hostname.replace(/^www\./, ""), ...props },
+    }).catch(() => {});
+  } catch (e) { /* extension reloaded under this tab */ }
+}
+
 window.__dealoPopup = (() => {
   let escHandler = null;
+  // Whether the shopper has shrunk the panel. Kept here as well as in storage
+  // so every later screen opens at the size they chose without waiting on a
+  // storage read and visibly jumping.
+  const COMPACT_KEY = "dealo_popup_compact";
+  let compact = false;
+  try {
+    chrome.storage.local.get(COMPACT_KEY, (s) => {
+      compact = Boolean(s && s[COMPACT_KEY]);
+      document.getElementById("dealo-popup-root")?.classList.toggle("dealo-compact", compact);
+    });
+  } catch (e) { /* extension reloaded; full size */ }
 
   function esc(str) {
     const d = document.createElement("div");
@@ -73,7 +98,32 @@ window.__dealoPopup = (() => {
     cart: `<circle cx="9" cy="20" r="1.4"/><circle cx="18" cy="20" r="1.4"/><path d="M2 3h3l2.6 12.4a2 2 0 0 0 2 1.6h8.2a2 2 0 0 0 2-1.5L21.5 8H6"/>`,
     phone: `<rect x="6" y="2.5" width="12" height="19" rx="2.5"/><path d="M11 18.5h2"/>`,
     link: `<path d="M10 13a5 5 0 0 0 7 0l3-3a5 5 0 0 0-7-7l-1.5 1.5"/><path d="M14 11a5 5 0 0 0-7 0l-3 3a5 5 0 0 0 7 7L12.5 19.5"/>`,
+    shrink: `<path d="M4 14h6v6M20 10h-6V4M14 10l7-7M3 21l7-7"/>`,
+    grow: `<path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/>`,
   };
+
+  // The voucher amounts as tiles, the same ones on the voucher site the
+  // shopper is about to press. On the first screen this was a sum written out
+  // — "1×₹5,000 + 1×₹2,000 + 1×₹1,000" — which the product owner called
+  // "extremely unprofessional" beside the tiles two screens later (2026-09-21).
+  // One drawing for both screens, so they cannot drift apart again.
+  function denomChips(breakdown) {
+    if (!(breakdown || []).length) return "";
+    return `<div class="dealo-chips">${breakdown
+      // A typed amount has no button to mirror: it goes in Gyftr's amount box.
+      .map((b) => `<span class="dealo-chip">${b.typed ? `<span class="dealo-mult">type&nbsp;</span>` : ""}${b.count > 1 ? `<span class="dealo-mult">${b.count}×</span>` : ""}₹${rupees(b.denom)}</span>`)
+      .join("")}</div>`;
+  }
+
+  // The voucher's own rate beside the rupee figure. The rupees persuade; the
+  // percentage is how people compare deals, and it was missing (2026-09-21).
+  // Only beside a rupee figure — when the headline is already a percentage,
+  // saying it twice is noise.
+  function pctBadge(pct, headlineIsPct) {
+    const n = Number(pct);
+    if (headlineIsPct || !Number.isFinite(n) || n <= 0) return "";
+    return `<span class="dealo-pct-badge">${esc(+n.toFixed(1))}% off</span>`;
+  }
 
   function svg(name, size = 16, color = "currentColor", width = 2) {
     return `<svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none"
@@ -252,12 +302,40 @@ window.__dealoPopup = (() => {
         <div class="dealo-header" title="Drag to move">
           <span class="dealo-brand">${svg("grip", 12, "#B8AE9C", 2.4)}deal<span class="dealo-brand-o">o</span></span>
           ${step ? dots(step) : ""}
+          <button class="dealo-size" aria-pressed="${compact}"></button>
           <button class="dealo-close" aria-label="Dismiss">&times;</button>
         </div>
         ${innerHtml}
       </div>
     `;
-    root.querySelector(".dealo-close").addEventListener("click", close);
+    root.querySelector(".dealo-close").addEventListener("click", () => {
+      track("Extension Button Tapped", { button: "close", step: step || null });
+      close();
+    });
+    // Smaller, not hidden: the panel can sit over the very thing the shopper
+    // is reading (2026-09-21). The compact panel keeps the figure, the
+    // amounts and the next button, and drops what explains them — see
+    // .dealo-compact in popup.css. The choice sticks for every later screen.
+    const sizeBtn = root.querySelector(".dealo-size");
+    const paintSize = () => {
+      root.classList.toggle("dealo-compact", compact);
+      sizeBtn.innerHTML = svg(compact ? "grow" : "shrink", 14, "currentColor", 2);
+      sizeBtn.setAttribute("aria-label", compact ? "Make bigger" : "Make smaller");
+      sizeBtn.title = compact ? "Make bigger" : "Make smaller";
+      sizeBtn.setAttribute("aria-pressed", String(compact));
+    };
+    paintSize();
+    sizeBtn.addEventListener("click", () => {
+      compact = !compact;
+      paintSize();
+      track("Extension Button Tapped", { button: compact ? "make_smaller" : "make_bigger", step: step || null });
+      try { chrome.storage.local.set({ [COMPACT_KEY]: compact }); } catch (err) { /* extension reloaded */ }
+      // Shrinking from the bottom-right keeps that corner put; a remembered
+      // spot near the top edge could otherwise leave the panel off-screen
+      // when it grows back.
+      const box = root.getBoundingClientRect();
+      requestAnimationFrame(() => placeAt(root, { right: window.innerWidth - box.right, bottom: window.innerHeight - box.bottom }));
+    });
     wireDrag(root);
     escHandler = (e) => { if (e.key === "Escape") close(); };
     document.addEventListener("keydown", escHandler, true);
@@ -361,7 +439,10 @@ window.__dealoPopup = (() => {
       <div class="dealo-choices">${chips}</div>
     `, 1);
     root.querySelectorAll(".dealo-choice").forEach((btn) => {
-      btn.addEventListener("click", () => onPick(choices[Number(btn.dataset.i)]));
+      btn.addEventListener("click", () => {
+        track("Extension Button Tapped", { button: "pick_product", step: 1, choice: choices[Number(btn.dataset.i)].choice_label });
+        onPick(choices[Number(btn.dataset.i)]);
+      });
     });
   }
 
@@ -391,12 +472,16 @@ window.__dealoPopup = (() => {
     const rest = deal.priced && deal.remainder >= 1
       ? `<div class="dealo-plan-rest">+ ₹${rupees(deal.remainder)} by UPI or card at ${esc(deal.brand_name)}</div>`
       : "";
-    const plan = deal.purchase_breakdown
-      ? `<div class="dealo-plan">
-           <span class="dealo-plan-buy">${esc(deal.purchase_breakdown)}</span>
-           <span class="dealo-plan-where">at ${esc(sourceName(deal.voucher_source))}</span>
-         </div>${rest}`
-      : "";
+    const chips = denomChips(deal.denomination_breakdown);
+    const plan = chips
+      ? `<div class="dealo-eyebrow dealo-eyebrow-plan">Buy at ${esc(sourceName(deal.voucher_source))}</div>
+         ${chips}${rest.replace("dealo-plan-rest", "dealo-plan-rest dealo-plan-rest-left")}`
+      : deal.purchase_breakdown
+        ? `<div class="dealo-plan">
+             <span class="dealo-plan-buy">${esc(deal.purchase_breakdown)}</span>
+             <span class="dealo-plan-where">at ${esc(sourceName(deal.voucher_source))}</span>
+           </div>${rest}`
+        : "";
 
     // Only on a shop where the shopper picked what they are buying: what this
     // voucher pays for, in its seller's words, with its terms one tap away.
@@ -411,7 +496,10 @@ window.__dealoPopup = (() => {
       : "";
 
     const root = card(`
-      <div class="dealo-figure dealo-figure-tight">${big}</div>
+      <div class="dealo-figure-row">
+        <div class="dealo-figure dealo-figure-tight">${big}</div>
+        ${pctBadge(deal.pct, big.endsWith("%"))}
+      </div>
       <div class="dealo-caption">${caption} at ${esc(deal.brand_name)}</div>
       ${covers}
       ${plan}
@@ -424,8 +512,11 @@ window.__dealoPopup = (() => {
       </button>
       <div class="dealo-explain" hidden>${explanationBody(deal)}</div>
     `, 1);
-    wireExplainToggle(root);
+    wireExplainToggle(root, (open) => {
+      if (open) track("Extension Button Tapped", { button: "how_it_works", step: 1 });
+    });
     root.querySelector("#dealo-open-voucher").addEventListener("click", () => {
+      track("Extension Button Tapped", { button: "get_voucher", step: 1 });
       onOpenVoucher();
       close();
     });
@@ -476,10 +567,12 @@ window.__dealoPopup = (() => {
       <button class="dealo-link dealo-centered" id="dealo-okay">Close</button>
     `);
     root.querySelector("#dealo-support").addEventListener("click", () => {
+      track("Extension Button Tapped", { button: "support_dealo" });
       onSupport();
       close();
     });
     root.querySelector("#dealo-okay").addEventListener("click", () => {
+      track("Extension Button Tapped", { button: "no_deal_close" });
       onDismiss();
       close();
     });
@@ -508,12 +601,8 @@ window.__dealoPopup = (() => {
 
     // The basket, as tiles that mirror the buttons they are about to press.
     // Recognition instead of arithmetic — as a sentence this was invisible.
-    const chips = (d.denominationBreakdown || []).length
-      ? `<div class="dealo-chips">${d.denominationBreakdown
-          // A typed amount has no button to mirror: it goes in Gyftr's amount box.
-          .map((b) => `<span class="dealo-chip">${b.typed ? `<span class="dealo-mult">type&nbsp;</span>` : ""}${b.count > 1 ? `<span class="dealo-mult">${b.count}×</span>` : ""}₹${rupees(b.denom)}</span>`)
-          .join("")}</div>`
-      : (want ? `<div class="dealo-chips"><span class="dealo-chip">₹${rupees(want)}</span></div>` : "");
+    const chips = denomChips(d.denominationBreakdown)
+      || (want ? `<div class="dealo-chips"><span class="dealo-chip">₹${rupees(want)}</span></div>` : "");
 
     // The three numbers that matter, in the order a person asks for them:
     // what do I pay, what do I get, what do I save.
@@ -578,9 +667,19 @@ window.__dealoPopup = (() => {
       <button class="dealo-link dealo-centered" id="dealo-abandon">Not doing this now</button>
     `, 1);
 
-    root.querySelector("#dealo-show-me")?.addEventListener("click", () => onShowMe());
-    root.querySelector("#dealo-have-code").addEventListener("click", () => onHaveCode());
-    root.querySelector("#dealo-abandon").addEventListener("click", () => { onAbandon(); close(); });
+    root.querySelector("#dealo-show-me")?.addEventListener("click", () => {
+      track("Extension Button Tapped", { button: "show_me_how", step: 1 });
+      onShowMe();
+    });
+    root.querySelector("#dealo-have-code").addEventListener("click", () => {
+      track("Extension Button Tapped", { button: "bought_vouchers", step: 1 });
+      onHaveCode();
+    });
+    root.querySelector("#dealo-abandon").addEventListener("click", () => {
+      track("Extension Button Tapped", { button: "not_now", step: 1 });
+      onAbandon();
+      close();
+    });
   }
 
   // Collecting the codes. A separate job from buying them, and shaped like
@@ -609,11 +708,19 @@ window.__dealoPopup = (() => {
       <input class="dealo-input" id="dealo-pin" type="text" placeholder="PIN (if there is one)" autocomplete="off">
       <button class="dealo-button" id="dealo-save-code">${isLast ? `Save &amp; go back to ${esc(trip.store.brandName)}` : "Save, next code"}</button>
       ${remaining ? `<div class="dealo-remaining">${remaining} more after this</div>` : ""}
-      ${index > 0 && !isLast && onFinish
+      ${multi && !isLast && onFinish
         // Dealo's count is its plan; the shopper's email is the truth. Asked
         // for seven codes after buying three (Myntra, 2026-09-18) there was
         // no way out but to invent four.
-        ? `<button class="dealo-link dealo-centered" id="dealo-codes-done">That's all my codes</button>` : ""}
+        //
+        // A real button, not a link: as small grey text it was "too small and
+        // missable" (2026-09-21), and it is the way forward for anyone who
+        // bought fewer vouchers than planned. It keeps whatever code is in
+        // the box, so pressing it straight after pasting the last one loses
+        // nothing.
+        ? `<button class="dealo-button dealo-secondary dealo-withicon" id="dealo-codes-done">
+             ${svg("check", 15, "#4A9B8E", 2.4)}<span class="dealo-fit">Done, go to ${esc(trip.store.brandName)}</span>
+           </button>` : ""}
       <div class="dealo-private">
         ${svg("lock", 14, "#4A9B8E", 1.9)}
         <span>Stays on your device</span>
@@ -624,10 +731,18 @@ window.__dealoPopup = (() => {
     const save = () => {
       const code = codeEl.value.trim();
       if (!code) { codeEl.focus(); return; }
+      // That a code was saved, and which one of how many — never the code.
+      track("Extension Button Tapped", { button: "save_code", step: 2, code_index: index + 1, codes_planned: total });
       onSave(code, root.querySelector("#dealo-pin").value.trim());
     };
     root.querySelector("#dealo-save-code").addEventListener("click", save);
-    root.querySelector("#dealo-codes-done")?.addEventListener("click", () => onFinish());
+    root.querySelector("#dealo-codes-done")?.addEventListener("click", () => {
+      const code = codeEl.value.trim();
+      // Nothing saved yet and nothing typed: there is no code to go back with.
+      if (!code && index === 0) { codeEl.focus(); return; }
+      track("Extension Button Tapped", { button: "codes_done", step: 2, codes_saved: index + (code ? 1 : 0), codes_planned: total });
+      onFinish(code, root.querySelector("#dealo-pin").value.trim());
+    });
     // Six codes is six round trips to the keyboard; Enter saves, so the
     // shopper never has to reach for the mouse between them.
     root.querySelectorAll(".dealo-input").forEach((el) =>
@@ -870,15 +985,27 @@ window.__dealoPopup = (() => {
       const original = btn.innerHTML;
       btn.addEventListener("click", () => {
         copyText(btn.dataset.copy);
+        track("Extension Button Tapped", { button: btn.id.startsWith("dealo-copy-pin") ? "copy_pin" : "copy_code", step: 3 });
         btn.innerHTML = svg("check", 16, "#4A9B8E", 2.4);
         setTimeout(() => { btn.innerHTML = original; }, 1600);
       });
     });
-    root.querySelector("#dealo-where").addEventListener("click", () => onShowWhere());
-    root.querySelector("#dealo-done").addEventListener("click", () => { onDone(); close(); });
+    root.querySelector("#dealo-where").addEventListener("click", () => {
+      track("Extension Button Tapped", { button: "show_me_where", step: 3 });
+      onShowWhere();
+    });
+    root.querySelector("#dealo-done").addEventListener("click", () => {
+      track("Extension Button Tapped", { button: "code_applied", step: 3 });
+      onDone();
+      close();
+    });
     // Every other screen in the journey has a way out; this one did not, so a
     // trip a shopper had abandoned kept taking over their cart for a week.
-    root.querySelector("#dealo-abandon-trip").addEventListener("click", () => { onAbandon(); close(); });
+    root.querySelector("#dealo-abandon-trip").addEventListener("click", () => {
+      track("Extension Button Tapped", { button: "start_over", step: 3 });
+      onAbandon();
+      close();
+    });
   }
 
   // Step 4, the last one: the code's in, and the only thing left is the
@@ -895,8 +1022,15 @@ window.__dealoPopup = (() => {
       <div class="dealo-sub">Dealo will notice once your order's confirmed.</div>
       <button class="dealo-link" id="dealo-done">I've placed it</button>
     `, 3);
-    root.querySelector("#dealo-where").addEventListener("click", () => onShowMe());
-    root.querySelector("#dealo-done").addEventListener("click", () => { onDone(); close(); });
+    root.querySelector("#dealo-where").addEventListener("click", () => {
+      track("Extension Button Tapped", { button: "show_me_order_button", step: 3 });
+      onShowMe();
+    });
+    root.querySelector("#dealo-done").addEventListener("click", () => {
+      track("Extension Button Tapped", { button: "order_placed", step: 3 });
+      onDone();
+      close();
+    });
   }
 
   // Draws a highlight ring and a pointing label around a real element on the
@@ -1030,7 +1164,10 @@ window.__dealoPopup = (() => {
     const { big, caption } = headlineFigure(trip.deal);
     card(`
       <div class="dealo-done-mark">${svg("check", 26, "#4A9B8E", 2.4)}</div>
-      <div class="dealo-figure dealo-figure-tight">${big}</div>
+      <div class="dealo-figure-row">
+        <div class="dealo-figure dealo-figure-tight">${big}</div>
+        ${pctBadge(trip.deal.pct, big.endsWith("%"))}
+      </div>
       <div class="dealo-caption">${caption} at ${esc(trip.store.brandName)}</div>
     `);
     setTimeout(close, 6000);

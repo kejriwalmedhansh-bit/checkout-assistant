@@ -19,7 +19,7 @@ import { usePageTitle } from '@/hooks/usePageTitle';
  *   - src/cache.py                 — why the server keeps nothing on disk
  *   - extension/src/*.js           — what the extension sends and stores
  */
-const LAST_UPDATED = 'September 19, 2026';
+const LAST_UPDATED = 'September 21, 2026';
 
 function Section({ title, children }) {
   return (
@@ -205,15 +205,24 @@ export default function PrivacyPage() {
         <SubHeading>What it keeps on your device, and never sends us</SubHeading>
         <List>
           <li>Whether you’ve already dismissed the popup for a store, so it doesn’t ask twice.</li>
-          <li>A note of a purchase you’re part-way through — the store, the total, the suggested voucher — because buying a voucher means leaving the store and coming back. Discarded after seven days, or as soon as the purchase is done.</li>
+          <li>A note of a purchase you’re part-way through — the store, the total, the suggested voucher — because buying a voucher means leaving the store and coming back. Discarded after two days, or as soon as the purchase is done.</li>
           <li>Voucher codes you’ve bought, so you can paste them back into the store’s discount box. These stay on your machine. Our servers never receive them.</li>
+          <li>A random identifier made when you install the extension, used only for the usage records below.</li>
         </List>
+
+        <SubHeading>Usage records</SubHeading>
+        So we can see where people get stuck, the extension sends Mixpanel a short record when it finds a checkout,
+        shows a deal, moves to the next step, or you press one of its buttons. Each record carries the store’s
+        domain, the order total and saving it worked out, which step or button it was, the extension’s version, and
+        the random identifier above, so the steps of one purchase can be read together. The identifier is not linked
+        to your name, email or phone number. Records never contain voucher codes or PINs, what’s in your cart, or the
+        address of any page. Removing the extension deletes the identifier; reinstalling makes a new one.
 
         <SubHeading>Why it asks to run on all websites</SubHeading>
         Chrome warns that the extension can read and change your data on all websites. It asks for that because it
         can’t know in advance which store you’ll shop at — it has to be on the page to notice you’ve reached a
         checkout. It does not read or send the contents of the pages you visit, beyond the order total described
-        above. The extension has no account and no identifier: nothing it sends is tied to who you are.
+        above. The extension has no account, and nothing it sends is tied to your name, email or phone number.
       </Section>
 
       <Section title="Who else sees this information">
@@ -243,7 +252,7 @@ export default function PrivacyPage() {
       <Section title="How long things are kept">
         <List>
           <li><strong>On our server:</strong> nothing is written to disk. Searches and conversations live in memory and are gone on restart.</li>
-          <li><strong>Usage records and session replays:</strong> held by Mixpanel for as long as we keep using the service, unless you ask us to delete yours. Only created if you agreed to be recorded.</li>
+          <li><strong>Usage records and session replays:</strong> held by Mixpanel for as long as we keep using the service, unless you ask us to delete yours. On the website, only created if you agreed to be recorded. The extension’s records are described above.</li>
           <li><strong>Step counts:</strong> kept indefinitely, because there is nothing personal in them to delete — they are totals, with no person attached.</li>
           <li><strong>On your device:</strong> until you clear your browser’s site data, or remove the extension.</li>
         </List>

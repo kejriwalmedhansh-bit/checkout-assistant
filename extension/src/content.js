@@ -620,6 +620,7 @@
   // Calls itself instead, so entering six codes is six presses of Enter, and
   // only the last one sends them back to the store.
   function collectCode(trip, index, total) {
+    track("Extension Screen Shown", { screen: "code_entry", codes_saved: index, codes_planned: total });
     window.__dealoPopup.renderCodeEntry(trip, { index, total }, {
       onSave: async (code, pin) => {
         const next = await ask({ type: "tripAddCode", code, pin });
@@ -631,11 +632,29 @@
         }
         collectCode(updated, (updated.codes || []).length, total);
       },
-      onFinish: async () => {
+      // A code still in the box is kept, not thrown away — pressing Done right
+      // after pasting the last code you have is the ordinary way to use it.
+      onFinish: async (code, pin) => {
+        if (code) await ask({ type: "tripAddCode", code, pin });
         await ask({ type: "tripUpdate", patch: { status: "has_code" } });
         location.href = trip.store.returnUrl;
       },
     });
+  }
+
+  // What an order through Dealo was worth, for the funnel's last step.
+  // `how` is whether the shop's own confirmation page said so, or the
+  // shopper pressed "I've placed it".
+  function orderProps(trip, how) {
+    return {
+      confirmed_by: how,
+      merchant: trip.store?.brandName,
+      voucher_platform: trip.deal?.voucherSource,
+      saving_amount: trip.deal?.saving ?? null,
+      saving_pct: trip.deal?.pct ?? null,
+      cart_total: trip.store?.cartTotal ?? null,
+      codes_used: (trip.codes || []).length,
+    };
   }
 
   async function runJourney(trip) {
@@ -651,6 +670,7 @@
         || perTxnAmounts(trip.deal)[0]
         || trip.deal.voucherAmount;
 
+      track("Extension Screen Shown", { screen: "voucher_site", codes_saved: index, codes_planned: total });
       window.__dealoPopup.renderVoucherSiteStep(trip, { want }, {
         onShowMe: () => {
           // guide() reports whether it found anything at all to point at, so
@@ -669,6 +689,7 @@
     }
 
     if (trip.status === "has_code" && backAtStoreFor(trip)) {
+      track("Extension Screen Shown", { screen: "back_at_store", codes_saved: (trip.codes || []).length });
       window.__dealoPopup.renderBackAtStore(trip, {
         // "Start over" — see renderBackAtStore. Clears the trip so the next
         // look at this cart is a fresh one.
@@ -704,10 +725,12 @@
     // re-runs on every page-view change (a poll, not a new mechanism).
     if (trip.status === "placing_order" && backAtStoreFor(trip)) {
       if (looksLikeOrderConfirmed()) {
+        track("Extension Order Completed", orderProps(trip, "order_page"));
         await ask({ type: "tripClear" });
         window.__dealoPopup.renderTripComplete(trip);
         return true;
       }
+      track("Extension Screen Shown", { screen: "place_order" });
       window.__dealoPopup.renderPlaceOrder(trip, {
         onShowMe: () => {
           const found = findPlaceOrderControl();
@@ -721,6 +744,7 @@
         // shopper's own word closes the loop rather than the popup lingering
         // on a store that phrases its confirmation unusually.
         onDone: async () => {
+          track("Extension Order Completed", orderProps(trip, "shopper_said"));
           await ask({ type: "tripClear" });
           window.__dealoPopup.renderTripComplete(trip);
         },
@@ -865,11 +889,30 @@
       result.has_voucher &&
       (rateTooThin || (result.priced && result.saving != null && !worthTheErrand));
 
+    track("Checkout Detected", {
+      cart_total: price ?? null,
+      result: !result.has_voucher ? "no_voucher" : tooSmall ? "too_small" : "deal",
+      voucher_platform: result.voucher_source || "none",
+      saving_amount: result.saving ?? null,
+      saving_pct: result.pct ?? null,
+      product_choices: (result.product_choices || []).length,
+    });
+
     if (result.has_voucher && !tooSmall) {
       // Carry the order total through: the popup needs it to state the saving
       // as a share of THIS order rather than the voucher's headline rate.
       result.cart_total = price;
-      const offer = (deal, onChangeChoice) => window.__dealoPopup.renderVoucherFound(deal, async () => {
+      const offer = (deal, onChangeChoice) => {
+        track("Deal Shown", {
+          merchant: deal.brand_name,
+          has_voucher: true,
+          voucher_platform: deal.voucher_source,
+          listed_price: price ?? null,
+          final_cost: deal.priced && deal.saving != null && price != null ? price - deal.saving : null,
+          saving_amount: deal.saving ?? null,
+          saving_pct: deal.pct ?? null,
+        });
+        return window.__dealoPopup.renderVoucherFound(deal, async () => {
         // Save the trip BEFORE handing them off. This is the moment Dealo used
         // to forget everything — the shopper leaves for the voucher site and
         // there was no way back to what they were buying, for how much, or
@@ -881,6 +924,7 @@
         window.open(deal.voucher_url, "_blank");
         markDismissed(domain);
       }, onChangeChoice);
+      };
       // A shop whose vouchers each pay for different products: ask first,
       // then offer the one they picked. See renderPickProduct.
       if ((result.product_choices || []).length >= 2) {
