@@ -86,3 +86,33 @@ def test_a_site_wide_preview_title_does_not_hide_the_product_name():
     assert ss._extract_page_title(page).startswith("Skullcandy Method 360 ANC")
     # A one-word name still comes back when it is all the page offers.
     assert ss._extract_page_title("<title>Skullcandy</title>") == "Skullcandy"
+
+
+def test_a_title_that_is_only_the_store_gives_way_to_the_product_name(monkeypatch):
+    """armaniexchange.in titles every page with the store's name; the shirt's
+    name is only in the page's product data."""
+    page = """<meta property="og:site_name" content="Armani Exchange" />
+    <meta property="og:title" content="Armani Exchange | Men's and Women's Apparel and Accessories" />
+    <script type="application/ld+json">{"@type": "Product", "name": "Jacquard Logo Regular Fit SHIRT",
+     "brand": {"name": "Armani Exchange"},
+     "offers": {"price": "8999", "priceCurrency": "INR"}}</script>"""
+
+    class _Resp:
+        status_code = 200
+        text = page
+        url = ss.httpx.URL("https://armaniexchange.in/product/jacquard-logo-regular-fit-shirt-17473977")
+        headers = {}
+        history = []
+
+    class _Client:
+        def __init__(self, *a, **k): pass
+        def __enter__(self): return self
+        def __exit__(self, *a): return False
+        def get(self, url): return _Resp()
+
+    monkeypatch.setattr(ss.httpx, "Client", _Client)
+    monkeypatch.setattr(ss, "_deeplink_redirect_target", lambda resp: None)
+    title, price, merchant, _ = ss._fetch_url_page(str(_Resp.url))
+    assert title == "Armani Exchange Jacquard Logo Regular Fit SHIRT"
+    assert price == 8999.0
+    assert merchant == "Armani Exchange"
