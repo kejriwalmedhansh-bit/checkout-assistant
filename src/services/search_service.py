@@ -1975,7 +1975,24 @@ def _extract_page_title(markup: str) -> str | None:
 
     Split out of _fetch_url_page so the Apify-rendered HTML goes through the
     exact same trusted title logic as a direct fetch — a title read past a
-    bot wall gets no weaker vetting than one read without it."""
+    bot wall gets no weaker vetting than one read without it.
+
+    A source that cleans down to a single word is held back while the later
+    sources are tried: some shops set one site-wide og:title on every page
+    (skullcandy.in: "Skullcandy | Headphones, Earbuds, and Gaming
+    Headphones" -> "Skullcandy") while the page's own <title> names the
+    product ("Skullcandy Method 360 ANC"). Searching the bare brand matched
+    the same cheap earbuds for every Skullcandy link."""
+    fallback = None
+    for candidate in _page_title_candidates(markup):
+        if len(candidate.split()) >= 2:
+            return candidate
+        fallback = fallback or candidate
+    return fallback
+
+
+def _page_title_candidates(markup: str):
+    """Each usable, cleaned product name the page offers, best source first."""
     for pattern in _META_TITLE_RES:
         m = pattern.search(markup)
         if not m:
@@ -2014,8 +2031,7 @@ def _extract_page_title(markup: str) -> str | None:
         if len(cleaned) >= 3 and cleaned != candidate:
             logger.info("[url-search] cleaned page title %r -> %r", candidate, cleaned)
             candidate = cleaned
-        return candidate
-    return None
+        yield candidate
 
 
 def _extract_page_image(markup: str, base_url: str) -> str | None:
