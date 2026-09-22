@@ -2475,6 +2475,17 @@ def _fetch_url_page(url: str) -> tuple[str | None, float | None, str | None, str
     # Some shops set no og:image (skechers.in) but name the photo in their
     # product data; without one the live row is dropped from the picker.
     image = image or jsonld_image
+    if title and jsonld_name:
+        # Some shops put the store's own title on every page (armaniexchange.in:
+        # "Armani Exchange | Men's and Women's Apparel…" -> "Armani Exchange"),
+        # so the only product name is in the structured data. Searched bare,
+        # the brand matched a watch and the result was labelled one.
+        store_sigs = {
+            _brand_signature(n) for n in (brand_site, _clean_brand_name(jsonld_brand)) if n
+        }
+        if _brand_signature(title) in store_sigs and _brand_signature(jsonld_name) not in store_sigs:
+            logger.info("[url-search] page title %r is just the store; using product name %r", title, jsonld_name)
+            title = jsonld_name
     if title:
         if _has_condition_word(title) and jsonld_name and not _has_condition_word(jsonld_name):
             title = re.sub(r"\s+", " ", _CONDITION_WORDS_RE.sub("", title)).strip()
