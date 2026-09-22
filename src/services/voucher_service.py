@@ -1486,6 +1486,17 @@ def get_best_buyhatke_deal(merchant_name: str, price: float) -> tuple[dict, dict
     return deal, tier, record.get("brand_name")
 
 
+def _deal_is_offline_only(deal: dict, rules: dict) -> bool:
+    """True when a deal's voucher can only be spent in a physical shop.
+
+    A page that says outright the voucher cannot be used online outranks the
+    platform's redemption_type flag, which is set by the seller and has been
+    wrong in both directions."""
+    if _rule_value(rules, "works_online") == "no":
+        return True
+    return deal.get("redemption_type") == "Offline"
+
+
 def _pick_best_candidate(candidates: list[tuple]) -> tuple:
     """Chooses which source's deal to recommend for one merchant.
 
@@ -1660,6 +1671,17 @@ def build_deals(results: list[dict], product_name: str = "") -> list[dict]:
         if not candidates:
             continue
 
+        # Dealo's shoppers buy online. When any source has a voucher that works
+        # on the shop's website, the in-store-only ones drop out before the
+        # cheapest is picked — otherwise a higher in-store rate wins the one
+        # slot per merchant, the website listing is left with no voucher at
+        # all, and the route recommends a shop visit (Wonderchef: Maximize's
+        # 13.75% in-store card beat BuyHatke's 12.63% online one, so the
+        # wonderchef.com listing showed no saving and Amazon's 1% won).
+        online = [c for c in candidates if not _deal_is_offline_only(c[0], _rules_for(c[1], c[2], c[3]))]
+        if online:
+            candidates = online
+
         # Dealo's "always show the cheaper source" rule, now friction-aware:
         # see _pick_best_candidate for the single-vs-multi-transaction
         # tie-break.
@@ -1674,12 +1696,7 @@ def build_deals(results: list[dict], product_name: str = "") -> list[dict]:
         # online route's price instead. `deal` was already correctly built
         # from the flattened product data, so its own field is what's right.
         won_rules = _rules_for(voucher, voucher_source, brand_name)
-        offline_only = deal.get("redemption_type") == "Offline"
-        # A page that says outright the voucher cannot be used online outranks
-        # the platform's redemption_type flag, which is set by the seller and
-        # has been wrong in both directions.
-        if _rule_value(won_rules, "works_online") == "no":
-            offline_only = True
+        offline_only = _deal_is_offline_only(deal, won_rules)
 
         # What the voucher may actually be spent on, when the terms narrow it:
         # Maximize's "Air India Ancillary" pays 18% and buys only seat

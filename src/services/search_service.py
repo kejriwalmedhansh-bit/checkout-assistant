@@ -39,6 +39,7 @@ from ..repositories import (
     apify_repository,
     buyhatke_repository,
     crawlbase_repository,
+    domain_brand_repository,
     maximize_repository,
     searchapi_repository,
     voucher_repository,
@@ -1305,6 +1306,16 @@ def _filter_and_group_candidates(
         elif not _is_latin_dominant(c["title"]):
             logger.info("%s   dropped (non-Latin title): %r", tag, c["title"])
 
+    # A renewed/refurbished listing is a different product from a new one at a
+    # different value, so it only answers a search that asked for one. Left
+    # in, it led the picker for a new 60L Wonderchef OTG and the route priced
+    # the renewed unit.
+    if not _has_condition_word(query):
+        for c in hygienic:
+            if _has_condition_word(c["title"]):
+                logger.info("%s   dropped (renewed/refurbished, not asked for): %r", tag, c["title"])
+        hygienic = [c for c in hygienic if not _has_condition_word(c["title"])]
+
     # Relevance gate (2026-08-06, re-added — see CLAUDE.md bug #6): reject a
     # listing only when it matches NONE of the query's required tokens, not
     # when it fails to match all of them. Catches gibberish/unrelated queries
@@ -2091,6 +2102,145 @@ def _extract_jsonld_price(markup: str) -> float | None:
     return None
 
 
+def _extract_jsonld_product(markup: str) -> tuple[str | None, str | None, str | None]:
+    """(name, brand, image) of the first schema.org Product/ProductGroup in a
+    page's own structured data — the same block _extract_jsonld_price reads
+    its price from. Any can be None."""
+    for block in _LDJSON_BLOCK_RE.findall(markup):
+        try:
+            data = json.loads(html.unescape(block))
+        except (json.JSONDecodeError, ValueError):
+            continue
+        for node in data if isinstance(data, list) else [data]:
+            if not isinstance(node, dict) or node.get("@type") not in ("Product", "ProductGroup"):
+                continue
+            name = node.get("name") if isinstance(node.get("name"), str) else None
+            brand = node.get("brand")
+            if isinstance(brand, list):
+                brand = brand[0] if brand else None
+            if isinstance(brand, dict):
+                brand = brand.get("name")
+            brand = brand if isinstance(brand, str) else None
+            image = node.get("image")
+            if isinstance(image, list):
+                image = image[0] if image else None
+            if isinstance(image, dict):
+                image = image.get("url")
+            image = image if isinstance(image, str) and image.startswith(("http", "//")) else None
+            if image and image.startswith("//"):
+                image = "https:" + image
+            return (
+                re.sub(r"\s+", " ", html.unescape(name)).strip() if name else None,
+                brand,
+                image,
+            )
+    return None, None, None
+
+
+_SITE_NAME_RES = [
+    re.compile(
+        r"""<meta[^>]+property=["']og:site_name["'][^>]+content=["']([^"']+)["']""",
+        re.IGNORECASE,
+    ),
+    re.compile(
+        r"""<meta[^>]+content=["']([^"']+)["'][^>]+property=["']og:site_name["']""",
+        re.IGNORECASE,
+    ),
+]
+
+# Trailing words that decorate a brand name without being part of it: a
+# storefront's "India"/"Official Store", or a voucher catalogue's
+# "Gift Card"/"-Luxe"/"(Custom)" (domain_brand_map.json holds catalogue names).
+_BRAND_NOISE_RE = re.compile(
+    r"(?:\s*-\s*luxe|\s+luxe|\s+(?:e-?gift|gift)\s+(?:card|voucher)s?|\s+e-?vouchers?"
+    r"|\s*\(custom\)|\s+india|\s+official(?:\s+online)?(?:\s+store)?|\s+online\s+store)\s*$",
+    re.IGNORECASE,
+)
+
+
+def _clean_brand_name(name: str | None) -> str | None:
+    """A brand as people write it: "Bath amp; Body Works" -> "Bath & Body
+    Works", "Superdry-Luxe Gift Card" -> "Superdry", "FRIDO" -> "Frido".
+    "and" becomes "&" so the same shop named both ways ("Bath and Body
+    Works" on its own site, "Bath & Body Works" in Google Shopping and the
+    voucher catalogues) reads as one name everywhere it is compared."""
+    if not name:
+        return None
+    name = html.unescape(name).replace("amp;", "&")
+    name = re.sub(r"\s+", " ", name).strip()
+    while True:
+        stripped = _BRAND_NOISE_RE.sub("", name).strip(" -")
+        if stripped == name or len(stripped) < 2:
+            break
+        name = stripped
+    name = re.sub(r"\s+and\s+", " & ", name, flags=re.IGNORECASE)
+    name = re.sub(r"\s*&\s*", " & ", name)
+    if name.isupper() and len(name) > 4:
+        name = name.title()
+    return name or None
+
+
+def _brand_website_name(markup: str, host: str, jsonld_brand: str | None) -> str | None:
+    """The brand's name when this page is the brand's OWN website, else None.
+
+    Two ways to know: the host is in the brand-website list built from the
+    voucher catalogues (domain_brand_map.json), or the page's own product
+    brand and its site name are the same brand (a shop selling only itself —
+    this catches brand sites the list is missing, e.g. bathandbodyworks.in).
+    A marketplace fails both: it is not in the list, and its product brands
+    (Nike, Samsung…) never match its site name (Myntra)."""
+    site_name = None
+    for pattern in _SITE_NAME_RES:
+        m = pattern.search(markup)
+        if m:
+            site_name = _clean_brand_name(m.group(1))
+            break
+    listed = _clean_brand_name(domain_brand_repository.brand_for_domain(host) if host else None)
+    brand = _clean_brand_name(jsonld_brand)
+    if listed:
+        # The list holds every shop that sells vouchers, retailers included
+        # (myntra.com is Myntra's), so a listed host still has to be selling
+        # its own brand: a Nike shoe on Myntra is not Myntra's product.
+        if listed in _MULTI_BRAND_LIVE_MERCHANTS or (
+            brand and _brand_signature(brand) != _brand_signature(listed)
+        ):
+            return None
+        return site_name or brand or listed
+    if brand and site_name and _brand_signature(brand) == _brand_signature(site_name):
+        return site_name
+    return None
+
+
+# Words saying a listing is not a new unit. A pasted page's own title can say
+# one of these while the same page's structured product data describes the new
+# item (wonderchef.com's 60L OTG: og:title "Renewed OTG…", JSON-LD a new
+# ₹13,999 unit), and searching the word then matches only refurbished stock.
+_CONDITION_WORDS_RE = re.compile(
+    r"\b(?:renewed|refurbished|refurb|pre[- ]?owned|open[- ]box)\b", re.IGNORECASE
+)
+
+
+def _has_condition_word(text: str | None) -> bool:
+    return bool(text and _CONDITION_WORDS_RE.search(text))
+
+
+def _title_with_brand(title: str, brand: str | None) -> str:
+    """Prefix the brand when the page title leaves it out. Brand sites often
+    title a product by its own name alone ("Paris Cafe" on
+    bathandbodyworks.in), and that searched bare finds coffee makers and
+    another brand's perfume instead."""
+    if not brand:
+        return title
+    title_squashed = re.sub(r"[^a-z0-9]", "", title.lower())
+    brand_words = [w for w in re.findall(r"[a-z0-9]+", brand.lower()) if len(w) >= 2]
+    if not brand_words or "".join(brand_words) in title_squashed:
+        return title
+    title_words = set(re.findall(r"[a-z0-9]+", title.lower()))
+    if all(w in title_words for w in brand_words):
+        return title
+    return f"{brand} {title}"
+
+
 # Query param name(s) a mobile-app smart-link redirect (AppsFlyer's OneLink,
 # the mechanism behind an app's own "Share" button — confirmed live,
 # 2026-08-27, on an ajioapps.onelink.me link) carries the real product page
@@ -2304,6 +2454,19 @@ def _fetch_url_page(url: str) -> tuple[str | None, float | None, str | None, str
     host = (resp.url.host or "").lower()
     price = None
     merchant = None
+    jsonld_name, jsonld_brand, jsonld_image = _extract_jsonld_product(full_markup)
+    brand_site = _brand_website_name(full_markup, host, jsonld_brand)
+    # Some shops set no og:image (skechers.in) but name the photo in their
+    # product data; without one the live row is dropped from the picker.
+    image = image or jsonld_image
+    if title:
+        if _has_condition_word(title) and jsonld_name and not _has_condition_word(jsonld_name):
+            title = re.sub(r"\s+", " ", _CONDITION_WORDS_RE.sub("", title)).strip()
+            logger.info("[url-search] dropped a condition word the product data doesn't state: %r", title)
+        branded = _title_with_brand(title, brand_site or _clean_brand_name(jsonld_brand))
+        if branded != title:
+            logger.info("[url-search] page title had no brand, searching %r", branded)
+            title = branded
     if _is_amazon_host(host):
         price = _extract_amazon_price(full_markup, url, str(resp.url))
         merchant = "Amazon"
@@ -2314,6 +2477,13 @@ def _fetch_url_page(url: str) -> tuple[str | None, float | None, str | None, str
             price = _extract_jsonld_price(full_markup)
             merchant = jsonld_merchant
             logger.info("[url-search] %s live price: %s", jsonld_merchant, price)
+        elif brand_site:
+            # The brand's own shop: the pasted page IS the product, and the
+            # shop the brand's voucher is spent at. Its structured offer price
+            # is what it charges today, so it joins the picker as a live row.
+            price = _extract_jsonld_price(full_markup)
+            merchant = brand_site
+            logger.info("[url-search] brand site %s live price: %s", brand_site, price)
 
     # A 200 that yielded neither a name nor a price is a soft block (a shell
     # page, or a bot wall that didn't bother with a 403) — worth one render.
@@ -2367,6 +2537,21 @@ def _live_price_candidate(
         "rating": None,
         "reviews": None,
     }
+
+
+# The shops among those Dealo reads a live price from that sell many brands.
+# Every other live-price shop (skechers.in, wonderchef.com, a brand site
+# recognised by _brand_website_name…) sells only its own brand.
+_MULTI_BRAND_LIVE_MERCHANTS = frozenset({
+    "Amazon", "Myntra", "Flipkart", "AJIO", "Nykaa", "Reliance Digital",
+    "Vijay Sales", "Lifestyle", "Westside", "Home Centre", "Decathlon",
+})
+
+
+def _is_brand_site_merchant(source: str) -> bool:
+    """True for a live row read off a brand's own shop, not a multi-brand
+    retailer's."""
+    return source not in _MULTI_BRAND_LIVE_MERCHANTS
 
 
 def _maybe_widen_brand_query(
@@ -2597,15 +2782,29 @@ def search_candidates(query: str) -> dict:
             # than shown as an image-less row — the search's own candidates
             # always carry a real thumbnail, so this is never the only option.
             live_sig = _brand_signature(live_candidate["source"])
-            merged, replaced = [], False
-            for p in products:
-                if not replaced and _brand_signature(p.get("source") or "") == live_sig:
+            if _is_brand_site_merchant(live_candidate["source"]):
+                # A link from the brand's own website: its row is the one
+                # listing certain to be the exact product, so it leads, and
+                # the search's row for the same shop (often a different model
+                # or colour Google filed under it) goes. Left in search order
+                # it sat under other models — a Skechers Surfa sandal link
+                # opened on a women's Arch Fit shoe from Myntra, a Mahogany
+                # Teakwood mist link on a Blinkit listing. The cross-platform
+                # matches still follow, so other shops are still compared.
+                merged = [live_candidate] + [
+                    p for p in products
+                    if _brand_signature(p.get("source") or "") != live_sig
+                ]
+            else:
+                merged, replaced = [], False
+                for p in products:
+                    if not replaced and _brand_signature(p.get("source") or "") == live_sig:
+                        merged.append(live_candidate)
+                        replaced = True
+                    else:
+                        merged.append(p)
+                if not replaced:
                     merged.append(live_candidate)
-                    replaced = True
-                else:
-                    merged.append(p)
-            if not replaced:
-                merged.append(live_candidate)
             products = merged
             approximate = False
         if not products:
@@ -2837,6 +3036,7 @@ def build_routes_for_token(
                 c for c in refined
                 if c.get("title") and not _is_accessory(c["title"]) and not _is_bulk_listing(c["title"])
                 and _is_latin_dominant(c["title"])
+                and (_has_condition_word(variant_query) or not _has_condition_word(c["title"]))
             ]
             required = _required_tokens(variant_query)
             if required:
