@@ -361,7 +361,10 @@ async def _send_voucher_steps(phone: str, route: dict) -> None:
     # becomes "our voucher partner" here (the underlying voucher_url is
     # unaffected). "via UPI" is dropped too, per the same doc's rule against
     # mentioning UPI unexplained — it doesn't help the user decide anything.
-    platform_label = "Maximize" if voucher.get("voucher_source") == "maximize" else "our voucher partner"
+    # BuyHatke is a known app too, so it keeps its own name. Before, every
+    # non-Maximize voucher was treated as Gyftr.
+    source = voucher.get("voucher_source")
+    platform_label = {"maximize": "Maximize", "buyhatke": "BuyHatke"}.get(source, "our voucher partner")
 
     txns = upi.get("txns_needed", 1)
     total_units = sum(b.get("count", 0) for b in denom_breakdown)
@@ -524,7 +527,7 @@ async def _send_success_flow(phone: str, route: dict, image_url: str | None) -> 
     savings = (listed_price - final_cost) if listed_price else 0
     voucher_platform = "none"
     if voucher:
-        voucher_platform = "Maximize" if voucher.get("voucher_source") == "maximize" else "Gyftr"
+        voucher_platform = {"maximize": "Maximize", "buyhatke": "BuyHatke"}.get(voucher.get("voucher_source"), "Gyftr")
     discount_pct = round((savings / listed_price) * 100) if listed_price and savings > 0 else 0
     _track(
         "WhatsApp Recommendation Shown", phone,

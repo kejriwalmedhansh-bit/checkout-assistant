@@ -4,6 +4,7 @@ import { motion, useReducedMotion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 
 import FloatingOutlines from '@/components/common/FloatingOutlines';
+import PeekCard from '@/components/common/PeekCard';
 import SearchBox from '@/components/common/SearchBox';
 import { HOW_IT_WORKS } from '@/components/onboarding/tourSteps';
 import TourRing from '@/components/onboarding/TourRing';
@@ -239,6 +240,51 @@ export default function SearchPage() {
               </Fragment>
             ))}
           </Box>
+        </Box>
+
+        {/* Credit-card teaser: says there's something for card users on
+            the results page, and nothing more. No amounts, nothing opens.
+            The same peeking card sits on "Have a credit card?" there, so
+            people recognise it when they reach it (Raj's idea, 2026-09-20:
+            the homepage was mostly empty space). */}
+        <Box as={motion.div} {...fadeUp(0.24)} w="100%" mt={{ base: '20px', md: '32px' }} textAlign="left">
+          <PeekCard />
+          <Flex
+            position="relative"
+            mt="-1px"
+            align="center"
+            gap="10px"
+            bg="surface"
+            border="1px solid"
+            borderColor="border"
+            borderRadius="lg"
+            px="14px"
+            py="12px"
+            boxShadow="0 10px 24px -18px rgba(22,32,43,.5)"
+          >
+            <Box flex="1" minW={0}>
+              <Text fontSize="14px" fontWeight={800} color="text" letterSpacing="-.01em">
+                Paying by credit card?
+              </Text>
+              <Text fontSize="12px" color="text2" mt="2px">
+                There&apos;s something for you on your results.
+              </Text>
+            </Box>
+            <Text
+              as="span"
+              flex="0 0 auto"
+              fontSize="11px"
+              fontWeight={700}
+              color="brand"
+              bg="brandSoft"
+              borderRadius="999px"
+              px="9px"
+              py="4px"
+              whiteSpace="nowrap"
+            >
+              Card vs UPI
+            </Text>
+          </Flex>
         </Box>
       </Flex>
     </Box>

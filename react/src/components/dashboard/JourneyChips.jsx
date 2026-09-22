@@ -19,14 +19,19 @@ import { I } from '@/components/common/icons';
  * gets an actual moving cue pointing at "next," not just a static arrow.
  * Only that one connector animates (everything else stays still) so it
  * reads as "go this way" rather than turning the whole strip busy.
+ *
+ * A step may carry a `sub` line (e.g. "Buy voucher · ₹92,625"): the chip
+ * then becomes a two-line bordered tab naming a place and what's paid there,
+ * and both tabs share the row equally.
  */
 export default function JourneyChips({ steps, activeIndex, onSelect }) {
+  const withSub = steps.some((s) => s.sub);
   return (
     <Flex align="center" gap="2px" mb="10px">
       {steps.map((s, i) => {
         const active = i === activeIndex;
         return (
-          <Flex key={s.key} align="center" gap="2px" flex={i === steps.length - 1 ? '0 0 auto' : '1'}>
+          <Flex key={s.key} align="center" gap="2px" flex={withSub || i < steps.length - 1 ? '1' : '0 0 auto'} minW="0">
             <Box
               as="button"
               type="button"
@@ -39,16 +44,21 @@ export default function JourneyChips({ steps, activeIndex, onSelect }) {
               flex="1"
               minW="0"
               borderRadius="10px"
-              bg={active ? 'amberSoft' : 'transparent'}
+              textAlign="left"
+              bg={active ? 'amberSoft' : withSub ? 'surface' : 'transparent'}
+              border={withSub ? '1px solid' : undefined}
+              borderColor={active ? 'amber' : 'border'}
               opacity={active || s.done ? 1 : 0.75}
               transition="opacity .2s ease, background .2s ease"
               _active={{ transform: 'scale(.97)' }}
               _focusVisible={{ outline: '2px solid', outlineColor: 'brand', outlineOffset: '2px' }}
             >
               <Flex
-                w="20px"
-                h="20px"
-                flex="0 0 20px"
+                w={withSub ? '17px' : '20px'}
+                h={withSub ? '17px' : '20px'}
+                flex={withSub ? '0 0 17px' : '0 0 20px'}
+                fontSize="10px"
+                fontWeight={800}
                 borderRadius="50%"
                 align="center"
                 justify="center"
@@ -57,11 +67,27 @@ export default function JourneyChips({ steps, activeIndex, onSelect }) {
                 border="1.5px solid"
                 borderColor={s.done ? 'green' : active ? 'amber' : 'border'}
               >
-                {s.done ? <I.check size={11} /> : <s.icon size={11} />}
+                {/* Two-line tabs carry their number here, leaving the width
+                    for the place name and amount. */}
+                {s.done ? <I.check size={10} /> : withSub ? i + 1 : <s.icon size={11} />}
               </Flex>
-              <Text fontSize="11.5px" fontWeight={800} color={s.done ? 'green' : active ? 'text' : 'text2'} whiteSpace="nowrap">
-                {i + 1} · {s.label}
-              </Text>
+              <Box minW="0">
+                <Text
+                  fontSize="11.5px"
+                  fontWeight={800}
+                  color={s.done ? 'green' : active ? 'text' : 'text2'}
+                  whiteSpace="nowrap"
+                  overflow="hidden"
+                  textOverflow="ellipsis"
+                >
+                  {withSub ? s.label : `${i + 1} · ${s.label}`}
+                </Text>
+                {s.sub && (
+                  <Text fontSize="10.5px" color="text2" whiteSpace="nowrap" overflow="hidden" textOverflow="ellipsis" mt="1px">
+                    {s.sub}
+                  </Text>
+                )}
+              </Box>
             </Box>
             {i < steps.length - 1 && (
               <Box
