@@ -78,3 +78,11 @@ def test_an_in_store_voucher_never_takes_the_websites_slot():
     assert not vs._deal_is_offline_only(online, {})
     # The shop's own "cannot be used online" outranks the platform's flag.
     assert vs._deal_is_offline_only(online, {"works_online": {"value": "no"}})
+
+
+def test_a_site_wide_preview_title_does_not_hide_the_product_name():
+    page = """<meta property="og:title" content="Skullcandy | Headphones, Earbuds, and Gaming Headphones" />
+    <title>Skullcandy Method 360 ANC - Sound by Bose</title>"""
+    assert ss._extract_page_title(page).startswith("Skullcandy Method 360 ANC")
+    # A one-word name still comes back when it is all the page offers.
+    assert ss._extract_page_title("<title>Skullcandy</title>") == "Skullcandy"
