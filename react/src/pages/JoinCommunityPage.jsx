@@ -117,6 +117,26 @@ export default function JoinCommunityPage() {
           try it yourself →
         </ChakraLink>
       </Text>
+
+      {/* Scanning your own screen with your own phone makes no sense — desktop
+          only, where the visitor is likely reading this on one device and
+          would join from another. */}
+      <Box display={{ base: 'none', md: 'block' }} mt="36px">
+        <Text m="0 0 10px" fontSize="12.5px" fontWeight={600} color="text3">
+          or scan with your phone
+        </Text>
+        <Box
+          as="img"
+          src="/whatsapp-community-qr.png"
+          alt="QR code to join Dealo's WhatsApp community"
+          w="150px"
+          h="150px"
+          mx="auto"
+          borderRadius="14px"
+          border="1px solid"
+          borderColor="border"
+        />
+      </Box>
     </Box>
   );
 }

@@ -10,8 +10,8 @@ export const API_BASE_URL =
 export const MIXPANEL_TOKEN = '5dcefbba60138d48545e132490cd1e4d';
 
 /**
- * The invite link for Dealo's free WhatsApp community, where members send
- * whatever they're about to buy and get the cheapest way to pay for it.
- * PLACEHOLDER — swap for the real chat.whatsapp.com link before this ships.
+ * The invite link for Dealo's free WhatsApp community ("Ask Dealo — Best
+ * Price Help"), where members send whatever they're about to buy and get
+ * the cheapest way to pay for it.
  */
-export const WHATSAPP_COMMUNITY_LINK = 'https://chat.whatsapp.com/PLACEHOLDER_UPDATE_ME';
+export const WHATSAPP_COMMUNITY_LINK = 'https://chat.whatsapp.com/IEbXBuUEuTv7E5FKS7x4Wt?s=cl&p=i&mlu=4';
