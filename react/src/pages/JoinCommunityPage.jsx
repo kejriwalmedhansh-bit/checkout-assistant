@@ -118,12 +118,9 @@ export default function JoinCommunityPage() {
         </ChakraLink>
       </Text>
 
-      {/* Scanning your own screen with your own phone makes no sense — desktop
-          only, where the visitor is likely reading this on one device and
-          would join from another. */}
-      <Box display={{ base: 'none', md: 'block' }} mt="36px">
+      <Box mt="36px">
         <Text m="0 0 10px" fontSize="12.5px" fontWeight={600} color="text3">
-          or scan with your phone
+          or scan this QR code
         </Text>
         <Box
           as="img"
