@@ -104,6 +104,8 @@ const ANONYMOUS_STAGES = new Set([
   'Selected Product',
   'Viewed Deal',
   'Clicked Buy Link',
+  'Join Page Viewed',
+  'Joined WhatsApp Clicked',
 ]);
 
 /**
@@ -366,4 +368,25 @@ if (typeof document !== 'undefined') {
     },
     true,
   );
+}
+
+/**
+ * Persists properties (campaign UTM tags, for now) as Mixpanel super
+ * properties for the rest of this browser session, so every later funnel
+ * event — 'Searched', 'Selected Product', 'Viewed Deal', 'Clicked Buy Link' —
+ * carries them too, not just the landing event that read them off the URL.
+ *
+ * Distinct from the 'first_' properties above: those are permanent, set once
+ * per browser and never overwritten, so a returning visitor's original
+ * touchpoint from months ago still wins there. A specific campaign — "did
+ * people from this email actually complete the funnel on THIS visit?" —
+ * needs this visit's own tag instead, which is what this plain (unprefixed)
+ * version provides for the rest of the current session.
+ *
+ * No-op without consent — an unconsented visitor still gets nothing written
+ * to storage, same rule as everywhere else in this file.
+ */
+export function registerCampaignProps(props) {
+  if (!isGranted() || Object.keys(props).length === 0) return;
+  mixpanel.register(props);
 }

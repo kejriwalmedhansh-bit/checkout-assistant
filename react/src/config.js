@@ -8,3 +8,10 @@ export const API_BASE_URL =
  * var buys no secrecy. It is not the API secret — never put that here.
  */
 export const MIXPANEL_TOKEN = '5dcefbba60138d48545e132490cd1e4d';
+
+/**
+ * The invite link for Dealo's free WhatsApp community, where members send
+ * whatever they're about to buy and get the cheapest way to pay for it.
+ * PLACEHOLDER — swap for the real chat.whatsapp.com link before this ships.
+ */
+export const WHATSAPP_COMMUNITY_LINK = 'https://chat.whatsapp.com/PLACEHOLDER_UPDATE_ME';

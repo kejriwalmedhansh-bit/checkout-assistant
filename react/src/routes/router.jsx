@@ -18,6 +18,7 @@ const BrandsIndexPage = lazy(() => import('@/pages/BrandsIndexPage'));
 const BrandPage = lazy(() => import('@/pages/BrandPage'));
 const AboutPage = lazy(() => import('@/pages/AboutPage'));
 const ContactPage = lazy(() => import('@/pages/ContactPage'));
+const JoinCommunityPage = lazy(() => import('@/pages/JoinCommunityPage'));
 const PrivacyPage = lazy(() => import('@/pages/PrivacyPage'));
 const TermsPage = lazy(() => import('@/pages/TermsPage'));
 const NotFoundPage = lazy(() => import('@/pages/NotFoundPage'));
@@ -43,6 +44,7 @@ export const router = createBrowserRouter([
       { path: ROUTES.brand, element: lazyPage(BrandPage) },
       { path: ROUTES.about, element: lazyPage(AboutPage) },
       { path: ROUTES.contact, element: lazyPage(ContactPage) },
+      { path: ROUTES.join, element: lazyPage(JoinCommunityPage) },
       { path: ROUTES.privacy, element: lazyPage(PrivacyPage) },
       { path: ROUTES.terms, element: lazyPage(TermsPage) },
 

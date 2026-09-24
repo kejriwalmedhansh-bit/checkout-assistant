@@ -12,6 +12,7 @@ export const ROUTES = {
   brandFor: (slug) => `/brands/${slug}`,
   about: '/about',
   contact: '/contact',
+  join: '/join',
   privacy: '/privacy',
   terms: '/terms',
 };
