@@ -122,7 +122,11 @@ export default function AppLayout() {
           first page just as often. */}
       <ConsentBanner />
 
-      <FloatingWhatsAppButton />
+{/* Hidden on /join: that page's whole point is a single WhatsApp
+          destination (the community). A second WhatsApp button pointing
+          at the support chatbot right next to it would just be confusing —
+          "which WhatsApp is this?" */}
+      {location.pathname.replace(/\/$/, '') !== ROUTES.join && <FloatingWhatsAppButton />}
 
       <Flex direction="column" flex={1} minW={0}>
         {/* mobile top bar */}
