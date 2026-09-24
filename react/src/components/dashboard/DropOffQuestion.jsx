@@ -106,7 +106,6 @@ function CloseButton({ onClick, label }) {
 export default function DropOffQuestion({ merchant, hasVoucher }) {
   const reduceMotion = useReducedMotion();
   const buyLinkClicked = useUiStore((s) => s.buyLinkClicked);
-  const tourActive = useUiStore((s) => s.tourActive);
 
   const [armed, setArmed] = useState(false);
   // hidden → dot (round button pops in) → pill (stretched, with the question)
@@ -127,7 +126,7 @@ export default function DropOffQuestion({ merchant, hasVoucher }) {
     return () => clearTimeout(t);
   }, []);
 
-  const canAsk = armed && eligible.current && !buyLinkClicked && !tourActive;
+  const canAsk = armed && eligible.current && !buyLinkClicked;
   const canAskRef = useRef(canAsk);
   canAskRef.current = canAsk;
   const showingRef = useRef(false);

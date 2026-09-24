@@ -7,9 +7,6 @@ import FloatingOutlines from '@/components/common/FloatingOutlines';
 import PeekCard from '@/components/common/PeekCard';
 import SearchBox from '@/components/common/SearchBox';
 import { HOW_IT_WORKS } from '@/components/onboarding/tourSteps';
-import TourRing from '@/components/onboarding/TourRing';
-import TutorialVideoModal from '@/components/onboarding/TutorialVideoModal';
-import { useTourHighlight } from '@/components/onboarding/useTourHighlight';
 import { gradients } from '@/theme/foundations/colors';
 import { usePageTitle } from '@/hooks/usePageTitle';
 import { ROUTES } from '@/routes/paths';
@@ -23,10 +20,7 @@ export default function SearchPage() {
   const runSearch = useSearchStore((s) => s.runSearch);
   const query = useSearchStore((s) => s.query);
   const onboardingSeen = useUiStore((s) => s.onboardingSeen);
-  const tourActive = useUiStore((s) => s.tourActive);
-  const advanceTour = useUiStore((s) => s.advanceTour);
-  const markOnboardingSeen = useUiStore((s) => s.markOnboardingSeen);
-  const { active: searchBoxHighlighted, dim: searchBoxDim } = useTourHighlight('search-box');
+  const openTutorial = useUiStore((s) => s.openTutorial);
   const prefersReduced = useReducedMotion();
 
   const heroGlow = gradients.promptHero;
@@ -45,45 +39,31 @@ export default function SearchPage() {
           transition: { duration: 0.35, delay, ease: [0.16, 1, 0.3, 1] },
         };
 
-  // First-ever visit: arm the live guided tour here, not in AppLayout —
-  // its first step targets this page's own search box, so it only makes
-  // sense to start once this page is actually on screen.
-  //
-  // Held back until the recording question has been answered. Both land on
-  // the same first paint otherwise, and a tour highlighting the search box
-  // while a permission card sits in the corner asks a first-time visitor to
-  // read two things at once — so the question goes first, then the tour
-  // starts the moment it's answered.
+  // First-ever visit: open the tutorial video popup here, not in AppLayout
+  // — held back until the recording question has been answered, so a
+  // first-time visitor isn't asked to read two things (the consent card and
+  // the video) at once.
   const [consentAnswered, setConsentAnswered] = useState(hasAnswered);
   useEffect(() => onConsentChange(() => setConsentAnswered(true)), []);
 
-  const [showTutorial, setShowTutorial] = useState(false);
   useEffect(() => {
-    if (consentAnswered && !onboardingSeen && !tourActive) setShowTutorial(true);
+    if (consentAnswered && !onboardingSeen) openTutorial();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [consentAnswered]);
 
-  const closeTutorial = () => {
-    setShowTutorial(false);
-    markOnboardingSeen();
-  };
-
   const handleSubmit = (q) => {
-    if (tourActive) advanceTour();
     runSearch(q); // fire-and-forget; ProductSelectPage subscribes to the store
     navigate(ROUTES.select);
   };
 
   return (
-    <>
-      {showTutorial && <TutorialVideoModal onClose={closeTutorial} />}
-      <Box
-        position="relative"
-        flex="1"
-        display="flex"
-        alignItems="flex-start"
-        justifyContent="center"
-      >
+    <Box
+      position="relative"
+      flex="1"
+      display="flex"
+      alignItems="flex-start"
+      justifyContent="center"
+    >
       {/* Decorative layer only, clipped on its own — this Box (not the page
           content below) is what has overflow="hidden", since clipping the
           whole page also clipped the search box's own glow/shadow at the
@@ -145,7 +125,6 @@ export default function SearchPage() {
           as={motion.div}
           {...fadeUp(0.08)}
           position="relative"
-          zIndex={searchBoxHighlighted && searchBoxDim ? 201 : undefined}
           w="100%"
           mt={{ base: '32px', md: '52px' }}
           bg="surface"
@@ -156,7 +135,6 @@ export default function SearchPage() {
           p={{ base: '14px', md: '18px' }}
           textAlign="left"
         >
-          {searchBoxHighlighted && <TourRing />}
           <SearchBox
             initialValue={query}
             onSubmit={handleSubmit}
@@ -296,7 +274,6 @@ export default function SearchPage() {
           </Flex>
         </Box>
       </Flex>
-      </Box>
-    </>
+    </Box>
   );
 }

@@ -2,8 +2,6 @@ import { useState } from 'react';
 import { Box, Flex, Image, Text } from '@chakra-ui/react';
 
 import Card from '@/components/common/Card';
-import TourRing from '@/components/onboarding/TourRing';
-import { useTourHighlight } from '@/components/onboarding/useTourHighlight';
 import { I } from '@/components/common/icons';
 import { fmt } from '@/utils/format';
 
@@ -31,7 +29,7 @@ const REDUCED_MOTION_SX = {
 // modal — the full, untruncated title is one tap away.
 const TITLE_LIMIT = 40;
 
-export default function ProductCandidateCard({ product, onSelect, onEnlarge, isSelecting, tourId }) {
+export default function ProductCandidateCard({ product, onSelect, onEnlarge, isSelecting }) {
   const { title, price, thumbnail, source, product_token: token } = product;
   const isTruncated = Boolean(title && title.length > TITLE_LIMIT);
   const displayTitle = isTruncated ? title.slice(0, TITLE_LIMIT).trimEnd() : title;
@@ -39,7 +37,6 @@ export default function ProductCandidateCard({ product, onSelect, onEnlarge, isS
   // pasted, not Google's index) with this product_token prefix — see
   // _live_price_candidate in src/services/search_service.py.
   const isVerifiedLive = token?.startsWith('live-price:');
-  const { active: thumbnailHighlighted, dim: thumbnailDim } = useTourHighlight(tourId);
   // Set the moment "Find Better Price" is tapped. The pill fills and sinks
   // and the page changes a beat later, so the tap is actually seen — going
   // straight to the next page made it feel like nothing had been pressed.
@@ -80,17 +77,7 @@ export default function ProductCandidateCard({ product, onSelect, onEnlarge, isS
       }}
     >
       <Flex align="center" gap="14px">
-        {/* Outer wrapper carries the tour ring — it must sit outside the
-            inner box's overflow:hidden (which clips the image to its
-            rounded corners), since the ring extends past the edges via a
-            negative inset and would otherwise be clipped along with it. */}
-        <Box
-          position="relative"
-          zIndex={thumbnailHighlighted && thumbnailDim ? 201 : undefined}
-          flex="0 0 auto"
-          borderRadius="12px"
-        >
-          {thumbnailHighlighted && <TourRing />}
+        <Box position="relative" flex="0 0 auto" borderRadius="12px">
           <Flex
             w="76px"
             h="76px"

@@ -5,8 +5,6 @@
 import { create } from 'zustand';
 import { persist, createJSONStorage } from 'zustand/middleware';
 
-import { TOUR_STEPS } from '@/components/onboarding/tourSteps';
-
 export const useUiStore = create(
   persist(
     (set, get) => ({
@@ -21,42 +19,30 @@ export const useUiStore = create(
       hintsEnabled: true,
       toggleHints: () => set({ hintsEnabled: !get().hintsEnabled }),
 
-      // Live guided tour (see components/onboarding/Spotlight + tourSteps).
-      // Deliberately NOT persisted (see partialize below) — a reload should
-      // never resume mid-tour in a stale state; it just quietly stops.
+      // The tutorial video popup (see onboarding/TutorialVideoModal). Shown
+      // automatically once per first-time visitor on the home page; "How it
+      // works" in the sidebar/header (AppLayout.jsx) reopens it manually from
+      // any page. `tutorialOpen` itself isn't persisted (see partialize below)
+      // — a reload should never resume with the popup still open.
       onboardingSeen: false,
       markOnboardingSeen: () => set({ onboardingSeen: true }),
-      tourActive: false,
-      tourStep: 0,
-      startTour: () => set({ tourActive: true, tourStep: 0 }),
-      // "How it works" from the sidebar/header jumps straight to whichever
-      // tour step belongs to the page the user is already on (see
-      // AppLayout.jsx), instead of always restarting from step 0 on the
-      // homepage — this is what keeps it contextual rather than a detour.
-      startTourAtStep: (index) => set({ tourActive: true, tourStep: index }),
-      advanceTour: () => {
-        const next = get().tourStep + 1;
-        if (next >= TOUR_STEPS.length) {
-          set({ tourActive: false, tourStep: 0 });
-          get().markOnboardingSeen();
-        } else {
-          set({ tourStep: next });
-        }
+      tutorialOpen: false,
+      openTutorial: () => set({ tutorialOpen: true }),
+      closeTutorial: () => {
+        set({ tutorialOpen: false });
+        get().markOnboardingSeen();
       },
+
       // Set the first time a Buy button on the steps is tapped this visit.
       // Anyone who tapped one isn't a drop-off, so DropOffQuestion never asks
       // them. Not persisted: it describes this visit only.
       buyLinkClicked: false,
       markBuyLinkClicked: () => set({ buyLinkClicked: true }),
-      skipTour: () => {
-        set({ tourActive: false, tourStep: 0 });
-        get().markOnboardingSeen();
-      },
     }),
     {
       name: 'dealo-ui',
       storage: createJSONStorage(() => localStorage),
-      // Tour state is intentionally excluded — see the comment above.
+      // `tutorialOpen`/`buyLinkClicked` are intentionally excluded — see the comments above.
       partialize: (state) => ({
         sidebarCollapsed: state.sidebarCollapsed,
         hintsEnabled: state.hintsEnabled,
