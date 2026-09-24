@@ -8,6 +8,7 @@ import PeekCard from '@/components/common/PeekCard';
 import SearchBox from '@/components/common/SearchBox';
 import { HOW_IT_WORKS } from '@/components/onboarding/tourSteps';
 import TourRing from '@/components/onboarding/TourRing';
+import TutorialVideoModal from '@/components/onboarding/TutorialVideoModal';
 import { useTourHighlight } from '@/components/onboarding/useTourHighlight';
 import { gradients } from '@/theme/foundations/colors';
 import { usePageTitle } from '@/hooks/usePageTitle';
@@ -23,8 +24,8 @@ export default function SearchPage() {
   const query = useSearchStore((s) => s.query);
   const onboardingSeen = useUiStore((s) => s.onboardingSeen);
   const tourActive = useUiStore((s) => s.tourActive);
-  const startTour = useUiStore((s) => s.startTour);
   const advanceTour = useUiStore((s) => s.advanceTour);
+  const markOnboardingSeen = useUiStore((s) => s.markOnboardingSeen);
   const { active: searchBoxHighlighted, dim: searchBoxDim } = useTourHighlight('search-box');
   const prefersReduced = useReducedMotion();
 
@@ -56,10 +57,16 @@ export default function SearchPage() {
   const [consentAnswered, setConsentAnswered] = useState(hasAnswered);
   useEffect(() => onConsentChange(() => setConsentAnswered(true)), []);
 
+  const [showTutorial, setShowTutorial] = useState(false);
   useEffect(() => {
-    if (consentAnswered && !onboardingSeen && !tourActive) startTour();
+    if (consentAnswered && !onboardingSeen && !tourActive) setShowTutorial(true);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [consentAnswered]);
+
+  const closeTutorial = () => {
+    setShowTutorial(false);
+    markOnboardingSeen();
+  };
 
   const handleSubmit = (q) => {
     if (tourActive) advanceTour();
@@ -68,13 +75,15 @@ export default function SearchPage() {
   };
 
   return (
-    <Box
-      position="relative"
-      flex="1"
-      display="flex"
-      alignItems="flex-start"
-      justifyContent="center"
-    >
+    <>
+      {showTutorial && <TutorialVideoModal onClose={closeTutorial} />}
+      <Box
+        position="relative"
+        flex="1"
+        display="flex"
+        alignItems="flex-start"
+        justifyContent="center"
+      >
       {/* Decorative layer only, clipped on its own — this Box (not the page
           content below) is what has overflow="hidden", since clipping the
           whole page also clipped the search box's own glow/shadow at the
@@ -287,6 +296,7 @@ export default function SearchPage() {
           </Flex>
         </Box>
       </Flex>
-    </Box>
+      </Box>
+    </>
   );
 }
