@@ -44,6 +44,7 @@ const ROUTES = [
   })),
   { path: '/about/', changefreq: 'yearly', priority: '0.4' },
   { path: '/contact/', changefreq: 'yearly', priority: '0.4' },
+  { path: '/join/', changefreq: 'monthly', priority: '0.4' },
   { path: '/privacy/', changefreq: 'yearly', priority: '0.2' },
   { path: '/terms/', changefreq: 'yearly', priority: '0.2' },
 ];
