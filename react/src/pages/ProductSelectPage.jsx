@@ -18,7 +18,6 @@ import { gradients } from '@/theme/foundations/colors';
 import { ROUTES } from '@/routes/paths';
 import { PRIVATE_TEXT_ATTR } from '@/utils/analytics';
 import { useSearchStore } from '@/store/searchStore';
-import { useUiStore } from '@/store/uiStore';
 
 // Shown while candidates are being fetched, before the picker appears.
 const PICKER_TIPS = [
@@ -48,8 +47,6 @@ export default function ProductSelectPage() {
   const selectProduct = useSearchStore((s) => s.selectProduct);
   const [quickViewIndex, setQuickViewIndex] = useState(null);
   const [page, setPage] = useState(1);
-  const tourActive = useUiStore((s) => s.tourActive);
-  const advanceTour = useUiStore((s) => s.advanceTour);
 
   // A fresh search result set always starts back on page 1.
   useEffect(() => {
@@ -66,7 +63,6 @@ export default function ProductSelectPage() {
   const pageCandidates = candidates.slice(pageStart, pageStart + PER_PAGE);
 
   const handleSelect = (token, title, price, source, thumbnail) => {
-    if (tourActive) advanceTour();
     selectProduct(token, title, price, source, thumbnail); // fire-and-forget; ResultsPage shows its own loader
     navigate(ROUTES.results);
   };
@@ -179,7 +175,6 @@ export default function ProductSelectPage() {
                       product={p}
                       onSelect={handleSelect}
                       onEnlarge={() => setQuickViewIndex(i)}
-                      tourId={globalIndex === 0 ? 'picker-first-thumbnail' : undefined}
                       isSelecting={status === 'loading' && selectedToken === p.product_token}
                     />
                   </motion.div>

@@ -10,14 +10,13 @@ import {
   Link,
   useDisclosure,
 } from '@chakra-ui/react';
-import { Link as RouterLink, Outlet, ScrollRestoration, useLocation, useNavigate } from 'react-router-dom';
+import { Link as RouterLink, Outlet, ScrollRestoration, useLocation } from 'react-router-dom';
 
 import ConsentBanner from '@/components/common/ConsentBanner';
 import FloatingWhatsAppButton from '@/components/common/FloatingWhatsAppButton';
 import Logo from '@/components/common/Logo';
 import { I } from '@/components/common/icons';
-import Spotlight from '@/components/onboarding/Spotlight';
-import { TOUR_STEPS } from '@/components/onboarding/tourSteps';
+import TutorialVideoModal from '@/components/onboarding/TutorialVideoModal';
 import { PageHeaderContext } from '@/hooks/usePageHeader';
 import { ROUTES } from '@/routes/paths';
 import { track, trackPageView } from '@/utils/analytics';
@@ -35,7 +34,6 @@ import SidebarContent from './Sidebar';
  */
 export default function AppLayout() {
   const drawer = useDisclosure();
-  const navigate = useNavigate();
   const location = useLocation();
 
   useEffect(() => {
@@ -43,27 +41,19 @@ export default function AppLayout() {
   }, [location.pathname]);
   const collapsed = useUiStore((s) => s.sidebarCollapsed);
   const toggleSidebar = useUiStore((s) => s.toggleSidebar);
-  const startTourAtStep = useUiStore((s) => s.startTourAtStep);
-  const tourActive = useUiStore((s) => s.tourActive);
+  const tutorialOpen = useUiStore((s) => s.tutorialOpen);
+  const openTutorial = useUiStore((s) => s.openTutorial);
+  const closeTutorial = useUiStore((s) => s.closeTutorial);
   // A page can replace the mobile bar's menu/logo/spacer slots with its own
   // controls (see usePageHeader) — null means the default shown below.
   const [pageHeader, setPageHeader] = useState(null);
 
-  // "How it works" jumps straight into the live guided tour at whichever
-  // step actually belongs to the page the user is already on — never a
-  // detour to the homepage. On /select it opens the picker step, on
-  // /results the voucher step, and so on (see tourSteps.js's `page` field).
-  // A page with no matching step (shouldn't happen given the three routes
-  // above, but kept as a safety net) falls back to starting from the top.
+  // "How it works" reopens the tutorial video popup from any page — same
+  // popup a first-time visitor sees automatically on the home page (see
+  // SearchPage.jsx).
   const openOnboarding = () => {
-    const stepIndex = TOUR_STEPS.findIndex((s) => s.page === location.pathname);
-    track('Onboarding Reopened', { path: location.pathname, step_index: Math.max(stepIndex, 0) });
-    if (stepIndex === -1) {
-      navigate(ROUTES.home);
-      startTourAtStep(0);
-    } else {
-      startTourAtStep(stepIndex);
-    }
+    track('Onboarding Reopened', { path: location.pathname });
+    openTutorial();
   };
 
   return (
@@ -125,17 +115,14 @@ export default function AppLayout() {
           results page still scrolled down, with its top hidden. */}
       <ScrollRestoration />
 
-      <Spotlight />
+      {tutorialOpen && <TutorialVideoModal onClose={closeTutorial} />}
 
-      {/* Covered by the tour's own bottom bar (full-width, bottom:0) while
-          the tour is active, so hide it then rather than let it float on
-          top of that bar's content. */}
       {/* Asked once, on whichever page the visitor happens to land on, so it
           isn't tied to the homepage — a shared link to /results is somebody's
           first page just as often. */}
       <ConsentBanner />
 
-      {!tourActive && <FloatingWhatsAppButton />}
+      <FloatingWhatsAppButton />
 
       <Flex direction="column" flex={1} minW={0}>
         {/* mobile top bar */}
@@ -206,27 +193,13 @@ export default function AppLayout() {
             maxW="1340px"
             mx="auto"
             p={{ base: '16px 16px 32px', md: '22px 34px 60px' }}
-            // Spotlight's tour bar is fixed to the bottom of the screen — this
-            // reserves matching blank space so scrolling all the way down
-            // never puts real content behind it either, not just the parts
-            // visible without scrolling. Note: this only guarantees clearance
-            // once scrolled to the true end of a long page — a page whose
-            // content is naturally short enough to end within the bar's own
-            // covered strip on first paint (no scrolling yet triggered) can
-            // still render underneath it there; that gap isn't closed by this
-            // padding alone (2026-08-06, flagged during an audit follow-up,
-            // not independently re-verified in-browser this session — check
-            // an actual narrow phone/emulated viewport before trusting this
-            // is fully closed).
-            pb={tourActive ? { base: '190px', md: '110px' } : undefined}
-            transition="padding-bottom .2s ease"
           >
             <PageHeaderContext.Provider value={setPageHeader}>
               <Outlet />
             </PageHeaderContext.Provider>
           </Box>
 
-          {!tourActive && <Footer />}
+          <Footer />
         </Box>
       </Flex>
     </Flex>
