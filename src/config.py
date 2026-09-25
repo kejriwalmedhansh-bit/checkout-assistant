@@ -41,6 +41,10 @@ class Settings(BaseSettings):
     # 2026-08-27) ---
     # Same no-hardcoded-fallback convention as SEARCHAPI_KEY above.
     APIFY_TOKEN: str = ""
+    # Re-read the recommended store's page for today's price after routes
+    # are built (Crawlbase/Apify for blocked stores). Adds a few seconds.
+    ROUTE_LIVE_PRICE_CHECK: bool = True
+    ROUTE_LIVE_PRICE_TIMEOUT: int = 8
     # Live-tested 2026-08-26: a real AJIO render took 58.7s — comfortably
     # inside the old 60s cutoff that one time, but close enough that normal
     # latency variance would time it out intermittently rather than

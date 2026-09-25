@@ -24,7 +24,8 @@ import html
 import json
 import logging
 import re
-from concurrent.futures import ThreadPoolExecutor
+import time
+from concurrent.futures import ThreadPoolExecutor, wait
 from urllib.parse import parse_qs, unquote, urljoin, urlsplit
 
 import httpx
@@ -2080,7 +2081,9 @@ def _extract_jsonld_price(markup: str) -> float | None:
             # Some storefronts (found on lifestylestores.com) HTML-entity-
             # encode their own JSON-LD (&quot; instead of ") — harmless
             # no-op unescape on the (much more common) already-valid case.
-            data = json.loads(html.unescape(block))
+            # strict=False: Croma puts raw line breaks inside its product
+            # description, which a strict parser rejects outright.
+            data = json.loads(html.unescape(block), strict=False)
         except (json.JSONDecodeError, ValueError):
             continue
         nodes = data if isinstance(data, list) else [data]
@@ -3067,6 +3070,280 @@ def _find_pdp_candidate(
     return min(matches, key=lambda c: c["price"])
 
 
+# ── step 6: every whitelisted store selling the exact picked product ────────────
+#
+# Google Shopping files one product under several entries (per colour, per
+# storage, sometimes per store), and each entry has its own list of stores.
+# So the search goes wide first - the product ID card, the maker's model
+# number, the full title, then "<product> <store>" for big stores still
+# missing - reads EVERY page of each entry's store list, and then checks each
+# store's own listing title against the ID card. Google's grouping is not
+# exact (it filed a 128GB Galaxy A56 under the 256GB one), so its lists are
+# where we look, never what we trust.
+
+_OFFER_SEED_CAP = 6         # Google entries whose store lists are read
+_OFFER_PAGES = 3            # pages per store list (page 1 ~5 stores, then 10 each)
+_STORE_LIST_BUDGET = 10     # seconds; a slower Google reply is left out rather than waited on
+_GAP_STORE_CAP = 4          # "<product> <store>" searches for big stores with no exact match
+_MARKETPLACES = [
+    "Amazon", "Flipkart", "Croma", "Reliance Digital", "Vijay Sales", "Tata CLiQ",
+    "Myntra", "AJIO", "Nykaa", "JioMart", "Tata Neu",
+]
+_BRAND_SITE_SUFFIXES = {
+    "india", "official", "store", "online", "shop", "world", "lifestyle",
+    "electricals", "wellness", "center", "centre", "co", "the", "in",
+}
+_OUT_OF_STOCK_RE = re.compile(r"out of stock|sold out|currently unavailable", re.IGNORECASE)
+
+
+def _is_brand_store(name: str, link: str, brand: str) -> bool:
+    """The product's own brand selling it. Checked on the store's web
+    address when there is one (sony.co.in, shop.bajajelectricals.com,
+    minimalist.co): anyone can call a shop "Sony Store", nobody else can
+    use Sony's address. The name is only used when there's no address."""
+    brand = _compact(brand)
+    if len(brand) < 2:
+        return False
+    host = (urlsplit(link or "").hostname or "").lower()
+    if host:
+        labels = [l for l in host.split(".") if l not in ("www", "shop", "store", "in", "com", "co", "net", "org")]
+        label = labels[0] if labels else ""
+        rest = label.replace(brand, "", 1) if brand in label else None
+        return rest is not None and (rest == "" or rest in _BRAND_SITE_SUFFIXES
+                                     or (label.startswith("the") and label[3:] == brand))
+    words = _norm(name).split()
+    return bool(words) and _compact(words[0]) == brand and all(w in _BRAND_SITE_SUFFIXES for w in words[1:])
+
+
+def _compact(s: str) -> str:
+    return re.sub(r"[^a-z0-9]", "", (s or "").lower())
+
+
+def _part_number(detail: dict) -> str | None:
+    """The maker's model number from Google's own product specs, when listed."""
+    for spec in detail.get("specifications") or []:
+        name = (spec.get("name") or "").lower()
+        if any(k in name for k in ("model number", "model no", "mpn", "part number", "model code")):
+            value = (spec.get("value") or "").split(",")[0].strip()
+            if 4 <= len(value) <= 30 and re.search(r"\d", value):
+                return value
+    return None
+
+
+def _offer_rows(token: str, pages: int, tag: str) -> list[dict]:
+    """Every store Google lists for one product entry, pages fetched in parallel."""
+    with ThreadPoolExecutor(max_workers=pages) as pool:
+        results = list(pool.map(lambda pg: searchapi_repository.get_offers(token, pg), range(1, pages + 1)))
+    rows = []
+    for page in results:
+        if page.get("error"):
+            continue
+        for offer in page.get("offers") or []:
+            rows.append({
+                "merchant": _merchant_name(offer),
+                "title": offer.get("title") or "",
+                "price": _offer_price({k: offer.get(k) for k in ("extracted_total_price", "total_price")})
+                         or _offer_price(offer),
+                "link": offer.get("link"),
+                "details": offer.get("details") or [],
+                "_source_token": token,
+            })
+    logger.info("%s   store list for one Google entry: %d store listing(s)", tag, len(rows))
+    return rows
+
+
+def _discover_exact_offers(
+    identity: dict, product_token: str, full_title: str, tag: str = "[routes]",
+) -> tuple[list[dict], dict]:
+    """(verified candidates, info) for the exact product on every whitelisted
+    store Google knows about. Candidates are in `_build_candidates` shape."""
+    id_query = product_identity.identity_query(identity)
+    brand = identity.get("brand") or ""
+    info: dict = {"queries": [], "typical_low": None, "stores_checked": 0, "seconds": {}}
+    t0 = time.monotonic()
+    lap = lambda name: info["seconds"].__setitem__(name, round(time.monotonic() - t0, 1))
+    seeds: list[tuple[str, int]] = []           # (token, how many stores Google says it has)
+    seen_tokens: set[str] = set()
+    stores_seen: set[str] = set()
+    exact_sellers: set[str] = set()
+
+    def _take(results: list[dict]) -> None:
+        for r in results:
+            stores_seen.add(_brand_signature(r.get("seller") or r.get("source") or ""))
+            token = r.get("product_token")
+            if not token or token in seen_tokens:
+                continue
+            tier, _ = product_identity.match_tier(identity, r.get("title") or "", r.get("seller") or "")
+            if tier == "exact":
+                seen_tokens.add(token)
+                exact_sellers.add(_brand_signature(r.get("seller") or r.get("source") or ""))
+                seeds.append((token, r.get("extracted_offers") or (5 if r.get("offers") else 1)))
+
+    def _search(q: str, **filters) -> list[dict]:
+        info["queries"].append(q)
+        raw = searchapi_repository.search_products(q, **filters)
+        return [] if raw.get("error") else raw.get("shopping_results") or []
+
+    # Round 1 (parallel): the picked entry's details + the ID-card search
+    # (new items only) + the full title.
+    # Round 1 (parallel): the picked entry's details, the ID-card search (new
+    # items only), the full title, and - when the product has one - its
+    # maker's model number, the most precise query Google Shopping takes:
+    # listings titled completely differently still carry it.
+    real_pick = product_token and not product_token.startswith(_LIVE_PRICE_TOKEN_PREFIX)
+    part = next((c for c in identity.get("codes") or [] if len(_compact(c)) >= 5 and re.search(r"[a-z]", c)), None)
+    with ThreadPoolExecutor(max_workers=4) as pool:
+        detail_f = pool.submit(searchapi_repository.get_product, product_token) if real_pick else None
+        id_f = pool.submit(_search, id_query, condition="new")
+        title_f = pool.submit(_search, full_title) if full_title and full_title.lower() != id_query.lower() else None
+        part_f = pool.submit(_search, part if brand in part.lower() else f"{brand} {part}") if part else None
+        detail = detail_f.result() if detail_f else {}
+        if real_pick:
+            seen_tokens.add(product_token)
+            seeds.append((product_token, 99))
+        for f in (id_f, title_f, part_f):
+            if f:
+                _take(f.result())
+    if detail and not detail.get("error"):
+        typical = detail.get("typical_prices") or {}
+        info["typical_low"] = typical.get("extracted_low_price")
+        # A model number only Google's specs name: one more precise search.
+        spec_part = _part_number(detail)
+        if spec_part and (not part or _compact(spec_part) != _compact(part)):
+            _take(_search(f"{brand} {spec_part}"))
+
+    lap("searches")
+    # Round 2, all at once: every page of every exact entry's store list, and
+    # - for big stores that carry this kind of product (they showed up in the
+    # searches) but gave no exact match - a "<product> <store>" search, which
+    # makes Google lead with that store's own listing, then its store list.
+    seeds.sort(key=lambda t: -t[1])
+    tokens = [t for t, _ in seeds[:_OFFER_SEED_CAP]]
+    gaps = [m for m in _MARKETPLACES
+            if _brand_signature(m) in stores_seen and _brand_signature(m) not in exact_sellers][:_GAP_STORE_CAP]
+
+    def _gap_rows(store: str) -> list[dict]:
+        for r in _search(f"{id_query} {store}"):
+            seller = r.get("seller") or r.get("source") or ""
+            token = r.get("product_token")
+            if (token and token not in seen_tokens and _brand_signature(seller) == _brand_signature(store)
+                    and product_identity.match_tier(identity, r.get("title") or "", seller)[0] == "exact"):
+                return _offer_rows(token, 1, tag)
+        return []
+
+    if gaps:
+        logger.info("%s big stores with no exact match yet, searching them directly: %s", tag, gaps)
+    pool = ThreadPoolExecutor(max_workers=max(1, len(tokens) + len(gaps)))
+    futures = [pool.submit(_offer_rows, t, _OFFER_PAGES, tag) for t in tokens] + [pool.submit(_gap_rows, m) for m in gaps]
+    done, late = wait(futures, timeout=_STORE_LIST_BUDGET)
+    if late:
+        logger.info("%s %d store-list lookup(s) slower than %ss, left out", tag, len(late), _STORE_LIST_BUDGET)
+    pool.shutdown(wait=False)
+    rows = [r for f in done for r in f.result()]
+    gap_rows: list[dict] = []
+
+    def _verified(rows: list[dict]) -> list[dict]:
+        out = []
+        for r in rows:
+            info["stores_checked"] += 1
+            name, link = r["merchant"], r["link"]
+            tier, why = product_identity.match_tier(identity, r["title"], name)
+            if tier != "exact":
+                logger.info("%s   skipped %s (%s): %r", tag, name, why or tier, r["title"])
+                continue
+            if not (_is_trusted_merchant(name, _load_trusted_merchants()) or _is_brand_store(name, link, brand)):
+                logger.info("%s   skipped %s (not on the whitelist)", tag, name)
+                continue
+            if any(_OUT_OF_STOCK_RE.search(d) for d in r["details"]):
+                logger.info("%s   skipped %s (out of stock)", tag, name)
+                continue
+            if r["price"] is None:
+                continue
+            out.append({
+                "merchant": name, "price": r["price"], "title": r["title"],
+                "sellers": [{"link": link, "delivery": next((d for d in r["details"] if "deliver" in d.lower()), None)}],
+                "match_type": "Listed", "_source_token": r["_source_token"],
+            })
+        return out
+
+    verified = _verified(rows + gap_rows)
+    lap("store_lists")
+    # Fakes: below 40% of the highest big-store price, or well under the
+    # lowest price Google itself says this product usually sells for.
+    anchor = _priority_merchant_anchor(verified)
+    floor = max(0.4 * anchor if anchor else 0, 0.6 * info["typical_low"] if info["typical_low"] else 0)
+    if floor:
+        for c in verified:
+            if c["price"] < floor:
+                logger.info("%s   skipped %s at %s (below the believable floor %.0f)", tag, c["merchant"], c["price"], floor)
+        verified = [c for c in verified if c["price"] >= floor]
+    info["stores_found"] = sorted({c["merchant"] for c in verified})
+    logger.info("%s verified %d listing(s) at %d store(s) from %d checked", tag, len(verified),
+                len(info["stores_found"]), info["stores_checked"])
+    return verified, info
+
+
+_UNREADABLE_PRICE_HOSTS = ("flipkart.com", "tatacliq.com")  # no labelled price on the page, even rendered
+
+
+def _read_store_price(link: str) -> float | None:
+    """Today's price from a store's own product page: Amazon's buy-box, or
+    the page's own product data (schema.org offer) for any other store.
+    Blocked pages go through Crawlbase, then Apify. None when unreadable."""
+    host = (urlsplit(link).hostname or "").lower()
+    if any(host == h or host.endswith("." + h) for h in _UNREADABLE_PRICE_HOSTS):
+        return None
+    markup = None
+    try:
+        with httpx.Client(timeout=float(get_settings().LINK_TITLE_TIMEOUT), follow_redirects=True,
+                          headers=_TITLE_FETCH_HEADERS) as client:
+            resp = client.get(link)
+        if resp.status_code == 200:
+            markup = resp.text
+            host = (resp.url.host or host).lower()
+    except (httpx.HTTPError, ValueError):
+        pass
+    price = None
+    if markup:
+        price = _extract_amazon_price(markup, link) if _is_amazon_host(host) else _extract_jsonld_price(markup)
+    if price is None and not _should_skip_render(host):
+        markup = crawlbase_repository.fetch_rendered_html(link) or apify_repository.fetch_rendered_html(link)
+        if markup:
+            price = _extract_amazon_price(markup, link) if _is_amazon_host(host) else _extract_jsonld_price(markup)
+    return price
+
+
+def _check_winner_live(output: dict, candidates: list[dict], product_name: str, tag: str = "[routes]") -> list[dict] | None:
+    """Re-read the recommended store's page for today's price (Crawlbase or
+    Apify get past Flipkart/Nykaa/Croma blocks). Returns updated candidates
+    when the price moved, else None. No AI - a plain page read."""
+    rec = (output.get("routes") or {}).get("recommended") or {}
+    sig = _brand_signature(rec.get("merchant") or "")
+    winner = next((c for c in candidates if _brand_signature(c.get("merchant") or "") == sig), None)
+    link = ((winner or {}).get("sellers") or [{}])[0].get("link") if winner else None
+    if not winner or not link or winner.get("_pinned"):
+        return None
+    started = time.monotonic()
+    pool = ThreadPoolExecutor(max_workers=1)
+    future = pool.submit(_read_store_price, link)
+    try:
+        live_price = future.result(timeout=float(get_settings().ROUTE_LIVE_PRICE_TIMEOUT))
+    except Exception:  # timed out or failed: keep Google's price
+        live_price = None
+    pool.shutdown(wait=False)
+    elapsed = round(time.monotonic() - started, 1)
+    output["price_check"] = {"store": winner["merchant"], "seconds": elapsed, "listed": winner["price"], "live": live_price}
+    logger.info("%s live price check on %s: listed %s, page says %s (%.1fs)", tag, winner["merchant"], winner["price"], live_price, elapsed)
+    if live_price is None or abs(live_price - winner["price"]) <= max(1.0, 0.01 * winner["price"]):
+        return None
+    if not 0.5 * winner["price"] <= live_price <= 1.5 * winner["price"]:
+        logger.info("%s   page price %s too far from the listing to trust - keeping %s", tag, live_price, winner["price"])
+        output["price_check"]["live"] = None
+        return None
+    winner["price"] = live_price
+    return candidates
+
+
 def build_routes_for_token(
     product_token: str, query: str = "", title: str = "",
     picked_price: float | None = None, picked_source: str = "",
@@ -3106,189 +3383,205 @@ def build_routes_for_token(
         return output
 
     try:
-        variant_query = (title or query).strip()
+        identity = None
+        if title or query:
+            identity = product_identity.build_identity(title or query, query if _URL_QUERY_RE.match(query) else None)
+            if len(product_identity.identity_query(identity).split()) < 2:
+                identity = None
+        if identity is not None:
+            # Step 6: every whitelisted store selling this exact product.
+            logger.info("[routes] product ID card: %r", product_identity.identity_query(identity))
+            candidates, info = _discover_exact_offers(identity, product_token, identity["title"])
+            output["search_info"] = info
+            pre_filter_candidates = candidates
+            display_title = title or identity["title"]
+            if display_title:
+                output["source"]["name"] = display_title
+                output["source"]["brand"] = _infer_brand(display_title) or output["source"]["brand"]
+        else:
+            variant_query = (title or query).strip()
 
-        # The picked token's own detail fetch doesn't depend on the refined
-        # search at all (it's already known before the refined search even
-        # runs) — kicking it off in parallel here, instead of after, removes
-        # one whole sequential SearchApi round trip (typically several
-        # seconds) from every /routes call.
-        executor = ThreadPoolExecutor(max_workers=1 + _ROUTE_TOKEN_CAP)
-        primary_future = (
-            executor.submit(searchapi_repository.get_product, product_token)
-            if not product_token.startswith(_LIVE_PRICE_TOKEN_PREFIX)
-            else None
-        )
+            # The picked token's own detail fetch doesn't depend on the refined
+            # search at all (it's already known before the refined search even
+            # runs) — kicking it off in parallel here, instead of after, removes
+            # one whole sequential SearchApi round trip (typically several
+            # seconds) from every /routes call.
+            executor = ThreadPoolExecutor(max_workers=1 + _ROUTE_TOKEN_CAP)
+            primary_future = (
+                executor.submit(searchapi_repository.get_product, product_token)
+                if not product_token.startswith(_LIVE_PRICE_TOKEN_PREFIX)
+                else None
+            )
 
-        tokens_to_fetch: list[str] = []
-        if variant_query:
-            refined = _refined_variant_candidates(variant_query)
-            # Same protections the Product Picker already has — a refined
-            # search can surface accessories, bulk listings, and different-
-            # but-similar products just as easily as the original search did,
-            # and none of that should ever be fetched/merged just because
-            # it's from a trusted seller at a plausible price.
-            refined = [
-                c for c in refined
-                if c.get("title") and not _is_accessory(c["title"]) and not _is_bulk_listing(c["title"])
-                and _is_latin_dominant(c["title"])
-                and (_has_condition_word(variant_query) or not _has_condition_word(c["title"]))
-            ]
-            required = _required_tokens(variant_query)
-            if required:
-                refined = [c for c in refined if _matches_required_tokens(c["title"], required)]
-
-            # The picked candidate's own title can drop a size the user's
-            # ORIGINAL query stated (e.g. the Product Picker fell back to a
-            # generic "Samsung Q80A QLED 4K Smart TV" match with no size in
-            # it at all) — `required`/the variant-signature check below only
-            # ever look at `variant_query` (title-first), so neither would
-            # catch this. Pull size from the raw `query` directly and, if the
-            # user actually stated one, require every refined candidate to
-            # state that same size explicitly — a cheaper, unverified-size
-            # listing should never be able to win "Recommended" just because
-            # neither title happens to mention its size in a comparable way.
-            query_size_m = _SIZE_RE.search(_norm_title(query))
-            if query_size_m:
-                required_size = f"{query_size_m.group(1)}inch"
+            tokens_to_fetch: list[str] = []
+            if variant_query:
+                refined = _refined_variant_candidates(variant_query)
+                # Same protections the Product Picker already has — a refined
+                # search can surface accessories, bulk listings, and different-
+                # but-similar products just as easily as the original search did,
+                # and none of that should ever be fetched/merged just because
+                # it's from a trusted seller at a plausible price.
                 refined = [
                     c for c in refined
-                    if (m := _SIZE_RE.search(_norm_title(c["title"])))
-                    and f"{m.group(1)}inch" == required_size
+                    if c.get("title") and not _is_accessory(c["title"]) and not _is_bulk_listing(c["title"])
+                    and _is_latin_dominant(c["title"])
+                    and (_has_condition_word(variant_query) or not _has_condition_word(c["title"]))
+                ]
+                required = _required_tokens(variant_query)
+                if required:
+                    refined = [c for c in refined if _matches_required_tokens(c["title"], required)]
+
+                # The picked candidate's own title can drop a size the user's
+                # ORIGINAL query stated (e.g. the Product Picker fell back to a
+                # generic "Samsung Q80A QLED 4K Smart TV" match with no size in
+                # it at all) — `required`/the variant-signature check below only
+                # ever look at `variant_query` (title-first), so neither would
+                # catch this. Pull size from the raw `query` directly and, if the
+                # user actually stated one, require every refined candidate to
+                # state that same size explicitly — a cheaper, unverified-size
+                # listing should never be able to win "Recommended" just because
+                # neither title happens to mention its size in a comparable way.
+                query_size_m = _SIZE_RE.search(_norm_title(query))
+                if query_size_m:
+                    required_size = f"{query_size_m.group(1)}inch"
+                    refined = [
+                        c for c in refined
+                        if (m := _SIZE_RE.search(_norm_title(c["title"])))
+                        and f"{m.group(1)}inch" == required_size
+                    ]
+
+                # Require the same variant identity as the item actually picked
+                # (storage/color/any other distinguishing word beyond the query's
+                # own tokens and known brands) — the same signature check the
+                # Product Picker itself uses to keep two different variants from
+                # being treated as one product (_filter_and_group_candidates),
+                # applied here to keep this broader re-search from merging a
+                # different variant back in once the user has already told us
+                # which one they picked. _matches_required_tokens above only
+                # checks that the right words are present ("right brand/model"),
+                # not that nothing extra/different distinguishes this listing
+                # from the one picked — this closes that gap.
+                variant_exclude = set(required) | set(KNOWN_BRANDS)
+                picked_signature = _extract_variant_signature(variant_query, variant_exclude)
+                refined = [
+                    c for c in refined
+                    if _extract_variant_signature(c["title"], variant_exclude) == picked_signature
                 ]
 
-            # Require the same variant identity as the item actually picked
-            # (storage/color/any other distinguishing word beyond the query's
-            # own tokens and known brands) — the same signature check the
-            # Product Picker itself uses to keep two different variants from
-            # being treated as one product (_filter_and_group_candidates),
-            # applied here to keep this broader re-search from merging a
-            # different variant back in once the user has already told us
-            # which one they picked. _matches_required_tokens above only
-            # checks that the right words are present ("right brand/model"),
-            # not that nothing extra/different distinguishes this listing
-            # from the one picked — this closes that gap.
-            variant_exclude = set(required) | set(KNOWN_BRANDS)
-            picked_signature = _extract_variant_signature(variant_query, variant_exclude)
-            refined = [
-                c for c in refined
-                if _extract_variant_signature(c["title"], variant_exclude) == picked_signature
-            ]
+                refined = _filter_trusted_only(refined)
 
-            refined = _filter_trusted_only(refined)
+                # Same priority-merchant price anchor as the Product Picker: this
+                # narrower, freshly-searched pool can just as easily be dominated
+                # by clones as the picker's own pool was, so the plain median
+                # filter below isn't enough on its own.
+                anchor = _priority_merchant_anchor(refined)
+                if anchor is not None:
+                    threshold = 0.4 * anchor
+                    refined = [c for c in refined if (c.get("price") or 0) >= threshold or not c.get("price")]
 
-            # Same priority-merchant price anchor as the Product Picker: this
-            # narrower, freshly-searched pool can just as easily be dominated
-            # by clones as the picker's own pool was, so the plain median
-            # filter below isn't enough on its own.
-            anchor = _priority_merchant_anchor(refined)
+                refined, _ = _outlier_filter(refined)
+                # Hyperlocal apps sort last here too — otherwise a cheap
+                # Blinkit/Zepto/etc. listing could claim one of the limited
+                # fetch slots below ahead of a normal, location-independent
+                # merchant, before _build_routes even gets a chance to prefer
+                # the latter.
+                refined.sort(
+                    key=lambda c: (
+                        _is_hyperlocal(c.get("merchant") or ""),
+                        c.get("price") if c.get("price") is not None else float("inf"),
+                    )
+                )
+                tokens_to_fetch = [c["product_token"] for c in refined[:_ROUTE_TOKEN_CAP]]
+
+            # The originally-selected token was already vetted against the full
+            # Product Picker candidate pool (including its own trust/price
+            # checks) — a narrower refined search finding something else is not
+            # grounds to drop it, only to potentially outrank it later. Consumed
+            # FIRST below, not appended: the user's own pick must win the
+            # `display_title` claim whenever its own fetch succeeds — not
+            # whichever refined-search token happened to load first.
+            tokens_to_fetch = [t for t in tokens_to_fetch if t != product_token]
+
+            # A live-fetched candidate (e.g. an Amazon price read straight off a
+            # pasted link) never came from SearchApi.io, so it has no real
+            # product_token to look up — skip it rather than spending a paid
+            # SearchApi call on an ID nothing can resolve. It still reaches the
+            # route via the picked_price/picked_source pin below.
+            detail_futures = {
+                token: executor.submit(searchapi_repository.get_product, token)
+                for token in tokens_to_fetch
+                if not token.startswith(_LIVE_PRICE_TOKEN_PREFIX)
+            }
+
+            candidates: list[dict] = []
+            display_title = ""
+
+            def _consume(token: str, detail: dict) -> None:
+                nonlocal display_title
+                if detail.get("error"):
+                    return
+                product = detail.get("product") or {}
+                display_title = display_title or product.get("title") or detail.get("title") or ""
+                candidates.extend(_build_candidates(detail, source_token=token))
+
+            primary_detail = primary_future.result() if primary_future is not None else None
+            if primary_detail is not None:
+                _consume(product_token, primary_detail)
+            for token, future in detail_futures.items():
+                _consume(token, future.result())
+
+            executor.shutdown(wait=False)
+
+            if not candidates and not product_token.startswith(_LIVE_PRICE_TOKEN_PREFIX):
+                # Refined search came up empty or every fetch failed — fall back
+                # to the originally selected token alone. Cheap: the primary
+                # fetch above already hit the cache/API for this exact token, so
+                # this only does real work when that first attempt itself failed.
+                detail = (
+                    primary_detail
+                    if primary_detail is not None and not primary_detail.get("error")
+                    else searchapi_repository.get_product(product_token)
+                )
+                if detail.get("error"):
+                    output["error"] = detail["error"]
+                    return output
+                product = detail.get("product") or {}
+                display_title = product.get("title") or detail.get("title") or ""
+                candidates = _build_candidates(detail, source_token=product_token)
+
+            # A live-fetched candidate with no other real candidates found has no
+            # SearchApi.io title to display — fall back to the picker's own title
+            # for it (same fallback the pin block below already uses for the
+            # route's own title) rather than showing the raw pasted URL.
+            display_title = display_title or (title if product_token.startswith(_LIVE_PRICE_TOKEN_PREFIX) else "")
+
+            if display_title:
+                output["source"]["name"] = display_title
+                output["source"]["brand"] = _infer_brand(display_title) or output["source"]["brand"]
+
+            # Kept from before the trust filter runs, purely so the pin block
+            # below can find the exact merchant the user picked even if the
+            # trust whitelist would otherwise strip it — that merchant's own
+            # offer (fetched above for `product_token`, which is always included
+            # in tokens_to_fetch) may not be on the trust whitelist even when the
+            # listing itself is genuine, and a price with no way to reach it
+            # fails the "executable by anyone" requirement for a route just as
+            # much as a wrong price would.
+            pre_filter_candidates = candidates
+
+            # L1 guards.
+            candidates = _filter_trusted_only(candidates)
+
+            # Anchor on priority-merchant pricing here too — this is the pool
+            # final routes get built from, so it's the last and most important
+            # place to keep a merged-in clone from outranking the genuine,
+            # already-vetted pick on price alone.
+            anchor = _priority_merchant_anchor(candidates)
             if anchor is not None:
                 threshold = 0.4 * anchor
-                refined = [c for c in refined if (c.get("price") or 0) >= threshold or not c.get("price")]
+                candidates = [c for c in candidates if (c.get("price") or 0) >= threshold or not c.get("price")]
 
-            refined, _ = _outlier_filter(refined)
-            # Hyperlocal apps sort last here too — otherwise a cheap
-            # Blinkit/Zepto/etc. listing could claim one of the limited
-            # fetch slots below ahead of a normal, location-independent
-            # merchant, before _build_routes even gets a chance to prefer
-            # the latter.
-            refined.sort(
-                key=lambda c: (
-                    _is_hyperlocal(c.get("merchant") or ""),
-                    c.get("price") if c.get("price") is not None else float("inf"),
-                )
-            )
-            tokens_to_fetch = [c["product_token"] for c in refined[:_ROUTE_TOKEN_CAP]]
-
-        # The originally-selected token was already vetted against the full
-        # Product Picker candidate pool (including its own trust/price
-        # checks) — a narrower refined search finding something else is not
-        # grounds to drop it, only to potentially outrank it later. Consumed
-        # FIRST below, not appended: the user's own pick must win the
-        # `display_title` claim whenever its own fetch succeeds — not
-        # whichever refined-search token happened to load first.
-        tokens_to_fetch = [t for t in tokens_to_fetch if t != product_token]
-
-        # A live-fetched candidate (e.g. an Amazon price read straight off a
-        # pasted link) never came from SearchApi.io, so it has no real
-        # product_token to look up — skip it rather than spending a paid
-        # SearchApi call on an ID nothing can resolve. It still reaches the
-        # route via the picked_price/picked_source pin below.
-        detail_futures = {
-            token: executor.submit(searchapi_repository.get_product, token)
-            for token in tokens_to_fetch
-            if not token.startswith(_LIVE_PRICE_TOKEN_PREFIX)
-        }
-
-        candidates: list[dict] = []
-        display_title = ""
-
-        def _consume(token: str, detail: dict) -> None:
-            nonlocal display_title
-            if detail.get("error"):
-                return
-            product = detail.get("product") or {}
-            display_title = display_title or product.get("title") or detail.get("title") or ""
-            candidates.extend(_build_candidates(detail, source_token=token))
-
-        primary_detail = primary_future.result() if primary_future is not None else None
-        if primary_detail is not None:
-            _consume(product_token, primary_detail)
-        for token, future in detail_futures.items():
-            _consume(token, future.result())
-
-        executor.shutdown(wait=False)
-
-        if not candidates and not product_token.startswith(_LIVE_PRICE_TOKEN_PREFIX):
-            # Refined search came up empty or every fetch failed — fall back
-            # to the originally selected token alone. Cheap: the primary
-            # fetch above already hit the cache/API for this exact token, so
-            # this only does real work when that first attempt itself failed.
-            detail = (
-                primary_detail
-                if primary_detail is not None and not primary_detail.get("error")
-                else searchapi_repository.get_product(product_token)
-            )
-            if detail.get("error"):
-                output["error"] = detail["error"]
-                return output
-            product = detail.get("product") or {}
-            display_title = product.get("title") or detail.get("title") or ""
-            candidates = _build_candidates(detail, source_token=product_token)
-
-        # A live-fetched candidate with no other real candidates found has no
-        # SearchApi.io title to display — fall back to the picker's own title
-        # for it (same fallback the pin block below already uses for the
-        # route's own title) rather than showing the raw pasted URL.
-        display_title = display_title or (title if product_token.startswith(_LIVE_PRICE_TOKEN_PREFIX) else "")
-
-        if display_title:
-            output["source"]["name"] = display_title
-            output["source"]["brand"] = _infer_brand(display_title) or output["source"]["brand"]
-
-        # Kept from before the trust filter runs, purely so the pin block
-        # below can find the exact merchant the user picked even if the
-        # trust whitelist would otherwise strip it — that merchant's own
-        # offer (fetched above for `product_token`, which is always included
-        # in tokens_to_fetch) may not be on the trust whitelist even when the
-        # listing itself is genuine, and a price with no way to reach it
-        # fails the "executable by anyone" requirement for a route just as
-        # much as a wrong price would.
-        pre_filter_candidates = candidates
-
-        # L1 guards.
-        candidates = _filter_trusted_only(candidates)
-
-        # Anchor on priority-merchant pricing here too — this is the pool
-        # final routes get built from, so it's the last and most important
-        # place to keep a merged-in clone from outranking the genuine,
-        # already-vetted pick on price alone.
-        anchor = _priority_merchant_anchor(candidates)
-        if anchor is not None:
-            threshold = 0.4 * anchor
-            candidates = [c for c in candidates if (c.get("price") or 0) >= threshold or not c.get("price")]
-
-        candidates, _removed = _outlier_filter(candidates)
+            candidates, _removed = _outlier_filter(candidates)
 
         # Pin the exact listing the user selected on the Product Picker —
         # added AFTER trust/anchor/outlier filtering (it was already vetted
@@ -3343,6 +3636,13 @@ def build_routes_for_token(
         output["results"] = candidates
         output["vouchers"] = voucher_service.build_deals(candidates, product_name=query or display_title)
         output["routes"] = _build_routes(candidates, output["vouchers"])
+        if identity is not None and get_settings().ROUTE_LIVE_PRICE_CHECK:
+            updated = _check_winner_live(output, candidates, display_title)
+            if updated is not None:
+                candidates = _priority_sort(updated)
+                output["results"] = candidates
+                output["vouchers"] = voucher_service.build_deals(candidates, product_name=query or display_title)
+                output["routes"] = _build_routes(candidates, output["vouchers"])
 
     except Exception as e:  # never leak a stack trace to the router
         output["error"] = f"{type(e).__name__}: {e}"

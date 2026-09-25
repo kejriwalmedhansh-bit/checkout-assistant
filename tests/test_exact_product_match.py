@@ -81,3 +81,38 @@ def test_a_real_title_is_kept_over_a_keyword_stuffed_link():
     ident = build_identity("Samsung Galaxy S25 5G (Navy, 12GB RAM, 128GB Storage)", url)
     assert ident["codes"] == ["s25"]
     assert identity_query(ident) == "samsung galaxy s25 128GB"
+
+
+def test_strength_packs_bundles_and_editions():
+    serum = "Minimalist 10% Niacinamide Face Serum With Matmarine + Zinc"
+    assert tier(serum, "Minimalist 5% Niacinamide Serum For Glowing") == "wrong"
+    assert tier(serum, "Minimalist Niacinamide 10% Face Serum for Blemishes - 30 ml") == "exact"
+    assert tier(serum, "Minimalist Set of Vitamin C 10% & Niacinamide 10% Face Serum - 10 ml each (Pack)") == "similar"
+    wash = "Himalaya Purifying Neem Face Wash, 150 ml"
+    assert tier(wash, "Himalaya Purifying Neem Face Wash 150ml( Pack Of 3)") == "similar"
+    briefs = "Jockey 8008 Men's Super Combed Cotton Rib Solid Boxer Brief (Pack of 4),Assorted"
+    assert tier(briefs, "Jockey 8008 Men Cotton Solid Boxer Brief - Black") == "similar"
+    mouse = "Logitech MX Master 3S - Wireless Performance Mouse with Ultra-Fast Scrolling (Black)"
+    assert tier(mouse, "Logitech MX Master 3S for Mac Wireless Bluetooth Mouse") == "wrong"
+
+
+def test_noise_cancelling_is_its_own_edition():
+    airpods = "Apple AirPods 4 Wireless Earbuds, Bluetooth Headphones, Personalised Spatial Audio"
+    assert tier(airpods, "Apple AirPods 4 with Active Noise Cancellation, Adaptive Audio") == "wrong"
+    sony = "Sony WH-1000XM5 Best Active Noise Cancelling Wireless Bluetooth Over Ear Headphones"
+    assert tier(sony, "SONY WH-1000XM5 ANC Headphones") == "exact"
+    anc = "boAt Airdopes 141 ANC, Active Noise Cancellation(~32dB), 50ms Low Latency"
+    assert tier(anc, "boAt Airdopes 141 Wireless Earbuds") == "wrong"
+
+
+def test_storage_missing_from_the_pick_comes_from_the_link():
+    url = "https://www.flipkart.com/samsung-galaxy-s25-5g-mint-128-gb/p/itmcc2f488d41676"
+    assert tier("Samsung Galaxy S25 5G", "SAMSUNG MOBILE GALAXY S25 12GB 256GB NAVY BLUE", url) == "similar"
+
+
+def test_brand_websites_are_trusted_by_address_not_name():
+    from src.services.search_service import _is_brand_store
+    assert _is_brand_store("Sony Center", "https://www.sony.co.in/electronics/headband-headphones/wh-1000xm5", "sony")
+    assert _is_brand_store("Bajaj", "https://shop.bajajelectricals.com/fans/frore", "bajaj")
+    assert not _is_brand_store("Sony Store", "https://www.sonydealsindia.in/wh-1000xm5", "sony")
+    assert not _is_brand_store("Minimalist", "https://www.cheapskincare.in/minimalist-serum", "minimalist")

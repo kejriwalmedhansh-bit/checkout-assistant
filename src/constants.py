@@ -63,6 +63,9 @@ MANUAL_TRUSTED_MERCHANTS = [
     # "MNow" (Myntra's own quick-delivery arm) and "Jewellery" (Tata CLiQ's
     # jewelry vertical) — confirmed dropped as "untrusted" on live searches.
     "Myntra - MNow", "Tata CLiQ Jewellery",
+    # Big retailers that sell for many brands (approved 2026-09-25): Tata's
+    # own marketplace and Flipkart's value store.
+    "Tata Neu", "Shopsy", "Shopsy By Flipkart",
     # Full-catalog audit (2026-08-08): every online-redeemable Gyftr/Maximize
     # brand's real official domain was verified via live search, then checked
     # against the existing whitelist logic. These 61 are the ones that

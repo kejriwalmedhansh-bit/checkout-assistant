@@ -48,7 +48,7 @@ jars jar compartment compartments pieces piece pcs blades speeds
 _COLOURS = set("""
 black white blue red green yellow purple pink gold golden silver grey gray
 titanium graphite midnight starlight rose orange beige brown teal navy coral
-indigo maroon olive khaki cream ivory charcoal aqua mint lavender peach
+indigo maroon olive khaki cream ivory charcoal mint lavender peach
 multicolor multicolour camo tan nude
 """.split())
 
@@ -70,7 +70,7 @@ shampoo conditioner mask foundation primer powder lipstick kajal eyeliner mascar
 # Words that turn one model into a sibling model. If the pasted product has
 # one and a listing doesn't (or the reverse), they are different products.
 _MODIFIERS = set("""
-plus pro max mini ultra lite neo turbo deco elite anc edge fe prime air slip
+plus pro max mini ultra lite neo turbo deco elite edge fe prime air slip
 kids junior jr refurbished renewed business signature
 """.split())
 
@@ -188,13 +188,16 @@ def _variants(title: str) -> dict:
     gen = re.search(r"\b(\d+)(?:st|nd|rd|th)\s*gen|\bgen(?:eration)?\s*(\d+)\b", n)
     if gen:
         out["generation"] = int(gen.group(1) or gen.group(2))
+    strength = re.search(r"(\d+(?:\.\d+)?)\s*(?:%|percent)", n)
+    if strength:
+        out["strength"] = float(strength.group(1))
     mah = re.search(r"(\d{4,6})\s*mah", n)
     if mah:
         out["mah"] = int(mah.group(1))
     pack = re.search(r"(?:pack|set)\s+of\s+(\d+)|(\d+)\s*(?:pcs|pieces)\b", n)
     if pack:
         out["pack"] = int(pack.group(1) or pack.group(2))
-    if re.search(r"\b(?:combo|kit|bundle|duo|trio|\d\s*items)\b", n) or re.search(r"\s(?:&|\+|and)\s+(?:" + "|".join(sorted(_TYPE_WORDS)) + r"|[a-z]+\s+(?:" + "|".join(sorted(_TYPE_WORDS)) + r"))\b", n):
+    if re.search(r"\b(?:combo|kit|bundle|duo|trio|\d\s*items|set of|each)\b", n) or re.search(r"\s(?:&|\+|and)\s+(?:" + "|".join(sorted(_TYPE_WORDS)) + r"|[a-z]+\s+(?:" + "|".join(sorted(_TYPE_WORDS)) + r"))\b", n):
         out["bundle"] = True
     return out
 
@@ -276,9 +279,18 @@ def build_identity(title: str, url: str | None = None) -> dict:
     return {
         "title": title, "brand": brand, "codes": codes, "alt_codes": alt_codes,
         "name": required, "all_name": name, "types": [w for w, k in ordered if k == "type"],
-        "modifiers": [w for w, k in ordered if k == "mod"], "variants": _variants(title),
+        "modifiers": [w for w, k in ordered if k == "mod"], "variants": _variants_with_slug(title, slug),
         "audience": _audience(title), "ordered": ordered,
     }
+
+
+def _variants_with_slug(title: str, slug: list[str]) -> dict:
+    """Size/storage/pack from the title, with anything it leaves out taken
+    from the link's own web address ("...-galaxy-s25-5g-mint-128-gb")."""
+    out = _variants(title)
+    for k, v in _variants(" ".join(slug)).items():
+        out.setdefault(k, v)
+    return out
 
 
 def _audience(title: str) -> str | None:
@@ -345,6 +357,20 @@ def match_tier(ident: dict, title: str, source: str = "") -> tuple[str, str]:
             if m in ident["modifiers"] and m in words:
                 continue
             return "wrong", f"sub-model '{m}'"
+    # Editions sold as separate products: "for Mac", "for Business", and a
+    # noise-cancelling version of a product whose own page never mentions it.
+    ident_n = _norm(ident["title"])
+    for ed in re.findall(r"\bfor (mac|business|ipad|iphone)\b", n):
+        if not re.search(r"\bfor " + ed + r"\b", ident_n):
+            return "wrong", f"edition 'for {ed}'"
+    # Noise cancelling (ANC) is its own edition: both sides mention it or
+    # neither does. The mic-only "ENx" noise cancellation doesn't count.
+    anc = r"active noise cancel|\banc\b"
+    ident_head = _norm(_HEAD_CUT_RE.split(ident["title"], maxsplit=1)[0])
+    if re.search(anc, n) and not re.search(anc + r"|noise cancel", ident_n):
+        return "wrong", "noise-cancelling edition"
+    if re.search(r"\banc\b", ident_head) and not re.search(anc + r"|noise cancel", n):
+        return "wrong", "not the noise-cancelling edition"
     aud = _audience(title)
     if ident["audience"] and aud and aud != ident["audience"] and "unisex" not in words:
         return "wrong", "audience"
@@ -354,7 +380,12 @@ def match_tier(ident: dict, title: str, source: str = "") -> tuple[str, str]:
     cv, iv = _variants(title), ident["variants"]
     if "generation" in cv and "generation" in iv and cv["generation"] != iv["generation"]:
         return "wrong", "generation"
-    for k in ("storage", "ram", "volume", "weight", "mah", "pack"):
+    if "strength" in cv and "strength" in iv and cv["strength"] != iv["strength"]:
+        return "wrong", "strength"
+    # Multi-packs always say so; a listing that doesn't is a single.
+    if cv.get("pack", 1) != iv.get("pack", 1):
+        return "similar", "pack"
+    for k in ("storage", "ram", "volume", "weight", "mah"):
         if k in cv and k in iv and cv[k] != iv[k]:
             return "similar", k
     if cv.get("bundle") != iv.get("bundle") and (cv.get("bundle") or iv.get("bundle")):
@@ -377,7 +408,7 @@ def _word_after_model(ident: dict, n: str) -> str | None:
         return None
     known = set(ident["name"]) | set(ident["codes"]) | set(ident["types"]) | set(ident["modifiers"]) | {ident["brand"]}
     for w in re.findall(r"[a-z0-9]+(?:\.[0-9]+)?", n[end:])[:1]:
-        if (w in known or w in _GENERIC or w in _COLOURS or w in _TYPE_WORDS or w in _MODIFIERS
+        if (w in known or w == "anc" or w in _GENERIC or w in _COLOURS or w in _TYPE_WORDS or w in _MODIFIERS
                 or re.fullmatch(r"\d+(?:\.\d+)?", w) or re.fullmatch(r"\d+(?:\.\d+)?" + _UNIT, w)
                 or (len(w) <= 3 and any(c.isdigit() for c in w))    # region suffix "1df"
                 or re.fullmatch(r"\d+(?:st|nd|rd|th)", w)
