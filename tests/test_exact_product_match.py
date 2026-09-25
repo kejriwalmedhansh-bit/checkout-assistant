@@ -56,7 +56,9 @@ def test_air_in_a_product_name_is_not_the_air_sub_model():
 
 def test_other_sizes_packs_and_storage_are_similar_not_exact():
     cleanser = "Cetaphil Gentle Skin Cleanser, 125ml"
-    assert tier(cleanser, "Cetaphil Gentle Skin Cleanser For Normal, Dry Skin (118ml)") == "similar"
+    # 118 ml is Cetaphil's repackaged 125 ml (user, 2026-09-25): same product.
+    assert tier(cleanser, "Cetaphil Gentle Skin Cleanser For Normal, Dry Skin (118ml)") == "exact"
+    assert tier(cleanser, "Cetaphil Gentle Skin Cleanser (Dry to Normal, Sensitive Skin), 250 ml") == "similar"
     phone = "Samsung Galaxy A56 5G 256 GB, 8 GB RAM, Awesome Graphite, Mobile Phone at Reliance Digital"
     assert tier(phone, "Galaxy A56 5G Samsung") == "exact"
     assert tier(phone, "Samsung Galaxy A56 5G (Awesome Olive, 12GB, 256GB)") == "similar"
@@ -116,3 +118,14 @@ def test_brand_websites_are_trusted_by_address_not_name():
     assert _is_brand_store("Bajaj", "https://shop.bajajelectricals.com/fans/frore", "bajaj")
     assert not _is_brand_store("Sony Store", "https://www.sonydealsindia.in/wh-1000xm5", "sony")
     assert not _is_brand_store("Minimalist", "https://www.cheapskincare.in/minimalist-serum", "minimalist")
+
+
+def test_spare_parts_combos_and_bluetooth_edition():
+    url = "https://www.flipkart.com/philips-phlips-hl7756-00-daily-collection-750-mixer-grinder-3-jars-black/p/itm60d841bdca6dc"
+    page = "PHILIPS by Phlips Daily Collection 750 W Mixer Grinder"
+    assert tier(page, "Philips HL7756/00 Mixer Grinder, 750W, 3 Jars (Black) & Classic GC097/50 750-Watt Dry Iron (Peach)", url) == "similar"
+    assert tier(page, "Philips HL7756/00 Daily Collection Mixer Grinder 750W 3 Jars", url) == "exact"
+    mouse = "Logitech MX Master 3S - Wireless Performance Mouse with Ultra-Fast Scrolling (Black)"
+    assert tier(mouse, "Logitech MX Master 3S Bluetooth Edition Wireless Mouse, No USB Receiver") == "wrong"
+    from src.services.search_service import _SPARE_PART_RE
+    assert _SPARE_PART_RE.search("Buy SS JAR ASSLY 1.0LTR-HL7756-Dry jar")

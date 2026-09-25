@@ -169,7 +169,8 @@ PRIORITY_MERCHANTS = [
 # recommend something the user's location literally can't get. Never
 # excluded outright — still shown if nothing else is available — just never
 # allowed to outrank a normal listing on price alone.
-HYPERLOCAL_MERCHANTS = ["blinkit", "zepto", "swiggy", "zomato"]
+# BigBasket added 2026-09-25 (user): rank it with quick commerce until checked.
+HYPERLOCAL_MERCHANTS = ["blinkit", "zepto", "swiggy", "zomato", "instamart", "bigbasket"]
 
 KNOWN_BRANDS = [
     "boat", "noise", "apple", "samsung", "sony", "lg", "hp", "dell", "lenovo",

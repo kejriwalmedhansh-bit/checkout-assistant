@@ -202,6 +202,19 @@ def _variants(title: str) -> dict:
     return out
 
 
+def _second_product(ident: dict, title: str) -> bool:
+    """A different model code after "&"/"+"/"and" ("Mixer Grinder HL7756 &
+    Classic GC097/50 Dry Iron") means two products in one listing. The
+    product's own model number repeated there doesn't count."""
+    own = {_compact(c) for c in ident["codes"]} | {_compact(a) for alts in ident["alt_codes"] for a in alts}
+    for tail in re.findall(r"(?:&|\+|\band\b)\s+([^,|()]*)", (title or "").lower()):
+        for t in _tokens(tail):
+            c = _compact(_strip_region(t))
+            if re.search(r"[a-z]", t) and re.search(r"\d", t) and _is_code(t) and len(c) >= 4 and c not in own:
+                return True
+    return False
+
+
 _SKIP_LEAD = {"all", "new", "the", "buy", "shop", "original", "genuine", "latest"}
 
 
@@ -363,6 +376,8 @@ def match_tier(ident: dict, title: str, source: str = "") -> tuple[str, str]:
     for ed in re.findall(r"\bfor (mac|business|ipad|iphone)\b", n):
         if not re.search(r"\bfor " + ed + r"\b", ident_n):
             return "wrong", f"edition 'for {ed}'"
+    if bool(re.search(r"bluetooth edition", n)) != bool(re.search(r"bluetooth edition", ident_n)):
+        return "wrong", "Bluetooth Edition"
     # Noise cancelling (ANC) is its own edition: both sides mention it or
     # neither does. The mic-only "ENx" noise cancellation doesn't count.
     anc = r"active noise cancel|\banc\b"
@@ -387,7 +402,13 @@ def match_tier(ident: dict, title: str, source: str = "") -> tuple[str, str]:
         return "similar", "pack"
     for k in ("storage", "ram", "volume", "weight", "mah"):
         if k in cv and k in iv and cv[k] != iv[k]:
+            # A brand's repackaging (Cetaphil 125 ml -> 118 ml) is the same
+            # product; 250 ml vs 125 ml is not.
+            if k in ("volume", "weight") and abs(cv[k] - iv[k]) <= 0.07 * max(cv[k], iv[k]):
+                continue
             return "similar", k
+    if _second_product(ident, title) and not _second_product(ident, ident["title"]):
+        return "similar", "bundle"
     if cv.get("bundle") != iv.get("bundle") and (cv.get("bundle") or iv.get("bundle")):
         return "similar", "bundle"
     return "exact", ""

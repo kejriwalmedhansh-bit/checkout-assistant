@@ -3093,6 +3093,7 @@ _BRAND_SITE_SUFFIXES = {
     "india", "official", "store", "online", "shop", "world", "lifestyle",
     "electricals", "wellness", "center", "centre", "co", "the", "in",
 }
+_SPARE_PART_RE = re.compile(r"\b(?:assly|assembly|spare|replacement|refill|compatible with|for model)\b", re.IGNORECASE)
 _OUT_OF_STOCK_RE = re.compile(r"out of stock|sold out|currently unavailable", re.IGNORECASE)
 
 
@@ -3154,6 +3155,7 @@ def _offer_rows(token: str, pages: int, tag: str) -> list[dict]:
 
 def _discover_exact_offers(
     identity: dict, product_token: str, full_title: str, tag: str = "[routes]",
+    picked_price: float | None = None,
 ) -> tuple[list[dict], dict]:
     """(verified candidates, info) for the exact product on every whitelisted
     store Google knows about. Candidates are in `_build_candidates` shape."""
@@ -3212,6 +3214,11 @@ def _discover_exact_offers(
         if spec_part and (not part or _compact(spec_part) != _compact(part)):
             _take(_search(f"{brand} {spec_part}"))
 
+    if not info["typical_low"] and seeds:
+        # The pick was the pasted page (no Google entry of its own): read the
+        # usual price range from the best exact Google entry instead.
+        typical = (searchapi_repository.get_product(seeds[0][0]).get("typical_prices") or {})
+        info["typical_low"] = typical.get("extracted_low_price")
     lap("searches")
     # Round 2, all at once: every page of every exact entry's store list, and
     # - for big stores that carry this kind of product (they showed up in the
@@ -3251,6 +3258,10 @@ def _discover_exact_offers(
             if tier != "exact":
                 logger.info("%s   skipped %s (%s): %r", tag, name, why or tier, r["title"])
                 continue
+            if (_is_accessory(r["title"]) or _SPARE_PART_RE.search(r["title"])) and not (
+                    _is_accessory(identity["title"]) or _SPARE_PART_RE.search(identity["title"])):
+                logger.info("%s   skipped %s (spare part or accessory): %r", tag, name, r["title"])
+                continue
             if not (_is_trusted_merchant(name, _load_trusted_merchants()) or _is_brand_store(name, link, brand)):
                 logger.info("%s   skipped %s (not on the whitelist)", tag, name)
                 continue
@@ -3270,8 +3281,16 @@ def _discover_exact_offers(
     lap("store_lists")
     # Fakes: below 40% of the highest big-store price, or well under the
     # lowest price Google itself says this product usually sells for.
-    anchor = _priority_merchant_anchor(verified)
-    floor = max(0.4 * anchor if anchor else 0, 0.6 * info["typical_low"] if info["typical_low"] else 0)
+    # The price of the product the user picked (their pasted page's own price
+    # when they picked that) counts as a big-store price here: without it a
+    # spare jar at ₹550 had nothing to be compared against and passed.
+    # Only a weak check against the picked price itself: a pasted page can be
+    # a reseller's marked-up price (Logitech MX Master 3S at ₹23,498 from a
+    # third-party seller on Amazon, sold elsewhere for ₹6,995-8,979), and a
+    # strict floor there would throw out every genuine cheaper store.
+    anchor = _priority_merchant_anchor(verified) or 0
+    floor = max(0.4 * anchor, 0.25 * (picked_price or 0),
+                0.6 * info["typical_low"] if info["typical_low"] else 0)
     if floor:
         for c in verified:
             if c["price"] < floor:
@@ -3391,7 +3410,7 @@ def build_routes_for_token(
         if identity is not None:
             # Step 6: every whitelisted store selling this exact product.
             logger.info("[routes] product ID card: %r", product_identity.identity_query(identity))
-            candidates, info = _discover_exact_offers(identity, product_token, identity["title"])
+            candidates, info = _discover_exact_offers(identity, product_token, identity["title"], picked_price=picked_price)
             output["search_info"] = info
             pre_filter_candidates = candidates
             display_title = title or identity["title"]
@@ -3623,9 +3642,13 @@ def build_routes_for_token(
                 # (reported 2026-08-27, the boAt Nike Air Force 1 Myntra link).
                 if not sellers and product_token.startswith(_LIVE_PRICE_TOKEN_PREFIX) and _URL_QUERY_RE.match(query):
                     sellers = [{"link": query, "delivery": None}]
+                # A pasted page's own price was read off that page just now;
+                # an older Google price for the same store never replaces it.
+                use_recovered = (recovered and recovered.get("price") is not None
+                                 and not product_token.startswith(_LIVE_PRICE_TOKEN_PREFIX))
                 candidates.append(_pinned_candidate(
                     display_title or title or query,
-                    recovered["price"] if recovered and recovered.get("price") is not None else picked_price,
+                    recovered["price"] if use_recovered else picked_price,
                     picked_source,
                     sellers,
                 ))
