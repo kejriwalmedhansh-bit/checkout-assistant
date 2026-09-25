@@ -2638,6 +2638,15 @@ def _maybe_widen_brand_query(
     return products, approximate
 
 
+def _pasted_store_name(url: str) -> str:
+    """"Flipkart" for flipkart.com, "Vijay Sales" for vijaysales.com."""
+    host = (urlsplit(url).hostname or "").lower().removeprefix("www.")
+    for name in list(MANUAL_TRUSTED_MERCHANTS)[:12]:
+        if _compact(name) and _compact(name) in _compact(host.split(".")[0]):
+            return name
+    return host.split(".")[0].title()
+
+
 # At most this many "same product, different size/pack" listings are kept
 # aside for the picker to show under their own label.
 _MAX_SIMILAR = 3
@@ -2815,6 +2824,11 @@ def search_candidates(query: str) -> dict:
             effective_query, is_url, shopping_results, products, approximate, tag
         )
         if identity is not None:
+            # Quick commerce is never offered for a pasted link (user rule,
+            # 2026-09-25): whether it delivers depends on the shopper's area.
+            quick = [p for p in products if _is_hyperlocal(p.get("source") or "")
+                     and product_identity.match_tier(identity, p.get("title") or "", p.get("source") or "")[0] == "exact"]
+            products = [p for p in products if not _is_hyperlocal(p.get("source") or "")]
             products, similar = _tier_by_identity(products, identity, tag)
             full_title = identity["title"]
             if len(products) < _THIN_EXACT and full_title and full_title != effective_query:
@@ -2827,6 +2841,7 @@ def search_candidates(query: str) -> dict:
                 if not raw2.get("error"):
                     more = [_product_candidate(p) for p in raw2.get("shopping_results", []) if p.get("product_token")]
                     more, _ = _filter_and_group_candidates(more, full_title, tag=tag)
+                    more = [p for p in more if not _is_hyperlocal(p.get("source") or "")]
                     more, similar2 = _tier_by_identity(more, identity, tag)
                     seen = {p.get("product_token") for p in products}
                     products += [p for p in more if p.get("product_token") not in seen]
@@ -2842,6 +2857,15 @@ def search_candidates(query: str) -> dict:
                     p["match_tier"], p["match_note"] = "similar", "price"
                 products = [p for p in products if p not in cheap]
                 similar = (similar + cheap)[:_MAX_SIMILAR]
+            if not products and not live_candidate and quick:
+                # The only exact match was a quick-commerce listing: never
+                # offered, but its Google entry still lets step 6 find the
+                # product at other stores. Shown under the pasted shop's name.
+                seed = dict(quick[0])
+                seed.update(title=display_query or identity["title"], price=None, price_raw=None,
+                            source=_pasted_store_name(query), match_tier="exact")
+                logger.info("%s only quick commerce matched - using its Google entry to search other stores", tag)
+                products = [seed]
             out["similar_products"] = similar
             approximate = not products
         # A pasted link's "budget" never came from the user — it's whatever
@@ -3258,6 +3282,9 @@ def _discover_exact_offers(
             if tier != "exact":
                 logger.info("%s   skipped %s (%s): %r", tag, name, why or tier, r["title"])
                 continue
+            if not _is_latin_dominant(r["title"]) or "/-/hi/" in (link or ""):
+                logger.info("%s   skipped %s (non-English listing): %r", tag, name, r["title"])
+                continue
             if (_is_accessory(r["title"]) or _SPARE_PART_RE.search(r["title"])) and not (
                     _is_accessory(identity["title"]) or _SPARE_PART_RE.search(identity["title"])):
                 logger.info("%s   skipped %s (spare part or accessory): %r", tag, name, r["title"])
@@ -3411,6 +3438,10 @@ def build_routes_for_token(
             # Step 6: every whitelisted store selling this exact product.
             logger.info("[routes] product ID card: %r", product_identity.identity_query(identity))
             candidates, info = _discover_exact_offers(identity, product_token, identity["title"], picked_price=picked_price)
+            if _URL_QUERY_RE.match(query):
+                # Pasted link: quick commerce is never recommended (user rule,
+                # 2026-09-25) - it depends on the shopper's area.
+                candidates = [c for c in candidates if not _is_hyperlocal(c.get("merchant") or "")]
             output["search_info"] = info
             pre_filter_candidates = candidates
             display_title = title or identity["title"]

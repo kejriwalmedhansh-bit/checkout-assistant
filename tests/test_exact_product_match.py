@@ -129,3 +129,11 @@ def test_spare_parts_combos_and_bluetooth_edition():
     assert tier(mouse, "Logitech MX Master 3S Bluetooth Edition Wireless Mouse, No USB Receiver") == "wrong"
     from src.services.search_service import _SPARE_PART_RE
     assert _SPARE_PART_RE.search("Buy SS JAR ASSLY 1.0LTR-HL7756-Dry jar")
+
+
+def test_quick_commerce_is_recognised():
+    from src.services.search_service import _is_hyperlocal
+    for store in ("Zepto", "blinkit.com", "Swiggy Instamart", "bigbasket.com", "Nykaa Now", "Myntra - MNow"):
+        assert _is_hyperlocal(store), store
+    for store in ("Nykaa", "Myntra", "Amazon.in", "Flipkart"):
+        assert not _is_hyperlocal(store), store
