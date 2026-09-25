@@ -137,3 +137,16 @@ def test_quick_commerce_is_recognised():
         assert _is_hyperlocal(store), store
     for store in ("Nykaa", "Myntra", "Amazon.in", "Flipkart"):
         assert not _is_hyperlocal(store), store
+
+
+def test_store_codes_are_bonus_proof_and_model_numbers_are_kept_whole():
+    buds = "SAMSUNG Galaxy Buds3 Pro SM-R630NZWAINU TWS Earbuds with Active Noise Cancellation (IP57, White)"
+    assert tier(buds, "Samsung Galaxy Buds3 Pro (Silver)") == "exact"
+    assert tier(buds, "Samsung Galaxy Buds3 FE") == "wrong"
+    vs = "https://www.vijaysales.com/p/234697/samsung-galaxy-s24-fe-5g-dual-sim-smartphone-8gb-ram-128gb-storage-6-69-inch-dynamic-amoled-2x-fhd-display-samsung-exynos-2400e-black"
+    assert tier("Oneplus Smartphones Online at Best Price", "Samsung Galaxy S24 FE 5G (Mint, 8GB, 128GB)", vs) == "exact"
+    assert tier("Oneplus Smartphones Online at Best Price", "Samsung Galaxy S24 5G 8GB 128GB", vs) == "wrong"
+    narzo = "realme NARZO 70X 5G (128 GB Storage, 6 GB RAM)"
+    assert tier(narzo, "Realme Narzo 90x 5g (flash Blue, 128 Gb)") == "wrong"
+    cooker = "Prestige Deluxe Plus Stainless Steel Pressure Cooker, 5.5 litres"
+    assert tier(cooker, "Prestige Deluxe Plus Induction Base Aluminium Pressure Cooker 5.5 L") == "wrong"

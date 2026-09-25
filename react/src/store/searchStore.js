@@ -55,6 +55,11 @@ export const useSearchStore = create(
       voucher: null,
       selectedToken: null,
       selectedThumbnail: null,
+      // A pasted link Dealo is sure about skips the picker: `autoPicked` tells
+      // the picker page to move straight on to results (then clears), and
+      // `skippedPicker` lets the results page offer "Not the right product?".
+      autoPicked: false,
+      skippedPicker: false,
       result: null,
       searchStatus: 'idle', // step 1: 'idle' | 'loading' | 'success' | 'error'
       status: 'idle', // step 2: 'idle' | 'loading' | 'success' | 'error'
@@ -75,6 +80,8 @@ export const useSearchStore = create(
           mode: 'products',
           voucher: null,
           selectedToken: null,
+          autoPicked: false,
+          skippedPicker: false,
           result: null,
           searchStatus: 'loading',
           status: 'idle',
@@ -105,6 +112,11 @@ export const useSearchStore = create(
               input_type: data.mode || 'products',
               result_count: (data.products || []).length,
             });
+            const pick = data.auto_pick;
+            if (pick?.product_token) {
+              set({ autoPicked: true, skippedPicker: true });
+              get().selectProduct(pick.product_token, pick.title, pick.price, pick.source, pick.thumbnail);
+            }
           }
         } catch (err) {
           set({ searchStatus: 'error', error: extractErrorMessage(err) });
@@ -157,6 +169,9 @@ export const useSearchStore = create(
         }
       },
 
+      // Results page -> "Not the right product?": back to the full picker.
+      showPicker: () => set({ autoPicked: false, skippedPicker: false }),
+
       reset: () =>
         set({
           query: '',
@@ -167,6 +182,8 @@ export const useSearchStore = create(
           voucher: null,
           selectedToken: null,
           selectedThumbnail: null,
+          autoPicked: false,
+          skippedPicker: false,
           result: null,
           searchStatus: 'idle',
           status: 'idle',
@@ -186,6 +203,7 @@ export const useSearchStore = create(
         voucher: s.voucher,
         selectedToken: s.selectedToken,
         selectedThumbnail: s.selectedThumbnail,
+        skippedPicker: s.skippedPicker,
         result: s.result,
         persistedAt: s.persistedAt,
       }),

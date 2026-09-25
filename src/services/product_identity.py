@@ -41,7 +41,7 @@ performance quiet clicks ergo ultra-fast scrolling track glass
 multipurpose multi purpose use home kitchen travel office college school
 long lasting lightweight light-weight heavy duty quality
 spf pa broad spectrum hydrating non sticky no white cast skin normal dry oily
-5g 4g lte dual sim ram storage expandable phone mobile smartphone
+5g 4g lte sim ram storage expandable phone mobile smartphone
 jars jar compartment compartments pieces piece pcs blades speeds
 """.split())
 
@@ -75,7 +75,7 @@ kids junior jr refurbished renewed business signature
 """.split())
 
 _UNIT = (r"(?:gb|tb|mb|ml|l|ltr|ltrs|litre|litres|liter|liters|g|gm|gms|kg|mah|w|watt|watts|v|mm|cm|inch|in|"
-         r"hz|db|ms|dpi|mp|h|hr|hrs|hours|nits|x|core|%|compartments?|jars?|pieces|pcs|blades?|speeds?|"
+         r"hz|db|ms|dpi|mp|h|hr|hrs|hours|nits|core|%|compartments?|jars?|pieces|pcs|blades?|speeds?|"
          r"burners?|layers?|stars?|months?|years?|yrs?|days?)")
 _SPEC_RE = re.compile(r"(?<![a-z0-9.])\d+(?:\.\d+)?\s*" + _UNIT + r"(?![a-z0-9])"
                       r"|\b(?:spf|ipx|ip|pa)(?![a-z])\s*\d*\+*")
@@ -147,8 +147,10 @@ def _slug_words(url: str | None) -> list[str]:
 
 
 def _is_code(w: str) -> bool:
-    """A model code: has a digit and isn't a spec (150ml, 16gb, 5g)."""
+    """A model code: has a digit and isn't a spec (150ml, 16gb, 5g, 2x)."""
     if not any(c.isdigit() for c in w) or w in _GENERIC:
+        return False
+    if re.fullmatch(r"(?:[1-9]|10)x", w):      # "2x zoom"; "70x" is a model
         return False
     return not re.fullmatch(r"\d+(?:\.\d+)?" + _UNIT, w)
 
@@ -185,6 +187,11 @@ def _variants(title: str) -> dict:
     wt = re.search(r"(\d+(?:\.\d+)?)\s*(g|gm|gms|kg)(?![a-z])", n)
     if wt and not (wt.group(2) == "g" and wt.group(1) in ("2", "3", "4", "5")):
         out["weight"] = round(float(wt.group(1)) * (1000 if wt.group(2) == "kg" else 1))
+    material = re.search(r"stainless|alumin(?:i)?um|hard[\s\-]*anodi[sz]ed|cast iron|tri[\s\-]*ply|triply", n)
+    if material:
+        m = material.group(0)
+        out["material"] = ("stainless" if "stainless" in m else "anodised" if "anodi" in m
+                           else "aluminium" if "alumin" in m else re.sub(r"\W", "", m))
     gen = re.search(r"\b(\d+)(?:st|nd|rd|th)\s*gen|\bgen(?:eration)?\s*(\d+)\b", n)
     if gen:
         out["generation"] = int(gen.group(1) or gen.group(2))
@@ -218,6 +225,32 @@ def _second_product(ident: dict, title: str) -> bool:
 _SKIP_LEAD = {"all", "new", "the", "buy", "shop", "original", "genuine", "latest"}
 
 
+def _slug_title(slug: list[str]) -> str:
+    """A product name from a web address's words: re-join model numbers the
+    dashes split ("ga 2100 1a1dr" -> "ga-2100-1a1dr", "6 69 inch" -> "6.69
+    inch"), and stop at the spec dump that follows the name ("samsung galaxy
+    s24 fe | 5g dual sim smartphone 8gb ... exynos 2400e")."""
+    out: list[str] = []
+    i = 0
+    while i < len(slug):
+        w = slug[i]
+        if re.fullmatch(r"[a-z]{1,3}", w) and i + 1 < len(slug) and slug[i + 1].isdigit() and len(slug[i + 1]) >= 3:
+            w = f"{w}-{slug[i + 1]}"
+            i += 1
+            while i + 1 < len(slug) and re.fullmatch(r"(?=.*\d)[a-z0-9]{1,6}", slug[i + 1]) and not _SPEC_RE.fullmatch(slug[i + 1]):
+                w += "-" + slug[i + 1]
+                i += 1
+        elif w.isdigit() and i + 1 < len(slug) and slug[i + 1].isdigit() and len(slug[i + 1]) <= 2 and i + 2 < len(slug) and slug[i + 2] in ("inch", "in", "cm"):
+            w = f"{w}.{slug[i + 1]}"
+            i += 1
+        out.append(w)
+        i += 1
+    for k in range(3, len(out)):
+        if out[k] in _GENERIC or out[k] in _TYPE_WORDS or out[k] in _COLOURS:
+            return " ".join(out[:k + (1 if out[k] in _TYPE_WORDS else 0)])
+    return " ".join(out)
+
+
 def _strip_region(code: str) -> str:
     """A158WA-1Q -> A158WA; BT3221/15 -> BT3221. Keeps WH-1000XM5 whole."""
     m = re.fullmatch(r"(.+?)[\-/]([a-z0-9]{1,3})", code)
@@ -235,7 +268,7 @@ def build_identity(title: str, url: str | None = None) -> dict:
     # Price") shares almost nothing with the product's slug - use the slug.
     if (len(distinct(slug)) >= 3 and len(distinct(slug) & distinct(_tokens(title))) <= 1
             and not any(_is_code(w) for w in _tokens(_SPEC_RE.sub(" ", _norm(title))))):
-        title = " ".join(slug)
+        title = _slug_title(slug)
     head = _HEAD_CUT_RE.split(title, maxsplit=1)[0]
     if len(_tokens(head)) < 2:                      # a title that starts "(...)"
         head = " ".join(_tokens(title)[:8])
@@ -282,6 +315,15 @@ def build_identity(title: str, url: str | None = None) -> dict:
     # With a short model number ("Rockerz 450", "Galaxy A56", "Flip 6") the
     # line name right before it is part of the identity; a long code
     # ("WH-1000XM5", "BT3221") identifies the product on its own.
+    # Catalogue and store codes (SM-R630NZWAINU, a shop's own G987) are proof
+    # when a listing carries them, never a reason to reject one that doesn't:
+    # other sellers name the product by its everyday model name instead.
+    soft = [c for c in codes if len(_compact(c)) >= 10]
+    if len(codes) > 1:
+        first = codes[0]
+        soft += [c for c in codes[1:] if c not in soft and re.fullmatch(r"[a-z]{0,2}\d{3,}[a-z]?", _compact(c))
+                 and _compact(c) not in _compact(first)]
+    codes = [c for c in codes if c not in soft] or codes[:1]
     strong = any(len(_compact(c)) >= 5 and re.search(r"[a-z]", c) and re.search(r"\d", c) for c in codes)
     if codes or alt_codes:
         first = next((i for i, (w, k) in enumerate(ordered) if k == "code" or w in alt_seen), len(ordered))
@@ -290,7 +332,7 @@ def build_identity(title: str, url: str | None = None) -> dict:
     else:
         required = name
     return {
-        "title": title, "brand": brand, "codes": codes, "alt_codes": alt_codes,
+        "title": title, "brand": brand, "codes": codes, "alt_codes": alt_codes, "soft_codes": soft,
         "name": required, "all_name": name, "types": [w for w, k in ordered if k == "type"],
         "modifiers": [w for w, k in ordered if k == "mod"], "variants": _variants_with_slug(title, slug),
         "audience": _audience(title), "ordered": ordered,
@@ -397,6 +439,8 @@ def match_tier(ident: dict, title: str, source: str = "") -> tuple[str, str]:
         return "wrong", "generation"
     if "strength" in cv and "strength" in iv and cv["strength"] != iv["strength"]:
         return "wrong", "strength"
+    if "material" in cv and "material" in iv and cv["material"] != iv["material"]:
+        return "wrong", "material"
     # Multi-packs always say so; a listing that doesn't is a single.
     if cv.get("pack", 1) != iv.get("pack", 1):
         return "similar", "pack"

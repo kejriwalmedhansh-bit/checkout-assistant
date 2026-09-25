@@ -52,6 +52,9 @@ export default function ResultsPage() {
   const status = useSearchStore((s) => s.status);
   const error = useSearchStore((s) => s.error);
   const runSearch = useSearchStore((s) => s.runSearch);
+  const skippedPicker = useSearchStore((s) => s.skippedPicker);
+  const candidates = useSearchStore((s) => s.candidates);
+  const showPicker = useSearchStore((s) => s.showPicker);
 
   const scrollRef = useRef(null);
   const [selectedAlt, setSelectedAlt] = useState(null);
@@ -201,7 +204,27 @@ export default function ResultsPage() {
           transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
         >
           <Flex direction="column" gap="14px">
-            <ProductIdentity name={productName} sourceUrl={sourceUrl} thumbnail={selectedThumbnail} />
+            <Box>
+              <ProductIdentity name={productName} sourceUrl={sourceUrl} thumbnail={selectedThumbnail} />
+              {skippedPicker && candidates.length > 1 && (
+                <Box
+                  as="button"
+                  type="button"
+                  onClick={() => {
+                    showPicker();
+                    navigate(ROUTES.select);
+                  }}
+                  mt="6px"
+                  fontSize="12px"
+                  fontWeight={600}
+                  color="text3"
+                  textDecoration="underline"
+                  _hover={{ color: 'text' }}
+                >
+                  Not the right product? Pick from {candidates.length} matches
+                </Box>
+              )}
+            </Box>
             {/* Savings node + wire + step card render as one continuous
                 unit (zero gap) — the reward is the first stop on the same
                 route the steps below continue, not a separate block a

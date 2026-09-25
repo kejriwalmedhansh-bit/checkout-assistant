@@ -53,6 +53,16 @@ export default function ProductSelectPage() {
     setPage(1);
   }, [candidates]);
 
+  // A pasted link Dealo is sure about skips this page: the price comparison
+  // is already loading (searchStore.runSearch), so move straight on to it.
+  const autoPicked = useSearchStore((s) => s.autoPicked);
+  useEffect(() => {
+    if (autoPicked) {
+      useSearchStore.setState({ autoPicked: false });
+      navigate(ROUTES.results, { replace: true });
+    }
+  }, [autoPicked, navigate]);
+
   // Direct load with no search in flight → back to home.
   if (searchStatus === 'idle') return <Navigate to={ROUTES.home} replace />;
 
