@@ -3922,6 +3922,14 @@ def build_routes_for_token(
         candidates = _dedup_by_merchant(candidates)
         candidates = _priority_sort(candidates)
 
+        if identity is not None and not candidates:
+            # Nothing genuine at a trusted store: usually a product the big
+            # stores have stopped selling (AirPods Pro 2 after the Pro 3).
+            name = product_identity.clean_title(query if not _URL_QUERY_RE.match(query) else (title or query))
+            output["error"] = (
+                f"We couldn't find a new, genuine “{_short_name(name)}” at our trusted stores — it may no "
+                "longer be sold new. Try searching the newer model, and we'll compare every store for you."
+            )
         output["results"] = candidates
         output["vouchers"] = voucher_service.build_deals(candidates, product_name=query or display_title)
         output["routes"] = _build_routes(candidates, output["vouchers"])

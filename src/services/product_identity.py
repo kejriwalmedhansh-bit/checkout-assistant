@@ -515,7 +515,9 @@ def match_tier(ident: dict, title: str, source: str = "", _whole: bool = True) -
     # neither does. The mic-only "ENx" noise cancellation doesn't count.
     anc = r"active noise cancel|\banc\b"
     ident_head = _norm(_HEAD_CUT_RE.split(ident["title"], maxsplit=1)[0])
-    if re.search(anc, n) and not re.search(anc + r"|noise cancel", ident_n):
+    # Only against a full product title: a short typed search ("airpods pro
+    # 2") never mentions features the product always has.
+    if not ident.get("typed") and re.search(anc, n) and not re.search(anc + r"|noise cancel", ident_n):
         return "wrong", "noise-cancelling edition"
     if re.search(r"\banc\b", ident_head) and not re.search(anc + r"|noise cancel", n):
         return "wrong", "not the noise-cancelling edition"
