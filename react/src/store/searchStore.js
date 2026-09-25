@@ -49,12 +49,23 @@ export const useSearchStore = create(
       // product). The picker says so rather than passing them off as the thing
       // that was asked for.
       approximate: false,
+      // The exact colourway wasn't sold anywhere else; `candidates` are the
+      // same model in other colours.
+      otherColours: false,
+      // Nothing matched a typed search exactly; `candidates` are the nearest
+      // real products (a sibling model).
+      closest: false,
       // 'products' (normal picker) or 'brand_voucher' (query named a Gyftr
       // brand directly — L1 is skipped, `voucher` is the brand's raw deal).
       mode: 'products',
       voucher: null,
       selectedToken: null,
       selectedThumbnail: null,
+      // A pasted link Dealo is sure about skips the picker: `autoPicked` tells
+      // the picker page to move straight on to results (then clears), and
+      // `skippedPicker` lets the results page offer "Not the right product?".
+      autoPicked: false,
+      skippedPicker: false,
       result: null,
       searchStatus: 'idle', // step 1: 'idle' | 'loading' | 'success' | 'error'
       status: 'idle', // step 2: 'idle' | 'loading' | 'success' | 'error'
@@ -72,9 +83,13 @@ export const useSearchStore = create(
           resolvedQuery: '',
           candidates: [],
           approximate: false,
+          otherColours: false,
+          closest: false,
           mode: 'products',
           voucher: null,
           selectedToken: null,
+          autoPicked: false,
+          skippedPicker: false,
           result: null,
           searchStatus: 'loading',
           status: 'idle',
@@ -89,6 +104,8 @@ export const useSearchStore = create(
               candidates: data.products || [],
               resolvedQuery: data.resolved_query || '',
               approximate: Boolean(data.approximate),
+              otherColours: Boolean(data.other_colours),
+              closest: Boolean(data.closest),
               mode: data.mode || 'products',
               voucher: data.voucher || null,
               searchStatus: 'success',
@@ -105,6 +122,11 @@ export const useSearchStore = create(
               input_type: data.mode || 'products',
               result_count: (data.products || []).length,
             });
+            const pick = data.auto_pick;
+            if (pick?.product_token) {
+              set({ autoPicked: true, skippedPicker: true });
+              get().selectProduct(pick.product_token, pick.title, pick.price, pick.source, pick.thumbnail);
+            }
           }
         } catch (err) {
           set({ searchStatus: 'error', error: extractErrorMessage(err) });
@@ -157,6 +179,9 @@ export const useSearchStore = create(
         }
       },
 
+      // Results page -> "Not the right product?": back to the full picker.
+      showPicker: () => set({ autoPicked: false, skippedPicker: false }),
+
       reset: () =>
         set({
           query: '',
@@ -167,6 +192,8 @@ export const useSearchStore = create(
           voucher: null,
           selectedToken: null,
           selectedThumbnail: null,
+          autoPicked: false,
+          skippedPicker: false,
           result: null,
           searchStatus: 'idle',
           status: 'idle',
@@ -182,10 +209,13 @@ export const useSearchStore = create(
         resolvedQuery: s.resolvedQuery,
         candidates: s.candidates,
         approximate: s.approximate,
+        otherColours: s.otherColours,
+        closest: s.closest,
         mode: s.mode,
         voucher: s.voucher,
         selectedToken: s.selectedToken,
         selectedThumbnail: s.selectedThumbnail,
+        skippedPicker: s.skippedPicker,
         result: s.result,
         persistedAt: s.persistedAt,
       }),

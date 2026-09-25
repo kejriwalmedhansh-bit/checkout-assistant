@@ -29,6 +29,8 @@ class ProductCandidate(BaseModel):
     # True when `source` matches a Gyftr brand — an instant, no-API-call check
     # (voucher_repository.get_by_merchant) done once per candidate server-side.
     has_voucher: bool = False
+    # Typed searches show each version once: how many stores sell it.
+    store_count: int | None = None
 
 
 class SearchCandidatesResponse(BaseModel):
@@ -50,6 +52,19 @@ class SearchCandidatesResponse(BaseModel):
     # the useful signal). Only `voucher` is populated in the latter case.
     mode: str = "products"
     voucher: VoucherDetailOut | None = None
+    # A pasted link Dealo is sure about: the product to go straight to the
+    # price comparison with, skipping the picker. None means "show the picker".
+    auto_pick: ProductCandidate | None = None
+    # Same product in another size/pack, kept apart from `products`.
+    similar_products: list[ProductCandidate] = []
+    # The pasted page was the only place the exact product turned up.
+    only_pasted_store: bool = False
+    # The exact colourway wasn't found anywhere; `products` are the same
+    # model in other colours.
+    other_colours: bool = False
+    # Nothing matched a typed search exactly; `products` are the nearest
+    # real products (a sibling model), for the user to choose from.
+    closest: bool = False
 
 
 class RoutesRequest(BaseModel):

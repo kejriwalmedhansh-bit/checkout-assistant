@@ -1098,6 +1098,16 @@ async def process_and_respond(phone: str, classification: dict) -> None:
         query = classification.get("query") or classification.get("url")
         listing = await asyncio.to_thread(search_service.search_candidates, query)
         products = listing.get("products") or []
+        pick = listing.get("auto_pick")
+        if pick and pick.get("product_token"):
+            # A pasted link Dealo is sure about: straight to the price
+            # comparison, same as the website.
+            await _send_routes_for_token(
+                phone, pick["product_token"], query, pick.get("title", ""),
+                pick.get("price"), pick.get("source", ""), pick.get("thumbnail"),
+                candidates=products,
+            )
+            return
         if not products:
             await send_text(phone, WHATSAPP_DEAD_END_MSG)
             _track("WhatsApp Dead End", phone, stage="no_candidates", query=query)

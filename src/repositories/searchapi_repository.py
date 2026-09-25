@@ -1,8 +1,9 @@
 """SearchApi.io data access (ported from v2/searchapi.py).
 
-Two calls:
-  - search_products(query)      -> google_shopping engine, returns a product list
-  - get_product(product_token)  -> google_product engine, full details + offers
+Three calls:
+  - search_products(query, **filters) -> google_shopping engine, returns a product list
+  - get_product(product_token)        -> google_product engine, full details + first offers
+  - get_offers(product_token, page)   -> google_product_offers engine, every store, paged
 
 The API key now comes from settings (was hardcoded). Results are wrapped in the
 in-memory 24h search cache to protect the SearchApi budget. On any HTTP or
@@ -70,7 +71,7 @@ def _get(params: dict) -> dict:
     return data
 
 
-def search_products(query: str) -> dict:
+def search_products(query: str, **filters) -> dict:
     """google_shopping search. Result products live under `shopping_results`.
 
     Case/whitespace-normalized before dispatch — the cache key and the text
@@ -80,7 +81,15 @@ def search_products(query: str) -> dict:
     listings it happens to return for that exact string.
     """
     normalized = " ".join((query or "").split()).lower()
-    return _get({"engine": "google_shopping", "q": normalized})
+    return _get({"engine": "google_shopping", "q": normalized, **{k: str(v) for k, v in filters.items() if v}})
+
+
+def get_offers(product_token: str, page: int = 1) -> dict:
+    """google_product_offers: every store Google files under this product,
+    one page at a time (page 1 has ~5 stores, later pages up to 10). Each
+    offer carries its own title, direct store link, total price with
+    delivery, and stock/delivery notes."""
+    return _get({"engine": "google_product_offers", "product_token": product_token, "page": str(page)})
 
 
 def get_product(product_token: str) -> dict:
