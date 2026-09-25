@@ -23,7 +23,7 @@ from urllib.parse import unquote, urlsplit
 # Listing titles add or drop these freely, so they never decide a match.
 _GENERIC = set("""
 a an the and or with for of in on at by to from as is it this that
-new all latest best original genuine official premium edition series model version
+new all latest best original genuine official premium edition series model version tws
 buy online price india sale offer deal deals shop store
 men mens man women womens woman unisex boys girls adult adults
 wireless wired bluetooth true truly active noise cancelling canceling cancellation
@@ -41,7 +41,7 @@ performance quiet clicks ergo ultra-fast scrolling track glass
 multipurpose multi purpose use home kitchen travel office college school
 long lasting lightweight light-weight heavy duty quality
 spf pa broad spectrum hydrating non sticky no white cast skin normal dry oily
-5g 4g lte sim ram storage expandable phone mobile smartphone
+5g 4g lte sim dualsim esim ram storage expandable phone mobile smartphone
 jars jar compartment compartments pieces piece pcs blades speeds
 """.split())
 
@@ -77,10 +77,11 @@ kids junior jr refurbished renewed business signature
 _UNIT = (r"(?:gb|tb|mb|ml|l|ltr|ltrs|litre|litres|liter|liters|g|gm|gms|kg|mah|w|watt|watts|v|mm|cm|inch|in|"
          r"hz|db|ms|dpi|mp|h|hr|hrs|hours|nits|core|%|compartments?|jars?|pieces|pcs|blades?|speeds?|"
          r"burners?|layers?|stars?|months?|years?|yrs?|days?)")
-_SPEC_RE = re.compile(r"(?<![a-z0-9.])\d+(?:\.\d+)?\s*" + _UNIT + r"(?![a-z0-9])"
+_SPEC_RE = re.compile(r"(?<![a-z0-9.\-])\d+(?:\.\d+)?\s*" + _UNIT + r"(?![a-z0-9\-])"
                       r"|\b(?:spf|ipx|ip|pa)(?![a-z])\s*\d*\+*")
 _HEAD_CUT_RE = re.compile(r"\s*(?:,|\||\(|\[|:| with | for | - | – |/\s)", re.IGNORECASE)
-_BRAND_ALIASES = {"mi": {"mi", "xiaomi", "redmi"}, "xiaomi": {"mi", "xiaomi"}, "levis": {"levis", "levi"}}
+_BRAND_ALIASES = {"mi": {"mi", "xiaomi", "redmi"}, "xiaomi": {"mi", "xiaomi"}, "redmi": {"redmi", "xiaomi", "mi"},
+                  "poco": {"poco", "xiaomi"}, "levis": {"levis", "levi"}, "iphone": {"iphone", "apple"}}
 _STORE_JUNK_RES = [
     re.compile(r"^\s*(?:amazon\.in|flipkart\.com|flipkart)\s*:\s*", re.I),
     re.compile(r"^\s*(?:buy|shop)\s+", re.I),
@@ -98,6 +99,9 @@ _AIR_PHRASE_RE = re.compile(r"\bair[\s\-]+(?=(?:fryer|purifier|cooler|conditione
 def _norm(s: str) -> str:
     s = (s or "").lower().replace("’", "'")
     s = _AIR_PHRASE_RE.sub("air", s)            # "air fryer" -> "airfryer", not the "Air" sub-model
+    s = re.sub(r"\bdual[\s\-]+sim\b", "dualsim", s)  # "Dual SIM" is a phone spec; "Dual Basket" is a model
+    s = re.sub(r"\((\d)(?:st|nd|rd|th)\s*gen(?:eration)?\)|\b(\d)(?:st|nd|rd|th)\s*gen(?:eration)?\b",
+               lambda m: " gen " + (m.group(1) or m.group(2)) + " ", s)   # "Pro (2nd generation)" = "Pro gen 2"
     s = re.sub(r"(?<=[a-z])'s\b", "", s)          # men's -> men
     s = re.sub(r"(?<=\d)''|″|”", " inch", s)
     s = re.sub(r"[^a-z0-9.%+/\-\s]", " ", s)
@@ -162,7 +166,7 @@ def _code_pattern(code: str) -> str:
     code = re.sub(r"\.0$", "", code)
     runs = re.findall(r"[a-z]+|\d+(?:\.\d+)?|%", code)
     body = r"[\s\-./]?".join(re.escape(r) for r in runs)
-    end = r"(?![0-9])" if code[-1].isdigit() else ""
+    end = r"(?![a-z0-9])" if code[-1].isdigit() else ""
     if code.replace(".", "").isdigit():
         end = r"(?:\.0)?(?![a-z0-9])"   # "450" must not match "4500" or "450r"
     return r"(?<![a-z0-9])" + body + end
@@ -180,7 +184,7 @@ def _variants(title: str) -> dict:
         out["ram"] = min(storage)            # "12GB, 256GB" / "8GB/128GB": the smaller is RAM
     if storage:
         out["storage"] = max(storage)
-    vol = re.search(r"(\d+(?:\.\d+)?)\s*(ml|l|ltr|ltrs|litre|litres|liter|liters)(?![a-z])", n)
+    vol = re.search(r"(?<![a-z0-9\-])(\d+(?:\.\d+)?)\s*(ml|l|ltr|ltrs|litre|litres|liter|liters)(?![a-z0-9\-])", n)
     if vol:
         v = float(vol.group(1)) * (1 if vol.group(2) == "ml" else 1000)
         out["volume"] = round(v)
@@ -318,6 +322,12 @@ def build_identity(title: str, url: str | None = None) -> dict:
     # Catalogue and store codes (SM-R630NZWAINU, a shop's own G987) are proof
     # when a listing carries them, never a reason to reject one that doesn't:
     # other sellers name the product by its everyday model name instead.
+    # The word right before a bare model number ("walk" in "Go Walk 7"): a
+    # listing must have the number there, not as a size in brackets.
+    code_context = None
+    if codes and re.fullmatch(r"\d+(?:\.\d+)?", codes[0]):
+        before = [w for w, k in ordered[: next((i for i, (w, k) in enumerate(ordered) if w == codes[0]), 0)]]
+        code_context = before[-1] if before else None      # a brand's spelling varies (Levi's/Levis)
     soft = [c for c in codes if len(_compact(c)) >= 10]
     if len(codes) > 1:
         first = codes[0]
@@ -333,6 +343,7 @@ def build_identity(title: str, url: str | None = None) -> dict:
         required = name
     return {
         "title": title, "brand": brand, "codes": codes, "alt_codes": alt_codes, "soft_codes": soft,
+        "code_context": code_context,
         "name": required, "all_name": name, "types": [w for w, k in ordered if k == "type"],
         "modifiers": [w for w, k in ordered if k == "mod"], "variants": _variants_with_slug(title, slug),
         "audience": _audience(title), "ordered": ordered,
@@ -426,8 +437,37 @@ def other_colour(ident: dict, title: str, source: str = "") -> bool:
     return tier == "exact" or bool(re.fullmatch(r"sub-model '(?=[a-z]*\d)[a-z0-9]{2,6}'", why))
 
 
-def match_tier(ident: dict, title: str, source: str = "") -> tuple[str, str]:
+_COMBO_SPLIT_RE = re.compile(r"\s(?:\+|&|and)\s|\s?\+\s?(?=[a-z])", re.IGNORECASE)
+_QUANTITY_RE = re.compile(r"\b\d+(?:\.\d+)?\s*(?:ml|l|ltr|litre|g|gm|gms|kg|cm|pcs|pieces)\b", re.IGNORECASE)
+
+
+def _combo_head(ident: dict, title: str) -> str | None:
+    """For a listing that bundles products ("Pressure Cooker + Platina
+    Popular 22 cm Kadai", "Face Wash 100g And Nivea Body Lotion"), the first
+    product's part of the title; None for a single product. A part after
+    "+"/"&"/"and" counts as another product when it names the brand again,
+    a model number, or a quantity - "Face Cream & Body Moisturizer" doesn't."""
+    parts = _COMBO_SPLIT_RE.split(title or "")
+    if len(parts) < 2:
+        return None
+    brand = ident.get("brand") or ""
+    for tail in parts[1:]:
+        tl = tail.lower()
+        if ((brand and brand in _compact(tail)) or _QUANTITY_RE.search(tl)
+                or any(_is_code(t) and re.search(r"[a-z]", t) for t in _tokens(tl))):
+            return parts[0]
+    return None
+
+
+def match_tier(ident: dict, title: str, source: str = "", _whole: bool = True) -> tuple[str, str]:
     """('exact' | 'similar' | 'wrong', short reason)."""
+    if _whole and not _combo_head(ident, ident.get("title") or ""):
+        head_part = _combo_head(ident, title)
+        if head_part is not None:
+            tier, why = match_tier(ident, head_part, source, _whole=False)
+            if tier == "wrong":
+                tier, why = match_tier(ident, title, source, _whole=False)
+            return ("similar", "bundle") if tier != "wrong" else (tier, why)
     n = _norm(title)
     head = _norm(_HEAD_CUT_RE.split(clean_title(title), maxsplit=1)[0])
     words = set(_words(title)) | set(_tokens(title))
@@ -437,8 +477,16 @@ def match_tier(ident: dict, title: str, source: str = "") -> tuple[str, str]:
         names = _BRAND_ALIASES.get(brand, {brand})
         if not any(_has_word(b, words, compact) or b in _compact(source) for b in names):
             return "wrong", "brand"
+    if brand and re.search(r"\b(?:for|compatible with|fits)\s+" + re.escape(brand), n) and not re.search(
+            r"^\W*(?:\w+\W+){0,2}" + re.escape(brand), n):
+        return "wrong", "made for the brand, not by it"
     for code in ident["codes"]:
-        if not re.search(_code_pattern(code), n):
+        pattern = _code_pattern(code)
+        if re.fullmatch(r"\d+(?:\.\d+)?", code) and ident.get("code_context"):
+            # a bare number only counts right after the model's name
+            # ("Go Walk 7"), never as a size elsewhere ("(Black, 7)")
+            pattern = re.escape(ident["code_context"]) + r"\w*(?:\W+\w+){0,2}?\W+" + pattern.removeprefix(r"(?<![a-z0-9])")
+        if not re.search(pattern, n):
             return "wrong", f"model {code}"
     for alts in ident["alt_codes"]:
         if not any(re.search(_code_pattern(a), n) for a in alts):
@@ -474,7 +522,9 @@ def match_tier(ident: dict, title: str, source: str = "") -> tuple[str, str]:
     aud = _audience(title)
     if ident["audience"] and aud and aud != ident["audience"] and "unisex" not in words:
         return "wrong", "audience"
-    nxt = _word_after_model(ident, n)
+    # A typed search names the model, not the edition: "dyson v12" is happy
+    # with "V12 Detect Slim"; siblings (Pro, Plus, Prime) are caught above.
+    nxt = None if ident.get("typed") else _word_after_model(ident, n)
     if nxt:
         return "wrong", f"sub-model '{nxt}'"
     cv, iv = _variants(title), ident["variants"]

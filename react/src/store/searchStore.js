@@ -52,6 +52,9 @@ export const useSearchStore = create(
       // The exact colourway wasn't sold anywhere else; `candidates` are the
       // same model in other colours.
       otherColours: false,
+      // Nothing matched a typed search exactly; `candidates` are the nearest
+      // real products (a sibling model).
+      closest: false,
       // 'products' (normal picker) or 'brand_voucher' (query named a Gyftr
       // brand directly — L1 is skipped, `voucher` is the brand's raw deal).
       mode: 'products',
@@ -81,6 +84,7 @@ export const useSearchStore = create(
           candidates: [],
           approximate: false,
           otherColours: false,
+          closest: false,
           mode: 'products',
           voucher: null,
           selectedToken: null,
@@ -101,6 +105,7 @@ export const useSearchStore = create(
               resolvedQuery: data.resolved_query || '',
               approximate: Boolean(data.approximate),
               otherColours: Boolean(data.other_colours),
+              closest: Boolean(data.closest),
               mode: data.mode || 'products',
               voucher: data.voucher || null,
               searchStatus: 'success',
@@ -205,6 +210,7 @@ export const useSearchStore = create(
         candidates: s.candidates,
         approximate: s.approximate,
         otherColours: s.otherColours,
+        closest: s.closest,
         mode: s.mode,
         voucher: s.voucher,
         selectedToken: s.selectedToken,

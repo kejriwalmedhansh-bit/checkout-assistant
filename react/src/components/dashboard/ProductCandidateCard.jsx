@@ -127,6 +127,11 @@ export default function ProductCandidateCard({ product, onSelect, onEnlarge, isS
                 Verified from your link
               </Text>
             )}
+            {product.store_count > 1 && (
+              <Text fontSize="11px" fontWeight={600} color="text3" mt="2px">
+                Sold at {product.store_count} stores — we&apos;ll compare them
+              </Text>
+            )}
           </Box>
 
           <Flex

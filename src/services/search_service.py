@@ -2638,6 +2638,83 @@ def _maybe_widen_brand_query(
     return products, approximate
 
 
+def _typed_identity(query: str) -> dict | None:
+    """The ID card for a typed search that names a product, or None for a
+    browsing search. Budget words ("under 2000") are dropped first."""
+    _, _, budget_phrase = parse_budget(query)
+    text = query.replace(budget_phrase, " ") if budget_phrase else query
+    ident = product_identity.build_identity(text)
+    if not ident["brand"]:
+        return None
+    has_model = bool(ident["codes"] or ident["alt_codes"])
+    # A model number ("dyson v12") always means one product; otherwise a
+    # category-style search ("smartphones", "air fryer") stays a browse.
+    if not has_model and _is_category_only_query(text, _required_tokens(text)):
+        return None
+    words = _norm(text).split()
+    known = _known_brand_names()
+    brand_known = any(_compact(" ".join(words[:n])) in known for n in (1, 2, 3))
+    if not has_model and not brand_known:
+        ident["_brand_unconfirmed"] = True
+    for k, v in product_identity._variants(text).items():
+        ident["variants"].setdefault(k, v)
+    ident["typed"] = True
+    return ident
+
+
+def _brand_confirmed_by_results(ident: dict, results: list[dict]) -> bool:
+    """A brand we don't have on file still counts when most of Google's
+    results for the search lead with that word ("prestige popular ...")."""
+    brand = _compact(ident["brand"])
+    lead = lambda t: next((w for w in (t or "").split() if w.lower() not in ("the", "new", "buy")), "")
+    titles = [_compact(lead(r.get("title"))) for r in results[:20]]
+    hits = sum(1 for t in titles if t.startswith(brand))
+    return len(titles) >= 4 and hits >= 0.5 * len(titles)
+
+
+_known_brand_cache: set[str] | None = None
+
+
+def _known_brand_names() -> set[str]:
+    global _known_brand_cache
+    if _known_brand_cache is None:
+        names = {_compact(b) for b in KNOWN_BRANDS} | {_compact(n) for n in _load_trusted_merchants()}
+        _known_brand_cache = {n for n in names if len(n) >= 2}
+    return _known_brand_cache
+
+
+def _one_card_per_version(products: list[dict], tag: str) -> list[dict]:
+    """A typed search's list shows each version once (storage, size, pack,
+    material) at its lowest price, with how many stores sell it. Colour
+    rarely changes the price, so it doesn't make its own card."""
+    keys = ("storage", "ram", "volume", "weight", "pack", "material")
+    groups: dict[tuple, list[dict]] = {}
+    for p in products:
+        v = product_identity._variants(p.get("title") or "")
+        groups.setdefault(tuple((k, v[k]) for k in keys if k in v), []).append(p)
+    if len(groups) > 1 and () in groups:
+        groups.pop(())       # listings that don't say which version: step 6 still finds their stores
+    cards = []
+    for rows in groups.values():
+        regular = [r for r in rows if not _is_hyperlocal(r.get("source") or "")] or rows
+        # A listing far below the rest of its own version is an accessory or
+        # a clone that slipped through (a Dyson V12 dock at 9,900 next to
+        # V12 vacuums at 47,000+), never the product's price.
+        prices = sorted(r["price"] for r in regular if r.get("price"))
+        if len(prices) >= 3:
+            median = prices[len(prices) // 2]
+            kept = [r for r in regular if not r.get("price") or r["price"] >= 0.4 * median]
+            for r in regular:
+                if r not in kept:
+                    logger.info("%s   dropped %r at %s (far below this version's usual %s)", tag, r.get("title"), r.get("price"), median)
+            regular = kept or regular
+        best = min(regular, key=lambda r: r.get("price") or float("inf"))
+        best = dict(best, store_count=len({_brand_signature(r.get("source") or "") for r in rows}))
+        cards.append(best)
+    logger.info("%s %d listing(s) -> %d version card(s)", tag, len(products), len(cards))
+    return sorted(cards, key=lambda c: c.get("price") or float("inf"))
+
+
 def _size_price_ok(identity: dict, title: str, price: float | None, reference: float | None) -> bool:
     """For a sized product whose size can't be compared (creams, washes,
     cookers...), a price far from the reference means another size: keep
@@ -2692,7 +2769,11 @@ def _tier_by_identity(products: list[dict], identity: dict, tag: str) -> tuple[l
     stay in the picker, similar ones (other size/pack) go aside, wrong ones
     (another model, sub-model or brand) are dropped. Order is kept."""
     exact, similar = [], []
+    identity_is_part = bool(_SPARE_PART_RE.search(identity["title"]) or _is_accessory(identity["title"]))
     for p in products:
+        if not identity_is_part and _SPARE_PART_RE.search(p.get("title") or ""):
+            logger.info("%s   hidden (spare part or accessory): %r", tag, p.get("title"))
+            continue
         tier, why = product_identity.match_tier(identity, p.get("title") or "", p.get("source") or "")
         p["match_tier"] = tier
         if tier == "exact":
@@ -2813,6 +2894,18 @@ def search_candidates(query: str) -> dict:
                 tag, effective_query, canonical_query,
             )
             effective_query = canonical_query
+    typed_product = False
+    if not is_url:
+        # A typed search that names a product ("airdopes 91", "iphone 16
+        # 128gb") gets the same ID card a link does; browsing searches
+        # ("air fryer", "earbuds under 2000") keep the open list.
+        typed_identity = _typed_identity(effective_query)
+        if typed_identity is not None:
+            identity, typed_product = typed_identity, True
+            logger.info(
+                "%s product ID card from the search: brand=%r codes=%r name=%r variants=%r",
+                tag, identity["brand"], identity["codes"] or identity["alt_codes"], identity["name"], identity["variants"],
+            )
     # A pasted link's own page title/slug is the human-readable name of what
     # was actually searched — surface it so the picker/results screens never
     # have to fall back to showing the raw URL (`query`) to the user.
@@ -2832,6 +2925,17 @@ def search_candidates(query: str) -> dict:
             out["error"] = raw["error"]
             return out
         shopping_results = raw.get("shopping_results", [])
+        if typed_product and identity.pop("_brand_unconfirmed", False):
+            if not _brand_confirmed_by_results(identity, shopping_results):
+                logger.info("%s %r isn't a brand here - treating as a browsing search", tag, identity["brand"])
+                identity, typed_product = None, False
+        if typed_product:
+            id_query = product_identity.identity_query(identity)
+            if id_query.lower() != effective_query.lower():
+                extra = searchapi_repository.search_products(id_query, condition="new")
+                seen_tok = {r.get("product_token") for r in shopping_results}
+                shopping_results = shopping_results + [
+                    r for r in extra.get("shopping_results", []) if r.get("product_token") not in seen_tok]
         logger.info(
             "%s google api returned %d raw result(s):",
             tag, len(shopping_results),
@@ -2862,6 +2966,18 @@ def search_candidates(query: str) -> dict:
             products = [p for p in products if not _is_hyperlocal(p.get("source") or "")]
             pretier = list(products)
             products, similar = _tier_by_identity(products, identity, tag)
+            if typed_product and len(products) < _THIN_EXACT:
+                logger.info("%s only %d exact match(es) - reading page 2 of the search", tag, len(products))
+                raw2 = searchapi_repository.search_products(effective_query, page=2)
+                if not raw2.get("error"):
+                    more = [_product_candidate(p) for p in raw2.get("shopping_results", []) if p.get("product_token")]
+                    more, _ = _filter_and_group_candidates(more, effective_query, tag=tag)
+                    more = [p for p in more if not _is_hyperlocal(p.get("source") or "")]
+                    pretier += more
+                    more, similar2 = _tier_by_identity(more, identity, tag)
+                    seen = {p.get("product_token") for p in products}
+                    products += [p for p in more if p.get("product_token") not in seen]
+                    similar = (similar + similar2)[:_MAX_SIMILAR]
             full_title = identity["title"]
             if len(products) < _THIN_EXACT and full_title and full_title != effective_query:
                 # The short ID search can surface mostly small sellers; the
@@ -2915,6 +3031,37 @@ def search_candidates(query: str) -> dict:
                     seen_rows.add(key)
                     unique.append(p)
             products = unique
+            if not products and not live_candidate:
+                # The exact product only turned up at shops we don't trust
+                # (mi.com, resellers): never shown, but its Google entry lets
+                # step 6 look for it at whitelisted stores.
+                offers_by_token = {r.get("product_token"): r.get("extracted_offers") or (2 if r.get("offers") else 1)
+                                   for r in shopping_results}
+                seeds = [c for c in (_product_candidate(r) for r in shopping_results if r.get("product_token"))
+                         if c.get("title") and _is_latin_dominant(c["title"]) and not _SPARE_PART_RE.search(c["title"])
+                         and product_identity.match_tier(identity, c["title"], c.get("source") or "")[0] == "exact"]
+                # Google's own listing sold by many shops is the real product;
+                # one-seller listings are where knock-offs live.
+                seeds.sort(key=lambda c: -offers_by_token.get(c.get("product_token"), 1))
+                if seeds:
+                    seed = dict(seeds[0], price=None, price_raw=None, match_tier="exact",
+                                title=product_identity.clean_title(seeds[0]["title"]),
+                                source="" if typed_product else _pasted_store_name(query))
+                    logger.info("%s exact product only at untrusted shops - searching whitelisted stores from %r", tag, seed["title"])
+                    products = [seed]
+            if typed_product and not products:
+                # Nothing is exactly what was typed: show the nearest real
+                # products (a sibling model, "Airdopes 91 Prime"), labelled.
+                reasons = [(p, product_identity.match_tier(identity, p.get("title") or "", p.get("source") or "")[1])
+                           for p in pretier]
+                # a sibling of the same model ("91 Prime" for "91") first, then others of the line
+                closest = ([p for p, why in reasons if why.startswith("sub-model")]
+                           + [p for p, why in reasons if why.startswith(("model", "name"))])
+                if closest:
+                    out["closest"] = True
+                    products = closest[:4]
+            elif typed_product:
+                products = _one_card_per_version(products, tag)
             out["similar_products"] = similar
             approximate = not products
         # A pasted link's "budget" never came from the user — it's whatever
@@ -2979,6 +3126,9 @@ def search_candidates(query: str) -> dict:
         if not products:
             logger.info("%s no candidates after filtering", tag)
             out["error"] = (
+                f"We couldn't find “{effective_query}” at our trusted stores right now. Try a nearby "
+                "model or check the spelling — we'll compare every store for the best price."
+                if typed_product else
                 "This exact product isn't at any of our trusted stores right now. Search it by name "
                 f"instead — like “{_short_name(display_query or identity['title'])}” — and we'll compare "
                 "every store for the best price."
@@ -2988,7 +3138,12 @@ def search_candidates(query: str) -> dict:
             return out
         if identity is not None:
             out["only_pasted_store"] = bool(live_candidate) and len(products) == 1
-            pick = None if out.get("other_colours") else _auto_pick(products, identity, live_candidate)
+            if out.get("other_colours") or out.get("closest"):
+                pick = None
+            elif typed_product:
+                pick = products[0] if len(products) == 1 and (identity["codes"] or identity["alt_codes"] or identity["name"]) else None
+            else:
+                pick = _auto_pick(products, identity, live_candidate)
             if pick:
                 # Confident about the pasted product: the site and WhatsApp go
                 # straight to the price comparison instead of the picker.
@@ -3177,7 +3332,10 @@ _BRAND_SITE_SUFFIXES = {
     "india", "official", "store", "online", "shop", "world", "lifestyle",
     "electricals", "wellness", "center", "centre", "co", "the", "in",
 }
-_SPARE_PART_RE = re.compile(r"\b(?:assly|assembly|spare|replacement|refill|compatible with|for model)\b", re.IGNORECASE)
+_SPARE_PART_RE = re.compile(
+    r"\b(?:assly|assembly|spare|replacement|refill|compatible with|for model|ear\s*pads?|earpads?|"
+    r"ear\s*cushions?|ear\s*tips|screen protector|tempered glass|back cover|case for|not includ\w*|"
+    r"without (?:earbuds|device|product)|dock|dok|charging stand|wall mount|floor stand)\b", re.IGNORECASE)
 _OUT_OF_STOCK_RE = re.compile(r"out of stock|sold out|currently unavailable", re.IGNORECASE)
 
 
@@ -3496,8 +3654,14 @@ def build_routes_for_token(
     try:
         identity = None
         if title or query:
-            identity = product_identity.build_identity(title or query, query if _URL_QUERY_RE.match(query) else None)
-            if not _URL_QUERY_RE.match(query):
+            typed = None if _URL_QUERY_RE.match(query) else _typed_identity(query)
+            # The version the shopper tapped is the product ID. Only when the
+            # search started from a behind-the-scenes listing (no store shown,
+            # e.g. a knock-off-heavy result) do the typed words take over.
+            use_typed = typed is not None and not picked_source
+            identity = typed if use_typed else product_identity.build_identity(
+                title or query, query if _URL_QUERY_RE.match(query) else None)
+            if not use_typed and not _URL_QUERY_RE.match(query):
                 # Typed search: a size the shopper typed ("3 litre") holds
                 # even when the listing they picked doesn't state it.
                 for k, v in product_identity._variants(query).items():

@@ -29,6 +29,8 @@ class ProductCandidate(BaseModel):
     # True when `source` matches a Gyftr brand — an instant, no-API-call check
     # (voucher_repository.get_by_merchant) done once per candidate server-side.
     has_voucher: bool = False
+    # Typed searches show each version once: how many stores sell it.
+    store_count: int | None = None
 
 
 class SearchCandidatesResponse(BaseModel):
@@ -60,6 +62,9 @@ class SearchCandidatesResponse(BaseModel):
     # The exact colourway wasn't found anywhere; `products` are the same
     # model in other colours.
     other_colours: bool = False
+    # Nothing matched a typed search exactly; `products` are the nearest
+    # real products (a sibling model), for the user to choose from.
+    closest: bool = False
 
 
 class RoutesRequest(BaseModel):

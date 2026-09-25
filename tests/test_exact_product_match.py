@@ -168,3 +168,23 @@ def test_other_colourways_are_recognised():
     assert match_tier(ident, "Casio G-Shock GA-2100-1ADR Analog-Digital Watch")[0] == "wrong"
     assert other_colour(ident, "Casio G-Shock GA-2100-1ADR Analog-Digital Watch")
     assert not other_colour(ident, "Casio G-Shock GA-B2100-1ADR Solar Watch")
+
+
+def test_typed_searches_name_the_product():
+    from src.services.search_service import _typed_identity
+    assert _typed_identity("air fryer") is None and _typed_identity("running shoes for men") is None
+    a = _typed_identity("boat airdopes 91")
+    assert match_tier(a, "boAt Airdopes 91 TWS Earbuds")[0] == "exact"
+    assert match_tier(a, "boAt Airdopes 91 Prime")[0] == "wrong"
+    i = _typed_identity("iphone 15")
+    assert match_tier(i, "Apple iPhone 15 (128 GB) - Black")[0] == "exact"
+    assert match_tier(i, "Apple iPhone 15 Pro")[0] == "wrong"
+    d = _typed_identity("dyson v12")
+    assert match_tier(d, "Dyson V12 Detect Slim Absolute")[0] == "exact"
+    assert match_tier(d, "Dyson V12s Detect Slim Submarine")[0] == "wrong"
+    k = _typed_identity("skechers go walk 7 men")
+    assert match_tier(k, "Skechers Men Go Walk Flex Low-Top Casual Shoes For Men (Black, 7)")[0] == "wrong"
+    c = _typed_identity("casio mtp-1374l-1av")
+    assert match_tier(c, "Casio A550 Enticer Men (MTP-1314D-1AVDF) Analog Watch")[0] == "wrong"
+    o = _typed_identity("oneplus nord buds 3 pro")
+    assert match_tier(o, "in-Ear True Wireless Earbuds for OnePlus 3,3T,5,Nord,7 Pro")[0] == "wrong"
