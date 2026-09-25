@@ -383,6 +383,49 @@ def _has_word(word: str, words: set, compact: str) -> bool:
     return len(word) >= 4 and word in compact
 
 
+# Products sold in several sizes. When neither side states the size, price
+# is the tell: a listing far cheaper or dearer than the reference is almost
+# always another size (user rule, 2026-09-25). Never applied to electronics,
+# where a pasted page can be a reseller's marked-up price.
+_SIZED_TYPES = {
+    "cream", "lotion", "wash", "facewash", "serum", "sunscreen", "gel", "shampoo", "conditioner",
+    "mask", "foundation", "powder", "cleanser", "moisturiser", "moisturizer", "oil",
+    "cooker", "kettle", "bottle", "flask", "backpack", "bag", "suitcase",
+}
+
+
+def size_unknown(ident: dict, title: str) -> bool:
+    """True for a sized product where the size can't be compared: the
+    pasted/picked product or this listing doesn't state it."""
+    words = set(_words(title)) | set(ident.get("types") or [])
+    if not words & _SIZED_TYPES:
+        return False
+    cv, iv = _variants(title), ident["variants"]
+    return not any(k in cv and k in iv for k in ("volume", "weight"))
+
+
+def _base_code(code: str) -> str | None:
+    """GA-2100-1A1DR -> GA-2100: the model without its colourway suffix."""
+    parts = code.split("-")
+    if len(parts) >= 2:
+        base = "-".join(parts[:-1])
+        if re.search(r"[a-z]", base) and re.search(r"\d", base) and len(_compact(base)) >= 4:
+            return base
+    return None
+
+
+def other_colour(ident: dict, title: str, source: str = "") -> bool:
+    """Same model in another colourway: everything matches once the colour
+    part of the model code is dropped (GA-2100-1A1DR vs GA-2100-1ADR)."""
+    bases = [_base_code(c) for c in ident["codes"]]
+    if not any(bases):
+        return False
+    relaxed = dict(ident, codes=[b or c for b, c in zip(bases, ident["codes"])])
+    tier, why = match_tier(relaxed, title, source)
+    # the colour code itself ("1ADR") follows the base model: that's expected
+    return tier == "exact" or bool(re.fullmatch(r"sub-model '(?=[a-z]*\d)[a-z0-9]{2,6}'", why))
+
+
 def match_tier(ident: dict, title: str, source: str = "") -> tuple[str, str]:
     """('exact' | 'similar' | 'wrong', short reason)."""
     n = _norm(title)

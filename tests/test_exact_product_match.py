@@ -150,3 +150,21 @@ def test_store_codes_are_bonus_proof_and_model_numbers_are_kept_whole():
     assert tier(narzo, "Realme Narzo 90x 5g (flash Blue, 128 Gb)") == "wrong"
     cooker = "Prestige Deluxe Plus Stainless Steel Pressure Cooker, 5.5 litres"
     assert tier(cooker, "Prestige Deluxe Plus Induction Base Aluminium Pressure Cooker 5.5 L") == "wrong"
+
+
+def test_price_decides_size_only_for_sized_products():
+    from src.services.search_service import _size_price_ok
+    nivea = build_identity("NIVEA Soft Moisturizing Cream, Lightweight Non-Sticky Daily Moisturizer with 72Hr Hydration")
+    assert not _size_price_ok(nivea, "Nivea Soft Moisturizing Cream Vitamin E Face Cream & Body Moisturizer", 197, 310)
+    assert _size_price_ok(nivea, "Nivea Soft Moisturizing Cream", 289, 310)
+    mouse = build_identity("Logitech MX Master 3S - Wireless Performance Mouse (Black)")
+    assert _size_price_ok(mouse, "Logitech MX Master 3S Wireless Mouse", 6995, 23498)   # electronics: never by price
+
+
+def test_other_colourways_are_recognised():
+    from src.services.product_identity import other_colour
+    url = "https://www.tatacliq.com/casio-g-shock-ga-2100-1a1dr-black-analog-digital-dial-black-resin-strap-mens-watch-g987/p-mp000000007808877"
+    ident = build_identity("Tata CLiQ Online Fashion & Lifestyle Shopping", url)
+    assert match_tier(ident, "Casio G-Shock GA-2100-1ADR Analog-Digital Watch")[0] == "wrong"
+    assert other_colour(ident, "Casio G-Shock GA-2100-1ADR Analog-Digital Watch")
+    assert not other_colour(ident, "Casio G-Shock GA-B2100-1ADR Solar Watch")

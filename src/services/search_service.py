@@ -2638,6 +2638,15 @@ def _maybe_widen_brand_query(
     return products, approximate
 
 
+def _size_price_ok(identity: dict, title: str, price: float | None, reference: float | None) -> bool:
+    """For a sized product whose size can't be compared (creams, washes,
+    cookers...), a price far from the reference means another size: keep
+    only 70%-150% of it. Always True when sizes can be compared."""
+    if not price or not reference or not product_identity.size_unknown(identity, title):
+        return True
+    return 0.7 * reference <= price <= 1.5 * reference
+
+
 def _auto_pick(products: list[dict], identity: dict, live_candidate: dict | None) -> dict | None:
     """The product to go straight to the price comparison with, when the
     pasted link leaves no real choice: the pasted page itself was read, or
@@ -2851,6 +2860,7 @@ def search_candidates(query: str) -> dict:
             quick = [p for p in products if _is_hyperlocal(p.get("source") or "")
                      and product_identity.match_tier(identity, p.get("title") or "", p.get("source") or "")[0] == "exact"]
             products = [p for p in products if not _is_hyperlocal(p.get("source") or "")]
+            pretier = list(products)
             products, similar = _tier_by_identity(products, identity, tag)
             full_title = identity["title"]
             if len(products) < _THIN_EXACT and full_title and full_title != effective_query:
@@ -2871,14 +2881,27 @@ def search_candidates(query: str) -> dict:
             if live_candidate and live_candidate.get("price"):
                 # Same name at under half the pasted page's price is almost
                 # always a smaller size, a single from a multi-pack, or a
-                # clone - never shown as the exact product.
+                # clone - never shown as the exact product. For a sized
+                # product with no size to compare, price decides.
                 floor = 0.5 * live_candidate["price"]
-                cheap = [p for p in products if p.get("price") and p["price"] < floor]
+                cheap = [p for p in products if p.get("price") and (
+                    p["price"] < floor or not _size_price_ok(identity, p.get("title") or "", p["price"], live_candidate["price"]))]
                 for p in cheap:
                     logger.info("%s   set aside (under half the pasted price %s): %r", tag, live_candidate["price"], p.get("title"))
                     p["match_tier"], p["match_note"] = "similar", "price"
                 products = [p for p in products if p not in cheap]
                 similar = (similar + cheap)[:_MAX_SIMILAR]
+            if not products and not live_candidate:
+                # The exact colourway isn't sold anywhere else: offer the same
+                # model in other colours, labelled, rather than nothing.
+                colours = [p for p in pretier
+                           if product_identity.other_colour(identity, p.get("title") or "", p.get("source") or "")]
+                if colours:
+                    logger.info("%s exact colour not found - offering %d other colourway(s)", tag, len(colours))
+                    for p in colours:
+                        p["match_tier"], p["match_note"] = "colour", "other colour"
+                    products = colours
+                    out["other_colours"] = True
             if not products and not live_candidate and quick:
                 # Quick commerce is the last resort (user rule, 2026-09-25):
                 # shown only when no other store has the exact product.
@@ -2956,15 +2979,16 @@ def search_candidates(query: str) -> dict:
         if not products:
             logger.info("%s no candidates after filtering", tag)
             out["error"] = (
-                "We couldn't find this exact product at other stores. Try typing the product's name "
-                f"instead of pasting the link — for example: {_short_name(display_query or identity['title'])}"
+                "This exact product isn't at any of our trusted stores right now. Search it by name "
+                f"instead — like “{_short_name(display_query or identity['title'])}” — and we'll compare "
+                "every store for the best price."
                 if identity is not None else
                 "No products found — try adding the brand name, or search with different words."
             )
             return out
         if identity is not None:
             out["only_pasted_store"] = bool(live_candidate) and len(products) == 1
-            pick = _auto_pick(products, identity, live_candidate)
+            pick = None if out.get("other_colours") else _auto_pick(products, identity, live_candidate)
             if pick:
                 # Confident about the pasted product: the site and WhatsApp go
                 # straight to the price comparison instead of the picker.
@@ -3359,6 +3383,11 @@ def _discover_exact_offers(
             if c["price"] < floor:
                 logger.info("%s   skipped %s at %s (below the believable floor %.0f)", tag, c["merchant"], c["price"], floor)
         verified = [c for c in verified if c["price"] >= floor]
+    if picked_price:
+        for c in verified:
+            if not _size_price_ok(identity, c["title"], c["price"], picked_price):
+                logger.info("%s   skipped %s at %s (size not stated; price says another size vs %s)", tag, c["merchant"], c["price"], picked_price)
+        verified = [c for c in verified if _size_price_ok(identity, c["title"], c["price"], picked_price)]
     info["stores_found"] = sorted({c["merchant"] for c in verified})
     logger.info("%s verified %d listing(s) at %d store(s) from %d checked", tag, len(verified),
                 len(info["stores_found"]), info["stores_checked"])
@@ -3468,6 +3497,11 @@ def build_routes_for_token(
         identity = None
         if title or query:
             identity = product_identity.build_identity(title or query, query if _URL_QUERY_RE.match(query) else None)
+            if not _URL_QUERY_RE.match(query):
+                # Typed search: a size the shopper typed ("3 litre") holds
+                # even when the listing they picked doesn't state it.
+                for k, v in product_identity._variants(query).items():
+                    identity["variants"].setdefault(k, v)
             if len(product_identity.identity_query(identity).split()) < 2:
                 identity = None
         if identity is not None:

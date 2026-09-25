@@ -49,6 +49,9 @@ export const useSearchStore = create(
       // product). The picker says so rather than passing them off as the thing
       // that was asked for.
       approximate: false,
+      // The exact colourway wasn't sold anywhere else; `candidates` are the
+      // same model in other colours.
+      otherColours: false,
       // 'products' (normal picker) or 'brand_voucher' (query named a Gyftr
       // brand directly — L1 is skipped, `voucher` is the brand's raw deal).
       mode: 'products',
@@ -77,6 +80,7 @@ export const useSearchStore = create(
           resolvedQuery: '',
           candidates: [],
           approximate: false,
+          otherColours: false,
           mode: 'products',
           voucher: null,
           selectedToken: null,
@@ -96,6 +100,7 @@ export const useSearchStore = create(
               candidates: data.products || [],
               resolvedQuery: data.resolved_query || '',
               approximate: Boolean(data.approximate),
+              otherColours: Boolean(data.other_colours),
               mode: data.mode || 'products',
               voucher: data.voucher || null,
               searchStatus: 'success',
@@ -199,6 +204,7 @@ export const useSearchStore = create(
         resolvedQuery: s.resolvedQuery,
         candidates: s.candidates,
         approximate: s.approximate,
+        otherColours: s.otherColours,
         mode: s.mode,
         voucher: s.voucher,
         selectedToken: s.selectedToken,

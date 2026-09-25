@@ -10,7 +10,7 @@ import { I } from '@/components/common/icons';
  * as a solid match. Per CLAUDE.md rule #1 ("a wrong result is worse than no
  * result"): a labeled guess is still useful, an unlabeled wrong one isn't.
  */
-export default function LowConfidenceNotice() {
+export default function LowConfidenceNotice({ message = 'Results confidence is low — try searching with the product name.' }) {
   return (
     <Flex
       align="flex-start"
@@ -27,7 +27,7 @@ export default function LowConfidenceNotice() {
         <I.alert size={15} />
       </Box>
       <Text fontSize="13px" color="text" fontWeight={500} lineHeight="1.4">
-        Results confidence is low — try searching with the product name.
+        {message}
       </Text>
     </Flex>
   );

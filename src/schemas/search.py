@@ -57,6 +57,9 @@ class SearchCandidatesResponse(BaseModel):
     similar_products: list[ProductCandidate] = []
     # The pasted page was the only place the exact product turned up.
     only_pasted_store: bool = False
+    # The exact colourway wasn't found anywhere; `products` are the same
+    # model in other colours.
+    other_colours: bool = False
 
 
 class RoutesRequest(BaseModel):
