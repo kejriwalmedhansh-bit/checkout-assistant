@@ -44,7 +44,7 @@ from ..repositories import (
     searchapi_repository,
     voucher_repository,
 )
-from . import card_service, voucher_service
+from . import card_service, product_identity, voucher_service
 
 # ── price parsing ──────────────────────────────────────────────────────────────
 
@@ -2635,6 +2635,33 @@ def _maybe_widen_brand_query(
     return products, approximate
 
 
+# At most this many "same product, different size/pack" listings are kept
+# aside for the picker to show under their own label.
+_MAX_SIMILAR = 3
+
+# Fewer exact matches than this from the short ID search also runs the
+# pasted page's full title as a second search.
+_THIN_EXACT = 2
+
+
+def _tier_by_identity(products: list[dict], identity: dict, tag: str) -> tuple[list[dict], list[dict]]:
+    """Split filtered candidates by `product_identity.match_tier`: exact ones
+    stay in the picker, similar ones (other size/pack) go aside, wrong ones
+    (another model, sub-model or brand) are dropped. Order is kept."""
+    exact, similar = [], []
+    for p in products:
+        tier, why = product_identity.match_tier(identity, p.get("title") or "", p.get("source") or "")
+        p["match_tier"] = tier
+        if tier == "exact":
+            exact.append(p)
+        elif tier == "similar":
+            p["match_note"] = why
+            similar.append(p)
+        else:
+            logger.info("%s   hidden (not the pasted product: %s): %r", tag, why, p.get("title"))
+    return exact, similar[:_MAX_SIMILAR]
+
+
 def search_candidates(query: str) -> dict:
     """Step 1 of the two-step flow: google_shopping search only.
 
@@ -2680,6 +2707,8 @@ def search_candidates(query: str) -> dict:
     # the original input in ``query``.
     effective_query = query
     live_candidate = None
+    identity = None
+    display_query = None
     if is_url:
         # Two-layer link recognition, cheapest-reliable first:
         #   1. the page's own og:title (handles short/ID-only links),
@@ -2706,7 +2735,7 @@ def search_candidates(query: str) -> dict:
             # live-fetched price still stands on its own here (possible,
             # though rare, if the title was rejected as a blocked-page
             # placeholder while the price read separately still succeeded).
-            if live_candidate and live_candidate.get("thumbnail"):
+            if live_candidate:
                 out["products"] = [live_candidate]
                 return out
             logger.info("[url-search] no product identifiable from link")
@@ -2715,6 +2744,18 @@ def search_candidates(query: str) -> dict:
                 "product's own page link, or search by name instead."
             )
             return out
+        identity = product_identity.build_identity(page_title or effective_query, query)
+        id_query = product_identity.identity_query(identity)
+        if len(id_query.split()) >= 2:
+            display_query = product_identity.clean_title(identity["title"])
+            logger.info(
+                "[url-search] product ID card: brand=%r codes=%r name=%r types=%r variants=%r",
+                identity["brand"], identity["codes"] or identity["alt_codes"], identity["name"],
+                identity["types"], identity["variants"],
+            )
+            effective_query = id_query
+        else:
+            identity = None
         logger.info(
             "[url-search] searching via %s -> query=%r", layer, effective_query
         )
@@ -2733,7 +2774,7 @@ def search_candidates(query: str) -> dict:
     # was actually searched — surface it so the picker/results screens never
     # have to fall back to showing the raw URL (`query`) to the user.
     if is_url and effective_query:
-        out["resolved_query"] = effective_query
+        out["resolved_query"] = display_query or effective_query
     try:
         logger.info("%s query sent to SearchApi: %r", tag, effective_query)
         raw = searchapi_repository.search_products(effective_query)
@@ -2741,7 +2782,7 @@ def search_candidates(query: str) -> dict:
             # A live Amazon price stands on its own even if the broader
             # Google Shopping search is down — don't lose it to an
             # unrelated API failure.
-            if live_candidate and live_candidate.get("thumbnail"):
+            if live_candidate:
                 out["products"] = [live_candidate]
                 return out
             logger.info("%s google api error: %s", tag, raw["error"])
@@ -2770,6 +2811,36 @@ def search_candidates(query: str) -> dict:
         products, approximate = _maybe_widen_brand_query(
             effective_query, is_url, shopping_results, products, approximate, tag
         )
+        if identity is not None:
+            products, similar = _tier_by_identity(products, identity, tag)
+            full_title = identity["title"]
+            if len(products) < _THIN_EXACT and full_title and full_title != effective_query:
+                # The short ID search can surface mostly small sellers; the
+                # page's full title often reaches the big stores instead. Both
+                # go through the same exact-match check, so this only adds
+                # listings of the same product.
+                logger.info("%s only %d exact match(es) via ID query - also searching the full title", tag, len(products))
+                raw2 = searchapi_repository.search_products(full_title)
+                if not raw2.get("error"):
+                    more = [_product_candidate(p) for p in raw2.get("shopping_results", []) if p.get("product_token")]
+                    more, _ = _filter_and_group_candidates(more, full_title, tag=tag)
+                    more, similar2 = _tier_by_identity(more, identity, tag)
+                    seen = {p.get("product_token") for p in products}
+                    products += [p for p in more if p.get("product_token") not in seen]
+                    similar = (similar + similar2)[:_MAX_SIMILAR]
+            if live_candidate and live_candidate.get("price"):
+                # Same name at under half the pasted page's price is almost
+                # always a smaller size, a single from a multi-pack, or a
+                # clone - never shown as the exact product.
+                floor = 0.5 * live_candidate["price"]
+                cheap = [p for p in products if p.get("price") and p["price"] < floor]
+                for p in cheap:
+                    logger.info("%s   set aside (under half the pasted price %s): %r", tag, live_candidate["price"], p.get("title"))
+                    p["match_tier"], p["match_note"] = "similar", "price"
+                products = [p for p in products if p not in cheap]
+                similar = (similar + cheap)[:_MAX_SIMILAR]
+            out["similar_products"] = similar
+            approximate = not products
         # A pasted link's "budget" never came from the user — it's whatever
         # promotional badge happened to be sitting in the page's own title
         # ("Upto 50% to 80% OFF"), and treating that as an intended price
@@ -2784,7 +2855,7 @@ def search_candidates(query: str) -> dict:
                 "%s budget %r parsed (min=%s max=%s) -> %d of %d candidate(s) in range",
                 tag, budget_phrase, min_price, max_price, len(products), before_count,
             )
-        if live_candidate and live_candidate.get("thumbnail"):
+        if live_candidate:
             # Merged in place, not forced to the front: this candidate is the
             # exact page the user pasted, so its price should win over a
             # (possibly stale) row the broader search also surfaced for the
@@ -2794,11 +2865,14 @@ def search_candidates(query: str) -> dict:
             # regardless of how the real cross-platform search ranked them;
             # the picker should show what the search actually found, in the
             # order it found it, with this one row's price corrected. A
-            # pasted page with no readable product photo is dropped rather
-            # than shown as an image-less row — the search's own candidates
-            # always carry a real thumbnail, so this is never the only option.
+            # missing photo never drops it: Amazon pages publish no og:image,
+            # and that silently removed the exact product the user pasted
+            # (boAt Airdopes 141 Gen 2, 2026-09-25). With a product ID card
+            # (every pasted link now) it leads the list — it is the one row
+            # certain to be the exact product.
             live_sig = _brand_signature(live_candidate["source"])
-            if _is_brand_site_merchant(live_candidate["source"]):
+            live_candidate["match_tier"] = "exact"
+            if identity is not None or _is_brand_site_merchant(live_candidate["source"]):
                 # A link from the brand's own website: its row is the one
                 # listing certain to be the exact product, so it leads, and
                 # the search's row for the same shop (often a different model
@@ -2825,8 +2899,14 @@ def search_candidates(query: str) -> dict:
             approximate = False
         if not products:
             logger.info("%s no candidates after filtering", tag)
-            out["error"] = "No products found — try adding the brand name, or search with different words."
+            out["error"] = (
+                "Couldn't find this exact product in other stores yet — try searching its name instead."
+                if identity is not None else
+                "No products found — try adding the brand name, or search with different words."
+            )
             return out
+        if identity is not None:
+            out["only_pasted_store"] = bool(live_candidate) and len(products) == 1
         out["products"] = products
         out["approximate"] = approximate
         logger.info(
