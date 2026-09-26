@@ -291,6 +291,41 @@ def _buyhatke_brand_to_output_shape(record: dict) -> dict:
     }
 
 
+def _brand_voucher_choices(query: str) -> list[dict]:
+    """A shop that sells a different voucher per kind of purchase
+    (MakeMyTrip: hotels, holidays, cabs...) — one full voucher card per
+    choice, so the shopper can say what they're buying instead of getting
+    whichever card has the best rate (typing "yatra" gave the hotels-only
+    card). The choices themselves are the extension's
+    (`voucher_service.product_choices`), so all three surfaces agree.
+
+    Each card is built from the exact listing the choice points at (matched
+    by its link): one brand record can hold several listings, and its
+    best-rate one is not necessarily this choice's."""
+    words = re.findall(r"[a-z0-9]+", (query or "").lower())
+    shop = "".join(w for w in words if w not in _BRAND_VOUCHER_FILLER_WORDS)
+    indexes = {
+        "gyftr": (_load_brand_voucher_index(), _gyftr_voucher_to_output_shape),
+        "maximize": (_load_maximize_brand_index(), _maximize_brand_to_output_shape),
+        "buyhatke": (_load_buyhatke_brand_index(), _buyhatke_brand_to_output_shape),
+    }
+    cards = []
+    for choice in voucher_service.product_choices(shop):
+        index, shape = indexes.get(choice.get("voucher_source"), (None, None))
+        record = index.get(_norm(choice.get("brand_name") or "")) if index else None
+        if not record:
+            continue
+        if choice.get("voucher_source") != "gyftr":
+            same = [p for p in record.get("products") or [] if p.get("source_url") == choice.get("voucher_url")]
+            if same:
+                record = {**record, "products": same}
+        card = shape(record)
+        if not card.get("voucher_url"):
+            card["voucher_url"] = choice.get("voucher_url")
+        cards.append({**card, "choice_label": choice.get("choice_label"), "covers": choice.get("covers")})
+    return cards if len(cards) >= 2 else []
+
+
 def _load_brand_voucher_index() -> dict[str, dict]:
     """Maps a normalized, spaceless full Gyftr brand name ("Tata CLiQ" ->
     "tatacliq") to its raw voucher record, for exact whole-phrase query
@@ -2825,6 +2860,10 @@ def search_candidates(query: str) -> dict:
     if matched_voucher:
         out["mode"] = "brand_voucher"
         out["voucher"] = matched_voucher
+        choices = _brand_voucher_choices(query)
+        if choices:
+            out["voucher"] = choices[0]
+            out["voucher_choices"] = choices
         return out
     # A pasted link is turned into a search query without scraping the product:
     # its page title first, then its slug words. The response still echoes

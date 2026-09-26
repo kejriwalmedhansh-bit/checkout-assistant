@@ -17,7 +17,11 @@ import { outboundLink } from '@/utils/analytics';
 const SOURCE_LABELS = { maximize: 'Maximize', buyhatke: 'BuyHatke', gyftr: 'Gyftr' };
 
 export default function BrandVoucherCard({ voucher }) {
-  const denominations = voucher.denominations || [];
+  // A type-any-amount card (Amazon Pay on Maximize: ₹100–₹10,000) shows its
+  // range even when the seller also lists quick-pick amounts — the list would
+  // read as the only amounts on offer.
+  const anyAmount = Boolean(voucher.is_custom_denom && voucher.custom_min != null && voucher.custom_max != null);
+  const denominations = anyAmount ? [] : voucher.denominations || [];
   const method = voucher.best_payment_method || 'UPI';
   const sourceLabel = SOURCE_LABELS[voucher.voucher_source] || 'Gyftr';
   // Never fabricate a store link — a guessed gyftr.com/{slug} URL is wrong
@@ -55,6 +59,19 @@ export default function BrandVoucherCard({ voucher }) {
         </Box>
       )}
 
+      {(voucher.covers || voucher.stack_limit === 1) && (
+        <Box mb="16px" fontSize="12.5px" color="text2">
+          {voucher.covers && <Text>Works for: {voucher.covers}</Text>}
+          {/* Yatra's flight card is 85% off but one ₹500 card per booking —
+              with no booking amount here, the rate alone would oversell it. */}
+          {voucher.stack_limit === 1 && (
+            <Text fontWeight={600} color="text">
+              {new Set(denominations).size === 1 ? `One ${fmt(denominations[0])} voucher` : 'One voucher'} per booking
+            </Text>
+          )}
+        </Box>
+      )}
+
       {denominations.length > 0 && (
         <Box mb="18px">
           <Text fontSize="11px" color="text3" fontWeight={600} letterSpacing=".04em" textTransform="uppercase" mb="8px">
@@ -75,7 +92,7 @@ export default function BrandVoucherCard({ voucher }) {
         </Box>
       )}
 
-      {denominations.length === 0 && voucher.is_custom_denom && voucher.custom_min != null && voucher.custom_max != null && (
+      {anyAmount && (
         <Box mb="18px">
           <Text fontSize="11px" color="text3" fontWeight={600} letterSpacing=".04em" textTransform="uppercase" mb="8px">
             Voucher amount

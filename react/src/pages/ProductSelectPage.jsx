@@ -10,6 +10,7 @@ import LoadingCard from '@/components/common/LoadingCard';
 import SearchBox from '@/components/common/SearchBox';
 import { I } from '@/components/common/icons';
 import BrandVoucherCard from '@/components/dashboard/BrandVoucherCard';
+import VoucherChoicePicker from '@/components/dashboard/VoucherChoicePicker';
 import LowConfidenceNotice from '@/components/dashboard/LowConfidenceNotice';
 import ProductCandidateCard from '@/components/dashboard/ProductCandidateCard';
 import ProductQuickView from '@/components/dashboard/ProductQuickView';
@@ -38,6 +39,7 @@ export default function ProductSelectPage() {
   const candidates = useSearchStore((s) => s.candidates);
   const mode = useSearchStore((s) => s.mode);
   const voucher = useSearchStore((s) => s.voucher);
+  const voucherChoices = useSearchStore((s) => s.voucherChoices) || [];
   const searchStatus = useSearchStore((s) => s.searchStatus);
   const status = useSearchStore((s) => s.status);
   const selectedToken = useSearchStore((s) => s.selectedToken);
@@ -139,7 +141,9 @@ export default function ProductSelectPage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
           >
-            <BrandVoucherCard voucher={voucher} />
+            {voucherChoices.length >= 2
+              ? <VoucherChoicePicker key={query} choices={voucherChoices} query={query} />
+              : <BrandVoucherCard voucher={voucher} />}
           </motion.div>
         )}
 

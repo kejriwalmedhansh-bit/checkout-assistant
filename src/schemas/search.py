@@ -52,6 +52,10 @@ class SearchCandidatesResponse(BaseModel):
     # the useful signal). Only `voucher` is populated in the latter case.
     mode: str = "products"
     voucher: VoucherDetailOut | None = None
+    # Shops like MakeMyTrip sell a different voucher for hotels, flights,
+    # cabs... When there are 2+, the shopper picks what they're buying first
+    # (same question the extension asks); `voucher` is then just the first.
+    voucher_choices: list[VoucherDetailOut] = []
     # A pasted link Dealo is sure about: the product to go straight to the
     # price comparison with, skipping the picker. None means "show the picker".
     auto_pick: ProductCandidate | None = None
