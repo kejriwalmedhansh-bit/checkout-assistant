@@ -472,16 +472,20 @@ async def _send_brand_voucher(phone: str, query: str, voucher: dict, shop: str |
     if choice and voucher.get("covers"):
         lines.append(f"Works for: {voucher['covers']}")
     denominations = voucher.get("denominations") or []
-    if denominations:
+    # A type-any-amount card (Amazon Pay on Maximize: ₹100–₹10,000) is shown
+    # as its range even when the seller also lists quick-pick amounts —
+    # the list would read as the only amounts on offer.
+    any_amount = voucher.get("is_custom_denom") and voucher.get("custom_min") and voucher.get("custom_max")
+    if any_amount:
+        lines.append(f"\nAny amount, `₹{voucher['custom_min']:,}`–`₹{voucher['custom_max']:,}`")
+    elif denominations:
         # WhatsApp's `code` style boxes each amount, the nearest a chat
         # bubble gets to the website's denomination pills.
         lines.append("\n" + "  ".join(f"`₹{d:,}`" for d in denominations))
-    elif voucher.get("is_custom_denom") and voucher.get("custom_min") and voucher.get("custom_max"):
-        lines.append(f"\nAny amount, ₹{voucher['custom_min']:,}–₹{voucher['custom_max']:,}")
     if voucher.get("stack_limit") == 1:
         # Yatra's flight card is 85% off, but only one ₹500 card per booking —
         # with no booking amount to price, the rate alone would oversell it.
-        one = f"One ₹{denominations[0]:,} voucher" if len(set(denominations)) == 1 else "One voucher"
+        one = f"One ₹{denominations[0]:,} voucher" if len(set(denominations)) == 1 and not any_amount else "One voucher"
         lines.append(f"{one} per booking.")
     lines.append(f"\nBuy the amount you need, then use it at *{brand}* checkout.")
     text = "\n".join(lines)
