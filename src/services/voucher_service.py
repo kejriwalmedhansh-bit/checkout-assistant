@@ -1977,6 +1977,34 @@ def _choice_label(card_name: str, shop_label: str, is_plain_brand: bool, covers:
     return "Anything else"
 
 
+# What the shopper taps, for the travel sites, where the card names and
+# terms read badly as buttons ("Makemytrip hotel bookings", "Hotels
+# holidays") or mislead ("Anything else" for ixigo's card, which is flights
+# only). Keyed by the card's own name; each checked against its terms
+# (`covers`) on 2026-09-26. Every other shop keeps `_choice_label`.
+_CHOICE_LABEL_OVERRIDES = {
+    "MakeMyTrip Hotel e-Pay": "Hotels",
+    "MakeMyTrip Holiday e-Pay": "Holiday packages",
+    "MakeMyTrip Cab": "Cabs",
+    "MakeMyTrip Bus": "Buses",
+    "MakeMyTrip e-Pay": "Flights & anything else",
+    "MakeMyTrip International": "International trips",
+    "MakeMyTrip Rail": "Trains",
+    "Yatra - 500": "Flights",
+    "Yatra Hotel": "Domestic hotels",
+    "Yatra Hotels Holidays": "Hotels & holidays",
+    "EaseMyTrip Holiday": "Holiday packages",
+    "EaseMyTrip Hotel": "Hotels",
+    "EaseMyTrip": "Flights & anything else",
+    "Goibibo Hotel": "Hotels",
+    "Goibibo": "Flights & anything else",
+    "Cleartrip Hotels": "Hotels",
+    "Cleartrip": "Flights & anything else",
+    "Ixigo Hotel": "Hotels",
+    "Ixigo": "Flights",
+}
+
+
 def _group_by_name(cards) -> dict[str, list[dict]]:
     groups: dict[str, list[dict]] = {}
     for card in cards:
@@ -2065,7 +2093,8 @@ def product_choices(shop_label: str, price: float | None = None) -> list[dict]:
         covers = card["covers"] or next((c["covers"] for c in cards if c["covers"]), None)
         choices.append({
             **deal,
-            "choice_label": _choice_label(card["name"], shop_label, card["key"] == label, covers),
+            "choice_label": _CHOICE_LABEL_OVERRIDES.get(deal["brand_name"])
+            or _choice_label(card["name"], shop_label, card["key"] == label, covers),
             "covers": covers,
         })
     choices.sort(key=lambda c: c.get("pct") or 0, reverse=True)

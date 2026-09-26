@@ -59,6 +59,9 @@ export const useSearchStore = create(
       // brand directly — L1 is skipped, `voucher` is the brand's raw deal).
       mode: 'products',
       voucher: null,
+      // Shops like MakeMyTrip: one voucher per kind of purchase, the shopper
+      // picks which (see VoucherChoicePicker). Empty for every other shop.
+      voucherChoices: [],
       selectedToken: null,
       selectedThumbnail: null,
       // A pasted link Dealo is sure about skips the picker: `autoPicked` tells
@@ -87,6 +90,7 @@ export const useSearchStore = create(
           closest: false,
           mode: 'products',
           voucher: null,
+          voucherChoices: [],
           selectedToken: null,
           autoPicked: false,
           skippedPicker: false,
@@ -108,6 +112,7 @@ export const useSearchStore = create(
               closest: Boolean(data.closest),
               mode: data.mode || 'products',
               voucher: data.voucher || null,
+              voucherChoices: data.voucher_choices || [],
               searchStatus: 'success',
               error: null,
               persistedAt: Date.now(),
@@ -190,6 +195,7 @@ export const useSearchStore = create(
           approximate: false,
           mode: 'products',
           voucher: null,
+          voucherChoices: [],
           selectedToken: null,
           selectedThumbnail: null,
           autoPicked: false,
@@ -213,6 +219,7 @@ export const useSearchStore = create(
         closest: s.closest,
         mode: s.mode,
         voucher: s.voucher,
+        voucherChoices: s.voucherChoices,
         selectedToken: s.selectedToken,
         selectedThumbnail: s.selectedThumbnail,
         skippedPicker: s.skippedPicker,

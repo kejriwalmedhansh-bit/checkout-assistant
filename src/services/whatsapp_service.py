@@ -446,10 +446,10 @@ async def _send_voucher_steps(phone: str, route: dict) -> None:
 
 # A brand's own name sometimes already ends in "Gift Card" ("Zomato Gift
 # Card") — stripped so the headline doesn't read "Zomato Gift Card Gift Voucher".
-_BRAND_SUFFIX_RE = re.compile(r"\s+(e-?gift\s+card|gift\s+card|gift\s+voucher|e-?voucher|voucher)$", re.I)
+_BRAND_SUFFIX_RE = re.compile(r"\s+(e-?gift\s+card|gift\s+card|gift\s+voucher|e-?voucher|voucher|e-?pay)$", re.I)
 
 
-async def _send_brand_voucher(phone: str, query: str, voucher: dict) -> None:
+async def _send_brand_voucher(phone: str, query: str, voucher: dict, shop: str | None = None) -> None:
     """The search was just a shop's name ("Myntra", "Zomato gift card"), so
     there's no product to price — same shortcut the website takes (see
     `mode: "brand_voucher"` in search_service): show that shop's best
@@ -457,7 +457,8 @@ async def _send_brand_voucher(phone: str, query: str, voucher: dict) -> None:
     button read like the product flow's buy step, so the two feel like one
     bot; the product flow's follow-up buttons are left out because neither
     ("See other option", "Different product") has anything to act on here."""
-    brand = _BRAND_SUFFIX_RE.sub("", (voucher.get("brand_name") or "").strip()) or query
+    brand = shop or _BRAND_SUFFIX_RE.sub("", (voucher.get("brand_name") or "").strip()) or query
+    choice = voucher.get("choice_label")
     source = voucher.get("voucher_source")
     # Same naming rule as _send_voucher_steps: Gyftr is never named to a
     # customer — its headline is just the discount, the button goes there.
@@ -465,14 +466,23 @@ async def _send_brand_voucher(phone: str, query: str, voucher: dict) -> None:
     platform_label = platform_name or "our voucher partner"
     pct = voucher.get("best_discount_pct")
 
-    lines = [f"*{brand} Gift Voucher*"]
+    lines = [f"*{brand} Gift Voucher — {choice}*" if choice else f"*{brand} Gift Voucher*"]
     if pct:
         lines.append(f"*{pct:g}% off*" + (f" on {platform_name}" if platform_name else ""))
+    if choice and voucher.get("covers"):
+        lines.append(f"Works for: {voucher['covers']}")
     denominations = voucher.get("denominations") or []
     if denominations:
-        lines.append("\nAmounts: " + " · ".join(f"₹{d:,}" for d in denominations))
+        # WhatsApp's `code` style boxes each amount, the nearest a chat
+        # bubble gets to the website's denomination pills.
+        lines.append("\n" + "  ".join(f"`₹{d:,}`" for d in denominations))
     elif voucher.get("is_custom_denom") and voucher.get("custom_min") and voucher.get("custom_max"):
         lines.append(f"\nAny amount, ₹{voucher['custom_min']:,}–₹{voucher['custom_max']:,}")
+    if voucher.get("stack_limit") == 1:
+        # Yatra's flight card is 85% off, but only one ₹500 card per booking —
+        # with no booking amount to price, the rate alone would oversell it.
+        one = f"One ₹{denominations[0]:,} voucher" if len(set(denominations)) == 1 else "One voucher"
+        lines.append(f"{one} per booking.")
     lines.append(f"\nBuy the amount you need, then use it at *{brand}* checkout.")
     text = "\n".join(lines)
 
@@ -494,9 +504,63 @@ async def _send_brand_voucher(phone: str, query: str, voucher: dict) -> None:
     _track(
         "WhatsApp Brand Voucher Shown", phone,
         query=query, brand=brand, platform=platform_label, discount_pct=pct or 0,
+        choice=choice or "",
     )
     await asyncio.sleep(_MESSAGE_PACE_SECONDS)
     await send_text(phone, WHATSAPP_BRAND_VOUCHER_NEXT_MSG)
+
+
+def _shop_name(choices: list[dict]) -> str:
+    """"MakeMyTrip" from "MakeMyTrip Hotel e-Pay", "MakeMyTrip Cab"... — the
+    first word every choice's card name shares, as the shortest name spells it."""
+    firsts = [re.split(r"[\s-]+", (c.get("brand_name") or "").strip())[0] for c in choices]
+    if firsts and firsts[0] and len({f.lower() for f in firsts}) == 1:
+        return min(zip((len(c.get("brand_name") or "") for c in choices), firsts))[1]
+    return _BRAND_SUFFIX_RE.sub("", (choices[0].get("brand_name") or "").strip())
+
+
+async def _send_voucher_type_picker(phone: str, query: str, choices: list[dict]) -> None:
+    """Shops like MakeMyTrip sell a different voucher for hotels, cabs,
+    flights... — ask what they're buying before showing one (same question
+    the extension asks), instead of handing a flight-booker the hotels card."""
+    shop = _shop_name(choices)
+    session = session_store.get_session(phone) or {}
+    session_store.set_session(phone, {
+        **session, "query": query, "candidates": [], "routes": {},
+        "voucher_choices": choices, "state": "awaiting_voucher_type_pick",
+    })
+    rows = [{
+        "id": f"vtype_{i}",
+        "title": _truncate(c.get("choice_label") or f"Option {i + 1}", 24),
+        "description": _truncate(
+            " · ".join(p for p in (
+                f"{c['best_discount_pct']:g}% off" if c.get("best_discount_pct") else "",
+                c.get("covers") or "",
+            ) if p), 72),
+    } for i, c in enumerate(choices[:10])]
+    await send_list_message(
+        phone,
+        body_text=f"*What are you buying on {shop}?*\nEach one has its own voucher.",
+        button_text="Choose",
+        rows=rows,
+    )
+    _track("WhatsApp Voucher Type Asked", phone, query=query, brand=shop, choice_count=len(rows))
+
+
+async def handle_voucher_type_selection(phone: str, reply_id: str) -> None:
+    session = session_store.get_session(phone)
+    choices = (session or {}).get("voucher_choices") or []
+    if not choices:
+        await send_text(phone, WHATSAPP_SESSION_EXPIRED_MSG)
+        _track("WhatsApp Session Expired", phone, at="voucher_type")
+        return
+    try:
+        choice = choices[int(reply_id.removeprefix("vtype_"))]
+    except (ValueError, IndexError):
+        await send_text(phone, WHATSAPP_DEAD_END_MSG)
+        _track("WhatsApp Dead End", phone, stage="bad_selection_id", query=reply_id)
+        return
+    await _send_brand_voucher(phone, session.get("query", ""), choice, shop=_shop_name(choices))
 
 
 async def _send_direct_cta(phone: str, route: dict) -> None:
@@ -1155,7 +1219,11 @@ async def process_and_respond(phone: str, classification: dict) -> None:
         listing = await asyncio.to_thread(search_service.search_candidates, query)
         products = listing.get("products") or []
         if listing.get("mode") == "brand_voucher" and listing.get("voucher"):
-            await _send_brand_voucher(phone, query, listing["voucher"])
+            choices = listing.get("voucher_choices") or []
+            if len(choices) >= 2:
+                await _send_voucher_type_picker(phone, query, choices)
+            else:
+                await _send_brand_voucher(phone, query, listing["voucher"])
             return
         pick = listing.get("auto_pick")
         if pick and pick.get("product_token"):
@@ -1307,6 +1375,12 @@ async def _send_state_aware_nudge(phone: str) -> None:
                 approximate=(session or {}).get("approximate", False),
             )
             return
+    elif state == "awaiting_voucher_type_pick":
+        choices = (session or {}).get("voucher_choices") or []
+        if choices:
+            await send_text(phone, WHATSAPP_PICK_REMINDER_MSG)
+            await _send_voucher_type_picker(phone, session.get("query", ""), choices)
+            return
     elif state == "awaiting_alternative_pick":
         alternatives = (session or {}).get("routes", {}).get("alternatives") or []
         if alternatives:
@@ -1403,6 +1477,8 @@ async def handle_incoming(body: dict) -> None:
                     _run_exclusive(
                         phone, _run_with_typing_keepalive(msg_id, handle_product_selection(phone, reply_id))
                     )
+                elif reply_id.startswith("vtype_"):
+                    _run_exclusive(phone, handle_voucher_type_selection(phone, reply_id))
             elif itype == "nfm_reply":
                 # A completed WhatsApp Flow (the photo picker) — same
                 # destination as a list_reply's "prod_" branch above, just

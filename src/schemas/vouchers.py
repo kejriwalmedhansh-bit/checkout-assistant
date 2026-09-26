@@ -32,6 +32,11 @@ class VoucherDetailOut(BaseModel):
     purchase_cap_per_txn: int | None = None
     redemption_restrictions: list[str] = []
     how_to_redeem_steps: list[str] = []
+    # Only on a shop that sells a different voucher per kind of purchase
+    # (see `voucher_choices` on the search response): what the shopper taps,
+    # and the card's own words for what it pays for.
+    choice_label: str | None = None
+    covers: str | None = None
 
     @field_validator("how_to_redeem_steps", mode="before")
     @classmethod
