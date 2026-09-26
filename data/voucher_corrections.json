@@ -1,0 +1,7 @@
+{
+  "_about": "Hand corrections to the voucher data, applied every time a platform's master file loads (src/repositories/_corrections.py), so a data refresh cannot bring the error back. Keyed by \"platform:slug\"; \"products\" fields are set on every product of that brand. Each entry says who confirmed it and why.",
+  "maximize:amazon": {
+    "why": "The terms reading took 'cannot be combined with other gift cards' as one card per bill. It is an Amazon Pay gift card: several go into the Amazon Pay balance and pay one bill, up to Rs 50,000 added per calendar month. We assume nothing was added yet that month. Owner confirmed 2026-09-26.",
+    "products": {"stack_limit": null, "value_cap": 50000}
+  }
+}

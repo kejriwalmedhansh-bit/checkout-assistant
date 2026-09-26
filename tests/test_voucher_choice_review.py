@@ -83,3 +83,11 @@ def test_each_ajio_site_gets_its_own_voucher_without_asking():
 def test_times_prime_website_asks_which_membership():
     labels = _labels(voucher_check(domain="timesprime.com", price=1000).get("product_choices") or [])
     assert {"Power membership", "Lite membership"} <= set(labels), labels
+
+
+def test_amazon_pay_card_is_not_limited_to_one_voucher_per_bill():
+    """data/voucher_corrections.json: several Amazon Pay vouchers pay one bill,
+    up to Rs 50,000 a month — survives a data refresh because it's applied on load."""
+    from src.repositories import maximize_repository
+    for product in maximize_repository.get_by_slug("amazon")["products"]:
+        assert product["stack_limit"] is None and product["value_cap"] == 50000

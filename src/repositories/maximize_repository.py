@@ -14,6 +14,7 @@ from __future__ import annotations
 import json
 
 from ..constants import DATA_DIR
+from . import _corrections
 from ._brand_matching import find_best_match
 
 _MAXIMIZE_PATH = DATA_DIR / "maximize_master.json"
@@ -28,6 +29,7 @@ def _load() -> None:
         return
     with open(_MAXIMIZE_PATH) as f:
         data = json.load(f)
+    _corrections.apply("maximize", data)
     _brands_by_slug = dict(data)
     _brands_list = list(data.values())
 
