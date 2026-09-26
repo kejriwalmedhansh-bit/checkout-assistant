@@ -34,7 +34,8 @@ def test_giva_asks_which_kind_of_jewellery():
 def test_makemytrip_separates_hotels_from_everything_else():
     labels = _labels(voucher_check(domain="makemytrip.com", price=12500))
     assert any("hotel" in l for l in labels), labels
-    assert "anything else" in labels, labels
+    # The general card is named for what it mostly buys ("Flights & anything else").
+    assert any("anything else" in l for l in labels), labels
 
 
 def test_every_choice_is_a_real_offer_with_its_terms():
@@ -81,4 +82,4 @@ def test_a_card_whose_dates_have_passed_is_never_a_choice():
 
 def test_goibibo_still_asks_when_the_general_card_cannot_price_this_order():
     labels = _labels(voucher_check(domain="goibibo.com", price=4000))
-    assert any("hotel" in l for l in labels) and "anything else" in labels, labels
+    assert any("hotel" in l for l in labels) and any("anything else" in l for l in labels), labels
