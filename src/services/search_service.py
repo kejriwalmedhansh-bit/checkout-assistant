@@ -304,26 +304,46 @@ def _brand_voucher_choices(query: str) -> list[dict]:
     best-rate one is not necessarily this choice's."""
     words = re.findall(r"[a-z0-9]+", (query or "").lower())
     shop = "".join(w for w in words if w not in _BRAND_VOUCHER_FILLER_WORDS)
-    indexes = {
+    def names_this_shop(brand_name: str) -> bool:
+        # "times" must not pull in Timezone beside Times Prime: the shop is
+        # the card name's leading whole words, not any prefix of its letters.
+        joined = ""
+        for w in re.findall(r"[a-z0-9]+", (brand_name or "").lower()):
+            joined += w
+            if joined == shop:
+                return True
+        return False
+
+    cards = []
+    for choice in voucher_service.product_choices(shop):
+        if not names_this_shop(choice.get("brand_name") or ""):
+            continue
+        card = _voucher_card(choice.get("voucher_source"), choice.get("brand_name"), choice.get("voucher_url"))
+        if card:
+            cards.append({**card, "choice_label": choice.get("choice_label"), "covers": choice.get("covers")})
+    return cards if len(cards) >= 2 else []
+
+
+def _voucher_card(source: str | None, brand_name: str | None, url: str | None = None) -> dict | None:
+    """One voucher's full card (VoucherDetailOut shape), built from the exact
+    listing `url` points at when given — one brand record can hold several
+    listings, and its best-rate one is not necessarily the one meant."""
+    index, shape = {
         "gyftr": (_load_brand_voucher_index(), _gyftr_voucher_to_output_shape),
         "maximize": (_load_maximize_brand_index(), _maximize_brand_to_output_shape),
         "buyhatke": (_load_buyhatke_brand_index(), _buyhatke_brand_to_output_shape),
-    }
-    cards = []
-    for choice in voucher_service.product_choices(shop):
-        index, shape = indexes.get(choice.get("voucher_source"), (None, None))
-        record = index.get(_norm(choice.get("brand_name") or "")) if index else None
-        if not record:
-            continue
-        if choice.get("voucher_source") != "gyftr":
-            same = [p for p in record.get("products") or [] if p.get("source_url") == choice.get("voucher_url")]
-            if same:
-                record = {**record, "products": same}
-        card = shape(record)
-        if not card.get("voucher_url"):
-            card["voucher_url"] = choice.get("voucher_url")
-        cards.append({**card, "choice_label": choice.get("choice_label"), "covers": choice.get("covers")})
-    return cards if len(cards) >= 2 else []
+    }.get(source, (None, None))
+    record = index.get(_norm(brand_name or "")) if index else None
+    if not record:
+        return None
+    if source != "gyftr" and url:
+        same = [p for p in record.get("products") or [] if p.get("source_url") == url]
+        if same:
+            record = {**record, "products": same}
+    card = shape(record)
+    if not card.get("voucher_url"):
+        card["voucher_url"] = url
+    return card
 
 
 def _load_brand_voucher_index() -> dict[str, dict]:
@@ -411,6 +431,10 @@ _MANUAL_VOUCHER_MATCHES: dict[str, tuple[str | None, str | None]] = {
     # actually sells), not silently fall through to Maximize's separate,
     # cheaper plain gift card.
     "makemytrip": ("makemytrip-e-pay", "makemytrip-e-pay"),
+    # Maximize's plain "Amazon" card is an Amazon Pay gift card — it pays
+    # bills and recharges too (owner check 2026-09-26) — so "amazon pay"
+    # is a search for it, not a dead end.
+    "amazonpay": (None, "amazon"),
     "makemytripepay": ("makemytrip-e-pay", "makemytrip-e-pay"),
     "superdryluxe": ("luxe-gift-card-superdry", "superdry-luxe"),
     "armaniexchangeluxe": ("luxe-gift-card-armani-exchange", "armani-exchange-luxe"),
@@ -2857,10 +2881,20 @@ def search_candidates(query: str) -> dict:
     # (a brand's name showing up inside a URL's path/slug is not the same
     # signal as a user typing just that brand name).
     matched_voucher = None if is_url else _match_brand_voucher(query)
+    # Also for shops whose vouchers are all named for a kind of product
+    # ("Giva-Silver Jewellery", "Malabar Diamonds"): there's no card called
+    # just "GIVA", so the exact-name match above misses them.
+    choices = [] if is_url else _brand_voucher_choices(query)
+    matched_voucher = matched_voucher or (choices[0] if choices else None)
+    if matched_voucher and not choices:
+        # The same voucher on another site at a better rate (owner review).
+        better = voucher_service.best_of_same_voucher(matched_voucher.get("brand_name") or "")
+        better_card = _voucher_card(better["source"], better["name"]) if better else None
+        if better_card and (better_card.get("best_discount_pct") or 0) > (matched_voucher.get("best_discount_pct") or 0):
+            matched_voucher = better_card
     if matched_voucher:
         out["mode"] = "brand_voucher"
         out["voucher"] = matched_voucher
-        choices = _brand_voucher_choices(query)
         if choices:
             out["voucher"] = choices[0]
             out["voucher_choices"] = choices

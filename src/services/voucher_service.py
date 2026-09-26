@@ -1940,9 +1940,16 @@ def _online_cards() -> tuple[dict, ...]:
             if not live or _card_refuses_online(source, record):
                 continue
             scope = _rule_value(_standardised_rules(source, record.get("slug") or ""), "spend_scope")
+            # The owner's reading beats the terms reading where they differ
+            # (Malabar's "Gold Coin" card was read as covering jewellery too).
+            scope = (_choice_review().get(record.get("brand_name") or "") or {}).get("covers") or scope
             cards.append({
+                "source": source,
                 "name": record.get("brand_name") or "",
                 "key": "".join(_card_words(record.get("brand_name") or "")),
+                # Unsingularised, for a single-word shop label: "timesprime"
+                # (the website) never matches the key "timeprime...".
+                "raw": "".join(re.findall(r"[a-z0-9]+", (record.get("brand_name") or "").lower())),
                 "covers": None if scope in (None, "not_stated") else scope,
                 "pct": max(p.get("best_discount_pct") or 0 for p in live),
             })
@@ -1977,32 +1984,28 @@ def _choice_label(card_name: str, shop_label: str, is_plain_brand: bool, covers:
     return "Anything else"
 
 
-# What the shopper taps, for the travel sites, where the card names and
-# terms read badly as buttons ("Makemytrip hotel bookings", "Hotels
-# holidays") or mislead ("Anything else" for ixigo's card, which is flights
-# only). Keyed by the card's own name; each checked against its terms
-# (`covers`) on 2026-09-26. Every other shop keeps `_choice_label`.
-_CHOICE_LABEL_OVERRIDES = {
-    "MakeMyTrip Hotel e-Pay": "Hotels",
-    "MakeMyTrip Holiday e-Pay": "Holiday packages",
-    "MakeMyTrip Cab": "Cabs",
-    "MakeMyTrip Bus": "Buses",
-    "MakeMyTrip e-Pay": "Flights & anything else",
-    "MakeMyTrip International": "International trips",
-    "MakeMyTrip Rail": "Trains",
-    "Yatra - 500": "Flights",
-    "Yatra Hotel": "Domestic hotels",
-    "Yatra Hotels Holidays": "Hotels & holidays",
-    "EaseMyTrip Holiday": "Holiday packages",
-    "EaseMyTrip Hotel": "Hotels",
-    "EaseMyTrip": "Flights & anything else",
-    "Goibibo Hotel": "Hotels",
-    "Goibibo": "Flights & anything else",
-    "Cleartrip Hotels": "Hotels",
-    "Cleartrip": "Flights & anything else",
-    "Ixigo Hotel": "Hotels",
-    "Ixigo": "Flights",
-}
+@lru_cache(maxsize=1)
+def _choice_review() -> dict[str, dict]:
+    """The owner's voucher-by-voucher answers for shops that sell a
+    different voucher per kind of purchase — see
+    data/voucher_choice_review.json. Keyed by the voucher's brand_name."""
+    path = Path(__file__).resolve().parent.parent.parent / "data" / "voucher_choice_review.json"
+    try:
+        return json.loads(path.read_text()).get("cards") or {}
+    except (OSError, ValueError):
+        return {}
+
+
+def best_of_same_voucher(brand_name: str) -> dict | None:
+    """The best-rate copy of a voucher sold on several sites (Porter on Gyftr
+    at 11% beside Maximize at 10.75%), per the owner's review; None when the
+    voucher has no reviewed copies or is already the best."""
+    group = (_choice_review().get(brand_name) or {}).get("same")
+    if not group:
+        return None
+    copies = [c for c in _online_cards() if (_choice_review().get(c["name"]) or {}).get("same") == group]
+    best = max(copies, key=lambda c: c["pct"], default=None)
+    return best if best and best["name"] != brand_name else None
 
 
 def _group_by_name(cards) -> dict[str, list[dict]]:
@@ -2062,7 +2065,13 @@ def product_choices(shop_label: str, price: float | None = None) -> list[dict]:
     label = "".join(_card_words(shop_label))
     if len(label) < 4:
         return []
-    family = [c for c in _online_cards() if c["key"].startswith(label)]
+    raw_label = "".join(re.findall(r"[a-z0-9]+", (shop_label or "").lower()))
+    review = _choice_review()
+    family = [
+        c for c in _online_cards()
+        if (c["key"].startswith(label) or c["raw"].startswith(raw_label))
+        and not (review.get(c["name"]) or {}).get("hide")
+    ]
     if not any(c["covers"] for c in family):
         return []
     groups = [g for cards in _group_by_name(family).values() for g in _split_by_what_they_cover(cards, label)]
@@ -2091,12 +2100,31 @@ def product_choices(shop_label: str, price: float | None = None) -> list[dict]:
         if any(c["brand_name"] == deal["brand_name"] and c["voucher_source"] == deal["voucher_source"] for c in choices):
             continue
         covers = card["covers"] or next((c["covers"] for c in cards if c["covers"]), None)
+        # A lower-rate copy of a reviewed card on another site ("MakeMyTrip
+        # Hotel" beside "MakeMyTrip Hotel e-Pay") can win on some orders;
+        # it takes its group's reviewed answer rather than an automatic name.
+        reviewed = review.get(deal["brand_name"]) or next(
+            (review[c["name"]] for c in cards if c["name"] in review and not review[c["name"]].get("hide")), {})
         choices.append({
             **deal,
-            "choice_label": _CHOICE_LABEL_OVERRIDES.get(deal["brand_name"])
+            "_same": reviewed.get("same"),
+            # The website this voucher is for, when the shop runs two (AJIO
+            # and AJIO Luxe): the extension then needn't ask at all.
+            "choice_host": reviewed.get("host"),
+            "choice_label": reviewed.get("label")
             or _choice_label(card["name"], shop_label, card["key"] == label, covers),
             "covers": covers,
         })
+    # The same voucher sold on two or three sites (Porter on Gyftr and on
+    # Maximize) is one choice, not two identical buttons: keep the one that
+    # saves most on this order, else the best rate.
+    kept: dict[str, dict] = {}
+    for choice in choices:
+        group = choice.pop("_same", None) or f"{choice['voucher_source']}:{choice['brand_name']}"
+        best = kept.get(group)
+        if best is None or (choice.get("saving") or 0, choice.get("pct") or 0) > (best.get("saving") or 0, best.get("pct") or 0):
+            kept[group] = choice
+    choices = list(kept.values())
     choices.sort(key=lambda c: c.get("pct") or 0, reverse=True)
     return choices if len(choices) >= 2 else []
 

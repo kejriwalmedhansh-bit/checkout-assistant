@@ -1,0 +1,142 @@
+{
+  "_about": "Hand-checked answers for shops that sell a different voucher per kind of purchase (MakeMyTrip: hotels, cabs...). Read by voucher_service.product_choices, so the extension, website and WhatsApp bot all ask the same question. Keyed by the voucher's own brand_name. label = the button; covers = replaces what the terms reading says it pays for; same = vouchers that buy the same thing on different sites (one button, best rate); hide = never offered as a choice, with the reason. Reviewed by the owner voucher by voucher on 2026-09-26 (travel sites checked against their terms the same day). Kept apart from voucher_rules.json so a data refresh never overwrites it.",
+  "cards": {
+    "MakeMyTrip Hotel e-Pay": {"label": "Hotels"},
+    "MakeMyTrip Holiday e-Pay": {"label": "Holiday packages"},
+    "MakeMyTrip Cab": {"label": "Cabs"},
+    "MakeMyTrip Bus": {"label": "Buses"},
+    "MakeMyTrip e-Pay": {"label": "Flights & anything else"},
+    "MakeMyTrip International": {"label": "International trips"},
+    "MakeMyTrip Rail": {"label": "Trains"},
+    "Yatra - 500": {"label": "Flights"},
+    "Yatra Hotel": {"label": "Domestic hotels"},
+    "Yatra Hotels Holidays": {"label": "Hotels & holidays"},
+    "Yatra": {"label": "Anything else"},
+    "EaseMyTrip Holiday": {"label": "Holiday packages"},
+    "EaseMyTrip Hotel": {"label": "Hotels"},
+    "EaseMyTrip": {"label": "Flights & anything else"},
+    "Goibibo Hotel": {"label": "Hotels"},
+    "Goibibo": {"label": "Flights & anything else"},
+    "Cleartrip Hotels": {"label": "Hotels"},
+    "Cleartrip": {"label": "Flights & anything else"},
+    "Ixigo Hotel": {"label": "Hotels"},
+    "Ixigo": {"label": "Flights"},
+
+    "Air India Domestic Gift Card": {"label": "Domestic flights"},
+    "Air India": {"label": "Any Air India booking"},
+
+    "AJIO Luxe": {"label": "AJIO Luxe", "host": "luxe.ajio.com"},
+    "Ajio": {"label": "AJIO (not Luxe)", "host": "ajio.com", "covers": "AJIO products, not AJIO Luxe"},
+
+    "Amazon Fresh": {"label": "Groceries (Fresh)"},
+    "Amazon Shopping Voucher": {"label": "Physical products"},
+    "Amazon": {"label": "Bills & anything else (Amazon Pay)", "covers": "Anything on Amazon, including bills and recharges (an Amazon Pay gift card)"},
+
+    "Apollo Diagnostics": {"label": "Lab tests"},
+    "Apollo Pharmacy": {"label": "Medicines", "covers": "Medicines only, at Apollo Pharmacy stores and the Apollo 24|7 app"},
+    "Apollo Healing": {"hide": "A medicines voucher like Apollo Pharmacy's, but single-use with any leftover balance lost, at a lower rate"},
+
+    "BGMI UC Official Voucher": {"label": "BGMI UC", "same": "bgmi-uc"},
+    "BGMI": {"label": "BGMI UC", "same": "bgmi-uc"},
+    "BGMI UniPin": {"label": "BGMI UC", "same": "bgmi-uc"},
+
+    "BPCL SmartDrive Fuel": {"label": "Fuel"},
+    "BPCL": {"hide": "No longer sold on BuyHatke (owner check 2026-09-26)"},
+
+    "Blue Tokai Coffee": {"label": "Coffee", "same": "blue-tokai"},
+    "Blue Tokai Coffe": {"label": "Coffee", "same": "blue-tokai"},
+
+    "Candere Diamond Jewellery": {"label": "Diamond jewellery"},
+    "Candere Gold Jewellery": {"label": "Gold jewellery"},
+    "Candere Gold Coin": {"label": "Gold coins"},
+
+    "Cordelia": {"label": "Cruise bookings", "same": "cordelia"},
+    "Cordelia Cruises": {"label": "Cruise bookings", "same": "cordelia"},
+
+    "Discovery Plus": {"label": "1-year subscription", "same": "discovery"},
+    "Discovery": {"label": "1-year subscription", "same": "discovery"},
+
+    "District Pass": {"label": "District Pass renewal"},
+    "District": {"label": "Anything except the Pass", "covers": "District credit for anything except the District Pass"},
+
+    "Euphoria Diamond": {"label": "Diamond jewellery", "same": "euphoria-diamond"},
+    "Euphoria Diamond Jewellery": {"label": "Diamond jewellery", "same": "euphoria-diamond"},
+    "Euphoria Gold Coin": {"label": "Gold coins", "covers": "Euphoria gold coins"},
+    "Euphoria Jewellery Silver Coin": {"label": "Silver coins", "same": "euphoria-silver-coin"},
+    "Euphoria Silver Coin": {"label": "Silver coins", "same": "euphoria-silver-coin"},
+    "Euphoria Gold Jewellery": {"label": "Gold jewellery", "covers": "Euphoria gold jewellery"},
+    "Euphoria Jewellery Gold Coin": {"hide": "Gold and silver coins at 4%, always beaten by Euphoria's own gold coin (5%) and silver coin (4.5%) vouchers"},
+
+    "Fastrack SmartWatch": {"label": "Smartwatches"},
+    "Fastrack": {"label": "Watches & others (not smartwatches)", "covers": "Everything except smart wearables and Titan Nebula watches"},
+
+    "Giva-Silver Jewellery": {"label": "Silver jewellery"},
+    "Giva Jewellery RDM": {"label": "Perfumes & candles"},
+    "GIVA Gold Jewellery": {"label": "Gold jewellery"},
+    "GIVA Silver Coin": {"label": "Silver coins"},
+
+    "HP Pay In App": {"label": "HP Pay wallet", "same": "hp-pay"},
+    "HP Pay": {"label": "HP Pay wallet", "same": "hp-pay"},
+
+    "Jos Alukkas Diamond": {"label": "Diamond jewellery"},
+    "Jos Alukkas Gold Jewellery": {"label": "Gold jewellery"},
+    "Jos Alukkas Gold Coin": {"label": "Gold coins", "same": "jos-alukkas-coin"},
+    "Jos Alukkas Coin": {"label": "Gold coins", "same": "jos-alukkas-coin"},
+
+    "Joyalukkas Diamond": {"label": "Diamond jewellery"},
+    "Joyalukkas Gold and Diamond": {"label": "Gold & other jewellery"},
+    "Joyalukkas Pure Gold": {"label": "Anything (in store)", "covers": "All products, in Joyalukkas stores"},
+
+    "Ketan Diamonds - Diamond Only": {"label": "Diamond jewellery"},
+    "Ketan Diamonds Gold Jewellery": {"label": "Gold jewellery"},
+    "Ketan Diamonds Gold Coin": {"label": "Gold coins"},
+
+    "Live Mint": {"label": "Mint subscription"},
+    "Live Hindustan": {"label": "Live Hindustan subscription"},
+
+    "Lifestyle Online": {"label": "Lifestyle & Home Centre", "same": "lifestyle"},
+    "Lifestyle": {"label": "Lifestyle & Home Centre", "same": "lifestyle"},
+
+    "Luzo salon Spa And Clinics": {"label": "Salon, spa & clinics", "same": "luzo"},
+    "Luzo": {"label": "Salon, spa & clinics", "same": "luzo"},
+
+    "Malabar Diamonds": {"label": "Diamond & platinum"},
+    "Malabar Jewellery": {"label": "Any jewellery"},
+    "Malabar Gold Coin": {"label": "Gold coins", "covers": "Gold coins only"},
+    "Malabar Gold Jewellery": {"hide": "Gold jewellery at 2.1%, always beaten by Malabar Jewellery (4%), which covers all jewellery"},
+
+    "Microsoft Xbox Game Pass Core": {"label": "Xbox Game Pass Core", "covers": "Xbox Game Pass Core"},
+    "Microsoft Office": {"label": "Microsoft 365"},
+
+    "Nintendo eShop Voucher": {"label": "eShop games & content", "same": "nintendo"},
+    "Nintendo": {"label": "eShop games & content", "same": "nintendo"},
+    "Nintendo Shop": {"label": "eShop games & content", "same": "nintendo"},
+
+    "PCJ Gold Jewellery": {"label": "Gold jewellery"},
+    "PCJ Gold Coin": {"label": "Gold coins"},
+
+    "Porter Packers and Movers": {"label": "Packers & movers", "same": "porter"},
+    "Porter": {"label": "Packers & movers", "same": "porter"},
+
+    "Steve Madde Luxe": {"label": "Full-price items", "same": "steve-madden"},
+    "Steve Madden-Luxe Gift Card": {"label": "Full-price items", "same": "steve-madden"},
+
+    "Surat Diamonds": {"label": "Jewellery", "same": "surat-jewellery", "covers": "Jewellery on the Surat Diamonds website; not coins, bullion, certified solitaires or discounted items"},
+    "Surat Diamonds Main": {"label": "Jewellery", "same": "surat-jewellery"},
+    "Surat Diamond": {"label": "Jewellery", "same": "surat-jewellery"},
+    "Surat Diamonds Solitaire": {"label": "Solitaires (their solitaire site)"},
+
+    "Times Prime Power": {"label": "Power membership"},
+    "Times Prime Prive": {"label": "Privé membership"},
+    "Times Prime Lite": {"label": "Lite membership"},
+
+    "Unipin- BGMI Voucher": {"label": "BGMI"},
+    "UniPin": {"label": "Other games"},
+
+    "Valorant": {"label": "Valorant Points", "same": "valorant"},
+    "Valorant Gift Card": {"label": "Valorant Points", "same": "valorant"},
+
+    "Zee5": {"label": "Full subscription"},
+    "ZEE5 Regional": {"label": "Regional pack", "covers": "ZEE5 Regional subscription only"}
+  }
+}

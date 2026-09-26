@@ -167,23 +167,36 @@ def voucher_check(domain: str = Query(..., min_length=1), price: float | None = 
         and voucher_service.is_exact_brand_match(root, root_deal["brand_name"])
         and _usable_online(root_deal)
     ):
-        return _with_product_choices(root, root_deal, price)
+        return _with_product_choices(root, root_deal, price, domain)
 
+    # No single card answers for this host: its choices still can. The Times
+    # Prime map row names one membership card, which can't price every order.
+    none = {"has_voucher": False}
     brand_name = domain_brand_repository.brand_for_domain(domain)
     if brand_name is None:
-        return {"has_voucher": False}
+        return _with_product_choices(root, none, price, domain)
 
     deal = voucher_service.get_voucher_check(brand_name, price)
     if not _usable_online(deal):
-        return {"has_voucher": False}
-    return _with_product_choices(root, deal, price)
+        return _with_product_choices(root, none, price, domain)
+    return _with_product_choices(root, deal, price, domain)
 
 
-def _with_product_choices(root: str, deal: dict, price: float | None) -> dict:
+def _with_product_choices(root: str, deal: dict, price: float | None, domain: str = "") -> dict:
     """On a shop whose cards each pay for different products, the answer is
     the list, not whichever card pays most: a 14% hotels-only MakeMyTrip card
-    was otherwise offered to someone booking a flight."""
+    was otherwise offered to someone booking a flight.
+
+    When a choice belongs to the very website the shopper is on (luxe.ajio.com
+    vs ajio.com), that choice is the answer and nothing is asked."""
     choices = [c for c in voucher_service.product_choices(root or "", price) if _usable_online(c)]
     if len(choices) < 2:
         return deal
+    host = domain.strip().lower().removeprefix("www.")
+    on_this_site = [
+        c for c in choices
+        if c.get("choice_host") and (host == c["choice_host"] or host.endswith("." + c["choice_host"]))
+    ]
+    if on_this_site:
+        return max(on_this_site, key=lambda c: len(c["choice_host"]))
     return {**choices[0], "product_choices": choices}
