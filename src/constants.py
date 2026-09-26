@@ -212,6 +212,11 @@ WHATSAPP_MULTI_MATCH_MSG = "Select the *exact* product you're looking for 👇"
 # goes through the normal picker/result flow like any other match.
 WHATSAPP_MORE_OPTIONS_MSG = "Want a different way to buy this, or a different product altogether?"
 WHATSAPP_PICK_REMINDER_MSG = "*Tap* one of the options above 👆"
+# Sent after a shop-name search's voucher deal — there's no product yet, so
+# the usual "See other option / Different product" buttons don't apply.
+WHATSAPP_BRAND_VOUCHER_NEXT_MSG = (
+    "Buying something specific? Send its name or link and I'll find the lowest price."
+)
 WHATSAPP_RATE_LIMITED_MSG = (
     "You're searching a lot in a short time — give it a few minutes and try again."
 )

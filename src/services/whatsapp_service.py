@@ -27,6 +27,7 @@ from ..cache import RateLimiter, TTLCache, session_store
 from ..config import get_settings
 from ..constants import (
     KNOWN_BRANDS,
+    WHATSAPP_BRAND_VOUCHER_NEXT_MSG,
     WHATSAPP_DEAD_END_MSG,
     WHATSAPP_FLOW_FIELD_NAME,
     WHATSAPP_FLOW_SCREEN_ID,
@@ -441,6 +442,61 @@ async def _send_voucher_steps(phone: str, route: dict) -> None:
                 await send_text(phone, f"{step2_text}\n{affiliate_link}")
         else:
             await send_text(phone, step2_text)
+
+
+# A brand's own name sometimes already ends in "Gift Card" ("Zomato Gift
+# Card") — stripped so the headline doesn't read "Zomato Gift Card Gift Voucher".
+_BRAND_SUFFIX_RE = re.compile(r"\s+(e-?gift\s+card|gift\s+card|gift\s+voucher|e-?voucher|voucher)$", re.I)
+
+
+async def _send_brand_voucher(phone: str, query: str, voucher: dict) -> None:
+    """The search was just a shop's name ("Myntra", "Zomato gift card"), so
+    there's no product to price — same shortcut the website takes (see
+    `mode: "brand_voucher"` in search_service): show that shop's best
+    voucher deal and a button to buy it. The headline, discount and buy
+    button read like the product flow's buy step, so the two feel like one
+    bot; the product flow's follow-up buttons are left out because neither
+    ("See other option", "Different product") has anything to act on here."""
+    brand = _BRAND_SUFFIX_RE.sub("", (voucher.get("brand_name") or "").strip()) or query
+    source = voucher.get("voucher_source")
+    # Same naming rule as _send_voucher_steps: Gyftr is never named to a
+    # customer — its headline is just the discount, the button goes there.
+    platform_name = {"maximize": "Maximize", "buyhatke": "BuyHatke"}.get(source)
+    platform_label = platform_name or "our voucher partner"
+    pct = voucher.get("best_discount_pct")
+
+    lines = [f"*{brand} Gift Voucher*"]
+    if pct:
+        lines.append(f"*{pct:g}% off*" + (f" on {platform_name}" if platform_name else ""))
+    denominations = voucher.get("denominations") or []
+    if denominations:
+        lines.append("\nAmounts: " + " · ".join(f"₹{d:,}" for d in denominations))
+    elif voucher.get("is_custom_denom") and voucher.get("custom_min") and voucher.get("custom_max"):
+        lines.append(f"\nAny amount, ₹{voucher['custom_min']:,}–₹{voucher['custom_max']:,}")
+    lines.append(f"\nBuy the amount you need, then use it at *{brand}* checkout.")
+    text = "\n".join(lines)
+
+    # Clears any earlier product search from the session, so a tap on an old
+    # "See other option" button can't bring back a previous product's routes.
+    session = session_store.get_session(phone) or {}
+    session_store.set_session(phone, {
+        **session, "query": query, "candidates": [], "routes": {},
+        "state": "brand_voucher_shown",
+    })
+
+    if voucher.get("voucher_url"):
+        url = _outbound_url(voucher["voucher_url"], phone, "voucher_site", "brand_voucher")
+        if not await send_cta_url(phone, text, "Buy Gift Voucher Now", url):
+            await send_text(phone, f"{text}\n{url}")
+    else:
+        # Never guess a store link (same rule as the website's BrandVoucherCard).
+        await send_text(phone, f"{text}\n\nSearch for *{brand}* on {platform_label} to buy it.")
+    _track(
+        "WhatsApp Brand Voucher Shown", phone,
+        query=query, brand=brand, platform=platform_label, discount_pct=pct or 0,
+    )
+    await asyncio.sleep(_MESSAGE_PACE_SECONDS)
+    await send_text(phone, WHATSAPP_BRAND_VOUCHER_NEXT_MSG)
 
 
 async def _send_direct_cta(phone: str, route: dict) -> None:
@@ -1098,6 +1154,9 @@ async def process_and_respond(phone: str, classification: dict) -> None:
         query = classification.get("query") or classification.get("url")
         listing = await asyncio.to_thread(search_service.search_candidates, query)
         products = listing.get("products") or []
+        if listing.get("mode") == "brand_voucher" and listing.get("voucher"):
+            await _send_brand_voucher(phone, query, listing["voucher"])
+            return
         pick = listing.get("auto_pick")
         if pick and pick.get("product_token"):
             # A pasted link Dealo is sure about: straight to the price
