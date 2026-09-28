@@ -334,7 +334,15 @@ def from_maximize(rec: dict) -> dict:
         "available": bool(denoms) and not raw.get("load_incomplete"),
         "methods": methods,
         "denominations": denoms,
-        "custom_amount": is_custom_amount(denoms, num(raw.get("custom_amount_max"))),
+        # Maximize sells many cards with both fixed buttons AND a "Custom" box
+        # (Nykaa, Croma, Bigbasket — seen live 2026-09-28). Its feed says so
+        # outright: type "range" with a minimum and maximum. That is evidence,
+        # not a guess from page text, so it stands over the fixed-amounts rule
+        # above; without it, a refresh switched the box off on 213 listings.
+        "custom_amount": (True if raw.get("custom_amount_max")
+                          else is_custom_amount(denoms, num(raw.get("custom_amount_max")))),
+        "custom_min": num(raw.get("custom_amount_min")),
+        "custom_max": num(raw.get("custom_amount_max")),
         "rules": rules,
         "terms": raw.get("full_terms") or "",
         "instructions": raw.get("how_to_redeem") or "",

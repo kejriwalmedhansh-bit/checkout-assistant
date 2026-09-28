@@ -1,0 +1,908 @@
+{
+ "gyftr:jimmy-choo": {
+  "can_combine_with_store_offers": "no",
+  "excludes": [
+   "airport stores",
+   "location: airport stores"
+  ],
+  "max_vouchers_per_bill": "unlimited",
+  "one_time_use": "yes",
+  "partial_redemption": "no",
+  "works_in_store": "yes",
+  "works_online": "yes",
+  "quotes": {
+   "can_combine_with_store_offers": "Gift Vouchers CANNOT be used during Sale.",
+   "excludes": "Luxe Gift Card is not redeemable at airport stores.",
+   "max_vouchers_per_bill": "Multiple Gift Vouchers CAN be used in one bill.",
+   "one_time_use": "EGV is ONE time use.",
+   "partial_redemption": "No refund/credit note shall be issued for unused parts of the GV/GC.",
+   "works_in_store": "Gift Vouchers are ACCEPTED at all listed Outlets.",
+   "works_online": "The GV/GC can also be used online on Armani Exchange, Steve Madden, Diesel India, Superdry, Mothercare India, GAS, Sunglass Hut India, Muji, Hamleys, Satya Paul, Brooks Brothers, Hunkemoller, Tumi, Pottery Barn, West Elm, Ritu Kumar."
+  }
+ },
+ "gyftr:jio-hotstar": {
+  "can_combine_with_store_offers": "no",
+  "max_vouchers_per_bill": 1,
+  "one_time_use": "yes",
+  "works_in_store": "no",
+  "works_online": "yes",
+  "quotes": {
+   "can_combine_with_store_offers": "This GV/GC cannot be used/clubbed with an existing subscription/offer.",
+   "max_vouchers_per_bill": "Only 1 Gift Voucher can be used in one transaction.",
+   "one_time_use": "This is a one-time use GV/GC.",
+   "works_in_store": "Gift Vouchers can only be used at https://www.jiohotstar.com/in/redeem",
+   "works_online": "Gift Vouchers can only be used at https://www.jiohotstar.com/in/redeem"
+  }
+ },
+ "gyftr:jiosaavn": {
+  "delivery_wait": "instant normally, delayed up to 24-48 hours possible",
+  "excludes": [
+   "existing JioSaavn subscribers on auto-renewal plans"
+  ],
+  "quotes": {
+   "delivery_wait": "E-Gift Cards are normally delivered instantly. But sometimes due to system issues, the delivery can be delayed up-to 24 - 48 hours.",
+   "excludes": "Existing JioSaavn subscribers on auto-renewal plans cannot redeem the codes."
+  }
+ },
+ "gyftr:kalki": {
+  "can_combine_with_store_offers": "yes",
+  "one_time_use": "yes",
+  "partial_redemption": "yes",
+  "works_in_store": "yes",
+  "works_online": "yes",
+  "quotes": {
+   "can_combine_with_store_offers": "The GV/e-Pay can be used over and above any discounts offered by the brand on its website.",
+   "one_time_use": "The Kalki Gift Card can only be used once.",
+   "partial_redemption": "After conversion into e-Pay balance, this GV is valid for partial redemption.",
+   "works_in_store": "This is a KALKI GV (Gift Voucher)/e-Pay on the KALKI Fashion website at in.kalkifashion.com/ and retail outlets.",
+   "works_online": "This is a KALKI GV (Gift Voucher)/e-Pay on the KALKI Fashion website at in.kalkifashion.com/ and retail outlets."
+  }
+ },
+ "gyftr:kalyan-diamond-jewellery": {
+  "can_combine_with_store_offers": "yes",
+  "excludes": [
+   "Gold/Diamond Purchase Advance Schemes",
+   "Package invoices and Special Priced Items",
+   "Gold/Diamond Purchase Advance Scheme redemptions"
+  ],
+  "max_vouchers_per_bill": 10,
+  "one_time_use": "yes",
+  "partial_redemption": "no",
+  "spend_scope": "Diamond Jewellery only",
+  "works_in_store": "yes",
+  "works_online": "no",
+  "quotes": {
+   "can_combine_with_store_offers": "Gift Vouchers CAN be clubbed with on-going promotions/offers.",
+   "excludes": "This voucher cannot be clubbed with redemption of Gold/Diamond Purchase Advance Schemes",
+   "max_vouchers_per_bill": "A maximum of 10 GV or GC can be applied in one bill",
+   "one_time_use": "This is a ONE time use GV.",
+   "partial_redemption": "No Credit note / Refund for the unused amount of the GV will be given.",
+   "spend_scope": "Kalyan Jewellers Diamond Jewellery Insta Gift Voucher (GV) / Gift Card can only be used to purchase Diamond Jewellery.",
+   "works_in_store": "Gift Vouchers are ACCEPTED at only listed Kalyan Jewellers Outlets.",
+   "works_online": "Gift Vouchers CANNOT be used Online."
+  }
+ },
+ "gyftr:kalyan-gold-coins": {
+  "can_combine_with_store_offers": "yes",
+  "excludes": [
+   "Gold/Diamond Purchase Advance Schemes",
+   "Package invoices and Special Priced Items",
+   "Gold/Diamond Purchase Advance Scheme redemptions"
+  ],
+  "max_vouchers_per_bill": 10,
+  "one_time_use": "yes",
+  "partial_redemption": "no",
+  "spend_scope": "Gold Coins only",
+  "validity": "3-12 months from the date of purchase",
+  "works_in_store": "yes",
+  "works_online": "no",
+  "quotes": {
+   "can_combine_with_store_offers": "Gift Vouchers CAN be clubbed with on-going promotions/offers.",
+   "excludes": "This voucher cannot be clubbed with redemption of Gold/Diamond Purchase Advance Schemes",
+   "max_vouchers_per_bill": "A maximum of 10 GV or GC can be applied in one bill",
+   "one_time_use": "This is a ONE time use GV.",
+   "partial_redemption": "No Credit note / Refund for the unused amount of the GV will be given.",
+   "spend_scope": "Kalyan Jewellers Gold Coin Insta Gift Voucher (GV) / Gift Card can only be used to purchase Gold Coins.",
+   "validity": "Your Kalyan Gold CoinsGift Cards are valid for 3-12 months from the date of purchase.",
+   "works_in_store": "Gift Vouchers are ACCEPTED at only listed Kalyan Jewellers Outlets.",
+   "works_online": "Gift Vouchers CANNOT be used Online."
+  }
+ },
+ "gyftr:kfc": {
+  "excludes": [
+   "date: block-out dates set by Yum! Restaurants"
+  ],
+  "max_vouchers_per_bill": 1,
+  "one_time_use": "yes",
+  "partial_redemption": "no",
+  "works_in_store": "yes",
+  "works_online": "yes",
+  "quotes": {
+   "excludes": "Yum! Restaurants GV / GC cannot be redeemed on specific block out dates. Yum! Restaurants may add or delete any date on its sole discretion.",
+   "max_vouchers_per_bill": "Single GV / GC can be used in one bill against online redemption.",
+   "one_time_use": "This is a ONE time use GV / GC.",
+   "partial_redemption": "No Credit note / Refund for the unused amount of the GV / GC will be given.",
+   "works_in_store": "Gift Vouchers are accepted at all Listed Outlets and on the website at online.kfc.co.in/home",
+   "works_online": "Gift Vouchers are accepted at all Listed Outlets and on the website at online.kfc.co.in/home"
+  }
+ },
+ "gyftr:koskii": {
+  "can_combine_with_store_offers": "yes",
+  "one_time_use": "yes",
+  "partial_redemption": "yes",
+  "validity": "6 months from the date of issuance",
+  "works_in_store": "yes",
+  "works_online": "yes",
+  "quotes": {
+   "can_combine_with_store_offers": "The Gift Voucher GV/e-Pay can be used over and above any discounts offered by the brand on its website and the exclusive brand outlets.",
+   "one_time_use": "The Koskii Gift Card can be used only once.",
+   "partial_redemption": "After conversion into e-Pay balance, this GV is valid for partial redemption.",
+   "validity": "Koskii Gift Voucher is valid for 6 months from the date of issuance.",
+   "works_in_store": "This is a Koskii GV (Gift Voucher)/e-Pay that will be accepted on the Koskii website at www.koskii.com and all Koskii exclusive brand outlets.",
+   "works_online": "This is a Koskii GV (Gift Voucher)/e-Pay that will be accepted on the Koskii website at www.koskii.com and all Koskii exclusive brand outlets."
+  }
+ },
+ "gyftr:lego": {
+  "can_combine_with_store_offers": "yes",
+  "max_vouchers_per_bill": "unlimited",
+  "one_time_use": "no",
+  "partial_redemption": "yes",
+  "works_in_store": "yes",
+  "works_online": "yes",
+  "quotes": {
+   "can_combine_with_store_offers": "The GV/e-Pay can be clubbed with existing offers.",
+   "max_vouchers_per_bill": "Multiple GVs can be combined and added to the e-Pay balance.",
+   "one_time_use": "The LEGO® Gift Card can be used multiple times when added to the e-Pay balance.",
+   "partial_redemption": "After conversion into e-Pay balance, this GV is valid for partial redemption.",
+   "works_in_store": "Use the LEGO® Gift Card only at the eligible stores and on the website:  //lego.mybrickhouse.com/.",
+   "works_online": "Use the LEGO® Gift Card only at the eligible stores and on the website:  //lego.mybrickhouse.com/."
+  }
+ },
+ "gyftr:liberty": {
+  "can_combine_with_store_offers": "yes",
+  "max_vouchers_per_bill": "unlimited",
+  "partial_redemption": "yes",
+  "works_in_store": "yes",
+  "works_online": "no",
+  "quotes": {
+   "can_combine_with_store_offers": "The GV/e-Pay can be clubbed with the existing offers.",
+   "max_vouchers_per_bill": "Multiple Gift Vouchers CAN be combined & added to the e-Pay balance.",
+   "partial_redemption": "After conversion into e-Pay balance, this GV is valid for partial redemption.",
+   "works_in_store": "GV/e-Pay is ACCEPTED at all Listed Outlets.",
+   "works_online": "This is a Liberty Offline GV (Gift Voucher)/e-Pay that will be accepted at select Liberty stores across India."
+  }
+ },
+ "gyftr:live-hindustan": {
+  "can_combine_with_store_offers": "no",
+  "excludes": [
+   "existing Live Hindustan e-paper subscribers"
+  ],
+  "max_vouchers_per_bill": 1,
+  "one_time_use": "yes",
+  "works_in_store": "no",
+  "works_online": "yes",
+  "quotes": {
+   "can_combine_with_store_offers": "GV/GC CANNOT be clubbed with existing offers.",
+   "excludes": "Offer is not valid for existing Live Hindustan e-paper users.",
+   "max_vouchers_per_bill": "Only One GV/GC can be used in one bill.",
+   "one_time_use": "This is a one-time use GV/GC with an expiration date.",
+   "works_in_store": "Live Hindustan Gift Cards can only be redeemed online.",
+   "works_online": "This is a Live Hindustan GV/GC (Gift Voucher/Gift Card) that will be accepted on the website at https://accounts.hindustantimes.com/lh/userplan."
+  }
+ },
+ "gyftr:looks-luzo-gift-card": {
+  "can_combine_with_store_offers": "yes",
+  "max_vouchers_per_bill": "unlimited",
+  "one_time_use": "no",
+  "partial_redemption": "yes",
+  "spend_scope": "salon, spa, and clinic services booked through the Luzo app at partner outlets",
+  "works_online": "yes",
+  "quotes": {
+   "can_combine_with_store_offers": "The GV/GC can be clubbed with existing offers.",
+   "max_vouchers_per_bill": "Multiple GV/GCs can be added to the Luzo wallet. There is no limit on the number of GV/GCs that can be added.",
+   "one_time_use": "Once added, the GV/GC balance is credited to the beneficiary's Luzo wallet and can be used across multiple transactions until the balance is exhausted.",
+   "partial_redemption": "Once added, the GV/GC balance is credited to the beneficiary's Luzo wallet and can be used across multiple transactions until the balance is exhausted.",
+   "spend_scope": "The GV/GC can be used for salon, spa, and clinic services booked through the Luzo app at partner outlets.",
+   "works_online": "This is a Luzo GV/GC (Gift Voucher/Gift Card) issued by Salonsurf Ventures Pvt Ltd, and it will be accepted only on the Luzo app."
+  }
+ },
+ "gyftr:louis-philippe-gift-voucher": {
+  "can_combine_with_store_offers": "yes",
+  "excludes": [
+   "date: block-out dates set by Louis Philippe"
+  ],
+  "max_vouchers_per_bill": "unlimited",
+  "one_time_use": "yes",
+  "partial_redemption": "no",
+  "works_in_store": "yes",
+  "works_online": "no",
+  "quotes": {
+   "can_combine_with_store_offers": "The GV/GC can be clubbed with the existing offers.",
+   "excludes": "GV/GC cannot be redeemed on specific block-out dates. Louis Philippe may add or delete any date at its sole discretion.",
+   "max_vouchers_per_bill": "Multiple Gift Vouchers CAN be used in one bill at the Stores.",
+   "one_time_use": "This is a one-time use GV/GC.",
+   "partial_redemption": "The remaining balance in the GV/GC will be forfeited once the card is redeemed.",
+   "works_in_store": "This is an Aditya Birla Fashion Retail Limited Louis Philippe Gift Voucher (GV) / Gift Card (GC) and would be accepted at listed outlets.",
+   "works_online": "The GV / GC CANNOT be used online."
+  }
+ },
+ "gyftr:luzo": {
+  "can_combine_with_store_offers": "yes",
+  "max_vouchers_per_bill": "unlimited",
+  "one_time_use": "no",
+  "partial_redemption": "yes",
+  "spend_scope": "salon, spa, and clinic services booked through the Luzo app at partner outlets",
+  "works_online": "yes",
+  "quotes": {
+   "can_combine_with_store_offers": "The GV/GC can be clubbed with existing offers.",
+   "max_vouchers_per_bill": "Multiple GV/GCs can be added to the Luzo wallet. There is no limit on the number of GV/GCs that can be added.",
+   "one_time_use": "Once added, the GV/GC balance is credited to the beneficiary's Luzo wallet and can be used across multiple transactions until the balance is exhausted.",
+   "partial_redemption": "Once added, the GV/GC balance is credited to the beneficiary's Luzo wallet and can be used across multiple transactions until the balance is exhausted.",
+   "spend_scope": "The GV/GC can be used for salon, spa, and clinic services booked through the Luzo app at partner outlets.",
+   "works_online": "This is a Luzo GV/GC (Gift Voucher/Gift Card) issued by Salonsurf Ventures Pvt Ltd, and it will be accepted only on the Luzo app."
+  }
+ },
+ "gyftr:mac": {
+  "can_combine_with_store_offers": "yes",
+  "excludes": [
+   "exchange with any other gift voucher or gift card"
+  ],
+  "max_vouchers_per_bill": "unlimited",
+  "partial_redemption": "yes",
+  "validity": "1 year form the date of activation",
+  "works_in_store": "yes",
+  "works_online": "yes",
+  "quotes": {
+   "can_combine_with_store_offers": "Gift Vouchers CAN be used to buy discounted products",
+   "excludes": "This E-Gift Voucher cannot be exchanged with any other gift voucher or gift card.",
+   "max_vouchers_per_bill": "Multiple Gift Vouchers CAN be used in one bill",
+   "partial_redemption": "Credit note shall be given for any remaining value available in E-Gift Voucher.",
+   "validity": "E-Gift Voucher shall be valid for a period of 1 year form the date of activation.",
+   "works_in_store": "E-Gift Voucher can be redeemed only against purchase of products of MAC brand at all MAC outlets located within Shoppers Stop store, and standalone MAC stores (operated by SSL) within India and also valid for online shopping www.shoppersstop.com only for MAC VOUCHER.",
+   "works_online": "E-Gift Voucher can be redeemed only against purchase of products of MAC brand at all MAC outlets located within Shoppers Stop store, and standalone MAC stores (operated by SSL) within India and also valid for online shopping www.shoppersstop.com only for MAC VOUCHER."
+  }
+ },
+ "gyftr:malabar-diamonds": {
+  "max_vouchers_per_bill": 15,
+  "one_time_use": "yes",
+  "partial_redemption": "no",
+  "spend_scope": "Diamond & Platinum jewellery only",
+  "works_in_store": "yes",
+  "works_online": "yes",
+  "quotes": {
+   "max_vouchers_per_bill": "Up to 15 Gift Vouchers CAN be used in a single bill.",
+   "one_time_use": "This is a one-time use GV/GC. The remaining balance in the GV/GC will be forfeited once the card is redeemed.",
+   "partial_redemption": "This is a one-time use GV/GC. The remaining balance in the GV/GC will be forfeited once the card is redeemed.",
+   "spend_scope": "Malabar Diamonds Voucher CAN be redeemed for Diamond & Platinum jewellery only.",
+   "works_in_store": "Gift Vouchers are ACCEPTED at Listed Outlets.",
+   "works_online": "Gift Vouchers CAN be used on the official Malabar website."
+  }
+ },
+ "gyftr:malabar-silver-coin": {
+  "can_combine_with_store_offers": "no",
+  "max_vouchers_per_bill": 9,
+  "partial_redemption": "no",
+  "spend_scope": "Gold, Diamond, and Platinum including Gold & Silver Coin/Bar",
+  "works_in_store": "yes",
+  "works_online": "yes",
+  "quotes": {
+   "can_combine_with_store_offers": "GV/GC cannot be clubbed with any ongoing/existing offers.",
+   "max_vouchers_per_bill": "Multiple GV/GC (maximum 9) CAN be used in one bill.",
+   "partial_redemption": "No refund/replacement/compensation is permissible for unused/expired/ misused /lost /mutilated/defaced GV/GC.",
+   "spend_scope": "The GV/GC can be redeemed against purchases of Gold, Diamond, and, Platinum including Gold & Silver Coin/Bar.",
+   "works_in_store": "The GV/GC can be used at all outlets in India as well as online Shopping portal.",
+   "works_online": "The GV/GC can be used at all outlets in India as well as online Shopping portal."
+  }
+ },
+ "gyftr:mamaearth": {
+  "can_combine_with_store_offers": "no",
+  "max_vouchers_per_bill": "unlimited",
+  "one_time_use": "yes",
+  "partial_redemption": "yes",
+  "works_in_store": "no",
+  "works_online": "yes",
+  "quotes": {
+   "can_combine_with_store_offers": "No additional offer will be clubbed with the gift cards redemption.",
+   "max_vouchers_per_bill": "Multiple GVs can be combined and added to the e-Pay balance. After conversion into e-Pay balance, this GV is valid for partial redemption.",
+   "one_time_use": "A MamaEarth Gift Card can only be used once. This Gift Card cannot be reused.",
+   "partial_redemption": "After conversion into e-Pay balance, this GV is valid for partial redemption.",
+   "works_in_store": "Gift cards are not applicable at Offline Stores.",
+   "works_online": "This E-Gift Cards are valid only at mamaearth.in (website)."
+  }
+ },
+ "gyftr:manyavar": {
+  "can_combine_with_store_offers": "no",
+  "excludes": [
+   "Custom Tailoring bills"
+  ],
+  "max_vouchers_per_bill": "unlimited",
+  "one_time_use": "yes",
+  "partial_redemption": "yes",
+  "spend_scope": "select brands/categories (not applicable to all merchandise; excludes Custom Tailoring)",
+  "works_in_store": "yes",
+  "works_online": "no",
+  "quotes": {
+   "can_combine_with_store_offers": "The GV/e-Pay cannot be clubbed with other promo codes or bank offers.",
+   "excludes": "GV/e-Pay will not apply to Custom Tailoring bills.",
+   "max_vouchers_per_bill": "Multiple Gift Vouchers CAN be combined & added to the e-Pay balance.",
+   "one_time_use": "The Manyavar Gift Card can be used only once. However, once added to the e-Pay balance, the amount can be redeemed partially.",
+   "partial_redemption": "After conversion into e-Pay balance, this GV is valid for partial redemption. The balance would remain in the e-Pay balance and can be used for multiple transactions within the validity period. Multiple GVs can be combined and added to the e-Pay balance.",
+   "spend_scope": "The GV/e-Pay is applicable for select brands/categories, and there may be merchandise in the store for which the GV/e-Pay may not be applicable; hence, please contact the customer desk for clarification.",
+   "works_in_store": "GV/ e-Pay is ACCEPTED at all Listed Outlets.",
+   "works_online": "GV/ e-Pay CANNOT be used Online."
+  }
+ },
+ "gyftr:marks-&-spencer": {
+  "can_combine_with_store_offers": "yes",
+  "excludes": [
+   "Retail Stores use once GV is converted to e-Pay online"
+  ],
+  "max_vouchers_per_bill": "unlimited",
+  "partial_redemption": "yes",
+  "works_in_store": "yes",
+  "works_online": "yes",
+  "quotes": {
+   "can_combine_with_store_offers": "The GV/e-Pay can be clubbed with ongoing sales.",
+   "excludes": "Once the GV is added to e-Pay online, it cannot be used in Retail Stores.",
+   "max_vouchers_per_bill": "More than one GV / GC can be used in one bill.",
+   "partial_redemption": "The GV can be converted into e-Pay, and then it can be used partially at the holder's convenience.",
+   "works_in_store": "Gift Vouchers are ACCEPTED on the website, app, and all listed outlets.",
+   "works_online": "This is a Marks & Spencer Gift Voucher (GV)/e-Pay and can be redeemed for any product on the listed stores/mobile app/ and at https://www.marksandspencer.in/."
+  }
+ },
+ "gyftr:matrix": {
+  "can_combine_with_store_offers": "no",
+  "max_vouchers_per_bill": 1,
+  "one_time_use": "yes",
+  "partial_redemption": "no",
+  "spend_scope": "discounted products only, across SIM, eSIM, Student SIM, recharge, Student Insurance, Travel Insurance, and Visa services categories",
+  "works_in_store": "no",
+  "works_online": "yes",
+  "quotes": {
+   "can_combine_with_store_offers": "The GV/GC cannot be clubbed with any other promo codes or offers.",
+   "max_vouchers_per_bill": "Only one GV/GC can be used per transaction.",
+   "one_time_use": "This is a one-time use GV/GC.",
+   "partial_redemption": "This is a one-time use GV/GC. The remaining balance in the GV/GC will be forfeited once the GV/GC is redeemed.",
+   "spend_scope": "The GV/GC can be used exclusively to purchase discounted products available on the platform.",
+   "works_in_store": "This Gift Card is only accepted at Matrix’s official website.",
+   "works_online": "The GV/GC will be accepted on the www.matrix.in"
+  }
+ },
+ "gyftr:mia": {
+  "can_combine_with_store_offers": "yes",
+  "excludes": [
+   "Gold Coins & 22K products"
+  ],
+  "max_vouchers_per_bill": "unlimited",
+  "one_time_use": "yes",
+  "partial_redemption": "no",
+  "spend_scope": "MIA Studded Jewellery Products only (not applicable on Gold Coins & 22K products)",
+  "validity": "180 days from the date of issuance",
+  "works_in_store": "yes",
+  "works_online": "no",
+  "quotes": {
+   "can_combine_with_store_offers": "The GV/GC can be clubbed with ongoing offers.",
+   "excludes": "This GV/GC is valid only on MIA Studded Jewellery Products. (Not applicable on\nGold Coins & 22K products).",
+   "max_vouchers_per_bill": "Multiple GV/GCs can be used against one bill.",
+   "one_time_use": "This is a one-time use GV/GC.",
+   "partial_redemption": "Any unused balance on the GV/GC, will not be refunded or credited.",
+   "spend_scope": "This GV/GC is valid only on MIA Studded Jewellery Products. (Not applicable on\nGold Coins & 22K products).",
+   "validity": "This GV/GC is valid for 180 days from the date of issuance and it can not be further re-\nvalidated for any reason whatsoever.",
+   "works_in_store": "This is a MIA Studded Gift Voucher/Gift Card (GV/GC) and it would be accepted only at the listed MIA and Tanishq-authorized showrooms in India.",
+   "works_online": "Your vouchers aren’t applicable to online purchases of Mia jewellery."
+  }
+ },
+ "gyftr:microsoft-xbox-pc-game-pass": {
+  "excludes": [
+   "Windows S Mode and ARM devices",
+   "location: valid in India only"
+  ],
+  "works_online": "yes",
+  "quotes": {
+   "excludes": "Users must be Indian residents. Code valid only in India.",
+   "works_online": "Make sure you’re signed in with the Microsoft account you want to redeem the GV/GC with."
+  }
+ },
+ "gyftr:mmtc-pamp-gold-coin": {
+  "can_combine_with_store_offers": "yes",
+  "max_vouchers_per_bill": "unlimited",
+  "one_time_use": "yes",
+  "partial_redemption": "yes",
+  "spend_scope": "Gold Coins and Gold Bars only",
+  "works_in_store": "no",
+  "works_online": "yes",
+  "quotes": {
+   "can_combine_with_store_offers": "The GV/e-Pay can be clubbed with existing offers.",
+   "max_vouchers_per_bill": "Multiple GVs can be combined and added to the e-Pay balance.",
+   "one_time_use": "The MMTC-PAMP Gold Coin Gift Card can only be used once.",
+   "partial_redemption": "After conversion into e-Pay balance, this GV is valid for partial redemption.",
+   "spend_scope": "The GV/e-Pay can only be used to purchase Gold Coins and Gold Bars on the MMTC PAMP website.",
+   "works_in_store": "MMTC-PAMP Gold Coin Gift Cards can only be redeemed online on the MMTC App & website.",
+   "works_online": "This is an MMTC PAMP Gold Coin GV (Gift Voucher)/e-Pay and will be accepted only on the MMTC PAMP website at https://www.mmtcpamp.com."
+  }
+ },
+ "gyftr:mmtc-pamp-silver-coin": {
+  "can_combine_with_store_offers": "yes",
+  "max_vouchers_per_bill": "unlimited",
+  "one_time_use": "yes",
+  "partial_redemption": "yes",
+  "spend_scope": "Silver Coins and Silver Bars only",
+  "works_in_store": "no",
+  "works_online": "yes",
+  "quotes": {
+   "can_combine_with_store_offers": "The GV/e-Pay can be clubbed with existing offers.",
+   "max_vouchers_per_bill": "Multiple GVs can be combined and added to the e-Pay balance.",
+   "one_time_use": "The MMTC-PAMP Silver Coins Gift Card can only be used once.",
+   "partial_redemption": "After conversion into e-Pay balance, this GV is valid for partial redemption.",
+   "spend_scope": "The GV/e-Pay can only be used to purchase Silver Coins and Silver Bars on the MMTC PAMP website.",
+   "works_in_store": "MMTC-PAMP Silver Coins Gift Cards can only be redeemed online on the MMTC-PAMP App & website.",
+   "works_online": "This is an MMTC PAMP Silver Coin GV (Gift Voucher)/e-Pay and will be accepted on the MMTC PAMP website at https://www.mmtcpamp.com"
+  }
+ },
+ "gyftr:mobile-prepaid-recharge": {
+  "delivery_wait": "up to 3 business days for biller to accept payment",
+  "partial_redemption": "yes",
+  "spend_scope": "services and billers available on www.gyftr.com/loyaltylifecycle/bills-utilities and linked portals",
+  "works_online": "yes",
+  "quotes": {
+   "delivery_wait": "Some billers take up to 3 business days to accept the payment after the transaction is completed.",
+   "partial_redemption": "Partial redemption allowed; remaining balance usable until expiry.",
+   "spend_scope": "GV/e-Pay is valid only for services and billers available on https://www.gyftr.com/loyaltylifecycle/bills-utilities and linked portals.",
+   "works_online": "The GV/e-Pay CAN be used Online at www.gyftr.com/loyaltylifecycle/bills-utilities/mobile-prepaid"
+  }
+ },
+ "gyftr:myntra": {
+  "can_combine_with_store_offers": "yes",
+  "excludes": [
+   "Gold & Silver coins",
+   "Fine Jewellery",
+   "other gift cards",
+   "Gold & Silver coins, Fine Jewellery"
+  ],
+  "max_vouchers_per_bill": "unlimited",
+  "one_time_use": "yes",
+  "partial_redemption": "no",
+  "works_in_store": "no",
+  "works_online": "yes",
+  "quotes": {
+   "can_combine_with_store_offers": "The GV/GC can be clubbed with existing offers on its website/app.",
+   "excludes": "This GV/GC is not applicable for the purchase of items from restricted categories, including Gold & Silver coins, Fine Jewellery.",
+   "max_vouchers_per_bill": "Multiple Gift Voucher CAN be used in one bill.",
+   "one_time_use": "The Myntra Gift Card can be redeemed only once.",
+   "partial_redemption": "The GV/GC is not valid for partial redemption.",
+   "works_in_store": "Myntra Gift Cards can only be redeemed online on the Myntra website and the Myntra app.",
+   "works_online": "Gift Vouchers CAN be used Online at myntra.com & Myntra App"
+  }
+ },
+ "gyftr:next": {
+  "can_combine_with_store_offers": "yes",
+  "max_vouchers_per_bill": "unlimited",
+  "partial_redemption": "yes",
+  "works_in_store": "yes",
+  "quotes": {
+   "can_combine_with_store_offers": "GV/e-Pay can be clubbed with the existing offers.",
+   "max_vouchers_per_bill": "Multiple Gift Vouchers can be combined & added to the e-Pay balance.",
+   "partial_redemption": "After conversion into e-Pay balance, this GV is valid for partial redemption.",
+   "works_in_store": "GV/ e-Pay is Accepted at all Listed Outlets."
+  }
+ },
+ "gyftr:nykaa-fashion": {
+  "can_combine_with_store_offers": "yes",
+  "excludes": [
+   "Gold/Silver Coins",
+   "Gold/Silver Bars",
+   "Jewellery",
+   "other gift cards",
+   "Gold/Silver Coins, Gold/Silver Bars, and Jewellery"
+  ],
+  "max_vouchers_per_bill": 1,
+  "one_time_use": "yes",
+  "partial_redemption": "no",
+  "works_in_store": "yes",
+  "works_online": "yes",
+  "quotes": {
+   "can_combine_with_store_offers": "The GV/GC can be clubbed with existing offers, promotional codes, and with other payment options.",
+   "excludes": "Nykaa Gift Cards/E Gift Cards/Nykaa Wallet Balance cannot be used to purchase Gold/Silver Coins, Gold/Silver Bars, and Jewellery.",
+   "max_vouchers_per_bill": "You can redeem only 1 GV/GC per order.",
+   "one_time_use": "The Nykaa Fashion Gift Card can only be used once.",
+   "partial_redemption": "The GV/GC is not valid for partial redemption.",
+   "works_in_store": "Gift Vouchers ACCEPTED at all Listed Outlets.",
+   "works_online": "Gift Vouchers CAN be used Online."
+  }
+ },
+ "gyftr:ola-cabs": {
+  "can_combine_with_store_offers": "no",
+  "excludes": [
+   "Ola Drive",
+   "Ola Share",
+   "Rentals",
+   "Outstation",
+   "Food",
+   "Luxury",
+   "Auto",
+   "Bike & Shuttle",
+   "taxes, tolls, and miscellaneous charges"
+  ],
+  "max_vouchers_per_bill": 1,
+  "one_time_use": "yes",
+  "partial_redemption": "no",
+  "spend_scope": "ride fare only; excludes Ola Drive, Ola Share, Rentals, Outstation, Food, Luxury, Auto, Bike & Shuttle",
+  "works_in_store": "no",
+  "works_online": "yes",
+  "quotes": {
+   "can_combine_with_store_offers": "Gift voucher CANNOT be clubbed with on-going promotions/offers.",
+   "excludes": "The GV/GC can be redeemed towards any category other than Ola Drive, Ola Share, Rentals, Outstation, Food, Luxury, Auto, Bike & Shuttle.",
+   "max_vouchers_per_bill": "Only One Gift voucher CAN be used in one bill.",
+   "one_time_use": "This is a One-time use GV / GC. The GV/GC cannot be redeemed partially.",
+   "partial_redemption": "This is a one-time use GV/GC. The remaining balance in the GV/GC will be forfeited once the card is redeemed.",
+   "spend_scope": "The GV/GC can be redeemed towards any category other than Ola Drive, Ola Share, Rentals, Outstation, Food, Luxury, Auto, Bike & Shuttle.",
+   "works_in_store": "Gift voucher CAN only be used online on OLA APP.",
+   "works_online": "Gift voucher CAN only be used online on OLA APP."
+  }
+ },
+ "gyftr:organic-india": {
+  "can_combine_with_store_offers": "no",
+  "excludes": [
+   "date: block-out dates set by Organic India"
+  ],
+  "max_vouchers_per_bill": "unlimited",
+  "partial_redemption": "yes",
+  "validity": "6 months from the date of purchase",
+  "works_in_store": "yes",
+  "works_online": "no",
+  "quotes": {
+   "can_combine_with_store_offers": "The GV/e-Pay cannot be clubbed with the existing offers.",
+   "excludes": "The Organic India GV/e-Pay cannot be redeemed on specific block-out dates. Organic India may add or delete any date at its sole discretion.",
+   "max_vouchers_per_bill": "Multiple Gift Vouchers can be used in one bill.",
+   "partial_redemption": "After conversion into e-Pay balance, this GV is valid for partial redemption.",
+   "validity": "Your Organic India gift card is valid for 6 months from the date of purchase.",
+   "works_in_store": "Gift Vouchers are ACCEPTED at all Listed Outlets.",
+   "works_online": "The voucher can't be used online."
+  }
+ },
+ "gyftr:ovenstory-pizza": {
+  "can_combine_with_store_offers": "no",
+  "excludes": [
+   "existing offer collections",
+   "select combos",
+   "beverages",
+   "MRP products"
+  ],
+  "max_spend_per_purchase": "Rs 150 max discount per order",
+  "min_order_value": "Rs 299",
+  "validity": "till 31st Jan, 2023",
+  "works_in_store": "no",
+  "works_online": "yes",
+  "quotes": {
+   "can_combine_with_store_offers": "Offer not valid on existing offer collections, select combos, beverages and MRP products",
+   "excludes": "Offer not valid on existing offer collections, select combos, beverages and MRP products",
+   "max_spend_per_purchase": "Maximum discount is upto Rs. 150",
+   "min_order_value": "Offer valid on a minimum order value of Rs. 299",
+   "validity": "Offer valid only till 31st Jan, 2023",
+   "works_in_store": "Offer valid only on online orders placed via www.ovenstory.in or EatSure website/app",
+   "works_online": "Offer valid only on online orders placed via www.ovenstory.in or EatSure website/app"
+  }
+ },
+ "gyftr:pantaloons": {
+  "can_combine_with_store_offers": "yes",
+  "delivery_wait": "AFTER 4 HOURS from the time of purchase",
+  "excludes": [
+   "shop-in-shops",
+   "jewellery"
+  ],
+  "max_vouchers_per_bill": "unlimited",
+  "one_time_use": "yes",
+  "partial_redemption": "no",
+  "works_in_store": "yes",
+  "quotes": {
+   "can_combine_with_store_offers": "Pantaloons GV / GC can be used during sale.",
+   "delivery_wait": "GV/GC can only be redeemed only AFTER 4 HOURS from the time of purchase, across listed Pantaloons outlets.",
+   "excludes": "Pantaloons E-Gift voucher is not valid at shop-in-shops & on jewellery.",
+   "max_vouchers_per_bill": "More than one GV / GC can be used in one bill.",
+   "one_time_use": "This is a one-time use GV/GC. The remaining balance in the GV/GC will be forfeited once the card is redeemed.",
+   "partial_redemption": "This is a one-time use GV/GC. The remaining balance in the GV/GC will be forfeited once the card is redeemed.",
+   "works_in_store": "GV/GC can be redeemed for any product at participating pantaloons stores across India."
+  }
+ },
+ "gyftr:park-avenue": {
+  "can_combine_with_store_offers": "no",
+  "excludes": [
+   "Custom Tailoring bills"
+  ],
+  "max_vouchers_per_bill": "unlimited",
+  "partial_redemption": "yes",
+  "spend_scope": "ready-made products only",
+  "works_in_store": "yes",
+  "works_online": "no",
+  "quotes": {
+   "can_combine_with_store_offers": "GV/e-Pay can be used during the End of Season Sale (EOSS), but they cannot be applied to discounted products during the sale.",
+   "excludes": "The Park Avenue GV / GC will not be applicable for Custom Tailoring bills.",
+   "max_vouchers_per_bill": "More than one GV / GC can be used in one bill.",
+   "partial_redemption": "Partial redemption is allowed but no refund or credit note would be issued against an unused or partially used Instant Gift Voucher.",
+   "spend_scope": "The Park Avenue GV / GC can only be used to purchase ready-made products.",
+   "works_in_store": "Gift Voucher/ e-Pay is ACCEPTED at all Listed Outlets.",
+   "works_online": "Gift Voucher/ e-Pay CANNOT be used Online."
+  }
+ },
+ "gyftr:pc-jeweller-diamond": {
+  "can_combine_with_store_offers": "yes",
+  "excludes": [
+   "use at PC Jeweller offline stores once GV added to online e-Pay wallet"
+  ],
+  "max_vouchers_per_bill": "unlimited",
+  "partial_redemption": "yes",
+  "spend_scope": "Diamond Jewellery only",
+  "works_in_store": "yes",
+  "works_online": "yes",
+  "quotes": {
+   "can_combine_with_store_offers": "Gift voucher can be clubbed with on-going promotions/offers.",
+   "excludes": "Once a GV has been added to the online e-Pay wallet, it cannot be used at PC Jeweller offline stores.",
+   "max_vouchers_per_bill": "Multiple Gift voucher can be used in one bill.",
+   "partial_redemption": "Multiple GV/e-Pay can be combined and added to the online e-Pay wallet. The e-Pay balance can be used across multiple transactions on the PC Jeweller website until the balance is exhausted.",
+   "spend_scope": "The GV/e-Pay can only be used to purchase Diamond Jewellery.",
+   "works_in_store": "This is a PC Jeweller Diamond GV (Gift Voucher)/e-Pay, and it can be redeemed at all the participating PC Jeweller stores and on the PC Jeweller website at https://www.pcjeweller.com/.",
+   "works_online": "This is a PC Jeweller Diamond GV (Gift Voucher)/e-Pay, and it can be redeemed at all the participating PC Jeweller stores and on the PC Jeweller website at https://www.pcjeweller.com/."
+  }
+ },
+ "gyftr:pc-jeweller-gold": {
+  "can_combine_with_store_offers": "yes",
+  "excludes": [
+   "use at PC Jeweller offline stores once GV added to online e-Pay wallet"
+  ],
+  "max_vouchers_per_bill": "unlimited",
+  "partial_redemption": "yes",
+  "spend_scope": "Gold Jewellery and Diamond Jewellery only",
+  "works_in_store": "yes",
+  "works_online": "yes",
+  "quotes": {
+   "can_combine_with_store_offers": "Gift voucher can be clubbed with on-going promotions/offers.",
+   "excludes": "Once a GV has been added to the online e-Pay wallet, it cannot be used at PC Jeweller offline stores.",
+   "max_vouchers_per_bill": "Multiple Gift voucher can be used in one bill.",
+   "partial_redemption": "Multiple GV/e-Pay can be combined and added to the online e-Pay wallet. The e-Pay balance can be used across multiple transactions on the PC Jeweller website until the balance is exhausted.",
+   "spend_scope": "The GV/e-Pay can only be used to purchase Gold Jewellery and Diamond Jewellery.",
+   "works_in_store": "This is a PC Jeweller Gold GV (Gift Voucher)/e-Pay, and it can be redeemed at all the participating PC Jeweller stores and on the PC Jeweller https://www.pcjeweller.com/.",
+   "works_online": "This is a PC Jeweller Gold GV (Gift Voucher)/e-Pay, and it can be redeemed at all the participating PC Jeweller stores and on the PC Jeweller https://www.pcjeweller.com/."
+  }
+ },
+ "gyftr:pc-jeweller-gold-coin": {
+  "can_combine_with_store_offers": "yes",
+  "excludes": [
+   "use at PC Jeweller offline stores once GV added to online e-Pay wallet"
+  ],
+  "max_vouchers_per_bill": "unlimited",
+  "partial_redemption": "yes",
+  "spend_scope": "Gold Coins, Gold jewellery, and diamond jewellery only",
+  "works_in_store": "yes",
+  "works_online": "yes",
+  "quotes": {
+   "can_combine_with_store_offers": "Gift voucher can be clubbed with on-going promotions/offers.",
+   "excludes": "Once a GV has been added to the online e-Pay wallet, it cannot be used at PC Jeweller offline stores.",
+   "max_vouchers_per_bill": "Multiple Gift voucher can be used in one bill.",
+   "partial_redemption": "Multiple GV/e-Pay can be combined and added to the online e-Pay wallet. The e-Pay balance can be used across multiple transactions on the PC Jeweller website until the balance is exhausted.",
+   "spend_scope": "The GV/e-Pay can only be used to purchase Gold Coins, Gold jewellery, and diamond jewellery.",
+   "works_in_store": "This is a PC Jeweller Gold Coin GV (Gift Voucher)/e-Pay, and it can be redeemed at all the participating PC Jeweller stores and on the PC Jeweller website at https://www.pcjeweller.com/.",
+   "works_online": "This is a PC Jeweller Gold Coin GV (Gift Voucher)/e-Pay, and it can be redeemed at all the participating PC Jeweller stores and on the PC Jeweller website at https://www.pcjeweller.com/."
+  }
+ },
+ "gyftr:philips": {
+  "can_combine_with_store_offers": "no",
+  "max_vouchers_per_bill": "unlimited",
+  "partial_redemption": "yes",
+  "works_online": "yes",
+  "quotes": {
+   "can_combine_with_store_offers": "The GV/e-Pay cannot be clubbed with any discounts offered by the brand on the website.",
+   "max_vouchers_per_bill": "Multiple GV/e-Pay can be combined and added to the e-Pay balance.",
+   "partial_redemption": "After conversion into e-Pay balance, this GV is valid for partial redemption.",
+   "works_online": "The GV (Gift Voucher)/e-Pay will be accepted on the mobile app and on the website at https://domesticappliances.philips.co.in."
+  }
+ },
+ "gyftr:pigeon": {
+  "can_combine_with_store_offers": "yes",
+  "excludes": [
+   "Exchange Offer at the Pigeon Exclusive Store"
+  ],
+  "max_vouchers_per_bill": "unlimited",
+  "one_time_use": "yes",
+  "partial_redemption": "no",
+  "works_in_store": "yes",
+  "works_online": "no",
+  "quotes": {
+   "can_combine_with_store_offers": "The GV/e-Pay can be clubbed with the existing offers.",
+   "excludes": "This GV/e-Pay cannot be redeemed on the Exchange Offer at the Pigeon Exclusive Store.",
+   "max_vouchers_per_bill": "Multiple GVs can be combined into e-Pay balance.",
+   "one_time_use": "This is a one-time use Gift Card, and partial redemption isn’t applicable.",
+   "partial_redemption": "This is a one-time use Gift Card, and partial redemption isn’t applicable.",
+   "works_in_store": "Gift Voucher/ e-Pay is ACCEPTED at all Listed Outlets.",
+   "works_online": "Gift Voucher/ e-Pay CANNOT be used Online."
+  }
+ },
+ "gyftr:points-for-good": {
+  "max_vouchers_per_bill": 1,
+  "one_time_use": "yes",
+  "partial_redemption": "no",
+  "spend_scope": "donations on the Points for Good website",
+  "validity": "3 to 12 months",
+  "works_in_store": "no",
+  "works_online": "yes",
+  "quotes": {
+   "max_vouchers_per_bill": "Only one GV can be used per donation.",
+   "one_time_use": "This is a one-time use GV. The remaining balance in the GV will be forfeited once the GV is redeemed.",
+   "partial_redemption": "This is a one-time use GV. The remaining balance in the GV will be forfeited once the GV is redeemed.",
+   "spend_scope": "The GV can only be used to make donations on the Points for Good website.",
+   "validity": "Yes, the expiration date of the Points For Good Gift Card is 3 to 12 months.",
+   "works_in_store": "This is a Points for Good GV (Gift Voucher) and will be accepted only on the website at https://www.pointsforgood.org/.",
+   "works_online": "This is a Points for Good GV (Gift Voucher) and will be accepted only on the website at https://www.pointsforgood.org/."
+  }
+ },
+ "gyftr:porter": {
+  "can_combine_with_store_offers": "no",
+  "excludes": [
+   "Mini Truck with 2 Labour category",
+   "Trucks",
+   "Two-Wheelers",
+   "Enterprise business services"
+  ],
+  "max_vouchers_per_bill": 1,
+  "one_time_use": "yes",
+  "partial_redemption": "no",
+  "spend_scope": "Intracity and Intercity House Shifting under Packers & Movers services only",
+  "works_in_store": "no",
+  "works_online": "yes",
+  "quotes": {
+   "can_combine_with_store_offers": "The GV/GC CANNOT be clubbed with the existing offers.",
+   "excludes": "It is not valid for the \"Mini Truck with 2 Labour\" category under Packers & Movers, or for booking Trucks, Two-Wheelers, or Enterprise business services on the Porter platform.",
+   "max_vouchers_per_bill": "Multiple GV/GCs cannot be redeemed in a single booking/order.",
+   "one_time_use": "This is a one-time use only GV/GC, and it cannot be partially redeemed or revalidated once expired.",
+   "partial_redemption": "This is a one-time use only GV/GC, and it cannot be partially redeemed or revalidated once expired.",
+   "spend_scope": "This GV/GC is applicable only for Intracity and Intercity House Shifting under Packers & Movers services.",
+   "works_in_store": "This is a Porter Packers & Movers GV/GC (Gift Voucher/Gift Card) issued by Porter and can be redeemed only on the Porter app for Packers & Movers services.",
+   "works_online": "Gift Vouchers CAN be used on the Porter app."
+  }
+ },
+ "gyftr:pottery-barn--luxe-gift-card": {
+  "can_combine_with_store_offers": "no",
+  "excludes": [
+   "airport stores",
+   "location: airport stores"
+  ],
+  "max_vouchers_per_bill": "unlimited",
+  "one_time_use": "yes",
+  "partial_redemption": "no",
+  "works_in_store": "yes",
+  "works_online": "yes",
+  "quotes": {
+   "can_combine_with_store_offers": "Gift Vouchers CANNOT be used during Sale.",
+   "excludes": "Luxe Gift Card is not redeemable at airport stores.",
+   "max_vouchers_per_bill": "Multiple Gift Vouchers CAN be used in one bill.",
+   "one_time_use": "EGV is ONE time use.",
+   "partial_redemption": "No refund/credit note shall be issued for unused parts of the GV/GC.",
+   "works_in_store": "Gift Vouchers are ACCEPTED at all listed Outlets.",
+   "works_online": "The GV/GC can also be used online on Armani Exchange, Steve Madden, Diesel India, Superdry, Mothercare India, GAS, Sunglass Hut India, Muji, Hamleys, Satya Paul, Brooks Brothers, Hunkemoller, Tumi, Pottery Barn, West Elm, Ritu Kumar."
+  }
+ },
+ "gyftr:prestige-gifting-delights": {
+  "can_combine_with_store_offers": "no",
+  "max_vouchers_per_bill": "unlimited",
+  "one_time_use": "yes",
+  "partial_redemption": "no",
+  "spend_scope": "products offered at a slashed or discounted price on the website",
+  "works_in_store": "no",
+  "works_online": "yes",
+  "quotes": {
+   "can_combine_with_store_offers": "The GV/GC cannot be clubbed with any existing offers, promotions, or discount codes at checkout.",
+   "max_vouchers_per_bill": "Multiple GV/GCs can be used in one bill.",
+   "one_time_use": "This is a one-time use GV/GC. The remaining balance in the GV/GC will be forfeited once the card is redeemed.",
+   "partial_redemption": "This is a one-time use GV/GC. The remaining balance in the GV/GC will be forfeited once the card is redeemed.",
+   "spend_scope": "The GV/GC can be used to purchase products offered at a slashed or discounted price on the website.",
+   "works_in_store": "This is a Prestige Gifting Delights GV/GC (Gift Voucher/Gift Card) and will be accepted only on the Prestige Gifting Delights website at https://www.prestigegiftingdelights.com.",
+   "works_online": "This is a Prestige Gifting Delights GV/GC (Gift Voucher/Gift Card) and will be accepted only on the Prestige Gifting Delights website at https://www.prestigegiftingdelights.com."
+  }
+ },
+ "gyftr:pvr": {
+  "can_combine_with_store_offers": "yes",
+  "excludes": [
+   "food-only purchases",
+   "INOX screens",
+   "PVR INOX management properties",
+   "location: PVR INOX management properties (see listed properties)"
+  ],
+  "max_vouchers_per_bill": "unlimited",
+  "one_time_use": "yes",
+  "partial_redemption": "no",
+  "spend_scope": "movie ticket bookings, or combined ticket and food bookings within a single transaction (not food-only)",
+  "works_in_store": "no",
+  "works_online": "yes",
+  "quotes": {
+   "can_combine_with_store_offers": "The GV/GC can be clubbed with the existing offers, except the ‘APP100’ coupon code.",
+   "excludes": "The GV/GC cannot be redeemed for food-only purchases.",
+   "max_vouchers_per_bill": "Multiple vouchers can be used in one bill/transaction.",
+   "one_time_use": "This is a one-time use GV/GC. The remaining balance in the GV/GC will be forfeited once the card is redeemed.",
+   "partial_redemption": "This is a one-time use GV/GC. The remaining balance in the GV/GC will be forfeited once the card is redeemed.",
+   "spend_scope": "The GV/GC cannot be redeemed for food-only purchases. They are valid only for:\na. Movie ticket bookings only, or\nb. Combined ticket and food bookings within a single transaction.",
+   "works_in_store": "Gift Vouchers CANNOT be used directly at Cinema Halls.",
+   "works_online": "Gift Vouchers CAN be used ONLINE at www.pvrcinemas.com & PVR Cinemas Mobile App"
+  }
+ },
+ "gyftr:quick-heal": {
+  "can_combine_with_store_offers": "no",
+  "max_vouchers_per_bill": 1,
+  "one_time_use": "yes",
+  "works_in_store": "no",
+  "works_online": "yes",
+  "quotes": {
+   "can_combine_with_store_offers": "GV/GC CANNOT be clubbed with existing offers",
+   "max_vouchers_per_bill": "Only One GV/GC can be used for one subscription",
+   "one_time_use": "This is a one-time use GV/GC with an expiration date",
+   "works_in_store": "The Gift Voucher/Gift Card (GV/GC) would only be accepted on the official website.",
+   "works_online": "This is a Quick Heal Gift Voucher/Gift Card (GV/GC) that will be accepted on the website at www.quickheal.co.in/installer"
+  }
+ },
+ "gyftr:rangriti": {
+  "can_combine_with_store_offers": "yes",
+  "max_vouchers_per_bill": "unlimited",
+  "works_in_store": "no",
+  "works_online": "yes",
+  "quotes": {
+   "can_combine_with_store_offers": "Gift Vouchers CAN be clubbed with any on-going promotions on website",
+   "max_vouchers_per_bill": "Multiple Gift Vouchers CAN be used in one bill",
+   "works_in_store": "Gift Vouchers CANNOT be used at outlet",
+   "works_online": "Gift Vouchers CAN Only be used online."
+  }
+ },
+ "gyftr:rare-ones": {
+  "can_combine_with_store_offers": "yes",
+  "one_time_use": "yes",
+  "partial_redemption": "no",
+  "works_in_store": "yes",
+  "works_online": "yes",
+  "quotes": {
+   "can_combine_with_store_offers": "The GV/e-Pay can be clubbed with existing offers.",
+   "one_time_use": "The GV can only be used for single redemption.",
+   "partial_redemption": "Any amount remaining in the GV post first redemption will be forfeited.",
+   "works_in_store": "This is a The House of Rare GV (Gift Voucher)/e-Pay and will be accepted at the listed exclusive retail outlets of The House of Rare, Rare Rabbit, Rareism, Rare Ones, and Rare'Z stores, on The House of Rare website at the houseofrare.com, and on The House of Rare mobile app",
+   "works_online": "This is a The House of Rare GV (Gift Voucher)/e-Pay and will be accepted at the listed exclusive retail outlets of The House of Rare, Rare Rabbit, Rareism, Rare Ones, and Rare'Z stores, on The House of Rare website at the houseofrare.com, and on The House of Rare mobile app"
+  }
+ },
+ "gyftr:rare-rabbit": {
+  "can_combine_with_store_offers": "yes",
+  "one_time_use": "yes",
+  "partial_redemption": "no",
+  "works_in_store": "yes",
+  "works_online": "yes",
+  "quotes": {
+   "can_combine_with_store_offers": "The GV/e-Pay can be clubbed with existing offers.",
+   "one_time_use": "The GV can only be used for single redemption.",
+   "partial_redemption": "Any amount remaining in the GV post first redemption will be forfeited.",
+   "works_in_store": "This is a The House of Rare GV (Gift Voucher)/e-Pay and will be accepted at the listed exclusive retail outlets of The House of Rare, Rare Rabbit, Rareism, Rare Ones, and Rare'Z stores, on The House of Rare website at the houseofrare.com, and on The House of Rare mobile app",
+   "works_online": "This is a The House of Rare GV (Gift Voucher)/e-Pay and will be accepted at the listed exclusive retail outlets of The House of Rare, Rare Rabbit, Rareism, Rare Ones, and Rare'Z stores, on The House of Rare website at the houseofrare.com, and on The House of Rare mobile app"
+  }
+ },
+ "gyftr:rareism": {
+  "can_combine_with_store_offers": "yes",
+  "one_time_use": "yes",
+  "partial_redemption": "no",
+  "works_in_store": "yes",
+  "works_online": "yes",
+  "quotes": {
+   "can_combine_with_store_offers": "The GV/e-Pay can be clubbed with existing offers.",
+   "one_time_use": "The GV can only be used for single redemption.",
+   "partial_redemption": "Any amount remaining in the GV post first redemption will be forfeited.",
+   "works_in_store": "This is a The House of Rare GV (Gift Voucher)/e-Pay and will be accepted at the listed exclusive retail outlets of The House of Rare, Rare Rabbit, Rareism, Rare Ones, and Rare'Z stores, on The House of Rare website at the houseofrare.com, and on The House of Rare mobile app",
+   "works_online": "This is a The House of Rare GV (Gift Voucher)/e-Pay and will be accepted at the listed exclusive retail outlets of The House of Rare, Rare Rabbit, Rareism, Rare Ones, and Rare'Z stores, on The House of Rare website at the houseofrare.com, and on The House of Rare mobile app"
+  }
+ },
+ "gyftr:rarez": {
+  "can_combine_with_store_offers": "yes",
+  "one_time_use": "yes",
+  "partial_redemption": "no",
+  "works_in_store": "yes",
+  "works_online": "yes",
+  "quotes": {
+   "can_combine_with_store_offers": "The GV/e-Pay can be clubbed with existing offers.",
+   "one_time_use": "The GV can only be used for single redemption.",
+   "partial_redemption": "Any amount remaining in the GV post first redemption will be forfeited.",
+   "works_in_store": "This is a The House of Rare GV (Gift Voucher)/e-Pay and will be accepted at the listed exclusive retail outlets of The House of Rare, Rare Rabbit, Rareism, Rare Ones, and Rare'Z stores, on The House of Rare website at the houseofrare.com, and on The House of Rare mobile app",
+   "works_online": "This is a The House of Rare GV (Gift Voucher)/e-Pay and will be accepted at the listed exclusive retail outlets of The House of Rare, Rare Rabbit, Rareism, Rare Ones, and Rare'Z stores, on The House of Rare website at the houseofrare.com, and on The House of Rare mobile app"
+  }
+ }
+}

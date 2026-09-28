@@ -1,0 +1,163 @@
+{
+  "buyhatke:clovia-gift-card": {
+    "works_online": "yes",
+    "works_in_store": "no",
+    "one_time_use": "yes",
+    "partial_redemption": "no",
+    "max_vouchers_per_bill": 1,
+    "can_combine_with_store_offers": "yes",
+    "spend_scope": "not_stated",
+    "excludes": [],
+    "min_order_value": "not_stated",
+    "max_spend_per_purchase": "not_stated",
+    "monthly_purchase_cap": "not_stated",
+    "validity": "1-year",
+    "delivery_wait": "not_stated",
+    "quotes": {
+      "works_online": "This voucher can be used only online",
+      "works_in_store": "This voucher can be used only online",
+      "one_time_use": "This voucher can be used only 1 time",
+      "partial_redemption": "This is a one-time use gift card any balance left after the transaction will lapse",
+      "max_vouchers_per_bill": "Maximum 1 voucher can be in one transaction",
+      "can_combine_with_store_offers": "Gift Vouchers can be clubbed with ongoing offers",
+      "validity": "Comes with 1-year validity and can be used Online at clovia.com"
+    }
+  },
+  "buyhatke:nykaa-gift-card": {
+    "works_online": "yes",
+    "works_in_store": "yes",
+    "one_time_use": "not_stated",
+    "partial_redemption": "yes",
+    "max_vouchers_per_bill": 1,
+    "can_combine_with_store_offers": "yes",
+    "spend_scope": "not_stated",
+    "excludes": [
+      "Gold/Silver Coins, Gold/Silver Bars and Jewellery"
+    ],
+    "min_order_value": "not_stated",
+    "max_spend_per_purchase": "not_stated",
+    "monthly_purchase_cap": "not_stated",
+    "validity": "365 days from the date of issue",
+    "delivery_wait": "not_stated",
+    "quotes": {
+      "works_online": "This voucher can be used both online and in-store",
+      "works_in_store": "This voucher can be used both online and in-store",
+      "partial_redemption": "If the order value is less than the amount of the Gift Card, the outstanding balance (after deduction of order value) will reflect under the same Gift Card.",
+      "max_vouchers_per_bill": "You can redeem only 1 Gift Card per order.",
+      "can_combine_with_store_offers": "The Gift Card can be combined with promotional codes and with other payment options",
+      "excludes": "Nykaa Gift Cards/E Gift Cards / Nykaa Wallet Balance cannot be used to purchase Gold/Silver Coins, Gold/Silver Bars and Jewellery.",
+      "validity": "This Gift Card shall have a validity period of 365 days from the date of issue"
+    }
+  },
+  "buyhatke:ola-cabs-gift-card": {
+    "works_online": "yes",
+    "works_in_store": "no",
+    "one_time_use": "yes",
+    "partial_redemption": "no",
+    "max_vouchers_per_bill": 1,
+    "can_combine_with_store_offers": "no",
+    "spend_scope": "any category other than Ola Drive, Ola Share, Rentals, Outstation, Food, Luxury, Auto, Bike & Shuttle",
+    "excludes": [
+      "Ola Drive",
+      "Ola Share",
+      "Rentals",
+      "Outstation",
+      "Food",
+      "Luxury",
+      "Auto",
+      "Bike & Shuttle"
+    ],
+    "min_order_value": "not_stated",
+    "max_spend_per_purchase": "not_stated",
+    "monthly_purchase_cap": "not_stated",
+    "validity": "not_stated",
+    "delivery_wait": "not_stated",
+    "quotes": {
+      "works_online": "This voucher can be used only online",
+      "works_in_store": "This voucher can be used only online",
+      "one_time_use": "This is a One-time use GV / GC.",
+      "partial_redemption": "It cannot be redeemed partially.",
+      "max_vouchers_per_bill": "Only ONE GV / GC can be used in one bill.",
+      "can_combine_with_store_offers": "Ola GV / GC cannot be clubbed with any other Promo code.",
+      "spend_scope": "The GV / GC can be redeemed towards any category other than Ola Drive, Ola Share, Rentals, Outstation, Food, Luxury, Auto, Bike & Shuttle.",
+      "excludes": "The GV / GC can be redeemed towards any category other than Ola Drive, Ola Share, Rentals, Outstation, Food, Luxury, Auto, Bike & Shuttle."
+    }
+  },
+  "buyhatke:pvr-gift-card": {
+    "works_online": "yes",
+    "works_in_store": "yes",
+    "one_time_use": "not_stated",
+    "partial_redemption": "not_stated",
+    "max_vouchers_per_bill": "not_stated",
+    "can_combine_with_store_offers": "not_stated",
+    "spend_scope": "not_stated",
+    "excludes": [
+      "PVR Opulent",
+      "certain INOX properties"
+    ],
+    "min_order_value": "not_stated",
+    "max_spend_per_purchase": "not_stated",
+    "monthly_purchase_cap": "not_stated",
+    "validity": "not_stated",
+    "delivery_wait": "not_stated",
+    "quotes": {
+      "works_online": "This voucher can be used both online and in-store",
+      "works_in_store": "This voucher can be used both online and in-store",
+      "excludes": "Not applicable on PVR Opulent"
+    }
+  },
+  "buyhatke:tatacliq-fashion-gift-card": {
+    "works_online": "yes",
+    "works_in_store": "no",
+    "one_time_use": "no",
+    "partial_redemption": "yes",
+    "max_vouchers_per_bill": "unlimited",
+    "can_combine_with_store_offers": "yes",
+    "spend_scope": "not_stated",
+    "excludes": [
+      "Gold Jewellery and bullions"
+    ],
+    "min_order_value": "not_stated",
+    "max_spend_per_purchase": "not_stated",
+    "monthly_purchase_cap": "not_stated",
+    "validity": "not_stated",
+    "delivery_wait": "not_stated",
+    "quotes": {
+      "works_online": "This voucher can be used only online",
+      "works_in_store": "This voucher can be used only online",
+      "one_time_use": "The GV/GC can be used multiple times, till the expiration date or till the time the balance is exhausted, whichever happens earlier",
+      "partial_redemption": "The GV/GC can be used multiple times, till the expiration date or till the time the balance is exhausted, whichever happens earlier",
+      "max_vouchers_per_bill": "Multiple GV/GC can be used against one bill. The number of GVs that can be aggregated is at the sole discretion of Tata CLiQ.",
+      "can_combine_with_store_offers": "The GV/GC can be clubbed with the existing offers.",
+      "excludes": "GV/GC is not applicable on the purchase of Gold Jewellery and bullions."
+    }
+  },
+  "buyhatke:zomato-gift-card": {
+    "works_online": "yes",
+    "works_in_store": "yes",
+    "one_time_use": "not_stated",
+    "partial_redemption": "yes",
+    "max_vouchers_per_bill": "unlimited",
+    "can_combine_with_store_offers": "yes",
+    "spend_scope": "food delivery orders",
+    "excludes": [
+      "dining bills on Zomato"
+    ],
+    "min_order_value": "not_stated",
+    "max_spend_per_purchase": "not_stated",
+    "monthly_purchase_cap": "not_stated",
+    "validity": "4 years from the date of purchase",
+    "delivery_wait": "normally instant, may be delayed up to 72 hours",
+    "quotes": {
+      "works_online": "This voucher can be used both online and in-store",
+      "works_in_store": "This voucher can be used both online and in-store",
+      "partial_redemption": "While redeeming the Gift PPIs, if the User’s purchase on the Zomato Platform exceeds the balance in the User Zomato Account, the remaining amount must be paid by the User through credit card, net banking, debit card or other digital payment methods available on the Zomato Platform.",
+      "max_vouchers_per_bill": "Multiple Gift Cards can be clubbed in a single order of purchase.",
+      "can_combine_with_store_offers": "The Gift PPI can be combined with promotional codes and with other digital payment options.",
+      "spend_scope": "Effective 1st July 2025, Zomato Money can be used only to pay for food delivery orders and not dining bills on Zomato.",
+      "excludes": "Effective 1st July 2025, Zomato Money can be used only to pay for food delivery orders and not dining bills on Zomato.",
+      "validity": "The Gift Card shall be valid for a period of four (4) years from the date of purchase and cannot be used to purchase other gift cards.",
+      "delivery_wait": "Gift PPIs are normally delivered instantly. However, there may be delays in the system upto 72 hours."
+    }
+  }
+}

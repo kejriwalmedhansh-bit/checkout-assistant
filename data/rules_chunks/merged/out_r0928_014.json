@@ -1,0 +1,1060 @@
+{
+ "gyftr:zepto": {
+  "excludes": [
+   "Jewellery, Coins & Tobacco products",
+   "Gift Cards, Gold, or Silver coins",
+   "location: The GV/GC cannot be used outside of India."
+  ],
+  "max_vouchers_per_bill": "unlimited",
+  "monthly_purchase_cap": 500000,
+  "one_time_use": "no",
+  "partial_redemption": "yes",
+  "works_in_store": "no",
+  "works_online": "yes",
+  "quotes": {
+   "excludes": "The GV/GC added to Zepto Wallet balance cannot be redeemed to purchase Jewellery, Coins & Tobacco products.",
+   "max_vouchers_per_bill": "More than one GV/GC can be used in one bill.",
+   "monthly_purchase_cap": "You can buy GV/GC up to Rs. 5 lakh per month, with each GV/GC up to Rs.10,000.",
+   "partial_redemption": "If the order value is less than the amount of the GV/GC, the outstanding balance (after deduction of order value) will reflect under the same GV/GC and can be used for subsequent transactions.",
+   "works_online": "The GV/GC would only be accepted on the Zepto mobile app and on www.zeptonow.com"
+  }
+ },
+ "gyftr:zomato-gift-card": {
+  "can_combine_with_store_offers": "yes",
+  "delivery_wait": "24-48 hours",
+  "excludes": [
+   "other GV/GC",
+   "other GV/GC (gift cards)"
+  ],
+  "one_time_use": "no",
+  "partial_redemption": "yes",
+  "works_in_store": "no",
+  "works_online": "yes",
+  "quotes": {
+   "can_combine_with_store_offers": "The GV/GC can be combined with promotional codes and other digital payment options at Zomato’s or its affiliate’s discretion.",
+   "delivery_wait": "GV/GC are normally delivered instantly. But sometimes due to system issues, the delivery can be delayed up-to 24-48 hours.",
+   "excludes": "The GV/GC is non-refundable; it can’t be used to purchase other GV/GC, and can’t be exchanged, transferred, resold, reloaded, or redeemed for cash.",
+   "one_time_use": "The GV/GC can be used for Multiple Transactions.",
+   "partial_redemption": "However, once added to the Zomato Credts Balance, you can use the balance at your leisure.",
+   "works_online": "The GV/GC can be accepted only on the Zomato App."
+  }
+ },
+ "maximize:armani-exchange-luxe": {
+  "can_combine_with_store_offers": "no",
+  "excludes": [
+   "airport stores",
+   "location: not redeemable at airport stores"
+  ],
+  "max_vouchers_per_bill": "unlimited",
+  "one_time_use": "yes",
+  "partial_redemption": "no",
+  "spend_scope": "full-priced merchandise",
+  "validity": "12 months from the date of purchase",
+  "works_in_store": "yes",
+  "works_online": "yes",
+  "quotes": {
+   "can_combine_with_store_offers": "The Gift Card can be redeemed only on full-priced merchandise and is not applicable on discounted items unless specified otherwise.",
+   "excludes": "The Luxe Gift Card is not redeemable at airport stores.",
+   "max_vouchers_per_bill": "Multiple Luxe Gift Cards can be used in a single transaction.",
+   "one_time_use": "The Luxe Gift Card is valid for one-time use only until expiry.",
+   "partial_redemption": "No refund or credit note will be issued for any unused balance.",
+   "spend_scope": "The Gift Card can be redeemed only on full-priced merchandise and is not applicable on discounted items unless specified otherwise.",
+   "validity": "The Luxe Gift Card is issued by Pine Labs Limited (formerly Pine Labs Private Limited) and is valid for 12 months from the date of purchase.",
+   "works_in_store": "The Luxe Gift Card can be redeemed across 45+ participating brands in India. For store locations, visit: https://www.luxegiftcard.com/brands#store_location",
+   "works_online": "The Gift Card can also be redeemed online at the brand websites"
+  }
+ },
+ "maximize:blaupunkt": {
+  "can_combine_with_store_offers": "no",
+  "excludes": [
+   "date: Not valid on block-out dates as per Blaupunkt policy."
+  ],
+  "max_vouchers_per_bill": "unlimited",
+  "one_time_use": "no",
+  "partial_redemption": "yes",
+  "validity": "upto 6 months",
+  "works_in_store": "no",
+  "works_online": "yes",
+  "quotes": {
+   "can_combine_with_store_offers": "Cannot be clubbed with any other discounts or promotions.",
+   "excludes": "Not valid on block-out dates as per Blaupunkt policy.",
+   "max_vouchers_per_bill": "Multiple vouchers can be added to the same e-Pay wallet.",
+   "partial_redemption": "GV can be converted into e-Pay and used partially.",
+   "validity": "Validity Valid for upto 6 months",
+   "works_online": "Redeemable only on https://blaupunktaudio.in/"
+  }
+ },
+ "maximize:brooks-brothers-luxe": {
+  "can_combine_with_store_offers": "no",
+  "excludes": [
+   "airport stores",
+   "location: not redeemable at airport stores"
+  ],
+  "max_vouchers_per_bill": "unlimited",
+  "one_time_use": "yes",
+  "partial_redemption": "no",
+  "spend_scope": "full-priced merchandise",
+  "validity": "12 months from the date of purchase",
+  "works_in_store": "yes",
+  "works_online": "yes",
+  "quotes": {
+   "can_combine_with_store_offers": "The Gift Card can be redeemed only on full-priced merchandise and is not applicable on discounted items unless specified otherwise.",
+   "excludes": "The Luxe Gift Card is not redeemable at airport stores.",
+   "max_vouchers_per_bill": "Multiple Luxe Gift Cards can be used in a single transaction.",
+   "one_time_use": "The Luxe Gift Card is valid for one-time use only until expiry.",
+   "partial_redemption": "No refund or credit note will be issued for any unused balance.",
+   "spend_scope": "The Gift Card can be redeemed only on full-priced merchandise and is not applicable on discounted items unless specified otherwise.",
+   "validity": "The Luxe Gift Card is issued by Pine Labs Limited (formerly Pine Labs Private Limited) and is valid for 12 months from the date of purchase.",
+   "works_in_store": "The Luxe Gift Card can be redeemed across 45+ participating brands in India. For store locations, visit: https://www.luxegiftcard.com/brands#store_location",
+   "works_online": "The Gift Card can also be redeemed online at the brand websites"
+  }
+ },
+ "maximize:cleartrip-hotels": {
+  "can_combine_with_store_offers": "no",
+  "max_spend_per_purchase": 10000,
+  "max_vouchers_per_bill": 15,
+  "one_time_use": "no",
+  "partial_redemption": "yes",
+  "spend_scope": "Hotels",
+  "validity": "12 months from the date of issuance",
+  "works_in_store": "no",
+  "works_online": "yes",
+  "quotes": {
+   "can_combine_with_store_offers": "Gift Cards cannot be clubbed with any other offer including but not limited to cashbacks, discounts etc. on a particular credit/debit card.",
+   "max_spend_per_purchase": "Maximum amount of each Gift Card cannot exceed Rs.10,000/.",
+   "max_vouchers_per_bill": "You can combine a maximum of 15 Gift Cards in a single booking for Hotels booking.",
+   "partial_redemption": "Any balance amount left on the used Gift Cards can be reused within the validity period.",
+   "spend_scope": "The Gift Cards can be redeemed online against bookings of Hotels as applicable on www.cleartrip.com or Cleartrip Mobile App (\"Platform\") only.",
+   "validity": "Gift Cards are valid for a period of 12 months from the date of issuance.",
+   "works_online": "The Gift Cards can be redeemed online against bookings of Hotels as applicable on www.cleartrip.com or Cleartrip Mobile App (\"Platform\") only."
+  }
+ },
+ "maximize:croma-(custom)-220": {
+  "max_vouchers_per_bill": 5,
+  "one_time_use": "yes",
+  "partial_redemption": "no",
+  "validity": "365 days from the date of its issuance",
+  "works_in_store": "yes",
+  "works_online": "yes",
+  "quotes": {
+   "max_vouchers_per_bill": "Only 5 Croma EGV can be redeem on Single Invoice on Croma.com.",
+   "one_time_use": "The Electronic Gift Vouchers has to be utilized in one single transaction and the balance will not be carried forward for the same.",
+   "partial_redemption": "The Electronic Gift Vouchers has to be utilized in one single transaction and the balance will not be carried forward for the same.",
+   "validity": "The validity period on the gift Vouchers is for 365 days from the date of its issuance or depends on the condition of the purchase.",
+   "works_in_store": "The Electronic Gift Vouchers can be redeemed on croma.com and at Croma Stores.",
+   "works_online": "The Electronic Gift Vouchers can be redeemed on croma.com and at Croma Stores."
+  }
+ },
+ "maximize:dune-london-luxe": {
+  "can_combine_with_store_offers": "no",
+  "excludes": [
+   "airport stores",
+   "location: not redeemable at airport stores"
+  ],
+  "max_vouchers_per_bill": "unlimited",
+  "one_time_use": "yes",
+  "partial_redemption": "no",
+  "spend_scope": "full-priced merchandise",
+  "validity": "12 months from the date of purchase",
+  "works_in_store": "yes",
+  "works_online": "yes",
+  "quotes": {
+   "can_combine_with_store_offers": "The Gift Card can be redeemed only on full-priced merchandise and is not applicable on discounted items unless specified otherwise.",
+   "excludes": "The Luxe Gift Card is not redeemable at airport stores.",
+   "max_vouchers_per_bill": "Multiple Luxe Gift Cards can be used in a single transaction.",
+   "one_time_use": "The Luxe Gift Card is valid for one-time use only until expiry.",
+   "partial_redemption": "No refund or credit note will be issued for any unused balance.",
+   "spend_scope": "The Gift Card can be redeemed only on full-priced merchandise and is not applicable on discounted items unless specified otherwise.",
+   "validity": "The Luxe Gift Card is issued by Pine Labs Limited (formerly Pine Labs Private Limited) and is valid for 12 months from the date of purchase.",
+   "works_in_store": "The Luxe Gift Card can be redeemed across 45+ participating brands in India. For store locations, visit: https://www.luxegiftcard.com/brands#store_location",
+   "works_online": "The Gift Card can also be redeemed online at the brand websites"
+  }
+ },
+ "maximize:euphoria-diamond": {
+  "can_combine_with_store_offers": "no",
+  "delivery_wait": "24 - 48 hours",
+  "excludes": [
+   "Gold jewellery",
+   "Gold/Silver coins"
+  ],
+  "one_time_use": "yes",
+  "partial_redemption": "no",
+  "spend_scope": "Diamond Jewellery products",
+  "validity": "1 year from the date of activation/issuance",
+  "works_in_store": "no",
+  "works_online": "yes",
+  "quotes": {
+   "can_combine_with_store_offers": "Different Offers/vouchers cannot be combined.",
+   "delivery_wait": "E-Gift Cards are normally delivered instantly. But sometimes due to system issues, the delivery can be delayed up-to 24 - 48 hours.",
+   "excludes": "This e-Gift card is valid on all Diamond Jewellery products and not on Gold jewellery and Gold/Silver coins.",
+   "one_time_use": "This e-Gift card is allowed for one-time redemption only.",
+   "partial_redemption": "Any unused balance on the e-Gift card will not be refunded or credited.",
+   "spend_scope": "This e-Gift card is valid on all Diamond Jewellery products and not on Gold jewellery and Gold/Silver coins.",
+   "validity": "This e-Gift Card is valid for 1 year from the date of activation/issuance and it cannot be further re-validated.",
+   "works_online": "It can be redeemed online at www.euphoriajewellery.in only."
+  }
+ },
+ "maximize:flipkart": {
+  "can_combine_with_store_offers": "yes",
+  "excludes": [
+   "other Flipkart Gift Cards",
+   "Flipkart First subscriptions",
+   "Gold and Silver products on the Platform"
+  ],
+  "max_vouchers_per_bill": 15,
+  "monthly_purchase_cap": 100000,
+  "one_time_use": "no",
+  "partial_redemption": "yes",
+  "validity": "12 months from the date of issuance",
+  "works_in_store": "no",
+  "works_online": "yes",
+  "quotes": {
+   "can_combine_with_store_offers": "Can be clubbed with other offers? Yes, clubbable with other offers / coupons",
+   "excludes": "Gift Cards cannot be used to purchase:\nOther Flipkart Gift Cards\nFlipkart First subscriptions\nGold and Silver products on the Platform",
+   "max_vouchers_per_bill": "A maximum of 15 Gift Cards can be combined in a single order at checkout.",
+   "monthly_purchase_cap": "The aggregate value of Gift Cards purchased cannot exceed ₹1,00,000 in a month.",
+   "partial_redemption": "If the order value is less than the Gift Card value, the remaining balance will continue to reflect under the same Gift Card and can be used for subsequent transactions.",
+   "validity": "Gift Cards are valid for 12 months from the date of issuance.",
+   "works_online": "Gift Cards can be redeemed online only against sellers listed on www.flipkart.com, Flipkart Mobile App, or Flipkart m-site (“Platform”)."
+  }
+ },
+ "maximize:forever-new": {
+  "can_combine_with_store_offers": "no",
+  "excludes": [
+   "other gift cards"
+  ],
+  "one_time_use": "no",
+  "partial_redemption": "yes",
+  "validity": "12 months from the date of issue or the last transaction, whichever is later",
+  "works_in_store": "yes",
+  "works_online": "yes",
+  "quotes": {
+   "can_combine_with_store_offers": "Can be clubbed with other offers? No, can't club with other offers / coupons",
+   "excludes": "The Gift Card cannot be used to purchase other gift cards.",
+   "partial_redemption": "The Gift Card can be used till balance or validity.",
+   "validity": "This Gift Card is valid for a period of 12 months from the date of issue or the last transaction, whichever is later.",
+   "works_in_store": "This gift card (Gift Card) is issued by Forever New Apparel Private Limited (Forever New) and can be redeemed only against purchase of eligible products from retail outlets of Forever New or its website i.e. https://www.forevernew.co.in/.",
+   "works_online": "This gift card (Gift Card) is issued by Forever New Apparel Private Limited (Forever New) and can be redeemed only against purchase of eligible products from retail outlets of Forever New or its website i.e. https://www.forevernew.co.in/."
+  }
+ },
+ "maximize:gas-luxe": {
+  "can_combine_with_store_offers": "no",
+  "excludes": [
+   "airport stores",
+   "location: not redeemable at airport stores"
+  ],
+  "max_vouchers_per_bill": "unlimited",
+  "one_time_use": "yes",
+  "partial_redemption": "no",
+  "spend_scope": "full-priced merchandise",
+  "validity": "12 months from the date of purchase",
+  "works_in_store": "yes",
+  "works_online": "yes",
+  "quotes": {
+   "can_combine_with_store_offers": "The Gift Card can be redeemed only on full-priced merchandise and is not applicable on discounted items unless specified otherwise.",
+   "excludes": "The Luxe Gift Card is not redeemable at airport stores.",
+   "max_vouchers_per_bill": "Multiple Luxe Gift Cards can be used in a single transaction.",
+   "one_time_use": "The Luxe Gift Card is valid for one-time use only until expiry.",
+   "partial_redemption": "No refund or credit note will be issued for any unused balance.",
+   "spend_scope": "The Gift Card can be redeemed only on full-priced merchandise and is not applicable on discounted items unless specified otherwise.",
+   "validity": "The Luxe Gift Card is issued by Pine Labs Limited (formerly Pine Labs Private Limited) and is valid for 12 months from the date of purchase.",
+   "works_in_store": "The Luxe Gift Card can be redeemed across 45+ participating brands in India. For store locations, visit: https://www.luxegiftcard.com/brands#store_location",
+   "works_online": "The Gift Card can also be redeemed online at the brand websites"
+  }
+ },
+ "maximize:hamleys-luxe": {
+  "can_combine_with_store_offers": "no",
+  "excludes": [
+   "airport stores",
+   "location: not redeemable at airport stores"
+  ],
+  "max_vouchers_per_bill": "unlimited",
+  "one_time_use": "yes",
+  "partial_redemption": "no",
+  "spend_scope": "full-priced merchandise",
+  "validity": "12 months from the date of purchase",
+  "works_in_store": "yes",
+  "works_online": "yes",
+  "quotes": {
+   "can_combine_with_store_offers": "The Gift Card can be redeemed only on full-priced merchandise and is not applicable on discounted items unless specified otherwise.",
+   "excludes": "The Luxe Gift Card is not redeemable at airport stores.",
+   "max_vouchers_per_bill": "Multiple Luxe Gift Cards can be used in a single transaction.",
+   "one_time_use": "The Luxe Gift Card is valid for one-time use only until expiry.",
+   "partial_redemption": "No refund or credit note will be issued for any unused balance.",
+   "spend_scope": "The Gift Card can be redeemed only on full-priced merchandise and is not applicable on discounted items unless specified otherwise.",
+   "validity": "The Luxe Gift Card is issued by Pine Labs Limited (formerly Pine Labs Private Limited) and is valid for 12 months from the date of purchase.",
+   "works_in_store": "The Luxe Gift Card can be redeemed across 45+ participating brands in India. For store locations, visit: https://www.luxegiftcard.com/brands#store_location",
+   "works_online": "The Gift Card can also be redeemed online at the brand websites"
+  }
+ },
+ "maximize:homecentre-offline": {
+  "can_combine_with_store_offers": "no",
+  "max_vouchers_per_bill": "unlimited",
+  "one_time_use": "yes",
+  "partial_redemption": "no",
+  "validity": "minimum of 6 months",
+  "works_in_store": "yes",
+  "works_online": "no",
+  "quotes": {
+   "can_combine_with_store_offers": "Can be clubbed with other offers? No, can't club with other offers / coupons",
+   "max_vouchers_per_bill": "Multiple e-gift cards can be redeemed in a single invoice.",
+   "one_time_use": "This Lifestyle eGift Card can be redeemed only once and in full.",
+   "partial_redemption": "No refunds/credit note shall be issued for unused part of the eGift card.",
+   "validity": "This eGift Card is valid for a period of minimum 6 months.",
+   "works_in_store": "eGift card are redeemable at all stores of Lifestyle & Home Centre in India.",
+   "works_online": "This eGift Card can be used at our offline stores only."
+  }
+ },
+ "maximize:hugo-boss-luxe": {
+  "can_combine_with_store_offers": "no",
+  "excludes": [
+   "airport stores",
+   "location: not redeemable at airport stores"
+  ],
+  "max_vouchers_per_bill": "unlimited",
+  "one_time_use": "yes",
+  "partial_redemption": "no",
+  "spend_scope": "full-priced merchandise",
+  "validity": "12 months from the date of purchase",
+  "works_in_store": "yes",
+  "works_online": "yes",
+  "quotes": {
+   "can_combine_with_store_offers": "The Gift Card can be redeemed only on full-priced merchandise and is not applicable on discounted items unless specified otherwise.",
+   "excludes": "The Luxe Gift Card is not redeemable at airport stores.",
+   "max_vouchers_per_bill": "Multiple Luxe Gift Cards can be used in a single transaction.",
+   "one_time_use": "The Luxe Gift Card is valid for one-time use only until expiry.",
+   "partial_redemption": "No refund or credit note will be issued for any unused balance.",
+   "spend_scope": "The Gift Card can be redeemed only on full-priced merchandise and is not applicable on discounted items unless specified otherwise.",
+   "validity": "The Luxe Gift Card is issued by Pine Labs Limited (formerly Pine Labs Private Limited) and is valid for 12 months from the date of purchase.",
+   "works_in_store": "The Luxe Gift Card can be redeemed across 45+ participating brands in India. For store locations, visit: https://www.luxegiftcard.com/brands#store_location",
+   "works_online": "The Gift Card can also be redeemed online at the brand websites"
+  }
+ },
+ "maximize:joyalukkas-diamond": {
+  "can_combine_with_store_offers": "no",
+  "excludes": [
+   "gold or silver bars or coins"
+  ],
+  "partial_redemption": "yes",
+  "spend_scope": "diamond ornaments",
+  "validity": "1 year from the date of issue",
+  "works_in_store": "yes",
+  "works_online": "yes",
+  "quotes": {
+   "can_combine_with_store_offers": "Can be clubbed with other offers? No, can't club with other offers / coupons",
+   "excludes": "This E-Gift Card cannot be redeemed for gold or silver bars or coins.",
+   "partial_redemption": "Use multiple times online until fully used; no partial redemption in stores.",
+   "spend_scope": "This E-Gift Card is redeemable only on diamond ornaments at Joyalukkas outlets.",
+   "validity": "The voucher is valid for 1 year from the date of issue.",
+   "works_in_store": "This E-Gift Card is redeemable only on diamond ornaments at Joyalukkas outlets.",
+   "works_online": "Select the eligible product(s) on the Joyalukkas website/app."
+  }
+ },
+ "maximize:joyalukkas-pure-gold": {
+  "one_time_use": "no",
+  "partial_redemption": "yes",
+  "validity": "1 year from the date of issuance",
+  "works_in_store": "yes",
+  "works_online": "yes",
+  "quotes": {
+   "partial_redemption": "E-Gift Vouchers issued by Joyalukkas can be redeemed partially and used multiple times on the Joyalukkas India website or mobile app until the full value is exhausted or the card validity expires.",
+   "validity": "This E-Gift Card is valid for 1 year from the date of issuance.",
+   "works_in_store": "This E-Gift Card is valid at Joyalukkas outlets in India.",
+   "works_online": "The E-Gift Card can be partially redeemed online."
+  }
+ },
+ "maximize:kate-spade-luxe": {
+  "can_combine_with_store_offers": "no",
+  "excludes": [
+   "airport stores",
+   "location: not redeemable at airport stores"
+  ],
+  "max_vouchers_per_bill": "unlimited",
+  "one_time_use": "yes",
+  "partial_redemption": "no",
+  "spend_scope": "full-priced merchandise",
+  "validity": "12 months from the date of purchase",
+  "works_in_store": "yes",
+  "works_online": "yes",
+  "quotes": {
+   "can_combine_with_store_offers": "The Gift Card can be redeemed only on full-priced merchandise and is not applicable on discounted items unless specified otherwise.",
+   "excludes": "The Luxe Gift Card is not redeemable at airport stores.",
+   "max_vouchers_per_bill": "Multiple Luxe Gift Cards can be used in a single transaction.",
+   "one_time_use": "The Luxe Gift Card is valid for one-time use only until expiry.",
+   "partial_redemption": "No refund or credit note will be issued for any unused balance.",
+   "spend_scope": "The Gift Card can be redeemed only on full-priced merchandise and is not applicable on discounted items unless specified otherwise.",
+   "validity": "The Luxe Gift Card is issued by Pine Labs Limited (formerly Pine Labs Private Limited) and is valid for 12 months from the date of purchase.",
+   "works_in_store": "The Luxe Gift Card can be redeemed across 45+ participating brands in India. For store locations, visit: https://www.luxegiftcard.com/brands#store_location",
+   "works_online": "The Gift Card can also be redeemed online at the brand websites"
+  }
+ },
+ "maximize:kimirica": {
+  "can_combine_with_store_offers": "yes",
+  "max_vouchers_per_bill": "unlimited",
+  "one_time_use": "no",
+  "partial_redemption": "yes",
+  "validity": "upto 6 Months from purchase",
+  "works_in_store": "no",
+  "works_online": "yes",
+  "quotes": {
+   "can_combine_with_store_offers": "GV/e-Pay can be used for all products and services on the Kimirica website and can be clubbed with existing discounts/offers.",
+   "max_vouchers_per_bill": "The GV can be converted into e-Pay at the holder’s convenience, and multiple GVs can be combined into the e-Pay balance.",
+   "partial_redemption": "After conversion, partial redemption is allowed; unused balance remains in the e-Pay wallet and can be used across multiple transactions within validity.",
+   "validity": "Validity Valid upto 6 Months from purchase",
+   "works_online": "This is a Kimirica Gift Voucher (GV) / e-Pay, redeemable only on www.kimirica.shop ."
+  }
+ },
+ "maximize:lakme-salon": {
+  "can_combine_with_store_offers": "no",
+  "delivery_wait": "up-to 24 hours",
+  "max_vouchers_per_bill": 1,
+  "one_time_use": "yes",
+  "partial_redemption": "no",
+  "validity": "upto 12 months",
+  "works_in_store": "yes",
+  "quotes": {
+   "can_combine_with_store_offers": "Can be clubbed with other offers? No, can't club with other offers / coupons",
+   "delivery_wait": "E-Gift Cards are normally delivered instantly. But sometimes due to system issues, the delivery can be delayed up-to 24 hours.",
+   "max_vouchers_per_bill": "Can the cards be clubbed? Multiple cards can't be clubbed",
+   "one_time_use": "This E- Gift Card can be redeemed only once and should be redeemed in full.",
+   "partial_redemption": "This E- Gift Card can be redeemed only once and should be redeemed in full.",
+   "validity": "Validity Valid for upto 12 months",
+   "works_in_store": "This E-Gift Card is valid and can be redeemed against services at all salons of Lakme Salon Network."
+  }
+ },
+ "maximize:lulu-hypermarket": {
+  "can_combine_with_store_offers": "no",
+  "delivery_wait": "24–48 hours",
+  "max_vouchers_per_bill": "unlimited",
+  "one_time_use": "yes",
+  "partial_redemption": "no",
+  "validity": "one year from the date of activation",
+  "works_in_store": "yes",
+  "works_online": "yes",
+  "quotes": {
+   "can_combine_with_store_offers": "Can be clubbed with other offers? No, can't club with other offers / coupons",
+   "delivery_wait": "E-Gift Cards are generally delivered instantly. However, because of technical or system-related issues, delivery may sometimes take up to 24–48 hours.",
+   "max_vouchers_per_bill": "More than one Lulu E-Gift Card can be used for a single purchase.",
+   "one_time_use": "The E-Gift Card can be redeemed only once.",
+   "partial_redemption": "Any unused balance remaining after redemption will be forfeited and cannot subsequently be claimed.",
+   "validity": "The E-Gift Card remains valid for one year from the date of activation.",
+   "works_in_store": "The E-Gift Card can be used at Lulu Hypermarket, Lulu Fashion Store, Lulu Connect, Lulu Celebrate, Lulu Xpress, Lulu Daily, and Lulu Webstore across India.",
+   "works_online": "The E-Gift Card can be used at Lulu Hypermarket, Lulu Fashion Store, Lulu Connect, Lulu Celebrate, Lulu Xpress, Lulu Daily, and Lulu Webstore across India."
+  }
+ },
+ "maximize:makemytrip-bus": {
+  "can_combine_with_store_offers": "no",
+  "excludes": [
+   "myBiz bookings",
+   "Pay Later Payment option",
+   "Pay Later Payment option (Book Now Pay Later/Reserve Now Pay Later)"
+  ],
+  "max_vouchers_per_bill": 3,
+  "one_time_use": "no",
+  "partial_redemption": "yes",
+  "spend_scope": "Bus bookings",
+  "validity": "12 Months from the date of Purchase",
+  "works_in_store": "yes",
+  "works_online": "yes",
+  "quotes": {
+   "can_combine_with_store_offers": "This Gift card/voucher cannot be clubbed with any other ongoing offer discount/cash back/promotion run by Makemytrip.com on app or website.",
+   "excludes": "The Gift Card is not valid on bookings through myBiz.",
+   "max_vouchers_per_bill": "Multiple Gift Cards (up to 3) can be combined and used in 1 booking.",
+   "partial_redemption": "This Gift card is valid for partial redemption. Balance would remain in the Gift Card till the validity period and can be reused for multiple transactions.",
+   "spend_scope": "This Gift card is only applicable on Bus bookings.",
+   "validity": "The Gift card is valid for purchases made from MakeMyTrip only and is valid for a period of 12 Months from the date of Purchase.",
+   "works_in_store": "Gift Card code/Physical copy or both to be provided at the time of booking along with an ID proof for the offline redemption.",
+   "works_online": "Can be redeemed online at www.makemytrip.com or on MakeMyTrip Android & IOS app."
+  }
+ },
+ "maximize:makemytrip-hotel": {
+  "can_combine_with_store_offers": "no",
+  "excludes": [
+   "Flights",
+   "Holiday packages",
+   "Homestays",
+   "Bus",
+   "Rail and Car bookings",
+   "myBiz bookings",
+   "Rail",
+   "Car bookings"
+  ],
+  "max_vouchers_per_bill": 3,
+  "one_time_use": "no",
+  "partial_redemption": "yes",
+  "spend_scope": "Hotels",
+  "validity": "12 Months from the date of Purchase",
+  "works_in_store": "no",
+  "works_online": "yes",
+  "quotes": {
+   "can_combine_with_store_offers": "This Gift card/voucher cannot be clubbed with any other ongoing offer discount/cash back/promotion run by Makemytrip.com on app or website.",
+   "excludes": "This Gift card is not valid on Flights, Holiday packages, Homestays, Bus, Rail and Car bookings.",
+   "max_vouchers_per_bill": "Multiple Gift Cards (up to 3) can be combined and used on 1 transaction.",
+   "partial_redemption": "This Gift card is valid for partial redemption. Balance would remain in the Gift Card till the validity period and can be reused for multiple transactions.",
+   "spend_scope": "The Gift card is valid for purchases made on Hotels only.",
+   "validity": "The Gift card is valid for purchases made from Makemytrip only and is valid for a period of 12 Months from the date of Purchase.",
+   "works_in_store": "Hotels are not redeemable offline.",
+   "works_online": "Can be redeemed online at www.makemytrip.com or on MakeMyTrip Android & IOS app."
+  }
+ },
+ "maximize:makemytrip-rail": {
+  "can_combine_with_store_offers": "no",
+  "excludes": [
+   "myBiz bookings",
+   "Pay Later Payment option",
+   "Pay Later Payment option (Book Now Pay Later/Reserve Now Pay Later)"
+  ],
+  "max_vouchers_per_bill": 3,
+  "one_time_use": "no",
+  "partial_redemption": "yes",
+  "spend_scope": "Rail bookings",
+  "validity": "12 Months from the date of Purchase",
+  "works_in_store": "yes",
+  "works_online": "yes",
+  "quotes": {
+   "can_combine_with_store_offers": "This Gift card/voucher cannot be clubbed with any other ongoing offer discount/cash back/promotion run by Makemytrip.com on app or website.",
+   "excludes": "The Gift Card is not valid on bookings through myBiz.",
+   "max_vouchers_per_bill": "Multiple Gift Cards (up to 3) can be combined and used in 1 booking.",
+   "partial_redemption": "This Gift card is valid for partial redemption. Balance would remain in the Gift Card till the validity period and can be reused for multiple transactions.",
+   "spend_scope": "This Gift card is only applicable on Rail bookings.",
+   "validity": "The Gift card is valid for purchases made from MakeMyTrip only and is valid for a period of 12 Months from the date of Purchase.",
+   "works_in_store": "Gift Card code/Physical copy or both to be provided at the time of booking along with an ID proof for the offline redemption.",
+   "works_online": "Can be redeemed online at www.makemytrip.com or on MakeMyTrip Android & IOS app."
+  }
+ },
+ "maximize:marriott-hotels-india": {
+  "excludes": [
+   "Advance purchases",
+   "F&F rates",
+   "group bookings",
+   "third-party payments"
+  ],
+  "max_vouchers_per_bill": 1,
+  "one_time_use": "yes",
+  "partial_redemption": "no",
+  "validity": "12 months from date of activation",
+  "works_in_store": "yes",
+  "works_online": "no",
+  "quotes": {
+   "excludes": "Cannot be used for: Advance purchases, F&F rates, group bookings, or third-party payments.",
+   "max_vouchers_per_bill": "Multiple cards cannot be combined.",
+   "one_time_use": "One-time use. Partial redemption not allowed.",
+   "partial_redemption": "One-time use. Partial redemption not allowed.",
+   "validity": "Valid for 12 months from date of activation.",
+   "works_in_store": "Accepted only at listed Marriott hotels in India.",
+   "works_online": "Accepted only at listed Marriott hotels in India."
+  }
+ },
+ "maximize:marriott-india-dining": {
+  "delivery_wait": "up to 48 hours",
+  "excludes": [
+   "Advance purchases",
+   "deposits",
+   "Meetings",
+   "catering",
+   "group bookings",
+   "OTA or third-party bookings",
+   "location: international Marriott locations or third-party services"
+  ],
+  "max_vouchers_per_bill": 1,
+  "one_time_use": "yes",
+  "partial_redemption": "no",
+  "spend_scope": "Restaurants, spas, and salons operated by Marriott",
+  "validity": "1 year from activation",
+  "works_in_store": "yes",
+  "works_online": "no",
+  "quotes": {
+   "delivery_wait": "E-Gift cards are usually delivered instantly but may take up to 48 hours due to technical delays.",
+   "excludes": "Ineligible Uses: Advance purchases, deposits, Meetings, catering, group bookings, OTA or third-party bookings",
+   "max_vouchers_per_bill": "Can the cards be clubbed? Multiple cards can't be clubbed",
+   "one_time_use": "Single-use only, no partial redemption",
+   "partial_redemption": "Single-use only, no partial redemption",
+   "spend_scope": "Eligible Expenses: Restaurants, spas, and salons operated by Marriott",
+   "validity": "Validity: 1 year from activation",
+   "works_in_store": "Usage: Valid only at participating Marriott Hotels in India",
+   "works_online": "Usage: Valid only at participating Marriott Hotels in India"
+  }
+ },
+ "maximize:marriott-india-spa": {
+  "excludes": [
+   "advance bookings",
+   "deposits",
+   "negotiated/group rates",
+   "meetings",
+   "catering",
+   "third-party bookings",
+   "travel agents",
+   "location: Cannot be used outside India."
+  ],
+  "max_vouchers_per_bill": 1,
+  "one_time_use": "yes",
+  "partial_redemption": "no",
+  "spend_scope": "eligible Spa services and other hotel-operated services",
+  "validity": "1 year from the date of activation/issuance",
+  "works_in_store": "yes",
+  "works_online": "no",
+  "quotes": {
+   "excludes": "Not valid for advance bookings, deposits, negotiated/group rates, meetings, catering, third-party bookings, or travel agents.",
+   "max_vouchers_per_bill": "Can the cards be clubbed? Multiple cards can't be clubbed",
+   "one_time_use": "This is a single-use Gift Card.",
+   "partial_redemption": "Partial redemption is not allowed.",
+   "spend_scope": "Applicable on eligible Spa services and other hotel-operated services at participating hotels.",
+   "validity": "Valid for 1 year from the date of activation/issuance.",
+   "works_in_store": "Valid only at participating Marriott Hotels in India.",
+   "works_online": "Valid only at participating Marriott Hotels in India."
+  }
+ },
+ "maximize:max-fashion-offline": {
+  "can_combine_with_store_offers": "yes",
+  "max_vouchers_per_bill": "unlimited",
+  "one_time_use": "yes",
+  "partial_redemption": "no",
+  "validity": "minimum of 6 months from the date of issuance",
+  "works_in_store": "yes",
+  "works_online": "no",
+  "quotes": {
+   "can_combine_with_store_offers": "Can be clubbed with other offers? Yes, clubbable with other offers / coupons",
+   "max_vouchers_per_bill": "Multiple eGift Cards can be redeemed in a single invoice",
+   "one_time_use": "eGift Cards are redeemable only once and in full",
+   "partial_redemption": "eGift Cards are redeemable only once and in full",
+   "validity": "Valid for a minimum of 6 months from the date of issuance",
+   "works_in_store": "Max eGift Cards are redeemable at Max offline stores in India only",
+   "works_online": "Max eGift Cards are redeemable at Max offline stores in India only"
+  }
+ },
+ "maximize:mia-by-tanishq": {
+  "max_vouchers_per_bill": 1,
+  "one_time_use": "yes",
+  "partial_redemption": "no",
+  "spend_scope": "Mia Studded Products",
+  "validity": "180 days from the date of issuance",
+  "works_in_store": "yes",
+  "works_online": "no",
+  "quotes": {
+   "max_vouchers_per_bill": "Can the cards be clubbed? Multiple cards can't be clubbed",
+   "one_time_use": "This e-Gift card allowed for one-time redemption only.",
+   "partial_redemption": "Any unused balance on the e-Gift card, will not be refunded or credited.",
+   "spend_scope": "This e-Gift card is valid only on Mia Studded Products at the participating Mia by Tanishq Authorised Showrooms in India.",
+   "validity": "This e-Gift Card is valid for 180 days from the date of issuance and it can not be further re-validated for any reason whatsoever.",
+   "works_in_store": "This e-Gift card is valid only on Mia Studded Products at the participating Mia by Tanishq Authorised Showrooms in India."
+  }
+ },
+ "maximize:michael-kors-luxe": {
+  "can_combine_with_store_offers": "no",
+  "excludes": [
+   "airport stores",
+   "location: not redeemable at airport stores"
+  ],
+  "max_vouchers_per_bill": "unlimited",
+  "one_time_use": "yes",
+  "partial_redemption": "no",
+  "spend_scope": "full-priced merchandise",
+  "validity": "12 months from the date of purchase",
+  "works_in_store": "yes",
+  "works_online": "yes",
+  "quotes": {
+   "can_combine_with_store_offers": "The Gift Card can be redeemed only on full-priced merchandise and is not applicable on discounted items unless specified otherwise.",
+   "excludes": "The Luxe Gift Card is not redeemable at airport stores.",
+   "max_vouchers_per_bill": "Multiple Luxe Gift Cards can be used in a single transaction.",
+   "one_time_use": "The Luxe Gift Card is valid for one-time use only until expiry.",
+   "partial_redemption": "No refund or credit note will be issued for any unused balance.",
+   "spend_scope": "The Gift Card can be redeemed only on full-priced merchandise and is not applicable on discounted items unless specified otherwise.",
+   "validity": "The Luxe Gift Card is issued by Pine Labs Limited (formerly Pine Labs Private Limited) and is valid for 12 months from the date of purchase.",
+   "works_in_store": "The Luxe Gift Card can be redeemed across 45+ participating brands in India. For store locations, visit: https://www.luxegiftcard.com/brands#store_location",
+   "works_online": "The Gift Card can also be redeemed online at the brand websites"
+  }
+ },
+ "maximize:mother-care-luxe": {
+  "can_combine_with_store_offers": "no",
+  "excludes": [
+   "airport stores",
+   "location: not redeemable at airport stores"
+  ],
+  "max_vouchers_per_bill": "unlimited",
+  "one_time_use": "yes",
+  "partial_redemption": "no",
+  "spend_scope": "full-priced merchandise",
+  "validity": "12 months from the date of purchase",
+  "works_in_store": "yes",
+  "works_online": "yes",
+  "quotes": {
+   "can_combine_with_store_offers": "The Gift Card can be redeemed only on full-priced merchandise and is not applicable on discounted items unless specified otherwise.",
+   "excludes": "The Luxe Gift Card is not redeemable at airport stores.",
+   "max_vouchers_per_bill": "Multiple Luxe Gift Cards can be used in a single transaction.",
+   "one_time_use": "The Luxe Gift Card is valid for one-time use only until expiry.",
+   "partial_redemption": "No refund or credit note will be issued for any unused balance.",
+   "spend_scope": "The Gift Card can be redeemed only on full-priced merchandise and is not applicable on discounted items unless specified otherwise.",
+   "validity": "The Luxe Gift Card is issued by Pine Labs Limited (formerly Pine Labs Private Limited) and is valid for 12 months from the date of purchase.",
+   "works_in_store": "The Luxe Gift Card can be redeemed across 45+ participating brands in India. For store locations, visit: https://www.luxegiftcard.com/brands#store_location",
+   "works_online": "The Gift Card can also be redeemed online at the brand websites"
+  }
+ },
+ "maximize:nature-s-basket": {
+  "can_combine_with_store_offers": "no",
+  "max_vouchers_per_bill": 1,
+  "one_time_use": "yes",
+  "partial_redemption": "no",
+  "validity": "12 months from the date of issue",
+  "works_in_store": "yes",
+  "works_online": "no",
+  "quotes": {
+   "can_combine_with_store_offers": "Can be clubbed with other offers? No, can't club with other offers / coupons",
+   "max_vouchers_per_bill": "Can the cards be clubbed? Multiple cards can't be clubbed",
+   "one_time_use": "E-GVs are only one time redeemable.",
+   "partial_redemption": "For redemption in-store the E-GV needs to be used in full.",
+   "validity": "Any balance in the E-Voucher is valid only for 12 months from the date of issue",
+   "works_in_store": "This gift E-Voucher can be used for making payments only at Nature’s Basket stores across India",
+   "works_online": "This gift E-Voucher can be used for making payments only at Nature’s Basket stores across India"
+  }
+ },
+ "maximize:neeman-s": {
+  "can_combine_with_store_offers": "yes",
+  "max_vouchers_per_bill": "unlimited",
+  "one_time_use": "no",
+  "partial_redemption": "yes",
+  "validity": "upto 6 Months from purchase",
+  "works_in_store": "no",
+  "works_online": "yes",
+  "quotes": {
+   "can_combine_with_store_offers": "The GV/GC can be used along with existing discounts on the Neeman’s website.",
+   "max_vouchers_per_bill": "Your balance will be updated and you can redeem or click 'Add More' to combine multiple vouchers.",
+   "partial_redemption": "After conversion into e-Pay, this GV/GC is valid for partial redemption.",
+   "validity": "Validity Valid upto 6 Months from purchase",
+   "works_online": "This is a Neeman’s Gift Voucher (GV) or Gift Card (GC) accepted only on Neeman’s official website."
+  }
+ },
+ "maximize:nilkamal-homes": {
+  "can_combine_with_store_offers": "yes",
+  "delivery_wait": "up-to 24 - 48 hours",
+  "max_vouchers_per_bill": "unlimited",
+  "one_time_use": "yes",
+  "partial_redemption": "no",
+  "validity": "one year from the date of Purchase",
+  "works_in_store": "yes",
+  "works_online": "yes",
+  "quotes": {
+   "can_combine_with_store_offers": "The E-Gift can be utilized with combination of other promotional offers at store or website.",
+   "delivery_wait": "E-Gift Cards are normally delivered instantly. But sometimes due to system issues, the delivery can be delayed up-to 24 - 48 hours.",
+   "max_vouchers_per_bill": "Can the cards be clubbed? Use several gift cards in one purchase",
+   "one_time_use": "E– Gift cards can be redeemed only once.",
+   "partial_redemption": "Balance if any, of the E-Gift after purchase shall not be carried forward.",
+   "validity": "This E-Gift card is valid for one year from the date of Purchase.",
+   "works_in_store": "The E – Gift cards can be redeemed at www.nilkamalhomes.com and at Nilkamal Homes stores only.",
+   "works_online": "The E – Gift cards can be redeemed at www.nilkamalhomes.com and at Nilkamal Homes stores only."
+  }
+ },
+ "maximize:nykaa-fashion": {
+  "can_combine_with_store_offers": "yes",
+  "excludes": [
+   "Gold Silver Coins",
+   "Gold Silver Bars",
+   "Jewellery",
+   "Gold Silver Coins, Gold Silver Bars and Jewellery",
+   "other gift cards"
+  ],
+  "max_vouchers_per_bill": 1,
+  "one_time_use": "no",
+  "partial_redemption": "yes",
+  "validity": "365 days from the date of issue",
+  "works_in_store": "yes",
+  "works_online": "yes",
+  "quotes": {
+   "can_combine_with_store_offers": "The Gift Card can be combined with promotional codes and with other payment options",
+   "excludes": "Nykaa Gift Cards E Gift Cards Nykaa Wallet Balance cannot be used to purchase Gold Silver Coins Gold Silver Bars and Jewellery",
+   "max_vouchers_per_bill": "You can redeem only 1 Gift Card per order",
+   "partial_redemption": "Registered users can add multiple Nykaa Gift Cards to their Nykaa Wallet and use the combined Nykaa Wallet Balance for redemption",
+   "validity": "This Gift Card shall have a validity period of 365 days from the date of issue",
+   "works_in_store": "This Gift Card is redeemable on the online ecommerce platforms of Nykaa group entities to include www.nykaa.com www.nykaaman.com www.nykaafashion.com and across all Nykaa Retail stores",
+   "works_online": "This Gift Card is redeemable on the online ecommerce platforms of Nykaa group entities to include www.nykaa.com www.nykaaman.com www.nykaafashion.com and across all Nykaa Retail stores"
+  }
+ },
+ "maximize:pineperksrupayprime-wh": {
+  "can_combine_with_store_offers": "no",
+  "validity": "upto 12 months",
+  "works_in_store": "yes",
+  "works_online": "yes",
+  "quotes": {
+   "can_combine_with_store_offers": "Can be clubbed with other offers? No, can''t club with other offers / coupons",
+   "validity": "Validity Valid for upto 12 months",
+   "works_in_store": "Pine Perks RuPay Gift Card can be used at any POS and e-commerce merchants in India where RuPay is accepted.",
+   "works_online": "Pine Perks RuPay Gift Card can be used at any POS and e-commerce merchants in India where RuPay is accepted."
+  }
+ },
+ "maximize:pvr-cinemas-gyftr": {
+  "can_combine_with_store_offers": "yes",
+  "excludes": [
+   "food-only purchases",
+   "date: Redemption may be restricted on selected blackout dates."
+  ],
+  "max_vouchers_per_bill": "unlimited",
+  "one_time_use": "yes",
+  "partial_redemption": "no",
+  "spend_scope": "movie ticket bookings or combined movie ticket + food bookings in a single transaction",
+  "validity": "upto 6 months",
+  "works_in_store": "no",
+  "works_online": "yes",
+  "quotes": {
+   "can_combine_with_store_offers": "Gift Voucher can be clubbed with existing offers except the APP100 coupon code.",
+   "excludes": "Cannot be used for food-only purchases.",
+   "max_vouchers_per_bill": "Multiple Gift Vouchers can be used in a single booking.",
+   "one_time_use": "This is a one-time use Gift Voucher.",
+   "partial_redemption": "Any unused balance will be forfeited.",
+   "spend_scope": "Valid only for movie ticket bookings or combined movie ticket + food bookings in a single transaction.",
+   "validity": "Validity Valid for upto 6 months",
+   "works_online": "Gift Voucher is redeemable only on the PVR INOX website, INOX website, PVR app, and INOX app."
+  }
+ },
+ "maximize:ratnadeep-retail": {
+  "can_combine_with_store_offers": "no",
+  "excludes": [
+   "location: Gift Card is valid only at Ratnadeep Retail outlets in Hyderabad, Secunderabad, Bangalore, and Guntur"
+  ],
+  "max_vouchers_per_bill": 1,
+  "monthly_purchase_cap": 50000,
+  "one_time_use": "yes",
+  "partial_redemption": "no",
+  "validity": "365 days from the date of issue",
+  "works_in_store": "yes",
+  "quotes": {
+   "can_combine_with_store_offers": "Can be clubbed with other offers? No, can't club with other offers / coupons",
+   "excludes": "Gift Card is valid only at Ratnadeep Retail outlets in Hyderabad, Secunderabad, Bangalore, and Guntur",
+   "max_vouchers_per_bill": "Can the cards be clubbed? Multiple cards can't be clubbed",
+   "monthly_purchase_cap": "Gift Cards can be purchased for variable denominations up to ₹50,000",
+   "one_time_use": "E-Gift Card must be redeemed in full and partial redemption is not allowed",
+   "partial_redemption": "E-Gift Card must be redeemed in full and partial redemption is not allowed",
+   "validity": "Gift Card balance must be used within 365 days from the date of issue",
+   "works_in_store": "Gift Card is valid only at Ratnadeep Retail outlets in Hyderabad, Secunderabad, Bangalore, and Guntur"
+  }
+ },
+ "maximize:satya-paul-luxe": {
+  "can_combine_with_store_offers": "no",
+  "excludes": [
+   "airport stores",
+   "location: not redeemable at airport stores"
+  ],
+  "max_vouchers_per_bill": "unlimited",
+  "one_time_use": "yes",
+  "partial_redemption": "no",
+  "spend_scope": "full-priced merchandise",
+  "validity": "12 months from the date of purchase",
+  "works_in_store": "yes",
+  "works_online": "yes",
+  "quotes": {
+   "can_combine_with_store_offers": "The Gift Card can be redeemed only on full-priced merchandise and is not applicable on discounted items unless specified otherwise.",
+   "excludes": "The Luxe Gift Card is not redeemable at airport stores.",
+   "max_vouchers_per_bill": "Multiple Luxe Gift Cards can be used in a single transaction.",
+   "one_time_use": "The Luxe Gift Card is valid for one-time use only until expiry.",
+   "partial_redemption": "No refund or credit note will be issued for any unused balance.",
+   "spend_scope": "The Gift Card can be redeemed only on full-priced merchandise and is not applicable on discounted items unless specified otherwise.",
+   "validity": "The Luxe Gift Card is issued by Pine Labs Limited (formerly Pine Labs Private Limited) and is valid for 12 months from the date of purchase.",
+   "works_in_store": "The Luxe Gift Card can be redeemed across 45+ participating brands in India. For store locations, visit: https://www.luxegiftcard.com/brands#store_location",
+   "works_online": "The Gift Card can also be redeemed online at the brand websites"
+  }
+ },
+ "maximize:scotch-and-soda-luxe": {
+  "can_combine_with_store_offers": "no",
+  "excludes": [
+   "airport stores",
+   "location: not redeemable at airport stores"
+  ],
+  "max_vouchers_per_bill": "unlimited",
+  "one_time_use": "yes",
+  "partial_redemption": "no",
+  "spend_scope": "full-priced merchandise",
+  "validity": "12 months from the date of purchase",
+  "works_in_store": "yes",
+  "works_online": "yes",
+  "quotes": {
+   "can_combine_with_store_offers": "The Gift Card can be redeemed only on full-priced merchandise and is not applicable on discounted items unless specified otherwise.",
+   "excludes": "The Luxe Gift Card is not redeemable at airport stores.",
+   "max_vouchers_per_bill": "Multiple Luxe Gift Cards can be used in a single transaction.",
+   "one_time_use": "The Luxe Gift Card is valid for one-time use only until expiry.",
+   "partial_redemption": "No refund or credit note will be issued for any unused balance.",
+   "spend_scope": "The Gift Card can be redeemed only on full-priced merchandise and is not applicable on discounted items unless specified otherwise.",
+   "validity": "The Luxe Gift Card is issued by Pine Labs Limited (formerly Pine Labs Private Limited) and is valid for 12 months from the date of purchase.",
+   "works_in_store": "The Luxe Gift Card can be redeemed across 45+ participating brands in India. For store locations, visit: https://www.luxegiftcard.com/brands#store_location",
+   "works_online": "The Gift Card can also be redeemed online at the brand websites"
+  }
+ },
+ "maximize:shoppers-stop": {
+  "can_combine_with_store_offers": "no",
+  "delivery_wait": "24–48 hours",
+  "excludes": [
+   "Mobiles",
+   "Mobile Accessories",
+   "Cameras",
+   "MP3 players",
+   "Laptops",
+   "22K & 24K Gold Jewellery",
+   "Gold Coins"
+  ],
+  "max_vouchers_per_bill": "unlimited",
+  "one_time_use": "no",
+  "partial_redemption": "yes",
+  "validity": "1 year from issue date",
+  "works_in_store": "yes",
+  "works_online": "yes",
+  "quotes": {
+   "can_combine_with_store_offers": "Can be clubbed with other offers? No, can''t club with other offers / coupons",
+   "delivery_wait": "Delivery is usually instant but may take 24–48 hours due to system delay.",
+   "excludes": "Not valid for Mobiles, Mobile Accessories, Cameras, MP3 players, Laptops, 22K & 24K Gold Jewellery, and Gold Coins.",
+   "max_vouchers_per_bill": "Can the cards be clubbed? Use several gift cards in one purchase",
+   "partial_redemption": "Part use allowed — remaining amount will be given as a credit note.",
+   "validity": "Valid for 1 year from issue date.",
+   "works_in_store": "Redeemable at Shoppers Stop, Airport Stores, HomeStop, and Shoppers Stop website.",
+   "works_online": "Redeemable at Shoppers Stop, Airport Stores, HomeStop, and Shoppers Stop website."
+  }
+ },
+ "maximize:steve-madde-luxe": {
+  "can_combine_with_store_offers": "no",
+  "excludes": [
+   "airport stores",
+   "location: not redeemable at airport stores"
+  ],
+  "max_vouchers_per_bill": "unlimited",
+  "one_time_use": "yes",
+  "partial_redemption": "no",
+  "spend_scope": "full-priced merchandise",
+  "validity": "12 months from the date of purchase",
+  "works_in_store": "yes",
+  "works_online": "yes",
+  "quotes": {
+   "can_combine_with_store_offers": "The Gift Card can be redeemed only on full-priced merchandise and is not applicable on discounted items unless specified otherwise.",
+   "excludes": "The Luxe Gift Card is not redeemable at airport stores.",
+   "max_vouchers_per_bill": "Multiple Luxe Gift Cards can be used in a single transaction.",
+   "one_time_use": "The Luxe Gift Card is valid for one-time use only until expiry.",
+   "partial_redemption": "No refund or credit note will be issued for any unused balance.",
+   "spend_scope": "The Gift Card can be redeemed only on full-priced merchandise and is not applicable on discounted items unless specified otherwise.",
+   "validity": "The Luxe Gift Card is issued by Pine Labs Limited (formerly Pine Labs Private Limited) and is valid for 12 months from the date of purchase.",
+   "works_in_store": "The Luxe Gift Card can be redeemed across 45+ participating brands in India. For store locations, visit: https://www.luxegiftcard.com/brands#store_location",
+   "works_online": "The Gift Card can also be redeemed online at the brand websites"
+  }
+ },
+ "maximize:subway": {
+  "excludes": [
+   "delivery platform purchases (Zomato, Swiggy, ONDC sellers etc)",
+   "delivery platforms (Zomato, Swiggy, ONDC sellers etc)"
+  ],
+  "max_vouchers_per_bill": 1,
+  "one_time_use": "yes",
+  "partial_redemption": "no",
+  "spend_scope": "dine-in transactions only",
+  "validity": "6 months from the date of purchase",
+  "works_in_store": "yes",
+  "works_online": "no",
+  "quotes": {
+   "excludes": "The gift card cannot be used to purchase any Subway product on any delivery platform (eg it cannot be used through a delivery app like Zomato, Swiggy, ONDC sellers etc)",
+   "max_vouchers_per_bill": "Multiple Gift Cards (i.e. – more than one) cannot be clubbed in a single transaction",
+   "one_time_use": "The Gift card is redeemable only once.",
+   "partial_redemption": "Any balance left on the card will be forfeited.",
+   "spend_scope": "Gift Card is valid for 6 months from the date of purchase for dine-in transactions only, and the validity of the Gift Card shall not be extended in any event whatsoever.",
+   "validity": "Gift Card is valid for 6 months from the date of purchase for dine-in transactions only, and the validity of the Gift Card shall not be extended in any event whatsoever.",
+   "works_in_store": "Gift Card is valid for 6 months from the date of purchase for dine-in transactions only, and the validity of the Gift Card shall not be extended in any event whatsoever.",
+   "works_online": "The gift card cannot be used to purchase any Subway product on any delivery platform (eg it cannot be used through a delivery app like Zomato, Swiggy, ONDC sellers etc)"
+  }
+ },
+ "maximize:superdry-luxe": {
+  "can_combine_with_store_offers": "no",
+  "excludes": [
+   "airport stores",
+   "location: not redeemable at airport stores"
+  ],
+  "max_vouchers_per_bill": "unlimited",
+  "one_time_use": "yes",
+  "partial_redemption": "no",
+  "spend_scope": "full-priced merchandise",
+  "validity": "12 months from the date of purchase",
+  "works_in_store": "yes",
+  "works_online": "yes",
+  "quotes": {
+   "can_combine_with_store_offers": "The Gift Card can be redeemed only on full-priced merchandise and is not applicable on discounted items unless specified otherwise.",
+   "excludes": "The Luxe Gift Card is not redeemable at airport stores.",
+   "max_vouchers_per_bill": "Multiple Luxe Gift Cards can be used in a single transaction.",
+   "one_time_use": "The Luxe Gift Card is valid for one-time use only until expiry.",
+   "partial_redemption": "No refund or credit note will be issued for any unused balance.",
+   "spend_scope": "The Gift Card can be redeemed only on full-priced merchandise and is not applicable on discounted items unless specified otherwise.",
+   "validity": "The Luxe Gift Card is issued by Pine Labs Limited (formerly Pine Labs Private Limited) and is valid for 12 months from the date of purchase.",
+   "works_in_store": "The Luxe Gift Card can be redeemed across 45+ participating brands in India. For store locations, visit: https://www.luxegiftcard.com/brands#store_location",
+   "works_online": "The Gift Card can also be redeemed online at the brand websites"
+  }
+ },
+ "maximize:trends-women": {
+  "can_combine_with_store_offers": "yes",
+  "excludes": [
+   "gold or silver coins"
+  ],
+  "max_vouchers_per_bill": "unlimited",
+  "one_time_use": "yes",
+  "partial_redemption": "no",
+  "validity": "12 months from the date of receipt",
+  "works_in_store": "yes",
+  "works_online": "no",
+  "quotes": {
+   "can_combine_with_store_offers": "Can be clubbed with other offers? Yes, clubbable with other offers / coupons",
+   "excludes": "Gift Voucher is not valid for the purchase of gold or silver coins",
+   "max_vouchers_per_bill": "Multiple Gift Vouchers can be used in a single bill",
+   "one_time_use": "Gift Voucher is one-time redeemable only",
+   "partial_redemption": "Gift Voucher cannot be redeemed partially and must be redeemed for full value",
+   "validity": "Gift Voucher is valid for 12 months from the date of receipt",
+   "works_in_store": "Gift Voucher can be redeemed only against the purchase of eligible products from Trends Women stores in India",
+   "works_online": "Gift Vouchers cannot be used online"
+  }
+ },
+ "maximize:tumi---luxe-1116": {
+  "can_combine_with_store_offers": "no",
+  "excludes": [
+   "airport stores",
+   "location: not redeemable at airport stores"
+  ],
+  "max_vouchers_per_bill": "unlimited",
+  "one_time_use": "yes",
+  "partial_redemption": "no",
+  "spend_scope": "full-priced merchandise",
+  "validity": "12 months from the date of purchase",
+  "works_in_store": "yes",
+  "works_online": "yes",
+  "quotes": {
+   "can_combine_with_store_offers": "The Gift Card can be redeemed only on full-priced merchandise and is not applicable on discounted items unless specified otherwise.",
+   "excludes": "The Luxe Gift Card is not redeemable at airport stores.",
+   "max_vouchers_per_bill": "Multiple Luxe Gift Cards can be used in a single transaction.",
+   "one_time_use": "The Luxe Gift Card is valid for one-time use only until expiry.",
+   "partial_redemption": "No refund or credit note will be issued for any unused balance.",
+   "spend_scope": "The Gift Card can be redeemed only on full-priced merchandise and is not applicable on discounted items unless specified otherwise.",
+   "validity": "The Luxe Gift Card is issued by Pine Labs Limited (formerly Pine Labs Private Limited) and is valid for 12 months from the date of purchase.",
+   "works_in_store": "The Luxe Gift Card can be redeemed across 45+ participating brands in India. For store locations, visit: https://www.luxegiftcard.com/brands#store_location",
+   "works_online": "The Gift Card can also be redeemed online at the brand websites"
+  }
+ },
+ "maximize:urban-ladder": {
+  "can_combine_with_store_offers": "no",
+  "max_vouchers_per_bill": 5,
+  "validity": "180 days from the date of activation",
+  "works_online": "yes",
+  "quotes": {
+   "can_combine_with_store_offers": "Can be clubbed with other offers? No, can't club with other offers / coupons",
+   "max_vouchers_per_bill": "A maximum of 5 Gift Cards can be used in a single purchase",
+   "validity": "Gift Cards issued will be valid for 180 days from the date of activation",
+   "works_online": "Visit www.urbanladder.com and choose the product you would like to buy."
+  }
+ },
+ "maximize:westside": {
+  "can_combine_with_store_offers": "no",
+  "delivery_wait": "8 hours from the time of purchase",
+  "max_vouchers_per_bill": 1,
+  "one_time_use": "yes",
+  "partial_redemption": "no",
+  "validity": "1 year from the date of purchase",
+  "works_in_store": "yes",
+  "works_online": "no",
+  "quotes": {
+   "can_combine_with_store_offers": "Can be clubbed with other offers? No, can't club with other offers / coupons",
+   "delivery_wait": "The gift card can be redeemed only after 8 hours from the time of purchase.",
+   "max_vouchers_per_bill": "Can the cards be clubbed? Multiple cards can't be clubbed",
+   "one_time_use": "Any unused balance will not be refunded or credited.",
+   "partial_redemption": "Must use the full balance in one go",
+   "validity": "Validity: 1 year from the date of purchase. Validity cannot be extended.",
+   "works_in_store": "Redeemable at all Westside outlets across India.",
+   "works_online": "This card cannot be used on the Westside website."
+  }
+ }
+}

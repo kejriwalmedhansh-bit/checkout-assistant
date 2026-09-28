@@ -1,0 +1,856 @@
+{
+ "buyhatke:sunglass-hut-(in-store)-gift-card": {
+  "excludes": [
+   "location: airport stores"
+  ],
+  "max_vouchers_per_bill": "unlimited",
+  "one_time_use": "yes",
+  "spend_scope": "Full-priced merchandise only",
+  "validity": "1 year",
+  "works_in_store": "yes",
+  "works_online": "no",
+  "quotes": {
+   "excludes": "Valid for 1 year and in-store use only; not redeemable at airport stores",
+   "max_vouchers_per_bill": "This is a one-time use giftcard; multiple cards can be used in 1 transaction",
+   "one_time_use": "This is a one-time use giftcard; multiple cards can be used in 1 transaction",
+   "spend_scope": "Luxe Gift Card can only be redeemed against full-priced merchandise",
+   "validity": "Valid for 1 year and in-store use only; not redeemable at airport stores",
+   "works_in_store": "This voucher can be used only in-store",
+   "works_online": "This voucher can be used only in-store"
+  }
+ },
+ "buyhatke:superdry-luxe-(in-store)-gift-card": {
+  "excludes": [
+   "location: airport stores"
+  ],
+  "max_vouchers_per_bill": "unlimited",
+  "one_time_use": "yes",
+  "spend_scope": "Full-priced merchandise only",
+  "validity": "1 year",
+  "works_in_store": "yes",
+  "works_online": "no",
+  "quotes": {
+   "excludes": "Valid for 1 year and in-store use only; not redeemable at airport stores",
+   "max_vouchers_per_bill": "This is a one-time use giftcard; multiple cards can be used in 1 transaction",
+   "one_time_use": "This is a one-time use giftcard; multiple cards can be used in 1 transaction",
+   "spend_scope": "Luxe Gift Card can only be redeemed against full-priced merchandise",
+   "validity": "Valid for 1 year and in-store use only; not redeemable at airport stores",
+   "works_in_store": "This voucher can be used only in-store",
+   "works_online": "This voucher can be used only in-store"
+  }
+ },
+ "buyhatke:supa-gift-card": {
+  "delivery_wait": "sometimes delayed up to 48-72 hours due to system issues",
+  "max_vouchers_per_bill": 1,
+  "validity": "365 days from date of activation (purchase)",
+  "works_in_store": "no",
+  "works_online": "yes",
+  "quotes": {
+   "delivery_wait": "But sometimes due to system issues, the delivery can be delayed up-to 48-72 hours.",
+   "max_vouchers_per_bill": "Maximum 1 voucher can be in one transaction",
+   "validity": "The validity of the E-Gift Card will be for Three Hundred sixty five Days only (365 Days only) from the date of activation (purchase) of the card.",
+   "works_in_store": "This card cannot be redeemed at any offline retail outlets, any other multi brand or departmental stores or online marketplaces.",
+   "works_online": "This voucher can be used only online"
+  }
+ },
+ "buyhatke:surat-diamonds-gift-card": {
+  "can_combine_with_store_offers": "no",
+  "excludes": [
+   "bullion/Coins",
+   "Certified Solitaires",
+   "already discounted Products"
+  ],
+  "max_vouchers_per_bill": 1,
+  "partial_redemption": "yes",
+  "works_in_store": "no",
+  "works_online": "yes",
+  "quotes": {
+   "can_combine_with_store_offers": "The GV/e-Pay cannot be clubbed with the existing offers.",
+   "excludes": "The GV/e-Pay is not valid on the purchase of bullion/Coins, Certified Solitaires & already discounted Products.",
+   "max_vouchers_per_bill": "Maximum 1 voucher can be in one transaction",
+   "partial_redemption": "After conversion into e-Pay balance, this GV is valid for partial redemption. The balance would remain in the e-Pay balance and can be used for multiple transactions within the validity period.",
+   "works_in_store": "This voucher can be used only online",
+   "works_online": "This voucher can be used only online"
+  }
+ },
+ "buyhatke:surat-diamonds-main-gift-card": {
+  "can_combine_with_store_offers": "no",
+  "excludes": [
+   "bullion/Coins",
+   "Certified Solitaires",
+   "already discounted Products"
+  ],
+  "validity": "1 year",
+  "works_in_store": "no",
+  "works_online": "yes",
+  "quotes": {
+   "can_combine_with_store_offers": "These E-Gift cards cannot be clubbed with any other offer.",
+   "excludes": "These E-Gift cards are not valid on purchase of bullion/ Coins, Certified Solitaires & already discounted Products.",
+   "validity": "Comes with 1 year validity,These E-Gift cards entitles you to a discount of mentioned Amount on a purchase of any jewellery from www.suratdiamond.com only.",
+   "works_in_store": "This voucher can be used only online",
+   "works_online": "This voucher can be used only online"
+  }
+ },
+ "buyhatke:surat-diamonds-solitaire-gift-card": {
+  "can_combine_with_store_offers": "no",
+  "excludes": [
+   "purchase from main website and offer website"
+  ],
+  "spend_scope": "Redeemable only via ringdesign.suratdiamond.com (not the main website)",
+  "validity": "1 year from the date of issue",
+  "works_in_store": "no",
+  "works_online": "yes",
+  "quotes": {
+   "can_combine_with_store_offers": "These E-Gift cards cannot be clubbed with any other offer.",
+   "excludes": "These E-Gift cards are not valid on purchase from main website and offer website",
+   "spend_scope": "These E-Gift cards entitles you to a discount of mentioned Amount on a purchase of any jewellery from https://ringdesign.suratdiamond.com/Default.aspx",
+   "validity": "These E-Gift Cards are Valid for 1 year from the date of issue.",
+   "works_in_store": "This voucher can be used only online",
+   "works_online": "This voucher can be used only online"
+  }
+ },
+ "buyhatke:svenklas-gift-card": {
+  "can_combine_with_store_offers": "no",
+  "max_vouchers_per_bill": 1,
+  "one_time_use": "yes",
+  "validity": "3 months",
+  "works_in_store": "no",
+  "works_online": "yes",
+  "quotes": {
+   "can_combine_with_store_offers": "The gift voucher code can't be clubbed with any other offers or promotions on the Svenklas website (https://svenklas.com/) and can be availed only once per transaction.",
+   "max_vouchers_per_bill": "Maximum 1 voucher can be in one transaction",
+   "one_time_use": "This voucher can be used only 1 time",
+   "validity": "Comes with a 3 months validity and would be accepted only at svenklas.com",
+   "works_in_store": "This voucher can be used only online",
+   "works_online": "This voucher can be used only online"
+  }
+ },
+ "buyhatke:swiggy-instamart-gift-card": {
+  "max_vouchers_per_bill": "unlimited",
+  "one_time_use": "no",
+  "partial_redemption": "yes",
+  "validity": "6 months",
+  "works_in_store": "no",
+  "works_online": "yes",
+  "quotes": {
+   "max_vouchers_per_bill": "Comes with 6 month validity. Multiple gift cards can be added to an account.",
+   "one_time_use": "The gift card can be used multiple times as long as it carries a balance",
+   "partial_redemption": "The gift card can be used multiple times as long as it carries a balance",
+   "validity": "Comes with 6 month validity. Multiple gift cards can be added to an account.",
+   "works_in_store": "This voucher can be used only online",
+   "works_online": "This voucher can be used only online"
+  }
+ },
+ "buyhatke:swiggy-one-gift-card": {
+  "validity": "3 months",
+  "works_in_store": "no",
+  "works_online": "yes",
+  "quotes": {
+   "validity": "Comes with 3 months validity; it is recommended to update the app in case of an error in redeeming the gift card",
+   "works_in_store": "This voucher can be used only online",
+   "works_online": "This voucher can be used only online"
+  }
+ },
+ "buyhatke:swiss-beauty-gift-card": {
+  "can_combine_with_store_offers": "no",
+  "max_vouchers_per_bill": 1,
+  "one_time_use": "yes",
+  "partial_redemption": "no",
+  "validity": "6 months",
+  "works_in_store": "no",
+  "works_online": "yes",
+  "quotes": {
+   "can_combine_with_store_offers": "SWISS BEAUTY gift card cannot be clubbed with any one of the existing offers",
+   "max_vouchers_per_bill": "Multiple gift card cannot be clubbed in one bill/transaction",
+   "one_time_use": "This is a one-time use card and any unused balance will lapse",
+   "partial_redemption": "This is a one-time use card and any unused balance will lapse",
+   "validity": "Comes with 6 months validity and is valid only online at swissbeauty.in",
+   "works_in_store": "This voucher can be used only online",
+   "works_online": "This voucher can be used only online"
+  }
+ },
+ "buyhatke:taco-bell-(in-store)-gift-card": {
+  "delivery_wait": "sometimes delayed up to 24-48 hours",
+  "excludes": [
+   "Taco Bell App orders",
+   "Kiosk orders",
+   "third-party app orders"
+  ],
+  "max_vouchers_per_bill": 1,
+  "one_time_use": "no",
+  "partial_redemption": "yes",
+  "spend_scope": "In-restaurant purchases only (not Taco Bell App, Kiosk, or third-party apps)",
+  "validity": "1 year from date of purchase",
+  "works_in_store": "yes",
+  "works_online": "no",
+  "quotes": {
+   "delivery_wait": "E-Gift Cards are normally delivered instantly. But sometimes due to system issues, the delivery can be delayed up-to 24 - 48 hours.",
+   "excludes": "The card can be used to purchase any Taco bell products at its restaurants only (It cannot be used on Taco Bell App, Kiosk or any third party app where Taco Bell products are listed).",
+   "max_vouchers_per_bill": "Maximum one card can be used per order.",
+   "one_time_use": "The card can be used multiple times until the balance is exhausted,",
+   "partial_redemption": "The card can be used multiple times until the balance is exhausted,",
+   "spend_scope": "The card can be used to purchase any Taco bell products at its restaurants only (It cannot be used on Taco Bell App, Kiosk or any third party app where Taco Bell products are listed).",
+   "validity": "The card is valid for 1 year from date of purchase.",
+   "works_in_store": "This voucher can be used only in-store",
+   "works_online": "This voucher can be used only in-store"
+  }
+ },
+ "buyhatke:tagg-gift-card": {
+  "max_vouchers_per_bill": 1,
+  "one_time_use": "yes",
+  "partial_redemption": "no",
+  "validity": "6 months",
+  "works_in_store": "no",
+  "works_online": "yes",
+  "quotes": {
+   "max_vouchers_per_bill": "1 EGV can be clubbed in single Invoice",
+   "one_time_use": "This is a one-time use card and any unused balance will lapse",
+   "partial_redemption": "This is a one-time use card and any unused balance will lapse",
+   "validity": "Comes with 6 months validity is redeemable at online https://amdigital.in/product-category/brands/tagg/",
+   "works_in_store": "This voucher can be used only online",
+   "works_online": "This voucher can be used only online"
+  }
+ },
+ "buyhatke:taj-dining-(in-store)-gift-card": {
+  "excludes": [
+   "Ginger Hotels"
+  ],
+  "one_time_use": "no",
+  "partial_redemption": "yes",
+  "spend_scope": "Taj, SeleQtions, Vivanta hotels and Ama Trails & Stays in India (not Ginger Hotels)",
+  "validity": "1 year",
+  "works_in_store": "yes",
+  "works_online": "no",
+  "quotes": {
+   "excludes": "The cards can be redeemed at Taj, Selections, Vivanta hotels and Ama Trails & Stays in India. This does not include Ginger Hotels.",
+   "one_time_use": "Comes with 1 year validity. The gift card can be used multiple times.",
+   "partial_redemption": "Comes with 1 year validity. The gift card can be used multiple times.",
+   "spend_scope": "The cards can be redeemed at Taj, Selections, Vivanta hotels and Ama Trails & Stays in India. This does not include Ginger Hotels.",
+   "validity": "Comes with 1 year validity. The gift card can be used multiple times.",
+   "works_in_store": "This voucher can be used only in-store",
+   "works_online": "This voucher can be used only in-store"
+  }
+ },
+ "buyhatke:taj-experiences-(in-store)-gift-card": {
+  "excludes": [
+   "Ginger Hotels"
+  ],
+  "one_time_use": "no",
+  "partial_redemption": "yes",
+  "spend_scope": "Taj, SeleQtions, Vivanta hotels and Ama Trails & Stays in India (not Ginger Hotels)",
+  "validity": "1 year",
+  "works_in_store": "yes",
+  "works_online": "no",
+  "quotes": {
+   "excludes": "The cards can be redeemed at Taj, Selections, Vivanta hotels and Ama Trails & Stays in India. This does not include Ginger Hotels.",
+   "one_time_use": "Comes with 1 year validity. The gift card can be used multiple times.",
+   "partial_redemption": "Comes with 1 year validity. The gift card can be used multiple times.",
+   "spend_scope": "The cards can be redeemed at Taj, Selections, Vivanta hotels and Ama Trails & Stays in India. This does not include Ginger Hotels.",
+   "validity": "Comes with 1 year validity. The gift card can be used multiple times.",
+   "works_in_store": "This voucher can be used only in-store",
+   "works_online": "This voucher can be used only in-store"
+  }
+ },
+ "buyhatke:taj-spa-(in-store)-gift-card": {
+  "excludes": [
+   "Ginger Hotels"
+  ],
+  "one_time_use": "no",
+  "partial_redemption": "yes",
+  "spend_scope": "Taj, SeleQtions, Vivanta hotels and Ama Trails & Stays in India (not Ginger Hotels)",
+  "validity": "1 year",
+  "works_in_store": "yes",
+  "works_online": "no",
+  "quotes": {
+   "excludes": "The cards can be redeemed at Taj, Selections, Vivanta hotels and Ama Trails & Stays in India. This does not include Ginger Hotels.",
+   "one_time_use": "Comes with 1 year validity. The gift card can be used multiple times.",
+   "partial_redemption": "Comes with 1 year validity. The gift card can be used multiple times.",
+   "spend_scope": "The cards can be redeemed at Taj, Selections, Vivanta hotels and Ama Trails & Stays in India. This does not include Ginger Hotels.",
+   "validity": "Comes with 1 year validity. The gift card can be used multiple times.",
+   "works_in_store": "This voucher can be used only in-store",
+   "works_online": "This voucher can be used only in-store"
+  }
+ },
+ "buyhatke:taj-hotels-(in-store)-gift-card": {
+  "excludes": [
+   "retail spends at third-party outlets",
+   "business center equipment",
+   "third-party hired services",
+   "banquets, conferences, events",
+   "personal payouts like medicines or repairs",
+   "Ginger Hotels",
+   "banquets",
+   "conferences",
+   "events",
+   "Friends and Family offers",
+   "Special Employee Benefit offers"
+  ],
+  "one_time_use": "no",
+  "partial_redemption": "yes",
+  "spend_scope": "Taj, SeleQtions, Vivanta hotels, and Ama Trails & Stays in India (not Ginger Hotels)",
+  "validity": "365 days from issuance or from the last load/reload date",
+  "works_in_store": "yes",
+  "works_online": "no",
+  "quotes": {
+   "excludes": "TEGCs cannot be used for retail spends at third-party outlets, business center equipment, third-party hired services, banquets, conferences, events, or personal payouts like medicines or repairs.",
+   "one_time_use": "Multiple transactions can be performed until the value is exhausted.",
+   "partial_redemption": "Multiple transactions can be performed until the value is exhausted.",
+   "spend_scope": "TEGCs can be redeemed at Taj, SeleQtions, Vivanta hotels, and Ama Trails & Stays in India, but not at Ginger Hotels.",
+   "validity": "TEGCs are valid for 365 days from issuance or from the last load/reload date.",
+   "works_in_store": "This voucher can be used only in-store",
+   "works_online": "This voucher can be used only in-store"
+  }
+ },
+ "buyhatke:taneira-(in-store)-gift-card": {
+  "validity": "6 months",
+  "works_in_store": "yes",
+  "works_online": "no",
+  "quotes": {
+   "validity": "Comes with 6 months validity and is redeemable on purchase of products at any Taneira store",
+   "works_in_store": "This voucher can be used only in-store",
+   "works_online": "This voucher can be used only in-store"
+  }
+ },
+ "buyhatke:tanishq-gold-coin-(in-store)-gift-card": {
+  "one_time_use": "yes",
+  "partial_redemption": "no",
+  "validity": "6 months",
+  "works_in_store": "yes",
+  "works_online": "no",
+  "quotes": {
+   "one_time_use": "This is a one-time use card and any unused balance will lapse",
+   "partial_redemption": "This is a one-time use card and any unused balance will lapse",
+   "validity": "Comes with 6 months validity and can be used on all products, at the participating Tanishq Showrooms in India.",
+   "works_in_store": "This voucher can be used only in-store",
+   "works_online": "This voucher can be used only in-store"
+  }
+ },
+ "buyhatke:tanishq-gold-jewellery-(in-store)-gift-card": {
+  "can_combine_with_store_offers": "no",
+  "excludes": [
+   "gold coins",
+   "subscription schemes"
+  ],
+  "one_time_use": "yes",
+  "partial_redemption": "no",
+  "spend_scope": "Gold jewellery only (not gold coins)",
+  "validity": "6 months",
+  "works_in_store": "yes",
+  "works_online": "no",
+  "quotes": {
+   "can_combine_with_store_offers": "Gift Cards cannot be used along with Tata Neu coins. Not valid for subscription schemes.",
+   "excludes": "Gift Cards cannot be used along with Tata Neu coins. Not valid for subscription schemes.",
+   "one_time_use": "Comes with 6 month validity. The gift card can only be used once.",
+   "partial_redemption": "Any unused balance on the e-Gift card will not be refunded or credited",
+   "spend_scope": "This gift card is valid on gold jewellery and not valid gold coins at the participating Tanishq Showrooms in India.",
+   "validity": "Comes with 6 month validity. The gift card can only be used once.",
+   "works_in_store": "This voucher can be used only in-store",
+   "works_online": "This voucher can be used only in-store"
+  }
+ },
+ "buyhatke:tanishq-studded-(in-store)-gift-card": {
+  "one_time_use": "yes",
+  "partial_redemption": "no",
+  "spend_scope": "Studded and diamond jewellery only",
+  "validity": "6 months from date of activation/issuance",
+  "works_in_store": "yes",
+  "works_online": "no",
+  "quotes": {
+   "one_time_use": "This e-Gift card is allowed for one time redemption only.",
+   "partial_redemption": "Any unused balance on the e-Gift card will not be refunded or credited.",
+   "spend_scope": "This e-Gift card is valid on Studded and diamond jewellery only, at the participating Tanishq Showrooms in India.",
+   "validity": "This e-Gift Card is valid for 6 months from date of activation/issuance.",
+   "works_in_store": "This voucher can be used only in-store",
+   "works_online": "This voucher can be used only in-store"
+  }
+ },
+ "buyhatke:tasva-(in-store)-gift-card": {
+  "can_combine_with_store_offers": "yes",
+  "max_vouchers_per_bill": "unlimited",
+  "one_time_use": "yes",
+  "partial_redemption": "no",
+  "validity": "6 months",
+  "works_in_store": "yes",
+  "works_online": "no",
+  "quotes": {
+   "can_combine_with_store_offers": "The Gift card can be clubbed with the existing offers.",
+   "max_vouchers_per_bill": "Multiple Gift cards can be used against one bill.",
+   "one_time_use": "This is a one-time use Gift card. The remaining balance in the Gift card will be forfeited once the card is redeemed. No Credit note/Refund for the unused amount of the Gift card will be given.",
+   "partial_redemption": "This is a one-time use Gift card. The remaining balance in the Gift card will be forfeited once the card is redeemed. No Credit note/Refund for the unused amount of the Gift card will be given.",
+   "validity": "Comes with the validity of 6 months and it’s redeemable only at the listed stores.",
+   "works_in_store": "This voucher can be used only in-store",
+   "works_online": "This voucher can be used only in-store"
+  }
+ },
+ "buyhatke:tbz-(in-store)-gift-card": {
+  "excludes": [
+   "gold coins/bars",
+   "subscription schemes"
+  ],
+  "one_time_use": "yes",
+  "validity": "one year",
+  "works_in_store": "yes",
+  "works_online": "no",
+  "quotes": {
+   "excludes": "The gift cards are not valid on gold coins/bars. Not valid for subscription schemes",
+   "one_time_use": "This is a one-time use card",
+   "validity": "Comes with one year of validity and is valid on purchase at any TBZ-The Original outlet. To locate the store please visit https://www.tbztheoriginal.com/locations",
+   "works_in_store": "This voucher can be used only in-store",
+   "works_online": "This voucher can be used only in-store"
+  }
+ },
+ "buyhatke:tego-gift-card": {
+  "can_combine_with_store_offers": "yes",
+  "max_vouchers_per_bill": "unlimited",
+  "one_time_use": "yes",
+  "partial_redemption": "no",
+  "works_in_store": "no",
+  "works_online": "yes",
+  "quotes": {
+   "can_combine_with_store_offers": "The GV/GC can be cubbed with existing offers.",
+   "max_vouchers_per_bill": "Multiple GV/GCs can be used against one bill.",
+   "one_time_use": "This is a one-time use GV/GC. The remaining balance in the GV/GC will be forfeited once the card is redeemed.",
+   "partial_redemption": "This is a one-time use GV/GC. The remaining balance in the GV/GC will be forfeited once the card is redeemed.",
+   "works_in_store": "This voucher can be used only online",
+   "works_online": "This voucher can be used only online"
+  }
+ },
+ "buyhatke:tgi-fridays-(in-store)-gift-card": {
+  "excludes": [
+   "meal combos"
+  ],
+  "max_vouchers_per_bill": "unlimited",
+  "validity": "6 months",
+  "works_in_store": "yes",
+  "works_online": "no",
+  "quotes": {
+   "excludes": "Multiple Gift card can be used in one bill but cannot be used on meal combos",
+   "max_vouchers_per_bill": "Multiple Gift card can be used in one bill but cannot be used on meal combos",
+   "validity": "Comes with 6 months validity and cannot be used online",
+   "works_in_store": "This voucher can be used only in-store",
+   "works_online": "Comes with 6 months validity and cannot be used online"
+  }
+ },
+ "buyhatke:tgif-(in-store)-gift-card": {
+  "excludes": [
+   "lunch/dinner combos",
+   "discounted promotional menus",
+   "date: block-out dates as decided by the brand"
+  ],
+  "max_vouchers_per_bill": "unlimited",
+  "partial_redemption": "yes",
+  "works_in_store": "yes",
+  "works_online": "no",
+  "quotes": {
+   "excludes": "The GV/e-Pay cannot be redeemed for lunch/dinner combos or discounted promotional menus.",
+   "max_vouchers_per_bill": "Multiple GVs can be used against one bill.",
+   "partial_redemption": "After conversion into e-Pay balance, this GV is valid for partial redemption. The balance would remain in the e-Pay balance and can be used for multiple transactions within the validity period.",
+   "works_in_store": "This voucher can be used only in-store",
+   "works_online": "This voucher can be used only in-store"
+  }
+ },
+ "buyhatke:thalaiva-biryani-gift-card": {
+  "max_vouchers_per_bill": 1,
+  "one_time_use": "no",
+  "partial_redemption": "yes",
+  "validity": "1 year",
+  "works_in_store": "no",
+  "works_online": "yes",
+  "quotes": {
+   "max_vouchers_per_bill": "Multiple gift cards cannot be clubbed in one order and the user needs to add the Gift Card to the EatSure User Account",
+   "one_time_use": "The EatSure Gift Card can be redeemed multiple times until the value of the Gift Card is exhausted",
+   "partial_redemption": "The EatSure Gift Card can be redeemed multiple times until the value of the Gift Card is exhausted",
+   "validity": "Comes with 1-year validity and is only redeemable on the EatSure iOS/android app",
+   "works_in_store": "This voucher can be used only online",
+   "works_online": "This voucher can be used only online"
+  }
+ },
+ "buyhatke:the-biryani-life-gift-card": {
+  "max_vouchers_per_bill": 1,
+  "one_time_use": "no",
+  "partial_redemption": "yes",
+  "validity": "1 year",
+  "works_in_store": "no",
+  "works_online": "yes",
+  "quotes": {
+   "max_vouchers_per_bill": "Multiple gift cards cannot be clubbed in one order and the user needs to add the Gift Card to the EatSure User Account",
+   "one_time_use": "The EatSure Gift Card can be redeemed multiple times until the value of the Gift Card is exhausted",
+   "partial_redemption": "The EatSure Gift Card can be redeemed multiple times until the value of the Gift Card is exhausted",
+   "validity": "Comes with 1-year validity and is only redeemable on the EatSure iOS/android app",
+   "works_in_store": "This voucher can be used only online",
+   "works_online": "This voucher can be used only online"
+  }
+ },
+ "buyhatke:thinsane-pizza-gift-card": {
+  "max_vouchers_per_bill": 1,
+  "one_time_use": "no",
+  "partial_redemption": "yes",
+  "validity": "1 year",
+  "works_in_store": "no",
+  "works_online": "yes",
+  "quotes": {
+   "max_vouchers_per_bill": "Multiple gift cards cannot be clubbed in one order and the user needs to add the Gift Card to the EatSure User Account",
+   "one_time_use": "The EatSure Gift Card can be redeemed multiple times until the value of the Gift Card is exhausted",
+   "partial_redemption": "The EatSure Gift Card can be redeemed multiple times until the value of the Gift Card is exhausted",
+   "validity": "Comes with 1-year validity and is only redeemable on the EatSure iOS/android app",
+   "works_in_store": "This voucher can be used only online",
+   "works_online": "This voucher can be used only online"
+  }
+ },
+ "buyhatke:the-body-shop-(3-day-wait)-gift-card": {
+  "can_combine_with_store_offers": "yes",
+  "delivery_wait": "voucher can be used after 72 hours from code generation",
+  "excludes": [
+   "purchase of Gift Cards",
+   "purchase of Loyalty Cards",
+   "Gift Cards",
+   "Loyalty Cards",
+   "date: block out dates"
+  ],
+  "max_vouchers_per_bill": "unlimited",
+  "partial_redemption": "yes",
+  "works_in_store": "yes",
+  "works_online": "yes",
+  "quotes": {
+   "can_combine_with_store_offers": "The Body Shop GV / GC can be clubbed with any one of the existing offers.",
+   "delivery_wait": "Voucher can be used after 72 hours from code generation",
+   "excludes": "Gift Voucher (GV) / Gift Card (GC) can be used to purchase TBS products from the listed TBS shops and Online excluding purchase of Gift Cards and Loyalty Cards.",
+   "max_vouchers_per_bill": "Multiple GV / GC can be used in one bill/transaction and cannot be redeemed for cash.",
+   "partial_redemption": "Once the voucher gets added to the EPay balance, it can be utilized till the balance gets exhausted or expires.",
+   "works_in_store": "This voucher can be used both online and in-store",
+   "works_online": "This voucher can be used both online and in-store"
+  }
+ },
+ "buyhatke:the-collective-gift-card": {
+  "one_time_use": "yes",
+  "validity": "6 months from date of activation",
+  "works_in_store": "yes",
+  "works_online": "yes",
+  "quotes": {
+   "one_time_use": "This E- Gift Card can be redeemed just once",
+   "validity": "This e-gift card is valid for period of 6 months from date of activation",
+   "works_in_store": "This voucher can be used both online and in-store",
+   "works_online": "This voucher can be used both online and in-store"
+  }
+ },
+ "buyhatke:the-good-bowl-gift-card": {
+  "can_combine_with_store_offers": "no",
+  "max_vouchers_per_bill": "unlimited",
+  "partial_redemption": "yes",
+  "works_in_store": "no",
+  "works_online": "yes",
+  "quotes": {
+   "can_combine_with_store_offers": "GV/GC can be used to buy discounted items on the EatSure app, but it cannot be clubbed with other aggregator offers.",
+   "max_vouchers_per_bill": "Multiple GV/GC can be combined and added to the EatSure wallet balance.",
+   "partial_redemption": "The GV/GC will be converted into ‘EatSure wallet balance’, and the wallet balance can be used partially.",
+   "works_in_store": "This voucher can be used only online",
+   "works_online": "This voucher can be used only online"
+  }
+ },
+ "buyhatke:the-raymond-shop-(in-store)-gift-card": {
+  "can_combine_with_store_offers": "no",
+  "excludes": [
+   "custom tailoring bills",
+   "custom tailoring",
+   "date: block-out dates"
+  ],
+  "max_vouchers_per_bill": "unlimited",
+  "partial_redemption": "yes",
+  "spend_scope": "Ready-made products only (not custom tailoring)",
+  "works_in_store": "yes",
+  "works_online": "no",
+  "quotes": {
+   "can_combine_with_store_offers": "Can be used during End of Season Sale (EOSS), but not applicable on discounted products",
+   "excludes": "Not applicable on custom tailoring bills",
+   "max_vouchers_per_bill": "Multiple vouchers can be used in a single bill",
+   "partial_redemption": "Partial redemption is allowed, but no refund or credit note will be issued for unused or partially used value",
+   "spend_scope": "Voucher can be used only for ready-made products",
+   "works_in_store": "This voucher can be used only in-store",
+   "works_online": "This voucher can be used only in-store"
+  }
+ },
+ "buyhatke:the-sleep-company-(in-store)-gift-card": {
+  "max_vouchers_per_bill": "unlimited",
+  "partial_redemption": "yes",
+  "works_in_store": "yes",
+  "works_online": "no",
+  "quotes": {
+   "max_vouchers_per_bill": "Multiple GV/GCs can be combined in a single transaction. If partially redeemed, the remaining balance stays usable within validity.",
+   "partial_redemption": "Multiple GV/GCs can be combined in a single transaction. If partially redeemed, the remaining balance stays usable within validity.",
+   "works_in_store": "This voucher can be used only in-store",
+   "works_online": "This voucher can be used only in-store"
+  }
+ },
+ "buyhatke:the-wellness-co-(in-store)-gift-card": {
+  "can_combine_with_store_offers": "no",
+  "partial_redemption": "no",
+  "works_in_store": "yes",
+  "works_online": "no",
+  "quotes": {
+   "can_combine_with_store_offers": "This offer cannot be combined with other ongoing promotions or discounts.",
+   "partial_redemption": "No Exchange/Refund: Once a booking has been confirmed or payment made, there is no refund or exchange on the services.",
+   "works_in_store": "This voucher can be used only in-store",
+   "works_online": "This voucher can be used only in-store"
+  }
+ },
+ "buyhatke:things2do-gift-card": {
+  "can_combine_with_store_offers": "no",
+  "max_vouchers_per_bill": 1,
+  "one_time_use": "yes",
+  "partial_redemption": "no",
+  "spend_scope": "Exclusives Product category only, at things2.do",
+  "validity": "6 months",
+  "works_in_store": "no",
+  "works_online": "yes",
+  "quotes": {
+   "can_combine_with_store_offers": "Voucher cannot be extended clubbed with any other card/vouchers/offers",
+   "max_vouchers_per_bill": "Multiple E-Vouchers cannot be clubbed with single retail billing",
+   "one_time_use": "This is a one-time use card and any unused balance will lapse",
+   "partial_redemption": "This is a one-time use card and any unused balance will lapse",
+   "spend_scope": "Comes with 6 months validity and is only redeemable at https://things2.do on the Exclusives Product category only",
+   "validity": "Comes with 6 months validity and is only redeemable at https://things2.do on the Exclusives Product category only",
+   "works_in_store": "This voucher can be used only online",
+   "works_online": "This voucher can be used only online"
+  }
+ },
+ "buyhatke:third-wave-coffee-gift-card": {
+  "delivery_wait": "sometimes delayed up to 24-48 hours",
+  "excludes": [
+   "purchase of gift cards",
+   "gift cards"
+  ],
+  "one_time_use": "no",
+  "partial_redemption": "yes",
+  "validity": "12 months from the date of purchase",
+  "works_in_store": "yes",
+  "works_online": "yes",
+  "quotes": {
+   "delivery_wait": "E-Gift Cards are normally delivered instantly. But sometimes due to system issues, the delivery can be delayed up-to 24 - 48 hours.",
+   "excludes": "The amount cannot be taken out/transferred from Third Wave Wallet and it can’t be used to purchase any gift cards.",
+   "one_time_use": "The amount can be used on multiple transactions on Third Wave app.",
+   "partial_redemption": "The amount can be used on multiple transactions on Third Wave app.",
+   "validity": "Third Wave voucher code validity will be 12 months from the date of purchase.",
+   "works_in_store": "This voucher can be used both online and in-store",
+   "works_online": "This voucher can be used both online and in-store"
+  }
+ },
+ "buyhatke:times-prime-lite-gift-card": {
+  "max_vouchers_per_bill": 1,
+  "one_time_use": "yes",
+  "validity": "6 to 12 months depending on the pack, from date of activation",
+  "works_in_store": "no",
+  "works_online": "yes",
+  "quotes": {
+   "max_vouchers_per_bill": "Maximum 1 voucher can be in one transaction",
+   "one_time_use": "The coupon code is applicable for one-time use per user only",
+   "validity": "The membership is valid for 6 months to 12 months depending on the pack, starting from the date of successful user activation.",
+   "works_in_store": "This voucher can be used only online",
+   "works_online": "This voucher can be used only online"
+  }
+ },
+ "buyhatke:times-prime-power-gift-card": {
+  "one_time_use": "yes",
+  "validity": "12 months from date of activation",
+  "works_in_store": "no",
+  "works_online": "yes",
+  "quotes": {
+   "one_time_use": "The coupon code is applicable for one-time use per user only",
+   "validity": "The membership is valid for 12 months, starting from the date of successful user activation",
+   "works_in_store": "This voucher can be used only online",
+   "works_online": "This voucher can be used only online"
+  }
+ },
+ "buyhatke:times-prime-prive-gift-card": {
+  "one_time_use": "yes",
+  "validity": "12 months from date of activation",
+  "works_in_store": "no",
+  "works_online": "yes",
+  "quotes": {
+   "one_time_use": "The coupon code is applicable for one-time use per user only",
+   "validity": "The membership is valid for 12 months, starting from the date of successful user activation",
+   "works_in_store": "This voucher can be used only online",
+   "works_online": "This voucher can be used only online"
+  }
+ },
+ "buyhatke:timezone-(in-store)-gift-card": {
+  "can_combine_with_store_offers": "no",
+  "works_in_store": "yes",
+  "works_online": "no",
+  "quotes": {
+   "can_combine_with_store_offers": "Gift Voucher cannot be clubbed with on-going promotions/offers",
+   "works_in_store": "This voucher can be used only in-store",
+   "works_online": "Cannot be used online"
+  }
+ },
+ "buyhatke:tinder-gift-card": {
+  "can_combine_with_store_offers": "no",
+  "one_time_use": "yes",
+  "works_in_store": "no",
+  "works_online": "yes",
+  "quotes": {
+   "can_combine_with_store_offers": "Cannot be clubbed with existing offers.",
+   "one_time_use": "One-time use only, cannot be redeemed by multiple members, valid only in India.",
+   "works_in_store": "This voucher can be used only online",
+   "works_online": "This voucher can be used only online"
+  }
+ },
+ "buyhatke:titan-(in-store)-gift-card": {
+  "can_combine_with_store_offers": "no",
+  "excludes": [
+   "Titan Nebula collection of Watches",
+   "date: block-out dates"
+  ],
+  "max_vouchers_per_bill": 5,
+  "one_time_use": "yes",
+  "partial_redemption": "no",
+  "spend_scope": "All products at TITAN World stores except the Titan Nebula collection of Watches",
+  "works_in_store": "yes",
+  "works_online": "no",
+  "quotes": {
+   "can_combine_with_store_offers": "The GV/GC cannot be clubbed with the existing offers.",
+   "excludes": "The GV/GC is valid for all the products available on the TITAN World stores except the Titan Nebula collection of Watches.",
+   "max_vouchers_per_bill": "A maximum of 5 GV/GCs can be used against one bill.",
+   "one_time_use": "This is a one-time use GV/GC. The remaining balance in the GV/GC will be forfeited once the card is redeemed. No refund or credit note would be issued against an unused or partially used GV/GC.",
+   "partial_redemption": "This is a one-time use GV/GC. The remaining balance in the GV/GC will be forfeited once the card is redeemed. No refund or credit note would be issued against an unused or partially used GV/GC.",
+   "spend_scope": "The GV/GC is valid for all the products available on the TITAN World stores except the Titan Nebula collection of Watches.",
+   "works_in_store": "This voucher can be used only in-store",
+   "works_online": "This voucher can be used only in-store"
+  }
+ },
+ "buyhatke:titan-eye-plus-(in-store)-gift-card": {
+  "can_combine_with_store_offers": "no",
+  "excludes": [
+   "discounted products"
+  ],
+  "one_time_use": "yes",
+  "partial_redemption": "no",
+  "spend_scope": "Company-authorised TITAN EYEPLUS Stores only",
+  "validity": "6 months",
+  "works_in_store": "yes",
+  "works_online": "no",
+  "quotes": {
+   "can_combine_with_store_offers": "This voucher is not applicable on discounted products and cannot be clubbed with any other offer in the store.",
+   "excludes": "This voucher is not applicable on discounted products and cannot be clubbed with any other offer in the store.",
+   "one_time_use": "Voucher Partial redemption is not allowed and is redeemable only once.",
+   "partial_redemption": "Voucher Partial redemption is not allowed and is redeemable only once.",
+   "spend_scope": "This e-gift voucher can be redeemed at all company authorised TITAN EYEPLUS Stores only.",
+   "validity": "Comes with 6 month validity. This voucher is not applicable on discounted products and cannot be clubbed with any other offer in the store.",
+   "works_in_store": "This voucher can be used only in-store",
+   "works_online": "This voucher can be used only in-store"
+  }
+ },
+ "buyhatke:titan-minimals-(in-store)-gift-card": {
+  "can_combine_with_store_offers": "no",
+  "max_vouchers_per_bill": 5,
+  "one_time_use": "yes",
+  "partial_redemption": "no",
+  "works_in_store": "yes",
+  "works_online": "no",
+  "quotes": {
+   "can_combine_with_store_offers": "The GV/GC cannot be clubbed with the existing offers.",
+   "max_vouchers_per_bill": "A maximum of 5 GV/GCs can be used against one bill.",
+   "one_time_use": "This is a one-time use GV/GC. The remaining balance in the GV/GC will be forfeited once the card is redeemed.",
+   "partial_redemption": "This is a one-time use GV/GC. The remaining balance in the GV/GC will be forfeited once the card is redeemed.",
+   "works_in_store": "This voucher can be used only in-store",
+   "works_online": "This voucher can be used only in-store"
+  }
+ },
+ "buyhatke:tods-luxe-(in-store)-gift-card": {
+  "excludes": [
+   "location: airport stores"
+  ],
+  "max_vouchers_per_bill": "unlimited",
+  "one_time_use": "yes",
+  "spend_scope": "Full-priced merchandise only",
+  "validity": "1 year",
+  "works_in_store": "yes",
+  "works_online": "no",
+  "quotes": {
+   "excludes": "Valid for 1 year and in-store use only; not redeemable at airport stores",
+   "max_vouchers_per_bill": "This is a one-time use giftcard; multiple cards can be used in 1 transaction",
+   "one_time_use": "This is a one-time use giftcard; multiple cards can be used in 1 transaction",
+   "spend_scope": "Luxe Gift Card can only be redeemed against full-priced merchandise",
+   "validity": "Valid for 1 year and in-store use only; not redeemable at airport stores",
+   "works_in_store": "This voucher can be used only in-store",
+   "works_online": "This voucher can be used only in-store"
+  }
+ },
+ "buyhatke:tory-burch-luxe-(in-store)-gift-card": {
+  "excludes": [
+   "location: airport stores"
+  ],
+  "max_vouchers_per_bill": "unlimited",
+  "one_time_use": "yes",
+  "spend_scope": "Full-priced merchandise only",
+  "validity": "1 year",
+  "works_in_store": "yes",
+  "works_online": "no",
+  "quotes": {
+   "excludes": "Valid for 1 year and in-store use only; not redeemable at airport stores",
+   "max_vouchers_per_bill": "This is a one-time use giftcard; multiple cards can be used in 1 transaction",
+   "one_time_use": "This is a one-time use giftcard; multiple cards can be used in 1 transaction",
+   "spend_scope": "Luxe Gift Card can only be redeemed against full-priced merchandise",
+   "validity": "Valid for 1 year and in-store use only; not redeemable at airport stores",
+   "works_in_store": "This voucher can be used only in-store",
+   "works_online": "This voucher can be used only in-store"
+  }
+ },
+ "buyhatke:toscano-(in-store)-gift-card": {
+  "one_time_use": "yes",
+  "spend_scope": "Dine-in only",
+  "validity": "12 months",
+  "works_in_store": "yes",
+  "works_online": "no",
+  "quotes": {
+   "one_time_use": "Valid for one time redemption only",
+   "spend_scope": "Comes with 12 month validity and is applicable for Dine-in only",
+   "validity": "Comes with 12 month validity and is applicable for Dine-in only",
+   "works_in_store": "This voucher can be used only in-store",
+   "works_online": "This voucher can be used only in-store"
+  }
+ },
+ "buyhatke:trends-women-(in-store)-gift-card": {
+  "one_time_use": "yes",
+  "partial_redemption": "no",
+  "spend_scope": "Trends, Trends Man, Trends Women, and Trends Junior outlets",
+  "validity": "6 months",
+  "works_in_store": "yes",
+  "works_online": "no",
+  "quotes": {
+   "one_time_use": "This Gift Voucher can be redeemed only once. Any unused amount will lapse.",
+   "partial_redemption": "This Gift Voucher can be redeemed only once. Any unused amount will lapse.",
+   "spend_scope": "Gift Vouchers can be used at all Listed Trends, Trends Man, Trends Women, and Trends Junior Outlets",
+   "validity": "Comes with 6 months validity",
+   "works_in_store": "This voucher can be used only in-store",
+   "works_online": "This voucher can be used only in-store"
+  }
+ },
+ "buyhatke:tridom-(in-store)-gift-card": {
+  "max_vouchers_per_bill": "unlimited",
+  "one_time_use": "yes",
+  "spend_scope": "Funcity, Funblock, and Tridom locations across India",
+  "validity": "6 months",
+  "works_in_store": "yes",
+  "works_online": "no",
+  "quotes": {
+   "max_vouchers_per_bill": "Multiple eGift Cards can be combined and used in a single transaction.",
+   "one_time_use": "The eGift Card can be redeemed only once.",
+   "spend_scope": "Comes with 6 months validity and is valid for use at all Funcity, Funblock, and Tridom locations across India.",
+   "validity": "Comes with 6 months validity and is valid for use at all Funcity, Funblock, and Tridom locations across India.",
+   "works_in_store": "This voucher can be used only in-store",
+   "works_online": "This voucher can be used only in-store"
+  }
+ },
+ "buyhatke:tripxoxo-gift-card": {
+  "max_vouchers_per_bill": "unlimited",
+  "validity": "12 months",
+  "works_in_store": "no",
+  "works_online": "yes",
+  "quotes": {
+   "max_vouchers_per_bill": "Multiple Gift Cards can be combined and used on 1 transaction.",
+   "validity": "Comes with 12 months validity and is valid only for buying tripXOXO Services on www.tripXOXO.com",
+   "works_in_store": "This voucher can be used only online",
+   "works_online": "This voucher can be used only online"
+  }
+ }
+}

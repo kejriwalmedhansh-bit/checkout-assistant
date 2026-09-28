@@ -29,7 +29,13 @@ def test_every_reviewed_name_is_a_live_voucher():
     """A renamed or delisted voucher silently drops its review — catch it."""
     names = {c["name"] for c in voucher_service._online_cards()}
     reviewed = json.loads((ROOT / "data/voucher_choice_review.json").read_text())["cards"]
-    assert not [n for n in reviewed if n not in names]
+    # A card the platform has stopped selling keeps its review for when it
+    # returns; only a name no platform has at all means a rename or a typo.
+    known = set()
+    for source in ("gyftr", "buyhatke", "maximize"):
+        master = json.loads((ROOT / f"data/{source}_master.json").read_text())
+        known.update(e.get("brand_name") for e in master.values())
+    assert not [n for n in reviewed if n not in names and n not in known]
 
 
 def test_the_same_voucher_on_two_sites_is_one_choice():

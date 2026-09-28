@@ -22,12 +22,16 @@ the reading pass; carry everything else forward untouched.
   python scripts/refresh_vouchers.py           write chunks for the changed set
 """
 import argparse
+import sys
 import hashlib
 import json
 import re
 from pathlib import Path
 
 REPO = Path(__file__).resolve().parent.parent
+sys.path.insert(0, str(REPO / "scripts"))
+from scrape_voucher_terms import strip_buyhatke_footer  # noqa: E402
+
 DATA = REPO / "data"
 MANIFEST = DATA / "terms_manifest.json"
 CHUNKS = DATA / "rules_chunks"
@@ -38,8 +42,42 @@ TERM_FIELDS = ("important_instruction", "checkout_instruction", "restrictions",
                "how_to_redeem", "faqs", "full_terms")
 
 
+def gyftr_terms(text: str) -> str:
+    """Only the brand's own terms, out of what was collected as full_terms.
+
+    Up to 2026-09-04 Gyftr's terms were read off the rendered page, so they came
+    wrapped in tab labels, the price table and the cart; from 2026-09-28 they
+    come from the feed with none of that. Comparing the wrappers would mark all
+    ~480 brands as changed. A page where the terms never loaded (the heading is
+    followed straight by the price table — 100 brands on 2026-09-04) gives ""
+    here, so it compares as changed and gets read properly this time.
+    """
+    m = re.search(r"^(?!TERMS)[^\n]*Terms & Conditions[ \t]*\n(?!APPLY|I will pay|You.re on|₹|CART)",
+                  text, re.M)
+    if not m:
+        return ""
+    body = text[m.end():]
+    cut = re.search(r"\n(APPLY|I will pay using|More About|FAQs|CART)\n", body)
+    return body[:cut.start()] if cut else body
+
+
 def terms_of(rec: dict) -> str:
-    raw = rec.get("raw", {})
+    raw = dict(rec.get("raw", {}))
+    if rec.get("source") == "gyftr" and raw.get("full_terms"):
+        raw["full_terms"] = gyftr_terms(raw["full_terms"])
+    if rec.get("source") == "maximize":
+        # Read off pop-ups until 2026-09-04, each ending in the dialog's "Close";
+        # from the feed since 2026-09-28, without it.
+        for f in ("full_terms", "how_to_redeem"):
+            if raw.get(f):
+                raw[f] = "\n".join(ln for ln in raw[f].split("\n") if ln.strip() != "Close")
+    if rec.get("source") == "buyhatke":
+        for f in ("restrictions", "how_to_redeem", "full_terms"):
+            if raw.get(f):
+                raw[f] = strip_buyhatke_footer(raw[f]).strip()
+        if raw.get("restrictions"):
+            raw["restrictions"] = re.split(r"REFER & EARN|TERMS AND CONDITIONS|HOW TO REDEEM",
+                                           raw["restrictions"])[0].replace("🎁", "").strip()
     parts = []
     for label, key in (("IMPORTANT INSTRUCTIONS", "important_instruction"),
                        ("CHECKOUT INSTRUCTIONS", "checkout_instruction"),
@@ -58,6 +96,8 @@ def fingerprint(text: str) -> str:
     """Whitespace and typographic noise must not count as a change, or every
     refresh re-reads the whole catalogue."""
     norm = re.sub(r"\s+", " ", text).replace("’", "'").replace("“", '"').replace("”", '"')
+    # A link printed with or without its https:// is the same link.
+    norm = re.sub(r"https?://", "", norm)
     return hashlib.sha256(norm.strip().lower().encode()).hexdigest()[:16]
 
 

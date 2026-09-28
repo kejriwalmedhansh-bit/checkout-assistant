@@ -1,0 +1,1183 @@
+{
+ "gyftr:affinity-luzo-gift-card": {
+  "works_online": "yes",
+  "works_in_store": "not_stated",
+  "one_time_use": "no",
+  "partial_redemption": "yes",
+  "max_vouchers_per_bill": "unlimited",
+  "can_combine_with_store_offers": "yes",
+  "spend_scope": "salon, spa, and clinic services booked through the Luzo app at partner outlets",
+  "excludes": [],
+  "min_order_value": "not_stated",
+  "max_spend_per_purchase": "not_stated",
+  "monthly_purchase_cap": "not_stated",
+  "validity": "not_stated",
+  "delivery_wait": "not_stated",
+  "quotes": {
+   "works_online": "it will be accepted only on the Luzo app.",
+   "one_time_use": "Once added, the GV/GC balance is credited to the beneficiary's Luzo wallet and can be used across multiple transactions until the balance is exhausted.",
+   "partial_redemption": "Once added, the GV/GC balance is credited to the beneficiary's Luzo wallet and can be used across multiple transactions until the balance is exhausted.",
+   "max_vouchers_per_bill": "Multiple GV/GCs can be added to the Luzo wallet. There is no limit on the number of GV/GCs that can be added.",
+   "can_combine_with_store_offers": "The GV/GC can be clubbed with existing offers.",
+   "spend_scope": "The GV/GC can be used for salon, spa, and clinic services booked through the Luzo app at partner outlets."
+  }
+ },
+ "gyftr:enrich-luzo-gift-card": {
+  "works_online": "yes",
+  "works_in_store": "not_stated",
+  "one_time_use": "no",
+  "partial_redemption": "yes",
+  "max_vouchers_per_bill": "unlimited",
+  "can_combine_with_store_offers": "yes",
+  "spend_scope": "salon, spa, and clinic services booked through the Luzo app at partner outlets",
+  "excludes": [],
+  "min_order_value": "not_stated",
+  "max_spend_per_purchase": "not_stated",
+  "monthly_purchase_cap": "not_stated",
+  "validity": "not_stated",
+  "delivery_wait": "not_stated",
+  "quotes": {
+   "works_online": "it will be accepted only on the Luzo app.",
+   "one_time_use": "Once added, the GV/GC balance is credited to the beneficiary's Luzo wallet and can be used across multiple transactions until the balance is exhausted.",
+   "partial_redemption": "Once added, the GV/GC balance is credited to the beneficiary's Luzo wallet and can be used across multiple transactions until the balance is exhausted.",
+   "max_vouchers_per_bill": "Multiple GV/GCs can be added to the Luzo wallet. There is no limit on the number of GV/GCs that can be added.",
+   "can_combine_with_store_offers": "The GV/GC can be clubbed with existing offers.",
+   "spend_scope": "The GV/GC can be used for salon, spa, and clinic services booked through the Luzo app at partner outlets."
+  }
+ },
+ "gyftr:bally-luxe-gift-card": {
+  "one_time_use": "yes",
+  "partial_redemption": "no",
+  "max_vouchers_per_bill": "unlimited",
+  "can_combine_with_store_offers": "no",
+  "spend_scope": "not_stated",
+  "excludes": [
+   "location: airport stores"
+  ],
+  "min_order_value": "not_stated",
+  "max_spend_per_purchase": "not_stated",
+  "monthly_purchase_cap": "not_stated",
+  "validity": "not_stated",
+  "delivery_wait": "not_stated",
+  "quotes": {
+   "one_time_use": "This is a one-time use GV/GC.",
+   "partial_redemption": "In case the value of the merchandise exceeds the value of the GV/GC, the difference shall be paid by the bearer. No refund/credit note shall be issued for unused parts of the GV/GC.",
+   "max_vouchers_per_bill": "Multiple GV/GC can be used for one bill.",
+   "can_combine_with_store_offers": "The GV/GC can be redeemed only against full priced merchandise.",
+   "excludes": "Luxe Gift Card is not redeemable at airport stores.",
+   "works_online": "Bally Luxe Gift Cards can only be redeemed at select Bally Stores."
+  },
+  "works_online": "no",
+  "works_in_store": "yes"
+ },
+ "gyftr:charles-tyrwitt": {
+  "one_time_use": "yes",
+  "partial_redemption": "no",
+  "max_vouchers_per_bill": "unlimited",
+  "can_combine_with_store_offers": "no",
+  "spend_scope": "not_stated",
+  "excludes": [
+   "location: airport stores"
+  ],
+  "min_order_value": "not_stated",
+  "max_spend_per_purchase": "not_stated",
+  "monthly_purchase_cap": "not_stated",
+  "validity": "not_stated",
+  "delivery_wait": "not_stated",
+  "quotes": {
+   "one_time_use": "This is a one-time use GV/GC.",
+   "partial_redemption": "In case the value of the merchandise exceeds the value of the GV/GC, the difference shall be paid by the bearer. No refund/credit note shall be issued for unused parts of the GV/GC.",
+   "max_vouchers_per_bill": "Multiple GV/GC can be used for one bill.",
+   "can_combine_with_store_offers": "The GV/GC can be redeemed only against full priced merchandise.",
+   "excludes": "Luxe Gift Card is not redeemable at airport stores.",
+   "works_online": "Charles Tyrwhitt Luxe Gift Cards can only be redeemed at select Charles Tyrwhitt Stores."
+  },
+  "works_online": "no",
+  "works_in_store": "yes"
+ },
+ "gyftr:ferragamo": {
+  "one_time_use": "yes",
+  "partial_redemption": "no",
+  "max_vouchers_per_bill": "unlimited",
+  "can_combine_with_store_offers": "no",
+  "spend_scope": "not_stated",
+  "excludes": [
+   "location: airport stores"
+  ],
+  "min_order_value": "not_stated",
+  "max_spend_per_purchase": "not_stated",
+  "monthly_purchase_cap": "not_stated",
+  "validity": "not_stated",
+  "delivery_wait": "not_stated",
+  "quotes": {
+   "one_time_use": "This is a one-time use GV/GC.",
+   "partial_redemption": "In case the value of the merchandise exceeds the value of the GV/GC, the difference shall be paid by the bearer. No refund/credit note shall be issued for unused parts of the GV/GC.",
+   "max_vouchers_per_bill": "Multiple GV/GC can be used for one bill.",
+   "can_combine_with_store_offers": "The GV/GC can be redeemed only against full priced merchandise.",
+   "excludes": "Luxe Gift Card is not redeemable at airport stores.",
+   "works_online": "Ferragamo Luxe Gift Cards can only be redeemed at select Ferragamo Stores."
+  },
+  "works_online": "no",
+  "works_in_store": "yes"
+ },
+ "gyftr:giorgio-armani--luxe-gift-card": {
+  "one_time_use": "yes",
+  "partial_redemption": "no",
+  "max_vouchers_per_bill": "unlimited",
+  "can_combine_with_store_offers": "no",
+  "spend_scope": "not_stated",
+  "excludes": [
+   "location: airport stores"
+  ],
+  "min_order_value": "not_stated",
+  "max_spend_per_purchase": "not_stated",
+  "monthly_purchase_cap": "not_stated",
+  "validity": "not_stated",
+  "delivery_wait": "not_stated",
+  "quotes": {
+   "one_time_use": "This is a one-time use GV/GC.",
+   "partial_redemption": "In case the value of the merchandise exceeds the value of the GV/GC, the difference shall be paid by the bearer. No refund/credit note shall be issued for unused parts of the GV/GC.",
+   "max_vouchers_per_bill": "Multiple GV/GC can be used for one bill.",
+   "can_combine_with_store_offers": "The GV/GC can be redeemed only against full priced merchandise.",
+   "excludes": "Luxe Gift Card is not redeemable at airport stores.",
+   "works_online": "Giorgio Armani Luxe Gift Cards can only be redeemed at select Giorgio Armani Stores."
+  },
+  "works_online": "no",
+  "works_in_store": "yes"
+ },
+ "gyftr:airtel-xstream": {
+  "works_online": "yes",
+  "works_in_store": "not_stated",
+  "one_time_use": "not_stated",
+  "partial_redemption": "not_stated",
+  "max_vouchers_per_bill": 1,
+  "can_combine_with_store_offers": "no",
+  "spend_scope": "not_stated",
+  "excludes": [],
+  "min_order_value": "not_stated",
+  "max_spend_per_purchase": "not_stated",
+  "monthly_purchase_cap": "not_stated",
+  "validity": "not_stated",
+  "delivery_wait": "not_stated",
+  "quotes": {
+   "works_online": "The GV/GC will be accepted on the official mobile application/website at airtelxstream.in.",
+   "max_vouchers_per_bill": "Only one GV/GC can be used for one subscription.",
+   "can_combine_with_store_offers": "The GV/GC cannot be clubbed with any existing offer on its website."
+  }
+ },
+ "gyftr:ajio-luxe": {
+  "works_online": "yes",
+  "works_in_store": "no",
+  "one_time_use": "yes",
+  "partial_redemption": "yes",
+  "max_vouchers_per_bill": "not_stated",
+  "can_combine_with_store_offers": "not_stated",
+  "spend_scope": "not_stated",
+  "excludes": [
+   "Gold and/or Silver idols, coins, fine jewellery, and all other forms of precious metals",
+   "other Gift Cards on AJIO Luxe"
+  ],
+  "min_order_value": "not_stated",
+  "max_spend_per_purchase": "not_stated",
+  "monthly_purchase_cap": "not_stated",
+  "validity": "not_stated",
+  "delivery_wait": "not_stated",
+  "quotes": {
+   "works_online": "Gift Voucher/Gift Card (GV/GC) can be used online on the Mobile App and the Website.",
+   "works_in_store": "AJIO Luxe Gift Cards can only be redeemed at AJIO online.",
+   "one_time_use": "This is a one-time use GV/GC.",
+   "partial_redemption": "Once the GV/GC is loaded into the user’s AJIO Wallet, it can be used partially.",
+   "excludes": "The GV/GC cannot be redeemed for the purchase of Gold and/or Silver idols, coins, fine jewellery, and all other forms of precious metals listed on the AJIO Platform, or any other products that Reliance may exclude at its sole discretion."
+  }
+ },
+ "gyftr:aliste": {
+  "works_online": "yes",
+  "works_in_store": "no",
+  "one_time_use": "yes",
+  "partial_redemption": "not_stated",
+  "max_vouchers_per_bill": 1,
+  "can_combine_with_store_offers": "no",
+  "spend_scope": "not_stated",
+  "excludes": [],
+  "min_order_value": "not_stated",
+  "max_spend_per_purchase": "not_stated",
+  "monthly_purchase_cap": "not_stated",
+  "validity": "not_stated",
+  "delivery_wait": "not_stated",
+  "quotes": {
+   "works_online": "The Gift Voucher/Gift Card (GV/GC) would only be accepted on the official website/app.",
+   "works_in_store": "The Gift Voucher/Gift Card (GV/GC) would only be accepted on the official website/app.",
+   "one_time_use": "This is a one-time use GV/GC with an expiration date.",
+   "max_vouchers_per_bill": "Only one GV/GC can be used for one subscription.",
+   "can_combine_with_store_offers": "The GV/GC cannot be clubbed with any existing offer on its website."
+  }
+ },
+ "gyftr:american-eagle-gift-voucher": {
+  "works_online": "no",
+  "works_in_store": "yes",
+  "one_time_use": "yes",
+  "partial_redemption": "no",
+  "max_vouchers_per_bill": "unlimited",
+  "can_combine_with_store_offers": "not_stated",
+  "spend_scope": "not_stated",
+  "excludes": [
+   "date: block-out dates as determined by American Eagle"
+  ],
+  "min_order_value": "not_stated",
+  "max_spend_per_purchase": "not_stated",
+  "monthly_purchase_cap": "not_stated",
+  "validity": "not_stated",
+  "delivery_wait": "not_stated",
+  "quotes": {
+   "works_online": "The GV / GC CANNOT be used online.",
+   "works_in_store": "This is an American Eagle Gift Voucher (GV)/Gift Card (GC) and would be accepted at listed outlets.",
+   "one_time_use": "This is a one-time use GV/GC.",
+   "partial_redemption": "No Credit note/Refund for the unused amount of the GV/GC will be given.",
+   "max_vouchers_per_bill": "More than one GV/GC can be used in one bill.",
+   "excludes": "GV/GC cannot be redeemed on specific block-out dates. American Eagle may add or delete any date at its sole discretion."
+  }
+ },
+ "gyftr:app-store-code": {
+  "works_online": "yes",
+  "works_in_store": "not_stated",
+  "one_time_use": "not_stated",
+  "partial_redemption": "not_stated",
+  "max_vouchers_per_bill": "not_stated",
+  "can_combine_with_store_offers": "not_stated",
+  "spend_scope": "not_stated",
+  "excludes": [],
+  "min_order_value": "not_stated",
+  "max_spend_per_purchase": "not_stated",
+  "monthly_purchase_cap": "not_stated",
+  "validity": "not_stated",
+  "delivery_wait": "not_stated",
+  "quotes": {
+   "works_online": "Valid only on purchases made in India from Apple Media Services."
+  }
+ },
+ "gyftr:bakingo": {
+  "works_online": "yes",
+  "works_in_store": "no",
+  "one_time_use": "yes",
+  "partial_redemption": "no",
+  "max_vouchers_per_bill": 1,
+  "can_combine_with_store_offers": "no",
+  "spend_scope": "not_stated",
+  "excludes": [
+   "date: block-out dates set by Bakingo"
+  ],
+  "min_order_value": "not_stated",
+  "max_spend_per_purchase": "not_stated",
+  "monthly_purchase_cap": "not_stated",
+  "validity": "3 to 12 months",
+  "delivery_wait": "not_stated",
+  "quotes": {
+   "works_online": "This is a Bakingo Gift Voucher/Gift Card (GV/GC) and it can be redeemed only on the website through this url: www.bakingo.com",
+   "works_in_store": "GV/GC CANNOT be redeemed directly at Bakingo Outlets.",
+   "one_time_use": "Gift Vouchers CANNOT be used multiple times.",
+   "partial_redemption": "The GV/GC is not valid for partial redemption. The remaining balance in the GV/GC will be forfeited once the card is redeemed.",
+   "max_vouchers_per_bill": "Multiple GV/GC CANNOT be used in one bill.",
+   "can_combine_with_store_offers": "GV/GC cannot be clubbed with other offers on the Bakingo website.",
+   "excludes": "GV/GC cannot be redeemed on specific block-out dates. Bakingo may add or delete any date at its sole discretion.",
+   "validity": "A Bakingo Gift Card usually comes with a validity of 3 to 12 months."
+  }
+ },
+ "gyftr:barbeque-nation-value-voucher": {
+  "works_online": "no",
+  "works_in_store": "yes",
+  "one_time_use": "yes",
+  "partial_redemption": "no",
+  "max_vouchers_per_bill": "not_stated",
+  "can_combine_with_store_offers": "not_stated",
+  "spend_scope": "Dine-in only",
+  "excludes": [
+   "date: 26th January'23, 15th August'23, 20th-24th October'23, 25th December'23, 31st December'23, 1st January'24"
+  ],
+  "min_order_value": "not_stated",
+  "max_spend_per_purchase": "not_stated",
+  "monthly_purchase_cap": "not_stated",
+  "validity": "not_stated",
+  "delivery_wait": "not_stated",
+  "quotes": {
+   "works_online": "The voucher is applicable for Dine-in only.",
+   "works_in_store": "The voucher is applicable for Dine-in only.",
+   "one_time_use": "The Voucher is valid for one-time redemption only. Any voucher which is found redeemed will not be accepted.",
+   "partial_redemption": "Guest will not be entitled for any cashback/refund in case the bill value is less than the voucher value.",
+   "spend_scope": "The voucher is applicable for Dine-in only.",
+   "excludes": "Voucher will not be valid on 26th January’23, 15th August’23, 20th to 24th October’23, 25th December’23, 31st December’23 and 1st January’24."
+  }
+ },
+ "gyftr:behrouz-biryani": {
+  "works_online": "yes",
+  "works_in_store": "not_stated",
+  "one_time_use": "not_stated",
+  "partial_redemption": "yes",
+  "max_vouchers_per_bill": "unlimited",
+  "can_combine_with_store_offers": "no",
+  "spend_scope": "not_stated",
+  "excludes": [],
+  "min_order_value": "not_stated",
+  "max_spend_per_purchase": "not_stated",
+  "monthly_purchase_cap": "not_stated",
+  "validity": "not_stated",
+  "delivery_wait": "not_stated",
+  "quotes": {
+   "works_online": "EatSure Gift Voucher (GV) issued by their banking partner would be accepted only on the EatSure App/Web.",
+   "partial_redemption": "The GV/GC will be converted into ‘EatSure wallet balance’, and the wallet balance can be used partially.",
+   "max_vouchers_per_bill": "Multiple GV/GC can be combined and added to the EatSure wallet balance.",
+   "can_combine_with_store_offers": "it cannot be clubbed with other aggregator offers."
+  }
+ },
+ "gyftr:bgmi-uc-official-voucher": {
+  "works_online": "yes",
+  "works_in_store": "no",
+  "one_time_use": "yes",
+  "partial_redemption": "no",
+  "max_vouchers_per_bill": "not_stated",
+  "can_combine_with_store_offers": "no",
+  "spend_scope": "Unknown Cash (UC) in BGMI only",
+  "excludes": [],
+  "min_order_value": "not_stated",
+  "max_spend_per_purchase": "not_stated",
+  "monthly_purchase_cap": "not_stated",
+  "validity": "not_stated",
+  "delivery_wait": "not_stated",
+  "quotes": {
+   "works_online": "This is a BGMI UC Official Voucher GV/GC (Gift Voucher/Gift Card) that will be accepted only online at https://www.swag.gg/bgmi.",
+   "works_in_store": "This is a BGMI UC Official Voucher GV/GC (Gift Voucher/Gift Card) that will be accepted only online at https://www.swag.gg/bgmi.",
+   "one_time_use": "This is a one-time use GV/GC. The remaining balance in the GV/GC will be forfeited once the card is redeemed.",
+   "partial_redemption": "This is a one-time use GV/GC. The remaining balance in the GV/GC will be forfeited once the card is redeemed.",
+   "can_combine_with_store_offers": "The GV/GC cannot be clubbed with any existing offers or promotions.",
+   "spend_scope": "The GV/GC can only be used to purchase Unknown Cash (UC) in BGMI and cannot be used for any other in-game or third-party services."
+  }
+ },
+ "gyftr:blinkit-gift-card": {
+  "works_online": "yes",
+  "works_in_store": "no",
+  "one_time_use": "yes",
+  "partial_redemption": "yes",
+  "max_vouchers_per_bill": "unlimited",
+  "can_combine_with_store_offers": "yes",
+  "spend_scope": "not_stated",
+  "excludes": [
+   "other Gift Cards or Vouchers on Blinkit"
+  ],
+  "min_order_value": "not_stated",
+  "max_spend_per_purchase": "Rs 25,000 per calendar month",
+  "monthly_purchase_cap": "not_stated",
+  "validity": "not_stated",
+  "delivery_wait": "not_stated",
+  "quotes": {
+   "works_online": "This is a Blinkit Gift Voucher (GV)/Gift Card (GC) and will be accepted only online on the Blinkit mobile application.",
+   "works_in_store": "This is a Blinkit Gift Voucher (GV)/Gift Card (GC) and will be accepted only online on the Blinkit mobile application.",
+   "one_time_use": "This is a one-time use GV/GC.",
+   "partial_redemption": "Once the GV/GC is added to the Blinkit Wallet, you can partially redeem the balance as per your convenience",
+   "max_vouchers_per_bill": "Multiple GV/GC can be used against one bill.",
+   "can_combine_with_store_offers": "The GV/GC can be clubbed with the existing offers.",
+   "excludes": "It cannot be used to buy other Gift Cards or Vouchers.",
+   "max_spend_per_purchase": "GV/GC redemptions are limited to Rs 25,000 per user, per calendar month."
+  }
+ },
+ "gyftr:cahoot": {
+  "works_online": "yes",
+  "works_in_store": "not_stated",
+  "one_time_use": "yes",
+  "partial_redemption": "yes",
+  "max_vouchers_per_bill": "unlimited",
+  "can_combine_with_store_offers": "yes",
+  "spend_scope": "not_stated",
+  "excludes": [],
+  "min_order_value": "not_stated",
+  "max_spend_per_purchase": "not_stated",
+  "monthly_purchase_cap": "not_stated",
+  "validity": "not_stated",
+  "delivery_wait": "not_stated",
+  "quotes": {
+   "works_online": "This is a Cahoot GV (Gift Voucher)/e-Pay and will be accepted only on the Cahoot website at https://cahoot.in.",
+   "one_time_use": "Cahoot Gift Card can only be used once.",
+   "partial_redemption": "After conversion into e-Pay balance, this GV is valid for partial redemption.",
+   "max_vouchers_per_bill": "Multiple GVs can be combined and added to the e-Pay balance.",
+   "can_combine_with_store_offers": "The GV/e-Pay can be clubbed with existing offers."
+  }
+ },
+ "gyftr:chicago-pizza": {
+  "works_online": "not_stated",
+  "works_in_store": "yes",
+  "one_time_use": "yes",
+  "partial_redemption": "no",
+  "max_vouchers_per_bill": 1,
+  "can_combine_with_store_offers": "yes",
+  "spend_scope": "Takeaway/Dine-in only",
+  "excludes": [
+   "location: Food Courts"
+  ],
+  "min_order_value": "not_stated",
+  "max_spend_per_purchase": "not_stated",
+  "monthly_purchase_cap": "not_stated",
+  "validity": "not_stated",
+  "delivery_wait": "not_stated",
+  "quotes": {
+   "works_in_store": "This is a Chicago Pizza Gift Voucher (GV) / Gift Card (GC) and is accepted at listed Chicago Pizza outlets and not valid on Food Courts.",
+   "one_time_use": "This Chicago Pizza Gift Voucher (GV) / Gift Card (GC) is a one-time use card & any unused balance cannot be used again or be exchanged for Cash.",
+   "partial_redemption": "No credit note / refund for the unused balance amount of the GC will be given.",
+   "max_vouchers_per_bill": "Only One GC can be used in one bill/transaction.",
+   "can_combine_with_store_offers": "Chicago Pizza GC can be clubbed with any one of the existing offers at the outlets.",
+   "spend_scope": "Only valid on Takeaway/Dine in.",
+   "excludes": "This is a Chicago Pizza Gift Voucher (GV) / Gift Card (GC) and is accepted at listed Chicago Pizza outlets and not valid on Food Courts."
+  }
+ },
+ "gyftr:citizen-watches": {
+  "works_online": "yes",
+  "works_in_store": "no",
+  "one_time_use": "yes",
+  "partial_redemption": "yes",
+  "max_vouchers_per_bill": "unlimited",
+  "can_combine_with_store_offers": "yes",
+  "spend_scope": "not_stated",
+  "excludes": [],
+  "min_order_value": "not_stated",
+  "max_spend_per_purchase": "not_stated",
+  "monthly_purchase_cap": "not_stated",
+  "validity": "not_stated",
+  "delivery_wait": "not_stated",
+  "quotes": {
+   "works_online": "The GV/GC can only be redeemed on their official website: https://www.citizenwatches.store/.",
+   "works_in_store": "The GV/GC can only be redeemed on their official website: https://www.citizenwatches.store/.",
+   "one_time_use": "The Citizen Watches Gift Cards can be used only once.",
+   "partial_redemption": "However, once added to the e-Pay balance, the amount can be redeemed partially.",
+   "max_vouchers_per_bill": "Multiple Gift Vouchers can be combined & added to the e-Pay balance.",
+   "can_combine_with_store_offers": "The GV/GC can be used over and above any discounts."
+  }
+ },
+ "gyftr:clayco": {
+  "works_online": "yes",
+  "works_in_store": "no",
+  "one_time_use": "yes",
+  "partial_redemption": "yes",
+  "max_vouchers_per_bill": "unlimited",
+  "can_combine_with_store_offers": "yes",
+  "spend_scope": "not_stated",
+  "excludes": [],
+  "min_order_value": "not_stated",
+  "max_spend_per_purchase": "not_stated",
+  "monthly_purchase_cap": "not_stated",
+  "validity": "not_stated",
+  "delivery_wait": "not_stated",
+  "quotes": {
+   "works_online": "The GV/GC will be accepted on the website: clayco.in.",
+   "works_in_store": "The GV/GC will be accepted on the website: clayco.in.",
+   "one_time_use": "The ClayCo Gift Card can be used only once, but once converted to an ePay balance, you can use the balance to make partial payments.",
+   "partial_redemption": "The ClayCo Gift Card can be used only once, but once converted to an ePay balance, you can use the balance to make partial payments.",
+   "max_vouchers_per_bill": "Multiple gift vouchers can be combined and added to the e-Pay balance.",
+   "can_combine_with_store_offers": "The GV/e-Pay can be clubbed with the existing offers."
+  }
+ },
+ "gyftr:clovia": {
+  "works_online": "yes",
+  "works_in_store": "not_stated",
+  "one_time_use": "not_stated",
+  "partial_redemption": "no",
+  "max_vouchers_per_bill": 1,
+  "can_combine_with_store_offers": "yes",
+  "spend_scope": "not_stated",
+  "excludes": [],
+  "min_order_value": "not_stated",
+  "max_spend_per_purchase": "not_stated",
+  "monthly_purchase_cap": "not_stated",
+  "validity": "not_stated",
+  "delivery_wait": "not_stated",
+  "quotes": {
+   "works_online": "This is a Clovia GV/GC (Gift Voucher/Gift Card) and will be accepted on the Clovia mobile application/website at www.clovia.com.",
+   "partial_redemption": "No refund or credit note would be issued against an unused or partially used GV/GC.",
+   "max_vouchers_per_bill": "Only 1 GV/GC can be used in one bill.",
+   "can_combine_with_store_offers": "Gift Vouchers CAN be clubbed with ongoing offers."
+  }
+ },
+ "gyftr:columbia-sportswear": {
+  "works_online": "yes",
+  "works_in_store": "yes",
+  "one_time_use": "yes",
+  "partial_redemption": "yes",
+  "max_vouchers_per_bill": "unlimited",
+  "can_combine_with_store_offers": "yes",
+  "spend_scope": "not_stated",
+  "excludes": [
+   "date: blackout dates set by Columbia Sports"
+  ],
+  "min_order_value": "not_stated",
+  "max_spend_per_purchase": "not_stated",
+  "monthly_purchase_cap": "not_stated",
+  "validity": "not_stated",
+  "delivery_wait": "not_stated",
+  "quotes": {
+   "works_online": "on the Columbia Sports website at http://www.columbiasportswear.co.in.",
+   "works_in_store": "it can be redeemed at all the listed retail outlets of Columbia Sports owned by Chogori India Retail Limited (CIRL)",
+   "one_time_use": "The Columbia Gift Card can only be used once.",
+   "partial_redemption": "After conversion into e-Pay balance, this GV is valid for partial redemption.",
+   "max_vouchers_per_bill": "Multiple GVs can be combined and added to the e-Pay balance.",
+   "can_combine_with_store_offers": "The GV/e-Pay can be clubbed with any one of the existing offers.",
+   "excludes": "The GV/e-Pay cannot be redeemed on specific blackout dates as may be intimated or updated by Columbia Sports on its website from time to time."
+  }
+ },
+ "gyftr:croma": {
+  "works_online": "yes",
+  "works_in_store": "yes",
+  "one_time_use": "yes",
+  "partial_redemption": "no",
+  "max_vouchers_per_bill": 5,
+  "can_combine_with_store_offers": "yes",
+  "spend_scope": "not_stated",
+  "excludes": [],
+  "min_order_value": "not_stated",
+  "max_spend_per_purchase": "not_stated",
+  "monthly_purchase_cap": "not_stated",
+  "validity": "not_stated",
+  "delivery_wait": "not_stated",
+  "quotes": {
+   "works_online": "on the Croma website at www.croma.com.",
+   "works_in_store": "would only be accepted at the listed Croma outlets",
+   "one_time_use": "This is a one-time use GV/GC.",
+   "partial_redemption": "The GV/GC cannot be reloaded.",
+   "max_vouchers_per_bill": "Only 5 GV/GCs can be redeemed on a single invoice on Croma.com.",
+   "can_combine_with_store_offers": "The GV/GC can be clubbed with the existing offers."
+  }
+ },
+ "gyftr:decathlon": {
+  "works_online": "yes",
+  "works_in_store": "yes",
+  "one_time_use": "no",
+  "partial_redemption": "yes",
+  "max_vouchers_per_bill": 10,
+  "can_combine_with_store_offers": "yes",
+  "spend_scope": "not_stated",
+  "excludes": [],
+  "min_order_value": "not_stated",
+  "max_spend_per_purchase": "Rs 10,000 on decathlon.in and app (no value limit in retail stores)",
+  "monthly_purchase_cap": "not_stated",
+  "validity": "not_stated",
+  "delivery_wait": "not_stated",
+  "quotes": {
+   "works_online": "A Decathlon Omni Gift Card can be redeemed at listed outlets , online at www.decathlon.in & Decathlon App",
+   "works_in_store": "A Decathlon Omni Gift Card can be redeemed at listed outlets , online at www.decathlon.in & Decathlon App",
+   "one_time_use": "The GV/GC is valid for partial redemption. The balance would remain in the GV/GC till the validity period and can be reused for multiple transactions.",
+   "partial_redemption": "The GV/GC is valid for partial redemption. The balance would remain in the GV/GC till the validity period and can be reused for multiple transactions.",
+   "max_vouchers_per_bill": "You can use up to 10 gift cards or a max of Rs 10,000 on decathlon.in and app. Retail stores accept up to 10 gift cards with no value limit.",
+   "can_combine_with_store_offers": "The GV/GC can be clubbed with existing offers on its website/app/store.",
+   "max_spend_per_purchase": "You can use up to 10 gift cards or a max of Rs 10,000 on decathlon.in and app. Retail stores accept up to 10 gift cards with no value limit."
+  }
+ },
+ "gyftr:discord": {
+  "works_online": "yes",
+  "works_in_store": "no",
+  "one_time_use": "yes",
+  "partial_redemption": "no",
+  "max_vouchers_per_bill": "not_stated",
+  "can_combine_with_store_offers": "no",
+  "spend_scope": "Discord Nitro Subscription",
+  "excludes": [
+   "an active Discord Nitro subscription"
+  ],
+  "min_order_value": "not_stated",
+  "max_spend_per_purchase": "not_stated",
+  "monthly_purchase_cap": "not_stated",
+  "validity": "not_stated",
+  "delivery_wait": "not_stated",
+  "quotes": {
+   "works_online": "This is a Discord Gift Voucher (GV)/Gift Card (GC) and can be redeemed only on the Discord website at http://posa.mintroute.com/ or app.",
+   "works_in_store": "The GV/GC cannot be redeemed through offline channels or outside the supported region/platform.",
+   "one_time_use": "The GV/GC cannot be used multiple times.",
+   "partial_redemption": "The GV/GC is valid for one-time use only. Any unused balance will not be credited or carried forward.",
+   "can_combine_with_store_offers": "The GV/GC cannot be clubbed with any existing offers.",
+   "spend_scope": "The GV/GC can only be used for Discord Nitro Subscription.",
+   "excludes": "The GV/GC must not be used on an active subscription."
+  }
+ },
+ "gyftr:docubay": {
+  "works_online": "yes",
+  "works_in_store": "not_stated",
+  "one_time_use": "yes",
+  "partial_redemption": "no",
+  "max_vouchers_per_bill": 1,
+  "can_combine_with_store_offers": "no",
+  "spend_scope": "not_stated",
+  "excludes": [
+   "date: block-out dates set by Docubay"
+  ],
+  "min_order_value": "not_stated",
+  "max_spend_per_purchase": "not_stated",
+  "monthly_purchase_cap": "not_stated",
+  "validity": "not_stated",
+  "delivery_wait": "not_stated",
+  "quotes": {
+   "works_online": "This is a Docubay Insta Gift Voucher (GV) / Gift Card (GC) and would be accepted on https://www.docubay.com/.",
+   "one_time_use": "This is a ONE time use GV / GC with an expiration date.",
+   "partial_redemption": "No credit note / refund for the unused balance amount of the GV / GC will be given.",
+   "max_vouchers_per_bill": "Single GV / GC can be used in one bill/transaction.",
+   "can_combine_with_store_offers": "The GV / GC cannot be clubbed with any one of the existing offer on its website.",
+   "excludes": "Docubay GV / GC cannot be redeemed on specific block out dates as may be intimated / updated by Docubay on its website from time to time."
+  }
+ },
+ "gyftr:easybuy": {
+  "works_online": "not_stated",
+  "works_in_store": "yes",
+  "one_time_use": "yes",
+  "partial_redemption": "no",
+  "max_vouchers_per_bill": "unlimited",
+  "can_combine_with_store_offers": "yes",
+  "spend_scope": "not_stated",
+  "excludes": [],
+  "min_order_value": "not_stated",
+  "max_spend_per_purchase": "not_stated",
+  "monthly_purchase_cap": "not_stated",
+  "validity": "not_stated",
+  "delivery_wait": "not_stated",
+  "quotes": {
+   "works_in_store": "GV/GC will be ACCEPTED at all stores of EasyBuy in India.",
+   "one_time_use": "This is a one-time use GV/GC, and no refund/credit note shall be issued for the unused amount, if any.",
+   "partial_redemption": "This is a one-time use GV/GC, and no refund/credit note shall be issued for the unused amount, if any.",
+   "max_vouchers_per_bill": "Multiple GV/GC can be redeemed in one bill.",
+   "can_combine_with_store_offers": "The GV/GC can be clubbed with existing store offers."
+  }
+ },
+ "gyftr:eazydiner": {
+  "works_online": "yes",
+  "works_in_store": "no",
+  "one_time_use": "yes",
+  "partial_redemption": "no",
+  "max_vouchers_per_bill": 1,
+  "can_combine_with_store_offers": "no",
+  "spend_scope": "EazyDiner Prime membership activation for the plan duration mentioned on the GV/GC",
+  "excludes": [],
+  "min_order_value": "not_stated",
+  "max_spend_per_purchase": "not_stated",
+  "monthly_purchase_cap": "not_stated",
+  "validity": "not_stated",
+  "delivery_wait": "not_stated",
+  "quotes": {
+   "works_online": "it will be accepted only on the EazyDiner website at https://www.eazydiner.com and on the EazyDiner mobile app.",
+   "works_in_store": "it will be accepted only on the EazyDiner website at https://www.eazydiner.com and on the EazyDiner mobile app.",
+   "one_time_use": "This is a one-time use GV/GC. The remaining balance in the GV/GC will be forfeited once the card is redeemed.",
+   "partial_redemption": "This is a one-time use GV/GC. The remaining balance in the GV/GC will be forfeited once the card is redeemed.",
+   "max_vouchers_per_bill": "Only one GV/GC can be used per Prime membership activation.",
+   "can_combine_with_store_offers": "The GV/GC cannot be clubbed with any other ongoing offer, discount, cashback, or promotion run by EazyDiner.",
+   "spend_scope": "The GV/GC is a plan-based voucher that can be redeemed to activate an EazyDiner Prime membership for the plan duration mentioned on the GV/GC."
+  }
+ },
+ "gyftr:electricity-bill-payment": {
+  "works_online": "yes",
+  "works_in_store": "not_stated",
+  "one_time_use": "not_stated",
+  "partial_redemption": "yes",
+  "max_vouchers_per_bill": "not_stated",
+  "can_combine_with_store_offers": "not_stated",
+  "spend_scope": "electricity bill payment for billers listed on GyFTR's bills & utilities portal",
+  "excludes": [],
+  "min_order_value": "not_stated",
+  "max_spend_per_purchase": "not_stated",
+  "monthly_purchase_cap": "not_stated",
+  "validity": "not_stated",
+  "delivery_wait": "up to 3 business days for biller to accept payment",
+  "quotes": {
+   "works_online": "The GV/e-Pay CAN be used Online at www.gyftr.com/loyaltylifecycle/bills-utilities/electricity",
+   "partial_redemption": "Partial redemption allowed; remaining balance usable until expiry.",
+   "spend_scope": "GV/e-Pay is valid only for services and billers available on www.gyftr.com/loyaltylifecycle/bills-utilities\nand linked portals.",
+   "delivery_wait": "Some billers take up to 3 business days to accept the payment after the transaction is completed."
+  }
+ },
+ "gyftr:euphoria-jewellery-silver-coin": {
+  "works_online": "yes",
+  "works_in_store": "no",
+  "one_time_use": "yes",
+  "partial_redemption": "no",
+  "max_vouchers_per_bill": "unlimited",
+  "can_combine_with_store_offers": "yes",
+  "spend_scope": "Silver Coins only",
+  "excludes": [],
+  "min_order_value": "not_stated",
+  "max_spend_per_purchase": "not_stated",
+  "monthly_purchase_cap": "not_stated",
+  "validity": "not_stated",
+  "delivery_wait": "not_stated",
+  "quotes": {
+   "works_online": "This is an Euphoria Jewellery GV/GC (Gift Voucher/Gift Card) and will be accepted only online on the website at https://euphoriajewellery.in.",
+   "works_in_store": "This is an Euphoria Jewellery GV/GC (Gift Voucher/Gift Card) and will be accepted only online on the website at https://euphoriajewellery.in.",
+   "one_time_use": "This is a one-time use GV/GC. The remaining balance in the GV/GC will be forfeited once the card is redeemed.",
+   "partial_redemption": "This is a one-time use GV/GC. The remaining balance in the GV/GC will be forfeited once the card is redeemed.",
+   "max_vouchers_per_bill": "Multiple GV/GCs can be used against one bill.",
+   "can_combine_with_store_offers": "The GV/GC can be clubbed with ongoing promotions on the website, but cannot be clubbed with any other coupon.",
+   "spend_scope": "The offer is valid only for the purchase of Silver Coins on https://euphoriajewellery.in."
+  }
+ },
+ "gyftr:exitlag": {
+  "works_online": "yes",
+  "works_in_store": "no",
+  "one_time_use": "yes",
+  "partial_redemption": "no",
+  "max_vouchers_per_bill": "not_stated",
+  "can_combine_with_store_offers": "no",
+  "spend_scope": "ExitLag in-game currency, items, or rewards only",
+  "excludes": [
+   "an active ExitLag subscription"
+  ],
+  "min_order_value": "not_stated",
+  "max_spend_per_purchase": "not_stated",
+  "monthly_purchase_cap": "not_stated",
+  "validity": "not_stated",
+  "delivery_wait": "not_stated",
+  "quotes": {
+   "works_online": "This is an ExitLag Gift Voucher (GV)/Gift Card (GC) and can be redeemed only on the ExitLag website at https://www.exitlag.com/ or app.",
+   "works_in_store": "The GV/GC cannot be redeemed through offline channels or outside the supported region/platform.",
+   "one_time_use": "The GV/GC cannot be used multiple times.",
+   "partial_redemption": "The GV/GC is valid for one-time use only. Any unused balance will not be credited or carried forward.",
+   "can_combine_with_store_offers": "The GV/GC cannot be clubbed with any existing offers.",
+   "spend_scope": "The GV/GC can only be used for ExitLag in-game currency, items, or rewards, and cannot be used for any other product or service.",
+   "excludes": "The GV/GC must not be used on an active subscription."
+  }
+ },
+ "gyftr:femmella": {
+  "works_online": "yes",
+  "works_in_store": "no",
+  "one_time_use": "not_stated",
+  "partial_redemption": "yes",
+  "max_vouchers_per_bill": "unlimited",
+  "can_combine_with_store_offers": "yes",
+  "spend_scope": "not_stated",
+  "excludes": [],
+  "min_order_value": "not_stated",
+  "max_spend_per_purchase": "not_stated",
+  "monthly_purchase_cap": "not_stated",
+  "validity": "not_stated",
+  "delivery_wait": "not_stated",
+  "quotes": {
+   "works_online": "This is a Femmella GV(Gift Voucher)/e-Pay that will be accepted only on the website through this URL: www.femmella.com.",
+   "works_in_store": "This is a Femmella GV(Gift Voucher)/e-Pay that will be accepted only on the website through this URL: www.femmella.com.",
+   "partial_redemption": "After conversion into e-Pay, the GV balance is valid for partial redemption.",
+   "max_vouchers_per_bill": "Multiple GVs can be clubbed and added to the Femmella e-Pay balance.",
+   "can_combine_with_store_offers": "The GV/e-Pay used over and above any discounts offered by the brand on their website."
+  }
+ },
+ "gyftr:flipkart": {
+  "works_online": "yes",
+  "works_in_store": "not_stated",
+  "one_time_use": "yes",
+  "partial_redemption": "yes",
+  "max_vouchers_per_bill": 15,
+  "can_combine_with_store_offers": "not_stated",
+  "spend_scope": "not_stated",
+  "excludes": [
+   "other Flipkart Gift Cards or Flipkart First subscriptions",
+   "bulk purchases on the Platform"
+  ],
+  "min_order_value": "not_stated",
+  "max_spend_per_purchase": "not_stated",
+  "monthly_purchase_cap": "not_stated",
+  "validity": "not_stated",
+  "delivery_wait": "instant normally, can be delayed up to 48-72 hours",
+  "quotes": {
+   "works_online": "Gift Cards CAN be used Online at http://bit.ly/2Ntg6D6 & Flipkart App.",
+   "one_time_use": "The Flipkart Gift Card can be used only once. However, once added to Flipkart Wallet, the balance can be used partially.",
+   "partial_redemption": "The Flipkart Gift Card can be used only once. However, once added to Flipkart Wallet, the balance can be used partially.",
+   "max_vouchers_per_bill": "You can combine a maximum of 15 Gift Cards in a single order at the time of checkout.",
+   "excludes": "Gift Cards cannot be used to purchase other Flipkart Gift Cards or Flipkart First subscriptions.",
+   "delivery_wait": "E-Gift Cards are normally delivered instantly. But sometimes due to system issues, the delivery can be delayed up-to 48-72 hours."
+  }
+ },
+ "gyftr:foxtale": {
+  "works_online": "yes",
+  "works_in_store": "not_stated",
+  "one_time_use": "not_stated",
+  "partial_redemption": "yes",
+  "max_vouchers_per_bill": "not_stated",
+  "can_combine_with_store_offers": "no",
+  "spend_scope": "not_stated",
+  "excludes": [
+   "date: block-out dates set by Foxtale"
+  ],
+  "min_order_value": "not_stated",
+  "max_spend_per_purchase": "not_stated",
+  "monthly_purchase_cap": "not_stated",
+  "validity": "not_stated",
+  "delivery_wait": "not_stated",
+  "quotes": {
+   "works_online": "This is a Foxtale GV (Gift Voucher)/e-Pay that will be accepted on the website at https://foxtale.in/.",
+   "partial_redemption": "the GV is valid for partial redemption.",
+   "can_combine_with_store_offers": "The GV/GC CANNOT be clubbed with any offer/discount on the website.",
+   "excludes": "GV/e-Pay cannot be redeemed on specific block-out dates. Foxtale reserves the right to add or delete any date at its sole discretion."
+  }
+ },
+ "gyftr:freecultr": {
+  "works_online": "yes",
+  "works_in_store": "not_stated",
+  "one_time_use": "yes",
+  "partial_redemption": "no",
+  "max_vouchers_per_bill": 1,
+  "can_combine_with_store_offers": "no",
+  "spend_scope": "not_stated",
+  "excludes": [
+   "date: block-out dates set by Freecultr"
+  ],
+  "min_order_value": "not_stated",
+  "max_spend_per_purchase": "not_stated",
+  "monthly_purchase_cap": "not_stated",
+  "validity": "not_stated",
+  "delivery_wait": "not_stated",
+  "quotes": {
+   "works_online": "Gift vouchers CAN be used online at Freecultr Website",
+   "one_time_use": "This is a ONE time use GV / GC with an expiration date.",
+   "partial_redemption": "No credit note/refund for the unused balance amount of the GV / GC will be given.",
+   "max_vouchers_per_bill": "Maximum 1 Gift Vouchers can be used in one purchase",
+   "can_combine_with_store_offers": "Gift Vouchers CANNOT be clubbed with ongoing promotions/offers",
+   "excludes": "Freecultr GV / GC cannot be redeemed on specific block-out dates as may be intimated/updated by Freecultr on its website from time to time."
+  }
+ },
+ "gyftr:future-world": {
+  "works_online": "yes",
+  "works_in_store": "yes",
+  "one_time_use": "yes",
+  "partial_redemption": "yes",
+  "max_vouchers_per_bill": "unlimited",
+  "can_combine_with_store_offers": "no",
+  "spend_scope": "not_stated",
+  "excludes": [],
+  "min_order_value": "not_stated",
+  "max_spend_per_purchase": "not_stated",
+  "monthly_purchase_cap": "not_stated",
+  "validity": "not_stated",
+  "delivery_wait": "not_stated",
+  "quotes": {
+   "works_online": "The GV/GC will be accepted at the stores and on the website: www.futureworldindia.in.",
+   "works_in_store": "The GV/GC will be accepted at the stores and on the website: www.futureworldindia.in.",
+   "one_time_use": "A Future World Voucher can only be used once.",
+   "partial_redemption": "However, once added to the e-Pay balance, you can use the balance at your leisure.",
+   "max_vouchers_per_bill": "Multiple GVs can be combined and added to the e-Pay balance.",
+   "can_combine_with_store_offers": "The GV/e-Pay cannot be clubbed with any ongoing offer."
+  }
+ },
+ "gyftr:giva-gold-jewellery": {
+  "works_online": "yes",
+  "works_in_store": "yes",
+  "one_time_use": "yes",
+  "partial_redemption": "yes",
+  "max_vouchers_per_bill": "not_stated",
+  "can_combine_with_store_offers": "yes",
+  "spend_scope": "Studded Gold Jewellery, Silver Jewellery, Perfumes, and Candles",
+  "excludes": [],
+  "min_order_value": "not_stated",
+  "max_spend_per_purchase": "not_stated",
+  "monthly_purchase_cap": "not_stated",
+  "validity": "not_stated",
+  "delivery_wait": "not_stated",
+  "quotes": {
+   "works_online": "will be accepted on the website at https://www.giva.co/, mobile app, and at the listed retail stores/outlets.",
+   "works_in_store": "will be accepted on the website at https://www.giva.co/, mobile app, and at the listed retail stores/outlets.",
+   "one_time_use": "This is a one-time-use Gift Card",
+   "partial_redemption": "once added to the e-Pay balance, it can be used partially.",
+   "can_combine_with_store_offers": "The GV/e-Pay can be clubbed with the existing offers.",
+   "spend_scope": "The GV/e-Pay is applicable only on Studded Gold Jewellery, Silver Jewellery, Perfumes, and Candles."
+  }
+ },
+ "gyftr:gyftr-pay": {
+  "works_online": "yes",
+  "works_in_store": "not_stated",
+  "one_time_use": "not_stated",
+  "partial_redemption": "yes",
+  "max_vouchers_per_bill": "unlimited",
+  "can_combine_with_store_offers": "not_stated",
+  "spend_scope": "not_stated",
+  "excludes": [
+   "date: block-out dates set by GyFTR"
+  ],
+  "min_order_value": "not_stated",
+  "max_spend_per_purchase": "not_stated",
+  "monthly_purchase_cap": "not_stated",
+  "validity": "not_stated",
+  "delivery_wait": "not_stated",
+  "quotes": {
+   "works_online": "This is a GyFTR Pay Insta Gift Voucher (GV) / Gift Card (GC) and would be accepted at www.gyftr.com",
+   "partial_redemption": "After conversion into e-Pay balance, this GV is valid for partial redemption.",
+   "max_vouchers_per_bill": "Multiple Gift Vouchers CAN be combined & added to the e-Pay balance.",
+   "excludes": "GyFTR Pay GV / GC cannot be redeemed on specific block out dates."
+  }
+ },
+ "gyftr:haute-sauce": {
+  "works_online": "yes",
+  "works_in_store": "no",
+  "one_time_use": "yes",
+  "partial_redemption": "yes",
+  "max_vouchers_per_bill": "unlimited",
+  "can_combine_with_store_offers": "yes",
+  "spend_scope": "not_stated",
+  "excludes": [],
+  "min_order_value": "not_stated",
+  "max_spend_per_purchase": "not_stated",
+  "monthly_purchase_cap": "not_stated",
+  "validity": "not_stated",
+  "delivery_wait": "not_stated",
+  "quotes": {
+   "works_online": "This is a Haute Sauce GV (Gift Voucher)/e-Pay that will be accepted only on www.buyhautesauce.com, and it can be used for all purchases of products and services at the Haute Sauce website.",
+   "works_in_store": "This is a Haute Sauce GV (Gift Voucher)/e-Pay that will be accepted only on www.buyhautesauce.com, and it can be used for all purchases of products and services at the Haute Sauce website.",
+   "one_time_use": "The Haute Sauce Gift Card can be used only once.",
+   "partial_redemption": "After conversion into e-Pay balance, it is valid for partial redemption.",
+   "max_vouchers_per_bill": "Multiple GV/GCs can be combined and added to the e-Pay balance.",
+   "can_combine_with_store_offers": "The GV/e-Pay can be clubbed with discounts offered by the brand on their website."
+  }
+ },
+ "gyftr:healthians": {
+  "works_online": "yes",
+  "works_in_store": "not_stated",
+  "one_time_use": "yes",
+  "partial_redemption": "yes",
+  "max_vouchers_per_bill": "unlimited",
+  "can_combine_with_store_offers": "yes",
+  "spend_scope": "Pathology Services only",
+  "excludes": [
+   "date: block-out dates set by Healthians"
+  ],
+  "min_order_value": "not_stated",
+  "max_spend_per_purchase": "not_stated",
+  "monthly_purchase_cap": "not_stated",
+  "validity": "not_stated",
+  "delivery_wait": "not_stated",
+  "quotes": {
+   "works_online": "This is a Healthians GV (Gift Voucher)/e-Pay and would be accepted on the website at https://www.Healthians.com/.",
+   "one_time_use": "The Healthians Gift Card can only be used once.",
+   "partial_redemption": "After conversion into e-Pay, the GV balance is valid for partial redemption.",
+   "max_vouchers_per_bill": "Multiple vouchers can be used against one bill",
+   "can_combine_with_store_offers": "The GV/e-Pay can be used over and above discounts.",
+   "spend_scope": "GV/e-Pay is only accepted for Pathology Services.",
+   "excludes": "This GV/e-Pay cannot be redeemed on specific block-out dates. Healthians may add or delete a date at their sole discretion."
+  }
+ },
+ "gyftr:himalaya-wellness": {
+  "works_online": "no",
+  "works_in_store": "yes",
+  "one_time_use": "yes",
+  "partial_redemption": "yes",
+  "max_vouchers_per_bill": "unlimited",
+  "can_combine_with_store_offers": "yes",
+  "spend_scope": "not_stated",
+  "excludes": [],
+  "min_order_value": "not_stated",
+  "max_spend_per_purchase": "not_stated",
+  "monthly_purchase_cap": "not_stated",
+  "validity": "not_stated",
+  "delivery_wait": "not_stated",
+  "quotes": {
+   "works_online": "This is a Himalaya Wellness GV (Gift Voucher)/e-Pay that will be accepted only at the listed retail stores.",
+   "works_in_store": "This is a Himalaya Wellness GV (Gift Voucher)/e-Pay that will be accepted only at the listed retail stores.",
+   "one_time_use": "The Himalaya Wellness Gift Card can be used only once.",
+   "partial_redemption": "However, once added to the ePay balance, the amount can be redeemed partially.",
+   "max_vouchers_per_bill": "Multiple Gift Vouchers CAN be combined & added to the e-Pay balance.",
+   "can_combine_with_store_offers": "GV/e-Pay can be clubbed with existing offers."
+  }
+ },
+ "gyftr:hindustan-times-premium": {
+  "works_online": "yes",
+  "works_in_store": "no",
+  "one_time_use": "yes",
+  "partial_redemption": "not_stated",
+  "max_vouchers_per_bill": 1,
+  "can_combine_with_store_offers": "no",
+  "spend_scope": "not_stated",
+  "excludes": [
+   "existing Hindustan Times e-paper subscribers"
+  ],
+  "min_order_value": "not_stated",
+  "max_spend_per_purchase": "not_stated",
+  "monthly_purchase_cap": "not_stated",
+  "validity": "not_stated",
+  "delivery_wait": "not_stated",
+  "quotes": {
+   "works_online": "This is a Hindustan Times Premium Digital Subscription GV/GC (Gift Voucher/Gift Card) that will be accepted on the website through this URL: https://accounts.hindustantimes.com/ht/userplan.",
+   "one_time_use": "This is a one-time use GV/GC with an expiration date.",
+   "max_vouchers_per_bill": "Only one GV/GC can be used for one subscription.",
+   "can_combine_with_store_offers": "The GV/GC cannot be clubbed with any existing offer on its website.",
+   "excludes": "Offer is not valid for existing Hindustan Times e-paper users."
+  }
+ },
+ "gyftr:hoichoi": {
+  "works_online": "yes",
+  "works_in_store": "not_stated",
+  "one_time_use": "yes",
+  "partial_redemption": "not_stated",
+  "max_vouchers_per_bill": 1,
+  "can_combine_with_store_offers": "no",
+  "spend_scope": "not_stated",
+  "excludes": [],
+  "min_order_value": "not_stated",
+  "max_spend_per_purchase": "not_stated",
+  "monthly_purchase_cap": "not_stated",
+  "validity": "not_stated",
+  "delivery_wait": "not_stated",
+  "quotes": {
+   "works_online": "This is a Hoichoi subscription GV/GC (Gift Voucher/Gift Card) that will be accepted on the website through this URL: www.hoichoi.tv/redeem.",
+   "one_time_use": "This is a one-time use GV/GC, and only one GV/GC can be used for one subscription.",
+   "max_vouchers_per_bill": "This is a one-time use GV/GC, and only one GV/GC can be used for one subscription.",
+   "can_combine_with_store_offers": "The GV/GC cannot be clubbed with any existing offer on its website/platform."
+  }
+ },
+ "gyftr:home-centre": {
+  "works_online": "no",
+  "works_in_store": "yes",
+  "one_time_use": "yes",
+  "partial_redemption": "no",
+  "max_vouchers_per_bill": "unlimited",
+  "can_combine_with_store_offers": "not_stated",
+  "spend_scope": "not_stated",
+  "excludes": [],
+  "min_order_value": "not_stated",
+  "max_spend_per_purchase": "not_stated",
+  "monthly_purchase_cap": "not_stated",
+  "validity": "1 year from date of issue",
+  "delivery_wait": "not_stated",
+  "quotes": {
+   "works_online": "This eGift Card can used at our offline stores only.",
+   "works_in_store": "eGift card are redeemable at all stores of Home Centre in India.",
+   "one_time_use": "This Home Centre eGift Card can be redeemed only once and in full, in case the value of the merchandise exceeds the value of e-gift card, the difference shall be paid by the bearer, No refunds / credit note shall be issued for unused part of the eGift card.",
+   "partial_redemption": "This Home Centre eGift Card can be redeemed only once and in full, in case the value of the merchandise exceeds the value of e-gift card, the difference shall be paid by the bearer, No refunds / credit note shall be issued for unused part of the eGift card.",
+   "max_vouchers_per_bill": "Multiple e-gift cards can be redeemed in single invoice.",
+   "validity": "This eGift card is valid for one year from the date of issue."
+  }
+ },
+ "gyftr:hush-puppies": {
+  "works_online": "no",
+  "works_in_store": "yes",
+  "one_time_use": "yes",
+  "partial_redemption": "yes",
+  "max_vouchers_per_bill": 7,
+  "can_combine_with_store_offers": "yes",
+  "spend_scope": "not_stated",
+  "excludes": [
+   "date: block-out dates set by Bata"
+  ],
+  "min_order_value": "not_stated",
+  "max_spend_per_purchase": "not_stated",
+  "monthly_purchase_cap": 20000,
+  "validity": "not_stated",
+  "delivery_wait": "not_stated",
+  "quotes": {
+   "works_online": "This Gift Card is only accepted at the listed Bata outlets.",
+   "works_in_store": "This Gift Card is only accepted at the listed Bata outlets.",
+   "one_time_use": "The Hush Puppies Gift Card can only be used once.",
+   "partial_redemption": "However, once added to the e-Pay balance, you can use the balance at your leisure.",
+   "max_vouchers_per_bill": "A maximum of 7 Gift Vouchers CAN be used in one bill.",
+   "can_combine_with_store_offers": "The GV/e-Pay can be clubbed with the existing offers.",
+   "excludes": "Hush Puppies GV/e-Pay cannot be redeemed on specific block-out dates. Bata reserves the right to add or delete any date at its sole discretion.",
+   "monthly_purchase_cap": "The maximum cumulative GV value that can be added to the e-Pay balance in 30 days is Rs. 20,000."
+  }
+ },
+ "gyftr:hyperice": {
+  "works_online": "yes",
+  "works_in_store": "no",
+  "one_time_use": "yes",
+  "partial_redemption": "no",
+  "max_vouchers_per_bill": 1,
+  "can_combine_with_store_offers": "no",
+  "spend_scope": "not_stated",
+  "excludes": [],
+  "min_order_value": "not_stated",
+  "max_spend_per_purchase": "not_stated",
+  "monthly_purchase_cap": "not_stated",
+  "validity": "not_stated",
+  "delivery_wait": "not_stated",
+  "quotes": {
+   "works_online": "This is a Hyperice Gift Voucher (GV) / Gift Card (GC) and is valid only online at https://hyperice.in/",
+   "works_in_store": "This is a Hyperice Gift Voucher (GV) / Gift Card (GC) and is valid only online at https://hyperice.in/",
+   "one_time_use": "Voucher is for one time use only.",
+   "partial_redemption": "In case purchases done on value lesser than the voucher value, excess amount will be not refunded or cannot be redeemed later on.",
+   "max_vouchers_per_bill": "Two vouchers cannot be used on one single purchase.",
+   "can_combine_with_store_offers": "Voucher can not be clubbed."
+  }
+ },
+ "gyftr:ikea": {
+  "works_online": "yes",
+  "works_in_store": "yes",
+  "one_time_use": "no",
+  "partial_redemption": "yes",
+  "max_vouchers_per_bill": "unlimited",
+  "can_combine_with_store_offers": "yes",
+  "spend_scope": "not_stated",
+  "excludes": [],
+  "min_order_value": "not_stated",
+  "max_spend_per_purchase": "Rs 2,00,000 per day",
+  "monthly_purchase_cap": "not_stated",
+  "validity": "1 year",
+  "delivery_wait": "not_stated",
+  "quotes": {
+   "works_online": "online at www.ikea.in and on the mobile app.",
+   "works_in_store": "at the listed IKEA stores located in India",
+   "one_time_use": "The GV/GC can be used multiple times until the full balance is utilized within the validity period.",
+   "partial_redemption": "The GV/GC can be used multiple times until the full balance is utilized within the validity period.",
+   "max_vouchers_per_bill": "Multiple GV/GCs CAN be used in a single bill.",
+   "can_combine_with_store_offers": "The GV/GC can be clubbed with discounts, promo codes, and offers.",
+   "max_spend_per_purchase": "Voucher redemption is capped at Rs. 2,00,000 per day.",
+   "validity": "Any unused balance in the GV/GC at the end of the one (1) year period will be forfeited."
+  }
+ },
+ "gyftr:imagine": {
+  "works_online": "yes",
+  "works_in_store": "yes",
+  "one_time_use": "no",
+  "partial_redemption": "yes",
+  "max_vouchers_per_bill": "unlimited",
+  "can_combine_with_store_offers": "yes",
+  "spend_scope": "not_stated",
+  "excludes": [],
+  "min_order_value": "not_stated",
+  "max_spend_per_purchase": "not_stated",
+  "monthly_purchase_cap": "not_stated",
+  "validity": "not_stated",
+  "delivery_wait": "not_stated",
+  "quotes": {
+   "works_online": "will be accepted at the listed Imagine by Ample retail outlets and on the Imagine by Ample website at https://www.imagineonline.store.",
+   "works_in_store": "will be accepted at the listed Imagine by Ample retail outlets and on the Imagine by Ample website at https://www.imagineonline.store.",
+   "one_time_use": "An Imagine Gift Card can be used multiple times when added to e-Pay.",
+   "partial_redemption": "this GV is valid for partial redemption.",
+   "max_vouchers_per_bill": "Multiple GVs can be combined and added to the e-Pay balance.",
+   "can_combine_with_store_offers": "The GV/e-Pay can be clubbed with existing offers."
+  }
+ },
+ "gyftr:intermiles": {
+  "works_online": "yes",
+  "works_in_store": "not_stated",
+  "one_time_use": "not_stated",
+  "partial_redemption": "not_stated",
+  "max_vouchers_per_bill": "unlimited",
+  "can_combine_with_store_offers": "not_stated",
+  "spend_scope": "Flights, Hotels, Vouchers, Raffles, Digistores, Fuels & Pay with Rewards (Twid) on InterMiles platform",
+  "excludes": [],
+  "min_order_value": "not_stated",
+  "max_spend_per_purchase": "up to 50% of Miles balance can be redeemed per transaction",
+  "monthly_purchase_cap": "not_stated",
+  "validity": "not_stated",
+  "delivery_wait": "not_stated",
+  "quotes": {
+   "works_online": "This is a Intermiles Insta Gift Voucher/Gift Card (GV/GC) and would be accepted on https://www.intermiles.com/my-account/claim-voucher and its app.",
+   "max_vouchers_per_bill": "There is no cap on the number of gift cards that can be added to an account.",
+   "spend_scope": "InterMiles are redeemable across all products on Intermiles on Flights, Hotels, Vouchers, Raffles, Digistores, Fuels & Pay with Rewards powered by Twid, etc.",
+   "max_spend_per_purchase": "Users can redeem upto 50% of their Miles per transaction."
+  }
+ },
+ "gyftr:iocl": {
+  "works_online": "no",
+  "works_in_store": "yes",
+  "one_time_use": "yes",
+  "partial_redemption": "no",
+  "max_vouchers_per_bill": "not_stated",
+  "can_combine_with_store_offers": "not_stated",
+  "spend_scope": "fuel purchases (Petrol / XP95 / XG / Diesel / XP100) at IOCL Retail Outlets",
+  "excludes": [],
+  "min_order_value": "not_stated",
+  "max_spend_per_purchase": "not_stated",
+  "monthly_purchase_cap": "not_stated",
+  "validity": "not_stated",
+  "delivery_wait": "not_stated",
+  "quotes": {
+   "works_online": "The GV/GC will be accepted only at IOCL Retail Outlets.",
+   "works_in_store": "The GV/GC will be accepted only at IOCL Retail Outlets.",
+   "one_time_use": "This is a one-time use GV/GC. Any remaining balance will be forfeited after redemption.",
+   "partial_redemption": "This is a one-time use GV/GC. Any remaining balance will be forfeited after redemption.",
+   "spend_scope": "The GV/GC can be redeemed only for fuel purchases (Petrol / XP95 / XG / Diesel / XP100) at IOCL Retail Outlets."
+  }
+ }
+}

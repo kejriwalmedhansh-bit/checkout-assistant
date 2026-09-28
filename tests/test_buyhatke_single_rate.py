@@ -23,8 +23,10 @@ def _chicco_tier() -> dict:
     deal = voucher_service.get_best_buyhatke_deal("Chicco", 5000)
     assert deal is not None, "Chicco prices to nothing"
     tier = deal[1]
-    assert set(tier["discounts"]) == {"any"}, "Chicco is no longer a one-rate listing; pick another"
-    return tier
+    assert len(tier["discounts"]) == 1, "Chicco is no longer a one-rate listing; pick another"
+    # From 2026-09-28 the refresh stores a one-rate brand as "UPI"; older data
+    # said "any". Both must price, so the "any" shape is rebuilt from the real rate.
+    return {**tier, "discounts": {"any": next(iter(tier["discounts"].values()))}}
 
 
 def test_a_single_rate_is_the_upi_rate():

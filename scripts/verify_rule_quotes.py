@@ -26,12 +26,35 @@ def norm(s: str) -> str:
     return re.sub(r"\s+", " ", s).strip().lower()
 
 
+def pieced(quote: str, terms: str, min_words: int = 4) -> bool:
+    """True when a quote is several real sentences run together. Some readings
+    joined every sentence behind an `excludes` list into one quote; each part
+    is on the page, just not side by side. Walk the quote left to right taking
+    the longest run of words (at least four) that appears in the terms; it
+    passes only if those runs cover every word. A paraphrased word anywhere
+    breaks the run and fails it."""
+    words = quote.split()
+    i = 0
+    while i < len(words):
+        j = len(words)
+        while j - i >= min_words and " ".join(words[i:j]) not in terms:
+            j -= 1
+        if j - i < min_words:
+            return False
+        i = j
+    return True
+
+
 def main() -> int:
-    total = claims = unsupported = 0
+    total = claims = unsupported = stitched = 0
     missing_listings = []
     bad = []
-    for out_path in sorted(CHUNKS.glob("out_*.json")):
-        chunk = CHUNKS / f"chunk_{out_path.stem.split('_')[1]}.json"
+    # First and second readings both, and a refresh's tagged readings
+    # (out_r0928_001 / out2_r0928_001 read chunk_r0928_001) as well as the full
+    # build's (out_001 / out2_001 read chunk_001). Checking only the first
+    # reading let the second one's quotes through unchecked into the merge.
+    for out_path in sorted([*CHUNKS.glob("out_*.json"), *CHUNKS.glob("out2_*.json")]):
+        chunk = CHUNKS / f"chunk_{out_path.stem.split('_', 1)[1]}.json"
         src = {x["key"]: x for x in json.loads(chunk.read_text())}
         got = json.loads(out_path.read_text())
         missing = [k for k in src if k not in got]
@@ -44,12 +67,17 @@ def main() -> int:
                 if not quote:
                     continue
                 claims += 1
-                if norm(quote) not in terms:
-                    unsupported += 1
-                    bad.append((key, field, quote[:90]))
+                if norm(quote) in terms:
+                    continue
+                if pieced(norm(quote), terms):
+                    stitched += 1
+                    continue
+                unsupported += 1
+                bad.append((key, field, quote[:90]))
 
     print(f"listings read : {total}")
     print(f"quoted claims : {claims}")
+    print(f"stitched      : {stitched}  (several verbatim sentences joined — each part checked)")
     print(f"unsupported   : {unsupported}")
     if missing_listings:
         print(f"MISSING from output: {len(missing_listings)} — {missing_listings[:5]}")
