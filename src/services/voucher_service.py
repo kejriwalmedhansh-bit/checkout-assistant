@@ -1996,6 +1996,22 @@ def _choice_review() -> dict[str, dict]:
         return {}
 
 
+def pending_review() -> dict:
+    """What a refresh added that the owner hasn't reviewed yet: listings filed
+    under a reviewed name (held out of the data at load), and new voucher
+    names at shops whose choices were reviewed (left out of the question)."""
+    from ..repositories import _corrections
+    for load in (maximize_repository.all_brands, buyhatke_repository.all_brands):
+        load()  # make sure both platforms have been through the load-time check
+    review = _choice_review()
+    reviewed_keys = {c["key"] for c in _online_cards() if c["name"] in review}
+    new_names = sorted({
+        (c["source"], c["name"], c["pct"]) for c in _online_cards()
+        if c["name"] not in review and any(c["key"].startswith(k) or k.startswith(c["key"]) for k in reviewed_keys if len(k) >= 4)
+    })
+    return {"held_listings": list(_corrections.held_back), "new_names": new_names}
+
+
 def best_of_same_voucher(brand_name: str) -> dict | None:
     """The best-rate copy of a voucher sold on several sites (Porter on Gyftr
     at 11% beside Maximize at 10.75%), per the owner's review; None when the
@@ -2072,6 +2088,12 @@ def product_choices(shop_label: str, price: float | None = None) -> list[dict]:
         if (c["key"].startswith(label) or c["raw"].startswith(raw_label))
         and not (review.get(c["name"]) or {}).get("hide")
     ]
+    # A shop the owner has reviewed asks only what they reviewed. A voucher
+    # name a later refresh adds there (six Amazon Prime editions, 2026-09-28)
+    # waits for review — see pending_review() — instead of joining the
+    # question with an automatic name.
+    if any(c["name"] in review for c in family):
+        family = [c for c in family if c["name"] in review]
     if not any(c["covers"] for c in family):
         return []
     groups = [g for cards in _group_by_name(family).values() for g in _split_by_what_they_cover(cards, label)]
