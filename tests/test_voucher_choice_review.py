@@ -95,8 +95,8 @@ def test_amazon_pay_card_is_not_limited_to_one_voucher_per_bill():
     """data/voucher_corrections.json: several Amazon Pay vouchers pay one bill,
     up to Rs 50,000 a month — survives a data refresh because it's applied on load."""
     from src.repositories import maximize_repository
-    for product in maximize_repository.get_by_slug("amazon")["products"]:
-        assert product["stack_limit"] is None and product["value_cap"] == 50000
+    card = [p for p in maximize_repository.get_by_slug("amazon")["products"] if p["source_url"].endswith("/Amazon/1084")]
+    assert card and all(p["stack_limit"] is None and p["value_cap"] == 50000 for p in card)
 
 
 def test_extension_shows_the_better_copy_of_a_voucher_sold_on_two_sites():
@@ -107,3 +107,32 @@ def test_extension_shows_the_better_copy_of_a_voucher_sold_on_two_sites():
         best = voucher_service.best_of_same_voucher(answer["brand_name"])
         assert best is None, (price, answer["brand_name"], answer.get("pct"))
         assert not answer.get("product_choices")
+
+
+def test_a_refresh_cannot_file_new_listings_under_a_reviewed_name():
+    """2026-09-28: the refresh filed Amazon Prime Lite (Rs 799, 15%) under
+    "Amazon" and Air India's seats-and-baggage card (18%) under "Air India".
+    Only the listings the owner reviewed may carry a reviewed name."""
+    import json as _json
+    from src.repositories import buyhatke_repository, maximize_repository
+    pinned = _json.loads((ROOT / "data/voucher_choice_review.json").read_text())["listings"]
+    for record in list(maximize_repository.all_brands()) + list(buyhatke_repository.all_brands()):
+        allowed = pinned.get(record.get("brand_name"))
+        if allowed:
+            assert record.get("products"), record.get("brand_name")
+            for product in record["products"]:
+                assert product.get("source_url") in allowed, (record["brand_name"], product.get("source_url"))
+
+
+def test_amazon_shopping_never_offers_a_prime_voucher():
+    for price in (None, 1200, 25000):
+        answer = voucher_check(domain="amazon.in", price=price)
+        names = [answer.get("brand_name", "")] + [c["brand_name"] for c in answer.get("product_choices") or []]
+        assert not [n for n in names if "prime" in n.lower()], (price, names)
+    deal = voucher_service.get_best_maximize_deal("Amazon", 1200)
+    assert deal and "/1084" in deal[0]["voucher_url"]
+
+
+def test_new_voucher_names_at_a_reviewed_shop_wait_for_review():
+    labels = _labels(search_service._brand_voucher_choices("amazon"))
+    assert labels == ["Groceries (Fresh)", "Physical products", "Bills & anything else (Amazon Pay)"], labels

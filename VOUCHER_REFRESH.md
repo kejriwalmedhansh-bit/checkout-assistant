@@ -111,3 +111,17 @@ and compare with the same run on `origin/main`: only differences count.
 - A listing is retired only when its platform's live catalogue no longer has it
   (Gyftr, BuyHatke) or the platform itself says it is gone (Maximize's "Gift Card
   not found"). A listing that moved address keeps its entry.
+
+## After every refresh: what the owner hasn't reviewed
+
+`data/voucher_choice_review.json` pins every reviewed voucher name to the exact
+listings the owner reviewed. A refresh that files a new listing under a
+reviewed name (2026-09-28: Amazon Prime Lite filed under "Amazon"), or adds a
+new voucher name at a reviewed shop, cannot change what shoppers see: the
+listing is held out of the data at load, the name is left out of the
+"What are you buying?" question. List them, and get the owner's answers:
+
+    /usr/local/bin/python3.11 scripts/voucher_review_pending.py
+
+A held item goes live only once it's added to the review file.
+

@@ -13,6 +13,7 @@ from __future__ import annotations
 import json
 
 from ..constants import DATA_DIR
+from . import _corrections
 from ._brand_matching import find_best_match
 
 _BUYHATKE_PATH = DATA_DIR / "buyhatke_master.json"
@@ -27,6 +28,7 @@ def _load() -> None:
         return
     with open(_BUYHATKE_PATH) as f:
         data = json.load(f)
+    _corrections.apply("buyhatke", data)
     _brands_by_slug = dict(data)
     _brands_list = list(data.values())
 

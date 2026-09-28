@@ -81,7 +81,10 @@ def test_air_india_add_ons_count_because_their_terms_say_airindia_com():
 
 def test_a_card_whose_dates_have_passed_is_never_a_choice():
     """Fly Rajasthan only covers journeys from May to July 2026."""
-    names = [c["brand_name"].lower() for c in voucher_check(domain="airindia.com", price=4000)["product_choices"]]
+    answer = voucher_check(domain="airindia.com", price=4000)
+    # No question at all is fine too (Air India Domestic was off sale at the
+    # 2026-09-28 refresh); what must never happen is Fly Rajasthan offered.
+    names = [c["brand_name"].lower() for c in answer.get("product_choices") or []] + [answer.get("brand_name", "").lower()]
     assert not any("rajasthan" in n for n in names), names
 
 
