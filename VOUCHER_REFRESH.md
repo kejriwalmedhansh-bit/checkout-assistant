@@ -75,11 +75,16 @@ added. Every quote must be verbatim; the gate checks it.
     python3.11 scripts/build_service_rules.py             # what the app reads
     python3.11 scripts/sync_master_listings.py            # add new brands, retire gone ones
     python3.11 scripts/update_masters_from_scrape.py      # prices, amounts, stock, status
-    python3.11 scripts/export_offers_csv.py               # what the Sheet reads
+    python3.11 scripts/export_offers_csv.py               # the Sheet's current-catalogue tab
+    python3.11 scripts/build_voucher_history.py           # the Sheet's History tab: every scrape, for trends
 
 `build_service_rules.py` stops if a hand-listed wallet sentence
 (`WALLET_COMBINES`) is no longer in the terms — read the new wording and update
 or drop the entry; never silence it.
+
+The Sheet reads both CSVs from GitHub with IMPORTDATA, so merging to main is
+the upload. `voucher_history.csv` is rebuilt from every committed master, one
+row per voucher per scrape date — nothing to append by hand.
 
 Then run the tests (`~/checkout-assistant/.venv/bin/python -m pytest -q tests`)
 and compare with the same run on `origin/main`: only differences count.
