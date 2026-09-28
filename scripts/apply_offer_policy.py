@@ -83,6 +83,11 @@ def foreign_terms_keys(raw: dict) -> set:
         groups.setdefault(terms, []).append((key, rec.get("brand_name", "")))
     out = set()
     for terms, members in groups.items():
+        # A document only one listing carries is that listing's own, whatever
+        # it mentions: Croma's and Tanishq's terms name Tata Neu coins because
+        # they are Tata brands (both were hidden on 2026-09-28 before this).
+        if len(members) < 2:
+            continue
         # If one of the brands sharing this document IS the merchant it
         # describes, the document is theirs and everyone else borrowed it —
         # but if none of them is, it is nobody's and all of them are wrong.

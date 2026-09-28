@@ -60,6 +60,17 @@ def main() -> None:
     args = ap.parse_args()
 
     offers = json.loads(OFFERS.read_text())
+    # Only listings collected in each platform's latest run. The raw files keep
+    # every listing ever collected, so a card the platform has since dropped
+    # still has an offer — last month's — and pricing from it put the listings
+    # sync_master_listings had just retired straight back on sale (found
+    # 2026-09-28: HP Pay, Charles and Keith and 13 more).
+    latest = {}
+    for o in offers.values():
+        d = (o.get("collected_at") or "")[:10]
+        latest[o["source"]] = max(latest.get(o["source"], ""), d)
+    offers = {k: o for k, o in offers.items()
+              if (o.get("collected_at") or "")[:10] == latest[o["source"]]}
     by_url = {o["url"]: o for o in offers.values()}
     # Gyftr's master carries no source_url at all, so it is matched on the slug
     # that keys both sides. The other two match on URL, which survives a brand
@@ -139,6 +150,13 @@ def main() -> None:
                     has_range = bool(product.get("custom_max") or offer.get("custom_max"))
                     if not wants_custom or has_range:
                         product["is_custom_denom"] = wants_custom
+                        # Keep the typed range current where the scrape
+                        # measured one (Maximize's feed does).
+                        for f in ("custom_min", "custom_max"):
+                            v = as_int(offer.get(f))
+                            if wants_custom and v and v != product.get(f):
+                                product[f] = v
+                                stats["custom range updated"] += 1
                     else:
                         stats["custom flag rejected (no range)"] += 1
 

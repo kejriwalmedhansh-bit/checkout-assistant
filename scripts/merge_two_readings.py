@@ -114,11 +114,21 @@ def pick(field, a, b, stats):
 
 
 def main() -> None:
+    import argparse
+    ap = argparse.ArgumentParser()
+    # A refresh reads only what changed, into its own tag (out_r0928_001.json),
+    # so it merges alongside the full build instead of over it. merged/ is read
+    # in name order and "out_r..." sorts after "out_0...", so a re-read listing's
+    # new reading replaces its old one and nothing else moves.
+    ap.add_argument("--tag", default="", help="e.g. r0928 for out_r0928_NNN.json")
+    args = ap.parse_args()
     OUT.mkdir(exist_ok=True)
     stats, listings = Counter(), 0
-    for first_path in sorted(CHUNKS.glob("out_0*.json")):
-        n = first_path.stem.split("_")[1]
-        second_path = CHUNKS / f"out2_{n}.json"
+    prefix = f"out_{args.tag}_" if args.tag else "out_"
+    pattern = f"{prefix}[0-9]*.json" if args.tag else "out_0*.json"
+    for first_path in sorted(CHUNKS.glob(pattern)):
+        n = first_path.stem[len(prefix):]
+        second_path = CHUNKS / f"out2_{args.tag + '_' if args.tag else ''}{n}.json"
         first = json.loads(first_path.read_text())
         second = json.loads(second_path.read_text()) if second_path.exists() else {}
         if not second:
@@ -139,7 +149,7 @@ def main() -> None:
             rec["quotes"] = quotes
             merged[key] = rec
             listings += 1
-        (OUT / f"out_{n}.json").write_text(
+        (OUT / f"{prefix}{n}.json").write_text(
             json.dumps(merged, indent=1, ensure_ascii=False))
 
     print(f"\n{listings} listings merged -> {OUT}")

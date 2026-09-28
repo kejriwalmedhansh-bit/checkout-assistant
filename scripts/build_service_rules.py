@@ -139,21 +139,23 @@ def drop_unsupported(rules_by_listing):
 # day/per transaction", and Kama Ayurveda's e-Pay balance is usable only in
 # store while its online rule stays one per bill.
 WALLET_COMBINES = {
-    "gyftr:nykaa": "Multiple Gift Vouchers CAN be added to the Nykaa Wallet",
-    "gyftr:nykaa-fashion": "Multiple Gift Vouchers CAN be added to the Nykaa Wallet",
-    "gyftr:nykaa-man": "Multiple Gift Vouchers CAN be added to the Nykaa Wallet",
-    "gyftr:dominos": "Multiple Gift Vouchers CAN be combined & added to e-Pay balance",
-    "gyftr:surat-diamonds": "Gift Voucher CAN be used multiple times once converted to e-Pay balance",
-    "gyftr:whats-up-wellness": "Gift Voucher CAN be used multiple times once converted to e-Pay balance",
-    "gyftr:assembly": "Gift Voucher CAN be used multiple times once converted to e-Pay balance",
+    # Reworded by Gyftr by 2026-09-28; the wallet route itself is unchanged.
+    "gyftr:nykaa": "To redeem Multiple gift cards, please add the gift cards to the Nykaa Wallet",
+    "gyftr:nykaa-fashion": "To redeem Multiple gift cards, please add the gift cards to the Nykaa Wallet",
+    "gyftr:nykaa-man": "To redeem Multiple gift cards, please add the gift cards to the Nykaa Wallet",
+    "gyftr:dominos": "you can convert multiple EGVs to a single EGV via the Gyftr E-Pay app",
+    # Dropped 2026-09-28, because the terms no longer say it: Surat Diamonds
+    # now reads "Multiple GV/GCs cannot be used against one bill", and What's
+    # Up Wellness and Assembly no longer carry a combining sentence at all.
     "maximize:dominos": "convert multiple GVs to a single GV via the Gyftr E-Pay app",
     "maximize:nykaa": "registered users may add multiple cards to Wallet",
-    "buyhatke:nykaa-gift-card": "registered users may add multiple cards to Wallet",
+    # buyhatke:nykaa-gift-card dropped 2026-09-28: the listing's page is empty.
     "buyhatke:nykaa-fashion-gift-card": "add multiple Nykaa Gift Cards to their Nykaa Wallet",
     "buyhatke:kalki-gift-card": "The voucher can be converted into e-Pay balance",
     "buyhatke:lunch-box-gift-card": "add the Gift Card to the EatSure User Account",
     "buyhatke:firangi-bake-gift-card": "add the Gift Card to the EatSure User Account",
-    "buyhatke:fricken-gift-card": "add the Gift Card to the EatSure User Account",
+    # buyhatke:fricken-gift-card dropped 2026-09-28: it now says "only one gift
+    # card can be used per order".
     "buyhatke:honest-bowl-gift-card": "add the Gift Card to the EatSure User Account",
     "buyhatke:thalaiva-biryani-gift-card": "add the Gift Card to the EatSure User Account",
     "buyhatke:the-biryani-life-gift-card": "add the Gift Card to the EatSure User Account",

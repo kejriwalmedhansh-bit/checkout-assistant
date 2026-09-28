@@ -54,6 +54,8 @@ UA = ("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 "
 GYFTR_BRAND_LIST = "https://api.gyftr.com/gyftrapi/api/v1/home/brand/list"
 BUYHATKE_BRANDS = "https://buyhatke.com/gift-cards/brands"
 GYFTR_DETAIL = "https://api.gyftr.com/gyftrapi/api/v1/brand/detail/{slug}"
+# What the page's own "T&C*" tab loads. POST {"brand": <id from the brand list>}.
+GYFTR_TERMS = "https://www.gyftr.com/commonutility/api/v1/shop/getBrandDetail"
 
 
 def now() -> str:
@@ -76,8 +78,23 @@ def untag(raw: str | None) -> str:
     return "\n".join(ln for ln in lines if ln)
 
 
-def get_json(url: str) -> dict:
-    req = urllib.request.Request(url, headers={"User-Agent": UA, "Referer": "https://www.gyftr.com/"})
+def key_of(name: str | None) -> str:
+    return re.sub(r"[^a-z0-9]", "", (name or "").lower())
+
+
+def strip_buyhatke_footer(text: str) -> str:
+    """A BuyHatke section with nothing after it on the page (no FAQ block)
+    otherwise runs on into the site footer — its menu, price trackers and
+    links — which then changes from day to day. Found 2026-09-28 on ~340
+    listings, where it made the terms look different on every refresh."""
+    m = re.search(r"\nIndia\nEnglish\n", text or "")
+    return text[:m.start()] if m else (text or "")
+
+
+def get_json(url: str, body: dict | None = None) -> dict:
+    data = json.dumps(body).encode() if body is not None else None
+    req = urllib.request.Request(url, data=data, headers={
+        "User-Agent": UA, "Referer": "https://www.gyftr.com/", "Content-Type": "application/json"})
     with urllib.request.urlopen(req, timeout=30) as resp:
         return json.loads(resp.read().decode("utf-8"))
 
@@ -186,9 +203,12 @@ async def scrape_gyftr(page, target: dict) -> dict:
     but it is not always complete, so the full terms have to travel with it.
     """
     raw: dict = {}
+    cm_brand_id = brand_name = None
     try:
         data = get_json(GYFTR_DETAIL.format(slug=target["slug"]))["data"]
         brand = data["brand"]
+        cm_brand_id = brand.get("cm_brand_id")
+        brand_name = brand.get("brand_name")
         raw["important_instruction"] = untag(brand.get("important_instruction"))
         raw["checkout_instruction"] = untag(brand.get("checkout_instruction"))
         raw["faqs"] = untag(brand.get("faqs"))
@@ -237,34 +257,27 @@ async def scrape_gyftr(page, target: dict) -> dict:
     except Exception as exc:
         raw["api_error"] = str(exc)[:200]
 
-    await page.goto(target["url"], wait_until="domcontentloaded", timeout=60000)
-
-    # Three elements carry the "T&C*" label (desktop div, desktop span, mobile
-    # button), so a plain text= selector trips Playwright's strict mode and the
-    # terms silently never load. Target the span that actually opens the panel.
-    #
-    # Waiting a fixed number of milliseconds after the click is not enough: under
-    # concurrency the panel can take several seconds to populate, and a run at 5
-    # workers captured the terms for only 9% of brands while the same code
-    # single-threaded got 100%. Wait for the text itself to arrive instead, and
-    # re-click if the first one landed before the handler was bound.
-    tc = page.locator("span.cursor-pointer:has-text('T&C')").first
-    for attempt in range(3):
-        try:
-            await tc.click(timeout=8000)
-            await page.wait_for_function(
-                "() => /terms\\s*&\\s*conditions/i.test(document.body.innerText)",
-                timeout=8000)
-            break
-        except Exception:
-            if attempt == 2:
-                break  # no T&C tab, or it never populated — API fields still stand
-            await page.wait_for_timeout(1200)
-
-    body = await page.inner_text("body")
-    idx = body.lower().find("terms & conditions")
-    raw["full_terms"] = body[idx:idx + 20000].strip() if idx > -1 else ""
-    raw["page_text"] = body[:6000]
+    # The full terms come from the feed the page's "T&C*" tab itself calls.
+    # Reading them off the rendered page broke in late September 2026: the page
+    # gained a "Terms & Conditions" heading that shows before the panel fills,
+    # so the wait passed at once and the price table was saved as every brand's
+    # terms. The feed returns the same numbered text with no page to misread.
+    # The heading line keeps the shape the page used to give, so a brand whose
+    # terms did not change still compares as unchanged.
+    try:
+        # The brand list's `id` is a different numbering: posting it returned
+        # Cafe Coffee Day's terms for Pizza Hut. The page posts cm_brand_id.
+        data = get_json(GYFTR_TERMS, {"brand": cm_brand_id})["data"]
+        # Check the answer is this brand's. The feed's slug is no use for that:
+        # it is blank on ~40 brands and stale on others (Cahoot still says
+        # campus-sutra), so compare the brand names, as the detail feed gives it.
+        if key_of(data.get("product_brand_name")) != key_of(brand_name):
+            raise ValueError(f"terms feed answered for {data.get('product_brand_name')!r}")
+        terms = untag(data.get("product_brand_term_cond"))
+        raw["full_terms"] = f"{target['brand_name']} Terms & Conditions\n{terms}" if terms else ""
+    except Exception as exc:
+        raw["full_terms"] = ""
+        raw["terms_error"] = str(exc)[:200]
     return raw
 
 
@@ -289,7 +302,7 @@ async def scrape_buyhatke(page, target: dict) -> dict:
             return ""
         rest = body[m.start():]
         ends = [e.start() for e in (re.search(p, rest[80:], re.I) for p in end_pats) if e]
-        return rest[:min(ends) + 80].strip() if ends else rest[:12000].strip()
+        return strip_buyhatke_footer(rest[:min(ends) + 80] if ends else rest[:12000]).strip()
 
     # BuyHatke prices each denomination separately — Myntra runs 3.51% on ₹250
     # but 4.26% on ₹5,000 — so a single headline rate misstates the saving on
@@ -330,7 +343,10 @@ async def scrape_buyhatke(page, target: dict) -> dict:
             denoms.append(entry)
 
     return {
-        "restrictions": section(r"VOUCHER RESTRICTIONS", (r"REFER & EARN", r"HOW TO REDEEM")),
+        # BuyHatke dropped the how-to block from most pages in September 2026,
+        # so the terms heading can be the next thing after the restrictions.
+        "restrictions": section(r"VOUCHER RESTRICTIONS", (r"REFER & EARN", r"HOW TO REDEEM",
+                                                          r"TERMS AND CONDITIONS")),
         "how_to_redeem": section(r"HOW TO REDEEM", (r"TERMS AND CONDITIONS", r"Frequently Asked")),
         "full_terms": section(r"TERMS AND CONDITIONS", (r"Frequently Asked Questions",)),
         "denominations": denoms,
