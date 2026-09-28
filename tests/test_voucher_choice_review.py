@@ -97,3 +97,13 @@ def test_amazon_pay_card_is_not_limited_to_one_voucher_per_bill():
     from src.repositories import maximize_repository
     for product in maximize_repository.get_by_slug("amazon")["products"]:
         assert product["stack_limit"] is None and product["value_cap"] == 50000
+
+
+def test_extension_shows_the_better_copy_of_a_voucher_sold_on_two_sites():
+    """Porter on Gyftr beats Porter on Maximize; the extension must say so,
+    in the same answer shape as before (no choices, one deal)."""
+    for price in (None, 4000):
+        answer = voucher_check(domain="porter.in", price=price)
+        best = voucher_service.best_of_same_voucher(answer["brand_name"])
+        assert best is None, (price, answer["brand_name"], answer.get("pct"))
+        assert not answer.get("product_choices")

@@ -191,7 +191,7 @@ def _with_product_choices(root: str, deal: dict, price: float | None, domain: st
     vs ajio.com), that choice is the answer and nothing is asked."""
     choices = [c for c in voucher_service.product_choices(root or "", price) if _usable_online(c)]
     if len(choices) < 2:
-        return deal
+        return _best_copy(deal, price)
     host = domain.strip().lower().removeprefix("www.")
     on_this_site = [
         c for c in choices
@@ -200,3 +200,20 @@ def _with_product_choices(root: str, deal: dict, price: float | None, domain: st
     if on_this_site:
         return max(on_this_site, key=lambda c: len(c["choice_host"]))
     return {**choices[0], "product_choices": choices}
+
+
+def _best_copy(deal: dict, price: float | None) -> dict:
+    """The same voucher is sometimes sold on two sites (Porter: Gyftr 11%,
+    Maximize 10.75%); per the owner's review the shopper gets the better
+    copy, as search already does. Same answer shape, only the copy differs."""
+    if not deal.get("has_voucher"):
+        return deal
+    better = voucher_service.best_of_same_voucher(deal.get("brand_name") or "")
+    alt = voucher_service.get_voucher_check(better["name"], price) if better else None
+    if not (alt and _usable_online(alt) and _norm(alt.get("brand_name")) == _norm(better["name"])):
+        return deal
+
+    def worth(d):
+        return (d.get("saving") or 0, d.get("pct") or 0)
+
+    return alt if worth(alt) > worth(deal) else deal
