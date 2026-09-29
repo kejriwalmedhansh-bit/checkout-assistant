@@ -1,11 +1,13 @@
 {
-  "_about": "Hand-checked answers for shops that sell a different voucher per kind of purchase (MakeMyTrip: hotels, cabs...). Read by voucher_service.product_choices, so the extension, website and WhatsApp bot all ask the same question. Keyed by the voucher's own brand_name. label = the button; covers = replaces what the terms reading says it pays for; same = vouchers that buy the same thing on different sites (one button, best rate); hide = never offered as a choice, with the reason. Reviewed by the owner voucher by voucher on 2026-09-26 (travel sites checked against their terms the same day). Kept apart from voucher_rules.json so a data refresh never overwrites it.",
+  "_about": "Hand-checked answers for shops that sell a different voucher per kind of purchase (MakeMyTrip: hotels, cabs...). Read by voucher_service.product_choices, so the extension, website and WhatsApp bot all ask the same question. Keyed by the voucher's own brand_name. label = the button; covers = replaces what the terms reading says it pays for; same = vouchers that buy the same thing on different sites (one button, best rate); hide = never offered as a choice, with the reason. Reviewed by the owner voucher by voucher on 2026-09-26 (travel sites checked against their terms the same day). Kept apart from voucher_rules.json so a data refresh never overwrites it. Answers from the owner's Held Vouchers Review (2026-09-29) added: 'same' groups one button's copies across sites; 'owner_note' keeps the owner's words.",
   "cards": {
     "MakeMyTrip Hotel e-Pay": {
-      "label": "Hotels"
+      "label": "Hotels",
+      "same": "makemytrip-hotels"
     },
     "MakeMyTrip Holiday e-Pay": {
-      "label": "Holiday packages"
+      "label": "Holiday packages",
+      "same": "makemytrip-holiday-packages"
     },
     "MakeMyTrip Cab": {
       "label": "Cabs"
@@ -14,7 +16,8 @@
       "label": "Buses"
     },
     "MakeMyTrip e-Pay": {
-      "label": "Flights & anything else"
+      "label": "Flights & anything else",
+      "same": "makemytrip-flights-anything-else"
     },
     "MakeMyTrip International": {
       "label": "International trips"
@@ -26,10 +29,12 @@
       "label": "Flights"
     },
     "Yatra Hotel": {
-      "label": "Domestic hotels"
+      "label": "Domestic hotels",
+      "same": "yatra-domestic-hotels"
     },
     "Yatra Hotels Holidays": {
-      "label": "Hotels & holidays"
+      "label": "Hotels & holidays",
+      "same": "yatra-hotels-holidays"
     },
     "Yatra": {
       "label": "Anything else"
@@ -44,13 +49,15 @@
       "label": "Flights & anything else"
     },
     "Goibibo Hotel": {
-      "label": "Hotels"
+      "label": "Hotels",
+      "same": "goibibo-hotels"
     },
     "Goibibo": {
       "label": "Flights & anything else"
     },
     "Cleartrip Hotels": {
-      "label": "Hotels"
+      "label": "Hotels",
+      "same": "cleartrip-hotels"
     },
     "Cleartrip": {
       "label": "Flights & anything else"
@@ -69,18 +76,22 @@
     },
     "AJIO Luxe": {
       "label": "AJIO Luxe",
-      "host": "luxe.ajio.com"
+      "host": "luxe.ajio.com",
+      "same": "ajio-ajio-luxe"
     },
     "Ajio": {
       "label": "AJIO (not Luxe)",
       "host": "ajio.com",
-      "covers": "AJIO products, not AJIO Luxe"
+      "covers": "AJIO products, not AJIO Luxe",
+      "same": "ajio-ajio-not-luxe"
     },
     "Amazon Fresh": {
-      "label": "Groceries (Fresh)"
+      "label": "Groceries (Fresh)",
+      "same": "amazon-groceries-fresh"
     },
     "Amazon Shopping Voucher": {
-      "label": "Physical products"
+      "label": "Physical products",
+      "same": "amazon-physical-products"
     },
     "Amazon": {
       "label": "Bills & anything else (Amazon Pay)",
@@ -182,20 +193,24 @@
       "hide": "Gold and silver coins at 4%, always beaten by Euphoria's own gold coin (5%) and silver coin (4.5%) vouchers"
     },
     "Fastrack SmartWatch": {
-      "label": "Smartwatches"
+      "label": "Smartwatches",
+      "same": "fastrack-smartwatches"
     },
     "Fastrack": {
       "label": "Watches & others (not smartwatches)",
-      "covers": "Everything except smart wearables and Titan Nebula watches"
+      "covers": "Everything except smart wearables and Titan Nebula watches",
+      "same": "fastrack-watches-others-not-smartwatches"
     },
     "Giva-Silver Jewellery": {
-      "label": "Silver jewellery"
+      "label": "Silver jewellery",
+      "same": "giva-silver-jewellery"
     },
     "Giva Jewellery RDM": {
       "label": "Perfumes & candles"
     },
     "GIVA Gold Jewellery": {
-      "label": "Gold jewellery"
+      "label": "Gold jewellery",
+      "same": "giva-gold-jewellery"
     },
     "GIVA Silver Coin": {
       "label": "Silver coins"
@@ -223,23 +238,28 @@
       "same": "jos-alukkas-coin"
     },
     "Joyalukkas Diamond": {
-      "label": "Diamond jewellery"
+      "label": "Diamond jewellery",
+      "same": "joyalukkas-diamond-jewellery"
     },
     "Joyalukkas Gold and Diamond": {
-      "label": "Gold & other jewellery"
+      "label": "Gold & other jewellery",
+      "same": "joyalukkas-gold-other-jewellery"
     },
     "Joyalukkas Pure Gold": {
       "label": "Anything (in store)",
       "covers": "All products, in Joyalukkas stores"
     },
     "Ketan Diamonds - Diamond Only": {
-      "label": "Diamond jewellery"
+      "label": "Diamond jewellery",
+      "same": "ketan-diamonds-diamond-jewellery"
     },
     "Ketan Diamonds Gold Jewellery": {
-      "label": "Gold jewellery"
+      "label": "Gold jewellery",
+      "same": "ketan-diamonds-gold-jewellery"
     },
     "Ketan Diamonds Gold Coin": {
-      "label": "Gold coins"
+      "label": "Gold coins",
+      "same": "ketan-diamonds-gold-coins"
     },
     "Live Mint": {
       "label": "Mint subscription"
@@ -264,7 +284,8 @@
       "same": "luzo"
     },
     "Malabar Diamonds": {
-      "label": "Diamond & platinum"
+      "label": "Diamond & platinum",
+      "same": "malabar-diamond-platinum"
     },
     "Malabar Jewellery": {
       "label": "Any jewellery"
@@ -360,14 +381,187 @@
       "same": "valorant"
     },
     "Zee5": {
-      "label": "Full subscription"
+      "label": "Full subscription",
+      "same": "zee5-full-subscription"
     },
     "ZEE5 Regional": {
       "label": "Regional pack",
       "covers": "ZEE5 Regional subscription only"
     },
     "PVR Cinemas - GYFTR": {
-      "hide": "Same PVR card as BuyHatke's 'PVR Cinemas' — one kind of product, so no question to ask (added 2026-09-28, pending owner OK)"
+      "hide": "Same PVR card as BuyHatke's 'PVR Cinemas' — one kind of product, so no question to ask (added 2026-09-28, pending owner OK)",
+      "same": "pvr"
+    },
+    "Amazon Prime Lite Edition": {
+      "label": "Prime Lite membership",
+      "same": "amazon-prime-lite-membership",
+      "owner_note": "for exclusively prime lite edition (Maximize); BuyHatke's copy: don't offer"
+    },
+    "Amazon Prime Voucher - 12 months Membership": {
+      "label": "Prime membership",
+      "same": "amazon-prime-membership"
+    },
+    "Amazon Fresh Voucher": {
+      "label": "Groceries (Fresh)",
+      "same": "amazon-groceries-fresh"
+    },
+    "Amazon Prime": {
+      "label": "Prime membership",
+      "same": "amazon-prime-membership"
+    },
+    "Amazon Prime 12 Months": {
+      "label": "Prime membership",
+      "same": "amazon-prime-membership"
+    },
+    "Amazon Prime 3 months": {
+      "label": "Prime membership (3 months)",
+      "same": "amazon-prime-membership-3-months",
+      "owner_note": "but for 3 months"
+    },
+    "Amazon Prime Shopping Edition": {
+      "hide": "Owner: don't offer (Held Vouchers Review, 2026-09-29)"
+    },
+    "Amazon Shopping": {
+      "label": "Physical products",
+      "same": "amazon-physical-products"
+    },
+    "Amazon Prime Membership": {
+      "hide": "Owner: don't offer (Held Vouchers Review, 2026-09-29)"
+    },
+    "Amazon Prime Voucher - 3 months Membership": {
+      "hide": "Owner: don't offer (Held Vouchers Review, 2026-09-29)"
+    },
+    "Air India Ancillary": {
+      "label": "Seats, baggage & extras",
+      "same": "air-india-seats-baggage-extras"
+    },
+    "Air India Add ons": {
+      "label": "Seats, baggage & extras",
+      "same": "air-india-seats-baggage-extras",
+      "owner_note": "Same as Air India Ancillary (on Maximize) w different name"
+    },
+    "Ajio Luxe": {
+      "label": "AJIO Luxe",
+      "same": "ajio-ajio-luxe"
+    },
+    "AJIO": {
+      "label": "AJIO (not Luxe)",
+      "same": "ajio-ajio-not-luxe"
+    },
+    "GIVA Silver jewellery": {
+      "label": "Silver jewellery",
+      "same": "giva-silver-jewellery"
+    },
+    "Giva-Gold Jewellery": {
+      "label": "Gold jewellery",
+      "same": "giva-gold-jewellery"
+    },
+    "MakeMyTrip": {
+      "label": "Flights & anything else",
+      "same": "makemytrip-flights-anything-else"
+    },
+    "MakeMyTrip Holidays": {
+      "label": "Holiday packages",
+      "same": "makemytrip-holiday-packages"
+    },
+    "MakeMyTrip Hotel": {
+      "label": "Hotels",
+      "same": "makemytrip-hotels"
+    },
+    "MakeMyTrip E-Pay": {
+      "label": "Flights & anything else",
+      "same": "makemytrip-flights-anything-else"
+    },
+    "MakeMyTrip Holiday E Pay": {
+      "label": "Holiday packages",
+      "same": "makemytrip-holiday-packages"
+    },
+    "MakeMyTrip Hotel E Pay": {
+      "label": "Hotels",
+      "same": "makemytrip-hotels"
+    },
+    "Makemytrip Holiday": {
+      "label": "Holiday packages",
+      "same": "makemytrip-holiday-packages"
+    },
+    "Makemytrip Hotel": {
+      "label": "Hotels",
+      "same": "makemytrip-hotels"
+    },
+    "Yatra Hotels and Holidays": {
+      "label": "Hotels & holidays",
+      "same": "yatra-hotels-holidays",
+      "covers": "Domestic hotels, and holidays (domestic or international)",
+      "owner_note": "Hotels but only domestic ones"
+    },
+    "Yatra Hotel Gift Card": {
+      "label": "Domestic hotels",
+      "same": "yatra-domestic-hotels"
+    },
+    "Cleartrip Hotel": {
+      "label": "Hotels",
+      "same": "cleartrip-hotels"
+    },
+    "GoIbibo Hotel": {
+      "label": "Hotels",
+      "same": "goibibo-hotels"
+    },
+    "Ketan Diamonds Diamond Only": {
+      "label": "Diamond jewellery",
+      "same": "ketan-diamonds-diamond-jewellery"
+    },
+    "Ketan Diamonds - Gold Coin": {
+      "label": "Gold coins",
+      "same": "ketan-diamonds-gold-coins"
+    },
+    "Ketan Diamonds - Gold Jewellery": {
+      "label": "Gold jewellery",
+      "same": "ketan-diamonds-gold-jewellery"
+    },
+    "Malabar Diamonds 1 Day Wait": {
+      "label": "Diamond & platinum",
+      "same": "malabar-diamond-platinum"
+    },
+    "Malabar Diamond": {
+      "label": "Diamond & platinum",
+      "same": "malabar-diamond-platinum"
+    },
+    "Joyalukkas Gold and Diamond 12 Hr Wait": {
+      "label": "Gold & other jewellery",
+      "same": "joyalukkas-gold-other-jewellery"
+    },
+    "LUZO - Salons, Spas, Clinics": {
+      "same": "luzo"
+    },
+    "Fastrack 1 Day Wait": {
+      "label": "Watches & others (not smartwatches)",
+      "same": "fastrack-watches-others-not-smartwatches"
+    },
+    "Fastrack SmartWatch 8 Hr Wait": {
+      "label": "Smartwatches",
+      "same": "fastrack-smartwatches"
+    },
+    "PVR": {
+      "same": "pvr"
+    },
+    "PVR Cinemas": {
+      "same": "pvr"
+    },
+    "ZEE5": {
+      "label": "Full subscription",
+      "same": "zee5-full-subscription"
+    },
+    "BGMI UC OFFICIAL": {
+      "same": "bgmi-uc"
+    },
+    "HP Pay 250 300": {
+      "hide": "Owner: don't offer (Held Vouchers Review, 2026-09-29)"
+    },
+    "Steve Madde-Luxe": {
+      "same": "steve-madden"
+    },
+    "PVR INOX": {
+      "same": "pvr"
     }
   },
   "_listings_about": "For each reviewed voucher name, the exact Maximize/BuyHatke listings it covered when the owner reviewed it (data of 2026-09-26). A listing a later refresh files under the same name is held back until reviewed (src/repositories/_corrections.py). Gyftr sells one listing per name, so its names need no pins.",
@@ -434,7 +628,8 @@
       "https://www.maximize.money/gift-cards/Cleartrip/377"
     ],
     "Cleartrip Hotels": [
-      "https://www.maximize.money/gift-cards/Cleartrip Hotels (Custom)/227"
+      "https://www.maximize.money/gift-cards/Cleartrip Hotels (Custom)/227",
+      "https://buyhatke.com/gift-cards/cleartrip-hotels-gift-card"
     ],
     "Cordelia Cruises": [
       "https://www.maximize.money/gift-cards/Cordelia Cruises/1055"
@@ -538,7 +733,8 @@
       "https://www.maximize.money/gift-cards/Jos Alukkas Gold Jewellery/344"
     ],
     "Joyalukkas Diamond": [
-      "https://www.maximize.money/gift-cards/Joyalukkas Diamond/464"
+      "https://www.maximize.money/gift-cards/Joyalukkas Diamond/464",
+      "https://buyhatke.com/gift-cards/joyalukkas-diamond-gift-card"
     ],
     "Joyalukkas Gold and Diamond": [
       "https://www.maximize.money/gift-cards/Joyalukkas Gold and Diamond/592"
@@ -566,7 +762,8 @@
       "https://www.maximize.money/gift-cards/Live Mint/836"
     ],
     "Luzo": [
-      "https://www.maximize.money/gift-cards/Luzo/1133"
+      "https://www.maximize.money/gift-cards/Luzo/1133",
+      "https://buyhatke.com/gift-cards/luzo-gift-card"
     ],
     "Luzo salon Spa And Clinics": [
       "https://www.maximize.money/gift-cards/Luzo salon Spa And Clinics/1054"
@@ -669,6 +866,120 @@
     ],
     "ZEE5 Regional": [
       "https://buyhatke.com/gift-cards/zee5-regional-gift-card"
+    ],
+    "Amazon Prime Lite Edition": [
+      "https://www.maximize.money/gift-cards/Amazon/547"
+    ],
+    "Amazon Prime Voucher - 12 months Membership": [
+      "https://www.maximize.money/gift-cards/Amazon/549"
+    ],
+    "Amazon Fresh Voucher": [
+      "https://www.maximize.money/gift-cards/Amazon/448"
+    ],
+    "Amazon Prime": [
+      "https://buyhatke.com/gift-cards/amazon-prime-gift-card"
+    ],
+    "Amazon Prime 12 Months": [
+      "https://buyhatke.com/gift-cards/amazon-prime-12-months-gift-card"
+    ],
+    "Amazon Prime 3 months": [
+      "https://buyhatke.com/gift-cards/amazon-prime-3-months-gift-card"
+    ],
+    "Amazon Prime Shopping Edition": [
+      "https://buyhatke.com/gift-cards/amazon-prime-shopping-edition-gift-card"
+    ],
+    "Amazon Shopping": [
+      "https://buyhatke.com/gift-cards/amazon-shopping-gift-card"
+    ],
+    "Amazon Prime Voucher - 3 months Membership": [
+      "https://www.maximize.money/gift-cards/Amazon Prime Voucher - 3 months Membership/550"
+    ],
+    "Air India Ancillary": [
+      "https://www.maximize.money/gift-cards/Air India/1089"
+    ],
+    "Air India Add ons": [
+      "https://buyhatke.com/gift-cards/air-india-add-ons-gift-card"
+    ],
+    "Ajio Luxe": [
+      "https://buyhatke.com/gift-cards/ajio-luxe-gift-card"
+    ],
+    "GIVA Silver jewellery": [
+      "https://www.maximize.money/gift-cards/GIVA%20Silver%20Coin/1166"
+    ],
+    "MakeMyTrip": [
+      "https://buyhatke.com/gift-cards/makemytrip-gift-card",
+      "https://www.maximize.money/gift-cards/MakeMyTrip/579"
+    ],
+    "MakeMyTrip Holidays": [
+      "https://buyhatke.com/gift-cards/makemytrip-holidays-gift-card"
+    ],
+    "MakeMyTrip Hotel": [
+      "https://buyhatke.com/gift-cards/makemytrip-hotel-gift-card"
+    ],
+    "MakeMyTrip E-Pay": [
+      "https://www.maximize.money/gift-cards/MakeMyTrip E-Pay/364"
+    ],
+    "MakeMyTrip Holiday E Pay": [
+      "https://www.maximize.money/gift-cards/MakeMyTrip Holiday E Pay/209"
+    ],
+    "MakeMyTrip Hotel E Pay": [
+      "https://www.maximize.money/gift-cards/MakeMyTrip Hotel E Pay/208"
+    ],
+    "Makemytrip Holiday": [
+      "https://www.maximize.money/gift-cards/Makemytrip Holiday/478"
+    ],
+    "Makemytrip Hotel": [
+      "https://www.maximize.money/gift-cards/Makemytrip Hotel/225"
+    ],
+    "Yatra Hotels and Holidays": [
+      "https://buyhatke.com/gift-cards/yatra-hotels-and-holidays-gift-card",
+      "https://www.maximize.money/gift-cards/Yatra Hotels and Holidays/472"
+    ],
+    "GoIbibo Hotel": [
+      "https://www.maximize.money/gift-cards/GoIbibo Hotel/479"
+    ],
+    "Ketan Diamonds Diamond Only": [
+      "https://buyhatke.com/gift-cards/ketan-diamonds-diamond-only-gift-card"
+    ],
+    "Ketan Diamonds - Gold Coin": [
+      "https://www.maximize.money/gift-cards/Ketan Diamonds - Gold Coin/242"
+    ],
+    "Ketan Diamonds - Gold Jewellery": [
+      "https://www.maximize.money/gift-cards/Ketan Diamonds - Gold Jewellery/243"
+    ],
+    "Malabar Diamonds 1 Day Wait": [
+      "https://buyhatke.com/gift-cards/malabar-diamonds-(1-day-wait)-gift-card"
+    ],
+    "Malabar Diamond": [
+      "https://www.maximize.money/gift-cards/Malabar Diamond (Custom)/880"
+    ],
+    "Joyalukkas Gold and Diamond 12 Hr Wait": [
+      "https://buyhatke.com/gift-cards/joyalukkas-gold-and-diamond-(12-hr-wait)-gift-card"
+    ],
+    "Fastrack 1 Day Wait": [
+      "https://buyhatke.com/gift-cards/fastrack-(1-day-wait)-gift-card"
+    ],
+    "Fastrack SmartWatch 8 Hr Wait": [
+      "https://buyhatke.com/gift-cards/fastrack-smartwatch-(8-hr-wait)-gift-card"
+    ],
+    "PVR": [
+      "https://buyhatke.com/gift-cards/pvr-gift-card",
+      "https://www.maximize.money/gift-cards/PVR/553"
+    ],
+    "PVR Cinemas": [
+      "https://buyhatke.com/gift-cards/pvr-cinemas-gift-card"
+    ],
+    "ZEE5": [
+      "https://buyhatke.com/gift-cards/zee5-gift-card"
+    ],
+    "BGMI UC OFFICIAL": [
+      "https://buyhatke.com/gift-cards/bgmi-uc-official-gift-card"
+    ],
+    "HP Pay 250 300": [
+      "https://buyhatke.com/gift-cards/hp-pay-250-300-gift-card"
+    ],
+    "Steve Madde-Luxe": [
+      "https://www.maximize.money/gift-cards/Steve Madde-Luxe/901"
     ]
   }
 }

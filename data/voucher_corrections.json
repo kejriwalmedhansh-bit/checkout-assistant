@@ -2,7 +2,54 @@
   "_about": "Hand corrections to the voucher data, applied every time a platform's master file loads (src/repositories/_corrections.py), so a data refresh cannot bring the error back. Keyed by \"platform:slug\"; \"products\" fields are set on every product of that brand. Each entry says who confirmed it and why.",
   "maximize:amazon": {
     "why": "The terms reading took 'cannot be combined with other gift cards' as one card per bill. It is an Amazon Pay gift card: several go into the Amazon Pay balance and pay one bill, up to Rs 50,000 added per calendar month. We assume nothing was added yet that month. Owner confirmed 2026-09-26.",
-    "listings": ["https://www.maximize.money/gift-cards/Amazon/1084"],
-    "products": {"stack_limit": null, "value_cap": 50000}
+    "listings": [
+      "https://www.maximize.money/gift-cards/Amazon/1084"
+    ],
+    "products": {
+      "stack_limit": null,
+      "value_cap": 50000
+    }
+  },
+  "buyhatke:amazon-prime-lite-edition-gift-card": {
+    "why": "Owner chose not to offer this listing (Held Vouchers Review, 2026-09-29).",
+    "products": {
+      "status": "inactive"
+    },
+    "listings": [
+      "https://buyhatke.com/gift-cards/amazon-prime-lite-edition-gift-card"
+    ]
+  },
+  "buyhatke:amazon-prime-shopping-edition-gift-card": {
+    "why": "Owner chose not to offer this listing (Held Vouchers Review, 2026-09-29).",
+    "products": {
+      "status": "inactive"
+    },
+    "listings": [
+      "https://buyhatke.com/gift-cards/amazon-prime-shopping-edition-gift-card"
+    ]
+  },
+  "gyftr:amazon-prime-membership": {
+    "why": "Owner chose not to offer this listing (Held Vouchers Review, 2026-09-29).",
+    "products": {
+      "status": "inactive"
+    }
+  },
+  "maximize:amazon-prime-voucher-3-months-membership": {
+    "why": "Owner chose not to offer this listing (Held Vouchers Review, 2026-09-29).",
+    "products": {
+      "status": "inactive"
+    },
+    "listings": [
+      "https://www.maximize.money/gift-cards/Amazon Prime Voucher - 3 months Membership/550"
+    ]
+  },
+  "buyhatke:hp-pay-250-300-gift-card": {
+    "why": "Owner chose not to offer this listing (Held Vouchers Review, 2026-09-29).",
+    "products": {
+      "status": "inactive"
+    },
+    "listings": [
+      "https://buyhatke.com/gift-cards/hp-pay-250-300-gift-card"
+    ]
   }
 }

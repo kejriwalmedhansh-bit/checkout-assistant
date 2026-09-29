@@ -9,6 +9,7 @@ from __future__ import annotations
 import json
 
 from ..constants import DATA_DIR
+from . import _corrections
 from ._brand_matching import find_best_match
 
 _VOUCHERS_PATH = DATA_DIR / "gyftr_master.json"
@@ -23,6 +24,9 @@ def _load() -> None:
         return
     with open(_VOUCHERS_PATH) as f:
         data = json.load(f)
+    # Same hand corrections as the other two platforms: without this a Gyftr
+    # entry in voucher_corrections.json was silently ignored (2026-09-29).
+    _corrections.apply("gyftr", data)
     _vouchers_by_slug = dict(data)
     _vouchers_list = list(data.values())
 

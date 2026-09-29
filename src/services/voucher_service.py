@@ -2025,9 +2025,15 @@ def best_of_same_voucher(brand_name: str) -> dict | None:
 
 
 def _group_by_name(cards) -> dict[str, list[dict]]:
+    """Cards with the same name are one kind of product — unless the owner gave
+    them different buttons. Names are compared without their numbers, so
+    "Amazon Prime 3 months" and "Amazon Prime 12 Months" would otherwise merge
+    and the owner's separate 3-month button (2026-09-29) would never show."""
+    review = _choice_review()
     groups: dict[str, list[dict]] = {}
     for card in cards:
-        groups.setdefault(card["key"], []).append(card)
+        label = (review.get(card["name"]) or {}).get("label") or ""
+        groups.setdefault(f'{card["key"]}|{label}', []).append(card)
     return groups
 
 
