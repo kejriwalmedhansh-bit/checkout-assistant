@@ -125,14 +125,22 @@ def test_a_refresh_cannot_file_new_listings_under_a_reviewed_name():
 
 
 def test_amazon_shopping_never_offers_a_prime_voucher():
+    """A Prime card is only ever offered under a Prime button the owner named
+    (Held Vouchers Review, 2026-09-29) — never as the Amazon voucher itself or
+    behind "Physical products"."""
     for price in (None, 1200, 25000):
         answer = voucher_check(domain="amazon.in", price=price)
-        names = [answer.get("brand_name", "")] + [c["brand_name"] for c in answer.get("product_choices") or []]
-        assert not [n for n in names if "prime" in n.lower()], (price, names)
+        choices = answer.get("product_choices") or []
+        assert choices, (price, "Amazon should ask what is being bought")
+        for c in choices:
+            assert ("prime" in c["brand_name"].lower()) == ("prime" in c["choice_label"].lower()), (price, c["brand_name"], c["choice_label"])
     deal = voucher_service.get_best_maximize_deal("Amazon", 1200)
     assert deal and "/1084" in deal[0]["voucher_url"]
 
 
 def test_new_voucher_names_at_a_reviewed_shop_wait_for_review():
     labels = _labels(search_service._brand_voucher_choices("amazon"))
-    assert labels == ["Groceries (Fresh)", "Physical products", "Bills & anything else (Amazon Pay)"], labels
+    assert set(labels) == {"Groceries (Fresh)", "Physical products", "Bills & anything else (Amazon Pay)",
+                           "Prime membership", "Prime Lite membership", "Prime membership (3 months)"}, labels
+    # ...and nothing a later refresh adds joins until it is reviewed.
+    assert not voucher_service.pending_review()["new_names"]

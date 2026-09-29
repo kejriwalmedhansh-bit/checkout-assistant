@@ -273,33 +273,6 @@
         "reseller_qty_cap": 3
       },
       {
-        "product_name": "Amazon Prime Lite Edition",
-        "source_url": "https://www.maximize.money/gift-cards/Amazon/547",
-        "redemption_type": "Online",
-        "denominations": [
-          799
-        ],
-        "is_custom_denom": false,
-        "custom_min": null,
-        "custom_max": null,
-        "discounts": {
-          "UPI": 15.0,
-          "Debit Card": 13.75,
-          "Credit Card": 13.1,
-          "CC on UPI": 12.65,
-          "Diners Club": 12.75,
-          "Amex": 12.75
-        },
-        "best_payment_method": "UPI",
-        "best_discount_pct": 15.0,
-        "stack_limit": 1,
-        "value_cap": null,
-        "purchase_cap_per_txn": null,
-        "status": "active",
-        "last_scraped": "2026-09-28",
-        "reseller_qty_cap": 1
-      },
-      {
         "product_name": "Amazon",
         "source_url": "https://www.maximize.money/gift-cards/Amazon/548",
         "redemption_type": null,
@@ -316,65 +289,6 @@
         "status": "inactive",
         "last_scraped": "2026-09-28",
         "reseller_qty_cap": null
-      },
-      {
-        "product_name": "Amazon Prime Voucher - 12 months Membership",
-        "source_url": "https://www.maximize.money/gift-cards/Amazon/549",
-        "redemption_type": "Online",
-        "denominations": [
-          1499
-        ],
-        "is_custom_denom": false,
-        "custom_min": null,
-        "custom_max": null,
-        "discounts": {
-          "UPI": 15.0,
-          "Debit Card": 13.75,
-          "Credit Card": 13.1,
-          "CC on UPI": 12.65,
-          "Diners Club": 12.75,
-          "Amex": 12.75
-        },
-        "best_payment_method": "UPI",
-        "best_discount_pct": 15.0,
-        "stack_limit": 1,
-        "value_cap": null,
-        "purchase_cap_per_txn": null,
-        "status": "active",
-        "last_scraped": "2026-09-28",
-        "reseller_qty_cap": 1
-      },
-      {
-        "product_name": "Amazon Fresh Voucher",
-        "source_url": "https://www.maximize.money/gift-cards/Amazon/448",
-        "redemption_type": "Online",
-        "denominations": [
-          200,
-          500,
-          1000,
-          2000,
-          5000,
-          10000
-        ],
-        "is_custom_denom": true,
-        "custom_min": 100,
-        "custom_max": 10000,
-        "discounts": {
-          "UPI": 1.5,
-          "Debit Card": 0.25,
-          "Credit Card": 0.0,
-          "CC on UPI": 0.0,
-          "Diners Club": 0.0,
-          "Amex": 0.0
-        },
-        "best_payment_method": "UPI",
-        "best_discount_pct": 1.5,
-        "stack_limit": 1,
-        "value_cap": null,
-        "purchase_cap_per_txn": null,
-        "status": "active",
-        "last_scraped": "2026-09-28",
-        "reseller_qty_cap": 4
       }
     ],
     "description": "The Amazon Shopping Voucher is a perfect gift for anyone who loves shopping on Amazon. It can be redeemed across a wide range of products available on Amazon’s platform. Whether it’s electronics, books, fashion, or home goods, this voucher provides complete flexibility, letting the recipient choose exactly what they want.",
@@ -516,38 +430,6 @@
         "best_payment_method": "UPI",
         "best_discount_pct": 5.0,
         "stack_limit": 3,
-        "value_cap": null,
-        "purchase_cap_per_txn": null,
-        "status": "active",
-        "last_scraped": "2026-09-28",
-        "reseller_qty_cap": 4
-      },
-      {
-        "product_name": "Air India Ancillary",
-        "source_url": "https://www.maximize.money/gift-cards/Air India/1089",
-        "redemption_type": "Online",
-        "denominations": [
-          1000,
-          2000,
-          5000
-        ],
-        "is_custom_denom": true,
-        "custom_min": 500,
-        "custom_max": 5000,
-        "discounts": {
-          "UPI": 18.0,
-          "Debit Card": 16.75,
-          "Credit Card": 16.1,
-          "Amazon pay": 16.0,
-          "CC on UPI": 15.65,
-          "Pay With Rewards": 14.7,
-          "Diners Club": 15.75,
-          "Wallets": 15.65,
-          "Amex": 15.75
-        },
-        "best_payment_method": "UPI",
-        "best_discount_pct": 18.0,
-        "stack_limit": null,
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
@@ -22103,9 +21985,213 @@
     "notes": "added by sync_master_listings.py",
     "stack_limit_confidence": null
   },
-  "giva-20silver-20coin": {
-    "brand_name": "GIVA Silver Coin",
-    "slug": "giva-20silver-20coin",
+  "amazon-547": {
+    "brand_name": "Amazon Prime Lite Edition",
+    "slug": "amazon-547",
+    "source": "Maximize",
+    "products": [
+      {
+        "product_name": "Amazon Prime Lite Edition",
+        "source_url": "https://www.maximize.money/gift-cards/Amazon/547",
+        "redemption_type": "Online",
+        "denominations": [
+          799
+        ],
+        "is_custom_denom": false,
+        "custom_min": null,
+        "custom_max": null,
+        "discounts": {
+          "UPI": 15.0,
+          "Debit Card": 13.75,
+          "Credit Card": 13.1,
+          "CC on UPI": 12.65,
+          "Diners Club": 12.75,
+          "Amex": 12.75
+        },
+        "best_payment_method": "UPI",
+        "best_discount_pct": 15.0,
+        "stack_limit": 1,
+        "value_cap": null,
+        "purchase_cap_per_txn": null,
+        "status": "active",
+        "last_scraped": "2026-09-28",
+        "reseller_qty_cap": 1
+      }
+    ],
+    "description": null,
+    "important_instructions_raw": null,
+    "how_to_redeem_steps": [
+      "Visit www.amazon.in/vouchers",
+      "Enter the voucher code in 'Add new' section.",
+      "Click on 'Add button' to add voucher."
+    ],
+    "full_terms_and_conditions": "Terms & Conditions\nAmazon Prime Voucher is issued by Pine Labs Private Limited (Qwikcilver) with Amazon Pay and can be used for Amazon Prime memberships (3/12 months, Prime Lite, Prime Shopping edition) or Amazon Pay Anytime Gift Cards (zero value) on Amazon.in.\nThe voucher has a validity of 12 months from the date of activation and cannot be transferred or cancelled once issued.\nAmazon Prime Voucher cannot be used on Amazon Business accounts.\nCredit and Debit Cards issued outside India cannot be used to purchase Amazon Prime Voucher.\nThe voucher is valid only for new users subscribing to Amazon Prime for the first time.\nAmazon Prime Voucher cannot be used for physical or digital products, Global Store items, recharges, bill payments, ticket bookings, financial products, Amazon Pay gift cards, or mixed orders with ineligible items.\nCustomers with Prime activated via telecom providers (Airtel, Jio, VI, etc.) or Google Play subscriptions are not eligible to redeem this voucher.\nBeneficiary can redeem the voucher on https://www.amazon.in/vouchers by applying the 13-digit numeric code, with a maximum balance addition of ₹1799 per voucher.\nAmazon Prime Voucher can be redeemed only once per customer, is non-refundable, non-cancellable, and cannot be redeemed for cash or transferred for value.\nPine Labs or Amazon are not responsible if the voucher is lost, stolen, or misused, and terms may be changed anytime; e-gift card delivery may take up to 24 hours, and no returns/refunds are allowed",
+    "can_club_with_offers": null,
+    "one_time_use": true,
+    "redemption_restrictions": [],
+    "notes": "split out of 'Amazon' 2026-09-29: a different product filed under that name",
+    "stack_limit_confidence": null
+  },
+  "amazon-549": {
+    "brand_name": "Amazon Prime Voucher - 12 months Membership",
+    "slug": "amazon-549",
+    "source": "Maximize",
+    "products": [
+      {
+        "product_name": "Amazon Prime Voucher - 12 months Membership",
+        "source_url": "https://www.maximize.money/gift-cards/Amazon/549",
+        "redemption_type": "Online",
+        "denominations": [
+          1499
+        ],
+        "is_custom_denom": false,
+        "custom_min": null,
+        "custom_max": null,
+        "discounts": {
+          "UPI": 15.0,
+          "Debit Card": 13.75,
+          "Credit Card": 13.1,
+          "CC on UPI": 12.65,
+          "Diners Club": 12.75,
+          "Amex": 12.75
+        },
+        "best_payment_method": "UPI",
+        "best_discount_pct": 15.0,
+        "stack_limit": 1,
+        "value_cap": null,
+        "purchase_cap_per_txn": null,
+        "status": "active",
+        "last_scraped": "2026-09-28",
+        "reseller_qty_cap": 1
+      }
+    ],
+    "description": null,
+    "important_instructions_raw": null,
+    "how_to_redeem_steps": [
+      "Visit: www.amazon.in/vouchers",
+      "Enter your 13-digit voucher code in the ‘Add new’ section",
+      "Click Add to apply the voucher"
+    ],
+    "full_terms_and_conditions": "Terms & Conditions\nThis voucher is issued by Pine Labs Pvt Ltd under the Qwikcilver brand and co-branded with Amazon Pay (India) Pvt Ltd.\nValid for purchasing: Amazon Prime Memberships : 12-month\nAmazon Pay Anytime Gift Cards (inactive, zero-value)\nCannot be used to buy: Products on Amazon Global Store\nCannot be used to buy: Recharges, bill payments, ticket bookings, financial products\nCannot be used to buy: Amazon Pay gift cards (pre-loaded)\nCannot be used to buy: Mixed orders (with ineligible items)\nCannot be redeemed: On Amazon Business accounts\nCannot be redeemed: If you have Prime via telecom providers (Airtel, VI, Jio)\nCannot be redeemed: if your current Prime subscription was purchased via Google Play\nRedeemable only once per customer\nPrime membership once activated cannot be cancelled or refunded\nVoucher is non-transferable, non-refundable, and cannot be converted to cash\nCards issued outside India cannot be used to purchase this voucher\nNot valid if lost, stolen, or misused - Pine Labs, Amazon, and affiliates are not liable\nValid for 12 months from activation\nPine Labs reserves the right to change terms without notice\nVoucher is for individual use and cannot be combined with other Prime subscription methods.\nCannot be reused or extended beyond expiry.\nAmazon Prime via this voucher is non-cancellable.",
+    "can_club_with_offers": null,
+    "one_time_use": true,
+    "redemption_restrictions": [],
+    "notes": "split out of 'Amazon' 2026-09-29: a different product filed under that name",
+    "stack_limit_confidence": null
+  },
+  "amazon-448": {
+    "brand_name": "Amazon Fresh Voucher",
+    "slug": "amazon-448",
+    "source": "Maximize",
+    "products": [
+      {
+        "product_name": "Amazon Fresh Voucher",
+        "source_url": "https://www.maximize.money/gift-cards/Amazon/448",
+        "redemption_type": "Online",
+        "denominations": [
+          200,
+          500,
+          1000,
+          2000,
+          5000,
+          10000
+        ],
+        "is_custom_denom": true,
+        "custom_min": 100,
+        "custom_max": 10000,
+        "discounts": {
+          "UPI": 1.5,
+          "Debit Card": 0.25,
+          "Credit Card": 0.0,
+          "CC on UPI": 0.0,
+          "Diners Club": 0.0,
+          "Amex": 0.0
+        },
+        "best_payment_method": "UPI",
+        "best_discount_pct": 1.5,
+        "stack_limit": 1,
+        "value_cap": null,
+        "purchase_cap_per_txn": null,
+        "status": "active",
+        "last_scraped": "2026-09-28",
+        "reseller_qty_cap": 4
+      }
+    ],
+    "description": null,
+    "important_instructions_raw": null,
+    "how_to_redeem_steps": [
+      "Visit https://www.amazon.in/vouchers.",
+      "Enter the voucher code in the ''Add new'' section.",
+      "Click on the ‘Add’ button to apply the voucher.",
+      "To track your voucher balance, revisit https://www.amazon.in/vouchers.",
+      "During checkout on Amazon.in, select Voucher Balance as the payment option.",
+      "For full Terms & Conditions, visit T&C Link.",
+      "Explore eligible products on the Amazon Fresh Page."
+    ],
+    "full_terms_and_conditions": "Terms & Conditions\nThese vouchers are issued by Pine Labs (Qwikcilver) and co-branded with Amazon Pay.\nCan only be used to purchase products listed on the Amazon Fresh page on Amazon.in.\nNon-transferable and non-cancellable once issued.\nInternational credit/debit cards cannot be used to purchase these vouchers.\nTo redeem, apply the 13-digit alphanumeric code at amazon.in/vouchers to add the balance to your Amazon.in account.\nValid for 12 months from the date of activation.\nCannot be transferred for value or redeemed for cash.\nLost, stolen, or misused vouchers are the responsibility of the customer; no replacements will be issued.\nDelivery is usually instant but may be delayed up to 24–48 hours due to system issues.\nAmazon and Pine Labs logos/trademarks used are intellectual properties of their respective owners.\nPine Labs may update these terms anytime without prior notice.\nNot valid on Amazon Business marketplace.",
+    "can_club_with_offers": null,
+    "one_time_use": false,
+    "redemption_restrictions": [],
+    "notes": "split out of 'Amazon' 2026-09-29: a different product filed under that name",
+    "stack_limit_confidence": null
+  },
+  "air-india-1089": {
+    "brand_name": "Air India Ancillary",
+    "slug": "air-india-1089",
+    "source": "Maximize",
+    "products": [
+      {
+        "product_name": "Air India Ancillary",
+        "source_url": "https://www.maximize.money/gift-cards/Air India/1089",
+        "redemption_type": "Online",
+        "denominations": [
+          1000,
+          2000,
+          5000
+        ],
+        "is_custom_denom": true,
+        "custom_min": 500,
+        "custom_max": 5000,
+        "discounts": {
+          "UPI": 18.0,
+          "Debit Card": 16.75,
+          "Credit Card": 16.1,
+          "Amazon pay": 16.0,
+          "CC on UPI": 15.65,
+          "Pay With Rewards": 14.7,
+          "Diners Club": 15.75,
+          "Wallets": 15.65,
+          "Amex": 15.75
+        },
+        "best_payment_method": "UPI",
+        "best_discount_pct": 18.0,
+        "stack_limit": null,
+        "value_cap": null,
+        "purchase_cap_per_txn": null,
+        "status": "active",
+        "last_scraped": "2026-09-28",
+        "reseller_qty_cap": 4
+      }
+    ],
+    "description": null,
+    "important_instructions_raw": null,
+    "how_to_redeem_steps": [
+      "Visit the Air India website or mobile app and book your flight.",
+      "Select eligible ancillary services such as Seat Selection, Extra Baggage, ZipAhead, or Sports Equipment.",
+      "At the payment page, enter your Gift Card Number and PIN to redeem.",
+      "If the gift card balance is insufficient, pay the remaining amount using a Credit Card.",
+      "For multiple gift cards, first add them to your Air India Wallet, then select Use Air India Wallet/Gift Cards/Vouchers during checkout and apply the desired wallet balance."
+    ],
+    "full_terms_and_conditions": "Terms & Conditions\nThe Air India Ancillary Gift Card is redeemable only on the Air India website and mobile app.\nValid only for purchasing Seat Selection, Extra Baggage, ZipAhead, and Sports Equipment.\nApplicable only for bookings made in Indian Rupees (INR) from Point of Sale India.\nGift Cards are available in denominations from ₹500 to ₹5,000.\nValid for 180 days from the date of activation.\nGift Cards can be combined with Air India promotional offers, except offers tied to a specific payment method.\nMultiple Gift Cards can be added to the Air India Wallet for easier redemption.\nPartial redemption is supported where applicable. The remaining balance stays available until expiry.\nIf the ancillary purchase exceeds the Gift Card balance, the remaining amount must be paid using a Credit Card.\nGift Cards cannot be used for: Flight fare, Travel insurance, Upgrades, Third-party services, Group bookings\nGift Cards cannot be redeemed through airport counters, customer service centres, or call centres.\nGift Cards cannot be cancelled, refunded, exchanged for cash, or revalidated after expiry.\nIn case of transaction failure, the amount will be re-credited within 24 hours.\nOn cancellation, the refunded amount is credited back to the same Gift Card or Wallet, provided it is still valid.\nAir India is not responsible for lost, stolen, or unauthorized use of Gift Cards.\nAir India reserves the right to suspend, cancel, or reject Gift Cards in cases of fraud or misuse.\nAir India may modify these terms without prior notice.\nAny disputes are subject to the exclusive jurisdiction of the courts in Delhi.",
+    "can_club_with_offers": null,
+    "one_time_use": false,
+    "redemption_restrictions": [],
+    "notes": "split out of 'Air India' 2026-09-29: a different product filed under that name",
+    "stack_limit_confidence": null
+  },
+  "giva%20silver%20coin-1166": {
+    "brand_name": "GIVA Silver jewellery",
+    "slug": "giva%20silver%20coin-1166",
     "source": "Maximize",
     "products": [
       {
@@ -22161,7 +22247,7 @@
     "can_club_with_offers": null,
     "one_time_use": false,
     "redemption_restrictions": [],
-    "notes": "added by sync_master_listings.py",
+    "notes": "split out of 'GIVA Silver Coin' 2026-09-29: a different product filed under that name",
     "stack_limit_confidence": null
   }
 }

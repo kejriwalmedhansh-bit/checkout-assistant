@@ -149,15 +149,22 @@ def main() -> None:
                 urls.add(o["url"])
                 continue
             if source == "maximize":
-                # Maximize lists several products under one brand (five Amazons);
-                # a new product joins its brand when the brand is already there.
+                # Maximize lists several products under one brand URL name
+                # (five "Amazon"s). A new one joins that brand only when it IS
+                # that product; a different product filed there (Prime Lite,
+                # Amazon Fresh, Air India's seats-and-baggage card, 2026-09-28)
+                # took the reviewed card's name and rules, so it gets its own
+                # record under its own product name and the listing's own slug,
+                # which is where its read rules are filed.
+                name = unquote(raw.get("product_name") or o["brand_name"]).strip()
                 home = next((s for s, e in master.items()
-                             if key_of(e.get("brand_name")) == key_of(o["brand_name"])), None)
+                             if key_of(e.get("brand_name")) == key_of(name)), None)
                 if home:
                     master[home]["products"].append(new_product(o, source, raw))
-                    added.append(f"{o['brand_name']} (another product)")
+                    added.append(f"{name} (another listing)")
                     continue
-                slug = re.sub(r"[^a-z0-9]+", "-", o["brand_name"].lower()).strip("-")
+                slug = o["slug"]
+                o = {**o, "brand_name": name}
             else:
                 slug = o["slug"]
             if slug in master:
