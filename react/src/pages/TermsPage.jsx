@@ -2,6 +2,7 @@ import { Box, Text } from '@chakra-ui/react';
 
 import InfoPageShell from '@/components/common/InfoPageShell';
 import { usePageTitle } from '@/hooks/usePageTitle';
+import { PAGE_META } from '@/seo/pageMeta';
 
 const LAST_UPDATED = 'August 31, 2026';
 
@@ -19,7 +20,7 @@ function Section({ title, children }) {
 }
 
 export default function TermsPage() {
-  usePageTitle('Terms of Use', 'The terms for using getdealo’s Dealo search and Gift Voucher recommendations.');
+  usePageTitle(PAGE_META.terms.title, PAGE_META.terms.description);
 
   return (
     <InfoPageShell title="Terms of Use" subtitle={`Last updated ${LAST_UPDATED}`}>

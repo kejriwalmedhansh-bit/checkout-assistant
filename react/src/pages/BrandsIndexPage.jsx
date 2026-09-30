@@ -9,6 +9,7 @@ import ALL_BRAND_DEALS from '@/data/allBrandDeals.json';
 import { BRAND_DEALS } from '@/data/brandDeals';
 import { useLenis } from '@/hooks/useLenis';
 import { usePageTitle } from '@/hooks/usePageTitle';
+import { brandsIndexMeta } from '@/seo/pageMeta';
 import { ROUTES } from '@/routes/paths';
 import { outboundLink, track } from '@/utils/analytics';
 
@@ -142,10 +143,8 @@ export default function BrandsIndexPage() {
   // MASTER.md and CLAUDE.md's no-vertical-scroll homepage).
   useLenis();
 
-  usePageTitle(
-    'Gift Voucher deals by store',
-    `Compare Gift Voucher discount rates across ${ALL_BRAND_DEALS.length}+ Indian stores — search any brand and go straight to whichever voucher partner has the best rate.`
-  );
+  const meta = brandsIndexMeta(ALL_BRAND_DEALS.length);
+  usePageTitle(meta.title, meta.description);
 
   const trimmedQuery = query.trim();
 

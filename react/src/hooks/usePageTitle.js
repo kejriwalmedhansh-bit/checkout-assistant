@@ -1,11 +1,12 @@
 import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 
-const SUFFIX = 'Dealo';
-const SITE_URL = 'https://getdealo.in';
-const DEFAULT_DESCRIPTION =
-  'Dealo finds the cheapest legitimate way to buy anything online in India — stacking discounted gift vouchers with cashback cards to cut your final checkout price.';
-const DEFAULT_OG_TITLE = 'Dealo — Never pay full price, just search the product';
+import {
+  DEFAULT_DESCRIPTION,
+  HOME_TITLE,
+  SITE_NAME as SUFFIX,
+  SITE_URL,
+} from '@/seo/pageMeta';
 
 function setMeta(selector, content) {
   const el = document.querySelector(selector);
@@ -37,28 +38,28 @@ export function usePageTitle(title, description, path) {
   const location = useLocation();
 
   useEffect(() => {
-    const fullTitle = title ? `${title} — ${SUFFIX}` : SUFFIX;
+    const fullTitle = title ? `${title} — ${SUFFIX}` : HOME_TITLE;
     const desc = description || DEFAULT_DESCRIPTION;
     const canonicalUrl = `${SITE_URL}${withTrailingSlash(path ?? location.pathname)}`;
 
     document.title = fullTitle;
     setMeta('meta[name="description"]', desc);
-    setMeta('meta[property="og:title"]', title ? fullTitle : DEFAULT_OG_TITLE);
+    setMeta('meta[property="og:title"]', fullTitle);
     setMeta('meta[property="og:description"]', desc);
     setMeta('meta[property="og:url"]', canonicalUrl);
-    setMeta('meta[name="twitter:title"]', title ? fullTitle : DEFAULT_OG_TITLE);
+    setMeta('meta[name="twitter:title"]', fullTitle);
     setMeta('meta[name="twitter:description"]', desc);
 
     const canonical = document.querySelector('link[rel="canonical"]');
     if (canonical) canonical.setAttribute('href', canonicalUrl);
 
     return () => {
-      document.title = SUFFIX;
+      document.title = HOME_TITLE;
       setMeta('meta[name="description"]', DEFAULT_DESCRIPTION);
-      setMeta('meta[property="og:title"]', DEFAULT_OG_TITLE);
+      setMeta('meta[property="og:title"]', HOME_TITLE);
       setMeta('meta[property="og:description"]', DEFAULT_DESCRIPTION);
       setMeta('meta[property="og:url"]', `${SITE_URL}/`);
-      setMeta('meta[name="twitter:title"]', DEFAULT_OG_TITLE);
+      setMeta('meta[name="twitter:title"]', HOME_TITLE);
       setMeta('meta[name="twitter:description"]', DEFAULT_DESCRIPTION);
       if (canonical) canonical.setAttribute('href', `${SITE_URL}/`);
     };

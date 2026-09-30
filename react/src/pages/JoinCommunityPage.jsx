@@ -6,6 +6,7 @@ import BackButton from '@/components/common/BackButton';
 import { I } from '@/components/common/icons';
 import { usePageHeader } from '@/hooks/usePageHeader';
 import { usePageTitle } from '@/hooks/usePageTitle';
+import { PAGE_META } from '@/seo/pageMeta';
 import { ROUTES } from '@/routes/paths';
 import { registerCampaignProps, track } from '@/utils/analytics';
 import { WHATSAPP_COMMUNITY_LINK } from '@/config';
@@ -38,7 +39,7 @@ function IconBubble({ icon, accent }) {
  * onClick comment for why a real click is required before navigating out.
  */
 export default function JoinCommunityPage() {
-  usePageTitle('Join the community', "Send Dealo's founder whatever you're about to buy — free, no catch.");
+  usePageTitle(PAGE_META.join.title, PAGE_META.join.description);
 
   const backControl = <BackButton fallback={ROUTES.home} iconOnly />;
   usePageHeader({ left: backControl });
