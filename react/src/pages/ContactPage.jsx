@@ -3,6 +3,7 @@ import { Box, Flex, Link as ChakraLink, Text } from '@chakra-ui/react';
 import InfoPageShell from '@/components/common/InfoPageShell';
 import { I } from '@/components/common/icons';
 import { usePageTitle } from '@/hooks/usePageTitle';
+import { PAGE_META } from '@/seo/pageMeta';
 import { track } from '@/utils/analytics';
 import { botWhatsAppHref } from '@/utils/whatsappLink';
 
@@ -44,7 +45,7 @@ function ContactRow({ icon, label, value, href, isExternal, onClick }) {
 }
 
 export default function ContactPage() {
-  usePageTitle('Contact', 'Reach the Dealo team by WhatsApp or email — search support, feedback, and questions about how Gift Voucher deals work.');
+  usePageTitle(PAGE_META.contact.title, PAGE_META.contact.description);
 
   const whatsappHref = `https://wa.me/${SUPPORT_WHATSAPP_NUMBER}?text=${encodeURIComponent("Hi! I have a question about Dealo.")}`;
 

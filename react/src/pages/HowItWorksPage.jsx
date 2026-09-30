@@ -7,36 +7,9 @@ import { I } from '@/components/common/icons';
 import { useJsonLd } from '@/hooks/useJsonLd';
 import { usePageHeader } from '@/hooks/usePageHeader';
 import { usePageTitle } from '@/hooks/usePageTitle';
+import { FAQS, FAQ_JSON_LD, PAGE_META } from '@/seo/pageMeta';
 import { ROUTES } from '@/routes/paths';
 import { track } from '@/utils/analytics';
-
-const FAQS = [
-  {
-    q: 'Why do I sometimes buy a Gift Voucher before checkout?',
-    a: "It's usually the cheapest legitimate route: the store's own official voucher partner sells store credit at a discount. You buy the Gift Voucher, then spend it at checkout exactly like a gift card — same store, same product, lower total. It's real store credit, not a workaround.",
-  },
-  {
-    q: 'Is this safe?',
-    a: 'Yes. Gift Vouchers come from the store’s official partner, and Dealo never handles your money or your card details — you always pay the store directly, on the store’s own site.',
-  },
-  {
-    q: 'Do I need a credit card?',
-    a: "No. Our top recommendation never requires one. If you do have a card, we'll show you when it saves you a little more — never as a requirement.",
-  },
-];
-
-// Eligible for Google's FAQ rich result — the on-page copy and this data
-// are the same three questions, kept in the same array on purpose so they
-// can never drift apart.
-const FAQ_JSON_LD = {
-  '@context': 'https://schema.org',
-  '@type': 'FAQPage',
-  mainEntity: FAQS.map((f) => ({
-    '@type': 'Question',
-    name: f.q,
-    acceptedAnswer: { '@type': 'Answer', text: f.a },
-  })),
-};
 
 function FaqItem({ q, a, defaultOpen = false }) {
   const [open, setOpen] = useState(defaultOpen);
@@ -279,10 +252,7 @@ function DealoMarkLine({ size = 22 }) {
 }
 
 export default function HowItWorksPage() {
-  usePageTitle(
-    'How it works',
-    'How Dealo finds the cheapest legitimate way to buy something online — from pasting a product link to checking out with a discounted Gift Voucher.'
-  );
+  usePageTitle(PAGE_META.howItWorks.title, PAGE_META.howItWorks.description);
   useJsonLd(FAQ_JSON_LD);
 
   const backControl = <BackButton fallback={ROUTES.home} iconOnly />;

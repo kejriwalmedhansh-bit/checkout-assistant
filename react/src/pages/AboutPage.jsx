@@ -4,6 +4,7 @@ import { Link as RouterLink } from 'react-router-dom';
 import InfoPageShell from '@/components/common/InfoPageShell';
 import { I } from '@/components/common/icons';
 import { usePageTitle } from '@/hooks/usePageTitle';
+import { PAGE_META } from '@/seo/pageMeta';
 import { ROUTES } from '@/routes/paths';
 
 function Section({ title, children }) {
@@ -20,10 +21,7 @@ function Section({ title, children }) {
 }
 
 export default function AboutPage() {
-  usePageTitle(
-    'About Dealo',
-    'Dealo is a pre-checkout tool that finds the cheapest legitimate way to buy something online in India, by stacking discounted Gift Vouchers with cashback cards.'
-  );
+  usePageTitle(PAGE_META.about.title, PAGE_META.about.description);
 
   return (
     <InfoPageShell title="About Dealo" subtitle="The smartest way to buy — same product, less money out.">

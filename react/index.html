@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="robots" content="index, follow" />
     <meta name="theme-color" content="#FAFAF7" />
-    <title>Dealo</title>
+    <title>Dealo — Never pay full price, just search the product</title>
     <meta
       name="description"
       content="Dealo finds the cheapest legitimate way to buy anything online in India — stacking discounted gift vouchers with cashback cards to cut your final checkout price."
@@ -37,19 +37,27 @@
     />
 
     <!--
-      Organization + WebSite structured data — lets Google show the getdealo
-      brand name/logo in search results and enables the sitelink search box.
-      Site-wide and static (not page-specific), so it lives here rather than
-      in the per-page SEO hook.
+      Organization + WebSite structured data — lets Google show the Dealo
+      brand name/logo in search results. Site-wide and static (not
+      page-specific), so it lives here rather than in the per-page SEO hook.
+
+      name is "Dealo", the name people search; getdealo (the domain) is the
+      alternate. sameAs lists Dealo's own profiles elsewhere — the links Google
+      uses to confirm this site *is* the Dealo brand, over lookalike domains.
+      Add the LinkedIn page here once it's confirmed.
     -->
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
         "@type": "Organization",
-        "name": "getdealo",
+        "name": "Dealo",
+        "alternateName": "getdealo",
         "url": "https://getdealo.in/",
         "logo": "https://getdealo.in/favicon.svg",
-        "sameAs": []
+        "sameAs": [
+          "https://chromewebstore.google.com/detail/fjbkoahbajnddoohobplmafmeiddnkoi",
+          "https://www.instagram.com/getdealo/"
+        ]
       }
     </script>
     <script type="application/ld+json">
@@ -57,6 +65,7 @@
         "@context": "https://schema.org",
         "@type": "WebSite",
         "name": "Dealo",
+        "alternateName": "getdealo",
         "url": "https://getdealo.in/"
       }
     </script>

@@ -2,6 +2,7 @@ import { Box, Text } from '@chakra-ui/react';
 
 import InfoPageShell from '@/components/common/InfoPageShell';
 import { usePageTitle } from '@/hooks/usePageTitle';
+import { PAGE_META } from '@/seo/pageMeta';
 
 /**
  * The single privacy policy for all three places Dealo runs: this website,
@@ -82,10 +83,7 @@ function Callout({ tone = 'brand', title, children }) {
 }
 
 export default function PrivacyPage() {
-  usePageTitle(
-    'Privacy Policy',
-    'Exactly what Dealo collects on the website, on WhatsApp, and in the Chrome extension — what we never collect, who else sees it, and how to have it deleted.',
-  );
+  usePageTitle(PAGE_META.privacy.title, PAGE_META.privacy.description);
 
   return (
     <InfoPageShell title="Privacy Policy" subtitle={`Last updated ${LAST_UPDATED}`}>

@@ -8,10 +8,9 @@ import { I } from '@/components/common/icons';
 import { getBrandDeal } from '@/data/brandDeals';
 import { useJsonLd } from '@/hooks/useJsonLd';
 import { usePageTitle } from '@/hooks/usePageTitle';
+import { brandJsonLd, brandPageMeta, canClubText, multiUseText, whereToRedeem } from '@/seo/pageMeta';
 import { outboundLink, track } from '@/utils/analytics';
 import { ROUTES } from '@/routes/paths';
-
-const SITE_URL = 'https://getdealo.in';
 
 const SOURCE_LABEL = { gyftr: 'Gyftr', maximize: 'Maximize', buyhatke: 'BuyHatke' };
 
@@ -22,38 +21,6 @@ const normalizeKey = (name) => name.toLowerCase().replace(/[^a-z0-9]/g, '');
 // up to 2 points low. The rate and the partner link come from the same
 // generated file the rest of the site reads.
 const LIVE_DEAL_BY_KEY = new Map(ALL_BRAND_DEALS.map((b) => [normalizeKey(b.name), b]));
-
-/**
- * HowTo (matches the numbered redemption steps shown on the page) +
- * BreadcrumbList, not Product/Offer — Dealo doesn't sell the voucher or
- * take a price on this page, it explains a discount rate, so Offer schema
- * would misrepresent what's actually here and risks Google rejecting or
- * penalizing the markup for not matching visible content.
- */
-function buildJsonLd(brand) {
-  return [
-    {
-      '@context': 'https://schema.org',
-      '@type': 'HowTo',
-      name: `How to get the ${brand.name} Gift Voucher discount`,
-      description: brand.blurb,
-      step: brand.steps.map((text, i) => ({
-        '@type': 'HowToStep',
-        position: i + 1,
-        text,
-      })),
-    },
-    {
-      '@context': 'https://schema.org',
-      '@type': 'BreadcrumbList',
-      itemListElement: [
-        { '@type': 'ListItem', position: 1, name: 'Dealo', item: `${SITE_URL}/` },
-        { '@type': 'ListItem', position: 2, name: 'Store deals', item: `${SITE_URL}/brands` },
-        { '@type': 'ListItem', position: 3, name: brand.name, item: `${SITE_URL}/brands/${brand.slug}` },
-      ],
-    },
-  ];
-}
 
 function Badge({ children, ...props }) {
   return (
@@ -92,24 +59,6 @@ function Fact({ icon, label, value }) {
   );
 }
 
-function whereToRedeem(brand) {
-  if (brand.online && brand.offline) return 'Online and in-store, at any listed outlet';
-  if (brand.offline) return 'In-store only, at any listed outlet';
-  return 'Online only';
-}
-
-function multiUseText(brand) {
-  if (brand.multiUse === true) return 'Multi-use — spend it across as many orders as you like';
-  if (brand.multiUse === false) return 'Single-use — the full voucher value is redeemed in one go';
-  return 'Not stated by the store';
-}
-
-function canClubText(brand) {
-  if (brand.canClub === true) return 'Yes — can be combined with other running offers';
-  if (brand.canClub === false) return 'No — cannot be combined with other offers';
-  return 'Not stated — treat as store credit only';
-}
-
 function Step({ n, children }) {
   return (
     <Flex align="flex-start" gap="12px" mb="14px">
@@ -141,14 +90,10 @@ export default function BrandPage() {
   const deal = brand ? LIVE_DEAL_BY_KEY.get(normalizeKey(brand.name)) : null;
   const ratePct = deal ? deal.pct : brand?.ratePct;
 
-  useJsonLd(brand ? buildJsonLd(brand) : null);
+  useJsonLd(brand ? brandJsonLd(brand) : null);
 
-  usePageTitle(
-    brand ? `${brand.name} Gift Voucher discount` : 'Store not found',
-    brand
-      ? `${brand.name} Gift Vouchers sell at ${ratePct}% off through the official voucher partner — buy one, spend it like store credit at ${brand.name}, and save the difference.`
-      : undefined
-  );
+  const meta = brand ? brandPageMeta(brand, ratePct) : null;
+  usePageTitle(meta ? meta.title : 'Store not found', meta?.description);
 
   if (!brand) return <Navigate to={ROUTES.brands} replace />;
 

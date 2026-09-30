@@ -9,13 +9,14 @@ import SearchBox from '@/components/common/SearchBox';
 import { HOW_IT_WORKS } from '@/components/onboarding/tourSteps';
 import { gradients } from '@/theme/foundations/colors';
 import { usePageTitle } from '@/hooks/usePageTitle';
+import { PAGE_META } from '@/seo/pageMeta';
 import { ROUTES } from '@/routes/paths';
 import { useSearchStore } from '@/store/searchStore';
 import { hasAnswered, onConsentChange } from '@/utils/consent';
 import { useUiStore } from '@/store/uiStore';
 
 export default function SearchPage() {
-  usePageTitle('Search');
+  usePageTitle(PAGE_META.home.title, PAGE_META.home.description);
   const navigate = useNavigate();
   const runSearch = useSearchStore((s) => s.runSearch);
   const query = useSearchStore((s) => s.query);
