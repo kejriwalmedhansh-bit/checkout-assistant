@@ -3472,8 +3472,10 @@ def _discover_exact_offers(
     identity: dict, product_token: str, full_title: str, tag: str = "[routes]",
     picked_price: float | None = None,
 ) -> tuple[list[dict], dict]:
-    """(verified candidates, info) for the exact product on every whitelisted
-    store Google knows about. Candidates are in `_build_candidates` shape."""
+    """(verified candidates, info, picked offers) for the exact product on
+    every whitelisted store Google knows about. Candidates are in
+    `_build_candidates` shape; picked offers are the tapped entry's own store
+    list, for the pin's link only (see where they're built)."""
     id_query = product_identity.identity_query(identity)
     brand = identity.get("brand") or ""
     info: dict = {"queries": [], "typical_low": None, "stores_checked": 0, "seconds": {}}
@@ -3597,6 +3599,22 @@ def _discover_exact_offers(
 
     verified = _verified(rows + gap_rows)
     lap("store_lists")
+    # The store list of the entry the user actually tapped, unchecked. Used
+    # only to give the pinned pick its link (build_routes_for_token), never as
+    # routes of their own: the ID card is built from Google's short picker
+    # title ("Birkenstock Arizona"), so the store's own page for that very
+    # listing can fail the exact-match check on wording alone ("Arizona
+    # Essentials EVA" read as a different sub-model) - which left the pick
+    # with its price but no way to reach the store. Same entry, same store,
+    # and a price within 10% of what was tapped is the listing itself.
+    picked_offers = [
+        {"merchant": r["merchant"], "price": r["price"], "title": r["title"],
+         "sellers": [{"link": r["link"], "delivery": next((d for d in r["details"] if "deliver" in d.lower()), None)}],
+         "match_type": "Listed", "_source_token": r["_source_token"]}
+        for r in rows
+        if r["_source_token"] == product_token and r["link"] and r["price"] is not None
+        and (not picked_price or abs(r["price"] - picked_price) <= 0.1 * picked_price)
+    ]
     # Fakes: below 40% of the highest big-store price, or well under the
     # lowest price Google itself says this product usually sells for.
     # The price of the product the user picked (their pasted page's own price
@@ -3622,7 +3640,7 @@ def _discover_exact_offers(
     info["stores_found"] = sorted({c["merchant"] for c in verified})
     logger.info("%s verified %d listing(s) at %d store(s) from %d checked", tag, len(verified),
                 len(info["stores_found"]), info["stores_checked"])
-    return verified, info
+    return verified, info, picked_offers
 
 
 _UNREADABLE_PRICE_HOSTS = ("flipkart.com", "tatacliq.com")  # no labelled price on the page, even rendered
@@ -3744,14 +3762,16 @@ def build_routes_for_token(
         if identity is not None:
             # Step 6: every whitelisted store selling this exact product.
             logger.info("[routes] product ID card: %r", product_identity.identity_query(identity))
-            candidates, info = _discover_exact_offers(identity, product_token, identity["title"], picked_price=picked_price)
+            candidates, info, picked_offers = _discover_exact_offers(identity, product_token, identity["title"], picked_price=picked_price)
             # Quick commerce is a last resort (user rule, 2026-09-25): kept
             # only when no other store sells the exact product.
             regular = [c for c in candidates if not _is_hyperlocal(c.get("merchant") or "")]
             if regular or (picked_source and not _is_hyperlocal(picked_source)):
                 candidates = regular
             output["search_info"] = info
-            pre_filter_candidates = candidates
+            # Verified listings first; the tapped entry's own unchecked store
+            # list is there so the pin below can always find its link.
+            pre_filter_candidates = candidates + picked_offers
             display_title = title or identity["title"]
             if display_title:
                 output["source"]["name"] = display_title
