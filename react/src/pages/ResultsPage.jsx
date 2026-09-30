@@ -20,6 +20,7 @@ import { usePageHeader } from '@/hooks/usePageHeader';
 import { usePageTitle } from '@/hooks/usePageTitle';
 import { ROUTES } from '@/routes/paths';
 import { useSearchStore } from '@/store/searchStore';
+import { friendlyMessage } from '@/utils/errors';
 import {
   affiliateUrl,
   effectiveCashback,
@@ -34,8 +35,8 @@ import {
 // "please wait" status line.
 const ROUTE_TIPS = [
   'Vouchers are real store credit — not a trick.',
-  "We're not the seller. We just find your best deal.",
-  "Read the gift voucher site's redemption steps first.",
+  "We’re not the seller. We just find your best deal.",
+  "Read the gift voucher site’s redemption steps first.",
   'Follow the steps in order for the full discount.',
   'In-store? Ask the cashier if they take vouchers first.',
 ];
@@ -190,9 +191,15 @@ export default function ResultsPage() {
       )}
 
       {error || result?.error ? (
-        <ErrorBox message={error || result.error} />
+        <ErrorBox
+          message={error || friendlyMessage(result.error)}
+          action={searchOpen ? null : { label: 'Search again', onClick: () => setSearchOpen(true) }}
+        />
       ) : !rec ? (
-        <ErrorBox message="No results found. Try a different search." />
+        <ErrorBox
+          message="We couldn’t work out a price for this one. Try searching the product by its name."
+          action={searchOpen ? null : { label: 'Search again', onClick: () => setSearchOpen(true) }}
+        />
       ) : (
         // The loader (pulsing dots) unmounts and this whole block mounts in
         // its place the instant a search resolves — without this, that's a

@@ -30,7 +30,7 @@ export default function HowToSteps({ rec, skipVoucher = false }) {
       </Flex>
       <InfoNote
         short={`Verified for your order — worth a quick skim of ${sourceLabel}'s terms.`}
-        full={`We've already checked this voucher works for your order. It's still worth a quick skim of ${sourceLabel}'s own terms before you pay — takes a few seconds.`}
+        full={`We’ve already checked this voucher works for your order. It’s still worth a quick skim of ${sourceLabel}'s own terms before you pay — takes a few seconds.`}
         fontSize="11px"
         color="text3"
         mt="0"

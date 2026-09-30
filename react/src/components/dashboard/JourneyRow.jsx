@@ -65,7 +65,7 @@ function PingRings({ color }) {
           key={i}
           position="absolute"
           inset="0"
-          borderRadius="99px"
+          borderRadius="999px"
           pointerEvents="none"
           sx={{
             '@keyframes dealoPing': {
@@ -252,7 +252,7 @@ export default function JourneyRow({
           bg={t.bg}
           border="1px solid"
           borderColor={t.border}
-          borderRadius="99px"
+          borderRadius="999px"
           px="10px"
           py="2px"
         >
@@ -308,7 +308,7 @@ export default function JourneyRow({
             bg="amber"
             border="1.5px solid"
             borderColor="amber"
-            borderRadius="99px"
+            borderRadius="999px"
             px="14px"
             py="8px"
             whiteSpace="nowrap"
@@ -338,7 +338,7 @@ export default function JourneyRow({
             bg={checked ? 'brand' : t.color}
             border="1.5px solid"
             borderColor={checked ? 'brand' : t.color}
-            borderRadius="99px"
+            borderRadius="999px"
             px="20px"
             py="12px"
             boxShadow={checked ? 'none' : `0 4px 16px -4px var(--chakra-colors-${t.color})`}

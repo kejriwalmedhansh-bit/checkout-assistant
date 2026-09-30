@@ -161,7 +161,7 @@ export default function CreditCardPrompt({ route, onPayingByCardChange, onQuoteC
           {loadError && (
             <Flex align="center" justify="space-between" gap="10px">
               <Text fontSize="13px" color="text2">
-                Couldn&apos;t load card options.
+                Couldn&rsquo;t load card options.
               </Text>
               <Box as="button" type="button" onClick={openPicker} fontSize="13px" fontWeight={600} color="brand">
                 Retry
@@ -302,7 +302,7 @@ export default function CreditCardPrompt({ route, onPayingByCardChange, onQuoteC
               bg="brandSoft"
               border="1px solid"
               borderColor="brand"
-              borderRadius="6px"
+              borderRadius="8px"
               px="10px"
               py="6px"
             >

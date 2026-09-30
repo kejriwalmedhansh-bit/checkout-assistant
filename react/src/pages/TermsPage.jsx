@@ -33,18 +33,18 @@ export default function TermsPage() {
       <Section title="No guarantee of price or availability">
         Prices, discount rates, and voucher availability are checked live at the moment you search, but can change
         by the time you check out — stock, offers, and rates are set by the store or voucher partner, not by us. We
-        do our best to show accurate, current information, but we can't guarantee a price shown on Dealo will still
+        do our best to show accurate, current information, but we can’t guarantee a price shown on Dealo will still
         be available when you complete the purchase.
       </Section>
 
       <Section title="Your responsibility">
-        You're responsible for reviewing the product, price, and terms on the store's own page before you pay, and
-        for following the voucher partner's own terms when you redeem a Gift Voucher. Dealo is a recommendation
+        You’re responsible for reviewing the product, price, and terms on the store’s own page before you pay, and
+        for following the voucher partner’s own terms when you redeem a Gift Voucher. Dealo is a recommendation
         tool, not a party to your purchase.
       </Section>
 
       <Section title="Acceptable use">
-        Don't use Dealo to attempt fraud, to scrape or resell our results at scale, or to interfere with the
+        Don’t use Dealo to attempt fraud, to scrape or resell our results at scale, or to interfere with the
         service for other users. We may restrict access if we reasonably believe the service is being misused.
       </Section>
 

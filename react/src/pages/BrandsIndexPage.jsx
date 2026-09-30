@@ -1,6 +1,6 @@
 import { useMemo, useState } from 'react';
 import { Box, Flex, Grid, Input, InputGroup, InputLeftElement, Link as ChakraLink, Select, Text } from '@chakra-ui/react';
-import { Link as RouterLink } from 'react-router-dom';
+import { Link as RouterLink, useNavigate } from 'react-router-dom';
 
 import BrandAvatar from '@/components/common/BrandAvatar';
 import InfoPageShell from '@/components/common/InfoPageShell';
@@ -11,6 +11,7 @@ import { useLenis } from '@/hooks/useLenis';
 import { usePageTitle } from '@/hooks/usePageTitle';
 import { brandsIndexMeta } from '@/seo/pageMeta';
 import { ROUTES } from '@/routes/paths';
+import { useSearchStore } from '@/store/searchStore';
 import { outboundLink, track } from '@/utils/analytics';
 
 const SOURCE_LABEL = {
@@ -108,7 +109,7 @@ function BrandRow({ brand }) {
       alignItems="center"
       gap="10px"
       p="10px 12px"
-      borderRadius="13px"
+      borderRadius="12px"
       border="1px solid"
       borderColor="border"
       bg="surface2"
@@ -123,7 +124,7 @@ function BrandRow({ brand }) {
           via {SOURCE_LABEL[brand.source] || brand.source}
         </Text>
       </Box>
-      <Flex align="center" gap="3px" flex="0 0 auto" px="8px" py="3px" borderRadius="99px" bg="brandSoft" color="brandText" fontSize="11px" fontWeight={700}>
+      <Flex align="center" gap="3px" flex="0 0 auto" px="8px" py="3px" borderRadius="999px" bg="brandSoft" color="brandText" fontSize="11px" fontWeight={700}>
         <I.zap size={10} />
         {brand.pct}%
       </Flex>
@@ -137,6 +138,8 @@ function BrandRow({ brand }) {
 export default function BrandsIndexPage() {
   const [query, setQuery] = useState('');
   const [sort, setSort] = useState('rate');
+  const navigate = useNavigate();
+  const runSearch = useSearchStore((s) => s.runSearch);
 
   // The one page long enough (~900 rows) for smooth-scroll to matter —
   // every other page in the app is short by design (see design-system/dealo/
@@ -158,7 +161,7 @@ export default function BrandsIndexPage() {
   return (
     <InfoPageShell
       title="Gift Voucher deals by store"
-      subtitle={`Every store below sells Gift Vouchers at a discount through an official partner — buy one, spend it like store credit, save the difference. ${ALL_BRAND_DEALS.length}+ stores tracked across our voucher partners.`}
+      subtitle={meta.intro}
       maxW="920px"
     >
       <Text as="h2" m="0 0 12px" fontSize="15px" fontWeight={800} letterSpacing="-.01em">
@@ -175,7 +178,7 @@ export default function BrandsIndexPage() {
           <Input
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            placeholder="Search for the brand you're looking for…"
+            placeholder="Search a brand, like Nike"
             h="42px"
             borderRadius="12px"
             fontSize="13.5px"
@@ -202,14 +205,33 @@ export default function BrandsIndexPage() {
 
       {trimmedQuery && (
         <>
-          <Text fontSize="11.5px" color="text3" mb="10px">
-            {filtered.length} store{filtered.length === 1 ? '' : 's'}
-          </Text>
+          {filtered.length > 0 && (
+            <Text fontSize="11.5px" color="text3" mb="10px">
+              {filtered.length} store{filtered.length === 1 ? '' : 's'}
+            </Text>
+          )}
 
           {filtered.length === 0 ? (
-            <Text fontSize="13px" color="text3" py="20px" textAlign="center">
-              No store matches "{trimmedQuery}" yet — search it on Dealo instead and we'll check its rate live.
-            </Text>
+            <Box py="20px" textAlign="center">
+              <Text fontSize="13px" color="text3">
+                No store here matches “{trimmedQuery}” yet — we can still check it live.
+              </Text>
+              <Box
+                as="button"
+                type="button"
+                onClick={() => {
+                  runSearch(trimmedQuery); // fire-and-forget — ProductSelectPage subscribes to the store
+                  navigate(ROUTES.select);
+                }}
+                mt="8px"
+                fontSize="13px"
+                fontWeight={700}
+                color="brand"
+                _hover={{ textDecoration: 'underline' }}
+              >
+                Search “{trimmedQuery}” on Dealo
+              </Box>
+            </Box>
           ) : (
             <Grid templateColumns={{ base: '1fr', sm: 'repeat(2, 1fr)' }} gap="8px">
               {filtered.map((b) => (
@@ -232,7 +254,7 @@ export default function BrandsIndexPage() {
       <Box mt="24px">
         <Text fontSize="12.5px" color="text3" lineHeight={1.6}>
           Each store above links straight to whichever voucher partner currently has its best rate. Buying something
-          from a store not listed? Search it on Dealo and we'll check its rate live.
+          from a store not listed? Search it on Dealo and we’ll check its rate live.
         </Text>
       </Box>
     </InfoPageShell>

@@ -1,5 +1,5 @@
 import { Fragment, useEffect, useState } from 'react';
-import { Box, Flex, Text } from '@chakra-ui/react';
+import { Box, Flex, Text, useBreakpointValue } from '@chakra-ui/react';
 import { motion, useReducedMotion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 
@@ -17,6 +17,11 @@ import { useUiStore } from '@/store/uiStore';
 
 export default function SearchPage() {
   usePageTitle(PAGE_META.home.title, PAGE_META.home.description);
+  // The full example gets cut off mid-word in a phone-width box.
+  const searchPlaceholder = useBreakpointValue(
+    { base: 'Product name or paste a link', md: 'e.g. "Onitsuka Tiger Mexico 66" or paste a link' },
+    { ssr: false },
+  );
   const navigate = useNavigate();
   const runSearch = useSearchStore((s) => s.runSearch);
   const query = useSearchStore((s) => s.query);
@@ -117,7 +122,9 @@ export default function SearchPage() {
           m={0}
         >
           Never pay full price.{' '}
-          <Box as="span" color="brand">
+          {/* nowrap: on a phone the line breaks before "Just search.", never
+              between the two words, which left "search." alone on a line. */}
+          <Box as="span" color="brand" whiteSpace="nowrap">
             Just search.
           </Box>
         </Text>
@@ -139,7 +146,7 @@ export default function SearchPage() {
           <SearchBox
             initialValue={query}
             onSubmit={handleSubmit}
-            placeholder={'e.g. "Onitsuka Tiger Mexico 66" or paste a link'}
+            placeholder={searchPlaceholder}
           />
         </Box>
 
@@ -255,7 +262,7 @@ export default function SearchPage() {
                 Paying by credit card?
               </Text>
               <Text fontSize="12px" color="text2" mt="2px">
-                There&apos;s something for you on your results.
+                There&rsquo;s something for you on your results.
               </Text>
             </Box>
             <Text

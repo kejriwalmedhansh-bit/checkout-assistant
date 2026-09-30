@@ -91,11 +91,14 @@ export default function Footer() {
           maxW="1340px"
           mx="auto"
           px={{ base: '16px', md: '34px' }}
-          py="18px"
+          pt="18px"
+          // Phones: room under the last line for the floating WhatsApp
+          // button, which otherwise sits on top of it at the end of every page.
+          pb={{ base: '84px', md: '18px' }}
           fontSize="11.5px"
           color="text3"
         >
-          © {new Date().getFullYear()} getdealo. Dealo never asks for your card number or OTP.
+          © {new Date().getFullYear()} Dealo. Dealo never asks for your card number or OTP.
         </Text>
       </Box>
     </Box>

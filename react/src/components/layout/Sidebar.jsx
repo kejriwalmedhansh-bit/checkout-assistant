@@ -16,7 +16,7 @@ const ICON_SLOT = 34;
 const NAV = [
   { to: ROUTES.home, icon: I.search, label: 'Search', end: true },
   { to: ROUTES.brands, icon: I.store, label: 'Store deals' },
-  { to: ROUTES.howItWorks, icon: I.doc, label: 'What we do', end: true },
+  { to: ROUTES.howItWorks, icon: I.doc, label: 'How it works', end: true },
 ];
 
 /**
@@ -51,24 +51,12 @@ function WhatsAppIcon({ size = 17 }) {
   );
 }
 
-/** Dealo-styled How It Works icon — lightbulb. */
-function HowItWorksIcon({ size = 17 }) {
+/** Play button — the item opens the tutorial video. */
+function PlayIcon({ size = 17 }) {
   return (
     <Box as="svg" viewBox="0 0 24 24" w={`${size}px`} h={`${size}px`} fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M9 18h6" />
-      <path d="M10 22h4" />
-      <path d="M12 2a7 7 0 0 0-4 12.7c.6.5 1 1.2 1 2.05V17h6v-.25c0-.85.4-1.55 1-2.05A7 7 0 0 0 12 2Z" />
-    </Box>
-  );
-}
-
-/** Dealo-styled What We Do icon — document/ledger. */
-function WhatWeDoIcon({ size = 17 }) {
-  return (
-    <Box as="svg" viewBox="0 0 24 24" w={`${size}px`} h={`${size}px`} fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8l-5-5Z" />
-      <path d="M14 3v5h5" />
-      <path d="M9 13h6M9 16.5h6" />
+      <circle cx="12" cy="12" r="10" />
+      <path d="M10 8.5v7l5.5-3.5L10 8.5Z" />
     </Box>
   );
 }
@@ -144,18 +132,14 @@ function SidebarFooter({ onNavigate, collapsed, onOpenOnboarding }) {
         onClick={() => track('Clicked WhatsApp Button', { source: 'sidebar' })}
         collapsed={collapsed}
       />
+      {/* Opens the tutorial video, not the How it works page (that one is in
+          the menu above) — so it’s labelled as the video, never as a second
+          "How it works" that goes somewhere different. */}
       <SidebarFooterItem
-        icon={HowItWorksIcon}
-        label="How it works"
+        icon={PlayIcon}
+        label="Watch the video"
         onClick={onOpenOnboarding}
         onNavigate={onNavigate}
-        collapsed={collapsed}
-      />
-      <SidebarFooterItem
-        icon={WhatWeDoIcon}
-        label="What we do"
-        href={ROUTES.howItWorks}
-        onClick={onNavigate}
         collapsed={collapsed}
       />
     </Flex>
@@ -189,7 +173,7 @@ function NavItem({ to, end, icon: Ico, label, onNavigate, collapsed }) {
       }}
     >
       {active && (
-        <Box position="absolute" left="-10px" top="10px" bottom="10px" w="3px" borderRadius="99px" bg="brand" />
+        <Box position="absolute" left="-10px" top="10px" bottom="10px" w="3px" borderRadius="999px" bg="brand" />
       )}
       <Tooltip label={label} placement="right" hasArrow openDelay={250} borderRadius="8px" isDisabled={!collapsed}>
         <IconSlot>

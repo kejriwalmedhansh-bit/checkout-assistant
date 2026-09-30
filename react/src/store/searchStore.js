@@ -15,7 +15,7 @@ import { create } from 'zustand';
 import { persist, createJSONStorage } from 'zustand/middleware';
 
 import { searchApi } from '@/api/search.api';
-import { extractErrorMessage } from '@/utils/errors';
+import { extractErrorMessage, friendlyMessage } from '@/utils/errors';
 import { normalizeSearchInput } from '@/utils/query';
 import { track } from '@/utils/analytics';
 import { originalPrice, finalPrice, saving } from '@/utils/format';
@@ -102,7 +102,7 @@ export const useSearchStore = create(
         try {
           const data = await searchApi.candidates(q);
           if (data.error) {
-            set({ searchStatus: 'error', error: data.error });
+            set({ searchStatus: 'error', error: friendlyMessage(data.error) });
           } else {
             set({
               candidates: data.products || [],

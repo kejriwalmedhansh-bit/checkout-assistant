@@ -163,7 +163,7 @@ export default function ProductSelectPage() {
                     Nothing matched that exactly — yet
                   </Text>
                   <Text fontSize="13px" color="text3" mt="2px">
-                    Try the brand and model, like &ldquo;boAt Airdopes 141&rdquo;, and we&apos;ll compare every store for you.
+                    Try the brand and model, like &ldquo;boAt Airdopes 141&rdquo;, and we&rsquo;ll compare every store for you.
                   </Text>
                 </Box>
               </Flex>
@@ -174,14 +174,14 @@ export default function ProductSelectPage() {
         {searchStatus === 'success' && mode !== 'brand_voucher' && candidates.length > 0 && (
           <>
             {otherColours ? (
-              <LowConfidenceNotice message="That exact colour isn't at our trusted stores right now — here's the same model in other colours." />
+              <LowConfidenceNotice message="That exact colour isn’t at our trusted stores right now — here’s the same model in other colours." />
             ) : closest ? (
-              <LowConfidenceNotice message="We couldn't find that exact model at our trusted stores — these are the closest matches." />
+              <LowConfidenceNotice message="We couldn’t find that exact model at our trusted stores — these are the closest matches." />
             ) : (
               approximate && <LowConfidenceNotice />
             )}
             <Text fontSize="13px" color="text3" mb="12px">
-              Select the exact product you want — we&apos;ll find the cheapest way to buy it.
+              Select the exact product you want — we&rsquo;ll find the cheapest way to buy it.
             </Text>
             <Flex direction="column" gap="10px">
               {pageCandidates.map((p, i) => {

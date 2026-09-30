@@ -4,6 +4,8 @@
     <meta charset="UTF-8" />
     <meta name="mitgo-verification" content="d6949ac6-f675-4185-9dcb-fba12afd9144" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/png" sizes="48x48" href="/favicon-48.png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="robots" content="index, follow" />
     <meta name="theme-color" content="#FAFAF7" />
@@ -29,7 +31,14 @@
       content="Dealo finds the cheapest legitimate way to buy anything online in India — stacking discounted gift vouchers with cashback cards to cut your final checkout price."
     />
     <meta property="og:url" content="https://getdealo.in/" />
-    <meta name="twitter:card" content="summary" />
+    <meta property="og:locale" content="en_IN" />
+    <!-- 1200×630, the size every preview (WhatsApp, LinkedIn, X) crops to without cutting anything off. -->
+    <meta property="og:image" content="https://getdealo.in/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Dealo — Never pay full price. Just search. Paste a link, buy a voucher, pay less." />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image" content="https://getdealo.in/og-image.png" />
     <meta name="twitter:title" content="Dealo — Never pay full price, just search the product" />
     <meta
       name="twitter:description"
@@ -53,7 +62,7 @@
         "name": "Dealo",
         "alternateName": "getdealo",
         "url": "https://getdealo.in/",
-        "logo": "https://getdealo.in/favicon.svg",
+        "logo": "https://getdealo.in/icon-512.png",
         "sameAs": [
           "https://chromewebstore.google.com/detail/fjbkoahbajnddoohobplmafmeiddnkoi",
           "https://www.instagram.com/getdealo/"
@@ -74,7 +83,7 @@
       Legacy-host auto-redirect. Dealo moved off the geobuild.in subdomain to
       getdealo.in; anyone still landing on the old host is sent straight over.
 
-      Inline and first in <head> on purpose: it runs before the ~350 kB (gzipped)
+      Inline and first in <head> on purpose: it runs before the ~280 kB (gzipped)
       module bundle is even requested, so the old domain never paints a frame of
       the app. Doing this from main.jsx instead would mean downloading and
       booting the whole SPA first, which shows a visible flash on mobile.

@@ -129,7 +129,7 @@ export default function ProductCandidateCard({ product, onSelect, onEnlarge, isS
             )}
             {product.store_count > 1 && (
               <Text fontSize="11px" fontWeight={600} color="text3" mt="2px">
-                Sold at {product.store_count} stores — we&apos;ll compare them
+                Sold at {product.store_count} stores — we&rsquo;ll compare them
               </Text>
             )}
           </Box>

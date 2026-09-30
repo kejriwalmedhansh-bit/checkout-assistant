@@ -57,11 +57,11 @@ function FaqItem({ q, a, defaultOpen = false }) {
  * Keep in step with the files in public/how-it-works/.
  */
 const SHOT_SIZE = {
-  '/how-it-works/search.webp': [700, 652],
-  '/how-it-works/picker.webp': [640, 324],
+  '/how-it-works/search.webp': [800, 606],
+  '/how-it-works/picker.webp': [640, 328],
   '/how-it-works/quickview.webp': [520, 518],
-  '/how-it-works/voucher.webp': [640, 637],
-  '/how-it-works/checkout.webp': [640, 642],
+  '/how-it-works/voucher.webp': [640, 535],
+  '/how-it-works/checkout.webp': [640, 563],
   '/how-it-works/makemytrip.webp': [640, 287],
 };
 
@@ -93,7 +93,7 @@ function Shot({ src, alt, side = 'left', center = false }) {
     return (
       <Box w={{ base: '72vw', md: '340px' }} maxW={{ base: '300px', md: '340px' }} mx="auto" mb="22px" position="relative">
         <Box position="absolute" inset="14px -14px -14px 14px" borderRadius="20px" bg="brandSoft" transform="rotate(-1.6deg)" />
-        <Box position="relative" borderRadius="18px" overflow="hidden" border="1px solid" borderColor="border" boxShadow="0 24px 44px -20px rgba(22,32,43,.34)" bg="surface">
+        <Box position="relative" borderRadius="16px" overflow="hidden" border="1px solid" borderColor="border" boxShadow="0 24px 44px -20px rgba(22,32,43,.34)" bg="surface">
           <Box as="img" src={src} alt={alt} {...imgProps(src)} display="block" w="100%" h="auto" />
         </Box>
       </Box>
@@ -119,7 +119,7 @@ function Shot({ src, alt, side = 'left', center = false }) {
       />
       <Box
         position="relative"
-        borderRadius="18px"
+        borderRadius="16px"
         overflow="hidden"
         border="1px solid"
         borderColor="border"
@@ -310,7 +310,7 @@ export default function HowItWorksPage() {
 
         {/* ---- step 3 ---- */}
         <Box display="flow-root" mb="60px">
-          <Shot side="right" src="/how-it-works/voucher.webp" alt="Dealo recommending a Gift Voucher for Birkenstock, with a check-the-product-first button" />
+          <Shot side="right" src="/how-it-works/voucher.webp" alt="Dealo recommending a Birkenstock India Gift Voucher on Maximize, 10% off" />
           <Marker>3</Marker>
           <StepTitle>Check the product, then buy the voucher</StepTitle>
           <StepBody>
@@ -321,7 +321,7 @@ export default function HowItWorksPage() {
 
         {/* ---- step 4 ---- */}
         <Box display="flow-root" mb="60px">
-          <Shot side="left" src="/how-it-works/checkout.webp" alt="Checking out at Birkenstock India with the voucher applied" />
+          <Shot side="left" src="/how-it-works/checkout.webp" alt="Paying at Birkenstock India with the voucher code, ₹3,953 in total" />
           <Marker>4</Marker>
           <StepTitle>Check out with the store, directly</StepTitle>
           <StepBody>

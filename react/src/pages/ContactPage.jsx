@@ -50,10 +50,10 @@ export default function ContactPage() {
   const whatsappHref = `https://wa.me/${SUPPORT_WHATSAPP_NUMBER}?text=${encodeURIComponent("Hi! I have a question about Dealo.")}`;
 
   return (
-    <InfoPageShell title="Contact" subtitle="Have a question, found a bug, or want to talk to us? Here's how to reach Dealo.">
+    <InfoPageShell title="Contact" subtitle={PAGE_META.contact.intro}>
       <Flex direction="column" gap="10px" mb="20px">
         <ContactRow
-          icon={<I.external size={17} />}
+          icon={<I.chat size={17} />}
           label="WhatsApp support"
           value="+91 96744 00021"
           href={whatsappHref}
@@ -61,7 +61,7 @@ export default function ContactPage() {
           onClick={() => track('Clicked WhatsApp Button', { source: 'contact_page' })}
         />
         <ContactRow
-          icon={<I.external size={17} />}
+          icon={<I.mail size={17} />}
           label="Email support"
           value={SUPPORT_EMAIL}
           href={`mailto:${SUPPORT_EMAIL}`}
@@ -80,7 +80,7 @@ export default function ContactPage() {
         >
           Chat with the Dealo bot
         </ChakraLink>{' '}
-        — that's a different number from support above.
+        — that’s a different number from support above.
       </Text>
     </InfoPageShell>
   );

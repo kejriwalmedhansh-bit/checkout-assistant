@@ -189,6 +189,18 @@ export const I = {
       <path d="M18 14v4a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4" />
     </BaseIcon>
   ),
+  // Round speech bubble — WhatsApp (same outline as the sidebar's WhatsApp item).
+  chat: (p) => (
+    <BaseIcon {...p}>
+      <path d="M12 2C6.5 2 2 6.5 2 12c0 2 .6 3.8 1.5 5.3L2 22l5.3-1.5C10.2 21.4 11 22 12 22c5.5 0 10-4.5 10-10S17.5 2 12 2Z" />
+    </BaseIcon>
+  ),
+  mail: (p) => (
+    <BaseIcon {...p}>
+      <rect x="3" y="5" width="18" height="14" rx="2" />
+      <path d="m3 7 9 6 9-6" />
+    </BaseIcon>
+  ),
   menu: (p) => (
     <BaseIcon {...p}>
       <path d="M3 6h18M3 12h18M3 18h18" />
