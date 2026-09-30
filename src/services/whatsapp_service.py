@@ -357,6 +357,8 @@ async def _send_voucher_steps(phone: str, route: dict) -> None:
     voucher_word = _voucher_word(denom_breakdown)
     voucher_brand = voucher.get("brand_name") or voucher.get("merchant") or merchant
     discount_pct = upi.get("pct", 0)
+    # "10%", not "10.0%" — same form as the result message above it.
+    pct_text = f"{discount_pct:g}" if isinstance(discount_pct, (int, float)) else str(discount_pct)
     # "Maximize" is a recognizable app name we can show as-is; "Gyftr" isn't
     # — design-system/dealo/MASTER.md says never show it unexplained, so it
     # becomes "our voucher partner" here (the underlying voucher_url is
@@ -377,7 +379,7 @@ async def _send_voucher_steps(phone: str, route: dict) -> None:
         # of the same one (e.g. "2 × ₹10,000").
         step1_text = (
             f"*Step {step_n} of {total_steps}*\n\n"
-            f"Buy these {voucher_brand} {voucher_word} on {platform_label} — *{discount_pct}% off*:\n\n"
+            f"Buy these {voucher_brand} {voucher_word} on {platform_label} — *{pct_text}% off*:\n\n"
             f"{_voucher_box(denom_breakdown, discount_pct)}"
         )
         # Multiple denominations reads like multiple separate trips to the
@@ -391,7 +393,7 @@ async def _send_voucher_steps(phone: str, route: dict) -> None:
         step1_text = (
             f"*Step {step_n} of {total_steps}*\n\n"
             f"Buy exactly *{breakdown}* {voucher_brand} {voucher_word} on {platform_label} first "
-            f"— *{discount_pct}% off*."
+            f"— *{pct_text}% off*."
         )
         if denom_breakdown and denom_breakdown[0].get("typed"):
             # No card of that amount exists: it is typed into the amount box.
