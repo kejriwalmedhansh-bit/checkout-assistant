@@ -1,7 +1,22 @@
-import mixpanel from 'mixpanel-browser';
+// The async-recorder build leaves session replay's recorder (rrweb, most of
+// the SDK's weight) out of the main bundle and fetches it only once a
+// consented session starts recording — every visitor used to download it on
+// first paint, consent or not. The recorder is served from our own site
+// (RECORDER_URL) rather than Mixpanel's CDN, which doesn't host the hashed
+// file this build asks for. The glob makes an SDK upgrade pick up the new
+// hash by itself instead of silently pointing at a file that no longer exists.
+import mixpanel from 'mixpanel-browser/dist/mixpanel-with-async-recorder.cjs.js';
 
 import { API_BASE_URL, MIXPANEL_TOKEN } from '@/config';
 import { clearAnalyticsStorage, isGranted, onConsentChange } from '@/utils/consent';
+
+const RECORDER_URL = Object.values(
+  import.meta.glob('/node_modules/mixpanel-browser/dist/async-modules/mixpanel-recorder-*.min.js', {
+    query: '?url',
+    import: 'default',
+    eager: true,
+  }),
+)[0];
 
 const USER_ID_KEY = 'dealo_user_id';
 const INTERNAL_TESTER_KEY = 'dealo_internal_tester';
@@ -245,6 +260,7 @@ function startMixpanel() {
     // Session replay: record every session. Dealo's traffic is low enough that
     // sampling would just mean missing the one session that went wrong.
     record_sessions_percent: 100,
+    recorder_src: RECORDER_URL,
 
     // What the replay is allowed to see. Most of the screen stays readable —
     // a replay of grey boxes tells us nothing — but the visitor's own words

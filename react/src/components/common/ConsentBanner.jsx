@@ -51,7 +51,7 @@ export default function ConsentBanner() {
       bg="surface"
       border="1px solid"
       borderColor="border"
-      borderRadius="18px"
+      borderRadius="16px"
       boxShadow="0 1px 2px rgba(22,32,43,.06), 0 24px 52px -20px rgba(22,32,43,.34)"
       p={{ base: '16px', md: '18px' }}
     >

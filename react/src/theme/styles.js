@@ -28,6 +28,9 @@ export const styles = {
       WebkitTapHighlightColor: 'transparent',
       touchAction: 'manipulation',
     },
+    // Headings split their lines evenly instead of leaving one word stranded
+    // on the last line ("Gift Voucher deals by / store") at phone widths.
+    'h1, h2, h3': { textWrap: 'balance' },
     '::selection': { bg: 'brand', color: 'onBrand' },
     '*::-webkit-scrollbar': { width: '10px', height: '10px' },
     '*::-webkit-scrollbar-thumb': {

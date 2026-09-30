@@ -23,7 +23,7 @@ export const BRAND_DEALS = [
     online: true,
     offline: false,
     blurb:
-      "Amazon's own voucher partner sells Amazon Pay Gift Vouchers at a small discount. Add one to your Amazon Pay balance before you buy, and it works exactly like store credit at checkout — same Amazon, same product, less money out.",
+      "Amazon’s own voucher partner sells Amazon Pay Gift Vouchers at a small discount. Add one to your Amazon Pay balance before you buy, and it works exactly like store credit at checkout — same Amazon, same product, less money out.",
     steps: [
       'Search your product on Dealo and pick the exact one you want.',
       'Buy the Amazon Gift Voucher at the discounted rate — real store credit, not a workaround.',
@@ -42,7 +42,7 @@ export const BRAND_DEALS = [
     online: true,
     offline: false,
     blurb:
-      "Flipkart Gift Vouchers are issued by Flipkart's official payments partner and sell at a discount. Load one into your Flipkart wallet and spend it like store credit — same store, same product, lower total.",
+      "Flipkart Gift Vouchers are issued by Flipkart’s official payments partner and sell at a discount. Load one into your Flipkart wallet and spend it like store credit — same store, same product, lower total.",
     steps: [
       'Search your product on Dealo and pick the exact listing you mean.',
       'Buy the Flipkart Gift Voucher at the discounted rate.',
@@ -61,13 +61,13 @@ export const BRAND_DEALS = [
     online: true,
     offline: false,
     blurb:
-      "Myntra Gift Vouchers sell at a discount through Myntra's official partner. Add one to your Myntra Credit balance and it spends like store credit on any regular order.",
+      "Myntra Gift Vouchers sell at a discount through Myntra’s official partner. Add one to your Myntra Credit balance and it spends like store credit on any regular order.",
     steps: [
       'Search your product on Dealo and pick the exact item you want.',
       'Buy the Myntra Gift Voucher at the discounted rate.',
       'Add it under Myntra Credit in your profile, then pay with it at checkout.',
     ],
-    notes: "Doesn't apply to Gold & Silver coins or Fine Jewellery on Myntra.",
+    notes: "Doesn’t apply to Gold & Silver coins or Fine Jewellery on Myntra.",
     multiUse: true,
     canClub: null,
   },
@@ -105,7 +105,7 @@ export const BRAND_DEALS = [
       'Buy the Reliance Digital Gift Voucher at the discounted rate.',
       'Visit the store and share the voucher code with the cashier before billing.',
     ],
-    notes: "Doesn't apply to Gold/Silver coins, Fine Jewellery, or a few excluded brands — check with the store before you buy.",
+    notes: "Doesn’t apply to Gold/Silver coins, Fine Jewellery, or a few excluded brands — check with the store before you buy.",
     multiUse: false,
     canClub: null,
   },
@@ -124,7 +124,7 @@ export const BRAND_DEALS = [
       'Buy the AJIO Gift Voucher at the discounted rate.',
       "Add it under 'Have a Gift Card?' in your AJIO Wallet, then pay with it at checkout.",
     ],
-    notes: "Doesn't apply to gold/silver idols, coins, or fine jewellery on AJIO.",
+    notes: "Doesn’t apply to gold/silver idols, coins, or fine jewellery on AJIO.",
     multiUse: true,
     canClub: null,
   },

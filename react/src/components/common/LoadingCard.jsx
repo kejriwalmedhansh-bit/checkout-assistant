@@ -87,7 +87,7 @@ export default function LoadingCard({ tips, variant = 'routes' }) {
 
           <Flex gap="4px" mt="12px" aria-hidden="true">
             {tips.map((_, i) => (
-              <Box key={i} flex="1" h="3px" borderRadius="99px" bg="surface3" overflow="hidden">
+              <Box key={i} flex="1" h="3px" borderRadius="999px" bg="surface3" overflow="hidden">
                 <Box
                   // Remount the current bar on every tip so its fill restarts.
                   key={i === idx ? `on-${idx}` : 'off'}

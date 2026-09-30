@@ -28,7 +28,7 @@ export default function Chip({ tone, mono = true, children, ...props }) {
       letterSpacing=".03em"
       px="10px"
       py="4px"
-      borderRadius="9999px"
+      borderRadius="999px"
       whiteSpace="nowrap"
       lineHeight={1.4}
       {...preset}

@@ -261,7 +261,7 @@ export default function Journey({ rec, payingByCard = false, skipVoucher = false
                       border="1px"
                       borderStyle={b.typed ? 'dashed' : 'solid'}
                       borderColor="border"
-                      borderRadius="6px"
+                      borderRadius="8px"
                       px="8px"
                       py="3px"
                     >

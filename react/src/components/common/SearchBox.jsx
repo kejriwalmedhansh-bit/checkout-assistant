@@ -18,7 +18,7 @@ export default function SearchBox({
   initialValue = '',
   onSubmit,
   isLoading = false,
-  placeholder = 'Paste a product link or type what you want to buy…',
+  placeholder = 'Product name or paste a link',
   buttonLabel = 'Find the best deal',
   size = 'lg',
 }) {

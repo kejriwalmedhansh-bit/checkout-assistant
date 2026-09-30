@@ -44,7 +44,7 @@ export default function BestPriceConfirmed({ comparedCount }) {
       <Text fontSize="13px" color="text2" mt="4px">
         {hasCount
           ? `Checked ${comparedCount} stores — nothing beats this price right now.`
-          : "We checked and couldn't find it cheaper anywhere else."}
+          : "We checked and couldn’t find it cheaper anywhere else."}
       </Text>
     </Box>
   );

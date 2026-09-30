@@ -98,7 +98,7 @@ export default function JourneyPanels({ activeIndex, onChangeIndex, children }) 
             key={i}
             w={i === activeIndex ? '16px' : '6px'}
             h="6px"
-            borderRadius="99px"
+            borderRadius="999px"
             bg={i === activeIndex ? 'brand' : 'border'}
             transition="width .25s ease, background .25s ease"
           />

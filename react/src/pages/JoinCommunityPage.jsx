@@ -20,7 +20,7 @@ function IconBubble({ icon, accent }) {
       h="60px"
       align="center"
       justify="center"
-      borderRadius="18px"
+      borderRadius="16px"
       bg={accent ? 'brandSoft' : 'surface2'}
       color={accent ? 'brand' : 'text2'}
       border="1px solid"
@@ -126,7 +126,7 @@ export default function JoinCommunityPage() {
         <Box
           as="img"
           src="/whatsapp-community-qr.png"
-          alt="QR code to join Dealo's WhatsApp community"
+          alt="QR code to join Dealo’s WhatsApp community"
           w="150px"
           h="150px"
           mx="auto"

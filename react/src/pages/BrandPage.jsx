@@ -29,7 +29,7 @@ function Badge({ children, ...props }) {
       gap="5px"
       px="10px"
       py="4px"
-      borderRadius="99px"
+      borderRadius="999px"
       bg="surface3"
       color="text2"
       fontSize="11.5px"
@@ -43,7 +43,7 @@ function Badge({ children, ...props }) {
 
 function Fact({ icon, label, value }) {
   return (
-    <Flex align="flex-start" gap="10px" p="13px 14px" borderRadius="13px" bg="surface2" border="1px solid" borderColor="border">
+    <Flex align="flex-start" gap="10px" p="13px 14px" borderRadius="12px" bg="surface2" border="1px solid" borderColor="border">
       <Flex flex="0 0 auto" w="30px" h="30px" align="center" justify="center" borderRadius="9px" bg="brassSoft" color="brass">
         {icon}
       </Flex>
@@ -68,7 +68,7 @@ function Step({ n, children }) {
         h="26px"
         align="center"
         justify="center"
-        borderRadius="99px"
+        borderRadius="999px"
         bg="brand"
         color="onBrand"
         fontSize="12px"

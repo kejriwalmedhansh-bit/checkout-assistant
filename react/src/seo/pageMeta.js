@@ -53,9 +53,9 @@ export const PAGE_META = {
   },
   join: {
     title: 'Join the community',
-    description: "Send Dealo's founder whatever you're about to buy — free, no catch.",
+    description: "Send Dealo’s founder whatever you’re about to buy — free, no catch.",
     heading: 'Send it. We find the price.',
-    intro: "Send Dealo's founder whatever you're about to buy — free, no catch.",
+    intro: "Send Dealo’s founder whatever you’re about to buy — free, no catch.",
   },
   privacy: {
     title: 'Privacy Policy',
@@ -67,13 +67,16 @@ export const PAGE_META = {
   },
   terms: {
     title: 'Terms of Use',
-    description: 'The terms for using getdealo’s Dealo search and Gift Voucher recommendations.',
+    description: 'The terms for using Dealo’s product search and Gift Voucher recommendations.',
     heading: 'Terms of Use',
-    intro: 'The terms for using getdealo’s Dealo search and Gift Voucher recommendations.',
+    intro: 'The terms for using Dealo’s product search and Gift Voucher recommendations.',
   },
 };
 
-export function brandsIndexMeta(storeCount) {
+export function brandsIndexMeta(exactCount) {
+  // "850+" rather than "897+": a round floor reads as a claim, an exact
+  // number with a plus on it reads as a counter.
+  const storeCount = Math.floor(exactCount / 50) * 50;
   return {
     title: 'Gift Voucher deals by store',
     description: `Compare Gift Voucher discount rates across ${storeCount}+ Indian stores — search any brand and go straight to whichever voucher partner has the best rate.`,
@@ -145,7 +148,7 @@ export function brandJsonLd(brand) {
 export const FAQS = [
   {
     q: 'Why do I sometimes buy a Gift Voucher before checkout?',
-    a: "It's usually the cheapest legitimate route: the store's own official voucher partner sells store credit at a discount. You buy the Gift Voucher, then spend it at checkout exactly like a gift card — same store, same product, lower total. It's real store credit, not a workaround.",
+    a: "It’s usually the cheapest legitimate route: the store’s own official voucher partner sells store credit at a discount. You buy the Gift Voucher, then spend it at checkout exactly like a gift card — same store, same product, lower total. It’s real store credit, not a workaround.",
   },
   {
     q: 'Is this safe?',
@@ -153,7 +156,7 @@ export const FAQS = [
   },
   {
     q: 'Do I need a credit card?',
-    a: "No. Our top recommendation never requires one. If you do have a card, we'll show you when it saves you a little more — never as a requirement.",
+    a: "No. Our top recommendation never requires one. If you do have a card, we’ll show you when it saves you a little more — never as a requirement.",
   },
 ];
 
