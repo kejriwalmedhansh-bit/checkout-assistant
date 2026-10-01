@@ -10,7 +10,8 @@
       just logged and forwarded — limited to known partner hosts so it can't
       be used as an open redirect.
 
-Query parameters shared by both: surface (web / whatsapp / extension),
+Query parameters shared by both: surface (web / whatsapp / extension /
+chatgpt / claude),
 did (the person's anonymous device id, absent when the visitor hasn't
 consented), ctx (where on the surface the link was, e.g. checkout_step).
 
@@ -34,7 +35,7 @@ from ...services import analytics_service
 
 router = APIRouter(tags=["redirect"])
 
-SURFACES = {"web", "whatsapp", "extension"}
+SURFACES = {"web", "whatsapp", "extension", "chatgpt", "claude", "chat_app"}
 _ID_RE = re.compile(r"^[A-Za-z0-9_-]{1,64}$")
 _CTX_RE = re.compile(r"^[A-Za-z0-9_.:-]{1,64}$")
 _BOT_UA_RE = re.compile(
