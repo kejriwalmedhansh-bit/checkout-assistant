@@ -80,7 +80,7 @@ button.opt span{font-size:12px;color:var(--text2);display:block}
   function openLink(url) {
     if (!url) return;
     // ChatGPT's own call where it exists, else the standard one (Claude).
-    if (window.openai && window.openai.openExternal) window.openai.openExternal({ href: url });
+    if (window.openai && window.openai.openExternal) window.openai.openExternal({ href: url, redirectUrl: false });
     else rpc("ui/open-link", { url: url });
   }
 

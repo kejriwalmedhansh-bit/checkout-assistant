@@ -58,3 +58,26 @@ def test_unknown_shop_says_so():
     res = _rpc("tools/call", {"name": "find_gift_card_deal", "arguments": {"shop": "qwzxv shop"}})["result"]
     assert res["structuredContent"]["has_voucher"] is False
     assert "no gift card discount" in res["content"][0]["text"]
+
+
+def test_misspelt_shop_finds_the_real_one():
+    res = _rpc("tools/call", {"name": "find_gift_card_deal",
+                              "arguments": {"shop": "Sketchers", "amount_inr": 5000}})["result"]
+    assert res["structuredContent"]["deal"]["brand_name"] == "Skechers"
+
+
+def test_short_unknown_name_is_not_guessed():
+    # "Zora" is one letter from "Zara"/"Zoya"-style names; too short to guess.
+    res = _rpc("tools/call", {"name": "find_gift_card_deal", "arguments": {"shop": "Zora"}})["result"]
+    assert res["structuredContent"]["has_voucher"] is False
+
+
+def test_chatgpt_may_open_every_voucher_site():
+    card = _rpc("resources/read", {"uri": "ui://dealo/gift-card-deal-v1.html"})["result"]["contents"][0]
+    allowed = card["_meta"]["openai/widgetCSP"]["redirect_domains"]
+    for host in ("https://www.gyftr.com", "https://www.maximize.money", "https://buyhatke.com"):
+        assert host in allowed
+
+
+def test_ownership_page_is_hidden_until_token_set():
+    assert client.get("/.well-known/openai-apps-challenge").status_code == 404

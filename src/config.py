@@ -99,6 +99,11 @@ class Settings(BaseSettings):
     INRDEALS_API_TOKEN: str = ""
     INRDEALS_USERNAME: str = ""
 
+    # --- ChatGPT plugin directory (added 2026-10-01) ---
+    # The token OpenAI's submission page issues to prove we own the /mcp host.
+    # Served as plain text at /.well-known/openai-apps-challenge. Not secret.
+    OPENAI_APPS_CHALLENGE: str = ""
+
     # --- Mixpanel import (scripts/sync_affiliate_purchases.py only) ---
     # Service account (Mixpanel -> Organization settings -> Service accounts).
     # /import needs it: purchases arrive days after the click, past the 5-day
