@@ -18,42 +18,50 @@ and needs no rate limit.
 """
 from __future__ import annotations
 
+import difflib
 import re
+from functools import lru_cache
 from pathlib import Path
 from urllib.parse import quote, urlparse
 
 from fastapi import APIRouter, Request
-from fastapi.responses import JSONResponse, Response
+from fastapi.responses import JSONResponse, PlainTextResponse, Response
 
+from ...config import get_settings
+from ...repositories import buyhatke_repository, maximize_repository, voucher_repository
 from ...services import analytics_service
 from .voucher_check import voucher_check
 
 router = APIRouter(tags=["chat-app"])
 
-CARD_URI = "ui://dealo/gift-card-deal.html"
+# ChatGPT caches the card for up to an hour by this address: bump the version
+# whenever the card changes in a way old results can't draw.
+CARD_URI = "ui://dealo/gift-card-deal-v1.html"
 CARD_MIME = "text/html;profile=mcp-app"
 CARD_HTML = (Path(__file__).with_name("chat_app_card.html")).read_text(encoding="utf-8")
 
 # Newest first. We answer with the client's version when we know it, else ours.
 PROTOCOL_VERSIONS = ("2025-11-25", "2025-06-18", "2025-03-26", "2024-11-05")
 
+# Both stores reject wording that steers the model or sells, so this and the
+# tool description say what Dealo does and when it fits, nothing more.
 SERVER_INSTRUCTIONS = (
-    "Dealo finds the cheapest way to pay at Indian online shops: buy the shop's "
-    "own gift card at a discount (from Gyftr, Maximize or BuyHatke), then pay "
-    "with it at checkout. Call find_gift_card_deal whenever someone is about to "
-    "buy from an Indian shop or brand and wants to save. Cashback is never "
-    "counted as a saving. Never promise a discount the tool did not return."
+    "Dealo compares gift card prices for Indian shops. Many shops' own gift "
+    "cards are sold below face value on Gyftr, Maximize and BuyHatke; paying at "
+    "the shop with one costs less than paying directly. Results cover online "
+    "shopping only and leave out cashback."
 )
 
 TOOL = {
     "name": "find_gift_card_deal",
     "title": "Find a gift card discount",
     "description": (
-        "Find how much someone saves at an Indian shop (Myntra, Nykaa, AJIO, Tata "
-        "CLiQ, MakeMyTrip, Croma, and ~900 more) by first buying that shop's "
-        "discounted gift card on Gyftr, Maximize or BuyHatke. Give the shop name "
-        "or website, and the amount in rupees if known. Returns the voucher site, "
-        "the discount, how much to buy, and what they actually pay."
+        "Use this when someone in India is about to buy from a specific shop or "
+        "brand (Myntra, Nykaa, AJIO, Tata CLiQ, Skechers, MakeMyTrip, Croma and "
+        "about 900 more) and wants to pay less. Returns that shop's gift card "
+        "price on Gyftr, Maximize or BuyHatke: the discount, how much gift card "
+        "to buy, and what they actually pay. Do not use it to compare products, "
+        "find the cheapest store for an item, or for shops outside India."
     ),
     "inputSchema": {
         "type": "object",
@@ -123,8 +131,39 @@ def _pct(value: float | None) -> str:
     return f"{value:g}%" if value is not None else ""
 
 
+@lru_cache(maxsize=1)
+def _brand_names() -> dict[str, str]:
+    """Every catalogue brand, keyed by its squashed name ('tatacliq')."""
+    records = (
+        voucher_repository.all_vouchers()
+        + maximize_repository.all_brands()
+        + buyhatke_repository.all_brands()
+    )
+    return {
+        re.sub(r"[^a-z0-9]", "", (r.get("brand_name") or "").lower()): r["brand_name"]
+        for r in records if r.get("brand_name")
+    }
+
+
+def _closest_shop(key: str) -> str | None:
+    """'sketchers' -> 'skechers'. A wrong shop is worse than none, so only a
+    near-identical spelling of a name long enough to be distinctive counts."""
+    if len(key) < 5 or "." in key:
+        return None
+    hit = difflib.get_close_matches(key, _brand_names().keys(), n=1, cutoff=0.88)
+    return hit[0] if hit else None
+
+
 def _rupees(value: float | None) -> str:
     return f"₹{value:,.0f}" if value is not None else ""
+
+
+def _origin(request: Request) -> str:
+    """This server's own https origin as the caller reached it."""
+    base_url = str(request.base_url).rstrip("/")
+    if request.headers.get("x-forwarded-proto") == "https":
+        base_url = base_url.replace("http://", "https://", 1)
+    return base_url
 
 
 def _deal_for_card(deal: dict, base_url: str, surface: str) -> dict:
@@ -150,8 +189,8 @@ def _summary(shop: str, amount: float | None, deal: dict, choices: list[dict]) -
     complete on its own for any app that can't show the card."""
     if not deal.get("has_voucher"):
         return (
-            f"Dealo has no gift card discount for '{shop}' right now (it checks "
-            "Gyftr, Maximize and BuyHatke). Don't suggest a gift card for this shop."
+            f"Dealo has no gift card discount for '{shop}' right now "
+            "(it checks Gyftr, Maximize and BuyHatke)."
         )
     if choices:
         lines = [
@@ -161,15 +200,15 @@ def _summary(shop: str, amount: float | None, deal: dict, choices: list[dict]) -
             for c in choices
         ]
         return (
-            f"{shop} sells different gift cards for different things. "
-            "Ask what they are buying, then point them to the matching card:\n" + "\n".join(lines)
+            f"{shop} has different gift cards for different purchases. "
+            "Which one applies depends on what is being bought:\n" + "\n".join(lines)
         )
     source = _SOURCE_NAMES.get(deal.get("voucher_source"), deal.get("voucher_source"))
     if not deal.get("priced"):
         return (
             f"{deal['brand_name']}: {_pct(deal.get('pct'))} off. Buy {deal['brand_name']} gift "
-            f"cards on {source} (pay by UPI), then pay with them at checkout. Ask how much "
-            "they plan to spend to work out the exact saving."
+            f"cards on {source} (pay by UPI), then pay with them at checkout. The rupee "
+            "saving depends on the amount spent."
         )
     text = (
         f"{deal['brand_name']}: buy {deal.get('purchase_breakdown')} of {deal['brand_name']} "
@@ -195,12 +234,15 @@ def _find_deal(args: dict, request: Request) -> dict:
     amount = args.get("amount_inr")
     amount = float(amount) if isinstance(amount, (int, float)) and amount > 0 else None
 
-    deal = voucher_check(_shop_key(shop), amount)
+    key = _shop_key(shop)
+    deal = voucher_check(key, amount)
+    if not deal.get("has_voucher"):
+        closest = _closest_shop(key)
+        if closest:
+            deal = voucher_check(closest, amount)
     choices = deal.get("product_choices") or []
     surface = _surface(request)
-    base_url = str(request.base_url).rstrip("/")
-    if request.headers.get("x-forwarded-proto") == "https":
-        base_url = base_url.replace("http://", "https://", 1)
+    base_url = _origin(request)
 
     analytics_service.fire(analytics_service.build_event(
         "Chat App Lookup",
@@ -286,11 +328,28 @@ async def mcp(request: Request) -> Response:
             "_meta": {
                 # The card loads nothing from outside; links open through the host.
                 "ui": {"csp": {"connectDomains": [], "resourceDomains": []}, "prefersBorder": True},
+                # ChatGPT opens only links on this list. Buy goes via our own /out
+                # (to count the click) and lands on one of the voucher sites.
+                "openai/widgetCSP": {
+                    "connect_domains": [],
+                    "resource_domains": [],
+                    "redirect_domains": [
+                        _origin(request), "https://www.gyftr.com", "https://www.maximize.money",
+                        "https://buyhatke.com", "https://www.buyhatke.com",
+                    ],
+                },
+                "openai/widgetDomain": "https://getdealo.in",
                 "openai/widgetPrefersBorder": True,
                 "openai/widgetDescription": "Shows the gift card to buy, where, and what you pay.",
             },
         }]})
     return _error(rpc_id, -32601, f"Method not found: {method}")
+
+
+@router.get("/.well-known/openai-apps-challenge")
+async def openai_apps_challenge() -> Response:
+    token = get_settings().OPENAI_APPS_CHALLENGE
+    return PlainTextResponse(token) if token else Response(status_code=404)
 
 
 @router.get("/mcp")
