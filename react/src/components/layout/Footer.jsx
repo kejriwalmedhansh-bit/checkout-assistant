@@ -11,6 +11,7 @@ const COLUMNS = [
       { to: ROUTES.home, label: 'Search' },
       { to: ROUTES.brands, label: 'Store deals' },
       { to: ROUTES.howItWorks, label: 'How it works' },
+      { to: ROUTES.chatApps, label: 'ChatGPT & Claude' },
     ],
   },
   {

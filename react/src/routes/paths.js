@@ -15,4 +15,5 @@ export const ROUTES = {
   join: '/join',
   privacy: '/privacy',
   terms: '/terms',
+  chatApps: '/chatgpt-claude',
 };

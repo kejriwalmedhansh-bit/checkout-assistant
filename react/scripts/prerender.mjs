@@ -131,6 +131,7 @@ const ROUTES = [
   { path: '/join/', changefreq: 'monthly', priority: '0.4', meta: PAGE_META.join },
   { path: '/privacy/', changefreq: 'yearly', priority: '0.2', meta: PAGE_META.privacy },
   { path: '/terms/', changefreq: 'yearly', priority: '0.2', meta: PAGE_META.terms },
+  { path: '/chatgpt-claude/', changefreq: 'monthly', priority: '0.5', meta: PAGE_META.chatApps },
 ];
 
 // Deliberately absent: /select and /results. They only mean anything with a
