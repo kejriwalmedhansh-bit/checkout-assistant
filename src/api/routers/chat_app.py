@@ -321,10 +321,26 @@ def _find_deal(args: dict, request: Request) -> dict:
         "choices": [_deal_for_card(c, base_url, surface) for c in choices],
     }
     return {
-        "content": [{"type": "text", "text": _summary(shop, amount, deal, choices)}],
+        "content": [{"type": "text", "text": _summary(shop, amount, deal, choices) + _links(structured)}],
         "structuredContent": structured,
         "isError": False,
     }
+
+
+def _links(structured: dict) -> str:
+    """The buy links, in words too. In a follow-up ("kaise lu gift card?")
+    Claude retells an earlier result instead of calling again, so no card is
+    drawn; without the link in the text the shopper is left with no way to
+    buy. Seen in the founder's first live test, 2026-10-03."""
+    if structured.get("choices"):
+        return " Buy links: " + "; ".join(
+            f"{c.get('choice_label') or c.get('brand_name')}: {c['buy_url']}"
+            for c in structured["choices"] if c.get("buy_url")
+        )
+    deal = structured.get("deal")
+    if deal and deal.get("buy_url"):
+        return f" Buy the gift card on {deal.get('source_name')}: {deal['buy_url']}"
+    return ""
 
 
 def _ok(rpc_id, result: dict) -> JSONResponse:

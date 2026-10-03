@@ -81,3 +81,10 @@ def test_chatgpt_may_open_every_voucher_site():
 
 def test_ownership_page_is_hidden_until_token_set():
     assert client.get("/.well-known/openai-apps-challenge").status_code == 404
+
+
+def test_buy_link_is_in_the_words_too():
+    # Follow-up answers retell the text without redrawing the card.
+    text = _rpc("tools/call", {"name": "find_gift_card_deal",
+                               "arguments": {"shop": "Nykaa", "amount_inr": 4000}})["result"]["content"][0]["text"]
+    assert "/out?url=" in text
