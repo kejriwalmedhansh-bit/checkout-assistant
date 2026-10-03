@@ -1736,6 +1736,12 @@ _BAD_TITLE_MARKERS = (
     # generic bot-wall-equivalent signal worth catching broadly, not a
     # one-off AJIO special case.
     "online shopping site for",
+    # An unfilled page template: the shop's server sent the page before
+    # putting the product name in. Live 2026-10-03: a Flipkart share link
+    # served the deployed backend the <title> "{TITLE} Online from
+    # Flipkart.com", which was searched literally and shown to the user.
+    # The link's own words name the product (fingers-2mic-groovebox-k30-...).
+    "{title}",
 )
 _BARE_STORE_TITLES = frozenset(
     {"amazon.in", "amazon", "flipkart", "flipkart.com", "myntra", "nykaa", "ajio"}
@@ -2354,9 +2360,15 @@ def _deeplink_redirect_target(resp: httpx.Response) -> str | None:
     return None
 
 
-def _fetch_url_page(url: str) -> tuple[str | None, float | None, str | None, str | None]:
+def _fetch_url_page(url: str) -> tuple[str | None, float | None, str | None, str | None, str]:
     """One GET for a pasted link (redirects resolved — amzn.in -> amazon.in).
-    Returns (title, live_price, live_merchant, image).
+    Returns (title, live_price, live_merchant, image, final_url).
+
+    final_url: where the link's redirects landed (the pasted URL when the
+    fetch failed). A short link's own address is an opaque code
+    (dl.flipkart.com/s/OAJyBbNNNN); the page it lands on names the product
+    (/fingers-2mic-groovebox-k30-30-w-bluetooth-speaker/p/...), so the
+    slug-words fallback reads this one.
 
     title: og:title -> twitter:title -> <title>, scanned over the first
     200_000 chars, rejected via _BAD_TITLE_MARKERS/_BARE_STORE_TITLES exactly
@@ -2393,6 +2405,7 @@ def _fetch_url_page(url: str) -> tuple[str | None, float | None, str | None, str
     """
     apify_host = (urlsplit(url).hostname or "").lower()
     apify_merchant_name = _apify_merchant_for_host(apify_host)
+    final_url = url
 
     def _use_resolved_host(resolved_host: str | None) -> None:
         """Re-derive which merchant's data we trust once httpx's own
@@ -2488,6 +2501,7 @@ def _fetch_url_page(url: str) -> tuple[str | None, float | None, str | None, str
             timeout=timeout, follow_redirects=True, headers=_TITLE_FETCH_HEADERS
         ) as client:
             resp = client.get(url)
+        final_url = str(resp.url)
         logger.info(
             "[url-search] page-fetch %s -> final=%s status=%s",
             url, resp.url, resp.status_code,
@@ -2508,7 +2522,7 @@ def _fetch_url_page(url: str) -> tuple[str | None, float | None, str | None, str
             return _fetch_url_page(deeplink_target)
         _use_resolved_host(resp.url.host)
         if resp.status_code != 200:
-            return _try_render()
+            return (*_try_render(), final_url)
         full_markup = resp.text
         # The title lives in <head>, early in the document; cap the text we
         # scan for it so a huge product page doesn't turn into a huge regex
@@ -2517,7 +2531,7 @@ def _fetch_url_page(url: str) -> tuple[str | None, float | None, str | None, str
         markup = full_markup[:200_000]
     except (httpx.HTTPError, ValueError) as exc:
         logger.info("[url-search] page-fetch failed for %s: %s", url, exc)
-        return _try_render()
+        return (*_try_render(), final_url)
 
     title = _extract_page_title(markup)
     if title:
@@ -2577,7 +2591,7 @@ def _fetch_url_page(url: str) -> tuple[str | None, float | None, str | None, str
     if price is None:
         merchant = None
 
-    return title, price, merchant, image
+    return title, price, merchant, image, final_url
 
 
 # Prefix marking a candidate's product_token as synthetic (not a real
@@ -2913,11 +2927,11 @@ def search_candidates(query: str) -> dict:
         # The same fetch also recovers a live price when the link is a page
         # we know how to read — see _fetch_url_page / _live_price_candidate.
         logger.info("[url-search] input is a link: %s", query)
-        page_title, live_price, live_merchant, page_image = _fetch_url_page(query)
+        page_title, live_price, live_merchant, page_image, final_url = _fetch_url_page(query)
         effective_query = page_title
         layer = "page-title"
         if not effective_query:
-            effective_query = _query_from_url(query)
+            effective_query = _query_from_url(query) or _query_from_url(final_url)
             layer = "url-slug"
         if live_price is not None and live_merchant:
             live_candidate = _live_price_candidate(
