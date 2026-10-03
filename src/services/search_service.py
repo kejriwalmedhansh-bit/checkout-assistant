@@ -41,6 +41,7 @@ from ..repositories import (
     buyhatke_repository,
     crawlbase_repository,
     domain_brand_repository,
+    flipkart_repository,
     maximize_repository,
     searchapi_repository,
     voucher_repository,
@@ -3411,6 +3412,10 @@ _OFFER_SEED_CAP = 6         # Google entries whose store lists are read
 _OFFER_PAGES = 3            # pages per store list (page 1 ~5 stores, then 10 each)
 _STORE_LIST_BUDGET = 10     # seconds; a slower Google reply is left out rather than waited on
 _GAP_STORE_CAP = 4          # "<product> <store>" searches for big stores with no exact match
+# Flipkart's own search page, read through Crawlbase (6-18s, measured
+# 2026-10-03). It runs alongside the store lists and is waited on for at most
+# this long, or not at all once a store list has the product on Flipkart.
+_FLIPKART_SEARCH_BUDGET = 15
 _MARKETPLACES = [
     "Amazon", "Flipkart", "Croma", "Reliance Digital", "Vijay Sales", "Tata CLiQ",
     "Myntra", "AJIO", "Nykaa", "JioMart", "Tata Neu",
@@ -3551,6 +3556,13 @@ def _discover_exact_offers(
         typical = (searchapi_repository.get_product(seeds[0][0]).get("typical_prices") or {})
         info["typical_low"] = typical.get("extracted_low_price")
     lap("searches")
+    # Google Shopping often has no Flipkart entry (smaller brands especially),
+    # so Flipkart's own search runs alongside the store lists. Not skipped when
+    # a Google search result names Flipkart: that entry's store list can still
+    # come back without a usable Flipkart listing (Milton flask, 2026-10-03).
+    flipkart_pool = ThreadPoolExecutor(max_workers=1)
+    flipkart_f = flipkart_pool.submit(flipkart_repository.search, id_query)
+    flipkart_started = time.monotonic()
     # Round 2, all at once: every page of every exact entry's store list, and
     # - for big stores that carry this kind of product (they showed up in the
     # searches) but gave no exact match - a "<product> <store>" search, which
@@ -3579,6 +3591,22 @@ def _discover_exact_offers(
     pool.shutdown(wait=False)
     rows = [r for f in done for r in f.result()]
     gap_rows: list[dict] = []
+    if flipkart_f and any(
+            _brand_signature(r["merchant"]) == _brand_signature("Flipkart")
+            and product_identity.match_tier(identity, r["title"], r["merchant"])[0] == "exact"
+            for r in rows):
+        # A Google store list had it after all: don't wait on the slower read.
+        flipkart_pool.shutdown(wait=False)
+        flipkart_f = None
+        logger.info("%s Flipkart found in Google's store lists, not waiting on Flipkart search", tag)
+    if flipkart_f:
+        done, _ = wait([flipkart_f], timeout=max(0, _FLIPKART_SEARCH_BUDGET - (time.monotonic() - flipkart_started)))
+        flipkart_pool.shutdown(wait=False)
+        if done:
+            rows += flipkart_f.result()
+        else:
+            logger.info("%s Flipkart search slower than %ss, left out", tag, _FLIPKART_SEARCH_BUDGET)
+        lap("flipkart")
 
     def _verified(rows: list[dict]) -> list[dict]:
         out = []
