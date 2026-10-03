@@ -4,7 +4,7 @@ import InfoPageShell from '@/components/common/InfoPageShell';
 import { usePageTitle } from '@/hooks/usePageTitle';
 import { PAGE_META } from '@/seo/pageMeta';
 
-const LAST_UPDATED = 'August 31, 2026';
+const LAST_UPDATED = 'October 3, 2026';
 
 function Section({ title, children }) {
   return (
@@ -27,14 +27,17 @@ export default function TermsPage() {
       <Section title="What Dealo is">
         Dealo (getdealo) is a free tool that suggests the cheapest legitimate way to buy a product — typically a
         discounted Gift Voucher, sometimes combined with a cashback card. Dealo does not sell products, vouchers, or
-        cards itself; it points you to official partners and stores where you complete the purchase directly.
+        cards itself; it points you to official partners and stores where you complete the purchase directly. These
+        terms also cover Dealo when you use it inside ChatGPT or Claude.
       </Section>
 
       <Section title="No guarantee of price or availability">
         Prices, discount rates, and voucher availability are checked live at the moment you search, but can change
         by the time you check out — stock, offers, and rates are set by the store or voucher partner, not by us. We
         do our best to show accurate, current information, but we can’t guarantee a price shown on Dealo will still
-        be available when you complete the purchase.
+        be available when you complete the purchase. Inside ChatGPT and Claude, discount rates come from Dealo’s
+        catalogue, which is refreshed regularly rather than at the moment you ask; each answer shows the date it was
+        last checked.
       </Section>
 
       <Section title="Your responsibility">

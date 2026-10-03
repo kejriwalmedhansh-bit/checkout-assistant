@@ -21,6 +21,7 @@ const ContactPage = lazy(() => import('@/pages/ContactPage'));
 const JoinCommunityPage = lazy(() => import('@/pages/JoinCommunityPage'));
 const PrivacyPage = lazy(() => import('@/pages/PrivacyPage'));
 const TermsPage = lazy(() => import('@/pages/TermsPage'));
+const ChatAppsPage = lazy(() => import('@/pages/ChatAppsPage'));
 const NotFoundPage = lazy(() => import('@/pages/NotFoundPage'));
 
 function lazyPage(Component) {
@@ -47,6 +48,7 @@ export const router = createBrowserRouter([
       { path: ROUTES.join, element: lazyPage(JoinCommunityPage) },
       { path: ROUTES.privacy, element: lazyPage(PrivacyPage) },
       { path: ROUTES.terms, element: lazyPage(TermsPage) },
+      { path: ROUTES.chatApps, element: lazyPage(ChatAppsPage) },
 
       // Anything else. Kept inside AppLayout so a wrong address still lands
       // in Dealo (sidebar, footer, search) rather than on a bare error page.

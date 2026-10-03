@@ -65,6 +65,13 @@ export const PAGE_META = {
     intro:
       'Exactly what Dealo collects on the website, on WhatsApp, and in the Chrome extension — what we never collect, who else sees it, and how to have it deleted.',
   },
+  chatApps: {
+    title: 'Dealo in ChatGPT and Claude',
+    description:
+      'Add Dealo to Claude or ChatGPT and ask about any Indian shop: it shows the discounted gift card, what to buy, and what you actually pay.',
+    heading: 'Dealo in ChatGPT and Claude',
+    intro: 'The cheapest way to pay at a shop, inside the chat.',
+  },
   terms: {
     title: 'Terms of Use',
     description: 'The terms for using Dealo’s product search and Gift Voucher recommendations.',

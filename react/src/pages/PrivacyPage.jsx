@@ -19,8 +19,9 @@ import { PAGE_META } from '@/seo/pageMeta';
  *   - src/services/analytics_service.py — WhatsApp events (keyed by phone)
  *   - src/cache.py                 — why the server keeps nothing on disk
  *   - extension/src/*.js           — what the extension sends and stores
+ *   - src/api/routers/chat_app.py  — what ChatGPT/Claude send us
  */
-const LAST_UPDATED = 'September 21, 2026';
+const LAST_UPDATED = 'October 3, 2026';
 
 function Section({ title, children }) {
   return (
@@ -88,8 +89,8 @@ export default function PrivacyPage() {
   return (
     <InfoPageShell title="Privacy Policy" subtitle={`Last updated ${LAST_UPDATED}`}>
       <Section title="Who this covers">
-        This policy covers all three places Dealo runs: this website (getdealo.in), the Dealo bot on WhatsApp, and
-        the Dealo Chrome extension. Where they differ, it says so. “We” and “us” mean Dealo (getdealo); you can
+        This policy covers every place Dealo runs: this website (getdealo.in), the Dealo bot on WhatsApp, the
+        Dealo Chrome extension, and Dealo inside ChatGPT and Claude. Where they differ, it says so. “We” and “us” mean Dealo (getdealo); you can
         reach us any time at the address at the bottom of this page.
       </Section>
 
@@ -224,12 +225,36 @@ export default function PrivacyPage() {
         above. The extension has no account, and nothing it sends is tied to your name, email or phone number.
       </Section>
 
+      <Section title="What Dealo in ChatGPT and Claude collects">
+        If you add Dealo to ChatGPT or Claude, the assistant can ask our server for a gift card price while you
+        chat. You can also turn Dealo off there at any time.
+
+        <SubHeading>What it sends us</SubHeading>
+        <List>
+          <li>The shop’s name or website, as the assistant understood it from your message (“Nykaa”, for example).</li>
+          <li>The amount you mentioned, if you mentioned one.</li>
+        </List>
+        That is all. We never receive your name, email, phone number, your ChatGPT or Claude account, or the rest of
+        your conversation.
+
+        <SubHeading>What we record</SubHeading>
+        Each lookup is recorded in Mixpanel with the shop name, the amount, whether a discount was found, and
+        whether it came from ChatGPT or Claude, with no identifier attached, so lookups can’t be linked to each
+        other or to a person. If you press “Buy” on a Dealo card, the click passes through our link on its way to
+        the voucher site and is recorded the same way. Our host also keeps short-lived technical logs of each request.
+
+        <SubHeading>What OpenAI and Anthropic see</SubHeading>
+        Your conversation, and Dealo’s answer within it, are handled by OpenAI (ChatGPT) or Anthropic (Claude)
+        under their own privacy policies.
+      </Section>
+
       <Section title="Who else sees this information">
         We don’t sell your information, and we don’t share it for anyone else’s advertising. It reaches these
         companies only because they do a specific job for Dealo:
         <List>
           <li><strong>Mixpanel</strong> — our analytics provider. Holds the usage records and session replays described above, and records of purchases affiliate networks report to us, on European servers.</li>
           <li><strong>Meta (WhatsApp)</strong> — carries messages to and from the Dealo bot. WhatsApp only.</li>
+          <li><strong>OpenAI and Anthropic</strong> — run ChatGPT and Claude, and pass Dealo the shop and amount described above. Only if you add Dealo there.</li>
           <li><strong>Search and page-reading services</strong> — receive the product name or link you searched, so they can fetch public store pages on our behalf and read the price. They receive what you searched for, not who you are.</li>
           <li><strong>Affiliate networks</strong> — see the click that sends you to a store, as described below.</li>
           <li><strong>Our hosting providers</strong> — run the website and the server, and keep short-lived technical logs of requests, as any web host does.</li>
