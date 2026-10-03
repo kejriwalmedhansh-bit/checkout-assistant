@@ -46,22 +46,30 @@ PROTOCOL_VERSIONS = ("2025-11-25", "2025-06-18", "2025-03-26", "2024-11-05")
 # Both stores reject wording that steers the model or sells, so this and the
 # tool description say what Dealo does and when it fits, nothing more.
 SERVER_INSTRUCTIONS = (
-    "Dealo compares gift card prices for Indian shops. Many shops' own gift "
-    "cards are sold below face value on Gyftr, Maximize and BuyHatke; paying at "
-    "the shop with one costs less than paying directly. Results cover online "
-    "shopping only and leave out cashback."
+    "Dealo finds the cheapest way to pay at Indian shops (Myntra, Nykaa, AJIO, "
+    "MakeMyTrip and about 900 more). Many shops' own gift cards are sold below "
+    "face value on Gyftr, Maximize and BuyHatke; paying at the shop with one "
+    "costs less than paying directly. Results cover online shopping only and leave out cashback."
 )
 
 TOOL = {
     "name": "find_gift_card_deal",
     "title": "Find a gift card discount",
     "description": (
-        "Use this when someone in India is about to buy from a specific shop or "
-        "brand (Myntra, Nykaa, AJIO, Tata CLiQ, Skechers, MakeMyTrip, Croma and "
-        "about 900 more) and wants to pay less. Returns that shop's gift card "
-        "price on Gyftr, Maximize or BuyHatke: the discount, how much gift card "
-        "to buy, and what they actually pay. Do not use it to compare products, "
-        "find the cheapest store for an item, or for shops outside India."
+        # Claude finds connected tools by searching their descriptions, so this
+        # carries the words people actually use: "cheapest way to pay",
+        # "discount", "offer", "coupon". A first version that only said "gift
+        # card" was skipped for web search when asked about saving on Nykaa.
+        "Use this when someone in India asks how to pay less, save money, or find "
+        "a discount, offer, coupon or deal at a specific shop or brand: Myntra, "
+        "Nykaa, AJIO, Tata CLiQ, Lifestyle, Skechers, boAt, Decathlon, Lenskart, "
+        "FirstCry, Croma, MakeMyTrip, ixigo, PVR, BookMyShow, Zomato, BigBasket and "
+        "about 900 more. Many Indian shops' own gift cards sell below face value on "
+        "Gyftr, Maximize and BuyHatke, so paying at checkout with one is a direct "
+        "discount anyone can use, with no bank card or coupon code needed. Returns "
+        "the current best gift card price: the % off, how much to buy, and what "
+        "they actually pay in rupees. Do not use it to compare products, find which "
+        "store sells an item cheapest, or for shops outside India."
     ),
     "inputSchema": {
         "type": "object",
