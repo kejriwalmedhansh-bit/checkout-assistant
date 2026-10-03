@@ -19,7 +19,9 @@ and needs no rate limit.
 from __future__ import annotations
 
 import difflib
+import logging
 import re
+from datetime import date
 from functools import lru_cache
 from pathlib import Path
 from urllib.parse import quote, urlparse
@@ -32,6 +34,7 @@ from ...repositories import buyhatke_repository, maximize_repository, voucher_re
 from ...services import analytics_service
 from .voucher_check import voucher_check
 
+logger = logging.getLogger(__name__)
 router = APIRouter(tags=["chat-app"])
 
 # ChatGPT caches the card for up to an hour by this address: bump the version
@@ -54,7 +57,8 @@ SERVER_INSTRUCTIONS = (
 
 TOOL = {
     "name": "find_gift_card_deal",
-    "title": "Find a gift card discount",
+    # Shown in the chat and searched by Claude alongside the description.
+    "title": "Cheapest way to pay at a shop",
     "description": (
         # Claude finds connected tools by searching their descriptions, so this
         # carries the words people actually use: "cheapest way to pay",
@@ -77,6 +81,7 @@ TOOL = {
             "shop": {
                 "type": "string",
                 "description": "Shop or brand name, or its website. e.g. 'Nykaa', 'tatacliq.com'",
+                "maxLength": 200,
             },
             "amount_inr": {
                 "type": "number",
@@ -88,7 +93,7 @@ TOOL = {
         "additionalProperties": False,
     },
     "annotations": {
-        "title": "Find a gift card discount",
+        "title": "Cheapest way to pay at a shop",
         "readOnlyHint": True,
         "destructiveHint": False,
         "idempotentHint": True,
@@ -153,6 +158,29 @@ def _brand_names() -> dict[str, str]:
     }
 
 
+@lru_cache(maxsize=1)
+def _checked_on() -> str:
+    """When the voucher sites were last read ('28 Sep'). Rates move between
+    refreshes, so every answer says how old it is."""
+    days = [
+        str(p.get("last_scraped") or "")[:10]
+        for r in voucher_repository.all_vouchers() + maximize_repository.all_brands() + buyhatke_repository.all_brands()
+        for p in r.get("products") or []
+    ]
+    latest = max((d for d in days if len(d) == 10), default="")
+    try:
+        return date.fromisoformat(latest).strftime("%-d %b")
+    except ValueError:
+        return ""
+
+
+def _redeem_steps(deal: dict) -> str:
+    """The seller's own 'how to use it' steps, short enough to retell."""
+    steps = [s.strip() for s in deal.get("how_to_redeem_steps") or [] if s and s.strip()]
+    text = " ".join(f"({i}) {s}" for i, s in enumerate(steps[:4], 1))
+    return text if len(text) <= 600 else text[:597].rsplit(" ", 1)[0] + "…"
+
+
 def _closest_shop(key: str) -> str | None:
     """'sketchers' -> 'skechers'. A wrong shop is worse than none, so only a
     near-identical spelling of a name long enough to be distinctive counts."""
@@ -189,6 +217,7 @@ def _deal_for_card(deal: dict, base_url: str, surface: str) -> dict:
     out = {k: deal.get(k) for k in keep}
     out["source_name"] = _SOURCE_NAMES.get(deal.get("voucher_source") or "", deal.get("voucher_source"))
     out["buy_url"] = buy_url
+    out["checked_on"] = _checked_on()
     return out
 
 
@@ -217,7 +246,7 @@ def _summary(shop: str, amount: float | None, deal: dict, choices: list[dict]) -
             f"{deal['brand_name']}: {_pct(deal.get('pct'))} off. Buy {deal['brand_name']} gift "
             f"cards on {source} (pay by UPI), then pay with them at checkout. The rupee "
             "saving depends on the amount spent."
-        )
+        ) + _footnote(deal)
     text = (
         f"{deal['brand_name']}: buy {deal.get('purchase_breakdown')} of {deal['brand_name']} "
         f"gift cards on {source}, paying by UPI. They pay {_rupees(deal.get('effective_price'))} "
@@ -232,7 +261,17 @@ def _summary(shop: str, amount: float | None, deal: dict, choices: list[dict]) -
         text += f" Paying for the gift card by card instead of UPI gives {_pct(deal['card_pct'])}."
     if deal.get("restrictions"):
         text += " Can't be used for: " + "; ".join(deal["restrictions"])
-    return text
+    return text + _footnote(deal)
+
+
+def _footnote(deal: dict) -> str:
+    out = ""
+    steps = _redeem_steps(deal)
+    if steps:
+        out += f" How to use it at {deal['brand_name']}: {steps.rstrip('.')}."
+    if _checked_on():
+        out += f" Rates as of {_checked_on()}; the voucher site shows today's price before paying."
+    return out
 
 
 def _find_deal(args: dict, request: Request) -> dict:
@@ -243,15 +282,24 @@ def _find_deal(args: dict, request: Request) -> dict:
     amount = float(amount) if isinstance(amount, (int, float)) and amount > 0 else None
 
     key = _shop_key(shop)
-    deal = voucher_check(key, amount)
-    if not deal.get("has_voucher"):
-        closest = _closest_shop(key)
-        if closest:
-            deal = voucher_check(closest, amount)
+    try:
+        deal = voucher_check(key, amount)
+        if not deal.get("has_voucher"):
+            closest = _closest_shop(key)
+            if closest:
+                deal = voucher_check(closest, amount)
+    except Exception:
+        logger.exception("[chat_app] lookup failed for %r", shop)
+        return {"content": [{"type": "text", "text": (
+            f"Dealo couldn't check '{shop}' just now because of a problem on Dealo's side. "
+            "Trying again in a minute usually works."
+        )}], "isError": True}
     choices = deal.get("product_choices") or []
     surface = _surface(request)
     base_url = _origin(request)
 
+    logger.info("[chat_app] %s lookup %r amount=%s -> %s %s%%", _surface(request), shop[:60], amount,
+                deal.get("brand_name"), deal.get("pct"))
     analytics_service.fire(analytics_service.build_event(
         "Chat App Lookup",
         surface=surface,
