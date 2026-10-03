@@ -44,6 +44,10 @@ const DIST = path.join(HERE, '..', 'dist');
 
 // Same live-rate lookup BrandPage.jsx does, so the prerendered "x% off"
 // matches what the page shows once it boots.
+// Privacy, Terms and the chat-apps help page, rendered from their real
+// components by the SSR build step in package.json (see src/seo/staticPages.jsx).
+const { renderStaticPage } = await import(path.join(HERE, '..', 'dist-ssr', 'staticPages.js'));
+
 const ALL_BRAND_DEALS = JSON.parse(
   await readFile(path.join(HERE, '..', 'src', 'data', 'allBrandDeals.json'), 'utf8'),
 );
@@ -129,9 +133,9 @@ const ROUTES = [
   { path: '/about/', changefreq: 'yearly', priority: '0.4', meta: PAGE_META.about },
   { path: '/contact/', changefreq: 'yearly', priority: '0.4', meta: PAGE_META.contact },
   { path: '/join/', changefreq: 'monthly', priority: '0.4', meta: PAGE_META.join },
-  { path: '/privacy/', changefreq: 'yearly', priority: '0.2', meta: PAGE_META.privacy },
-  { path: '/terms/', changefreq: 'yearly', priority: '0.2', meta: PAGE_META.terms },
-  { path: '/chatgpt-claude/', changefreq: 'monthly', priority: '0.5', meta: PAGE_META.chatApps },
+  { path: '/privacy/', changefreq: 'yearly', priority: '0.2', meta: PAGE_META.privacy, body: () => renderStaticPage('/privacy/') },
+  { path: '/terms/', changefreq: 'yearly', priority: '0.2', meta: PAGE_META.terms, body: () => renderStaticPage('/terms/') },
+  { path: '/chatgpt-claude/', changefreq: 'monthly', priority: '0.5', meta: PAGE_META.chatApps, body: () => renderStaticPage('/chatgpt-claude/') },
 ];
 
 // Deliberately absent: /select and /results. They only mean anything with a
