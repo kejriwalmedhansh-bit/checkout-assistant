@@ -106,6 +106,11 @@ button.opt span{font-size:12px;color:var(--text2);display:block}
     return html;
   }
 
+  function foot(d) {
+    var when = d && d.checked_on ? "Prices checked " + esc(d.checked_on) + " · " : "";
+    return '<div class="foot">' + when + 'Dealo</div>';
+  }
+
   function render(data) {
     if (!data) return;
     var html;
@@ -121,14 +126,14 @@ button.opt span{font-size:12px;color:var(--text2);display:block}
     } else {
       html = dealHtml(data.deal, data.amount);
     }
-    root.innerHTML = html + '<div class="foot">Dealo</div>';
+    root.innerHTML = html + foot(data.deal);
     root.querySelectorAll("button.buy").forEach(function (b) {
       b.onclick = function () { openLink(b.getAttribute("data-url")); };
     });
     root.querySelectorAll("button.opt").forEach(function (b) {
       b.onclick = function () {
         var c = data.choices[+b.getAttribute("data-i")];
-        root.innerHTML = dealHtml(c, data.amount) + '<div class="foot">Dealo</div>';
+        root.innerHTML = dealHtml(c, data.amount) + foot(c);
         root.querySelector("button.buy").onclick = function () { openLink(c.buy_url); };
       };
     });
