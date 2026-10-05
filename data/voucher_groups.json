@@ -1,0 +1,288 @@
+{
+ "_about": "Owner-reviewed lists for searches Dealo can't price. groups: gift cards shown together for one kind of shopping; each card is found by the same search a shopper would type, so rates stay live after every voucher refresh (`choice` picks one listing when the shop sells several). no_deal_shops: shops with no gift card of their own; searching one shows its group instead. shop_aliases: spellings the automatic check misses or would get wrong. Keys of no_deal_shops and shop_aliases are lowercase letters and digits only, no spaces. See src/services/search_fallbacks.py.",
+ "groups": {
+  "grocery": {
+   "headline": "Buying groceries?",
+   "no_deal_line": "Save on groceries with these gift cards instead",
+   "line": "Pay with a gift card and save on your whole order",
+   "cards": [
+    {
+     "search": "bigbasket",
+     "label": "BigBasket"
+    },
+    {
+     "search": "swiggy instamart",
+     "label": "Swiggy Instamart"
+    },
+    {
+     "search": "blinkit",
+     "label": "Blinkit"
+    },
+    {
+     "search": "amazon fresh",
+     "label": "Amazon Fresh"
+    },
+    {
+     "search": "zepto",
+     "label": "Zepto"
+    },
+    {
+     "search": "jio mart",
+     "label": "JioMart"
+    }
+   ]
+  },
+  "hotels": {
+   "no_deal_line": "Save on hotels with these gift cards instead",
+   "cards": [
+    {
+     "search": "makemytrip",
+     "choice": "Hotels",
+     "label": "MakeMyTrip Hotels"
+    },
+    {
+     "search": "yatra",
+     "choice": "Domestic hotels",
+     "label": "Yatra Hotels"
+    },
+    {
+     "search": "goibibo",
+     "choice": "Hotels",
+     "label": "Goibibo Hotels"
+    },
+    {
+     "search": "ixigo",
+     "choice": "Hotels",
+     "label": "Ixigo Hotels"
+    },
+    {
+     "search": "easemytrip",
+     "choice": "Hotels",
+     "label": "EaseMyTrip Hotels"
+    },
+    {
+     "search": "cleartrip",
+     "choice": "Hotels",
+     "label": "Cleartrip Hotels"
+    }
+   ]
+  },
+  "travel": {
+   "no_deal_line": "Save on flights and travel with these gift cards instead",
+   "cards": [
+    {
+     "search": "makemytrip",
+     "choice": "Flights & anything else",
+     "label": "MakeMyTrip"
+    },
+    {
+     "search": "ixigo",
+     "choice": "Flights",
+     "label": "Ixigo Flights"
+    },
+    {
+     "search": "easemytrip",
+     "choice": "Flights & anything else",
+     "label": "EaseMyTrip"
+    },
+    {
+     "search": "cleartrip",
+     "choice": "Flights & anything else",
+     "label": "Cleartrip"
+    },
+    {
+     "search": "goibibo",
+     "choice": "Flights & anything else",
+     "label": "Goibibo"
+    },
+    {
+     "search": "yatra",
+     "choice": "Anything else",
+     "label": "Yatra"
+    }
+   ]
+  }
+ },
+ "no_deal_shops": {
+  "dmart": {
+   "name": "DMart",
+   "group": "grocery"
+  },
+  "dmartready": {
+   "name": "DMart Ready",
+   "group": "grocery"
+  },
+  "spencers": {
+   "name": "Spencer's",
+   "group": "grocery"
+  },
+  "moresupermarket": {
+   "name": "More",
+   "group": "grocery"
+  },
+  "moreretail": {
+   "name": "More",
+   "group": "grocery"
+  },
+  "starbazaar": {
+   "name": "Star Bazaar",
+   "group": "grocery"
+  },
+  "ratnadeep": {
+   "name": "Ratnadeep",
+   "group": "grocery"
+  },
+  "reliancefresh": {
+   "name": "Reliance Fresh",
+   "group": "grocery"
+  },
+  "flipkartminutes": {
+   "name": "Flipkart Minutes",
+   "group": "grocery"
+  },
+  "flipkartsupermart": {
+   "name": "Flipkart Supermart",
+   "group": "grocery"
+  },
+  "flipkartgrocery": {
+   "name": "Flipkart Grocery",
+   "group": "grocery"
+  },
+  "dunzo": {
+   "name": "Dunzo",
+   "group": "grocery"
+  },
+  "countrydelight": {
+   "name": "Country Delight",
+   "group": "grocery"
+  },
+  "licious": {
+   "name": "Licious",
+   "group": "grocery"
+  },
+  "freshtohome": {
+   "name": "FreshToHome",
+   "group": "grocery"
+  },
+  "otipy": {
+   "name": "Otipy",
+   "group": "grocery"
+  },
+  "kpnfresh": {
+   "name": "KPN Fresh",
+   "group": "grocery"
+  },
+  "amazonpantry": {
+   "name": "Amazon Pantry",
+   "group": "grocery"
+  },
+  "bbnow": {
+   "name": "BB Now",
+   "group": "grocery"
+  },
+  "bbdaily": {
+   "name": "BB Daily",
+   "group": "grocery"
+  },
+  "agoda": {
+   "name": "Agoda",
+   "group": "hotels"
+  },
+  "booking": {
+   "name": "Booking.com",
+   "group": "hotels"
+  },
+  "bookingcom": {
+   "name": "Booking.com",
+   "group": "hotels"
+  },
+  "airbnb": {
+   "name": "Airbnb",
+   "group": "hotels"
+  },
+  "trivago": {
+   "name": "Trivago",
+   "group": "hotels"
+  },
+  "expedia": {
+   "name": "Expedia",
+   "group": "hotels"
+  },
+  "hotelscom": {
+   "name": "Hotels.com",
+   "group": "hotels"
+  },
+  "oyo": {
+   "name": "OYO",
+   "group": "hotels"
+  },
+  "oyorooms": {
+   "name": "OYO",
+   "group": "hotels"
+  },
+  "treebo": {
+   "name": "Treebo",
+   "group": "hotels"
+  },
+  "taj": {
+   "name": "Taj",
+   "group": "hotels"
+  },
+  "tajhotels": {
+   "name": "Taj",
+   "group": "hotels"
+  },
+  "marriott": {
+   "name": "Marriott",
+   "group": "hotels"
+  },
+  "zostel": {
+   "name": "Zostel",
+   "group": "hotels"
+  },
+  "indigo": {
+   "name": "IndiGo",
+   "group": "travel"
+  },
+  "goindigo": {
+   "name": "IndiGo",
+   "group": "travel"
+  },
+  "akasa": {
+   "name": "Akasa Air",
+   "group": "travel"
+  },
+  "akasaair": {
+   "name": "Akasa Air",
+   "group": "travel"
+  },
+  "vistara": {
+   "name": "Vistara",
+   "group": "travel"
+  },
+  "redbus": {
+   "name": "redBus",
+   "group": "travel"
+  },
+  "abhibus": {
+   "name": "AbhiBus",
+   "group": "travel"
+  }
+ },
+ "shop_aliases": {
+  "nyka": "nykaa",
+  "nykka": "nykaa",
+  "swiggy": "swiggy instamart",
+  "swigy": "swiggy instamart",
+  "instamart": "swiggy instamart",
+  "mintra": "myntra",
+  "myntraa": "myntra",
+  "lenscart": "lenskart",
+  "skechars": "skechers",
+  "sketchers": "skechers",
+  "jiomart": "jio mart",
+  "amazonfresh": "amazon fresh",
+  "mmt": "makemytrip",
+  "bigbaskit": "bigbasket"
+ }
+}

@@ -45,7 +45,7 @@ from ..repositories import (
     searchapi_repository,
     voucher_repository,
 )
-from . import card_service, product_identity, voucher_service
+from . import card_service, product_identity, search_fallbacks, voucher_service
 
 # ── price parsing ──────────────────────────────────────────────────────────────
 
@@ -322,6 +322,85 @@ def _brand_voucher_choices(query: str) -> list[dict]:
         if card:
             cards.append({**card, "choice_label": choice.get("choice_label"), "covers": choice.get("covers")})
     return cards if len(cards) >= 2 else []
+
+
+def _search_miss_fallback(query: str) -> dict | None:
+    """A search that names no shop we sell and no product to price: a shop
+    name with a spelling slip, a shop we have no gift card for, or groceries.
+    Returns the fields to add to the search response, or None to carry on
+    with the product search. See search_fallbacks for the rules."""
+    def as_shop(spelling: str) -> dict | None:
+        found = search_candidates(spelling, exact=True, shops_only=True)
+        if found.get("mode") != "brand_voucher":
+            return None
+        # The shop as the shopper knows it: "MakeMyTrip", not the name of
+        # whichever of its cards is shown first.
+        options = found.get("voucher_choices") or [found.get("voucher") or {}]
+        name = (_shop_display_name_for(options) if len(options) >= 2
+                else search_fallbacks.shop_display_name(options[0].get("brand_name") or spelling))
+        return {k: found[k] for k in ("mode", "voucher", "voucher_choices") if k in found} | {"corrected_query": name}
+
+    alias = search_fallbacks.shop_alias(query)
+    if alias:
+        hit = as_shop(alias)
+        if hit:
+            return hit
+    missing = search_fallbacks.no_deal_shop(query)
+    if missing:
+        return _voucher_group(missing["group"], f"No {missing['name']} deal yet")
+    known = set(_load_brand_voucher_index()) | set(_load_maximize_brand_index()) | set(_load_buyhatke_brand_index())
+    near = search_fallbacks.closest_shop_key(query, known)
+    if near:
+        missing = search_fallbacks.no_deal_shop(near)
+        if missing:
+            return _voucher_group(missing["group"], f"No {missing['name']} deal yet") | {"corrected_query": missing["name"]}
+        record = (_load_brand_voucher_index().get(near) or _load_maximize_brand_index().get(near)
+                  or _load_buyhatke_brand_index().get(near))
+        hit = as_shop(record.get("brand_name") or near) if record else None
+        if hit:
+            return hit
+    if search_fallbacks.is_grocery_query(query):
+        return _voucher_group("grocery")
+    return None
+
+
+def _shop_display_name_for(choices: list[dict]) -> str:
+    """"MakeMyTrip" from "MakeMyTrip Hotel e-Pay", "MakeMyTrip Cab"... — the
+    first word every card name shares, as the shortest name spells it (same
+    rule as the website's VoucherChoicePicker and the WhatsApp bot)."""
+    names = [(c.get("brand_name") or "").strip() for c in choices]
+    firsts = [re.split(r"[\s-]+", n)[0] for n in names]
+    if firsts and firsts[0] and len({f.lower() for f in firsts}) == 1:
+        return min(zip((len(n) for n in names), firsts))[1]
+    return search_fallbacks.shop_display_name(names[0] if names else "")
+
+
+def _voucher_group(name: str, headline: str | None = None) -> dict | None:
+    """The gift cards for one kind of shopping (data/voucher_groups.json),
+    best rate first. Each is found by the same search a shopper would type,
+    so the rates are whatever the latest voucher refresh says."""
+    spec = search_fallbacks.group(name)
+    cards = []
+    for item in spec["cards"]:
+        found = search_candidates(item["search"], exact=True, shops_only=True)
+        if found.get("mode") != "brand_voucher":
+            continue
+        options = found.get("voucher_choices") or [found.get("voucher")]
+        card = next((c for c in options if c and c.get("choice_label") == item["choice"]), None) if item.get("choice") else found.get("voucher")
+        if card and (card.get("best_discount_pct") or 0) > 0 and card.get("voucher_url"):
+            label = item.get("label") or search_fallbacks.shop_display_name(card.get("brand_name") or "")
+            cards.append({**card, "choice_label": label})
+    if not cards:
+        return None
+    cards.sort(key=lambda c: -(c.get("best_discount_pct") or 0))
+    return {
+        "mode": "voucher_group",
+        "group": name,
+        "group_headline": headline or spec.get("headline") or "",
+        "group_line": spec["no_deal_line"] if headline else spec.get("line") or spec["no_deal_line"],
+        "voucher": cards[0],
+        "voucher_choices": cards,
+    }
 
 
 def _voucher_card(source: str | None, brand_name: str | None, url: str | None = None) -> dict | None:
@@ -2859,7 +2938,7 @@ def _tier_by_identity(products: list[dict], identity: dict, tag: str) -> tuple[l
     return exact, similar[:_MAX_SIMILAR]
 
 
-def search_candidates(query: str) -> dict:
+def search_candidates(query: str, exact: bool = False, shops_only: bool = False) -> dict:
     """Step 1 of the two-step flow: google_shopping search only.
 
     Returns the list of candidate products the user picks from — does NOT run
@@ -2867,7 +2946,12 @@ def search_candidates(query: str) -> dict:
 
     ``approximate`` is True when nothing matched the query exactly and these
     are the closest trustworthy matches instead — the caller should say so
-    rather than presenting them as the thing that was asked for."""
+    rather than presenting them as the thing that was asked for.
+
+    ``exact`` turns off the spelling fixes and the grocery shortcut — the
+    shopper tapped "search what I typed instead". ``shops_only`` stops after
+    the shop-name check, for the lookups below that must never cost a paid
+    product search."""
     query = (query or "").strip()
     if not _URL_QUERY_RE.match(query):
         pasted_url = _extract_pasted_url(query)
@@ -2913,6 +2997,18 @@ def search_candidates(query: str) -> dict:
             out["voucher"] = choices[0]
             out["voucher_choices"] = choices
         return out
+    if shops_only:
+        return out
+    if not is_url and not exact:
+        fallback = _search_miss_fallback(query)
+        if fallback:
+            out.update(fallback)
+            return out
+        corrected = search_fallbacks.corrected_brand_query(query)
+        if corrected:
+            logger.info("%s brand spelling: %r -> %r", tag, query, corrected)
+            out["corrected_query"] = corrected
+            query = corrected
     # A pasted link is turned into a search query without scraping the product:
     # its page title first, then its slug words. The response still echoes
     # the original input in ``query``.
@@ -3210,6 +3306,9 @@ def search_candidates(query: str) -> dict:
         if identity is None:
             # Typed search: quick commerce goes to the end of the list.
             products = sorted(products, key=lambda p: _is_hyperlocal(p.get("source") or ""))
+        # A row with no shop or no price gives the shopper nothing to act
+        # on ("SUS Vivobook 15" showed one laptop with neither).
+        products = [p for p in products if p.get("price") is not None and (p.get("source") or "").strip()]
         if not products:
             logger.info("%s no candidates after filtering", tag)
             out["error"] = (

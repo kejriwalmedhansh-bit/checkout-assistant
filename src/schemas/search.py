@@ -15,6 +15,9 @@ from .vouchers import VoucherDetailOut
 
 class SearchRequest(BaseModel):
     query: str
+    # The shopper tapped "search what I typed instead": no spelling fixes,
+    # no grocery shortcut.
+    exact: bool = False
 
 
 class ProductCandidate(BaseModel):
@@ -56,6 +59,16 @@ class SearchCandidatesResponse(BaseModel):
     # cabs... When there are 2+, the shopper picks what they're buying first
     # (same question the extension asks); `voucher` is then just the first.
     voucher_choices: list[VoucherDetailOut] = []
+    # mode "voucher_group": a shop we have no gift card for, or a grocery
+    # search — `voucher_choices` are then the gift cards for that kind of
+    # shopping, best rate first, each with its shop name in choice_label.
+    group: str | None = None
+    group_headline: str | None = None
+    group_line: str | None = None
+    # What Dealo searched instead of a spelling slip ("Asus Vivobook 15" for
+    # "SUS Vivobook 15", "Skechers" for "Sketchers"). `query` still echoes
+    # what was typed.
+    corrected_query: str | None = None
     # A pasted link Dealo is sure about: the product to go straight to the
     # price comparison with, skipping the picker. None means "show the picker".
     auto_pick: ProductCandidate | None = None

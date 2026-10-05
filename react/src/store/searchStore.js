@@ -62,6 +62,14 @@ export const useSearchStore = create(
       // Shops like MakeMyTrip: one voucher per kind of purchase, the shopper
       // picks which (see VoucherChoicePicker). Empty for every other shop.
       voucherChoices: [],
+      // mode 'voucher_group' (a shop we have no gift card for, or a grocery
+      // search): the heading over the gift cards in `voucherChoices`.
+      group: null,
+      groupHeadline: '',
+      groupLine: '',
+      // What was searched instead of a spelling slip ("Asus Vivobook 15" for
+      // "SUS Vivobook 15"); the picker offers to search what was typed.
+      correctedQuery: '',
       selectedToken: null,
       selectedThumbnail: null,
       // A pasted link Dealo is sure about skips the picker: `autoPicked` tells
@@ -76,7 +84,7 @@ export const useSearchStore = create(
       persistedAt: null, // Date.now() of the last successful search/select; see STALE_AFTER_MS above
 
       // Step 1 — fetch candidate products for a query.
-      runSearch: async (query) => {
+      runSearch: async (query, { exact = false } = {}) => {
         // A pasted share-link keeps only the link: it's what gets searched,
         // so it's also what the header and the search box must show.
         const q = normalizeSearchInput(query);
@@ -91,6 +99,10 @@ export const useSearchStore = create(
           mode: 'products',
           voucher: null,
           voucherChoices: [],
+          group: null,
+          groupHeadline: '',
+          groupLine: '',
+          correctedQuery: '',
           selectedToken: null,
           autoPicked: false,
           skippedPicker: false,
@@ -100,7 +112,7 @@ export const useSearchStore = create(
           error: null,
         });
         try {
-          const data = await searchApi.candidates(q);
+          const data = await searchApi.candidates(q, exact);
           if (data.error) {
             set({ searchStatus: 'error', error: friendlyMessage(data.error) });
           } else {
@@ -113,6 +125,10 @@ export const useSearchStore = create(
               mode: data.mode || 'products',
               voucher: data.voucher || null,
               voucherChoices: data.voucher_choices || [],
+              group: data.group || null,
+              groupHeadline: data.group_headline || '',
+              groupLine: data.group_line || '',
+              correctedQuery: data.corrected_query || '',
               searchStatus: 'success',
               error: null,
               persistedAt: Date.now(),
@@ -126,6 +142,8 @@ export const useSearchStore = create(
               query: q,
               input_type: data.mode || 'products',
               result_count: (data.products || []).length,
+              ...(data.group ? { group: data.group } : {}),
+              ...(data.corrected_query ? { corrected_query: data.corrected_query } : {}),
             });
             const pick = data.auto_pick;
             if (pick?.product_token) {
