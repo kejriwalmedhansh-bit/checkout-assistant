@@ -6,8 +6,8 @@ import { apiClient } from './client';
 
 export const searchApi = {
   /** Step 1 — google_shopping search. Returns { query, products[], error }. */
-  candidates: async (query) => {
-    const { data } = await apiClient.post('/search', { query });
+  candidates: async (query, exact = false) => {
+    const { data } = await apiClient.post('/search', exact ? { query, exact } : { query });
     return data;
   },
 

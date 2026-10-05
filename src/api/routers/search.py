@@ -33,7 +33,7 @@ def search(payload: SearchRequest) -> dict:
 
     Errors surface in the ``error`` field of a well-formed body (never a 500).
     """
-    return search_service.search_candidates(payload.query)
+    return search_service.search_candidates(payload.query, exact=payload.exact)
 
 
 @router.post("/routes", response_model=SearchResultsResponse)

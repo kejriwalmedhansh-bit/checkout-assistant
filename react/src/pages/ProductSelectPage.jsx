@@ -11,6 +11,7 @@ import SearchBox from '@/components/common/SearchBox';
 import { I } from '@/components/common/icons';
 import BrandVoucherCard from '@/components/dashboard/BrandVoucherCard';
 import VoucherChoicePicker from '@/components/dashboard/VoucherChoicePicker';
+import VoucherGroupCards from '@/components/dashboard/VoucherGroupCards';
 import LowConfidenceNotice from '@/components/dashboard/LowConfidenceNotice';
 import ProductCandidateCard from '@/components/dashboard/ProductCandidateCard';
 import ProductQuickView from '@/components/dashboard/ProductQuickView';
@@ -40,6 +41,10 @@ export default function ProductSelectPage() {
   const mode = useSearchStore((s) => s.mode);
   const voucher = useSearchStore((s) => s.voucher);
   const voucherChoices = useSearchStore((s) => s.voucherChoices) || [];
+  const group = useSearchStore((s) => s.group);
+  const groupHeadline = useSearchStore((s) => s.groupHeadline);
+  const groupLine = useSearchStore((s) => s.groupLine);
+  const correctedQuery = useSearchStore((s) => s.correctedQuery);
   const searchStatus = useSearchStore((s) => s.searchStatus);
   const status = useSearchStore((s) => s.status);
   const selectedToken = useSearchStore((s) => s.selectedToken);
@@ -135,6 +140,34 @@ export default function ProductSelectPage() {
 
         {searchStatus === 'error' && <ErrorBox message={error || 'Search failed.'} />}
 
+        {searchStatus === 'success' && correctedQuery && (
+          <Box bg="brandSoft" borderRadius="10px" px="12px" py="10px" mb="16px" fontSize="13.5px" color="text">
+            Showing <Text as="span" fontWeight={700}>{correctedQuery}</Text>.{' '}
+            <Box
+              as="button"
+              type="button"
+              onClick={() => runSearch(query, { exact: true })}
+              color="brand"
+              fontWeight={600}
+              textDecoration="underline"
+              textUnderlineOffset="2px"
+              {...{ [PRIVATE_TEXT_ATTR]: true }}
+            >
+              Search &ldquo;{query}&rdquo; instead
+            </Box>
+          </Box>
+        )}
+
+        {searchStatus === 'success' && mode === 'voucher_group' && voucherChoices.length > 0 && (
+          <motion.div
+            initial={prefersReduced ? false : { opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+          >
+            <VoucherGroupCards headline={groupHeadline} line={groupLine} cards={voucherChoices} group={group} query={query} />
+          </motion.div>
+        )}
+
         {searchStatus === 'success' && mode === 'brand_voucher' && voucher && (
           <motion.div
             initial={prefersReduced ? false : { opacity: 0, y: 10 }}
@@ -147,7 +180,7 @@ export default function ProductSelectPage() {
           </motion.div>
         )}
 
-        {searchStatus === 'success' && mode !== 'brand_voucher' && candidates.length === 0 && (
+        {searchStatus === 'success' && mode === 'products' && candidates.length === 0 && (
           <motion.div
             initial={prefersReduced ? false : { opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
@@ -171,7 +204,7 @@ export default function ProductSelectPage() {
           </motion.div>
         )}
 
-        {searchStatus === 'success' && mode !== 'brand_voucher' && candidates.length > 0 && (
+        {searchStatus === 'success' && mode === 'products' && candidates.length > 0 && (
           <>
             {otherColours ? (
               <LowConfidenceNotice message="That exact colour isn’t at our trusted stores right now — here’s the same model in other colours." />

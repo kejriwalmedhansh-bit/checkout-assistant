@@ -27,6 +27,7 @@ from ..cache import RateLimiter, TTLCache, session_store
 from ..config import get_settings
 from ..constants import (
     KNOWN_BRANDS,
+    WHATSAPP_ABOUT_MSG,
     WHATSAPP_BRAND_VOUCHER_NEXT_MSG,
     WHATSAPP_DEAD_END_MSG,
     WHATSAPP_FLOW_FIELD_NAME,
@@ -137,6 +138,7 @@ NOISE_PHRASES = {
     "who are you", "what is this", "what are you", "how does this work",
     "are you a bot", "is this a bot", "u there", "you there", "anyone there",
     "hello?", "hey there", "who dis", "wrong number",
+    "hru", "h r u", "how r u", "how are you", "how are u", "how r you", "wbu", "how is it going",
     "help", "start", "menu",
 }
 
@@ -177,6 +179,19 @@ def _all_words_are_filler(cleaned: str) -> str | None:
     return None
 
 
+# Questions about Dealo itself, by plain patterns: "do you also sell
+# vouchers?", "is this free?", "how does dealo work". A question that names
+# a product ("can I get an iPhone cheaper?") matches none of these and is
+# still searched.
+_ABOUT_DEALO_PATTERNS = [
+    re.compile(r"\b(do|does|can|will) (you|u|dealo)\b.*\b(sell|sells|charge|cost|costs|deliver|delivers)\b"),
+    re.compile(r"\bhow (does|do|will) (this|it|dealo|you|u) work\b"),
+    re.compile(r"\bwhat (is|are|does) (this|dealo|you|u)( do)?$"),
+    re.compile(r"\b(is|are) (this|it|dealo|you|u) (free|safe|legit|genuine|real|a scam)\b"),
+    re.compile(r"\bhow (do|does) (you|u|dealo) (make|earn) money\b"),
+]
+
+
 def classify_input(text: str) -> dict:
     if not text or not text.strip():
         return {"type": "unparseable", "reason": "empty"}
@@ -193,6 +208,8 @@ def classify_input(text: str) -> dict:
     filler_reason = _all_words_are_filler(cleaned)
     if filler_reason:
         return {"type": "unparseable", "reason": filler_reason}
+    if any(p.search(normalized) for p in _ABOUT_DEALO_PATTERNS):
+        return {"type": "about"}
     if len(cleaned) < 3:
         return {"type": "unparseable", "reason": "too_short"}
     if not re.search(r"[a-zA-Z0-9]", cleaned):
@@ -534,6 +551,7 @@ async def _send_voucher_type_picker(phone: str, query: str, choices: list[dict])
     session_store.set_session(phone, {
         **session, "query": query, "candidates": [], "routes": {},
         "voucher_choices": choices, "state": "awaiting_voucher_type_pick",
+        "voucher_group": None,
     })
     rows = [{
         "id": f"vtype_{i}",
@@ -553,6 +571,34 @@ async def _send_voucher_type_picker(phone: str, query: str, choices: list[dict])
     _track("WhatsApp Voucher Type Asked", phone, query=query, brand=shop, choice_count=len(rows))
 
 
+async def _send_voucher_group(phone: str, query: str, listing: dict) -> None:
+    """A shop we have no gift card for ("No DMart deal yet") or a grocery
+    search: the gift cards for that kind of shopping as one list, best rate
+    first (same cards the website shows). Tapping one sends that card's usual
+    message with its Buy button."""
+    cards = (listing.get("voucher_choices") or [])[:10]
+    headline = listing.get("group_headline") or ""
+    line = listing.get("group_line") or ""
+    session = session_store.get_session(phone) or {}
+    session_store.set_session(phone, {
+        **session, "query": query, "candidates": [], "routes": {},
+        "voucher_choices": cards, "state": "awaiting_voucher_type_pick",
+        "voucher_group": {"headline": headline, "line": line, "group": listing.get("group")},
+    })
+    rows = [{
+        "id": f"vtype_{i}",
+        "title": _truncate(c.get("choice_label") or c.get("brand_name") or f"Option {i + 1}", 24),
+        "description": f"{c['best_discount_pct']:g}% off" if c.get("best_discount_pct") else "",
+    } for i, c in enumerate(cards)]
+    await send_list_message(
+        phone,
+        body_text=f"*{headline}*\n{line}." if headline else f"{line}.",
+        button_text="See gift cards",
+        rows=rows,
+    )
+    _track("WhatsApp Voucher Group Shown", phone, query=query, group=listing.get("group") or "", card_count=len(rows))
+
+
 async def handle_voucher_type_selection(phone: str, reply_id: str) -> None:
     session = session_store.get_session(phone)
     choices = (session or {}).get("voucher_choices") or []
@@ -565,6 +611,11 @@ async def handle_voucher_type_selection(phone: str, reply_id: str) -> None:
     except (ValueError, IndexError):
         await send_text(phone, WHATSAPP_DEAD_END_MSG)
         _track("WhatsApp Dead End", phone, stage="bad_selection_id", query=reply_id)
+        return
+    if session.get("voucher_group"):
+        # Cards from different shops: the card's own shop name is its
+        # headline ("MakeMyTrip Hotels Gift Voucher").
+        await _send_brand_voucher(phone, session.get("query", ""), {**choice, "choice_label": None}, shop=choice.get("choice_label"))
         return
     await _send_brand_voucher(phone, session.get("query", ""), choice, shop=_shop_name(choices))
 
@@ -1224,6 +1275,9 @@ async def process_and_respond(phone: str, classification: dict) -> None:
         query = classification.get("query") or classification.get("url")
         listing = await asyncio.to_thread(search_service.search_candidates, query)
         products = listing.get("products") or []
+        if listing.get("mode") == "voucher_group" and listing.get("voucher_choices"):
+            await _send_voucher_group(phone, query, listing)
+            return
         if listing.get("mode") == "brand_voucher" and listing.get("voucher"):
             choices = listing.get("voucher_choices") or []
             if len(choices) >= 2:
@@ -1242,7 +1296,9 @@ async def process_and_respond(phone: str, classification: dict) -> None:
             )
             return
         if not products:
-            await send_text(phone, WHATSAPP_DEAD_END_MSG)
+            # The search's own reason ("try adding the brand name...") says
+            # more than the generic line.
+            await send_text(phone, listing.get("error") or WHATSAPP_DEAD_END_MSG)
             _track("WhatsApp Dead End", phone, stage="no_candidates", query=query)
             return
 
@@ -1385,7 +1441,14 @@ async def _send_state_aware_nudge(phone: str) -> None:
         choices = (session or {}).get("voucher_choices") or []
         if choices:
             await send_text(phone, WHATSAPP_PICK_REMINDER_MSG)
-            await _send_voucher_type_picker(phone, session.get("query", ""), choices)
+            group = (session or {}).get("voucher_group")
+            if group:
+                await _send_voucher_group(phone, session.get("query", ""), {
+                    "voucher_choices": choices, "group_headline": group.get("headline"),
+                    "group_line": group.get("line"), "group": group.get("group"),
+                })
+            else:
+                await _send_voucher_type_picker(phone, session.get("query", ""), choices)
             return
     elif state == "awaiting_alternative_pick":
         alternatives = (session or {}).get("routes", {}).get("alternatives") or []
@@ -1584,6 +1647,11 @@ async def _process_text_message(phone: str, msg_id: str | None, text: str) -> No
     if classification["type"] == "unparseable":
         await _send_state_aware_nudge(phone)
         _track("WhatsApp Nudge Sent", phone, reason=classification.get("reason", ""), text=text)
+        return
+
+    if classification["type"] == "about":
+        await send_text(phone, WHATSAPP_ABOUT_MSG)
+        _track("WhatsApp Question Answered", phone, text=text)
         return
 
     if not _search_rate_limiter.allow(phone):

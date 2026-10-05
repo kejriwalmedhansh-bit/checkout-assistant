@@ -217,6 +217,13 @@ WHATSAPP_PICK_REMINDER_MSG = "*Tap* one of the options above 👆"
 WHATSAPP_BRAND_VOUCHER_NEXT_MSG = (
     "Buying something specific? Send its name or link and I'll find the lowest price."
 )
+# A question about Dealo itself ("do you also sell vouchers?") gets an
+# answer instead of being searched as a product.
+WHATSAPP_ABOUT_MSG = (
+    "We don't sell vouchers. Dealo finds the site that sells the cheapest gift card "
+    "for your shop, and you buy it there. It's free.\n\n"
+    "Send a shop name or a product, like *Myntra* or *boAt Airdopes 141*."
+)
 WHATSAPP_RATE_LIMITED_MSG = (
     "You're searching a lot in a short time — give it a few minutes and try again."
 )
