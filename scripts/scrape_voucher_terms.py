@@ -38,6 +38,7 @@ import html
 import json
 import re
 import sys
+import urllib.parse
 import urllib.request
 from datetime import datetime, timezone
 from pathlib import Path
@@ -86,8 +87,10 @@ def strip_buyhatke_footer(text: str) -> str:
     """A BuyHatke section with nothing after it on the page (no FAQ block)
     otherwise runs on into the site footer — its menu, price trackers and
     links — which then changes from day to day. Found 2026-09-28 on ~340
-    listings, where it made the terms look different on every refresh."""
-    m = re.search(r"\nIndia\nEnglish\n", text or "")
+    listings, where it made the terms look different on every refresh. From
+    October 2026 the footer opens with a "Price history & price tracker" blurb
+    instead (304 listings looked changed on 2026-10-19)."""
+    m = re.search(r"\nIndia\nEnglish\n|\n+Price history & price tracker for ", text or "")
     return text[:m.start()] if m else (text or "")
 
 
@@ -143,13 +146,12 @@ def buyhatke_targets() -> list[dict]:
 def maximize_targets() -> list[dict]:
     """The harvested catalog, not the cached master — it is 26 listings larger,
     and the extras are real (a working Yatra, several Amazon variants, Marks &
-    Spencer). Rebuild it with harvest_maximize_catalog_v2.py; the site has no
-    browse-all page, so it cannot be read in one request the way Gyftr and
-    BuyHatke can."""
+    Spencer). New cards join it from the gift-cards page's own A-Z list, read
+    by maximize_feed_collector.js and added by import_maximize_feed.py."""
     cat = json.loads((REPO / "db" / "maximize_catalog_raw.json").read_text())
     out = []
     for pid, rec in cat.items():
-        name = html.unescape(rec.get("product_name") or pid)
+        name = urllib.parse.unquote(html.unescape(rec.get("product_name") or pid))
         out.append({"source": "maximize", "slug": f"{name}-{pid}".lower().replace(" ", "-"),
                     "brand_name": name, "url": rec["url"]})
     return out

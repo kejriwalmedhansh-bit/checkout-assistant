@@ -1,0 +1,1287 @@
+{
+ "buyhatke:apollo-pharmacy-(in-store)-gift-card": {
+  "works_online": "no",
+  "works_in_store": "yes",
+  "one_time_use": "yes",
+  "partial_redemption": "no",
+  "max_vouchers_per_bill": 2,
+  "can_combine_with_store_offers": "no",
+  "spend_scope": "Pharma / Medicines only",
+  "excludes": [
+   "FMCG",
+   "DPCO",
+   "Surgical",
+   "Apollo Brands",
+   "Doctor consultations, lab tests or health checks",
+   "Offers such as SSO, Value Deals, Monthly offers on FMCG, Apollo Brands, Surgical, Ayurvedic, Holland & Barrett",
+   "location: Apollo 24/7 on Web / 247 App, Apollo Pharmacy website, Hospital Based Pharmacies"
+  ],
+  "min_order_value": "not_stated",
+  "max_spend_per_purchase": "not_stated",
+  "monthly_purchase_cap": "not_stated",
+  "validity": "not_stated",
+  "delivery_wait": "not_stated",
+  "quotes": {
+   "works_online": "This voucher can be used only in-store",
+   "works_in_store": "This voucher can be used only in-store",
+   "one_time_use": "This is a One-time use E-Healing Card with an expiration date.",
+   "partial_redemption": "No credit note / refund for the unused balance amount of the E-Healing Card will be given. Any such unused balance amount shall stand lapsed automatically.",
+   "max_vouchers_per_bill": "Customer can redeem only 2 (Two) e-cards / day at the participating Apollo Pharmacy retail outlets.",
+   "can_combine_with_store_offers": "Billing should not be clubbed with Health credit, Card or Wallet. Any additional value above the voucher value should be paid in cash only.",
+   "spend_scope": "This card can only be redeemed on Pharma/ Medicines/ and is not applicable on FMCG, DPCO, Surgical & Apollo Brands.",
+   "excludes": "This card can only be redeemed on Pharma/ Medicines/ and is not applicable on FMCG, DPCO, Surgical & Apollo Brands."
+  }
+ },
+ "buyhatke:behrouz-biryani-gift-card": {
+  "works_online": "yes",
+  "works_in_store": "no",
+  "one_time_use": "not_stated",
+  "partial_redemption": "yes",
+  "max_vouchers_per_bill": "unlimited",
+  "can_combine_with_store_offers": "no",
+  "spend_scope": "not_stated",
+  "excludes": [],
+  "min_order_value": "not_stated",
+  "max_spend_per_purchase": "not_stated",
+  "monthly_purchase_cap": "not_stated",
+  "validity": "not_stated",
+  "delivery_wait": "not_stated",
+  "quotes": {
+   "works_online": "This voucher can be used only online",
+   "works_in_store": "This voucher can be used only online",
+   "partial_redemption": "The GV/GC will be converted into ‘EatSure wallet balance’, and the wallet balance can be used partially.",
+   "max_vouchers_per_bill": "Multiple GV/GC can be combined and added to the EatSure wallet balance.",
+   "can_combine_with_store_offers": "GV/GC can be used to buy discounted items on the EatSure app, but it cannot be clubbed with other aggregator offers."
+  }
+ },
+ "buyhatke:bgmi-uc-gift-card": {
+  "works_online": "yes",
+  "works_in_store": "no",
+  "one_time_use": "yes",
+  "partial_redemption": "no",
+  "max_vouchers_per_bill": 1,
+  "can_combine_with_store_offers": "no",
+  "spend_scope": "BGMI UC for in-game purchases only (Royale Pass, outfits, skins, crates, etc.)",
+  "excludes": [],
+  "min_order_value": "not_stated",
+  "max_spend_per_purchase": "not_stated",
+  "monthly_purchase_cap": "not_stated",
+  "validity": "12 months from date of issue",
+  "delivery_wait": "Typically instant; may take up to 24 hours depending on server load",
+  "quotes": {
+   "works_online": "Vouchers can be redeemed online only.\"",
+   "works_in_store": "Vouchers can be redeemed online only.\"",
+   "one_time_use": "Each Voucher can be redeemed only once.",
+   "partial_redemption": "Partial redemption is not allowed. The full Voucher value must be redeemed in a single transaction.",
+   "max_vouchers_per_bill": "Maximum 1 voucher can be in one transaction",
+   "can_combine_with_store_offers": "Multiple Vouchers cannot be clubbed in a single order, and Vouchers cannot be combined with any other offer, cashback, or discount.",
+   "spend_scope": "UC can only be used within BGMI for in-game purchases (Royale Pass, outfits, skins, crates, etc.), holds no real-world monetary value, and cannot be withdrawn, exchanged, or transferred outside the game.",
+   "validity": "Once issued, this Voucher is valid for 12 months from the date of issue.",
+   "delivery_wait": "UC delivery is typically instant after redemption but may take up to 24 hours depending on server load."
+  }
+ },
+ "buyhatke:bigbasket-gift-card": {
+  "works_online": "yes",
+  "works_in_store": "no",
+  "one_time_use": "no",
+  "partial_redemption": "yes",
+  "max_vouchers_per_bill": 3,
+  "can_combine_with_store_offers": "not_stated",
+  "spend_scope": "not_stated",
+  "excludes": [
+   "Gold or Silver Coins",
+   "Electronics category",
+   "Products sold by third party sellers (like café, pharmacy and such other categories)",
+   "Cigarettes, tobacco and pan masala products",
+   "Infant food, infant milk substitute and feeding bottles",
+   "Other products or categories as determined by bigbasket",
+   "location: only select cities where bigbasket operates"
+  ],
+  "min_order_value": "not_stated",
+  "max_spend_per_purchase": "not_stated",
+  "monthly_purchase_cap": "not_stated",
+  "validity": "up to 6 months from date of issue",
+  "delivery_wait": "not_stated",
+  "quotes": {
+   "works_online": "This voucher can be used only online",
+   "works_in_store": "Gift Cards are redeemable only on the bigbasket mobile app.",
+   "one_time_use": "The redeemed Gift Card amount can be used across multiple orders, except for:",
+   "partial_redemption": "The redeemed Gift Card amount can be used across multiple orders, except for:",
+   "max_vouchers_per_bill": "Maximum 3 vouchers can be in one transaction",
+   "excludes": "Purchase of Gold or Silver Coins.",
+   "validity": "Gift Card will be valid for a period of up to 6 months from the date of its issue."
+  }
+ },
+ "buyhatke:blinkit-gift-card": {
+  "works_online": "yes",
+  "works_in_store": "no",
+  "one_time_use": "not_stated",
+  "partial_redemption": "yes",
+  "max_vouchers_per_bill": "unlimited",
+  "can_combine_with_store_offers": "not_stated",
+  "spend_scope": "not_stated",
+  "excludes": [
+   "Purchase of other gift cards"
+  ],
+  "min_order_value": "not_stated",
+  "max_spend_per_purchase": "₹25,000 per user per calendar month",
+  "monthly_purchase_cap": "not_stated",
+  "validity": "1 year from date of purchase",
+  "delivery_wait": "not_stated",
+  "quotes": {
+   "works_online": "This voucher can be used only online",
+   "works_in_store": "This voucher can be used only online",
+   "partial_redemption": "Once successful, the gift card amount will be added instantly to your Blinkit Money wallet and can be used on your next orders.",
+   "max_vouchers_per_bill": "Multiple Gift Cards can be clubbed in a single order of purchase.",
+   "max_spend_per_purchase": "Gift card redemptions are limited to ₹25,000 per user within a calendar month.",
+   "excludes": "The Gift Card shall be valid for a period of one (1) year from the date of purchase and cannot be used to purchase other gift cards.",
+   "validity": "The Gift Card shall be valid for a period of one (1) year from the date of purchase and cannot be used to purchase other gift cards."
+  }
+ },
+ "buyhatke:brooks-brothers-luxe-(in-store)-gift-card": {
+  "works_online": "no",
+  "works_in_store": "yes",
+  "one_time_use": "yes",
+  "partial_redemption": "not_stated",
+  "max_vouchers_per_bill": "unlimited",
+  "can_combine_with_store_offers": "no",
+  "spend_scope": "Full-priced merchandise only",
+  "excludes": [
+   "location: airport stores",
+   "Discounted merchandise"
+  ],
+  "min_order_value": "not_stated",
+  "max_spend_per_purchase": "not_stated",
+  "monthly_purchase_cap": "not_stated",
+  "validity": "1 year",
+  "delivery_wait": "not_stated",
+  "quotes": {
+   "works_online": "This voucher can be used only in-store",
+   "works_in_store": "This voucher can be used only in-store",
+   "one_time_use": "This is a one-time use giftcard; multiple cards can be used in 1 transaction",
+   "max_vouchers_per_bill": "This is a one-time use giftcard; multiple cards can be used in 1 transaction",
+   "can_combine_with_store_offers": "Luxe Gift Card can only be redeemed against full-priced merchandise",
+   "spend_scope": "Luxe Gift Card can only be redeemed against full-priced merchandise",
+   "excludes": "Valid for 1 year and in-store use only; not redeemable at airport stores",
+   "validity": "Valid for 1 year and in-store use only; not redeemable at airport stores"
+  }
+ },
+ "buyhatke:coach-luxe-(in-store)-gift-card": {
+  "works_online": "no",
+  "works_in_store": "yes",
+  "one_time_use": "yes",
+  "partial_redemption": "not_stated",
+  "max_vouchers_per_bill": "unlimited",
+  "can_combine_with_store_offers": "no",
+  "spend_scope": "Full-priced merchandise only",
+  "excludes": [
+   "location: airport stores",
+   "Discounted merchandise"
+  ],
+  "min_order_value": "not_stated",
+  "max_spend_per_purchase": "not_stated",
+  "monthly_purchase_cap": "not_stated",
+  "validity": "1 year",
+  "delivery_wait": "not_stated",
+  "quotes": {
+   "works_online": "This voucher can be used only in-store",
+   "works_in_store": "This voucher can be used only in-store",
+   "one_time_use": "This is a one-time use giftcard; multiple cards can be used in 1 transaction",
+   "max_vouchers_per_bill": "This is a one-time use giftcard; multiple cards can be used in 1 transaction",
+   "can_combine_with_store_offers": "Luxe Gift Card can only be redeemed against full-priced merchandise",
+   "spend_scope": "Luxe Gift Card can only be redeemed against full-priced merchandise",
+   "excludes": "Valid for 1 year and in-store use only; not redeemable at airport stores",
+   "validity": "Valid for 1 year and in-store use only; not redeemable at airport stores"
+  }
+ },
+ "buyhatke:campus-sutra-gift-card": {
+  "works_online": "yes",
+  "works_in_store": "no",
+  "one_time_use": "yes",
+  "partial_redemption": "no",
+  "max_vouchers_per_bill": "unlimited",
+  "can_combine_with_store_offers": "yes",
+  "spend_scope": "not_stated",
+  "excludes": [],
+  "min_order_value": "not_stated",
+  "max_spend_per_purchase": "not_stated",
+  "monthly_purchase_cap": "not_stated",
+  "validity": "1 year",
+  "delivery_wait": "not_stated",
+  "quotes": {
+   "works_online": "This voucher can be used only online",
+   "works_in_store": "This voucher can be used only online",
+   "one_time_use": "This is a one-time use gift card any balance left after the transaction will lapse",
+   "partial_redemption": "This is a one-time use gift card any balance left after the transaction will lapse",
+   "max_vouchers_per_bill": "Multiple Gift Cards can be used in one bill",
+   "can_combine_with_store_offers": "GV/GC can be clubbed with offers",
+   "validity": "Comes with 1-year validity and will be accepted on the mobile application & website at https://campussutra.com/"
+  }
+ },
+ "buyhatke:cinepolis-gift-card": {
+  "works_online": "yes",
+  "works_in_store": "no",
+  "one_time_use": "not_stated",
+  "partial_redemption": "not_stated",
+  "max_vouchers_per_bill": "not_stated",
+  "can_combine_with_store_offers": "not_stated",
+  "spend_scope": "not_stated",
+  "excludes": [],
+  "min_order_value": "not_stated",
+  "max_spend_per_purchase": "not_stated",
+  "monthly_purchase_cap": "not_stated",
+  "validity": "1 year",
+  "delivery_wait": "not_stated",
+  "quotes": {
+   "works_online": "This voucher can be used only online",
+   "works_in_store": "This voucher can be used only online",
+   "validity": "Comes with 1 year validity and can be used on Cinépolis Website https://cinepolisindia.com/ or Cinépolis mobile app"
+  }
+ },
+ "buyhatke:decathlon-gift-card": {
+  "works_online": "yes",
+  "works_in_store": "yes",
+  "one_time_use": "no",
+  "partial_redemption": "yes",
+  "max_vouchers_per_bill": "not_stated",
+  "can_combine_with_store_offers": "not_stated",
+  "spend_scope": "not_stated",
+  "excludes": [
+   "Payment or settlement for third-party products and services"
+  ],
+  "min_order_value": "not_stated",
+  "max_spend_per_purchase": "not_stated",
+  "monthly_purchase_cap": "not_stated",
+  "validity": "1 year from date of issue",
+  "delivery_wait": "not_stated",
+  "quotes": {
+   "works_online": "This voucher can be used both online and in-store",
+   "works_in_store": "This voucher can be used both online and in-store",
+   "one_time_use": "E-Gift Cards can be redeemed on one or more occasions up to the value of the card or until it expires.",
+   "partial_redemption": "E-Gift Cards can be redeemed on one or more occasions up to the value of the card or until it expires.",
+   "excludes": "The E-Gift Card shall not be used for payment or settlement for third-party products and services.",
+   "validity": "Validity of E-Gift Cards is 1 year from the date of issue, and any balance will be forfeited after expiry."
+  }
+ },
+ "buyhatke:dominos-app-only-gift-card": {
+  "works_online": "yes",
+  "works_in_store": "no",
+  "one_time_use": "not_stated",
+  "partial_redemption": "yes",
+  "max_vouchers_per_bill": 1,
+  "can_combine_with_store_offers": "yes",
+  "spend_scope": "not_stated",
+  "excludes": [
+   "date: block-out dates as updated by Jubilant FoodWorks Ltd./Domino's on its website"
+  ],
+  "min_order_value": "not_stated",
+  "max_spend_per_purchase": "not_stated",
+  "monthly_purchase_cap": "not_stated",
+  "validity": "6 months",
+  "delivery_wait": "not_stated",
+  "quotes": {
+   "works_online": "Comes with the validity of 6 months and is accepted only on the Domino's India Mobile App. It cannot be redeemed directly at Domino’s outlets.",
+   "works_in_store": "Comes with the validity of 6 months and is accepted only on the Domino's India Mobile App. It cannot be redeemed directly at Domino’s outlets.",
+   "partial_redemption": "After conversion into e-Pay, partial redemption is allowed. The remaining balance will stay in the e-Pay account for future transactions within the validity period.",
+   "max_vouchers_per_bill": "One Gift card can be used in a single transaction.",
+   "can_combine_with_store_offers": "Gift card/e-Pay can be clubbed with existing offers. However, it cannot be redeemed on specific block-out dates as updated by Jubilant FoodWorks Ltd./Domino’s on its website.",
+   "excludes": "Gift card/e-Pay can be clubbed with existing offers. However, it cannot be redeemed on specific block-out dates as updated by Jubilant FoodWorks Ltd./Domino’s on its website.",
+   "validity": "Comes with the validity of 6 months and is accepted only on the Domino's India Mobile App. It cannot be redeemed directly at Domino’s outlets."
+  }
+ },
+ "buyhatke:easemytrip-gift-card": {
+  "works_online": "yes",
+  "works_in_store": "no",
+  "one_time_use": "no",
+  "partial_redemption": "yes",
+  "max_vouchers_per_bill": 3,
+  "can_combine_with_store_offers": "no",
+  "spend_scope": "Flights, Hotels, and Online Holiday bookings on the EaseMyTrip website and app",
+  "excludes": [
+   "Convenience fees on flight bookings (cannot be paid using the Gift Card)",
+   "Use by travel agents"
+  ],
+  "min_order_value": "not_stated",
+  "max_spend_per_purchase": "not_stated",
+  "monthly_purchase_cap": "not_stated",
+  "validity": "12 months from date of issuance",
+  "delivery_wait": "not_stated",
+  "quotes": {
+   "works_online": "This voucher can be used only online",
+   "works_in_store": "This voucher can be used only online",
+   "one_time_use": "Unused balance can be reused multiple times within the validity period.",
+   "partial_redemption": "Unused balance can be reused multiple times within the validity period.",
+   "max_vouchers_per_bill": "Up to 3 Gift Cards can be combined in a single booking.",
+   "can_combine_with_store_offers": "Cannot be clubbed with other offers, discounts, cashback offers, or bank promotions.",
+   "spend_scope": "Gift Cards can be redeemed only for Flights, Hotels, and Online Holiday bookings on the EaseMyTrip website and app.",
+   "excludes": "For flight bookings, convenience fees cannot be paid using the Gift Card.",
+   "validity": "Valid for 12 months from the date of issuance."
+  }
+ },
+ "buyhatke:epic-on-1-month-plan-gift-card": {
+  "works_online": "yes",
+  "works_in_store": "no",
+  "one_time_use": "yes",
+  "partial_redemption": "not_stated",
+  "max_vouchers_per_bill": "not_stated",
+  "can_combine_with_store_offers": "not_stated",
+  "spend_scope": "One code applies only to its specific subscription pack",
+  "excludes": [],
+  "min_order_value": "not_stated",
+  "max_spend_per_purchase": "not_stated",
+  "monthly_purchase_cap": "not_stated",
+  "validity": "12 months from date of purchase",
+  "delivery_wait": "Normally instant; can be delayed up to 24 hours",
+  "quotes": {
+   "works_online": "This voucher can be used only online",
+   "works_in_store": "This voucher can be used only online",
+   "one_time_use": "The eGift card can be used only once by a user and will be valid for 12 months from the date of purchase.",
+   "spend_scope": "Every coupon code on e-Gift card will be applicable for a specific pack. One code applicable for a subscription pack cannot be used for any other subscription pack.",
+   "validity": "The eGift card can be used only once by a user and will be valid for 12 months from the date of purchase.",
+   "delivery_wait": "eGift cards are normally delivered instantly. But sometimes due to system issues, the delivery can be delayed up-to 24 hours."
+  }
+ },
+ "buyhatke:epic-on-3-month-plan-gift-card": {
+  "works_online": "yes",
+  "works_in_store": "no",
+  "one_time_use": "yes",
+  "partial_redemption": "not_stated",
+  "max_vouchers_per_bill": "not_stated",
+  "can_combine_with_store_offers": "not_stated",
+  "spend_scope": "One code applies only to its specific subscription pack",
+  "excludes": [],
+  "min_order_value": "not_stated",
+  "max_spend_per_purchase": "not_stated",
+  "monthly_purchase_cap": "not_stated",
+  "validity": "12 months from date of purchase",
+  "delivery_wait": "Normally instant; can be delayed up to 24 hours",
+  "quotes": {
+   "works_online": "This voucher can be used only online",
+   "works_in_store": "This voucher can be used only online",
+   "one_time_use": "The eGift card can be used only once by a user and will be valid for 12 months from the date of purchase.",
+   "spend_scope": "Every coupon code on e-Gift card will be applicable for a specific pack. One code applicable for a subscription pack cannot be used for any other subscription pack.",
+   "validity": "The eGift card can be used only once by a user and will be valid for 12 months from the date of purchase.",
+   "delivery_wait": "eGift cards are normally delivered instantly. But sometimes due to system issues, the delivery can be delayed up-to 24 hours."
+  }
+ },
+ "buyhatke:epic-on-6-month-plan-gift-card": {
+  "works_online": "yes",
+  "works_in_store": "no",
+  "one_time_use": "yes",
+  "partial_redemption": "not_stated",
+  "max_vouchers_per_bill": "not_stated",
+  "can_combine_with_store_offers": "not_stated",
+  "spend_scope": "One code applies only to its specific subscription pack",
+  "excludes": [],
+  "min_order_value": "not_stated",
+  "max_spend_per_purchase": "not_stated",
+  "monthly_purchase_cap": "not_stated",
+  "validity": "12 months from date of purchase",
+  "delivery_wait": "Normally instant; can be delayed up to 24 hours",
+  "quotes": {
+   "works_online": "This voucher can be used only online",
+   "works_in_store": "This voucher can be used only online",
+   "one_time_use": "The eGift card can be used only once by a user and will be valid for 12 months from the date of purchase.",
+   "spend_scope": "Every coupon code on e-Gift card will be applicable for a specific pack. One code applicable for a subscription pack cannot be used for any other subscription pack.",
+   "validity": "The eGift card can be used only once by a user and will be valid for 12 months from the date of purchase.",
+   "delivery_wait": "eGift cards are normally delivered instantly. But sometimes due to system issues, the delivery can be delayed up-to 24 hours."
+  }
+ },
+ "buyhatke:faasos-gift-card": {
+  "works_online": "yes",
+  "works_in_store": "no",
+  "one_time_use": "not_stated",
+  "partial_redemption": "yes",
+  "max_vouchers_per_bill": "unlimited",
+  "can_combine_with_store_offers": "no",
+  "spend_scope": "not_stated",
+  "excludes": [],
+  "min_order_value": "not_stated",
+  "max_spend_per_purchase": "not_stated",
+  "monthly_purchase_cap": "not_stated",
+  "validity": "not_stated",
+  "delivery_wait": "not_stated",
+  "quotes": {
+   "works_online": "This voucher can be used only online",
+   "works_in_store": "This voucher can be used only online",
+   "partial_redemption": "The GV/GC will be converted into ‘EatSure wallet balance’, and the wallet balance can be used partially.",
+   "max_vouchers_per_bill": "Multiple GV/GC can be combined and added to the EatSure wallet balance.",
+   "can_combine_with_store_offers": "GV/GC can be used to buy discounted items on the EatSure app, but it cannot be clubbed with other aggregator offers."
+  }
+ },
+ "buyhatke:first-cry-gift-card": {
+  "works_online": "yes",
+  "works_in_store": "no",
+  "one_time_use": "no",
+  "partial_redemption": "yes",
+  "max_vouchers_per_bill": 1,
+  "can_combine_with_store_offers": "not_stated",
+  "spend_scope": "not_stated",
+  "excludes": [
+   "location: orders shipped outside India"
+  ],
+  "min_order_value": "not_stated",
+  "max_spend_per_purchase": "not_stated",
+  "monthly_purchase_cap": "not_stated",
+  "validity": "1 year from date of purchase",
+  "delivery_wait": "not_stated",
+  "quotes": {
+   "works_online": "This voucher can be used only online",
+   "works_in_store": "This voucher can be used only online",
+   "one_time_use": "The value of a single E-Gift Card can be redeemed across multiple purchases until the balance is exhausted.",
+   "partial_redemption": "The value of a single E-Gift Card can be redeemed across multiple purchases until the balance is exhausted.",
+   "max_vouchers_per_bill": "Multiple E-Gift Cards cannot be combined for a single order.",
+   "excludes": "E-Gift Cards can only be redeemed against orders shipped within India.",
+   "validity": "The E-Gift Card is valid for 1 year from the date of purchase."
+  }
+ },
+ "buyhatke:flipkart-gift-card": {
+  "works_online": "yes",
+  "works_in_store": "no",
+  "one_time_use": "not_stated",
+  "partial_redemption": "not_stated",
+  "max_vouchers_per_bill": "not_stated",
+  "can_combine_with_store_offers": "not_stated",
+  "spend_scope": "not_stated",
+  "excludes": [],
+  "min_order_value": "not_stated",
+  "max_spend_per_purchase": "not_stated",
+  "monthly_purchase_cap": 100000,
+  "validity": "not_stated",
+  "delivery_wait": "not_stated",
+  "quotes": {
+   "works_online": "This voucher can be used only online",
+   "works_in_store": "This voucher can be used only online",
+   "monthly_purchase_cap": "Maximum purchase limit: ₹1,00,000 per month"
+  }
+ },
+ "buyhatke:frido-gift-card": {
+  "works_online": "yes",
+  "works_in_store": "no",
+  "one_time_use": "no",
+  "partial_redemption": "yes",
+  "max_vouchers_per_bill": "not_stated",
+  "can_combine_with_store_offers": "no",
+  "spend_scope": "not_stated",
+  "excludes": [],
+  "min_order_value": "not_stated",
+  "max_spend_per_purchase": "not_stated",
+  "monthly_purchase_cap": "not_stated",
+  "validity": "not_stated",
+  "delivery_wait": "not_stated",
+  "quotes": {
+   "works_online": "This voucher can be used only online",
+   "works_in_store": "This voucher can be used only online",
+   "one_time_use": "After conversion into e-Pay, the GV balance is valid for partial redemption. The balance would remain in the e-pay balance and can be used for multiple transactions within the validity period.",
+   "partial_redemption": "After conversion into e-Pay, the GV balance is valid for partial redemption. The balance would remain in the e-pay balance and can be used for multiple transactions within the validity period.",
+   "can_combine_with_store_offers": "The GV/e-Pay is valid on slashed prices and can be clubbed with bank offers. However, it cannot be clubbed with any brand promo code applicable on the website(s)."
+  }
+ },
+ "buyhatke:gaana-gift-card": {
+  "works_online": "yes",
+  "works_in_store": "no",
+  "one_time_use": "yes",
+  "partial_redemption": "not_stated",
+  "max_vouchers_per_bill": "not_stated",
+  "can_combine_with_store_offers": "not_stated",
+  "spend_scope": "Gaana Plus subscription (1/12 months)",
+  "excludes": [
+   "location: outside India"
+  ],
+  "min_order_value": "not_stated",
+  "max_spend_per_purchase": "not_stated",
+  "monthly_purchase_cap": "not_stated",
+  "validity": "1 year",
+  "delivery_wait": "not_stated",
+  "quotes": {
+   "works_online": "This voucher can be used only online",
+   "works_in_store": "This voucher can be used only online",
+   "one_time_use": "This coupon code will only work once per user.",
+   "spend_scope": "Input of Coupon Code gives the user 1/12 months subscription of Gaana Plus",
+   "excludes": "Comes with 1-year validity and the offer is valid in the territory of India.",
+   "validity": "Comes with 1-year validity and the offer is valid in the territory of India."
+  }
+ },
+ "buyhatke:joyalukkas-diamond-(in-store)-gift-card": {
+  "works_online": "no",
+  "works_in_store": "yes",
+  "one_time_use": "not_stated",
+  "partial_redemption": "not_stated",
+  "max_vouchers_per_bill": "unlimited",
+  "can_combine_with_store_offers": "not_stated",
+  "spend_scope": "Diamond Jewellery",
+  "excludes": [
+   "Gold jewellery",
+   "Bullions"
+  ],
+  "min_order_value": "not_stated",
+  "max_spend_per_purchase": "not_stated",
+  "monthly_purchase_cap": "not_stated",
+  "validity": "12 months from date of purchase",
+  "delivery_wait": "not_stated",
+  "quotes": {
+   "works_online": "This voucher can be used only in-store",
+   "works_in_store": "This voucher can be used only in-store",
+   "max_vouchers_per_bill": "Multiple cards can be used for a single transaction.",
+   "spend_scope": "The card can be used for the purchase of any Diamond Jewellery. Should you wish to purchase gold jewellery or bullions, kindly check out our other variants Pure Gold or Gold and Diamond.",
+   "excludes": "The card can be used for the purchase of any Diamond Jewellery. Should you wish to purchase gold jewellery or bullions, kindly check out our other variants Pure Gold or Gold and Diamond.",
+   "validity": "This card is valid for 12 months from the date of purchase."
+  }
+ },
+ "buyhatke:kalyan-diamond-jewellery-(in-store)-gift-card": {
+  "works_online": "no",
+  "works_in_store": "yes",
+  "one_time_use": "not_stated",
+  "partial_redemption": "no",
+  "max_vouchers_per_bill": 10,
+  "can_combine_with_store_offers": "no",
+  "spend_scope": "Diamond, Uncut, Polki, Platinum, Solitaire Jewellery including non-metal products at Kalyan Jewellers",
+  "excludes": [
+   "Gold & Silver Coins",
+   "Gold & Silver Jewellery",
+   "Gold Diamond purchase Advance Schemes",
+   "Package Invoice",
+   "Special Priced items"
+  ],
+  "min_order_value": "not_stated",
+  "max_spend_per_purchase": "not_stated",
+  "monthly_purchase_cap": "not_stated",
+  "validity": "364 days from date of issue",
+  "delivery_wait": "not_stated",
+  "quotes": {
+   "works_online": "This voucher can be used only in-store",
+   "works_in_store": "This voucher can be used only in-store",
+   "partial_redemption": "Gift Card to be encashed in full and no part payment can be done.",
+   "max_vouchers_per_bill": "Only upto 10 Vouchers can be redeemed against one cash memo.",
+   "can_combine_with_store_offers": "This Gift Card cannot be clubbed with Package Invoice and Special Priced items.",
+   "spend_scope": "Gift Card is valid on any Diamond, Uncut, Polki, Platinum, Solitaire Jewellery including non-metal products at Kalyan Jewellers",
+   "excludes": "Gift Card is not valid on purchase of Gold & Silver Coins and Gold & Silver Jewellery.",
+   "validity": "Gift Card is valid for 364 days from date of Issue."
+  }
+ },
+ "buyhatke:klook-gift-card": {
+  "works_online": "yes",
+  "works_in_store": "no",
+  "one_time_use": "yes",
+  "partial_redemption": "not_stated",
+  "max_vouchers_per_bill": 1,
+  "can_combine_with_store_offers": "no",
+  "spend_scope": "not_stated",
+  "excludes": [
+   "Non-Eligible Activity List on klook.com",
+   "Non-Indian users"
+  ],
+  "min_order_value": "not_stated",
+  "max_spend_per_purchase": "not_stated",
+  "monthly_purchase_cap": "not_stated",
+  "validity": "not_stated",
+  "delivery_wait": "not_stated",
+  "quotes": {
+   "works_online": "This voucher can be used only online",
+   "works_in_store": "This voucher can be used only online",
+   "one_time_use": "This is a one-time use GV/GC.",
+   "max_vouchers_per_bill": "Only one GV/GC can be used in one bill.",
+   "can_combine_with_store_offers": "GV/GC cannot be combined with existing offers on its website or any other promo codes.",
+   "excludes": "GV/GC will not be applicable for the Non-Eligible Activity List: https://www.klook.com/no_applicable_activities_list_new/?coupon_forbid_act_batch_ids=1."
+  }
+ },
+ "buyhatke:lee-gift-card": {
+  "works_online": "yes",
+  "works_in_store": "yes",
+  "one_time_use": "no",
+  "partial_redemption": "yes",
+  "max_vouchers_per_bill": 5,
+  "can_combine_with_store_offers": "no",
+  "spend_scope": "not_stated",
+  "excludes": [
+   "Articles on discount during end of season sales",
+   "date: specific block out dates"
+  ],
+  "min_order_value": "not_stated",
+  "max_spend_per_purchase": "not_stated",
+  "monthly_purchase_cap": "not_stated",
+  "validity": "not_stated",
+  "delivery_wait": "not_stated",
+  "quotes": {
+   "works_online": "This voucher can be used both online and in-store",
+   "works_in_store": "This voucher can be used both online and in-store",
+   "one_time_use": "Partial redemption is allowed but no refund or credit note would be issued against an unused or partially used Instant Gift Voucher",
+   "partial_redemption": "Partial redemption is allowed but no refund or credit note would be issued against an unused or partially used Instant Gift Voucher",
+   "max_vouchers_per_bill": "Maximum of 5 Instant Gift Vouchers can be used against one bill.",
+   "can_combine_with_store_offers": "The Instant Gift Vouchercannot be redeemed on articles on discount during end of season sales.",
+   "excludes": "The Instant Gift Vouchercannot be redeemed on articles on discount during end of season sales."
+  }
+ },
+ "buyhatke:lenskart-gift-card": {
+  "works_online": "yes",
+  "works_in_store": "yes",
+  "one_time_use": "no",
+  "partial_redemption": "yes",
+  "max_vouchers_per_bill": "unlimited",
+  "can_combine_with_store_offers": "not_stated",
+  "spend_scope": "not_stated",
+  "excludes": [
+   "Branded contact lenses including Bausch + Lomb, Johnson & Johnson, Alcon, Freshlook, Acuvue",
+   "location: contactskart.com"
+  ],
+  "min_order_value": "not_stated",
+  "max_spend_per_purchase": "not_stated",
+  "monthly_purchase_cap": "not_stated",
+  "validity": "12 months from date of issuance",
+  "delivery_wait": "not_stated",
+  "quotes": {
+   "works_online": "This voucher can be used both online and in-store",
+   "works_in_store": "This voucher can be used both online and in-store",
+   "one_time_use": "If the order value is less than the cumulative balance in the gift card container, the remaining balance will reflect in the container and can be used for future transactions until expiry.",
+   "partial_redemption": "If the order value is less than the cumulative balance in the gift card container, the remaining balance will reflect in the container and can be used for future transactions until expiry.",
+   "max_vouchers_per_bill": "Users can add multiple gift cards into a single balance container and use the cumulative balance for their orders.",
+   "excludes": "contact lenses (excluding Branded contact lenses including but not limited to Bausch + Lomb, Johnson & Johnson, Alcon, Freshlook, and Acuvue)",
+   "validity": "Validity: The voucher is valid for 12 months from the date of issuance."
+  }
+ },
+ "buyhatke:linen-club-(in-store)-gift-card": {
+  "works_online": "no",
+  "works_in_store": "yes",
+  "one_time_use": "yes",
+  "partial_redemption": "no",
+  "max_vouchers_per_bill": "not_stated",
+  "can_combine_with_store_offers": "no",
+  "spend_scope": "MRP (full-price) items only",
+  "excludes": [],
+  "min_order_value": "not_stated",
+  "max_spend_per_purchase": "not_stated",
+  "monthly_purchase_cap": "not_stated",
+  "validity": "365 days from date of activation",
+  "delivery_wait": "not_stated",
+  "quotes": {
+   "works_online": "The gift card can be redeemed only at exclusive Linen Club showrooms across India.",
+   "works_in_store": "The gift card can be redeemed only at exclusive Linen Club showrooms across India.",
+   "one_time_use": "The gift card can be redeemed only once and should be used for full value.",
+   "partial_redemption": "The gift card can be redeemed only once and should be used for full value.",
+   "can_combine_with_store_offers": "This gift card redemption cannot be combined with any existing discount or offer.",
+   "spend_scope": "Valid on MRP sale only",
+   "validity": "The gift card is valid for 365 days from the date of activation"
+  }
+ },
+ "buyhatke:machaan-(in-store)-gift-card": {
+  "works_online": "no",
+  "works_in_store": "yes",
+  "one_time_use": "not_stated",
+  "partial_redemption": "not_stated",
+  "max_vouchers_per_bill": "unlimited",
+  "can_combine_with_store_offers": "no",
+  "spend_scope": "not_stated",
+  "excludes": [
+   "Meal Combos"
+  ],
+  "min_order_value": "not_stated",
+  "max_spend_per_purchase": "not_stated",
+  "monthly_purchase_cap": "not_stated",
+  "validity": "3 months",
+  "delivery_wait": "not_stated",
+  "quotes": {
+   "works_online": "Gift Card cannot be used online and cannot be clubbed with any other offers",
+   "works_in_store": "This voucher can be used only in-store",
+   "max_vouchers_per_bill": "More than one GV / GC can be used in one bill but cannot be used on Meal Combos",
+   "can_combine_with_store_offers": "Gift Card cannot be used online and cannot be clubbed with any other offers",
+   "excludes": "More than one GV / GC can be used in one bill but cannot be used on Meal Combos",
+   "validity": "Comes with 3 months validity and is applicable on Speciality Restaurants (Mainland China, Machaan, Sigree, Oh! Calcutta and Sweet Bengal)"
+  }
+ },
+ "buyhatke:makemytrip-gift-card": {
+  "works_online": "yes",
+  "works_in_store": "no",
+  "one_time_use": "not_stated",
+  "partial_redemption": "not_stated",
+  "max_vouchers_per_bill": 3,
+  "can_combine_with_store_offers": "no",
+  "spend_scope": "not_stated",
+  "excludes": [
+   "Cab",
+   "Bus",
+   "Rail",
+   "Homestays",
+   "VISA bookings",
+   "mybiz accounts"
+  ],
+  "min_order_value": "not_stated",
+  "max_spend_per_purchase": "not_stated",
+  "monthly_purchase_cap": "not_stated",
+  "validity": "1 year",
+  "delivery_wait": "not_stated",
+  "quotes": {
+   "works_online": "This voucher can be used only online",
+   "works_in_store": "This voucher can be used only online",
+   "max_vouchers_per_bill": "Multiple Gift Cards (up to 3) can be clubbed in 1 transaction.",
+   "can_combine_with_store_offers": "No other offers can be clubbed while purchasing with this virtual card.",
+   "excludes": "This Gift card is not valid on Cab, Bus, Rail, Homestays and VISA bookings",
+   "validity": "Comes with 1 year validity."
+  }
+ },
+ "buyhatke:malabar-diamonds-gift-card": {
+  "works_online": "yes",
+  "works_in_store": "yes",
+  "one_time_use": "yes",
+  "partial_redemption": "no",
+  "max_vouchers_per_bill": 15,
+  "can_combine_with_store_offers": "not_stated",
+  "spend_scope": "Diamond & Platinum jewellery only",
+  "excludes": [],
+  "min_order_value": "not_stated",
+  "max_spend_per_purchase": "not_stated",
+  "monthly_purchase_cap": "not_stated",
+  "validity": "not_stated",
+  "delivery_wait": "not_stated",
+  "quotes": {
+   "works_online": "This voucher can be used both online and in-store",
+   "works_in_store": "This voucher can be used both online and in-store",
+   "one_time_use": "This is a one-time use GV/GC. The remaining balance in the GV/GC will be forfeited once the card is redeemed.",
+   "partial_redemption": "This is a one-time use GV/GC. The remaining balance in the GV/GC will be forfeited once the card is redeemed.",
+   "max_vouchers_per_bill": "Multiple GV/GC (maximum 15) can be used against one bill.",
+   "spend_scope": "Malabar Diamonds Vouchers can be redeemed against the purchase of Diamond & Platinum jewellery only."
+  }
+ },
+ "buyhatke:muro-(in-store)-gift-card": {
+  "works_online": "no",
+  "works_in_store": "yes",
+  "one_time_use": "not_stated",
+  "partial_redemption": "not_stated",
+  "max_vouchers_per_bill": "not_stated",
+  "can_combine_with_store_offers": "no",
+  "spend_scope": "Dine-in only",
+  "excludes": [
+   "location: only Muro Outlet, Bangalore"
+  ],
+  "min_order_value": "not_stated",
+  "max_spend_per_purchase": "not_stated",
+  "monthly_purchase_cap": "not_stated",
+  "validity": "1 year",
+  "delivery_wait": "not_stated",
+  "quotes": {
+   "works_online": "This voucher can be used only in-store",
+   "works_in_store": "This voucher can be used only in-store",
+   "can_combine_with_store_offers": "Offers cannot be combined.",
+   "spend_scope": "Codes can be used for Dine-in Only",
+   "excludes": "Comes with 1-year validity and are valid at Muro Outlet, Bangalore",
+   "validity": "Comes with 1-year validity and are valid at Muro Outlet, Bangalore"
+  }
+ },
+ "buyhatke:myntra-gift-card": {
+  "works_online": "yes",
+  "works_in_store": "no",
+  "one_time_use": "no",
+  "partial_redemption": "yes",
+  "max_vouchers_per_bill": "unlimited",
+  "can_combine_with_store_offers": "yes",
+  "spend_scope": "not_stated",
+  "excludes": [
+   "Sellers Titan Company Limited, Bluestone Jewellery & Lifestyle Pvt. Ltd., Aditya Birla Fashion & Retail Pvt. Ltd.",
+   "Gold, Silver coins and Fine Jewelry",
+   "Purchase of other gift cards"
+  ],
+  "min_order_value": "not_stated",
+  "max_spend_per_purchase": "not_stated",
+  "monthly_purchase_cap": "not_stated",
+  "validity": "1 year",
+  "delivery_wait": "not_stated",
+  "quotes": {
+   "works_online": "This E-Gift Card can be redeemed online against sellers listed on www.myntra.com or Myntra Mobile App only.",
+   "works_in_store": "This E-Gift Card can be redeemed online against sellers listed on www.myntra.com or Myntra Mobile App only.",
+   "one_time_use": "the outstanding balance (after deduction of order value) will reflect under the same E -Gift Card and can be used for subsequent transactions.",
+   "partial_redemption": "the outstanding balance (after deduction of order value) will reflect under the same E -Gift Card and can be used for subsequent transactions.",
+   "max_vouchers_per_bill": "Multiple E- Gift Cards can be clubbed in a single order.",
+   "can_combine_with_store_offers": "This Myntra e-gift card can even be used during sales and other promotions.",
+   "excludes": "Gift Cards are not applicable on the following sellers: Titan Company Limited, Bluestone Jewellery & Lifestyle Pvt. Ltd., Aditya Birla Fashion & Retail Pvt. Ltd.",
+   "validity": "This E-Gift Card shall have a validity period of 1 year."
+  }
+ },
+ "buyhatke:nat-habit-gift-card": {
+  "works_online": "yes",
+  "works_in_store": "no",
+  "one_time_use": "no",
+  "partial_redemption": "yes",
+  "max_vouchers_per_bill": "not_stated",
+  "can_combine_with_store_offers": "no",
+  "spend_scope": "not_stated",
+  "excludes": [],
+  "min_order_value": "not_stated",
+  "max_spend_per_purchase": "not_stated",
+  "monthly_purchase_cap": "not_stated",
+  "validity": "not_stated",
+  "delivery_wait": "not_stated",
+  "quotes": {
+   "works_online": "This is a Nat Habit GV (Gift Voucher)/e-Pay that will be accepted only on https://nathabit.in/, and it can be used for all purchases of products and services at the Nat Habit website.",
+   "works_in_store": "This voucher can be used only online",
+   "one_time_use": "After conversion into e-Pay balance, it is valid for partial redemption. The balance would remain in the e-pay balance and can be used for multiple transactions within the validity period.",
+   "partial_redemption": "After conversion into e-Pay balance, it is valid for partial redemption. The balance would remain in the e-pay balance and can be used for multiple transactions within the validity period.",
+   "can_combine_with_store_offers": "The GV/e-Pay cannot be clubbed with discounts offered by the brand on their website."
+  }
+ },
+ "buyhatke:nilkamal-homes-gift-card": {
+  "works_online": "yes",
+  "works_in_store": "yes",
+  "one_time_use": "yes",
+  "partial_redemption": "no",
+  "max_vouchers_per_bill": "not_stated",
+  "can_combine_with_store_offers": "yes",
+  "spend_scope": "not_stated",
+  "excludes": [],
+  "min_order_value": "not_stated",
+  "max_spend_per_purchase": "not_stated",
+  "monthly_purchase_cap": "not_stated",
+  "validity": "1 year from date of purchase",
+  "delivery_wait": "Normally instant; can be delayed up to 24-48 hours",
+  "quotes": {
+   "works_online": "This voucher can be used both online and in-store",
+   "works_in_store": "This voucher can be used both online and in-store",
+   "one_time_use": "E– Gift cards can be redeemed only once.",
+   "partial_redemption": "Balance if any, of the E-Gift after purchase shall not be carried forward.",
+   "can_combine_with_store_offers": "The E-Gift can be utilized with combination of other promotional offers at store or website.",
+   "validity": "This E-Gift card is valid for one year from the date of Purchase.",
+   "delivery_wait": "E-Gift Cards are normally delivered instantly. But sometimes due to system issues, the delivery can be delayed up-to 24 - 48 hours."
+  }
+ },
+ "buyhatke:nintendo-gift-card": {
+  "works_online": "yes",
+  "works_in_store": "no",
+  "one_time_use": "not_stated",
+  "partial_redemption": "not_stated",
+  "max_vouchers_per_bill": "not_stated",
+  "can_combine_with_store_offers": "not_stated",
+  "spend_scope": "Games and other content on Nintendo eShop and other Nintendo shopping services, using a Nintendo Account",
+  "excludes": [],
+  "min_order_value": "not_stated",
+  "max_spend_per_purchase": "not_stated",
+  "monthly_purchase_cap": "not_stated",
+  "validity": "not_stated",
+  "delivery_wait": "not_stated",
+  "quotes": {
+   "works_online": "This voucher can be used only online",
+   "works_in_store": "This voucher can be used only online",
+   "spend_scope": "The Gift card Balance is only redeemable using a Nintendo Account on Nintendo eShop and other Nintendo shopping services to purchase gamesand other content."
+  }
+ },
+ "buyhatke:nykaa-fashion-gift-card": {
+  "works_online": "yes",
+  "works_in_store": "no",
+  "one_time_use": "not_stated",
+  "partial_redemption": "yes",
+  "max_vouchers_per_bill": 1,
+  "can_combine_with_store_offers": "yes",
+  "spend_scope": "not_stated",
+  "excludes": [
+   "Gold Silver Coins, Gold Silver Bars and Jewellery",
+   "Purchase of other gift cards"
+  ],
+  "min_order_value": "not_stated",
+  "max_spend_per_purchase": "not_stated",
+  "monthly_purchase_cap": "not_stated",
+  "validity": "365 days from date of issue",
+  "delivery_wait": "not_stated",
+  "quotes": {
+   "works_online": "This voucher can be used only online",
+   "works_in_store": "This voucher can be used only online",
+   "partial_redemption": "If the order value is less than the amount of the Gift Card the outstanding balance after deduction of order value will reflect under the same Gift Card",
+   "max_vouchers_per_bill": "You can redeem only 1 Gift Card per order",
+   "can_combine_with_store_offers": "The Gift Card can be combined with promotional codes and with other payment options",
+   "excludes": "Nykaa Gift Cards E Gift Cards Nykaa Wallet Balance cannot be used to purchase Gold Silver Coins Gold Silver Bars and Jewellery",
+   "validity": "This Gift Card shall have a validity period of 365 days from the date of issue"
+  }
+ },
+ "buyhatke:nykaa-gift-card": {
+  "works_online": "yes",
+  "works_in_store": "no",
+  "one_time_use": "no",
+  "partial_redemption": "yes",
+  "max_vouchers_per_bill": "not_stated",
+  "can_combine_with_store_offers": "not_stated",
+  "spend_scope": "not_stated",
+  "excludes": [
+   "Gold/Silver Coins",
+   "Gold/Silver Bars",
+   "Jewellery",
+   "Cross-border products"
+  ],
+  "min_order_value": "not_stated",
+  "max_spend_per_purchase": "not_stated",
+  "monthly_purchase_cap": "not_stated",
+  "validity": "1 year",
+  "delivery_wait": "not_stated",
+  "quotes": {
+   "works_online": "This voucher can be used only online",
+   "works_in_store": "This voucher can be used only online",
+   "one_time_use": "Gift card can be used multiple times",
+   "partial_redemption": "Gift card can be used multiple times",
+   "excludes": "Comes with 1-year validity and cannot be used to purchase Gold/Silver Coins, Gold/Silver Bars, Jewellery and cross-border products",
+   "validity": "Comes with 1-year validity and cannot be used to purchase Gold/Silver Coins, Gold/Silver Bars, Jewellery and cross-border products"
+  }
+ },
+ "buyhatke:nykaa-luxe-gift-card": {
+  "works_online": "yes",
+  "works_in_store": "no",
+  "one_time_use": "no",
+  "partial_redemption": "yes",
+  "max_vouchers_per_bill": "not_stated",
+  "can_combine_with_store_offers": "not_stated",
+  "spend_scope": "not_stated",
+  "excludes": [
+   "Gold/Silver Coins",
+   "Gold/Silver Bars",
+   "Jewellery"
+  ],
+  "min_order_value": "not_stated",
+  "max_spend_per_purchase": "not_stated",
+  "monthly_purchase_cap": "not_stated",
+  "validity": "1 year",
+  "delivery_wait": "not_stated",
+  "quotes": {
+   "works_online": "This voucher can be used only online",
+   "works_in_store": "This voucher can be used only online",
+   "one_time_use": "Gift card can be used multiple times",
+   "partial_redemption": "Gift card can be used multiple times",
+   "excludes": "Comes with 1 year validity and cannot be used to purchase Gold/Silver Coins, Gold/Silver Bars and Jewellery",
+   "validity": "Comes with 1 year validity and cannot be used to purchase Gold/Silver Coins, Gold/Silver Bars and Jewellery"
+  }
+ },
+ "buyhatke:playstation-gift-card": {
+  "works_online": "yes",
+  "works_in_store": "no",
+  "one_time_use": "not_stated",
+  "partial_redemption": "not_stated",
+  "max_vouchers_per_bill": "not_stated",
+  "can_combine_with_store_offers": "not_stated",
+  "spend_scope": "Items in the PS Store available to Indian account holders (redeeming account holder and child Family Member accounts)",
+  "excludes": [],
+  "min_order_value": "not_stated",
+  "max_spend_per_purchase": "not_stated",
+  "monthly_purchase_cap": "not_stated",
+  "validity": "12 months",
+  "delivery_wait": "not_stated",
+  "quotes": {
+   "works_online": "This voucher can be used only online",
+   "works_in_store": "This voucher can be used only online",
+   "spend_scope": "Comes with 12 months validity and can be used by the redeeming account holder (and their child Family Member accounts) to pay for items in the PS Store available to Indian account holders",
+   "validity": "Comes with 12 months validity and can be used by the redeeming account holder (and their child Family Member accounts) to pay for items in the PS Store available to Indian account holders"
+  }
+ },
+ "buyhatke:ray-ban-gift-card": {
+  "works_online": "yes",
+  "works_in_store": "no",
+  "one_time_use": "not_stated",
+  "partial_redemption": "not_stated",
+  "max_vouchers_per_bill": 5,
+  "can_combine_with_store_offers": "not_stated",
+  "spend_scope": "not_stated",
+  "excludes": [
+   "location: offline stores, Multi Brand Store, other websites/marketplaces such as amazon.com or flipkart.com"
+  ],
+  "min_order_value": "not_stated",
+  "max_spend_per_purchase": "not_stated",
+  "monthly_purchase_cap": "not_stated",
+  "validity": "6 months (180 days) from date of activation",
+  "delivery_wait": "not_stated",
+  "quotes": {
+   "works_online": "This voucher can be used only online",
+   "works_in_store": "This card cannot be redeemed at any offline stores, Multi Brand Store, or any other websites (marketplaces) such as amazon.com or flipkart.com.",
+   "max_vouchers_per_bill": "Maximum of five gift cards can be redeemed against a single invoice.",
+   "excludes": "This card cannot be redeemed at any offline stores, Multi Brand Store, or any other websites (marketplaces) such as amazon.com or flipkart.com.",
+   "validity": "Valid for six months (180 days) from date of activation."
+  }
+ },
+ "buyhatke:scotch-and-soda-luxe-(in-store)-gift-card": {
+  "works_online": "no",
+  "works_in_store": "yes",
+  "one_time_use": "yes",
+  "partial_redemption": "no",
+  "max_vouchers_per_bill": "unlimited",
+  "can_combine_with_store_offers": "no",
+  "spend_scope": "Full-priced merchandise only",
+  "excludes": [
+   "location: airport stores",
+   "Discounted items"
+  ],
+  "min_order_value": "not_stated",
+  "max_spend_per_purchase": "not_stated",
+  "monthly_purchase_cap": "not_stated",
+  "validity": "12 months from date of purchase",
+  "delivery_wait": "not_stated",
+  "quotes": {
+   "works_online": "This voucher can be used only in-store",
+   "works_in_store": "This voucher can be used only in-store",
+   "one_time_use": "The Luxe Gift Card is valid for one-time use only until expiry.",
+   "partial_redemption": "No refund or credit note will be issued for any unused balance.",
+   "max_vouchers_per_bill": "Multiple Luxe Gift Cards can be used in a single transaction.",
+   "can_combine_with_store_offers": "The Gift Card can be redeemed only on full-priced merchandise and is not applicable on discounted items unless specified otherwise.",
+   "spend_scope": "The Gift Card can be redeemed only on full-priced merchandise and is not applicable on discounted items unless specified otherwise.",
+   "excludes": "The Luxe Gift Card is not redeemable at airport stores.",
+   "validity": "The Luxe Gift Card is issued by Pine Labs Limited (formerly Pine Labs Private Limited) and is valid for 12 months from the date of purchase."
+  }
+ },
+ "buyhatke:superdry-luxe-gift-card": {
+  "works_online": "yes",
+  "works_in_store": "yes",
+  "one_time_use": "yes",
+  "partial_redemption": "no",
+  "max_vouchers_per_bill": "unlimited",
+  "can_combine_with_store_offers": "no",
+  "spend_scope": "Full-priced merchandise only",
+  "excludes": [
+   "location: airport stores",
+   "Discounted items"
+  ],
+  "min_order_value": "not_stated",
+  "max_spend_per_purchase": "not_stated",
+  "monthly_purchase_cap": "not_stated",
+  "validity": "12 months from date of purchase",
+  "delivery_wait": "not_stated",
+  "quotes": {
+   "works_online": "This voucher can be used both online and in-store",
+   "works_in_store": "This voucher can be used both online and in-store",
+   "one_time_use": "The Luxe Gift Card is valid for one-time use only until expiry.",
+   "partial_redemption": "No refund or credit note will be issued for any unused balance.",
+   "max_vouchers_per_bill": "Multiple Luxe Gift Cards can be used in a single transaction.",
+   "can_combine_with_store_offers": "The Gift Card can be redeemed only on full-priced merchandise and is not applicable on discounted items unless specified otherwise.",
+   "spend_scope": "The Gift Card can be redeemed only on full-priced merchandise and is not applicable on discounted items unless specified otherwise.",
+   "excludes": "The Luxe Gift Card is not redeemable at airport stores.",
+   "validity": "The Luxe Gift Card is issued by Pine Labs Limited (formerly Pine Labs Private Limited) and is valid for 12 months from the date of purchase."
+  }
+ },
+ "buyhatke:starbucks-(in-store)-gift-card": {
+  "works_online": "no",
+  "works_in_store": "yes",
+  "one_time_use": "not_stated",
+  "partial_redemption": "not_stated",
+  "max_vouchers_per_bill": "not_stated",
+  "can_combine_with_store_offers": "not_stated",
+  "spend_scope": "not_stated",
+  "excludes": [],
+  "min_order_value": "not_stated",
+  "max_spend_per_purchase": "not_stated",
+  "monthly_purchase_cap": "not_stated",
+  "validity": "1 year from date of purchase",
+  "delivery_wait": "not_stated",
+  "quotes": {
+   "works_online": "This voucher can be used only in-store",
+   "works_in_store": "This voucher can be used only in-store",
+   "validity": "The Starbucks eGift Card is valid for 1 year from the date of purchase."
+  }
+ },
+ "buyhatke:sterling-holidays-gift-card": {
+  "works_online": "yes",
+  "works_in_store": "no",
+  "one_time_use": "no",
+  "partial_redemption": "yes",
+  "max_vouchers_per_bill": 1,
+  "can_combine_with_store_offers": "no",
+  "spend_scope": "Hotel stay (room reservation) bookings on the Sterling Holidays website",
+  "excludes": [
+   "Package bookings",
+   "MICE",
+   "Corporate CUG bookings",
+   "Bookings through OTAs, travel agents or corporate rates",
+   "Food & beverages",
+   "Spa",
+   "Activities",
+   "Transfers",
+   "Sightseeing",
+   "Banquet services",
+   "Retail purchases",
+   "Other incidental charges",
+   "Third-party booking platforms",
+   "Gift Cards purchased for a specific holiday package are redeemable only against that package"
+  ],
+  "min_order_value": "not_stated",
+  "max_spend_per_purchase": "not_stated",
+  "monthly_purchase_cap": "not_stated",
+  "validity": "12 months from date of issue",
+  "delivery_wait": "not_stated",
+  "quotes": {
+   "works_online": "Redeemable only on the Sterling Holidays website for room reservations.",
+   "works_in_store": "Cannot be redeemed directly at Sterling resorts or on any third-party booking platform.",
+   "one_time_use": "Supports multiple transactions until the available balance is exhausted.",
+   "partial_redemption": "Supports multiple transactions until the available balance is exhausted.",
+   "max_vouchers_per_bill": "Only one Gift Card can be used per booking.",
+   "can_combine_with_store_offers": "Cannot be combined with other offers, promotions, or discounts unless specifically mentioned.",
+   "spend_scope": "Valid only for hotel stay bookings and not applicable for package bookings, MICE, Corporate CUG bookings, or bookings through OTAs, travel agents, or corporate rates.",
+   "excludes": "Cannot be used for food & beverages, spa, activities, transfers, sightseeing, banquet services, retail purchases, or other incidental charges.",
+   "validity": "Valid for 12 months from the date of issue."
+  }
+ },
+ "buyhatke:titan-eye-plus-(in-store)-gift-card": {
+  "works_online": "no",
+  "works_in_store": "yes",
+  "one_time_use": "yes",
+  "partial_redemption": "not_stated",
+  "max_vouchers_per_bill": "not_stated",
+  "can_combine_with_store_offers": "not_stated",
+  "spend_scope": "not_stated",
+  "excludes": [],
+  "min_order_value": "not_stated",
+  "max_spend_per_purchase": "not_stated",
+  "monthly_purchase_cap": "not_stated",
+  "validity": "not_stated",
+  "delivery_wait": "not_stated",
+  "quotes": {
+   "works_online": "This voucher can be used only in-store",
+   "works_in_store": "This voucher can be used only in-store",
+   "one_time_use": "This voucher can be used only 1 time"
+  }
+ },
+ "buyhatke:uber-gift-card": {
+  "works_online": "yes",
+  "works_in_store": "no",
+  "one_time_use": "not_stated",
+  "partial_redemption": "not_stated",
+  "max_vouchers_per_bill": "not_stated",
+  "can_combine_with_store_offers": "yes",
+  "spend_scope": "not_stated",
+  "excludes": [],
+  "min_order_value": "not_stated",
+  "max_spend_per_purchase": "not_stated",
+  "monthly_purchase_cap": 10000,
+  "validity": "6 months",
+  "delivery_wait": "not_stated",
+  "quotes": {
+   "works_online": "This voucher can be used only online",
+   "works_in_store": "This voucher can be used only online",
+   "can_combine_with_store_offers": "All brand funded offers can be clubbed during purchase",
+   "monthly_purchase_cap": "Multiple gift cards can be added to an account, but max. ₹10000 per month can be loaded into Uber Wallet.",
+   "validity": "Comes with 6 months' validity."
+  }
+ },
+ "buyhatke:urban-company-gift-card": {
+  "works_online": "yes",
+  "works_in_store": "no",
+  "one_time_use": "not_stated",
+  "partial_redemption": "not_stated",
+  "max_vouchers_per_bill": "not_stated",
+  "can_combine_with_store_offers": "not_stated",
+  "spend_scope": "not_stated",
+  "excludes": [
+   "Redeemer must be a resident of India, at least 18 years of age, and not a Politically Exposed Person"
+  ],
+  "min_order_value": "not_stated",
+  "max_spend_per_purchase": "not_stated",
+  "monthly_purchase_cap": "not_stated",
+  "validity": "12 months from date of issue",
+  "delivery_wait": "not_stated",
+  "quotes": {
+   "works_online": "This voucher can be used only online",
+   "works_in_store": "This voucher can be used only online",
+   "excludes": "The Gift Card may be redeemed only by an individual who is a resident of India, is at least 18 years of age, and is not a Politically Exposed Person.",
+   "validity": "The Gift Card is valid for a period of 12 months from the date of issue."
+  }
+ },
+ "buyhatke:wendys-gift-card": {
+  "works_online": "yes",
+  "works_in_store": "no",
+  "one_time_use": "yes",
+  "partial_redemption": "not_stated",
+  "max_vouchers_per_bill": "not_stated",
+  "can_combine_with_store_offers": "not_stated",
+  "spend_scope": "Online orders placed through the respective app/web (EatSure, Oven Story, Behrouz)",
+  "excludes": [
+   "Existing offer collections",
+   "Select combos",
+   "Beverages",
+   "MRP products"
+  ],
+  "min_order_value": "not_stated",
+  "max_spend_per_purchase": "not_stated",
+  "monthly_purchase_cap": "not_stated",
+  "validity": "till 23:59 hrs 31st December 2023",
+  "delivery_wait": "not_stated",
+  "quotes": {
+   "works_online": "This voucher can be used only online",
+   "works_in_store": "This voucher can be used only online",
+   "one_time_use": "This voucher can be used only 1 time",
+   "spend_scope": "Offer valid only on online orders placed through respective app/web (EatSure, Oven Story, Behrouz)",
+   "excludes": "This offer is not applicable on existing offer collections, select combos, beverages, and MRP products",
+   "validity": "The Coupon is valid till 23:59 hrs 31st December 2023"
+  }
+ },
+ "buyhatke:westside-(in-store%2C-8-hr-wait)-gift-card": {
+  "works_online": "no",
+  "works_in_store": "yes",
+  "one_time_use": "not_stated",
+  "partial_redemption": "no",
+  "max_vouchers_per_bill": "not_stated",
+  "can_combine_with_store_offers": "not_stated",
+  "spend_scope": "not_stated",
+  "excludes": [],
+  "min_order_value": "not_stated",
+  "max_spend_per_purchase": "not_stated",
+  "monthly_purchase_cap": "not_stated",
+  "validity": "1 year from date of purchase",
+  "delivery_wait": "Can be redeemed only after 8 hours from the time of purchase",
+  "quotes": {
+   "works_online": "This card cannot be used on the Westside website.",
+   "works_in_store": "Redeemable at all Westside outlets across India.",
+   "partial_redemption": "Any unused balance will not be refunded or credited.",
+   "validity": "Validity: 1 year from the date of purchase. Validity cannot be extended.",
+   "delivery_wait": "The gift card can be redeemed only after 8 hours from the time of purchase."
+  }
+ },
+ "buyhatke:wrangler-gift-card": {
+  "works_online": "yes",
+  "works_in_store": "yes",
+  "one_time_use": "no",
+  "partial_redemption": "yes",
+  "max_vouchers_per_bill": 5,
+  "can_combine_with_store_offers": "no",
+  "spend_scope": "not_stated",
+  "excludes": [
+   "Articles on discount during end of season sales",
+   "date: specific block out dates"
+  ],
+  "min_order_value": "not_stated",
+  "max_spend_per_purchase": "not_stated",
+  "monthly_purchase_cap": "not_stated",
+  "validity": "12 months from date of activation",
+  "delivery_wait": "Normally instant; can be delayed up to 48-72 hours",
+  "quotes": {
+   "works_online": "This voucher can be used both online and in-store",
+   "works_in_store": "This voucher can be used both online and in-store",
+   "one_time_use": "Partial redemption is allowed but no refund or credit note would be issued against an unused or partially used Instant Gift Voucher",
+   "partial_redemption": "Partial redemption is allowed but no refund or credit note would be issued against an unused or partially used Instant Gift Voucher",
+   "max_vouchers_per_bill": "Maximum of 5 Instant Gift Vouchers can be used against one bill.",
+   "can_combine_with_store_offers": "The Instant Gift Voucher can not be redeemed on articles on discount during end of season sales.",
+   "excludes": "The Instant Gift Voucher can not be redeemed on articles on discount during end of season sales.",
+   "validity": "The GC will expire in 12 month period from the date of activation.",
+   "delivery_wait": "E-Gift Cards are normally delivered instantly. But sometimes due to system issues, the delivery can be delayed up-to 48-72 hours."
+  }
+ },
+ "buyhatke:yatra-hotels-and-holidays-gift-card": {
+  "works_online": "yes",
+  "works_in_store": "no",
+  "one_time_use": "no",
+  "partial_redemption": "yes",
+  "max_vouchers_per_bill": 1,
+  "can_combine_with_store_offers": "no",
+  "spend_scope": "Hotels (Domestic), Holidays (Domestic/International)",
+  "excludes": [
+   "Flights",
+   "Buses",
+   "Prime Membership",
+   "Cabs",
+   "Any services other than Hotels (Domestic) and Holidays",
+   "Use by travel agents"
+  ],
+  "min_order_value": "not_stated",
+  "max_spend_per_purchase": "not_stated",
+  "monthly_purchase_cap": "not_stated",
+  "validity": "12 months from date of issue",
+  "delivery_wait": "not_stated",
+  "quotes": {
+   "works_online": "EGV can be redeemed only at www.yatra.com.",
+   "works_in_store": "EGV can be redeemed only at www.yatra.com.",
+   "one_time_use": "EGV is valid for multiple/partial redemption until the full value is exhausted within the validity period.",
+   "partial_redemption": "EGV is valid for multiple/partial redemption until the full value is exhausted within the validity period.",
+   "max_vouchers_per_bill": "Two or more EGVs cannot be combined in a single transaction.",
+   "can_combine_with_store_offers": "EGV cannot be clubbed with any other offer, discount, cashback, or promotion.",
+   "spend_scope": "EGV is valid for booking of: Hotels (Domestic), Holidays (Domestic/International)",
+   "excludes": "EGV is not applicable on Flights, Buses, Prime Membership, Cabs, or any services other than Hotels (Domestic) and Holidays.",
+   "validity": "EGV is valid for a period of 12 months from the date of issue."
+  }
+ }
+}

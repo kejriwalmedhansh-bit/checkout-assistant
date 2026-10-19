@@ -205,15 +205,20 @@ def _with_product_choices(root: str, deal: dict, price: float | None, domain: st
 def _best_copy(deal: dict, price: float | None) -> dict:
     """The same voucher is sometimes sold on two sites (Porter: Gyftr 11%,
     Maximize 10.75%); per the owner's review the shopper gets the better
-    copy, as search already does. Same answer shape, only the copy differs."""
+    copy, as search already does. Same answer shape, only the copy differs.
+    Each copy is priced on this order: the highest rate can save less when
+    its amounts don't fit (see voucher_service.same_voucher_copies)."""
     if not deal.get("has_voucher"):
-        return deal
-    better = voucher_service.best_of_same_voucher(deal.get("brand_name") or "")
-    alt = voucher_service.get_voucher_check(better["name"], price) if better else None
-    if not (alt and _usable_online(alt) and _norm(alt.get("brand_name")) == _norm(better["name"])):
         return deal
 
     def worth(d):
         return (d.get("saving") or 0, d.get("pct") or 0)
 
-    return alt if worth(alt) > worth(deal) else deal
+    best = deal
+    for copy in voucher_service.same_voucher_copies(deal.get("brand_name") or ""):
+        if _norm(copy["name"]) == _norm(deal.get("brand_name")):
+            continue
+        alt = voucher_service.get_voucher_check(copy["name"], price)
+        if alt and _usable_online(alt) and _norm(alt.get("brand_name")) == _norm(copy["name"]) and worth(alt) > worth(best):
+            best = alt
+    return best

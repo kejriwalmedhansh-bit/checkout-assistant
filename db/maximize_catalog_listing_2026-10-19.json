@@ -1,0 +1,4202 @@
+[
+ {
+  "id": 388,
+  "brand": "Absolute Barbecues",
+  "giftCardName": "Absolute Barbecues (Custom)",
+  "stock": true,
+  "channel": "offline",
+  "discount": 8.5
+ },
+ {
+  "id": 791,
+  "brand": "Absolute Barbecues",
+  "giftCardName": "Absolute Barbeque",
+  "stock": true,
+  "channel": "offline",
+  "discount": 10
+ },
+ {
+  "id": 588,
+  "brand": "BAGLINE",
+  "giftCardName": "Aeropostale-BAGLINE",
+  "stock": true,
+  "channel": "online",
+  "discount": 13.25
+ },
+ {
+  "id": 1259,
+  "brand": "AFFINITY",
+  "giftCardName": "AFFINITY",
+  "stock": true,
+  "channel": "offline",
+  "discount": 10
+ },
+ {
+  "id": 486,
+  "brand": "Air India",
+  "giftCardName": "Air India",
+  "stock": true,
+  "channel": "online",
+  "discount": 4.25
+ },
+ {
+  "id": 409,
+  "brand": "Air India",
+  "giftCardName": "Air India",
+  "stock": true,
+  "channel": "online",
+  "discount": 5
+ },
+ {
+  "id": 1089,
+  "brand": "Air India",
+  "giftCardName": "Air India Ancillary",
+  "stock": true,
+  "channel": "online",
+  "discount": 18
+ },
+ {
+  "id": 1138,
+  "brand": "Airport Sim",
+  "giftCardName": "Airport Sim",
+  "stock": true,
+  "channel": "online",
+  "discount": 13
+ },
+ {
+  "id": 416,
+  "brand": "Ajio",
+  "giftCardName": "AJIO",
+  "stock": true,
+  "channel": "online",
+  "discount": 7
+ },
+ {
+  "id": 733,
+  "brand": "AJIO Luxe",
+  "giftCardName": "Ajio Luxe",
+  "stock": true,
+  "channel": "online",
+  "discount": 3.75
+ },
+ {
+  "id": 700,
+  "brand": "AJIO Luxe",
+  "giftCardName": "Ajio Luxe",
+  "stock": true,
+  "channel": "online",
+  "discount": 7
+ },
+ {
+  "id": 308,
+  "brand": "ALDO",
+  "giftCardName": "ALDO",
+  "stock": true,
+  "channel": "offline",
+  "discount": 11.75
+ },
+ {
+  "id": 487,
+  "brand": "Aliste",
+  "giftCardName": "Aliste",
+  "stock": true,
+  "channel": "online",
+  "discount": 0
+ },
+ {
+  "id": 589,
+  "brand": "Allen Solly",
+  "giftCardName": "Allen Solly",
+  "stock": true,
+  "channel": "offline",
+  "discount": 3
+ },
+ {
+  "id": 448,
+  "brand": "Amazon",
+  "giftCardName": "Amazon Fresh Voucher",
+  "stock": true,
+  "channel": "online",
+  "discount": 1.5
+ },
+ {
+  "id": 547,
+  "brand": "Amazon",
+  "giftCardName": "Amazon Prime Lite Edition",
+  "stock": true,
+  "channel": "online",
+  "discount": 15
+ },
+ {
+  "id": 549,
+  "brand": "Amazon",
+  "giftCardName": "Amazon Prime Voucher - 12 months Membership",
+  "stock": true,
+  "channel": "online",
+  "discount": 15
+ },
+ {
+  "id": 550,
+  "brand": "Amazon",
+  "giftCardName": "Amazon Prime Voucher - 3 months Membership",
+  "stock": true,
+  "channel": "online",
+  "discount": 15
+ },
+ {
+  "id": 1084,
+  "brand": "Amazon",
+  "giftCardName": "Amazon Shopping Voucher",
+  "stock": true,
+  "channel": "online",
+  "discount": 1.25
+ },
+ {
+  "id": 1083,
+  "brand": "Amazon",
+  "giftCardName": "AmazonPay (Gift Card)",
+  "stock": true,
+  "channel": "online",
+  "discount": 0
+ },
+ {
+  "id": 481,
+  "brand": "American Eagle",
+  "giftCardName": "American Eagle",
+  "stock": true,
+  "channel": "both",
+  "discount": 3
+ },
+ {
+  "id": 235,
+  "brand": "American Tourister",
+  "giftCardName": "American Tourister",
+  "stock": true,
+  "channel": "offline",
+  "discount": 6.25
+ },
+ {
+  "id": 1092,
+  "brand": "APOLLO DIAGNOSTICS",
+  "giftCardName": "Apollo Diagnostics",
+  "stock": true,
+  "channel": "online",
+  "discount": 12.25
+ },
+ {
+  "id": 1091,
+  "brand": "Apollo",
+  "giftCardName": "Apollo Pharmacy",
+  "stock": true,
+  "channel": "both",
+  "discount": 10
+ },
+ {
+  "id": 784,
+  "brand": "Apollo",
+  "giftCardName": "Apollo Pharmacy InStore",
+  "stock": true,
+  "channel": "offline",
+  "discount": 11
+ },
+ {
+  "id": 1282,
+  "brand": "Apollo",
+  "giftCardName": "Apollo Pharmacy InStore",
+  "stock": true,
+  "channel": "offline",
+  "discount": 11
+ },
+ {
+  "id": 1164,
+  "brand": "Apple",
+  "giftCardName": "Apple Premium Reseller Voucher",
+  "stock": true,
+  "channel": "offline",
+  "discount": 3.25
+ },
+ {
+  "id": 491,
+  "brand": "AppyHigh Prime",
+  "giftCardName": "AppyHigh Prime",
+  "stock": true,
+  "channel": "online",
+  "discount": 17
+ },
+ {
+  "id": 236,
+  "brand": "ARCHIES GALLERY",
+  "giftCardName": "Archies Gallery",
+  "stock": true,
+  "channel": "both",
+  "discount": 16
+ },
+ {
+  "id": 451,
+  "brand": "Armani Exchange-Luxe",
+  "giftCardName": "Armani Exchange-Luxe",
+  "stock": true,
+  "channel": "both",
+  "discount": 10
+ },
+ {
+  "id": 453,
+  "brand": "Asia Seven Express",
+  "giftCardName": "Asia Seven Express",
+  "stock": true,
+  "channel": "offline",
+  "discount": 8.5
+ },
+ {
+  "id": 258,
+  "brand": "Assembly Travel",
+  "giftCardName": "Assembly",
+  "stock": true,
+  "channel": "online",
+  "discount": 15.5
+ },
+ {
+  "id": 950,
+  "brand": "TCNS Aurelia",
+  "giftCardName": "Aurelia",
+  "stock": true,
+  "channel": "offline",
+  "discount": 11
+ },
+ {
+  "id": 492,
+  "brand": "Auric",
+  "giftCardName": "Auric",
+  "stock": true,
+  "channel": "online",
+  "discount": 36.75
+ },
+ {
+  "id": 1280,
+  "brand": "Axora Life",
+  "giftCardName": "Axora Life Silver Jewellery",
+  "stock": true,
+  "channel": "online",
+  "discount": 8
+ },
+ {
+  "id": 1120,
+  "brand": "BAGLINE",
+  "giftCardName": "BAGLINE",
+  "stock": true,
+  "channel": "online",
+  "discount": 13
+ },
+ {
+  "id": 459,
+  "brand": "Barbeque Nation",
+  "giftCardName": "Barbeque Nation",
+  "stock": true,
+  "channel": "offline",
+  "discount": 8.25
+ },
+ {
+  "id": 494,
+  "brand": "Baskin Robbins",
+  "giftCardName": "Baskin Robbins",
+  "stock": true,
+  "channel": "offline",
+  "discount": 12
+ },
+ {
+  "id": 495,
+  "brand": "Bata",
+  "giftCardName": "Bata",
+  "stock": true,
+  "channel": "offline",
+  "discount": 10
+ },
+ {
+  "id": 1213,
+  "brand": "Bata",
+  "giftCardName": "Bata",
+  "stock": true,
+  "channel": "offline",
+  "discount": 10.25
+ },
+ {
+  "id": 309,
+  "brand": "BATH & BODY WORKS",
+  "giftCardName": "Bath and Body Works",
+  "stock": true,
+  "channel": "offline",
+  "discount": 11.75
+ },
+ {
+  "id": 1260,
+  "brand": "BBlunt",
+  "giftCardName": "BBlunt",
+  "stock": true,
+  "channel": "offline",
+  "discount": 10
+ },
+ {
+  "id": 1139,
+  "brand": "Beat Slayer",
+  "giftCardName": "Beat Slayer",
+  "stock": true,
+  "channel": "online",
+  "discount": 13
+ },
+ {
+  "id": 496,
+  "brand": "Beer Cafe",
+  "giftCardName": "Beer Cafe",
+  "stock": true,
+  "channel": "offline",
+  "discount": 7.75
+ },
+ {
+  "id": 497,
+  "brand": "Behrouz Biryani",
+  "giftCardName": "Behrouz Biryani",
+  "stock": true,
+  "channel": "online",
+  "discount": 10.25
+ },
+ {
+  "id": 311,
+  "brand": "BEVERLY HILLS POLO CLUB",
+  "giftCardName": "Beverly Hills Polo Club",
+  "stock": true,
+  "channel": "offline",
+  "discount": 11.75
+ },
+ {
+  "id": 498,
+  "brand": "Beyoung",
+  "giftCardName": "Beyoung",
+  "stock": true,
+  "channel": "online",
+  "discount": 23
+ },
+ {
+  "id": 1178,
+  "brand": "BGMI",
+  "giftCardName": "BGMI UC Voucher",
+  "stock": true,
+  "channel": "online",
+  "discount": 10.75
+ },
+ {
+  "id": 934,
+  "brand": "Bhima Jewellers - Coin",
+  "giftCardName": "Bhima Jewellers - Coin",
+  "stock": true,
+  "channel": "offline",
+  "discount": 1.25
+ },
+ {
+  "id": 933,
+  "brand": "Bhima Jewellers - Jewellery",
+  "giftCardName": "Bhima Jewellery",
+  "stock": true,
+  "channel": "offline",
+  "discount": 3
+ },
+ {
+  "id": 499,
+  "brand": "Bigbasket",
+  "giftCardName": "BigBasket",
+  "stock": true,
+  "channel": "online",
+  "discount": 3
+ },
+ {
+  "id": 1167,
+  "brand": "Bigbasket",
+  "giftCardName": "Bigbasket",
+  "stock": true,
+  "channel": "online",
+  "discount": 2.75
+ },
+ {
+  "id": 1283,
+  "brand": "Bigbasket",
+  "giftCardName": "Bigbasket (Custom)",
+  "stock": true,
+  "channel": "online",
+  "discount": 2.25
+ },
+ {
+  "id": 368,
+  "brand": "Bikanervala",
+  "giftCardName": "Bikanervala",
+  "stock": true,
+  "channel": "offline",
+  "discount": 13
+ },
+ {
+  "id": 369,
+  "brand": "Birkenstock",
+  "giftCardName": "Birkenstock",
+  "stock": true,
+  "channel": "online",
+  "discount": 10
+ },
+ {
+  "id": 500,
+  "brand": "Blaupunkt",
+  "giftCardName": "Blaupunkt",
+  "stock": true,
+  "channel": "online",
+  "discount": 18
+ },
+ {
+  "id": 1140,
+  "brand": "Blazing Sails",
+  "giftCardName": "Blazing Sails",
+  "stock": true,
+  "channel": "online",
+  "discount": 13
+ },
+ {
+  "id": 903,
+  "brand": "Blinkit",
+  "giftCardName": "Blinkit",
+  "stock": true,
+  "channel": "online",
+  "discount": 2.75
+ },
+ {
+  "id": 1245,
+  "brand": "Blinkit",
+  "giftCardName": "Blinkit",
+  "stock": true,
+  "channel": "online",
+  "discount": 2.25
+ },
+ {
+  "id": 712,
+  "brand": "BlissClub",
+  "giftCardName": "Blissclub",
+  "stock": true,
+  "channel": "online",
+  "discount": 18
+ },
+ {
+  "id": 1239,
+  "brand": "Blue Tokai Coffee",
+  "giftCardName": "Blue Tokai Coffe",
+  "stock": true,
+  "channel": "both",
+  "discount": 13
+ },
+ {
+  "id": 554,
+  "brand": "Boat",
+  "giftCardName": "Boat",
+  "stock": true,
+  "channel": "online",
+  "discount": 7
+ },
+ {
+  "id": 831,
+  "brand": "Boditive",
+  "giftCardName": "Boditive",
+  "stock": true,
+  "channel": "online",
+  "discount": 12.75
+ },
+ {
+  "id": 1052,
+  "brand": "Body Craft",
+  "giftCardName": "Body Craft (Clinic)",
+  "stock": true,
+  "channel": "offline",
+  "discount": 13.25
+ },
+ {
+  "id": 374,
+  "brand": "Body Craft",
+  "giftCardName": "Body Craft (Salon)",
+  "stock": true,
+  "channel": "offline",
+  "discount": 13.25
+ },
+ {
+  "id": 375,
+  "brand": "BookMyShow",
+  "giftCardName": "BookMyShow",
+  "stock": true,
+  "channel": "online",
+  "discount": 4
+ },
+ {
+  "id": 1261,
+  "brand": "Bounce",
+  "giftCardName": "Bounce",
+  "stock": true,
+  "channel": "offline",
+  "discount": 10
+ },
+ {
+  "id": 1247,
+  "brand": "BPCL",
+  "giftCardName": "BPCL SmartDrive Fuel",
+  "stock": true,
+  "channel": "offline",
+  "discount": -0.45
+ },
+ {
+  "id": 631,
+  "brand": "BPCL",
+  "giftCardName": "BPCL SmartDrive Fuel",
+  "stock": true,
+  "channel": "offline",
+  "discount": 0.5
+ },
+ {
+  "id": 502,
+  "brand": "BrainGymJr",
+  "giftCardName": "BrainGymJr Gift Voucher",
+  "stock": true,
+  "channel": "online",
+  "discount": 13.75
+ },
+ {
+  "id": 376,
+  "brand": "Brooks Brothers-Luxe",
+  "giftCardName": "Brooks Brothers-Luxe",
+  "stock": true,
+  "channel": "both",
+  "discount": 10
+ },
+ {
+  "id": 1262,
+  "brand": "Bubbles",
+  "giftCardName": "Bubbles",
+  "stock": true,
+  "channel": "offline",
+  "discount": 10
+ },
+ {
+  "id": 830,
+  "brand": "BuyWithEMI",
+  "giftCardName": "BuyWithEMI",
+  "stock": true,
+  "channel": "online",
+  "discount": 4
+ },
+ {
+  "id": 331,
+  "brand": "Cafe Coffee Day",
+  "giftCardName": "Cafe Coffee Day",
+  "stock": true,
+  "channel": "offline",
+  "discount": 11.75
+ },
+ {
+  "id": 262,
+  "brand": "Cafe Delhi Heights",
+  "giftCardName": "Cafe Delhi Heights",
+  "stock": true,
+  "channel": "offline",
+  "discount": 10
+ },
+ {
+  "id": 310,
+  "brand": "CALL IT SPRING",
+  "giftCardName": "CALL IT SPRING",
+  "stock": true,
+  "channel": "offline",
+  "discount": 11.75
+ },
+ {
+  "id": 263,
+  "brand": "Campus",
+  "giftCardName": "Campus",
+  "stock": true,
+  "channel": "both",
+  "discount": 12.75
+ },
+ {
+  "id": 264,
+  "brand": "Candere Diamond Jewellery",
+  "giftCardName": "Candere Diamond Jewellery",
+  "stock": true,
+  "channel": "online",
+  "discount": 7.25
+ },
+ {
+  "id": 265,
+  "brand": "Candere Gold Coin",
+  "giftCardName": "Candere Gold Coin",
+  "stock": true,
+  "channel": "online",
+  "discount": 1.5
+ },
+ {
+  "id": 266,
+  "brand": "Candere Gold Jewellery",
+  "giftCardName": "Candere Gold Jewellery",
+  "stock": true,
+  "channel": "online",
+  "discount": 3
+ },
+ {
+  "id": 257,
+  "brand": "Cello",
+  "giftCardName": "Cello",
+  "stock": true,
+  "channel": "online",
+  "discount": 14
+ },
+ {
+  "id": 894,
+  "brand": "CGH Earth",
+  "giftCardName": "CGH Earth",
+  "stock": true,
+  "channel": "online",
+  "discount": 12.75
+ },
+ {
+  "id": 312,
+  "brand": "CHARLES & KEITH",
+  "giftCardName": "Charles and Keith",
+  "stock": true,
+  "channel": "offline",
+  "discount": 11.75
+ },
+ {
+  "id": 943,
+  "brand": "Chicco",
+  "giftCardName": "Chicco",
+  "stock": true,
+  "channel": "both",
+  "discount": 12.75
+ },
+ {
+  "id": 239,
+  "brand": "Chumbak",
+  "giftCardName": "Chumbak",
+  "stock": true,
+  "channel": "offline",
+  "discount": 13
+ },
+ {
+  "id": 1312,
+  "brand": "Cinepolis",
+  "giftCardName": "Cinepolis",
+  "stock": true,
+  "channel": "online",
+  "discount": 25
+ },
+ {
+  "id": 1141,
+  "brand": "Circle Empires 2",
+  "giftCardName": "Circle Empires 2",
+  "stock": true,
+  "channel": "online",
+  "discount": 13
+ },
+ {
+  "id": 792,
+  "brand": "Citizen",
+  "giftCardName": "Citizen Watches",
+  "stock": true,
+  "channel": "offline",
+  "discount": 14
+ },
+ {
+  "id": 867,
+  "brand": "Clayco",
+  "giftCardName": "CLAYCO",
+  "stock": true,
+  "channel": "online",
+  "discount": 19
+ },
+ {
+  "id": 302,
+  "brand": "Cleartax",
+  "giftCardName": "Cleartax",
+  "stock": true,
+  "channel": "online",
+  "discount": 50
+ },
+ {
+  "id": 377,
+  "brand": "Cleartrip",
+  "giftCardName": "Cleartrip",
+  "stock": true,
+  "channel": "online",
+  "discount": 7
+ },
+ {
+  "id": 803,
+  "brand": "Cleartrip",
+  "giftCardName": "Cleartrip",
+  "stock": true,
+  "channel": "online",
+  "discount": 6.75
+ },
+ {
+  "id": 612,
+  "brand": "Cleartrip Hotels",
+  "giftCardName": "Cleartrip Hotels",
+  "stock": true,
+  "channel": "online",
+  "discount": 7.75
+ },
+ {
+  "id": 227,
+  "brand": "Cleartrip Hotels",
+  "giftCardName": "Cleartrip Hotels (Custom)",
+  "stock": true,
+  "channel": "online",
+  "discount": 7
+ },
+ {
+  "id": 557,
+  "brand": "Coach",
+  "giftCardName": "Coach",
+  "stock": true,
+  "channel": "both",
+  "discount": 10
+ },
+ {
+  "id": 325,
+  "brand": "ColorPlus",
+  "giftCardName": "ColorPlus",
+  "stock": true,
+  "channel": "offline",
+  "discount": 10.75
+ },
+ {
+  "id": 1016,
+  "brand": "Columbia Sports",
+  "giftCardName": "Columbia Sportswear",
+  "stock": true,
+  "channel": "offline",
+  "discount": 12.75
+ },
+ {
+  "id": 1055,
+  "brand": "Cordelia Cruises",
+  "giftCardName": "Cordelia Cruises",
+  "stock": true,
+  "channel": "online",
+  "discount": 13
+ },
+ {
+  "id": 1187,
+  "brand": "Costa Coffee",
+  "giftCardName": "Costa Coffee",
+  "stock": true,
+  "channel": "offline",
+  "discount": 8
+ },
+ {
+  "id": 873,
+  "brand": "Croma",
+  "giftCardName": "Croma",
+  "stock": true,
+  "channel": "both",
+  "discount": 3
+ },
+ {
+  "id": 220,
+  "brand": "Croma",
+  "giftCardName": "Croma (Custom)",
+  "stock": true,
+  "channel": "both",
+  "discount": 2.5
+ },
+ {
+  "id": 770,
+  "brand": "Crossword",
+  "giftCardName": "Crossword",
+  "stock": true,
+  "channel": "both",
+  "discount": 8.25
+ },
+ {
+  "id": 378,
+  "brand": "Cult",
+  "giftCardName": "Cult",
+  "stock": true,
+  "channel": "online",
+  "discount": 0
+ },
+ {
+  "id": 1263,
+  "brand": "CUT AND STYLE",
+  "giftCardName": "CUT AND STYLE",
+  "stock": true,
+  "channel": "offline",
+  "discount": 10
+ },
+ {
+  "id": 267,
+  "brand": "Daily Objects",
+  "giftCardName": "Daily Objects",
+  "stock": true,
+  "channel": "online",
+  "discount": 15.75
+ },
+ {
+  "id": 1142,
+  "brand": "Dark Fairy Tale",
+  "giftCardName": "Dark Fairy Tale",
+  "stock": true,
+  "channel": "online",
+  "discount": 12
+ },
+ {
+  "id": 387,
+  "brand": "Decathlon",
+  "giftCardName": "Decathlon (Custom)",
+  "stock": true,
+  "channel": "both",
+  "discount": 4.25
+ },
+ {
+  "id": 1153,
+  "brand": "District",
+  "giftCardName": "District by Zomato",
+  "stock": true,
+  "channel": "online",
+  "discount": 4
+ },
+ {
+  "id": 1143,
+  "brand": "Dog Man: Mission Impawsible",
+  "giftCardName": "Dog Man: Mission Impawsible",
+  "stock": true,
+  "channel": "online",
+  "discount": 6
+ },
+ {
+  "id": 1216,
+  "brand": "Dominos",
+  "giftCardName": "Dominos Pizza",
+  "stock": true,
+  "channel": "online",
+  "discount": 19
+ },
+ {
+  "id": 1017,
+  "brand": "Dominos",
+  "giftCardName": "Dominos Pizza (Custom)",
+  "stock": true,
+  "channel": "online",
+  "discount": 12
+ },
+ {
+  "id": 381,
+  "brand": "Donatekart",
+  "giftCardName": "Donatekart",
+  "stock": true,
+  "channel": "online",
+  "discount": 3.75
+ },
+ {
+  "id": 812,
+  "brand": "Dpauls",
+  "giftCardName": "DPauls",
+  "stock": true,
+  "channel": "online",
+  "discount": 8.5
+ },
+ {
+  "id": 383,
+  "brand": "Dune London-Luxe",
+  "giftCardName": "Dune London-Luxe",
+  "stock": true,
+  "channel": "both",
+  "discount": 10
+ },
+ {
+  "id": 731,
+  "brand": "DUROFLEX",
+  "giftCardName": "DUROFLEX",
+  "stock": true,
+  "channel": "online",
+  "discount": 10.25
+ },
+ {
+  "id": 1157,
+  "brand": "EA Sports",
+  "giftCardName": "EA Sports FC",
+  "stock": true,
+  "channel": "online",
+  "discount": 4.25
+ },
+ {
+  "id": 384,
+  "brand": "EaseMyTrip",
+  "giftCardName": "EaseMyTrip",
+  "stock": true,
+  "channel": "online",
+  "discount": 7.25
+ },
+ {
+  "id": 574,
+  "brand": "EaseMyTrip",
+  "giftCardName": "EaseMyTrip Holiday",
+  "stock": true,
+  "channel": "online",
+  "discount": 12.25
+ },
+ {
+  "id": 484,
+  "brand": "EaseMyTrip",
+  "giftCardName": "EaseMyTrip Hotel",
+  "stock": true,
+  "channel": "online",
+  "discount": 10
+ },
+ {
+  "id": 558,
+  "brand": "EasyBuy",
+  "giftCardName": "EasyBuy",
+  "stock": true,
+  "channel": "offline",
+  "discount": 8.25
+ },
+ {
+  "id": 616,
+  "brand": "EatSure",
+  "giftCardName": "EatSure",
+  "stock": true,
+  "channel": "online",
+  "discount": 10
+ },
+ {
+  "id": 1275,
+  "brand": "Eazydiner Prime Membership",
+  "giftCardName": "Eazydiner Prime Membership",
+  "stock": true,
+  "channel": "online",
+  "discount": 14
+ },
+ {
+  "id": 1297,
+  "brand": "Electricity Bill Payment",
+  "giftCardName": "Electricity Bill Payment",
+  "stock": true,
+  "channel": "online",
+  "discount": -0.1
+ },
+ {
+  "id": 1035,
+  "brand": "Elivaas",
+  "giftCardName": "Elivaas",
+  "stock": true,
+  "channel": "online",
+  "discount": 12
+ },
+ {
+  "id": 512,
+  "brand": "Elleven",
+  "giftCardName": "Elleven",
+  "stock": true,
+  "channel": "offline",
+  "discount": 9
+ },
+ {
+  "id": 513,
+  "brand": "Elver",
+  "giftCardName": "Elver",
+  "stock": true,
+  "channel": "online",
+  "discount": 28.75
+ },
+ {
+  "id": 1264,
+  "brand": "Enrich",
+  "giftCardName": "Enrich",
+  "stock": true,
+  "channel": "offline",
+  "discount": 10
+ },
+ {
+  "id": 389,
+  "brand": "Epic On",
+  "giftCardName": "Epic On 1 Month Plan",
+  "stock": true,
+  "channel": "online",
+  "discount": 6.5
+ },
+ {
+  "id": 390,
+  "brand": "Epic On",
+  "giftCardName": "Epic On 1 Year Plan",
+  "stock": true,
+  "channel": "online",
+  "discount": 6.5
+ },
+ {
+  "id": 391,
+  "brand": "Epic On",
+  "giftCardName": "Epic On 3 Month Plan",
+  "stock": true,
+  "channel": "online",
+  "discount": 6.5
+ },
+ {
+  "id": 392,
+  "brand": "Epic On",
+  "giftCardName": "Epic On 6 Month Plan",
+  "stock": true,
+  "channel": "online",
+  "discount": 6.5
+ },
+ {
+  "id": 514,
+  "brand": "Estele",
+  "giftCardName": "Estele",
+  "stock": true,
+  "channel": "online",
+  "discount": 20
+ },
+ {
+  "id": 794,
+  "brand": "Estuary",
+  "giftCardName": "Estuary World",
+  "stock": true,
+  "channel": "online",
+  "discount": 40
+ },
+ {
+  "id": 781,
+  "brand": "Euphoria Jewellery",
+  "giftCardName": "Euphoria Diamond",
+  "stock": true,
+  "channel": "online",
+  "discount": 6.25
+ },
+ {
+  "id": 393,
+  "brand": "Euphoria Jewellery",
+  "giftCardName": "Euphoria Gold Coin",
+  "stock": true,
+  "channel": "online",
+  "discount": 5
+ },
+ {
+  "id": 270,
+  "brand": "Euphoria Jewellery Silver Coin",
+  "giftCardName": "Euphoria Jewellery Silver Coin",
+  "stock": true,
+  "channel": "online",
+  "discount": 4.5
+ },
+ {
+  "id": 537,
+  "brand": "Faasos",
+  "giftCardName": "Faasos",
+  "stock": true,
+  "channel": "online",
+  "discount": 10
+ },
+ {
+  "id": 272,
+  "brand": "Fashion Factory",
+  "giftCardName": "Fashion Factory",
+  "stock": true,
+  "channel": "offline",
+  "discount": 3.5
+ },
+ {
+  "id": 1299,
+  "brand": "Fastag Recharge",
+  "giftCardName": "Fastag Recharge",
+  "stock": true,
+  "channel": "online",
+  "discount": -0.1
+ },
+ {
+  "id": 396,
+  "brand": "Fastrack",
+  "giftCardName": "Fastrack",
+  "stock": true,
+  "channel": "both",
+  "discount": 8
+ },
+ {
+  "id": 273,
+  "brand": "Fastrack Bags",
+  "giftCardName": "Fastrack Bags",
+  "stock": true,
+  "channel": "offline",
+  "discount": 8.25
+ },
+ {
+  "id": 580,
+  "brand": "Fastrack",
+  "giftCardName": "Fastrack SmartWatch",
+  "stock": true,
+  "channel": "both",
+  "discount": 8
+ },
+ {
+  "id": 718,
+  "brand": "Femmella",
+  "giftCardName": "Femmella",
+  "stock": true,
+  "channel": "online",
+  "discount": 13.75
+ },
+ {
+  "id": 274,
+  "brand": "FernsnPetals",
+  "giftCardName": "Ferns N Petals",
+  "stock": true,
+  "channel": "online",
+  "discount": 15
+ },
+ {
+  "id": 1319,
+  "brand": "FirstClub",
+  "giftCardName": "FirstClub",
+  "stock": true,
+  "channel": "online",
+  "discount": 1.15
+ },
+ {
+  "id": 1162,
+  "brand": "FirstCry",
+  "giftCardName": "FirstCry",
+  "stock": true,
+  "channel": "both",
+  "discount": 6
+ },
+ {
+  "id": 350,
+  "brand": "FirstCry",
+  "giftCardName": "FirstCry",
+  "stock": true,
+  "channel": "online",
+  "discount": 6.75
+ },
+ {
+  "id": 275,
+  "brand": "FITPASS",
+  "giftCardName": "FITPASS",
+  "stock": true,
+  "channel": "online",
+  "discount": 20.5
+ },
+ {
+  "id": 410,
+  "brand": "Flipkart",
+  "giftCardName": "Flipkart - (Custom)",
+  "stock": true,
+  "channel": "online",
+  "discount": 1.75
+ },
+ {
+  "id": 516,
+  "brand": "Flower Aura",
+  "giftCardName": "Flower Aura",
+  "stock": true,
+  "channel": "online",
+  "discount": 14
+ },
+ {
+  "id": 1144,
+  "brand": "For The King II",
+  "giftCardName": "For The King II",
+  "stock": true,
+  "channel": "online",
+  "discount": 13
+ },
+ {
+  "id": 351,
+  "brand": "Forever New",
+  "giftCardName": "Forever New",
+  "stock": true,
+  "channel": "both",
+  "discount": 8.75
+ },
+ {
+  "id": 304,
+  "brand": "Forever21",
+  "giftCardName": "Forever21",
+  "stock": true,
+  "channel": "offline",
+  "discount": 7.75
+ },
+ {
+  "id": 255,
+  "brand": "Foxtale",
+  "giftCardName": "Foxtale",
+  "stock": true,
+  "channel": "online",
+  "discount": 17.75
+ },
+ {
+  "id": 517,
+  "brand": "Freecultr",
+  "giftCardName": "Freecultr",
+  "stock": true,
+  "channel": "online",
+  "discount": 21
+ },
+ {
+  "id": 398,
+  "brand": "FreshMenu",
+  "giftCardName": "FreshMenu",
+  "stock": true,
+  "channel": "online",
+  "discount": 3.75
+ },
+ {
+  "id": 518,
+  "brand": "Frido",
+  "giftCardName": "Frido",
+  "stock": true,
+  "channel": "online",
+  "discount": 16.25
+ },
+ {
+  "id": 254,
+  "brand": "FUTURE WORLD - APPLE RESELLER",
+  "giftCardName": "Future World - Apple Reseller",
+  "stock": true,
+  "channel": "offline",
+  "discount": 3.5
+ },
+ {
+  "id": 1296,
+  "brand": "Gas Bill Payment",
+  "giftCardName": "Gas Bill Payment",
+  "stock": true,
+  "channel": "online",
+  "discount": -0.1
+ },
+ {
+  "id": 399,
+  "brand": "Gas-Luxe",
+  "giftCardName": "Gas-Luxe",
+  "stock": true,
+  "channel": "both",
+  "discount": 10
+ },
+ {
+  "id": 1265,
+  "brand": "Geetanjali",
+  "giftCardName": "Geetanjali",
+  "stock": true,
+  "channel": "offline",
+  "discount": 10
+ },
+ {
+  "id": 741,
+  "brand": "Giva",
+  "giftCardName": "GIVA Gold Jewellery (Custom)",
+  "stock": true,
+  "channel": "both",
+  "discount": 5.25
+ },
+ {
+  "id": 520,
+  "brand": "GIVA Silver Coin",
+  "giftCardName": "GIVA Silver Coin",
+  "stock": true,
+  "channel": "both",
+  "discount": 4.25
+ },
+ {
+  "id": 742,
+  "brand": "GIVA Silver Coin",
+  "giftCardName": "GIVA Silver Coin (Custom)",
+  "stock": true,
+  "channel": "both",
+  "discount": 4
+ },
+ {
+  "id": 740,
+  "brand": "Giva",
+  "giftCardName": "GIVA Silver Jewellery",
+  "stock": true,
+  "channel": "both",
+  "discount": 12.75
+ },
+ {
+  "id": 1166,
+  "brand": "Giva",
+  "giftCardName": "GIVA Silver jewellery",
+  "stock": true,
+  "channel": "both",
+  "discount": 14
+ },
+ {
+  "id": 825,
+  "brand": "Glam Studios",
+  "giftCardName": "Glam Studios",
+  "stock": true,
+  "channel": "offline",
+  "discount": 3.75
+ },
+ {
+  "id": 479,
+  "brand": "GoIbibo Hotels",
+  "giftCardName": "GoIbibo Hotel",
+  "stock": true,
+  "channel": "online",
+  "discount": 10.25
+ },
+ {
+  "id": 1311,
+  "brand": "Google Play",
+  "giftCardName": "Google Play",
+  "stock": true,
+  "channel": "online",
+  "discount": 3.25
+ },
+ {
+  "id": 403,
+  "brand": "GRT Jewellers",
+  "giftCardName": "GRT Jewellers",
+  "stock": true,
+  "channel": "offline",
+  "discount": 2
+ },
+ {
+  "id": 405,
+  "brand": "HAMLEYS - LUXE",
+  "giftCardName": "Hamleys - LUXE",
+  "stock": true,
+  "channel": "both",
+  "discount": 10
+ },
+ {
+  "id": 522,
+  "brand": "Hammer",
+  "giftCardName": "Hammer",
+  "stock": true,
+  "channel": "online",
+  "discount": 24
+ },
+ {
+  "id": 1030,
+  "brand": "Headout",
+  "giftCardName": "Headout",
+  "stock": true,
+  "channel": "online",
+  "discount": 10.5
+ },
+ {
+  "id": 1156,
+  "brand": "Health and Glow",
+  "giftCardName": "Health and Glow",
+  "stock": true,
+  "channel": "offline",
+  "discount": 10.5
+ },
+ {
+  "id": 813,
+  "brand": "Healthians",
+  "giftCardName": "Healthians",
+  "stock": true,
+  "channel": "online",
+  "discount": 18.75
+ },
+ {
+  "id": 627,
+  "brand": "Healthify",
+  "giftCardName": "HealthifyMe Smart Plan",
+  "stock": true,
+  "channel": "online",
+  "discount": 16.75
+ },
+ {
+  "id": 524,
+  "brand": "Healthkart",
+  "giftCardName": "HealthKart",
+  "stock": true,
+  "channel": "both",
+  "discount": 6
+ },
+ {
+  "id": 461,
+  "brand": "Helios",
+  "giftCardName": "Helios",
+  "stock": true,
+  "channel": "offline",
+  "discount": 8
+ },
+ {
+  "id": 462,
+  "brand": "Hidesign",
+  "giftCardName": "Hidesign",
+  "stock": true,
+  "channel": "offline",
+  "discount": 13
+ },
+ {
+  "id": 525,
+  "brand": "Hidesign",
+  "giftCardName": "Hidesign",
+  "stock": true,
+  "channel": "both",
+  "discount": 7.75
+ },
+ {
+  "id": 759,
+  "brand": "Himalaya",
+  "giftCardName": "Himalaya Wellness",
+  "stock": true,
+  "channel": "offline",
+  "discount": 4
+ },
+ {
+  "id": 527,
+  "brand": "Hoichoi",
+  "giftCardName": "Hoichoi",
+  "stock": true,
+  "channel": "online",
+  "discount": 17.25
+ },
+ {
+  "id": 765,
+  "brand": "Holiday Tribe",
+  "giftCardName": "Holiday Tribe",
+  "stock": true,
+  "channel": "offline",
+  "discount": 14.25
+ },
+ {
+  "id": 366,
+  "brand": "Homecentre",
+  "giftCardName": "Homecentre Offline",
+  "stock": true,
+  "channel": "offline",
+  "discount": 5
+ },
+ {
+  "id": 469,
+  "brand": "Home Centre",
+  "giftCardName": "Homecentre Online",
+  "stock": true,
+  "channel": "online",
+  "discount": 8.5
+ },
+ {
+  "id": 1076,
+  "brand": "Hopscotch",
+  "giftCardName": "Hopscotch",
+  "stock": true,
+  "channel": "online",
+  "discount": 0
+ },
+ {
+  "id": 528,
+  "brand": "HP Pay",
+  "giftCardName": "HP Pay",
+  "stock": true,
+  "channel": "offline",
+  "discount": -0.5
+ },
+ {
+  "id": 788,
+  "brand": "HP Pay",
+  "giftCardName": "HP Pay (In-App)",
+  "stock": true,
+  "channel": "online",
+  "discount": 0.5
+ },
+ {
+  "id": 362,
+  "brand": "HP Pay",
+  "giftCardName": "HP Pay (INR 5000)",
+  "stock": true,
+  "channel": "offline",
+  "discount": -0.5
+ },
+ {
+  "id": 899,
+  "brand": "Kate Spade",
+  "giftCardName": "Hugo Boss-Luxe",
+  "stock": true,
+  "channel": "both",
+  "discount": 10
+ },
+ {
+  "id": 1145,
+  "brand": "Human Fall Flat",
+  "giftCardName": "Human Fall Flat",
+  "stock": true,
+  "channel": "online",
+  "discount": 13
+ },
+ {
+  "id": 529,
+  "brand": "Hush Puppies",
+  "giftCardName": "Hush Puppies",
+  "stock": true,
+  "channel": "offline",
+  "discount": 10
+ },
+ {
+  "id": 240,
+  "brand": "IGP",
+  "giftCardName": "IGP",
+  "stock": true,
+  "channel": "online",
+  "discount": 14.75
+ },
+ {
+  "id": 716,
+  "brand": "IKEA",
+  "giftCardName": "Ikea",
+  "stock": true,
+  "channel": "both",
+  "discount": 5
+ },
+ {
+  "id": 467,
+  "brand": "Imagine Apple Premium Reseller",
+  "giftCardName": "Imagine Apple Premium Reseller",
+  "stock": true,
+  "channel": "both",
+  "discount": 2
+ },
+ {
+  "id": 1274,
+  "brand": "Imagine Apple Premium Reseller",
+  "giftCardName": "Imagine Apple Premium Reseller",
+  "stock": true,
+  "channel": "offline",
+  "discount": 2.5
+ },
+ {
+  "id": 787,
+  "brand": "Indian Terrain",
+  "giftCardName": "Indian Terrain",
+  "stock": true,
+  "channel": "offline",
+  "discount": 13.25
+ },
+ {
+  "id": 1251,
+  "brand": "INDRIYA",
+  "giftCardName": "INDRIYA – Aditya Birla Gold Jewellery",
+  "stock": true,
+  "channel": "offline",
+  "discount": 4
+ },
+ {
+  "id": 1250,
+  "brand": "INDRIYA",
+  "giftCardName": "INDRIYA – Aditya Birla Jewellery",
+  "stock": true,
+  "channel": "offline",
+  "discount": 2
+ },
+ {
+  "id": 1252,
+  "brand": "INDRIYA",
+  "giftCardName": "INDRIYA – Aditya Birla Studded Jewellery",
+  "stock": true,
+  "channel": "offline",
+  "discount": 5.25
+ },
+ {
+  "id": 313,
+  "brand": "INGLOT",
+  "giftCardName": "INGLOT",
+  "stock": true,
+  "channel": "offline",
+  "discount": 11.75
+ },
+ {
+  "id": 888,
+  "brand": "IOCL",
+  "giftCardName": "IOCL",
+  "stock": true,
+  "channel": "offline",
+  "discount": -0.5
+ },
+ {
+  "id": 1158,
+  "brand": "IOCL",
+  "giftCardName": "IOCL",
+  "stock": true,
+  "channel": "offline",
+  "discount": -0.5
+ },
+ {
+  "id": 1165,
+  "brand": "IRTH",
+  "giftCardName": "IRTH",
+  "stock": true,
+  "channel": "both",
+  "discount": 10
+ },
+ {
+  "id": 336,
+  "brand": "ITC",
+  "giftCardName": "ITC Hotels",
+  "stock": true,
+  "channel": "offline",
+  "discount": 8.25
+ },
+ {
+  "id": 533,
+  "brand": "Ixigo",
+  "giftCardName": "Ixigo",
+  "stock": true,
+  "channel": "online",
+  "discount": 8.5
+ },
+ {
+  "id": 877,
+  "brand": "Ixigo",
+  "giftCardName": "Ixigo Hotel",
+  "stock": true,
+  "channel": "online",
+  "discount": 13.25
+ },
+ {
+  "id": 1266,
+  "brand": "Jawed Habib",
+  "giftCardName": "Jawed Habib",
+  "stock": true,
+  "channel": "offline",
+  "discount": 10
+ },
+ {
+  "id": 1267,
+  "brand": "JCB",
+  "giftCardName": "JCB",
+  "stock": true,
+  "channel": "offline",
+  "discount": 10
+ },
+ {
+  "id": 1149,
+  "brand": "Jio",
+  "giftCardName": "Jio Starter Pack",
+  "stock": true,
+  "channel": "online",
+  "discount": 10
+ },
+ {
+  "id": 303,
+  "brand": "JioHotstar",
+  "giftCardName": "JioHotstar",
+  "stock": true,
+  "channel": "online",
+  "discount": 7.75
+ },
+ {
+  "id": 1234,
+  "brand": "Jockey",
+  "giftCardName": "Jockey",
+  "stock": true,
+  "channel": "online",
+  "discount": 0
+ },
+ {
+  "id": 1112,
+  "brand": "Jockey",
+  "giftCardName": "Jockey (Custom)",
+  "stock": true,
+  "channel": "both",
+  "discount": 13.25
+ },
+ {
+  "id": 852,
+  "brand": "Jos Alukkas Jewellery",
+  "giftCardName": "Jos Alukkas Diamond",
+  "stock": true,
+  "channel": "both",
+  "discount": 4
+ },
+ {
+  "id": 483,
+  "brand": "Jos Alukkas Jewellery",
+  "giftCardName": "Jos Alukkas Gold Coin",
+  "stock": true,
+  "channel": "both",
+  "discount": 1.1
+ },
+ {
+  "id": 344,
+  "brand": "Jos Alukkas Jewellery",
+  "giftCardName": "Jos Alukkas Gold Jewellery",
+  "stock": true,
+  "channel": "both",
+  "discount": 4
+ },
+ {
+  "id": 464,
+  "brand": "Joyalukkas Diamond",
+  "giftCardName": "Joyalukkas Diamond",
+  "stock": true,
+  "channel": "both",
+  "discount": 4.65
+ },
+ {
+  "id": 1032,
+  "brand": "Joyalukkas Diamond",
+  "giftCardName": "Joyalukkas Diamond",
+  "stock": true,
+  "channel": "both",
+  "discount": 4.75
+ },
+ {
+  "id": 592,
+  "brand": "Joyalukkas Diamond",
+  "giftCardName": "Joyalukkas Gold and Diamond",
+  "stock": true,
+  "channel": "both",
+  "discount": 3.4
+ },
+ {
+  "id": 999,
+  "brand": "Joyalukkas Diamond",
+  "giftCardName": "Joyalukkas Pure Gold",
+  "stock": true,
+  "channel": "both",
+  "discount": 2.25
+ },
+ {
+  "id": 442,
+  "brand": "Joyalukkas Diamond",
+  "giftCardName": "Joyalukkas Pure Gold",
+  "stock": true,
+  "channel": "both",
+  "discount": 2.25
+ },
+ {
+  "id": 593,
+  "brand": "BAGLINE",
+  "giftCardName": "Juicy Couture-BAGLINE",
+  "stock": true,
+  "channel": "online",
+  "discount": 13
+ },
+ {
+  "id": 1094,
+  "brand": "Just Lil Things",
+  "giftCardName": "Just Lil Things",
+  "stock": true,
+  "channel": "online",
+  "discount": 22
+ },
+ {
+  "id": 1146,
+  "brand": "KAKU: Ancient Seal",
+  "giftCardName": "KAKU: Ancient Seal",
+  "stock": true,
+  "channel": "online",
+  "discount": 9.22
+ },
+ {
+  "id": 1072,
+  "brand": "Kalki",
+  "giftCardName": "KALKI",
+  "stock": true,
+  "channel": "both",
+  "discount": 13
+ },
+ {
+  "id": 226,
+  "brand": "Kalyan",
+  "giftCardName": "Kalyan Diamond jewellery",
+  "stock": true,
+  "channel": "offline",
+  "discount": 7.5
+ },
+ {
+  "id": 624,
+  "brand": "Kalyan",
+  "giftCardName": "Kalyan Gold and Silver coins",
+  "stock": true,
+  "channel": "offline",
+  "discount": 2.2
+ },
+ {
+  "id": 1195,
+  "brand": "Kalyan",
+  "giftCardName": "Kalyan Gold Coins",
+  "stock": true,
+  "channel": "offline",
+  "discount": 2
+ },
+ {
+  "id": 1199,
+  "brand": "Kalyan",
+  "giftCardName": "Kalyan Jewellery",
+  "stock": true,
+  "channel": "offline",
+  "discount": 3.5
+ },
+ {
+  "id": 560,
+  "brand": "Kate Spade",
+  "giftCardName": "Kate Spade-Luxe",
+  "stock": true,
+  "channel": "both",
+  "discount": 10
+ },
+ {
+  "id": 241,
+  "brand": "Ketan Diamonds Diamond Only",
+  "giftCardName": "Ketan Diamonds - Diamond Only",
+  "stock": true,
+  "channel": "online",
+  "discount": 15
+ },
+ {
+  "id": 242,
+  "brand": "Ketan Diamonds Gold Coin",
+  "giftCardName": "Ketan Diamonds - Gold Coin",
+  "stock": true,
+  "channel": "online",
+  "discount": 2.4
+ },
+ {
+  "id": 243,
+  "brand": "Ketan Diamonds Gold Jewellery",
+  "giftCardName": "Ketan Diamonds - Gold Jewellery",
+  "stock": true,
+  "channel": "online",
+  "discount": 8
+ },
+ {
+  "id": 811,
+  "brand": "KFC",
+  "giftCardName": "KFC",
+  "stock": true,
+  "channel": "both",
+  "discount": 6.25
+ },
+ {
+  "id": 846,
+  "brand": "Kimirica",
+  "giftCardName": "Kimirica",
+  "stock": true,
+  "channel": "online",
+  "discount": 14.75
+ },
+ {
+  "id": 1147,
+  "brand": "King of Retail",
+  "giftCardName": "King of Retail",
+  "stock": true,
+  "channel": "online",
+  "discount": 13
+ },
+ {
+  "id": 776,
+  "brand": "Klook",
+  "giftCardName": "Klook",
+  "stock": true,
+  "channel": "online",
+  "discount": 8.25
+ },
+ {
+  "id": 1095,
+  "brand": "Lakme",
+  "giftCardName": "Lakme",
+  "stock": true,
+  "channel": "offline",
+  "discount": 5
+ },
+ {
+  "id": 466,
+  "brand": "Lakme Salon",
+  "giftCardName": "Lakme Salon",
+  "stock": true,
+  "channel": "offline",
+  "discount": 4.65
+ },
+ {
+  "id": 1268,
+  "brand": "Lakme Salon",
+  "giftCardName": "Lakme Salons",
+  "stock": true,
+  "channel": "offline",
+  "discount": 10
+ },
+ {
+  "id": 1300,
+  "brand": "Landline Bill Payment",
+  "giftCardName": "Landline Bill Payment",
+  "stock": true,
+  "channel": "online",
+  "discount": -0.1
+ },
+ {
+  "id": 561,
+  "brand": "Lawrence and Mayo",
+  "giftCardName": "Lawrence and Mayo",
+  "stock": true,
+  "channel": "offline",
+  "discount": 8
+ },
+ {
+  "id": 855,
+  "brand": "Le Creuset",
+  "giftCardName": "LE CREUSET",
+  "stock": true,
+  "channel": "offline",
+  "discount": 8.25
+ },
+ {
+  "id": 1293,
+  "brand": "Lego",
+  "giftCardName": "LEGO",
+  "stock": true,
+  "channel": "both",
+  "discount": 4
+ },
+ {
+  "id": 1209,
+  "brand": "Lenskartcom",
+  "giftCardName": "Lenskart",
+  "stock": true,
+  "channel": "both",
+  "discount": 13
+ },
+ {
+  "id": 276,
+  "brand": "Levi's",
+  "giftCardName": "Levis",
+  "stock": true,
+  "channel": "both",
+  "discount": 0
+ },
+ {
+  "id": 229,
+  "brand": "Levi's",
+  "giftCardName": "Levis Offline",
+  "stock": true,
+  "channel": "offline",
+  "discount": 0
+ },
+ {
+  "id": 1160,
+  "brand": "Libas",
+  "giftCardName": "Libas",
+  "stock": true,
+  "channel": "online",
+  "discount": 8
+ },
+ {
+  "id": 789,
+  "brand": "Liberty",
+  "giftCardName": "Liberty Offline",
+  "stock": true,
+  "channel": "online",
+  "discount": 8
+ },
+ {
+  "id": 752,
+  "brand": "Liberty",
+  "giftCardName": "Liberty Online",
+  "stock": true,
+  "channel": "online",
+  "discount": 8.75
+ },
+ {
+  "id": 571,
+  "brand": "Lifestyle",
+  "giftCardName": "Lifestyle Offline",
+  "stock": true,
+  "channel": "offline",
+  "discount": 4.75
+ },
+ {
+  "id": 444,
+  "brand": "Lifestyle",
+  "giftCardName": "Lifestyle Offline",
+  "stock": true,
+  "channel": "offline",
+  "discount": 5
+ },
+ {
+  "id": 447,
+  "brand": "Lifestyle",
+  "giftCardName": "Lifestyle Online",
+  "stock": true,
+  "channel": "online",
+  "discount": 8.5
+ },
+ {
+  "id": 572,
+  "brand": "Lifestyle Online",
+  "giftCardName": "Lifestyle Online",
+  "stock": true,
+  "channel": "online",
+  "discount": 9.25
+ },
+ {
+  "id": 455,
+  "brand": "Linen Club",
+  "giftCardName": "Linen Club",
+  "stock": true,
+  "channel": "offline",
+  "discount": 10.25
+ },
+ {
+  "id": 881,
+  "brand": "LIONSGATE PLAY",
+  "giftCardName": "LIONSGATE PLAY",
+  "stock": true,
+  "channel": "online",
+  "discount": 21
+ },
+ {
+  "id": 836,
+  "brand": "Live Mint",
+  "giftCardName": "Live Mint",
+  "stock": true,
+  "channel": "online",
+  "discount": 35.75
+ },
+ {
+  "id": 1008,
+  "brand": "Lohono Stays",
+  "giftCardName": "Lohono Stays",
+  "stock": true,
+  "channel": "online",
+  "discount": 10.75
+ },
+ {
+  "id": 1269,
+  "brand": "Looks Salons",
+  "giftCardName": "Looks Salons",
+  "stock": true,
+  "channel": "offline",
+  "discount": 10
+ },
+ {
+  "id": 277,
+  "brand": "Louis Philippe",
+  "giftCardName": "Louis Philippe",
+  "stock": true,
+  "channel": "offline",
+  "discount": 2
+ },
+ {
+  "id": 457,
+  "brand": "Lulu Hypermarket",
+  "giftCardName": "Lulu Hypermarket",
+  "stock": true,
+  "channel": "offline",
+  "discount": 2
+ },
+ {
+  "id": 1133,
+  "brand": "LUZO",
+  "giftCardName": "Luzo",
+  "stock": true,
+  "channel": "offline",
+  "discount": 9.75
+ },
+ {
+  "id": 1054,
+  "brand": "LUZO",
+  "giftCardName": "Luzo salon Spa And Clinics",
+  "stock": true,
+  "channel": "offline",
+  "discount": 10
+ },
+ {
+  "id": 542,
+  "brand": "Mainland China",
+  "giftCardName": "Mainland China",
+  "stock": true,
+  "channel": "offline",
+  "discount": 13
+ },
+ {
+  "id": 579,
+  "brand": "MakeMyTrip",
+  "giftCardName": "MakeMyTrip",
+  "stock": true,
+  "channel": "online",
+  "discount": 5.5
+ },
+ {
+  "id": 1314,
+  "brand": "MakeMyTrip",
+  "giftCardName": "MakeMyTrip",
+  "stock": true,
+  "channel": "online",
+  "discount": 5.5
+ },
+ {
+  "id": 222,
+  "brand": "MakeMyTrip - Bus",
+  "giftCardName": "MakeMyTrip Bus",
+  "stock": true,
+  "channel": "online",
+  "discount": 8.25
+ },
+ {
+  "id": 1099,
+  "brand": "MakeMyTrip",
+  "giftCardName": "MakeMyTrip Cab",
+  "stock": true,
+  "channel": "online",
+  "discount": 8.25
+ },
+ {
+  "id": 364,
+  "brand": "MakeMyTrip",
+  "giftCardName": "MakeMyTrip E-Pay",
+  "stock": true,
+  "channel": "online",
+  "discount": 7
+ },
+ {
+  "id": 478,
+  "brand": "MakeMyTrip",
+  "giftCardName": "Makemytrip Holiday",
+  "stock": true,
+  "channel": "online",
+  "discount": 10.25
+ },
+ {
+  "id": 209,
+  "brand": "MakeMyTrip",
+  "giftCardName": "MakeMyTrip Holiday E Pay",
+  "stock": true,
+  "channel": "online",
+  "discount": 12.25
+ },
+ {
+  "id": 225,
+  "brand": "MakeMyTrip - Hotel",
+  "giftCardName": "Makemytrip Hotel",
+  "stock": true,
+  "channel": "online",
+  "discount": 10.25
+ },
+ {
+  "id": 208,
+  "brand": "MakeMyTrip",
+  "giftCardName": "MakeMyTrip Hotel E Pay",
+  "stock": true,
+  "channel": "online",
+  "discount": 12.25
+ },
+ {
+  "id": 1090,
+  "brand": "MakeMyTrip",
+  "giftCardName": "MakeMyTrip International",
+  "stock": true,
+  "channel": "online",
+  "discount": 7.25
+ },
+ {
+  "id": 223,
+  "brand": "MakeMyTrip - Rail",
+  "giftCardName": "MakeMyTrip Rail",
+  "stock": true,
+  "channel": "online",
+  "discount": 3.25
+ },
+ {
+  "id": 880,
+  "brand": "Malabar Diamonds",
+  "giftCardName": "Malabar Diamond (Custom)",
+  "stock": true,
+  "channel": "both",
+  "discount": 4.5
+ },
+ {
+  "id": 307,
+  "brand": "Malabar Diamonds",
+  "giftCardName": "Malabar Diamonds",
+  "stock": true,
+  "channel": "both",
+  "discount": 4.5
+ },
+ {
+  "id": 1204,
+  "brand": "Malabar",
+  "giftCardName": "Malabar Diamonds",
+  "stock": true,
+  "channel": "both",
+  "discount": 4.75
+ },
+ {
+  "id": 306,
+  "brand": "Malabar Gold Coin",
+  "giftCardName": "Malabar Gold Coin",
+  "stock": true,
+  "channel": "both",
+  "discount": 2.25
+ },
+ {
+  "id": 879,
+  "brand": "Malabar",
+  "giftCardName": "Malabar Gold jewellery",
+  "stock": true,
+  "channel": "both",
+  "discount": 2
+ },
+ {
+  "id": 971,
+  "brand": "MANGO",
+  "giftCardName": "MANGO",
+  "stock": true,
+  "channel": "offline",
+  "discount": 3
+ },
+ {
+  "id": 957,
+  "brand": "Marks & Spencer",
+  "giftCardName": "Marks & Spencer",
+  "stock": true,
+  "channel": "offline",
+  "discount": 13.25
+ },
+ {
+  "id": 279,
+  "brand": "Marks & Spencer",
+  "giftCardName": "Marks & Spencer",
+  "stock": true,
+  "channel": "both",
+  "discount": 10
+ },
+ {
+  "id": 551,
+  "brand": "Marriott",
+  "giftCardName": "Marriott Hotels India",
+  "stock": true,
+  "channel": "offline",
+  "discount": 7.75
+ },
+ {
+  "id": 552,
+  "brand": "Marriott",
+  "giftCardName": "Marriott India -Dining",
+  "stock": true,
+  "channel": "offline",
+  "discount": 7.75
+ },
+ {
+  "id": 1097,
+  "brand": "Marriott",
+  "giftCardName": "Marriott India -Spa",
+  "stock": true,
+  "channel": "offline",
+  "discount": 7.75
+ },
+ {
+  "id": 923,
+  "brand": "Max",
+  "giftCardName": "Max Fashion (Offline)",
+  "stock": true,
+  "channel": "offline",
+  "discount": 7.25
+ },
+ {
+  "id": 753,
+  "brand": "Me N Moms",
+  "giftCardName": "Me N Moms",
+  "stock": true,
+  "channel": "online",
+  "discount": 9.75
+ },
+ {
+  "id": 345,
+  "brand": "Mia",
+  "giftCardName": "Mia By Tanishq",
+  "stock": true,
+  "channel": "offline",
+  "discount": 4
+ },
+ {
+  "id": 583,
+  "brand": "Luxe Gift Card",
+  "giftCardName": "Michael Kors-Luxe",
+  "stock": true,
+  "channel": "both",
+  "discount": 10
+ },
+ {
+  "id": 1129,
+  "brand": "Microsoft",
+  "giftCardName": "Microsoft Office",
+  "stock": true,
+  "channel": "online",
+  "discount": 4
+ },
+ {
+  "id": 1004,
+  "brand": "Milkbasket",
+  "giftCardName": "Milkbasket",
+  "stock": true,
+  "channel": "online",
+  "discount": 2.25
+ },
+ {
+  "id": 1015,
+  "brand": "Minus30",
+  "giftCardName": "Minus30",
+  "stock": true,
+  "channel": "online",
+  "discount": 16.75
+ },
+ {
+  "id": 1098,
+  "brand": "Miraggio",
+  "giftCardName": "Miraggio",
+  "stock": true,
+  "channel": "online",
+  "discount": 13.25
+ },
+ {
+  "id": 1285,
+  "brand": "MMTC PAMP",
+  "giftCardName": "MMTC PAMP GOLD COIN",
+  "stock": true,
+  "channel": "online",
+  "discount": 1.5
+ },
+ {
+  "id": 1286,
+  "brand": "MMTC PAMP",
+  "giftCardName": "MMTC PAMP SILVER COIN",
+  "stock": true,
+  "channel": "online",
+  "discount": 2.75
+ },
+ {
+  "id": 963,
+  "brand": "Moba legends",
+  "giftCardName": "Moba Legends 5v5",
+  "stock": true,
+  "channel": "online",
+  "discount": 8.25
+ },
+ {
+  "id": 1294,
+  "brand": "Mobile Postpaid Bill Payment",
+  "giftCardName": "Mobile Postpaid Bill Payment",
+  "stock": true,
+  "channel": "online",
+  "discount": -0.1
+ },
+ {
+  "id": 1295,
+  "brand": "Mobile Prepaid Recharge",
+  "giftCardName": "Mobile Prepaid Recharge",
+  "stock": true,
+  "channel": "online",
+  "discount": -0.1
+ },
+ {
+  "id": 622,
+  "brand": "Mokobara",
+  "giftCardName": "Mokobara",
+  "stock": true,
+  "channel": "both",
+  "discount": 8
+ },
+ {
+  "id": 932,
+  "brand": "MOTHER CARE-Luxe",
+  "giftCardName": "MOTHER CARE-Luxe",
+  "stock": true,
+  "channel": "both",
+  "discount": 12.75
+ },
+ {
+  "id": 1109,
+  "brand": "MPJ Jewellers",
+  "giftCardName": "MPJ Diamond Jewellery",
+  "stock": true,
+  "channel": "offline",
+  "discount": 4
+ },
+ {
+  "id": 1110,
+  "brand": "MPJ Jewellers",
+  "giftCardName": "MPJ Gold Jewellery",
+  "stock": true,
+  "channel": "offline",
+  "discount": 3
+ },
+ {
+  "id": 1126,
+  "brand": "Muscle Blaze",
+  "giftCardName": "Muscle Blaze",
+  "stock": true,
+  "channel": "online",
+  "discount": 4.75
+ },
+ {
+  "id": 654,
+  "brand": "Muthoot Gold",
+  "giftCardName": "Muthoot Gold Voucher",
+  "stock": true,
+  "channel": "online",
+  "discount": 3
+ },
+ {
+  "id": 1316,
+  "brand": "Myntra",
+  "giftCardName": "Myntra",
+  "stock": true,
+  "channel": "online",
+  "discount": 3.5
+ },
+ {
+  "id": 429,
+  "brand": "Myntra",
+  "giftCardName": "Myntra",
+  "stock": true,
+  "channel": "online",
+  "discount": 2
+ },
+ {
+  "id": 1075,
+  "brand": "Naturals Salons",
+  "giftCardName": "Natural Salon 10K",
+  "stock": true,
+  "channel": "offline",
+  "discount": 16.75
+ },
+ {
+  "id": 1074,
+  "brand": "Naturals Salons",
+  "giftCardName": "Natural Salon 20K",
+  "stock": true,
+  "channel": "offline",
+  "discount": 16.75
+ },
+ {
+  "id": 1113,
+  "brand": "Naturals Salons",
+  "giftCardName": "Natural Salon 4K",
+  "stock": true,
+  "channel": "offline",
+  "discount": 16.75
+ },
+ {
+  "id": 1270,
+  "brand": "Naturals Salons",
+  "giftCardName": "Naturals",
+  "stock": true,
+  "channel": "offline",
+  "discount": 10
+ },
+ {
+  "id": 1071,
+  "brand": "Nautica",
+  "giftCardName": "Nautica",
+  "stock": true,
+  "channel": "offline",
+  "discount": 5
+ },
+ {
+  "id": 790,
+  "brand": "Neeman's",
+  "giftCardName": "Neeman's",
+  "stock": true,
+  "channel": "online",
+  "discount": 10
+ },
+ {
+  "id": 1172,
+  "brand": "Neerus",
+  "giftCardName": "Neerus",
+  "stock": true,
+  "channel": "offline",
+  "discount": 8.75
+ },
+ {
+  "id": 1082,
+  "brand": "Nestasia",
+  "giftCardName": "Nestasia",
+  "stock": true,
+  "channel": "offline",
+  "discount": 12.25
+ },
+ {
+  "id": 280,
+  "brand": "Netmeds",
+  "giftCardName": "Netmeds",
+  "stock": true,
+  "channel": "online",
+  "discount": 16
+ },
+ {
+  "id": 972,
+  "brand": "NEXT",
+  "giftCardName": "NEXT",
+  "stock": true,
+  "channel": "offline",
+  "discount": 3
+ },
+ {
+  "id": 1184,
+  "brand": "Nilkamal Homes",
+  "giftCardName": "Nilkamal Homes",
+  "stock": true,
+  "channel": "both",
+  "discount": 8.25
+ },
+ {
+  "id": 329,
+  "brand": "Nilkamal Homes",
+  "giftCardName": "Nilkamal Homes",
+  "stock": true,
+  "channel": "both",
+  "discount": 7.5
+ },
+ {
+  "id": 1121,
+  "brand": "Nintendo",
+  "giftCardName": "Nintendo Shop",
+  "stock": true,
+  "channel": "online",
+  "discount": 4
+ },
+ {
+  "id": 806,
+  "brand": "Nua Women",
+  "giftCardName": "Nua Women",
+  "stock": true,
+  "channel": "online",
+  "discount": 26.75
+ },
+ {
+  "id": 657,
+  "brand": "Nykaa",
+  "giftCardName": "Nykaa",
+  "stock": true,
+  "channel": "both",
+  "discount": 6.25
+ },
+ {
+  "id": 234,
+  "brand": "Nykaa",
+  "giftCardName": "Nykaa (Custom)",
+  "stock": true,
+  "channel": "both",
+  "discount": 6
+ },
+ {
+  "id": 340,
+  "brand": "Nykaa Fashion",
+  "giftCardName": "Nykaa Fashion",
+  "stock": true,
+  "channel": "both",
+  "discount": 6
+ },
+ {
+  "id": 341,
+  "brand": "Nykaa Men",
+  "giftCardName": "Nykaa Men",
+  "stock": true,
+  "channel": "online",
+  "discount": 6
+ },
+ {
+  "id": 775,
+  "brand": "O2 Spa Salon",
+  "giftCardName": "Ode Spa Salon",
+  "stock": true,
+  "channel": "both",
+  "discount": 12.75
+ },
+ {
+  "id": 544,
+  "brand": "Oh! Calcutta",
+  "giftCardName": "Oh! Calcutta",
+  "stock": true,
+  "channel": "offline",
+  "discount": 13.25
+ },
+ {
+  "id": 287,
+  "brand": "OLA CABS",
+  "giftCardName": "Ola Cabs",
+  "stock": true,
+  "channel": "online",
+  "discount": 7.75
+ },
+ {
+  "id": 546,
+  "brand": "Organic India",
+  "giftCardName": "Organic India",
+  "stock": true,
+  "channel": "offline",
+  "discount": 10.25
+ },
+ {
+  "id": 659,
+  "brand": "Ovenstory",
+  "giftCardName": "Ovenstory",
+  "stock": true,
+  "channel": "online",
+  "discount": 9.75
+ },
+ {
+  "id": 1014,
+  "brand": "Palmonas",
+  "giftCardName": "Palmonas",
+  "stock": true,
+  "channel": "online",
+  "discount": 13
+ },
+ {
+  "id": 660,
+  "brand": "Pantaloons",
+  "giftCardName": "Pantaloons",
+  "stock": true,
+  "channel": "offline",
+  "discount": 7.75
+ },
+ {
+  "id": 323,
+  "brand": "Park Avenue",
+  "giftCardName": "Park Avenue",
+  "stock": true,
+  "channel": "offline",
+  "discount": 10.75
+ },
+ {
+  "id": 324,
+  "brand": "Parx",
+  "giftCardName": "Parx",
+  "stock": true,
+  "channel": "offline",
+  "discount": 10.75
+ },
+ {
+  "id": 939,
+  "brand": "PC Chandra Gems Gold Coin",
+  "giftCardName": "PC Chandra Gold Coin",
+  "stock": true,
+  "channel": "both",
+  "discount": 1
+ },
+ {
+  "id": 907,
+  "brand": "PCjeweller",
+  "giftCardName": "PCJ Diamond Jewellery",
+  "stock": true,
+  "channel": "offline",
+  "discount": 4.5
+ },
+ {
+  "id": 909,
+  "brand": "PC Jeweller Gold Coin",
+  "giftCardName": "PCJ Gold Coin",
+  "stock": true,
+  "channel": "offline",
+  "discount": 0.75
+ },
+ {
+  "id": 908,
+  "brand": "PCjeweller",
+  "giftCardName": "PCJ Gold Jewellery",
+  "stock": true,
+  "channel": "offline",
+  "discount": 1.75
+ },
+ {
+  "id": 876,
+  "brand": "PEORA",
+  "giftCardName": "Peora Fashions",
+  "stock": true,
+  "channel": "offline",
+  "discount": 13.25
+ },
+ {
+  "id": 443,
+  "brand": "Pepperfry",
+  "giftCardName": "Pepperfry",
+  "stock": true,
+  "channel": "online",
+  "discount": 6.75
+ },
+ {
+  "id": 584,
+  "brand": "Peter England",
+  "giftCardName": "Peter England",
+  "stock": true,
+  "channel": "offline",
+  "discount": 3
+ },
+ {
+  "id": 921,
+  "brand": "Philips",
+  "giftCardName": "Philips",
+  "stock": true,
+  "channel": "online",
+  "discount": 9.75
+ },
+ {
+  "id": 219,
+  "brand": "PhonePe",
+  "giftCardName": "PhonePe (Fixed)",
+  "stock": true,
+  "channel": "online",
+  "discount": 0
+ },
+ {
+  "id": 663,
+  "brand": "Pigeon",
+  "giftCardName": "Pigeon",
+  "stock": true,
+  "channel": "offline",
+  "discount": 9.75
+ },
+ {
+  "id": 413,
+  "brand": "PinePerks",
+  "giftCardName": "PinePerksRupayPrime-WH",
+  "stock": true,
+  "channel": "online",
+  "discount": 1.1
+ },
+ {
+  "id": 664,
+  "brand": "Pixel Go",
+  "giftCardName": "Pixel Go",
+  "stock": true,
+  "channel": "online",
+  "discount": 14.75
+ },
+ {
+  "id": 665,
+  "brand": "Pizza Hut",
+  "giftCardName": "Pizza Hut",
+  "stock": true,
+  "channel": "both",
+  "discount": 11
+ },
+ {
+  "id": 905,
+  "brand": "Planet Fashion",
+  "giftCardName": "Planet Fashion",
+  "stock": true,
+  "channel": "offline",
+  "discount": 3
+ },
+ {
+  "id": 1073,
+  "brand": "Playo",
+  "giftCardName": "Playo",
+  "stock": true,
+  "channel": "online",
+  "discount": 5.25
+ },
+ {
+  "id": 829,
+  "brand": "PMJ Jewellers",
+  "giftCardName": "PMJ Jewellers",
+  "stock": true,
+  "channel": "offline",
+  "discount": 2
+ },
+ {
+  "id": 935,
+  "brand": "Points for Good",
+  "giftCardName": "Points for Good",
+  "stock": true,
+  "channel": "online",
+  "discount": 2.25
+ },
+ {
+  "id": 928,
+  "brand": "Polar Bear",
+  "giftCardName": "Polar Bear",
+  "stock": true,
+  "channel": "offline",
+  "discount": 4.75
+ },
+ {
+  "id": 1042,
+  "brand": "Porter",
+  "giftCardName": "Porter",
+  "stock": true,
+  "channel": "online",
+  "discount": 10.75
+ },
+ {
+  "id": 667,
+  "brand": "Prestige",
+  "giftCardName": "Prestige",
+  "stock": true,
+  "channel": "both",
+  "discount": 0
+ },
+ {
+  "id": 1292,
+  "brand": "Prestige Gifting Delights",
+  "giftCardName": "Prestige Gifting Delights",
+  "stock": true,
+  "channel": "online",
+  "discount": 14
+ },
+ {
+  "id": 1033,
+  "brand": "Pronto",
+  "giftCardName": "Pronto",
+  "stock": true,
+  "channel": "online",
+  "discount": 17.5
+ },
+ {
+  "id": 669,
+  "brand": "Puma",
+  "giftCardName": "Puma",
+  "stock": true,
+  "channel": "offline",
+  "discount": 10.75
+ },
+ {
+  "id": 951,
+  "brand": "Punjab Grill",
+  "giftCardName": "Punjab Grill",
+  "stock": true,
+  "channel": "offline",
+  "discount": 8.5
+ },
+ {
+  "id": 604,
+  "brand": "Pure Home & Living",
+  "giftCardName": "Pure Home & Living",
+  "stock": true,
+  "channel": "both",
+  "discount": 9
+ },
+ {
+  "id": 553,
+  "brand": "PVR",
+  "giftCardName": "PVR Inox Cinemas",
+  "stock": true,
+  "channel": "online",
+  "discount": 6
+ },
+ {
+  "id": 1125,
+  "brand": "PVR",
+  "giftCardName": "PVR INOX Cinemas - GYFTR",
+  "stock": true,
+  "channel": "online",
+  "discount": 20.25
+ },
+ {
+  "id": 670,
+  "brand": "R&B",
+  "giftCardName": "R&B",
+  "stock": true,
+  "channel": "offline",
+  "discount": 11.75
+ },
+ {
+  "id": 1123,
+  "brand": "Rainbow Six Mobile",
+  "giftCardName": "Rainbow Six Mobile",
+  "stock": true,
+  "channel": "online",
+  "discount": 11
+ },
+ {
+  "id": 326,
+  "brand": "Rangriti",
+  "giftCardName": "Rangriti",
+  "stock": true,
+  "channel": "online",
+  "discount": 7.5
+ },
+ {
+  "id": 1290,
+  "brand": "Rare Ones",
+  "giftCardName": "Rare Ones",
+  "stock": true,
+  "channel": "both",
+  "discount": 9
+ },
+ {
+  "id": 1288,
+  "brand": "Rare Rabbit",
+  "giftCardName": "Rare Rabbit",
+  "stock": true,
+  "channel": "both",
+  "discount": 9
+ },
+ {
+  "id": 1291,
+  "brand": "Rare Ones",
+  "giftCardName": "Rare'z",
+  "stock": true,
+  "channel": "both",
+  "discount": 9
+ },
+ {
+  "id": 1289,
+  "brand": "Rareism",
+  "giftCardName": "Rareism",
+  "stock": true,
+  "channel": "both",
+  "discount": 9
+ },
+ {
+  "id": 925,
+  "brand": "Ratnadeep Retail",
+  "giftCardName": "Ratnadeep Retail",
+  "stock": true,
+  "channel": "offline",
+  "discount": 4
+ },
+ {
+  "id": 361,
+  "brand": "Ray-Ban",
+  "giftCardName": "Ray-Ban",
+  "stock": true,
+  "channel": "online",
+  "discount": 8.5
+ },
+ {
+  "id": 320,
+  "brand": "Raymond - Ready to Wear",
+  "giftCardName": "Raymond - Ready to Wear",
+  "stock": true,
+  "channel": "offline",
+  "discount": 10.75
+ },
+ {
+  "id": 962,
+  "brand": "Razer Gold",
+  "giftCardName": "Razer Gold",
+  "stock": true,
+  "channel": "online",
+  "discount": 2
+ },
+ {
+  "id": 1154,
+  "brand": "Razorpay Money",
+  "giftCardName": "Razorpay Money Flex",
+  "stock": true,
+  "channel": "online",
+  "discount": 3.25
+ },
+ {
+  "id": 1155,
+  "brand": "Redbus",
+  "giftCardName": "redBus",
+  "stock": true,
+  "channel": "online",
+  "discount": 3
+ },
+ {
+  "id": 281,
+  "brand": "Relaxo",
+  "giftCardName": "Relaxo",
+  "stock": true,
+  "channel": "offline",
+  "discount": 8
+ },
+ {
+  "id": 671,
+  "brand": "Reliance",
+  "giftCardName": "Reliance Digital",
+  "stock": true,
+  "channel": "offline",
+  "discount": 0
+ },
+ {
+  "id": 343,
+  "brand": "Reliance Digital",
+  "giftCardName": "Reliance Digital (Custom)",
+  "stock": true,
+  "channel": "offline",
+  "discount": 0
+ },
+ {
+  "id": 672,
+  "brand": "Reliance",
+  "giftCardName": "Reliance Jewels",
+  "stock": true,
+  "channel": "offline",
+  "discount": 0
+ },
+ {
+  "id": 212,
+  "brand": "Reliance Jio Mart",
+  "giftCardName": "Reliance Jio Mart",
+  "stock": true,
+  "channel": "online",
+  "discount": 0.75
+ },
+ {
+  "id": 282,
+  "brand": "Reliance My Jio Store",
+  "giftCardName": "Reliance My Jio Store",
+  "stock": true,
+  "channel": "offline",
+  "discount": 0.75
+ },
+ {
+  "id": 283,
+  "brand": "Reliance Smart",
+  "giftCardName": "Reliance Smart",
+  "stock": true,
+  "channel": "offline",
+  "discount": 3.5
+ },
+ {
+  "id": 1085,
+  "brand": "Reliance Smart Bazaar",
+  "giftCardName": "Reliance Smart Bazaar",
+  "stock": true,
+  "channel": "offline",
+  "discount": 3.5
+ },
+ {
+  "id": 1046,
+  "brand": "Reliance Smart Super Store",
+  "giftCardName": "Reliance Smart Bazaar (Custom)",
+  "stock": true,
+  "channel": "offline",
+  "discount": 3.25
+ },
+ {
+  "id": 284,
+  "brand": "Reliance Smart Point",
+  "giftCardName": "Reliance Smart Point",
+  "stock": true,
+  "channel": "offline",
+  "discount": 3.5
+ },
+ {
+  "id": 1047,
+  "brand": "Reliance Smart Point",
+  "giftCardName": "Reliance Smart Point (Custom)",
+  "stock": true,
+  "channel": "offline",
+  "discount": 3.25
+ },
+ {
+  "id": 357,
+  "brand": "Reliance Smart Super Store",
+  "giftCardName": "Reliance Smart Super Store (Custom)",
+  "stock": true,
+  "channel": "offline",
+  "discount": 0
+ },
+ {
+  "id": 575,
+  "brand": "Reliance Trends",
+  "giftCardName": "Reliance Trends",
+  "stock": true,
+  "channel": "offline",
+  "discount": 5.5
+ },
+ {
+  "id": 474,
+  "brand": "RESONATE RouterUPS",
+  "giftCardName": "Resonate Router UPS",
+  "stock": true,
+  "channel": "online",
+  "discount": 10
+ },
+ {
+  "id": 1022,
+  "brand": "League of Legends",
+  "giftCardName": "Riot League of Legends 1660",
+  "stock": true,
+  "channel": "online",
+  "discount": 2.25
+ },
+ {
+  "id": 1023,
+  "brand": "League of Legends",
+  "giftCardName": "Riot League of Legends 2900",
+  "stock": true,
+  "channel": "online",
+  "discount": 2.25
+ },
+ {
+  "id": 1020,
+  "brand": "League of Legends",
+  "giftCardName": "Riot League of Legends 415",
+  "stock": true,
+  "channel": "online",
+  "discount": 2.25
+ },
+ {
+  "id": 1024,
+  "brand": "League of Legends",
+  "giftCardName": "Riot League of Legends 4150",
+  "stock": true,
+  "channel": "online",
+  "discount": 2.25
+ },
+ {
+  "id": 1021,
+  "brand": "League of Legends",
+  "giftCardName": "Riot League of Legends 830",
+  "stock": true,
+  "channel": "online",
+  "discount": 2.25
+ },
+ {
+  "id": 251,
+  "brand": "Samsonite",
+  "giftCardName": "Samsonite",
+  "stock": true,
+  "channel": "offline",
+  "discount": 6.25
+ },
+ {
+  "id": 475,
+  "brand": "Satya Paul-Luxe",
+  "giftCardName": "Satya Paul-Luxe",
+  "stock": true,
+  "channel": "both",
+  "discount": 10
+ },
+ {
+  "id": 476,
+  "brand": "Scotch & Soda-Luxe",
+  "giftCardName": "Scotch and Soda-Luxe",
+  "stock": true,
+  "channel": "both",
+  "discount": 10
+ },
+ {
+  "id": 1202,
+  "brand": "Senco Gold",
+  "giftCardName": "Senco Gold",
+  "stock": true,
+  "channel": "offline",
+  "discount": 3.25
+ },
+ {
+  "id": 777,
+  "brand": "Shoppers Stop",
+  "giftCardName": "Shoppers Stop",
+  "stock": true,
+  "channel": "both",
+  "discount": 0
+ },
+ {
+  "id": 678,
+  "brand": "Sigree",
+  "giftCardName": "SIGREE",
+  "stock": true,
+  "channel": "offline",
+  "discount": 13
+ },
+ {
+  "id": 1102,
+  "brand": "Simon Carter",
+  "giftCardName": "Simon Carter",
+  "stock": true,
+  "channel": "offline",
+  "discount": 2.9
+ },
+ {
+  "id": 288,
+  "brand": "Skechers",
+  "giftCardName": "Skechers",
+  "stock": true,
+  "channel": "both",
+  "discount": 11.75
+ },
+ {
+  "id": 1161,
+  "brand": "Skinn",
+  "giftCardName": "Skinn",
+  "stock": true,
+  "channel": "both",
+  "discount": 5
+ },
+ {
+  "id": 289,
+  "brand": "Skullcandy",
+  "giftCardName": "Skullcandy",
+  "stock": true,
+  "channel": "online",
+  "discount": 17.5
+ },
+ {
+  "id": 684,
+  "brand": "Smile Foundation",
+  "giftCardName": "Smile Foundation",
+  "stock": true,
+  "channel": "online",
+  "discount": 14.75
+ },
+ {
+  "id": 1065,
+  "brand": "SNITCH",
+  "giftCardName": "Snitch",
+  "stock": true,
+  "channel": "both",
+  "discount": 7.5
+ },
+ {
+  "id": 1249,
+  "brand": "Soch",
+  "giftCardName": "Soch",
+  "stock": true,
+  "channel": "offline",
+  "discount": 11.25
+ },
+ {
+  "id": 686,
+  "brand": "SonyLIV",
+  "giftCardName": "SonyLIV",
+  "stock": true,
+  "channel": "online",
+  "discount": 20
+ },
+ {
+  "id": 1103,
+  "brand": "SOTC Travel",
+  "giftCardName": "SOTC Travel",
+  "stock": true,
+  "channel": "offline",
+  "discount": 4.25
+ },
+ {
+  "id": 1003,
+  "brand": "SoulFlower",
+  "giftCardName": "Soulflower",
+  "stock": true,
+  "channel": "online",
+  "discount": 15.75
+ },
+ {
+  "id": 926,
+  "brand": "Speedo",
+  "giftCardName": "Speedo",
+  "stock": true,
+  "channel": "online",
+  "discount": 13.25
+ },
+ {
+  "id": 807,
+  "brand": "SSUNSU",
+  "giftCardName": "SSUNSU",
+  "stock": true,
+  "channel": "online",
+  "discount": 12
+ },
+ {
+  "id": 321,
+  "brand": "Starbucks",
+  "giftCardName": "Starbucks",
+  "stock": true,
+  "channel": "offline",
+  "discount": 8.75
+ },
+ {
+  "id": 1181,
+  "brand": "StayVista",
+  "giftCardName": "StayVista",
+  "stock": true,
+  "channel": "online",
+  "discount": 13.75
+ },
+ {
+  "id": 1253,
+  "brand": "Steam Wallet",
+  "giftCardName": "Steam",
+  "stock": true,
+  "channel": "online",
+  "discount": 4.5
+ },
+ {
+  "id": 929,
+  "brand": "Sterling Holidays",
+  "giftCardName": "Sterling Holidays",
+  "stock": true,
+  "channel": "both",
+  "discount": 13.25
+ },
+ {
+  "id": 901,
+  "brand": "Kate Spade",
+  "giftCardName": "Steve Madde-Luxe",
+  "stock": true,
+  "channel": "both",
+  "discount": 10
+ },
+ {
+  "id": 1049,
+  "brand": "Street Food by Punjab",
+  "giftCardName": "Street Food by Punjab",
+  "stock": true,
+  "channel": "offline",
+  "discount": 8.5
+ },
+ {
+  "id": 1001,
+  "brand": "Style Baazar",
+  "giftCardName": "STYLE BAAZAR",
+  "stock": true,
+  "channel": "offline",
+  "discount": 5.25
+ },
+ {
+  "id": 896,
+  "brand": "Subway",
+  "giftCardName": "Subway",
+  "stock": true,
+  "channel": "offline",
+  "discount": 11
+ },
+ {
+  "id": 330,
+  "brand": "Subway",
+  "giftCardName": "Subway (Custom)",
+  "stock": true,
+  "channel": "offline",
+  "discount": 10
+ },
+ {
+  "id": 890,
+  "brand": "Superbottoms",
+  "giftCardName": "SuperBottoms",
+  "stock": true,
+  "channel": "online",
+  "discount": 14
+ },
+ {
+  "id": 902,
+  "brand": "Kate Spade",
+  "giftCardName": "Superdry - Luxe",
+  "stock": true,
+  "channel": "both",
+  "discount": 10
+ },
+ {
+  "id": 689,
+  "brand": "Surat Diamonds",
+  "giftCardName": "Surat Diamond",
+  "stock": true,
+  "channel": "online",
+  "discount": 13.75
+ },
+ {
+  "id": 1108,
+  "brand": "Surat Diamonds",
+  "giftCardName": "Surat Diamond Solitaire",
+  "stock": true,
+  "channel": "online",
+  "discount": 2
+ },
+ {
+  "id": 1107,
+  "brand": "Surat Diamonds",
+  "giftCardName": "Surat Diamonds Main",
+  "stock": true,
+  "channel": "online",
+  "discount": 13
+ },
+ {
+  "id": 691,
+  "brand": "Sweet Bengal",
+  "giftCardName": "Sweet Bengal",
+  "stock": true,
+  "channel": "offline",
+  "discount": 14
+ },
+ {
+  "id": 692,
+  "brand": "Sweet Truth",
+  "giftCardName": "Sweet Truth",
+  "stock": true,
+  "channel": "online",
+  "discount": 10.75
+ },
+ {
+  "id": 1272,
+  "brand": "Swiggy",
+  "giftCardName": "Swiggy Money",
+  "stock": true,
+  "channel": "online",
+  "discount": 3
+ },
+ {
+  "id": 1273,
+  "brand": "Swiggy",
+  "giftCardName": "Swiggy Money",
+  "stock": true,
+  "channel": "online",
+  "discount": 2.75
+ },
+ {
+  "id": 1131,
+  "brand": "IServeU-Prepaid",
+  "giftCardName": "TA iServeU Gift Card - Generic (Upto 2000)",
+  "stock": true,
+  "channel": "online",
+  "discount": -0.25
+ },
+ {
+  "id": 940,
+  "brand": "IServeU-Prepaid",
+  "giftCardName": "TA iServeU Gift Card - Generic Variant",
+  "stock": true,
+  "channel": "online",
+  "discount": -0.25
+ },
+ {
+  "id": 1132,
+  "brand": "IServeU-Prepaid",
+  "giftCardName": "TA iServeU Gift Card - Limited (Upto 2000)",
+  "stock": true,
+  "channel": "online",
+  "discount": 1.25
+ },
+ {
+  "id": 967,
+  "brand": "IServeU-Prepaid",
+  "giftCardName": "TA iServeU Gift Card - Limited Variant",
+  "stock": true,
+  "channel": "online",
+  "discount": 1.25
+ },
+ {
+  "id": 1086,
+  "brand": "IServeU-Prepaid",
+  "giftCardName": "TA iServeU Gift Card - Max Variant",
+  "stock": true,
+  "channel": "online",
+  "discount": -1.5
+ },
+ {
+  "id": 1130,
+  "brand": "IServeU-Prepaid",
+  "giftCardName": "TA iServeU Gift Card - Max Variant (Upto 1000)",
+  "stock": true,
+  "channel": "online",
+  "discount": -0.5
+ },
+ {
+  "id": 856,
+  "brand": "Taco Bell",
+  "giftCardName": "Taco Bell",
+  "stock": true,
+  "channel": "offline",
+  "discount": 8.75
+ },
+ {
+  "id": 211,
+  "brand": "Taj",
+  "giftCardName": "Taj Experiences",
+  "stock": true,
+  "channel": "offline",
+  "discount": 12
+ },
+ {
+  "id": 746,
+  "brand": "Taj",
+  "giftCardName": "Taj Hotels J Wellness Circle Bliss Duo",
+  "stock": true,
+  "channel": "offline",
+  "discount": 11.25
+ },
+ {
+  "id": 747,
+  "brand": "Taj",
+  "giftCardName": "Taj Hotels J Wellness Circle Bliss Solo",
+  "stock": true,
+  "channel": "offline",
+  "discount": 11.25
+ },
+ {
+  "id": 354,
+  "brand": "Taneira",
+  "giftCardName": "Taneira",
+  "stock": true,
+  "channel": "offline",
+  "discount": 8
+ },
+ {
+  "id": 1277,
+  "brand": "Tanishq",
+  "giftCardName": "Tanishq Diamond Jewellery",
+  "stock": true,
+  "channel": "offline",
+  "discount": 3.75
+ },
+ {
+  "id": 1279,
+  "brand": "Tanishq",
+  "giftCardName": "Tanishq Gold Coin",
+  "stock": true,
+  "channel": "offline",
+  "discount": 1
+ },
+ {
+  "id": 1278,
+  "brand": "Tanishq",
+  "giftCardName": "Tanishq Gold Jewellery",
+  "stock": true,
+  "channel": "offline",
+  "discount": 2.25
+ },
+ {
+  "id": 1053,
+  "brand": "Tanishq",
+  "giftCardName": "Tanishq Studded E-Gift Card",
+  "stock": true,
+  "channel": "offline",
+  "discount": 4
+ },
+ {
+  "id": 1080,
+  "brand": "Tasva",
+  "giftCardName": "Tasva",
+  "stock": true,
+  "channel": "offline",
+  "discount": 6.25
+ },
+ {
+  "id": 430,
+  "brand": "Tata Cliq",
+  "giftCardName": "Tata Cliq",
+  "stock": true,
+  "channel": "online",
+  "discount": 10
+ },
+ {
+  "id": 849,
+  "brand": "Tata Cliq",
+  "giftCardName": "Tata Cliq Luxury",
+  "stock": true,
+  "channel": "online",
+  "discount": 10
+ },
+ {
+  "id": 327,
+  "brand": "Tattva Spa",
+  "giftCardName": "Tattva Spa",
+  "stock": true,
+  "channel": "online",
+  "discount": 16.75
+ },
+ {
+  "id": 840,
+  "brand": "TEGO",
+  "giftCardName": "TEGO",
+  "stock": true,
+  "channel": "online",
+  "discount": 15.75
+ },
+ {
+  "id": 841,
+  "brand": "TGIF",
+  "giftCardName": "TGIF",
+  "stock": true,
+  "channel": "offline",
+  "discount": 9.75
+ },
+ {
+  "id": 875,
+  "brand": "The Bear House",
+  "giftCardName": "The Bear House",
+  "stock": true,
+  "channel": "online",
+  "discount": 8.25
+ },
+ {
+  "id": 292,
+  "brand": "The Body Shop",
+  "giftCardName": "The Body Shop",
+  "stock": true,
+  "channel": "both",
+  "discount": 5
+ },
+ {
+  "id": 728,
+  "brand": "The Collective",
+  "giftCardName": "The Collective",
+  "stock": true,
+  "channel": "both",
+  "discount": 3
+ },
+ {
+  "id": 697,
+  "brand": "The Good Bowl",
+  "giftCardName": "The Good Bowl",
+  "stock": true,
+  "channel": "online",
+  "discount": 9.75
+ },
+ {
+  "id": 1287,
+  "brand": "The House of Rare",
+  "giftCardName": "The House of Rare",
+  "stock": true,
+  "channel": "both",
+  "discount": 9
+ },
+ {
+  "id": 1118,
+  "brand": "The Leela",
+  "giftCardName": "The Leela",
+  "stock": true,
+  "channel": "offline",
+  "discount": 10
+ },
+ {
+  "id": 293,
+  "brand": "The Man Company",
+  "giftCardName": "The Man Company",
+  "stock": true,
+  "channel": "online",
+  "discount": 16.75
+ },
+ {
+  "id": 1100,
+  "brand": "The Postcard Hotels",
+  "giftCardName": "The Postcard Hotels",
+  "stock": true,
+  "channel": "offline",
+  "discount": 10
+ },
+ {
+  "id": 889,
+  "brand": "The Raymond Shop",
+  "giftCardName": "The Raymond Shop",
+  "stock": true,
+  "channel": "offline",
+  "discount": 10.25
+ },
+ {
+  "id": 1244,
+  "brand": "Third Wave Coffee",
+  "giftCardName": "Third Wave Coffee",
+  "stock": true,
+  "channel": "offline",
+  "discount": 10.25
+ },
+ {
+  "id": 797,
+  "brand": "Tim Hortons",
+  "giftCardName": "Tim Hortons",
+  "stock": true,
+  "channel": "offline",
+  "discount": 7.5
+ },
+ {
+  "id": 252,
+  "brand": "Timezone",
+  "giftCardName": "Timezone",
+  "stock": true,
+  "channel": "offline",
+  "discount": 13.25
+ },
+ {
+  "id": 732,
+  "brand": "Tinder",
+  "giftCardName": "Tinder",
+  "stock": true,
+  "channel": "online",
+  "discount": 7
+ },
+ {
+  "id": 1119,
+  "brand": "Tira Beauty",
+  "giftCardName": "Tira Beauty",
+  "stock": true,
+  "channel": "both",
+  "discount": 3
+ },
+ {
+  "id": 253,
+  "brand": "Titan",
+  "giftCardName": "Titan",
+  "stock": true,
+  "channel": "offline",
+  "discount": 8
+ },
+ {
+  "id": 1048,
+  "brand": "Titan Eye+",
+  "giftCardName": "Titan Eye Plus",
+  "stock": true,
+  "channel": "offline",
+  "discount": 6.5
+ },
+ {
+  "id": 294,
+  "brand": "Titan Minimals",
+  "giftCardName": "Titan Minimals",
+  "stock": true,
+  "channel": "offline",
+  "discount": 8
+ },
+ {
+  "id": 1271,
+  "brand": "TONI AND GUY",
+  "giftCardName": "TONI AND GUY",
+  "stock": true,
+  "channel": "offline",
+  "discount": 10
+ },
+ {
+  "id": 1117,
+  "brand": "Toscano",
+  "giftCardName": "Toscano",
+  "stock": true,
+  "channel": "offline",
+  "discount": 13
+ },
+ {
+  "id": 941,
+  "brand": "Reliance Trends Footwear",
+  "giftCardName": "Trends Footwear",
+  "stock": true,
+  "channel": "offline",
+  "discount": 5.25
+ },
+ {
+  "id": 942,
+  "brand": "Trends Junior",
+  "giftCardName": "Trends Junior",
+  "stock": true,
+  "channel": "offline",
+  "discount": 5.35
+ },
+ {
+  "id": 946,
+  "brand": "Trends Man",
+  "giftCardName": "Trends Man",
+  "stock": true,
+  "channel": "offline",
+  "discount": 5
+ },
+ {
+  "id": 947,
+  "brand": "Trends Women",
+  "giftCardName": "Trends Women",
+  "stock": true,
+  "channel": "offline",
+  "discount": 5
+ },
+ {
+  "id": 828,
+  "brand": "TripXOXO",
+  "giftCardName": "TripXOXO",
+  "stock": true,
+  "channel": "online",
+  "discount": 6.5
+ },
+ {
+  "id": 295,
+  "brand": "TRUEFITT & HILL",
+  "giftCardName": "TRUEFITT and HILL",
+  "stock": true,
+  "channel": "offline",
+  "discount": 24.75
+ },
+ {
+  "id": 1116,
+  "brand": "TUMI - LUXE",
+  "giftCardName": "Tumi - Luxe",
+  "stock": true,
+  "channel": "both",
+  "discount": 12.75
+ },
+ {
+  "id": 433,
+  "brand": "Uber",
+  "giftCardName": "Uber",
+  "stock": true,
+  "channel": "online",
+  "discount": 4
+ },
+ {
+  "id": 798,
+  "brand": "Unicorn",
+  "giftCardName": "Unicorn Apple Premium Partner",
+  "stock": true,
+  "channel": "offline",
+  "discount": 2.5
+ },
+ {
+  "id": 1104,
+  "brand": "Unipin",
+  "giftCardName": "Unipin",
+  "stock": true,
+  "channel": "online",
+  "discount": 6.25
+ },
+ {
+  "id": 1105,
+  "brand": "Unipin",
+  "giftCardName": "Unipin- BGMI Voucher",
+  "stock": true,
+  "channel": "online",
+  "discount": 5.75
+ },
+ {
+  "id": 587,
+  "brand": "United Colors of Benetton",
+  "giftCardName": "United Colors of Benetton-BAGLINE",
+  "stock": true,
+  "channel": "online",
+  "discount": 12.75
+ },
+ {
+  "id": 938,
+  "brand": "Unlimited",
+  "giftCardName": "Unlimited",
+  "stock": true,
+  "channel": "offline",
+  "discount": 7
+ },
+ {
+  "id": 721,
+  "brand": "Urban Ladder",
+  "giftCardName": "Urban Ladder",
+  "stock": true,
+  "channel": "online",
+  "discount": 6
+ },
+ {
+  "id": 751,
+  "brand": "Urban Space",
+  "giftCardName": "Urban Space",
+  "stock": true,
+  "channel": "online",
+  "discount": 7.75
+ },
+ {
+  "id": 296,
+  "brand": "V Mart",
+  "giftCardName": "V Mart",
+  "stock": true,
+  "channel": "offline",
+  "discount": 9.25
+ },
+ {
+  "id": 930,
+  "brand": "V Mart",
+  "giftCardName": "V Mart (Custom)",
+  "stock": true,
+  "channel": "offline",
+  "discount": 6.75
+ },
+ {
+  "id": 824,
+  "brand": "Vaango",
+  "giftCardName": "Vaango",
+  "stock": true,
+  "channel": "offline",
+  "discount": 8.75
+ },
+ {
+  "id": 217,
+  "brand": "Valorant",
+  "giftCardName": "Valorant",
+  "stock": true,
+  "channel": "online",
+  "discount": 6.5
+ },
+ {
+  "id": 586,
+  "brand": "Van Heusen",
+  "giftCardName": "Van Heusen",
+  "stock": true,
+  "channel": "offline",
+  "discount": 3
+ },
+ {
+  "id": 316,
+  "brand": "Victoria Secret",
+  "giftCardName": "Victoria's Secret",
+  "stock": true,
+  "channel": "offline",
+  "discount": 11.75
+ },
+ {
+  "id": 315,
+  "brand": "VICTORIA'S SECRET BEAUTY",
+  "giftCardName": "Victoria's Secret Beauty",
+  "stock": true,
+  "channel": "offline",
+  "discount": 11.75
+ },
+ {
+  "id": 298,
+  "brand": "Vijay Sales",
+  "giftCardName": "Vijay Sales",
+  "stock": true,
+  "channel": "offline",
+  "discount": 2.5
+ },
+ {
+  "id": 702,
+  "brand": "Vrott",
+  "giftCardName": "VROTT",
+  "stock": true,
+  "channel": "online",
+  "discount": 39.75
+ },
+ {
+  "id": 949,
+  "brand": "W For Women",
+  "giftCardName": "W For Women",
+  "stock": true,
+  "channel": "offline",
+  "discount": 10.75
+ },
+ {
+  "id": 352,
+  "brand": "Wakefit",
+  "giftCardName": "Wakefit",
+  "stock": true,
+  "channel": "online",
+  "discount": 4
+ },
+ {
+  "id": 1298,
+  "brand": "Water Bill Payment",
+  "giftCardName": "Water Bill Payment",
+  "stock": true,
+  "channel": "online",
+  "discount": -0.1
+ },
+ {
+  "id": 965,
+  "brand": "Wellbeing Nutrition",
+  "giftCardName": "Wellbeing Nutrition",
+  "stock": true,
+  "channel": "online",
+  "discount": 13.25
+ },
+ {
+  "id": 704,
+  "brand": "Wendys",
+  "giftCardName": "Wendy's",
+  "stock": true,
+  "channel": "online",
+  "discount": 10
+ },
+ {
+  "id": 563,
+  "brand": "Westside",
+  "giftCardName": "Westside",
+  "stock": true,
+  "channel": "offline",
+  "discount": 0
+ },
+ {
+  "id": 793,
+  "brand": "Westside",
+  "giftCardName": "Westside [No Cooling Period]",
+  "stock": true,
+  "channel": "offline",
+  "discount": 0
+ },
+ {
+  "id": 449,
+  "brand": "Wildcraft",
+  "giftCardName": "Wildcraft",
+  "stock": true,
+  "channel": "offline",
+  "discount": 8.5
+ },
+ {
+  "id": 705,
+  "brand": "William Penn",
+  "giftCardName": "William Penn",
+  "stock": true,
+  "channel": "offline",
+  "discount": 9.25
+ },
+ {
+  "id": 300,
+  "brand": "Wonderchef",
+  "giftCardName": "Wonderchef",
+  "stock": true,
+  "channel": "offline",
+  "discount": 13.75
+ },
+ {
+  "id": 471,
+  "brand": "Wonderchef",
+  "giftCardName": "Wonderchef",
+  "stock": true,
+  "channel": "online",
+  "discount": 13.25
+ },
+ {
+  "id": 301,
+  "brand": "Woodland",
+  "giftCardName": "Woodland",
+  "stock": true,
+  "channel": "both",
+  "discount": 10.75
+ },
+ {
+  "id": 1106,
+  "brand": "Titan",
+  "giftCardName": "World of Titan",
+  "stock": true,
+  "channel": "both",
+  "discount": 8
+ },
+ {
+  "id": 581,
+  "brand": "Titan",
+  "giftCardName": "World of Titan SmartWatch",
+  "stock": true,
+  "channel": "both",
+  "discount": 8.25
+ },
+ {
+  "id": 319,
+  "brand": "Wow!China",
+  "giftCardName": "Wow! China",
+  "stock": true,
+  "channel": "offline",
+  "discount": 10
+ },
+ {
+  "id": 1310,
+  "brand": "Yalla Live",
+  "giftCardName": "Yalla Live",
+  "stock": true,
+  "channel": "online",
+  "discount": 1.75
+ },
+ {
+  "id": 1122,
+  "brand": "Yalla Ludo",
+  "giftCardName": "Yalla Ludo",
+  "stock": true,
+  "channel": "online",
+  "discount": 1.5
+ },
+ {
+  "id": 470,
+  "brand": "Yatra",
+  "giftCardName": "Yatra",
+  "stock": true,
+  "channel": "online",
+  "discount": 5.25
+ },
+ {
+  "id": 1318,
+  "brand": "Yatra",
+  "giftCardName": "Yatra Flight – 1000",
+  "stock": true,
+  "channel": "online",
+  "discount": 20
+ },
+ {
+  "id": 1317,
+  "brand": "Yatra",
+  "giftCardName": "Yatra Flight – 500",
+  "stock": true,
+  "channel": "online",
+  "discount": 40
+ },
+ {
+  "id": 837,
+  "brand": "Yatra",
+  "giftCardName": "Yatra Hotel",
+  "stock": true,
+  "channel": "online",
+  "discount": 13.75
+ },
+ {
+  "id": 472,
+  "brand": "Yatra Hotels & Holidays Voucher",
+  "giftCardName": "Yatra Hotels and Holidays",
+  "stock": true,
+  "channel": "online",
+  "discount": 6.25
+ },
+ {
+  "id": 1050,
+  "brand": "YouMee",
+  "giftCardName": "YouMee",
+  "stock": true,
+  "channel": "offline",
+  "discount": 8.5
+ },
+ {
+  "id": 1051,
+  "brand": "Zambar",
+  "giftCardName": "Zambar",
+  "stock": true,
+  "channel": "offline",
+  "discount": 8.5
+ },
+ {
+  "id": 709,
+  "brand": "Zee5",
+  "giftCardName": "Zee5",
+  "stock": true,
+  "channel": "online",
+  "discount": 22.5
+ },
+ {
+  "id": 205,
+  "brand": "Zepto",
+  "giftCardName": "Zepto",
+  "stock": true,
+  "channel": "online",
+  "discount": 0.75
+ },
+ {
+  "id": 1313,
+  "brand": "Zomato",
+  "giftCardName": "Zomato",
+  "stock": true,
+  "channel": "online",
+  "discount": 3.5
+ },
+ {
+  "id": 1237,
+  "brand": "Zomato",
+  "giftCardName": "Zomato",
+  "stock": true,
+  "channel": "online",
+  "discount": 2
+ },
+ {
+  "id": 975,
+  "brand": "ZOOMCAR",
+  "giftCardName": "Zoomcar",
+  "stock": true,
+  "channel": "online",
+  "discount": 9.75
+ },
+ {
+  "id": 1043,
+  "brand": "Zouk",
+  "giftCardName": "Zouk",
+  "stock": true,
+  "channel": "online",
+  "discount": 12
+ },
+ {
+  "id": 601,
+  "brand": "IRCTC",
+  "giftCardName": "IRCTC",
+  "stock": false,
+  "channel": "online",
+  "discount": -0.5
+ },
+ {
+  "id": 1163,
+  "brand": "Razorpay Money",
+  "giftCardName": "Razorpay Money Bill Voucher",
+  "stock": false,
+  "channel": "online",
+  "discount": -0.5
+ }
+]

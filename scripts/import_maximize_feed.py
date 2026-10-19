@@ -5,7 +5,8 @@ clicking through every page.
 
 Why: clicking each payment method on each of ~410 pages took about three hours.
 The page itself gets every one of those numbers from one call,
-savemax.maximize.money/api/savemax/giftcard/details-max-coins, which answers
+savemax.maximize.money/api/savemax/giftcard/details-v2 (details-max-coins
+before October 2026), which answers
 only a logged-in browser. So the collection is done in the user's logged-in
 Chrome (the page's own answers are recorded as each card opens) and saved as
 one JSON file of {giftCardId: {"status": ..., "text": <the feed's answer>}}.
@@ -19,6 +20,7 @@ Verified 2026-09-28 against the 2026-09-04 click-through, card by card: see
 """
 import argparse
 import html
+import urllib.parse
 import json
 import re
 import sys
@@ -31,6 +33,26 @@ from scrape_voucher_terms import maximize_targets, save_out, untag  # noqa: E402
 
 REPO = Path(__file__).resolve().parent.parent
 RAW = REPO / "data" / "voucher_terms_raw_maximize.json"
+CATALOG = REPO / "db" / "maximize_catalog_raw.json"
+
+
+def add_new_cards(cards: list[dict]) -> int:
+    """The gift-cards page's own A-Z list (see maximize_feed_collector.js):
+    any card not yet in the catalogue joins it, so the import below knows it.
+    Cards that have left the list stay; their feed answer (404) retires them."""
+    cat = json.loads(CATALOG.read_text())
+    added = 0
+    for c in cards:
+        k = str(c["id"])
+        if k in cat:
+            continue
+        name = html.unescape(c.get("giftCardName") or c["brand"]).strip()
+        slug = urllib.parse.quote(c["brand"].replace(" ", ""))
+        cat[k] = {"product_name": name, "id": k,
+                  "url": f"https://www.maximize.money/gift-cards/{slug}/{k}"}
+        added += 1
+    CATALOG.write_text(json.dumps(cat, indent=2, ensure_ascii=False))
+    return added
 
 # The feed lists a method once per payment gateway ("Credit Card (Ccavenue)",
 # "Credit Card (Razorpay)"); the page, and the app, show one "Credit Card", and
@@ -102,6 +124,9 @@ def main() -> None:
     args = ap.parse_args()
 
     feed = json.loads(Path(args.feed).read_text())
+    cards = feed.pop("__cards", None)
+    if cards and not args.compare:
+        print(f"catalogue: {add_new_cards(json.loads(cards['text']))} new cards added")
     old = json.loads(RAW.read_text())
     # Keep each listing under the key it already has: the terms manifest and the
     # read rules are keyed that way, and a new key would read as a new brand.
@@ -143,7 +168,7 @@ def main() -> None:
                 diff += 1
                 if len(examples) < 12:
                     examples.append((rec["brand_name"], b, a))
-        print(f"per-method rates identical to 2026-09-04: {same}, different: {diff}")
+        print(f"per-method rates identical to last run: {same}, different: {diff}")
         for name, b, a in examples:
             print(f"  {name[:28]:30} then {b}\n  {'':30} now  {a}")
         return

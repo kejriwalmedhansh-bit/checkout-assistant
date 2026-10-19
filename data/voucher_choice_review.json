@@ -63,7 +63,8 @@
       "label": "Flights & anything else"
     },
     "Ixigo Hotel": {
-      "label": "Hotels"
+      "label": "Hotels",
+      "same": "ixigo-hotels"
     },
     "Ixigo": {
       "label": "Flights"
@@ -163,7 +164,8 @@
     },
     "District": {
       "label": "Anything except the Pass",
-      "covers": "District credit for anything except the District Pass"
+      "covers": "District credit for anything except the District Pass",
+      "same": "district-other"
     },
     "Euphoria Diamond": {
       "label": "Diamond jewellery",
@@ -370,7 +372,8 @@
       "label": "BGMI"
     },
     "UniPin": {
-      "label": "Other games"
+      "label": "Other games",
+      "same": "unipin-other-games"
     },
     "Valorant": {
       "label": "Valorant Points",
@@ -562,6 +565,39 @@
     },
     "PVR INOX": {
       "same": "pvr"
+    },
+    "ixigo hotel": {
+      "label": "Hotels",
+      "same": "ixigo-hotels"
+    },
+    "BGMI UC": {
+      "label": "BGMI UC",
+      "same": "bgmi-uc"
+    },
+    "BGMI UC Voucher": {
+      "label": "BGMI UC",
+      "same": "bgmi-uc"
+    },
+    "District by Zomato": {
+      "label": "Anything except the Pass",
+      "same": "district-other",
+      "covers": "District credit for anything except the District Pass"
+    },
+    "GIVA Gold Jewellery (Custom)": {
+      "label": "Gold jewellery",
+      "same": "giva-gold-jewellery"
+    },
+    "Unipin": {
+      "label": "Other games",
+      "same": "unipin-other-games"
+    },
+    "Yatra Flight – 500": {
+      "hide": "Owner: don't offer for now (2026-10-19)",
+      "owner_note": "Offer only on Extension if total bill is upto 1k, because this voucher cant be stacked"
+    },
+    "Yatra Flight – 1000": {
+      "hide": "Owner: don't offer for now (2026-10-19)",
+      "owner_note": "Offer only on Extension if total bill is upto 1k, because this voucher cant be stacked"
     }
   },
   "_listings_about": "For each reviewed voucher name, the exact Maximize/BuyHatke listings it covered when the owner reviewed it (data of 2026-09-26). A listing a later refresh files under the same name is held back until reviewed (src/repositories/_corrections.py). Gyftr sells one listing per name, so its names need no pins.",
@@ -606,7 +642,8 @@
       "https://www.maximize.money/gift-cards/BPCL SmartDrive Fuel/631"
     ],
     "Blue Tokai Coffe": [
-      "https://www.maximize.money/gift-cards/Blue Tokai Coffe/71"
+      "https://www.maximize.money/gift-cards/Blue Tokai Coffe/71",
+      "https://www.maximize.money/gift-cards/BlueTokaiCoffee/1239"
     ],
     "Blue Tokai Coffee": [
       "https://buyhatke.com/gift-cards/blue-tokai-coffee-gift-card"
@@ -625,11 +662,13 @@
     ],
     "Cleartrip": [
       "https://buyhatke.com/gift-cards/cleartrip-gift-card",
-      "https://www.maximize.money/gift-cards/Cleartrip/377"
+      "https://www.maximize.money/gift-cards/Cleartrip/377",
+      "https://www.maximize.money/gift-cards/Cleartrip/803"
     ],
     "Cleartrip Hotels": [
       "https://www.maximize.money/gift-cards/Cleartrip Hotels (Custom)/227",
-      "https://buyhatke.com/gift-cards/cleartrip-hotels-gift-card"
+      "https://buyhatke.com/gift-cards/cleartrip-hotels-gift-card",
+      "https://www.maximize.money/gift-cards/CleartripHotels/612"
     ],
     "Cordelia Cruises": [
       "https://www.maximize.money/gift-cards/Cordelia Cruises/1055"
@@ -714,10 +753,12 @@
       "https://buyhatke.com/gift-cards/hp-pay-in-app-gift-card"
     ],
     "Ixigo": [
-      "https://buyhatke.com/gift-cards/ixigo-gift-card"
+      "https://buyhatke.com/gift-cards/ixigo-gift-card",
+      "https://www.maximize.money/gift-cards/Ixigo/533"
     ],
     "Ixigo Hotel": [
-      "https://buyhatke.com/gift-cards/ixigo-hotel-gift-card"
+      "https://buyhatke.com/gift-cards/ixigo-hotel-gift-card",
+      "https://www.maximize.money/gift-cards/Ixigo/877"
     ],
     "Jos Alukkas Coin": [
       "https://buyhatke.com/gift-cards/jos-alukkas-coin-gift-card"
@@ -734,13 +775,15 @@
     ],
     "Joyalukkas Diamond": [
       "https://www.maximize.money/gift-cards/Joyalukkas Diamond/464",
-      "https://buyhatke.com/gift-cards/joyalukkas-diamond-gift-card"
+      "https://buyhatke.com/gift-cards/joyalukkas-diamond-gift-card",
+      "https://www.maximize.money/gift-cards/JoyalukkasDiamond/1032"
     ],
     "Joyalukkas Gold and Diamond": [
       "https://www.maximize.money/gift-cards/Joyalukkas Gold and Diamond/592"
     ],
     "Joyalukkas Pure Gold": [
-      "https://www.maximize.money/gift-cards/Joyalukkas Pure Gold/442"
+      "https://www.maximize.money/gift-cards/Joyalukkas Pure Gold/442",
+      "https://www.maximize.money/gift-cards/JoyalukkasDiamond/999"
     ],
     "Ketan Diamonds - Diamond Only": [
       "https://www.maximize.money/gift-cards/Ketan Diamonds - Diamond Only/241"
@@ -755,7 +798,8 @@
       "https://buyhatke.com/gift-cards/lifestyle-gift-card"
     ],
     "Lifestyle Online": [
-      "https://www.maximize.money/gift-cards/Lifestyle Online/572"
+      "https://www.maximize.money/gift-cards/Lifestyle Online/572",
+      "https://www.maximize.money/gift-cards/Lifestyle/447"
     ],
     "Live Mint": [
       "https://buyhatke.com/gift-cards/live-mint-gift-card",
@@ -783,7 +827,9 @@
       "https://www.maximize.money/gift-cards/MakeMyTrip Rail/223"
     ],
     "Malabar Diamonds": [
-      "https://buyhatke.com/gift-cards/malabar-diamonds-gift-card"
+      "https://buyhatke.com/gift-cards/malabar-diamonds-gift-card",
+      "https://www.maximize.money/gift-cards/MalabarDiamonds/307",
+      "https://www.maximize.money/gift-cards/Malabar/1204"
     ],
     "Malabar Gold Coin": [
       "https://buyhatke.com/gift-cards/malabar-gold-coin-gift-card",
@@ -847,7 +893,8 @@
     ],
     "Valorant": [
       "https://buyhatke.com/gift-cards/valorant-gift-card",
-      "https://www.maximize.money/gift-cards/Valorant/953"
+      "https://www.maximize.money/gift-cards/Valorant/953",
+      "https://www.maximize.money/gift-cards/Valorant/217"
     ],
     "Yatra": [
       "https://buyhatke.com/gift-cards/yatra-gift-card",
@@ -868,7 +915,8 @@
       "https://buyhatke.com/gift-cards/zee5-regional-gift-card"
     ],
     "Amazon Prime Lite Edition": [
-      "https://www.maximize.money/gift-cards/Amazon/547"
+      "https://www.maximize.money/gift-cards/Amazon/547",
+      "https://buyhatke.com/gift-cards/amazon-prime-lite-edition-gift-card"
     ],
     "Amazon Prime Voucher - 12 months Membership": [
       "https://www.maximize.money/gift-cards/Amazon/549"
@@ -904,11 +952,13 @@
       "https://buyhatke.com/gift-cards/ajio-luxe-gift-card"
     ],
     "GIVA Silver jewellery": [
-      "https://www.maximize.money/gift-cards/GIVA%20Silver%20Coin/1166"
+      "https://www.maximize.money/gift-cards/GIVA%20Silver%20Coin/1166",
+      "https://www.maximize.money/gift-cards/Giva/740"
     ],
     "MakeMyTrip": [
       "https://buyhatke.com/gift-cards/makemytrip-gift-card",
-      "https://www.maximize.money/gift-cards/MakeMyTrip/579"
+      "https://www.maximize.money/gift-cards/MakeMyTrip/579",
+      "https://www.maximize.money/gift-cards/MakeMyTrip/1314"
     ],
     "MakeMyTrip Holidays": [
       "https://buyhatke.com/gift-cards/makemytrip-holidays-gift-card"
@@ -980,6 +1030,27 @@
     ],
     "Steve Madde-Luxe": [
       "https://www.maximize.money/gift-cards/Steve Madde-Luxe/901"
+    ],
+    "BGMI UC": [
+      "https://buyhatke.com/gift-cards/bgmi-uc-gift-card"
+    ],
+    "BGMI UC Voucher": [
+      "https://www.maximize.money/gift-cards/BGMI/1178"
+    ],
+    "District by Zomato": [
+      "https://www.maximize.money/gift-cards/District/1153"
+    ],
+    "GIVA Gold Jewellery (Custom)": [
+      "https://www.maximize.money/gift-cards/Giva/741"
+    ],
+    "Unipin": [
+      "https://www.maximize.money/gift-cards/Unipin/1104"
+    ],
+    "Yatra Flight – 500": [
+      "https://www.maximize.money/gift-cards/Yatra/1317"
+    ],
+    "Yatra Flight – 1000": [
+      "https://www.maximize.money/gift-cards/Yatra/1318"
     ]
   }
 }
