@@ -33,7 +33,10 @@ def test_handshake_and_notifications():
     assert init["protocolVersion"] == "2025-06-18"
     assert "tools" in init["capabilities"]
     assert client.post("/mcp", json={"jsonrpc": "2.0", "method": "notifications/initialized"}).status_code == 202
-    assert client.get("/mcp").status_code == 405
+    assert client.get("/mcp", headers={"Accept": "text/event-stream"}).status_code == 405
+    plain = client.get("/mcp")
+    assert plain.status_code == 200 and plain.json()["authentication"] == "none"
+    assert client.head("/mcp").status_code == 200
 
 
 def test_tool_points_at_card_for_both_apps():
