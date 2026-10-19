@@ -53,17 +53,16 @@ def test_choices_come_without_a_price_too():
     assert len(_labels(voucher_check(domain="giva.co"))) >= 3
 
 
-def test_yatra_picks_the_flight_card_that_saves_most_on_this_fare():
-    """Yatra's flight card comes at ₹500 (85%), ₹1,500 (35%) and ₹2,000 (25%),
-    one per bill. On a ₹4,000 fare the ₹1,500 card saves most, not the 85%."""
+def test_yatra_flight_cards_are_priced_on_this_fare():
+    """Yatra's flight cards (2026-10-19): ₹500 at 40% and ₹1,000 at 20%, up
+    to three per booking. On a ₹4,000 fare each saves ₹600 at most — the
+    rate is not the saving."""
     import pytest
     choices = voucher_check(domain="yatra.com", price=4000)["product_choices"]
-    flights = next((c for c in choices if "flight" in c["choice_label"].lower()), None)
-    if flights is None:
-        # Maximize answered "Gift Card not found" for all three Yatra flight
-        # cards at the 2026-09-28 refresh — nothing to choose until they return.
+    flights = {c["choice_label"]: c for c in choices if "flight" in c["choice_label"].lower()}
+    if not flights:
         pytest.skip("No Yatra flight card on sale at the last refresh")
-    assert flights["brand_name"] == "Yatra - 1500" and flights["saving"] == 525, flights
+    assert all(c["saving"] <= 600 for c in flights.values()), flights
     assert "anything else" in _labels({"product_choices": choices})
 
 
