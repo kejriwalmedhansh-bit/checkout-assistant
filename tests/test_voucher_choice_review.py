@@ -87,8 +87,11 @@ def test_each_ajio_site_gets_its_own_voucher_without_asking():
 
 
 def test_times_prime_website_asks_which_membership():
+    """Which memberships are offered follows stock: Lite was sold out on BuyHatke
+    on 2026-10-19, and an out-of-stock card is never offered."""
     labels = _labels(voucher_check(domain="timesprime.com", price=1000).get("product_choices") or [])
-    assert {"Power membership", "Lite membership"} <= set(labels), labels
+    assert len(labels) >= 2 and "Power membership" in labels, labels
+    assert set(labels) <= {"Power membership", "Lite membership", "Privé membership"}, labels
 
 
 def test_amazon_pay_card_is_not_limited_to_one_voucher_per_bill():
@@ -144,3 +147,15 @@ def test_new_voucher_names_at_a_reviewed_shop_wait_for_review():
                            "Prime membership", "Prime Lite membership", "Prime membership (3 months)"}, labels
     # ...and nothing a later refresh adds joins until it is reviewed.
     assert not voucher_service.pending_review()["new_names"]
+
+
+def test_the_copy_that_saves_most_on_this_order_wins_not_the_highest_rate():
+    """2026-10-19: BuyHatke's PVR card led at 21% but comes in ₹1,500/₹5,000,
+    so a ₹2,000 ticket saved more on Maximize's 20.25% copy in one ₹2,000 card.
+    Every reviewed copy is priced on the order; none may save more than the answer."""
+    for price in (500, 2000, 10000):
+        answer = voucher_check(domain="pvrcinemas.com", price=price)
+        for copy in voucher_service.same_voucher_copies(answer["brand_name"]):
+            alt = voucher_service.get_voucher_check(copy["name"], price) or {}
+            if alt.get("brand_name") == copy["name"]:
+                assert (alt.get("saving") or 0) <= (answer.get("saving") or 0) + 0.01, (price, copy["name"])

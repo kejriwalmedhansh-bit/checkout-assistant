@@ -2016,12 +2016,20 @@ def best_of_same_voucher(brand_name: str) -> dict | None:
     """The best-rate copy of a voucher sold on several sites (Porter on Gyftr
     at 11% beside Maximize at 10.75%), per the owner's review; None when the
     voucher has no reviewed copies or is already the best."""
+    best = max(same_voucher_copies(brand_name), key=lambda c: c["pct"], default=None)
+    return best if best and best["name"] != brand_name else None
+
+
+def same_voucher_copies(brand_name: str) -> list[dict]:
+    """Every site's copy of a voucher the owner grouped as the same ("same"
+    in the review), this one included; [] when it has no reviewed copies.
+    The best rate is not always the best buy for an order: on 2026-10-19
+    BuyHatke's PVR card led at 21% but comes in ₹1,500 and ₹5,000, so on a
+    ₹2,000 ticket Maximize's 20.25% copy saved ₹405 and BuyHatke's ₹315."""
     group = (_choice_review().get(brand_name) or {}).get("same")
     if not group:
-        return None
-    copies = [c for c in _online_cards() if (_choice_review().get(c["name"]) or {}).get("same") == group]
-    best = max(copies, key=lambda c: c["pct"], default=None)
-    return best if best and best["name"] != brand_name else None
+        return []
+    return [c for c in _online_cards() if (_choice_review().get(c["name"]) or {}).get("same") == group]
 
 
 def _group_by_name(cards) -> dict[str, list[dict]]:

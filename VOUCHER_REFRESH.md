@@ -15,9 +15,9 @@ What moves, and how fast:
 
 | Layer | Changes | Cost to rebuild | Do it |
 |---|---|---|---|
-| Rates, denominations, stock | Constantly | Gyftr ~20 min, BuyHatke ~30 min, Maximize ~10 min | Every run |
+| Rates, denominations, stock | Constantly | Gyftr ~20 min, BuyHatke ~30 min, Maximize ~15 min | Every run |
 | The rules in the terms | Sometimes | ~15 min per 100 listings, two readings | Only for listings whose terms changed |
-| Maximize's brand catalogue | Barely | ~3 h of search probing | Monthly, or when a brand is missing |
+| Maximize's brand catalogue | Monthly-ish | Seconds: the gift-cards page's own list | Every run, with the collection |
 
 ## The run
 
@@ -31,9 +31,10 @@ Gyftr's full terms come from the feed its own "T&C" tab calls, not from the page
 (the page-reading route saved the price table as terms for 100 brands). Every
 answer is checked to be the brand asked for.
 
-Maximize: in a **logged-in** maximize.money tab, run
-`scripts/maximize_feed_collector.js` (instructions at its top), download the
-file it makes, then:
+Maximize: in a **logged-in** maximize.money tab open on `/gift-cards`, run
+`scripts/maximize_feed_collector.js` (instructions at its top): read the site's
+own card list, collect the known cards, then the new ones, and download the
+file it makes. Then:
 
     python3.11 scripts/import_maximize_feed.py ~/Downloads/maximize_feed_DATE.json --compare
     python3.11 scripts/import_maximize_feed.py ~/Downloads/maximize_feed_DATE.json
@@ -41,6 +42,11 @@ file it makes, then:
 `--compare` must show nearly every card's per-method rates unchanged; on
 2026-09-28 it was 349 of 355, and the other 6 were real price moves checked on
 the live page.
+On 2026-10-19 it was 339 of 344; Domino's 18% → 12% was the big move.
+
+Cards that answer 404 are retired. On 2026-10-19 that was 60 of 410, and every
+one was also missing from the site's own list; several (Cinepolis, District,
+Zomato, Myntra) had moved to new ids, which the list supplied.
 
 **Check the collection before reading anything.** Any BuyHatke listing with no
 amounts and no "currently unavailable" notice is a page that did not load, not a
@@ -52,7 +58,9 @@ among them; they would otherwise have been switched off).
     python3.11 scripts/refresh_vouchers.py --plan
 
 Terms are compared on their words, not their wrapping: Gyftr's page furniture,
-BuyHatke's footer menu, Maximize's pop-up "Close" and link prefixes are all
+BuyHatke's footer (its menu, and from October 2026 a "Price history & price
+tracker" blurb — when "terms changed" is in the hundreds, a footer has moved
+again: diff a few before reading anything), Maximize's pop-up "Close" and link prefixes are all
 ignored, so a listing counts as changed only when its terms did.
 
 **3. Queue only the changed listings for reading.**
@@ -89,9 +97,9 @@ row per voucher per scrape date — nothing to append by hand.
 Then run the tests (`~/checkout-assistant/.venv/bin/python -m pytest -q tests`)
 and compare with the same run on `origin/main`: only differences count.
 
-**5. Monthly only.** Rebuild Maximize's catalogue, then collect anything new:
-
-    python3.11 scripts/harvest_maximize_catalog_v2.py
+**5. No longer needed.** Maximize's catalogue used to be rebuilt monthly by
+`harvest_maximize_catalog_v2.py` (3 h of search-box probing). Since October
+2026 the gift-cards page lists every card, and step 1 reads that list.
 
 ## Rules that hold across runs
 
