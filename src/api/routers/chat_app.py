@@ -1,7 +1,9 @@
 """Dealo inside ChatGPT and Claude — one MCP endpoint both of them call.
 
     POST /mcp   JSON-RPC 2.0 (MCP over Streamable HTTP, JSON responses only)
-    GET  /mcp   405 — we never push messages, so there is no event stream
+    GET  /mcp   405 when a client asks for an event stream (we never push
+                messages); otherwise 200 with a short note, because OpenAI's
+                plugin scanner gave up on the plain 405 (support, 19 Oct 2026)
 
 Both chat apps add tools from outside servers over the same open standard
 (MCP), and both draw a server's own HTML card inside the chat through its
@@ -424,6 +426,13 @@ async def openai_apps_challenge() -> Response:
     return PlainTextResponse(token) if token else Response(status_code=404)
 
 
-@router.get("/mcp")
-async def mcp_stream() -> Response:
-    return Response(status_code=405, headers={"Allow": "POST"})
+@router.api_route("/mcp", methods=["GET", "HEAD"])
+async def mcp_stream(request: Request) -> Response:
+    if "text/event-stream" in request.headers.get("accept", ""):
+        return Response(status_code=405, headers={"Allow": "POST"})
+    return JSONResponse({
+        "name": "Dealo",
+        "protocol": "MCP over Streamable HTTP",
+        "transport": "POST JSON-RPC 2.0 to this URL",
+        "authentication": "none",
+    })
