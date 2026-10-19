@@ -51,5 +51,23 @@
     "listings": [
       "https://buyhatke.com/gift-cards/hp-pay-250-300-gift-card"
     ]
+  },
+  "maximize:yatra-flight-–-500-1317": {
+    "why": "Owner chose not to offer this listing for now (Held Vouchers Review, 2026-10-19): 'Offer only on Extension if total bill is upto 1k, because this voucher cant be stacked'.",
+    "products": {
+      "status": "inactive"
+    },
+    "listings": [
+      "https://www.maximize.money/gift-cards/Yatra/1317"
+    ]
+  },
+  "maximize:yatra-flight-–-1000-1318": {
+    "why": "Owner chose not to offer this listing for now (Held Vouchers Review, 2026-10-19): 'Offer only on Extension if total bill is upto 1k, because this voucher cant be stacked'.",
+    "products": {
+      "status": "inactive"
+    },
+    "listings": [
+      "https://www.maximize.money/gift-cards/Yatra/1318"
+    ]
   }
 }
