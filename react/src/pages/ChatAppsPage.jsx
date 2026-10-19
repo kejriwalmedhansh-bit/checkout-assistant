@@ -73,8 +73,8 @@ export default function ChatAppsPage() {
           </li>
           <li>In a chat, open + → Connectors and make sure Dealo is switched on.</li>
         </Steps>
-        Can’t see it? Add it by hand: open <A href={CLAUDE_ADD_URL}>this link</A> on a computer, or go to Settings →
-        Connectors → Add custom connector and paste{' '}
+        Can’t see it? Add it by hand: open <A href={CLAUDE_ADD_URL}>this link</A> on a computer, or go to Customize →
+        Connectors → Add custom and paste{' '}
         <Text as="code" fontSize="12.5px" wordBreak="break-all">{MCP_URL}</Text>. Once added, it works in the Claude
         phone app too.
       </Section>
