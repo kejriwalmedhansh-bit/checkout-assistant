@@ -106,8 +106,8 @@ function environment() {
  *
  * Only these event names are sent, only their names, and every one of them is
  * a step in the funnel — enough to answer "where do people stop?", which is
- * the question the recording was for. Anything carrying detail about a
- * particular person or what they searched for is not on this list.
+ * the question the recording was for. Nothing carrying detail about a
+ * particular person is on this list.
  */
 const ANONYMOUS_STAGES = new Set([
   'Session Started',
@@ -133,11 +133,47 @@ const ANONYMOUS_STAGES = new Set([
  */
 const ANONYMOUS_ID = 'anonymous';
 
-function countStage(event) {
+/**
+ * What a search stage may carry for a visitor who hasn't agreed: the words
+ * searched and what kind of answer came back — never anything that says who
+ * searched. Without this, most searches arrive blank and we can't see what
+ * Dealo is failing to answer.
+ */
+const ANONYMOUS_SEARCH_PROPS = ['query', 'mode', 'input_type', 'result_count', 'group', 'corrected_query'];
+const ANONYMOUS_SEARCH_EVENTS = new Set(['Searched', 'Product Searched']);
+
+/**
+ * A pasted link keeps only its shop and page (amzn.in/d/0ab6OVDJ): the part
+ * after "?" is where share and ad links put tracking codes, which can point
+ * back at a person.
+ */
+function withoutLinkTracking(text) {
+  return String(text).replace(/https?:\/\/[^\s]+/g, (link) => {
+    try {
+      const url = new URL(link);
+      return `${url.hostname}${url.pathname}`;
+    } catch {
+      return link.split(/[?#]/)[0];
+    }
+  });
+}
+
+function anonymousSearchProps(event, props) {
+  if (!ANONYMOUS_SEARCH_EVENTS.has(event)) return {};
+  const kept = {};
+  for (const key of ANONYMOUS_SEARCH_PROPS) {
+    if (props[key] !== undefined && props[key] !== null) kept[key] = props[key];
+  }
+  if (kept.query) kept.query = withoutLinkTracking(kept.query);
+  return kept;
+}
+
+function countStage(event, props = {}) {
   if (!ANONYMOUS_STAGES.has(event)) return;
   const payload = [{
     event,
     properties: {
+      ...anonymousSearchProps(event, props),
       token: MIXPANEL_TOKEN,
       distinct_id: ANONYMOUS_ID,
       time: Math.floor(Date.now() / 1000),
@@ -359,7 +395,7 @@ if (!isGranted()) {
 /** Fire-and-forget event tracking. */
 export function track(event, props = {}) {
   if (isGranted()) mixpanel.track(event, props);
-  else countStage(event);
+  else countStage(event, props);
 }
 
 // Shop and partner links are built at render time, which can be before the

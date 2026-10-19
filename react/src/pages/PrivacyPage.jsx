@@ -21,7 +21,7 @@ import { PAGE_META } from '@/seo/pageMeta';
  *   - extension/src/*.js           — what the extension sends and stores
  *   - src/api/routers/chat_app.py  — what ChatGPT/Claude send us
  */
-const LAST_UPDATED = 'October 3, 2026';
+const LAST_UPDATED = 'October 19, 2026';
 
 function Section({ title, children }) {
   return (
@@ -105,14 +105,16 @@ export default function PrivacyPage() {
         scrolling, and the pages you move through. We ask first, and nothing is recorded unless you say yes.
         <Box as="ul" m="10px 0 0 18px" p={0} sx={{ '& li': { mb: '6px' } }}>
           <li>
-            <strong>What you type is never recorded</strong>, whichever way you answer. The search box and the
-            places your search is shown back to you are blanked out of every replay. The one exception is a comment
-            you choose to send us after the short “Not buying? Tell us why” question — that’s sent as your answer.
+            <strong>What you type is never tied to you</strong>, whichever way you answer. The search box and the
+            places your search is shown back to you are blanked out of every replay. We do count the words people
+            search for, with nothing attached to say who searched them, so we can see what Dealo can’t answer yet.
+            The one other thing you type that reaches us is a comment you choose to send after the short “Not
+            buying? Tell us why” question — that’s sent as your answer.
           </li>
           <li>
             <strong>Say no and there is no recording at all</strong>, and nothing that identifies your browser.
-            We keep a count of how many people reached each step — not tied to you or to anyone — so we can still
-            see where the site loses people.
+            We keep a count of how many people reached each step, and the words searched — not tied to you or to
+            anyone — so we can still see where the site loses people.
           </li>
           <li>
             <strong>If you say yes</strong>, the replay shows the Dealo window only. We can’t see your other tabs,
@@ -138,9 +140,11 @@ export default function PrivacyPage() {
         location — city and region — from your internet connection.
         <br />
         <br />
-        If you haven’t agreed, none of that happens: no identifier, no replay, no record of what you searched. All
-        that’s kept is a count of how many people reached each step of the site — including opening a store or
-        voucher link, which our server counts as it forwards you — with nothing attached to say who they were.
+        If you haven’t agreed, none of that happens: no identifier, no replay, nothing that ties a search to you.
+        All that’s kept is a count of how many people reached each step of the site — including opening a store or
+        voucher link, which our server counts as it forwards you — and, for a search, the words searched (a pasted
+        link cut down to the shop and page, without the tracking codes after the “?”), with nothing attached to say
+        who they were.
 
         <SubHeading>Links to stores and voucher partners</SubHeading>
         Store, voucher-partner and card links on Dealo pass through our own server on the way. It records that the

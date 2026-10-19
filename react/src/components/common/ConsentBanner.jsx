@@ -59,7 +59,7 @@ export default function ConsentBanner() {
         Can we record how you use Dealo?
       </Text>
       <Text m="0 0 12px" fontSize="12.5px" color="text2" lineHeight={1.65}>
-        It helps us see where people get stuck. What you type is never recorded — the search box is blanked out
+        It helps us see where people get stuck. What you type is never tied to you — the search box is blanked out
         even when you say yes. Say no and we won’t record you at all.{' '}
         <ChakraLink as={RouterLink} to={ROUTES.privacy} color="brand" fontWeight={700} textDecoration="underline">
           What we collect
