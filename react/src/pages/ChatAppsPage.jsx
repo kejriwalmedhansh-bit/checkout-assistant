@@ -12,6 +12,7 @@ import { PAGE_META } from '@/seo/pageMeta';
  * one tool, shop + amount in, gift card price out, no sign-in.
  */
 const MCP_URL = 'https://mcp.getdealo.in/mcp';
+const CLAUDE_LISTING_URL = 'https://claude.ai/directory/connectors/dealo';
 const CLAUDE_ADD_URL =
   'https://claude.ai/customize/connectors?modal=add-custom-connector&connectorName=Dealo&connectorUrl=' +
   encodeURIComponent(MCP_URL);
@@ -67,15 +68,15 @@ export default function ChatAppsPage() {
       <Section title="Add it to Claude">
         <Steps>
           <li>
-            On a computer, signed in to Claude, open <A href={CLAUDE_ADD_URL}>this link</A>. It opens “Add custom
-            connector” with Dealo filled in.
+            Signed in to Claude, open <A href={CLAUDE_LISTING_URL}>Dealo in Claude’s directory</A> and press
+            Connect. No sign-in needed.
           </li>
-          <li>Choose “No sign-in” if asked, then Add.</li>
           <li>In a chat, open + → Connectors and make sure Dealo is switched on.</li>
         </Steps>
-        Or add it by hand: Settings → Connectors → Add custom connector, and paste{' '}
-        <Text as="code" fontSize="12.5px" wordBreak="break-all">{MCP_URL}</Text>. Once added on a computer, it works in the Claude phone
-        app too.
+        Can’t see it? Add it by hand: open <A href={CLAUDE_ADD_URL}>this link</A> on a computer, or go to Settings →
+        Connectors → Add custom connector and paste{' '}
+        <Text as="code" fontSize="12.5px" wordBreak="break-all">{MCP_URL}</Text>. Once added, it works in the Claude
+        phone app too.
       </Section>
 
       <Section title="Add it to ChatGPT">
