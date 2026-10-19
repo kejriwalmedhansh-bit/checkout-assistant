@@ -26,7 +26,8 @@
       "label": "Trains"
     },
     "Yatra - 500": {
-      "label": "Flights"
+      "label": "Flights · ₹500 card",
+      "same": "yatra-flight-500"
     },
     "Yatra Hotel": {
       "label": "Domestic hotels",
@@ -592,12 +593,15 @@
       "same": "unipin-other-games"
     },
     "Yatra Flight – 500": {
-      "hide": "Owner: don't offer for now (2026-10-19)",
-      "owner_note": "Offer only on Extension if total bill is upto 1k, because this voucher cant be stacked"
+      "label": "Flights · ₹500 card",
+      "same": "yatra-flight-500",
+      "covers": "Flights only (not hotels, buses, trains or cabs)",
+      "owner_note": "2026-10-19: show beside the other Yatra cards, saying plainly how many fit one booking"
     },
     "Yatra Flight – 1000": {
-      "hide": "Owner: don't offer for now (2026-10-19)",
-      "owner_note": "Offer only on Extension if total bill is upto 1k, because this voucher cant be stacked"
+      "label": "Flights · ₹1,000 card",
+      "covers": "Flights only (not hotels, buses, trains or cabs)",
+      "owner_note": "2026-10-19: show beside the other Yatra cards, saying plainly how many fit one booking"
     }
   },
   "_listings_about": "For each reviewed voucher name, the exact Maximize/BuyHatke listings it covered when the owner reviewed it (data of 2026-09-26). A listing a later refresh files under the same name is held back until reviewed (src/repositories/_corrections.py). Gyftr sells one listing per name, so its names need no pins.",

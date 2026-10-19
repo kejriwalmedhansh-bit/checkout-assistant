@@ -159,3 +159,19 @@ def test_the_copy_that_saves_most_on_this_order_wins_not_the_highest_rate():
             alt = voucher_service.get_voucher_check(copy["name"], price) or {}
             if alt.get("brand_name") == copy["name"]:
                 assert (alt.get("saving") or 0) <= (answer.get("saving") or 0) + 0.01, (price, copy["name"])
+
+
+def test_yatra_shows_each_flight_card_beside_the_others():
+    """2026-10-19 owner: searching Yatra must never jump straight to the 40%
+    ₹500 flight card; it is one choice among Yatra's cards, and says how many
+    fit one booking (the terms: up to three)."""
+    choices = search_service._brand_voucher_choices("yatra")
+    labels = _labels(choices)
+    assert {"Flights · ₹500 card", "Flights · ₹1,000 card", "Anything else"} <= set(labels), labels
+    flights = {c["choice_label"]: c for c in choices if c["choice_label"].startswith("Flights")}
+    assert all(c["stack_limit"] == 3 for c in flights.values()), flights
+    answer = voucher_check(domain="yatra.com", price=8000)
+    assert len(answer.get("product_choices") or []) >= 3
+    # Three ₹500 cards at 40% is the most a booking can save, however big it is.
+    five = next(c for c in answer["product_choices"] if c["choice_label"] == "Flights · ₹500 card")
+    assert five["saving"] <= 600

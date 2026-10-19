@@ -28,6 +28,20 @@ export default function BrandVoucherCard({ voucher }) {
   // whenever this voucher actually came from Maximize (or the backend just
   // didn't have a real URL for this brand). Trust > a confident wrong link.
   const link = voucher.voucher_url ? outboundLink(voucher.voucher_url, 'voucher_site', 'brand_voucher_card') : null;
+  // How many vouchers one booking takes, said plainly whenever the terms cap
+  // it. Yatra's flight cards are 40% off but only three ₹500 cards fit one
+  // booking — with no booking amount here, the rate alone would oversell it,
+  // so a single-amount card also states the most it can ever save.
+  const limit = voucher.stack_limit;
+  const oneAmount = !anyAmount && new Set(denominations).size === 1 ? denominations[0] : null;
+  const perBooking = limit === 1
+    ? `${oneAmount ? `One ${fmt(oneAmount)} voucher` : 'One voucher'} per booking`
+    : limit > 1
+      ? `Up to ${limit} ${oneAmount ? `× ${fmt(oneAmount)} vouchers` : 'vouchers'} per booking`
+      : null;
+  const maxSaving = limit && oneAmount && voucher.best_discount_pct != null
+    ? Math.floor((limit * oneAmount * voucher.best_discount_pct) / 100)
+    : null;
 
   return (
     <Card p="22px 20px">
@@ -59,14 +73,12 @@ export default function BrandVoucherCard({ voucher }) {
         </Box>
       )}
 
-      {(voucher.covers || voucher.stack_limit === 1) && (
+      {(voucher.covers || perBooking) && (
         <Box mb="16px" fontSize="12.5px" color="text2">
           {voucher.covers && <Text>Works for: {voucher.covers}</Text>}
-          {/* Yatra's flight card is 85% off but one ₹500 card per booking —
-              with no booking amount here, the rate alone would oversell it. */}
-          {voucher.stack_limit === 1 && (
+          {perBooking && (
             <Text fontWeight={600} color="text">
-              {new Set(denominations).size === 1 ? `One ${fmt(denominations[0])} voucher` : 'One voucher'} per booking
+              {perBooking}{maxSaving ? ` · saves at most ${fmt(maxSaving)}` : ''}
             </Text>
           )}
         </Box>

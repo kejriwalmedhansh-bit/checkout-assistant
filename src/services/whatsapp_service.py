@@ -501,11 +501,20 @@ async def _send_brand_voucher(phone: str, query: str, voucher: dict, shop: str |
         # WhatsApp's `code` style boxes each amount, the nearest a chat
         # bubble gets to the website's denomination pills.
         lines.append("\n" + "  ".join(f"`₹{d:,}`" for d in denominations))
-    if voucher.get("stack_limit") == 1:
-        # Yatra's flight card is 85% off, but only one ₹500 card per booking —
-        # with no booking amount to price, the rate alone would oversell it.
-        one = f"One ₹{denominations[0]:,} voucher" if len(set(denominations)) == 1 and not any_amount else "One voucher"
-        lines.append(f"{one} per booking.")
+    limit = voucher.get("stack_limit")
+    if limit:
+        # Yatra's flight cards are 40% off, but only three ₹500 cards fit one
+        # booking — with no booking amount to price, the rate alone would
+        # oversell it, so a single-amount card also states its most saving.
+        one_amount = denominations[0] if len(set(denominations)) == 1 and not any_amount else None
+        if limit == 1:
+            line = f"One ₹{one_amount:,} voucher" if one_amount else "One voucher"
+        else:
+            line = f"Up to {limit} × ₹{one_amount:,} vouchers" if one_amount else f"Up to {limit} vouchers"
+        line += " per booking"
+        if one_amount and pct:
+            line += f", saves at most ₹{int(limit * one_amount * pct / 100):,}"
+        lines.append(line + ".")
     lines.append(f"\nBuy the amount you need, then use it at *{brand}* checkout.")
     text = "\n".join(lines)
 
