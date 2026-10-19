@@ -18,11 +18,13 @@ const CLAUDE_ADD_URL =
   encodeURIComponent(MCP_URL);
 const SUPPORT_EMAIL = 'medhansh@getdealo.in';
 
+// Claude only reliably picks a directory connector when it's named (tested
+// 19 Oct 2026: unnamed questions went to web search), so every example says it.
 const EXAMPLES = [
-  'I’m spending ₹4,000 on Nykaa. Cheapest way to pay?',
-  'Any discount on Skechers shoes? ₹5,000',
-  'Booking a ₹10,000 hotel on MakeMyTrip, how can I save?',
-  'Is there a gift card offer for Tata CLiQ?',
+  'Use Dealo: I’m spending ₹4,000 on Nykaa. Cheapest way to pay?',
+  'Use Dealo: any discount on Skechers shoes? ₹5,000',
+  'Use Dealo: booking a ₹10,000 hotel on MakeMyTrip, how can I save?',
+  'Use Dealo: is there a gift card offer for Tata CLiQ?',
 ];
 
 function Section({ title, children }) {
@@ -84,6 +86,7 @@ export default function ChatAppsPage() {
       </Section>
 
       <Section title="Things to ask">
+        Start with “Use Dealo” so the chat app knows to check Dealo instead of searching the web.
         <Box as="ul" m="0 0 0 18px" p={0} sx={{ '& li': { mb: '6px' } }}>
           {EXAMPLES.map((q) => (
             <li key={q}>{q}</li>
