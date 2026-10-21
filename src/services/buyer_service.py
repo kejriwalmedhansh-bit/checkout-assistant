@@ -55,8 +55,11 @@ async def verify_login(id_token: str) -> dict:
             algorithms=["RS256"],
             audience=project,
             issuer=f"https://securetoken.google.com/{project}",
+            # A minute of slack for clock differences between machines.
+            leeway=60,
         )
     except jwt.PyJWTError as exc:
+        print(f"[buyers] login rejected: {exc}")
         raise ValueError(f"login not valid: {exc}") from exc
     phone = claims.get("phone_number")
     if not claims.get("sub") or not phone:
