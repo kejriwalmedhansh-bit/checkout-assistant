@@ -1,6 +1,6 @@
 """Buy a voucher inside Dealo (Hubble SDK).
 
-    GET  /hubble/offer?merchant=AJIO&price=2799
+    GET  /hubble/offer?merchant=AJIO&price=2799[&in_store=true]
         -> can Hubble sell this shop's voucher, and for how much
     POST /hubble/session {id_token, name, email, marketing_optin, merchant, price}
         -> checks the shopper's phone login, saves them as a buyer, and
@@ -35,8 +35,8 @@ _recent_orders: dict[str, tuple[float, dict]] = {}
 
 
 @router.get("/offer")
-async def offer(merchant: str = Query(...), price: float = Query(..., gt=0)) -> dict:
-    found = await hubble_service.offer_for(merchant, price)
+async def offer(merchant: str = Query(...), price: float = Query(..., gt=0), in_store: bool = False) -> dict:
+    found = await hubble_service.offer_for(merchant, price, in_store)
     return {"available": bool(found), "offer": found}
 
 
@@ -47,11 +47,12 @@ class SessionRequest(BaseModel):
     marketing_optin: bool = False
     merchant: str
     price: float
+    in_store: bool = False
 
 
 @router.post("/session")
 async def session(body: SessionRequest) -> dict:
-    found = await hubble_service.offer_for(body.merchant, body.price)
+    found = await hubble_service.offer_for(body.merchant, body.price, body.in_store)
     if not found:
         raise HTTPException(404, "Hubble doesn't sell this voucher")
     try:

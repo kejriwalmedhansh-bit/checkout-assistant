@@ -96,7 +96,7 @@ export default function Journey({ rec, payingByCard = false, skipVoucher = false
     if (!HUBBLE_ON || !v || !orderPrice || payingByCard) return undefined;
     let live = true;
     hubbleApi
-      .offer(shopName, orderPrice)
+      .offer(shopName, orderPrice, Boolean(v.offline_only))
       .then((res) => {
         if (!live || !res.available) return;
         const total = res.offer.you_pay + res.offer.rest_at_shop;

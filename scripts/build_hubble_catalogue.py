@@ -1,17 +1,26 @@
-"""Refresh data/hubble_catalogue.json: which brands Hubble sells us, by name.
+"""Refresh data/hubble_catalogue.json: which vouchers Hubble sells us.
 
     python scripts/build_hubble_catalogue.py            # staging
     HUBBLE_ENV=production python scripts/build_hubble_catalogue.py
 
-Reads Hubble's own store search (docs.myhubble.money/sdk/features/custom-listing)
-with our client id, so the list is exactly what our shoppers can buy. Only
-names and ids are kept: prices and amount rules change often, so the server
-reads those live per brand (services/hubble_service.py), never from here.
+Lists every active voucher from Hubble's own store search
+(docs.myhubble.money/sdk/features/custom-listing) with our client id, then
+reads each one's details for two facts that rarely change:
+
+- where it works: "ONLINE", "OFFLINE" (in store) or both, from Hubble's
+  how-to-use steps. Dealo matches an online order only to an online voucher
+  and an in-store order only to an in-store one.
+- add_voucher_url: Hubble's link to the shop's own add-gift-card page
+  (e.g. AJIO Wallet), used by the "voucher ready" screen.
+
+Prices and amount rules change often, so the server reads those live per
+brand (services/hubble_service.py), never from here.
 """
 from __future__ import annotations
 
 import json
 import sys
+from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 
 import httpx
@@ -23,29 +32,37 @@ from src.services.hubble_service import API_HOST  # noqa: E402
 OUT = Path(__file__).resolve().parent.parent / "data" / "hubble_catalogue.json"
 
 
+def _details(client: httpx.Client, base: str, brand: dict) -> dict | None:
+    resp = client.get(f"{base}/v1/store/products/voucher-product/{brand['id']}")
+    if resp.status_code == 404:
+        return None  # listed in search but has no product page: can't be bought
+    resp.raise_for_status()
+    meta = resp.json().get("voucherProductMetadata") or {}
+    modes = sorted({(s.get("retailMode") or "").upper() for s in meta.get("howToUseSteps") or []} - {""})
+    if not modes:
+        modes = ["OFFLINE"] if "offline" in brand["brand_key"] else ["ONLINE"]
+    return {**brand, "works": modes, "add_voucher_url": meta.get("addVoucherBrandPageUrl")}
+
+
 def build() -> list[dict]:
     s = get_settings()
-    resp = httpx.get(
-        f"{API_HOST[s.HUBBLE_ENV]}/v3/store/products/search",
-        params={"pageNo": 0, "limit": 2000},
-        headers={"X-CLIENT-ID": s.HUBBLE_CLIENT_ID},
-        timeout=60,
-    )
-    resp.raise_for_status()
-    brands = {}
-    for section in resp.json().get("data", []):
-        for p in section.get("products", []):
-            vp = p.get("voucherProduct") or {}
-            key = (p.get("brandKey") or "").lower()
-            # Hubble lists some shops twice under one name: an "-online"
-            # voucher and an "-offline" (in-store) one. Dealo shoppers buy
-            # online, so the in-store ones never belong here.
-            if p.get("type") == "VOUCHER" and vp.get("status") == "ACTIVE" and "offline" not in key:
-                brands[p["id"]] = {"id": p["id"], "name": vp.get("title", "").strip(), "brand_key": key}
-    return sorted(brands.values(), key=lambda b: b["name"].lower())
+    base = API_HOST[s.HUBBLE_ENV]
+    with httpx.Client(headers={"X-CLIENT-ID": s.HUBBLE_CLIENT_ID}, timeout=60) as client:
+        resp = client.get(f"{base}/v3/store/products/search", params={"pageNo": 0, "limit": 2000})
+        resp.raise_for_status()
+        brands = {}
+        for section in resp.json().get("data", []):
+            for p in section.get("products", []):
+                vp = p.get("voucherProduct") or {}
+                if p.get("type") == "VOUCHER" and vp.get("status") == "ACTIVE":
+                    brands[p["id"]] = {"id": p["id"], "name": vp.get("title", "").strip(), "brand_key": (p.get("brandKey") or "").lower()}
+        with ThreadPoolExecutor(8) as pool:
+            out = [b for b in pool.map(lambda b: _details(client, base, b), brands.values()) if b]
+    return sorted(out, key=lambda b: (b["name"].lower(), b["brand_key"]))
 
 
 if __name__ == "__main__":
     brands = build()
     OUT.write_text(json.dumps(brands, indent=1, ensure_ascii=False) + "\n")
-    print(f"wrote {len(brands)} brands to {OUT}")
+    online = sum("ONLINE" in b["works"] for b in brands)
+    print(f"wrote {len(brands)} vouchers to {OUT} ({online} work online, {len(brands) - online} in store only)")

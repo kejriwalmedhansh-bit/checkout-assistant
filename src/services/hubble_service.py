@@ -47,21 +47,22 @@ def _key(name: str) -> str:
 
 
 @lru_cache(maxsize=1)
-def _brands_by_key() -> dict[str, dict]:
-    """One brand per shop name. Two Hubble products with the same name and
-    no way to tell which is right (e.g. two differently priced cards) means
-    neither is used: guessing wrong charges the shopper a price Dealo
-    didn't show."""
+def _brands_by_key() -> dict[str, list[dict]]:
     by_key: dict[str, list[dict]] = {}
     for b in json.loads(_CATALOGUE.read_text()):
         by_key.setdefault(_key(b["name"]), []).append(b)
-    return {k: v[0] for k, v in by_key.items() if len(v) == 1}
+    return by_key
 
 
-def brand_for(merchant: str) -> dict | None:
-    """Exact name match only. A near-miss sends the shopper a voucher for
-    the wrong shop, so "not on Hubble" is the safer answer."""
-    return _brands_by_key().get(_key(merchant))
+def brand_for(merchant: str, in_store: bool = False) -> dict | None:
+    """The one Hubble voucher for this shop that works where the shopper
+    pays: online orders get an online voucher, in-store orders an in-store
+    one. Exact name match only, and two candidates with no way to tell them
+    apart means neither is used: a near-miss or a guess sends the shopper a
+    voucher for the wrong shop or at a price Dealo didn't show."""
+    want = "OFFLINE" if in_store else "ONLINE"
+    fits = [b for b in _brands_by_key().get(_key(merchant), []) if want in b["works"]]
+    return fits[0] if len(fits) == 1 else None
 
 
 async def _product(brand_id: str) -> dict | None:
@@ -124,29 +125,38 @@ def _split(product: dict, price: float) -> list[tuple[int, int]] | None:
                 break
         return parts or None
 
+    # Some brands only sell set steps (Domino's: multiples of ₹500).
+    step = max(1, int(rules.get("stepAmount") or 1))
+
+    def fit(amount: int) -> int:
+        return amount - amount % step
+
     if total < lo:
         return None
     if total <= hi:
-        return [(total, 1)]
+        one = fit(total)
+        return [(one, 1)] if one >= lo else None
     cap = min(max_count, int(per_denom)) if per_denom else max_count
+    hi = fit(hi)
     if one_amount_only:
         # Same amount every time: n equal vouchers just under the price.
         n = min(math.ceil(total / hi), cap)
-        each = min(hi, total // n)
+        each = fit(min(hi, total // n))
         return [(each, n)] if each >= lo else None
     full, rest = divmod(total, hi)
     full = min(full, cap)
     parts = [(hi, full)]
+    rest = fit(rest)
     if rest >= lo and full < cap:
         parts.append((rest, 1))
     return parts
 
 
-async def offer_for(merchant: str, price: float) -> dict | None:
+async def offer_for(merchant: str, price: float, in_store: bool = False) -> dict | None:
     s = get_settings()
     if not s.HUBBLE_ENABLED or price <= 0:
         return None
-    brand = brand_for(merchant)
+    brand = brand_for(merchant, in_store)
     if not brand:
         return None
     product = await _product(brand["id"])
@@ -167,6 +177,8 @@ async def offer_for(merchant: str, price: float) -> dict | None:
         "you_pay": round(voucher_total - you_save, 2),
         "you_save": you_save,
         "rest_at_shop": max(0, int(price) - voucher_total),
+        "in_store": in_store,
+        "add_voucher_url": brand.get("add_voucher_url"),
     }
 
 

@@ -51,6 +51,7 @@ export default function BuyFlow({ offer, merchant, price, shopLink, onClose, onB
         marketing_optin: optin,
         merchant,
         price,
+        in_store: Boolean(offer.in_store),
       });
       track('Hubble Store Opened', { merchant, amount: offer.voucher_total });
       setStoreUrl(url);
@@ -352,23 +353,34 @@ export default function BuyFlow({ offer, merchant, price, shopLink, onClose, onB
                 Your code is on Hubble’s screen and in your SMS.
               </Text>
             )}
-            <Button
-              as="a"
-              href={shopLink || undefined}
-              target="_blank"
-              rel="noopener"
-              onClick={() => voucher && copy(voucher.code)}
-              h="56px"
-              borderRadius="pill"
-              bg="text"
-              color="white"
-              fontSize="17px"
-              fontWeight={800}
-              rightIcon={<I.external size={16} />}
-              _hover={{ bg: 'text' }}
-            >
-              {voucher ? `Copy code · open ${offer.brand_name}` : `Open ${offer.brand_name}`}
-            </Button>
+            {offer.in_store ? (
+              <Text fontSize="14px" fontWeight={700} textAlign="center">
+                Show this code and PIN at the {offer.brand_name} counter when you pay.
+              </Text>
+            ) : (
+              <Button
+                as="a"
+                href={offer.add_voucher_url || shopLink || undefined}
+                target="_blank"
+                rel="noopener"
+                onClick={() => voucher && copy(voucher.code)}
+                h="56px"
+                borderRadius="pill"
+                bg="text"
+                color="white"
+                fontSize="17px"
+                fontWeight={800}
+                rightIcon={<I.external size={16} />}
+                _hover={{ bg: 'text' }}
+              >
+                {offer.add_voucher_url ? `Add to ${offer.brand_name} wallet` : `Open ${offer.brand_name}`}
+              </Button>
+            )}
+            {!offer.in_store && voucher && (
+              <Text fontSize="12px" color="text2" textAlign="center">
+                Code copied · paste it there
+              </Text>
+            )}
             <Button variant="ghost" onClick={onClose}>
               Done
             </Button>

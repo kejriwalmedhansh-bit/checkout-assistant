@@ -3,8 +3,8 @@ import { apiClient } from './client';
 
 export const hubbleApi = {
   /** GET /hubble/offer -> { available, offer } */
-  offer: async (merchant, price) => {
-    const { data } = await apiClient.get('/hubble/offer', { params: { merchant, price: Math.round(price) } });
+  offer: async (merchant, price, inStore = false) => {
+    const { data } = await apiClient.get('/hubble/offer', { params: { merchant, price: Math.round(price), in_store: inStore } });
     return data;
   },
   /** POST /hubble/session -> { url, offer } — the link that opens Hubble on the pay step. */
