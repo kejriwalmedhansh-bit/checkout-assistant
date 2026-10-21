@@ -134,6 +134,29 @@ class Settings(BaseSettings):
     # SearchApi budget from one spammy/bot number.
     WHATSAPP_MAX_SEARCHES_PER_HOUR: int = 20
 
+    # --- Hubble (buy vouchers inside Dealo; see services/hubble_service.py) ---
+    # Off unless set: the /hubble endpoints answer "not available" and the
+    # website keeps sending shoppers to Gyftr/Maximize/BuyHatke as before.
+    HUBBLE_ENABLED: bool = False
+    # "staging" or "production" — picks Hubble's SDK host.
+    HUBBLE_ENV: str = "staging"
+    HUBBLE_CLIENT_ID: str = ""
+    HUBBLE_APP_SECRET: str = ""
+    # The private half of the key whose public half is saved in Hubble's
+    # portal (Configuration > Authentication > JWT SSO). Either the PEM text
+    # itself (Render) or a path to the .pem file (local).
+    HUBBLE_PRIVATE_KEY: str = ""
+    HUBBLE_PRIVATE_KEY_FILE: str = ""
+    # Signs Hubble's order webhooks (X-Verify header). Empty = webhook off.
+    HUBBLE_WEBHOOK_SECRET: str = ""
+
+    # --- Shopper login (Firebase phone sign-in) ---
+    FIREBASE_PROJECT_ID: str = "dealo-e9a72"
+
+    # --- Supabase: Dealo's own list of buyers (db/supabase_schema.sql) ---
+    SUPABASE_URL: str = ""
+    SUPABASE_SECRET_KEY: str = ""
+
     # --- Website search limits (see src/api/rate_limit.py) ---
     # The same budget protection for the web, where there's no phone number to
     # key on and anyone can call the endpoints directly. Set well above real
