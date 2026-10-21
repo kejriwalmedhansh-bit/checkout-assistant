@@ -92,9 +92,15 @@ export default function BuyFlow({ offer, merchant, price, shopLink, onClose, onB
         }
       }
       const kind = msg?.event || msg?.action || msg?.type;
-      if (kind === 'payment_success' || kind === 'voucher_generation_success') {
+      if (kind === 'payment_success') {
         paid.current = true;
         track('Hubble Payment Success', { merchant, amount: offer.voucher_total });
+      }
+      // The card exists: Dealo's own "voucher ready" screen takes over
+      // straight away, instead of waiting for the shopper to close Hubble's.
+      if (kind === 'voucher_generation_success') {
+        paid.current = true;
+        setStep('done');
       }
       if (kind === 'close') (paid.current ? setStep('done') : onClose());
     };
@@ -350,7 +356,7 @@ export default function BuyFlow({ offer, merchant, price, shopLink, onClose, onB
               </Box>
             ) : (
               <Text fontSize="13px" color="text2" textAlign="center">
-                Your code is on Hubble’s screen and in your SMS.
+                Fetching your code…
               </Text>
             )}
             {offer.in_store ? (
