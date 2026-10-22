@@ -25,5 +25,13 @@ export default defineConfig({
   },
   server: {
     port: 5173,
+    // Phone testing through one ngrok link: run with VITE_API_BASE_URL=/api.
+    allowedHosts: ['.ngrok-free.app', '.ngrok-free.dev', '.ngrok.app'],
+    proxy: {
+      '/api': {
+        target: 'http://localhost:8001',
+        rewrite: (path) => path.replace(/^\/api/, ''),
+      },
+    },
   },
 });
