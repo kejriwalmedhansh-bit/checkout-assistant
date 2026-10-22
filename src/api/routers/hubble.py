@@ -19,10 +19,12 @@ from __future__ import annotations
 import base64
 import hashlib
 import hmac
+import html
 import json
 import time
 
 from fastapi import APIRouter, Header, HTTPException, Query, Request
+from fastapi.responses import HTMLResponse
 from pydantic import BaseModel
 
 from ...config import get_settings
@@ -64,6 +66,29 @@ async def session(body: SessionRequest) -> dict:
     await buyer_service.save_buyer(login["uid"], login["phone"], name, email, body.marketing_optin)
     token = hubble_service.sso_token(login["uid"], login["phone"], name, email)
     return {"url": hubble_service.store_url(found, token), "offer": found}
+
+
+@router.get("/test-home", response_class=HTMLResponse)
+async def test_home() -> str:
+    """Staging only: Hubble's store home screen framed the way the buy flow
+    frames it, so a phone can reach Hubble's ⋮ → Deeplink test for the
+    go-live recording (the buy flow jumps past the home screen)."""
+    if get_settings().HUBBLE_ENV != "staging":
+        raise HTTPException(404)
+    token = hubble_service.sso_token("deeplink-test", "9999999999", "Test Buyer", None)
+    url = hubble_service.home_url(token)
+    return (
+        '<!doctype html><meta name="viewport" content="width=device-width,initial-scale=1">'
+        '<style>html,body{margin:0;height:100%}iframe{border:0;width:100%;height:100%}</style>'
+        f'<iframe title="Hubble" src="{html.escape(url)}" allow="payment; clipboard-write"></iframe>'
+        # Same app/link opening as BuyFlow.jsx's openHubbleLink.
+        "<script>addEventListener('message',e=>{"
+        "if(!/myhubble\\.money$/.test(new URL(e.origin).hostname))return;"
+        "let m=e.data;if(typeof m==='string'){try{m=JSON.parse(m)}catch{return}}"
+        "const l=m&&m.action==='launch_link'&&m.properties&&m.properties.link;"
+        "if(typeof l!=='string'||!l||/^(javascript|data):/i.test(l))return;"
+        "if(/^https?:/i.test(l))open(l,'_blank','noopener');else location.href=l})</script>"
+    )
 
 
 @router.post("/webhook")

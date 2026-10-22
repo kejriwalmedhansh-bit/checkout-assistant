@@ -23,6 +23,14 @@ const saveName = (n) => {
   }
 };
 
+// Web pages open in a new tab; app links (upi://, phonepe://, myntra://) are
+// handed to the phone, which opens the app.
+const openHubbleLink = (link) => {
+  if (typeof link !== 'string' || !link || /^(javascript|data):/i.test(link)) return;
+  if (/^https?:/i.test(link)) window.open(link, '_blank', 'noopener');
+  else window.location.href = link;
+};
+
 /**
  * Buying the voucher without leaving Dealo:
  *   details (name, mobile, deals tick) → SMS code → Hubble's payment screen
@@ -92,6 +100,9 @@ export default function BuyFlow({ offer, merchant, price, shopLink, onClose, onB
         }
       }
       const kind = msg?.event || msg?.action || msg?.type;
+      // Inside a frame Hubble can't open apps itself: it asks us to open the
+      // UPI app (upi://, phonepe://…) or the brand's app/site for it.
+      if (kind === 'launch_link') openHubbleLink(msg.properties?.link);
       if (kind === 'payment_success') {
         paid.current = true;
         track('Hubble Payment Success', { merchant, amount: offer.voucher_total });

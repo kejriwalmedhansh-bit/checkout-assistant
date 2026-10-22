@@ -226,3 +226,11 @@ def store_url(offer: dict, token: str) -> str:
         )
     host = SDK_HOST.get(s.HUBBLE_ENV, SDK_HOST["staging"])
     return f"{host}/buy/{offer['brand_id']}?{urlencode(params)}"
+
+
+def home_url(token: str) -> str:
+    """Hubble's store home screen (staging test page only)."""
+    s = get_settings()
+    params = {"clientId": s.HUBBLE_CLIENT_ID, "appSecret": s.HUBBLE_APP_SECRET, "token": token, "wrap-plt": "web"}
+    host = SDK_HOST.get(s.HUBBLE_ENV, SDK_HOST["staging"])
+    return f"{host}/?{urlencode(params)}"
