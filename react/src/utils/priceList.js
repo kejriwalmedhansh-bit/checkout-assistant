@@ -81,7 +81,7 @@ export function shortDelivery(text) {
 /** Shop icon from the listing's own website (Google's public favicon service). */
 export function shopIcon(link) {
   try {
-    return `https://www.google.com/s2/favicons?domain=${new URL(link).hostname}&sz=64`;
+    return `https://www.google.com/s2/favicons?domain=${new URL(link).hostname}&sz=128`;
   } catch {
     return undefined;
   }
