@@ -36,6 +36,11 @@ class Settings(BaseSettings):
     CRAWLBASE_JS_TOKEN: str = ""
     CRAWLBASE_TIMEOUT: int = 60
 
+    # --- Context.dev (first reader for Flipkart's own search page, 2026-10-23;
+    # Crawlbase is the fallback). Missing key = skipped, Crawlbase used. ---
+    CONTEXT_DEV_API_KEY: str = ""
+    CONTEXT_DEV_TIMEOUT: int = 30
+
     # --- Apify (fallback fetcher — only used for hosts Crawlbase can't get
     # past, e.g. AJIO's Akamai challenge; was the sole fetcher before
     # 2026-08-27) ---
