@@ -6,12 +6,18 @@ import Card from '@/components/common/Card';
 import { I } from '@/components/common/icons';
 import { track } from '@/utils/analytics';
 import { affiliateUrl, fmt } from '@/utils/format';
-import { shopIcon, shortDelivery } from '@/utils/priceList';
+import { shopLogos, shortDelivery } from '@/utils/priceList';
 
 const ROWS_SHOWN = 4;
 
-/** Shop icon on a white disc, so dark and light icons both read on either theme. */
+/** Shop logo on a white disc. Brandfetch's square icon fills the disc;
+ * if it is missing, the site's favicon sits inside it; failing both, the
+ * shop's initials. */
 function ShopLogo({ shop }) {
+  const sources = shopLogos(shop.link);
+  const [tries, setTries] = useState(0);
+  const src = sources[tries];
+  const filled = tries === 0;
   return (
     <Flex
       w="34px"
@@ -26,7 +32,21 @@ function ShopLogo({ shop }) {
       overflow="hidden"
       gridRow="1 / span 2"
     >
-      <BrandAvatar name={shop.merchant} size={22} radius="6px" logoSrc={shopIcon(shop.link)} />
+      {src ? (
+        <Box
+          as="img"
+          src={src}
+          alt={`${shop.merchant} logo`}
+          loading="lazy"
+          decoding="async"
+          w={filled ? '100%' : '22px'}
+          h={filled ? '100%' : '22px'}
+          objectFit={filled ? 'cover' : 'contain'}
+          onError={() => setTries((t) => t + 1)}
+        />
+      ) : (
+        <BrandAvatar name={shop.merchant} size={34} radius="999px" />
+      )}
     </Flex>
   );
 }
