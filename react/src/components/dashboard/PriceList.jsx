@@ -10,12 +10,35 @@ import { shopIcon, shortDelivery } from '@/utils/priceList';
 
 const ROWS_SHOWN = 4;
 
+/** Shop icon on a white disc, so dark and light icons both read on either theme. */
+function ShopLogo({ shop }) {
+  return (
+    <Flex
+      w="34px"
+      h="34px"
+      borderRadius="full"
+      bg="white"
+      border="1px solid"
+      borderColor="border"
+      boxShadow="0 1px 3px rgba(18,21,26,.10)"
+      align="center"
+      justify="center"
+      overflow="hidden"
+      gridRow="1 / span 2"
+    >
+      <BrandAvatar name={shop.merchant} size={22} radius="6px" logoSrc={shopIcon(shop.link)} />
+    </Flex>
+  );
+}
+
 /**
  * Shown instead of the gift card steps when the gift card saves too little
  * to be worth the extra steps (see shouldShowPriceList). Every shop checked,
- * cheapest first and largest, with a bar for how much more each costs. A
- * shop's gift card stays reachable as a small tag on its own row, which
- * opens the usual gift card view via onPickGiftCard.
+ * cheapest first and largest, with a bar for how much more each costs.
+ * Each row opens that shop (the arrow on the right says so); the shopper
+ * picks, so there is no single "Go to" button. A shop's gift card stays
+ * reachable as a small tag on its own row, which opens the usual gift card
+ * view via onPickGiftCard.
  */
 export default function PriceList({ shops, onPickGiftCard }) {
   const [showAll, setShowAll] = useState(false);
@@ -59,20 +82,24 @@ export default function PriceList({ shops, onPickGiftCard }) {
                 href={s.link ? affiliateUrl(s.link, 'price_list') : undefined}
                 isExternal
                 onClick={() => track('Clicked Price List Shop', { merchant: s.merchant, rank: i + 1 })}
+                role="group"
                 display="grid"
-                gridTemplateColumns="22px 1fr auto"
+                gridTemplateColumns="34px 1fr auto 16px"
                 columnGap="10px"
                 rowGap="3px"
                 alignItems="center"
                 _hover={{ textDecoration: 'none' }}
               >
-                <BrandAvatar name={s.merchant} size={22} logoSrc={shopIcon(s.link)} />
+                <ShopLogo shop={s} />
                 <Text fontSize={i ? '14px' : '16px'} fontWeight={i ? 600 : 700} color="text" noOfLines={1}>
                   {s.merchant}
                 </Text>
                 <Text fontFamily="mono" fontSize={i ? '14px' : '22px'} fontWeight={700} color="text" textAlign="right">
                   {fmt(s.price)}
                 </Text>
+                <Box gridColumn="4" gridRow="1 / span 3" color="text3" _groupHover={{ color: 'brand' }} aria-hidden>
+                  <I.chevRight size={16} />
+                </Box>
                 <Flex gridColumn="2 / 4" align="center" gap="8px" minW={0}>
                   <Box flex="1" h="4px" bg="surface3" borderRadius="2px" overflow="hidden" minW="30px">
                     <Box
@@ -100,7 +127,7 @@ export default function PriceList({ shops, onPickGiftCard }) {
                     track('Clicked Price List Gift Card', { merchant: s.merchant, saving: gc });
                     onPickGiftCard(s.voucherRoute);
                   }}
-                  ml="32px"
+                  ml="44px"
                   mt="5px"
                   fontSize="11px"
                   fontWeight={600}
@@ -125,20 +152,6 @@ export default function PriceList({ shops, onPickGiftCard }) {
         </Button>
       )}
 
-      {best.link && (
-        <Button
-          as="a"
-          href={affiliateUrl(best.link, 'price_list_cta')}
-          target="_blank"
-          rel="noopener noreferrer"
-          variant="primary"
-          w="100%"
-          rightIcon={<I.arrowRight size={16} />}
-          onClick={() => track('Clicked Price List Shop', { merchant: best.merchant, rank: 1, cta: true })}
-        >
-          Go to {best.merchant}
-        </Button>
-      )}
     </Flex>
   );
 }
