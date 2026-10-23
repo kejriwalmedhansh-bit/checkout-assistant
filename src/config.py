@@ -149,6 +149,13 @@ class Settings(BaseSettings):
     HUBBLE_PRIVATE_KEY_FILE: str = ""
     # Signs Hubble's order webhooks (X-Verify header). Empty = webhook off.
     HUBBLE_WEBHOOK_SECRET: str = ""
+    # Most a shopper can pay in one Hubble order. Staging blocks anything
+    # above ~₹10,000 (₹9,991 went through, ₹10,088 didn't, 23 Oct); asked
+    # Yash whether production is the same.
+    HUBBLE_PAY_CAP: int = 10000
+    # How many separate Hubble orders (each its own UPI payment) Dealo may
+    # ask for to cover one cart; what they can't cover is paid at the shop.
+    HUBBLE_MAX_ORDERS: int = 1
 
     # --- Shopper login (Firebase phone sign-in) ---
     FIREBASE_PROJECT_ID: str = "dealo-e9a72"

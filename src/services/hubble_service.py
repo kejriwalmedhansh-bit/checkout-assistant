@@ -95,61 +95,76 @@ def _discount_pct(product: dict) -> float:
     return 0.0
 
 
-def _split(product: dict, price: float) -> list[tuple[int, int]] | None:
-    """Vouchers covering as much of `price` as the brand allows, never more
-    than the price. Returns [(amount, count), ...] or None if nothing fits."""
+def _one_order(product: dict, amount: int, order_max: int) -> list[tuple[int, int]]:
+    """The vouchers one Hubble order can hold towards `amount`, never more
+    than it: [(value, count), ...], empty if nothing fits.
+
+    Rules as Hubble's staging store applies them (tested 23 Oct): a brand
+    with a list of card values sells only those values, several cards per
+    order; any other brand sells ONE typed amount per order (AJIO ₹12,000
+    shows "0% off" and a dead button). Hubble quietly swaps an amount it
+    doesn't allow for its smallest card, so nothing outside these rules may
+    ever reach it."""
     rules = product.get("amountConditions") or {}
     limits = product.get("restrictions") or {}
-    lo = int(rules.get("minAmount") or 1)
-    hi = int(rules.get("maxAmount") or price)
-    max_count = int(limits.get("maxNumberOfVouchersPerOrder") or 1)
-    if product.get("isOneVoucherOneDenominationOnly"):
-        max_count = 1
-    per_denom = rules.get("maxNoOfVouchersPerDenomination")
-    one_amount_only = rules.get("maxNoOfDenominationsPerOrder") == 1
-    total = int(price)
+    target = min(amount, order_max)
+    cards = sorted({int(d["amount"] if isinstance(d, dict) else d) for d in rules.get("denominations") or []}, reverse=True)
 
-    fixed = [int(d["amount"] if isinstance(d, dict) else d) for d in rules.get("denominations") or []]
-    if fixed:
-        remaining, count, parts = total, 0, []
-        for denom in sorted(set(fixed), reverse=True):
-            room = max_count - count
-            if per_denom:
-                room = min(room, int(per_denom))
-            n = min(remaining // denom, room)
-            if n > 0:
-                parts.append((denom, n))
-                remaining -= denom * n
-                count += n
-            if one_amount_only and parts:
-                break
-        return parts or None
+    if not cards:
+        step = max(1, int(rules.get("stepAmount") or 1))
+        one = target - target % step
+        return [(one, 1)] if one >= int(rules.get("minAmount") or 1) else []
 
-    # Some brands only sell set steps (Domino's: multiples of ₹500).
-    step = max(1, int(rules.get("stepAmount") or 1))
+    max_cards = 1 if product.get("isOneVoucherOneDenominationOnly") else int(limits.get("maxNumberOfVouchersPerOrder") or 1)
+    per_value = int(rules.get("maxNoOfVouchersPerDenomination") or max_cards)
+    max_values = rules.get("maxNoOfDenominationsPerOrder")
+    if (product.get("voucherProductProviderMetadata") or {}).get("onlySingleDenominationAllowed"):
+        max_values = 1
 
-    def fit(amount: int) -> int:
-        return amount - amount % step
-
-    if total < lo:
-        return None
-    if total <= hi:
-        one = fit(total)
-        return [(one, 1)] if one >= lo else None
-    cap = min(max_count, int(per_denom)) if per_denom else max_count
-    hi = fit(hi)
-    if one_amount_only:
-        # Same amount every time: n equal vouchers just under the price.
-        n = min(math.ceil(total / hi), cap)
-        each = fit(min(hi, total // n))
-        return [(each, n)] if each >= lo else None
-    full, rest = divmod(total, hi)
-    full = min(full, cap)
-    parts = [(hi, full)]
-    rest = fit(rest)
-    if rest >= lo and full < cap:
-        parts.append((rest, 1))
+    if max_values == 1:
+        # Every card the same value: pick the value that covers the most.
+        best = max(((c, min(target // c, max_cards, per_value)) for c in cards), key=lambda p: p[0] * p[1])
+        return [best] if best[1] else []
+    parts, left, count = [], target, 0
+    for c in cards:
+        n = min(left // c, max_cards - count, per_value)
+        if n > 0:
+            parts.append((c, n))
+            left -= c * n
+            count += n
+        if max_values and len(parts) == max_values:
+            break
     return parts
+
+
+def _orders(product: dict, price: float, pct: float) -> list[list[tuple[int, int]]] | None:
+    """Up to HUBBLE_MAX_ORDERS Hubble orders covering as much of `price` as
+    the brand allows; the rest is paid at the shop as usual (Zepto ₹3,450 →
+    ₹3,000 in cards + ₹450; AJIO ₹25,000 → one ₹10,000 voucher + ₹15,000).
+    The results page shows Hubble only when that total beats today's best."""
+    s = get_settings()
+    rules = product.get("amountConditions") or {}
+    limits = product.get("restrictions") or {}
+    order_max = int(rules.get("maxAmount") or price)
+    # Hubble refuses a payment above the cap, so cap the voucher value too.
+    order_max = min(order_max, math.floor(s.HUBBLE_PAY_CAP / (1 - pct / 100)))
+    # A monthly limit bounds what Dealo can ask for in one go; what the
+    # shopper already bought this month isn't known here.
+    month_worth = limits.get("maxWorthOfVouchersInAMonth") or math.inf
+    month_cards = limits.get("maxNumberOfVouchersInAMonth") or math.inf
+
+    orders, left = [], int(price)
+    while True:
+        parts = _one_order(product, left, int(min(order_max, month_worth)))
+        cards = sum(n for _, n in parts)
+        if not parts or len(orders) == s.HUBBLE_MAX_ORDERS or cards > month_cards:
+            break
+        orders.append(parts)
+        worth = sum(a * n for a, n in parts)
+        left -= worth
+        month_worth -= worth
+        month_cards -= cards
+    return orders or None
 
 
 async def offer_for(merchant: str, price: float, in_store: bool = False) -> dict | None:
@@ -163,15 +178,22 @@ async def offer_for(merchant: str, price: float, in_store: bool = False) -> dict
     if not product or product.get("status") != "ACTIVE":
         return None
     pct = _discount_pct(product)
-    parts = _split(product, price)
-    if pct <= 0 or not parts:
+    orders = _orders(product, price, pct) if pct > 0 else None
+    if not orders:
         return None
-    voucher_total = sum(a * c for a, c in parts)
+    worths = [sum(a * c for a, c in parts) for parts in orders]
+    voucher_total = sum(worths)
     you_save = round(voucher_total * pct / 100, 2)
     return {
         "brand_id": brand["id"],
         "brand_name": brand["name"],
-        "denominations": [{"amount": a, "count": c} for a, c in parts],
+        # The first (usually only) order; store_url() opens this one.
+        "denominations": [{"amount": a, "count": c} for a, c in orders[0]],
+        "orders": [
+            {"denominations": [{"amount": a, "count": c} for a, c in parts], "worth": w,
+             "you_pay": round(w * (1 - pct / 100), 2)}
+            for parts, w in zip(orders, worths)
+        ],
         "voucher_total": voucher_total,
         "discount_pct": pct,
         "you_pay": round(voucher_total - you_save, 2),
@@ -208,21 +230,23 @@ def sso_token(user_id: str, phone: str, name: str | None, email: str | None) -> 
     return jwt.encode(claims, _private_key(), algorithm="RS256")
 
 
-def store_url(offer: dict, token: str) -> str:
+def store_url(offer: dict, token: str, order: int = 0) -> str:
+    """Opens Hubble on the payment step for one of the offer's orders."""
     s = get_settings()
+    picked = offer["orders"][order]
     params = {
         "clientId": s.HUBBLE_CLIENT_ID,
         "appSecret": s.HUBBLE_APP_SECRET,
         "token": token,
         "wrap-plt": "web",
-        "amount": offer["voucher_total"],
+        "amount": picked["worth"],
         "skipToPayment": "true",
         "showBackButton": "true",
         "exitOnBack": "true",
     }
-    if len(offer["denominations"]) > 1 or offer["denominations"][0]["count"] > 1:
+    if len(picked["denominations"]) > 1 or picked["denominations"][0]["count"] > 1:
         params["denominations"] = ",".join(
-            f"{d['amount']}x{d['count']}" for d in offer["denominations"]
+            f"{d['amount']}x{d['count']}" for d in picked["denominations"]
         )
     host = SDK_HOST.get(s.HUBBLE_ENV, SDK_HOST["staging"])
     return f"{host}/buy/{offer['brand_id']}?{urlencode(params)}"
