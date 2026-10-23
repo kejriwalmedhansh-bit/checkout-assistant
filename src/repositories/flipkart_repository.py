@@ -6,7 +6,7 @@ Google Shopping often has no Flipkart entry for smaller brands. Live
 voucher over Flipkart's 2.13%.
 
 Flipkart blocks Dealo's server, so the results page is read through
-Crawlbase (crawlbase_repository, which also caches by URL). Same contract as
+Context.dev, falling back to Crawlbase (both cache by URL). Same contract as
 the other repositories: never raises, returns [] on any failure.
 
 Rows come back in search_service._offer_rows shape, so they go through the
@@ -20,7 +20,7 @@ import logging
 import re
 from urllib.parse import quote_plus
 
-from . import crawlbase_repository
+from . import context_dev_repository, crawlbase_repository
 
 logger = logging.getLogger("uvicorn.error")
 
@@ -45,7 +45,8 @@ _OOS_RE = re.compile(r"sold out|currently unavailable|coming soon|out of stock",
 
 def search(query: str) -> list[dict]:
     """The top Flipkart results for `query` as store rows, or [] on failure."""
-    markup = crawlbase_repository.fetch_rendered_html(_SEARCH_URL + quote_plus(query))
+    page = _SEARCH_URL + quote_plus(query)
+    markup = context_dev_repository.fetch_rendered_html(page) or crawlbase_repository.fetch_rendered_html(page)
     if not markup:
         logger.info("[flipkart] search page unreadable for %r", query)
         return []

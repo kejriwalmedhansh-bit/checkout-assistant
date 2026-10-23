@@ -3511,8 +3511,8 @@ _OFFER_SEED_CAP = 6         # Google entries whose store lists are read
 _OFFER_PAGES = 3            # pages per store list (page 1 ~5 stores, then 10 each)
 _STORE_LIST_BUDGET = 10     # seconds; a slower Google reply is left out rather than waited on
 _GAP_STORE_CAP = 4          # "<product> <store>" searches for big stores with no exact match
-# Flipkart's own search page, read through Crawlbase (6-18s, measured
-# 2026-10-03). It runs alongside the store lists and is waited on for at most
+# Flipkart's own search page, read through Context.dev (~5s, max 7s) or
+# Crawlbase as fallback (6-18s), measured 2026-10-03. It runs alongside the store lists and is waited on for at most
 # this long, or not at all once a store list has the product on Flipkart.
 _FLIPKART_SEARCH_BUDGET = 15
 _MARKETPLACES = [
