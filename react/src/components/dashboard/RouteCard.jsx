@@ -16,7 +16,7 @@ import { finalPrice as calcFinal, originalPrice as calcOriginal, saving as calcS
  * weight above the fold (removed after live mobile testing showed the CTA
  * needed to fit on screen without scrolling).
  */
-export default function RouteCard({ result, rec, isAlt = false, onBack, payingByCard = false, skipVoucher = false }) {
+export default function RouteCard({ result, rec, isAlt = false, onBack, backLabel = 'Back to recommended', payingByCard = false, skipVoucher = false }) {
   const finalPrice = calcFinal(rec, payingByCard);
   const originalPrice = calcOriginal(result, rec);
   const saving = calcSaving(result, rec, payingByCard);
@@ -35,7 +35,7 @@ export default function RouteCard({ result, rec, isAlt = false, onBack, payingBy
             color="text2"
             fontWeight={500}
           >
-            ← Back to recommended
+            ← {backLabel}
           </Button>
         </Flex>
       )}

@@ -3787,34 +3787,56 @@ def _read_store_price(link: str) -> float | None:
 
 
 def _check_winner_live(output: dict, candidates: list[dict], product_name: str, tag: str = "[routes]") -> list[dict] | None:
-    """Re-read the recommended store's page for today's price (Crawlbase or
-    Apify get past Flipkart/Nykaa/Croma blocks). Returns updated candidates
-    when the price moved, else None. No AI - a plain page read."""
+    """Re-read today's price from the store pages the shopper sees first: the
+    recommended store, and the cheapest store when that is a different one
+    (it heads the web price list shown when the gift card saves too little).
+    Both pages are read at once (Crawlbase or Apify get past Flipkart/Nykaa/
+    Croma blocks). Returns updated candidates when a price moved, else None.
+    No AI - a plain page read."""
     rec = (output.get("routes") or {}).get("recommended") or {}
     sig = _brand_signature(rec.get("merchant") or "")
+    to_check = []
     winner = next((c for c in candidates if _brand_signature(c.get("merchant") or "") == sig), None)
-    link = ((winner or {}).get("sellers") or [{}])[0].get("link") if winner else None
-    if not winner or not link or winner.get("_pinned"):
+    if winner:
+        to_check.append(winner)
+    priced = [c for c in candidates if c.get("price") and not _is_hyperlocal(c.get("merchant") or "")]
+    cheapest = min(priced, key=lambda c: c["price"], default=None)
+    # A tie with the recommended store needs no second read: that store
+    # already heads the list (bigger gift card first on equal prices).
+    if cheapest is not None and (winner is None or cheapest["price"] < (winner.get("price") or float("inf"))):
+        to_check.append(cheapest)
+    to_check = [
+        c for c in to_check
+        if not c.get("_pinned") and ((c.get("sellers") or [{}])[0].get("link"))
+    ]
+    if not to_check:
         return None
+
     started = time.monotonic()
-    pool = ThreadPoolExecutor(max_workers=1)
-    future = pool.submit(_read_store_price, link)
-    try:
-        live_price = future.result(timeout=float(get_settings().ROUTE_LIVE_PRICE_TIMEOUT))
-    except Exception:  # timed out or failed: keep Google's price
-        live_price = None
+    pool = ThreadPoolExecutor(max_workers=len(to_check))
+    futures = [pool.submit(_read_store_price, c["sellers"][0]["link"]) for c in to_check]
+    deadline = started + float(get_settings().ROUTE_LIVE_PRICE_TIMEOUT)
+    checks, changed = [], False
+    for store, future in zip(to_check, futures):
+        try:
+            live_price = future.result(timeout=max(0.0, deadline - time.monotonic()))
+        except Exception:  # timed out or failed: keep Google's price
+            live_price = None
+        elapsed = round(time.monotonic() - started, 1)
+        check = {"store": store["merchant"], "seconds": elapsed, "listed": store["price"], "live": live_price}
+        checks.append(check)
+        logger.info("%s live price check on %s: listed %s, page says %s (%.1fs)", tag, store["merchant"], store["price"], live_price, elapsed)
+        if live_price is None or abs(live_price - store["price"]) <= max(1.0, 0.01 * store["price"]):
+            continue
+        if not 0.5 * store["price"] <= live_price <= 1.5 * store["price"]:
+            logger.info("%s   page price %s too far from the listing to trust - keeping %s", tag, live_price, store["price"])
+            check["live"] = None
+            continue
+        store["price"] = live_price
+        changed = True
     pool.shutdown(wait=False)
-    elapsed = round(time.monotonic() - started, 1)
-    output["price_check"] = {"store": winner["merchant"], "seconds": elapsed, "listed": winner["price"], "live": live_price}
-    logger.info("%s live price check on %s: listed %s, page says %s (%.1fs)", tag, winner["merchant"], winner["price"], live_price, elapsed)
-    if live_price is None or abs(live_price - winner["price"]) <= max(1.0, 0.01 * winner["price"]):
-        return None
-    if not 0.5 * winner["price"] <= live_price <= 1.5 * winner["price"]:
-        logger.info("%s   page price %s too far from the listing to trust - keeping %s", tag, live_price, winner["price"])
-        output["price_check"]["live"] = None
-        return None
-    winner["price"] = live_price
-    return candidates
+    output["price_check"] = checks
+    return candidates if changed else None
 
 
 def build_routes_for_token(

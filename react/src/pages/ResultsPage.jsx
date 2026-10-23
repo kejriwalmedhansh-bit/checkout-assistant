@@ -16,6 +16,7 @@ import RouteCard from '@/components/dashboard/RouteCard';
 import CreditCardPrompt from '@/components/dashboard/CreditCardPrompt';
 import AlternativesToggle from '@/components/dashboard/AlternativesToggle';
 import DropOffQuestion from '@/components/dashboard/DropOffQuestion';
+import PriceList from '@/components/dashboard/PriceList';
 import { usePageHeader } from '@/hooks/usePageHeader';
 import { usePageTitle } from '@/hooks/usePageTitle';
 import { ROUTES } from '@/routes/paths';
@@ -28,6 +29,7 @@ import {
   originalPrice as calcOriginal,
   saving as calcSaving,
 } from '@/utils/format';
+import { buildPriceList, shouldShowPriceList } from '@/utils/priceList';
 
 // Shown one at a time while the route is being built — this is Dealo's real
 // trust gap (buying a gift voucher is an unfamiliar concept to most users,
@@ -81,10 +83,13 @@ export default function ResultsPage() {
     setSelectedCardQuote(null);
   };
 
+  const shops = buildPriceList(result);
+  const priceListMode = shouldShowPriceList(shops, result?.routes?.recommended);
+
   const backControl = (
     <BackButton
       fallback={ROUTES.select}
-      label={selectedAlt ? 'Back to recommended' : 'Back to products'}
+      label={selectedAlt ? (priceListMode ? 'Back to price list' : 'Back to recommended') : 'Back to products'}
       onClick={selectedAlt ? backToRecommended : undefined}
       iconOnly
     />
@@ -131,6 +136,9 @@ export default function ResultsPage() {
   // recommended route — instead of expanding inline where it'd require
   // scrolling down to see.
   const activeRoute = selectedAlt || rec;
+  // Gift card saves too little: lead with the plain price list instead.
+  // Picking a shop's gift card from the list opens the usual view below.
+  const showPriceList = priceListMode && !selectedAlt;
 
   const selectAlt = (alt) => {
     setSelectedAlt(alt);
@@ -153,7 +161,7 @@ export default function ResultsPage() {
   // the real listing," not just a name string — the photo and product name
   // both link here so someone can verify it's the right item before buying
   // a voucher for it.
-  const vendorLink = activeRoute?.sellers?.[0]?.link;
+  const vendorLink = showPriceList ? shops[0]?.link : activeRoute?.sellers?.[0]?.link;
   const sourceUrl = result?.mode === 'url' ? query : vendorLink ? affiliateUrl(vendorLink, 'product_card') : null;
 
   return (
@@ -232,6 +240,10 @@ export default function ResultsPage() {
                 </Box>
               )}
             </Box>
+            {showPriceList ? (
+              <PriceList shops={shops} onPickGiftCard={selectAlt} />
+            ) : (
+            <>
             {/* Savings node + wire + step card render as one continuous
                 unit (zero gap) — the reward is the first stop on the same
                 route the steps below continue, not a separate block a
@@ -281,6 +293,7 @@ export default function ResultsPage() {
                 rec={activeRoute}
                 isAlt={!!selectedAlt}
                 onBack={backToRecommended}
+                backLabel={priceListMode ? 'Back to price list' : undefined}
                 payingByCard={payingByCard}
                 skipVoucher={payingByCard && !!selectedCardQuote?.skip_voucher}
               />
@@ -296,8 +309,13 @@ export default function ResultsPage() {
               onSelect={selectAlt}
               selectedMerchant={selectedAlt?.merchant}
             />
+            </>
+            )}
           </Flex>
-          <DropOffQuestion merchant={activeRoute.merchant} hasVoucher={!!activeRoute.voucher} />
+          <DropOffQuestion
+            merchant={showPriceList ? shops[0].merchant : activeRoute.merchant}
+            hasVoucher={showPriceList ? false : !!activeRoute.voucher}
+          />
         </motion.div>
       )}
     </Box>
