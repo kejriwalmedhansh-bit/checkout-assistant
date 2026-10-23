@@ -18,6 +18,21 @@
     "dealo_id": "The device id (see identity)"
   },
   "events": {
+    "Hubble Store Opened": {
+      "description": "Hubble branch only (off on the live site): shopper tapped Buy voucher and Hubble's payment screen opened inside Dealo.",
+      "surfaces": ["web"],
+      "properties": { "merchant": "shop the voucher is for", "amount": "voucher value in rupees" }
+    },
+    "Hubble Payment Success": {
+      "description": "Hubble branch only: Hubble reported the shopper's UPI payment went through.",
+      "surfaces": ["web"],
+      "properties": { "merchant": "shop the voucher is for", "amount": "voucher value in rupees" }
+    },
+    "Login Code Sent": {
+      "description": "Hubble branch only: Dealo sent the shopper an SMS login code before their first purchase.",
+      "surfaces": ["web"],
+      "properties": { "merchant": "shop the voucher is for" }
+    },
     "Session Started": {
       "description": "A visit or conversation began. Website: page load. WhatsApp: first message after 30 quiet minutes.",
       "surfaces": ["web", "whatsapp"],
