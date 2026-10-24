@@ -47,7 +47,7 @@ OUTBOUND_ALLOWED_HOSTS = ("gyftr.com", "maximize.money", "buyhatke.com", "bitli.
 MANUAL_TRUSTED_MERCHANTS = [
     "Amazon", "Flipkart", "Myntra", "Nykaa", "AJIO", "Croma",
     "Reliance Digital", "Vijay Sales", "Tata CLiQ", "BigBasket",
-    "Apple", "Samsung", "JioMart", "Pepperfry", "Lenskart",
+    "Apple", "Samsung", "Google Store", "JioMart", "Pepperfry", "Lenskart",
     "Ethos", "Helios",  # authorized watch chains — approved 2026-07-21
     "Boat",  # approved 2026-08-04
     # "Boat" alone never catches this seller: Google Shopping lists boAt's

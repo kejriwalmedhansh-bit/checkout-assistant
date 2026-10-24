@@ -1104,6 +1104,30 @@ def _is_latin_dominant(title: str) -> bool:
     return latin / len(letters) >= 0.75
 
 
+def _english_listing(title: str, link: str | None = None) -> tuple[str, str | None] | None:
+    """The English version of a Hindi-page listing, or None when there isn't
+    a safe one. Google hands us amazon.in's Hindi page for some products -
+    the name stays English and only the bracketed colour/specs are Hindi
+    ("Google Pixel 10 5G (ओब्सीडियन, 12GB RAM, 256GB स्टोरेज)", 2026-10-24) -
+    which used to drop the only trusted Pixel 10 listing. Only the bracketed
+    part is cleaned: a Hindi word outside brackets can be the model itself
+    ("प्रो" = Pro), so those titles stay dropped. The link loses its /-/hi/
+    so the shopper lands on the English page."""
+    link = link.replace("/-/hi/", "/") if link else link
+    if _is_latin_dominant(title):
+        return title, link
+    if any(c.isalpha() and not c.isascii() for c in re.sub(r"\([^)]*\)", "", title)):
+        return None
+
+    def _clean_brackets(m: re.Match) -> str:
+        parts = [" ".join(w for w in p.split() if w.isascii()).strip() for p in m.group(1).split(",")]
+        parts = [p for p in parts if p]
+        return f"({', '.join(parts)})" if parts else ""
+
+    english = re.sub(r"\s+", " ", re.sub(r"\(([^)]*)\)", _clean_brackets, title)).strip()
+    return english, link
+
+
 def _required_tokens(query: str) -> list[str]:
     """Query tokens the candidate title must contain, minus brand names,
     generic stopwords, and a budget phrase's own words ("smartphones under
@@ -1424,6 +1448,10 @@ def _filter_and_group_candidates(
     with no required tokens at all — neither names a specific product for a
     title to confirm or fall short of.
     """
+    candidates = [
+        {**c, "title": english[0]} if c.get("title") and (english := _english_listing(c["title"])) else c
+        for c in candidates
+    ]
     tokens = _required_tokens(query)
     exclude = set(tokens) | set(KNOWN_BRANDS)
     query_is_accessory_search = _is_accessory(query)
@@ -3509,7 +3537,7 @@ def _find_pdp_candidate(
 
 _OFFER_SEED_CAP = 6         # Google entries whose store lists are read
 _OFFER_PAGES = 3            # pages per store list (page 1 ~5 stores, then 10 each)
-_STORE_LIST_BUDGET = 10     # seconds; a slower Google reply is left out rather than waited on
+_STORE_LIST_BUDGET = 5      # seconds; a slower Google reply is left out rather than waited on (was 10 - most answer in 1-3s, 2026-10-24)
 _GAP_STORE_CAP = 4          # "<product> <store>" searches for big stores with no exact match
 # Flipkart's own search page, read through Context.dev (~5s, max 7s) or
 # Crawlbase as fallback (6-18s), measured 2026-10-03. It runs alongside the store lists and is waited on for at most
@@ -3711,13 +3739,16 @@ def _discover_exact_offers(
         out = []
         for r in rows:
             info["stores_checked"] += 1
-            name, link = r["merchant"], r["link"]
+            name = r["merchant"]
+            english = _english_listing(r["title"], r["link"])
+            if english is None:
+                logger.info("%s   skipped %s (non-English listing): %r", tag, name, r["title"])
+                continue
+            r = {**r, "title": english[0], "link": english[1]}
+            link = r["link"]
             tier, why = product_identity.match_tier(identity, r["title"], name)
             if tier != "exact":
                 logger.info("%s   skipped %s (%s): %r", tag, name, why or tier, r["title"])
-                continue
-            if not _is_latin_dominant(r["title"]) or "/-/hi/" in (link or ""):
-                logger.info("%s   skipped %s (non-English listing): %r", tag, name, r["title"])
                 continue
             if (_is_accessory(r["title"]) or _SPARE_PART_RE.search(r["title"])) and not (
                     _is_accessory(identity["title"]) or _SPARE_PART_RE.search(identity["title"])):
