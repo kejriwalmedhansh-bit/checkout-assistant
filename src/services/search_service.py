@@ -18,12 +18,14 @@ URL mode is gone, so mode is always "text".
 """
 from __future__ import annotations
 
+import copy
 import difflib
 import hashlib
 import html
 import json
 import logging
 import re
+import threading
 import time
 from concurrent.futures import ThreadPoolExecutor, wait
 from urllib.parse import parse_qs, unquote, urljoin, urlsplit
@@ -34,6 +36,7 @@ import httpx
 # console (the app defines no logging config of its own).
 logger = logging.getLogger("uvicorn.error")
 
+from ..cache import TTLCache
 from ..config import get_settings
 from ..constants import HYPERLOCAL_MERCHANTS, KNOWN_BRANDS, MANUAL_TRUSTED_MERCHANTS, PRIORITY_MERCHANTS
 from ..repositories import (
@@ -3537,7 +3540,7 @@ def _find_pdp_candidate(
 
 _OFFER_SEED_CAP = 6         # Google entries whose store lists are read
 _OFFER_PAGES = 3            # pages per store list (page 1 ~5 stores, then 10 each)
-_STORE_LIST_BUDGET = 5      # seconds; a slower Google reply is left out rather than waited on (was 10 - most answer in 1-3s, 2026-10-24)
+_STORE_LIST_BUDGET = 10     # seconds; a slower Google reply is left out rather than waited on. 5s (#85) lost 5 of 6 Pixel 11 shops on a slow day, 2026-10-24
 _GAP_STORE_CAP = 4          # "<product> <store>" searches for big stores with no exact match
 # Flipkart's own search page, read through Context.dev (~5s, max 7s) or
 # Crawlbase as fallback (6-18s), measured 2026-10-03. It runs alongside the store lists and is waited on for at most
@@ -3898,11 +3901,11 @@ def _check_winner_live(output: dict, candidates: list[dict], product_name: str, 
     return candidates if changed else None
 
 
-def build_routes_for_token(
+def _compute_routes(
     product_token: str, query: str = "", title: str = "",
     picked_price: float | None = None, picked_source: str = "",
     picked_thumbnail: str | None = None,
-) -> dict:
+) -> tuple[dict, dict | None]:
     """Step 2 of the two-step flow: resolve routes for a chosen Product Picker
     selection. Never raises — errors come back in the ``error`` field.
 
@@ -3934,7 +3937,7 @@ def build_routes_for_token(
     }
     if not product_token:
         output["error"] = "No product selected."
-        return output
+        return output, None
 
     try:
         identity = None
@@ -4116,7 +4119,7 @@ def build_routes_for_token(
                 )
                 if detail.get("error"):
                     output["error"] = detail["error"]
-                    return output
+                    return output, None
                 product = detail.get("product") or {}
                 display_title = product.get("title") or detail.get("title") or ""
                 candidates = _build_candidates(detail, source_token=product_token)
@@ -4221,17 +4224,154 @@ def build_routes_for_token(
         output["vouchers"] = voucher_service.build_deals(candidates, product_name=query or display_title)
         output["routes"] = _build_routes(candidates, output["vouchers"])
         if identity is not None and get_settings().ROUTE_LIVE_PRICE_CHECK:
-            updated = _check_winner_live(output, candidates, display_title)
-            if updated is not None:
-                candidates = _priority_sort(updated)
-                output["results"] = candidates
-                output["vouchers"] = voucher_service.build_deals(candidates, product_name=query or display_title)
-                output["routes"] = _build_routes(candidates, output["vouchers"])
+            live_check = {"candidates": candidates, "display_title": display_title, "query": query}
+        else:
+            live_check = None
 
     except Exception as e:  # never leak a stack trace to the router
         output["error"] = f"{type(e).__name__}: {e}"
+        live_check = None
 
+    return output, live_check
+
+
+def _apply_live_check(output: dict, live_check: dict) -> dict:
+    """`output` after re-reading the winning store's page for today's price.
+    Works on a copy: the unchecked output may already be on its way to the
+    shopper."""
+    output = copy.deepcopy(output)
+    candidates = copy.deepcopy(live_check["candidates"])
+    query, display_title = live_check["query"], live_check["display_title"]
+    try:
+        updated = _check_winner_live(output, candidates, display_title)
+        if updated is not None:
+            candidates = _priority_sort(updated)
+            output["results"] = candidates
+            output["vouchers"] = voucher_service.build_deals(candidates, product_name=query or display_title)
+            output["routes"] = _build_routes(candidates, output["vouchers"])
+    except Exception:  # a failed check keeps Google's prices
+        logger.exception("[routes] live price check failed")
     return output
+
+
+# Price comparisons, run in the background and remembered (2026-10-24, the
+# site felt slow). Three things share this:
+#   - /search starts the comparison as soon as it is sure of the product
+#     (auto_pick), so it is under way before the website asks for it;
+#   - a finished comparison is reused for _ROUTES_TTL, so a repeat search
+#     (same words -> same cached Google answer -> same product token) is
+#     instant and costs no SearchApi credits;
+#   - the website gets the result as soon as the stores are compared, and
+#     fetches the live price re-check separately (/routes/checked) rather
+#     than waiting on it.
+# In process memory, like every other cache here: a restart forgets it.
+_ROUTES_TTL = 30 * 60
+_ROUTES_WAIT_CHECKED = 12   # seconds /routes/checked waits for the re-check
+_routes_jobs = TTLCache(default_ttl=_ROUTES_TTL, max_size=500)
+_routes_jobs_lock = threading.Lock()
+_routes_pool = ThreadPoolExecutor(max_workers=8, thread_name_prefix="routes")
+
+
+class _RoutesJob:
+    def __init__(self, key: str):
+        self.key = key
+        self.unchecked: dict | None = None
+        self.checked: dict | None = None
+        self.unchecked_ready = threading.Event()
+        self.checked_ready = threading.Event()
+
+    def run(self, args: tuple) -> None:
+        live_check = None
+        try:
+            self.unchecked, live_check = _compute_routes(*args)
+        except Exception as e:  # _compute_routes never raises; belt and braces
+            self.unchecked = {"input": args[1], "error": f"{type(e).__name__}: {e}"}
+        if self.unchecked.get("error"):
+            # Don't remember a failure: the next ask should try again.
+            with _routes_jobs_lock:
+                if _routes_jobs.get(self.key) is self:
+                    _routes_jobs.pop(self.key)
+        if live_check is None:
+            self.checked = self.unchecked
+            self.checked_ready.set()
+        self.unchecked_ready.set()
+        if live_check is not None:
+            self.checked = _apply_live_check(self.unchecked, live_check)
+            self.checked_ready.set()
+
+
+def _routes_key(*args) -> str:
+    product_token, query, title, picked_price, picked_source, picked_thumbnail = args
+    raw = json.dumps([product_token, (query or "").strip().lower(), title or "",
+                      float(picked_price) if picked_price is not None else None,
+                      picked_source or "", picked_thumbnail or ""])
+    return hashlib.sha256(raw.encode()).hexdigest()[:32]
+
+
+def _routes_job(args: tuple) -> _RoutesJob:
+    """The running or finished comparison for these exact inputs, started
+    if there is none."""
+    key = _routes_key(*args)
+    with _routes_jobs_lock:
+        job = _routes_jobs.get(key)
+        if job is not None:
+            return job
+        job = _RoutesJob(key)
+        _routes_jobs.set(key, job)
+    _routes_pool.submit(job.run, args)
+    return job
+
+
+def start_routes(
+    product_token: str, query: str = "", title: str = "",
+    picked_price: float | None = None, picked_source: str = "",
+    picked_thumbnail: str | None = None,
+) -> None:
+    """Start the comparison in the background without waiting for it."""
+    if product_token:
+        _routes_job((product_token, query, title, picked_price, picked_source, picked_thumbnail))
+
+
+def routes_without_waiting_on_check(
+    product_token: str, query: str = "", title: str = "",
+    picked_price: float | None = None, picked_source: str = "",
+    picked_thumbnail: str | None = None,
+) -> dict:
+    """The comparison as soon as the stores are compared. When the live
+    price re-check is still running, the answer carries
+    ``price_check_pending`` and the id to fetch the checked version with."""
+    if not product_token:
+        return _compute_routes(product_token, query)[0]
+    job = _routes_job((product_token, query, title, picked_price, picked_source, picked_thumbnail))
+    job.unchecked_ready.wait()
+    if job.checked_ready.is_set():
+        return job.checked
+    return {**job.unchecked, "price_check_pending": True, "price_check_id": job.key}
+
+
+def checked_routes(check_id: str) -> dict | None:
+    """The comparison after the live price re-check, or None when it is
+    unknown (expired, restarted) or still not done after a short wait."""
+    with _routes_jobs_lock:
+        job = _routes_jobs.get(check_id)
+    if job is None or not job.checked_ready.wait(_ROUTES_WAIT_CHECKED):
+        return None
+    return job.checked
+
+
+def build_routes_for_token(
+    product_token: str, query: str = "", title: str = "",
+    picked_price: float | None = None, picked_source: str = "",
+    picked_thumbnail: str | None = None,
+) -> dict:
+    """Step 2 of the two-step flow, live price re-check included (WhatsApp
+    waits for the whole thing). Never raises — errors come back in the
+    ``error`` field. Shares the remembered comparisons above."""
+    if not product_token:
+        return _compute_routes(product_token, query)[0]
+    job = _routes_job((product_token, query, title, picked_price, picked_source, picked_thumbnail))
+    job.checked_ready.wait()
+    return job.checked
 
 
 def get_product_detail(product_token: str) -> dict:

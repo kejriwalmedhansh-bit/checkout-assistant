@@ -28,4 +28,12 @@ export const searchApi = {
     });
     return data;
   },
+
+  /** Step 2b — the same result after the winning store's live price was
+   * re-read. Returns the result object, or null when there's nothing newer
+   * (the check expired or was slow): keep what's on screen. */
+  checkedRoutes: async (checkId) => {
+    const { data } = await apiClient.get(`/routes/checked/${encodeURIComponent(checkId)}`);
+    return data?.result || null;
+  },
 };
