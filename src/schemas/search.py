@@ -220,6 +220,16 @@ class SearchResultsResponse(BaseModel):
     vouchers: list[VoucherDeal] = []
     routes: RoutesModel = RoutesModel()
     error: str | None = None
+    # The winning store's live price is still being re-read: fetch the
+    # checked result from GET /routes/checked/{price_check_id}.
+    price_check_pending: bool = False
+    price_check_id: str | None = None
+
+
+class CheckedRoutesResponse(BaseModel):
+    # None when the check is unknown (expired, server restarted) or slow:
+    # the website keeps the result it already shows.
+    result: SearchResultsResponse | None = None
 
 
 class ProductDetailResponse(BaseModel):

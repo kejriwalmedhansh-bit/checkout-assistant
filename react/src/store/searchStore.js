@@ -166,6 +166,17 @@ export const useSearchStore = create(
         try {
           const result = await searchApi.routes(token, get().query, title, price, source);
           set({ result, status: 'success', error: null, persistedAt: Date.now() });
+          if (result?.price_check_pending && result.price_check_id) {
+            // Shown already; the live price re-check finishes on the server
+            // and replaces it only if the shopper is still on this product.
+            searchApi.checkedRoutes(result.price_check_id)
+              .then((checked) => {
+                if (checked && get().selectedToken === token && get().result === result) {
+                  set({ result: checked });
+                }
+              })
+              .catch(() => {});
+          }
           const rec = result?.routes?.recommended;
           if (rec) {
             // Same original/final/discount math the results page itself
