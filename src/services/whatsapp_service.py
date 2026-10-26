@@ -42,7 +42,7 @@ from ..constants import (
     WHATSAPP_RATE_LIMITED_MSG,
     WHATSAPP_SESSION_EXPIRED_MSG,
 )
-from . import analytics_service, search_service
+from . import analytics_service, price_list, search_service
 
 _search_rate_limiter = RateLimiter(
     max_per_window=get_settings().WHATSAPP_MAX_SEARCHES_PER_HOUR, window_seconds=3600,
@@ -285,7 +285,9 @@ def _build_result_caption(route: dict) -> str:
     ]
     if has_discount:
         lines.append(f"₹{listed_price:,.0f} → *₹{final_cost:,.0f}*")
-        pct = round((savings / listed_price) * 100)
+        exact_pct = savings / listed_price * 100
+        # ₹250 on ₹78,100 is 0.3%, not "0% off".
+        pct = round(exact_pct) if exact_pct >= 1 else round(exact_pct, 1)
         # A party emoji on a 1% saving reads as fake enthusiasm — reserve
         # the celebration for a discount actually worth celebrating.
         celebration = " 🎉" if pct >= 10 else ""
@@ -752,6 +754,58 @@ async def _send_success_flow(phone: str, route: dict, image_url: str | None) -> 
     await _send_followup_buttons(phone)
 
 
+_CAROUSEL_CARD_TEXT_MAX = 160  # Meta's limit, with at most 2 line breaks
+
+
+def _price_list_cards(shops: list[dict]) -> list[dict]:
+    """Shops that can be a card: Meta needs a link button on every card."""
+    return [s for s in shops if s.get("link")][: price_list.MAX_CARDS]
+
+
+async def _send_price_list(phone: str, title: str, shops: list[dict]) -> bool:
+    """When the gift card saves too little to lead with (same rule as the
+    website, see price_list.should_show_price_list): every shop cheapest
+    first, one swipeable card per shop, each with its own "Buy on" button.
+    Nothing follows the cards (owner call 2026-10-26: a gift voucher bubble
+    under them wasn't needed). Returns False, having sent nothing, when Meta
+    refuses the carousel, so the caller can fall back to the usual messages."""
+    cards = _price_list_cards(shops)
+    if len(cards) < 2:
+        return False
+    best, priciest = cards[0]["price"], max(c["price"] for c in cards)
+    body = f"*{_clean_result_title(title)}*\nCheapest first · {len(cards)} shops checked"
+    if priciest > best:
+        body += f"\n{price_list.inr(priciest - best)} less than {max(cards, key=lambda c: c['price'])['merchant']}"
+
+    payload_cards = []
+    for i, shop in enumerate(cards):
+        lines = [f"*{shop['merchant']}*"]
+        if shop["delivery"]:
+            lines.append(price_list.short_delivery(shop["delivery"]))
+        # No gift voucher line: nothing on the card can open it (owner call
+        # 2026-10-26), and the list only leads when that saving is small.
+        payload_cards.append({
+            "card_index": i,
+            "type": "cta_url",
+            "header": {"type": "image", "image": {"link": price_list.card_image_url(shop, i, best, priciest, cards[0]["merchant"])}},
+            "body": {"text": _truncate("\n".join(lines), _CAROUSEL_CARD_TEXT_MAX)},
+            "action": {
+                "name": "cta_url",
+                "parameters": {
+                    "display_text": _truncate_at_word(f"Buy on {shop['merchant']}", _CTA_BUTTON_MAX_CHARS),
+                    "url": _affiliate_url(shop["link"], phone, "price_list"),
+                },
+            },
+        })
+    if not await send_carousel(phone, body, payload_cards):
+        return False
+    _track(
+        "Price List Shown", phone,
+        shops=len(cards), cheapest=cards[0]["merchant"], spread=priciest - best,
+    )
+    return True
+
+
 # ── Meta Graph send helpers (R7: settings read lazily) ───────────────────────────
 
 def _graph_config() -> tuple[str, dict]:
@@ -1071,6 +1125,23 @@ async def send_cta_url(phone: str, body_text: str, button_text: str, url: str) -
     return await _post_graph(payload, context=f"cta_url to {phone}") is not None
 
 
+async def send_carousel(phone: str, body_text: str, cards: list[dict]) -> bool:
+    """Meta interactive media carousel: 2-10 swipeable cards, each with an
+    image header, a short body and one link button (every card must use the
+    same button type). Returns True only on a 2xx, like send_cta_url, so the
+    caller can fall back to plain messages if Meta refuses it."""
+    titles = ", ".join(c["body"]["text"].split("\n", 1)[0] for c in cards)
+    message_log.record(phone, "out", f"{body_text} [cards: {titles}]")
+    payload = {
+        "messaging_product": "whatsapp",
+        "recipient_type": "individual",
+        "to": phone,
+        "type": "interactive",
+        "interactive": {"type": "carousel", "body": {"text": body_text}, "action": {"cards": cards}},
+    }
+    return await _post_graph(payload, context=f"carousel to {phone}") is not None
+
+
 async def send_reply_buttons(phone: str, text: str, buttons: list[tuple[str, str]]) -> None:
     """Native WhatsApp reply buttons (max 3) — along with list rows, the only
     interactive element whose tap triggers a webhook event back to us."""
@@ -1267,12 +1338,18 @@ async def _send_routes_for_token(
         _track("WhatsApp Dead End", phone, stage="no_route", query=query)
         return
     image_url = result.get("source", {}).get("image") or picked_thumbnail
+    shops = price_list.build_price_list(result)
+    show_list = price_list.should_show_price_list(shops, recommended)
     session_store.set_session(phone, {
         "routes": routes,
         "image": image_url,
         "candidates": candidates or [],
         "query": query,
+        "price_list": shops if show_list else [],
     })
+    title = result.get("source", {}).get("name") or recommended.get("title", "")
+    if show_list and await _send_price_list(phone, title, shops):
+        return
     await _send_success_flow(phone, recommended, image_url)
 
 
