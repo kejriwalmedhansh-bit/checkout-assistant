@@ -10,13 +10,47 @@ import { shopLogos, shortDelivery } from '@/utils/priceList';
 
 const ROWS_SHOWN = 4;
 
-/** A shop's bank card offers: the best one as a tag ("−₹6,000 with HDFC
- * Credit Card"); tapping it lists the others. Shown beside the Gift Voucher
- * tag, never used to reorder the list — the order stays card-free. */
+// Bank websites, for the bank's own logo beside a card offer (same
+// Brandfetch icon lookup as the shop logos). Unknown banks show no logo.
+const BANK_SITES = [
+  ['hdfc', 'hdfcbank.com'],
+  ['icici', 'icicibank.com'],
+  ['axis', 'axisbank.com'],
+  ['sbi', 'sbicard.com'],
+  ['kotak', 'kotak.com'],
+  ['idfc', 'idfcfirstbank.com'],
+  ['bob', 'bankofbaroda.in'],
+  ['hsbc', 'hsbc.co.in'],
+];
+
+function BankLogo({ bank, size }) {
+  const site = BANK_SITES.find(([k]) => bank.toLowerCase().includes(k))?.[1];
+  const [failed, setFailed] = useState(false);
+  if (!site || failed) return null;
+  return (
+    <Box
+      as="img"
+      src={shopLogos(`https://${site}`)[0]}
+      alt=""
+      w={`${size}px`}
+      h={`${size}px`}
+      borderRadius="4px"
+      flex="0 0 auto"
+      onError={() => setFailed(true)}
+    />
+  );
+}
+
+/** A shop's bank card offers, shown the way the shops themselves do it
+ * (Flipkart: "₹1,28,900 with Bank offer"): the price after the best card,
+ * with the bank's logo; tapping it lists the other cards. Takes the place
+ * of the Gift Voucher tag on that row. Never reorders the list — the order
+ * stays card-free. */
 function CardOffers({ shop, offers, indent, small }) {
   const [open, setOpen] = useState(false);
   const [best, ...rest] = offers;
   const label = (o) => `${o.bank} ${o.card}`;
+  const after = (o) => fmt(shop.price - o.saving);
   return (
     <Box ml={`${indent}px`} mt="6px">
       <Box
@@ -28,27 +62,31 @@ function CardOffers({ shop, offers, indent, small }) {
         }}
         display="inline-flex"
         alignItems="center"
-        gap="5px"
-        fontSize={`${small}px`}
-        fontWeight={600}
+        gap="6px"
+        flexWrap="wrap"
+        textAlign="left"
+        fontSize={`${small + 1}px`}
         color="cyan"
         bg="cyanSoft"
-        borderRadius="pill"
+        borderRadius="10px"
         px="9px"
-        py="3px"
+        py="5px"
         _focusVisible={{ boxShadow: 'ring', outline: 'none' }}
       >
-        <I.pay size={12} />
-        −{fmt(best.saving)} with {label(best)}
-        {rest.length > 0 && <Text as="span" color="text3" fontWeight={500}>· {open ? 'less' : `+${rest.length} more`}</Text>}
+        <BankLogo bank={best.bank} size={16} />
+        <Text as="span" fontFamily="mono" fontWeight={700}>{after(best)}</Text>
+        <Text as="span" fontWeight={600}>with {label(best)}</Text>
+        {rest.length > 0 && <Text as="span" color="text3" fontWeight={500}>· {open ? 'less' : `${rest.length} more`}</Text>}
       </Box>
       {open && (
-        <Flex direction="column" gap="3px" mt="6px" pl="2px">
+        <Flex direction="column" gap="6px" mt="8px" pl="2px">
           {rest.map((o) => (
-            <Text key={label(o)} fontSize={`${small}px`} color="text2">
-              <Text as="span" fontFamily="mono" fontWeight={600} color="text">−{fmt(o.saving)}</Text> with {label(o)}
-              {o.cashback && <Text as="span" color="text3"> · comes back as cashback</Text>}
-            </Text>
+            <Flex key={label(o)} align="center" gap="6px" fontSize={`${small}px`} color="text2" flexWrap="wrap">
+              <BankLogo bank={o.bank} size={14} />
+              <Text as="span" fontFamily="mono" fontWeight={700} color="text">{after(o)}</Text>
+              <Text as="span">with {label(o)}</Text>
+              {o.cashback && <Text as="span" color="text3">· as cashback</Text>}
+            </Flex>
           ))}
         </Flex>
       )}
@@ -263,7 +301,9 @@ export default function PriceList({ shops, onPickGiftCard, afterFirst = null }) 
                   </Text>
                 )}
               </Link>
-              {gc > 0 && (
+              {/* Owner's call 2026-10-26: a card offer replaces the Gift Voucher
+                  tag on that row; both at once was too much to take in. */}
+              {gc > 0 && !s.cardOffers?.length && (
                 <Box
                   as="button"
                   type="button"
