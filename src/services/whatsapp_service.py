@@ -782,10 +782,8 @@ async def _send_price_list(phone: str, title: str, shops: list[dict]) -> bool:
         lines = [f"*{shop['merchant']}*"]
         if shop["delivery"]:
             lines.append(price_list.short_delivery(shop["delivery"]))
-        gc = price_list.gift_card_saving(shop)
-        if gc:
-            where = "in-store " if (shop.get("voucher") or {}).get("offline_only") else ""
-            lines.append(f"−{price_list.inr(gc)} with {where}Gift Voucher")
+        # No gift voucher line: nothing on the card can open it (owner call
+        # 2026-10-26), and the list only leads when that saving is small.
         payload_cards.append({
             "card_index": i,
             "type": "cta_url",

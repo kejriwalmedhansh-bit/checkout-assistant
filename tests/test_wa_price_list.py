@@ -101,10 +101,10 @@ def test_pixel_cards_read_right(monkeypatch):
     assert "Cheapest first · 3 shops checked" in sent["body"]
     assert "₹11,899 less than Vijay Sales" in sent["body"]
     first = sent["cards"][0]
-    assert first["body"]["text"] == "*Amazon.in*\nFree delivery\n−₹250 with Gift Voucher"
+    assert first["body"]["text"] == "*Amazon.in*\nFree delivery"
     assert first["action"]["parameters"]["display_text"] == "Buy on Amazon.in"
     assert "ctx=price_list" in first["action"]["parameters"]["url"]
-    assert sent["cards"][1]["body"]["text"].endswith("−₹415 with in-store Gift Voucher")
+    assert "Gift Voucher" not in "".join(c["body"]["text"] for c in sent["cards"])
 
 
 def test_shops_without_a_link_are_left_out(monkeypatch):
