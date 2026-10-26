@@ -73,7 +73,7 @@ Historic detail, still accurate for the matching logic: 379 brands in `db/gyftr_
 8. `_KNOWN_BRANDS` (pipeline.py) and `_BRAND_SLUGS` (discovery.py) are small hardcoded lists — brands outside them weaken brand inference and conflict filtering.
 9. Only `amzn.in` short links resolve; `fkrt.co` / `bit.ly` will fail extraction.
 10. ~~WhatsApp links are not Cuelinks-wrapped (web links are).~~ Resolved — verified 2026-08-04: `whatsapp_service._affiliate_url` wraps merchant links via `/go` (`redirect.py`) exactly like the web frontend; Gyftr voucher links are correctly left unwrapped per rule #6/design intent. This note was stale.
-11. No automated tests. Regression set is manual: boAt Airdopes 141, Myntra Nike sneakers URL, Ray-Ban Meta Wayfarer Gen 2, Lakme CC Cream, amzn.in short link.
+11. ~~No automated tests.~~ `tests/` has pytest files now. Product matching has a regression checklist (`tests/test_match_checklist.py`, added 2026-10-26): 29 real links and 409 hand-marked listings, rerun on GitHub for every PR that touches `product_identity.py`/`search_service.py`. It fails only when something that was right goes wrong. Known misses live in `tests/fixtures/match_checklist_known.json`; after a fix, run `.venv/bin/python tests/test_match_checklist.py --accept`.
 
 ## Live price-on-paste vendor coverage (for Karan — flagged 2026-07-22)
 

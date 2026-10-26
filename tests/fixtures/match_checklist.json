@@ -1,0 +1,2282 @@
+{
+ "_about": "Answer key for tests/test_match_checklist.py. Built from the 25 Sep 2026 link test (30 links + 19 hold-out links); every answer was marked by hand before the matching code was written. Only links whose own page title was saved are here (29 of 49). Add a link: put its page title, URL and a few listings with the right answer (exact / similar / wrong).",
+ "links": [
+  {
+   "set": "main 30",
+   "product": "boAt Rockerz 450 wireless headphones",
+   "url": "https://www.amazon.in/Rockerz-450-Wireless-Bluetooth-Headphone/dp/B07PR1CL3S",
+   "page_title": "boAt Rockerz 450/450R, 15 HRS Battery, 40mm Drivers, Padded Ear Cushions, Integrated Controls, Dual Modes, Bluetooth Headphones, Wireless Headphone with Mic (Luscious Black)",
+   "listings": [
+    {
+     "title": "boAt Rockerz 450/450R, 15 HRS Battery, 40mm Drivers, Padded Ear Cushions, Integrated Controls, Dual Modes, Bluetooth Headphones, Wireless Headphone with Mic (Luscious Black)",
+     "shop": "Amazon",
+     "answer": "exact"
+    },
+    {
+     "title": "boAt Rockerz 450 Bluetooth Headphone",
+     "shop": "Zepto",
+     "answer": "exact"
+    },
+    {
+     "title": "boAt Rockerz 450R",
+     "shop": "Reliance Digital",
+     "answer": "exact"
+    },
+    {
+     "title": "boAt Rockerz Plus 450 ANC 80h Playback and 40dB ANC",
+     "shop": "boAt",
+     "answer": "wrong"
+    },
+    {
+     "title": "boAt Rockerz Plus 440 – Wireless Headphones with 60H Playback",
+     "shop": "boAt",
+     "answer": "wrong"
+    },
+    {
+     "title": "boAt Rockerz Prime 415 Wireless Headphones 120H Battery",
+     "shop": "boAt",
+     "answer": "wrong"
+    },
+    {
+     "title": "boAt Rockerz 512 ANC 40db Hybrid ANC 80h Battery",
+     "shop": "boAt",
+     "answer": "wrong"
+    },
+    {
+     "title": "boAt Rockerz 430 Headphones",
+     "shop": "JioMart Electronics",
+     "answer": "wrong"
+    },
+    {
+     "title": "boAt Rockerz Bold Wireless Neckband with 30H Playback",
+     "shop": "Reliance Digital",
+     "answer": "wrong"
+    },
+    {
+     "title": "boAt rockerz bold Neckband ENx Technology 30 Hours Battery 10 mm Signature Sound Drivers",
+     "shop": "Reliance Digital",
+     "answer": "wrong"
+    },
+    {
+     "title": "boAt Rockerz 412",
+     "shop": "Shopy Vision",
+     "answer": "wrong"
+    },
+    {
+     "title": "boAt Rockerz 512 ANC ANC",
+     "shop": "Reliance Digital",
+     "answer": "wrong"
+    },
+    {
+     "title": "boAt Rockerz 430 Wireless Headphones with Voice Assistant - Blue",
+     "shop": "Shopy Vision",
+     "answer": "wrong"
+    }
+   ]
+  },
+  {
+   "set": "main 30",
+   "product": "Sony WH-1000XM5 headphones",
+   "url": "https://www.amazon.in/Sony-WH-1000XM5-Wireless-Cancelling-Headphones/dp/B09XS7JWHH",
+   "page_title": "Sony WH-1000XM5 Best Active Noise Cancelling Wireless Bluetooth Over Ear Headphones with Mic for Clear Calling,Battery Life 30 Hours -Black",
+   "listings": [
+    {
+     "title": "Sony WH-1000XM5 Best Active Noise Cancelling Wireless Bluetooth Over Ear Headphones with Mic for Clear Calling,Battery Life 30 Hours -Black",
+     "shop": "Amazon",
+     "answer": "exact"
+    },
+    {
+     "title": "Sony WH-1000XM5 Wireless Noise Cancelling Headphones",
+     "shop": "Tata CLiQ Jewellery",
+     "answer": "exact"
+    },
+    {
+     "title": "Sony WH-1000XM5 Best Active Noise Cancelling Wireless Bluetooth Over Ear Headphones with Mic for Clear Calling,Battery Life 30 Hours-Smoky Pink",
+     "shop": "Myntra - MNow",
+     "answer": "exact"
+    },
+    {
+     "title": "Sony Unisex Best Active Wireless Bluetooth Headphones with Mic-WH-1000XM5 (Purple)",
+     "shop": "AJIO.com",
+     "answer": "exact"
+    },
+    {
+     "title": "Sony WH-1000XM5 Bluetooth Headset with Mic (Auto Noise Cancelling Optimizer, Over Ear, Silver) (SONYWHPWH1000XM5)",
+     "shop": "Sathya Retail",
+     "answer": "exact"
+    },
+    {
+     "title": "Sony WH-1000XM5 Wireless Noise Cancelling Headphones",
+     "shop": "Amazon.in",
+     "answer": "exact"
+    },
+    {
+     "title": "WH-1000XM5 Wireless Noise Canceling Headphones with Bundle For Music & Calls",
+     "shop": "Tata CLiQ Jewellery",
+     "answer": "similar"
+    },
+    {
+     "title": "Sony WH-1000XM6 Noise-Cancelling Over-Ear Wireless Headphones",
+     "shop": "Amazon.in",
+     "answer": "wrong"
+    },
+    {
+     "title": "Sony WH-1000XM6 Wireless Noise Canceling Headphones",
+     "shop": "Shopy Vision",
+     "answer": "wrong"
+    }
+   ]
+  },
+  {
+   "set": "main 30",
+   "product": "Cetaphil Gentle Skin Cleanser 125 ml",
+   "url": "https://www.amazon.in/Cetaphil-Gentle-Skin-Cleanser-125ml/dp/B07CC1QR99",
+   "page_title": "Cetaphil Gentle Skin Cleanser, 125ml",
+   "listings": [
+    {
+     "title": "Cetaphil Gentle Skin Cleanser, 125ml",
+     "shop": "Amazon",
+     "answer": "exact"
+    },
+    {
+     "title": "Cetaphil Gentle Skin Cleanser",
+     "shop": "Zepto",
+     "answer": "exact"
+    },
+    {
+     "title": "Cetaphil Gentle Skin Cleanser 125ml Sale",
+     "shop": "firstcry.com",
+     "answer": "exact"
+    },
+    {
+     "title": "Cetaphil Gentle Skin Cleanser For Normal, Dry Skin Hydrates And Softens (118ml) At Nykaa, Best Beauty Products Online At NYKAA, Best Skin Care Pro...",
+     "shop": "Nykaa Now",
+     "answer": "similar"
+    },
+    {
+     "title": "Cetaphil Gentle Skin Cleanser 125ml+Moisturising Cream 80gm+Gentle Skin Cleanser 250ml (3 Items in the set)",
+     "shop": "amazon.in",
+     "answer": "similar"
+    },
+    {
+     "title": "Cetaphil Moisturising Lotion - 100 ml AND Cetaphil Gentle Skin Cleanser - 125 ml - 25 Months to 45 Years",
+     "shop": "FirstCry India",
+     "answer": "similar"
+    }
+   ]
+  },
+  {
+   "set": "main 30",
+   "product": "Logitech MX Master 3S mouse",
+   "url": "https://www.amazon.in/Logitech-Master-Performance-Ultra-Fast-Scrolling/dp/B0BS9VVQPD",
+   "page_title": "Amazon.in: Buy Logitech MX Master 3S - Wireless Performance Mouse with Ultra-Fast Scrolling, Ergo, 8K DPI, Track on Glass, Quiet Clicks, USB-C, Bluetooth, Windows, Linux, Chrome (Black) Online at Low Prices in India",
+   "listings": [
+    {
+     "title": "Amazon.in: Buy Logitech MX Master 3S - Wireless Performance Mouse with Ultra-Fast Scrolling, Ergo, 8K DPI, Track on Glass, Quiet Clicks, USB-C, Bluetooth, Windows, Linux, Chrome (Black) Online at Low Prices in India",
+     "shop": "Amazon",
+     "answer": "exact"
+    },
+    {
+     "title": "Logitech MX Master 3S Wireless Mouse",
+     "shop": "Amazon.in",
+     "answer": "exact"
+    },
+    {
+     "title": "Logitech MX Master 3S Bluetooth Mouse Mice Wireless",
+     "shop": "amazon.in",
+     "answer": "exact"
+    },
+    {
+     "title": "Logitech MX Master 3S for Business Wireless Mouse with Quiet Clicks 8K dpi",
+     "shop": "Amazon.in",
+     "answer": "similar"
+    }
+   ]
+  },
+  {
+   "set": "main 30",
+   "product": "Philips BT3221/15 beard trimmer",
+   "url": "https://www.amazon.in/Philips-DuraPower-Trimmer-BT3221-15/dp/B07D17R2PP",
+   "page_title": "Philips BT3221/15 Smart Beard Trimmer - Power adapt technology for precise trimming- 20 settings; 90 min run time",
+   "listings": [
+    {
+     "title": "Philips BT3221/15 Smart Beard Trimmer - Power adapt technology for precise trimming- 20 settings; 90 min run time",
+     "shop": "Amazon",
+     "answer": "exact"
+    },
+    {
+     "title": "Philips BT3201/15 Cordless Beard Trimmer",
+     "shop": "Flipkart",
+     "answer": "wrong"
+    },
+    {
+     "title": "Philips Bt3421/15 Beard Trimmer for Men",
+     "shop": "Reliance Digital",
+     "answer": "wrong"
+    },
+    {
+     "title": "Philips India's No.1 Men's Trimmer* Lift & Trim Technology",
+     "shop": "Amazon.in",
+     "answer": "wrong"
+    },
+    {
+     "title": "Philips India's No.1 Men's Trimmer 9-in-1 Tool For Face",
+     "shop": "Amazon.in",
+     "answer": "wrong"
+    },
+    {
+     "title": "Philips Beardtrimmer Series 3000 Beard Trimmer",
+     "shop": "Flipkart",
+     "answer": "wrong"
+    },
+    {
+     "title": "Philips BT3203/15 cordless rechargeable Beard Trimmer 10 length settings",
+     "shop": "Flipkart",
+     "answer": "wrong"
+    },
+    {
+     "title": "Philips BT3431/30 Pro Beard Trimmer",
+     "shop": "bigbasket.com",
+     "answer": "wrong"
+    },
+    {
+     "title": "Philips Beard Trimmer Series 3000",
+     "shop": "Vijay Sales",
+     "answer": "wrong"
+    },
+    {
+     "title": "Philips Beard Trimmer Series 3000 – Electric Beard Trimmer for Men with Self-Sharpening Blades",
+     "shop": "Flipkart",
+     "answer": "wrong"
+    },
+    {
+     "title": "Philips MG7922/15 13 in 1 Multi Grooming Kit",
+     "shop": "Amazon.in",
+     "answer": "wrong"
+    },
+    {
+     "title": "Philips MG3721/77 Trimmer",
+     "shop": "Amazon.in",
+     "answer": "wrong"
+    },
+    {
+     "title": "Philips Beard Trimmer BT3415/15",
+     "shop": "Myntra - MNow",
+     "answer": "wrong"
+    },
+    {
+     "title": "Philips 3000 Series 10-in-1 Rechargeable Cordless Multipurpose Trimmer for Hair",
+     "shop": "Tira",
+     "answer": "wrong"
+    },
+    {
+     "title": "Philips Multi-Grooming Trimmer MG3721/65 | Beautiful",
+     "shop": "Zepto",
+     "answer": "wrong"
+    },
+    {
+     "title": "Philips Multi Groomer Set Grooming Kit 60 min Runtime",
+     "shop": "bigbasket.com",
+     "answer": "wrong"
+    }
+   ]
+  },
+  {
+   "set": "main 30",
+   "product": "Casio Vintage A158WA-1 watch",
+   "url": "https://www.amazon.in/Casio-Vintage-Digital-Grey-Watch-A158WA-1Q/dp/B000GAYQJ0",
+   "page_title": "Casio Vintage A-158WA-1Q Digital Watch",
+   "listings": [
+    {
+     "title": "Casio Vintage A-158WA-1Q Digital Watch",
+     "shop": "Amazon",
+     "answer": "exact"
+    },
+    {
+     "title": "Casio A168WA-1WDF Vintage Digital Unisex Watch",
+     "shop": "Amazon.in",
+     "answer": "wrong"
+    },
+    {
+     "title": "Casio Men's Vintage Digital Unisex Watch",
+     "shop": "Myntra",
+     "answer": "wrong"
+    },
+    {
+     "title": "Casio Retro Vintage A168wa Watch",
+     "shop": "Flipkart",
+     "answer": "wrong"
+    },
+    {
+     "title": "Casio Vintage Collection A159W-N1DF",
+     "shop": "Tata CLiQ Fashion",
+     "answer": "wrong"
+    },
+    {
+     "title": "Casio A168WA-1 Mens Classic Digital Bracelet Watch",
+     "shop": "Nykaa Fashion",
+     "answer": "wrong"
+    },
+    {
+     "title": "Casio A168WGG-1BDF Vintage Unisex Digital Watch",
+     "shop": "Amazon.in",
+     "answer": "wrong"
+    },
+    {
+     "title": "Casio Vintage Iconic Watch",
+     "shop": "Tata CLiQ Fashion",
+     "answer": "wrong"
+    },
+    {
+     "title": "Casio Unisex Vintage-COLLECTION-Digital-Watch",
+     "shop": "Flipkart",
+     "answer": "wrong"
+    },
+    {
+     "title": "Mens Casio Watch A168WA-1YES",
+     "shop": "Tata CLiQ Fashion",
+     "answer": "wrong"
+    },
+    {
+     "title": "Casio Vintage A168WEMB-1BEF",
+     "shop": "Amazon.in",
+     "answer": "wrong"
+    },
+    {
+     "title": "Casio Vintage A159WGEA-1VT Gold Digital Watch",
+     "shop": "Amazon.in",
+     "answer": "wrong"
+    },
+    {
+     "title": "Casio A168WEGB-1BDF Vintage Unisex Digital Watch",
+     "shop": "Amazon.in",
+     "answer": "wrong"
+    },
+    {
+     "title": "Casio Vintage Collection Gold Digital Women's Watch",
+     "shop": "Myntra",
+     "answer": "wrong"
+    }
+   ]
+  },
+  {
+   "set": "main 30",
+   "product": "Prestige Iris 750W mixer grinder (not Iris Plus/Pro)",
+   "url": "https://www.amazon.in/Prestige-IRIS-mixer-grinder-Black/dp/B08CFJBZRK",
+   "page_title": "Prestige Iris 750 Watt Mixer Grinder with 4 Jars (3 Stainless Steel + 1 Juicer)",
+   "listings": [
+    {
+     "title": "Prestige Iris 750 Watt Mixer Grinder with 4 Jars (3 Stainless Steel + 1 Juicer)",
+     "shop": "Amazon",
+     "answer": "exact"
+    },
+    {
+     "title": "Prestige Iris 750 Watt Mixer Grinder",
+     "shop": "TTK PrestigeLimited",
+     "answer": "exact"
+    },
+    {
+     "title": "Prestige IRIS Plus 750 Watt Mixer Grinder",
+     "shop": "TTK PrestigeLimited",
+     "answer": "wrong"
+    },
+    {
+     "title": "Prestige Regal Mixer Grinder",
+     "shop": "Zepto",
+     "answer": "wrong"
+    },
+    {
+     "title": "Prestige 750 Watts Prism Mixer Grinder with 3 Stainless Steel Jars",
+     "shop": "Myntra",
+     "answer": "wrong"
+    },
+    {
+     "title": "Judge by Prestige 750 Watts Carnival Mixer Grinder |3 Stainless Steel Jars",
+     "shop": "Judge by Prestige",
+     "answer": "wrong"
+    },
+    {
+     "title": "Prestige Fusion 4J 750 Watt Mixer Grinder with with 4 Jars",
+     "shop": "Tata CLiQ - Fashion",
+     "answer": "wrong"
+    },
+    {
+     "title": "Prestige Atlas Terra 750 W Juicer Mixer Grinder",
+     "shop": "Amazon.in",
+     "answer": "wrong"
+    },
+    {
+     "title": "Prestige Astra Neo 750 Watt Mixer Grinder with 4 Jars",
+     "shop": "Amazon.in",
+     "answer": "wrong"
+    },
+    {
+     "title": "Prestige 42509 550W Mixer Grinder with 3 Jars",
+     "shop": "JioMart Electronics",
+     "answer": "wrong"
+    },
+    {
+     "title": "Prestige Stack-O-Mix 750 Mixer Grinder 3 Jars",
+     "shop": "Myntra",
+     "answer": "wrong"
+    },
+    {
+     "title": "Prestige Deluxe LS Mixer Grinder 750 W",
+     "shop": "Tata CLiQ - Fashion",
+     "answer": "wrong"
+    },
+    {
+     "title": "Prestige Delight 750 W Mixer Grinder",
+     "shop": "Amazon.in",
+     "answer": "wrong"
+    },
+    {
+     "title": "Prestige Turbo Appealing Design Watts 750 Mixer Grinder 3 Jars",
+     "shop": "Myntra",
+     "answer": "wrong"
+    },
+    {
+     "title": "Prestige Iris Plus 750 Watts Mixer Grinder & Prestige Svachh Deluxe Alpha 3.0 Litre Stainless Steel Outer Lid Pressure Cooker",
+     "shop": "amazon.in",
+     "answer": "wrong"
+    },
+    {
+     "title": "Prestige Turbo 750W Mixer Grinder with 3 Stainless Steel Jars (Orange/Black)",
+     "shop": "Tata CLiQ - Fashion",
+     "answer": "wrong"
+    },
+    {
+     "title": "Prestige Iris Plus 750 Watts Mixer Grinder & Prestige Svachh Deluxe Alpha 5.5 Litre Stainless Steel Outer Lid Pressure Cooker",
+     "shop": "amazon.in",
+     "answer": "wrong"
+    },
+    {
+     "title": "Judge Jemg 104 750 Juicer Mixer Grinder 4 Jars",
+     "shop": "Judge by Prestige",
+     "answer": "wrong"
+    },
+    {
+     "title": "Prestige Hero White Stainless Steel Safety Lock Wet and Dry Grinder with Juicer-750W (Onesize) by Myntra",
+     "shop": "Myntra",
+     "answer": "wrong"
+    },
+    {
+     "title": "Prestige Ultimate Plus 750 W Juicer Mixer Grinder",
+     "shop": "amazon.in",
+     "answer": "wrong"
+    },
+    {
+     "title": "Prestige Grace 750W 4 Jar Mixer Grinder",
+     "shop": "Amazon.in",
+     "answer": "wrong"
+    },
+    {
+     "title": "Prestige Nakshatra Super 42522 750W With 4 Jars Juicer Mixer Grinder (Black and Red)",
+     "shop": "Tata CLiQ - Fashion",
+     "answer": "wrong"
+    },
+    {
+     "title": "Prestige Celesta 750W Mixer Grinder",
+     "shop": "Myntra",
+     "answer": "wrong"
+    },
+    {
+     "title": "Prestige Prisma Pro 10 Different Functions In 1 750 W Mixer Blender",
+     "shop": "Amazon.in",
+     "answer": "wrong"
+    },
+    {
+     "title": "Prestige Astra 750 Watt Mixer Grinder with 5 Jars",
+     "shop": "Amazon.in",
+     "answer": "wrong"
+    }
+   ]
+  },
+  {
+   "set": "main 30",
+   "product": "Himalaya Purifying Neem Face Wash 150 ml",
+   "url": "https://www.amazon.in/Himalaya-Herbals-Purifying-Neem-150ml/dp/B010Z0LH8I",
+   "page_title": "Himalaya Purifying Neem Face Wash, 150 ml",
+   "listings": [
+    {
+     "title": "Himalaya Purifying Neem Face Wash, 150 ml",
+     "shop": "Amazon",
+     "answer": "exact"
+    },
+    {
+     "title": "Himalaya Herbals Purifying Neem Face Wash",
+     "shop": "Myntra - MNow",
+     "answer": "exact"
+    },
+    {
+     "title": "Himalaya Purifying Neem Face Wash-150 ml",
+     "shop": "firstcry.com",
+     "answer": "exact"
+    },
+    {
+     "title": "Himalaya Purifying Neem Face Wash | With 5 Parts of Neem and Turmeric | Clears and Prevents Pimples and Acne | Clinically Proven Formula | For Oily",
+     "shop": "firstcry.com",
+     "answer": "exact"
+    },
+    {
+     "title": "Himalaya Purifying Neem Face Wash",
+     "shop": "Amazon.in",
+     "answer": "exact"
+    },
+    {
+     "title": "Himalaya Herbals Purifying Neem Face Wash",
+     "shop": "Myntra",
+     "answer": "exact"
+    },
+    {
+     "title": "Himalaya Purifying Neem Foaming Face Wash",
+     "shop": "himalayawellness.in",
+     "answer": "wrong"
+    },
+    {
+     "title": "Himalaya Herbals Purifying Neem Face Wash, 150ml & Himalaya Natural Glow Kesar Face Wash, 150ml",
+     "shop": "amazon.in",
+     "answer": "wrong"
+    },
+    {
+     "title": "Himalaya Purifying Neem Pack, 100g & Himalaya Herbals Purifying Neem Face Wash, 150ml",
+     "shop": "amazon.in",
+     "answer": "similar"
+    },
+    {
+     "title": "Himalaya Natural Glow Kesar Face Wash",
+     "shop": "Myntra",
+     "answer": "wrong"
+    }
+   ]
+  },
+  {
+   "set": "main 30",
+   "product": "Apple AirPods 4 (without noise cancellation)",
+   "url": "https://www.amazon.in/Apple-Bluetooth-Headphones-Personalised-Effortless/dp/B0DGJLL7V1",
+   "page_title": "Apple AirPods 4 Wireless Earbuds, Bluetooth Headphones, Personalised Spatial Audio, Sweat and Water Resistant, USB-C Charging Case, H2 Chip, Up to 30 Hours of Battery Life, Effortless Setup for iPhone",
+   "listings": [
+    {
+     "title": "Apple AirPods 4 Wireless Earbuds, Bluetooth Headphones, Personalised Spatial Audio, Sweat and Water Resistant, USB-C Charging Case, H2 Chip, Up to 30 Hours of Battery Life, Effortless Setup for iPhone",
+     "shop": "Amazon",
+     "answer": "exact"
+    },
+    {
+     "title": "Apple AirPods 4",
+     "shop": "Zepto",
+     "answer": "exact"
+    },
+    {
+     "title": "Apple AirPods 4 (Wireless Charging, USB-C, White, APAIRPODS4MXP63)",
+     "shop": "Sathya Retail",
+     "answer": "exact"
+    },
+    {
+     "title": "Beats Solo 4 – On-Ear Wireless Headphones",
+     "shop": "Vijay Sales",
+     "answer": "wrong"
+    }
+   ]
+  },
+  {
+   "set": "main 30",
+   "product": "Pigeon Kessel 1.2 L multipurpose kettle",
+   "url": "https://www.amazon.in/Pigeon-Multipurpose-12173-Stainless-boiling/dp/B01I1LDZGA",
+   "page_title": "Pigeon Kessel Multipurpose Kettle (12173) 1.2 litres with Stainless Steel Body, used for boiling Water and milk, Tea, Coffee, Oats, Noodles, Soup etc. 600 Watt (Black & Silver)",
+   "listings": [
+    {
+     "title": "Pigeon Kessel Multipurpose Kettle (12173) 1.2 litres with Stainless Steel Body, used for boiling Water and milk, Tea, Coffee, Oats, Noodles, Soup etc. 600 Watt (Black & Silver)",
+     "shop": "Amazon",
+     "answer": "exact"
+    },
+    {
+     "title": "Pigeon Kessel 1.2-Litre Multipurpose Kettle",
+     "shop": "Zepto",
+     "answer": "exact"
+    }
+   ]
+  },
+  {
+   "set": "main 30",
+   "product": "Wildcraft Evo 35 L backpack (12960)",
+   "url": "https://www.amazon.in/Wildcraft-Evo-Backpack-35-12960/dp/B0CYTMTF6L",
+   "page_title": "Wildcraft Evo 4 Compartment Backpack 35 L (12960) (Coated : Black)",
+   "listings": [
+    {
+     "title": "Wildcraft Evo 4 Compartment Backpack 35 L (12960) (Coated : Black)",
+     "shop": "Amazon",
+     "answer": "exact"
+    },
+    {
+     "title": "Wildcraft Unisex Backpack",
+     "shop": "Myntra",
+     "answer": "wrong"
+    },
+    {
+     "title": "Evo Black Camo 35 L Backpack",
+     "shop": "Myntra",
+     "answer": "wrong"
+    },
+    {
+     "title": "Wildcraft Cargo 35 Exp 35 L Backpack",
+     "shop": "Wildcraft Official",
+     "answer": "wrong"
+    },
+    {
+     "title": "Wildcraft Evo Backpack 15 L",
+     "shop": "Zepto",
+     "answer": "similar"
+    },
+    {
+     "title": "Wildcraft Streak Pro 35L Laptop",
+     "shop": "Wildcraft Official",
+     "answer": "wrong"
+    },
+    {
+     "title": "Wildcraft Dark Edition 35L Pro Laptop Backpack",
+     "shop": "Wildcraft Official",
+     "answer": "wrong"
+    },
+    {
+     "title": "Wildcraft Unisex Black Hype Plus Backpack At Nykaa",
+     "shop": "Wildcraft Official",
+     "answer": "wrong"
+    },
+    {
+     "title": "Wildcraft Travel Pro 50 Rucksacks At Nykaa",
+     "shop": "Wildcraft Official",
+     "answer": "wrong"
+    },
+    {
+     "title": "Wildcraft Eiger X 35 L TechPack Black - Black (Free Size) | Gear",
+     "shop": "Amazon.in",
+     "answer": "wrong"
+    },
+    {
+     "title": "Cargo Pack 40L Laptop Backpack",
+     "shop": "Wildcraft Official",
+     "answer": "wrong"
+    },
+    {
+     "title": "Wildcraft Blackout 35 L Laptop Backpack-Black",
+     "shop": "Wildcraft Official",
+     "answer": "wrong"
+    },
+    {
+     "title": "Wildcraft Blaze Backpack",
+     "shop": "Nykaa Fashion",
+     "answer": "wrong"
+    },
+    {
+     "title": "Wildcraft WIKI Champ 5",
+     "shop": "Wildcraft Official",
+     "answer": "wrong"
+    },
+    {
+     "title": "GadgetBite Black Veltro Laptop Bag 25 Ltr 4 Compartment Backpack with Trolley Sleeve",
+     "shop": "Myntra",
+     "answer": "wrong"
+    },
+    {
+     "title": "Wildcraft Backpack Blaze3 WC Bold",
+     "shop": "Wildcraft Official",
+     "answer": "wrong"
+    },
+    {
+     "title": "Wrogn Men Textured Panel Backpack",
+     "shop": "AJIO.com",
+     "answer": "wrong"
+    },
+    {
+     "title": "Lavie Sport Unisex Maverick 15 Inch Laptop Casual Backpack At Nykaa",
+     "shop": "Zepto",
+     "answer": "wrong"
+    },
+    {
+     "title": "Wildcraft Backpack for Men & Women – Atlas LPBP Laptop Backpack | Unisex Durable Lightweight & Stylish – Perfect for Daily Use School Travel",
+     "shop": "Myntra",
+     "answer": "wrong"
+    },
+    {
+     "title": "Wildcraft Maestro 40 Workpack for Work and Travel",
+     "shop": "Wildcraft Official",
+     "answer": "wrong"
+    },
+    {
+     "title": "adidas Power Backpack",
+     "shop": "Tata CLiQ Jewellery",
+     "answer": "wrong"
+    },
+    {
+     "title": "T-Travel Super Sized Laptop Backpack, - Black 34 L",
+     "shop": "bigbasket.com",
+     "answer": "wrong"
+    },
+    {
+     "title": "Wildcraft Squad 4 Backpack NykaaMan",
+     "shop": "Myntra",
+     "answer": "wrong"
+    },
+    {
+     "title": "VIP Altura 15.6 Compatible Laptop Backpack With Dual Compartments Office & Travel 30 L Backpack",
+     "shop": "Nykaa",
+     "answer": "wrong"
+    },
+    {
+     "title": "WROGN Creator Backpack 35 L Nykaa",
+     "shop": "Nykaa Fashion",
+     "answer": "wrong"
+    },
+    {
+     "title": "Nike Utility Elite Backpack",
+     "shop": "Tata CLiQ Jewellery",
+     "answer": "wrong"
+    },
+    {
+     "title": "Skybags Namma CSK Backpack",
+     "shop": "Myntra",
+     "answer": "wrong"
+    }
+   ]
+  },
+  {
+   "set": "main 30",
+   "product": "Kindle Paperwhite 16 GB (2024, 12th gen)",
+   "url": "https://www.amazon.in/All-new-Amazon-Kindle-Paperwhite/dp/B0DKTZ6592",
+   "page_title": "All-new Amazon Kindle Paperwhite (16 GB)",
+   "listings": [
+    {
+     "title": "All-new Amazon Kindle Paperwhite (16 GB)",
+     "shop": "Amazon",
+     "answer": "exact"
+    },
+    {
+     "title": "Amazon Kindle Paperwhite 12th Gen E-reader Glare-free Display weeks of battery life",
+     "shop": "amazon.in",
+     "answer": "exact"
+    },
+    {
+     "title": "All-new Amazon Kindle Paperwhite (16 GB) – Our fastest Kindle ever, with new 7\" glare-free display and weeks of battery life",
+     "shop": "amazon.in",
+     "answer": "exact"
+    }
+   ]
+  },
+  {
+   "set": "main 30",
+   "product": "Levi's 511 slim fit jeans (men)",
+   "url": "https://www.myntra.com/jeans/levis/levis-men-511-slim-fit-stretchable-jeans/31347060/buy",
+   "page_title": "Levis Men 511 Slim Fit Stretchable Jeans",
+   "listings": [
+    {
+     "title": "Levis Men 511 Slim Fit Stretchable Jeans",
+     "shop": "Myntra",
+     "answer": "exact"
+    },
+    {
+     "title": "Levis Men 511 Mid Rise Slim Fit Cotton Stretch Blend Jeans",
+     "shop": "Levi Strauss India",
+     "answer": "exact"
+    },
+    {
+     "title": "Mens Tinted 511 Blue Slim Fit Mid Rise Jeans",
+     "shop": "Levi Strauss India",
+     "answer": "exact"
+    },
+    {
+     "title": "Levis Mens 511 Indigo Slim Fit Mid Rise Jeans",
+     "shop": "Levi Strauss India",
+     "answer": "exact"
+    },
+    {
+     "title": "Mens 511 Slim Fit darkblue Jeans",
+     "shop": "Levi Strauss India",
+     "answer": "exact"
+    },
+    {
+     "title": "Men's 511 Light Blue Slim Fit Mid Rise Jeans",
+     "shop": "Levi Strauss India",
+     "answer": "exact"
+    },
+    {
+     "title": "Levis Mens 511 Dark Blue Slim Fit Mid Rise Jeans - Dark Blue / 40 / 32",
+     "shop": "Levi Strauss India",
+     "answer": "exact"
+    },
+    {
+     "title": "Levis Mens 511 Dark Blue Slim Fit Mid Rise Selvedge Jeans",
+     "shop": "Levi Strauss India",
+     "answer": "exact"
+    },
+    {
+     "title": "Levi's Mens 511 Blue Slim Fit Mid Rise Jeans At NykaaMan",
+     "shop": "Levi Strauss India",
+     "answer": "exact"
+    },
+    {
+     "title": "Levi'S 511 Slim Men Fit Dark Blue Jeans",
+     "shop": "Levi Strauss India",
+     "answer": "exact"
+    },
+    {
+     "title": "Levi's Mens 511 Blue Slim Fit Mid Rise Redloop Jeans At NykaaMan",
+     "shop": "Levi Strauss India",
+     "answer": "exact"
+    },
+    {
+     "title": "Levis Mens 511 Blue Slim Fit Mid Rise Commuter Jeans - Blue / 38 / 32",
+     "shop": "Levi Strauss India",
+     "answer": "exact"
+    },
+    {
+     "title": "Levis Mens 511 Black Slim Fit Mid Rise Jeans",
+     "shop": "Levi Strauss India",
+     "answer": "exact"
+    },
+    {
+     "title": "Mens Levi's 512 Slim Tapered Fit Indigo Jeans",
+     "shop": "Levi Strauss India",
+     "answer": "wrong"
+    },
+    {
+     "title": "Levi's Men 511 Blue Slim Fit Jeans At NykaaMan",
+     "shop": "Myntra",
+     "answer": "exact"
+    },
+    {
+     "title": "Men Levi's Blue Regular Fit Mid Rise Jeans",
+     "shop": "Levi Strauss India",
+     "answer": "wrong"
+    },
+    {
+     "title": "Levi's Men Slim",
+     "shop": "Amazon.in",
+     "answer": "wrong"
+    },
+    {
+     "title": "Levis 511 Indigo Slim Men Fit Mid Rise Jeans",
+     "shop": "Myntra",
+     "answer": "exact"
+    },
+    {
+     "title": "Levi's Blue 511 Slim Men Fit Mid Rise Jeans",
+     "shop": "Levi Strauss India",
+     "answer": "exact"
+    },
+    {
+     "title": "Mens 511 Light Blue Slim Fit Mid Rise Jeans",
+     "shop": "Tata CLiQ Fashion",
+     "answer": "wrong"
+    },
+    {
+     "title": "Levis 511 Black Slim Men Fit Mid Rise Jeans",
+     "shop": "Levi Strauss India",
+     "answer": "exact"
+    },
+    {
+     "title": "Levis Black Solid Slim Men Fit Mid Rise Jeans",
+     "shop": "Levi Strauss India",
+     "answer": "wrong"
+    },
+    {
+     "title": "Mens Levi's Blue Solid/Plain Casual Jeans At NykaaMan",
+     "shop": "Levi Strauss India",
+     "answer": "wrong"
+    },
+    {
+     "title": "Levi's Men 511 Slim Blue Jeans",
+     "shop": "Myntra",
+     "answer": "exact"
+    },
+    {
+     "title": "Levis Mens 511 Indigo Slim Fit Mid Rise Redloop Jeans",
+     "shop": "Levi Strauss India",
+     "answer": "exact"
+    },
+    {
+     "title": "Levi's 513 Slim Men",
+     "shop": "amazon.in",
+     "answer": "wrong"
+    },
+    {
+     "title": "Levis Men 511 Dark Blue Slim Fit Mid Rise Tinted Jeans",
+     "shop": "Levi Strauss India",
+     "answer": "exact"
+    },
+    {
+     "title": "Levi's Men Blue Solid Slim Fit Jeans At NykaaMan",
+     "shop": "Myntra",
+     "answer": "wrong"
+    }
+   ]
+  },
+  {
+   "set": "main 30",
+   "product": "Puma men logo polo T-shirt",
+   "url": "https://www.myntra.com/tshirts/puma/puma-men-slim-fit-polo-t-shirt/30850260/buy",
+   "page_title": "Puma Mens Logo Polo Blue",
+   "listings": [
+    {
+     "title": "Puma Mens Logo Polo Blue",
+     "shop": "Myntra",
+     "answer": "exact"
+    },
+    {
+     "title": "Puma Men Logo Slim Fit Polo",
+     "shop": "Amazon.in",
+     "answer": "exact"
+    },
+    {
+     "title": "Men's PUMA x F1 Logo Polo Shirt",
+     "shop": "PUMA India",
+     "answer": "exact"
+    },
+    {
+     "title": "Puma Men Slim Fit Polo T-shirt",
+     "shop": "PUMA India",
+     "answer": "wrong"
+    },
+    {
+     "title": "Puma Solid Men Polo Neck",
+     "shop": "PUMA India",
+     "answer": "wrong"
+    },
+    {
+     "title": "Men's Puma Polo",
+     "shop": "AJIO.com",
+     "answer": "wrong"
+    },
+    {
+     "title": "Mens Puma MATTR Deco Jacquard Polo Shirt",
+     "shop": "PUMA India",
+     "answer": "wrong"
+    },
+    {
+     "title": "Puma Men Polo Shirt",
+     "shop": "Zepto",
+     "answer": "wrong"
+    },
+    {
+     "title": "Men's PUMA Portugal TECH Knitted Polo T-shirt",
+     "shop": "PUMA India",
+     "answer": "wrong"
+    },
+    {
+     "title": "Puma RCB 2026 Men's Striper Polo",
+     "shop": "PUMA India",
+     "answer": "wrong"
+    },
+    {
+     "title": "Puma Performance Men Polo",
+     "shop": "Nykaa Fashion",
+     "answer": "wrong"
+    },
+    {
+     "title": "Men's Puma Class Relaxed Pinnacle Polo",
+     "shop": "PUMA India",
+     "answer": "wrong"
+    },
+    {
+     "title": "Puma Essentials Monogram Jacquard Men's Slim Fit Polo",
+     "shop": "PUMA India",
+     "answer": "wrong"
+    },
+    {
+     "title": "Puma Men x Royal Challengers Bangalore AOP Polo",
+     "shop": "Myntra",
+     "answer": "wrong"
+    },
+    {
+     "title": "Puma No. 1 Logo Pique Men's Polo For Men (Blue, M)",
+     "shop": "AJIO.com",
+     "answer": "exact"
+    },
+    {
+     "title": "Puma Men's Wardrobe Essentials Flatknit Slim Fit Polo",
+     "shop": "PUMA India",
+     "answer": "wrong"
+    },
+    {
+     "title": "Puma Men Collar Tipping Polo",
+     "shop": "Zepto",
+     "answer": "wrong"
+    },
+    {
+     "title": "Puma Men TRAIN ALL DAY Essentials Sweat-Wicking Slim Polo T-shirt At NykaaMan",
+     "shop": "Myntra",
+     "answer": "wrong"
+    },
+    {
+     "title": "Men Puma Regular Fit Polo Shirt",
+     "shop": "tatacliq.com",
+     "answer": "wrong"
+    },
+    {
+     "title": "Puma Wardrobe Ess Ottoman Men Polo Myntra",
+     "shop": "PUMA India",
+     "answer": "wrong"
+    },
+    {
+     "title": "Puma Logo Embroidered Slim Fit Polo T-Shirt For Men (Blue, S)",
+     "shop": "AJIO.com",
+     "answer": "exact"
+    },
+    {
+     "title": "Men's Puma Mumbai City FC Slim Fit Ottoman Polo",
+     "shop": "PUMA India",
+     "answer": "wrong"
+    },
+    {
+     "title": "Puma Men Classics Polo",
+     "shop": "Myntra",
+     "answer": "wrong"
+    },
+    {
+     "title": "Puma T Shirt Colorblock Men Polo",
+     "shop": "Zepto",
+     "answer": "wrong"
+    },
+    {
+     "title": "Puma Wardrobe Ess Ottoman Men Green Polo T-Shirt At NykaaMan",
+     "shop": "PUMA India",
+     "answer": "wrong"
+    },
+    {
+     "title": "Puma Premium Zipper Placket Men's Polo Tee",
+     "shop": "Nykaa Fashion",
+     "answer": "wrong"
+    },
+    {
+     "title": "Puma Solid Men Polo Neck T-Shirt",
+     "shop": "AJIO.com",
+     "answer": "wrong"
+    },
+    {
+     "title": "Men PUMA x DC Slim Fit Cricket Polo",
+     "shop": "Myntra",
+     "answer": "wrong"
+    },
+    {
+     "title": "Puma Blue Regular Fit Sports Polo",
+     "shop": "tatacliq.com",
+     "answer": "wrong"
+    },
+    {
+     "title": "Puma Men Essentials Collar Tipping Polo",
+     "shop": "PUMA India",
+     "answer": "wrong"
+    },
+    {
+     "title": "Puma Men BMW MMS Cotton Regular Fit Polo",
+     "shop": "PUMA India",
+     "answer": "wrong"
+    },
+    {
+     "title": "Puma Classics Solid Polo Mens Blue T-shirt At NykaaMan",
+     "shop": "Myntra",
+     "answer": "wrong"
+    },
+    {
+     "title": "Puma Men Essentials Ottoman Durable Interlock Polo",
+     "shop": "PUMA India",
+     "answer": "wrong"
+    },
+    {
+     "title": "Puma Men's Classics Graphic Polo For Men (Blue, S)",
+     "shop": "AJIO.com",
+     "answer": "wrong"
+    }
+   ]
+  },
+  {
+   "set": "main 30",
+   "product": "Adidas Ultra Response running shoes (men)",
+   "url": "https://www.myntra.com/sports-shoes/adidas/adidas-ultra-response-men-running-shoes/31613992/buy",
+   "page_title": "ADIDAS Ultra Response Men Running Shoes",
+   "listings": [
+    {
+     "title": "ADIDAS Ultra Response Men Running Shoes",
+     "shop": "Myntra",
+     "answer": "exact"
+    },
+    {
+     "title": "adidas Ultra Response Running Shoes For Men",
+     "shop": "adidas.co.in",
+     "answer": "exact"
+    },
+    {
+     "title": "adidas Men Alpharesponse Ikd Sports Shoes",
+     "shop": "adidas.co.in",
+     "answer": "wrong"
+    },
+    {
+     "title": "adidas Men Ultraboost 20",
+     "shop": "adidas.co.in",
+     "answer": "wrong"
+    },
+    {
+     "title": "adidas Men Duramo Rc2 M Running Shoes",
+     "shop": "adidas.co.in",
+     "answer": "wrong"
+    },
+    {
+     "title": "adidas Men Trainers ULTRABOOST 5 MERCEDES AMG PETRONAS F1 TEAM Shoes",
+     "shop": "adidas.co.in",
+     "answer": "wrong"
+    },
+    {
+     "title": "Men adidas Response Super Shoes Crystal Jade / Carbon / Solar Red",
+     "shop": "Tata CLiQ Fashion",
+     "answer": "wrong"
+    },
+    {
+     "title": "adidas Men Trainers ULTRABOOST 5 AUDI REVOLUT F1 TEAM SHOES",
+     "shop": "adidas.co.in",
+     "answer": "wrong"
+    },
+    {
+     "title": "Adidas Men's RESPONSE SUPER Blue Running Shoes",
+     "shop": "Tata CLiQ Jewellery",
+     "answer": "wrong"
+    },
+    {
+     "title": "adidas Men Hyperboost Run",
+     "shop": "adidas.co.in",
+     "answer": "wrong"
+    },
+    {
+     "title": "adidas RESPONSE RUNNER 2 Shoes Core Black / Core Black / Grey Five",
+     "shop": "AJIO.com",
+     "answer": "wrong"
+    },
+    {
+     "title": "adidas Men Trainers RESPONSE PACE Running Shoes",
+     "shop": "Tata CLiQ Fashion",
+     "answer": "wrong"
+    },
+    {
+     "title": "adidas Men Trainers Ultraboost 5 Shoes",
+     "shop": "adidas.co.in",
+     "answer": "wrong"
+    },
+    {
+     "title": "adidas Cloudfoam Cuxxion Rapidfit Shoes",
+     "shop": "adidas.co.in",
+     "answer": "wrong"
+    },
+    {
+     "title": "adidas Ultraboost 1.0 Men Running Shoes by Myntra",
+     "shop": "Myntra",
+     "answer": "wrong"
+    },
+    {
+     "title": "adidas Men Restound Running Shoes At NykaaMan",
+     "shop": "Nykaa Fashion",
+     "answer": "wrong"
+    },
+    {
+     "title": "adidas Men Astoundrun M Running Shoes For",
+     "shop": "tatacliq.com",
+     "answer": "wrong"
+    },
+    {
+     "title": "adidas Response Sr Running Shoes",
+     "shop": "Tata CLiQ Jewellery",
+     "answer": "wrong"
+    },
+    {
+     "title": "ADIDAS Men Response 2 Running Shoes For Men (Black, 6)",
+     "shop": "AJIO.com",
+     "answer": "wrong"
+    },
+    {
+     "title": "adidas Men Black Ultimashow IKD M Running Shoes At NykaaMan",
+     "shop": "Myntra",
+     "answer": "wrong"
+    },
+    {
+     "title": "adidas Men Mesh Panelled Running Shoes",
+     "shop": "tatacliq.com",
+     "answer": "wrong"
+    },
+    {
+     "title": "adidas Men Trainers Ultradream Dna Shoes",
+     "shop": "Myntra",
+     "answer": "wrong"
+    },
+    {
+     "title": "adidas Women RESPONSE Pace Running Shoes",
+     "shop": "Tata CLiQ Fashion",
+     "answer": "wrong"
+    },
+    {
+     "title": "ADIDAS Men Ultra Strike Running Shoes For Men (Black, 11)",
+     "shop": "AJIO.com",
+     "answer": "wrong"
+    },
+    {
+     "title": "adidas Men Trainers Ultrarun 5 Running Shoes",
+     "shop": "Tata CLiQ Fashion",
+     "answer": "wrong"
+    },
+    {
+     "title": "adidas Men Runsolid 2 M Running Shoes",
+     "shop": "Myntra",
+     "answer": "wrong"
+    },
+    {
+     "title": "ADIDAS Men Ultraboost 5X Running Shoes For Men (Blue, 6)",
+     "shop": "luxe.ajio.com",
+     "answer": "wrong"
+    }
+   ]
+  },
+  {
+   "set": "main 30",
+   "product": "Maybelline Fit Me Matte+Poreless liquid foundation (30 ml bottle)",
+   "url": "https://www.nykaa.com/maybelline-new-york-fit-me-matte-poreless-foundation/p/31074",
+   "page_title": "Maybelline New York Fit Me Matte+Poreless 16H Oil Control Foundation with SPF 22 - 115 Ivory",
+   "listings": [
+    {
+     "title": "Maybelline New York Fit Me Matte+Poreless 16H Oil Control Foundation with SPF 22 - 115 Ivory",
+     "shop": "Nykaa",
+     "answer": "exact"
+    },
+    {
+     "title": "Maybelline New York Fit Me Matte + Poreless 16H Oil Control Foundation With SPF 22 PA ++ 128 Warm Nude (18ml) At Nykaa, Best Beauty Products Online",
+     "shop": "Nykaa Now",
+     "answer": "similar"
+    },
+    {
+     "title": "Maybelline New York Fit Me Liquid Foundation",
+     "shop": "AJIO.com",
+     "answer": "wrong"
+    },
+    {
+     "title": "Maybelline New York Fit Me Matte + Poreless 16H Oil Control Compact Powder - 128 Warm Nude At Nykaa, Best Beauty Products Online",
+     "shop": "Nykaa Now",
+     "answer": "wrong"
+    },
+    {
+     "title": "Maybelline New York Fit Me Matte + Poreless Powder",
+     "shop": "Tira",
+     "answer": "wrong"
+    },
+    {
+     "title": "Maybelline New York Fit Me Tube 115 + Compact 115",
+     "shop": "Amazon.in",
+     "answer": "wrong"
+    },
+    {
+     "title": "Maybelline New York Fit Me Foundation 115 + Fit Me Matte Primer",
+     "shop": "Tira",
+     "answer": "wrong"
+    },
+    {
+     "title": "Maybelline New York Fit Me Ultimate Powder Foundation, 24 hr Oil Control + SPF 44 - Shade 128 (Beige, 9gm) At Nykaa, Best Beauty Products Online",
+     "shop": "Nykaa Now",
+     "answer": "wrong"
+    },
+    {
+     "title": "Maybelline New York Fit Me Matte+Poreless Liquid Foundation Tube, 220 Natural Beige, 18ml and Maybelline New York Fit Me Concealer, 25 Medium, 6.8ml",
+     "shop": "amazon.in",
+     "answer": "similar"
+    },
+    {
+     "title": "Maybelline New York Fit Me Matte + Poreless SPF 32 Compact Powder 6g - Ivory 115",
+     "shop": "Myntra - MNow",
+     "answer": "wrong"
+    },
+    {
+     "title": "Maybelline New York Fit Me Dewy + Smooth Foundation Makeup",
+     "shop": "Amazon.in",
+     "answer": "wrong"
+    }
+   ]
+  },
+  {
+   "set": "main 30",
+   "product": "Minimalist 10% Niacinamide serum (30 ml)",
+   "url": "https://www.nykaa.com/minimalist-10percent-niacinamide-face-serum-with-matmarine-zinc-for-reducing-oil-blemishes/p/15022069",
+   "page_title": "Minimalist 10% Niacinamide Face Serum With Matmarine + Zinc For Reducing Oil & Blemishes",
+   "listings": [
+    {
+     "title": "Minimalist 10% Niacinamide Face Serum With Matmarine + Zinc For Reducing Oil & Blemishes",
+     "shop": "Nykaa",
+     "answer": "exact"
+    },
+    {
+     "title": "Minimalist Niacinamide 10 Face Serum For Women (Clear, FreeSize)",
+     "shop": "AJIO.com",
+     "answer": "wrong"
+    },
+    {
+     "title": "Minimalist Niacinamide 10% Face Serum (60 ml)",
+     "shop": "Tira",
+     "answer": "wrong"
+    },
+    {
+     "title": "Minimalist 10% Niacinamide Face Serum With Matmarine + Zinc For Reducing Oil & Blemishes (10ml) At Nykaa, Best Beauty Products Online",
+     "shop": "Nykaa Now",
+     "answer": "similar"
+    },
+    {
+     "title": "Minimalist Oil Control & Anti-Acne 10% Niacinamide Face Serum 10 ml",
+     "shop": "Zepto",
+     "answer": "similar"
+    },
+    {
+     "title": "10% Niacinamide Serum - 8ml",
+     "shop": "Myntra - MNow",
+     "answer": "wrong"
+    },
+    {
+     "title": "Dermatouch Niacinamide 10% + Zinc PCA 1% Serum For Men and Women",
+     "shop": "Zepto",
+     "answer": "wrong"
+    },
+    {
+     "title": "The Wellness Shop 10% Niacinamide Face Serum",
+     "shop": "Nykaa Now",
+     "answer": "wrong"
+    },
+    {
+     "title": "Minomine 10% Niacinamide Face Serum with Zinc | Blemishes, Anti-Acne & Oil Contro",
+     "shop": "JioMart",
+     "answer": "wrong"
+    },
+    {
+     "title": "Alltimate Niacinamide 10% Serum 30ml at The Face Shop",
+     "shop": "TATA CLiQ LUXURY",
+     "answer": "wrong"
+    },
+    {
+     "title": "Minimalist Essential Bundle Mini : 10% Niacinamide Serum with Zinc (10ml) for Oil Control & Acne + 10% Vitamin C Serum (10ml) for Dark Spots & Glow +",
+     "shop": "amazon.in",
+     "answer": "similar"
+    },
+    {
+     "title": "Minimalist Anti-Acne Kit",
+     "shop": "Myntra",
+     "answer": "wrong"
+    },
+    {
+     "title": "Minimalist 2% Hyaluronic Acid + PGA Face Serum",
+     "shop": "Zepto",
+     "answer": "wrong"
+    }
+   ]
+  },
+  {
+   "set": "main 30",
+   "product": "The Derma Co 1% Hyaluronic Sunscreen Aqua Gel SPF 50",
+   "url": "https://www.nykaa.com/the-derma-co-1percent-hyaluronic-sunscreen-aqua-gel-spf-50/p/10786853",
+   "page_title": "The Derma Co 1% Hyaluronic Sunscreen Spf 50 Pa+++ Aqua Gel For Normal To Oily ... - In-Vivo tested",
+   "listings": [
+    {
+     "title": "The Derma Co 1% Hyaluronic Sunscreen Spf 50 Pa+++ Aqua Gel For Normal To Oily ... - In-Vivo tested",
+     "shop": "Nykaa",
+     "answer": "exact"
+    },
+    {
+     "title": "The Derma Co 1% Hyaluronic Sunscreen Aqua Gel SPF 50 PA++++",
+     "shop": "Amazon.in",
+     "answer": "exact"
+    },
+    {
+     "title": "The derma Co 1 Hyaluronic Sunscreen SPF 50 Aqua Gel, PA, Broad-Spectrum and Blue Light Protection-125g",
+     "shop": "firstcry.com",
+     "answer": "exact"
+    },
+    {
+     "title": "The Derma Co 1% Hyaluronic SPF 50 Sunscreen Aqua Gel",
+     "shop": "Amazon.in",
+     "answer": "exact"
+    },
+    {
+     "title": "The Derma Co. C-Cinamide Sunscreen SPF 50 Aqua Gel",
+     "shop": "blinkit.com",
+     "answer": "wrong"
+    },
+    {
+     "title": "The Derma Co. 1% Hyaluronic Sunscreen Oil-Free Matte Gel",
+     "shop": "Nykaa Now",
+     "answer": "wrong"
+    },
+    {
+     "title": "The Derma Co Hyaluronic Invisible Sunscreen Gel",
+     "shop": "Nykaa Now",
+     "answer": "wrong"
+    },
+    {
+     "title": "The Derma Co 1% Hyaluronic Sunscreen SPF 50 Aqua Gel, PA++++, Lightweight, No white-cast for Broad Spectrum & Blue Light Protection for Oily, Dry,",
+     "shop": "amazon.in",
+     "answer": "exact"
+    },
+    {
+     "title": "Hyaluronic Sunscreen Duo",
+     "shop": "Myntra - MNow",
+     "answer": "wrong"
+    },
+    {
+     "title": "D C Professional 1% Hyaluronic Sunscreen Aqua Gel SPF 50 PA++++ 50g | Broad Spectrum & Blue Light Protection | Lightweight, Non-Greasy, No White Cast",
+     "shop": "JioMart",
+     "answer": "wrong"
+    },
+    {
+     "title": "Multivitamin SPF 50 PA+++ Sunscreen Gel",
+     "shop": "FirstCry India",
+     "answer": "wrong"
+    },
+    {
+     "title": "The Derma Co 1% Hyaluronic Sunscreen Oil-Free Matte Gel SPF 50 PA++++ + 2% Salicylic Acid Face Serum | Lightweight UV Protection, Reduces Acne &",
+     "shop": "amazon.in",
+     "answer": "wrong"
+    },
+    {
+     "title": "The Derma Co 1% Hyaluronic Oil-Free Sunscreen Gel (SPF 50 PA++++)",
+     "shop": "blinkit.com",
+     "answer": "wrong"
+    }
+   ]
+  },
+  {
+   "set": "main 30",
+   "product": "Mamaearth Onion Conditioner 250 ml",
+   "url": "https://www.nykaa.com/mamaearth-onion-conditioner-for-hair-growth-hair-fall-control-with-coconut-oil-250ml/p/540734",
+   "page_title": "Mamaearth Onion Conditioner For Hair Fall Control With Onion & Coconut",
+   "listings": [
+    {
+     "title": "Mamaearth Onion Conditioner For Hair Fall Control With Onion & Coconut",
+     "shop": "Nykaa",
+     "answer": "exact"
+    },
+    {
+     "title": "Mamaearth Onion Conditioner For Hair Growth & Hair Fall Control With Coconut Oil For Women",
+     "shop": "Shoppers Stop",
+     "answer": "exact"
+    },
+    {
+     "title": "Mamaearth Onion Conditioner for Hair Growth & Hair Fall Control with Coconut Oil - 250 ml AND mamaearth Onion Hair Fall Shampo - 25 Months to 45 Years",
+     "shop": "FirstCry India",
+     "answer": "similar"
+    },
+    {
+     "title": "Mamaearth Onion Conditioner For Hair Growth & Hair Fall Control With Coconut Oil 1 ml",
+     "shop": "Zepto",
+     "answer": "similar"
+    },
+    {
+     "title": "Onion Hair Conditioner for Hair Growth & Hair Fall Control",
+     "shop": "Mamaearth",
+     "answer": "exact"
+    },
+    {
+     "title": "Anti-Hair Fall Spa Kit",
+     "shop": "Amazon.in",
+     "answer": "wrong"
+    },
+    {
+     "title": "Mamaearth Onion Anti Hair Fall Kit",
+     "shop": "Myntra",
+     "answer": "wrong"
+    },
+    {
+     "title": "Mamaearth Onion Hair Mask 200 g with Onion Oil and Organic Bamboo Vinegar",
+     "shop": "Amazon.in",
+     "answer": "wrong"
+    },
+    {
+     "title": "Mamaearth Onion Shampoo for Anti Hair Fall & Hair Growth with Onion Oil & Plant Keratin 1 Ltr (1000ml) At Nykaa, Best Beauty Products Online",
+     "shop": "Nykaa",
+     "answer": "wrong"
+    }
+   ]
+  },
+  {
+   "set": "main 30",
+   "product": "Samsung Galaxy A56 5G, 8 GB / 256 GB",
+   "url": "https://www.reliancedigital.in/product/samsung-galaxy-a56-5g-256-gb-8-gb-ram-awesome-graphite-mobile-phone-m7x9g6-8968989",
+   "page_title": "Samsung Galaxy A56 5G 256 GB, 8 GB RAM, Awesome Graphite, Mobile Phone at Reliance Digital",
+   "listings": [
+    {
+     "title": "Samsung Galaxy A56 5G 256 GB, 8 GB RAM, Awesome Graphite, Mobile Phone at Reliance Digital",
+     "shop": "Reliance Digital",
+     "answer": "exact"
+    },
+    {
+     "title": "Samsung Galaxy A56 5g",
+     "shop": "Amazon.in",
+     "answer": "exact"
+    },
+    {
+     "title": "Samsung Galaxy A56 5G (Awesome Midnight Blue, 8GB, 256GB)_with Other Offers",
+     "shop": "Amazon.in",
+     "answer": "exact"
+    },
+    {
+     "title": "Samsung Galaxy A56 5G Mobile Phone",
+     "shop": "Shopy Vision",
+     "answer": "exact"
+    },
+    {
+     "title": "Galaxy A56 5G Samsung",
+     "shop": "JioMart Electronics",
+     "answer": "exact"
+    }
+   ]
+  },
+  {
+   "set": "hold-out 19",
+   "product": "boAt Airdopes 141 Gen 2",
+   "url": "https://www.amazon.in/dp/B0F8BVSK21",
+   "page_title": "boAt Airdopes 141 Gen 2, 4 Mics ENx Tech, 48 Hrs Playback, Fast Charge, Low Latency, IPX4, v5.4 Bluetooth Earbuds, TWS Ear Buds Wireless Earphones with mic (Active Black)",
+   "listings": [
+    {
+     "title": "boAt Airdopes 141 Gen 2, 4 Mics ENx Tech, 48 Hrs Playback, Fast Charge, Low Latency, IPX4, v5.4 Bluetooth Earbuds, TWS Ear Buds Wireless Earphones with mic (Active Black)",
+     "shop": "Amazon",
+     "answer": "exact"
+    },
+    {
+     "title": "boAt Airdopes 141 Gen 2",
+     "shop": "boAt",
+     "answer": "exact"
+    },
+    {
+     "title": "boAt Airdopes 141 Pro Buds",
+     "shop": "boAt",
+     "answer": "wrong"
+    },
+    {
+     "title": "boAt Airdopes 141 Elite ANC TWS Earbuds (Black)",
+     "shop": "blinkit.com",
+     "answer": "wrong"
+    },
+    {
+     "title": "boAt Airdopes 71 Gen 2 Tws 45h Battery",
+     "shop": "boAt",
+     "answer": "wrong"
+    },
+    {
+     "title": "boAt Airdopes 148 | Wireless Earbuds with 8mm Drivers, IWP & ENxTM Technology, ASAP Fast Charge, Upto 42 hours Playback, IPX4 Sweat & Water Resistance",
+     "shop": "boat-lifestyle.com",
+     "answer": "wrong"
+    },
+    {
+     "title": "boAt Airdopes 212",
+     "shop": "boat-lifestyle.com",
+     "answer": "wrong"
+    },
+    {
+     "title": "boAt Airdopes 138 Gen 2",
+     "shop": "boat-lifestyle.com",
+     "answer": "wrong"
+    },
+    {
+     "title": "boAt Airdopes Alpha Deadpool Edition",
+     "shop": "boAt",
+     "answer": "wrong"
+    },
+    {
+     "title": "Boat Airdopes Prime 413",
+     "shop": "Amazon.in",
+     "answer": "wrong"
+    },
+    {
+     "title": "boAt Airdopes 141 Wireless Earbuds",
+     "shop": "Shopy Vision",
+     "answer": "wrong"
+    },
+    {
+     "title": "boAt Airdopes 131 Elite Anc",
+     "shop": "boAt",
+     "answer": "wrong"
+    },
+    {
+     "title": "boAt Airdopes Prime 511",
+     "shop": "boAt",
+     "answer": "wrong"
+    },
+    {
+     "title": "boAt Airdopes Ace TWS Earbuds",
+     "shop": "boAt",
+     "answer": "wrong"
+    },
+    {
+     "title": "boAt Airdopes 111v2 Leather Finish,4mics Enx",
+     "shop": "boAt",
+     "answer": "wrong"
+    },
+    {
+     "title": "boAt Airdopes 141 Pro Wireless Earbuds - Grey",
+     "shop": "Shopy Vision",
+     "answer": "wrong"
+    },
+    {
+     "title": "boAt Airdopes ProClip Ows Earbuds,Air Conduction Tech,52h Battery,App Support,Btv6.0 Bluetooth",
+     "shop": "tatacliq.com",
+     "answer": "wrong"
+    },
+    {
+     "title": "boAt Airdopes 111v2 Wireless Earbuds with 50H Playback",
+     "shop": "Reliance Digital",
+     "answer": "wrong"
+    }
+   ]
+  },
+  {
+   "set": "hold-out 19",
+   "product": "boAt Airdopes 141 ANC",
+   "url": "https://www.amazon.in/dp/B0C7QS9M38",
+   "page_title": "boAt Airdopes 141 ANC, Active Noise Cancellation(~32dB), 50ms Low Latency, 4Mics ENx,42Hrs Battery, Fast Charge,IPX5, v5.3 Bluetooth Earbuds, TWS Ear Buds Wireless Earphones with mic (Gunmetal Black)",
+   "listings": [
+    {
+     "title": "boAt Airdopes 141 ANC, Active Noise Cancellation(~32dB), 50ms Low Latency, 4Mics ENx,42Hrs Battery, Fast Charge,IPX5, v5.3 Bluetooth Earbuds, TWS Ear Buds Wireless Earphones with mic (Gunmetal Black)",
+     "shop": "Amazon",
+     "answer": "exact"
+    },
+    {
+     "title": "boAt Airdopes 141 ANC TWS Earbuds",
+     "shop": "boAt",
+     "answer": "exact"
+    },
+    {
+     "title": "boAt Airdopes 141 ANC TWS Earbuds (White) - 1 unit",
+     "shop": "Blinkit",
+     "answer": "exact"
+    },
+    {
+     "title": "boAt Airdopes 141 ANC TWS Earbuds (Green) - 1 unit",
+     "shop": "Blinkit",
+     "answer": "exact"
+    },
+    {
+     "title": "boAt Airdopes 141 Pro Buds",
+     "shop": "boAt",
+     "answer": "wrong"
+    },
+    {
+     "title": "boAt Airdopes 141 True Wireless Earbuds",
+     "shop": "boAt",
+     "answer": "wrong"
+    },
+    {
+     "title": "boAt Airdopes 141 Elite ANC TWS Earbuds (Black)",
+     "shop": "blinkit.com",
+     "answer": "wrong"
+    },
+    {
+     "title": "boAt Airdopes 131 Elite Anc",
+     "shop": "boAt",
+     "answer": "wrong"
+    },
+    {
+     "title": "boAt Airdopes Alpha Deadpool Edition",
+     "shop": "boAt",
+     "answer": "wrong"
+    },
+    {
+     "title": "boAt Airdopes 111v2 Leather Finish,4mics Enx",
+     "shop": "boAt",
+     "answer": "wrong"
+    },
+    {
+     "title": "boAt Airdopes 141 Pro Wireless Earbuds - Grey",
+     "shop": "Shopy Vision",
+     "answer": "wrong"
+    },
+    {
+     "title": "boAt Airdopes Prime 412 4Mics AI ENx Tech",
+     "shop": "Myntra",
+     "answer": "wrong"
+    }
+   ]
+  },
+  {
+   "set": "hold-out 19",
+   "product": "Samsung Galaxy Buds4 Pro",
+   "url": "https://amzn.in/d/09A8CqiK",
+   "page_title": "Samsung Galaxy Buds4 Pro (Black) in-Ear Wireless Earbuds with Hi-Fi Audio",
+   "listings": [
+    {
+     "title": "Samsung Galaxy Buds4 Pro (Black) in-Ear Wireless Earbuds with Hi-Fi Audio",
+     "shop": "Amazon",
+     "answer": "exact"
+    },
+    {
+     "title": "Samsung Galaxy Buds4 Pro White Wireless Headphones",
+     "shop": "AJIO.com",
+     "answer": "exact"
+    },
+    {
+     "title": "Samsung GALAXY BUDS4",
+     "shop": "Flipkart",
+     "answer": "wrong"
+    },
+    {
+     "title": "Wireless Earbuds for Samsung Galaxy Pro, Buds 4 Pro (Black) in-Ear Wireless Earbuds with Hi-Fi Audio | Adaptive ANC 2.0 and EQ 2.0 | 2-Way Speaker |",
+     "shop": "amazon.in",
+     "answer": "wrong"
+    },
+    {
+     "title": "Wireless Earbuds for Samsung Galaxy Camera, Buds 4 Pro (Black) in-Ear Wireless Earbuds with Hi-Fi Audio | Adaptive ANC 2.0 and EQ 2.0 | 2-Way Speaker",
+     "shop": "amazon.in",
+     "answer": "wrong"
+    },
+    {
+     "title": "Wireless Earbuds for Samsung Galaxy A05s, Buds 4 Pro (Black) in-Ear Wireless Earbuds with Hi-Fi Audio | Adaptive ANC 2.0 and EQ 2.0 | 2-Way Speaker |",
+     "shop": "amazon.in",
+     "answer": "wrong"
+    },
+    {
+     "title": "Samsung Galaxy Buds Core with Galaxy AI",
+     "shop": "Zepto",
+     "answer": "wrong"
+    },
+    {
+     "title": "Wireless Earbuds for Samsung Galaxy Core 2 Buds 4 Pro (Black) in-Ear Wireless Earbuds with Hi-Fi Audio | Adaptive ANC 2.0 and EQ 2.0 | 2-Way Speaker |",
+     "shop": "amazon.in",
+     "answer": "wrong"
+    },
+    {
+     "title": "Wireless Earbuds for Samsung Galaxy A04 Buds 2 Pro (Black) in-Ear Wireless Earbuds with Hi-Fi Audio | Adaptive ANC 2.0 and EQ 2.0 | 2-Way Speaker |",
+     "shop": "amazon.in",
+     "answer": "wrong"
+    },
+    {
+     "title": "Samsung Galaxy Buds 4 Ai SM-R540N Wireless Bluetooth 6.1 360 Audio with Head Tracking Noise Cancelling Real-Time Interpreter Comfort Fit Version Latin",
+     "shop": "amazon.in",
+     "answer": "wrong"
+    }
+   ]
+  },
+  {
+   "set": "hold-out 19",
+   "product": "Lakme Absolute Beyond Matte Lipstick",
+   "url": "https://www.nykaa.com/lakme-9-to-5-primer-matte-lip-color/p/13920002",
+   "page_title": "Lakme Absolute Beyond Matte Lipstick",
+   "listings": [
+    {
+     "title": "Lakme Absolute Beyond Matte Lipstick",
+     "shop": "Nykaa",
+     "answer": "exact"
+    },
+    {
+     "title": "Lakme Absolute Beyond Matte Lipstick",
+     "shop": "Amazon.in",
+     "answer": "exact"
+    },
+    {
+     "title": "LAKMÉ Absolute Beyond Matte Lip 302 NudeNectar 3.4gm",
+     "shop": "amazon.in",
+     "answer": "exact"
+    },
+    {
+     "title": "Lakme Absolute Matte Melt Mini Liquid Lip",
+     "shop": "Zepto",
+     "answer": "wrong"
+    },
+    {
+     "title": "Lakme Absolute 3D Lipstick",
+     "shop": "Amazon.in",
+     "answer": "wrong"
+    },
+    {
+     "title": "Lakme Forever Matte Liquid Lipstick Trio",
+     "shop": "Myntra",
+     "answer": "wrong"
+    },
+    {
+     "title": "Lakme Bejewel 3D Matte Slim Bullet Lipstick with Vitamin E",
+     "shop": "Tira",
+     "answer": "wrong"
+    },
+    {
+     "title": "Lakme Absolute 3D matte lip color Lipstick, Red Carnival, 3.6 g",
+     "shop": "amazon.in",
+     "answer": "wrong"
+    },
+    {
+     "title": "Lakme Cushion Matte lip RedRoyale",
+     "shop": "Nykaa Now",
+     "answer": "wrong"
+    },
+    {
+     "title": "Lakme Absolute 3D Lipstick, Plum Spell, 3.6 g",
+     "shop": "amazon.in",
+     "answer": "wrong"
+    },
+    {
+     "title": "Lakme 9to5 Hya Beach Edit Lipstick + Liner Duo",
+     "shop": "Lifestylestores.com",
+     "answer": "wrong"
+    },
+    {
+     "title": "Lakmé Absolute 3D Lipstick, British Brown, 3 g",
+     "shop": "Amazon.in",
+     "answer": "wrong"
+    },
+    {
+     "title": "Lakme Forever Matte Liquid Lip Colour (Red Velvet)",
+     "shop": "blinkit.com",
+     "answer": "wrong"
+    },
+    {
+     "title": "Lakme 9to5 Lip Tattoo Matte Slim Stick",
+     "shop": "Amazon.in",
+     "answer": "wrong"
+    },
+    {
+     "title": "Lakme Forever Matte Creme Bullet Lipstick- Brown Pink | Transfer-Proof, Long Lasting | Cruelty-Free | 1 Pc | At Nykaa",
+     "shop": "Nykaa Now",
+     "answer": "wrong"
+    },
+    {
+     "title": "Lakme Absolute Sheer Lip Mousse",
+     "shop": "FirstCry India",
+     "answer": "wrong"
+    },
+    {
+     "title": "Lakme Forever Matte Lipstick, Made With French Rose Oil Extracts , Pink Unicorn (Pink) At Nykaa, Best Beauty Products Online",
+     "shop": "Nykaa Now",
+     "answer": "wrong"
+    },
+    {
+     "title": "Lakme 9 to 5 Forever Matte Lip Crayon",
+     "shop": "blinkit.com",
+     "answer": "wrong"
+    }
+   ]
+  },
+  {
+   "set": "hold-out 19",
+   "product": "Vincent Chase polarized sunglasses (model not named on page)",
+   "url": "https://www.amazon.in/VINCENT-CHASE-EYEWEAR-Sunglasses-Polarized/dp/B0DNR23FQ2",
+   "page_title": "Vincent Chase By Lenskart",
+   "listings": [
+    {
+     "title": "Vincent Chase By Lenskart",
+     "shop": "Amazon",
+     "answer": "exact"
+    },
+    {
+     "title": "Vincent Chase Business model Men Eyeglasses Silver Stainless Steel Square",
+     "shop": "Lenskart",
+     "answer": "wrong"
+    },
+    {
+     "title": "Vincent Chase SLEEK STEEL Women Eyeglasses Gold Stainless Steel Geometric",
+     "shop": "Lenskart",
+     "answer": "wrong"
+    },
+    {
+     "title": "Vincent Chase Online AERODYNAMICS Unisex Eyeglasses Black Metal Rectangle",
+     "shop": "Lenskart",
+     "answer": "wrong"
+    },
+    {
+     "title": "Vincent Chase Online Metaface Unisex Eyeglasses Black Metal Rectangle",
+     "shop": "Lenskart",
+     "answer": "wrong"
+    },
+    {
+     "title": "Vincent Chase Floral Edit Women Eyeglasses Gold Stainless Steel Cat Eye",
+     "shop": "Lenskart",
+     "answer": "wrong"
+    },
+    {
+     "title": "Vincent Chase Acetate Men Eyeglasses Black Acetate Square",
+     "shop": "Lenskart",
+     "answer": "wrong"
+    },
+    {
+     "title": "Vincent Chase Urban Essentials Men Sunglasses Grey TR90 Square",
+     "shop": "Lenskart",
+     "answer": "similar"
+    },
+    {
+     "title": "Vincent Chase HV Rimless Men Eyeglasses Gold Stainless Steel Rectangle",
+     "shop": "Lenskart",
+     "answer": "wrong"
+    },
+    {
+     "title": "Vincent Chase Artisanal Edit Men Eyeglasses Brown Metal Square",
+     "shop": "Lenskart",
+     "answer": "wrong"
+    },
+    {
+     "title": "Vincent Chase Unisex Eyeglasses Transparent Acetate Rectangle",
+     "shop": "Lenskart",
+     "answer": "wrong"
+    },
+    {
+     "title": "Vincent Chase SLEEK STEEL Unisex Eyeglasses Black Stainless Steel Round",
+     "shop": "Lenskart",
+     "answer": "wrong"
+    },
+    {
+     "title": "Vincent Chase The Metal Edit Men Sunglasses Grey Stainless Steel Geometric",
+     "shop": "Lenskart",
+     "answer": "similar"
+    },
+    {
+     "title": "Vincent Chase SLEEK STEEL Unisex Eyeglasses Black Stainless Steel Square",
+     "shop": "Lenskart",
+     "answer": "wrong"
+    },
+    {
+     "title": "Vincent Chase Online METAFACE-BLEND EDIT Unisex Eyeglasses Grey Acetate Square",
+     "shop": "Lenskart",
+     "answer": "wrong"
+    },
+    {
+     "title": "Vincent Chase SLEEK STEEL Men Eyeglasses Black Metal Rectangle",
+     "shop": "Lenskart",
+     "answer": "wrong"
+    },
+    {
+     "title": "Vincent Chase Crystal Acetate 2.0 Men Eyeglasses Transparent Acetate Square",
+     "shop": "Lenskart",
+     "answer": "wrong"
+    },
+    {
+     "title": "Vincent Chase HD Acetate Men Eyeglasses Navy Acetate Square",
+     "shop": "Lenskart",
+     "answer": "wrong"
+    },
+    {
+     "title": "Vincent Chase Artisanal Edit Men Eyeglasses Gunmetal Metal Geometric",
+     "shop": "Lenskart",
+     "answer": "wrong"
+    },
+    {
+     "title": "Vincent Chase Unisex Formal SS26 Unisex Eyeglasses Black Acetate Square",
+     "shop": "Lenskart",
+     "answer": "wrong"
+    },
+    {
+     "title": "Vincent Chase Online Classic Acetate_Plant Unisex Eyeglasses Brown Demi Acetate Rectangle",
+     "shop": "Lenskart",
+     "answer": "wrong"
+    },
+    {
+     "title": "Vincent Chase Online Series A Inhouse Unisex Eyeglasses Transparent Acetate Square",
+     "shop": "Lenskart",
+     "answer": "wrong"
+    },
+    {
+     "title": "Vincent Chase Korean Finish Men Eyeglasses Grey TR90 Rectangle",
+     "shop": "Lenskart",
+     "answer": "wrong"
+    },
+    {
+     "title": "Vincent Chase Online New Darks Unisex Eyeglasses Dark Gunmetal Metal Square",
+     "shop": "Lenskart",
+     "answer": "wrong"
+    },
+    {
+     "title": "Vincent Chase Half Rim Edit Men Eyeglasses Blue Metal Rectangle",
+     "shop": "Lenskart",
+     "answer": "wrong"
+    },
+    {
+     "title": "Vincent Chase Clean Cut Women Eyeglasses Purple Metal Rectangle",
+     "shop": "Lenskart",
+     "answer": "wrong"
+    },
+    {
+     "title": "Vincent Chase Repalcement PIDs Men Eyeglasses Black Gold Acetate Square",
+     "shop": "Lenskart",
+     "answer": "wrong"
+    },
+    {
+     "title": "Vincent Chase Topline Women Eyeglasses Black Metal Cat Eye",
+     "shop": "Lenskart",
+     "answer": "wrong"
+    },
+    {
+     "title": "Vincent Chase Half Rim Edit_AW25 Men Eyeglasses Black Stainless Steel Square",
+     "shop": "Lenskart",
+     "answer": "wrong"
+    },
+    {
+     "title": "Vincent Chase SLEEK STEEL Unisex Eyeglasses Silver Stainless Steel Round",
+     "shop": "Lenskart",
+     "answer": "wrong"
+    },
+    {
+     "title": "Vincent Chase Online SUMMER EDIT Women Sunglasses Grey Polycarbonate Square",
+     "shop": "Lenskart",
+     "answer": "similar"
+    },
+    {
+     "title": "Vincent Chase Online Hybrid Ace_AW25 Unisex Eyeglasses Light Grey Acetate Rectangle",
+     "shop": "Lenskart",
+     "answer": "wrong"
+    },
+    {
+     "title": "Vincent Chase Artisanal Edit Men Eyeglasses Blue Metal Geometric",
+     "shop": "Lenskart",
+     "answer": "wrong"
+    }
+   ]
+  },
+  {
+   "set": "hold-out 19",
+   "product": "Jockey 8008 boxer brief, pack of 4",
+   "url": "https://www.amazon.in/Jockey-Combed-Ultrasoft-Concealed-Waistband/dp/B0DGLM3CWM",
+   "page_title": "Jockey 8008 Men's Super Combed Cotton Rib Solid Boxer Brief with Ultrasoft Concealed Waistband (Pack of 4),Assorted at Amazon.in",
+   "listings": [
+    {
+     "title": "Jockey 8008 Men's Super Combed Cotton Rib Solid Boxer Brief with Ultrasoft Concealed Waistband (Pack of 4),Assorted at Amazon.in",
+     "shop": "Amazon",
+     "answer": "exact"
+    },
+    {
+     "title": "Jockey 8008 Men Cotton Solid Boxer Brief",
+     "shop": "Jockey India",
+     "answer": "similar"
+    },
+    {
+     "title": "Men Jockey Super Combed Cotton Rib Solid Brief with Ultrasoft Waistband",
+     "shop": "Amazon.in",
+     "answer": "wrong"
+    },
+    {
+     "title": "Jockey Combed Cotton Rib Boxer Brief with Ultrasoft and Durable Waistband-8008 (XL) by Myntra",
+     "shop": "Myntra",
+     "answer": "similar"
+    },
+    {
+     "title": "Jockey 8008 Men's Super Combed Cotton Rib Solid Boxer Brief with Ultrasoft and Durable Waistband",
+     "shop": "tatacliq.com",
+     "answer": "similar"
+    },
+    {
+     "title": "Jockey 8008 Men Super Combed Cotton Solid Long Trunk Boxer Brief",
+     "shop": "amazon.in",
+     "answer": "wrong"
+    },
+    {
+     "title": "Jockey 8008 Men Cotton Solid Boxer Brief - Dark Khaki At Nykaa Fashion - Your Online Shopping Store",
+     "shop": "Nykaa Fashion",
+     "answer": "similar"
+    },
+    {
+     "title": "Jockey US17 Men Super Combed Cotton Solid Brief with Ultrasoft Waistband",
+     "shop": "Amazon.in",
+     "answer": "wrong"
+    },
+    {
+     "title": "Jockey FP02 Men Super Combed Cotton Solid Brief with Ultrasoft Waistband",
+     "shop": "Amazon.in",
+     "answer": "wrong"
+    },
+    {
+     "title": "Jockey 8044 Men's Super Combed Cotton Rib Solid Brief with Ultrasoft Waistband",
+     "shop": "Amazon.in",
+     "answer": "wrong"
+    },
+    {
+     "title": "Jockey 1017 Men Super Combed Cotton Rib Solid Boxer Brief",
+     "shop": "amazon.in",
+     "answer": "wrong"
+    },
+    {
+     "title": "Jockey Men Light Denim Melange Brief - XL - US49",
+     "shop": "Amazon.in",
+     "answer": "wrong"
+    },
+    {
+     "title": "Buy Super Combed Cotton Solid Brief with Ultrasoft Waistband - New Black US49 | Jockey India XL",
+     "shop": "Amazon.in",
+     "answer": "wrong"
+    },
+    {
+     "title": "Jockey Men Trunks",
+     "shop": "Amazon.in",
+     "answer": "wrong"
+    },
+    {
+     "title": "Jockey Men Grey Melange Modern Brief - XL - US17",
+     "shop": "Amazon.in",
+     "answer": "wrong"
+    },
+    {
+     "title": "Jockey Men Trunk",
+     "shop": "Amazon.in",
+     "answer": "wrong"
+    },
+    {
+     "title": "Jockey 1009 Men Super Combed Cotton Solid Brief with StayFresh Treatment",
+     "shop": "Amazon.in",
+     "answer": "wrong"
+    },
+    {
+     "title": "Jockey US14 Men Cotton Solid Brief with Ultrasoft Waistband",
+     "shop": "Amazon.in",
+     "answer": "wrong"
+    }
+   ]
+  },
+  {
+   "set": "hold-out 19",
+   "product": "Ambrane Mini Vac 02 hand vacuum",
+   "url": "https://www.amazon.in/Ambrane-Powerful-Wireless-Lightweight-02/dp/B0D8PN4HJB",
+   "page_title": "Ambrane Mini Vac 02 Wireless Hand Vacuum & Air Blower 2-in-1",
+   "listings": [
+    {
+     "title": "Ambrane Mini Vac 02 Wireless Hand Vacuum & Air Blower 2-in-1",
+     "shop": "Amazon",
+     "answer": "exact"
+    },
+    {
+     "title": "Ambrane 12kPA Powerful Suction 80W Wireless Hand Vacuum & Air Blower",
+     "shop": "Amazon.in",
+     "answer": "exact"
+    },
+    {
+     "title": "Ambrane 12kPA Powerful Suction 80W Wireless Hand Vacuum & Air Blower 2-in-1 Wireless Vacuum Cleaner",
+     "shop": "Zepto",
+     "answer": "exact"
+    },
+    {
+     "title": "2-in-1 Functionality Cordless Mini Blower | 2-in-1 Rechargeable Blower & Vacuum for Inflating, Leaf Blowing, and Cleaning (Black)",
+     "shop": "amazon.in",
+     "answer": "wrong"
+    },
+    {
+     "title": "2 in 1 Car Cordless Vacuum Cleaner & A Blower 2000PA Handheld Dust Buster for Home Office Car Interior",
+     "shop": "amazon.in",
+     "answer": "wrong"
+    },
+    {
+     "title": "Car Cordless Vacuum Cleaner 2 in 1 Multifunctional A Blower Handheld Dust Buster Inflator Pump Support InflationSuctionBlowingVacuum with Strong Motor",
+     "shop": "amazon.in",
+     "answer": "wrong"
+    },
+    {
+     "title": "Car Cordless Vacuum Cleaner 2 in 1 Multifunctional A Blower Handheld Dust Buster Inflator Pump Support InflationSuctionBlowingVacuum with Motor for",
+     "shop": "amazon.in",
+     "answer": "wrong"
+    },
+    {
+     "title": "2 in 1 Portable Cordless Vacuum Cleaner High Power Turbo Blower Suction USB Rechargeable Vacuum Cleaner for Car Home Office Pets | 4000mAh Handheld",
+     "shop": "amazon.in",
+     "answer": "wrong"
+    },
+    {
+     "title": "Cordless Air Blower & Vacuum Cleaner 2-in-1 | Rechargeable Portable Dust Cleaner,Portable Cordless Air Blower Cum Vacuum for Home, Car & Electronics,",
+     "shop": "amazon.in",
+     "answer": "wrong"
+    },
+    {
+     "title": "Cordless Mini Vacuum Blower 2-in-1 Rechargeable Handheld Blower Vacuum Cleaner Portable Electric Blower for Home, Car, Computer Garden Compact Dual-",
+     "shop": "amazon.in",
+     "answer": "wrong"
+    },
+    {
+     "title": "Handheld Car Vacuum Cleaner - Portable 2-in-1 Blower and Duster - Electronic Household Vacuum Cleaners for Car, Home, Keyboard, Camera, Electronics",
+     "shop": "amazon.in",
+     "answer": "wrong"
+    },
+    {
+     "title": "Cordless Mini Vacuum Blower 2 in 1 Rechargeable Air Blower & Vacuum Cleaner with Battery | High-Speed Portable Handheld Dust Blower for Car, Home,",
+     "shop": "amazon.in",
+     "answer": "wrong"
+    },
+    {
+     "title": "2 in 1 Portable Mini Car Vacuum Cleaner with Blower Rechargeable Wireless Handheld Vaccine Cleaner Vaccum for Home and Car, Cordless Small Air Blower",
+     "shop": "amazon.in",
+     "answer": "wrong"
+    }
+   ]
+  },
+  {
+   "set": "hold-out 19",
+   "product": "Samsung Galaxy S25 5G 12/128 GB",
+   "url": "https://www.amazon.in/Samsung-Snapdragon-Processor-6-2-inch-Smartphone/dp/B0H3FLD9NM",
+   "page_title": "Samsung Galaxy S25 5G (Navy, 12GB RAM, 128GB Storage)",
+   "listings": [
+    {
+     "title": "Samsung Galaxy S25 5G (Navy, 12GB RAM, 128GB Storage)",
+     "shop": "Amazon",
+     "answer": "exact"
+    },
+    {
+     "title": "Samsung Galaxy S25 5G",
+     "shop": "Reliance Digital",
+     "answer": "exact"
+    },
+    {
+     "title": "Samsung Galaxy S25 5G Smartphone (Icyblue, 12GB RAM, 128GB Storage) | High-Performance Octa-Core Processor | 50MP Triple Rear Camera | 12MP Front",
+     "shop": "Amazon.in",
+     "answer": "exact"
+    },
+    {
+     "title": "Samsung Galaxy S25 5G (Navy, 256 GB) (12 GB RAM) | AI Smartphone | Premium Display | Advanced Camera | Powerful Performance | 5G Connectivity |",
+     "shop": "Amazon.in",
+     "answer": "similar"
+    },
+    {
+     "title": "Samsung Galaxy S25 6,2",
+     "shop": "bigbasket.com",
+     "answer": "exact"
+    },
+    {
+     "title": "Samsung Galaxy S25 5G (Silver Shadow, 12GB RAM, 128GB Storage) | Snapdragon 8 Elite for Galaxy Processor | 50MP Triple Camera | 6.2-inch Dynamic",
+     "shop": "Amazon.in",
+     "answer": "exact"
+    },
+    {
+     "title": "Samsung Galaxy S25 5G Snapdragon 8 Elite for Galaxy",
+     "shop": "Amazon.in",
+     "answer": "exact"
+    },
+    {
+     "title": "Samsung Galaxy S25 Edge 5G | Snapdragon 8 Elite for Galaxy Processor | 200MP + 12MP Dual Rear Camera | 6.66-inch HD+ AMOLED Display | 3900mAh Battery",
+     "shop": "Amazon.in",
+     "answer": "wrong"
+    },
+    {
+     "title": "Samsung Galaxy S25 5G 256 GB",
+     "shop": "Reliance Digital",
+     "answer": "similar"
+    },
+    {
+     "title": "Samsung Galaxy S25 5G AI Smartphone Premium Display",
+     "shop": "Amazon.in",
+     "answer": "exact"
+    },
+    {
+     "title": "Samsung Galaxy S25 Ultra 256GB",
+     "shop": "Amazon.in",
+     "answer": "wrong"
+    },
+    {
+     "title": "Samsung Galaxy S25 Edge 5G AI Smartphone (Titanium JetBlack, 12GB RAM, 512GB Storage) | Precision Built with Titanium | Ultra-Sleek and Premium with a",
+     "shop": "amazon.in",
+     "answer": "wrong"
+    }
+   ]
+  },
+  {
+   "set": "hold-out 19",
+   "product": "Apple MacBook Air 13 M5 16 GB / 512 GB",
+   "url": "https://www.amazon.in/Apple-2026-MacBook-Laptop-chip/dp/B0GR1HPR1W",
+   "page_title": "Apple 2026 MacBook Air 13″ Laptop with M5 chip: AI and Apple Intelligence, 34.46 cm (13.6″) Liquid Retina Display, 16GB Unified Memory, 512GB SSD Storage, 12MP Center Stage Camera, Touch ID; Midnight",
+   "listings": [
+    {
+     "title": "Apple 2026 MacBook Air 13″ Laptop with M5 chip: AI and Apple Intelligence, 34.46 cm (13.6″) Liquid Retina Display, 16GB Unified Memory, 512GB SSD Storage, 12MP Center Stage Camera, Touch ID; Midnight",
+     "shop": "Amazon",
+     "answer": "exact"
+    },
+    {
+     "title": "Apple MacBook Air with M3 chip",
+     "shop": "The Apple Store",
+     "answer": "wrong"
+    }
+   ]
+  }
+ ]
+}
