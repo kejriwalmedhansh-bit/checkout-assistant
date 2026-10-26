@@ -47,6 +47,11 @@ class TTLCache:
     def pop(self, key: Any) -> None:
         self._store.pop(key, None)
 
+    def keys(self) -> list[Any]:
+        """Unexpired keys, as a snapshot."""
+        self._evict_expired()
+        return list(self._store)
+
     def touch(self, key: Any, ttl: float | None = None) -> bool:
         """Slide the expiry of an existing, unexpired key. Returns False if absent/expired."""
         value = self.get(key)

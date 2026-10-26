@@ -127,6 +127,7 @@
     "Page Not Found": {"description": "Visitor hit a missing page.", "surfaces": ["web"], "properties": {}},
 
     "WhatsApp Message Received": {"description": "Any inbound WhatsApp message.", "surfaces": ["whatsapp"], "properties": {"msg_type": "text | image | interactive | ..."}},
+    "WhatsApp Website Handoff": {"description": "A message from the website's 'Send this to my WhatsApp' arrived with a deal code; found = the website's comparison was still in memory and was sent as-is (else the bot searched the words afresh).", "surfaces": ["whatsapp"], "properties": {"found": "true | false", "query": "What the shopper had typed on the website"}},
     "WhatsApp Onboarded": {"description": "Welcome message sent to a phone not seen since the server last restarted (resets on restart; use Mixpanel's first-time filter for true new users).", "surfaces": ["whatsapp"], "properties": {}},
     "WhatsApp Nudge Sent": {"description": "Bot couldn't act on a message and nudged the user.", "surfaces": ["whatsapp"], "properties": {"reason": "noise_phrase | opt_out | website_greeting | non_text:<type> | ...", "text": "Message text", "suppressed_first_time": "Nudge skipped after onboarding"}},
     "WhatsApp Rate Limited": {"description": "Phone hit the hourly search limit.", "surfaces": ["whatsapp"], "properties": {"query": "Search text"}},
