@@ -224,12 +224,35 @@ class SearchResultsResponse(BaseModel):
     # checked result from GET /routes/checked/{price_check_id}.
     price_check_pending: bool = False
     price_check_id: str | None = None
+    # Bank card offers on the compared stores' pages, read in the
+    # background: GET /routes/card-offers/{card_offers_id}.
+    card_offers_id: str | None = None
 
 
 class CheckedRoutesResponse(BaseModel):
     # None when the check is unknown (expired, server restarted) or slow:
     # the website keeps the result it already shows.
     result: SearchResultsResponse | None = None
+
+
+class CardOffer(BaseModel):
+    bank: str
+    card: str
+    saving: float
+    cashback: bool = False
+
+
+class StoreCardOffers(BaseModel):
+    store: str
+    price: float | None = None
+    link: str
+    offers: list[CardOffer] = []
+
+
+class CardOffersResponse(BaseModel):
+    # None when the comparison is unknown (expired, restarted) or the read
+    # is still running after the wait.
+    offers: list[StoreCardOffers] | None = None
 
 
 class ProductDetailResponse(BaseModel):

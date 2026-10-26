@@ -54,6 +54,12 @@ class Settings(BaseSettings):
     # are built (Context.dev/Crawlbase for blocked stores). Adds a few seconds.
     ROUTE_LIVE_PRICE_CHECK: bool = True
     ROUTE_LIVE_PRICE_TIMEOUT: int = 4  # was 8; a slow page left the shopper waiting for nothing (2026-10-24)
+    # Read bank card offers ("HDFC Credit Card: ₹6,000 off") from the
+    # compared stores' own product pages, alongside the live price check
+    # (Flipkart only, 2026-10-26). One Context.dev read, ~2-7s; the first
+    # answer never waits for it.
+    CARD_OFFERS_CHECK: bool = True
+    CARD_OFFERS_TIMEOUT: int = 10
 
     # Timeout (seconds) for the lightweight og:title fetch used to recognise a
     # pasted product link. Kept short — it runs inline on every URL search and a
