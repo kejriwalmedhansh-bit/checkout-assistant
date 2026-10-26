@@ -2,8 +2,7 @@ name: Product match checklist
 
 # Reruns the hand-checked link checklist (tests/test_match_checklist.py) and the
 # exact-match examples whenever the matching code or its answer key changes, so
-# a fix for one product can't quietly break another. Plain Python only: the
-# matching code needs nothing beyond the standard library.
+# a fix for one product can't quietly break another.
 on:
   pull_request:
     paths:
@@ -31,7 +30,7 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-      - run: pip install pytest
+      - run: pip install -r requirements.txt pytest
       - name: Scoreboard
         run: python tests/test_match_checklist.py
       - name: Tests
