@@ -18,8 +18,9 @@ const isHyperlocal = (merchant) => HYPERLOCAL.some((m) => (merchant || '').toLow
 
 /** One row per shop, cheapest first; each row carries a route object shaped
  * like search_service.rank_routes' so it can open the normal voucher view. */
-export function buildPriceList(result) {
+export function buildPriceList(result, cardOffers = []) {
   const vouchers = new Map((result?.vouchers || []).map((v) => [v.merchant.toLowerCase(), v]));
+  const cards = new Map((cardOffers || []).map((c) => [c.store.toLowerCase(), c.offers || []]));
   const byShop = new Map();
   for (const r of result?.results || []) {
     if (!r.merchant || !r.price) continue;
@@ -41,6 +42,8 @@ export function buildPriceList(result) {
       delivery: seller.delivery || '',
       hyperlocal: isHyperlocal(r.merchant),
       voucher: v,
+      // This shop's bank card offers, best first (Flipkart only for now).
+      cardOffers: cards.get(key) || [],
       voucherRoute: v
         ? {
             ...base,

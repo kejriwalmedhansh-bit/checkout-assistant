@@ -78,6 +78,9 @@ export const useSearchStore = create(
       autoPicked: false,
       skippedPicker: false,
       result: null,
+      // Bank card offers for the shown result, by shop (see
+      // searchApi.cardOffers). Arrive after the result; never ranked on.
+      cardOffers: [],
       searchStatus: 'idle', // step 1: 'idle' | 'loading' | 'success' | 'error'
       status: 'idle', // step 2: 'idle' | 'loading' | 'success' | 'error'
       error: null,
@@ -161,7 +164,7 @@ export const useSearchStore = create(
       // variant server-side, rather than trusting just this one listing.
       selectProduct: async (token, title = '', price = null, source = '', thumbnail = null) => {
         if (!token) return;
-        set({ selectedToken: token, selectedThumbnail: thumbnail, result: null, status: 'loading', error: null });
+        set({ selectedToken: token, selectedThumbnail: thumbnail, result: null, cardOffers: [], status: 'loading', error: null });
         track('Selected Product', { query: get().query, title, source });
         try {
           const result = await searchApi.routes(token, get().query, title, price, source);
@@ -176,6 +179,13 @@ export const useSearchStore = create(
                   // (card_offers_id is also the WhatsApp hand-off code).
                   set({ result: { ...checked, card_offers_id: result.card_offers_id } });
                 }
+              })
+              .catch(() => {});
+          }
+          if (result?.card_offers_id) {
+            searchApi.cardOffers(result.card_offers_id)
+              .then((offers) => {
+                if (offers?.length && get().selectedToken === token) set({ cardOffers: offers });
               })
               .catch(() => {});
           }

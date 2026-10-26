@@ -52,6 +52,7 @@ export default function ResultsPage() {
   const query = useSearchStore((s) => s.query);
   const resolvedQuery = useSearchStore((s) => s.resolvedQuery);
   const result = useSearchStore((s) => s.result);
+  const cardOffers = useSearchStore((s) => s.cardOffers);
   const selectedThumbnail = useSearchStore((s) => s.selectedThumbnail);
   const status = useSearchStore((s) => s.status);
   const error = useSearchStore((s) => s.error);
@@ -84,7 +85,7 @@ export default function ResultsPage() {
     setSelectedCardQuote(null);
   };
 
-  const shops = buildPriceList(result);
+  const shops = buildPriceList(result, cardOffers);
   const priceListMode = shouldShowPriceList(shops, result?.routes?.recommended);
 
   const backControl = (
