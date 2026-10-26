@@ -22,3 +22,6 @@ export const WHATSAPP_COMMUNITY_LINK = 'https://chat.whatsapp.com/IEbXBuUEuTv7E5
  * browser itself (hotlinked), not fetched server-side.
  */
 export const BRANDFETCH_CLIENT_ID = '1idlpu4MvGHZOo2yZmy';
+
+/** Dealo's Chrome extension on the Chrome Web Store (live since v0.2.4). */
+export const CHROME_EXTENSION_URL = 'https://chromewebstore.google.com/detail/fjbkoahbajnddoohobplmafmeiddnkoi';
