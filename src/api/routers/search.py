@@ -10,6 +10,7 @@ from fastapi import APIRouter, Depends
 
 from ..rate_limit import enforce_search_rate_limit
 from ...schemas.search import (
+    CardOffersResponse,
     CheckedRoutesResponse,
     ProductDetailResponse,
     RoutesRequest,
@@ -65,6 +66,12 @@ checked_router = APIRouter(tags=["search"])
 def routes_checked(check_id: str) -> dict:
     """The /routes answer after the winning store's live price re-check."""
     return {"result": search_service.checked_routes(check_id)}
+
+
+@checked_router.get("/routes/card-offers/{check_id}", response_model=CardOffersResponse)
+def routes_card_offers(check_id: str) -> dict:
+    """Bank card offers on the compared stores' own product pages."""
+    return {"offers": search_service.card_offers(check_id)}
 
 
 @router.get("/products/{product_token}", response_model=ProductDetailResponse)

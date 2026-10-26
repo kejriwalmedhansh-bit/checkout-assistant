@@ -40,6 +40,7 @@ from ..cache import TTLCache
 from ..config import get_settings
 from ..constants import HYPERLOCAL_MERCHANTS, KNOWN_BRANDS, MANUAL_TRUSTED_MERCHANTS, PRIORITY_MERCHANTS
 from ..repositories import (
+    bank_offer_repository,
     buyhatke_repository,
     context_dev_repository,
     crawlbase_repository,
@@ -4233,6 +4234,35 @@ def _compute_routes(
     return output, live_check
 
 
+def _flipkart_product_link(candidates: list[dict]) -> tuple[dict, str] | tuple[None, None]:
+    """The Flipkart listing and its product page link, when Flipkart is
+    one of the compared stores."""
+    for c in candidates:
+        link = ((c.get("sellers") or [{}])[0].get("link")) or ""
+        host = (urlsplit(link).hostname or "").lower()
+        if (host == "flipkart.com" or host.endswith(".flipkart.com")) and "/p/" in link:
+            return c, link
+    return None, None
+
+
+def _read_card_offers(candidates: list[dict]) -> list[dict]:
+    """Bank card offers on the compared stores' own product pages
+    (Flipkart only, 2026-10-26): [{"store", "price", "link", "offers"}].
+    One page read, started alongside the live price check and fetched on
+    its own (GET /routes/card-offers), so neither the first answer nor the
+    checked one waits for it. Not used in ranking."""
+    store, link = _flipkart_product_link(candidates)
+    if store is None:
+        return []
+    started = time.monotonic()
+    markup = context_dev_repository.fetch_rendered_html(link) or crawlbase_repository.fetch_rendered_html(link)
+    offers = bank_offer_repository.flipkart_bank_offers(markup or "")
+    logger.info("[routes] card offers on %s: %d found (%.1fs)", store["merchant"], len(offers), time.monotonic() - started)
+    if not offers:
+        return []
+    return [{"store": store["merchant"], "price": store.get("price"), "link": link, "offers": offers}]
+
+
 def _apply_live_check(output: dict, live_check: dict) -> dict:
     """`output` after re-reading the winning store's page for today's price.
     Works on a copy: the unchecked output may already be on its way to the
@@ -4268,6 +4298,7 @@ _ROUTES_WAIT_CHECKED = 12   # seconds /routes/checked waits for the re-check
 _routes_jobs = TTLCache(default_ttl=_ROUTES_TTL, max_size=500)
 _routes_jobs_lock = threading.Lock()
 _routes_pool = ThreadPoolExecutor(max_workers=8, thread_name_prefix="routes")
+_card_offers_pool = ThreadPoolExecutor(max_workers=4, thread_name_prefix="card-offers")
 
 
 class _RoutesJob:
@@ -4277,6 +4308,15 @@ class _RoutesJob:
         self.checked: dict | None = None
         self.unchecked_ready = threading.Event()
         self.checked_ready = threading.Event()
+        self.card_offers: list[dict] = []
+        self.card_offers_ready = threading.Event()
+
+    def _read_card_offers(self, candidates: list[dict]) -> None:
+        try:
+            self.card_offers = _read_card_offers(candidates)
+        except Exception:  # no card offers beats a broken answer
+            logger.exception("[routes] card offer read failed")
+        self.card_offers_ready.set()
 
     def run(self, args: tuple) -> None:
         live_check = None
@@ -4289,6 +4329,10 @@ class _RoutesJob:
             with _routes_jobs_lock:
                 if _routes_jobs.get(self.key) is self:
                     _routes_jobs.pop(self.key)
+        if live_check is not None and get_settings().CARD_OFFERS_CHECK:
+            _card_offers_pool.submit(self._read_card_offers, copy.deepcopy(live_check["candidates"]))
+        else:
+            self.card_offers_ready.set()
         if live_check is None:
             self.checked = self.unchecked
             self.checked_ready.set()
@@ -4337,14 +4381,15 @@ def routes_without_waiting_on_check(
 ) -> dict:
     """The comparison as soon as the stores are compared. When the live
     price re-check is still running, the answer carries
-    ``price_check_pending`` and the id to fetch the checked version with."""
+    ``price_check_pending`` and the id to fetch the checked version with.
+    ``card_offers_id`` fetches the bank card offers (GET /routes/card-offers)."""
     if not product_token:
         return _compute_routes(product_token, query)[0]
     job = _routes_job((product_token, query, title, picked_price, picked_source, picked_thumbnail))
     job.unchecked_ready.wait()
     if job.checked_ready.is_set():
-        return job.checked
-    return {**job.unchecked, "price_check_pending": True, "price_check_id": job.key}
+        return {**job.checked, "card_offers_id": job.key}
+    return {**job.unchecked, "price_check_pending": True, "price_check_id": job.key, "card_offers_id": job.key}
 
 
 def checked_routes(check_id: str) -> dict | None:
@@ -4355,6 +4400,17 @@ def checked_routes(check_id: str) -> dict | None:
     if job is None or not job.checked_ready.wait(_ROUTES_WAIT_CHECKED):
         return None
     return job.checked
+
+
+def card_offers(check_id: str) -> list[dict] | None:
+    """Bank card offers found on the compared stores' product pages for
+    this comparison (the id /routes hands out as price_check_id), or None
+    when the comparison is unknown or the read is still not done."""
+    with _routes_jobs_lock:
+        job = _routes_jobs.get(check_id)
+    if job is None or not job.card_offers_ready.wait(get_settings().CARD_OFFERS_TIMEOUT):
+        return None
+    return job.card_offers
 
 
 def build_routes_for_token(
