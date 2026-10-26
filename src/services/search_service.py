@@ -4359,9 +4359,38 @@ def _routes_job(args: tuple) -> _RoutesJob:
         if job is not None:
             return job
         job = _RoutesJob(key)
+        job.thumbnail = args[5]
         _routes_jobs.set(key, job)
     _routes_pool.submit(job.run, args)
     return job
+
+
+# "Send this to my WhatsApp" (2026-10-26): the website's message carries
+# "(deal <code>)", the first HANDOFF_CODE_LEN characters of the id /routes
+# hands out as card_offers_id, so the bot can send the exact comparison the
+# shopper was looking at instead of searching again. Short, so the code in
+# their sent message stays small; the full id is checked before use.
+HANDOFF_CODE_LEN = 10
+
+
+def routes_for_handoff(code: str) -> tuple[dict, str | None] | None:
+    """(comparison, thumbnail) the website showed for this code, live price
+    re-check included when it finishes in time. None when unknown: expired
+    after _ROUTES_TTL, or the server restarted. The caller then searches
+    afresh, as before."""
+    code = (code or "").lower()
+    if len(code) != HANDOFF_CODE_LEN:
+        return None
+    with _routes_jobs_lock:
+        key = next((k for k in _routes_jobs.keys() if k.startswith(code)), None)
+        job = _routes_jobs.get(key) if key else None
+    if job is None or not job.unchecked_ready.wait(_ROUTES_WAIT_CHECKED):
+        return None
+    job.checked_ready.wait(_ROUTES_WAIT_CHECKED)
+    result = job.checked if job.checked_ready.is_set() else job.unchecked
+    if not result or result.get("error"):
+        return None
+    return result, getattr(job, "thumbnail", None)
 
 
 def start_routes(

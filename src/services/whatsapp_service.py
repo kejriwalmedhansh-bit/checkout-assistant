@@ -118,6 +118,19 @@ def extract_website_ref(text: str) -> tuple[str, str | None, bool]:
     return text, visitor_id, is_greeting
 
 
+# "Send this to my WhatsApp" on the website adds "(deal <code>)": the
+# comparison the shopper was just looking at (search_service.routes_for_handoff).
+_DEAL_RE = re.compile(r"\(deal ([0-9a-f]{%d})\)" % search_service.HANDOFF_CODE_LEN, re.IGNORECASE)
+
+
+def extract_handoff_code(text: str) -> tuple[str, str | None]:
+    """Returns (text without the deal code, the code or None)."""
+    match = _DEAL_RE.search(text or "")
+    if not match:
+        return text, None
+    return (text[: match.start()] + text[match.end():]).strip(), match.group(1).lower()
+
+
 _CONVERSATION_GAP_SECONDS = 30 * 60
 _active_conversations = TTLCache(default_ttl=_CONVERSATION_GAP_SECONDS)
 
@@ -1331,6 +1344,14 @@ async def _send_routes_for_token(
         search_service.build_routes_for_token, product_token, query, title,
         picked_price, picked_source, picked_thumbnail,
     )
+    await _send_routes_result(phone, result, query, picked_thumbnail, candidates)
+
+
+async def _send_routes_result(
+    phone: str, result: dict, query: str,
+    picked_thumbnail: str | None = None, candidates: list[dict] | None = None,
+) -> None:
+    """A finished comparison, as the price list or the gift card steps."""
     routes = result.get("routes", {})
     recommended = routes.get("recommended")
     if not recommended:
@@ -1496,6 +1517,13 @@ async def handle_pick_again(phone: str) -> None:
         return
     candidates = session.get("candidates", [])
     query = session.get("query", "")
+    if not candidates and query:
+        # Came straight from the website's result (no picker yet): search
+        # their words now, which shows the product list.
+        classification = classify_input(query)
+        if classification["type"] in ("url", "product_name"):
+            await _run_with_typing_keepalive(None, process_and_respond(phone, classification))
+            return
     if not candidates:
         await send_text(phone, WHATSAPP_DEAD_END_MSG)
         _track("WhatsApp Dead End", phone, stage="pick_again_empty", query=query)
@@ -1703,6 +1731,7 @@ async def _process_text_message(phone: str, msg_id: str | None, text: str) -> No
     await asyncio.sleep(_TEXT_DEBOUNCE_SECONDS)
 
     text, website_visitor_id, is_website_greeting = extract_website_ref(text)
+    text, handoff_code = extract_handoff_code(text)
     if website_visitor_id:
         # Carrying the website id as $device_id alongside this phone's
         # $user_id is what joins the website visits to this person.
@@ -1711,6 +1740,21 @@ async def _process_text_message(phone: str, msg_id: str | None, text: str) -> No
         ))
 
     is_new = session_store.is_new_user(phone)
+
+    if handoff_code:
+        # Sent from the website's "Send this to my WhatsApp": reply with the
+        # exact comparison they were looking at — no picker, no new search.
+        # Unknown code (over 30 min old, or the server restarted): fall
+        # through and search their words as usual.
+        found = await asyncio.to_thread(search_service.routes_for_handoff, handoff_code)
+        _track("WhatsApp Website Handoff", phone, found=bool(found), query=text)
+        if found:
+            if is_new:
+                await send_text(phone, WHATSAPP_ONBOARDING_MSG)
+                _track("WhatsApp Onboarded", phone)
+            result, thumbnail = found
+            await _run_with_typing_keepalive(msg_id, _send_routes_result(phone, result, text, thumbnail))
+            return
     classification = (
         {"type": "unparseable", "reason": "website_greeting"} if is_website_greeting else classify_input(text)
     )
