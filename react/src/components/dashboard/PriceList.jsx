@@ -1,4 +1,4 @@
-import { useEffect, useLayoutEffect, useRef, useState } from 'react';
+import { Fragment, useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { Box, Button, Flex, Link, Text } from '@chakra-ui/react';
 
 import BrandAvatar from '@/components/common/BrandAvatar';
@@ -78,7 +78,7 @@ function ShopLogo({ shop, size }) {
  * reachable as a small tag on its own row, which opens the usual gift card
  * view via onPickGiftCard.
  */
-export default function PriceList({ shops, onPickGiftCard }) {
+export default function PriceList({ shops, onPickGiftCard, afterFirst = null }) {
   const [showAll, setShowAll] = useState(false);
   const best = shops[0];
   const priciest = shops.reduce((hi, s) => (s.price > hi.price ? s : hi), best);
@@ -135,8 +135,8 @@ export default function PriceList({ shops, onPickGiftCard }) {
           const gc = s.voucher && s.voucherRoute ? Math.round(s.price - s.voucherRoute.final_cost) : 0;
           const first = i === 0;
           return (
+            <Fragment key={s.merchant}>
             <Card
-              key={s.merchant}
               flex={grow ? '1' : undefined}
               display="flex"
               flexDirection="column"
@@ -211,6 +211,8 @@ export default function PriceList({ shops, onPickGiftCard }) {
                 </Box>
               )}
             </Card>
+            {first && afterFirst}
+            </Fragment>
           );
         })}
       </Flex>

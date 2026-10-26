@@ -119,6 +119,7 @@
     "Clicked Brand Voucher Link": {"description": "Website brand directory voucher link clicked.", "surfaces": ["web"], "properties": {"brand": "Brand", "source": "Voucher platform", "pct": "Discount", "placement": "brand-page | popular | list"}},
     "Clicked WhatsApp Button": {"description": "Website WhatsApp link clicked.", "surfaces": ["web"], "properties": {"source": "sidebar | contact_page | contact_page_bot"}},
     "Clicked Floating WhatsApp Button": {"description": "Website floating WhatsApp button clicked.", "surfaces": ["web"], "properties": {}},
+    "Clicked Send To WhatsApp": {"description": "Results page 'Send this to my WhatsApp' row clicked; opens WhatsApp with the product pre-filled.", "surfaces": ["web"], "properties": {"view": "price_list | route"}},
     "Clicked FAQ Item": {"description": "How-it-works FAQ item opened.", "surfaces": ["web"], "properties": {}},
     "Tour Step Shown": {"description": "Onboarding tour step displayed.", "surfaces": ["web"], "properties": {}},
     "Tour Skipped": {"description": "Onboarding tour skipped.", "surfaces": ["web"], "properties": {}},
