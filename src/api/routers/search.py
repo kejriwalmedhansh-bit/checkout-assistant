@@ -20,7 +20,7 @@ from ...schemas.search import (
 from ...services import search_service
 
 # Every endpoint below spends money to answer — SearchApi for the lookup, then
-# Crawlbase/Apify to read store pages — and none of them needs an account, so
+# Context.dev/Crawlbase to read store pages — and none of them needs an account, so
 # the cost guard goes on the whole router rather than being remembered
 # endpoint by endpoint. /voucher-check and /vouchers are deliberately not
 # covered: they answer from local data files and cost nothing to serve.

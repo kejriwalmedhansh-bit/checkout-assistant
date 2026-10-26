@@ -1,7 +1,7 @@
 """Rate limiting for the paid search endpoints.
 
 Dealo's search is open to the internet with no account behind it, and every
-search spends real money: SearchApi for the lookup, then Crawlbase/Apify to
+search spends real money: SearchApi for the lookup, then Context.dev/Crawlbase to
 read the store pages. Unmetered, one loop left running — a scraper, a broken
 retry, someone curious with a shell — bills us for as long as it runs.
 

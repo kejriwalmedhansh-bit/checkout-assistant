@@ -30,32 +30,25 @@ class Settings(BaseSettings):
     # Live-tested against 13 real blocked/JS-heavy merchant pages (Flipkart,
     # Nykaa, Myntra, Croma, BigBasket, Samsung, Tata CLiQ, Pepperfry,
     # Lenskart, Ethos, Apple — 11/13 correct, 5-22s each) — faster and far
-    # cheaper (pay-per-request, no forced monthly minimum) than Apify, which
-    # it replaces as the default. Only AJIO and Titan resisted it (both
-    # fall through to APIFY_TOKEN below as a second attempt).
+    # cheaper (pay-per-request, no forced monthly minimum) than Apify.
+    # Now the backup reader behind Context.dev (2026-10-26).
     CRAWLBASE_JS_TOKEN: str = ""
     CRAWLBASE_TIMEOUT: int = 60
 
-    # --- Context.dev (first reader for Flipkart's own search page, 2026-10-23;
-    # Crawlbase is the fallback). Missing key = skipped, Crawlbase used. ---
+    # --- Context.dev (first reader for every blocked store page: Flipkart
+    # search 2026-10-23, pasted links + price re-check 2026-10-26, replacing
+    # Apify). Crawlbase is the fallback. Missing key = skipped, Crawlbase
+    # used. Free plan runs 1 read at a time; a busy reader answers 429 and
+    # the caller falls through to Crawlbase. ---
     CONTEXT_DEV_API_KEY: str = ""
-    CONTEXT_DEV_TIMEOUT: int = 30
+    # AJIO pages take ~70s to render (2026-10-26); callers with a tighter
+    # budget (Flipkart search, price re-check) cap the wait themselves.
+    CONTEXT_DEV_TIMEOUT: int = 90
 
-    # --- Apify (fallback fetcher — only used for hosts Crawlbase can't get
-    # past, e.g. AJIO's Akamai challenge; was the sole fetcher before
-    # 2026-08-27) ---
-    # Same no-hardcoded-fallback convention as SEARCHAPI_KEY above.
-    APIFY_TOKEN: str = ""
     # Re-read the recommended store's page for today's price after routes
-    # are built (Crawlbase/Apify for blocked stores). Adds a few seconds.
+    # are built (Context.dev/Crawlbase for blocked stores). Adds a few seconds.
     ROUTE_LIVE_PRICE_CHECK: bool = True
     ROUTE_LIVE_PRICE_TIMEOUT: int = 4  # was 8; a slow page left the shopper waiting for nothing (2026-10-24)
-    # Live-tested 2026-08-26: a real AJIO render took 58.7s — comfortably
-    # inside the old 60s cutoff that one time, but close enough that normal
-    # latency variance would time it out intermittently rather than
-    # reliably. 90s gives real margin without materially changing the
-    # already-known-slow experience for these hosts.
-    APIFY_TIMEOUT: int = 90
 
     # Timeout (seconds) for the lightweight og:title fetch used to recognise a
     # pasted product link. Kept short — it runs inline on every URL search and a

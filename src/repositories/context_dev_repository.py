@@ -1,7 +1,9 @@
 """Context.dev page reader — renders a blocked store page and returns its HTML.
 
-Used first for Flipkart's own search page (flipkart_repository), with
-Crawlbase as the fallback. Owner-run comparison 2026-10-03: on 8 blocked
+Dealo's first reader for every blocked store page — Flipkart's own search
+page (flipkart_repository), pasted product links and the winner price
+re-check (search_service) — with Crawlbase as the fallback; replaced Apify
+2026-10-26. Owner-run comparison 2026-10-03: on 8 blocked
 store product pages Context.dev read 8/8 (Crawlbase 6/8, missing AJIO and
 Myntra), with identical titles and prices; on 16 Flipkart searches it
 averaged 5.2s (max 7s) against Crawlbase's 9.7s (max 18s), finding the same
@@ -46,6 +48,12 @@ def fetch_rendered_html(url: str) -> str | None:
                 headers={"Authorization": f"Bearer {settings.CONTEXT_DEV_API_KEY}"},
                 json={"url": url, "formats": {"html": True}},
             )
+        if resp.status_code == 429:
+            # Free plan: one read at a time per account. Waiting would hold
+            # the shopper up; the caller's Crawlbase fallback answers instead.
+            logger.info("[context.dev] busy (%s) — %s left to the next reader",
+                        resp.headers.get("x-ratelimit-mode") or "rate limit", url)
+            return None
         resp.raise_for_status()
         html = ((resp.json() or {}).get("html") or {}).get("data") or ""
     except (httpx.HTTPError, ValueError) as exc:

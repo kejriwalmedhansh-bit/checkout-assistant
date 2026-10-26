@@ -40,8 +40,8 @@ from ..cache import TTLCache
 from ..config import get_settings
 from ..constants import HYPERLOCAL_MERCHANTS, KNOWN_BRANDS, MANUAL_TRUSTED_MERCHANTS, PRIORITY_MERCHANTS
 from ..repositories import (
-    apify_repository,
     buyhatke_repository,
+    context_dev_repository,
     crawlbase_repository,
     domain_brand_repository,
     flipkart_repository,
@@ -2045,8 +2045,8 @@ def _jsonld_host_merchant(host: str) -> str | None:
 # Anti-bot fallback (2026-08-06): these hosts block or reject Dealo's plain
 # direct fetch above outright (Myntra only from our deployed server; the
 # other 3 everywhere) — see CLAUDE.md's "Live price-on-paste vendor
-# coverage". Apify's official web-scraper actor (apify_repository.
-# fetch_rendered_html) fetches the real page past the block; the price is
+# coverage". A real-browser reader (Context.dev, then Crawlbase; was Apify
+# until 2026-10-26) fetches the real page past the block; the price is
 # then read via the same trusted _extract_jsonld_price used below for the
 # free path, not a third-party actor's own parsing. Each host verified
 # 2026-08-06 against a real pasted product link, cross-checked against an
@@ -2060,7 +2060,7 @@ def _jsonld_host_merchant(host: str) -> str | None:
 # confirmed working; the actual Render-server block that motivated this
 # entry couldn't be reproduced from this local environment, so this is
 # proven-correct-if-triggered rather than reproduced-and-fixed).
-_APIFY_MERCHANT_HOSTS = {
+_RENDER_PRICE_HOSTS = {
     "flipkart.com": "Flipkart",
     "ajio.com": "AJIO",
     "nykaa.com": "Nykaa",
@@ -2068,9 +2068,9 @@ _APIFY_MERCHANT_HOSTS = {
 }
 
 
-def _apify_merchant_for_host(host: str) -> str | None:
+def _render_price_merchant(host: str) -> str | None:
     host = (host or "").lower()
-    for suffix, merchant_name in _APIFY_MERCHANT_HOSTS.items():
+    for suffix, merchant_name in _RENDER_PRICE_HOSTS.items():
         if host == suffix or host.endswith("." + suffix):
             return merchant_name
     return None
@@ -2078,8 +2078,8 @@ def _apify_merchant_for_host(host: str) -> str | None:
 
 # Hosts whose page reliably fails to finish loading on EITHER real-browser
 # fetcher within a reasonable timeout budget — confirmed on titan.co.in: a
-# direct fetch fails fast with a clean 403, but Apify's render twice
-# exceeded its 60s budget with nothing to show for the wait (2026-08-26),
+# direct fetch fails fast with a clean 403, but Apify's render (since
+# dropped) twice exceeded its 60s budget with nothing to show for the wait (2026-08-26),
 # and Crawlbase's own render was blocked outright by a Cloudflare challenge
 # after 77s (2026-08-27) — live-tested both. Skipping render entirely for
 # these hosts trades a slightly weaker product name (URL-slug words only —
@@ -2150,7 +2150,7 @@ def _extract_page_title(markup: str) -> str | None:
     """og:title -> twitter:title -> <title> from a page's markup, with the
     bot-wall/bare-store rejections applied, or None if none is usable.
 
-    Split out of _fetch_url_page so the Apify-rendered HTML goes through the
+    Split out of _fetch_url_page so the rendered HTML goes through the
     exact same trusted title logic as a direct fetch — a title read past a
     bot wall gets no weaker vetting than one read without it.
 
@@ -2499,23 +2499,23 @@ def _fetch_url_page(url: str) -> tuple[str | None, float | None, str | None, str
     host not covered and on any failure — never raises; a failure here must
     fall straight back to today's title/slug-only search, not break it.
 
-    Apify anti-bot fallback (2026-08-06): Flipkart/AJIO/Nykaa reject this
+    Anti-bot fallback (2026-08-06, now Context.dev then Crawlbase): Flipkart/AJIO/Nykaa reject this
     plain fetch outright (non-200 or a connection error), so that fallback
     is checked from *both* early-exit paths below, not just after a
     successful fetch with no readable price — the earlier version of this
     hook only checked the latter, which meant it never actually fired for
     the exact "blocked outright" case it was built for.
 
-    Title via Apify (2026-08-10): the fallback used to read only a price out
+    Title via the render (2026-08-10): the fallback used to read only a price out
     of the rendered page and throw the rest away, so a blocked link still
     came back nameless and fell through to slug words — which for a short
     link (dl.flipkart.com/s/<code>) are an opaque code, not a product. It now
     reads the title from that same render, for *any* host, which is what
     makes a blocked or JS-only page searchable at all. Price stays gated on
-    _APIFY_MERCHANT_HOSTS; see _try_apify for why the two differ.
+    _RENDER_PRICE_HOSTS; see _try_render for why the two differ.
     """
-    apify_host = (urlsplit(url).hostname or "").lower()
-    apify_merchant_name = _apify_merchant_for_host(apify_host)
+    render_host = (urlsplit(url).hostname or "").lower()
+    render_merchant_name = _render_price_merchant(render_host)
     final_url = url
 
     def _use_resolved_host(resolved_host: str | None) -> None:
@@ -2525,12 +2525,12 @@ def _fetch_url_page(url: str) -> tuple[str | None, float | None, str | None, str
         to (dl.flipkart.com) may be — matching on the pre-redirect host was
         the actual reason shortened links to a known merchant fell through
         to an unrecognized-host fallback instead of the merchant's normal
-        Apify/JSON-LD handling."""
-        nonlocal apify_host, apify_merchant_name
+        render/JSON-LD handling."""
+        nonlocal render_host, render_merchant_name
         resolved_host = (resolved_host or "").lower()
-        if resolved_host and resolved_host != apify_host:
-            apify_host = resolved_host
-            apify_merchant_name = _apify_merchant_for_host(apify_host)
+        if resolved_host and resolved_host != render_host:
+            render_host = resolved_host
+            render_merchant_name = _render_price_merchant(render_host)
 
     def _try_render(
         need_title: bool = True,
@@ -2539,41 +2539,39 @@ def _fetch_url_page(url: str) -> tuple[str | None, float | None, str | None, str
         host), a photo (any host), and, where we already trust the host's
         structured data, a price. Returns (title, price, merchant, image).
 
-        Tries Crawlbase first, Apify only if Crawlbase returns nothing —
-        Crawlbase is the default fetcher as of 2026-08-27 (faster and
-        live-tested correct on 11 of 13 real blocked/JS-heavy hosts: only
-        AJIO and Titan resisted it), Apify stays wired in as a second
-        attempt specifically for those holdouts rather than being dropped
-        outright, since it does get past AJIO's block most of the time.
+        Tries Context.dev first, Crawlbase only if Context.dev returns
+        nothing (Apify dropped 2026-10-26). Live-tested 2026-10-26 on
+        AJIO, Titan, Myntra, Nykaa, Flipkart and Amazon pages: all read,
+        AJIO slowest (~70s, as it was on Apify).
 
         One successful render serves all three: rendering is the expensive
         part, so a page fetched for its title reads its price and photo
         from the same HTML for free. Skipped entirely when there's nothing
         left to recover.
         """
-        need_price = apify_merchant_name is not None
+        need_price = render_merchant_name is not None
         if not need_title and not need_price:
             return None, None, None, None
-        if _should_skip_render(apify_host):
+        if _should_skip_render(render_host):
             logger.info(
                 "[url-search] skipping render for %s (known to exceed timeout on every fetcher)",
-                apify_host,
+                render_host,
             )
             return None, None, None, None
 
-        markup = crawlbase_repository.fetch_rendered_html(url)
-        render_source = "Crawlbase"
+        markup = context_dev_repository.fetch_rendered_html(url)
+        render_source = "Context.dev"
         if not markup:
             logger.info(
-                "[url-search] Crawlbase render returned nothing for %s — trying Apify",
-                apify_host,
+                "[url-search] Context.dev render returned nothing for %s — trying Crawlbase",
+                render_host,
             )
-            markup = apify_repository.fetch_rendered_html(url)
-            render_source = "Apify"
+            markup = crawlbase_repository.fetch_rendered_html(url)
+            render_source = "Crawlbase"
         if not markup:
             logger.info(
-                "[url-search] render returned nothing for %s (Crawlbase + Apify both failed)",
-                apify_host,
+                "[url-search] render returned nothing for %s (Context.dev + Crawlbase both failed)",
+                render_host,
             )
             return None, None, None, None
 
@@ -2581,7 +2579,7 @@ def _fetch_url_page(url: str) -> tuple[str | None, float | None, str | None, str
         if render_title:
             logger.info("[url-search] title via %s: %r", render_source, render_title)
         elif need_title:
-            logger.info("[url-search] %s render had no usable title for %s", render_source, apify_host)
+            logger.info("[url-search] %s render had no usable title for %s", render_source, render_host)
 
         render_image = _extract_page_image(markup, url)
         if render_image:
@@ -2595,14 +2593,14 @@ def _fetch_url_page(url: str) -> tuple[str | None, float | None, str | None, str
         render_price = _extract_jsonld_price(markup) if need_price else None
         if render_price is not None:
             logger.info(
-                "[url-search] %s live price via %s: %s", apify_merchant_name, render_source, render_price
+                "[url-search] %s live price via %s: %s", render_merchant_name, render_source, render_price
             )
         elif need_price:
-            logger.info("[url-search] %s fallback found no price for %s", render_source, apify_host)
+            logger.info("[url-search] %s fallback found no price for %s", render_source, render_host)
         return (
             render_title,
             render_price,
-            apify_merchant_name if render_price is not None else None,
+            render_merchant_name if render_price is not None else None,
             render_image,
         )
 
@@ -3824,7 +3822,7 @@ _UNREADABLE_PRICE_HOSTS = ("flipkart.com", "tatacliq.com")  # no labelled price 
 def _read_store_price(link: str) -> float | None:
     """Today's price from a store's own product page: Amazon's buy-box, or
     the page's own product data (schema.org offer) for any other store.
-    Blocked pages go through Crawlbase, then Apify. None when unreadable."""
+    Blocked pages go through Context.dev, then Crawlbase. None when unreadable."""
     host = (urlsplit(link).hostname or "").lower()
     if any(host == h or host.endswith("." + h) for h in _UNREADABLE_PRICE_HOSTS):
         return None
@@ -3842,7 +3840,7 @@ def _read_store_price(link: str) -> float | None:
     if markup:
         price = _extract_amazon_price(markup, link) if _is_amazon_host(host) else _extract_jsonld_price(markup)
     if price is None and not _should_skip_render(host):
-        markup = crawlbase_repository.fetch_rendered_html(link) or apify_repository.fetch_rendered_html(link)
+        markup = context_dev_repository.fetch_rendered_html(link) or crawlbase_repository.fetch_rendered_html(link)
         if markup:
             price = _extract_amazon_price(markup, link) if _is_amazon_host(host) else _extract_jsonld_price(markup)
     return price
@@ -3852,7 +3850,7 @@ def _check_winner_live(output: dict, candidates: list[dict], product_name: str, 
     """Re-read today's price from the store pages the shopper sees first: the
     recommended store, and the cheapest store when that is a different one
     (it heads the web price list shown when the gift card saves too little).
-    Both pages are read at once (Crawlbase or Apify get past Flipkart/Nykaa/
+    Both pages are read at once (Context.dev or Crawlbase get past Flipkart/Nykaa/
     Croma blocks). Returns updated candidates when a price moved, else None.
     No AI - a plain page read."""
     rec = (output.get("routes") or {}).get("recommended") or {}
