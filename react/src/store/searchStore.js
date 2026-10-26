@@ -172,7 +172,9 @@ export const useSearchStore = create(
             searchApi.checkedRoutes(result.price_check_id)
               .then((checked) => {
                 if (checked && get().selectedToken === token && get().result === result) {
-                  set({ result: checked });
+                  // The checked answer comes back without the ids; keep them
+                  // (card_offers_id is also the WhatsApp hand-off code).
+                  set({ result: { ...checked, card_offers_id: result.card_offers_id } });
                 }
               })
               .catch(() => {});

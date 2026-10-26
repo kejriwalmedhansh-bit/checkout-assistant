@@ -164,9 +164,12 @@ export default function ResultsPage() {
   // a voucher for it.
   const vendorLink = showPriceList ? shops[0]?.link : activeRoute?.sellers?.[0]?.link;
   const sourceUrl = result?.mode === 'url' ? query : vendorLink ? affiliateUrl(vendorLink, 'product_card') : null;
-  // What "Send this to my WhatsApp" pre-fills: the link they pasted, else
-  // the product name — either way the bot searches the same product.
-  const whatsappMessage = result?.mode === 'url' ? query : productName;
+  // What "Send this to my WhatsApp" pre-fills: what they typed (words or
+  // link), plus "(deal <code>)" so the bot replies with this exact result
+  // instead of searching again. Must match HANDOFF_CODE_LEN and _DEAL_RE in
+  // the backend. Without a code the bot just searches their words.
+  const handoffCode = result?.card_offers_id?.slice(0, 10);
+  const whatsappMessage = `${query || productName}${handoffCode ? ` (deal ${handoffCode})` : ''}`;
 
   return (
     <Box ref={scrollRef} w="100%" maxW="640px" mx="auto">
