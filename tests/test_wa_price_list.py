@@ -72,6 +72,7 @@ def _sent_carousel(shops, monkeypatch):
 
     monkeypatch.setattr(whatsapp_service, "send_carousel", fake_carousel)
     monkeypatch.setattr(whatsapp_service, "send_reply_buttons", noop)
+    monkeypatch.setattr(whatsapp_service.asyncio, "sleep", noop)
     monkeypatch.setattr(whatsapp_service, "_MESSAGE_PACE_SECONDS", 0)
     monkeypatch.setattr(whatsapp_service, "_track", lambda *a, **k: None)
     ok = asyncio.run(whatsapp_service._send_price_list("919999999999", "Google Pixel 11 5G", shops))
@@ -113,6 +114,10 @@ def test_shops_without_a_link_are_left_out(monkeypatch):
     assert ok and [c["body"]["text"].split("\n")[0] for c in sent["cards"]] == ["*Amazon.in*", "*Vijay Sales*"]
 
 
+def test_card_says_more_than_in_words():
+    assert price_list.more_than(4899, "Amazon.in") == "₹4,899 more than Amazon.in"
+
+
 def test_card_picture_draws():
-    jpeg = price_list.render_price_card("Croma", "", 84990, 78100, 89999, 2)
+    jpeg = price_list.render_price_card("Croma", "", 84990, 78100, 89999, 2, "A Very Long Shop Name Private Limited")
     assert jpeg[:3] == b"\xff\xd8\xff" and len(jpeg) < 200_000

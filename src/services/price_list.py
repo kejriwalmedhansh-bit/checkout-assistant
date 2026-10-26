@@ -123,6 +123,11 @@ def inr(amount: float) -> str:
     return "₹" + ",".join(([head] if head else []) + groups + [tail])
 
 
+def more_than(diff: float, cheapest: str) -> str:
+    """"₹4,899 more than Amazon.in": a bare "+₹4,899" read as confusing."""
+    return f"{inr(diff)} more than {cheapest or 'the cheapest'}"
+
+
 def shop_host(link: str | None) -> str:
     try:
         return (urlparse(link or "").hostname or "").removeprefix("www.")
@@ -130,13 +135,13 @@ def shop_host(link: str | None) -> str:
         return ""
 
 
-def card_image_url(shop: dict, rank: int, best: float, priciest: float) -> str:
+def card_image_url(shop: dict, rank: int, best: float, priciest: float, cheapest_name: str) -> str:
     """Public address of this shop's card picture. Everything the picture
     shows travels in the address, so the server keeps nothing between the
     message and Meta fetching the image."""
     q = urlencode({
         "m": shop["merchant"], "h": shop_host(shop.get("link")),
-        "p": round(shop["price"]), "b": round(best), "x": round(priciest), "r": rank,
+        "p": round(shop["price"]), "b": round(best), "x": round(priciest), "r": rank, "c": cheapest_name,
     })
     return f"{get_settings().PUBLIC_BASE_URL}/wa/price-card.jpg?{q}"
 
@@ -193,7 +198,7 @@ def _initials(name: str) -> str:
     return "".join(w[0] for w in words[:2]).upper() or "?"
 
 
-def render_price_card(merchant: str, host: str, price: int, best: int, priciest: int, rank: int) -> bytes:
+def render_price_card(merchant: str, host: str, price: int, best: int, priciest: int, rank: int, cheapest_name: str = "") -> bytes:
     img = Image.new("RGB", (_W, _H), _BG)
     d = ImageDraw.Draw(img)
     pad = 48
@@ -225,8 +230,11 @@ def render_price_card(merchant: str, host: str, price: int, best: int, priciest:
     x = lx + size + 40
     diff = price - best
     d.text((x, 62), inr(price), font=_font("IBMPlexMono-Bold.ttf", 88), fill=_TEXT)
-    sub = f"+{inr(diff)}" if diff else ("Cheapest" if rank == 0 else "Same price")
-    d.text((x + 4, 172), sub, font=_font("IBMPlexMono-Bold.ttf", 38), fill=_TEXT3 if diff else _BRAND)
+    sub = more_than(diff, cheapest_name) if diff else ("Cheapest" if rank == 0 else "Same price")
+    sub_font = _font("IBMPlexMono-Bold.ttf", 32)
+    if d.textlength(sub, font=sub_font) > _W - pad - x:
+        sub = more_than(diff, "the cheapest")
+    d.text((x + 4, 176), sub, font=sub_font, fill=_TEXT3 if diff else _BRAND)
 
     # Bar: full and navy for the cheapest, grey and as long as the gap otherwise.
     span = (priciest - best) or 1

@@ -766,8 +766,9 @@ async def _send_price_list(phone: str, title: str, shops: list[dict]) -> bool:
     """When the gift card saves too little to lead with (same rule as the
     website, see price_list.should_show_price_list): every shop cheapest
     first, one swipeable card per shop, each with its own "Buy on" button.
-    Returns False, having sent nothing, when Meta refuses the carousel, so the
-    caller can fall back to the usual messages."""
+    Nothing follows the cards (owner call 2026-10-26: a gift voucher bubble
+    under them wasn't needed). Returns False, having sent nothing, when Meta
+    refuses the carousel, so the caller can fall back to the usual messages."""
     cards = _price_list_cards(shops)
     if len(cards) < 2:
         return False
@@ -788,7 +789,7 @@ async def _send_price_list(phone: str, title: str, shops: list[dict]) -> bool:
         payload_cards.append({
             "card_index": i,
             "type": "cta_url",
-            "header": {"type": "image", "image": {"link": price_list.card_image_url(shop, i, best, priciest)}},
+            "header": {"type": "image", "image": {"link": price_list.card_image_url(shop, i, best, priciest, cards[0]["merchant"])}},
             "body": {"text": _truncate("\n".join(lines), _CAROUSEL_CARD_TEXT_MAX)},
             "action": {
                 "name": "cta_url",
@@ -804,64 +805,7 @@ async def _send_price_list(phone: str, title: str, shops: list[dict]) -> bool:
         "Price List Shown", phone,
         shops=len(cards), cheapest=cards[0]["merchant"], spread=priciest - best,
     )
-
-    await asyncio.sleep(_MESSAGE_PACE_SECONDS)
-    gift = [s for s in cards if price_list.gift_card_saving(s)]
-    if gift:
-        top = max(gift, key=price_list.gift_card_saving)
-        await send_reply_buttons(
-            phone,
-            f"Gift Vouchers take a little more off (up to −{price_list.inr(price_list.gift_card_saving(top))} at {top['merchant']}).",
-            [("pl_gift", "See Gift Vouchers"), ("pick_again", "Different product")],
-        )
-    else:
-        await send_reply_buttons(phone, "Looking for something else?", [("pick_again", "Different product")])
     return True
-
-
-async def handle_price_list_gift_cards(phone: str) -> None:
-    """"See Gift Vouchers" under the price list: the shops that have one."""
-    session = session_store.get_session(phone)
-    if not session:
-        await send_text(phone, WHATSAPP_SESSION_EXPIRED_MSG)
-        _track("WhatsApp Session Expired", phone, at="price_list_gift_cards")
-        return
-    rows = []
-    for i, shop in enumerate(_price_list_cards(session.get("price_list") or [])):
-        gc = price_list.gift_card_saving(shop)
-        if not gc:
-            continue
-        pay = price_list.inr(shop["voucher_route"]["final_cost"])
-        where = " · in store only" if (shop.get("voucher") or {}).get("offline_only") else ""
-        rows.append({
-            "id": f"plgv_{i}",
-            "title": _truncate(shop["merchant"], 24),
-            "description": _truncate(f"−{price_list.inr(gc)} · you pay {pay}{where}", 72),
-        })
-    if not rows:
-        await send_text(phone, WHATSAPP_NO_ALTERNATIVES_MSG)
-        return
-    session_store.set_session(phone, {**session, "state": "awaiting_alternative_pick"})
-    await send_list_message(phone, body_text="Pick a shop to see its Gift Voucher steps:", button_text="Gift Vouchers", rows=rows)
-
-
-async def handle_price_list_gift_card_selection(phone: str, reply_id: str) -> None:
-    session = session_store.get_session(phone)
-    if not session:
-        await send_text(phone, WHATSAPP_SESSION_EXPIRED_MSG)
-        _track("WhatsApp Session Expired", phone, at="price_list_gift_card_selection")
-        return
-    cards = _price_list_cards(session.get("price_list") or [])
-    try:
-        shop = cards[int(reply_id.split("_", 1)[1])]
-    except (ValueError, IndexError):
-        await send_text(phone, WHATSAPP_NO_ALTERNATIVES_MSG)
-        return
-    if not shop.get("voucher_route"):
-        await send_text(phone, WHATSAPP_NO_ALTERNATIVES_MSG)
-        return
-    _track("Clicked Price List Gift Card", phone, merchant=shop["merchant"], saving=price_list.gift_card_saving(shop))
-    await _send_success_flow(phone, shop["voucher_route"], session.get("image"))
 
 
 # ── Meta Graph send helpers (R7: settings read lazily) ───────────────────────────
@@ -1672,8 +1616,6 @@ async def handle_incoming(body: dict) -> None:
                 elif reply_id == "pick_again":
                     await send_typing_indicator(msg_id)
                     _run_exclusive(phone, handle_pick_again(phone))
-                elif reply_id == "pl_gift":
-                    _run_exclusive(phone, handle_price_list_gift_cards(phone))
             elif itype == "list_reply":
                 reply_id = interactive["list_reply"]["id"]
                 reply_title = interactive["list_reply"].get("title", reply_id)
@@ -1691,11 +1633,6 @@ async def handle_incoming(body: dict) -> None:
                     await send_typing_indicator(msg_id)
                     _run_exclusive(
                         phone, _run_with_typing_keepalive(msg_id, handle_product_selection(phone, reply_id))
-                    )
-                elif reply_id.startswith("plgv_"):
-                    await send_typing_indicator(msg_id)
-                    _run_exclusive(
-                        phone, _run_with_typing_keepalive(msg_id, handle_price_list_gift_card_selection(phone, reply_id))
                     )
                 elif reply_id.startswith("vtype_"):
                     _run_exclusive(phone, handle_voucher_type_selection(phone, reply_id))

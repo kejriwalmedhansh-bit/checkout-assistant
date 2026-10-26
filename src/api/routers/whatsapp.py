@@ -45,10 +45,11 @@ def price_card(
     b: int = Query(..., ge=1, le=100_000_000),
     x: int = Query(..., ge=1, le=100_000_000),
     r: int = Query(0, ge=0, le=20),
+    c: str = Query("", max_length=60),
 ) -> Response:
     """Meta fetches this when it shows a price-list card (a plain def, so
     the logo download and drawing run off the event loop)."""
     if not (b <= p <= x):
         raise HTTPException(status_code=400, detail="price out of range")
-    jpeg = price_list.render_price_card(m, h, p, b, x, r)
+    jpeg = price_list.render_price_card(m, h, p, b, x, r, c)
     return Response(jpeg, media_type="image/jpeg", headers={"Cache-Control": "public, max-age=86400"})
