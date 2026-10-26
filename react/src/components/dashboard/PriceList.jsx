@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { Box, Button, Flex, Link, Text } from '@chakra-ui/react';
 
 import BrandAvatar from '@/components/common/BrandAvatar';
@@ -10,18 +10,34 @@ import { shopLogos, shortDelivery } from '@/utils/priceList';
 
 const ROWS_SHOWN = 4;
 
+// Sizes by how many shops are on screen. A short list would leave half the
+// phone empty, so with 2-4 shops each card grows to share the screen; from
+// 5 shops the list fills it anyway and keeps the compact size.
+const SIZES = {
+  2: { logo: 52, name: 18, price: 20, top: 26, bar: 8, small: 13 },
+  3: { logo: 46, name: 17, price: 18, top: 24, bar: 6, small: 12 },
+  4: { logo: 40, name: 15.5, price: 16, top: 22, bar: 5, small: 11.5 },
+};
+const COMPACT = { logo: 34, name: 14, price: 14, top: 22, bar: 4, small: 11 };
+// Room left under the cards for the WhatsApp button and the phone's own bar.
+const BOTTOM_ROOM = 84;
+// On a laptop a card never stretches past this, so the list stays tidy;
+// on a phone the cards always reach the bottom.
+const MAX_CARD_H = 190;
+const LAPTOP_W = 992;
+
 /** Shop logo on a white disc. Brandfetch's square icon fills the disc;
  * if it is missing, the site's favicon sits inside it; failing both, the
  * shop's initials. */
-function ShopLogo({ shop }) {
+function ShopLogo({ shop, size }) {
   const sources = shopLogos(shop.link);
   const [tries, setTries] = useState(0);
   const src = sources[tries];
   const filled = tries === 0;
   return (
     <Flex
-      w="34px"
-      h="34px"
+      w={`${size}px`}
+      h={`${size}px`}
       borderRadius="full"
       bg="white"
       border="1px solid"
@@ -45,7 +61,7 @@ function ShopLogo({ shop }) {
           onError={() => setTries((t) => t + 1)}
         />
       ) : (
-        <BrandAvatar name={shop.merchant} size={34} radius="999px" />
+        <BrandAvatar name={shop.merchant} size={size} radius="999px" />
       )}
     </Flex>
   );
@@ -54,7 +70,9 @@ function ShopLogo({ shop }) {
 /**
  * Shown instead of the gift card steps when the gift card saves too little
  * to be worth the extra steps (see shouldShowPriceList). Every shop checked,
- * cheapest first and largest, with a bar for how much more each costs.
+ * cheapest first and largest, one card per shop (the cheapest outlined),
+ * with a bar for how much more each costs. With few shops the cards share
+ * the screen down to the bottom instead of leaving it empty.
  * Each row opens that shop (the arrow on the right says so); the shopper
  * picks, so there is no single "Go to" button. A shop's gift card stays
  * reachable as a small tag on its own row, which opens the usual gift card
@@ -68,6 +86,23 @@ export default function PriceList({ shops, onPickGiftCard }) {
   const ties = shops.filter((s) => s.price === best.price).length;
   const rows = showAll ? shops : shops.slice(0, ROWS_SHOWN);
   const hidden = shops.length - rows.length;
+  const sz = SIZES[shops.length] || COMPACT;
+  const grow = !!SIZES[shops.length];
+
+  // Fill from where the cards start down to the bottom of the screen.
+  const stackRef = useRef(null);
+  const [fillH, setFillH] = useState(null);
+  useLayoutEffect(() => {
+    if (!grow) return setFillH(null);
+    const measure = () => {
+      const top = stackRef.current?.getBoundingClientRect().top ?? 0;
+      const room = window.innerHeight - top - BOTTOM_ROOM;
+      setFillH(window.innerWidth >= LAPTOP_W ? Math.min(rows.length * MAX_CARD_H, room) : room);
+    };
+    measure();
+    window.addEventListener('resize', measure);
+    return () => window.removeEventListener('resize', measure);
+  }, [grow, rows.length]);
 
   useEffect(() => {
     track('Price List Shown', { shops: shops.length, cheapest: best.merchant, spread: priciest.price - best.price });
@@ -84,57 +119,70 @@ export default function PriceList({ shops, onPickGiftCard }) {
 
   return (
     <Flex direction="column" gap="10px">
-      <Card px="14px" pt="12px" pb="4px">
+      <Box px="2px">
         <Text fontSize="11px" fontWeight={700} letterSpacing=".06em" textTransform="uppercase" color="brand">
           Cheapest first · {shops.length} shops checked
         </Text>
         {note && (
-          <Text fontSize="12px" color="text2" mt="2px" mb="2px">
+          <Text fontSize="12px" color="text2" mt="2px">
             {note}
           </Text>
         )}
+      </Box>
+      <Flex ref={stackRef} direction="column" gap="8px" minH={fillH ? `${fillH}px` : undefined}>
         {rows.map((s, i) => {
           const diff = s.price - best.price;
           const gc = s.voucher && s.voucherRoute ? Math.round(s.price - s.voucherRoute.final_cost) : 0;
+          const first = i === 0;
           return (
-            <Box key={s.merchant} borderTop={i ? '1px solid' : 'none'} borderColor="border" py={i ? '9px' : '10px'}>
+            <Card
+              key={s.merchant}
+              flex={grow ? '1' : undefined}
+              display="flex"
+              flexDirection="column"
+              justifyContent="center"
+              px="14px"
+              py="10px"
+              border={first ? '1.5px solid' : '1px solid'}
+              borderColor={first ? 'brand' : 'border'}
+            >
               <Link
                 href={s.link ? affiliateUrl(s.link, 'price_list') : undefined}
                 isExternal
                 onClick={() => track('Clicked Price List Shop', { merchant: s.merchant, rank: i + 1 })}
                 role="group"
                 display="grid"
-                gridTemplateColumns="34px 1fr auto 16px"
+                gridTemplateColumns={`${sz.logo}px 1fr auto 16px`}
                 columnGap="10px"
-                rowGap="3px"
+                rowGap="4px"
                 alignItems="center"
                 _hover={{ textDecoration: 'none' }}
               >
-                <ShopLogo shop={s} />
-                <Text fontSize={i ? '14px' : '16px'} fontWeight={i ? 600 : 700} color="text" noOfLines={1}>
+                <ShopLogo shop={s} size={sz.logo} />
+                <Text fontSize={`${first ? sz.name + 1 : sz.name}px`} fontWeight={first ? 700 : 600} color="text" noOfLines={1}>
                   {s.merchant}
                 </Text>
-                <Text fontFamily="mono" fontSize={i ? '14px' : '22px'} fontWeight={700} color="text" textAlign="right">
+                <Text fontFamily="mono" fontSize={`${first ? sz.top : sz.price}px`} fontWeight={700} color="text" textAlign="right">
                   {fmt(s.price)}
                 </Text>
                 <Box gridColumn="4" gridRow="1 / span 3" color="text3" _groupHover={{ color: 'brand' }} aria-hidden>
                   <I.chevRight size={16} />
                 </Box>
                 <Flex gridColumn="2 / 4" align="center" gap="8px" minW={0}>
-                  <Box flex="1" h="4px" bg="surface3" borderRadius="2px" overflow="hidden" minW="30px">
+                  <Box flex="1" h={`${sz.bar}px`} bg="surface3" borderRadius="3px" overflow="hidden" minW="30px">
                     <Box
                       h="100%"
                       w={diff ? `${Math.max(6, (diff / span) * 100)}%` : '100%'}
                       bg={diff ? 'borderStrong' : 'brand'}
-                      borderRadius="2px"
+                      borderRadius="3px"
                     />
                   </Box>
-                  <Text fontFamily="mono" fontSize="11px" fontWeight={600} color={diff ? 'text3' : 'brand'} flex="0 0 auto">
-                    {diff ? `+${fmt(diff)}` : i === 0 ? 'Cheapest' : 'Same price'}
+                  <Text fontFamily="mono" fontSize={`${sz.small}px`} fontWeight={600} color={diff ? 'text3' : 'brand'} flex="0 0 auto">
+                    {diff ? `+${fmt(diff)}` : first ? 'Cheapest' : 'Same price'}
                   </Text>
                 </Flex>
                 {s.delivery && (
-                  <Text gridColumn="2 / 4" fontSize="11px" color="text3" noOfLines={1}>
+                  <Text gridColumn="2 / 4" fontSize={`${sz.small}px`} color="text3" noOfLines={1}>
                     {shortDelivery(s.delivery)}
                   </Text>
                 )}
@@ -147,24 +195,25 @@ export default function PriceList({ shops, onPickGiftCard }) {
                     track('Clicked Price List Gift Card', { merchant: s.merchant, saving: gc });
                     onPickGiftCard(s.voucherRoute);
                   }}
-                  ml="44px"
-                  mt="5px"
-                  fontSize="11px"
+                  alignSelf="flex-start"
+                  ml={`${sz.logo + 10}px`}
+                  mt="6px"
+                  fontSize={`${sz.small}px`}
                   fontWeight={600}
                   color="amber"
                   bg="amberSoft"
                   borderRadius="pill"
-                  px="8px"
-                  py="2px"
+                  px="9px"
+                  py="3px"
                   _focusVisible={{ boxShadow: 'ring', outline: 'none' }}
                 >
                   −{fmt(gc)} with {s.voucher.offline_only ? 'in-store ' : ''}Gift Voucher ›
                 </Box>
               )}
-            </Box>
+            </Card>
           );
         })}
-      </Card>
+      </Flex>
 
       {hidden > 0 && (
         <Button variant="ghost" size="sm" color="text2" fontWeight={500} onClick={() => setShowAll(true)}>
