@@ -44,6 +44,11 @@ class Settings(BaseSettings):
     # AJIO pages take ~70s to render (2026-10-26); callers with a tighter
     # budget (Flipkart search, price re-check) cap the wait themselves.
     CONTEXT_DEV_TIMEOUT: int = 90
+    # Context.dev hands back its own saved copy of a page up to 3 days old
+    # unless told otherwise (seen 2026-10-26: AJIO "hit", 7 min old, 2s vs
+    # 40s fresh). Prices move faster than that; an hour keeps repeat reads
+    # quick without showing a stale price. Same 1 credit either way.
+    CONTEXT_DEV_MAX_AGE_MS: int = 3_600_000
 
     # Re-read the recommended store's page for today's price after routes
     # are built (Context.dev/Crawlbase for blocked stores). Adds a few seconds.

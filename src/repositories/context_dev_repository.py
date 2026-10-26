@@ -46,7 +46,8 @@ def fetch_rendered_html(url: str) -> str | None:
             resp = client.post(
                 CONTEXT_DEV_SCRAPE_URL,
                 headers={"Authorization": f"Bearer {settings.CONTEXT_DEV_API_KEY}"},
-                json={"url": url, "formats": {"html": True}},
+                json={"url": url, "formats": {"html": True},
+                      "maxAgeMs": settings.CONTEXT_DEV_MAX_AGE_MS},
             )
         if resp.status_code == 429:
             # Free plan: one read at a time per account. Waiting would hold
