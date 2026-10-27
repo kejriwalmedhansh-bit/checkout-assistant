@@ -3,6 +3,7 @@ import { Box, Flex, Image, Link, Text } from '@chakra-ui/react';
 import Card from '@/components/common/Card';
 import { I } from '@/components/common/icons';
 import { PRIVATE_TEXT_ATTR } from '@/utils/analytics';
+import { tidyTitle } from '@/utils/format';
 
 /**
  * Product identity — a small thumbnail + name row (shrunk from an earlier
@@ -72,7 +73,7 @@ export default function ProductIdentity({ name, sourceUrl, thumbnail }) {
             to the search text when the store gave no title. Blanked out of
             session replays either way. */}
         <Box as="span" {...{ [PRIVATE_TEXT_ATTR]: true }}>
-          {name}
+          {tidyTitle(name)}
         </Box>
       </Text>
     </Flex>
