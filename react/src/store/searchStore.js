@@ -164,7 +164,7 @@ export const useSearchStore = create(
       // variant server-side, rather than trusting just this one listing.
       selectProduct: async (token, title = '', price = null, source = '', thumbnail = null) => {
         if (!token) return;
-        set({ selectedToken: token, selectedThumbnail: thumbnail, result: null, cardOffers: [], status: 'loading', error: null });
+        set({ selectedToken: token, selectedThumbnail: thumbnail, selectedTitle: title, selectedPrice: price, result: null, cardOffers: [], status: 'loading', error: null });
         track('Selected Product', { query: get().query, title, source });
         try {
           const result = await searchApi.routes(token, get().query, title, price, source);

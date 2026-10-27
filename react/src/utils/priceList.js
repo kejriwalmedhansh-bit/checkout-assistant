@@ -19,7 +19,7 @@ const isHyperlocal = (merchant) => HYPERLOCAL.some((m) => (merchant || '').toLow
 
 /** One row per shop, cheapest first; each row carries a route object shaped
  * like search_service.rank_routes' so it can open the normal voucher view. */
-export function buildPriceList(result, cardOffers = []) {
+export function buildPriceList(result, cardOffers = [], { prime = false } = {}) {
   const vouchers = new Map((result?.vouchers || []).map((v) => [v.merchant.toLowerCase(), v]));
   const cards = new Map((cardOffers || []).filter((c) => c.offers?.length).map((c) => [c.store.toLowerCase(), c.offers]));
   const byShop = new Map();
@@ -45,7 +45,7 @@ export function buildPriceList(result, cardOffers = []) {
       voucher: v,
       // This shop's bank card offers, best first: read off Flipkart's page,
       // or this week's Amazon bank offers worked out for this price.
-      cardOffers: cards.get(key) || (key.includes('amazon') ? amazonCardOffers(r.price, r.title) : []),
+      cardOffers: cards.get(key) || (key.includes('amazon') ? amazonCardOffers(r.price, r.title, undefined, prime) : []),
       voucherRoute: v
         ? {
             ...base,
@@ -64,14 +64,14 @@ export function buildPriceList(result, cardOffers = []) {
 
 // The Amazon Pay ICICI card's own reward on Amazon, always on: 5% back for
 // Prime members, 3% otherwise, as Amazon Pay balance (owner: cashback
-// counts). Dealo can't tell who has Prime, so it counts the 3% everyone gets.
-const AMAZON_PAY_ICICI = [{ bank: 'Amazon Pay ICICI', card: 'Credit Card', percent: 3, cashback: true }];
+// counts). The shopper says whether they have Prime when picking the card.
+const amazonPayIcici = (prime) => ({ bank: 'Amazon Pay ICICI', card: 'Credit Card', percent: prime ? 5 : 3, cashback: true });
 
 /** Amazon's bank offers cover whole categories (e.g. "10% off up to ₹1,250
  * with SBI Credit Card on orders above ₹10,000") rather than one product,
  * so they are kept in amazonBankOffers.json, checked weekly, and worked out
  * here for this item's price. Best first, same shape as Flipkart's. */
-export function amazonCardOffers(price, title = '', today = new Date().toISOString().slice(0, 10)) {
+export function amazonCardOffers(price, title = '', today = new Date().toISOString().slice(0, 10), prime = false) {
   const name = (title || '').toLowerCase();
   return (AMAZON_BANK_OFFERS.offers || [])
     .filter(
@@ -87,7 +87,7 @@ export function amazonCardOffers(price, title = '', today = new Date().toISOStri
       saving: Math.round(Math.min((price * o.percent) / 100, o.max_off || Infinity)),
       cashback: !!o.cashback,
     }))
-    .concat(AMAZON_PAY_ICICI.map((o) => ({ ...o, saving: Math.round((price * o.percent) / 100) })))
+        .concat([amazonPayIcici(prime)].map(({ percent, ...o }) => ({ ...o, saving: Math.round((price * percent) / 100) })))
     .sort((a, b) => b.saving - a.saving);
 }
 

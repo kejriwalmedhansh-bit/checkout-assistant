@@ -29,21 +29,45 @@ export const CARD_CHOICES = [
 ];
 
 export const MIN_REAL_OFFER_RS = 1000;
+
+// Owner's call 2026-10-27: ask while results load, only for things card
+// offers are about (phones, tablets, laptops, TVs, big appliances, cameras,
+// watches) costing over ₹20,000. Words matched against the product's title.
+export const ASK_ABOVE_RS = 20000;
+const CARD_CATEGORY_WORDS = [
+  'phone', 'iphone', 'galaxy', 'pixel', 'oneplus', 'redmi', 'poco', 'vivo', 'oppo', 'realme', 'iqoo', 'motorola', 'nothing phone',
+  'mobile', 'smartphone', '5g',
+  'ipad', 'tablet', 'galaxy tab',
+  'laptop', 'macbook', 'notebook', 'chromebook', 'thinkpad', 'vivobook', 'zenbook', 'ideapad', 'inspiron', 'pavilion', 'victus',
+  'tv', 'television', 'oled', 'qled',
+  'refrigerator', 'fridge', 'washing machine', 'air conditioner', ' ac ', 'split ac', 'window ac', 'dishwasher', 'microwave',
+  'camera', 'mirrorless', 'dslr', 'gopro',
+  'watch', 'smartwatch',
+  'playstation', 'ps5', 'xbox', 'nintendo',
+];
+export function shouldAskForCards(title, price) {
+  if (!price || price <= ASK_ABOVE_RS) return false;
+  const t = ` ${(title || '').toLowerCase()} `;
+  return CARD_CATEGORY_WORDS.some((w) => t.includes(w));
+}
 const STORE_CARD_NORMAL_PCT = 5.5;
 
-/** Saved answer: an array of choice ids ([] = "None"), or null if never asked. */
+/** Saved answer: { cards: [choice ids] ([] = "None"), prime: bool }, or
+ * null if never asked. `prime` only matters for Amazon Pay ICICI (5% back
+ * with Prime, 3% without). */
 export function loadMyCards() {
   try {
     const v = JSON.parse(window.localStorage.getItem(KEY));
-    return Array.isArray(v) ? v : null;
+    if (Array.isArray(v)) return { cards: v, prime: false };
+    return v && Array.isArray(v.cards) ? { cards: v.cards, prime: !!v.prime } : null;
   } catch {
     return null;
   }
 }
 
-export function saveMyCards(ids) {
+export function saveMyCards(answer) {
   try {
-    window.localStorage.setItem(KEY, JSON.stringify(ids));
+    window.localStorage.setItem(KEY, JSON.stringify(answer));
   } catch {
     // Private mode: the answer lasts for this visit only.
   }
@@ -88,9 +112,19 @@ export function bestRealOffer(shop) {
   return o && beatsVoucher(o, shop) ? o : null;
 }
 
-/** Ask only when a shop on the list has a real card offer that beats its
- * Gift Voucher. */
-export const worthAsking = (shops) => shops.some((s) => bestRealOffer(s));
+/** For a shopper without the card: the one card offer that would beat the
+ * cheapest deal on the page, or null. Shown only when that is true. */
+export function missingOut(shops, myCards, cheapest) {
+  let best = null;
+  for (const s of shops) {
+    for (const o of s.cardOffers || []) {
+      if (!isRealOffer(o, s.listPrice ?? s.price) || myCards?.includes(choiceFor(o.bank))) continue;
+      const pay = (s.listPrice ?? s.price) - o.saving;
+      if (pay < cheapest && (!best || pay < best.pay)) best = { shop: s, offer: o, pay };
+    }
+  }
+  return best;
+}
 
 /** Where to apply for the card in an offer. TODO: affiliate links once a
  * partner is picked; the bank's own page until then. */
@@ -109,3 +143,25 @@ const APPLY = {
   'Amazon Pay ICICI': 'https://www.icici.bank.in/personal-banking/cards/credit-card/amazon-pay-credit-card',
 };
 export const applyLink = (o) => APPLY[choiceFor(o.bank)] || null;
+
+/** Every shop at what this shopper pays: the cheaper of their best card
+ * offer and the shop's Gift Voucher (owner's call 2026-10-27: the top row is
+ * the cheapest way to pay, card or voucher). Cheapest first; quick-commerce
+ * apps still go last. Each row keeps `listPrice` and says which way won:
+ * `mine` (card offer) or `byVoucher`. */
+export function pricesFor(shops, myCards) {
+  return shops
+    .map((s) => {
+      const mine = myBestOffer(s, myCards);
+      const gv = giftVoucherSaving(s);
+      const saving = Math.max(mine?.saving || 0, gv);
+      return {
+        ...s,
+        listPrice: s.price,
+        mine: mine && mine.saving >= gv ? mine : null,
+        byVoucher: gv > 0 && gv > (mine?.saving || 0),
+        price: s.price - saving,
+      };
+    })
+    .sort((a, b) => a.hyperlocal - b.hyperlocal || a.price - b.price);
+}

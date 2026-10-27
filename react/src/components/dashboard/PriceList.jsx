@@ -3,11 +3,11 @@ import { Box, Button, Flex, Link, Text } from '@chakra-ui/react';
 
 import BrandAvatar from '@/components/common/BrandAvatar';
 import Card from '@/components/common/Card';
-import CardPicker from '@/components/dashboard/CardPicker';
 import { I } from '@/components/common/icons';
 import { track } from '@/utils/analytics';
 import { affiliateUrl, fmt } from '@/utils/format';
-import { applyLink, bestRealOffer, giftVoucherSaving, CARD_CHOICES, loadMyCards, myBestOffer, saveMyCards, worthAsking } from '@/utils/myCards';
+import useCardsStore from '@/store/cardsStore';
+import { CARD_CHOICES, giftVoucherSaving } from '@/utils/myCards';
 import { shopLogos, shortDelivery } from '@/utils/priceList';
 
 const ROWS_SHOWN = 4;
@@ -80,29 +80,14 @@ function ShopLogo({ shop, size }) {
  * reachable as a small tag on its own row, which opens the usual gift card
  * view via onPickGiftCard.
  */
-export default function PriceList({ shops: listed, onPickGiftCard, afterFirst = null }) {
+export default function PriceList({ shops, onPickGiftCard, afterFirst = null, missing = null }) {
   const [showAll, setShowAll] = useState(false);
-  // Banks the shopper has cards from: null until asked, [] for "None".
-  const [myCards, setMyCards] = useState(loadMyCards);
-  const [picking, setPicking] = useState(false);
-  const ask = picking || (myCards === null && worthAsking(listed));
-  // What this shopper pays: their card's offer comes off, and the order
-  // follows that (owner's call 2026-10-27, replacing the card-free order).
-  const shops = listed
-    .map((s) => {
-      const mine = myBestOffer(s, myCards);
-      return { ...s, listPrice: s.price, mine, price: s.price - (mine?.saving || 0) };
-    })
-    .sort((a, b) => a.hyperlocal - b.hyperlocal || a.price - b.price);
-  const topReal = listed.map(bestRealOffer).filter(Boolean).sort((a, b) => b.saving - a.saving)[0];
+  // Shops arrive already priced for this shopper (myCards.pricesFor): the
+  // cheaper of their card offer and the shop's Gift Voucher, cheapest first.
+  const answer = useCardsStore((st) => st.answer);
+  const editCards = useCardsStore((st) => st.edit);
+  const myCards = answer?.cards;
   const myLabel = (myCards || []).map((id) => CARD_CHOICES.find((c) => c.id === id)?.label).filter(Boolean).join(', ');
-  const pick = (ids) => {
-    saveMyCards(ids);
-    setMyCards(ids);
-    setPicking(false);
-    setShowAll(false);
-    track('Picked My Cards', { cards: ids.join(',') || 'none' });
-  };
   const best = shops[0];
   const priciest = shops.reduce((hi, s) => (s.price > hi.price ? s : hi), best);
   const span = priciest.price - best.price || 1;
@@ -151,21 +136,19 @@ export default function PriceList({ shops: listed, onPickGiftCard, afterFirst = 
             {note}
           </Text>
         )}
-        {myCards !== null && !ask && (
+        {answer && (
           <Text fontSize="12px" color="text2" mt="2px">
             {myCards.length ? `With your ${myLabel} card${myCards.length > 1 ? 's' : ''}` : 'No credit card offers added'} ·{' '}
-            <Box as="button" type="button" color="brand" fontWeight={600} onClick={() => setPicking(true)}>
+            <Box as="button" type="button" color="brand" fontWeight={600} onClick={editCards}>
               Change
             </Box>
           </Text>
         )}
       </Box>
-      {ask && <CardPicker initial={myCards || []} topSaving={topReal && fmt(topReal.saving)} onDone={pick} />}
       <Flex ref={stackRef} direction="column" gap="8px" minH={fillH ? `${fillH}px` : undefined}>
         {rows.map((s, i) => {
           const diff = s.price - best.price;
           const gc = giftVoucherSaving({ ...s, price: s.listPrice });
-          const other = !s.mine && myCards !== null && !ask ? bestRealOffer(s) : null;
           const first = i === 0;
           return (
             <Fragment key={s.merchant}>
@@ -221,8 +204,12 @@ export default function PriceList({ shops: listed, onPickGiftCard, afterFirst = 
                 )}
               </Link>
               {/* Owner's call 2026-10-26: a card offer replaces the Gift Voucher
-                  tag on that row; both at once was too much to take in. */}
+                  tag on that row; both at once was too much to take in. The
+                  big price already has the voucher taken off, so the shop's
+                  own price is shown beside the tag. */}
               {gc > 0 && !s.mine && (
+                <Flex align="center" gap="6px" ml={`${sz.logo + 10}px`} mt="6px" flexWrap="wrap">
+                <Text as="span" fontFamily="mono" fontSize={`${sz.small + 0.5}px`} color="text2">{fmt(s.listPrice)}</Text>
                 <Box
                   as="button"
                   type="button"
@@ -230,9 +217,6 @@ export default function PriceList({ shops: listed, onPickGiftCard, afterFirst = 
                     track('Clicked Price List Gift Card', { merchant: s.merchant, saving: gc });
                     onPickGiftCard(s.voucherRoute);
                   }}
-                  alignSelf="flex-start"
-                  ml={`${sz.logo + 10}px`}
-                  mt="6px"
                   fontSize={`${sz.small}px`}
                   fontWeight={600}
                   color="amber"
@@ -244,6 +228,7 @@ export default function PriceList({ shops: listed, onPickGiftCard, afterFirst = 
                 >
                   −{fmt(gc)} with {s.voucher.offline_only ? 'in-store ' : ''}Gift Voucher ›
                 </Box>
+                </Flex>
               )}
               {s.mine && (
                 <Text ml={`${sz.logo + 10}px`} mt="6px" fontSize={`${sz.small + 0.5}px`} color="text2">
@@ -253,27 +238,8 @@ export default function PriceList({ shops: listed, onPickGiftCard, afterFirst = 
                   </Text>
                 </Text>
               )}
-              {other && (
-                <Text ml={`${sz.logo + 10}px`} mt="6px" fontSize={`${sz.small}px`} color="text3">
-                  {fmt(other.saving)} off with {other.bank} {other.card}
-                  {applyLink(other) && (
-                    <>
-                      {' · '}
-                      <Link
-                        href={applyLink(other)}
-                        isExternal
-                        color="text2"
-                        fontWeight={600}
-                        textDecoration="underline"
-                        onClick={() => track('Clicked Apply For Card', { merchant: s.merchant, bank: other.bank, saving: other.saving })}
-                      >
-                        Get this card
-                      </Link>
-                    </>
-                  )}
-                </Text>
-              )}
             </Card>
+            {first && missing}
             {first && afterFirst}
             </Fragment>
           );
