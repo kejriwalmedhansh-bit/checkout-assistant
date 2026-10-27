@@ -188,3 +188,12 @@ def test_typed_searches_name_the_product():
     assert match_tier(c, "Casio A550 Enticer Men (MTP-1314D-1AVDF) Analog Watch")[0] == "wrong"
     o = _typed_identity("oneplus nord buds 3 pro")
     assert match_tier(o, "in-Ear True Wireless Earbuds for OnePlus 3,3T,5,Nord,7 Pro")[0] == "wrong"
+
+
+def test_a_listing_that_names_no_product_type_is_not_another_type():
+    # Calcutta AI Club feedback, 2026-10-27: AJIO's ₹4,400 listing doesn't say
+    # "Sneakers", so it was thrown out and Dealo recommended ₹9,900.
+    page = "Adidas Originals Women Handball Spezial Sneakers"
+    assert tier(page, "adidas Women Originals Handball Spezial") == "exact"
+    assert tier(page, "adidas Originals Women's Handball Spezial Shoes") == "exact"
+    assert tier(page, "adidas Originals Handball Spezial Sandals") == "wrong"

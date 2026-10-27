@@ -3801,11 +3801,21 @@ def _discover_exact_offers(
     anchor = _priority_merchant_anchor(verified) or 0
     floor = max(0.4 * anchor, 0.25 * (picked_price or 0),
                 0.6 * info["typical_low"] if info["typical_low"] else 0)
+    # Fakes come from third-party sellers on Flipkart and Amazon. A store
+    # selling its own stock runs real 60%-off sales: AJIO's ₹4,400 for a
+    # ₹10,999 Handball Spezial fell under the ₹6,599 floor and Dealo sent the
+    # shopper to ₹9,900 (2026-10-27). Those stores only lose a listing more
+    # than 70% off.
+    store_floor = 0.3 * max(anchor, info["typical_low"] or 0, picked_price or 0)
+
+    def _floor_for(c: dict) -> float:
+        return floor if _is_marketplace_merchant(c["merchant"]) else min(floor, store_floor)
+
     if floor:
         for c in verified:
-            if c["price"] < floor:
-                logger.info("%s   skipped %s at %s (below the believable floor %.0f)", tag, c["merchant"], c["price"], floor)
-        verified = [c for c in verified if c["price"] >= floor]
+            if c["price"] < _floor_for(c):
+                logger.info("%s   skipped %s at %s (below the believable floor %.0f)", tag, c["merchant"], c["price"], _floor_for(c))
+        verified = [c for c in verified if c["price"] >= _floor_for(c)]
     if picked_price:
         for c in verified:
             if not _size_price_ok(identity, c["title"], c["price"], picked_price):
