@@ -204,3 +204,8 @@ def test_a_possessive_in_the_link_is_not_a_word():
     # page title "Nike Men": the lone "s" hid every listing (2026-10-27).
     url = "https://www.nykaafashion.com/nike-charcoal-men-s-downshifter-14-running-shoes/p/27579262"
     assert tier("Nike Men", "Nike Men's Downshifter 14 Running Shoes At Nykaa Fashion", url) == "exact"
+
+
+def test_road_running_is_not_a_sub_model():
+    # Flipkart's "Downshifter 14 Road Running Shoes" was skipped as sub-model "road".
+    assert tier("Nike Mens Downshifter 14 Sneakers (Black)", "NIKE Downshifter 14 Road Running Shoes For Men") == "exact"
