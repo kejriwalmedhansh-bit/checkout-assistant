@@ -95,7 +95,9 @@ def run_checklist() -> tuple[int, list[dict], dict]:
         for row in link["listings"]:
             checks += 1
             said = match_tier(ident, row["title"], row["shop"])[0]
-            right = said == row["answer"]
+            # "unconfirmed" is not shown while anything exact exists, so for a
+            # listing that should be hidden it is as good as "wrong".
+            right = said == row["answer"] or (said == "unconfirmed" and row["answer"] == "wrong")
             tally[link["set"]][kind][1] += 1
             if right:
                 tally[link["set"]][kind][0] += 1

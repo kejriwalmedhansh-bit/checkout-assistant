@@ -66,10 +66,18 @@
  {
   "product": "Vincent Chase polarized sunglasses (model not named on page)",
   "url": "https://www.amazon.in/VINCENT-CHASE-EYEWEAR-Sunglasses-Polarized/dp/B0DNR23FQ2",
+  "title": "Vincent Chase By Lenskart",
+  "shop": "Amazon",
+  "answer": "exact",
+  "dealo_says": "unconfirmed"
+ },
+ {
+  "product": "Vincent Chase polarized sunglasses (model not named on page)",
+  "url": "https://www.amazon.in/VINCENT-CHASE-EYEWEAR-Sunglasses-Polarized/dp/B0DNR23FQ2",
   "title": "Vincent Chase Urban Essentials Men Sunglasses Grey TR90 Square",
   "shop": "Lenskart",
   "answer": "similar",
-  "dealo_says": "wrong"
+  "dealo_says": "unconfirmed"
  },
  {
   "product": "Vincent Chase polarized sunglasses (model not named on page)",
@@ -77,7 +85,7 @@
   "title": "Vincent Chase The Metal Edit Men Sunglasses Grey Stainless Steel Geometric",
   "shop": "Lenskart",
   "answer": "similar",
-  "dealo_says": "wrong"
+  "dealo_says": "unconfirmed"
  },
  {
   "product": "Vincent Chase polarized sunglasses (model not named on page)",
@@ -85,7 +93,7 @@
   "title": "Vincent Chase Online SUMMER EDIT Women Sunglasses Grey Polycarbonate Square",
   "shop": "Lenskart",
   "answer": "similar",
-  "dealo_says": "wrong"
+  "dealo_says": "unconfirmed"
  },
  {
   "product": "Jockey 8008 boxer brief, pack of 4",
@@ -125,7 +133,7 @@
   "title": "Adidas Handball Spezial Low-Top Sneakers - US6",
   "shop": "Cettire",
   "answer": "exact",
-  "dealo_says": "wrong"
+  "dealo_says": "unconfirmed"
  },
  {
   "product": "Adidas Originals Women Handball Spezial Sneakers",
@@ -133,7 +141,7 @@
   "title": "Adidas Wmns Handball Spezial 'Core White Core Black', 21 - 28 Days / UK 9| Shop Now at Hustle Club — Formerly Hustle Culture",
   "shop": "Hustle Club",
   "answer": "exact",
-  "dealo_says": "wrong"
+  "dealo_says": "unconfirmed"
  },
  {
   "product": "Adidas Originals Women Handball Spezial Sneakers",
@@ -141,7 +149,7 @@
   "title": "Adidas Wmns Handball Spezial 'Core White Core Black', 21 - 28 Days / UK 9.5| Shop Now at Hustle Club — Formerly Hustle Culture",
   "shop": "Hustle Club",
   "answer": "exact",
-  "dealo_says": "wrong"
+  "dealo_says": "unconfirmed"
  },
  {
   "product": "Adidas Originals Women Handball Spezial Sneakers",
@@ -149,7 +157,7 @@
   "title": "Adidas Wmns Handball Spezial 'Core White Core Black', 21 - 28 Days / UK 8.5| Shop Now at Hustle Club — Formerly Hustle Culture",
   "shop": "Hustle Club",
   "answer": "exact",
-  "dealo_says": "wrong"
+  "dealo_says": "unconfirmed"
  },
  {
   "product": "Adidas Originals Women Handball Spezial Sneakers",
@@ -157,7 +165,7 @@
   "title": "Adidas Wmns Handball Spezial 'Core White Core Black', 21 - 28 Days / UK 8| Shop Now at Hustle Club — Formerly Hustle Culture",
   "shop": "Hustle Club",
   "answer": "exact",
-  "dealo_says": "wrong"
+  "dealo_says": "unconfirmed"
  },
  {
   "product": "Adidas Originals Women Handball Spezial Sneakers",
@@ -165,127 +173,7 @@
   "title": "adidas Handball Spezial sneakers",
   "shop": "farfetch.com",
   "answer": "exact",
-  "dealo_says": "wrong"
- },
- {
-  "product": "nike downshifter 14",
-  "url": "https://www.nykaafashion.com/nike-charcoal-men-s-downshifter-14-running-shoes/p/27579262",
-  "title": "Nike Downshifter 14 Men's Road Running Shoe",
-  "shop": "NIKE India",
-  "answer": "exact",
-  "dealo_says": "wrong"
- },
- {
-  "product": "nike downshifter 14",
-  "url": "https://www.nykaafashion.com/nike-charcoal-men-s-downshifter-14-running-shoes/p/27579262",
-  "title": "NIKE Men Downshifter 14 Running Shoes For Men (Off-White, 11)",
-  "shop": "AJIO.com",
-  "answer": "exact",
-  "dealo_says": "wrong"
- },
- {
-  "product": "nike downshifter 14",
-  "url": "https://www.nykaafashion.com/nike-charcoal-men-s-downshifter-14-running-shoes/p/27579262",
-  "title": "Nike Downshifter 14 Running Shoes For Men",
-  "shop": "Flipkart",
-  "answer": "exact",
-  "dealo_says": "wrong"
- },
- {
-  "product": "nike downshifter 14",
-  "url": "https://www.nykaafashion.com/nike-charcoal-men-s-downshifter-14-running-shoes/p/27579262",
-  "title": "NIKE Downshifter 14 Running Shoes For Men (Blue, 7)",
-  "shop": "AJIO.com",
-  "answer": "exact",
-  "dealo_says": "wrong"
- },
- {
-  "product": "nike downshifter 14",
-  "url": "https://www.nykaafashion.com/nike-charcoal-men-s-downshifter-14-running-shoes/p/27579262",
-  "title": "Nike Men's Downshifter 14 Grey Running Shoes",
-  "shop": "Tata CLiQ Fashion",
-  "answer": "exact",
-  "dealo_says": "wrong"
- },
- {
-  "product": "nike downshifter 14",
-  "url": "https://www.nykaafashion.com/nike-charcoal-men-s-downshifter-14-running-shoes/p/27579262",
-  "title": "Nike Men's Downshifter 14 Running Shoes (Charcoal) At NykaaMan, Products Handpicked for Men",
-  "shop": "Nykaa Man",
-  "answer": "exact",
-  "dealo_says": "wrong"
- },
- {
-  "product": "nike downshifter 14",
-  "url": "https://www.nykaafashion.com/nike-charcoal-men-s-downshifter-14-running-shoes/p/27579262",
-  "title": "NIKE Men Downshifter 14 Road Running Shoes For Men (White, 8)",
-  "shop": "AJIO.com",
-  "answer": "exact",
-  "dealo_says": "wrong"
- },
- {
-  "product": "nike downshifter 14",
-  "url": "https://www.nykaafashion.com/nike-charcoal-men-s-downshifter-14-running-shoes/p/27579262",
-  "title": "Nike Men's Downshifter 14 Blue Running",
-  "shop": "Tata CLiQ Fashion",
-  "answer": "exact",
-  "dealo_says": "wrong"
- },
- {
-  "product": "nike downshifter 14",
-  "url": "https://www.nykaafashion.com/nike-charcoal-men-s-downshifter-14-running-shoes/p/27579262",
-  "title": "Nike Men's Downshifter 14 Running Shoes (Beige) At NykaaMan, Products Handpicked for Men",
-  "shop": "Nykaa Man",
-  "answer": "exact",
-  "dealo_says": "wrong"
- },
- {
-  "product": "nike downshifter 14",
-  "url": "https://www.nykaafashion.com/nike-charcoal-men-s-downshifter-14-running-shoes/p/27579262",
-  "title": "Nike Men's Downshifter 14 Running Shoes At Nykaa Fashion - Your Online Shopping Store",
-  "shop": "Nykaa Fashion",
-  "answer": "exact",
-  "dealo_says": "wrong"
- },
- {
-  "product": "nike downshifter 14",
-  "url": "https://www.nykaafashion.com/nike-charcoal-men-s-downshifter-14-running-shoes/p/27579262",
-  "title": "Nike Men's Downshifter 14 Running Shoes (UK 10) (White) At NykaaMan, Products Handpicked for Men",
-  "shop": "Nykaa Man",
-  "answer": "exact",
-  "dealo_says": "wrong"
- },
- {
-  "product": "nike downshifter 14",
-  "url": "https://www.nykaafashion.com/nike-charcoal-men-s-downshifter-14-running-shoes/p/27579262",
-  "title": "Nike Mens Downshifter 14 Running Shoes - Blue At Nykaa Fashion - Your Online Shopping Store",
-  "shop": "Nykaa Fashion",
-  "answer": "exact",
-  "dealo_says": "wrong"
- },
- {
-  "product": "nike downshifter 14",
-  "url": "https://www.nykaafashion.com/nike-charcoal-men-s-downshifter-14-running-shoes/p/27579262",
-  "title": "Nike Men's Downshifter 14 Running Shoes (UK 6) (White) At NykaaMan, Products Handpicked for Men",
-  "shop": "Nykaa Man",
-  "answer": "exact",
-  "dealo_says": "wrong"
- },
- {
-  "product": "nike downshifter 14",
-  "url": "https://www.nykaafashion.com/nike-charcoal-men-s-downshifter-14-running-shoes/p/27579262",
-  "title": "Nike Downshifter 14 Road Running Shoe for Men White / 10",
-  "shop": "Warehouse",
-  "answer": "exact",
-  "dealo_says": "wrong"
- },
- {
-  "product": "nike downshifter 14",
-  "url": "https://www.nykaafashion.com/nike-charcoal-men-s-downshifter-14-running-shoes/p/27579262",
-  "title": "Nike Downshifter 14",
-  "shop": "limeroad.com",
-  "answer": "exact",
-  "dealo_says": "wrong"
+  "dealo_says": "unconfirmed"
  },
  {
   "product": "nike downshifter 14",
@@ -298,58 +186,10 @@
  {
   "product": "nike downshifter 14",
   "url": "https://www.nykaafashion.com/nike-charcoal-men-s-downshifter-14-running-shoes/p/27579262",
-  "title": "Nike Mens Downshifter 14 Running Shoes - Blue (UK 10) (Blue) At NykaaMan, Products Handpicked for Men",
-  "shop": "Nykaa Man",
-  "answer": "exact",
-  "dealo_says": "wrong"
- },
- {
-  "product": "nike downshifter 14",
-  "url": "https://www.nykaafashion.com/nike-charcoal-men-s-downshifter-14-running-shoes/p/27579262",
-  "title": "Nike Downshifter 14 Road Running Shoe for Men White / 7",
-  "shop": "Warehouse",
-  "answer": "exact",
-  "dealo_says": "wrong"
- },
- {
-  "product": "nike downshifter 14",
-  "url": "https://www.nykaafashion.com/nike-charcoal-men-s-downshifter-14-running-shoes/p/27579262",
-  "title": "Nike Mens Downshifter 14 Running Shoes - Grey (UK 9) (Grey) At NykaaMan, Products Handpicked for Men",
-  "shop": "Nykaa Man",
-  "answer": "exact",
-  "dealo_says": "wrong"
- },
- {
-  "product": "nike downshifter 14",
-  "url": "https://www.nykaafashion.com/nike-charcoal-men-s-downshifter-14-running-shoes/p/27579262",
-  "title": "Nike Downshifter 14 Realtree Men's Running Shoes",
-  "shop": "limeroad.com",
-  "answer": "exact",
-  "dealo_says": "wrong"
- },
- {
-  "product": "nike downshifter 14",
-  "url": "https://www.nykaafashion.com/nike-charcoal-men-s-downshifter-14-running-shoes/p/27579262",
-  "title": "Nike Mens Downshifter 14 Sneakers (US 13) (Black) At NykaaMan, Products Handpicked for Men",
-  "shop": "Nykaa Man",
-  "answer": "exact",
-  "dealo_says": "wrong"
- },
- {
-  "product": "nike downshifter 14",
-  "url": "https://www.nykaafashion.com/nike-charcoal-men-s-downshifter-14-running-shoes/p/27579262",
-  "title": "Nike Downshifter 14 Road Running Shoe for Men Black / 10",
-  "shop": "Warehouse",
-  "answer": "exact",
-  "dealo_says": "wrong"
- },
- {
-  "product": "nike downshifter 14",
-  "url": "https://www.nykaafashion.com/nike-charcoal-men-s-downshifter-14-running-shoes/p/27579262",
   "title": "Nike Men's Downs Hifter 14 Running Shoes White",
   "shop": "limeroad.com",
   "answer": "exact",
-  "dealo_says": "wrong"
+  "dealo_says": "unconfirmed"
  },
  {
   "product": "allen solly men polo t-shirt navy",
@@ -365,7 +205,7 @@
   "title": "Allen Solly Men Solid Polo Neck",
   "shop": "Amazon.in",
   "answer": "exact",
-  "dealo_says": "wrong"
+  "dealo_says": "unconfirmed"
  },
  {
   "product": "allen solly men polo t-shirt navy",
@@ -373,7 +213,7 @@
   "title": "Allen Solly Men Amazon - EPP Polo Tshirts",
   "shop": "desertcart.in",
   "answer": "exact",
-  "dealo_says": "wrong"
+  "dealo_says": "unconfirmed"
  },
  {
   "product": "allen solly men polo t-shirt navy",
@@ -381,7 +221,7 @@
   "title": "Allen Solly Men Amazon - EPP Polo Tshirts (pack of 1)",
   "shop": "desertcart.in",
   "answer": "exact",
-  "dealo_says": "wrong"
+  "dealo_says": "unconfirmed"
  },
  {
   "product": "allen solly men polo t-shirt navy",
@@ -389,7 +229,7 @@
   "title": "Allen Solly Men Amazon - EPP Polo Tshirts (pack of 1)",
   "shop": "desertcart.in",
   "answer": "exact",
-  "dealo_says": "wrong"
+  "dealo_says": "unconfirmed"
  },
  {
   "product": "allen solly men polo t-shirt navy",
@@ -397,7 +237,7 @@
   "title": "Allen Solly Mens Solid Polo TShirt | Regular Fit | Premium Cotton | Contrast Tipping Collar | Smart Casual Wear",
   "shop": "desertcart.co.za",
   "answer": "exact",
-  "dealo_says": "wrong"
+  "dealo_says": "unconfirmed"
  },
  {
   "product": "allen solly men polo t-shirt navy",
@@ -405,7 +245,7 @@
   "title": "Allen Solly Mens Solid Polo TShirt | Regular Fit | Premium Cotton | Contrast Tipping Collar | Smart Casual Wear",
   "shop": "desertcart.co.za",
   "answer": "exact",
-  "dealo_says": "wrong"
+  "dealo_says": "unconfirmed"
  },
  {
   "product": "allen solly men polo t-shirt navy",
@@ -413,7 +253,7 @@
   "title": "Allen Solly Men's Polo Tshirts",
   "shop": "desertcart.in",
   "answer": "exact",
-  "dealo_says": "wrong"
+  "dealo_says": "unconfirmed"
  },
  {
   "product": "biba women anarkali kurta set",
@@ -421,7 +261,7 @@
   "title": "Biba Women Pink Cotton Anarkali Kurta With Churidar & Dupatta At Nykaa Fashion",
   "shop": "Tata CLiQ Fashion",
   "answer": "exact",
-  "dealo_says": "wrong"
+  "dealo_says": "unconfirmed"
  },
  {
   "product": "biba women anarkali kurta set",
@@ -429,7 +269,7 @@
   "title": "Biba Blue & White Cotton Printed Anarkali Kurta With Pants",
   "shop": "Tata CLiQ Fashion",
   "answer": "exact",
-  "dealo_says": "wrong"
+  "dealo_says": "unconfirmed"
  },
  {
   "product": "biba women anarkali kurta set",
@@ -437,7 +277,7 @@
   "title": "Biba Women Yarndyed Embellished Anarkali Kurta with Palazzos & Dupatta For Women (Brown, 42)",
   "shop": "",
   "answer": "exact",
-  "dealo_says": "wrong"
+  "dealo_says": "unconfirmed"
  },
  {
   "product": "biba women anarkali kurta set",
@@ -445,7 +285,7 @@
   "title": "BIBA Floral Round Neck Cotton Women Anarkali Kurta with Churidar and Dupatta",
   "shop": "",
   "answer": "exact",
-  "dealo_says": "wrong"
+  "dealo_says": "unconfirmed"
  },
  {
   "product": "biba women anarkali kurta set",
@@ -453,7 +293,7 @@
   "title": "Biba Women Cotton Printed Anarkali Casual Kurta With Inner and Palazzos",
   "shop": "Amazon.in",
   "answer": "exact",
-  "dealo_says": "wrong"
+  "dealo_says": "unconfirmed"
  },
  {
   "product": "biba women anarkali kurta set",
@@ -461,7 +301,7 @@
   "title": "Biba Women Pink Cotton Anarkali Kurta with Pant & Dupatta At Nykaa Fashion",
   "shop": "Biba.in",
   "answer": "exact",
-  "dealo_says": "wrong"
+  "dealo_says": "unconfirmed"
  },
  {
   "product": "boat rockerz 550 headphones",
@@ -597,7 +437,7 @@
   "title": "Crocs Men Black Clogs",
   "shop": "Crocs.in",
   "answer": "exact",
-  "dealo_says": "wrong"
+  "dealo_says": "unconfirmed"
  },
  {
   "product": "crocs classic clog unisex black",
@@ -613,7 +453,7 @@
   "title": "Crocs Classic Men",
   "shop": "Boutique Retailer",
   "answer": "exact",
-  "dealo_says": "wrong"
+  "dealo_says": "unconfirmed"
  },
  {
   "product": "crocs classic clog unisex black",
@@ -621,7 +461,7 @@
   "title": "Crocs Unisex Batman Batmobile Classic Clg",
   "shop": "Crocs.in",
   "answer": "exact",
-  "dealo_says": "wrong"
+  "dealo_says": "unconfirmed"
  },
  {
   "product": "crocs classic clog unisex black",
@@ -653,7 +493,7 @@
   "title": "Crocs Classic Unisex",
   "shop": "Metro Shoes",
   "answer": "exact",
-  "dealo_says": "wrong"
+  "dealo_says": "unconfirmed"
  },
  {
   "product": "crocs classic clog unisex black",
@@ -661,7 +501,7 @@
   "title": "Crocs Classic-Black",
   "shop": "delcoshoes.com",
   "answer": "exact",
-  "dealo_says": "wrong"
+  "dealo_says": "unconfirmed"
  },
  {
   "product": "crocs classic clog unisex black",
@@ -669,7 +509,7 @@
   "title": "Crocs Classic Camouflage Croc",
   "shop": "Crocs.in",
   "answer": "exact",
-  "dealo_says": "wrong"
+  "dealo_says": "unconfirmed"
  },
  {
   "product": "crocs classic clog unisex black",
@@ -677,7 +517,7 @@
   "title": "Crocs Croslite Solid Unisex Casual Wear Clogs",
   "shop": "Myntra",
   "answer": "exact",
-  "dealo_says": "wrong"
+  "dealo_says": "unconfirmed"
  },
  {
   "product": "dot & key vitamin c sunscreen spf 50",
@@ -685,7 +525,7 @@
   "title": "Dot & Key विटामिन C+E सुपर ब्राइट सनस्क्रीन Spf 50 Pa+++ - 50g और डॉट और की विटामिन C + E सुपर ब्राइट जेल फेस वॉश | सामान्य त्वचा के लिए | त्वचा",
   "shop": "amazon.in",
   "answer": "similar",
-  "dealo_says": "wrong"
+  "dealo_says": "unconfirmed"
  },
  {
   "product": "dot & key vitamin c sunscreen spf 50",
@@ -701,7 +541,7 @@
   "title": "Dot & Key विटामिन C + E सुपर ब्राइट सनस्क्रीन इन-वीवो टेस्ट SPF 50+ PA++++ नए एज UV फिल्टर के साथ, वाटर-लाइट फ्लूइड, ग्लो को बढ़ाता है, सुस्तता और",
   "shop": "amazon.in",
   "answer": "exact",
-  "dealo_says": "wrong"
+  "dealo_says": "unconfirmed"
  },
  {
   "product": "dot & key vitamin c sunscreen spf 50",
@@ -717,7 +557,7 @@
   "title": "DOT & KEY सेरामाइड्स और हयालूरोनिक स्किन बैरियर रिपेयर + ड्राई स्किन-100G और विटामिन C+E सुपर ब्राइट सनस्क्रीन Spf 50 Pa+++ - 50G | पुरुषों और महिलाओं",
   "shop": "amazon.in",
   "answer": "similar",
-  "dealo_says": "wrong"
+  "dealo_says": "unconfirmed"
  },
  {
   "product": "dot & key vitamin c sunscreen spf 50",
@@ -749,7 +589,7 @@
   "title": "Dot & Key Ultimate C+E Sun Protection Combo of 2(Skin Care Kit)",
   "shop": "Purplle.com - Beauty Online",
   "answer": "similar",
-  "dealo_says": "wrong"
+  "dealo_says": "unconfirmed"
  },
  {
   "product": "dot & key vitamin c sunscreen spf 50",
@@ -901,7 +741,7 @@
   "title": "Lakme 9 To 5PowerplayPriming Matte LipstickBurgundy Passion 3.6 gm(Lipstick)",
   "shop": "Purplle.com - Beauty Online",
   "answer": "exact",
-  "dealo_says": "wrong"
+  "dealo_says": "unconfirmed"
  },
  {
   "product": "lakme 9 to 5 primer matte lipstick",
@@ -957,7 +797,7 @@
   "title": "Lakme Primer + Matte Lipstick (Maroon Mix MP5)",
   "shop": "blinkit.com",
   "answer": "exact",
-  "dealo_says": "wrong"
+  "dealo_says": "unconfirmed"
  },
  {
   "product": "lakme 9 to 5 primer matte lipstick",
@@ -965,7 +805,7 @@
   "title": "Lakme9to5 Powerplay Priming Matte Lipstick, Lasts 16hrs,Red Velvet, 3.6 gm(Lipstick)",
   "shop": "Purplle.com - Purplle Beauty",
   "answer": "exact",
-  "dealo_says": "wrong"
+  "dealo_says": "unconfirmed"
  },
  {
   "product": "lakme 9 to 5 primer matte lipstick",
@@ -1149,7 +989,7 @@
   "title": "Noise Water-Resistant Smart Watch-Pro 5 (Black)",
   "shop": "AJIO.com",
   "answer": "exact",
-  "dealo_says": "wrong"
+  "dealo_says": "unconfirmed"
  },
  {
   "product": "noise colorfit pro 5 smartwatch",
@@ -1157,7 +997,7 @@
   "title": "Noise Pro 5 1.85 AMOLED Always-on Display, DIY Watch face, SoS Technology, BT Calling Smartwatch",
   "shop": "Shopy Vision",
   "answer": "exact",
-  "dealo_says": "wrong"
+  "dealo_says": "unconfirmed"
  },
  {
   "product": "noise colorfit pro 5 smartwatch",
@@ -1181,7 +1021,7 @@
   "title": "Noise Pro 5 Smart Watch with 1.85\" AMOLED Display, BT Calling, New DIY Watch Faces, Ultra Personalization with Smart Dock, Productivity Suite, 100 Spo",
   "shop": "desertcart.in",
   "answer": "exact",
-  "dealo_says": "wrong"
+  "dealo_says": "unconfirmed"
  },
  {
   "product": "noise colorfit pro 5 smartwatch",
@@ -1197,7 +1037,7 @@
   "title": "Noise Pro 5 Smart Watch with 1.85\" AMOLED Display, BT Calling, New DIY Watch Faces, Ultra Personalization with Smart Dock, Productivity Suite, 100",
   "shop": "OpenBoxWale.in",
   "answer": "exact",
-  "dealo_says": "wrong"
+  "dealo_says": "unconfirmed"
  },
  {
   "product": "nykaa cosmetics matte to last liquid lipstick",
@@ -1205,7 +1045,7 @@
   "title": "Nykaa Matte to Last ! Liquid Lipstick - Jhumki 14",
   "shop": "",
   "answer": "exact",
-  "dealo_says": "wrong"
+  "dealo_says": "unconfirmed"
  },
  {
   "product": "nykaa cosmetics matte to last liquid lipstick",
@@ -1213,7 +1053,7 @@
   "title": "Nykaa Matte To Last Liquid Lipstick - Rukmini",
   "shop": "",
   "answer": "exact",
-  "dealo_says": "wrong"
+  "dealo_says": "unconfirmed"
  },
  {
   "product": "nykaa cosmetics matte to last liquid lipstick",
@@ -1221,7 +1061,7 @@
   "title": "Nykaa Matte To Last Liquid Lipstick - Madras Kaapi",
   "shop": "",
   "answer": "exact",
-  "dealo_says": "wrong"
+  "dealo_says": "unconfirmed"
  },
  {
   "product": "nykaa cosmetics matte to last liquid lipstick",
@@ -1229,7 +1069,7 @@
   "title": "Nykaa Matte to Last Liquid Lipstick, Matte Finish",
   "shop": "mukhi singh",
   "answer": "exact",
-  "dealo_says": "wrong"
+  "dealo_says": "unconfirmed"
  },
  {
   "product": "nykaa cosmetics matte to last liquid lipstick",
@@ -1277,7 +1117,7 @@
   "title": "Plum GREEN TEA Skin combo ( 200ml + 50gm )",
   "shop": "arcnord",
   "answer": "similar",
-  "dealo_says": "wrong"
+  "dealo_says": "unconfirmed"
  },
  {
   "product": "plum green tea toner 200ml",
@@ -1285,7 +1125,7 @@
   "title": "Plum Green Tea All-Day Hydration Set",
   "shop": "Nykaa",
   "answer": "similar",
-  "dealo_says": "wrong"
+  "dealo_says": "unconfirmed"
  },
  {
   "product": "plum green tea toner 200ml",
@@ -1293,7 +1133,7 @@
   "title": "Plum Green Tea Glow Pack Gift Set",
   "shop": "Zepto",
   "answer": "similar",
-  "dealo_says": "wrong"
+  "dealo_says": "unconfirmed"
  },
  {
   "product": "plum green tea toner 200ml",
@@ -1317,7 +1157,7 @@
   "title": "Plum Set of Toner & Face Moisturiser (Pack) by Myntra",
   "shop": "Myntra",
   "answer": "similar",
-  "dealo_says": "wrong"
+  "dealo_says": "unconfirmed"
  },
  {
   "product": "plum green tea toner 200ml",
@@ -1325,7 +1165,7 @@
   "title": "Plum Green Tea Goodbye Acne Combo At Nykaa, Best Beauty Products Online At NYKAA, Best Skin Care Products Online",
   "shop": "Nykaa",
   "answer": "similar",
-  "dealo_says": "wrong"
+  "dealo_says": "unconfirmed"
  },
  {
   "product": "plum green tea toner 200ml",
@@ -1341,7 +1181,7 @@
   "title": "Plum Green Tea Daily C-T-M Kit",
   "shop": "Tira",
   "answer": "similar",
-  "dealo_says": "wrong"
+  "dealo_says": "unconfirmed"
  },
  {
   "product": "plum green tea toner 200ml",
@@ -1357,7 +1197,7 @@
   "title": "Plum Set of 3 Green Tea Daily C-T-M Kit For Women (Multi, FreeSize)",
   "shop": "AJIO.com",
   "answer": "similar",
-  "dealo_says": "wrong"
+  "dealo_says": "unconfirmed"
  },
  {
   "product": "plum green tea toner 200ml",
@@ -1373,7 +1213,7 @@
   "title": "Plum Green Tea Ctm Essential Kit",
   "shop": "Nykaa Man",
   "answer": "similar",
-  "dealo_says": "wrong"
+  "dealo_says": "unconfirmed"
  },
  {
   "product": "realme buds t310 earbuds",

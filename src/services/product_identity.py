@@ -364,7 +364,8 @@ def build_identity(title: str, url: str | None = None) -> dict:
     return {
         "title": title, "brand": brand, "codes": codes, "alt_codes": alt_codes, "soft_codes": soft,
         "code_context": code_context,
-        "name": required, "all_name": name, "types": [w for w, k in ordered if k == "type"],
+        "name": required, "all_name": name, "slug_name": slug_name,
+        "types": [w for w, k in ordered if k == "type"],
         "modifiers": [w for w, k in ordered if k == "mod"], "variants": _variants_with_slug(title, slug),
         "audience": _audience(title), "ordered": ordered,
     }
@@ -479,15 +480,132 @@ def _combo_head(ident: dict, title: str) -> str | None:
     return None
 
 
+def _code_shape(code: str) -> str:
+    """LLDDDD for BT3221: the pattern of letters and digits. Sibling models
+    share it (MG3721); sizes, wattages and catalogue numbers don't."""
+    return re.sub(r"[a-z]", "L", re.sub(r"\d", "D", _compact(_strip_region(code))))
+
+
+def _listing_codes(title: str) -> list[str]:
+    """Model codes anywhere in a listing's title (shops often bracket them:
+    "Enticer Men (MTP-1314D-1AVDF)"). Specs come off first, so "Wash-150 ml"
+    and "1.2-Litre" aren't codes, and a bare one- or two-digit number is a
+    size, never a model."""
+    s = _norm(clean_title(title))
+    s = re.sub(r"(?<=[a-z])-(?=\d+(?:\.\d+)?(?:\s*" + _UNIT + r")?(?![a-z0-9\-]))", " ", s)
+    s = re.sub(r"(?<=\d)-(?=" + _UNIT + r"(?![a-z0-9]))", " ", s)
+    s = _SPEC_RE.sub(" ", s)
+    return [_strip_region(t) for t in _tokens(s) if _is_code(t) and not re.fullmatch(r"\d{1,2}", t)]
+
+
+def _conflicting_code(code: str, ident: dict, n: str, listing_codes: list[str]) -> str | None:
+    """A code in the listing that sits where `code` would and differs: the
+    number after the model name (Rockerz 430 for 450, Airdopes 111v2 for
+    141), or a code of the same shape (MG3721 for BT3221). None when the
+    listing simply doesn't say, which is not evidence of anything."""
+    if re.fullmatch(r"\d+(?:\.\d+)?", code) and ident.get("code_context"):
+        m = re.search(re.escape(ident["code_context"]) + r"\w*(?:\W+\w+){0,2}?\W+(\d+(?:\.\d+)?[a-z0-9]*)", n)
+        if m:
+            got = re.match(r"\d+(?:\.\d+)?", m.group(1)).group(0)
+            if float(got) != float(code):
+                return m.group(1)
+        return None
+    shape, own = _code_shape(code), _compact(_strip_region(code))
+    for lc in listing_codes:
+        # Compared over the reference code's own length, so a longer
+        # colourway code (A168WA-1WDF) still conflicts with A158WA.
+        got = _compact(_strip_region(lc))[:len(own)]
+        if _code_shape(got) == shape and got != own:
+            return lc
+    return None
+
+
+def variants_agree(ident: dict, title: str) -> bool:
+    """False when the listing states a size, pack, storage, generation,
+    strength or material that differs from the reference's. Sizes within 7%
+    count as the same (a brand's repackaging, 125 ml -> 118 ml)."""
+    cv, iv = _variants(title), ident["variants"]
+    for k in ("generation", "strength", "material"):
+        if k in cv and k in iv and cv[k] != iv[k]:
+            return False
+    if cv.get("pack", 1) != iv.get("pack", 1):
+        return False
+    for k in ("storage", "ram", "volume", "weight", "mah"):
+        if k in cv and k in iv and cv[k] != iv[k]:
+            if k in ("volume", "weight") and abs(cv[k] - iv[k]) <= 0.07 * max(cv[k], iv[k]):
+                continue
+            return False
+    return True
+
+
+_LOW_WEIGHT = 0.2    # a core word most of Google's own listings leave out
+_JUNK_WEIGHT = 0.05  # a slug-only word almost no listing has: not a product word
+_MIN_CORPUS = 8      # fewer titles than this say nothing about a word
+
+
+def weigh_identity(ident: dict, corpus_titles: list[str], merchant_names=()) -> dict:
+    """The ID card weighed against the titles Google returned for it.
+
+    Drops a required name word only on structural grounds: it is a shop's
+    name ("Lenskart" in "Vincent Chase By Lenskart"), a one- or two-letter
+    scrap a link left behind ("s" from "men-s"), or a word that came only
+    from the link and almost no listing uses. A word from the page's own
+    title is never dropped for being rare: Google often returns mostly
+    siblings, so "Vac" in "Mini Vac 02" sits at 7%. Each word's share of the
+    titles is kept as `word_weight`; `match_tier` reads it to soften, never
+    to reject.
+    """
+    titles = [t for t in corpus_titles if t]
+    prepared = [(set(_words(t)) | set(_tokens(t)), _compact(t)) for t in titles]
+
+    def weight(w: str) -> float:
+        if not prepared:
+            return 1.0
+        return sum(1 for ws, c in prepared if _has_word(w, ws, c)) / len(prepared)
+
+    weights = {w: weight(w) for w in ident["name"]}
+    merchants = {_compact(re.sub(r"\.(?:com|in|co\.in)$", "", (m or "").lower())) for m in merchant_names}
+    merchants.discard("")
+    slug_only = set(ident.get("slug_name") or [])
+    enough = len(prepared) >= _MIN_CORPUS
+    kept = []
+    for w in ident["name"]:
+        if _compact(w) in merchants:
+            continue
+        if len(w) <= 2 and not any(ch.isdigit() for ch in w) and not (enough and weights[w] >= 0.5):
+            continue
+        if w in slug_only and enough and weights[w] < _JUNK_WEIGHT:
+            continue
+        kept.append(w)
+    if not kept and ident["name"] and not (ident["codes"] or ident["alt_codes"]):
+        kept = [max(ident["name"], key=lambda w: weights[w])]   # never leave nothing to match on
+    # A page that named only the brand ("Vincent Chase By Lenskart") tells
+    # nothing apart: every listing shares its words. Such a card confirms
+    # nothing, so everything stays unconfirmed and the shopper picks.
+    thin = bool(enough and not (ident["codes"] or ident["alt_codes"]) and not ident["types"]
+                and all(weights[w] >= 0.9 for w in kept))
+    return dict(ident, name=kept, word_weight=weights, corpus_size=len(prepared), thin=thin)
+
+
 def match_tier(ident: dict, title: str, source: str = "", _whole: bool = True) -> tuple[str, str]:
-    """('exact' | 'similar' | 'wrong', short reason)."""
+    """('exact' | 'similar' | 'unconfirmed' | 'wrong', short reason).
+
+    A listing is the product unless something says otherwise: a different
+    brand, a conflicting model code, another type, a sibling modifier, an
+    edition, an audience. Words the listing merely leaves out never make it
+    wrong; they make it 'unconfirmed', shown only when nothing is exact.
+    """
     if _whole and not _combo_head(ident, ident.get("title") or ""):
         head_part = _combo_head(ident, title)
         if head_part is not None:
             tier, why = match_tier(ident, head_part, source, _whole=False)
-            if tier == "wrong":
+            if tier != "exact":
+                # the split may have cut the product's own name in two
+                # ("Matte + Poreless"): judge the whole title before deciding
                 tier, why = match_tier(ident, title, source, _whole=False)
-            return ("similar", "bundle") if tier != "wrong" else (tier, why)
+            if tier in ("wrong", "unconfirmed"):
+                return tier, why
+            return "similar", "bundle"
     n = _norm(title)
     head = _norm(_HEAD_CUT_RE.split(clean_title(title), maxsplit=1)[0])
     words = set(_words(title)) | set(_tokens(title))
@@ -505,20 +623,41 @@ def match_tier(ident: dict, title: str, source: str = "", _whole: bool = True) -
     if brand and re.search(r"\b(?:for|compatible with|fits)\s+" + re.escape(brand), n) and not re.search(
             r"^\W*(?:\w+\W+){0,2}" + re.escape(brand), n):
         return "wrong", "made for the brand, not by it"
+    unconfirmed: list[str] = []
+    listing_codes = _listing_codes(title)
+    code_confirmed = False
     for code in ident["codes"]:
         pattern = _code_pattern(code)
         if re.fullmatch(r"\d+(?:\.\d+)?", code) and ident.get("code_context"):
             # a bare number only counts right after the model's name
             # ("Go Walk 7"), never as a size elsewhere ("(Black, 7)")
             pattern = re.escape(ident["code_context"]) + r"\w*(?:\W+\w+){0,2}?\W+" + pattern.removeprefix(r"(?<![a-z0-9])")
-        if not re.search(pattern, n):
-            return "wrong", f"model {code}"
+        if re.search(pattern, n):
+            code_confirmed = True
+            continue
+        other = _conflicting_code(code, ident, n, listing_codes)
+        if other:
+            return "wrong", f"model {other}, not {code}"
+        unconfirmed.append(f"model {code} not stated")
     for alts in ident["alt_codes"]:
-        if not any(re.search(_code_pattern(a), n) for a in alts):
-            return "wrong", f"model {'/'.join(sorted(alts))}"
+        if any(re.search(_code_pattern(a), n) for a in alts):
+            code_confirmed = True
+            continue
+        label = "/".join(sorted(alts))
+        other = next((o for a in alts for o in [_conflicting_code(a, ident, n, listing_codes)] if o), None)
+        if other:
+            return "wrong", f"model {other}, not {label}"
+        unconfirmed.append(f"model {label} not stated")
+    # Core name words. A listing with none of them (and no code) is about
+    # something else; one missing some is unconfirmed. A word most of
+    # Google's own listings leave out (`word_weight`) is weak evidence.
+    weights = ident.get("word_weight") or {}
     missing = [w for w in ident["name"] if not _has_word(w, words, compact)]
     if missing:
-        return "wrong", f"name {missing[0]}"
+        firm = [w for w in missing if weights.get(w, 1.0) >= _LOW_WEIGHT]
+        if len(missing) == len(ident["name"]) and not code_confirmed and firm:
+            return "wrong", f"name {firm[0]}"
+        unconfirmed.append(f"name {missing[0]} not stated")
     # Only a listing that names ANOTHER type is a different product. One that
     # names no type at all just has a shorter title: AJIO's "adidas Women
     # Originals Handball Spezial" at ₹4,400 was thrown out for a search
@@ -558,6 +697,12 @@ def match_tier(ident: dict, title: str, source: str = "", _whole: bool = True) -
     # "Detect Slim"), is never evidence of a different product: unseen
     # vocabulary must not throw a listing out (owner's rule, 2026-10-27).
     # Siblings are caught by their modifier (Pro, Plus, Max) or model code.
+    if unconfirmed:
+        # Nothing contradicts, but the model isn't stated. Size and pack are
+        # not judged here: `variants_agree` does that for whoever promotes it.
+        return "unconfirmed", unconfirmed[0]
+    if ident.get("thin"):
+        return "unconfirmed", "the page named only the brand"
     cv, iv = _variants(title), ident["variants"]
     if "generation" in cv and "generation" in iv and cv["generation"] != iv["generation"]:
         return "wrong", "generation"

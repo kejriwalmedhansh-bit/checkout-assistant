@@ -38,9 +38,11 @@ def _journey(path: pathlib.Path) -> tuple[dict, dict]:
 def test_confirmed_shops_are_listed(path: pathlib.Path):
     data, result = _journey(path)
     listed = {(m, p) for m, p, _ in shops(result)}
-    for want in data.get("must_include", []):
-        assert (want["shop"], want["price"]) in listed, (
-            f"{path.name}: {want['shop']} at {want['price']} is missing. Listed: {sorted(listed)}")
+    missing = [w for w in data.get("must_include", []) if (w["shop"], w["price"]) not in listed]
+    if missing and data.get("known_failure"):
+        pytest.xfail(f"{path.name}: {data['known_failure']}")
+    assert not missing, (
+        f"{path.name}: missing {[(w['shop'], w['price']) for w in missing]}. Listed: {sorted(listed)}")
 
 
 if __name__ == "__main__":

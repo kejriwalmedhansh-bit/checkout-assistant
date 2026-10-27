@@ -59,17 +59,21 @@ class Tape:
         self.calls: dict[str, object] = calls or {}
         self.lock = threading.Lock()
         self.missed: list[str] = []
+        self.soft_missed: list[str] = []
 
     def record(self, key: str, value):
         with self.lock:
             self.calls[key] = value
         return value
 
-    def play(self, key: str, default):
+    def play(self, key: str, default, soft: bool = False):
+        """`soft`: a store-list page or Flipkart search that never came back
+        within the budget at capture time isn't on the tape; replay treats
+        it as still too slow rather than as a hole in the recording."""
         with self.lock:
             if key in self.calls:
                 return self.calls[key]
-            self.missed.append(key)
+            (self.soft_missed if soft else self.missed).append(key)
         return default
 
 
@@ -101,10 +105,16 @@ def replaying(tape: Tape):
     from src.services import search_service
 
     def get(params: dict) -> dict:
-        return tape.play(_key("searchapi", params), {"error": "not on the tape"})
+        # Store lists that were too slow at capture, and the extra
+        # "<product> <store>" gap searches (their wording follows the ID
+        # card, which the matcher may phrase differently now), are soft.
+        q = (params.get("q") or "").lower()
+        soft = params.get("engine") == "google_product_offers" or any(
+            q.endswith(" " + m.lower()) for m in search_service._MARKETPLACES)
+        return tape.play(_key("searchapi", params), {"error": "not on the tape"}, soft)
 
     def fk(query: str) -> list[dict]:
-        return tape.play(_key("flipkart", query), [])
+        return tape.play(_key("flipkart", query), [], soft=True)
 
     def page(url: str):
         return tuple(tape.play(_key("page", url), [None, None, None, None, url]))
@@ -133,10 +143,20 @@ def run_case(text: str) -> dict:
 
 
 def shops(result: dict) -> list[tuple[str, float, float]]:
-    """(store, listed price, final cost) for the recommended route and alternatives."""
-    rt = (result.get("routes") or {}).get("routes") or {}
+    """(store, listed price, final cost) for the recommended route and
+    alternatives, then every other verified store at its listed price. The
+    routes show at most four stores, so a fifth shop at the same price lives
+    only in the verified list."""
+    out = result.get("routes") or {}
+    rt = out.get("routes") or {}
     rows = [rt.get("recommended")] + list(rt.get("alternatives") or [])
-    return [(r["merchant"], r["listed_price"], r["final_cost"]) for r in rows if r]
+    seen = [(r["merchant"], r["listed_price"], r["final_cost"]) for r in rows if r]
+    names = {m for m, _, _ in seen}
+    for r in out.get("results") or []:
+        if r.get("merchant") not in names and r.get("price") is not None:
+            seen.append((r["merchant"], r["price"], r["price"]))
+            names.add(r["merchant"])
+    return seen
 
 
 def capture(cases: list[str]) -> int:

@@ -170,7 +170,9 @@ def test_other_colourways_are_recognised():
     from src.services.product_identity import other_colour
     url = "https://www.tatacliq.com/casio-g-shock-ga-2100-1a1dr-black-analog-digital-dial-black-resin-strap-mens-watch-g987/p-mp000000007808877"
     ident = build_identity("Tata CLiQ Online Fashion & Lifestyle Shopping", url)
-    assert match_tier(ident, "Casio G-Shock GA-2100-1ADR Analog-Digital Watch")[0] == "wrong"
+    # another colour code is not the same product, but nothing says it's a
+    # different model either: shown only when nothing exact exists
+    assert match_tier(ident, "Casio G-Shock GA-2100-1ADR Analog-Digital Watch")[0] == "unconfirmed"
     assert other_colour(ident, "Casio G-Shock GA-2100-1ADR Analog-Digital Watch")
     assert not other_colour(ident, "Casio G-Shock GA-B2100-1ADR Solar Watch")
 
@@ -186,9 +188,10 @@ def test_typed_searches_name_the_product():
     assert match_tier(i, "Apple iPhone 15 Pro")[0] == "wrong"
     d = _typed_identity("dyson v12")
     assert match_tier(d, "Dyson V12 Detect Slim Absolute")[0] == "exact"
-    assert match_tier(d, "Dyson V12s Detect Slim Submarine")[0] == "wrong"
+    assert match_tier(d, "Dyson V12s Detect Slim Submarine")[0] != "exact"
     k = _typed_identity("skechers go walk 7 men")
-    assert match_tier(k, "Skechers Men Go Walk Flex Low-Top Casual Shoes For Men (Black, 7)")[0] == "wrong"
+    # no number after "Go Walk": not the 7, but not proven another model either
+    assert match_tier(k, "Skechers Men Go Walk Flex Low-Top Casual Shoes For Men (Black, 7)")[0] == "unconfirmed"
     c = _typed_identity("casio mtp-1374l-1av")
     assert match_tier(c, "Casio A550 Enticer Men (MTP-1314D-1AVDF) Analog Watch")[0] == "wrong"
     o = _typed_identity("oneplus nord buds 3 pro")

@@ -2941,17 +2941,20 @@ def _pasted_store_name(url: str) -> str:
 # At most this many "same product, different size/pack" listings are kept
 # aside for the picker to show under their own label.
 _MAX_SIMILAR = 3
+_MAX_UNCONFIRMED = 6     # a range to scan when nothing is exact; fits one screen
 
 # Fewer exact matches than this from the short ID search also runs the
 # pasted page's full title as a second search.
 _THIN_EXACT = 2
 
 
-def _tier_by_identity(products: list[dict], identity: dict, tag: str) -> tuple[list[dict], list[dict]]:
+def _tier_by_identity(products: list[dict], identity: dict, tag: str) -> tuple[list[dict], list[dict], list[dict]]:
     """Split filtered candidates by `product_identity.match_tier`: exact ones
-    stay in the picker, similar ones (other size/pack) go aside, wrong ones
-    (another model, sub-model or brand) are dropped. Order is kept."""
-    exact, similar = [], []
+    stay in the picker, similar ones (other size/pack) go aside, unconfirmed
+    ones (nothing contradicts, model not stated) are kept for when nothing is
+    exact, wrong ones (another model, sub-model or brand) are dropped. Order
+    is kept."""
+    exact, similar, unconfirmed = [], [], []
     identity_is_part = bool(_SPARE_PART_RE.search(identity["title"]) or _is_accessory(identity["title"]))
     for p in products:
         if not identity_is_part and _SPARE_PART_RE.search(p.get("title") or ""):
@@ -2964,9 +2967,13 @@ def _tier_by_identity(products: list[dict], identity: dict, tag: str) -> tuple[l
         elif tier == "similar":
             p["match_note"] = why
             similar.append(p)
+        elif tier == "unconfirmed":
+            p["match_note"] = why
+            unconfirmed.append(p)
+            logger.info("%s   unconfirmed (%s): %r", tag, why, p.get("title"))
         else:
             logger.info("%s   hidden (not the pasted product: %s): %r", tag, why, p.get("title"))
-    return exact, similar[:_MAX_SIMILAR]
+    return exact, similar[:_MAX_SIMILAR], unconfirmed
 
 
 def search_candidates(query: str, exact: bool = False, shops_only: bool = False) -> dict:
@@ -3173,13 +3180,18 @@ def search_candidates(query: str, exact: bool = False, shops_only: bool = False)
             effective_query, is_url, shopping_results, products, approximate, tag
         )
         if identity is not None:
+            # The ID card weighed against what Google returned: shop names and
+            # link scraps drop out of the required words, and a word most
+            # listings leave out counts for less (never for more).
+            identity = product_identity.weigh_identity(
+                identity, [r.get("title") or "" for r in shopping_results], _load_trusted_merchants())
             # Quick commerce is a last resort (user rule, 2026-09-25): whether
             # it delivers depends on the shopper's area.
             quick = [p for p in products if _is_hyperlocal(p.get("source") or "")
                      and product_identity.match_tier(identity, p.get("title") or "", p.get("source") or "")[0] == "exact"]
             products = [p for p in products if not _is_hyperlocal(p.get("source") or "")]
             pretier = list(products)
-            products, similar = _tier_by_identity(products, identity, tag)
+            products, similar, unconfirmed = _tier_by_identity(products, identity, tag)
             if typed_product and len(products) < _THIN_EXACT:
                 logger.info("%s only %d exact match(es) - reading page 2 of the search", tag, len(products))
                 raw2 = searchapi_repository.search_products(effective_query, page=2)
@@ -3188,10 +3200,11 @@ def search_candidates(query: str, exact: bool = False, shops_only: bool = False)
                     more, _ = _filter_and_group_candidates(more, effective_query, tag=tag)
                     more = [p for p in more if not _is_hyperlocal(p.get("source") or "")]
                     pretier += more
-                    more, similar2 = _tier_by_identity(more, identity, tag)
+                    more, similar2, unconfirmed2 = _tier_by_identity(more, identity, tag)
                     seen = {p.get("product_token") for p in products}
                     products += [p for p in more if p.get("product_token") not in seen]
                     similar = (similar + similar2)[:_MAX_SIMILAR]
+                    unconfirmed += unconfirmed2
             full_title = identity["title"]
             if len(products) < _THIN_EXACT and full_title and full_title != effective_query:
                 # The short ID search can surface mostly small sellers; the
@@ -3204,10 +3217,11 @@ def search_candidates(query: str, exact: bool = False, shops_only: bool = False)
                     more = [_product_candidate(p) for p in raw2.get("shopping_results", []) if p.get("product_token")]
                     more, _ = _filter_and_group_candidates(more, full_title, tag=tag)
                     more = [p for p in more if not _is_hyperlocal(p.get("source") or "")]
-                    more, similar2 = _tier_by_identity(more, identity, tag)
+                    more, similar2, unconfirmed2 = _tier_by_identity(more, identity, tag)
                     seen = {p.get("product_token") for p in products}
                     products += [p for p in more if p.get("product_token") not in seen]
                     similar = (similar + similar2)[:_MAX_SIMILAR]
+                    unconfirmed += unconfirmed2
             if live_candidate and live_candidate.get("price"):
                 # Same name at under half the pasted page's price is almost
                 # always a smaller size, a single from a multi-pack, or a
@@ -3232,6 +3246,19 @@ def search_candidates(query: str, exact: bool = False, shops_only: bool = False)
                         p["match_tier"], p["match_note"] = "colour", "other colour"
                     products = colours
                     out["other_colours"] = True
+            if not products and not live_candidate and unconfirmed:
+                # Nothing stated the exact model, but these contradict nothing:
+                # the picker shows the range and the shopper tells them apart
+                # (owner's call, 2026-10-27), rather than "not found".
+                seen_u, shown = set(), []
+                for p in unconfirmed:
+                    key = (p.get("title") or "").lower()
+                    if key not in seen_u:
+                        seen_u.add(key)
+                        shown.append(p)
+                logger.info("%s nothing exact - offering %d unconfirmed listing(s) to pick from", tag, min(len(shown), _MAX_UNCONFIRMED))
+                products = shown[:_MAX_UNCONFIRMED]
+                out["unconfirmed"] = True
             if not products and not live_candidate and quick:
                 # Quick commerce is the last resort (user rule, 2026-09-25):
                 # shown only when no other store has the exact product.
@@ -3965,6 +3992,10 @@ def _compute_routes(
                     identity["variants"].setdefault(k, v)
             if len(product_identity.identity_query(identity).split()) < 2:
                 identity = None
+            else:
+                # No result set here yet; this only drops shop names and link
+                # scraps from the required words.
+                identity = product_identity.weigh_identity(identity, [], _load_trusted_merchants())
         if identity is not None:
             # Step 6: every whitelisted store selling this exact product.
             logger.info("[routes] product ID card: %r", product_identity.identity_query(identity))
