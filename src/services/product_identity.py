@@ -158,6 +158,9 @@ def _slug_words(url: str | None) -> list[str]:
             best = ws
     # "pic-20-0" in a slug is "PIC 20.0" with the dot turned into a dash.
     joined = re.sub(r"\b(\d+) (0)\b", r"\1.\2", " ".join(best))
+    # "men-s" in a slug is "men's": a lone "s" no title contains hid every
+    # Nykaa Fashion Downshifter 14 listing (2026-10-27). "galaxy-s-24" keeps it.
+    joined = re.sub(r"(?<=[a-z]) s\b(?! \d)", "", joined)
     return joined.split()
 
 

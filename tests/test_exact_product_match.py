@@ -197,3 +197,10 @@ def test_a_listing_that_names_no_product_type_is_not_another_type():
     assert tier(page, "adidas Women Originals Handball Spezial") == "exact"
     assert tier(page, "adidas Originals Women's Handball Spezial Shoes") == "exact"
     assert tier(page, "adidas Originals Handball Spezial Sandals") == "wrong"
+
+
+def test_a_possessive_in_the_link_is_not_a_word():
+    # Nykaa Fashion link "nike-charcoal-men-s-downshifter-14-running-shoes" with
+    # page title "Nike Men": the lone "s" hid every listing (2026-10-27).
+    url = "https://www.nykaafashion.com/nike-charcoal-men-s-downshifter-14-running-shoes/p/27579262"
+    assert tier("Nike Men", "Nike Men's Downshifter 14 Running Shoes At Nykaa Fashion", url) == "exact"
