@@ -62,6 +62,11 @@ export function buildPriceList(result, cardOffers = []) {
   );
 }
 
+// The Amazon Pay ICICI card's own reward on Amazon, always on: 5% back for
+// Prime members, 3% otherwise, as Amazon Pay balance (owner: cashback
+// counts). Dealo can't tell who has Prime, so it counts the 3% everyone gets.
+const AMAZON_PAY_ICICI = [{ bank: 'Amazon Pay ICICI', card: 'Credit Card', percent: 3, cashback: true }];
+
 /** Amazon's bank offers cover whole categories (e.g. "10% off up to ₹1,250
  * with SBI Credit Card on orders above ₹10,000") rather than one product,
  * so they are kept in amazonBankOffers.json, checked weekly, and worked out
@@ -82,6 +87,7 @@ export function amazonCardOffers(price, title = '', today = new Date().toISOStri
       saving: Math.round(Math.min((price * o.percent) / 100, o.max_off || Infinity)),
       cashback: !!o.cashback,
     }))
+    .concat(AMAZON_PAY_ICICI.map((o) => ({ ...o, saving: Math.round((price * o.percent) / 100) })))
     .sort((a, b) => b.saving - a.saving);
 }
 

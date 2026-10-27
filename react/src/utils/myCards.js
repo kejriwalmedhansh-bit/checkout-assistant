@@ -20,8 +20,12 @@ export const CARD_CHOICES = [
   { id: 'Axis', label: 'Axis', site: 'axisbank.com' },
   { id: 'Kotak', label: 'Kotak', site: 'kotak.com' },
   { id: 'IDFC', label: 'IDFC FIRST', site: 'idfcfirstbank.com' },
+  { id: 'BOB', label: 'BOBCARD', site: 'bobcard.co.in', also: ['bank of baroda', 'bobcard'] },
+  { id: 'HSBC', label: 'HSBC', site: 'hsbc.co.in' },
+  { id: 'OneCard', label: 'OneCard', site: 'getonecard.app', also: ['one card'] },
   { id: 'Flipkart Axis', label: 'Flipkart Axis', site: 'flipkart.com' },
   { id: 'Flipkart SBI', label: 'Flipkart SBI', site: 'flipkart.com' },
+  { id: 'Amazon Pay ICICI', label: 'Amazon Pay ICICI', site: 'amazon.in', also: ['amazon pay'] },
 ];
 
 export const MIN_REAL_OFFER_RS = 1000;
@@ -49,9 +53,9 @@ export function saveMyCards(ids) {
  * "HDFC Bank" → "HDFC". Longest name first so co-branded cards win. */
 export function choiceFor(bank) {
   const b = (bank || '').toLowerCase();
-  return [...CARD_CHOICES]
-    .sort((x, y) => y.id.length - x.id.length)
-    .find((c) => b.includes(c.id.toLowerCase()))?.id;
+  return CARD_CHOICES.flatMap((c) => [c.id, ...(c.also || [])].map((name) => [name.toLowerCase(), c.id]))
+    .sort((x, y) => y[0].length - x[0].length)
+    .find(([name]) => b.includes(name))?.[1];
 }
 
 const isCredit = (o) => o.card === 'Credit Card';
@@ -99,5 +103,9 @@ const APPLY = {
   SBI: 'https://www.sbicard.com/en/personal/credit-cards.page',
   Kotak: 'https://www.kotak.com/en/personal-banking/cards/credit-cards.html',
   IDFC: 'https://www.idfcfirstbank.com/credit-card',
+  BOB: 'https://www.bobcard.co.in/',
+  HSBC: 'https://www.hsbc.co.in/credit-cards/',
+  OneCard: 'https://www.getonecard.app/',
+  'Amazon Pay ICICI': 'https://www.icici.bank.in/personal-banking/cards/credit-card/amazon-pay-credit-card',
 };
 export const applyLink = (o) => APPLY[choiceFor(o.bank)] || null;
