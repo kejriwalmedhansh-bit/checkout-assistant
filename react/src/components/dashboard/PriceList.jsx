@@ -1,5 +1,16 @@
 import { Fragment, useEffect, useLayoutEffect, useRef, useState } from 'react';
-import { Box, Button, Flex, Link, Text } from '@chakra-ui/react';
+import {
+  Box,
+  Button,
+  Drawer,
+  DrawerBody,
+  DrawerCloseButton,
+  DrawerContent,
+  DrawerOverlay,
+  Flex,
+  Link,
+  Text,
+} from '@chakra-ui/react';
 
 import BrandAvatar from '@/components/common/BrandAvatar';
 import Card from '@/components/common/Card';
@@ -10,21 +21,31 @@ import { shopLogos, shortDelivery } from '@/utils/priceList';
 
 const ROWS_SHOWN = 4;
 
-// Bank websites, for the bank's own logo beside a card offer (same
-// Brandfetch icon lookup as the shop logos). Unknown banks show no logo.
-const BANK_SITES = [
-  ['hdfc', 'hdfcbank.com'],
-  ['icici', 'icicibank.com'],
-  ['axis', 'axisbank.com'],
-  ['sbi', 'sbicard.com'],
-  ['kotak', 'kotak.com'],
-  ['idfc', 'idfcfirstbank.com'],
-  ['bob', 'bankofbaroda.in'],
-  ['hsbc', 'hsbc.co.in'],
+// Banks: their website (for the bank's own logo beside a card offer, same
+// Brandfetch icon lookup as the shop logos) and the page where you apply
+// for their credit card. Co-branded cards come first so "Flipkart Axis"
+// opens that card's own page, not Axis Bank's list. Unknown banks show no
+// logo and no apply link.
+// TODO: swap the apply pages for affiliate links once a partner is picked.
+const BANKS = [
+  ['flipkart axis', 'axisbank.com', 'https://www.axisbank.com/retail/cards/credit-card/flipkart-axisbank-credit-card'],
+  ['flipkart sbi', 'sbicard.com', 'https://www.sbicard.com/en/personal/credit-cards/flipkart-sbi-card.html'],
+  ['hdfc', 'hdfcbank.com', 'https://www.hdfcbank.com/personal/pay/cards/credit-cards'],
+  ['icici', 'icicibank.com', 'https://www.icicibank.com/personal-banking/cards/credit-card'],
+  ['axis', 'axisbank.com', 'https://www.axisbank.com/retail/cards/credit-card'],
+  ['sbi', 'sbicard.com', 'https://www.sbicard.com/en/personal/credit-cards.page'],
+  ['kotak', 'kotak.com', 'https://www.kotak.com/en/personal-banking/cards/credit-cards.html'],
+  ['idfc', 'idfcfirstbank.com', 'https://www.idfcfirstbank.com/credit-card'],
+  ['bob', 'bankofbaroda.in', 'https://www.bankofbaroda.in/personal-banking/digital-products/cards/credit-cards'],
+  ['hsbc', 'hsbc.co.in', 'https://www.hsbc.co.in/credit-cards/'],
 ];
+const bankFor = (bank) => BANKS.find(([k]) => bank.toLowerCase().includes(k));
+// Only credit cards get an apply link; a debit card means a new bank account.
+const applyLink = (o) => (o.card === 'Credit Card' ? bankFor(o.bank)?.[2] : null);
+const cardName = (o) => `${o.bank} ${o.card}`;
 
 function BankLogo({ bank, size }) {
-  const site = BANK_SITES.find(([k]) => bank.toLowerCase().includes(k))?.[1];
+  const site = bankFor(bank)?.[1];
   const [failed, setFailed] = useState(false);
   if (!site || failed) return null;
   return (
@@ -41,16 +62,90 @@ function BankLogo({ bank, size }) {
   );
 }
 
+/** Pop-up for a shopper without the card: the card with the best offer
+ * first, with what it saves on this item and where to apply; the shop's
+ * other cards below it. Slides up from the bottom on a phone. */
+function GetCardSheet({ shop, offers, onClose }) {
+  const [best, ...rest] = offers;
+  const apply = (o) => () => track('Clicked Apply For Card', { merchant: shop.merchant, bank: o.bank, saving: o.saving });
+  return (
+    <Drawer isOpen placement="bottom" onClose={onClose}>
+      <DrawerOverlay bg="rgba(10,12,10,.6)" backdropFilter="blur(2px)" />
+      <DrawerContent bg="surface" borderTopRadius="20px" maxW="520px" mx="auto">
+        <DrawerCloseButton top="14px" right="14px" />
+        <DrawerBody px="20px" pt="22px" pb="max(22px, env(safe-area-inset-bottom))">
+          <Flex align="center" gap="10px" pr="32px">
+            <BankLogo bank={best.bank} size={36} />
+            <Text fontSize="17px" fontWeight={700} color="text">{cardName(best)}</Text>
+          </Flex>
+          <Text mt="14px" fontSize="22px" fontWeight={800} color="text" lineHeight="1.2">
+            Save {fmt(best.saving)} on this at {shop.merchant}
+          </Text>
+          <Text mt="4px" fontFamily="mono" fontSize="15px" color="text2">
+            <Text as="s" color="text3">{fmt(shop.price)}</Text> → <Text as="span" fontWeight={700} color="cyan">{fmt(shop.price - best.saving)}</Text>
+            {best.cashback && <Text as="span" fontFamily="body" color="text3"> · as cashback</Text>}
+          </Text>
+          <Button
+            as={Link}
+            href={applyLink(best)}
+            isExternal
+            onClick={apply(best)}
+            mt="18px"
+            w="100%"
+            h="50px"
+            bg="brand"
+            color="white"
+            fontSize="16px"
+            fontWeight={700}
+            borderRadius="12px"
+            _hover={{ textDecoration: 'none', opacity: 0.92 }}
+          >
+            Apply for {cardName(best)} ↗
+          </Button>
+          <Text mt="8px" fontSize="12.5px" color="text3" textAlign="center">
+            Opens {best.bank}&apos;s website. New cards usually take 1–2 weeks to arrive.
+          </Text>
+          {rest.length > 0 && (
+            <Flex direction="column" gap="10px" mt="20px" pt="14px" borderTop="1px solid" borderColor="border">
+              <Text fontSize="11px" fontWeight={700} letterSpacing=".06em" textTransform="uppercase" color="text3">
+                Other cards at {shop.merchant}
+              </Text>
+              {rest.map((o) => (
+                <Flex key={cardName(o)} align="center" gap="8px" fontSize="14px">
+                  <BankLogo bank={o.bank} size={20} />
+                  <Box flex="1" minW={0}>
+                    <Text color="text" fontWeight={600} noOfLines={1}>{cardName(o)}</Text>
+                    <Text color="text2" fontSize="12.5px">
+                      Save {fmt(o.saving)}{o.cashback ? ' as cashback' : ''}
+                    </Text>
+                  </Box>
+                  {applyLink(o) && (
+                    <Link href={applyLink(o)} isExternal onClick={apply(o)} color="brand" fontWeight={700} fontSize="14px">
+                      Apply ↗
+                    </Link>
+                  )}
+                </Flex>
+              ))}
+            </Flex>
+          )}
+        </DrawerBody>
+      </DrawerContent>
+    </Drawer>
+  );
+}
+
 /** A shop's bank card offers, shown the way the shops themselves do it
  * (Flipkart: "₹1,28,900 with Bank offer"): the price after the best card,
  * with the bank's logo; tapping it lists the other cards. Takes the place
- * of the Gift Voucher tag on that row. Never reorders the list — the order
- * stays card-free. */
+ * of the Gift Voucher tag on that row. Never reorders the list: Dealo does
+ * not know which cards the shopper has, so the shopper decides. Below it,
+ * "No card? Get one" opens GetCardSheet. */
 function CardOffers({ shop, offers, indent, small }) {
   const [open, setOpen] = useState(false);
+  const [sheet, setSheet] = useState(false);
   const [best, ...rest] = offers;
-  const label = (o) => `${o.bank} ${o.card}`;
   const after = (o) => fmt(shop.price - o.saving);
+  const applicable = offers.filter(applyLink);
   return (
     <Box ml={`${indent}px`} mt="6px">
       <Box
@@ -75,21 +170,41 @@ function CardOffers({ shop, offers, indent, small }) {
       >
         <BankLogo bank={best.bank} size={16} />
         <Text as="span" fontFamily="mono" fontWeight={700}>{after(best)}</Text>
-        <Text as="span" fontWeight={600}>with {label(best)}</Text>
+        <Text as="span" fontWeight={600}>with {cardName(best)}</Text>
         {rest.length > 0 && <Text as="span" color="text3" fontWeight={500}>· {open ? 'less' : `${rest.length} more`}</Text>}
       </Box>
       {open && (
         <Flex direction="column" gap="6px" mt="8px" pl="2px">
           {rest.map((o) => (
-            <Flex key={label(o)} align="center" gap="6px" fontSize={`${small}px`} color="text2" flexWrap="wrap">
+            <Flex key={cardName(o)} align="center" gap="6px" fontSize={`${small}px`} color="text2" flexWrap="wrap">
               <BankLogo bank={o.bank} size={14} />
               <Text as="span" fontFamily="mono" fontWeight={700} color="text">{after(o)}</Text>
-              <Text as="span">with {label(o)}</Text>
+              <Text as="span">with {cardName(o)}</Text>
               {o.cashback && <Text as="span" color="text3">· as cashback</Text>}
             </Flex>
           ))}
         </Flex>
       )}
+      {applicable.length > 0 && (
+        <Box
+          as="button"
+          type="button"
+          display="block"
+          mt="6px"
+          fontSize={`${small}px`}
+          fontWeight={600}
+          color="text2"
+          textDecoration="underline"
+          textUnderlineOffset="2px"
+          onClick={() => {
+            setSheet(true);
+            track('Opened Get Card', { merchant: shop.merchant, bank: applicable[0].bank });
+          }}
+        >
+          No card? Get one ›
+        </Box>
+      )}
+      {sheet && <GetCardSheet shop={shop} offers={applicable} onClose={() => setSheet(false)} />}
     </Box>
   );
 }
@@ -171,10 +286,6 @@ export default function PriceList({ shops, onPickGiftCard, afterFirst = null }) 
   const rows = showAll ? shops : shops.slice(0, ROWS_SHOWN);
   const hidden = shops.length - rows.length;
   const sz = SIZES[shops.length] || COMPACT;
-  const topCard = shops
-    .filter((s) => s.cardOffers?.length)
-    .map((s) => ({ shop: s, offer: s.cardOffers[0] }))
-    .sort((x, y) => x.shop.price - x.offer.saving - (y.shop.price - y.offer.saving))[0];
   const grow = !!SIZES[shops.length];
 
   // Fill from where the cards start down to the bottom of the screen.
@@ -217,32 +328,6 @@ export default function PriceList({ shops, onPickGiftCard, afterFirst = null }) 
           </Text>
         )}
       </Box>
-      {/* MOCKUP-ONLY (?cardsTop): the best card offer named above the list. Remove before shipping. */}
-      {typeof window !== 'undefined' && new URLSearchParams(window.location.search).has('cardsTop') && topCard && (
-        <Flex
-          as="button"
-          type="button"
-          onClick={() => setShowAll(true)}
-          align="center"
-          gap="10px"
-          textAlign="left"
-          bg="cyanSoft"
-          borderRadius="12px"
-          px="12px"
-          py="9px"
-        >
-          <Box color="cyan"><I.pay size={18} /></Box>
-          <Box flex="1" minW={0}>
-            <Text fontSize="13px" fontWeight={700} color="text">
-              Paying with {topCard.offer.bank} {topCard.offer.card}?
-            </Text>
-            <Text fontSize="12px" color="text2">
-              {topCard.shop.merchant} comes to <Text as="span" fontFamily="mono" fontWeight={700} color="text">{fmt(topCard.shop.price - topCard.offer.saving)}</Text> with it
-            </Text>
-          </Box>
-          <Box color="cyan"><I.chevRight size={16} /></Box>
-        </Flex>
-      )}
       <Flex ref={stackRef} direction="column" gap="8px" minH={fillH ? `${fillH}px` : undefined}>
         {rows.map((s, i) => {
           const diff = s.price - best.price;
