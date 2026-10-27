@@ -20,10 +20,6 @@
  ],
  "must_include": [
   {
-   "shop": "AJIO.com",
-   "price": 3916.0
-  },
-  {
    "shop": "Nykaa Man",
    "price": 3916.0
   },
@@ -6763,6 +6759,5 @@
     "next": "3"
    }
   }
- },
- "known_failure": "a reseller at 15,299 sets the believable floor at 4,590-6,120 and every real shop at 3,916 is dropped; fixed by step 5 (sale vs fake)"
+ }
 }

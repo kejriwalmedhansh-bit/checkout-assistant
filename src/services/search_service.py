@@ -747,7 +747,13 @@ def _priority_merchant_anchor(results: list[dict], merchant_key: str = "merchant
         and not _is_marketplace_merchant(r.get(merchant_key) or "")
         and _is_trusted_merchant(r.get(merchant_key) or "", whitelist)
     ]
-    return max(prices) if prices else None
+    # The upper median, not the maximum: one reseller at ₹15,299 (Culture
+    # Circle, Downshifter 14) made the highest price the anchor and every
+    # real shop at ₹3,916 read as a fake (2026-10-27).
+    if not prices:
+        return None
+    prices.sort()
+    return prices[len(prices) // 2]
 
 
 def _outlier_filter(results: list[dict]) -> tuple[list[dict], int]:
@@ -1422,7 +1428,7 @@ def _extract_variant_signature(title: str, exclude: set) -> tuple:
 
 
 def _filter_and_group_candidates(
-    candidates: list[dict], query: str, tag: str = "[search]"
+    candidates: list[dict], query: str, tag: str = "[search]", identity: dict | None = None,
 ) -> tuple[list[dict], bool]:
     """Drop bulk-listings/non-English junk, then group same-variant listings
     from different sellers into one picker card each.
@@ -1556,15 +1562,28 @@ def _filter_and_group_candidates(
         # listing of its own exact wording would get zero price-sanity check
         # at all, since a lone/marketplace-only group has nothing internal to
         # compare against.
-        pool_wide_anchor = _priority_merchant_anchor(pool, merchant_key="source")
+        # With an ID card, only listings of this very product set the price
+        # bar: other models in the pool (an HL7777 at ₹12,739 next to the
+        # HL7756 at ₹3,299) say nothing about what a fake would cost.
+        def same_product(rows: list[dict]) -> list[dict]:
+            if identity is None:
+                return rows
+            same = [c for c in rows
+                    if product_identity.match_tier(identity, c.get("title") or "", c.get("source") or "")[0] == "exact"]
+            return same or rows
+
+        pool_wide_anchor = _priority_merchant_anchor(same_product(pool), merchant_key="source")
 
         vetted: list[dict] = []
         for group in by_variant.values():
-            own_anchor = _priority_merchant_anchor(group, merchant_key="source")
+            own_anchor = _priority_merchant_anchor(same_product(group), merchant_key="source")
             anchor = own_anchor if own_anchor is not None else pool_wide_anchor
             if anchor is not None:
                 threshold = 0.4 * anchor
-                above = [c for c in group if (c.get("price") or 0) >= threshold or not c.get("price")]
+                # a shop's own crossed-out price above the bar is its word
+                # that this is a sale, not a fake
+                above = [c for c in group if (c.get("price") or 0) >= threshold or not c.get("price")
+                         or (c.get("was_price") or 0) >= threshold]
                 for c in group:
                     if c not in above:
                         logger.info(
@@ -1657,6 +1676,25 @@ def _infer_brand(name: str) -> str:
 
 # ── public orchestrator ──────────────────────────────────────────────────────────
 
+_WAS_PRICE_RE = re.compile(r"₹\s*([\d,]+(?:\.\d+)?)")
+
+
+def _was_price(listing: dict) -> float | None:
+    """The crossed-out price a listing shows, when it shows one. Google
+    writes it three ways: "₹4,895", "Usually ₹4,895" and "20% off₹4,895";
+    in the last, `extracted_original_price` holds the percentage, so the
+    rupee figure is read from the text. Anything not above the price is
+    noise, not a sale."""
+    price = listing.get("extracted_price") or listing.get("price")
+    if not isinstance(price, (int, float)):
+        price = parse_price(price)
+    m = _WAS_PRICE_RE.search(listing.get("original_price") or "")
+    was = float(m.group(1).replace(",", "")) if m else listing.get("extracted_original_price")
+    if isinstance(was, (int, float)) and price and was > price:
+        return float(was)
+    return None
+
+
 def _product_candidate(p: dict) -> dict:
     """Shape a google_shopping result into a product the user can pick from."""
     price = None
@@ -1673,6 +1711,7 @@ def _product_candidate(p: dict) -> dict:
         "title": p.get("title") or "",
         "price": price,
         "price_raw": p.get("price"),
+        "was_price": _was_price(p),
         "thumbnail": p.get("thumbnail") or p.get("image"),
         "source": source,
         "rating": p.get("rating"),
@@ -3170,21 +3209,22 @@ def search_candidates(query: str, exact: bool = False, shops_only: bool = False)
                 r.get("price"),
                 "yes" if r.get("product_token") else "no",
             )
-        products = [
-            _product_candidate(p)
-            for p in shopping_results
-            if p.get("product_token")
-        ]
-        products, approximate = _filter_and_group_candidates(products, effective_query, tag=tag)
-        products, approximate = _maybe_widen_brand_query(
-            effective_query, is_url, shopping_results, products, approximate, tag
-        )
         if identity is not None:
             # The ID card weighed against what Google returned: shop names and
             # link scraps drop out of the required words, and a word most
             # listings leave out counts for less (never for more).
             identity = product_identity.weigh_identity(
                 identity, [r.get("title") or "" for r in shopping_results], _load_trusted_merchants())
+        products = [
+            _product_candidate(p)
+            for p in shopping_results
+            if p.get("product_token")
+        ]
+        products, approximate = _filter_and_group_candidates(products, effective_query, tag=tag, identity=identity)
+        products, approximate = _maybe_widen_brand_query(
+            effective_query, is_url, shopping_results, products, approximate, tag
+        )
+        if identity is not None:
             # Quick commerce is a last resort (user rule, 2026-09-25): whether
             # it delivers depends on the shopper's area.
             quick = [p for p in products if _is_hyperlocal(p.get("source") or "")
@@ -3197,7 +3237,7 @@ def search_candidates(query: str, exact: bool = False, shops_only: bool = False)
                 raw2 = searchapi_repository.search_products(effective_query, page=2)
                 if not raw2.get("error"):
                     more = [_product_candidate(p) for p in raw2.get("shopping_results", []) if p.get("product_token")]
-                    more, _ = _filter_and_group_candidates(more, effective_query, tag=tag)
+                    more, _ = _filter_and_group_candidates(more, effective_query, tag=tag, identity=identity)
                     more = [p for p in more if not _is_hyperlocal(p.get("source") or "")]
                     pretier += more
                     more, similar2, unconfirmed2 = _tier_by_identity(more, identity, tag)
@@ -3215,7 +3255,7 @@ def search_candidates(query: str, exact: bool = False, shops_only: bool = False)
                 raw2 = searchapi_repository.search_products(full_title)
                 if not raw2.get("error"):
                     more = [_product_candidate(p) for p in raw2.get("shopping_results", []) if p.get("product_token")]
-                    more, _ = _filter_and_group_candidates(more, full_title, tag=tag)
+                    more, _ = _filter_and_group_candidates(more, full_title, tag=tag, identity=identity)
                     more = [p for p in more if not _is_hyperlocal(p.get("source") or "")]
                     more, similar2, unconfirmed2 = _tier_by_identity(more, identity, tag)
                     seen = {p.get("product_token") for p in products}
@@ -3567,6 +3607,7 @@ def _find_pdp_candidate(
 _OFFER_SEED_CAP = 6         # Google entries whose store lists are read
 _OFFER_PAGES = 3            # pages per store list (page 1 ~5 stores, then 10 each)
 _STORE_LIST_BUDGET = 10     # seconds; a slower Google reply is left out rather than waited on. 5s (#85) lost 5 of 6 Pixel 11 shops on a slow day, 2026-10-24
+_STORE_LIST_GRACE = 6       # extra seconds for stragglers, only when fewer than 3 stores came back in time
 _GAP_STORE_CAP = 4          # "<product> <store>" searches for big stores with no exact match
 # Flipkart's own search page, read through Context.dev (~5s, max 7s) or
 # Crawlbase as fallback (6-18s), measured 2026-10-03. It runs alongside the store lists and is waited on for at most
@@ -3635,6 +3676,7 @@ def _offer_rows(token: str, pages: int, tag: str) -> list[dict]:
                 "title": offer.get("title") or "",
                 "price": _offer_price({k: offer.get(k) for k in ("extracted_total_price", "total_price")})
                          or _offer_price(offer),
+                "was_price": _was_price(offer),
                 "link": offer.get("link"),
                 "details": offer.get("details") or [],
                 "_source_token": token,
@@ -3742,6 +3784,12 @@ def _discover_exact_offers(
     pool = ThreadPoolExecutor(max_workers=max(1, len(tokens) + len(gaps)))
     futures = [pool.submit(_offer_rows, t, _OFFER_PAGES, tag) for t in tokens] + [pool.submit(_gap_rows, m) for m in gaps]
     done, late = wait(futures, timeout=_STORE_LIST_BUDGET)
+    if late and len({r["merchant"] for f in done for r in f.result()}) < 3:
+        # Thin so far: the stragglers are worth a few more seconds. Never
+        # longer than the Flipkart read already running alongside.
+        more, late = wait(late, timeout=_STORE_LIST_GRACE)
+        done |= more
+        logger.info("%s waited +%ss for %d straggling store list(s), %d still late", tag, _STORE_LIST_GRACE, len(more), len(late))
     if late:
         logger.info("%s %d store-list lookup(s) slower than %ss, left out", tag, len(late), _STORE_LIST_BUDGET)
     pool.shutdown(wait=False)
@@ -3776,6 +3824,15 @@ def _discover_exact_offers(
             r = {**r, "title": english[0], "link": english[1]}
             link = r["link"]
             tier, why = product_identity.match_tier(identity, r["title"], name)
+            if (tier == "unconfirmed" and r.get("_source_token") == product_token
+                    and product_identity.variants_agree(identity, r["title"])):
+                # Google filed this offer under the very entry the shopper
+                # tapped: that grouping confirms the model a shorter title
+                # leaves out. A stated size, storage or pack that differs
+                # still disqualifies it (Google once filed a 128 GB A56
+                # under the 256 GB entry).
+                logger.info("%s   kept %s (%s; same Google entry as the pick): %r", tag, name, why, r["title"])
+                tier = "exact"
             if tier != "exact":
                 logger.info("%s   skipped %s (%s): %r", tag, name, why or tier, r["title"])
                 continue
@@ -3794,7 +3851,7 @@ def _discover_exact_offers(
             out.append({
                 "merchant": name, "price": r["price"], "title": r["title"],
                 "sellers": [{"link": link, "delivery": next((d for d in r["details"] if "deliver" in d.lower()), None)}],
-                "match_type": "Listed", "_source_token": r["_source_token"],
+                "match_type": "Listed", "_source_token": r["_source_token"], "was_price": r.get("was_price"),
             })
         return out
 
@@ -3838,11 +3895,17 @@ def _discover_exact_offers(
     def _floor_for(c: dict) -> float:
         return floor if _is_marketplace_merchant(c["merchant"]) else min(floor, store_floor)
 
+    def _believable(c: dict) -> bool:
+        # A shop's own crossed-out price is its word that this is a sale off
+        # a normal price, not a fake: "₹4,895 -> ₹3,916" is believable when
+        # ₹4,895 itself clears the floor.
+        return c["price"] >= _floor_for(c) or bool(c.get("was_price") and c["was_price"] >= _floor_for(c))
+
     if floor:
         for c in verified:
-            if c["price"] < _floor_for(c):
+            if not _believable(c):
                 logger.info("%s   skipped %s at %s (below the believable floor %.0f)", tag, c["merchant"], c["price"], _floor_for(c))
-        verified = [c for c in verified if c["price"] >= _floor_for(c)]
+        verified = [c for c in verified if _believable(c)]
     if picked_price:
         for c in verified:
             if not _size_price_ok(identity, c["title"], c["price"], picked_price):
