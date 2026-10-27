@@ -7,7 +7,7 @@ import CardPicker from '@/components/dashboard/CardPicker';
 import { I } from '@/components/common/icons';
 import { track } from '@/utils/analytics';
 import { affiliateUrl, fmt } from '@/utils/format';
-import { applyLink, bestRealOffer, CARD_CHOICES, loadMyCards, myBestOffer, saveMyCards, worthAsking } from '@/utils/myCards';
+import { applyLink, bestRealOffer, giftVoucherSaving, CARD_CHOICES, loadMyCards, myBestOffer, saveMyCards, worthAsking } from '@/utils/myCards';
 import { shopLogos, shortDelivery } from '@/utils/priceList';
 
 const ROWS_SHOWN = 4;
@@ -164,7 +164,7 @@ export default function PriceList({ shops: listed, onPickGiftCard, afterFirst = 
       <Flex ref={stackRef} direction="column" gap="8px" minH={fillH ? `${fillH}px` : undefined}>
         {rows.map((s, i) => {
           const diff = s.price - best.price;
-          const gc = s.voucher && s.voucherRoute ? Math.round(s.listPrice - s.voucherRoute.final_cost) : 0;
+          const gc = giftVoucherSaving({ ...s, price: s.listPrice });
           const other = !s.mine && myCards !== null && !ask ? bestRealOffer(s) : null;
           const first = i === 0;
           return (

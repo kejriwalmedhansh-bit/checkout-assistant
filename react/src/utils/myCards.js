@@ -63,16 +63,29 @@ export function isRealOffer(o, price) {
   return !(storeCard && (o.saving / price) * 100 <= STORE_CARD_NORMAL_PCT);
 }
 
+/** What the shop's Gift Voucher takes off, in ₹ (0 without one). */
+export const giftVoucherSaving = (shop) =>
+  shop.voucher && shop.voucherRoute ? Math.round(shop.price - shop.voucherRoute.final_cost) : 0;
+
+// Owner's call 2026-10-27: a card offer only shows where it takes off more
+// than that shop's Gift Voucher; otherwise the Gift Voucher stays the deal.
+const beatsVoucher = (o, shop) => o.saving > giftVoucherSaving(shop);
+
 /** The best offer on this shop for the shopper's cards, or null. */
 export function myBestOffer(shop, myCards) {
   if (!myCards?.length) return null;
-  return (shop.cardOffers || []).find((o) => isCredit(o) && myCards.includes(choiceFor(o.bank))) || null;
+  const o = (shop.cardOffers || []).find((x) => isCredit(x) && myCards.includes(choiceFor(x.bank)));
+  return o && beatsVoucher(o, shop) ? o : null;
 }
 
 /** The best real offer on this shop, for someone without that card. */
-export const bestRealOffer = (shop) => (shop.cardOffers || []).find((o) => isRealOffer(o, shop.price)) || null;
+export function bestRealOffer(shop) {
+  const o = (shop.cardOffers || []).find((x) => isRealOffer(x, shop.price));
+  return o && beatsVoucher(o, shop) ? o : null;
+}
 
-/** Ask only when a shop on the list has a real card offer. */
+/** Ask only when a shop on the list has a real card offer that beats its
+ * Gift Voucher. */
 export const worthAsking = (shops) => shops.some((s) => bestRealOffer(s));
 
 /** Where to apply for the card in an offer. TODO: affiliate links once a
