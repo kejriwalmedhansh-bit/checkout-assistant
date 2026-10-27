@@ -17,6 +17,7 @@ per-product.
 from __future__ import annotations
 
 import re
+import unicodedata
 from urllib.parse import unquote, urlsplit
 
 # Words that describe, market or position a product without naming it.
@@ -108,7 +109,9 @@ _AIR_PHRASE_RE = re.compile(r"\bair[\s\-]+(?=(?:fryer|purifier|cooler|conditione
 
 
 def _norm(s: str) -> str:
-    s = (s or "").lower().replace("’", "'")
+    # Accents fold to plain letters first: "LAKMÉ" is the brand "lakme", not "lakm".
+    s = unicodedata.normalize("NFKD", s or "")
+    s = "".join(ch for ch in s if not unicodedata.combining(ch)).lower().replace("’", "'")
     s = _AIR_PHRASE_RE.sub("air", s)            # "air fryer" -> "airfryer", not the "Air" sub-model
     s = re.sub(r"\bdual[\s\-]+sim\b", "dualsim", s)  # "Dual SIM" is a phone spec; "Dual Basket" is a model
     s = re.sub(r"\((\d)(?:st|nd|rd|th)\s*gen(?:eration)?\)|\b(\d)(?:st|nd|rd|th)\s*gen(?:eration)?\b",
@@ -159,6 +162,12 @@ def _slug_words(url: str | None) -> list[str]:
     # "pic-20-0" in a slug is "PIC 20.0" with the dot turned into a dash.
     joined = re.sub(r"\b(\d+) (0)\b", r"\1.\2", " ".join(best))
     return joined.split()
+
+
+def _is_strong_code(code: str) -> bool:
+    """A code that identifies the product by itself (WH-1000XM5, BT3221):
+    letters and digits, five or more characters."""
+    return len(_compact(code)) >= 5 and bool(re.search(r"[a-z]", code)) and bool(re.search(r"\d", code))
 
 
 def _is_code(w: str) -> bool:
@@ -345,7 +354,7 @@ def build_identity(title: str, url: str | None = None) -> dict:
         soft += [c for c in codes[1:] if c not in soft and re.fullmatch(r"[a-z]{0,2}\d{3,}[a-z]?", _compact(c))
                  and _compact(c) not in _compact(first)]
     codes = [c for c in codes if c not in soft] or codes[:1]
-    strong = any(len(_compact(c)) >= 5 and re.search(r"[a-z]", c) and re.search(r"\d", c) for c in codes)
+    strong = any(_is_strong_code(c) for c in codes)
     if codes or alt_codes:
         first = next((i for i, (w, k) in enumerate(ordered) if k == "code" or w in alt_seen), len(ordered))
         line = [w for w, k in ordered[:first] if k == "name"][-2:]
@@ -486,7 +495,12 @@ def match_tier(ident: dict, title: str, source: str = "", _whole: bool = True) -
     brand = ident["brand"]
     if brand:
         names = _BRAND_ALIASES.get(brand, {brand})
-        if not any(_has_word(b, words, compact) or b in _compact(source) for b in names):
+        # A strong model code (WH-1000XM5) names the product on its own, so a
+        # listing that carries it needn't repeat the brand.
+        strong_code_present = any(
+            _is_strong_code(c) and re.search(_code_pattern(c), n) for c in ident["codes"])
+        if not strong_code_present and not any(
+                _has_word(b, words, compact) or b in _compact(source) for b in names):
             return "wrong", "brand"
     if brand and re.search(r"\b(?:for|compatible with|fits)\s+" + re.escape(brand), n) and not re.search(
             r"^\W*(?:\w+\W+){0,2}" + re.escape(brand), n):
@@ -540,11 +554,10 @@ def match_tier(ident: dict, title: str, source: str = "", _whole: bool = True) -
     aud = _audience(title)
     if ident["audience"] and aud and aud != ident["audience"] and "unisex" not in words:
         return "wrong", "audience"
-    # A typed search names the model, not the edition: "dyson v12" is happy
-    # with "V12 Detect Slim"; siblings (Pro, Plus, Prime) are caught above.
-    nxt = None if ident.get("typed") else _word_after_model(ident, n)
-    if nxt:
-        return "wrong", f"sub-model '{nxt}'"
+    # A word Dealo doesn't know, after the model name ("Road Running",
+    # "Detect Slim"), is never evidence of a different product: unseen
+    # vocabulary must not throw a listing out (owner's rule, 2026-10-27).
+    # Siblings are caught by their modifier (Pro, Plus, Max) or model code.
     cv, iv = _variants(title), ident["variants"]
     if "generation" in cv and "generation" in iv and cv["generation"] != iv["generation"]:
         return "wrong", "generation"
@@ -567,28 +580,3 @@ def match_tier(ident: dict, title: str, source: str = "", _whole: bool = True) -
     if cv.get("bundle") != iv.get("bundle") and (cv.get("bundle") or iv.get("bundle")):
         return "similar", "bundle"
     return "exact", ""
-
-
-def _word_after_model(ident: dict, n: str) -> str | None:
-    """The word right after the model name, when it names a sibling model:
-    'Go Walk Flex Remark', 'PIC 20 WIZ', 'Purifying Neem Foaming Face Wash'."""
-    anchors = [_code_pattern(c) for c in ident["codes"]]
-    anchors += ["(?:" + "|".join(_code_pattern(a) for a in alts) + ")" for alts in ident["alt_codes"]]
-    anchors += [r"(?<![a-z0-9])" + re.escape(w) + r"s?(?![a-z0-9])" for w in ident["name"]]
-    end = -1
-    for a in anchors:
-        m = re.search(a, n)
-        if m:
-            end = max(end, m.end())
-    if end < 0:
-        return None
-    known = set(ident["name"]) | set(ident["codes"]) | set(ident["types"]) | set(ident["modifiers"]) | {ident["brand"]}
-    for w in re.findall(r"[a-z0-9]+(?:\.[0-9]+)?", n[end:])[:1]:
-        if (w in known or w == "anc" or w in _GENERIC or w in _COLOURS or w in _TYPE_WORDS or w in _MODIFIERS
-                or re.fullmatch(r"\d+(?:\.\d+)?", w) or re.fullmatch(r"\d+(?:\.\d+)?" + _UNIT, w)
-                or (len(w) <= 3 and any(c.isdigit() for c in w))    # region suffix "1df"
-                or re.fullmatch(r"\d+(?:st|nd|rd|th)", w)
-                or len(w) <= 2):
-            return None
-        return w
-    return None

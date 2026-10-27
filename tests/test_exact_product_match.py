@@ -44,9 +44,14 @@ def test_sibling_sub_models_are_wrong():
     assert tier(fan, "Bajaj Frore Turbo 1200 mm BLDC Ceiling Fan") == "wrong"
     shoes = "skechers men go walk flex lace up shoes"
     assert tier(shoes, "Skechers Men GO WALK FLEX Navy Blue Walking Shoes") == "exact"
-    assert tier(shoes, "Skechers Men's Go Walk Flex Remark Walking Shoe") == "wrong"
+    # A word Dealo has never seen ("Remark", "Foaming") is not evidence of a
+    # different product (owner's rule, 2026-10-27): such listings stay in,
+    # and the picker lets the shopper tell them apart. Only a modifier
+    # (Pro/Max/Plus) or a model code marks a sibling.
+    assert tier(shoes, "Skechers Men's Go Walk Flex Remark Walking Shoe") != "wrong"
     wash = "Himalaya Purifying Neem Face Wash, 150 ml"
-    assert tier(wash, "Himalaya Purifying Neem Foaming Face Wash") == "wrong"
+    assert tier(wash, "Himalaya Purifying Neem Foaming Face Wash") != "wrong"
+    assert tier(shoes, "Skechers Men Go Walk Flex Pro Walking Shoe") == "wrong"
 
 
 def test_air_in_a_product_name_is_not_the_air_sub_model():

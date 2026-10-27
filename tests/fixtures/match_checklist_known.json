@@ -1,21 +1,5 @@
 [
  {
-  "product": "boAt Rockerz 450 wireless headphones",
-  "url": "https://www.amazon.in/Rockerz-450-Wireless-Bluetooth-Headphone/dp/B07PR1CL3S",
-  "title": "boAt Rockerz 450/450R, 15 HRS Battery, 40mm Drivers, Padded Ear Cushions, Integrated Controls, Dual Modes, Bluetooth Headphones, Wireless Headphone with Mic (Luscious Black)",
-  "shop": "Amazon",
-  "answer": "exact",
-  "dealo_says": "wrong"
- },
- {
-  "product": "Sony WH-1000XM5 headphones",
-  "url": "https://www.amazon.in/Sony-WH-1000XM5-Wireless-Cancelling-Headphones/dp/B09XS7JWHH",
-  "title": "WH-1000XM5 Wireless Noise Canceling Headphones with Bundle For Music & Calls",
-  "shop": "Tata CLiQ Jewellery",
-  "answer": "similar",
-  "dealo_says": "wrong"
- },
- {
   "product": "Logitech MX Master 3S mouse",
   "url": "https://www.amazon.in/Logitech-Master-Performance-Ultra-Fast-Scrolling/dp/B0BS9VVQPD",
   "title": "Logitech MX Master 3S for Business Wireless Mouse with Quiet Clicks 8K dpi",
@@ -26,42 +10,18 @@
  {
   "product": "Himalaya Purifying Neem Face Wash 150 ml",
   "url": "https://www.amazon.in/Himalaya-Herbals-Purifying-Neem-150ml/dp/B010Z0LH8I",
-  "title": "Himalaya Herbals Purifying Neem Face Wash, 150ml & Himalaya Natural Glow Kesar Face Wash, 150ml",
-  "shop": "amazon.in",
+  "title": "Himalaya Purifying Neem Foaming Face Wash",
+  "shop": "himalayawellness.in",
   "answer": "wrong",
-  "dealo_says": "similar"
+  "dealo_says": "exact"
  },
  {
   "product": "Himalaya Purifying Neem Face Wash 150 ml",
   "url": "https://www.amazon.in/Himalaya-Herbals-Purifying-Neem-150ml/dp/B010Z0LH8I",
-  "title": "Himalaya Purifying Neem Pack, 100g & Himalaya Herbals Purifying Neem Face Wash, 150ml",
+  "title": "Himalaya Herbals Purifying Neem Face Wash, 150ml & Himalaya Natural Glow Kesar Face Wash, 150ml",
   "shop": "amazon.in",
-  "answer": "similar",
-  "dealo_says": "wrong"
- },
- {
-  "product": "Puma men logo polo T-shirt",
-  "url": "https://www.myntra.com/tshirts/puma/puma-men-slim-fit-polo-t-shirt/30850260/buy",
-  "title": "Puma No. 1 Logo Pique Men's Polo For Men (Blue, M)",
-  "shop": "AJIO.com",
-  "answer": "exact",
-  "dealo_says": "wrong"
- },
- {
-  "product": "Puma men logo polo T-shirt",
-  "url": "https://www.myntra.com/tshirts/puma/puma-men-slim-fit-polo-t-shirt/30850260/buy",
-  "title": "Puma Logo Embroidered Slim Fit Polo T-Shirt For Men (Blue, S)",
-  "shop": "AJIO.com",
-  "answer": "exact",
-  "dealo_says": "wrong"
- },
- {
-  "product": "Maybelline Fit Me Matte+Poreless liquid foundation (30 ml bottle)",
-  "url": "https://www.nykaa.com/maybelline-new-york-fit-me-matte-poreless-foundation/p/31074",
-  "title": "Maybelline New York Fit Me Matte+Poreless Liquid Foundation Tube, 220 Natural Beige, 18ml and Maybelline New York Fit Me Concealer, 25 Medium, 6.8ml",
-  "shop": "amazon.in",
-  "answer": "similar",
-  "dealo_says": "wrong"
+  "answer": "wrong",
+  "dealo_says": "similar"
  },
  {
   "product": "Minimalist 10% Niacinamide serum (30 ml)",
@@ -98,18 +58,10 @@
  {
   "product": "Mamaearth Onion Conditioner 250 ml",
   "url": "https://www.nykaa.com/mamaearth-onion-conditioner-for-hair-growth-hair-fall-control-with-coconut-oil-250ml/p/540734",
-  "title": "Onion Hair Conditioner for Hair Growth & Hair Fall Control",
-  "shop": "Mamaearth",
-  "answer": "exact",
-  "dealo_says": "wrong"
- },
- {
-  "product": "Lakme Absolute Beyond Matte Lipstick",
-  "url": "https://www.nykaa.com/lakme-9-to-5-primer-matte-lip-color/p/13920002",
-  "title": "LAKMÉ Absolute Beyond Matte Lip 302 NudeNectar 3.4gm",
-  "shop": "amazon.in",
-  "answer": "exact",
-  "dealo_says": "wrong"
+  "title": "Mamaearth Onion Anti Hair Fall Kit",
+  "shop": "Myntra",
+  "answer": "wrong",
+  "dealo_says": "similar"
  },
  {
   "product": "Vincent Chase polarized sunglasses (model not named on page)",
@@ -164,14 +116,6 @@
   "url": "https://www.amazon.in/Samsung-Snapdragon-Processor-6-2-inch-Smartphone/dp/B0H3FLD9NM",
   "title": "Samsung Galaxy S25 5G Snapdragon 8 Elite for Galaxy",
   "shop": "Amazon.in",
-  "answer": "exact",
-  "dealo_says": "wrong"
- },
- {
-  "product": "Apple MacBook Air 13 M5 16 GB / 512 GB",
-  "url": "https://www.amazon.in/Apple-2026-MacBook-Laptop-chip/dp/B0GR1HPR1W",
-  "title": "Apple 2026 MacBook Air 13″ Laptop with M5 chip: AI and Apple Intelligence, 34.46 cm (13.6″) Liquid Retina Display, 16GB Unified Memory, 512GB SSD Storage, 12MP Center Stage Camera, Touch ID; Midnight",
-  "shop": "Amazon",
   "answer": "exact",
   "dealo_says": "wrong"
  },
@@ -869,7 +813,7 @@
   "title": "LAKMÉ 9 to 5 Primer + Matte Lip Color, Sangria Weekend, 3.6 gm",
   "shop": "Amazon",
   "answer": "exact",
-  "dealo_says": "wrong"
+  "dealo_says": "similar"
  },
  {
   "product": "lakme 9 to 5 primer matte lipstick",
@@ -1022,6 +966,14 @@
   "shop": "Purplle.com - Purplle Beauty",
   "answer": "exact",
   "dealo_says": "wrong"
+ },
+ {
+  "product": "lakme 9 to 5 primer matte lipstick",
+  "url": "typed:lakme_9_to_5_primer_matte_lipstick",
+  "title": "LAKMÉ 9 To 5 Festive Limited Edition Kit",
+  "shop": "Amazon.in",
+  "answer": "wrong",
+  "dealo_says": "similar"
  },
  {
   "product": "lakme 9 to 5 primer matte lipstick",
@@ -1300,14 +1252,6 @@
   "url": "typed:philips_hl7756_mixer_grinder_750w",
   "title": "Mixer Grinder Philips 3 Jar 750W Turbo Motor HL7756/01",
   "shop": "Aalap Electronics",
-  "answer": "exact",
-  "dealo_says": "wrong"
- },
- {
-  "product": "philips hl7756 mixer grinder 750w",
-  "url": "typed:philips_hl7756_mixer_grinder_750w",
-  "title": "HL7756/00 750W Mixer Grinder - Rakesh Retails",
-  "shop": "Rakesh Retails",
   "answer": "exact",
   "dealo_says": "wrong"
  },
