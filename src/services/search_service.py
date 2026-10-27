@@ -1596,7 +1596,13 @@ def _filter_and_group_candidates(
     groups: dict = {}
     order: list = []
     for c in survivors:
-        key = _extract_variant_signature(c["title"], exclude)
+        # Which of the searched words the title has is part of the key: the
+        # signature leaves the searched words out, so for "galaxy s25 ultra"
+        # the real "Galaxy S25 Ultra 5G" and a plain "Galaxy S25 5G" used to
+        # share one card, the plain S25 won on price, and was then hidden as
+        # not an Ultra, leaving nothing (seen 2026-10-27).
+        title_words = set(re.findall(r"[a-z0-9]+", c["title"].lower()))
+        key = (_extract_variant_signature(c["title"], exclude), tuple(t for t in tokens if t in title_words))
         if key not in groups:
             groups[key] = c
             order.append(key)
