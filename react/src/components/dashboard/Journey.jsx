@@ -86,9 +86,10 @@ export default function Journey({ rec, payingByCard = false, skipVoucher = false
 
   const paid = v ? paidForVoucher(v, payingByCard) : null;
 
-  // Buying the voucher inside Dealo (Hubble). Used only when it costs the
-  // shopper no more than today's best voucher route, so switching never
-  // makes the deal worse.
+  // Buying the voucher inside Dealo (Hubble). Shown when Hubble's rate is
+  // within HUBBLE_RATE_TOLERANCE points of today's best voucher rate (the
+  // server decides; owner's call 28 Oct 2026, since Dealo earns on a Hubble
+  // sale and nothing on a redirect).
   const [hubble, setHubble] = useState(null);
   const [buying, setBuying] = useState(false);
   const orderPrice = rec.listed_price;
@@ -96,11 +97,9 @@ export default function Journey({ rec, payingByCard = false, skipVoucher = false
     if (!HUBBLE_ON || !v || !orderPrice || payingByCard) return undefined;
     let live = true;
     hubbleApi
-      .offer(shopName, orderPrice, Boolean(v.offline_only))
+      .offer(shopName, orderPrice, Boolean(v.offline_only), HUBBLE_FORCE ? null : v.upi?.pct)
       .then((res) => {
-        if (!live || !res.available) return;
-        const total = res.offer.you_pay + res.offer.rest_at_shop;
-        if (HUBBLE_FORCE || total <= paid + (v.upi?.remainder || 0)) setHubble(res.offer);
+        if (live && res.available) setHubble(res.offer);
       })
       .catch(() => {});
     return () => {

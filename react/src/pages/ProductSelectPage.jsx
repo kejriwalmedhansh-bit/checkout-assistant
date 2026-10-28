@@ -176,7 +176,7 @@ export default function ProductSelectPage() {
           >
             {voucherChoices.length >= 2
               ? <VoucherChoicePicker key={query} choices={voucherChoices} query={query} />
-              : <BrandVoucherCard voucher={voucher} />}
+              : <BrandVoucherCard voucher={voucher} query={query} />}
           </motion.div>
         )}
 

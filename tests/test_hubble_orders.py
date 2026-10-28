@@ -97,3 +97,16 @@ def test_monthly_limit_caps_the_order():
 def test_below_the_smallest_voucher_is_not_offered():
     assert hs._orders(ZEPTO, 900, 1) is None
     assert hs._orders(AJIO, 400, 4) is None
+
+
+# --- Showing Hubble when it is a little behind today's best (owner, 28 Oct 2026) ---
+
+def test_hubble_shown_within_two_points_of_best(monkeypatch):
+    s = hs.get_settings()
+    monkeypatch.setattr(s, "HUBBLE_RATE_TOLERANCE", 2.0)
+    assert hs.worth_showing(7.0, 7.75)      # Pantaloons: Hubble 7 vs Maximize 7.75
+    assert hs.worth_showing(11.0, 11.0)     # tie
+    assert hs.worth_showing(8.0, 10.0)      # exactly 2 points behind still shows
+    assert not hs.worth_showing(7.5, 10.0)  # 2.5 behind: today's route stays
+    assert hs.worth_showing(4.0, None)      # nothing to compare against
+    assert not hs.worth_showing(0.0, None)  # 0% is never an offer

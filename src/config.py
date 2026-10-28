@@ -165,6 +165,12 @@ class Settings(BaseSettings):
     # How many separate Hubble orders (each its own UPI payment) Dealo may
     # ask for to cover one cart; what they can't cover is paid at the shop.
     HUBBLE_MAX_ORDERS: int = 1
+    # Owner's call (28 Oct 2026): Dealo earns on a Hubble sale and nothing on
+    # a redirect, so Hubble is shown as long as its rate is within this many
+    # percentage points of today's best voucher rate (7% vs 7.75% shows
+    # Hubble; 7% vs 10% doesn't). No rupee cap. The cheaper route is not
+    # named on the card. 0 = ties only.
+    HUBBLE_RATE_TOLERANCE: float = 2.0
 
     # --- Shopper login (Firebase phone sign-in) ---
     FIREBASE_PROJECT_ID: str = "dealo-e9a72"

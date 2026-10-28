@@ -28,12 +28,24 @@ import jwt
 from ..config import get_settings
 from ..repositories._brand_matching import _strip_generic_suffix_words, normalize
 
+SDK_HOST = {
+    "staging": "https://sdk.dev.myhubble.money",
+    "production": "https://sdk.myhubble.money",
+}
+API_HOST = {
+    "staging": "https://api.dev.myhubble.money",
+    "production": "https://api.myhubble.money",
+}
 _DATA = Path(__file__).resolve().parents[2] / "data"
 _ALIASES = _DATA / "hubble_aliases.json"
 # Hubble titles ending like "Hugo Boss-Luxe Gift Card" are the shop's own
 # voucher under Gyftr's "Luxe" label; the shop is "Hugo Boss".
 _LUXE_SUFFIX = re.compile(r"[\s-]*luxe\s+(gift|brand)\s+card$", re.IGNORECASE)
 _TLD = re.compile(r"\.(com|in|co\.in|net|org|co)(/.*)?$")
+# Hubble asks partners not to hold store data for long; ten minutes keeps a
+# busy results page from calling them on every view.
+_PRODUCT_TTL_SECONDS = 600
+_products: dict[str, tuple[float, dict]] = {}
 
 def _catalogue_path() -> Path:
     """Production and staging are different stores with different brand ids
@@ -231,6 +243,51 @@ async def offer_for(merchant: str, price: float, in_store: bool = False) -> dict
         "rest_at_shop": max(0, int(price) - voucher_total),
         "in_store": in_store,
         "add_voucher_url": brand.get("add_voucher_url"),
+    }
+
+
+def worth_showing(hubble_pct: float, best_pct: float | None) -> bool:
+    """Show Hubble when its rate is within HUBBLE_RATE_TOLERANCE points of
+    today's best voucher rate (owner's call, 28 Oct 2026). With no best
+    rate known there is nothing to lose to."""
+    if best_pct is None:
+        return hubble_pct > 0
+    return hubble_pct > 0 and hubble_pct + get_settings().HUBBLE_RATE_TOLERANCE >= float(best_pct)
+
+
+async def brand_info(merchant: str) -> dict | None:
+    """What Hubble sells for this shop when there is no cart yet (a shop-name
+    search): rate, where it works, and the amounts the shopper may pick.
+    Online first; a shop Hubble only sells in-store still gets its card."""
+    s = get_settings()
+    if not s.HUBBLE_ENABLED:
+        return None
+    online = brand_for(merchant, False)
+    in_store = brand_for(merchant, True)
+    brand = online or in_store
+    if not brand:
+        return None
+    product = await _product(brand["id"])
+    if not product or product.get("status") != "ACTIVE":
+        return None
+    pct = _discount_pct(product)
+    if pct <= 0:
+        return None
+    rules = product.get("amountConditions") or {}
+    cards = sorted({int(d["amount"] if isinstance(d, dict) else d) for d in rules.get("denominations") or []})
+    max_amount = int(rules.get("maxAmount") or 0) or None
+    if max_amount:
+        max_amount = min(max_amount, math.floor(s.HUBBLE_PAY_CAP / (1 - pct / 100)))
+    return {
+        "brand_id": brand["id"],
+        "brand_name": brand["name"],
+        "discount_pct": pct,
+        "works": brand["works"],
+        "in_store": brand is in_store and not online,
+        "min_amount": int(rules.get("minAmount") or (cards[0] if cards else 1)),
+        "max_amount": max_amount,
+        "cards": [c for c in cards if not max_amount or c <= max_amount],
+        "typed": not cards,
     }
 
 

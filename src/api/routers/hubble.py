@@ -37,9 +37,26 @@ _recent_orders: dict[str, tuple[float, dict]] = {}
 
 
 @router.get("/offer")
-async def offer(merchant: str = Query(...), price: float = Query(..., gt=0), in_store: bool = False) -> dict:
+async def offer(
+    merchant: str = Query(...),
+    price: float = Query(..., gt=0),
+    in_store: bool = False,
+    best_pct: float | None = Query(default=None, description="today's best voucher rate for this shop, if any"),
+) -> dict:
     found = await hubble_service.offer_for(merchant, price, in_store)
+    if found and not hubble_service.worth_showing(found["discount_pct"], best_pct):
+        found = None
     return {"available": bool(found), "offer": found}
+
+
+@router.get("/brand")
+async def brand(merchant: str = Query(...), best_pct: float | None = Query(default=None)) -> dict:
+    """Shop-name search (no cart price yet): can Dealo sell this shop's
+    voucher, at what rate, and which amounts may the shopper pick."""
+    found = await hubble_service.brand_info(merchant)
+    if found and not hubble_service.worth_showing(found["discount_pct"], best_pct):
+        found = None
+    return {"available": bool(found), "brand": found}
 
 
 class SessionRequest(BaseModel):

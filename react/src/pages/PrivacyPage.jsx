@@ -300,11 +300,13 @@ export default function PrivacyPage() {
       </Section>
 
       <Section title="How Dealo makes money">
-        Dealo is free. When you go to a store or voucher partner through a Dealo link, that click is routed through
-        an affiliate network, and if you buy something we may earn a commission. The commission is paid by the
-        store out of its own margin — it adds nothing to your price, and it isn’t what decides which route Dealo
-        shows you. That’s decided by the final price you’d pay. The network sees the click and the resulting
-        purchase. So we can tell which Dealo link led to a sale, each link carries a random code: your random
+        Dealo is free. Two things earn us money. When you go to a store or voucher partner through a Dealo link,
+        that click is routed through an affiliate network, and if you buy something we may earn a commission. And
+        when you buy a voucher inside Dealo, we keep a small share of the discount our partner gives us. Both are
+        paid by the store or partner out of their own margin and add nothing to your price. Where Dealo can sell
+        you the voucher itself, we show that option as long as its rate is within two percentage points of the
+        best voucher rate we know of for that shop; otherwise we send you to the partner with the better rate. The
+        network sees the click and the resulting purchase. So we can tell which Dealo link led to a sale, each link carries a random code: your random
         identifier on the website, or a scrambled code on WhatsApp that can’t be turned back into your number. The
         network never receives your name, phone number or email from us. It reports the sale back to us (store,
         order value and our commission), and we add it to our usage records.

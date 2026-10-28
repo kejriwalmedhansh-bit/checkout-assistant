@@ -28,6 +28,11 @@
       "surfaces": ["web"],
       "properties": { "merchant": "shop the voucher is for", "amount": "voucher value in rupees" }
     },
+    "Hubble Shop Card Buy": {
+      "description": "Hubble branch only: on a shop-name search, the shopper picked an amount and tapped Buy voucher on Dealo's own card.",
+      "surfaces": ["web"],
+      "properties": { "query": "what was typed", "brand": "Hubble voucher title", "amount": "voucher value in rupees" }
+    },
     "Hubble Payment Failed": {
       "description": "Hubble branch only: Hubble reported the shopper's UPI payment did not go through (Hubble's screen offers a retry).",
       "surfaces": ["web"],
