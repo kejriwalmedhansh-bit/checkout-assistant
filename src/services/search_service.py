@@ -1059,6 +1059,13 @@ _COLOR_WORDS = [
     "starlight", "rose", "orange", "beige", "brown", "teal", "navy", "coral",
 ]
 
+# A men's and a women's listing of one shoe are two products, never one
+# picker card (the Women's Handball Spezial at ₹4,400 was swallowed by the
+# Men's at ₹10,999, 2026-10-28).
+_AUDIENCE_WORDS = {"women": ("women", "womens", "woman", "ladies", "wmns", "female"),
+                   "men": ("men", "mens", "man", "male"),
+                   "kids": ("kids", "kid", "junior", "jr", "boys", "girls", "children")}
+
 _STORAGE_RE = re.compile(r"\b(\d+)\s?(gb|tb)\b")
 
 # Screen size (TVs, monitors, laptops) — unlike battery life or ANC depth,
@@ -1423,8 +1430,10 @@ def _extract_variant_signature(title: str, exclude: set) -> tuple:
     size_m = _SIZE_RE.search(normalized)
     size = f"{size_m.group(1)}inch" if size_m else None
     color = next((c for c in _COLOR_WORDS if re.search(rf"\b{re.escape(c)}\b", normalized)), None)
+    audience = next((a for a, words in _AUDIENCE_WORDS.items()
+                     if re.search(r"\b(?:" + "|".join(words) + r")\b", normalized)), None)
     extra_words = _distinguishing_words(title, exclude | {storage, size, color} - {None})
-    return (extra_words, storage, size, color)
+    return (extra_words, storage, size, color, audience)
 
 
 def _filter_and_group_candidates(
@@ -2906,21 +2915,25 @@ def _known_brand_names() -> set[str]:
 
 
 def _one_card_per_version(products: list[dict], tag: str) -> list[dict]:
-    """A typed search's list shows each version once (storage, size, pack,
-    material) at its lowest price, with how many stores sell it. Colour
-    rarely changes the price, so it doesn't make its own card."""
+    """A typed search's list shows each version once (sub-model, colour,
+    storage, size, pack, material) at its lowest price, with how many
+    stores sell it - the range Google Shopping shows, one card each, so the
+    shopper picks the pair they mean (owner's call, 2026-10-28)."""
     keys = ("storage", "ram", "volume", "weight", "pack", "material")
-    # Sub-models first (The Construct, Slip-ins): a typed search offers each
-    # one as its own card. Then, within a sub-model, each size/storage once.
+    # Sub-model and colour first (The Construct, Slip-ins; pink, beige): a
+    # typed search offers each as its own card. Then each size/storage once.
     groups: dict[tuple, list[dict]] = {}
     for p in products:
-        v = product_identity._variants(p.get("title") or "")
-        key = (product_identity.sub_models(p.get("title") or ""),) + tuple((k, v[k]) for k in keys if k in v)
+        title = p.get("title") or ""
+        v = product_identity._variants(title)
+        normalized = _norm_title(title)
+        colour = next((c for c in _COLOR_WORDS if re.search(rf"\b{re.escape(c)}\b", normalized)), None)
+        key = ((product_identity.sub_models(title), colour),) + tuple((k, v[k]) for k in keys if k in v)
         groups.setdefault(key, []).append(p)
-    for subs in {key[0] for key in groups}:
-        sizes = [key for key in groups if key[0] == subs]
-        if len(sizes) > 1 and (subs,) in groups:
-            groups.pop((subs,))       # listings that don't say which size/storage: step 6 still finds their stores
+    for head in {key[0] for key in groups}:
+        sizes = [key for key in groups if key[0] == head]
+        if len(sizes) > 1 and (head,) in groups:
+            groups.pop((head,))       # listings that don't say which size/storage: step 6 still finds their stores
     cards = []
     for rows in groups.values():
         regular = [r for r in rows if not _is_hyperlocal(r.get("source") or "")] or rows
@@ -3352,9 +3365,10 @@ def search_candidates(query: str, exact: bool = False, shops_only: bool = False)
                 # Construct) are choices, shown after the exact ones.
                 seen_v = {p.get("product_token") for p in products}
                 versions = [p for p in unconfirmed
-                            if (p.get("match_note") or "").startswith("sub-model") and p.get("product_token") not in seen_v]
+                            if product_identity.soft_doubt(identity, p.get("match_note") or "")
+                            and p.get("product_token") not in seen_v]
                 if versions:
-                    logger.info("%s %d other version(s) join the picker", tag, len(versions))
+                    logger.info("%s %d near match(es) join the picker after the exact ones", tag, len(versions))
                 products = _one_card_per_version(products + versions, tag)
             out["similar_products"] = similar
             approximate = not products

@@ -192,6 +192,16 @@ def _code_pattern(code: str) -> str:
     return r"(?<![a-z0-9])" + body + end
 
 
+def soft_doubt(ident: dict, why: str) -> bool:
+    """True when an unconfirmed listing's only doubt is a sub-model it adds
+    ("Slip-ins") or a word most of Google's own listings leave out
+    ("Originals"): close enough to be a choice in a typed search's picker."""
+    if why.startswith("sub-model"):
+        return True
+    m = re.fullmatch(r"name (\S+) not stated", why)
+    return bool(m) and (ident.get("word_weight") or {}).get(m.group(1), 1.0) < _LOW_WEIGHT
+
+
 def sub_models(title: str) -> tuple[str, ...]:
     """The sub-model words in a listing's head ("slip" in "Go Walk 7 Slip-Ins
     Walking Shoes"), so a typed search's picker shows each version once."""
@@ -505,13 +515,29 @@ def _listing_codes(title: str) -> list[str]:
     return [_strip_region(t) for t in _tokens(s) if _is_code(t) and not re.fullmatch(r"\d{1,2}", t)]
 
 
+def _context_pattern(ident: dict) -> str | None:
+    """The word a bare model number sits after, as a regex: the model's line
+    name ("walk" in Go Walk 7) or, with nothing between brand and number
+    ("iPhone 17", "Levi's 501"), the brand in any of its spellings. The
+    brand form only ever spots a DIFFERENT number there (iPhone 18 for 17);
+    a listing that names no brand ("Mens 511 Slim Fit") still confirms."""
+    ctx = ident.get("code_context")
+    if ctx:
+        return re.escape(ctx)
+    brand = ident.get("brand")
+    bare = [c for c in ident.get("codes") or [] if re.fullmatch(r"\d+(?:\.\d+)?", c)]
+    if not brand or len(bare) != 1:
+        return None      # "Lakme 9 to 5": two numbers, neither is THE model number after the brand
+    return "(?:" + "|".join(re.escape(x) for x in sorted(_BRAND_ALIASES.get(brand, {brand}))) + ")"
+
+
 def _conflicting_code(code: str, ident: dict, n: str, listing_codes: list[str]) -> str | None:
     """A code in the listing that sits where `code` would and differs: the
     number after the model name (Rockerz 430 for 450, Airdopes 111v2 for
     141), or a code of the same shape (MG3721 for BT3221). None when the
     listing simply doesn't say, which is not evidence of anything."""
-    if re.fullmatch(r"\d+(?:\.\d+)?", code) and ident.get("code_context"):
-        m = re.search(re.escape(ident["code_context"]) + r"\w*(?:\W+\w+){0,2}?\W+(\d+(?:\.\d+)?[a-z0-9]*)", n)
+    if re.fullmatch(r"\d+(?:\.\d+)?", code) and _context_pattern(ident):
+        m = re.search(_context_pattern(ident) + r"\w*(?:\W+\w+){0,2}?\W+(\d+(?:\.\d+)?[a-z0-9]*)", n)
         if m:
             got = re.match(r"\d+(?:\.\d+)?", m.group(1)).group(0)
             if float(got) != float(code):
@@ -638,7 +664,7 @@ def match_tier(ident: dict, title: str, source: str = "", _whole: bool = True) -
         if re.fullmatch(r"\d+(?:\.\d+)?", code) and ident.get("code_context"):
             # a bare number only counts right after the model's name
             # ("Go Walk 7"), never as a size elsewhere ("(Black, 7)")
-            pattern = re.escape(ident["code_context"]) + r"\w*(?:\W+\w+){0,2}?\W+" + pattern.removeprefix(r"(?<![a-z0-9])")
+            pattern = _context_pattern(ident) + r"\w*(?:\W+\w+){0,2}?\W+" + pattern.removeprefix(r"(?<![a-z0-9])")
         if re.search(pattern, n):
             code_confirmed = True
             continue
