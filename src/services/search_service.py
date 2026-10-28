@@ -1322,10 +1322,14 @@ def _matches_any_required_token(title: str, tokens: list[str]) -> bool:
     if not tokens:
         return True
     normalized = _norm_title(title or "")
-    return any(
-        re.search(_token_pattern(t), normalized) or _fuzzy_token_hit(t, normalized)
-        for t in tokens
-    )
+    if any(re.search(_token_pattern(t), normalized) or _fuzzy_token_hit(t, normalized) for t in tokens):
+        return True
+    # A type word counts by family: "Backpack" and "Tote" answer "puma bag"
+    # (literal "bag" threw out twenty Puma bags from trusted shops, 2026-10-28).
+    fam = product_identity._TYPE_FAMILY
+    wanted = {fam.get(t, t) for t in tokens if t in product_identity._TYPE_WORDS}
+    return bool(wanted) and any(
+        fam.get(w, w) in wanted for w in normalized.split() if w in product_identity._TYPE_WORDS)
 
 
 def _is_category_only_query(query: str, tokens: list[str]) -> bool:
@@ -3372,7 +3376,13 @@ def search_candidates(query: str, exact: bool = False, shops_only: bool = False)
                             and p.get("product_token") not in seen_v]
                 if versions:
                     logger.info("%s %d near match(es) join the picker after the exact ones", tag, len(versions))
-                products = _one_card_per_version(products + versions, tag)
+                if identity["name"] or identity["codes"] or identity["alt_codes"]:
+                    products = _one_card_per_version(products + versions, tag)
+                else:
+                    # "puma bag" names a brand's category, not one product:
+                    # Beta, Dash and Academy backpacks are different products,
+                    # not versions of one, so each stays its own card.
+                    products = products + versions
             out["similar_products"] = similar
             approximate = not products
         # A pasted link's "budget" never came from the user — it's whatever

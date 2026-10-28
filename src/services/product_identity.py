@@ -63,7 +63,7 @@ mixer grinder juicer blender kettle cooktop cooker fryer airfryer oven toaster f
 bank powerbank cable adapter
 shoes shoe sneakers sneaker sandals slippers boots flip-flops
 jeans shirt tshirt t-shirt polo tee trousers shorts jacket hoodie sweatshirt dress kurta
-backpack bag rucksack wallet suitcase trolley
+backpack bag rucksack handbag tote duffel duffle satchel wallet suitcase trolley
 serum sunscreen cleanser wash facewash moisturiser moisturizer cream lotion gel
 shampoo conditioner mask foundation primer powder lipstick kajal eyeliner mascara
 """.split())
@@ -77,6 +77,8 @@ _TYPE_FAMILY = {
     "smartwatch": "watch", "powerbank": "bank",
     "moisturizer": "moisturiser", "facewash": "wash",
     "airfryer": "fryer", "ereader": "kindle", "e-reader": "kindle",
+    "backpack": "bag", "rucksack": "bag", "handbag": "bag", "tote": "bag",
+    "duffel": "bag", "duffle": "bag", "satchel": "bag",
 }
 
 # Words that turn one model into a sibling model. If the pasted product has
