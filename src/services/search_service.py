@@ -3312,6 +3312,9 @@ def search_candidates(query: str, exact: bool = False, shops_only: bool = False)
                 seen_u, shown = set(), []
                 for p in unconfirmed:
                     key = (p.get("title") or "").lower()
+                    if not product_identity.names_the_product(identity, p.get("title") or ""):
+                        logger.info("%s   left out of the range (names nothing of the product): %r", tag, p.get("title"))
+                        continue
                     if key not in seen_u:
                         seen_u.add(key)
                         shown.append(p)

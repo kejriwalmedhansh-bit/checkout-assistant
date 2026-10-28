@@ -192,6 +192,23 @@ def _code_pattern(code: str) -> str:
     return r"(?<![a-z0-9])" + body + end
 
 
+def names_the_product(ident: dict, title: str) -> bool:
+    """True when the listing states something that identifies the product
+    beyond its brand and type: a name word, a model number or the line
+    name a bare number follows. "Fossil Women Jesse Watch" names nothing of
+    a "fossil gen 6 smartwatch"; "Sony WH-CH720N" nothing of a WH-1000XM5.
+    A listing that names nothing is no answer even when nothing is exact.
+    True when the search itself names nothing to require."""
+    n = _norm(title)
+    words = set(_words(title)) | set(_tokens(title))
+    compact = _compact(title)
+    required = list(ident.get("name") or []) + ([ident["code_context"]] if ident.get("code_context") else [])
+    codes = list(ident.get("codes") or []) + [a for alts in ident.get("alt_codes") or [] for a in alts]
+    if not required and not codes:
+        return True
+    return any(_has_word(w, words, compact) for w in required) or any(re.search(_code_pattern(c), n) for c in codes)
+
+
 def soft_doubt(ident: dict, why: str) -> bool:
     """True when an unconfirmed listing's only doubt is a sub-model it adds
     ("Slip-ins") or a word most of Google's own listings leave out
@@ -544,7 +561,13 @@ def _conflicting_code(code: str, ident: dict, n: str, listing_codes: list[str]) 
                 return m.group(1)
         return None
     shape, own = _code_shape(code), _compact(_strip_region(code))
+    family = re.match(r"([a-z]{2,})-([a-z0-9]+)", code)
     for lc in listing_codes:
+        # Same line, different model segment: WH-CH720N where WH-1000XM5
+        # should be. GA-2100-1ADR for GA-2100-1A1DR is only another colour.
+        m = family and re.match(re.escape(family.group(1)) + r"-([a-z0-9]+)", lc)
+        if m and m.group(1) != family.group(2):
+            return lc
         # Compared over the reference code's own length, so a longer
         # colourway code (A168WA-1WDF) still conflicts with A158WA.
         got = _compact(_strip_region(lc))[:len(own)]
