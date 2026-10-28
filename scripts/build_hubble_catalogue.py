@@ -29,7 +29,13 @@ sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 from src.config import get_settings  # noqa: E402
 from src.services.hubble_service import API_HOST  # noqa: E402
 
-OUT = Path(__file__).resolve().parent.parent / "data" / "hubble_catalogue.json"
+DATA = Path(__file__).resolve().parent.parent / "data"
+
+
+def out_path(env: str) -> Path:
+    """Production and staging are different stores with different brand ids,
+    so each keeps its own file (services/hubble_service.py picks by env)."""
+    return DATA / ("hubble_catalogue.json" if env == "production" else "hubble_catalogue.staging.json")
 
 
 def _details(client: httpx.Client, base: str, brand: dict) -> dict | None:
@@ -63,6 +69,7 @@ def build() -> list[dict]:
 
 if __name__ == "__main__":
     brands = build()
+    OUT = out_path(get_settings().HUBBLE_ENV)
     OUT.write_text(json.dumps(brands, indent=1, ensure_ascii=False) + "\n")
     online = sum("ONLINE" in b["works"] for b in brands)
     print(f"wrote {len(brands)} vouchers to {OUT} ({online} work online, {len(brands) - online} in store only)")

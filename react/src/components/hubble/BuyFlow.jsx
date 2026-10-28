@@ -107,6 +107,19 @@ export default function BuyFlow({ offer, merchant, price, shopLink, onClose, onB
         paid.current = true;
         track('Hubble Payment Success', { merchant, amount: offer.voucher_total });
       }
+      if (kind === 'payment_fail') track('Hubble Payment Failed', { merchant, amount: offer.voucher_total });
+      // Paid, but Hubble couldn't make the card: Hubble refunds the payment
+      // itself (5–7 working days per Yash, 27 Oct 2026). Say so plainly
+      // rather than leaving the shopper on a blank "generating" screen.
+      if (kind === 'voucher_generation_fail') {
+        track('Hubble Voucher Failed', { merchant, amount: offer.voucher_total });
+        setStep('failed');
+      }
+      // Hubble's screen itself failed to load (bad keys, network, login).
+      if (kind === 'error' && msg?.type === 'action') {
+        setError("Couldn't open the payment screen. Please try again.");
+        setStep('details');
+      }
       // The card exists: Dealo's own "voucher ready" screen takes over
       // straight away, instead of waiting for the shopper to close Hubble's.
       if (kind === 'voucher_generation_success') {
@@ -195,7 +208,7 @@ export default function BuyFlow({ offer, merchant, price, shopLink, onClose, onB
   }
 
   return (
-    <Box position="fixed" inset={0} zIndex={1400} bg="rgba(22,32,43,.55)" onClick={step === 'done' ? undefined : onClose}>
+    <Box position="fixed" inset={0} zIndex={1400} bg="rgba(22,32,43,.55)" onClick={step === 'done' || step === 'failed' ? undefined : onClose}>
       <Box
         position="absolute"
         left={0}
@@ -330,6 +343,21 @@ export default function BuyFlow({ offer, merchant, price, shopLink, onClose, onB
                 Opening payment…
               </Text>
             )}
+          </Flex>
+        )}
+
+        {step === 'failed' && (
+          <Flex direction="column" gap="14px" py="8px">
+            <Text fontSize="22px" fontWeight={800}>
+              Voucher couldn’t be made
+            </Text>
+            <Text fontSize="14px" color="text2">
+              {offer.brand_name} didn’t issue the voucher this time. If your payment went through, Hubble refunds it
+              to the same account automatically within 5–7 working days. You don’t need to do anything.
+            </Text>
+            <Button onClick={onClose} h="52px" borderRadius="pill" bg="text" color="white" fontWeight={800} _hover={{ bg: 'text' }}>
+              OK
+            </Button>
           </Flex>
         )}
 

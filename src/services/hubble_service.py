@@ -26,42 +26,72 @@ import httpx
 import jwt
 
 from ..config import get_settings
+from ..repositories._brand_matching import _strip_generic_suffix_words, normalize
 
-_CATALOGUE = Path(__file__).resolve().parents[2] / "data" / "hubble_catalogue.json"
-SDK_HOST = {
-    "staging": "https://sdk.dev.myhubble.money",
-    "production": "https://sdk.myhubble.money",
-}
-API_HOST = {
-    "staging": "https://api.dev.myhubble.money",
-    "production": "https://api.myhubble.money",
-}
-# Hubble asks partners not to hold store data for long; ten minutes keeps a
-# busy results page from calling them on every view.
-_PRODUCT_TTL_SECONDS = 600
-_products: dict[str, tuple[float, dict]] = {}
+_DATA = Path(__file__).resolve().parents[2] / "data"
+_ALIASES = _DATA / "hubble_aliases.json"
+# Hubble titles ending like "Hugo Boss-Luxe Gift Card" are the shop's own
+# voucher under Gyftr's "Luxe" label; the shop is "Hugo Boss".
+_LUXE_SUFFIX = re.compile(r"[\s-]*luxe\s+(gift|brand)\s+card$", re.IGNORECASE)
+_TLD = re.compile(r"\.(com|in|co\.in|net|org|co)(/.*)?$")
+
+def _catalogue_path() -> Path:
+    """Production and staging are different stores with different brand ids
+    (scripts/build_hubble_catalogue.py writes one file per environment)."""
+    env = get_settings().HUBBLE_ENV
+    return _DATA / ("hubble_catalogue.json" if env == "production" else "hubble_catalogue.staging.json")
 
 
-def _key(name: str) -> str:
-    return re.sub(r"[^a-z0-9]", "", (name or "").lower())
+@lru_cache(maxsize=2)
+def _catalogue(path: Path) -> tuple[dict[str, list[dict]], dict[str, list[dict]]]:
+    """Hubble vouchers by exact title key, and by the shop name hidden in a
+    "-Luxe Gift Card" title (only when no plain title already has that
+    key: "Nykaa LUXE" must never answer for "Nykaa")."""
+    exact: dict[str, list[dict]] = {}
+    luxe: dict[str, list[dict]] = {}
+    brands = json.loads(path.read_text())
+    for b in brands:
+        exact.setdefault(normalize(b["name"]), []).append(b)
+    for b in brands:
+        bare = _LUXE_SUFFIX.sub("", b["name"])
+        if bare != b["name"] and normalize(bare) not in exact:
+            luxe.setdefault(normalize(bare), []).append(b)
+    return exact, luxe
 
 
 @lru_cache(maxsize=1)
-def _brands_by_key() -> dict[str, list[dict]]:
-    by_key: dict[str, list[dict]] = {}
-    for b in json.loads(_CATALOGUE.read_text()):
-        by_key.setdefault(_key(b["name"]), []).append(b)
-    return by_key
+def _aliases() -> dict[str, list[str]]:
+    return {k: v for k, v in json.loads(_ALIASES.read_text()).items() if not k.startswith("_")}
+
+
+def shop_key(merchant: str) -> str:
+    """The shop behind a results-page name: "Amazon.in", "AJIO.com",
+    "Hamleys India", "Westside (in-store)" all become amazon / ajio /
+    hamleys / westside."""
+    name = re.sub(r"\s*\(in-store\)\s*$", "", merchant or "", flags=re.IGNORECASE).strip().lower()
+    name = re.sub(r"^(https?://)?(www\.)?", "", name)
+    name = _TLD.sub("", name)
+    return normalize(_strip_generic_suffix_words(name))
 
 
 def brand_for(merchant: str, in_store: bool = False) -> dict | None:
     """The one Hubble voucher for this shop that works where the shopper
     pays: online orders get an online voucher, in-store orders an in-store
-    one. Exact name match only, and two candidates with no way to tell them
-    apart means neither is used: a near-miss or a guess sends the shopper a
-    voucher for the wrong shop or at a price Dealo didn't show."""
+    one. A near-miss or a guess would sell a voucher for the wrong shop, so
+    only three things count: the exact title, a hand-checked alias
+    (data/hubble_aliases.json), or a "-Luxe Gift Card" title for the same
+    shop. Two candidates with no way to tell them apart means neither."""
     want = "OFFLINE" if in_store else "ONLINE"
-    fits = [b for b in _brands_by_key().get(_key(merchant), []) if want in b["works"]]
+    key = shop_key(merchant)
+    if not key:
+        return None
+    exact, luxe = _catalogue(_catalogue_path())
+    names = _aliases().get(key)
+    if names:
+        pool = [b for n in names for b in exact.get(normalize(n), [])]
+    else:
+        pool = exact.get(key) or luxe.get(key) or []
+    fits = [b for b in pool if want in b["works"]]
     return fits[0] if len(fits) == 1 else None
 
 

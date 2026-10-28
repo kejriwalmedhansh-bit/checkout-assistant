@@ -28,6 +28,16 @@
       "surfaces": ["web"],
       "properties": { "merchant": "shop the voucher is for", "amount": "voucher value in rupees" }
     },
+    "Hubble Payment Failed": {
+      "description": "Hubble branch only: Hubble reported the shopper's UPI payment did not go through (Hubble's screen offers a retry).",
+      "surfaces": ["web"],
+      "properties": { "merchant": "shop the voucher is for", "amount": "voucher value in rupees" }
+    },
+    "Hubble Voucher Failed": {
+      "description": "Hubble branch only: payment went through but the brand did not issue the voucher; Hubble refunds in 5-7 working days and Dealo shows the shopper that message.",
+      "surfaces": ["web"],
+      "properties": { "merchant": "shop the voucher is for", "amount": "voucher value in rupees" }
+    },
     "Login Code Sent": {
       "description": "Hubble branch only: Dealo sent the shopper an SMS login code before their first purchase.",
       "surfaces": ["web"],
