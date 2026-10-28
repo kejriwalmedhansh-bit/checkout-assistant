@@ -183,11 +183,17 @@ export const useSearchStore = create(
               .catch(() => {});
           }
           if (result?.card_offers_id) {
-            searchApi.cardOffers(result.card_offers_id)
-              .then((offers) => {
-                if (offers?.length && get().selectedToken === token) set({ cardOffers: offers });
-              })
-              .catch(() => {});
+            // Up to three store pages are read one after another; the
+            // server waits a while, and one more ask covers a slow page.
+            const askForCardOffers = (triesLeft) =>
+              searchApi.cardOffers(result.card_offers_id)
+                .then((offers) => {
+                  if (get().selectedToken !== token) return;
+                  if (offers?.length) set({ cardOffers: offers });
+                  else if (offers === null && triesLeft > 0) askForCardOffers(triesLeft - 1);
+                })
+                .catch(() => {});
+            askForCardOffers(1);
           }
           const rec = result?.routes?.recommended;
           if (rec) {
