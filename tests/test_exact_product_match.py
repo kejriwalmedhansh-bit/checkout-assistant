@@ -44,9 +44,14 @@ def test_sibling_sub_models_are_wrong():
     assert tier(fan, "Bajaj Frore Turbo 1200 mm BLDC Ceiling Fan") == "wrong"
     shoes = "skechers men go walk flex lace up shoes"
     assert tier(shoes, "Skechers Men GO WALK FLEX Navy Blue Walking Shoes") == "exact"
-    assert tier(shoes, "Skechers Men's Go Walk Flex Remark Walking Shoe") == "wrong"
+    # A word Dealo has never seen ("Remark", "Foaming") is not evidence of a
+    # different product (owner's rule, 2026-10-27): such listings stay in,
+    # and the picker lets the shopper tell them apart. Only a modifier
+    # (Pro/Max/Plus) or a model code marks a sibling.
+    assert tier(shoes, "Skechers Men's Go Walk Flex Remark Walking Shoe") != "wrong"
     wash = "Himalaya Purifying Neem Face Wash, 150 ml"
-    assert tier(wash, "Himalaya Purifying Neem Foaming Face Wash") == "wrong"
+    assert tier(wash, "Himalaya Purifying Neem Foaming Face Wash") != "wrong"
+    assert tier(shoes, "Skechers Men Go Walk Flex Pro Walking Shoe") == "wrong"
 
 
 def test_air_in_a_product_name_is_not_the_air_sub_model():
@@ -165,7 +170,9 @@ def test_other_colourways_are_recognised():
     from src.services.product_identity import other_colour
     url = "https://www.tatacliq.com/casio-g-shock-ga-2100-1a1dr-black-analog-digital-dial-black-resin-strap-mens-watch-g987/p-mp000000007808877"
     ident = build_identity("Tata CLiQ Online Fashion & Lifestyle Shopping", url)
-    assert match_tier(ident, "Casio G-Shock GA-2100-1ADR Analog-Digital Watch")[0] == "wrong"
+    # another colour code is not the same product, but nothing says it's a
+    # different model either: shown only when nothing exact exists
+    assert match_tier(ident, "Casio G-Shock GA-2100-1ADR Analog-Digital Watch")[0] == "unconfirmed"
     assert other_colour(ident, "Casio G-Shock GA-2100-1ADR Analog-Digital Watch")
     assert not other_colour(ident, "Casio G-Shock GA-B2100-1ADR Solar Watch")
 
@@ -175,15 +182,18 @@ def test_typed_searches_name_the_product():
     assert _typed_identity("air fryer") is None and _typed_identity("running shoes for men") is None
     a = _typed_identity("boat airdopes 91")
     assert match_tier(a, "boAt Airdopes 91 TWS Earbuds")[0] == "exact"
-    assert match_tier(a, "boAt Airdopes 91 Prime")[0] == "wrong"
+    # Typed words name a range: a sub-model the shopper didn't type is a
+    # choice for the picker, never thrown out (owner's call, 2026-10-28).
+    assert match_tier(a, "boAt Airdopes 91 Prime") == ("unconfirmed", "sub-model 'prime'")
     i = _typed_identity("iphone 15")
     assert match_tier(i, "Apple iPhone 15 (128 GB) - Black")[0] == "exact"
-    assert match_tier(i, "Apple iPhone 15 Pro")[0] == "wrong"
+    assert match_tier(i, "Apple iPhone 15 Pro") == ("unconfirmed", "sub-model 'pro'")
     d = _typed_identity("dyson v12")
     assert match_tier(d, "Dyson V12 Detect Slim Absolute")[0] == "exact"
-    assert match_tier(d, "Dyson V12s Detect Slim Submarine")[0] == "wrong"
+    assert match_tier(d, "Dyson V12s Detect Slim Submarine")[0] != "exact"
     k = _typed_identity("skechers go walk 7 men")
-    assert match_tier(k, "Skechers Men Go Walk Flex Low-Top Casual Shoes For Men (Black, 7)")[0] == "wrong"
+    # no number after "Go Walk": not the 7, but not proven another model either
+    assert match_tier(k, "Skechers Men Go Walk Flex Low-Top Casual Shoes For Men (Black, 7)")[0] == "unconfirmed"
     c = _typed_identity("casio mtp-1374l-1av")
     assert match_tier(c, "Casio A550 Enticer Men (MTP-1314D-1AVDF) Analog Watch")[0] == "wrong"
     o = _typed_identity("oneplus nord buds 3 pro")
