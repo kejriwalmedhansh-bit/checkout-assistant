@@ -29,7 +29,7 @@ def _journey(path: pathlib.Path) -> tuple[dict, dict]:
     data = json.loads(path.read_text())
     tape = Tape(data["calls"])
     with replaying(tape):
-        result = run_case(data["input"])
+        result = run_case(data["input"], (data.get("pick") or {}).get("product_token"))
     assert not tape.missed, f"{path.name}: asked for something not on the tape:\n" + "\n".join(tape.missed[:5])
     return data, result
 

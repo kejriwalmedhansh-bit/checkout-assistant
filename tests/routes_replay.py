@@ -127,12 +127,17 @@ def replaying(tape: Tape):
         yield
 
 
-def run_case(text: str) -> dict:
-    """Search, follow the pick, compare. Returns what the shopper would see."""
+def run_case(text: str, chosen: str | None = None) -> dict:
+    """Search, follow the pick, compare. Returns what the shopper would see.
+    `chosen` is the product_token the shopper tapped when the journey was
+    recorded; a typed search always shows the picker, so a replay taps the
+    same card rather than the first one."""
     from src.services import search_service
 
     found = search_service.search_candidates(text)
-    pick = found.get("auto_pick") or (found["products"][0] if found.get("products") else None)
+    products = found.get("products") or []
+    pick = found.get("auto_pick") or next((p for p in products if p.get("product_token") == chosen), None) or (
+        products[0] if products else None)
     if not pick:
         return {"search": found, "pick": None, "routes": None}
     routes = search_service.routes_without_waiting_on_check(

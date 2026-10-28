@@ -182,10 +182,12 @@ def test_typed_searches_name_the_product():
     assert _typed_identity("air fryer") is None and _typed_identity("running shoes for men") is None
     a = _typed_identity("boat airdopes 91")
     assert match_tier(a, "boAt Airdopes 91 TWS Earbuds")[0] == "exact"
-    assert match_tier(a, "boAt Airdopes 91 Prime")[0] == "wrong"
+    # Typed words name a range: a sub-model the shopper didn't type is a
+    # choice for the picker, never thrown out (owner's call, 2026-10-28).
+    assert match_tier(a, "boAt Airdopes 91 Prime") == ("unconfirmed", "sub-model 'prime'")
     i = _typed_identity("iphone 15")
     assert match_tier(i, "Apple iPhone 15 (128 GB) - Black")[0] == "exact"
-    assert match_tier(i, "Apple iPhone 15 Pro")[0] == "wrong"
+    assert match_tier(i, "Apple iPhone 15 Pro") == ("unconfirmed", "sub-model 'pro'")
     d = _typed_identity("dyson v12")
     assert match_tier(d, "Dyson V12 Detect Slim Absolute")[0] == "exact"
     assert match_tier(d, "Dyson V12s Detect Slim Submarine")[0] != "exact"

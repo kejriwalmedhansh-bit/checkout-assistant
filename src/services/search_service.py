@@ -2910,12 +2910,17 @@ def _one_card_per_version(products: list[dict], tag: str) -> list[dict]:
     material) at its lowest price, with how many stores sell it. Colour
     rarely changes the price, so it doesn't make its own card."""
     keys = ("storage", "ram", "volume", "weight", "pack", "material")
+    # Sub-models first (The Construct, Slip-ins): a typed search offers each
+    # one as its own card. Then, within a sub-model, each size/storage once.
     groups: dict[tuple, list[dict]] = {}
     for p in products:
         v = product_identity._variants(p.get("title") or "")
-        groups.setdefault(tuple((k, v[k]) for k in keys if k in v), []).append(p)
-    if len(groups) > 1 and () in groups:
-        groups.pop(())       # listings that don't say which version: step 6 still finds their stores
+        key = (product_identity.sub_models(p.get("title") or ""),) + tuple((k, v[k]) for k in keys if k in v)
+        groups.setdefault(key, []).append(p)
+    for subs in {key[0] for key in groups}:
+        sizes = [key for key in groups if key[0] == subs]
+        if len(sizes) > 1 and (subs,) in groups:
+            groups.pop((subs,))       # listings that don't say which size/storage: step 6 still finds their stores
     cards = []
     for rows in groups.values():
         regular = [r for r in rows if not _is_hyperlocal(r.get("source") or "")] or rows
@@ -2934,7 +2939,8 @@ def _one_card_per_version(products: list[dict], tag: str) -> list[dict]:
         best = dict(best, store_count=len({_brand_signature(r.get("source") or "") for r in rows}))
         cards.append(best)
     logger.info("%s %d listing(s) -> %d version card(s)", tag, len(products), len(cards))
-    return sorted(cards, key=lambda c: c.get("price") or float("inf"))
+    # Exact matches lead; versions the shopper didn't name follow, each by price.
+    return sorted(cards, key=lambda c: (c.get("match_tier") == "unconfirmed", c.get("price") or float("inf")))
 
 
 def _size_price_ok(identity: dict, title: str, price: float | None, reference: float | None) -> bool:
@@ -3342,7 +3348,14 @@ def search_candidates(query: str, exact: bool = False, shops_only: bool = False)
                     out["closest"] = True
                     products = closest[:4]
             elif typed_product:
-                products = _one_card_per_version(products, tag)
+                # Versions the shopper didn't name (Slip-ins next to The
+                # Construct) are choices, shown after the exact ones.
+                seen_v = {p.get("product_token") for p in products}
+                versions = [p for p in unconfirmed
+                            if (p.get("match_note") or "").startswith("sub-model") and p.get("product_token") not in seen_v]
+                if versions:
+                    logger.info("%s %d other version(s) join the picker", tag, len(versions))
+                products = _one_card_per_version(products + versions, tag)
             out["similar_products"] = similar
             approximate = not products
         # A pasted link's "budget" never came from the user — it's whatever
@@ -3425,7 +3438,10 @@ def search_candidates(query: str, exact: bool = False, shops_only: bool = False)
             if out.get("other_colours") or out.get("closest"):
                 pick = None
             elif typed_product:
-                pick = products[0] if len(products) == 1 and (identity["codes"] or identity["alt_codes"] or identity["name"]) else None
+                # Typed words are a description, not a product: the shopper
+                # picks, even from one card (owner's call, 2026-10-28). Only a
+                # pasted link says exactly what they want.
+                pick = None
             else:
                 pick = _auto_pick(products, identity, live_candidate)
             if pick:
@@ -3607,7 +3623,6 @@ def _find_pdp_candidate(
 _OFFER_SEED_CAP = 6         # Google entries whose store lists are read
 _OFFER_PAGES = 3            # pages per store list (page 1 ~5 stores, then 10 each)
 _STORE_LIST_BUDGET = 10     # seconds; a slower Google reply is left out rather than waited on. 5s (#85) lost 5 of 6 Pixel 11 shops on a slow day, 2026-10-24
-_STORE_LIST_GRACE = 6       # extra seconds for stragglers, only when fewer than 3 stores came back in time
 _GAP_STORE_CAP = 4          # "<product> <store>" searches for big stores with no exact match
 # Flipkart's own search page, read through Context.dev (~5s, max 7s) or
 # Crawlbase as fallback (6-18s), measured 2026-10-03. It runs alongside the store lists and is waited on for at most
@@ -3784,12 +3799,6 @@ def _discover_exact_offers(
     pool = ThreadPoolExecutor(max_workers=max(1, len(tokens) + len(gaps)))
     futures = [pool.submit(_offer_rows, t, _OFFER_PAGES, tag) for t in tokens] + [pool.submit(_gap_rows, m) for m in gaps]
     done, late = wait(futures, timeout=_STORE_LIST_BUDGET)
-    if late and len({r["merchant"] for f in done for r in f.result()}) < 3:
-        # Thin so far: the stragglers are worth a few more seconds. Never
-        # longer than the Flipkart read already running alongside.
-        more, late = wait(late, timeout=_STORE_LIST_GRACE)
-        done |= more
-        logger.info("%s waited +%ss for %d straggling store list(s), %d still late", tag, _STORE_LIST_GRACE, len(more), len(late))
     if late:
         logger.info("%s %d store-list lookup(s) slower than %ss, left out", tag, len(late), _STORE_LIST_BUDGET)
     pool.shutdown(wait=False)

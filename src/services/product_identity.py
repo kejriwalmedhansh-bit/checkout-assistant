@@ -192,6 +192,13 @@ def _code_pattern(code: str) -> str:
     return r"(?<![a-z0-9])" + body + end
 
 
+def sub_models(title: str) -> tuple[str, ...]:
+    """The sub-model words in a listing's head ("slip" in "Go Walk 7 Slip-Ins
+    Walking Shoes"), so a typed search's picker shows each version once."""
+    head = _HEAD_CUT_RE.split(clean_title(title), maxsplit=1)[0]
+    return tuple(sorted(set(_tokens(head)) & _MODIFIERS))
+
+
 def _variants(title: str) -> dict:
     n = _norm(title)
     out: dict = {}
@@ -670,6 +677,15 @@ def match_tier(ident: dict, title: str, source: str = "", _whole: bool = True) -
     for m in _MODIFIERS:
         if (m in head_words) != (m in ident["modifiers"]):
             if m in ident["modifiers"] and m in words:
+                continue
+            if ident.get("typed") and m in head_words:
+                # Typed words describe a range, not one product: "skechers go
+                # walk 7 men" covers the Slip-ins as much as The Construct, so
+                # a sub-model the shopper didn't type is a choice for the
+                # picker, not a wrong product (owner's call, 2026-10-28).
+                # Appended, so it leads only when nothing else is in doubt:
+                # a "Taekwondo Mei Elite" is not a version of Handball Spezial.
+                unconfirmed.append(f"sub-model '{m}'")
                 continue
             return "wrong", f"sub-model '{m}'"
     # Editions sold as separate products: "for Mac", "for Business", and a
