@@ -5,6 +5,7 @@
  * worth the extra steps, so the screen becomes "cheapest shop first"
  * instead of a tiny "You save ₹40" with a two-step how-to.
  */
+import { BRANDFETCH_CLIENT_ID } from '@/config';
 
 // Below either limit the gift card saving is too small to lead with.
 export const MIN_GIFT_CARD_SAVING_RS = 100;
@@ -78,11 +79,18 @@ export function shortDelivery(text) {
   return text.replace(/^Free delivery between /, 'Free, ').replace(/^Free next-day delivery$/, 'Free, next day');
 }
 
-/** Shop icon from the listing's own website (Google's public favicon service). */
-export function shopIcon(link) {
+/** Logos to try for a shop, best first: Brandfetch's square brand icon
+ * (404s when it has none, so the next one loads), then the site's own
+ * favicon via Google. Both are looked up by the listing's website. */
+export function shopLogos(link) {
+  let host;
   try {
-    return `https://www.google.com/s2/favicons?domain=${new URL(link).hostname}&sz=128`;
+    host = new URL(link).hostname.replace(/^www\./, '');
   } catch {
-    return undefined;
+    return [];
   }
+  return [
+    `https://cdn.brandfetch.io/${host}/w/128/h/128/fallback/404/type/icon?c=${BRANDFETCH_CLIENT_ID}`,
+    `https://www.google.com/s2/favicons?domain=${host}&sz=128`,
+  ];
 }

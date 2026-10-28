@@ -166,6 +166,19 @@ export const useSearchStore = create(
         try {
           const result = await searchApi.routes(token, get().query, title, price, source);
           set({ result, status: 'success', error: null, persistedAt: Date.now() });
+          if (result?.price_check_pending && result.price_check_id) {
+            // Shown already; the live price re-check finishes on the server
+            // and replaces it only if the shopper is still on this product.
+            searchApi.checkedRoutes(result.price_check_id)
+              .then((checked) => {
+                if (checked && get().selectedToken === token && get().result === result) {
+                  // The checked answer comes back without the ids; keep them
+                  // (card_offers_id is also the WhatsApp hand-off code).
+                  set({ result: { ...checked, card_offers_id: result.card_offers_id } });
+                }
+              })
+              .catch(() => {});
+          }
           const rec = result?.routes?.recommended;
           if (rec) {
             // Same original/final/discount math the results page itself

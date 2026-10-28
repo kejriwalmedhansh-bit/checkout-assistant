@@ -67,6 +67,17 @@ serum sunscreen cleanser wash facewash moisturiser moisturizer cream lotion gel
 shampoo conditioner mask foundation primer powder lipstick kajal eyeliner mascara
 """.split())
 
+# Type words that name the same kind of product ("Shoes" on one shop is
+# "Sneakers" on another).
+_TYPE_FAMILY = {
+    "shoe": "shoes", "sneakers": "shoes", "sneaker": "shoes", "trainers": "shoes",
+    "tshirt": "tee", "t-shirt": "tee",
+    "earbuds": "buds", "earphones": "buds",
+    "smartwatch": "watch", "powerbank": "bank",
+    "moisturizer": "moisturiser", "facewash": "wash",
+    "airfryer": "fryer", "ereader": "kindle", "e-reader": "kindle",
+}
+
 # Words that turn one model into a sibling model. If the pasted product has
 # one and a listing doesn't (or the reverse), they are different products.
 _MODIFIERS = set("""
@@ -494,8 +505,13 @@ def match_tier(ident: dict, title: str, source: str = "", _whole: bool = True) -
     missing = [w for w in ident["name"] if not _has_word(w, words, compact)]
     if missing:
         return "wrong", f"name {missing[0]}"
+    # Only a listing that names ANOTHER type is a different product. One that
+    # names no type at all just has a shorter title: AJIO's "adidas Women
+    # Originals Handball Spezial" at ₹4,400 was thrown out for a search
+    # ending in "Sneakers" and Dealo sent the shopper to ₹9,900 (2026-10-27).
     if ident["types"] and not (ident["codes"] or ident["alt_codes"]):
-        if not any(_has_word(t, words, compact) for t in ident["types"]):
+        listing_types = {_TYPE_FAMILY.get(w, w) for w in words if w in _TYPE_WORDS}
+        if listing_types and not listing_types & {_TYPE_FAMILY.get(t, t) for t in ident["types"]}:
             return "wrong", "product type"
     head_words = set(_tokens(head))
     for m in _MODIFIERS:

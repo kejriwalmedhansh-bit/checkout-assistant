@@ -125,8 +125,9 @@ export default function AppLayout() {
 {/* Hidden on /join: that page's whole point is a single WhatsApp
           destination (the community). A second WhatsApp button pointing
           at the support chatbot right next to it would just be confusing —
-          "which WhatsApp is this?" */}
-      {location.pathname.replace(/\/$/, '') !== ROUTES.join && <FloatingWhatsAppButton />}
+          "which WhatsApp is this?" Hidden on /results too: the results
+          carry their own "Send this to my WhatsApp" row. */}
+      {![ROUTES.join, ROUTES.results].includes(location.pathname.replace(/\/$/, '')) && <FloatingWhatsAppButton />}
 
       <Flex direction="column" flex={1} minW={0}>
         {/* mobile top bar */}

@@ -17,6 +17,7 @@ import CreditCardPrompt from '@/components/dashboard/CreditCardPrompt';
 import AlternativesToggle from '@/components/dashboard/AlternativesToggle';
 import DropOffQuestion from '@/components/dashboard/DropOffQuestion';
 import PriceList from '@/components/dashboard/PriceList';
+import SendToWhatsApp from '@/components/dashboard/SendToWhatsApp';
 import { usePageHeader } from '@/hooks/usePageHeader';
 import { usePageTitle } from '@/hooks/usePageTitle';
 import { ROUTES } from '@/routes/paths';
@@ -163,6 +164,12 @@ export default function ResultsPage() {
   // a voucher for it.
   const vendorLink = showPriceList ? shops[0]?.link : activeRoute?.sellers?.[0]?.link;
   const sourceUrl = result?.mode === 'url' ? query : vendorLink ? affiliateUrl(vendorLink, 'product_card') : null;
+  // What "Send this to my WhatsApp" pre-fills: what they typed (words or
+  // link), plus "(deal <code>)" so the bot replies with this exact result
+  // instead of searching again. Must match HANDOFF_CODE_LEN and _DEAL_RE in
+  // the backend. Without a code the bot just searches their words.
+  const handoffCode = result?.card_offers_id?.slice(0, 10);
+  const whatsappMessage = `${query || productName}${handoffCode ? ` (deal ${handoffCode})` : ''}`;
 
   return (
     <Box ref={scrollRef} w="100%" maxW="640px" mx="auto">
@@ -241,7 +248,11 @@ export default function ResultsPage() {
               )}
             </Box>
             {showPriceList ? (
-              <PriceList shops={shops} onPickGiftCard={selectAlt} />
+              <PriceList
+                shops={shops}
+                onPickGiftCard={selectAlt}
+                afterFirst={<SendToWhatsApp message={whatsappMessage} view="price_list" />}
+              />
             ) : (
             <>
             {/* Savings node + wire + step card render as one continuous
@@ -298,6 +309,7 @@ export default function ResultsPage() {
                 skipVoucher={payingByCard && !!selectedCardQuote?.skip_voucher}
               />
             </Flex>
+            <SendToWhatsApp message={whatsappMessage} view="route" />
             <CreditCardPrompt
               key={`${activeRoute.merchant}-${activeRoute.final_cost ?? ''}`}
               route={activeRoute}

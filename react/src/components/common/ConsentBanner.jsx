@@ -55,22 +55,55 @@ export default function ConsentBanner() {
       boxShadow="0 1px 2px rgba(22,32,43,.06), 0 24px 52px -20px rgba(22,32,43,.34)"
       p={{ base: '16px', md: '18px' }}
     >
-      <Text m="0 0 6px" fontSize="13.5px" fontWeight={800}>
-        Can we record how you use Dealo?
-      </Text>
-      <Text m="0 0 12px" fontSize="12.5px" color="text2" lineHeight={1.65}>
-        It helps us see where people get stuck. What you type is never tied to you — the search box is blanked out
-        even when you say yes. Say no and we won’t record you at all.{' '}
-        <ChakraLink as={RouterLink} to={ROUTES.privacy} color="brand" fontWeight={700} textDecoration="underline">
-          What we collect
-        </ChakraLink>
-      </Text>
+      {/* Short on purpose (owner pick 2026-10-26): the four-line version was
+          ignored by ~86% of visitors. The full detail lives behind "Details".
+          Don't promise "never what you type" here — search words are recorded
+          for everyone (see ANONYMOUS_SEARCH_PROPS in analytics.js). */}
+      <Flex gap="12px" align="center" mb="12px">
+        <Flex
+          w="40px"
+          h="40px"
+          flex="0 0 auto"
+          borderRadius="full"
+          bg="brassSoft"
+          align="center"
+          justify="center"
+          aria-hidden="true"
+        >
+          <Box
+            as="svg"
+            viewBox="0 0 24 24"
+            w="22px"
+            h="22px"
+            fill="none"
+            stroke="#8A4A17"
+            strokeWidth="1.8"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
+            <path d="M14.7 6.3a4 4 0 00-5.4 5.4L4 17v3h3l5.3-5.3a4 4 0 005.4-5.4l-2.5 2.5-2.4-.6-.6-2.4z" />
+          </Box>
+        </Flex>
+        <Box>
+          <Text m="0" fontSize="15px" fontWeight={800}>
+            Help us fix what’s confusing?
+          </Text>
+          <Text m="2px 0 0" fontSize="13px" color="text2" lineHeight={1.45}>
+            We’re a small team. We never see your name.{' '}
+            <ChakraLink as={RouterLink} to={ROUTES.privacy} color="brand" fontWeight={700} textDecoration="underline">
+              Details
+            </ChakraLink>
+          </Text>
+        </Box>
+      </Flex>
+      {/* Equal weight, kept from before: the answer only means something if
+          it isn't engineered. 44px tall for thumbs on a phone. */}
       <Flex gap="8px">
-        <Button size="sm" flex={1} onClick={() => answer(CONSENT_GRANTED)}>
-          Allow
+        <Button h="44px" flex={1} onClick={() => answer(CONSENT_GRANTED)}>
+          Sure
         </Button>
-        <Button size="sm" flex={1} variant="outline" onClick={() => answer(CONSENT_DENIED)}>
-          No thanks
+        <Button h="44px" flex={1} variant="outline" onClick={() => answer(CONSENT_DENIED)}>
+          No
         </Button>
       </Flex>
     </Box>

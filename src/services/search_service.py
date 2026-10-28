@@ -18,12 +18,14 @@ URL mode is gone, so mode is always "text".
 """
 from __future__ import annotations
 
+import copy
 import difflib
 import hashlib
 import html
 import json
 import logging
 import re
+import threading
 import time
 from concurrent.futures import ThreadPoolExecutor, wait
 from urllib.parse import parse_qs, unquote, urljoin, urlsplit
@@ -34,13 +36,16 @@ import httpx
 # console (the app defines no logging config of its own).
 logger = logging.getLogger("uvicorn.error")
 
+from ..cache import TTLCache
 from ..config import get_settings
 from ..constants import HYPERLOCAL_MERCHANTS, KNOWN_BRANDS, MANUAL_TRUSTED_MERCHANTS, PRIORITY_MERCHANTS
 from ..repositories import (
-    apify_repository,
+    bank_offer_repository,
     buyhatke_repository,
+    context_dev_repository,
     crawlbase_repository,
     domain_brand_repository,
+    flipkart_repository,
     maximize_repository,
     searchapi_repository,
     voucher_repository,
@@ -1103,6 +1108,30 @@ def _is_latin_dominant(title: str) -> bool:
     return latin / len(letters) >= 0.75
 
 
+def _english_listing(title: str, link: str | None = None) -> tuple[str, str | None] | None:
+    """The English version of a Hindi-page listing, or None when there isn't
+    a safe one. Google hands us amazon.in's Hindi page for some products -
+    the name stays English and only the bracketed colour/specs are Hindi
+    ("Google Pixel 10 5G (ओब्सीडियन, 12GB RAM, 256GB स्टोरेज)", 2026-10-24) -
+    which used to drop the only trusted Pixel 10 listing. Only the bracketed
+    part is cleaned: a Hindi word outside brackets can be the model itself
+    ("प्रो" = Pro), so those titles stay dropped. The link loses its /-/hi/
+    so the shopper lands on the English page."""
+    link = link.replace("/-/hi/", "/") if link else link
+    if _is_latin_dominant(title):
+        return title, link
+    if any(c.isalpha() and not c.isascii() for c in re.sub(r"\([^)]*\)", "", title)):
+        return None
+
+    def _clean_brackets(m: re.Match) -> str:
+        parts = [" ".join(w for w in p.split() if w.isascii()).strip() for p in m.group(1).split(",")]
+        parts = [p for p in parts if p]
+        return f"({', '.join(parts)})" if parts else ""
+
+    english = re.sub(r"\s+", " ", re.sub(r"\(([^)]*)\)", _clean_brackets, title)).strip()
+    return english, link
+
+
 def _required_tokens(query: str) -> list[str]:
     """Query tokens the candidate title must contain, minus brand names,
     generic stopwords, and a budget phrase's own words ("smartphones under
@@ -1423,6 +1452,10 @@ def _filter_and_group_candidates(
     with no required tokens at all — neither names a specific product for a
     title to confirm or fall short of.
     """
+    candidates = [
+        {**c, "title": english[0]} if c.get("title") and (english := _english_listing(c["title"])) else c
+        for c in candidates
+    ]
     tokens = _required_tokens(query)
     exclude = set(tokens) | set(KNOWN_BRANDS)
     query_is_accessory_search = _is_accessory(query)
@@ -1563,7 +1596,13 @@ def _filter_and_group_candidates(
     groups: dict = {}
     order: list = []
     for c in survivors:
-        key = _extract_variant_signature(c["title"], exclude)
+        # Which of the searched words the title has is part of the key: the
+        # signature leaves the searched words out, so for "galaxy s25 ultra"
+        # the real "Galaxy S25 Ultra 5G" and a plain "Galaxy S25 5G" used to
+        # share one card, the plain S25 won on price, and was then hidden as
+        # not an Ultra, leaving nothing (seen 2026-10-27).
+        title_words = set(re.findall(r"[a-z0-9]+", c["title"].lower()))
+        key = (_extract_variant_signature(c["title"], exclude), tuple(t for t in tokens if t in title_words))
         if key not in groups:
             groups[key] = c
             order.append(key)
@@ -2013,8 +2052,8 @@ def _jsonld_host_merchant(host: str) -> str | None:
 # Anti-bot fallback (2026-08-06): these hosts block or reject Dealo's plain
 # direct fetch above outright (Myntra only from our deployed server; the
 # other 3 everywhere) — see CLAUDE.md's "Live price-on-paste vendor
-# coverage". Apify's official web-scraper actor (apify_repository.
-# fetch_rendered_html) fetches the real page past the block; the price is
+# coverage". A real-browser reader (Context.dev, then Crawlbase; was Apify
+# until 2026-10-26) fetches the real page past the block; the price is
 # then read via the same trusted _extract_jsonld_price used below for the
 # free path, not a third-party actor's own parsing. Each host verified
 # 2026-08-06 against a real pasted product link, cross-checked against an
@@ -2028,7 +2067,7 @@ def _jsonld_host_merchant(host: str) -> str | None:
 # confirmed working; the actual Render-server block that motivated this
 # entry couldn't be reproduced from this local environment, so this is
 # proven-correct-if-triggered rather than reproduced-and-fixed).
-_APIFY_MERCHANT_HOSTS = {
+_RENDER_PRICE_HOSTS = {
     "flipkart.com": "Flipkart",
     "ajio.com": "AJIO",
     "nykaa.com": "Nykaa",
@@ -2036,9 +2075,9 @@ _APIFY_MERCHANT_HOSTS = {
 }
 
 
-def _apify_merchant_for_host(host: str) -> str | None:
+def _render_price_merchant(host: str) -> str | None:
     host = (host or "").lower()
-    for suffix, merchant_name in _APIFY_MERCHANT_HOSTS.items():
+    for suffix, merchant_name in _RENDER_PRICE_HOSTS.items():
         if host == suffix or host.endswith("." + suffix):
             return merchant_name
     return None
@@ -2046,8 +2085,8 @@ def _apify_merchant_for_host(host: str) -> str | None:
 
 # Hosts whose page reliably fails to finish loading on EITHER real-browser
 # fetcher within a reasonable timeout budget — confirmed on titan.co.in: a
-# direct fetch fails fast with a clean 403, but Apify's render twice
-# exceeded its 60s budget with nothing to show for the wait (2026-08-26),
+# direct fetch fails fast with a clean 403, but Apify's render (since
+# dropped) twice exceeded its 60s budget with nothing to show for the wait (2026-08-26),
 # and Crawlbase's own render was blocked outright by a Cloudflare challenge
 # after 77s (2026-08-27) — live-tested both. Skipping render entirely for
 # these hosts trades a slightly weaker product name (URL-slug words only —
@@ -2118,7 +2157,7 @@ def _extract_page_title(markup: str) -> str | None:
     """og:title -> twitter:title -> <title> from a page's markup, with the
     bot-wall/bare-store rejections applied, or None if none is usable.
 
-    Split out of _fetch_url_page so the Apify-rendered HTML goes through the
+    Split out of _fetch_url_page so the rendered HTML goes through the
     exact same trusted title logic as a direct fetch — a title read past a
     bot wall gets no weaker vetting than one read without it.
 
@@ -2467,23 +2506,23 @@ def _fetch_url_page(url: str) -> tuple[str | None, float | None, str | None, str
     host not covered and on any failure — never raises; a failure here must
     fall straight back to today's title/slug-only search, not break it.
 
-    Apify anti-bot fallback (2026-08-06): Flipkart/AJIO/Nykaa reject this
+    Anti-bot fallback (2026-08-06, now Context.dev then Crawlbase): Flipkart/AJIO/Nykaa reject this
     plain fetch outright (non-200 or a connection error), so that fallback
     is checked from *both* early-exit paths below, not just after a
     successful fetch with no readable price — the earlier version of this
     hook only checked the latter, which meant it never actually fired for
     the exact "blocked outright" case it was built for.
 
-    Title via Apify (2026-08-10): the fallback used to read only a price out
+    Title via the render (2026-08-10): the fallback used to read only a price out
     of the rendered page and throw the rest away, so a blocked link still
     came back nameless and fell through to slug words — which for a short
     link (dl.flipkart.com/s/<code>) are an opaque code, not a product. It now
     reads the title from that same render, for *any* host, which is what
     makes a blocked or JS-only page searchable at all. Price stays gated on
-    _APIFY_MERCHANT_HOSTS; see _try_apify for why the two differ.
+    _RENDER_PRICE_HOSTS; see _try_render for why the two differ.
     """
-    apify_host = (urlsplit(url).hostname or "").lower()
-    apify_merchant_name = _apify_merchant_for_host(apify_host)
+    render_host = (urlsplit(url).hostname or "").lower()
+    render_merchant_name = _render_price_merchant(render_host)
     final_url = url
 
     def _use_resolved_host(resolved_host: str | None) -> None:
@@ -2493,12 +2532,12 @@ def _fetch_url_page(url: str) -> tuple[str | None, float | None, str | None, str
         to (dl.flipkart.com) may be — matching on the pre-redirect host was
         the actual reason shortened links to a known merchant fell through
         to an unrecognized-host fallback instead of the merchant's normal
-        Apify/JSON-LD handling."""
-        nonlocal apify_host, apify_merchant_name
+        render/JSON-LD handling."""
+        nonlocal render_host, render_merchant_name
         resolved_host = (resolved_host or "").lower()
-        if resolved_host and resolved_host != apify_host:
-            apify_host = resolved_host
-            apify_merchant_name = _apify_merchant_for_host(apify_host)
+        if resolved_host and resolved_host != render_host:
+            render_host = resolved_host
+            render_merchant_name = _render_price_merchant(render_host)
 
     def _try_render(
         need_title: bool = True,
@@ -2507,41 +2546,39 @@ def _fetch_url_page(url: str) -> tuple[str | None, float | None, str | None, str
         host), a photo (any host), and, where we already trust the host's
         structured data, a price. Returns (title, price, merchant, image).
 
-        Tries Crawlbase first, Apify only if Crawlbase returns nothing —
-        Crawlbase is the default fetcher as of 2026-08-27 (faster and
-        live-tested correct on 11 of 13 real blocked/JS-heavy hosts: only
-        AJIO and Titan resisted it), Apify stays wired in as a second
-        attempt specifically for those holdouts rather than being dropped
-        outright, since it does get past AJIO's block most of the time.
+        Tries Context.dev first, Crawlbase only if Context.dev returns
+        nothing (Apify dropped 2026-10-26). Live-tested 2026-10-26 on
+        AJIO, Titan, Myntra, Nykaa, Flipkart and Amazon pages: all read,
+        AJIO slowest (~70s, as it was on Apify).
 
         One successful render serves all three: rendering is the expensive
         part, so a page fetched for its title reads its price and photo
         from the same HTML for free. Skipped entirely when there's nothing
         left to recover.
         """
-        need_price = apify_merchant_name is not None
+        need_price = render_merchant_name is not None
         if not need_title and not need_price:
             return None, None, None, None
-        if _should_skip_render(apify_host):
+        if _should_skip_render(render_host):
             logger.info(
                 "[url-search] skipping render for %s (known to exceed timeout on every fetcher)",
-                apify_host,
+                render_host,
             )
             return None, None, None, None
 
-        markup = crawlbase_repository.fetch_rendered_html(url)
-        render_source = "Crawlbase"
+        markup = context_dev_repository.fetch_rendered_html(url)
+        render_source = "Context.dev"
         if not markup:
             logger.info(
-                "[url-search] Crawlbase render returned nothing for %s — trying Apify",
-                apify_host,
+                "[url-search] Context.dev render returned nothing for %s — trying Crawlbase",
+                render_host,
             )
-            markup = apify_repository.fetch_rendered_html(url)
-            render_source = "Apify"
+            markup = crawlbase_repository.fetch_rendered_html(url)
+            render_source = "Crawlbase"
         if not markup:
             logger.info(
-                "[url-search] render returned nothing for %s (Crawlbase + Apify both failed)",
-                apify_host,
+                "[url-search] render returned nothing for %s (Context.dev + Crawlbase both failed)",
+                render_host,
             )
             return None, None, None, None
 
@@ -2549,7 +2586,7 @@ def _fetch_url_page(url: str) -> tuple[str | None, float | None, str | None, str
         if render_title:
             logger.info("[url-search] title via %s: %r", render_source, render_title)
         elif need_title:
-            logger.info("[url-search] %s render had no usable title for %s", render_source, apify_host)
+            logger.info("[url-search] %s render had no usable title for %s", render_source, render_host)
 
         render_image = _extract_page_image(markup, url)
         if render_image:
@@ -2563,14 +2600,14 @@ def _fetch_url_page(url: str) -> tuple[str | None, float | None, str | None, str
         render_price = _extract_jsonld_price(markup) if need_price else None
         if render_price is not None:
             logger.info(
-                "[url-search] %s live price via %s: %s", apify_merchant_name, render_source, render_price
+                "[url-search] %s live price via %s: %s", render_merchant_name, render_source, render_price
             )
         elif need_price:
-            logger.info("[url-search] %s fallback found no price for %s", render_source, apify_host)
+            logger.info("[url-search] %s fallback found no price for %s", render_source, render_host)
         return (
             render_title,
             render_price,
-            apify_merchant_name if render_price is not None else None,
+            render_merchant_name if render_price is not None else None,
             render_image,
         )
 
@@ -3508,8 +3545,12 @@ def _find_pdp_candidate(
 
 _OFFER_SEED_CAP = 6         # Google entries whose store lists are read
 _OFFER_PAGES = 3            # pages per store list (page 1 ~5 stores, then 10 each)
-_STORE_LIST_BUDGET = 10     # seconds; a slower Google reply is left out rather than waited on
+_STORE_LIST_BUDGET = 10     # seconds; a slower Google reply is left out rather than waited on. 5s (#85) lost 5 of 6 Pixel 11 shops on a slow day, 2026-10-24
 _GAP_STORE_CAP = 4          # "<product> <store>" searches for big stores with no exact match
+# Flipkart's own search page, read through Context.dev (~5s, max 7s) or
+# Crawlbase as fallback (6-18s), measured 2026-10-03. It runs alongside the store lists and is waited on for at most
+# this long, or not at all once a store list has the product on Flipkart.
+_FLIPKART_SEARCH_BUDGET = 15
 _MARKETPLACES = [
     "Amazon", "Flipkart", "Croma", "Reliance Digital", "Vijay Sales", "Tata CLiQ",
     "Myntra", "AJIO", "Nykaa", "JioMart", "Tata Neu",
@@ -3650,6 +3691,13 @@ def _discover_exact_offers(
         typical = (searchapi_repository.get_product(seeds[0][0]).get("typical_prices") or {})
         info["typical_low"] = typical.get("extracted_low_price")
     lap("searches")
+    # Google Shopping often has no Flipkart entry (smaller brands especially),
+    # so Flipkart's own search runs alongside the store lists. Not skipped when
+    # a Google search result names Flipkart: that entry's store list can still
+    # come back without a usable Flipkart listing (Milton flask, 2026-10-03).
+    flipkart_pool = ThreadPoolExecutor(max_workers=1)
+    flipkart_f = flipkart_pool.submit(flipkart_repository.search, id_query)
+    flipkart_started = time.monotonic()
     # Round 2, all at once: every page of every exact entry's store list, and
     # - for big stores that carry this kind of product (they showed up in the
     # searches) but gave no exact match - a "<product> <store>" search, which
@@ -3678,18 +3726,37 @@ def _discover_exact_offers(
     pool.shutdown(wait=False)
     rows = [r for f in done for r in f.result()]
     gap_rows: list[dict] = []
+    if flipkart_f and any(
+            _brand_signature(r["merchant"]) == _brand_signature("Flipkart")
+            and product_identity.match_tier(identity, r["title"], r["merchant"])[0] == "exact"
+            for r in rows):
+        # A Google store list had it after all: don't wait on the slower read.
+        flipkart_pool.shutdown(wait=False)
+        flipkart_f = None
+        logger.info("%s Flipkart found in Google's store lists, not waiting on Flipkart search", tag)
+    if flipkart_f:
+        done, _ = wait([flipkart_f], timeout=max(0, _FLIPKART_SEARCH_BUDGET - (time.monotonic() - flipkart_started)))
+        flipkart_pool.shutdown(wait=False)
+        if done:
+            rows += flipkart_f.result()
+        else:
+            logger.info("%s Flipkart search slower than %ss, left out", tag, _FLIPKART_SEARCH_BUDGET)
+        lap("flipkart")
 
     def _verified(rows: list[dict]) -> list[dict]:
         out = []
         for r in rows:
             info["stores_checked"] += 1
-            name, link = r["merchant"], r["link"]
+            name = r["merchant"]
+            english = _english_listing(r["title"], r["link"])
+            if english is None:
+                logger.info("%s   skipped %s (non-English listing): %r", tag, name, r["title"])
+                continue
+            r = {**r, "title": english[0], "link": english[1]}
+            link = r["link"]
             tier, why = product_identity.match_tier(identity, r["title"], name)
             if tier != "exact":
                 logger.info("%s   skipped %s (%s): %r", tag, name, why or tier, r["title"])
-                continue
-            if not _is_latin_dominant(r["title"]) or "/-/hi/" in (link or ""):
-                logger.info("%s   skipped %s (non-English listing): %r", tag, name, r["title"])
                 continue
             if (_is_accessory(r["title"]) or _SPARE_PART_RE.search(r["title"])) and not (
                     _is_accessory(identity["title"]) or _SPARE_PART_RE.search(identity["title"])):
@@ -3740,11 +3807,21 @@ def _discover_exact_offers(
     anchor = _priority_merchant_anchor(verified) or 0
     floor = max(0.4 * anchor, 0.25 * (picked_price or 0),
                 0.6 * info["typical_low"] if info["typical_low"] else 0)
+    # Fakes come from third-party sellers on Flipkart and Amazon. A store
+    # selling its own stock runs real 60%-off sales: AJIO's ₹4,400 for a
+    # ₹10,999 Handball Spezial fell under the ₹6,599 floor and Dealo sent the
+    # shopper to ₹9,900 (2026-10-27). Those stores only lose a listing more
+    # than 70% off.
+    store_floor = 0.3 * max(anchor, info["typical_low"] or 0, picked_price or 0)
+
+    def _floor_for(c: dict) -> float:
+        return floor if _is_marketplace_merchant(c["merchant"]) else min(floor, store_floor)
+
     if floor:
         for c in verified:
-            if c["price"] < floor:
-                logger.info("%s   skipped %s at %s (below the believable floor %.0f)", tag, c["merchant"], c["price"], floor)
-        verified = [c for c in verified if c["price"] >= floor]
+            if c["price"] < _floor_for(c):
+                logger.info("%s   skipped %s at %s (below the believable floor %.0f)", tag, c["merchant"], c["price"], _floor_for(c))
+        verified = [c for c in verified if c["price"] >= _floor_for(c)]
     if picked_price:
         for c in verified:
             if not _size_price_ok(identity, c["title"], c["price"], picked_price):
@@ -3762,7 +3839,7 @@ _UNREADABLE_PRICE_HOSTS = ("flipkart.com", "tatacliq.com")  # no labelled price 
 def _read_store_price(link: str) -> float | None:
     """Today's price from a store's own product page: Amazon's buy-box, or
     the page's own product data (schema.org offer) for any other store.
-    Blocked pages go through Crawlbase, then Apify. None when unreadable."""
+    Blocked pages go through Context.dev, then Crawlbase. None when unreadable."""
     host = (urlsplit(link).hostname or "").lower()
     if any(host == h or host.endswith("." + h) for h in _UNREADABLE_PRICE_HOSTS):
         return None
@@ -3780,7 +3857,7 @@ def _read_store_price(link: str) -> float | None:
     if markup:
         price = _extract_amazon_price(markup, link) if _is_amazon_host(host) else _extract_jsonld_price(markup)
     if price is None and not _should_skip_render(host):
-        markup = crawlbase_repository.fetch_rendered_html(link) or apify_repository.fetch_rendered_html(link)
+        markup = context_dev_repository.fetch_rendered_html(link) or crawlbase_repository.fetch_rendered_html(link)
         if markup:
             price = _extract_amazon_price(markup, link) if _is_amazon_host(host) else _extract_jsonld_price(markup)
     return price
@@ -3790,7 +3867,7 @@ def _check_winner_live(output: dict, candidates: list[dict], product_name: str, 
     """Re-read today's price from the store pages the shopper sees first: the
     recommended store, and the cheapest store when that is a different one
     (it heads the web price list shown when the gift card saves too little).
-    Both pages are read at once (Crawlbase or Apify get past Flipkart/Nykaa/
+    Both pages are read at once (Context.dev or Crawlbase get past Flipkart/Nykaa/
     Croma blocks). Returns updated candidates when a price moved, else None.
     No AI - a plain page read."""
     rec = (output.get("routes") or {}).get("recommended") or {}
@@ -3839,11 +3916,11 @@ def _check_winner_live(output: dict, candidates: list[dict], product_name: str, 
     return candidates if changed else None
 
 
-def build_routes_for_token(
+def _compute_routes(
     product_token: str, query: str = "", title: str = "",
     picked_price: float | None = None, picked_source: str = "",
     picked_thumbnail: str | None = None,
-) -> dict:
+) -> tuple[dict, dict | None]:
     """Step 2 of the two-step flow: resolve routes for a chosen Product Picker
     selection. Never raises — errors come back in the ``error`` field.
 
@@ -3875,7 +3952,7 @@ def build_routes_for_token(
     }
     if not product_token:
         output["error"] = "No product selected."
-        return output
+        return output, None
 
     try:
         identity = None
@@ -4057,7 +4134,7 @@ def build_routes_for_token(
                 )
                 if detail.get("error"):
                     output["error"] = detail["error"]
-                    return output
+                    return output, None
                 product = detail.get("product") or {}
                 display_title = product.get("title") or detail.get("title") or ""
                 candidates = _build_candidates(detail, source_token=product_token)
@@ -4162,17 +4239,238 @@ def build_routes_for_token(
         output["vouchers"] = voucher_service.build_deals(candidates, product_name=query or display_title)
         output["routes"] = _build_routes(candidates, output["vouchers"])
         if identity is not None and get_settings().ROUTE_LIVE_PRICE_CHECK:
-            updated = _check_winner_live(output, candidates, display_title)
-            if updated is not None:
-                candidates = _priority_sort(updated)
-                output["results"] = candidates
-                output["vouchers"] = voucher_service.build_deals(candidates, product_name=query or display_title)
-                output["routes"] = _build_routes(candidates, output["vouchers"])
+            live_check = {"candidates": candidates, "display_title": display_title, "query": query}
+        else:
+            live_check = None
 
     except Exception as e:  # never leak a stack trace to the router
         output["error"] = f"{type(e).__name__}: {e}"
+        live_check = None
 
+    return output, live_check
+
+
+def _flipkart_product_link(candidates: list[dict]) -> tuple[dict, str] | tuple[None, None]:
+    """The Flipkart listing and its product page link, when Flipkart is
+    one of the compared stores."""
+    for c in candidates:
+        link = ((c.get("sellers") or [{}])[0].get("link")) or ""
+        host = (urlsplit(link).hostname or "").lower()
+        if (host == "flipkart.com" or host.endswith(".flipkart.com")) and "/p/" in link:
+            return c, link
+    return None, None
+
+
+def _read_card_offers(candidates: list[dict]) -> list[dict]:
+    """Bank card offers on the compared stores' own product pages
+    (Flipkart only, 2026-10-26): [{"store", "price", "link", "offers"}].
+    One page read, started alongside the live price check and fetched on
+    its own (GET /routes/card-offers), so neither the first answer nor the
+    checked one waits for it. Not used in ranking."""
+    store, link = _flipkart_product_link(candidates)
+    if store is None:
+        return []
+    started = time.monotonic()
+    markup = context_dev_repository.fetch_rendered_html(link) or crawlbase_repository.fetch_rendered_html(link)
+    offers = bank_offer_repository.flipkart_bank_offers(markup or "")
+    logger.info("[routes] card offers on %s: %d found (%.1fs)", store["merchant"], len(offers), time.monotonic() - started)
+    if not offers:
+        return []
+    return [{"store": store["merchant"], "price": store.get("price"), "link": link, "offers": offers}]
+
+
+def _apply_live_check(output: dict, live_check: dict) -> dict:
+    """`output` after re-reading the winning store's page for today's price.
+    Works on a copy: the unchecked output may already be on its way to the
+    shopper."""
+    output = copy.deepcopy(output)
+    candidates = copy.deepcopy(live_check["candidates"])
+    query, display_title = live_check["query"], live_check["display_title"]
+    try:
+        updated = _check_winner_live(output, candidates, display_title)
+        if updated is not None:
+            candidates = _priority_sort(updated)
+            output["results"] = candidates
+            output["vouchers"] = voucher_service.build_deals(candidates, product_name=query or display_title)
+            output["routes"] = _build_routes(candidates, output["vouchers"])
+    except Exception:  # a failed check keeps Google's prices
+        logger.exception("[routes] live price check failed")
     return output
+
+
+# Price comparisons, run in the background and remembered (2026-10-24, the
+# site felt slow). Three things share this:
+#   - /search starts the comparison as soon as it is sure of the product
+#     (auto_pick), so it is under way before the website asks for it;
+#   - a finished comparison is reused for _ROUTES_TTL, so a repeat search
+#     (same words -> same cached Google answer -> same product token) is
+#     instant and costs no SearchApi credits;
+#   - the website gets the result as soon as the stores are compared, and
+#     fetches the live price re-check separately (/routes/checked) rather
+#     than waiting on it.
+# In process memory, like every other cache here: a restart forgets it.
+_ROUTES_TTL = 30 * 60
+_ROUTES_WAIT_CHECKED = 12   # seconds /routes/checked waits for the re-check
+_routes_jobs = TTLCache(default_ttl=_ROUTES_TTL, max_size=500)
+_routes_jobs_lock = threading.Lock()
+_routes_pool = ThreadPoolExecutor(max_workers=8, thread_name_prefix="routes")
+_card_offers_pool = ThreadPoolExecutor(max_workers=4, thread_name_prefix="card-offers")
+
+
+class _RoutesJob:
+    def __init__(self, key: str):
+        self.key = key
+        self.unchecked: dict | None = None
+        self.checked: dict | None = None
+        self.unchecked_ready = threading.Event()
+        self.checked_ready = threading.Event()
+        self.card_offers: list[dict] = []
+        self.card_offers_ready = threading.Event()
+
+    def _read_card_offers(self, candidates: list[dict]) -> None:
+        try:
+            self.card_offers = _read_card_offers(candidates)
+        except Exception:  # no card offers beats a broken answer
+            logger.exception("[routes] card offer read failed")
+        self.card_offers_ready.set()
+
+    def run(self, args: tuple) -> None:
+        live_check = None
+        try:
+            self.unchecked, live_check = _compute_routes(*args)
+        except Exception as e:  # _compute_routes never raises; belt and braces
+            self.unchecked = {"input": args[1], "error": f"{type(e).__name__}: {e}"}
+        if self.unchecked.get("error"):
+            # Don't remember a failure: the next ask should try again.
+            with _routes_jobs_lock:
+                if _routes_jobs.get(self.key) is self:
+                    _routes_jobs.pop(self.key)
+        if live_check is not None and get_settings().CARD_OFFERS_CHECK:
+            _card_offers_pool.submit(self._read_card_offers, copy.deepcopy(live_check["candidates"]))
+        else:
+            self.card_offers_ready.set()
+        if live_check is None:
+            self.checked = self.unchecked
+            self.checked_ready.set()
+        self.unchecked_ready.set()
+        if live_check is not None:
+            self.checked = _apply_live_check(self.unchecked, live_check)
+            self.checked_ready.set()
+
+
+def _routes_key(*args) -> str:
+    product_token, query, title, picked_price, picked_source, picked_thumbnail = args
+    raw = json.dumps([product_token, (query or "").strip().lower(), title or "",
+                      float(picked_price) if picked_price is not None else None,
+                      picked_source or "", picked_thumbnail or ""])
+    return hashlib.sha256(raw.encode()).hexdigest()[:32]
+
+
+def _routes_job(args: tuple) -> _RoutesJob:
+    """The running or finished comparison for these exact inputs, started
+    if there is none."""
+    key = _routes_key(*args)
+    with _routes_jobs_lock:
+        job = _routes_jobs.get(key)
+        if job is not None:
+            return job
+        job = _RoutesJob(key)
+        job.thumbnail = args[5]
+        _routes_jobs.set(key, job)
+    _routes_pool.submit(job.run, args)
+    return job
+
+
+# "Send this to my WhatsApp" (2026-10-26): the website's message carries
+# "(deal <code>)", the first HANDOFF_CODE_LEN characters of the id /routes
+# hands out as card_offers_id, so the bot can send the exact comparison the
+# shopper was looking at instead of searching again. Short, so the code in
+# their sent message stays small; the full id is checked before use.
+HANDOFF_CODE_LEN = 10
+
+
+def routes_for_handoff(code: str) -> tuple[dict, str | None] | None:
+    """(comparison, thumbnail) the website showed for this code, live price
+    re-check included when it finishes in time. None when unknown: expired
+    after _ROUTES_TTL, or the server restarted. The caller then searches
+    afresh, as before."""
+    code = (code or "").lower()
+    if len(code) != HANDOFF_CODE_LEN:
+        return None
+    with _routes_jobs_lock:
+        key = next((k for k in _routes_jobs.keys() if k.startswith(code)), None)
+        job = _routes_jobs.get(key) if key else None
+    if job is None or not job.unchecked_ready.wait(_ROUTES_WAIT_CHECKED):
+        return None
+    job.checked_ready.wait(_ROUTES_WAIT_CHECKED)
+    result = job.checked if job.checked_ready.is_set() else job.unchecked
+    if not result or result.get("error"):
+        return None
+    return result, getattr(job, "thumbnail", None)
+
+
+def start_routes(
+    product_token: str, query: str = "", title: str = "",
+    picked_price: float | None = None, picked_source: str = "",
+    picked_thumbnail: str | None = None,
+) -> None:
+    """Start the comparison in the background without waiting for it."""
+    if product_token:
+        _routes_job((product_token, query, title, picked_price, picked_source, picked_thumbnail))
+
+
+def routes_without_waiting_on_check(
+    product_token: str, query: str = "", title: str = "",
+    picked_price: float | None = None, picked_source: str = "",
+    picked_thumbnail: str | None = None,
+) -> dict:
+    """The comparison as soon as the stores are compared. When the live
+    price re-check is still running, the answer carries
+    ``price_check_pending`` and the id to fetch the checked version with.
+    ``card_offers_id`` fetches the bank card offers (GET /routes/card-offers)."""
+    if not product_token:
+        return _compute_routes(product_token, query)[0]
+    job = _routes_job((product_token, query, title, picked_price, picked_source, picked_thumbnail))
+    job.unchecked_ready.wait()
+    if job.checked_ready.is_set():
+        return {**job.checked, "card_offers_id": job.key}
+    return {**job.unchecked, "price_check_pending": True, "price_check_id": job.key, "card_offers_id": job.key}
+
+
+def checked_routes(check_id: str) -> dict | None:
+    """The comparison after the live price re-check, or None when it is
+    unknown (expired, restarted) or still not done after a short wait."""
+    with _routes_jobs_lock:
+        job = _routes_jobs.get(check_id)
+    if job is None or not job.checked_ready.wait(_ROUTES_WAIT_CHECKED):
+        return None
+    return job.checked
+
+
+def card_offers(check_id: str) -> list[dict] | None:
+    """Bank card offers found on the compared stores' product pages for
+    this comparison (the id /routes hands out as price_check_id), or None
+    when the comparison is unknown or the read is still not done."""
+    with _routes_jobs_lock:
+        job = _routes_jobs.get(check_id)
+    if job is None or not job.card_offers_ready.wait(get_settings().CARD_OFFERS_TIMEOUT):
+        return None
+    return job.card_offers
+
+
+def build_routes_for_token(
+    product_token: str, query: str = "", title: str = "",
+    picked_price: float | None = None, picked_source: str = "",
+    picked_thumbnail: str | None = None,
+) -> dict:
+    """Step 2 of the two-step flow, live price re-check included (WhatsApp
+    waits for the whole thing). Never raises — errors come back in the
+    ``error`` field. Shares the remembered comparisons above."""
+    if not product_token:
+        return _compute_routes(product_token, query)[0]
+    job = _routes_job((product_token, query, title, picked_price, picked_source, picked_thumbnail))
+    job.checked_ready.wait()
+    return job.checked
 
 
 def get_product_detail(product_token: str) -> dict:

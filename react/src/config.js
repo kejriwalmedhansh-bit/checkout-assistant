@@ -15,3 +15,13 @@ export const MIXPANEL_TOKEN = '5dcefbba60138d48545e132490cd1e4d';
  * the cheapest way to pay for it.
  */
 export const WHATSAPP_COMMUNITY_LINK = 'https://chat.whatsapp.com/IEbXBuUEuTv7E5FKS7x4Wt?s=cl&p=i&mlu=4';
+
+/**
+ * Brandfetch Logo API client ID — shop logos in the price list. Public by
+ * design: Brandfetch puts it in every logo URL, which must be loaded by the
+ * browser itself (hotlinked), not fetched server-side.
+ */
+export const BRANDFETCH_CLIENT_ID = '1idlpu4MvGHZOo2yZmy';
+
+/** Dealo's Chrome extension on the Chrome Web Store (live since v0.2.4). */
+export const CHROME_EXTENSION_URL = 'https://chromewebstore.google.com/detail/fjbkoahbajnddoohobplmafmeiddnkoi';

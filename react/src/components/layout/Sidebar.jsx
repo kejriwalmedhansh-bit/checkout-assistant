@@ -5,6 +5,7 @@ import Eyebrow from '@/components/common/Eyebrow';
 import { I } from '@/components/common/icons';
 import LogoIcon from '@/components/common/LogoIcon';
 import WhatsAppButton from '@/components/common/WhatsAppButton';
+import { CHROME_EXTENSION_URL } from '@/config';
 import { ROUTES } from '@/routes/paths';
 import { useUiStore } from '@/store/uiStore';
 import { track } from '@/utils/analytics';
@@ -47,6 +48,15 @@ function WhatsAppIcon({ size = 17 }) {
   return (
     <Box as="svg" viewBox="0 0 24 24" w={`${size}px`} h={`${size}px`} fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
       <path d="M12 2C6.5 2 2 6.5 2 12c0 2 .6 3.8 1.5 5.3L2 22l5.3-1.5C10.2 21.4 11 22 12 22c5.5 0 10-4.5 10-10S17.5 2 12 2Z" />
+    </Box>
+  );
+}
+
+/** Puzzle piece — the same picture Chrome uses for extensions. */
+function ExtensionIcon({ size = 17 }) {
+  return (
+    <Box as="svg" viewBox="0 0 24 24" w={`${size}px`} h={`${size}px`} fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M10 3.5a2 2 0 0 1 4 0V5h3a1 1 0 0 1 1 1v3h1.5a2 2 0 0 1 0 4H18v4a1 1 0 0 1-1 1h-3.5v-1.5a2 2 0 0 0-4 0V18H6a1 1 0 0 1-1-1v-4h1.5a2 2 0 0 0 0-4H5V6a1 1 0 0 1 1-1h4V3.5Z" />
     </Box>
   );
 }
@@ -132,6 +142,18 @@ function SidebarFooter({ onNavigate, collapsed, onOpenOnboarding }) {
         onClick={() => track('Clicked WhatsApp Button', { source: 'sidebar' })}
         collapsed={collapsed}
       />
+      {/* Laptop only: phones can't install Chrome extensions, and below
+          `lg` this sidebar is the phone menu. */}
+      <Box display={{ base: 'none', lg: 'block' }}>
+        <SidebarFooterItem
+          icon={ExtensionIcon}
+          label="Add to Chrome"
+          href={CHROME_EXTENSION_URL}
+          isExternal
+          onClick={() => track('Clicked Get Extension', { source: 'sidebar' })}
+          collapsed={collapsed}
+        />
+      </Box>
       {/* Opens the tutorial video, not the How it works page (that one is in
           the menu above) — so it’s labelled as the video, never as a second
           "How it works" that goes somewhere different. */}

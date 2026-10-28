@@ -1,10 +1,9 @@
-"""Crawlbase anti-bot fallback — primary fetcher for merchant hosts that
+"""Crawlbase anti-bot fallback — backup fetcher for merchant hosts that
 block Dealo's own direct page fetch (see search_service._fetch_url_page /
-_render_fallback). Replaces Apify as the default as of 2026-08-27; Apify
-stays wired in as a second attempt for hosts Crawlbase can't get past (see
-apify_repository.py).
+_render_fallback). Was the primary fetcher from 2026-08-27 (replacing
+Apify); since 2026-10-26 it is the backup behind context_dev_repository.
 
-Same shape and error-handling contract as apify_repository.py /
+Same shape and error-handling contract as context_dev_repository.py /
 searchapi_repository.py: never raises, returns None on any failure so a
 caller can fall through to the next fetcher or today's weaker (search-index)
 price rather than break.
@@ -21,7 +20,7 @@ Apify-only hosts: Flipkart, Nykaa, Myntra, Croma, BigBasket, Samsung, Tata
 CLiQ, Pepperfry, Lenskart, Ethos, and Apple all returned correct real HTML
 in 5-22s (each cross-checked against the seller's/Google's own listed price
 or title). AJIO and Titan blocked every attempt (Akamai/Cloudflare
-challenge pages) — both fall through to Apify.
+challenge pages); Context.dev reads both.
 """
 from __future__ import annotations
 
