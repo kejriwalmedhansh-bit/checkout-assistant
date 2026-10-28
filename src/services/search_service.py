@@ -4380,33 +4380,43 @@ def _compute_routes(
     return output, live_check
 
 
-def _flipkart_product_link(candidates: list[dict]) -> tuple[dict, str] | tuple[None, None]:
-    """The Flipkart listing and its product page link, when Flipkart is
-    one of the compared stores."""
+def _card_offer_pages(candidates: list[dict]) -> list[tuple[dict, str]]:
+    """The compared stores whose product pages print bank card offers
+    (Flipkart, Croma, Vijay Sales), one page each: [(listing, link)]."""
+    pages, seen = [], set()
     for c in candidates:
         link = ((c.get("sellers") or [{}])[0].get("link")) or ""
-        host = (urlsplit(link).hostname or "").lower()
-        if (host == "flipkart.com" or host.endswith(".flipkart.com")) and "/p/" in link:
-            return c, link
-    return None, None
+        reader = bank_offer_repository.reader_for(link)
+        if reader and reader[0] not in seen:
+            seen.add(reader[0])
+            pages.append((c, link))
+    return pages
+
+
+def _read_card_offers_for(store: dict, link: str) -> dict | None:
+    started = time.monotonic()
+    name, read = bank_offer_repository.reader_for(link)
+    markup = context_dev_repository.fetch_rendered_html(link) or crawlbase_repository.fetch_rendered_html(link)
+    offers = read(markup or "", store.get("price"))
+    logger.info("[routes] card offers on %s: %d found (%.1fs)", store["merchant"], len(offers), time.monotonic() - started)
+    if not offers:
+        return None
+    return {"store": store["merchant"], "price": store.get("price"), "link": link, "offers": offers}
 
 
 def _read_card_offers(candidates: list[dict]) -> list[dict]:
     """Bank card offers on the compared stores' own product pages
-    (Flipkart only, 2026-10-26): [{"store", "price", "link", "offers"}].
-    One page read, started alongside the live price check and fetched on
-    its own (GET /routes/card-offers), so neither the first answer nor the
-    checked one waits for it. Not used in ranking."""
-    store, link = _flipkart_product_link(candidates)
-    if store is None:
-        return []
-    started = time.monotonic()
-    markup = context_dev_repository.fetch_rendered_html(link) or crawlbase_repository.fetch_rendered_html(link)
-    offers = bank_offer_repository.flipkart_bank_offers(markup or "")
-    logger.info("[routes] card offers on %s: %d found (%.1fs)", store["merchant"], len(offers), time.monotonic() - started)
-    if not offers:
-        return []
-    return [{"store": store["merchant"], "price": store.get("price"), "link": link, "offers": offers}]
+    (Flipkart, Croma, Vijay Sales): [{"store", "price", "link", "offers"}].
+    Started alongside the live price check and fetched on its own
+    (GET /routes/card-offers), so neither the first answer nor the checked
+    one waits for it. The pages are read one after another: Context.dev
+    allows this account one read at a time, and a second read sent at the
+    same time falls to Crawlbase, which does not render Croma's offer strip.
+    Flipkart first, since it prints the most offers."""
+    pages = _card_offer_pages(candidates)
+    pages.sort(key=lambda p: bank_offer_repository.reader_for(p[1])[0] != "Flipkart")
+    found = [_read_card_offers_for(store, link) for store, link in pages]
+    return [f for f in found if f]
 
 
 def _apply_live_check(output: dict, live_check: dict) -> dict:

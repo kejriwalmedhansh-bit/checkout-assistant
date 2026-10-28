@@ -13,10 +13,14 @@ import ProductIdentity from '@/components/dashboard/ProductIdentity';
 import SavingsBar from '@/components/dashboard/SavingsBar';
 import RouteWire from '@/components/dashboard/RouteWire';
 import RouteCard from '@/components/dashboard/RouteCard';
-import CreditCardPrompt from '@/components/dashboard/CreditCardPrompt';
 import AlternativesToggle from '@/components/dashboard/AlternativesToggle';
 import DropOffQuestion from '@/components/dashboard/DropOffQuestion';
 import PriceList from '@/components/dashboard/PriceList';
+import CardPicker from '@/components/dashboard/CardPicker';
+import MissingOutBox from '@/components/dashboard/MissingOutBox';
+import useCardsStore from '@/store/cardsStore';
+import { track } from '@/utils/analytics';
+import { missingOut, pricesFor, shouldAskForCards } from '@/utils/myCards';
 import SendToWhatsApp from '@/components/dashboard/SendToWhatsApp';
 import { usePageHeader } from '@/hooks/usePageHeader';
 import { usePageTitle } from '@/hooks/usePageTitle';
@@ -25,7 +29,6 @@ import { useSearchStore } from '@/store/searchStore';
 import { friendlyMessage } from '@/utils/errors';
 import {
   affiliateUrl,
-  effectiveCashback,
   finalPrice as calcFinal,
   originalPrice as calcOriginal,
   saving as calcSaving,
@@ -52,6 +55,7 @@ export default function ResultsPage() {
   const query = useSearchStore((s) => s.query);
   const resolvedQuery = useSearchStore((s) => s.resolvedQuery);
   const result = useSearchStore((s) => s.result);
+  const cardOffers = useSearchStore((s) => s.cardOffers);
   const selectedThumbnail = useSearchStore((s) => s.selectedThumbnail);
   const status = useSearchStore((s) => s.status);
   const error = useSearchStore((s) => s.error);
@@ -62,17 +66,6 @@ export default function ResultsPage() {
 
   const scrollRef = useRef(null);
   const [selectedAlt, setSelectedAlt] = useState(null);
-  // Whether the shopper has picked a card in CreditCardPrompt — drives the
-  // top price, the voucher step's numbers, and the explanatory banner below,
-  // so the page never shows two disagreeing prices at once. Reset whenever
-  // the active route changes (a fresh route's card pick, if any, starts over).
-  const [payingByCard, setPayingByCard] = useState(false);
-  // The selected card's full quote (see CreditCardPrompt) — specifically
-  // for `skip_voucher`: some cards earn identical cashback buying direct as
-  // buying the voucher (e.g. a 0%-off voucher), in which case the journey
-  // below should skip the voucher step, not just show its cashback number
-  // alongside a pointless extra step.
-  const [selectedCardQuote, setSelectedCardQuote] = useState(null);
   // Collapsed by default: on a phone, the back button + full search box
   // used to stack into ~100px of chrome above the fold on every single
   // visit, even though re-running a search from here is rare. Opening it is
@@ -80,12 +73,35 @@ export default function ResultsPage() {
   const [searchOpen, setSearchOpen] = useState(false);
   const backToRecommended = () => {
     setSelectedAlt(null);
-    setPayingByCard(false);
-    setSelectedCardQuote(null);
   };
 
-  const shops = buildPriceList(result);
-  const priceListMode = shouldShowPriceList(shops, result?.routes?.recommended);
+  // Which banks' cards the shopper has: asked while the results load, only
+  // for phones, laptops, TVs and the like above ₹20,000 (shouldAskForCards).
+  const selectedTitle = useSearchStore((s) => s.selectedTitle);
+  const selectedPrice = useSearchStore((s) => s.selectedPrice);
+  const cardsAnswer = useCardsStore((s) => s.answer);
+  const editingCards = useCardsStore((s) => s.editing);
+  const saveCards = useCardsStore((s) => s.save);
+  const askCards = editingCards || (!cardsAnswer && shouldAskForCards(selectedTitle || result?.source?.name, selectedPrice));
+  const cardPicker = askCards && (
+    <CardPicker
+      initial={cardsAnswer?.cards || []}
+      onDone={(cards, prime) => {
+        saveCards(cards, prime);
+        track('Picked My Cards', { cards: cards.join(',') || 'none', prime });
+      }}
+    />
+  );
+
+  const listed = buildPriceList(result, cardOffers, { prime: cardsAnswer?.prime });
+  // Every shop at what this shopper pays: card offer or Gift Voucher,
+  // whichever is cheaper (owner's call 2026-10-27).
+  const shops = pricesFor(listed, cardsAnswer?.cards);
+  const recCost = result?.routes?.recommended?.final_cost;
+  // Their own card makes a shop cheaper than the gift voucher deal: lead
+  // with the price list, which puts that shop on top.
+  const cardWins = !!shops[0]?.mine && recCost != null && shops[0].price < recCost;
+  const priceListMode = shouldShowPriceList(listed, result?.routes?.recommended) || cardWins;
 
   const backControl = (
     <BackButton
@@ -122,7 +138,16 @@ export default function ResultsPage() {
 
   const loading = status === 'loading';
 
-  if (loading) return <LoadingCard tips={ROUTE_TIPS} />;
+  if (loading) {
+    return cardPicker ? (
+      <Box w="100%" maxW="640px" mx="auto">
+        {cardPicker}
+        <LoadingCard tips={ROUTE_TIPS} />
+      </Box>
+    ) : (
+      <LoadingCard tips={ROUTE_TIPS} />
+    );
+  }
 
   // `result` alone is a safe guard again now that searchStore expires
   // persisted state older than STALE_AFTER_MS on rehydration (see
@@ -140,11 +165,17 @@ export default function ResultsPage() {
   // Gift card saves too little: lead with the plain price list instead.
   // Picking a shop's gift card from the list opens the usual view below.
   const showPriceList = priceListMode && !selectedAlt;
+  // For someone without the card: one box, only when a card offer would
+  // really beat the deal at the top of the page.
+  const missing = cardsAnswer && !askCards
+    ? missingOut(shops, cardsAnswer.cards, showPriceList ? shops[0]?.price : activeRoute?.final_cost)
+    : null;
+  const missingBox = missing && (
+    <MissingOutBox deal={missing} cheapest={showPriceList ? shops[0].price : activeRoute.final_cost} />
+  );
 
   const selectAlt = (alt) => {
     setSelectedAlt(alt);
-    setPayingByCard(false);
-    setSelectedCardQuote(null);
     scrollRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
   };
 
@@ -226,6 +257,7 @@ export default function ResultsPage() {
           transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
         >
           <Flex direction="column" gap="14px">
+            {cardPicker}
             <Box>
               <ProductIdentity name={productName} sourceUrl={sourceUrl} thumbnail={selectedThumbnail} />
               {skippedPicker && candidates.length > 1 && (
@@ -251,6 +283,7 @@ export default function ResultsPage() {
               <PriceList
                 shops={shops}
                 onPickGiftCard={selectAlt}
+                missing={missingBox}
                 afterFirst={<SendToWhatsApp message={whatsappMessage} view="price_list" />}
               />
             ) : (
@@ -261,37 +294,15 @@ export default function ResultsPage() {
                 user has to scroll past to find what to do. */}
             <Flex direction="column" gap={0}>
               {(() => {
-                const voucherOnlySaving = calcSaving(result, activeRoute, payingByCard) || 0;
-                const cardCashback = payingByCard ? effectiveCashback(selectedCardQuote) : 0;
-                const skipVoucherOnCard = payingByCard && !!selectedCardQuote?.skip_voucher;
-                return voucherOnlySaving > 0 || cardCashback > 0 ? (
+                const voucherOnlySaving = calcSaving(result, activeRoute) || 0;
+                return voucherOnlySaving > 0 ? (
                   <>
                     <SavingsBar
                       originalPrice={calcOriginal(result, activeRoute)}
-                      finalPrice={calcFinal(activeRoute, payingByCard)}
+                      finalPrice={calcFinal(activeRoute)}
                       saving={voucherOnlySaving}
-                      cardCashback={cardCashback}
                       voucherRequired={!!activeRoute.voucher}
                     />
-                    {payingByCard && !skipVoucherOnCard && (
-                      <Flex
-                        align="flex-start"
-                        gap="8px"
-                        bg="amberSoft"
-                        border="1px solid"
-                        borderColor="amber"
-                        borderTop="none"
-                        px="14px"
-                        py="10px"
-                      >
-                        <Box color="amber" flex="0 0 auto" mt="1px">
-                          <I.alert size={13} />
-                        </Box>
-                        <Box fontSize="12px" color="text" lineHeight={1.4}>
-                          Paying by card lowers the voucher discount, but your card also gives you additional benefits on top.
-                        </Box>
-                      </Flex>
-                    )}
                     <RouteWire animated={!prefersReduced} />
                   </>
                 ) : (
@@ -305,17 +316,10 @@ export default function ResultsPage() {
                 isAlt={!!selectedAlt}
                 onBack={backToRecommended}
                 backLabel={priceListMode ? 'Back to price list' : undefined}
-                payingByCard={payingByCard}
-                skipVoucher={payingByCard && !!selectedCardQuote?.skip_voucher}
               />
             </Flex>
+            {missingBox}
             <SendToWhatsApp message={whatsappMessage} view="route" />
-            <CreditCardPrompt
-              key={`${activeRoute.merchant}-${activeRoute.final_cost ?? ''}`}
-              route={activeRoute}
-              onPayingByCardChange={setPayingByCard}
-              onQuoteChange={setSelectedCardQuote}
-            />
             <AlternativesToggle
               alternatives={result.routes?.alternatives}
               onSelect={selectAlt}

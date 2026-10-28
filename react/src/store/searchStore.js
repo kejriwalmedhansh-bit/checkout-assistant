@@ -81,6 +81,9 @@ export const useSearchStore = create(
       autoPicked: false,
       skippedPicker: false,
       result: null,
+      // Bank card offers for the shown result, by shop (see
+      // searchApi.cardOffers). Arrive after the result; never ranked on.
+      cardOffers: [],
       searchStatus: 'idle', // step 1: 'idle' | 'loading' | 'success' | 'error'
       status: 'idle', // step 2: 'idle' | 'loading' | 'success' | 'error'
       error: null,
@@ -166,7 +169,7 @@ export const useSearchStore = create(
       // variant server-side, rather than trusting just this one listing.
       selectProduct: async (token, title = '', price = null, source = '', thumbnail = null) => {
         if (!token) return;
-        set({ selectedToken: token, selectedThumbnail: thumbnail, result: null, status: 'loading', error: null });
+        set({ selectedToken: token, selectedThumbnail: thumbnail, selectedTitle: title, selectedPrice: price, result: null, cardOffers: [], status: 'loading', error: null });
         track('Selected Product', { query: get().query, title, source });
         try {
           const result = await searchApi.routes(token, get().query, title, price, source);
@@ -183,6 +186,19 @@ export const useSearchStore = create(
                 }
               })
               .catch(() => {});
+          }
+          if (result?.card_offers_id) {
+            // Up to three store pages are read one after another; the
+            // server waits a while, and one more ask covers a slow page.
+            const askForCardOffers = (triesLeft) =>
+              searchApi.cardOffers(result.card_offers_id)
+                .then((offers) => {
+                  if (get().selectedToken !== token) return;
+                  if (offers?.length) set({ cardOffers: offers });
+                  else if (offers === null && triesLeft > 0) askForCardOffers(triesLeft - 1);
+                })
+                .catch(() => {});
+            askForCardOffers(1);
           }
           const rec = result?.routes?.recommended;
           if (rec) {
