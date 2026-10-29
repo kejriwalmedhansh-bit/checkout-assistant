@@ -332,9 +332,24 @@ def build_identity(title: str, url: str | None = None) -> dict:
     head = _HEAD_CUT_RE.split(title, maxsplit=1)[0]
     if len(_tokens(head)) < 2:                      # a title that starts "(...)"
         head = " ".join(_tokens(title)[:8])
+    # A shop that leads with the category ("Men's running shoes, Kiprun
+    # Kipcore blue and white" — Decathlon) puts the product's name after the
+    # cut. A head that names nothing is no ID card: keep taking segments
+    # until one carries a word that is not generic, a colour or a type.
+    category_first = not distinct(_tokens(head)) - _TYPE_WORDS
+    if category_first:
+        for seg in _HEAD_CUT_RE.split(title)[1:]:
+            head = f"{head} {seg}"
+            if distinct(_tokens(seg)) - _TYPE_WORDS:
+                break
     head_n = _SPEC_RE.sub(" ", _norm(head))
     toks = [t for t in _tokens(head_n) if t not in _SKIP_LEAD or _tokens(head_n).index(t) > 2]
     brand = toks[0] if toks else ""
+    if category_first:
+        # "men" or "running" leading a category-first title is not a brand;
+        # the brand is the first word that names something. Only here: a
+        # brand that is also a plain word ("Noise") leads its own titles.
+        brand = next((t for t in toks if t not in _GENERIC and t not in _COLOURS and t not in _TYPE_WORDS), brand)
     ordered: list[tuple[str, str]] = []             # (word, kind) in title order
     alt_codes: list[set] = []
     alt_seen = set()

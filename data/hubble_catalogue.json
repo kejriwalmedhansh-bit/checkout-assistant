@@ -1,0 +1,4288 @@
+[
+ {
+  "id": "01HE2BQF43VGNAHM51G8K66YRD",
+  "name": "1-month Prime Membership worth ₹245",
+  "brand_key": "easydiner",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": ""
+ },
+ {
+  "id": "01H782FT2T0XBHSDKA2QARMJZ7",
+  "name": "3 Months membership",
+  "brand_key": "swiggy-one-lite",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": ""
+ },
+ {
+  "id": "01HG8M33F9WB9JT5XEQEX4B6Z3",
+  "name": "@Home",
+  "brand_key": "athome",
+  "works": [
+   "OFFLINE"
+  ],
+  "add_voucher_url": ""
+ },
+ {
+  "id": "01KN77PRVAQJEHKC6Z169STW44",
+  "name": "Abraham & Thakore Luxe Gift Card",
+  "brand_key": "abraham_and_thakore",
+  "works": [
+   "OFFLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01HG8M346MS53F1SR3JVAW4W6R",
+  "name": "Absolute Barbecues",
+  "brand_key": "absolute-barbecues",
+  "works": [
+   "OFFLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01KN757G4AY6Y0ACDQRDV16J18",
+  "name": "Adidas Kids Luxe Gift Card",
+  "brand_key": "adidas_kids",
+  "works": [
+   "OFFLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01KV3B7E0Y2T9MNJPXZ4926GYA",
+  "name": "Adventra Sports",
+  "brand_key": "adventra",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": ""
+ },
+ {
+  "id": "01HG8M34ZKCZR3XFYSFPG5WDHT",
+  "name": "Aeropostale",
+  "brand_key": "aeropostale",
+  "works": [
+   "OFFLINE"
+  ],
+  "add_voucher_url": ""
+ },
+ {
+  "id": "01JCZQPAYCFJA57X9X0VTGA876",
+  "name": "Air India",
+  "brand_key": "air-india",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": "https://www.myntra.com/my/myntracredit"
+ },
+ {
+  "id": "01KZKV8PDC3ASP1DV0H66RG3R1",
+  "name": "Air India Add-ons",
+  "brand_key": "airinidia_addons",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": ""
+ },
+ {
+  "id": "01GTXR3DGXS21JY869HVC64096",
+  "name": "AJIO",
+  "brand_key": "ajio",
+  "works": [
+   "OFFLINE",
+   "ONLINE"
+  ],
+  "add_voucher_url": "https://www.ajio.com/my-account/ajio-wallet"
+ },
+ {
+  "id": "01H9G17D1SM9XFERHWQMHB7363",
+  "name": "AJIO LUXE",
+  "brand_key": "ajio-luxe",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01KN757G4BDCS43ZV69RSNCQSW",
+  "name": "AK OK Luxe Gift Card",
+  "brand_key": "ak_ok",
+  "works": [
+   "OFFLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01J52NRVZQCPB1PA2E3W806FEJ",
+  "name": "ALDO",
+  "brand_key": "aldo",
+  "works": [
+   "OFFLINE"
+  ],
+  "add_voucher_url": ""
+ },
+ {
+  "id": "01HZQ0SC8K9SSJ4KR5Q8QSG672",
+  "name": "Aliste",
+  "brand_key": "aliste",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": ""
+ },
+ {
+  "id": "01GYW7GQHCRCCRCH6YT9ZDVXQH",
+  "name": "Amazon Fresh",
+  "brand_key": "amazon-fresh",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01HDRPKWFE2SMVM54TWD8S1927",
+  "name": "Amazon Pay",
+  "brand_key": "amazon-pay",
+  "works": [
+   "OFFLINE",
+   "ONLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01HFBM14YKNVRB92S8AP79ZFRZ",
+  "name": "Amazon Prime",
+  "brand_key": "amazon-prime",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": ""
+ },
+ {
+  "id": "01H3VE2P9K9VM7JQZQ9QDJDYEM",
+  "name": "Amazon Prime 12 Months",
+  "brand_key": "amazon-prime-12-months",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": ""
+ },
+ {
+  "id": "01GMAVS2CHXR0XP1BZSTA9A44K",
+  "name": "Amazon shopping",
+  "brand_key": "amazon",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": "https://www.amazon.in/apay-products/apv/landing"
+ },
+ {
+  "id": "01HER1ZJDBP0W7MCWZXTTCNECY",
+  "name": "American Eagle",
+  "brand_key": "american-eagle",
+  "works": [
+   "OFFLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01H846XCZRZYTKA39N1BPZ3WDW",
+  "name": "Apollo",
+  "brand_key": "apollo",
+  "works": [
+   "OFFLINE",
+   "ONLINE"
+  ],
+  "add_voucher_url": ""
+ },
+ {
+  "id": "01KEKYE0TFK2Y9RVCETHCZJG2S",
+  "name": "Apollo Diagnostics",
+  "brand_key": "apollo-diagnostics",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01K9C3B3N4Z651EKQ4D2K03NZB",
+  "name": "Apple Premium Reseller",
+  "brand_key": "appleresller",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": "zomato://gift_card/claim_page"
+ },
+ {
+  "id": "01HGDE4EY1PK49N5KJ36DVRR83",
+  "name": "Archies",
+  "brand_key": "archies",
+  "works": [
+   "OFFLINE",
+   "ONLINE"
+  ],
+  "add_voucher_url": ""
+ },
+ {
+  "id": "01H778CDA4FFM16CH57MK2XMSH",
+  "name": "Armani Exchange-Luxe Gift Card",
+  "brand_key": "armani-exchange",
+  "works": [
+   "OFFLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01HG8M35CS82W9QPCKCKD93W7K",
+  "name": "Asia Seven Express",
+  "brand_key": "asia-seven-express",
+  "works": [
+   "OFFLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01HQ5YRT493GVCYAQ6W37PHGD2",
+  "name": "Assembly",
+  "brand_key": "assembly",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01H9G9V1Z0GMVMZCFE3VABRXBM",
+  "name": "Aurelia",
+  "brand_key": "aurelia",
+  "works": [
+   "OFFLINE"
+  ],
+  "add_voucher_url": ""
+ },
+ {
+  "id": "01HGDE4F8Q8MT18KSQBJRTR6NN",
+  "name": "Auric",
+  "brand_key": "auric",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01M22XRNJ8GN4P2M77THQSCFE2",
+  "name": "Auricel",
+  "brand_key": "auricel",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": ""
+ },
+ {
+  "id": "01M3HVZCS9EK846AJJE85J7RDT",
+  "name": "Axora Life",
+  "brand_key": "axora",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": ""
+ },
+ {
+  "id": "01HYN4KQ25NY468572K57Q5S3X",
+  "name": "Bagline",
+  "brand_key": "bagline",
+  "works": [
+   "OFFLINE",
+   "ONLINE"
+  ],
+  "add_voucher_url": "https://www.bigbasket.com/member/gift_cards/"
+ },
+ {
+  "id": "01HZQ0TF2QZEF2K1KFXT3VRJMD",
+  "name": "Bakingo",
+  "brand_key": "bakingo",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01KRXC30PD9JYV01G7DF783EEY",
+  "name": "Balenciaga Luxe Gift Card",
+  "brand_key": "balenciaga",
+  "works": [
+   "OFFLINE"
+  ],
+  "add_voucher_url": ""
+ },
+ {
+  "id": "01H8BSFA1NP07CQMGA8J5VX2WA",
+  "name": "Bally-Luxe Gift Card",
+  "brand_key": "bally",
+  "works": [
+   "OFFLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01H54N4SYZVFX7GCGPQPK9DJQE",
+  "name": "Barbeque Nation",
+  "brand_key": "barbeque-nation",
+  "works": [
+   "OFFLINE"
+  ],
+  "add_voucher_url": ""
+ },
+ {
+  "id": "01H5520GK8C9RTRN0XFMVAMT4N",
+  "name": "Baskin Robbins",
+  "brand_key": "baskin-robbins",
+  "works": [
+   "OFFLINE"
+  ],
+  "add_voucher_url": ""
+ },
+ {
+  "id": "01H1XK4QSDG4NWQDE7SVNG27XJ",
+  "name": "Bata",
+  "brand_key": "bata",
+  "works": [
+   "OFFLINE"
+  ],
+  "add_voucher_url": ""
+ },
+ {
+  "id": "01J52NRVZQ1S2CAD49WS520CAE",
+  "name": "Bath & Body Works",
+  "brand_key": "bath-and-body-works",
+  "works": [
+   "OFFLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01HCC9WRR65BBHSND98YTW0R9S",
+  "name": "BB Now",
+  "brand_key": "bb-now",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": "https://www.bigbasket.com/member/gift_cards/"
+ },
+ {
+  "id": "01KEM1TAN1559EHG6JBHDNSNB7",
+  "name": "Bear House",
+  "brand_key": "bear_house",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01HQ5YRT89PZEYTPKBYFS2DA3E",
+  "name": "Beer Cafe",
+  "brand_key": "beer-cafe",
+  "works": [
+   "OFFLINE"
+  ],
+  "add_voucher_url": ""
+ },
+ {
+  "id": "01HEMYMRN6GQMKN11R7NMWDDRB",
+  "name": "Behrouz Biryani",
+  "brand_key": "behrouz-biryani",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01HGDE4FHCV0PS28KJV0G2FKDE",
+  "name": "Beyoung",
+  "brand_key": "beyoung",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01KVAS9RHWH51VE9C2DB6SNWJJ",
+  "name": "BGMI UC OFFICIAL VOUCHER",
+  "brand_key": "bgmi",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": ""
+ },
+ {
+  "id": "01KJ0CH0K3EC2HS9Y6P1B0EZ2G",
+  "name": "BGMI UniPin",
+  "brand_key": "bgmi_unipin",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01H6H7X2857KMEH1YD0F8MAGK9",
+  "name": "Bhima Jewellers",
+  "brand_key": "bhima-jewellers",
+  "works": [
+   "OFFLINE"
+  ],
+  "add_voucher_url": ""
+ },
+ {
+  "id": "01H60W8ERJGKFKP869EPMRTZFY",
+  "name": "BIBA",
+  "brand_key": "biba",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": ""
+ },
+ {
+  "id": "01GN6QENQPA50CP3DJ5Y0J4KWB",
+  "name": "BigBasket",
+  "brand_key": "bigbasket",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": "https://www.bigbasket.com/member/gift_cards/"
+ },
+ {
+  "id": "01HG8M35TF6A76KRZ71BR6YBCD",
+  "name": "Bikanervala",
+  "brand_key": "bikanervala",
+  "works": [
+   "OFFLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01H25GVXC5G0X2PAAMQP6QMEWK",
+  "name": "Birkenstock",
+  "brand_key": "birkenstock",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": ""
+ },
+ {
+  "id": "01HQ5YRTBKPSDDE0B57HYAZMPD",
+  "name": "Black + Decker",
+  "brand_key": "black-plus-decker",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01HGDE4FTG7MM97CGJARE3VTGC",
+  "name": "Blaupunkt",
+  "brand_key": "blaupunkt",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": ""
+ },
+ {
+  "id": "01H1VVFFAQ52F3E3SGEXEMNC84",
+  "name": "Blinkit",
+  "brand_key": "blinkit",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01HCWZTXHYBYPRT948PNWTWVTT",
+  "name": "Blissclub",
+  "brand_key": "bliss",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01M2Q35W8KHJS803M26WMDQ3MA",
+  "name": "Blossoms & extracts",
+  "brand_key": "blossom_extracts",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": ""
+ },
+ {
+  "id": "01GMMP2VYWVK9GC9XK790Q5Y7X",
+  "name": "Blue Tokai",
+  "brand_key": "blue-tokai",
+  "works": [
+   "OFFLINE",
+   "ONLINE"
+  ],
+  "add_voucher_url": ""
+ },
+ {
+  "id": "01JXWHWSJ3SMZ2J7CV3CX1QJQS",
+  "name": "Boat",
+  "brand_key": "boat",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": ""
+ },
+ {
+  "id": "01KGMKJ26VY1Y792SGNC3EQ5X3",
+  "name": "Boditive",
+  "brand_key": "boditive",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01HEDZ895FA2J2BNE9A3FR98RC",
+  "name": "BodyCraft",
+  "brand_key": "bodycraft",
+  "works": [
+   "OFFLINE"
+  ],
+  "add_voucher_url": ""
+ },
+ {
+  "id": "01GN6RVQDM8PR9V459Y9TBY2AT",
+  "name": "BookMyShow",
+  "brand_key": "bookmyshow",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01H8BSJM4SNW4TP9PD2BE9WJ02",
+  "name": "Bottega Veneta-Luxe Gift Card",
+  "brand_key": "bottega-veneta",
+  "works": [
+   "OFFLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01KN9B5Y42RHC2D15M7ST5GWXE",
+  "name": "BPCL",
+  "brand_key": "bpcl",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01H8BSJMFW61TCEAP1R83F6JG0",
+  "name": "Brooks Brothers-Luxe Gift Card",
+  "brand_key": "brooks-brothers",
+  "works": [
+   "OFFLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01KJAC5221XX0QN0M2SAGYGZMF",
+  "name": "BuyWithEMI",
+  "brand_key": "buywithemi",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01HGATG5S35NMPWC44R13GJQ35",
+  "name": "Cafe Coffee Day",
+  "brand_key": "cafe-coffee-day",
+  "works": [
+   "OFFLINE"
+  ],
+  "add_voucher_url": ""
+ },
+ {
+  "id": "01HKYVS6K7W5AQ837GZAECTB6Z",
+  "name": "Cafe Delhi Heights",
+  "brand_key": "cafe-delhi-heights",
+  "works": [
+   "OFFLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01JHJ4AT3KRQB07ZQMF1HGCDSA",
+  "name": "Cahoot",
+  "brand_key": "campus-sutra_2",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": "https://www.bigbasket.com/member/gift_cards/"
+ },
+ {
+  "id": "01J52NRVZQ9WZST5T083CFVAXQ",
+  "name": "Call It Spring",
+  "brand_key": "call-it-spring",
+  "works": [
+   "OFFLINE"
+  ],
+  "add_voucher_url": ""
+ },
+ {
+  "id": "01HQ5YRTFBA67MP4ECETSHZD46",
+  "name": "Campus",
+  "brand_key": "campus",
+  "works": [
+   "OFFLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01H8BSJMAYEN5R290H13FTEJEN",
+  "name": "Canali-Luxe Gift Card",
+  "brand_key": "canali",
+  "works": [
+   "OFFLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01KM32V3KNN9VWT11NP0CV662S",
+  "name": "Candere Diamond Jewellery",
+  "brand_key": "candere_diamondjwellery",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01HKYV7GY1WZ5X4XHSCTHAW6BT",
+  "name": "Candere Gold Coin",
+  "brand_key": "candere-gold-coin",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01KM30PHPK1HADZ2ASR93GJW8W",
+  "name": "Candere Gold Jewellery",
+  "brand_key": "candere_goldjwellery",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01KPTCDDPYPMR60HJ93T1C6223",
+  "name": "CaratLane",
+  "brand_key": "caratlane",
+  "works": [
+   "OFFLINE",
+   "ONLINE"
+  ],
+  "add_voucher_url": ""
+ },
+ {
+  "id": "01JHJ4AT3KQG9DC37CK4NWHKGQ",
+  "name": "Cello",
+  "brand_key": "cello",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": "https://www.bigbasket.com/member/gift_cards/"
+ },
+ {
+  "id": "01KHG1MDPJQ7Q5M3F1E5X24R79",
+  "name": "CGH Earth",
+  "brand_key": "cgh_earth",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": ""
+ },
+ {
+  "id": "01J52NRVZQ56NF4HJTN6WKXJ25",
+  "name": "CHARLES & KEITH",
+  "brand_key": "charles-and-keith",
+  "works": [
+   "OFFLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01KN77PRVB71WRFRJJGFKW7HDM",
+  "name": "Charles Tyrwhitt Luxe Gift Card",
+  "brand_key": "charles_tyrwhitt",
+  "works": [
+   "OFFLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01KJSBXCTSY0XSG3EDZ9K3PFT3",
+  "name": "Chicco",
+  "brand_key": "chicoo",
+  "works": [
+   "OFFLINE"
+  ],
+  "add_voucher_url": ""
+ },
+ {
+  "id": "01H5580TXS0C8FVDD3P0BYV4A5",
+  "name": "Chumbak",
+  "brand_key": "chumbak",
+  "works": [
+   "OFFLINE"
+  ],
+  "add_voucher_url": ""
+ },
+ {
+  "id": "01K1APG41GAZ3EB4ME2DHCF6S1",
+  "name": "Cinepolis",
+  "brand_key": "cinepolis",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": ""
+ },
+ {
+  "id": "01HYN90XG1T0BMD4RZC1664KX4",
+  "name": "Citizen Watches",
+  "brand_key": "citizen-watches",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": "https://www.bigbasket.com/member/gift_cards/"
+ },
+ {
+  "id": "01H25HGERX6CAXY6Q0BP1SJHJJ",
+  "name": "Cleartrip",
+  "brand_key": "cleartrip",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01H9J0173FWAN9WA5RN9C8HDG6",
+  "name": "ClearTrip Hotel",
+  "brand_key": "cleartrip-hotel",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": ""
+ },
+ {
+  "id": "01HGATG6AAK39E115RMFRX8NED",
+  "name": "Cloud tailor",
+  "brand_key": "cloud-tailor",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01H778E1TAKCSZ5XX2TGDNSE0Y",
+  "name": "Coach-Luxe Gift Card",
+  "brand_key": "coach",
+  "works": [
+   "OFFLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01M3HTCKF7JC3NJMND52H9YCZ0",
+  "name": "Columbia",
+  "brand_key": "columbia",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": ""
+ },
+ {
+  "id": "01KV394HSNP6KDXSJ5YDAENWGQ",
+  "name": "Cordelia",
+  "brand_key": "cordelia",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": ""
+ },
+ {
+  "id": "01HYN8PD5FJ668FA0YCQDXW51N",
+  "name": "Cosmus",
+  "brand_key": "cosmus",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": "https://www.bigbasket.com/member/gift_cards/"
+ },
+ {
+  "id": "01HGDE4G3ZHNBJM8C58V6J06N4",
+  "name": "Costa Coffee",
+  "brand_key": "costa-coffee",
+  "works": [
+   "OFFLINE"
+  ],
+  "add_voucher_url": ""
+ },
+ {
+  "id": "01GMMNY2PGJVHCSFRSCX3R6G8C",
+  "name": "Croma",
+  "brand_key": "croma",
+  "works": [
+   "OFFLINE",
+   "ONLINE"
+  ],
+  "add_voucher_url": ""
+ },
+ {
+  "id": "01K31PFY8VRFHCPEQFRJEDWSJG",
+  "name": "Crossword",
+  "brand_key": "crossword",
+  "works": [
+   "OFFLINE",
+   "ONLINE"
+  ],
+  "add_voucher_url": "https://www.ajio.com/my-account/ajio-wallet"
+ },
+ {
+  "id": "01KJ2TFE2VWWY7K0NBEZZG0PMC",
+  "name": "Dabba & Co",
+  "brand_key": "dabba_co",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01H60WWBPK61W78F2DY6GZRKGP",
+  "name": "Daily Objects",
+  "brand_key": "daliy-objects",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01HKYV7GZT307QC045VHHESWTA",
+  "name": "DANUBE BUILDMART",
+  "brand_key": "danube-buildmart",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01GMAWCAYTZS0D81H82AGJW7Y2",
+  "name": "Decathlon",
+  "brand_key": "decathlon",
+  "works": [
+   "OFFLINE",
+   "ONLINE"
+  ],
+  "add_voucher_url": ""
+ },
+ {
+  "id": "01H7787FZCNGN3MYHKAG71BPPH",
+  "name": "DIESEL-Luxe Gift Card",
+  "brand_key": "diesel",
+  "works": [
+   "OFFLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01KFJNPR5ERPZMXA2QGEF9MSG1",
+  "name": "District",
+  "brand_key": "district_1",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": "zomato://gift_card/claim_page"
+ },
+ {
+  "id": "01H5024DFRQJHJ3SY7W2ZN658G",
+  "name": "Dominos",
+  "brand_key": "dominos",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": ""
+ },
+ {
+  "id": "01K4Z032VM6CXG6QRA5YJE2QDH",
+  "name": "Dominos Fixed",
+  "brand_key": "dominosfixed",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01HKYV7H346TK669MFNN104ZSQ",
+  "name": "Donatekart",
+  "brand_key": "donatekart",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01HGATG6SYD77WPMY9HVCV06WX",
+  "name": "Dpauls",
+  "brand_key": "dpauls",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01H8BSJMSPCZ38EEZK5N8BG1JS",
+  "name": "Dune London-Luxe Gift Card",
+  "brand_key": "dune-london",
+  "works": [
+   "OFFLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01KFDJFH0W9T5N2Z5E8CB1SKHS",
+  "name": "Duroflex",
+  "brand_key": "duroflex",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01KXWW2NTCMH1ZZ6A6JM5ZGA8X",
+  "name": "EA SPORTS FC 26",
+  "brand_key": "ea_sports",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": ""
+ },
+ {
+  "id": "01KNVNXQRM0KY0G9QMAXSRM3XQ",
+  "name": "EA7",
+  "brand_key": "ea7",
+  "works": [
+   "OFFLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01GXT9EEPJ4W78J12WBPXXA5Z2",
+  "name": "EaseMyTrip",
+  "brand_key": "ease-my-trip",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": ""
+ },
+ {
+  "id": "01K1B4ZV9Y6S8KK25G34WBZS9Y",
+  "name": "EaseMyTrip Holiday",
+  "brand_key": "easemytripholiday",
+  "works": [
+   "OFFLINE",
+   "ONLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01K1JCF6VFGVX4D2CSMG8XV888",
+  "name": "EaseMyTrip Hotel",
+  "brand_key": "easemytriphotel",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01JA10EN4HRY6V95H09A50H5ZW",
+  "name": "easybuy",
+  "brand_key": "easybuy",
+  "works": [
+   "OFFLINE"
+  ],
+  "add_voucher_url": ""
+ },
+ {
+  "id": "01HEDYKNAS3BAZT0EEA3AT5P6H",
+  "name": "EatSure",
+  "brand_key": "eatsure",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": ""
+ },
+ {
+  "id": "01H778HBDPYP7MJWQDAAMAC4V8",
+  "name": "Emporio Armani-Luxe Gift Card",
+  "brand_key": "emporio-armani",
+  "works": [
+   "OFFLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01HKYV7H74GT9PNGZKCHK6MXVV",
+  "name": "Epic On",
+  "brand_key": "epic-on",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01HZQ0TFARG23GCPB1J0P3B7MJ",
+  "name": "Estele",
+  "brand_key": "estele",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01HQ5YX4TFMTWBX8R6CS3RHR2T",
+  "name": "Euphoria Gold Coin",
+  "brand_key": "euphoria-jewellery-e",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01KM0FCZ4Q0K76AMW1EG7GTN09",
+  "name": "Euphoria Silver Coin",
+  "brand_key": "euphoria_silvercoin",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01KXX90MXNSSN91603786CYTKK",
+  "name": "ExitLag",
+  "brand_key": "exitlag",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": ""
+ },
+ {
+  "id": "01HEDYTNQMT25ERNNFKTR7DAFS",
+  "name": "Faasos",
+  "brand_key": "faasos",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01HKYVS6Q57RRWGEXM81NR1GTC",
+  "name": "Fab Hotels",
+  "brand_key": "fab-hotels",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01HZQ0TFDGRC93QJ9EWS7R8PXG",
+  "name": "Fashion Factory",
+  "brand_key": "fashion-factory",
+  "works": [
+   "OFFLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01H6H6W7DAW5EK1RDBZ2GFN91P",
+  "name": "Fastrack",
+  "brand_key": "fastrack",
+  "works": [
+   "OFFLINE"
+  ],
+  "add_voucher_url": ""
+ },
+ {
+  "id": "01KM341MFWS35YFHFS3YE3ED6D",
+  "name": "Fastrack Bags",
+  "brand_key": "fastrack_bags",
+  "works": [
+   "OFFLINE"
+  ],
+  "add_voucher_url": ""
+ },
+ {
+  "id": "01J0QQNCT9FPJKDFF07TDYS8BF",
+  "name": "Femmella",
+  "brand_key": "femmella",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01H9G9AWZW9DQ2NG854ZN2Z4S0",
+  "name": "Ferns N Petals",
+  "brand_key": "fnp",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": ""
+ },
+ {
+  "id": "01H8BSJNCEK4FF1V1R05EPG8PX",
+  "name": "Ferragamo",
+  "brand_key": "ferragamo",
+  "works": [
+   "OFFLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01HKYV7HA7X37K6S0KM0QCJD8S",
+  "name": "Finusmart",
+  "brand_key": "finusmart",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01KJ2W00TCD9W5TM5FS4829YVJ",
+  "name": "Firangi Bake",
+  "brand_key": "firangibake",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01H52ASZZ2R3272AHZE1TTZC8E",
+  "name": "Firstcry",
+  "brand_key": "firstcry",
+  "works": [
+   "OFFLINE",
+   "ONLINE"
+  ],
+  "add_voucher_url": ""
+ },
+ {
+  "id": "01HKYVS6S5WKD25RF98R6WNP7Z",
+  "name": "FitPass",
+  "brand_key": "fitpass",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01GMMNJECTDZAG2YS61K58HVG8",
+  "name": "Flipkart",
+  "brand_key": "flipkart",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": ""
+ },
+ {
+  "id": "01HZQ0TFGPP36RW1T825EM8P0G",
+  "name": "Flower Aura",
+  "brand_key": "flower-aura",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01HZQ0TFKR7JK5S3C0S8TDY3D3",
+  "name": "Forever 21",
+  "brand_key": "forever-21",
+  "works": [
+   "OFFLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01GXTA1DK09MWEHKRHT5K53CYF",
+  "name": "Forever New",
+  "brand_key": "forever-new",
+  "works": [
+   "OFFLINE",
+   "ONLINE"
+  ],
+  "add_voucher_url": ""
+ },
+ {
+  "id": "01JHJ4D7DWJM39JTJXQ6B2BT48",
+  "name": "Foxtale",
+  "brand_key": "foxtale",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": "https://www.bigbasket.com/member/gift_cards/"
+ },
+ {
+  "id": "01HGDE4GY1126XQF69RDWGCJ5C",
+  "name": "Freecultr",
+  "brand_key": "freecultr",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01KG4Y0RFP9E5SBYZSCW2TRB9D",
+  "name": "French Accent",
+  "brand_key": "french_accent",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01HGATG7VV2Q1XR2BS3X1PCKDY",
+  "name": "FreshMenu",
+  "brand_key": "freshmenu",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01JXWHWSJ34FJY1B39ZRCTK6NV",
+  "name": "Fricken",
+  "brand_key": "fricken",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01JXWAJ8QR9JK6RFG9KAA9F57R",
+  "name": "Frido",
+  "brand_key": "frido",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01KJ30B1P96ZGNC9RHSBJZ7XRJ",
+  "name": "Funblock",
+  "brand_key": "funblock",
+  "works": [
+   "OFFLINE"
+  ],
+  "add_voucher_url": ""
+ },
+ {
+  "id": "01K31PF8TPQ6SX2HBY6Z00KYS5",
+  "name": "Funcity",
+  "brand_key": "funcity",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": ""
+ },
+ {
+  "id": "01JHJ4D7DWJVJB06GHJKKQ9T4P",
+  "name": "Future World",
+  "brand_key": "future-world",
+  "works": [
+   "OFFLINE"
+  ],
+  "add_voucher_url": "https://www.bigbasket.com/member/gift_cards/"
+ },
+ {
+  "id": "01H8BSJN8BKKE5NMMKXHD37DW6",
+  "name": "G-Star Raw",
+  "brand_key": "g-star-raw",
+  "works": [
+   "OFFLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01JJCGH3HGWKED0D1FCH41NVAC",
+  "name": "Gaana",
+  "brand_key": "gaana",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01H8BSJMY9CYCAYT0Q5235NWSY",
+  "name": "Gas-Luxe Gift Card",
+  "brand_key": "gas-jeans",
+  "works": [
+   "OFFLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01H8BSJNGHE9HJ2EJFX4DQ2MW4",
+  "name": "Giorgio Armani-Luxe Gift Card",
+  "brand_key": "giorgio-armani",
+  "works": [
+   "OFFLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01H558940T2N40W4QHV3N09Q6Q",
+  "name": "Giva",
+  "brand_key": "giva",
+  "works": [
+   "OFFLINE",
+   "ONLINE"
+  ],
+  "add_voucher_url": ""
+ },
+ {
+  "id": "01HKYV7HBY8G4PJRG6Q5HDMXAS",
+  "name": "Giva Gold Voucher",
+  "brand_key": "giva-gold-voucher",
+  "works": [
+   "OFFLINE",
+   "ONLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01KZKT76V8HZN9AWGCDKARHDEK",
+  "name": "GIVA Jewellery Men",
+  "brand_key": "giva_men",
+  "works": [
+   "OFFLINE",
+   "ONLINE"
+  ],
+  "add_voucher_url": ""
+ },
+ {
+  "id": "01K1QP5P3Q58QVQ46Q0QQ47D11",
+  "name": "Giva Silver Coin",
+  "brand_key": "givasilvercoin",
+  "works": [
+   "OFFLINE",
+   "ONLINE"
+  ],
+  "add_voucher_url": ""
+ },
+ {
+  "id": "01J0QQE72CHY3ME2NJD2T62XN1",
+  "name": "Glam Studio",
+  "brand_key": "glam-studios",
+  "works": [
+   "OFFLINE"
+  ],
+  "add_voucher_url": "https://www.swiggy.com/my-account/swiggy-money/add-money"
+ },
+ {
+  "id": "01KQWJR833SC1SAVXRNMP52PKA",
+  "name": "GoBaby Travel",
+  "brand_key": "gobaby_travel",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01KMDAB85XKC15ZH2K62PMP8VE",
+  "name": "Goibibo",
+  "brand_key": "goibibo_generic",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01JXWHWSJ3EKEZ5MWTCBVTW76E",
+  "name": "Goibibo Hotel",
+  "brand_key": "goibibo",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": ""
+ },
+ {
+  "id": "01HQ5YX4YYG60K3GTE2PQ6F3MS",
+  "name": "GRT Jewellers",
+  "brand_key": "grt-jwel-card",
+  "works": [
+   "OFFLINE"
+  ],
+  "add_voucher_url": ""
+ },
+ {
+  "id": "01HGATG8XW7SA2CC0K0WZ1AH2K",
+  "name": "Gupta Distributors",
+  "brand_key": "gupta-distributors",
+  "works": [
+   "OFFLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01H8BSJPKRJH0EHS0TJNBK0DYK",
+  "name": "Hamleys-Luxe Gift Card",
+  "brand_key": "hamleys",
+  "works": [
+   "OFFLINE"
+  ],
+  "add_voucher_url": ""
+ },
+ {
+  "id": "01HKYVS6X5RBM1F4HSDWT8P4RF",
+  "name": "Hammer",
+  "brand_key": "hammer",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01KG536NHHD69C85Z9329QGST4",
+  "name": "Haute Sauce",
+  "brand_key": "haute_sauce",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01GXT8RXXMPKJQ744VSV4KJTGC",
+  "name": "Health & Glow",
+  "brand_key": "health-and-glow",
+  "works": [
+   "OFFLINE"
+  ],
+  "add_voucher_url": ""
+ },
+ {
+  "id": "01HCX1A9PF3F76726D5VH812M8",
+  "name": "Healthians",
+  "brand_key": "healthians",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": ""
+ },
+ {
+  "id": "01HZQ0TFNMAW8YGXR99X699KFG",
+  "name": "HealthKart",
+  "brand_key": "healthkart",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01H6DRCD4SGGY0DGSKQC71XCCB",
+  "name": "Helios",
+  "brand_key": "helios",
+  "works": [
+   "OFFLINE"
+  ],
+  "add_voucher_url": ""
+ },
+ {
+  "id": "01H60XEJSTDHVCJ19DB92CF531",
+  "name": "Hidesign",
+  "brand_key": "hidesign",
+  "works": [
+   "OFFLINE",
+   "ONLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01H52CJCNQ967JSPZCA7X493ZB",
+  "name": "Himalaya",
+  "brand_key": "himalaya",
+  "works": [
+   "OFFLINE"
+  ],
+  "add_voucher_url": ""
+ },
+ {
+  "id": "01HFBM1T0MZ8C4M7PDRWRA8TKE",
+  "name": "Hoichoi",
+  "brand_key": "hoichoi",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": ""
+ },
+ {
+  "id": "01H5SZADZ8RX2S2NV2B3Z9QXKK",
+  "name": "Home Center",
+  "brand_key": "home-center-offline",
+  "works": [
+   "OFFLINE"
+  ],
+  "add_voucher_url": ""
+ },
+ {
+  "id": "01H25JNT8Q5KBRPWZC1YK4T9QM",
+  "name": "Home Center",
+  "brand_key": "home-center-online",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01KJ2X5PDYP0ZGSBM4R4T3AJRR",
+  "name": "Honest Bowl",
+  "brand_key": "honest_bowl",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01KZKP9J7BF7E2FGCQKTMT2P04",
+  "name": "Hoora",
+  "brand_key": "hoora",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": ""
+ },
+ {
+  "id": "01HKYV7HFHC3ESA58MAA2F82HV",
+  "name": "HopInTown Plus",
+  "brand_key": "hopintown-plus",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01KV01CZQN2EBBYA6Z66XKCNTP",
+  "name": "Hopscotch",
+  "brand_key": "hopscotch",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": ""
+ },
+ {
+  "id": "01KN725WHCA8DK9J43NBNG783F",
+  "name": "HP Pay",
+  "brand_key": "hp_pay",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01H8BSJNSPP3Y2RQH15K4Z3HHS",
+  "name": "Hugo Boss-Luxe Gift Card",
+  "brand_key": "hugo-boss",
+  "works": [
+   "OFFLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01H8BSJNYT80NJAZ53MH643TRF",
+  "name": "Hunkemoller",
+  "brand_key": "hunkemoller",
+  "works": [
+   "OFFLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01H558QVNZBHXYZ68D4KDX2R2W",
+  "name": "Hush Puppies",
+  "brand_key": "hush-puppies",
+  "works": [
+   "OFFLINE"
+  ],
+  "add_voucher_url": ""
+ },
+ {
+  "id": "01HZQ0TFRRQMGTVWG6EBFSD76G",
+  "name": "IGP",
+  "brand_key": "igp",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01HSBD494BMXNNP9HA9CTXAQ16",
+  "name": "IKEA",
+  "brand_key": "ikea",
+  "works": [
+   "OFFLINE",
+   "ONLINE"
+  ],
+  "add_voucher_url": ""
+ },
+ {
+  "id": "01HGATG9DMWSZJXHHPCTVHY4YZ",
+  "name": "Imagine Apple Premium",
+  "brand_key": "imagine_apple_premium",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01H6DRJSY13ZRR3DP9CRVC6K4X",
+  "name": "Indian Terrain",
+  "brand_key": "indian-terrian",
+  "works": [
+   "OFFLINE"
+  ],
+  "add_voucher_url": ""
+ },
+ {
+  "id": "01KV2H847EXH3F5K36QYTJK7D3",
+  "name": "INDRIYA",
+  "brand_key": "indriya",
+  "works": [
+   "OFFLINE"
+  ],
+  "add_voucher_url": ""
+ },
+ {
+  "id": "01M19NEEXTNDP1GW4AX67AB0XM",
+  "name": "INDRIYA - Gold Jewellery",
+  "brand_key": "indriya_gold",
+  "works": [
+   "OFFLINE"
+  ],
+  "add_voucher_url": ""
+ },
+ {
+  "id": "01M19Q2SSXXGPFCKE3GPKC85HV",
+  "name": "INDRIYA - Studded Jewellery",
+  "brand_key": "indriya_studded",
+  "works": [
+   "OFFLINE"
+  ],
+  "add_voucher_url": ""
+ },
+ {
+  "id": "01J52NRVZQ6BTVT27KGRBA9EKG",
+  "name": "Inglot",
+  "brand_key": "inglot",
+  "works": [
+   "OFFLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01KG4VH32A2Y98Q79HQR9EKE9N",
+  "name": "Instafab Plus",
+  "brand_key": "instafab_plus",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01KN74VHHR1E5VJSXH5FPJ8M4B",
+  "name": "IOCL",
+  "brand_key": "iocl",
+  "works": [
+   "OFFLINE"
+  ],
+  "add_voucher_url": ""
+ },
+ {
+  "id": "01HEE01AX4NSP7XF0C30F5HJMX",
+  "name": "ITC Hotels",
+  "brand_key": "itc-hotels",
+  "works": [
+   "OFFLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01KHDXA5DYKBJ4P3E6NYQBRZZZ",
+  "name": "ITC Hotels Fabelle Chocolates",
+  "brand_key": "itc-hotel-fabelle",
+  "works": [
+   "OFFLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01KHDVBEZEQWPJS7T8KGZJHE1S",
+  "name": "ITC Hotels Spa",
+  "brand_key": "itc-hotel-spa",
+  "works": [
+   "OFFLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01J2BDEW9WD2XM1T9595HD4GD5",
+  "name": "Ixigo",
+  "brand_key": "ixigo",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01KF0KHQE1ZEEQP9QEZC423K7T",
+  "name": "Ixigo Hotels",
+  "brand_key": "ixigo_hotel",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01HYN6G8FGT1K7Z40WV2HKNSBF",
+  "name": "Jhari Eco Stay",
+  "brand_key": "jhari-eco-stay",
+  "works": [
+   "OFFLINE"
+  ],
+  "add_voucher_url": "https://www.bigbasket.com/member/gift_cards/"
+ },
+ {
+  "id": "01H8BSJP954VMEJB53W8NQTT6H",
+  "name": "Jimmy Choo-Luxe Gift Card",
+  "brand_key": "jimmy-choo",
+  "works": [
+   "OFFLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01J1W4D2KRHMJZKPAQWXCEMF4M",
+  "name": "Jio Mart",
+  "brand_key": "jio-mart",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": ""
+ },
+ {
+  "id": "01M06R73BFC6EFP6R3RQWK21JD",
+  "name": "Jio Starter Pack",
+  "brand_key": "jiostarterpack",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": ""
+ },
+ {
+  "id": "01HFBM1T0MW7WVN8PDRWRA8TKE",
+  "name": "JioHotstar",
+  "brand_key": "hotstar",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": ""
+ },
+ {
+  "id": "01HKYV7HPR8SSEKKXPV1HP5Z9K",
+  "name": "Jos Alukkas Coin",
+  "brand_key": "jos-alukkas-coin",
+  "works": [
+   "OFFLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01HKYV7HRJY3KN37155J6YZBDY",
+  "name": "Jos Alukkas Jewellery",
+  "brand_key": "jos-alukkas-jewellery",
+  "works": [
+   "OFFLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01H25YY2206HKAG3GDC6QSXNRP",
+  "name": "Joyalukkas",
+  "brand_key": "joyalukkas",
+  "works": [
+   "OFFLINE"
+  ],
+  "add_voucher_url": ""
+ },
+ {
+  "id": "01HKYV7HTTV80XPSTJQJFH5YPK",
+  "name": "Joyalukkas Diamond",
+  "brand_key": "joyalukkas-diamond",
+  "works": [
+   "OFFLINE"
+  ],
+  "add_voucher_url": ""
+ },
+ {
+  "id": "01K1QQNP32HS12E77EK1GGR054",
+  "name": "Joyalukkas Pure Gold",
+  "brand_key": "joyalukkaspuregold",
+  "works": [
+   "OFFLINE"
+  ],
+  "add_voucher_url": ""
+ },
+ {
+  "id": "01JHJ5FCQVK5PGRK15VA62YMM7",
+  "name": "Just Lil Things",
+  "brand_key": "just-lil-things",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01KXJN863GEP4PHERK3N7BCHCA",
+  "name": "Kalki",
+  "brand_key": "kalki_fashion",
+  "works": [
+   "OFFLINE",
+   "ONLINE"
+  ],
+  "add_voucher_url": ""
+ },
+ {
+  "id": "01HKYV7HWKCH9RKZ7M5GQN0RG1",
+  "name": "Kalyan Diamond",
+  "brand_key": "kalyan-diamond",
+  "works": [
+   "OFFLINE"
+  ],
+  "add_voucher_url": ""
+ },
+ {
+  "id": "01HKYV7HYFWY3YGXGBGWK9NVC4",
+  "name": "Kalyan Gold Coin",
+  "brand_key": "kalyan-gold-coin",
+  "works": [
+   "OFFLINE"
+  ],
+  "add_voucher_url": ""
+ },
+ {
+  "id": "01H25ZHW0YWW58E18Z4SZDV06P",
+  "name": "Kalyan Jewellers",
+  "brand_key": "kalyan-jewellers",
+  "works": [
+   "OFFLINE"
+  ],
+  "add_voucher_url": ""
+ },
+ {
+  "id": "01H6HFYFAFE196SP82YNJE1H70",
+  "name": "Kama Ayurveda",
+  "brand_key": "kama-ayurveda",
+  "works": [
+   "OFFLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01H8BSTDW8XWQA263J8G60RNDN",
+  "name": "Kate Spade-Luxe Gift Card",
+  "brand_key": "kate-spade",
+  "works": [
+   "OFFLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01HQ5YRTHRDMXF60ZK2YRXZ6HP",
+  "name": "Ketan Diamonds Diamond Only",
+  "brand_key": "ketan-diamonds-diamond-only",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": ""
+ },
+ {
+  "id": "01HQ5YRTKV2THQCWKBNHY9H66E",
+  "name": "Ketan Diamonds Gold Coin",
+  "brand_key": "ketan_diamonds_gold_coin",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01HQ5YRTNTWY4J7WJ68FC40S1C",
+  "name": "Ketan Diamonds Gold Jewellery",
+  "brand_key": "ketan-diamonds-gold-jewellery",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": ""
+ },
+ {
+  "id": "01H5VWQYA696TSX0FRYPF4ZY0B",
+  "name": "KFC",
+  "brand_key": "kfc",
+  "works": [
+   "OFFLINE",
+   "ONLINE"
+  ],
+  "add_voucher_url": ""
+ },
+ {
+  "id": "01KM36FBVJ2AFQZKY8Z4WY17YN",
+  "name": "Kimirica",
+  "brand_key": "kimirica",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": ""
+ },
+ {
+  "id": "01KEY8Z4VGH71EPGQ05P47RNRD",
+  "name": "Klook",
+  "brand_key": "klook_1",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01H5QS8H65593Q60VBW5KQWFDB",
+  "name": "Lakmé Salon",
+  "brand_key": "lakme",
+  "works": [
+   "OFFLINE"
+  ],
+  "add_voucher_url": ""
+ },
+ {
+  "id": "01HF7GXYM9RWD53H22FGPA8YJW",
+  "name": "Lawrence & Mayo",
+  "brand_key": "lawrence-and-mayo",
+  "works": [
+   "OFFLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01KEBWGDZGHWJPZP9DVQ9G5VV5",
+  "name": "Le Creuset",
+  "brand_key": "le_creuset",
+  "works": [
+   "OFFLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01M2Q04331YYANRBSMS7927HY0",
+  "name": "Lego",
+  "brand_key": "lego",
+  "works": [
+   "OFFLINE"
+  ],
+  "add_voucher_url": ""
+ },
+ {
+  "id": "01JA10D7KDRMME37HAYY97BAYX",
+  "name": "Lenskart",
+  "brand_key": "lenskart",
+  "works": [
+   "OFFLINE",
+   "ONLINE"
+  ],
+  "add_voucher_url": ""
+ },
+ {
+  "id": "01M0QGP82Y7T9QZE45VXN6VF6T",
+  "name": "Libas",
+  "brand_key": "libas",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": ""
+ },
+ {
+  "id": "01K9D3HH3YZ7NZE4NVZM1H1D4J",
+  "name": "Liberty Online",
+  "brand_key": "libertyonline",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": "https://www.bigbasket.com/member/gift_cards/"
+ },
+ {
+  "id": "01KKNTKE8TQ22ZRXX0S01TZ2Z1",
+  "name": "Liberty Shoes",
+  "brand_key": "liberty_shoes",
+  "works": [
+   "OFFLINE"
+  ],
+  "add_voucher_url": "https://www.bigbasket.com/member/gift_cards/"
+ },
+ {
+  "id": "01H5SYXNAA269J0NRM62X9H1E0",
+  "name": "Lifestyle",
+  "brand_key": "lifestyle-offline",
+  "works": [
+   "OFFLINE"
+  ],
+  "add_voucher_url": ""
+ },
+ {
+  "id": "01H26096X3MES3V42TVPFB6JHA",
+  "name": "Lifestyle",
+  "brand_key": "lifestyle-online",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01HGATG9XF2JDBDRET8HKQG1YG",
+  "name": "Linen Club",
+  "brand_key": "linen-club",
+  "works": [
+   "OFFLINE"
+  ],
+  "add_voucher_url": ""
+ },
+ {
+  "id": "01KEHG58B6A03XER433DSTJQP6",
+  "name": "Lionsgate Play",
+  "brand_key": "lionsgate_play",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01HGATGAE01ZD66SKQ7HNYPCCQ",
+  "name": "Lite Bite Food",
+  "brand_key": "lite-bite-food",
+  "works": [
+   "OFFLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01HZQ0TFVQT2DVP57BBVHDSDHY",
+  "name": "Live Mint",
+  "brand_key": "live-mint",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": ""
+ },
+ {
+  "id": "01KQKZAB8WJ2EC7EC80010B1T3",
+  "name": "Lohono Stays",
+  "brand_key": "lohono_stays",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01GMMP6E0P3ZHBMWB6GHABVZJH",
+  "name": "Louis Philippe",
+  "brand_key": "louis-philippe",
+  "works": [
+   "OFFLINE"
+  ],
+  "add_voucher_url": ""
+ },
+ {
+  "id": "01KJEZERHAT9790T8853E9W5VY",
+  "name": "Lulu Daily",
+  "brand_key": "lulu_daily",
+  "works": [
+   "OFFLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01KJF2E51KMP885VDFQT417F7Y",
+  "name": "Lulu Fashion Store",
+  "brand_key": "lulu_fashion",
+  "works": [
+   "OFFLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01HGATGAXK83THACRS7SRMBCDT",
+  "name": "Lulu Hypermarket",
+  "brand_key": "lulu-hypermarket",
+  "works": [
+   "OFFLINE"
+  ],
+  "add_voucher_url": ""
+ },
+ {
+  "id": "01HEDYKNAS3BAB13EEA3AT5P6H",
+  "name": "Lunch Box",
+  "brand_key": "eatsure3",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01KVAGMRTK3KCQWMBGKWF1ZK8V",
+  "name": "Luzo",
+  "brand_key": "luzo",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": ""
+ },
+ {
+  "id": "01HGDE4HFKKZ2X5X6TX7GFXN32",
+  "name": "Machaan",
+  "brand_key": "machaan",
+  "works": [
+   "OFFLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01HGDE4HS9SPWQWYZZ3T5NYRJD",
+  "name": "Mainland China",
+  "brand_key": "mainland-china",
+  "works": [
+   "OFFLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01KNC29RV1MNQGF6E8HFDCXCQ4",
+  "name": "Maje Luxe Gift Card",
+  "brand_key": "maje",
+  "works": [
+   "OFFLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01GTXQKWM3ZQNFH0TGXK8GKNHQ",
+  "name": "MakeMyTrip",
+  "brand_key": "makemytrip",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": ""
+ },
+ {
+  "id": "01KJCXYTZV9KTPR7YBM6WGRHFP",
+  "name": "MakeMyTrip Bus",
+  "brand_key": "mmtbus",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": ""
+ },
+ {
+  "id": "01HEDZ4GZNQR2MXMK337VKVTQ1",
+  "name": "MakeMyTrip Holidays",
+  "brand_key": "mmt-holidays",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01H6HE3W2ADAM7KQPWY0DNTRVS",
+  "name": "MakeMyTrip Hotel",
+  "brand_key": "mmt-hotel",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": ""
+ },
+ {
+  "id": "01JA10EN4H65JGZ3J7TYA30ZF7",
+  "name": "MakeMyTrip Rail",
+  "brand_key": "mmt-rail",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": ""
+ },
+ {
+  "id": "01KJ2YGTAXFK0C9BZ165VKMJ9H",
+  "name": "Makhani Darbar",
+  "brand_key": "makhani_darbar",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01J2BDEW9WWK93AZ7C403SHD9R",
+  "name": "Malabar Diamonds",
+  "brand_key": "malabar-diamonds",
+  "works": [
+   "OFFLINE",
+   "ONLINE"
+  ],
+  "add_voucher_url": ""
+ },
+ {
+  "id": "01J2BDEW9WYSZT17M2N7XR97QK",
+  "name": "Malabar Gold Coin",
+  "brand_key": "malabar-gold-coin",
+  "works": [
+   "OFFLINE",
+   "ONLINE"
+  ],
+  "add_voucher_url": ""
+ },
+ {
+  "id": "01J2BDEW9WP05YADQXDMTB61P7",
+  "name": "Malabar Jewellery",
+  "brand_key": "malabar-jewellery",
+  "works": [
+   "OFFLINE",
+   "ONLINE"
+  ],
+  "add_voucher_url": ""
+ },
+ {
+  "id": "01KP8A6477S4YXD9WPBGZFW80E",
+  "name": "Mango",
+  "brand_key": "mango",
+  "works": [
+   "OFFLINE"
+  ],
+  "add_voucher_url": ""
+ },
+ {
+  "id": "01HHHWZY881RH97MP6JRKHKD4K",
+  "name": "Marks & Spencer",
+  "brand_key": "marks-and-spencer",
+  "works": [
+   "OFFLINE"
+  ],
+  "add_voucher_url": ""
+ },
+ {
+  "id": "01HEDZTMRAB7CU97VNMNZDB746",
+  "name": "Marriot Dining",
+  "brand_key": "marriot-spa-2",
+  "works": [
+   "OFFLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01HEDZTMRAB7BH97XNMJZDB646",
+  "name": "Marriot Hotels",
+  "brand_key": "marriot-hotels",
+  "works": [
+   "OFFLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01HEDZTMRAB7BH97VNMNZDB746",
+  "name": "Marriot Spa",
+  "brand_key": "marriot-spa",
+  "works": [
+   "OFFLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01KNBNSRHQTD95PE35K33R8NWC",
+  "name": "Matrix",
+  "brand_key": "matrix",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01H5SZ3TGMHKHFATTFT64E8FBC",
+  "name": "Max Fashion",
+  "brand_key": "max-fashion-offline",
+  "works": [
+   "OFFLINE"
+  ],
+  "add_voucher_url": ""
+ },
+ {
+  "id": "01H260T8SKJMRQCTCGTEYJ3AF9",
+  "name": "Max Fashion",
+  "brand_key": "max-fashion-online",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": ""
+ },
+ {
+  "id": "01M2Q7JAQBD8NYZQT6H8FF5WC2",
+  "name": "Me N Moms",
+  "brand_key": "menmoms",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": ""
+ },
+ {
+  "id": "01JHJ4EXWZVNHEBNCE6G8BA8WH",
+  "name": "Mediwheel",
+  "brand_key": "mediwheel",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": "https://www.bigbasket.com/member/gift_cards/"
+ },
+ {
+  "id": "01HF7H0376N6MY3QQKT82G057Q",
+  "name": "Mia",
+  "brand_key": "mia",
+  "works": [
+   "OFFLINE"
+  ],
+  "add_voucher_url": ""
+ },
+ {
+  "id": "01H778FMZ40QZFW2T3NCG7HJJH",
+  "name": "Michael Kors-Luxe Gift Card",
+  "brand_key": "micheal-kors",
+  "works": [
+   "OFFLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01KPQS86PDM3EP5P9W034JVQX2",
+  "name": "Milkbasket",
+  "brand_key": "milkbasket",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01JSY2S5HEAWJKZVDG3N4MFDJA",
+  "name": "Milton",
+  "brand_key": "milton",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01KN1TPKDMVSAZS8H8DQS248K0",
+  "name": "Minecraft Minecoins",
+  "brand_key": "minecraft_minecoins",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01HCX10T7TGVDGNCB3Z6S27EAX",
+  "name": "MiniKlub",
+  "brand_key": "miniklub",
+  "works": [
+   "OFFLINE"
+  ],
+  "add_voucher_url": ""
+ },
+ {
+  "id": "01KK3SSJEHJZZ42DCJEDJ88P5T",
+  "name": "Miraggio",
+  "brand_key": "miraggio",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": ""
+ },
+ {
+  "id": "01KNBYW5TS8QVXB2JC72X248WS",
+  "name": "Moba Legends",
+  "brand_key": "moba-legend",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01K31PF8TPJ5TY4T12B33QVASM",
+  "name": "Mokobara",
+  "brand_key": "mokobara",
+  "works": [
+   "OFFLINE",
+   "ONLINE"
+  ],
+  "add_voucher_url": ""
+ },
+ {
+  "id": "01HKYV7JYZ0Q5DKST41H04KJND",
+  "name": "Moments by The Leela",
+  "brand_key": "the-leela",
+  "works": [
+   "OFFLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01H8BSJPE7B0VV59NYYPAMQHN0",
+  "name": "Mothercare-Luxe Gift Card",
+  "brand_key": "mothercare",
+  "works": [
+   "OFFLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01KTH867N3K0Z1BZJKTTX9RVTT",
+  "name": "MPJ jewellery",
+  "brand_key": "mpj_jwellers",
+  "works": [
+   "OFFLINE"
+  ],
+  "add_voucher_url": ""
+ },
+ {
+  "id": "01KN7ADTSXMEQYHVM9XGDPSAJS",
+  "name": "Muji Luxe Gift Card",
+  "brand_key": "muji",
+  "works": [
+   "OFFLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01JHJ5FCQWP5HMD7N8KFKCDFN1",
+  "name": "Muro",
+  "brand_key": "muro",
+  "works": [
+   "OFFLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01HQ5YRTTRKW1A6WWPGVASE3MA",
+  "name": "Muthoot Gold",
+  "brand_key": "muthoot-gold-voucher",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01HDENCPMC2BBARHMPGFGCKHH6",
+  "name": "My Jio Store",
+  "brand_key": "my-jio-store",
+  "works": [
+   "OFFLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01GMAW9HTBB70C8WQQTHW6R8SR",
+  "name": "Myntra",
+  "brand_key": "myntra",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": "https://www.myntra.com/my/myntracredit"
+ },
+ {
+  "id": "01HE213J14JP117BDB2XNFTET1",
+  "name": "Myntra LUXE",
+  "brand_key": "myntra-luxe",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": "https://www.myntra.com/my/myntracredit"
+ },
+ {
+  "id": "01HGDE4J1TXBYNAPHT2P2WK802",
+  "name": "myUpchar Medicines",
+  "brand_key": "myupchar-medicines",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01K1QZRGG7Y2PF3H2CPGAHPHXM",
+  "name": "Nat Habit",
+  "brand_key": "nat-habit",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01KV2DKJ5NN01P9B8G6PGGXXSQ",
+  "name": "Naturals Salons",
+  "brand_key": "naturals",
+  "works": [
+   "OFFLINE",
+   "ONLINE"
+  ],
+  "add_voucher_url": ""
+ },
+ {
+  "id": "01H6H8CJR498FA8NSDDARZW15X",
+  "name": "Nature's Basket",
+  "brand_key": "natures-basket",
+  "works": [
+   "OFFLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01KXWS3SB0WZ09NX6TB888B4EG",
+  "name": "Nautica",
+  "brand_key": "nautica",
+  "works": [
+   "OFFLINE"
+  ],
+  "add_voucher_url": ""
+ },
+ {
+  "id": "01KGM63VWCYAPZYSQD7AE9KZ20",
+  "name": "Neemans",
+  "brand_key": "neemans",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": ""
+ },
+ {
+  "id": "01H843KZF8M0EJ01TBAN5FCNKG",
+  "name": "Netmeds",
+  "brand_key": "netmeds",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": ""
+ },
+ {
+  "id": "01M43XRW55M7XBRBMJE76P5P6J",
+  "name": "New Balance",
+  "brand_key": "new_balance",
+  "works": [
+   "OFFLINE"
+  ],
+  "add_voucher_url": ""
+ },
+ {
+  "id": "01KP5SV66BXJ1MH4N7RBW6KFWC",
+  "name": "NEXT",
+  "brand_key": "next",
+  "works": [
+   "OFFLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01HFBM1T0MZ8C1M7PDRWRA8TKE",
+  "name": "Nintendo",
+  "brand_key": "nintendo",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01HYN76DED5Z52MZH16HBSC202",
+  "name": "NU Ayurveda",
+  "brand_key": "nu-ayurveda",
+  "works": [
+   "OFFLINE"
+  ],
+  "add_voucher_url": "https://www.bigbasket.com/member/gift_cards/"
+ },
+ {
+  "id": "01KNBQCKC8692V9MDE1WF9N2TE",
+  "name": "Nua Women",
+  "brand_key": "nua_woman",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": ""
+ },
+ {
+  "id": "01GMAW2QBCBF1A41G1P2XQ4ZGE",
+  "name": "Nykaa",
+  "brand_key": "nykaa",
+  "works": [
+   "OFFLINE",
+   "ONLINE"
+  ],
+  "add_voucher_url": ""
+ },
+ {
+  "id": "01GMAW2QBCBF1A41G1P4XQ61GE",
+  "name": "Nykaa Fashion",
+  "brand_key": "nykaa-fashion",
+  "works": [
+   "OFFLINE",
+   "ONLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01H9G18JZMVK2M6EK6FWZTBR9G",
+  "name": "Nykaa LUXE",
+  "brand_key": "nykaa-luxe",
+  "works": [
+   "OFFLINE",
+   "ONLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01GMAW2QBCBF1A41G1P3XQ5ZGE",
+  "name": "Nykaa Man",
+  "brand_key": "nykaa-men",
+  "works": [
+   "OFFLINE",
+   "ONLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01HEQZS680SWTWBNXYMC8AZKST",
+  "name": "O2 Spa Salon",
+  "brand_key": "o2-spa-salon",
+  "works": [
+   "OFFLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01HGDE4JA4TNK8ERB6W6NEZK8S",
+  "name": "Oh! Calcutta",
+  "brand_key": "oh-calcutta",
+  "works": [
+   "OFFLINE"
+  ],
+  "add_voucher_url": ""
+ },
+ {
+  "id": "01HGDE4JKZYRWQXEBXQNZ53XTH",
+  "name": "Organic India",
+  "brand_key": "organic-india",
+  "works": [
+   "OFFLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01HKYV7J0TV2AMJYWWMDMNT4E2",
+  "name": "Ornaz",
+  "brand_key": "ornaz",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01HEMYMRN7NB02WVS91AF3TAW9",
+  "name": "Ovenstory",
+  "brand_key": "ovenstory",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01GN6R324Y7JYYC5RKDWW0RPTD",
+  "name": "Pantaloons",
+  "brand_key": "pantaloons",
+  "works": [
+   "OFFLINE"
+  ],
+  "add_voucher_url": ""
+ },
+ {
+  "id": "01H8BSTE6VCCDFADJJW1ADT0QR",
+  "name": "Paul & Shark-Luxe Gift Card",
+  "brand_key": "paul-and-shark",
+  "works": [
+   "OFFLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01H8BSTEB7DRY908YJ9SXS565Y",
+  "name": "Paul Smith",
+  "brand_key": "paul-smith",
+  "works": [
+   "OFFLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01HKYV7J2J0X3HYTR847KKXGYF",
+  "name": "PCJ Diamond Jewellery",
+  "brand_key": "pcj-diamond-jewellery",
+  "works": [
+   "OFFLINE"
+  ],
+  "add_voucher_url": ""
+ },
+ {
+  "id": "01HKYV7J4H7J8MHRSXQY89V4JG",
+  "name": "PCJ Gold Coin Jewellery",
+  "brand_key": "pcj-gold-coin-jewellery",
+  "works": [
+   "OFFLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01HCX36RDZE98Z9C3JBYP7SBAV",
+  "name": "PCJ Gold Jewellery",
+  "brand_key": "pcj-gold-jewellery",
+  "works": [
+   "OFFLINE"
+  ],
+  "add_voucher_url": ""
+ },
+ {
+  "id": "01GQJEA6K30DK27H1PKA77WFYT",
+  "name": "Pepperfry",
+  "brand_key": "pepperfry",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01KHG3GKDKTSPXKCAJ1K7MYXM2",
+  "name": "Philips",
+  "brand_key": "philips",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01HYN7YTCX4NG3FFFB5WMN3V96",
+  "name": "Photojaanic",
+  "brand_key": "photojaanic",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": "https://www.bigbasket.com/member/gift_cards/"
+ },
+ {
+  "id": "01JHJ4EXWZNXRF7CFN3HHKP0CE",
+  "name": "Pigeon",
+  "brand_key": "pegion",
+  "works": [
+   "OFFLINE"
+  ],
+  "add_voucher_url": "https://www.bigbasket.com/member/gift_cards/"
+ },
+ {
+  "id": "01H6H9VA3TNS4S3GBCB9XP98GM",
+  "name": "Pizza Hut",
+  "brand_key": "pizza-hut",
+  "works": [
+   "OFFLINE",
+   "ONLINE"
+  ],
+  "add_voucher_url": ""
+ },
+ {
+  "id": "01K4Z115XD6SEXV8RDEK0ZWF6D",
+  "name": "Pizza Hut (Offline)",
+  "brand_key": "pizzahutoffline",
+  "works": [
+   "OFFLINE"
+  ],
+  "add_voucher_url": ""
+ },
+ {
+  "id": "01HGATGBDY87ZN36BXACWW97MN",
+  "name": "Planet Fashion",
+  "brand_key": "planetfashion",
+  "works": [
+   "OFFLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01KV3CJ2YGA364NEV6S0JZY7K5",
+  "name": "Playo",
+  "brand_key": "playo",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": ""
+ },
+ {
+  "id": "01KGW2JA055MA0Y7JYF9SXN94Y",
+  "name": "PMJ Jewellers",
+  "brand_key": "pmj_jewellers",
+  "works": [
+   "OFFLINE"
+  ],
+  "add_voucher_url": ""
+ },
+ {
+  "id": "01HKYV7J9M5JXXK1DP216GD6V8",
+  "name": "Points for Good",
+  "brand_key": "points-for-good",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01HF7GDJ4HHZTH4TBRHC7XEFGX",
+  "name": "Polar bear",
+  "brand_key": "polar-bear",
+  "works": [
+   "OFFLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01M19S2125PTAJ1XE4SWRDZATW",
+  "name": "Porter",
+  "brand_key": "porter",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": ""
+ },
+ {
+  "id": "01KNC29RV1YQ69QP445V1Q7GBK",
+  "name": "Pottery Barn Luxe Gift Card",
+  "brand_key": "pottery_barn",
+  "works": [
+   "OFFLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01KZKS07KKKZ5Z22DYDDMKSP2J",
+  "name": "Powersutra",
+  "brand_key": "powersutra",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": ""
+ },
+ {
+  "id": "01HGATGCJN2HAGN5F8CA312RJ3",
+  "name": "Prestige",
+  "brand_key": "prestige-smart-kitchen",
+  "works": [
+   "OFFLINE",
+   "ONLINE"
+  ],
+  "add_voucher_url": ""
+ },
+ {
+  "id": "01KMPWFJ3Q4KXXVW026FPWS3E9",
+  "name": "Pret A Manger-Luxe Gift Card",
+  "brand_key": "pret_a_manger",
+  "works": [
+   "OFFLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01M1ZSPSESGC9Z7VE9AYJB7PM5",
+  "name": "Pronto",
+  "brand_key": "pronto",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": ""
+ },
+ {
+  "id": "01H6HA1SWGH9VNX26XXKM85VBN",
+  "name": "Puma",
+  "brand_key": "puma",
+  "works": [
+   "OFFLINE"
+  ],
+  "add_voucher_url": ""
+ },
+ {
+  "id": "01HGATGD3607DC245J73SAV99C",
+  "name": "Punjab Grill",
+  "brand_key": "punjab-grill",
+  "works": [
+   "OFFLINE"
+  ],
+  "add_voucher_url": ""
+ },
+ {
+  "id": "01KG9TGG742PF7JME1N9CR1ATX",
+  "name": "Pure Home+Living",
+  "brand_key": "pure_home_living",
+  "works": [
+   "OFFLINE"
+  ],
+  "add_voucher_url": ""
+ },
+ {
+  "id": "01GMAWDQS384CX0GAEPN01V3QE",
+  "name": "PVR",
+  "brand_key": "pvr",
+  "works": [
+   "OFFLINE",
+   "ONLINE"
+  ],
+  "add_voucher_url": ""
+ },
+ {
+  "id": "01J52NRVZQAQ12CFYE4ZRFGMMC",
+  "name": "R&B",
+  "brand_key": "r-and-b",
+  "works": [
+   "OFFLINE"
+  ],
+  "add_voucher_url": ""
+ },
+ {
+  "id": "01KXX7QKQ7H596FKT0TNQNK0AA",
+  "name": "Rainbow Six Mobile",
+  "brand_key": "rainbow_6mobile",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": ""
+ },
+ {
+  "id": "01JHJ4EXWZCMNAN8T9YZRY8YJH",
+  "name": "Rangriti",
+  "brand_key": "rangriti",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": "https://www.bigbasket.com/member/gift_cards/"
+ },
+ {
+  "id": "01M5SN84BP2XJ402TD9SDNT65B",
+  "name": "Rare Ones",
+  "brand_key": "rare_ones",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": ""
+ },
+ {
+  "id": "01M1GETSVNJM2J2915BEY2081X",
+  "name": "Rare Rabbit",
+  "brand_key": "rare_rabit",
+  "works": [
+   "OFFLINE",
+   "ONLINE"
+  ],
+  "add_voucher_url": ""
+ },
+ {
+  "id": "01M5SP9QN7Q4WJ6N4EEH7KC9NP",
+  "name": "Rare'z",
+  "brand_key": "rarez",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": ""
+ },
+ {
+  "id": "01M5SMBADH4HX70SCXT9HSX7JX",
+  "name": "Rareism",
+  "brand_key": "rareism",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": ""
+ },
+ {
+  "id": "01H9HVS489JQX6J324606MX0PK",
+  "name": "Ratnadeep",
+  "brand_key": "ratnadeep",
+  "works": [
+   "OFFLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01HCX0RY4FVJ7FQWS2J62H477F",
+  "name": "Ray-Ban",
+  "brand_key": "ray-ban",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01KNC2CZ7PVQR8RKTYN2J56D3M",
+  "name": "Razer Gold",
+  "brand_key": "razer_gold",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01M06PT17066FZWHDXFS3QVW78",
+  "name": "Redbus",
+  "brand_key": "redbus",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": ""
+ },
+ {
+  "id": "01H6HFDB5ABS72YNADFEQBSG54",
+  "name": "Relaxo",
+  "brand_key": "relaxo",
+  "works": [
+   "OFFLINE"
+  ],
+  "add_voucher_url": ""
+ },
+ {
+  "id": "01H1XKY26N13898TV295GC8ZWB",
+  "name": "Reliance Digital",
+  "brand_key": "reliance-digital",
+  "works": [
+   "OFFLINE"
+  ],
+  "add_voucher_url": ""
+ },
+ {
+  "id": "01H1XM2QR9NYBND33HF0FFHHKX",
+  "name": "Reliance Jewels",
+  "brand_key": "reliance-jewels",
+  "works": [
+   "OFFLINE"
+  ],
+  "add_voucher_url": ""
+ },
+ {
+  "id": "01H2E9A0P9Q702ER5BHWNAYVNW",
+  "name": "Reliance Smart",
+  "brand_key": "reliancesmart_test1",
+  "works": [
+   "OFFLINE"
+  ],
+  "add_voucher_url": ""
+ },
+ {
+  "id": "01HDEN9VCWE7PM52RNY71NYMQK",
+  "name": "Reliance Smart Bazaar",
+  "brand_key": "reliance-smart-bazaar",
+  "works": [
+   "OFFLINE"
+  ],
+  "add_voucher_url": ""
+ },
+ {
+  "id": "01HDEN704TNG5R05K5NDPFP563",
+  "name": "Reliance Smart Point",
+  "brand_key": "reliance-smart-point",
+  "works": [
+   "OFFLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01JGTQ4JMGMEAHKZVQSKYPJYZ7",
+  "name": "Reliance Trends",
+  "brand_key": "brand1",
+  "works": [
+   "OFFLINE"
+  ],
+  "add_voucher_url": ""
+ },
+ {
+  "id": "01H8BSTEN05J75D0E2NT8AWV6W",
+  "name": "Replay",
+  "brand_key": "replay",
+  "works": [
+   "OFFLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01HGATGE3BAJ7Y62SZFEDRJKW6",
+  "name": "Resonate",
+  "brand_key": "resonate",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01KMPWFJ3RDM1SE9JG8BVHBGCY",
+  "name": "Ritu Kumar-Luxe Gift Card",
+  "brand_key": "ritu_kumar",
+  "works": [
+   "OFFLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01KNY1KR15PBYC3V4SP3HRWJWK",
+  "name": "Rowan Luxe Gift Card",
+  "brand_key": "rowan",
+  "works": [
+   "OFFLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01KPD1AA92HV7MVVCT167V0G1J",
+  "name": "Sandro-Luxe Gift Card",
+  "brand_key": "sandro",
+  "works": [
+   "OFFLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01H8BSTET0GXZ2GYXB8PHXEXYB",
+  "name": "Satya Paul-Luxe Gift Card",
+  "brand_key": "satya-paul",
+  "works": [
+   "OFFLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01H8BSTF62AN77TZ1EKSY1Y3BH",
+  "name": "Scotch & Soda-Luxe Gift Card",
+  "brand_key": "scotch-and-soda",
+  "works": [
+   "OFFLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01JXWHWSJ3JGZTASCHSSM20B63",
+  "name": "Shell Fuel",
+  "brand_key": "shellfuel",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01HYN89NGRB2V90JXMJ550E6GE",
+  "name": "Shilhaandara",
+  "brand_key": "shilhaandara",
+  "works": [
+   "OFFLINE"
+  ],
+  "add_voucher_url": "https://www.bigbasket.com/member/gift_cards/"
+ },
+ {
+  "id": "01HKYVS71AFZC3PD1EAFAY46DT",
+  "name": "Shiv Naresh",
+  "brand_key": "shiv-naresh",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01KM7XS9NP2C4GC0Q83F6CBZD0",
+  "name": "Shiva Organic",
+  "brand_key": "shiva_organic",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01JEN52A66QS2G2JNNEHRS6PPG",
+  "name": "Shopy Vision",
+  "brand_key": "shopy-vision",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": ""
+ },
+ {
+  "id": "01HGATGEJWKPMJ7ND9ENYY5AJA",
+  "name": "Simon Carter",
+  "brand_key": "simon-carter",
+  "works": [
+   "OFFLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01HYN8C2EWEDHW3XW0DVEFD313",
+  "name": "Siri Nature Roost",
+  "brand_key": "siri-nature-roost",
+  "works": [
+   "OFFLINE"
+  ],
+  "add_voucher_url": "https://www.bigbasket.com/member/gift_cards/"
+ },
+ {
+  "id": "01H6HETVMFRB2HEM3E14Z7FZW6",
+  "name": "Skechers",
+  "brand_key": "sketchers",
+  "works": [
+   "OFFLINE"
+  ],
+  "add_voucher_url": ""
+ },
+ {
+  "id": "01H6HG3DQ0B87WXRQ7RQQRGG90",
+  "name": "Skinn",
+  "brand_key": "skinn",
+  "works": [
+   "OFFLINE"
+  ],
+  "add_voucher_url": ""
+ },
+ {
+  "id": "01HKYVS73AKF7R5PMMJ12JT8HQ",
+  "name": "Skullcandy",
+  "brand_key": "skullcandy",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01HKYVS759T3MM8EF1VGYJXR85",
+  "name": "Smile Foundation",
+  "brand_key": "smile-foundation",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01KDAVEBFV96HD25DA4QGTCM56",
+  "name": "Snitch",
+  "brand_key": "snitch",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": ""
+ },
+ {
+  "id": "01HYN8R8HB1E22FV3CM2AM68KV",
+  "name": "SOCH",
+  "brand_key": "soch",
+  "works": [
+   "OFFLINE"
+  ],
+  "add_voucher_url": "https://www.bigbasket.com/member/gift_cards/"
+ },
+ {
+  "id": "01M18SB1FR7TCCEDYMBW7CFFWX",
+  "name": "Solara",
+  "brand_key": "solara",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": ""
+ },
+ {
+  "id": "01HFBM1T0MW7WVM7PDRWRA8TKE",
+  "name": "SonyLiv",
+  "brand_key": "sonyliv",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": ""
+ },
+ {
+  "id": "01HKYV7JFRENRNRG5CXNQXT09J",
+  "name": "SOTC",
+  "brand_key": "sotc",
+  "works": [
+   "OFFLINE"
+  ],
+  "add_voucher_url": ""
+ },
+ {
+  "id": "01KP8C2J5C289R5EH9X2QCQZW3",
+  "name": "Soulflower",
+  "brand_key": "soulflower",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": ""
+ },
+ {
+  "id": "01H9HZPTDJPYNWRPX0Q0K6ER6F",
+  "name": "Spar Hypermart",
+  "brand_key": "spar",
+  "works": [
+   "OFFLINE"
+  ],
+  "add_voucher_url": ""
+ },
+ {
+  "id": "01H6H8754VS4S5RP1H6PZF42AS",
+  "name": "Speedo",
+  "brand_key": "speedo",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01KKBZF7J15TH42PRAEC1SCNEB",
+  "name": "Sri Jagdamba Pearls",
+  "brand_key": "jagadamba-pearls",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01GN6QQJFZ244GN6XWE3TY82EC",
+  "name": "Starbucks",
+  "brand_key": "starbucks",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": ""
+ },
+ {
+  "id": "01HG0CKQ6HXC4B2G4Y2RRFWYTC",
+  "name": "Steam wallet",
+  "brand_key": "steam-wallet",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01HGATGFKMPMFZQC8JCAG2YPXN",
+  "name": "Sterling Holiday Resorts",
+  "brand_key": "sterling-holiday-resorts",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": ""
+ },
+ {
+  "id": "01H8BSTFBV1KGY0E3XD99BJ0G4",
+  "name": "Steve Madden-Luxe Gift Card",
+  "brand_key": "steve-madden",
+  "works": [
+   "OFFLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01KJ2SJJG0NZVXWKYQSAZZ9TVS",
+  "name": "Street Foods By Punjab Grill",
+  "brand_key": "streetfoods-by-punjab-grill",
+  "works": [
+   "OFFLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01KPN56K9544GF25A2T8SMQQ1Q",
+  "name": "Style Bazaar",
+  "brand_key": "style_bazaar",
+  "works": [
+   "OFFLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01JA10EN4GZ3ECMXN987B15MMK",
+  "name": "Subway",
+  "brand_key": "subway",
+  "works": [
+   "OFFLINE"
+  ],
+  "add_voucher_url": ""
+ },
+ {
+  "id": "01KNY1KR16CESKK7GJRSH2FKGC",
+  "name": "Sunglass Hut",
+  "brand_key": "sunglass_hut",
+  "works": [
+   "OFFLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01HQ5YRV1QZ7XRFG37J2Z5HDHK",
+  "name": "Superbottoms",
+  "brand_key": "superbottoms",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01H8BSTFNVEEVJ5W3P0FYP5B34",
+  "name": "Superdry-Luxe Gift Card",
+  "brand_key": "super-dry",
+  "works": [
+   "OFFLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01HGDE4M08FPFJRVDWHPZQ018Q",
+  "name": "Sweet Bengal",
+  "brand_key": "sweet-bengal",
+  "works": [
+   "OFFLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01HEDYKNAS3BAB12EEA3AT5P6H",
+  "name": "Sweet Truth",
+  "brand_key": "eatsure2",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01GMB2SS3ZBQXW2X3K1KW9B9XR",
+  "name": "Swiggy",
+  "brand_key": "swiggy",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": "https://www.swiggy.com/my-account/swiggy-money/add-money"
+ },
+ {
+  "id": "01H1XMAPJMZ3E12PGH6B9HBZ6R",
+  "name": "Taj Dining",
+  "brand_key": "taj-spa-experiences-2",
+  "works": [
+   "OFFLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01H1XMAPJMZ3E12PPW6B7HXA6R",
+  "name": "Taj Experiences",
+  "brand_key": "taj-experiences",
+  "works": [
+   "OFFLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01H1XMAPJMZ3E12PPW6B9HBZ6R",
+  "name": "Taj Spa",
+  "brand_key": "taj-spa-experiences",
+  "works": [
+   "OFFLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01HGATGGM9EWH6XRJNS38WB1C6",
+  "name": "Taneira",
+  "brand_key": "taneira",
+  "works": [
+   "OFFLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01H9HTEE8S753R0T6SHAB8A35H",
+  "name": "Tanishq",
+  "brand_key": "tanishq",
+  "works": [
+   "OFFLINE"
+  ],
+  "add_voucher_url": ""
+ },
+ {
+  "id": "01HKYV7JS0CEK1PSKHBBQC32MR",
+  "name": "Tanishq Gold Coin",
+  "brand_key": "tanishq-gold-coin",
+  "works": [
+   "OFFLINE"
+  ],
+  "add_voucher_url": ""
+ },
+ {
+  "id": "01HKYV7JT9EQXPXMSYXYMQX73G",
+  "name": "Tanishq Studded",
+  "brand_key": "tanishq-studded",
+  "works": [
+   "OFFLINE"
+  ],
+  "add_voucher_url": ""
+ },
+ {
+  "id": "01KXXAABF4QJNK0KWA4GN1EQTS",
+  "name": "Tasva",
+  "brand_key": "tasva",
+  "works": [
+   "OFFLINE"
+  ],
+  "add_voucher_url": ""
+ },
+ {
+  "id": "01GN6PPGBAV5MR36TV4KSMZSTY",
+  "name": "Tata Cliq",
+  "brand_key": "tata-cliq",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01GRY40FFF0C7PCYJ1T80JKHZ5",
+  "name": "Tata Cliq Luxury",
+  "brand_key": "tata-cliq-luxury",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01HYN8EW13RVDSKXVXV8AYPWBQ",
+  "name": "Tattva Spa",
+  "brand_key": "tattva-spa",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": "https://www.bigbasket.com/member/gift_cards/"
+ },
+ {
+  "id": "01HKYVS77BTX90FTQQT553ECHV",
+  "name": "TEGO",
+  "brand_key": "tego",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": ""
+ },
+ {
+  "id": "01HKYVS798ADG223FC4KKH2A6C",
+  "name": "TGI Friday's",
+  "brand_key": "tgi-fridays",
+  "works": [
+   "OFFLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01KJ2XQV55J0WNTQ6YRPARJEQG",
+  "name": "Thalaiva Biryani",
+  "brand_key": "thalaiva_biryani",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01KJ2WT0MPC0VQ92FNYR7TQYJ6",
+  "name": "The Biryani Life",
+  "brand_key": "the_biryani_life",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01GMMNZ4SYXVMCEMXG04KK2454",
+  "name": "The Body Shop",
+  "brand_key": "the-body-shop",
+  "works": [
+   "OFFLINE",
+   "ONLINE"
+  ],
+  "add_voucher_url": ""
+ },
+ {
+  "id": "01H6H8J97TB29PF60MMC83J7YD",
+  "name": "The Collective",
+  "brand_key": "the-collective",
+  "works": [
+   "OFFLINE",
+   "ONLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01HEDYKNAS3BAB14EEA3AT5P6H",
+  "name": "The Good Bowl",
+  "brand_key": "eatsure4",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01M5SJH2ZHC1G2X7S4Z6QJVV6S",
+  "name": "The House of Rare",
+  "brand_key": "house_of_rare",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": ""
+ },
+ {
+  "id": "01GXRBH7FQ51411KFQS07AJ1DM",
+  "name": "The Man Company",
+  "brand_key": "the-man-company",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01H5Z3AENC8RH99KDJZF9HT2AA",
+  "name": "The Raymond Shop",
+  "brand_key": "the-raymond-shop",
+  "works": [
+   "OFFLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01HYN8FZCT46GFN9NTY94T1CJF",
+  "name": "Things2Do",
+  "brand_key": "things2do",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": "https://www.bigbasket.com/member/gift_cards/"
+ },
+ {
+  "id": "01KJ2Y2B12W5S6C13YC1QHK7FY",
+  "name": "Thinsane Pizza",
+  "brand_key": "thinsane_pizza",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01GQJE15M8P9YDHNJCJ1VQYPGT",
+  "name": "Third Wave Coffee",
+  "brand_key": "third-wave-coffee",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": ""
+ },
+ {
+  "id": "01KGYTGV4XHEGVAWN6AVEAN7FK",
+  "name": "Tim Hortons",
+  "brand_key": "tim_hortons",
+  "works": [
+   "OFFLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01HFBM1T0MZ8C5M7PDRWRA8TKE",
+  "name": "Times Prime Lite",
+  "brand_key": "times-prime",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": ""
+ },
+ {
+  "id": "01KR1372P0RP3XRDZ8BHK0853C",
+  "name": "Times Prime Power",
+  "brand_key": "timesprime_power",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01KR1372P40VTGZTVXKMDYYD5F",
+  "name": "Times Prime Prive",
+  "brand_key": "timesprime_prive",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01HGDE4N2N4BKTXR3BKQ3ENBT5",
+  "name": "TimeZone",
+  "brand_key": "time-zone",
+  "works": [
+   "OFFLINE"
+  ],
+  "add_voucher_url": ""
+ },
+ {
+  "id": "01K9D3HH3YKDCW4E9KAP2V0MBQ",
+  "name": "Tinder",
+  "brand_key": "tinder",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": "https://www.bigbasket.com/member/gift_cards/"
+ },
+ {
+  "id": "01JSY2RXM85D5A6H4DGEEC42R8",
+  "name": "Tira",
+  "brand_key": "tira",
+  "works": [
+   "OFFLINE",
+   "ONLINE"
+  ],
+  "add_voucher_url": ""
+ },
+ {
+  "id": "01GMMP0C5Y6AFHSQ6AR897CDNG",
+  "name": "Titan Eye+",
+  "brand_key": "titaneyeplus",
+  "works": [
+   "OFFLINE"
+  ],
+  "add_voucher_url": ""
+ },
+ {
+  "id": "01HGDE4M8WQ0GW1YN8X3DT8E2W",
+  "name": "Titan Minimals",
+  "brand_key": "titan-minimals",
+  "works": [
+   "OFFLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01KNY1KR16493GBWZ9ZTGTG5C4",
+  "name": "Tods Luxe Gift Card",
+  "brand_key": "tods",
+  "works": [
+   "OFFLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01KMJBK9KWMZJNGNF4Z7ZJFY8H",
+  "name": "Tory Burch-Luxe Gift Card",
+  "brand_key": "tory_burch",
+  "works": [
+   "OFFLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01HEDYKNAS3BCB2GEEA3AT5P6H",
+  "name": "Toscano",
+  "brand_key": "toscano",
+  "works": [
+   "OFFLINE"
+  ],
+  "add_voucher_url": ""
+ },
+ {
+  "id": "01HKYV7K5ENR1KBXZT42ZJ41WJ",
+  "name": "Trends Footwear",
+  "brand_key": "trends-footwear",
+  "works": [
+   "OFFLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01HKYV7K0R448G8PRP03FHZ5FN",
+  "name": "Trends Junior",
+  "brand_key": "trends-junior",
+  "works": [
+   "OFFLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01HKYV7K3QKGX8Y098772VTDGZ",
+  "name": "Trends Women",
+  "brand_key": "trends-women",
+  "works": [
+   "OFFLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01KJAM08RGP0TMQVTKEDD2M9V5",
+  "name": "Tridom",
+  "brand_key": "tridom",
+  "works": [
+   "OFFLINE"
+  ],
+  "add_voucher_url": ""
+ },
+ {
+  "id": "01KGQ7A313EAZTRMWVCWFB3715",
+  "name": "tripXOXO",
+  "brand_key": "tripxoxo",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01HGDE4MJ0F8VQR7BFXKEFT0YD",
+  "name": "TrueFitt & Hill",
+  "brand_key": "truefitt-and-hill",
+  "works": [
+   "OFFLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01H8BSTFV86V4NT3R8NWZ1SE9R",
+  "name": "Tumi-Luxe Brand Card",
+  "brand_key": "tumi",
+  "works": [
+   "OFFLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01KKH200GDKE0V917QTY39V3MW",
+  "name": "Typsy Beauty",
+  "brand_key": "typsybeauty",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01GMAW7305MKR542CD4D218D0M",
+  "name": "Uber.",
+  "brand_key": "uber",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": "uber://giftcard/redeem"
+ },
+ {
+  "id": "01HKYV7K6X29Y80070AW8FVAD3",
+  "name": "UniPin",
+  "brand_key": "unipin-e-gift",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01HGATGHMWEFHKAHE50KYKR46G",
+  "name": "Unlimited",
+  "brand_key": "unlimited",
+  "works": [
+   "OFFLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01GMMP3TMSYCPN3FYWHHM6XFJC",
+  "name": "Urban Ladder",
+  "brand_key": "urban-ladder",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01KG4RNH991S2MSW6F988XYDVC",
+  "name": "Urban Space",
+  "brand_key": "urban_space",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01KGW416F9F4KN8V0PMEBQTHM5",
+  "name": "Vaango",
+  "brand_key": "vaango",
+  "works": [
+   "OFFLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01KPD1AA9300DY7FBJTXAHYAXH",
+  "name": "Valentino Luxe Gift Card",
+  "brand_key": "valentino",
+  "works": [
+   "OFFLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01HGDE4MT5CVDQ7983ZHX2SEYR",
+  "name": "Veridicus",
+  "brand_key": "veridicus",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01KMJBK9KVM0D1P3K1VYAWDSFA",
+  "name": "Versace-Luxe Gift Card",
+  "brand_key": "versace",
+  "works": [
+   "OFFLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01J52NRVZQMK2N18A97C8YYZXP",
+  "name": "Victoria's Secret",
+  "brand_key": "victorias-secret",
+  "works": [
+   "OFFLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01J52NRVZQ3VHZF89J74GJ793S",
+  "name": "Victoria's Secret Beauty",
+  "brand_key": "victorias-secret-beauty",
+  "works": [
+   "OFFLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01H2E9T73K2F1ZNEYGGAF3AJF5",
+  "name": "Vijay Sales",
+  "brand_key": "vijay-sales",
+  "works": [
+   "OFFLINE"
+  ],
+  "add_voucher_url": ""
+ },
+ {
+  "id": "01H8BSTG66ZH88FJEB4QTYP238",
+  "name": "Villeroy & Boch-Luxe Gift Card",
+  "brand_key": "villeroy-and-boch",
+  "works": [
+   "OFFLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01HYNABX4VKB0H5K6WJDC3R12R",
+  "name": "Vitamin Haat",
+  "brand_key": "vitamin-haat",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": "https://www.bigbasket.com/member/gift_cards/"
+ },
+ {
+  "id": "01H9HW09NEBE5GY1T82ETM0D71",
+  "name": "VMart",
+  "brand_key": "vmart",
+  "works": [
+   "OFFLINE"
+  ],
+  "add_voucher_url": ""
+ },
+ {
+  "id": "01HZQ0TGCR88R9DS1HC5KP6JEQ",
+  "name": "VROTT",
+  "brand_key": "vrott",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01HQ5YX50PWCMBBMD54RYQKB26",
+  "name": "W",
+  "brand_key": "tcns-w-egift-cards",
+  "works": [
+   "OFFLINE"
+  ],
+  "add_voucher_url": ""
+ },
+ {
+  "id": "01KMZGFKENJS42P6GSGDBMFD7B",
+  "name": "Wellbeing Nutrition",
+  "brand_key": "wellbeing_nutrients",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": ""
+ },
+ {
+  "id": "01HEDYKNAS3BAB11EEA3AT5P6H",
+  "name": "Wendy's",
+  "brand_key": "eatsure1",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01KN7ADTSXYBRZJEVJB70SK2SP",
+  "name": "West Elm Luxe Gift Card",
+  "brand_key": "west_elm",
+  "works": [
+   "OFFLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01GMMNSW8N40837GEZWKD1VY4G",
+  "name": "Westside",
+  "brand_key": "westside",
+  "works": [
+   "OFFLINE"
+  ],
+  "add_voucher_url": ""
+ },
+ {
+  "id": "01KZKQNT3DYD8WAHR9HQ2FWQFK",
+  "name": "What's Up Wellness",
+  "brand_key": "whatsup_wellness",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": ""
+ },
+ {
+  "id": "01H8BSTGBHV1WSJ1T2XYXWTMH6",
+  "name": "White Crow",
+  "brand_key": "white-crow",
+  "works": [
+   "OFFLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01HHHX1BYMPN1ZCM9X5BJNQBP5",
+  "name": "Wildcraft",
+  "brand_key": "wildcraft",
+  "works": [
+   "OFFLINE"
+  ],
+  "add_voucher_url": ""
+ },
+ {
+  "id": "01HKYVS7D1EKKJ9W9GGEG88TM8",
+  "name": "William Penn",
+  "brand_key": "willian-pen",
+  "works": [
+   "OFFLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01HF7GVRN8HT29JVF648YVZHFF",
+  "name": "Wonderchef",
+  "brand_key": "wonderchef",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01H9G8YA7M97VCGPF94BGVZXK8",
+  "name": "Woodland",
+  "brand_key": "woodland",
+  "works": [
+   "OFFLINE"
+  ],
+  "add_voucher_url": ""
+ },
+ {
+  "id": "01H6H616P225XY8HGBE332G6FP",
+  "name": "World of Titan",
+  "brand_key": "world-of-titan",
+  "works": [
+   "OFFLINE"
+  ],
+  "add_voucher_url": ""
+ },
+ {
+  "id": "01JHJ4G4QCDD9T6JD3ERMVY8B6",
+  "name": "Wow Chicken",
+  "brand_key": "wow-chicken",
+  "works": [
+   "OFFLINE"
+  ],
+  "add_voucher_url": "https://www.bigbasket.com/member/gift_cards/"
+ },
+ {
+  "id": "01JHJ4G4QC4FN8BK85840G913N",
+  "name": "Wow China",
+  "brand_key": "wow-china",
+  "works": [
+   "OFFLINE"
+  ],
+  "add_voucher_url": "https://www.bigbasket.com/member/gift_cards/"
+ },
+ {
+  "id": "01HYN8Y2R3J0CG38BNXVW6X17H",
+  "name": "Wow Momo",
+  "brand_key": "wow-momo",
+  "works": [
+   "OFFLINE"
+  ],
+  "add_voucher_url": "https://www.bigbasket.com/member/gift_cards/"
+ },
+ {
+  "id": "01KN499RAA6FZB2DQZJDXZVQQ8",
+  "name": "Xbox Essential Game Pass",
+  "brand_key": "xbox_game_core",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": ""
+ },
+ {
+  "id": "01KN46TYA20K73N1M0GHFDDCV4",
+  "name": "Xbox Premium Game Pass",
+  "brand_key": "xbox_premium",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01KN4D5QNHTJWFQXQ143DVYE9Q",
+  "name": "Xbox Ultimate Game Pass",
+  "brand_key": "xbox_ultimate",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": ""
+ },
+ {
+  "id": "01KTGB20GMC4EVFR4B4V27ZM3F",
+  "name": "Xfused",
+  "brand_key": "xfused",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": ""
+ },
+ {
+  "id": "01GMMNW4PS7VCAYPJY1Z1HKTS6",
+  "name": "Yatra",
+  "brand_key": "yatra",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": ""
+ },
+ {
+  "id": "01K1JPX6B44DZBGZ2J54CRHEX0",
+  "name": "Yatra Hotels & Holidays",
+  "brand_key": "yatrahotelandholiday",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01HGATGJPMWN312HEMYGBT0GZZ",
+  "name": "YouMee",
+  "brand_key": "yyoumee",
+  "works": [
+   "OFFLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01HGATGKGMXE19S4PSNAN8FD1Y",
+  "name": "Zambar",
+  "brand_key": "zambar",
+  "works": [
+   "OFFLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01H91AVC6MVN1XSPEJZY4FEY8D",
+  "name": "ZEE5",
+  "brand_key": "zee5-1-year",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": ""
+ },
+ {
+  "id": "01KJW85B1DHFQCC1VV8G3MHKHK",
+  "name": "ZEE5 Regional",
+  "brand_key": "zee5regional",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01JAT1K3Y5MRY65RKGR4F9R69D",
+  "name": "Zepto",
+  "brand_key": "zepto",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
+  "id": "01JY18WTYDBTDZS06RR30QKQZY",
+  "name": "Zomato",
+  "brand_key": "zomato",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": "zomato://gift_card/claim_page"
+ },
+ {
+  "id": "01GMAW822RPDJ5C50XK24QC2C4",
+  "name": "Zomato Fixed",
+  "brand_key": "zomato-fixed",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": "zomato://gift_card/claim_page"
+ },
+ {
+  "id": "01KNC56YJMVPMCDEGK5MC2HRSV",
+  "name": "Zoom Car",
+  "brand_key": "zoom_car",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": null
+ }
+]

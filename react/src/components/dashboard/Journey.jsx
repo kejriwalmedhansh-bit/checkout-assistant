@@ -9,6 +9,13 @@ import { outboundLink, track } from '@/utils/analytics';
 import JourneyRow from './JourneyRow';
 import JourneyChips from './JourneyChips';
 import JourneyPanels from './JourneyPanels';
+import HubbleVoucherPanel from '@/components/hubble/HubbleVoucherPanel';
+import BuyFlow from '@/components/hubble/BuyFlow';
+import { hubbleApi } from '@/api/hubble.api';
+
+const HUBBLE_ON = import.meta.env.VITE_HUBBLE_ENABLED === 'true';
+// Staging only: show Hubble even when its test rates lose to today's price.
+const HUBBLE_FORCE = import.meta.env.VITE_HUBBLE_FORCE === 'true';
 
 /**
  * The recommended-route checklist: [buy a Gift Voucher] → checkout at the
@@ -78,6 +85,28 @@ export default function Journey({ rec, payingByCard = false, skipVoucher = false
   };
 
   const paid = v ? paidForVoucher(v, payingByCard) : null;
+
+  // Buying the voucher inside Dealo (Hubble). Shown when Hubble's rate is
+  // within HUBBLE_RATE_TOLERANCE points of today's best voucher rate (the
+  // server decides; owner's call 28 Oct 2026, since Dealo earns on a Hubble
+  // sale and nothing on a redirect).
+  const [hubble, setHubble] = useState(null);
+  const [buying, setBuying] = useState(false);
+  const orderPrice = rec.listed_price;
+  useEffect(() => {
+    if (!HUBBLE_ON || !v || !orderPrice || payingByCard) return undefined;
+    let live = true;
+    hubbleApi
+      .offer(shopName, orderPrice, Boolean(v.offline_only), HUBBLE_FORCE ? null : v.upi?.pct)
+      .then((res) => {
+        if (live && res.available) setHubble(res.offer);
+      })
+      .catch(() => {});
+    return () => {
+      live = false;
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [shopName, orderPrice, payingByCard]);
   // Short line shown by default; DETAIL is the original full sentence, one
   // tap away behind the row's own InfoNote toggle — same content as before,
   // just not all of it on screen at once.
@@ -207,8 +236,8 @@ export default function Journey({ rec, payingByCard = false, skipVoucher = false
           {
             key: 'voucher',
             icon: I.ticket,
-            label: sourceLabel,
-            sub: `Voucher · ${fmt(paid)}`,
+            label: hubble ? 'Dealo' : sourceLabel,
+            sub: `Voucher · ${fmt(hubble ? Math.round(hubble.you_pay) : paid)}`,
             done: checked.voucher,
           },
           {
@@ -227,6 +256,11 @@ export default function Journey({ rec, payingByCard = false, skipVoucher = false
 
       <JourneyPanels activeIndex={viewIndex} onChangeIndex={setViewIndex}>
         {[
+        hubble ? (
+          <Box key="voucher" pt="4px">
+            <HubbleVoucherPanel offer={hubble} onBuy={() => setBuying(true)} />
+          </Box>
+        ) : (
         <JourneyRow
           key="voucher"
           tone="voucher"
@@ -276,7 +310,8 @@ export default function Journey({ rec, payingByCard = false, skipVoucher = false
           checked={checked.voucher}
           pending={pending.voucher}
           onCheck={check('voucher')}
-        />,
+        />
+        ),
         <JourneyRow
           key="checkout"
           tone="checkout"
@@ -318,6 +353,16 @@ export default function Journey({ rec, payingByCard = false, skipVoucher = false
         />,
         ]}
       </JourneyPanels>
+      {buying && hubble && (
+        <BuyFlow
+          offer={hubble}
+          merchant={shopName}
+          price={orderPrice}
+          shopLink={sellerLink ? affiliateUrl(sellerLink, 'hubble_done') : undefined}
+          onClose={() => setBuying(false)}
+          onBought={check('voucher')}
+        />
+      )}
     </Box>
   );
 }

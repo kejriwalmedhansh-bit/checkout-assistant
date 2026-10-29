@@ -21,7 +21,7 @@ import { PAGE_META } from '@/seo/pageMeta';
  *   - extension/src/*.js           — what the extension sends and stores
  *   - src/api/routers/chat_app.py  — what ChatGPT/Claude send us
  */
-const LAST_UPDATED = 'October 19, 2026';
+const LAST_UPDATED = 'October 28, 2026';
 
 function Section({ title, children }) {
   return (
@@ -95,9 +95,11 @@ export default function PrivacyPage() {
       </Section>
 
       <Callout title="What Dealo never asks for, and never stores">
-        Your card number, CVV, expiry date, OTP, UPI PIN, net-banking password, or your login for any store. There
-        is no Dealo account and no Dealo password. You always pay on the store’s own website or app — your money
-        never passes through us, and neither do the details behind it.
+        Your card number, CVV, expiry date, UPI PIN, net-banking password, bank OTP, or your login for any store.
+        There is no Dealo password. You always pay on the store’s own website or app, or on the secure payment
+        screen of our voucher partner Hubble — your money never passes through us, and neither do the details
+        behind it. The only code Dealo itself ever sends you is the SMS login code when you buy a voucher inside
+        Dealo, and nobody from Dealo will ever ask you to read it out.
       </Callout>
 
       <Callout tone="warn" title="We ask before recording your visit, and we take no for an answer">
@@ -167,9 +169,37 @@ export default function PrivacyPage() {
         </List>
         Clearing your browser’s site data for getdealo.in removes all of it, and gives you a fresh identifier.
 
+        <SubHeading>If you buy a voucher inside Dealo</SubHeading>
+        For some shops Dealo can sell you the gift voucher itself, through our voucher partner Hubble
+        (myhubble.money). Only if you tap “Buy voucher” do we ask for anything about you:
+        <List>
+          <li>
+            <strong>Your name and mobile number</strong>, and a tick box if you’d like deals from us on WhatsApp
+            (off unless you tick it). We send a one-time login code to that number by SMS, through Google’s
+            Firebase sign-in service, so we know the number is yours. Email is optional.
+          </li>
+          <li>
+            <strong>Hubble receives your name and number</strong> so it can open your voucher account, take the
+            payment (by UPI) and issue the voucher. Hubble keeps your orders and voucher codes under its own privacy
+            policy, and you can always find them again in Hubble.
+          </li>
+          <li>
+            <strong>We keep our own list of buyers</strong> — name, number, email if given, your WhatsApp choice,
+            and which vouchers you bought (shop, amount, date) — in a database hosted by Supabase in Mumbai. We use
+            it to help if something goes wrong with an order, and for deals only if you ticked the box.
+          </li>
+          <li>
+            <strong>Your voucher code</strong> is shown to you once on Dealo, straight after payment. Our server
+            holds it in memory for up to 30 minutes for that screen and then forgets it; we never store codes.
+          </li>
+        </List>
+        Your browser keeps you signed in on this device so a second purchase needs no new code; signing out of the
+        browser’s site data for getdealo.in removes that.
+
         <SubHeading>What we don’t ask for</SubHeading>
-        The website has no sign-up. We never ask for your name, email address, phone number, age, or address, and
-        we have no way to link a visit to you as a person unless you contact us yourself.
+        Searching needs no sign-up. Unless you buy a voucher inside Dealo (above), we never ask for your name,
+        email address, phone number, age, or address, and we have no way to link a visit to you as a person unless
+        you contact us yourself.
       </Section>
 
       <Section title="What we collect on WhatsApp">
@@ -258,6 +288,9 @@ export default function PrivacyPage() {
         <List>
           <li><strong>Mixpanel</strong> — our analytics provider. Holds the usage records and session replays described above, and records of purchases affiliate networks report to us, on European servers.</li>
           <li><strong>Meta (WhatsApp)</strong> — carries messages to and from the Dealo bot. WhatsApp only.</li>
+          <li><strong>Hubble</strong> — our voucher partner. Receives your name and mobile number when you buy a voucher inside Dealo, takes the payment and issues the voucher. Only if you tap “Buy voucher”.</li>
+          <li><strong>Google (Firebase)</strong> — sends the SMS login code and checks it, so holds your mobile number for that. Only if you buy a voucher inside Dealo.</li>
+          <li><strong>Supabase</strong> — hosts our list of buyers described above, on servers in Mumbai. Only if you buy a voucher inside Dealo.</li>
           <li><strong>OpenAI and Anthropic</strong> — run ChatGPT and Claude, and pass Dealo the shop and amount described above. Only if you add Dealo there.</li>
           <li><strong>Search and page-reading services</strong> — receive the product name or link you searched, so they can fetch public store pages on our behalf and read the price. They receive what you searched for, not who you are.</li>
           <li><strong>Affiliate networks</strong> — see the click that sends you to a store, as described below.</li>
@@ -267,11 +300,13 @@ export default function PrivacyPage() {
       </Section>
 
       <Section title="How Dealo makes money">
-        Dealo is free. When you go to a store or voucher partner through a Dealo link, that click is routed through
-        an affiliate network, and if you buy something we may earn a commission. The commission is paid by the
-        store out of its own margin — it adds nothing to your price, and it isn’t what decides which route Dealo
-        shows you. That’s decided by the final price you’d pay. The network sees the click and the resulting
-        purchase. So we can tell which Dealo link led to a sale, each link carries a random code: your random
+        Dealo is free. Two things earn us money. When you go to a store or voucher partner through a Dealo link,
+        that click is routed through an affiliate network, and if you buy something we may earn a commission. And
+        when you buy a voucher inside Dealo, we keep a small share of the discount our partner gives us. Both are
+        paid by the store or partner out of their own margin and add nothing to your price. Where Dealo can sell
+        you the voucher itself, we show that option as long as its rate is within two percentage points of the
+        best voucher rate we know of for that shop; otherwise we send you to the partner with the better rate. The
+        network sees the click and the resulting purchase. So we can tell which Dealo link led to a sale, each link carries a random code: your random
         identifier on the website, or a scrambled code on WhatsApp that can’t be turned back into your number. The
         network never receives your name, phone number or email from us. It reports the sale back to us (store,
         order value and our commission), and we add it to our usage records.
@@ -280,6 +315,7 @@ export default function PrivacyPage() {
       <Section title="How long things are kept">
         <List>
           <li><strong>On our server:</strong> nothing is written to disk. Searches and conversations live in memory and are gone on restart.</li>
+          <li><strong>Buyer list and purchases:</strong> kept until you ask us to delete them. Voucher codes are never kept.</li>
           <li><strong>Usage records and session replays:</strong> held by Mixpanel for as long as we keep using the service, unless you ask us to delete yours. On the website, only created if you agreed to be recorded. The extension’s records are described above.</li>
           <li><strong>Step counts:</strong> kept indefinitely, because there is nothing personal in them to delete — they are totals, with no person attached.</li>
           <li><strong>On your device:</strong> until you clear your browser’s site data, or remove the extension.</li>
@@ -293,6 +329,7 @@ export default function PrivacyPage() {
             identifier and everything else the site kept on your device.
           </li>
           <li>Removing the extension removes everything it stored, including any saved voucher codes.</li>
+          <li>If you bought a voucher inside Dealo, email us from any address with your mobile number and we’ll delete your buyer record and purchase history; Hubble’s copy is covered by Hubble’s own policy.</li>
           <li>You can ask us for a copy of what we hold about you, ask us to correct it, or ask us to delete it — email us and we’ll do it. For the website, tell us roughly when you visited, since we have no name to look you up by. For WhatsApp, your phone number is enough.</li>
         </List>
       </Section>

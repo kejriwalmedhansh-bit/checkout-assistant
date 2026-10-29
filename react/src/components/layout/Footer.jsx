@@ -99,7 +99,7 @@ export default function Footer() {
           fontSize="11.5px"
           color="text3"
         >
-          © {new Date().getFullYear()} Dealo. Dealo never asks for your card number or OTP.
+          © {new Date().getFullYear()} Dealo. Dealo never asks for your card number, UPI PIN or bank OTP.
         </Text>
       </Box>
     </Box>
