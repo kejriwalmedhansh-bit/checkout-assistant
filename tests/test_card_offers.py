@@ -118,6 +118,9 @@ def test_sentence_rules():
     assert one("Get up to 10% NeuCoins on select Apple products on Tata Neu SBI Bank Credit Card", IPHONE) == []
     assert one("Flat Rs.4000 Instant Discount on RBL Bank Credit Card", IPHONE) == []  # not a picker bank
     assert one("", IPHONE) == []
+    # Vijay Sales spells it "BOB CARD Bank" on the Galaxy S25 Ultra (2026-10-29).
+    assert one("Flat Rs.19,000 Instant Discount on BOB CARD Bank Credit Card Full Swipe.", 138490.0) == [
+        {"bank": "BOBCARD", "card": "Credit Card", "saving": 19000, "cashback": False}]
 
 
 def test_reader_for_links():
