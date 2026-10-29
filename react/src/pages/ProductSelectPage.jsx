@@ -50,6 +50,7 @@ export default function ProductSelectPage() {
   const selectedToken = useSearchStore((s) => s.selectedToken);
   const approximate = useSearchStore((s) => s.approximate);
   const otherColours = useSearchStore((s) => s.otherColours);
+  const unconfirmed = useSearchStore((s) => s.unconfirmed);
   const closest = useSearchStore((s) => s.closest);
   const error = useSearchStore((s) => s.error);
   const runSearch = useSearchStore((s) => s.runSearch);
@@ -210,6 +211,8 @@ export default function ProductSelectPage() {
               <LowConfidenceNotice message="That exact colour isn’t at our trusted stores right now — here’s the same model in other colours." />
             ) : closest ? (
               <LowConfidenceNotice message="We couldn’t find that exact model at our trusted stores — these are the closest matches." />
+            ) : unconfirmed ? (
+              <LowConfidenceNotice message="We couldn’t confirm which of these is the exact model — pick the one you meant." />
             ) : (
               approximate && <LowConfidenceNotice />
             )}

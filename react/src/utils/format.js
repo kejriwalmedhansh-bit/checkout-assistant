@@ -87,3 +87,20 @@ export function cleanInstructions(list) {
 export function affiliateUrl(link, ctx) {
   return shopLink(link, ctx);
 }
+
+/** A listing title as people would write it: some shops (BigBasket) put
+ * the brand in front of a title that already starts with it ("Apple Apple
+ * iPhone 17 Pro … 1 Unit"). Drops the repeated opening words and a
+ * trailing "1 Unit" / "1 pc"; leaves real pack sizes ("2 Units") alone. */
+export function tidyTitle(title) {
+  let t = (title || '').trim();
+  const words = t.split(/\s+/);
+  for (let n = Math.min(3, Math.floor(words.length / 2)); n >= 1; n -= 1) {
+    const head = words.slice(0, n).join(' ').toLowerCase();
+    if (words.slice(n, 2 * n).join(' ').toLowerCase() === head) {
+      t = words.slice(n).join(' ');
+      break;
+    }
+  }
+  return t.replace(/\s+1\s*(unit|pc|pcs|piece)\.?$/i, '');
+}

@@ -36,4 +36,13 @@ export const searchApi = {
     const { data } = await apiClient.get(`/routes/checked/${encodeURIComponent(checkId)}`);
     return data?.result || null;
   },
+
+  /** Bank card offers the compared shops print on their own product pages
+   * ("HDFC Credit Card ₹6,000 off" on Flipkart), read in the background:
+   * [{store, price, link, offers: [{bank, card, saving, cashback}]}], or
+   * null when they aren't ready or the comparison is gone. */
+  cardOffers: async (id) => {
+    const { data } = await apiClient.get(`/routes/card-offers/${encodeURIComponent(id)}`);
+    return data?.offers || null;
+  },
 };

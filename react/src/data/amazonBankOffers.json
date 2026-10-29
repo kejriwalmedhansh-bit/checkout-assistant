@@ -1,0 +1,5 @@
+{
+  "_about": "This week's Amazon.in bank card offers. Updated every Monday by the 'Dealo: Amazon bank offer check' routine through a pull request; Dealo never reads Amazon's pages for these. An offer applies when the item costs at least min_order, today is between starts and ends (inclusive), and the product title contains none of the excludes words. Saving = percent of the price, capped at max_off.",
+  "checked": null,
+  "offers": []
+}

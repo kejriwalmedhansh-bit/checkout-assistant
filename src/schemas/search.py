@@ -82,6 +82,9 @@ class SearchCandidatesResponse(BaseModel):
     # Nothing matched a typed search exactly; `products` are the nearest
     # real products (a sibling model), for the user to choose from.
     closest: bool = False
+    # Nothing stated the exact model; `products` are listings nothing
+    # contradicts, for the user to tell apart.
+    unconfirmed: bool = False
 
 
 class RoutesRequest(BaseModel):

@@ -59,7 +59,7 @@ class Settings(BaseSettings):
     # (Flipkart only, 2026-10-26). One Context.dev read, ~2-7s; the first
     # answer never waits for it.
     CARD_OFFERS_CHECK: bool = True
-    CARD_OFFERS_TIMEOUT: int = 10
+    CARD_OFFERS_TIMEOUT: int = 30  # three store pages read one after another, ~3-8s each
 
     # Timeout (seconds) for the lightweight og:title fetch used to recognise a
     # pasted product link. Kept short — it runs inline on every URL search and a

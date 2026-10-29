@@ -747,7 +747,13 @@ def _priority_merchant_anchor(results: list[dict], merchant_key: str = "merchant
         and not _is_marketplace_merchant(r.get(merchant_key) or "")
         and _is_trusted_merchant(r.get(merchant_key) or "", whitelist)
     ]
-    return max(prices) if prices else None
+    # The upper median, not the maximum: one reseller at ₹15,299 (Culture
+    # Circle, Downshifter 14) made the highest price the anchor and every
+    # real shop at ₹3,916 read as a fake (2026-10-27).
+    if not prices:
+        return None
+    prices.sort()
+    return prices[len(prices) // 2]
 
 
 def _outlier_filter(results: list[dict]) -> tuple[list[dict], int]:
@@ -1053,6 +1059,13 @@ _COLOR_WORDS = [
     "starlight", "rose", "orange", "beige", "brown", "teal", "navy", "coral",
 ]
 
+# A men's and a women's listing of one shoe are two products, never one
+# picker card (the Women's Handball Spezial at ₹4,400 was swallowed by the
+# Men's at ₹10,999, 2026-10-28).
+_AUDIENCE_WORDS = {"women": ("women", "womens", "woman", "ladies", "wmns", "female"),
+                   "men": ("men", "mens", "man", "male"),
+                   "kids": ("kids", "kid", "junior", "jr", "boys", "girls", "children")}
+
 _STORAGE_RE = re.compile(r"\b(\d+)\s?(gb|tb)\b")
 
 # Screen size (TVs, monitors, laptops) — unlike battery life or ANC depth,
@@ -1309,10 +1322,14 @@ def _matches_any_required_token(title: str, tokens: list[str]) -> bool:
     if not tokens:
         return True
     normalized = _norm_title(title or "")
-    return any(
-        re.search(_token_pattern(t), normalized) or _fuzzy_token_hit(t, normalized)
-        for t in tokens
-    )
+    if any(re.search(_token_pattern(t), normalized) or _fuzzy_token_hit(t, normalized) for t in tokens):
+        return True
+    # A type word counts by family: "Backpack" and "Tote" answer "puma bag"
+    # (literal "bag" threw out twenty Puma bags from trusted shops, 2026-10-28).
+    fam = product_identity._TYPE_FAMILY
+    wanted = {fam.get(t, t) for t in tokens if t in product_identity._TYPE_WORDS}
+    return bool(wanted) and any(
+        fam.get(w, w) in wanted for w in normalized.split() if w in product_identity._TYPE_WORDS)
 
 
 def _is_category_only_query(query: str, tokens: list[str]) -> bool:
@@ -1417,12 +1434,14 @@ def _extract_variant_signature(title: str, exclude: set) -> tuple:
     size_m = _SIZE_RE.search(normalized)
     size = f"{size_m.group(1)}inch" if size_m else None
     color = next((c for c in _COLOR_WORDS if re.search(rf"\b{re.escape(c)}\b", normalized)), None)
+    audience = next((a for a, words in _AUDIENCE_WORDS.items()
+                     if re.search(r"\b(?:" + "|".join(words) + r")\b", normalized)), None)
     extra_words = _distinguishing_words(title, exclude | {storage, size, color} - {None})
-    return (extra_words, storage, size, color)
+    return (extra_words, storage, size, color, audience)
 
 
 def _filter_and_group_candidates(
-    candidates: list[dict], query: str, tag: str = "[search]"
+    candidates: list[dict], query: str, tag: str = "[search]", identity: dict | None = None,
 ) -> tuple[list[dict], bool]:
     """Drop bulk-listings/non-English junk, then group same-variant listings
     from different sellers into one picker card each.
@@ -1556,15 +1575,28 @@ def _filter_and_group_candidates(
         # listing of its own exact wording would get zero price-sanity check
         # at all, since a lone/marketplace-only group has nothing internal to
         # compare against.
-        pool_wide_anchor = _priority_merchant_anchor(pool, merchant_key="source")
+        # With an ID card, only listings of this very product set the price
+        # bar: other models in the pool (an HL7777 at ₹12,739 next to the
+        # HL7756 at ₹3,299) say nothing about what a fake would cost.
+        def same_product(rows: list[dict]) -> list[dict]:
+            if identity is None:
+                return rows
+            same = [c for c in rows
+                    if product_identity.match_tier(identity, c.get("title") or "", c.get("source") or "")[0] == "exact"]
+            return same or rows
+
+        pool_wide_anchor = _priority_merchant_anchor(same_product(pool), merchant_key="source")
 
         vetted: list[dict] = []
         for group in by_variant.values():
-            own_anchor = _priority_merchant_anchor(group, merchant_key="source")
+            own_anchor = _priority_merchant_anchor(same_product(group), merchant_key="source")
             anchor = own_anchor if own_anchor is not None else pool_wide_anchor
             if anchor is not None:
                 threshold = 0.4 * anchor
-                above = [c for c in group if (c.get("price") or 0) >= threshold or not c.get("price")]
+                # a shop's own crossed-out price above the bar is its word
+                # that this is a sale, not a fake
+                above = [c for c in group if (c.get("price") or 0) >= threshold or not c.get("price")
+                         or (c.get("was_price") or 0) >= threshold]
                 for c in group:
                     if c not in above:
                         logger.info(
@@ -1663,6 +1695,25 @@ def _infer_brand(name: str) -> str:
 
 # ── public orchestrator ──────────────────────────────────────────────────────────
 
+_WAS_PRICE_RE = re.compile(r"₹\s*([\d,]+(?:\.\d+)?)")
+
+
+def _was_price(listing: dict) -> float | None:
+    """The crossed-out price a listing shows, when it shows one. Google
+    writes it three ways: "₹4,895", "Usually ₹4,895" and "20% off₹4,895";
+    in the last, `extracted_original_price` holds the percentage, so the
+    rupee figure is read from the text. Anything not above the price is
+    noise, not a sale."""
+    price = listing.get("extracted_price") or listing.get("price")
+    if not isinstance(price, (int, float)):
+        price = parse_price(price)
+    m = _WAS_PRICE_RE.search(listing.get("original_price") or "")
+    was = float(m.group(1).replace(",", "")) if m else listing.get("extracted_original_price")
+    if isinstance(was, (int, float)) and price and was > price:
+        return float(was)
+    return None
+
+
 def _product_candidate(p: dict) -> dict:
     """Shape a google_shopping result into a product the user can pick from."""
     price = None
@@ -1679,6 +1730,7 @@ def _product_candidate(p: dict) -> dict:
         "title": p.get("title") or "",
         "price": price,
         "price_raw": p.get("price"),
+        "was_price": _was_price(p),
         "thumbnail": p.get("thumbnail") or p.get("image"),
         "source": source,
         "rating": p.get("rating"),
@@ -2873,16 +2925,25 @@ def _known_brand_names() -> set[str]:
 
 
 def _one_card_per_version(products: list[dict], tag: str) -> list[dict]:
-    """A typed search's list shows each version once (storage, size, pack,
-    material) at its lowest price, with how many stores sell it. Colour
-    rarely changes the price, so it doesn't make its own card."""
+    """A typed search's list shows each version once (sub-model, colour,
+    storage, size, pack, material) at its lowest price, with how many
+    stores sell it - the range Google Shopping shows, one card each, so the
+    shopper picks the pair they mean (owner's call, 2026-10-28)."""
     keys = ("storage", "ram", "volume", "weight", "pack", "material")
+    # Sub-model and colour first (The Construct, Slip-ins; pink, beige): a
+    # typed search offers each as its own card. Then each size/storage once.
     groups: dict[tuple, list[dict]] = {}
     for p in products:
-        v = product_identity._variants(p.get("title") or "")
-        groups.setdefault(tuple((k, v[k]) for k in keys if k in v), []).append(p)
-    if len(groups) > 1 and () in groups:
-        groups.pop(())       # listings that don't say which version: step 6 still finds their stores
+        title = p.get("title") or ""
+        v = product_identity._variants(title)
+        normalized = _norm_title(title)
+        colour = next((c for c in _COLOR_WORDS if re.search(rf"\b{re.escape(c)}\b", normalized)), None)
+        key = ((product_identity.sub_models(title), colour),) + tuple((k, v[k]) for k in keys if k in v)
+        groups.setdefault(key, []).append(p)
+    for head in {key[0] for key in groups}:
+        sizes = [key for key in groups if key[0] == head]
+        if len(sizes) > 1 and (head,) in groups:
+            groups.pop((head,))       # listings that don't say which size/storage: step 6 still finds their stores
     cards = []
     for rows in groups.values():
         regular = [r for r in rows if not _is_hyperlocal(r.get("source") or "")] or rows
@@ -2901,7 +2962,8 @@ def _one_card_per_version(products: list[dict], tag: str) -> list[dict]:
         best = dict(best, store_count=len({_brand_signature(r.get("source") or "") for r in rows}))
         cards.append(best)
     logger.info("%s %d listing(s) -> %d version card(s)", tag, len(products), len(cards))
-    return sorted(cards, key=lambda c: c.get("price") or float("inf"))
+    # Exact matches lead; versions the shopper didn't name follow, each by price.
+    return sorted(cards, key=lambda c: (c.get("match_tier") == "unconfirmed", c.get("price") or float("inf")))
 
 
 def _size_price_ok(identity: dict, title: str, price: float | None, reference: float | None) -> bool:
@@ -2947,17 +3009,20 @@ def _pasted_store_name(url: str) -> str:
 # At most this many "same product, different size/pack" listings are kept
 # aside for the picker to show under their own label.
 _MAX_SIMILAR = 3
+_MAX_UNCONFIRMED = 6     # a range to scan when nothing is exact; fits one screen
 
 # Fewer exact matches than this from the short ID search also runs the
 # pasted page's full title as a second search.
 _THIN_EXACT = 2
 
 
-def _tier_by_identity(products: list[dict], identity: dict, tag: str) -> tuple[list[dict], list[dict]]:
+def _tier_by_identity(products: list[dict], identity: dict, tag: str) -> tuple[list[dict], list[dict], list[dict]]:
     """Split filtered candidates by `product_identity.match_tier`: exact ones
-    stay in the picker, similar ones (other size/pack) go aside, wrong ones
-    (another model, sub-model or brand) are dropped. Order is kept."""
-    exact, similar = [], []
+    stay in the picker, similar ones (other size/pack) go aside, unconfirmed
+    ones (nothing contradicts, model not stated) are kept for when nothing is
+    exact, wrong ones (another model, sub-model or brand) are dropped. Order
+    is kept."""
+    exact, similar, unconfirmed = [], [], []
     identity_is_part = bool(_SPARE_PART_RE.search(identity["title"]) or _is_accessory(identity["title"]))
     for p in products:
         if not identity_is_part and _SPARE_PART_RE.search(p.get("title") or ""):
@@ -2970,9 +3035,13 @@ def _tier_by_identity(products: list[dict], identity: dict, tag: str) -> tuple[l
         elif tier == "similar":
             p["match_note"] = why
             similar.append(p)
+        elif tier == "unconfirmed":
+            p["match_note"] = why
+            unconfirmed.append(p)
+            logger.info("%s   unconfirmed (%s): %r", tag, why, p.get("title"))
         else:
             logger.info("%s   hidden (not the pasted product: %s): %r", tag, why, p.get("title"))
-    return exact, similar[:_MAX_SIMILAR]
+    return exact, similar[:_MAX_SIMILAR], unconfirmed
 
 
 def search_candidates(query: str, exact: bool = False, shops_only: bool = False) -> dict:
@@ -3169,12 +3238,18 @@ def search_candidates(query: str, exact: bool = False, shops_only: bool = False)
                 r.get("price"),
                 "yes" if r.get("product_token") else "no",
             )
+        if identity is not None:
+            # The ID card weighed against what Google returned: shop names and
+            # link scraps drop out of the required words, and a word most
+            # listings leave out counts for less (never for more).
+            identity = product_identity.weigh_identity(
+                identity, [r.get("title") or "" for r in shopping_results], _load_trusted_merchants())
         products = [
             _product_candidate(p)
             for p in shopping_results
             if p.get("product_token")
         ]
-        products, approximate = _filter_and_group_candidates(products, effective_query, tag=tag)
+        products, approximate = _filter_and_group_candidates(products, effective_query, tag=tag, identity=identity)
         products, approximate = _maybe_widen_brand_query(
             effective_query, is_url, shopping_results, products, approximate, tag
         )
@@ -3185,19 +3260,20 @@ def search_candidates(query: str, exact: bool = False, shops_only: bool = False)
                      and product_identity.match_tier(identity, p.get("title") or "", p.get("source") or "")[0] == "exact"]
             products = [p for p in products if not _is_hyperlocal(p.get("source") or "")]
             pretier = list(products)
-            products, similar = _tier_by_identity(products, identity, tag)
+            products, similar, unconfirmed = _tier_by_identity(products, identity, tag)
             if typed_product and len(products) < _THIN_EXACT:
                 logger.info("%s only %d exact match(es) - reading page 2 of the search", tag, len(products))
                 raw2 = searchapi_repository.search_products(effective_query, page=2)
                 if not raw2.get("error"):
                     more = [_product_candidate(p) for p in raw2.get("shopping_results", []) if p.get("product_token")]
-                    more, _ = _filter_and_group_candidates(more, effective_query, tag=tag)
+                    more, _ = _filter_and_group_candidates(more, effective_query, tag=tag, identity=identity)
                     more = [p for p in more if not _is_hyperlocal(p.get("source") or "")]
                     pretier += more
-                    more, similar2 = _tier_by_identity(more, identity, tag)
+                    more, similar2, unconfirmed2 = _tier_by_identity(more, identity, tag)
                     seen = {p.get("product_token") for p in products}
                     products += [p for p in more if p.get("product_token") not in seen]
                     similar = (similar + similar2)[:_MAX_SIMILAR]
+                    unconfirmed += unconfirmed2
             full_title = identity["title"]
             if len(products) < _THIN_EXACT and full_title and full_title != effective_query:
                 # The short ID search can surface mostly small sellers; the
@@ -3208,12 +3284,13 @@ def search_candidates(query: str, exact: bool = False, shops_only: bool = False)
                 raw2 = searchapi_repository.search_products(full_title)
                 if not raw2.get("error"):
                     more = [_product_candidate(p) for p in raw2.get("shopping_results", []) if p.get("product_token")]
-                    more, _ = _filter_and_group_candidates(more, full_title, tag=tag)
+                    more, _ = _filter_and_group_candidates(more, full_title, tag=tag, identity=identity)
                     more = [p for p in more if not _is_hyperlocal(p.get("source") or "")]
-                    more, similar2 = _tier_by_identity(more, identity, tag)
+                    more, similar2, unconfirmed2 = _tier_by_identity(more, identity, tag)
                     seen = {p.get("product_token") for p in products}
                     products += [p for p in more if p.get("product_token") not in seen]
                     similar = (similar + similar2)[:_MAX_SIMILAR]
+                    unconfirmed += unconfirmed2
             if live_candidate and live_candidate.get("price"):
                 # Same name at under half the pasted page's price is almost
                 # always a smaller size, a single from a multi-pack, or a
@@ -3238,6 +3315,22 @@ def search_candidates(query: str, exact: bool = False, shops_only: bool = False)
                         p["match_tier"], p["match_note"] = "colour", "other colour"
                     products = colours
                     out["other_colours"] = True
+            if not products and not live_candidate and unconfirmed:
+                # Nothing stated the exact model, but these contradict nothing:
+                # the picker shows the range and the shopper tells them apart
+                # (owner's call, 2026-10-27), rather than "not found".
+                seen_u, shown = set(), []
+                for p in unconfirmed:
+                    key = (p.get("title") or "").lower()
+                    if not product_identity.names_the_product(identity, p.get("title") or ""):
+                        logger.info("%s   left out of the range (names nothing of the product): %r", tag, p.get("title"))
+                        continue
+                    if key not in seen_u:
+                        seen_u.add(key)
+                        shown.append(p)
+                logger.info("%s nothing exact - offering %d unconfirmed listing(s) to pick from", tag, min(len(shown), _MAX_UNCONFIRMED))
+                products = shown[:_MAX_UNCONFIRMED]
+                out["unconfirmed"] = True
             if not products and not live_candidate and quick:
                 # Quick commerce is the last resort (user rule, 2026-09-25):
                 # shown only when no other store has the exact product.
@@ -3281,7 +3374,21 @@ def search_candidates(query: str, exact: bool = False, shops_only: bool = False)
                     out["closest"] = True
                     products = closest[:4]
             elif typed_product:
-                products = _one_card_per_version(products, tag)
+                # Versions the shopper didn't name (Slip-ins next to The
+                # Construct) are choices, shown after the exact ones.
+                seen_v = {p.get("product_token") for p in products}
+                versions = [p for p in unconfirmed
+                            if product_identity.soft_doubt(identity, p.get("match_note") or "")
+                            and p.get("product_token") not in seen_v]
+                if versions:
+                    logger.info("%s %d near match(es) join the picker after the exact ones", tag, len(versions))
+                if identity["name"] or identity["codes"] or identity["alt_codes"]:
+                    products = _one_card_per_version(products + versions, tag)
+                else:
+                    # "puma bag" names a brand's category, not one product:
+                    # Beta, Dash and Academy backpacks are different products,
+                    # not versions of one, so each stays its own card.
+                    products = products + versions
             out["similar_products"] = similar
             approximate = not products
         # A pasted link's "budget" never came from the user — it's whatever
@@ -3364,7 +3471,10 @@ def search_candidates(query: str, exact: bool = False, shops_only: bool = False)
             if out.get("other_colours") or out.get("closest"):
                 pick = None
             elif typed_product:
-                pick = products[0] if len(products) == 1 and (identity["codes"] or identity["alt_codes"] or identity["name"]) else None
+                # Typed words are a description, not a product: the shopper
+                # picks, even from one card (owner's call, 2026-10-28). Only a
+                # pasted link says exactly what they want.
+                pick = None
             else:
                 pick = _auto_pick(products, identity, live_candidate)
             if pick:
@@ -3614,6 +3724,7 @@ def _offer_rows(token: str, pages: int, tag: str) -> list[dict]:
                 "title": offer.get("title") or "",
                 "price": _offer_price({k: offer.get(k) for k in ("extracted_total_price", "total_price")})
                          or _offer_price(offer),
+                "was_price": _was_price(offer),
                 "link": offer.get("link"),
                 "details": offer.get("details") or [],
                 "_source_token": token,
@@ -3755,6 +3866,15 @@ def _discover_exact_offers(
             r = {**r, "title": english[0], "link": english[1]}
             link = r["link"]
             tier, why = product_identity.match_tier(identity, r["title"], name)
+            if (tier == "unconfirmed" and r.get("_source_token") == product_token
+                    and product_identity.variants_agree(identity, r["title"])):
+                # Google filed this offer under the very entry the shopper
+                # tapped: that grouping confirms the model a shorter title
+                # leaves out. A stated size, storage or pack that differs
+                # still disqualifies it (Google once filed a 128 GB A56
+                # under the 256 GB entry).
+                logger.info("%s   kept %s (%s; same Google entry as the pick): %r", tag, name, why, r["title"])
+                tier = "exact"
             if tier != "exact":
                 logger.info("%s   skipped %s (%s): %r", tag, name, why or tier, r["title"])
                 continue
@@ -3773,7 +3893,7 @@ def _discover_exact_offers(
             out.append({
                 "merchant": name, "price": r["price"], "title": r["title"],
                 "sellers": [{"link": link, "delivery": next((d for d in r["details"] if "deliver" in d.lower()), None)}],
-                "match_type": "Listed", "_source_token": r["_source_token"],
+                "match_type": "Listed", "_source_token": r["_source_token"], "was_price": r.get("was_price"),
             })
         return out
 
@@ -3817,11 +3937,17 @@ def _discover_exact_offers(
     def _floor_for(c: dict) -> float:
         return floor if _is_marketplace_merchant(c["merchant"]) else min(floor, store_floor)
 
+    def _believable(c: dict) -> bool:
+        # A shop's own crossed-out price is its word that this is a sale off
+        # a normal price, not a fake: "₹4,895 -> ₹3,916" is believable when
+        # ₹4,895 itself clears the floor.
+        return c["price"] >= _floor_for(c) or bool(c.get("was_price") and c["was_price"] >= _floor_for(c))
+
     if floor:
         for c in verified:
-            if c["price"] < _floor_for(c):
+            if not _believable(c):
                 logger.info("%s   skipped %s at %s (below the believable floor %.0f)", tag, c["merchant"], c["price"], _floor_for(c))
-        verified = [c for c in verified if c["price"] >= _floor_for(c)]
+        verified = [c for c in verified if _believable(c)]
     if picked_price:
         for c in verified:
             if not _size_price_ok(identity, c["title"], c["price"], picked_price):
@@ -3971,6 +4097,10 @@ def _compute_routes(
                     identity["variants"].setdefault(k, v)
             if len(product_identity.identity_query(identity).split()) < 2:
                 identity = None
+            else:
+                # No result set here yet; this only drops shop names and link
+                # scraps from the required words.
+                identity = product_identity.weigh_identity(identity, [], _load_trusted_merchants())
         if identity is not None:
             # Step 6: every whitelisted store selling this exact product.
             logger.info("[routes] product ID card: %r", product_identity.identity_query(identity))
@@ -4250,33 +4380,43 @@ def _compute_routes(
     return output, live_check
 
 
-def _flipkart_product_link(candidates: list[dict]) -> tuple[dict, str] | tuple[None, None]:
-    """The Flipkart listing and its product page link, when Flipkart is
-    one of the compared stores."""
+def _card_offer_pages(candidates: list[dict]) -> list[tuple[dict, str]]:
+    """The compared stores whose product pages print bank card offers
+    (Flipkart, Croma, Vijay Sales), one page each: [(listing, link)]."""
+    pages, seen = [], set()
     for c in candidates:
         link = ((c.get("sellers") or [{}])[0].get("link")) or ""
-        host = (urlsplit(link).hostname or "").lower()
-        if (host == "flipkart.com" or host.endswith(".flipkart.com")) and "/p/" in link:
-            return c, link
-    return None, None
+        reader = bank_offer_repository.reader_for(link)
+        if reader and reader[0] not in seen:
+            seen.add(reader[0])
+            pages.append((c, link))
+    return pages
+
+
+def _read_card_offers_for(store: dict, link: str) -> dict | None:
+    started = time.monotonic()
+    name, read = bank_offer_repository.reader_for(link)
+    markup = context_dev_repository.fetch_rendered_html(link) or crawlbase_repository.fetch_rendered_html(link)
+    offers = read(markup or "", store.get("price"))
+    logger.info("[routes] card offers on %s: %d found (%.1fs)", store["merchant"], len(offers), time.monotonic() - started)
+    if not offers:
+        return None
+    return {"store": store["merchant"], "price": store.get("price"), "link": link, "offers": offers}
 
 
 def _read_card_offers(candidates: list[dict]) -> list[dict]:
     """Bank card offers on the compared stores' own product pages
-    (Flipkart only, 2026-10-26): [{"store", "price", "link", "offers"}].
-    One page read, started alongside the live price check and fetched on
-    its own (GET /routes/card-offers), so neither the first answer nor the
-    checked one waits for it. Not used in ranking."""
-    store, link = _flipkart_product_link(candidates)
-    if store is None:
-        return []
-    started = time.monotonic()
-    markup = context_dev_repository.fetch_rendered_html(link) or crawlbase_repository.fetch_rendered_html(link)
-    offers = bank_offer_repository.flipkart_bank_offers(markup or "")
-    logger.info("[routes] card offers on %s: %d found (%.1fs)", store["merchant"], len(offers), time.monotonic() - started)
-    if not offers:
-        return []
-    return [{"store": store["merchant"], "price": store.get("price"), "link": link, "offers": offers}]
+    (Flipkart, Croma, Vijay Sales): [{"store", "price", "link", "offers"}].
+    Started alongside the live price check and fetched on its own
+    (GET /routes/card-offers), so neither the first answer nor the checked
+    one waits for it. The pages are read one after another: Context.dev
+    allows this account one read at a time, and a second read sent at the
+    same time falls to Crawlbase, which does not render Croma's offer strip.
+    Flipkart first, since it prints the most offers."""
+    pages = _card_offer_pages(candidates)
+    pages.sort(key=lambda p: bank_offer_repository.reader_for(p[1])[0] != "Flipkart")
+    found = [_read_card_offers_for(store, link) for store, link in pages]
+    return [f for f in found if f]
 
 
 def _apply_live_check(output: dict, live_check: dict) -> dict:

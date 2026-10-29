@@ -6,6 +6,8 @@ import Card from '@/components/common/Card';
 import { I } from '@/components/common/icons';
 import { track } from '@/utils/analytics';
 import { affiliateUrl, fmt } from '@/utils/format';
+import useCardsStore from '@/store/cardsStore';
+import { CARD_CHOICES, giftVoucherSaving } from '@/utils/myCards';
 import { shopLogos, shortDelivery } from '@/utils/priceList';
 
 const ROWS_SHOWN = 4;
@@ -78,8 +80,14 @@ function ShopLogo({ shop, size }) {
  * reachable as a small tag on its own row, which opens the usual gift card
  * view via onPickGiftCard.
  */
-export default function PriceList({ shops, onPickGiftCard, afterFirst = null }) {
+export default function PriceList({ shops, onPickGiftCard, afterFirst = null, missing = null }) {
   const [showAll, setShowAll] = useState(false);
+  // Shops arrive already priced for this shopper (myCards.pricesFor): the
+  // cheaper of their card offer and the shop's Gift Voucher, cheapest first.
+  const answer = useCardsStore((st) => st.answer);
+  const editCards = useCardsStore((st) => st.edit);
+  const myCards = answer?.cards;
+  const myLabel = (myCards || []).map((id) => CARD_CHOICES.find((c) => c.id === id)?.label).filter(Boolean).join(', ');
   const best = shops[0];
   const priciest = shops.reduce((hi, s) => (s.price > hi.price ? s : hi), best);
   const span = priciest.price - best.price || 1;
@@ -128,11 +136,19 @@ export default function PriceList({ shops, onPickGiftCard, afterFirst = null }) 
             {note}
           </Text>
         )}
+        {answer && (
+          <Text fontSize="12px" color="text2" mt="2px">
+            {myCards.length ? `With your ${myLabel} card${myCards.length > 1 ? 's' : ''}` : 'No credit card offers added'} ·{' '}
+            <Box as="button" type="button" color="brand" fontWeight={600} onClick={editCards}>
+              Change
+            </Box>
+          </Text>
+        )}
       </Box>
       <Flex ref={stackRef} direction="column" gap="8px" minH={fillH ? `${fillH}px` : undefined}>
         {rows.map((s, i) => {
           const diff = s.price - best.price;
-          const gc = s.voucher && s.voucherRoute ? Math.round(s.price - s.voucherRoute.final_cost) : 0;
+          const gc = giftVoucherSaving({ ...s, price: s.listPrice });
           const first = i === 0;
           return (
             <Fragment key={s.merchant}>
@@ -187,7 +203,13 @@ export default function PriceList({ shops, onPickGiftCard, afterFirst = null }) 
                   </Text>
                 )}
               </Link>
-              {gc > 0 && (
+              {/* Owner's call 2026-10-26: a card offer replaces the Gift Voucher
+                  tag on that row; both at once was too much to take in. The
+                  big price already has the voucher taken off, so the shop's
+                  own price is shown beside the tag. */}
+              {gc > 0 && !s.mine && (
+                <Flex align="center" gap="6px" ml={`${sz.logo + 10}px`} mt="6px" flexWrap="wrap">
+                <Text as="span" fontFamily="mono" fontSize={`${sz.small + 0.5}px`} color="text2">{fmt(s.listPrice)}</Text>
                 <Box
                   as="button"
                   type="button"
@@ -195,9 +217,6 @@ export default function PriceList({ shops, onPickGiftCard, afterFirst = null }) 
                     track('Clicked Price List Gift Card', { merchant: s.merchant, saving: gc });
                     onPickGiftCard(s.voucherRoute);
                   }}
-                  alignSelf="flex-start"
-                  ml={`${sz.logo + 10}px`}
-                  mt="6px"
                   fontSize={`${sz.small}px`}
                   fontWeight={600}
                   color="amber"
@@ -209,8 +228,18 @@ export default function PriceList({ shops, onPickGiftCard, afterFirst = null }) 
                 >
                   −{fmt(gc)} with {s.voucher.offline_only ? 'in-store ' : ''}Gift Voucher ›
                 </Box>
+                </Flex>
+              )}
+              {s.mine && (
+                <Text ml={`${sz.logo + 10}px`} mt="6px" fontSize={`${sz.small + 0.5}px`} color="text2">
+                  <Text as="span" fontFamily="mono">{fmt(s.listPrice)}</Text>{' '}
+                  <Text as="span" color="brand" fontWeight={600}>
+                    − {fmt(s.mine.saving)}{s.mine.cashback ? ' cashback' : ''} with your {s.mine.bank} card
+                  </Text>
+                </Text>
               )}
             </Card>
+            {first && missing}
             {first && afterFirst}
             </Fragment>
           );

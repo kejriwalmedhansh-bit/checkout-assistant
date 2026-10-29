@@ -50,7 +50,10 @@
     },
     "Session Started": {
       "description": "A visit or conversation began. Website: page load. WhatsApp: first message after 30 quiet minutes.",
-      "surfaces": ["web", "whatsapp"],
+      "surfaces": [
+        "web",
+        "whatsapp"
+      ],
       "properties": {
         "is_returning_visitor": "web: this browser has been here before",
         "landing_page": "web: path the visit started on",
@@ -62,17 +65,32 @@
     },
     "Page Viewed": {
       "description": "Website route shown (fires on every route change).",
-      "surfaces": ["web"],
-      "properties": {"path": "Route path"}
+      "surfaces": [
+        "web"
+      ],
+      "properties": {
+        "path": "Route path"
+      }
     },
     "Product Searched": {
       "description": "Someone searched for a product (text or pasted link).",
-      "surfaces": ["web", "whatsapp"],
-      "properties": {"query": "What they typed or pasted", "input_type": "products | url | brand_voucher (web) or product_name | url (whatsapp)", "result_count": "web: candidates returned"}
+      "surfaces": [
+        "web",
+        "whatsapp"
+      ],
+      "properties": {
+        "query": "What they typed or pasted",
+        "input_type": "products | url | brand_voucher (web) or product_name | url (whatsapp)",
+        "result_count": "web: candidates returned"
+      }
     },
     "Deal Shown": {
       "description": "Dealo showed its recommended way to buy a product. Extension: the voucher panel appeared at a checkout (listed_price is the cart total read off the page).",
-      "surfaces": ["web", "whatsapp", "extension"],
+      "surfaces": [
+        "web",
+        "whatsapp",
+        "extension"
+      ],
       "properties": {
         "product_title": "Product",
         "merchant": "Shop recommended",
@@ -87,7 +105,9 @@
     },
     "Shop Link Opened": {
       "description": "Someone opened a shop link through /go (fired by the backend for every surface). The affiliate link carries subid=device id, subid2=click_id, subid3=surface.",
-      "surfaces": ["server"],
+      "surfaces": [
+        "server"
+      ],
       "properties": {
         "click_id": "Unique per click; comes back on purchases as subid2",
         "ctx": "Where the link was, e.g. check_page_step, redeem_step, direct_buy_step, product_card",
@@ -101,22 +121,44 @@
     },
     "Voucher Site Opened": {
       "description": "Someone opened a gift-voucher partner page (Gyftr / Maximize / BuyHatke) through /out.",
-      "surfaces": ["server"],
-      "properties": {"ctx": "Where the link was", "destination_domain": "Partner site", "destination_url": "Exact page", "is_bot": "Link-preview bot", "referrer": "Page the click came from"}
+      "surfaces": [
+        "server"
+      ],
+      "properties": {
+        "ctx": "Where the link was",
+        "destination_domain": "Partner site",
+        "destination_url": "Exact page",
+        "is_bot": "Link-preview bot",
+        "referrer": "Page the click came from"
+      }
     },
     "Card Link Opened": {
       "description": "Someone opened a credit-card application link through /out.",
-      "surfaces": ["server"],
-      "properties": {"ctx": "Where the link was", "destination_domain": "Link host", "destination_url": "Exact link", "is_bot": "Link-preview bot", "referrer": "Page the click came from"}
+      "surfaces": [
+        "server"
+      ],
+      "properties": {
+        "ctx": "Where the link was",
+        "destination_domain": "Link host",
+        "destination_url": "Exact link",
+        "is_bot": "Link-preview bot",
+        "referrer": "Page the click came from"
+      }
     },
     "Identity Linked": {
       "description": "Two surfaces were recognised as the same person (website visitor opened WhatsApp through the website button).",
-      "surfaces": ["whatsapp"],
-      "properties": {"from_surface": "Surface whose id was joined to this person"}
+      "surfaces": [
+        "whatsapp"
+      ],
+      "properties": {
+        "from_surface": "Surface whose id was joined to this person"
+      }
     },
     "Purchase Recorded": {
       "description": "An affiliate network reported a sale from one of our shop links. Sent by scripts/sync_affiliate_purchases.py, timed at the sale date.",
-      "surfaces": ["server"],
+      "surfaces": [
+        "server"
+      ],
       "properties": {
         "network": "cuelinks | inrdeals",
         "transaction_id": "Network's id for the sale",
@@ -131,61 +173,562 @@
     },
     "Purchase Status Changed": {
       "description": "A reported sale moved status (e.g. pending -> validated, rejected, paid).",
-      "surfaces": ["server"],
-      "properties": {"network": "cuelinks | inrdeals", "transaction_id": "Network's id for the sale", "status": "New status", "sale_amount": "Order value", "commission": "Dealo's commission", "shop": "Merchant / campaign name"}
+      "surfaces": [
+        "server"
+      ],
+      "properties": {
+        "network": "cuelinks | inrdeals",
+        "transaction_id": "Network's id for the sale",
+        "status": "New status",
+        "sale_amount": "Order value",
+        "commission": "Dealo's commission",
+        "shop": "Merchant / campaign name"
+      }
     },
-
-    "Dashboard Opened": {"description": "Website app loaded (legacy; same moment as Session Started).", "surfaces": ["web"], "properties": {"is_returning_visitor": "Seen before on this browser"}},
-    "Searched": {"description": "Website search returned (legacy; see Product Searched).", "surfaces": ["web"], "properties": {"query": "Search text", "mode": "products | url | brand_voucher", "result_count": "Candidates"}},
-    "Voucher Type Picked": {"description": "Shop-name search for a shop with a different voucher per kind of purchase (MakeMyTrip, Yatra...); visitor tapped what they are buying.", "surfaces": ["web"], "properties": {"query": "Search text", "choice": "Hotels | Cabs | Flights...", "brand": "Voucher card picked"}},
-    "Selected Product": {"description": "Website visitor picked a product from the candidates.", "surfaces": ["web"], "properties": {"query": "Search text", "title": "Product picked", "source": "Listing source"}},
-    "Viewed Deal": {"description": "Website results shown (legacy; see Deal Shown).", "surfaces": ["web"], "properties": {"merchant": "Shop", "has_voucher": "Uses voucher", "final_cost": "Pay amount", "original_price": "Listed", "final_price": "Pay amount", "discount": "Saving", "voucher_aggregator": "Voucher platform"}},
-    "Clicked Buy Link": {"description": "Website journey step button clicked (voucher or checkout).", "surfaces": ["web"], "properties": {"step": "voucher | checkout", "merchant": "Shop", "has_voucher": "Uses voucher"}},
-    "Drop-off Question Shown": {"description": "Website showed the small 'Not buying? Tell us why' pill to someone who saw the buying steps and tapped no Buy button (once per browser).", "surfaces": ["web"], "properties": {"trigger": "leaving (Back, a link off the page, or laptop mouse heading to close the tab) | returned (came back to the tab after 10s+ away)", "merchant": "Shop", "has_voucher": "Uses voucher"}},
-    "Drop-off Question Opened": {"description": "Visitor tapped the pill and saw the answers. Shown minus Opened = ignored or dismissed.", "surfaces": ["web"], "properties": {"trigger": "Same as Shown", "merchant": "Shop", "has_voucher": "Uses voucher"}},
-    "Drop-off Question Answered": {"description": "Visitor tapped a reason (one tap sends it).", "surfaces": ["web"], "properties": {"reason": "vouchers_confusing | not_sure_safe | too_many_steps | found_cheaper | just_checking | something_else", "trigger": "Same as Shown", "merchant": "Shop", "has_voucher": "Uses voucher"}},
-    "Drop-off Comment Sent": {"description": "Visitor typed an optional comment after answering.", "surfaces": ["web"], "properties": {"reason": "The reason they tapped", "note": "Their comment, max 250 characters", "trigger": "Same as Shown", "merchant": "Shop", "has_voucher": "Uses voucher"}},
-    "Clicked Alternatives Toggle": {"description": "Website visitor opened or closed the other routes.", "surfaces": ["web"], "properties": {}},
-    "Clicked Brand Voucher Link": {"description": "Website brand directory voucher link clicked.", "surfaces": ["web"], "properties": {"brand": "Brand", "source": "Voucher platform", "pct": "Discount", "placement": "brand-page | popular | list"}},
-    "Clicked WhatsApp Button": {"description": "Website WhatsApp link clicked.", "surfaces": ["web"], "properties": {"source": "sidebar | contact_page | contact_page_bot"}},
-    "Clicked Floating WhatsApp Button": {"description": "Website floating WhatsApp button clicked.", "surfaces": ["web"], "properties": {}},
-    "Clicked Send To WhatsApp": {"description": "Results page 'Send this to my WhatsApp' row clicked; opens WhatsApp with the product pre-filled.", "surfaces": ["web"], "properties": {"view": "price_list | route"}},
-    "Clicked FAQ Item": {"description": "How-it-works FAQ item opened.", "surfaces": ["web"], "properties": {}},
-    "Tour Step Shown": {"description": "Onboarding tour step displayed.", "surfaces": ["web"], "properties": {}},
-    "Tour Skipped": {"description": "Onboarding tour skipped.", "surfaces": ["web"], "properties": {}},
-    "Onboarding Reopened": {"description": "Visitor reopened the onboarding tour.", "surfaces": ["web"], "properties": {"path": "Page", "step_index": "Tour step"}},
-    "Page Not Found": {"description": "Visitor hit a missing page.", "surfaces": ["web"], "properties": {}},
-
-    "WhatsApp Message Received": {"description": "Any inbound WhatsApp message.", "surfaces": ["whatsapp"], "properties": {"msg_type": "text | image | interactive | ..."}},
-    "WhatsApp Website Handoff": {"description": "A message from the website's 'Send this to my WhatsApp' arrived with a deal code; found = the website's comparison was still in memory and was sent as-is (else the bot searched the words afresh).", "surfaces": ["whatsapp"], "properties": {"found": "true | false", "query": "What the shopper had typed on the website"}},
-    "WhatsApp Onboarded": {"description": "Welcome message sent to a phone not seen since the server last restarted (resets on restart; use Mixpanel's first-time filter for true new users).", "surfaces": ["whatsapp"], "properties": {}},
-    "WhatsApp Nudge Sent": {"description": "Bot couldn't act on a message and nudged the user.", "surfaces": ["whatsapp"], "properties": {"reason": "noise_phrase | opt_out | website_greeting | non_text:<type> | ...", "text": "Message text", "suppressed_first_time": "Nudge skipped after onboarding"}},
-    "WhatsApp Rate Limited": {"description": "Phone hit the hourly search limit.", "surfaces": ["whatsapp"], "properties": {"query": "Search text"}},
-    "WhatsApp Search": {"description": "WhatsApp search started (legacy; see Product Searched).", "surfaces": ["whatsapp"], "properties": {"query": "Search text", "input_type": "product_name | url"}},
-    "WhatsApp Picker Shown": {"description": "Bot asked the user to pick the exact product.", "surfaces": ["whatsapp"], "properties": {"query": "Search text", "candidate_count": "Options", "approximate": "Weak match", "picker_type": "photo_flow | text_list"}},
-    "WhatsApp Product Selected": {"description": "User picked a product.", "surfaces": ["whatsapp"], "properties": {"title": "Product", "price": "Listed price"}},
-    "WhatsApp Recommendation Shown": {"description": "Bot sent the recommended route (legacy; see Deal Shown).", "surfaces": ["whatsapp"], "properties": {"title": "Product", "vendor": "Shop", "voucher_platform": "Platform", "listed_price": "Listed", "final_cost": "Pay", "discount_amount": "Saving", "discount_pct": "Saving %"}},
-    "Price List Shown": {"description": "A plain shop price list led instead of the gift card steps, because the gift card saved under ₹100 or 2%. WhatsApp: swipeable shop cards, nothing after them.", "surfaces": ["web", "whatsapp"], "properties": {"shops": "Shops in the list", "cheapest": "Cheapest shop", "spread": "Rupees between cheapest and priciest"}},
-    "Clicked Price List Shop": {"description": "Web: tapped a shop in the price list. WhatsApp shop taps arrive through /go with ctx=price_list.", "surfaces": ["web"], "properties": {"merchant": "Shop", "rank": "Position, 1 = cheapest"}},
-    "Clicked Price List Gift Card": {"description": "Opened a shop's gift card steps from the price list.", "surfaces": ["web"], "properties": {"merchant": "Shop", "saving": "Rupees the gift card takes off"}},
-    "WhatsApp Buy Step Shown": {"description": "Bot sent the buy step (voucher or direct).", "surfaces": ["whatsapp"], "properties": {"step": "voucher | direct", "platform": "Voucher platform label", "merchant": "Shop", "discount_pct": "Saving %"}},
-    "WhatsApp Brand Voucher Shown": {"description": "Bot sent a shop's voucher deal because the search was just a shop name (e.g. Myntra).", "surfaces": ["whatsapp"], "properties": {"query": "What the user typed", "brand": "Shop", "platform": "Voucher platform label", "discount_pct": "Saving %", "choice": "Voucher kind picked (MakeMyTrip: Hotels, Cabs...), empty if the shop has one kind"}},
-    "WhatsApp Voucher Group Shown": {"description": "Search was a shop we have no gift card for (DMart) or groceries; bot listed that kind of shopping's gift cards.", "surfaces": ["whatsapp"], "properties": {"query": "What the user typed", "group": "grocery | hotels | travel", "card_count": "Cards listed"}},
-    "WhatsApp Question Answered": {"description": "User asked about Dealo itself (do you sell vouchers? is it free?); bot answered instead of searching.", "surfaces": ["whatsapp"], "properties": {"text": "What the user typed"}},
-    "WhatsApp Voucher Type Asked": {"description": "Shop-name search for a shop with a different voucher per kind of purchase (MakeMyTrip, Yatra...); bot asked what they are buying.", "surfaces": ["whatsapp"], "properties": {"query": "What the user typed", "brand": "Shop", "choice_count": "Choices listed"}},
-    "WhatsApp Card Offer Shown": {"description": "Bot suggested a credit card for extra cashback.", "surfaces": ["whatsapp"], "properties": {"card_name": "Card", "saving_amount": "Extra saving", "has_apply_link": "Apply link included"}},
-    "WhatsApp Button Tapped": {"description": "User tapped a reply button.", "surfaces": ["whatsapp"], "properties": {"button_id": "see_alternatives | pick_again", "button_title": "Label"}},
-    "WhatsApp Alternatives Requested": {"description": "Bot listed other ways to buy.", "surfaces": ["whatsapp"], "properties": {"count": "Alternatives"}},
-    "WhatsApp No Alternatives": {"description": "User asked for other routes but there were none.", "surfaces": ["whatsapp"], "properties": {}},
-    "WhatsApp Alternative Selected": {"description": "User picked an alternative route.", "surfaces": ["whatsapp"], "properties": {"merchant": "Shop"}},
-    "WhatsApp Dead End": {"description": "Bot couldn't produce a result.", "surfaces": ["whatsapp"], "properties": {"stage": "no_route | no_candidates | exception | bad_selection_id | pick_again_empty", "query": "Search text or error"}},
-    "WhatsApp Session Expired": {"description": "User replied after their session expired.", "surfaces": ["whatsapp"], "properties": {"at": "Which step"}},
-    "Checkout Detected": {"description": "Extension: Dealo recognised a checkout page and asked whether a voucher exists. Fired once per page view that reaches a verdict.", "surfaces": ["extension"], "properties": {"shop_domain": "Shop's domain, e.g. croma.com (never the page address)", "cart_total": "Order total read off the page, or null", "result": "deal | too_small | no_voucher", "voucher_platform": "Gyftr | Maximize | BuyHatke | none", "saving_amount": "Rupees the best voucher saves", "saving_pct": "The voucher's rate", "product_choices": "How many voucher kinds the shop has (2+ means the shopper was asked what they are buying)"}},
-    "Clicked Get Extension": {"description": "Website: opened Dealo's Chrome Web Store page (laptop sidebar).", "surfaces": ["web"], "properties": {"source": "sidebar"}},
-    "Extension Installed": {"description": "The extension was installed or updated.", "surfaces": ["extension"], "properties": {"reason": "install | update", "previous_version": "Version before an update"}},
-    "Extension Access Granted": {"description": "The shopper allowed Dealo onto shop pages (the welcome screen's one job). Without it Dealo never appears.", "surfaces": ["extension"], "properties": {}},
-    "Extension Screen Shown": {"description": "A step of the guided journey after the first panel.", "surfaces": ["extension"], "properties": {"screen": "voucher_site | code_entry | back_at_store | place_order", "shop_domain": "Where it appeared (the voucher site's domain on voucher_site and code_entry)", "codes_saved": "Codes already entered", "codes_planned": "Codes the plan expects"}},
-    "Extension Button Tapped": {"description": "A button on the extension panel was pressed. Voucher codes and PINs are never sent, only that one was saved or copied.", "surfaces": ["extension"], "properties": {"button": "get_voucher | how_it_works | pick_product | bought_vouchers | show_me_how | not_now | save_code | codes_done | copy_code | copy_pin | show_me_where | code_applied | start_over | show_me_order_button | order_placed | support_dealo | no_deal_close | close | make_smaller | make_bigger", "step": "1 buy, 2 enter code, 3 use it (null off the journey)", "shop_domain": "Where the panel was", "choice": "pick_product: the voucher kind picked", "code_index, codes_planned, codes_saved": "save_code and codes_done: progress through the codes"}},
-    "Extension Order Completed": {"description": "The shopper finished an order with the voucher, as far as the extension can tell.", "surfaces": ["extension"], "properties": {"confirmed_by": "order_page (the shop's own confirmation) | shopper_said (pressed I've placed it)", "merchant": "Shop", "voucher_platform": "Where the vouchers were bought", "saving_amount": "Rupees saved", "saving_pct": "Voucher rate", "cart_total": "Order total when the trip began", "codes_used": "How many codes were entered"}}
+    "Dashboard Opened": {
+      "description": "Website app loaded (legacy; same moment as Session Started).",
+      "surfaces": [
+        "web"
+      ],
+      "properties": {
+        "is_returning_visitor": "Seen before on this browser"
+      }
+    },
+    "Searched": {
+      "description": "Website search returned (legacy; see Product Searched).",
+      "surfaces": [
+        "web"
+      ],
+      "properties": {
+        "query": "Search text",
+        "mode": "products | url | brand_voucher",
+        "result_count": "Candidates"
+      }
+    },
+    "Voucher Type Picked": {
+      "description": "Shop-name search for a shop with a different voucher per kind of purchase (MakeMyTrip, Yatra...); visitor tapped what they are buying.",
+      "surfaces": [
+        "web"
+      ],
+      "properties": {
+        "query": "Search text",
+        "choice": "Hotels | Cabs | Flights...",
+        "brand": "Voucher card picked"
+      }
+    },
+    "Selected Product": {
+      "description": "Website visitor picked a product from the candidates.",
+      "surfaces": [
+        "web"
+      ],
+      "properties": {
+        "query": "Search text",
+        "title": "Product picked",
+        "source": "Listing source"
+      }
+    },
+    "Viewed Deal": {
+      "description": "Website results shown (legacy; see Deal Shown).",
+      "surfaces": [
+        "web"
+      ],
+      "properties": {
+        "merchant": "Shop",
+        "has_voucher": "Uses voucher",
+        "final_cost": "Pay amount",
+        "original_price": "Listed",
+        "final_price": "Pay amount",
+        "discount": "Saving",
+        "voucher_aggregator": "Voucher platform"
+      }
+    },
+    "Clicked Buy Link": {
+      "description": "Website journey step button clicked (voucher or checkout).",
+      "surfaces": [
+        "web"
+      ],
+      "properties": {
+        "step": "voucher | checkout",
+        "merchant": "Shop",
+        "has_voucher": "Uses voucher"
+      }
+    },
+    "Drop-off Question Shown": {
+      "description": "Website showed the small 'Not buying? Tell us why' pill to someone who saw the buying steps and tapped no Buy button (once per browser).",
+      "surfaces": [
+        "web"
+      ],
+      "properties": {
+        "trigger": "leaving (Back, a link off the page, or laptop mouse heading to close the tab) | returned (came back to the tab after 10s+ away)",
+        "merchant": "Shop",
+        "has_voucher": "Uses voucher"
+      }
+    },
+    "Drop-off Question Opened": {
+      "description": "Visitor tapped the pill and saw the answers. Shown minus Opened = ignored or dismissed.",
+      "surfaces": [
+        "web"
+      ],
+      "properties": {
+        "trigger": "Same as Shown",
+        "merchant": "Shop",
+        "has_voucher": "Uses voucher"
+      }
+    },
+    "Drop-off Question Answered": {
+      "description": "Visitor tapped a reason (one tap sends it).",
+      "surfaces": [
+        "web"
+      ],
+      "properties": {
+        "reason": "vouchers_confusing | not_sure_safe | too_many_steps | found_cheaper | just_checking | something_else",
+        "trigger": "Same as Shown",
+        "merchant": "Shop",
+        "has_voucher": "Uses voucher"
+      }
+    },
+    "Drop-off Comment Sent": {
+      "description": "Visitor typed an optional comment after answering.",
+      "surfaces": [
+        "web"
+      ],
+      "properties": {
+        "reason": "The reason they tapped",
+        "note": "Their comment, max 250 characters",
+        "trigger": "Same as Shown",
+        "merchant": "Shop",
+        "has_voucher": "Uses voucher"
+      }
+    },
+    "Clicked Alternatives Toggle": {
+      "description": "Website visitor opened or closed the other routes.",
+      "surfaces": [
+        "web"
+      ],
+      "properties": {}
+    },
+    "Clicked Brand Voucher Link": {
+      "description": "Website brand directory voucher link clicked.",
+      "surfaces": [
+        "web"
+      ],
+      "properties": {
+        "brand": "Brand",
+        "source": "Voucher platform",
+        "pct": "Discount",
+        "placement": "brand-page | popular | list"
+      }
+    },
+    "Clicked WhatsApp Button": {
+      "description": "Website WhatsApp link clicked.",
+      "surfaces": [
+        "web"
+      ],
+      "properties": {
+        "source": "sidebar | contact_page | contact_page_bot"
+      }
+    },
+    "Clicked Floating WhatsApp Button": {
+      "description": "Website floating WhatsApp button clicked.",
+      "surfaces": [
+        "web"
+      ],
+      "properties": {}
+    },
+    "Clicked Send To WhatsApp": {
+      "description": "Results page 'Send this to my WhatsApp' row clicked; opens WhatsApp with the product pre-filled.",
+      "surfaces": [
+        "web"
+      ],
+      "properties": {
+        "view": "price_list | route"
+      }
+    },
+    "Clicked FAQ Item": {
+      "description": "How-it-works FAQ item opened.",
+      "surfaces": [
+        "web"
+      ],
+      "properties": {}
+    },
+    "Tour Step Shown": {
+      "description": "Onboarding tour step displayed.",
+      "surfaces": [
+        "web"
+      ],
+      "properties": {}
+    },
+    "Tour Skipped": {
+      "description": "Onboarding tour skipped.",
+      "surfaces": [
+        "web"
+      ],
+      "properties": {}
+    },
+    "Onboarding Reopened": {
+      "description": "Visitor reopened the onboarding tour.",
+      "surfaces": [
+        "web"
+      ],
+      "properties": {
+        "path": "Page",
+        "step_index": "Tour step"
+      }
+    },
+    "Page Not Found": {
+      "description": "Visitor hit a missing page.",
+      "surfaces": [
+        "web"
+      ],
+      "properties": {}
+    },
+    "WhatsApp Message Received": {
+      "description": "Any inbound WhatsApp message.",
+      "surfaces": [
+        "whatsapp"
+      ],
+      "properties": {
+        "msg_type": "text | image | interactive | ..."
+      }
+    },
+    "WhatsApp Website Handoff": {
+      "description": "A message from the website's 'Send this to my WhatsApp' arrived with a deal code; found = the website's comparison was still in memory and was sent as-is (else the bot searched the words afresh).",
+      "surfaces": [
+        "whatsapp"
+      ],
+      "properties": {
+        "found": "true | false",
+        "query": "What the shopper had typed on the website"
+      }
+    },
+    "WhatsApp Onboarded": {
+      "description": "Welcome message sent to a phone not seen since the server last restarted (resets on restart; use Mixpanel's first-time filter for true new users).",
+      "surfaces": [
+        "whatsapp"
+      ],
+      "properties": {}
+    },
+    "WhatsApp Nudge Sent": {
+      "description": "Bot couldn't act on a message and nudged the user.",
+      "surfaces": [
+        "whatsapp"
+      ],
+      "properties": {
+        "reason": "noise_phrase | opt_out | website_greeting | non_text:<type> | ...",
+        "text": "Message text",
+        "suppressed_first_time": "Nudge skipped after onboarding"
+      }
+    },
+    "WhatsApp Rate Limited": {
+      "description": "Phone hit the hourly search limit.",
+      "surfaces": [
+        "whatsapp"
+      ],
+      "properties": {
+        "query": "Search text"
+      }
+    },
+    "WhatsApp Search": {
+      "description": "WhatsApp search started (legacy; see Product Searched).",
+      "surfaces": [
+        "whatsapp"
+      ],
+      "properties": {
+        "query": "Search text",
+        "input_type": "product_name | url"
+      }
+    },
+    "WhatsApp Picker Shown": {
+      "description": "Bot asked the user to pick the exact product.",
+      "surfaces": [
+        "whatsapp"
+      ],
+      "properties": {
+        "query": "Search text",
+        "candidate_count": "Options",
+        "approximate": "Weak match",
+        "picker_type": "photo_flow | text_list"
+      }
+    },
+    "WhatsApp Product Selected": {
+      "description": "User picked a product.",
+      "surfaces": [
+        "whatsapp"
+      ],
+      "properties": {
+        "title": "Product",
+        "price": "Listed price"
+      }
+    },
+    "WhatsApp Recommendation Shown": {
+      "description": "Bot sent the recommended route (legacy; see Deal Shown).",
+      "surfaces": [
+        "whatsapp"
+      ],
+      "properties": {
+        "title": "Product",
+        "vendor": "Shop",
+        "voucher_platform": "Platform",
+        "listed_price": "Listed",
+        "final_cost": "Pay",
+        "discount_amount": "Saving",
+        "discount_pct": "Saving %"
+      }
+    },
+    "Price List Shown": {
+      "description": "A plain shop price list led instead of the gift card steps, because the gift card saved under ₹100 or 2%. WhatsApp: swipeable shop cards, nothing after them.",
+      "surfaces": [
+        "web",
+        "whatsapp"
+      ],
+      "properties": {
+        "shops": "Shops in the list",
+        "cheapest": "Cheapest shop",
+        "spread": "Rupees between cheapest and priciest"
+      }
+    },
+    "Clicked Price List Shop": {
+      "description": "Web: tapped a shop in the price list. WhatsApp shop taps arrive through /go with ctx=price_list.",
+      "surfaces": [
+        "web"
+      ],
+      "properties": {
+        "merchant": "Shop",
+        "rank": "Position, 1 = cheapest"
+      }
+    },
+    "Clicked Price List Gift Card": {
+      "description": "Opened a shop's gift card steps from the price list.",
+      "surfaces": [
+        "web"
+      ],
+      "properties": {
+        "merchant": "Shop",
+        "saving": "Rupees the gift card takes off"
+      }
+    },
+    "WhatsApp Buy Step Shown": {
+      "description": "Bot sent the buy step (voucher or direct).",
+      "surfaces": [
+        "whatsapp"
+      ],
+      "properties": {
+        "step": "voucher | direct",
+        "platform": "Voucher platform label",
+        "merchant": "Shop",
+        "discount_pct": "Saving %"
+      }
+    },
+    "WhatsApp Brand Voucher Shown": {
+      "description": "Bot sent a shop's voucher deal because the search was just a shop name (e.g. Myntra).",
+      "surfaces": [
+        "whatsapp"
+      ],
+      "properties": {
+        "query": "What the user typed",
+        "brand": "Shop",
+        "platform": "Voucher platform label",
+        "discount_pct": "Saving %",
+        "choice": "Voucher kind picked (MakeMyTrip: Hotels, Cabs...), empty if the shop has one kind"
+      }
+    },
+    "WhatsApp Voucher Group Shown": {
+      "description": "Search was a shop we have no gift card for (DMart) or groceries; bot listed that kind of shopping's gift cards.",
+      "surfaces": [
+        "whatsapp"
+      ],
+      "properties": {
+        "query": "What the user typed",
+        "group": "grocery | hotels | travel",
+        "card_count": "Cards listed"
+      }
+    },
+    "WhatsApp Question Answered": {
+      "description": "User asked about Dealo itself (do you sell vouchers? is it free?); bot answered instead of searching.",
+      "surfaces": [
+        "whatsapp"
+      ],
+      "properties": {
+        "text": "What the user typed"
+      }
+    },
+    "WhatsApp Voucher Type Asked": {
+      "description": "Shop-name search for a shop with a different voucher per kind of purchase (MakeMyTrip, Yatra...); bot asked what they are buying.",
+      "surfaces": [
+        "whatsapp"
+      ],
+      "properties": {
+        "query": "What the user typed",
+        "brand": "Shop",
+        "choice_count": "Choices listed"
+      }
+    },
+    "WhatsApp Card Offer Shown": {
+      "description": "Bot suggested a credit card for extra cashback.",
+      "surfaces": [
+        "whatsapp"
+      ],
+      "properties": {
+        "card_name": "Card",
+        "saving_amount": "Extra saving",
+        "has_apply_link": "Apply link included"
+      }
+    },
+    "WhatsApp Button Tapped": {
+      "description": "User tapped a reply button.",
+      "surfaces": [
+        "whatsapp"
+      ],
+      "properties": {
+        "button_id": "see_alternatives | pick_again",
+        "button_title": "Label"
+      }
+    },
+    "WhatsApp Alternatives Requested": {
+      "description": "Bot listed other ways to buy.",
+      "surfaces": [
+        "whatsapp"
+      ],
+      "properties": {
+        "count": "Alternatives"
+      }
+    },
+    "WhatsApp No Alternatives": {
+      "description": "User asked for other routes but there were none.",
+      "surfaces": [
+        "whatsapp"
+      ],
+      "properties": {}
+    },
+    "WhatsApp Alternative Selected": {
+      "description": "User picked an alternative route.",
+      "surfaces": [
+        "whatsapp"
+      ],
+      "properties": {
+        "merchant": "Shop"
+      }
+    },
+    "WhatsApp Dead End": {
+      "description": "Bot couldn't produce a result.",
+      "surfaces": [
+        "whatsapp"
+      ],
+      "properties": {
+        "stage": "no_route | no_candidates | exception | bad_selection_id | pick_again_empty",
+        "query": "Search text or error"
+      }
+    },
+    "WhatsApp Session Expired": {
+      "description": "User replied after their session expired.",
+      "surfaces": [
+        "whatsapp"
+      ],
+      "properties": {
+        "at": "Which step"
+      }
+    },
+    "Checkout Detected": {
+      "description": "Extension: Dealo recognised a checkout page and asked whether a voucher exists. Fired once per page view that reaches a verdict.",
+      "surfaces": [
+        "extension"
+      ],
+      "properties": {
+        "shop_domain": "Shop's domain, e.g. croma.com (never the page address)",
+        "cart_total": "Order total read off the page, or null",
+        "result": "deal | too_small | no_voucher",
+        "voucher_platform": "Gyftr | Maximize | BuyHatke | none",
+        "saving_amount": "Rupees the best voucher saves",
+        "saving_pct": "The voucher's rate",
+        "product_choices": "How many voucher kinds the shop has (2+ means the shopper was asked what they are buying)"
+      }
+    },
+    "Clicked Get Extension": {
+      "description": "Website: opened Dealo's Chrome Web Store page (laptop sidebar).",
+      "surfaces": [
+        "web"
+      ],
+      "properties": {
+        "source": "sidebar"
+      }
+    },
+    "Extension Installed": {
+      "description": "The extension was installed or updated.",
+      "surfaces": [
+        "extension"
+      ],
+      "properties": {
+        "reason": "install | update",
+        "previous_version": "Version before an update"
+      }
+    },
+    "Extension Access Granted": {
+      "description": "The shopper allowed Dealo onto shop pages (the welcome screen's one job). Without it Dealo never appears.",
+      "surfaces": [
+        "extension"
+      ],
+      "properties": {}
+    },
+    "Extension Screen Shown": {
+      "description": "A step of the guided journey after the first panel.",
+      "surfaces": [
+        "extension"
+      ],
+      "properties": {
+        "screen": "voucher_site | code_entry | back_at_store | place_order",
+        "shop_domain": "Where it appeared (the voucher site's domain on voucher_site and code_entry)",
+        "codes_saved": "Codes already entered",
+        "codes_planned": "Codes the plan expects"
+      }
+    },
+    "Extension Button Tapped": {
+      "description": "A button on the extension panel was pressed. Voucher codes and PINs are never sent, only that one was saved or copied.",
+      "surfaces": [
+        "extension"
+      ],
+      "properties": {
+        "button": "get_voucher | how_it_works | pick_product | bought_vouchers | show_me_how | not_now | save_code | codes_done | copy_code | copy_pin | show_me_where | code_applied | start_over | show_me_order_button | order_placed | support_dealo | no_deal_close | close | make_smaller | make_bigger",
+        "step": "1 buy, 2 enter code, 3 use it (null off the journey)",
+        "shop_domain": "Where the panel was",
+        "choice": "pick_product: the voucher kind picked",
+        "code_index, codes_planned, codes_saved": "save_code and codes_done: progress through the codes"
+      }
+    },
+    "Extension Order Completed": {
+      "description": "The shopper finished an order with the voucher, as far as the extension can tell.",
+      "surfaces": [
+        "extension"
+      ],
+      "properties": {
+        "confirmed_by": "order_page (the shop's own confirmation) | shopper_said (pressed I've placed it)",
+        "merchant": "Shop",
+        "voucher_platform": "Where the vouchers were bought",
+        "saving_amount": "Rupees saved",
+        "saving_pct": "Voucher rate",
+        "cart_total": "Order total when the trip began",
+        "codes_used": "How many codes were entered"
+      }
+    },
+    "Picked My Cards": {
+      "description": "Answered 'Which bank's credit card do you have?' on the results page (asked once, kept on the device).",
+      "surfaces": [
+        "web"
+      ],
+      "properties": {
+        "cards": "comma-separated bank ids, or none",
+        "prime": "true when the shopper said they have Amazon Prime (Amazon Pay ICICI)"
+      }
+    },
+    "Clicked Apply For Card": {
+      "description": "Tapped 'Apply now' in the missing-out box (a card offer that would beat the top deal).",
+      "surfaces": [
+        "web"
+      ],
+      "properties": {
+        "merchant": "shop with the offer",
+        "bank": "bank named in the offer",
+        "saving": "rupees the card takes off"
+      }
+    }
   }
 }
