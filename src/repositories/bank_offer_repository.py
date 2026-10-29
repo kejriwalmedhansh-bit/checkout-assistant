@@ -100,7 +100,7 @@ _KNOWN_BANKS = [
     ("Axis", r"axis"),
     ("Kotak", r"kotak(?: mahindra)?"),
     ("IDFC FIRST", r"idfc(?: first)?"),
-    ("BOBCARD", r"bob|bobcard|bank of baroda"),
+    ("BOBCARD", r"bob|bob ?card|bank of baroda"),
     ("HSBC", r"hsbc"),
     ("OneCard", r"onecard|one card"),
 ]
