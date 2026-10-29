@@ -86,3 +86,24 @@ def test_a_site_wide_preview_title_does_not_hide_the_product_name():
     assert ss._extract_page_title(page).startswith("Skullcandy Method 360 ANC")
     # A one-word name still comes back when it is all the page offers.
     assert ss._extract_page_title("<title>Skullcandy</title>") == "Skullcandy"
+
+
+def test_a_category_first_title_still_names_the_product():
+    """Decathlon titles its pages "Men's running shoes, Kiprun Kipcore blue
+    and white". Cutting at the comma left an ID card of "men" + "shoes", so a
+    Steve Madden sneaker on AJIO led the comparison for a Kiprun (owner's
+    test, 2026-10-29). The card must carry the brand and name after the cut."""
+    from src.services import product_identity as pi
+
+    ident = pi.build_identity(
+        "Men's running shoes, Kiprun Kipcore blue and white",
+        "https://www.decathlon.in/p/8913726/men-s-running-shoes-kiprun-kipcore-blue-and-white",
+    )
+    assert ident["brand"] == "kiprun"
+    assert ident["name"] == ["kipcore"]
+    assert pi.match_tier(ident, "Men Tavian Lace-Up Sneakers", "ajio.com")[0] == "wrong"
+    assert pi.match_tier(ident, "Adidas Originals Handball Spezial Leather Low Tops")[0] == "wrong"
+    assert pi.match_tier(ident, "Kiprun - Men's Yellow Kipcore Running Shoes", "Tata CLiQ")[0] == "exact"
+    assert pi.match_tier(ident, "Kiprun Kipcore Men Running Shoes | DECATHLON KIPRUN")[0] == "exact"
+    # A brand that is also a plain word still leads its own titles.
+    assert pi.build_identity("noise colorfit pro 5 smartwatch")["brand"] == "noise"
