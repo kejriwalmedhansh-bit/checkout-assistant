@@ -5,13 +5,13 @@ import { I } from '@/components/common/icons';
 import { fmt, affiliateUrl, paidForVoucher } from '@/utils/format';
 import { useUiStore } from '@/store/uiStore';
 import { voucherSourceName } from '@/utils/voucherSource';
-import { outboundLink, track } from '@/utils/analytics';
+import { outboundLink, soldEventProps, track } from '@/utils/analytics';
 import JourneyRow from './JourneyRow';
 import JourneyChips from './JourneyChips';
 import JourneyPanels from './JourneyPanels';
 import HubbleVoucherPanel from '@/components/hubble/HubbleVoucherPanel';
 import BuyFlow from '@/components/hubble/BuyFlow';
-import { hubbleApi } from '@/api/hubble.api';
+import { soldApi } from '@/api/sold.api';
 
 const HUBBLE_ON = import.meta.env.VITE_HUBBLE_ENABLED === 'true';
 // Staging only: show Hubble even when its test rates lose to today's price.
@@ -86,20 +86,23 @@ export default function Journey({ rec, payingByCard = false, skipVoucher = false
 
   const paid = v ? paidForVoucher(v, payingByCard) : null;
 
-  // Buying the voucher inside Dealo (Hubble). Shown when Hubble's rate is
-  // within HUBBLE_RATE_TOLERANCE points of today's best voucher rate (the
-  // server decides; owner's call 28 Oct 2026, since Dealo earns on a Hubble
-  // sale and nothing on a redirect).
+  // Buying the voucher inside Dealo (Hubble or Maximize; the server picks
+  // the seller with the better rate for the shopper). Shown when that rate
+  // is within HUBBLE_RATE_TOLERANCE points of today's best voucher rate
+  // (owner's calls, 28 and 30 Oct 2026: Dealo earns on its own sale and
+  // nothing on a redirect).
   const [hubble, setHubble] = useState(null);
   const [buying, setBuying] = useState(false);
   const orderPrice = rec.listed_price;
   useEffect(() => {
     if (!HUBBLE_ON || !v || !orderPrice || payingByCard) return undefined;
     let live = true;
-    hubbleApi
+    soldApi
       .offer(shopName, orderPrice, Boolean(v.offline_only), HUBBLE_FORCE ? null : v.upi?.pct)
       .then((res) => {
-        if (live && res.available) setHubble(res.offer);
+        if (!live || !res.available) return;
+        setHubble(res.offer);
+        track('Dealo Voucher Shown', soldEventProps(res.offer, { merchant: shopName, surface: 'journey', bestPct: v.upi?.pct }));
       })
       .catch(() => {});
     return () => {
@@ -258,7 +261,13 @@ export default function Journey({ rec, payingByCard = false, skipVoucher = false
         {[
         hubble ? (
           <Box key="voucher" pt="4px">
-            <HubbleVoucherPanel offer={hubble} onBuy={() => setBuying(true)} />
+            <HubbleVoucherPanel
+              offer={hubble}
+              onBuy={() => {
+                track('Buy Voucher Tapped', soldEventProps(hubble, { merchant: shopName, surface: 'journey', bestPct: v.upi?.pct }));
+                setBuying(true);
+              }}
+            />
           </Box>
         ) : (
         <JourneyRow
@@ -359,6 +368,9 @@ export default function Journey({ rec, payingByCard = false, skipVoucher = false
           merchant={shopName}
           price={orderPrice}
           shopLink={sellerLink ? affiliateUrl(sellerLink, 'hubble_done') : undefined}
+          surface="journey"
+          bestPct={v.upi?.pct}
+          headerPieces
           onClose={() => setBuying(false)}
           onBought={check('voucher')}
         />

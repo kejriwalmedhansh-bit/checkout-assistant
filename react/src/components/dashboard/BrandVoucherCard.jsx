@@ -4,9 +4,9 @@ import { Box, Button, Flex, Input, Link, Text, Wrap, WrapItem } from '@chakra-ui
 import Card from '@/components/common/Card';
 import { I } from '@/components/common/icons';
 import BuyFlow from '@/components/hubble/BuyFlow';
-import { hubbleApi } from '@/api/hubble.api';
+import { soldApi } from '@/api/sold.api';
 import { fmt } from '@/utils/format';
-import { outboundLink, track } from '@/utils/analytics';
+import { outboundLink, soldEventProps, track } from '@/utils/analytics';
 
 const HUBBLE_ON = import.meta.env.VITE_HUBBLE_ENABLED === 'true';
 const HUBBLE_FORCE = import.meta.env.VITE_HUBBLE_FORCE === 'true';
@@ -19,22 +19,34 @@ const HUBBLE_FORCE = import.meta.env.VITE_HUBBLE_FORCE === 'true';
  * amount, so what is shown is what Hubble charges. The outside link is not
  * shown here (owner's call, 28 Oct 2026).
  */
-function HubbleBrandCard({ brand, merchant, query }) {
+function HubbleBrandCard({ brand, merchant, query, bestPct }) {
   const quick = brand.cards.length ? brand.cards.slice(0, 4) : [500, 1000, 2000, 5000].filter((a) => a >= brand.min_amount && (!brand.max_amount || a <= brand.max_amount));
   const [amount, setAmount] = useState(quick[1] || quick[0] || brand.min_amount);
   const [typed, setTyped] = useState('');
   const [offer, setOffer] = useState(null);
   const [buying, setBuying] = useState(false);
   const inRange = (a) => a >= brand.min_amount && (!brand.max_amount || a <= brand.max_amount);
+  // Maximize's frame cannot take the amount from Dealo (Siddhanth, 30 Oct
+  // 2026): the shopper picks it on Maximize's own page. Asking here too
+  // would be the same question twice, so a Maximize card shows the rate,
+  // where it works and which amounts exist, and Buy opens their page.
+  const amountInFrame = brand.seller === 'maximize';
+  const amountsLine = brand.typed
+    ? `Any amount ${fmt(brand.min_amount)} to ${fmt(brand.max_amount)} · pay by UPI`
+    : `${quick.slice(0, -1).map(fmt).join(', ')}${quick.length > 1 ? ' or ' : ''}${fmt(quick[quick.length - 1])} · pay by UPI`;
 
   useEffect(() => {
     let live = true;
     setOffer(null);
     if (!inRange(amount)) return undefined;
     const t = setTimeout(() => {
-      hubbleApi
+      soldApi
         .offer(merchant, amount, brand.in_store)
-        .then((res) => live && res.available && setOffer(res.offer))
+        .then((res) => {
+          if (!live || !res.available) return;
+          setOffer(res.offer);
+          track('Dealo Voucher Shown', soldEventProps(res.offer, { merchant, surface: 'shop_card', bestPct }));
+        })
         .catch(() => {});
     }, 250);
     return () => {
@@ -80,7 +92,7 @@ function HubbleBrandCard({ brand, merchant, query }) {
           {brand.discount_pct}% off
         </Text>
         <Text fontSize="12.5px" color="text2" mt="4px">
-          Pay by UPI, voucher in seconds
+          {amountInFrame ? 'Choose the amount on the next screen' : 'Pay by UPI, voucher in seconds'}
         </Text>
       </Box>
       <Flex display="inline-flex" align="center" gap="6px" bg="surface2" border="1px solid" borderColor="border" borderRadius="pill" px="10px" py="5px" fontSize="12px" fontWeight={700} color="text2" mb="16px">
@@ -88,6 +100,12 @@ function HubbleBrandCard({ brand, merchant, query }) {
         {where}
       </Flex>
 
+      {amountInFrame ? (
+        <Text fontSize="13px" color="text2" fontWeight={600}>
+          {amountsLine}
+        </Text>
+      ) : (
+      <>
       <Text fontSize="11px" color="text3" fontWeight={600} letterSpacing=".04em" textTransform="uppercase" mb="8px">
         How much do you need?
       </Text>
@@ -134,7 +152,10 @@ function HubbleBrandCard({ brand, merchant, query }) {
           Between {fmt(brand.min_amount)} and {fmt(brand.max_amount)}
         </Text>
       )}
+      </>
+      )}
 
+      {!amountInFrame && (
       <Flex bg="greenSoft" border="1.5px solid" borderColor="green" borderRadius="14px" px="12px" py="10px" align="center" gap="10px" mt="14px" opacity={offer ? 1 : 0.55}>
         <Box>
           <Text fontSize="11px" fontWeight={700} letterSpacing=".06em" color="text2">
@@ -156,10 +177,13 @@ function HubbleBrandCard({ brand, merchant, query }) {
           </Text>
         </Box>
       </Flex>
+      )}
 
       <Button
         onClick={() => {
-          track('Hubble Shop Card Buy', { query, brand: brand.brand_name, amount });
+          const props = soldEventProps(offer, { merchant, surface: 'shop_card', bestPct, amount });
+          track('Hubble Shop Card Buy', { ...props, query });
+          track('Buy Voucher Tapped', props);
           setBuying(true);
         }}
         isDisabled={!offer}
@@ -178,7 +202,7 @@ function HubbleBrandCard({ brand, merchant, query }) {
       </Button>
 
       {buying && offer && (
-        <BuyFlow offer={offer} merchant={merchant} price={amount} onClose={() => setBuying(false)} />
+        <BuyFlow offer={offer} merchant={merchant} price={amount} surface="shop_card" bestPct={bestPct} onClose={() => setBuying(false)} />
       )}
     </Card>
   );
@@ -197,13 +221,14 @@ function HubbleBrandCard({ brand, merchant, query }) {
 const SOURCE_LABELS = { maximize: 'Maximize', buyhatke: 'BuyHatke', gyftr: 'Gyftr' };
 
 export default function BrandVoucherCard({ voucher, query }) {
-  // Dealo's own voucher for this shop (Hubble), when its rate is close
-  // enough to this card's. Decided by the server; see /hubble/brand.
+  // Dealo's own voucher for this shop (Hubble or Maximize, whichever rate is
+  // better for the shopper), when it is close enough to this card's. Decided
+  // by the server; see /sold/brand.
   const [hubble, setHubble] = useState(null);
   useEffect(() => {
     if (!HUBBLE_ON || !voucher?.brand_name) return undefined;
     let live = true;
-    hubbleApi
+    soldApi
       .brand(voucher.brand_name, HUBBLE_FORCE ? null : voucher.best_discount_pct)
       .then((res) => live && res.available && setHubble(res.brand))
       .catch(() => {});
@@ -211,7 +236,7 @@ export default function BrandVoucherCard({ voucher, query }) {
       live = false;
     };
   }, [voucher?.brand_name, voucher?.best_discount_pct]);
-  if (hubble) return <HubbleBrandCard brand={hubble} merchant={voucher.brand_name} query={query} />;
+  if (hubble) return <HubbleBrandCard brand={hubble} merchant={voucher.brand_name} query={query} bestPct={voucher.best_discount_pct} />;
 
   // A type-any-amount card (Amazon Pay on Maximize: ₹100–₹10,000) shows its
   // range even when the seller also lists quick-pick amounts — the list would

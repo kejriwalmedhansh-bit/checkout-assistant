@@ -279,3 +279,49 @@ def test_unattributed_purchase_is_kept_anonymously():
 
     events = sync.to_events(sync.normalize("inrdeals", {"transaction_id": "X1", "sub_id1": "anon", "sale_amount": 500, "status": "pending"}))
     assert all(e["properties"]["distinct_id"] == "anonymous-purchase" for e in events)
+
+
+# --- vouchers Dealo sells itself --------------------------------------------
+
+def test_completed_sale_becomes_one_voucher_sold_event(monkeypatch):
+    """A seller webhook that is retried must not count the sale twice, and the
+    event must carry nothing that identifies the shopper."""
+    import asyncio
+
+    from src.services import analytics_service, buyer_service
+
+    sent: list[dict] = []
+    monkeypatch.setattr(analytics_service, "fire", lambda payload: sent.append(payload))
+    kwargs = dict(seller="maximize", ref="MX-1", uid="firebase-uid-1", brand="AJIO E-Gift Card",
+                  amount=2000, discount=140.0, status="COMPLETED", environment="production")
+    asyncio.run(buyer_service.save_sale(**kwargs))
+    asyncio.run(buyer_service.save_sale(**kwargs))
+    assert len(sent) == 2 and sent[0]["event"] == "Voucher Sold"
+    a, b = (e["properties"] for e in sent)
+    assert a["$insert_id"] == b["$insert_id"]  # Mixpanel keeps one copy
+    assert a["seller"] == "maximize" and a["brand"] == "AJIO E-Gift Card" and a["surface"] == "web"
+    assert a["amount"] == 2000.0 and a["discount"] == 140.0 and a["discount_pct"] == 7.0
+    assert a["seller_environment"] == "production" and a["distinct_id"] == "anonymous"
+    assert "firebase-uid-1" not in json.dumps(a) and a["buyer_key"] and len(a["buyer_key"]) == 16
+    assert not any(k in a for k in ("code", "pin", "phone", "codes", "vouchers"))
+
+    # A pending or failed order is a row in Supabase, not a sale in Mixpanel.
+    asyncio.run(buyer_service.save_sale(**{**kwargs, "ref": "MX-2", "status": "PENDING"}))
+    asyncio.run(buyer_service.save_sale(**{**kwargs, "ref": None}))
+    assert len(sent) == 2
+
+
+def test_hubble_order_webhook_shape_reaches_voucher_sold(monkeypatch):
+    import asyncio
+
+    from src.services import analytics_service, buyer_service
+
+    sent: list[dict] = []
+    monkeypatch.setattr(analytics_service, "fire", lambda payload: sent.append(payload))
+    order = {"transactionReferenceId": "HB-9", "userId": "u1", "brandName": "Myntra", "amount": 1000,
+             "discountAmount": 85, "orderStatus": "COMPLETED", "vouchers": [{"code": "SECRET", "pin": "1234"}]}
+    asyncio.run(buyer_service.save_purchase(order, "sandbox"))
+    (event,) = sent
+    props = event["properties"]
+    assert props["seller"] == "hubble" and props["discount_pct"] == 8.5 and props["seller_environment"] == "sandbox"
+    assert "SECRET" not in json.dumps(props) and "1234" not in json.dumps(props)

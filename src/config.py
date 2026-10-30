@@ -172,6 +172,28 @@ class Settings(BaseSettings):
     # named on the card. 0 = ties only.
     HUBBLE_RATE_TOLERANCE: float = 2.0
 
+    # --- Maximize (second seller behind the same Buy button; services/maximize_service.py) ---
+    # Off unless set. Maximize's own screens run inside a frame on Dealo and
+    # take the payment (Razorpay, their account); Dealo never handles money.
+    MAXIMIZE_ENABLED: bool = False
+    # "sandbox" or "production" — picks Maximize's API and frame hosts.
+    MAXIMIZE_ENV: str = "sandbox"
+    MAXIMIZE_API_KEY: str = ""
+    MAXIMIZE_API_SECRET: str = ""
+    # Production API host once Maximize names it; sandbox has a default.
+    MAXIMIZE_API_HOST: str = ""
+    # A fixed identity Dealo logs in as to read the catalogue (rates, amounts).
+    # Shoppers get their own login with their own number.
+    MAXIMIZE_SERVICE_MOBILE: str = "9999999999"
+    # Maximize's webhook carries no signature (30 Oct 2026). If they add a
+    # shared secret it is checked from the X-Maximize-Secret header; until
+    # then a notice is trusted only for a shopper who opened a Maximize
+    # session on Dealo in the last two hours.
+    MAXIMIZE_WEBHOOK_SECRET: str = ""
+    # Most a shopper can pay in one Maximize order (same cap as Hubble until
+    # Maximize says otherwise).
+    MAXIMIZE_PAY_CAP: int = 10000
+
     # --- Shopper login (Firebase phone sign-in) ---
     FIREBASE_PROJECT_ID: str = "dealo-e9a72"
 
