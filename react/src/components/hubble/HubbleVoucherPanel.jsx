@@ -2,6 +2,7 @@ import { Box, Button, Flex, Text } from '@chakra-ui/react';
 
 import { I } from '@/components/common/icons';
 import { fmt } from '@/utils/format';
+import { MaximizePieces } from '@/components/hubble/MaximizePieces';
 
 /**
  * The voucher step when Dealo can sell the voucher itself (through Hubble):
@@ -42,6 +43,13 @@ export default function HubbleVoucherPanel({ offer, onBuy }) {
           <Text fontFamily="mono" fontWeight={700} fontSize="36px" letterSpacing="-.02em" lineHeight={1.05}>
             {fmt(offer.voucher_total)}
           </Text>
+          {offer.seller === 'maximize' && (
+            // Maximize's frame asks for the amount itself; the shopper will
+            // look for this exact tile (and tap + this many times) there.
+            <Box mt="10px">
+              <MaximizePieces denominations={pieces} onDark />
+            </Box>
+          )}
         </Box>
       </Box>
 

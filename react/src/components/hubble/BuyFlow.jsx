@@ -6,6 +6,7 @@ import { SELLER_FRAME_HOSTS, SELLER_NAMES, soldApi } from '@/api/sold.api';
 import { confirmCode, currentUser, idToken, sendCode } from '@/lib/firebase';
 import { soldEventProps, track } from '@/utils/analytics';
 import { fmt } from '@/utils/format';
+import { MaximizePieces } from '@/components/hubble/MaximizePieces';
 
 const NAME_KEY = 'dealo_buyer_name';
 const readName = () => {
@@ -39,7 +40,7 @@ const openHubbleLink = (link) => {
  * Maximize shows the voucher code on its own thank-you screen inside the
  * frame, so that frame stays open after payment until the shopper closes it.
  */
-export default function BuyFlow({ offer, merchant, price, shopLink, surface, bestPct, onClose, onBought }) {
+export default function BuyFlow({ offer, merchant, price, shopLink, surface, bestPct, headerPieces = false, onClose, onBought }) {
   const seller = offer.seller || 'hubble';
   const sellerName = SELLER_NAMES[seller] || 'Hubble';
   const frameHost = SELLER_FRAME_HOSTS[seller] || SELLER_FRAME_HOSTS.hubble;
@@ -226,6 +227,14 @@ export default function BuyFlow({ offer, merchant, price, shopLink, surface, bes
               </Box>
               Secure payment · {sellerName}
             </Flex>
+            {headerPieces && seller === 'maximize' && (
+              // The amount Dealo worked out, drawn as Maximize's own tile, so
+              // the shopper picks the same one on the screen below (owner's
+              // call, 30 Oct 2026). Not a control.
+              <Box mr="6px" aria-hidden="false">
+                <MaximizePieces denominations={offer.denominations} scale={0.8} />
+              </Box>
+            )}
             <Button
               aria-label="Close"
               variant="ghost"

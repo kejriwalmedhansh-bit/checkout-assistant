@@ -370,6 +370,7 @@ export default function Journey({ rec, payingByCard = false, skipVoucher = false
           shopLink={sellerLink ? affiliateUrl(sellerLink, 'hubble_done') : undefined}
           surface="journey"
           bestPct={v.upi?.pct}
+          headerPieces
           onClose={() => setBuying(false)}
           onBought={check('voucher')}
         />

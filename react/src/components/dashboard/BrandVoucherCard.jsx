@@ -26,6 +26,14 @@ function HubbleBrandCard({ brand, merchant, query, bestPct }) {
   const [offer, setOffer] = useState(null);
   const [buying, setBuying] = useState(false);
   const inRange = (a) => a >= brand.min_amount && (!brand.max_amount || a <= brand.max_amount);
+  // Maximize's frame cannot take the amount from Dealo (Siddhanth, 30 Oct
+  // 2026): the shopper picks it on Maximize's own page. Asking here too
+  // would be the same question twice, so a Maximize card shows the rate,
+  // where it works and which amounts exist, and Buy opens their page.
+  const amountInFrame = brand.seller === 'maximize';
+  const amountsLine = brand.typed
+    ? `Any amount ${fmt(brand.min_amount)} to ${fmt(brand.max_amount)} · pay by UPI`
+    : `${quick.slice(0, -1).map(fmt).join(', ')}${quick.length > 1 ? ' or ' : ''}${fmt(quick[quick.length - 1])} · pay by UPI`;
 
   useEffect(() => {
     let live = true;
@@ -84,7 +92,7 @@ function HubbleBrandCard({ brand, merchant, query, bestPct }) {
           {brand.discount_pct}% off
         </Text>
         <Text fontSize="12.5px" color="text2" mt="4px">
-          Pay by UPI, voucher in seconds
+          {amountInFrame ? 'Choose the amount on the next screen' : 'Pay by UPI, voucher in seconds'}
         </Text>
       </Box>
       <Flex display="inline-flex" align="center" gap="6px" bg="surface2" border="1px solid" borderColor="border" borderRadius="pill" px="10px" py="5px" fontSize="12px" fontWeight={700} color="text2" mb="16px">
@@ -92,6 +100,12 @@ function HubbleBrandCard({ brand, merchant, query, bestPct }) {
         {where}
       </Flex>
 
+      {amountInFrame ? (
+        <Text fontSize="13px" color="text2" fontWeight={600}>
+          {amountsLine}
+        </Text>
+      ) : (
+      <>
       <Text fontSize="11px" color="text3" fontWeight={600} letterSpacing=".04em" textTransform="uppercase" mb="8px">
         How much do you need?
       </Text>
@@ -138,7 +152,10 @@ function HubbleBrandCard({ brand, merchant, query, bestPct }) {
           Between {fmt(brand.min_amount)} and {fmt(brand.max_amount)}
         </Text>
       )}
+      </>
+      )}
 
+      {!amountInFrame && (
       <Flex bg="greenSoft" border="1.5px solid" borderColor="green" borderRadius="14px" px="12px" py="10px" align="center" gap="10px" mt="14px" opacity={offer ? 1 : 0.55}>
         <Box>
           <Text fontSize="11px" fontWeight={700} letterSpacing=".06em" color="text2">
@@ -160,6 +177,7 @@ function HubbleBrandCard({ brand, merchant, query, bestPct }) {
           </Text>
         </Box>
       </Flex>
+      )}
 
       <Button
         onClick={() => {
