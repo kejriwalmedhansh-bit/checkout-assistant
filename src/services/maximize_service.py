@@ -379,11 +379,16 @@ async def brand_info(merchant: str) -> dict | None:
 
 
 def store_url(offer: dict, token: str) -> str:
-    """Their frame, opened on this brand's card (Bibrata, 30 Oct 2026)."""
+    """Their frame, opened on this brand's card (Bibrata, 30 Oct 2026).
+
+    Opened at the frame's root, not /list: on /list their page first jumps
+    to the card and then, once the deep link is cleared, jumps again to the
+    full catalogue (seen 30 Oct, owner's test). The root page has no second
+    jump, so the shopper lands on the card and stays there."""
     s = get_settings()
     host = SDK_HOST.get(s.MAXIMIZE_ENV, SDK_HOST["sandbox"])
     params = {"accessToken": token, "productId": offer["brand_id"], "productBrand": offer["brand_name"]}
-    return f"{host}/list?{urlencode(params)}"
+    return f"{host}/?{urlencode(params)}"
 
 
 def frame_hosts() -> list[str]:

@@ -1,7 +1,8 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Box, Flex, Text } from '@chakra-ui/react';
 
 import BrandVoucherCard from '@/components/dashboard/BrandVoucherCard';
+import { soldApi } from '@/api/sold.api';
 import { track } from '@/utils/analytics';
 
 // "MakeMyTrip" from "MakeMyTrip Hotel e-Pay", "MakeMyTrip Cab"... — the first
@@ -23,9 +24,33 @@ function shopName(choices) {
  * flight lands on the hotels-only card by default. Choices come best rate
  * first from POST /search (`voucher_choices`).
  */
+const HUBBLE_ON = import.meta.env.VITE_HUBBLE_ENABLED === 'true';
+const HUBBLE_FORCE = import.meta.env.VITE_HUBBLE_FORCE === 'true';
+
 export default function VoucherChoicePicker({ choices, query }) {
   const [picked, setPicked] = useState(null);
   const shop = shopName(choices);
+  // The chip's rate must be the one the card will show. When Dealo sells
+  // this voucher itself (Hubble or Maximize) at a different rate from the
+  // public listing, the chip shows Dealo's rate (owner's test, 30 Oct 2026:
+  // "AJIO 7%" on the chip, 7.65% on the card).
+  const [sold, setSold] = useState({});
+  useEffect(() => {
+    if (!HUBBLE_ON) return undefined;
+    let live = true;
+    choices.forEach((c) => {
+      if (!c.brand_name) return;
+      soldApi
+        .brand(c.brand_name, HUBBLE_FORCE ? null : c.best_discount_pct)
+        .then((res) => live && res.available && setSold((prev) => ({ ...prev, [c.brand_name]: res.brand.discount_pct })))
+        .catch(() => {});
+    });
+    return () => {
+      live = false;
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [choices.map((c) => c.brand_name).join('|')]);
+  const rateOf = (c) => (sold[c.brand_name] != null ? sold[c.brand_name] : c.best_discount_pct);
 
   const pick = (i) => {
     setPicked(i);
@@ -65,9 +90,9 @@ export default function VoucherChoicePicker({ choices, query }) {
             _focusVisible={{ outline: '2px solid', outlineColor: 'amber', outlineOffset: '2px' }}
           >
             {c.choice_label}
-            {c.best_discount_pct != null && (
+            {rateOf(c) != null && (
               <Text as="span" fontFamily="mono" fontSize="12.5px" color="brand">
-                {+Number(c.best_discount_pct).toFixed(2)}%
+                {+Number(rateOf(c)).toFixed(2)}%
               </Text>
             )}
           </Box>
