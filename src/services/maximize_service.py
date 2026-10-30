@@ -310,6 +310,8 @@ def _offer(card: dict, info: dict, parts: list[tuple[int, int]], pct: float, pri
         "seller": "maximize",
         "brand_id": card["id"],
         "brand_name": _CARD_SUFFIX.sub("", card.get("giftCardName", "")).strip(),
+        # the card's full title: their deep link wants it word for word
+        "card_name": card.get("giftCardName", ""),
         "denominations": [{"amount": a, "count": c} for a, c in parts],
         "orders": [{"denominations": [{"amount": a, "count": c} for a, c in parts], "worth": worth, "you_pay": round(worth - save, 2)}],
         "voucher_total": worth,
@@ -387,7 +389,7 @@ def store_url(offer: dict, token: str) -> str:
     jump, so the shopper lands on the card and stays there."""
     s = get_settings()
     host = SDK_HOST.get(s.MAXIMIZE_ENV, SDK_HOST["sandbox"])
-    params = {"accessToken": token, "productId": offer["brand_id"], "productBrand": offer["brand_name"]}
+    params = {"accessToken": token, "productId": offer["brand_id"], "productBrand": offer.get("card_name") or offer["brand_name"]}
     return f"{host}/?{urlencode(params)}"
 
 
