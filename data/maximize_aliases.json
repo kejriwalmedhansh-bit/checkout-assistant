@@ -1,0 +1,5 @@
+{
+ "_comment": "Shop name as Dealo's results show it (lower case, letters and digits only, no .com/.in) -> the Maximize card title(s) that pay at that shop. Only for names whose card title does not reduce to the same key by itself (card_key strips 'E Gift Card' etc.). Hand-checked against Maximize's sandbox list 30 Oct 2026; extend against production.",
+ "dominos": ["Domino's Pizza"],
+ "dominospizza": ["Domino's Pizza"]
+}

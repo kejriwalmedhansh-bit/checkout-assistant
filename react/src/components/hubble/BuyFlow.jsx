@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { Box, Button, Checkbox, Flex, Input, InputGroup, InputLeftAddon, Text } from '@chakra-ui/react';
 
 import { I } from '@/components/common/icons';
-import { hubbleApi } from '@/api/hubble.api';
+import { SELLER_FRAME_HOSTS, SELLER_NAMES, soldApi } from '@/api/sold.api';
 import { confirmCode, currentUser, idToken, sendCode } from '@/lib/firebase';
 import { track } from '@/utils/analytics';
 import { fmt } from '@/utils/format';
@@ -33,11 +33,16 @@ const openHubbleLink = (link) => {
 
 /**
  * Buying the voucher without leaving Dealo:
- *   details (name, mobile, deals tick) → SMS code → Hubble's payment screen
- *   inside Dealo → voucher ready.
+ *   details (name, mobile, deals tick) → SMS code → the seller's payment
+ *   screen inside Dealo (Hubble or Maximize, per offer.seller) → voucher ready.
  * A shopper already logged in on this browser skips straight to payment.
+ * Maximize shows the voucher code on its own thank-you screen inside the
+ * frame, so that frame stays open after payment until the shopper closes it.
  */
 export default function BuyFlow({ offer, merchant, price, shopLink, onClose, onBought }) {
+  const seller = offer.seller || 'hubble';
+  const sellerName = SELLER_NAMES[seller] || 'Hubble';
+  const frameHost = SELLER_FRAME_HOSTS[seller] || SELLER_FRAME_HOSTS.hubble;
   const [step, setStep] = useState('loading');
   const [name, setName] = useState(readName);
   const [phone, setPhone] = useState('');
@@ -53,7 +58,7 @@ export default function BuyFlow({ offer, merchant, price, shopLink, onClose, onB
   const openStore = async (token) => {
     setBusy(true);
     try {
-      const { url } = await hubbleApi.session({
+      const { url } = await soldApi.session(seller, {
         id_token: token,
         name: name.trim() || readName(),
         marketing_optin: optin,
@@ -61,7 +66,7 @@ export default function BuyFlow({ offer, merchant, price, shopLink, onClose, onB
         price,
         in_store: Boolean(offer.in_store),
       });
-      track('Hubble Store Opened', { merchant, amount: offer.voucher_total });
+      track('Hubble Store Opened', { merchant, amount: offer.voucher_total, seller });
       setStoreUrl(url);
       setStep('store');
     } catch {
@@ -86,11 +91,11 @@ export default function BuyFlow({ offer, merchant, price, shopLink, onClose, onB
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // Hubble's screen reports payment and its own close button by postMessage.
+  // The seller's screen reports payment and its own close button by postMessage.
   useEffect(() => {
     if (step !== 'store') return undefined;
     const onMessage = (e) => {
-      if (!/myhubble\.money$/.test(new URL(e.origin).hostname)) return;
+      if (!frameHost.test(new URL(e.origin).hostname)) return;
       let msg = e.data;
       if (typeof msg === 'string') {
         try {
@@ -126,14 +131,24 @@ export default function BuyFlow({ offer, merchant, price, shopLink, onClose, onB
         paid.current = true;
         setStep('done');
       }
-      if (kind === 'close') (paid.current ? setStep('done') : onClose());
+      // Maximize (sdk events, legacy and sdkBridge forms): the code is shown
+      // inside its frame, so a paid shopper keeps the frame until they close it.
+      if (kind === 'purchase_complete') {
+        paid.current = true;
+        track('Hubble Payment Success', { merchant, amount: offer.voucher_total, seller });
+      }
+      if (kind === 'session_expired' || kind === 'sdk_error') {
+        setError("Couldn't open the payment screen. Please try again.");
+        setStep('details');
+      }
+      if (kind === 'close' || kind === 'sdk_close') (paid.current ? setStep('done') : onClose());
     };
     window.addEventListener('message', onMessage);
     return () => window.removeEventListener('message', onMessage);
-  }, [step, merchant, offer.voucher_total, onClose]);
+  }, [step, merchant, offer.voucher_total, onClose, seller, frameHost]);
 
-  // The voucher code reaches Dealo through Hubble's order webhook a moment
-  // after payment; ask a few times before falling back to Hubble's own copy.
+  // The voucher code reaches Dealo through the seller's order webhook a moment
+  // after payment; ask a few times before falling back to the seller's own copy.
   useEffect(() => {
     if (step !== 'done') return undefined;
     onBought?.();
@@ -141,7 +156,7 @@ export default function BuyFlow({ offer, merchant, price, shopLink, onClose, onB
     let timer;
     const poll = async () => {
       const token = await idToken();
-      const res = token ? await hubbleApi.latestOrder(token).catch(() => null) : null;
+      const res = token ? await soldApi.latestOrder(seller, token).catch(() => null) : null;
       if (res?.found) setOrder(res);
       else if (++tries < 10) timer = setTimeout(poll, 2000);
     };
@@ -195,13 +210,13 @@ export default function BuyFlow({ offer, merchant, price, shopLink, onClose, onB
               <Box color="green">
                 <I.check size={14} />
               </Box>
-              Secure payment · Hubble
+              Secure payment · {sellerName}
             </Flex>
             <Button aria-label="Close" variant="ghost" size="sm" onClick={() => (paid.current ? setStep('done') : onClose())}>
               <I.x size={18} />
             </Button>
           </Flex>
-          <Box as="iframe" title="Hubble payment" src={storeUrl} allow="payment; clipboard-write" flex="1" w="100%" border={0} />
+          <Box as="iframe" title={`${sellerName} payment`} src={storeUrl} allow="payment; clipboard-write" flex="1" w="100%" border={0} />
         </Flex>
       </Box>
     );
@@ -352,7 +367,7 @@ export default function BuyFlow({ offer, merchant, price, shopLink, onClose, onB
               Voucher couldn’t be made
             </Text>
             <Text fontSize="14px" color="text2">
-              {offer.brand_name} didn’t issue the voucher this time. If your payment went through, Hubble refunds it
+              {offer.brand_name} didn’t issue the voucher this time. If your payment went through, {sellerName} refunds it
               to the same account automatically within 5–7 working days. You don’t need to do anything.
             </Text>
             <Button onClick={onClose} h="52px" borderRadius="pill" bg="text" color="white" fontWeight={800} _hover={{ bg: 'text' }}>
@@ -395,7 +410,7 @@ export default function BuyFlow({ offer, merchant, price, shopLink, onClose, onB
               </Box>
             ) : (
               <Text fontSize="13px" color="text2" textAlign="center">
-                Fetching your code…
+                {seller === 'maximize' ? `Your code was shown on the ${sellerName} screen; it will appear here too in a moment.` : 'Fetching your code…'}
               </Text>
             )}
             {offer.in_store ? (

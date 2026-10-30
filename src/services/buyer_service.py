@@ -104,16 +104,33 @@ async def save_buyer(uid: str, phone: str, name: str | None, email: str | None, 
 
 async def save_purchase(order: dict, environment: str) -> None:
     """One row per Hubble order, from its webhook. Never stores codes or PINs."""
+    await save_sale(
+        seller="hubble",
+        ref=order.get("transactionReferenceId"),
+        uid=order.get("userId"),
+        brand=order.get("brandName"),
+        amount=order.get("amount"),
+        discount=order.get("discountAmount"),
+        status=order.get("orderStatus"),
+        environment=environment,
+    )
+
+
+async def save_sale(*, seller: str, ref: str | None, uid: str | None, brand: str | None, amount, discount, status: str | None, environment: str) -> None:
+    """One row per voucher sold inside Dealo, whichever seller issued it.
+    `hubble_ref` is the seller's own order reference (column name predates
+    the second seller). Never stores codes or PINs; never fails the purchase."""
     s = get_settings()
-    if not s.SUPABASE_URL or not s.SUPABASE_SECRET_KEY:
+    if not s.SUPABASE_URL or not s.SUPABASE_SECRET_KEY or not ref:
         return
     row = {
-        "hubble_ref": order.get("transactionReferenceId"),
-        "firebase_uid": order.get("userId"),
-        "brand": order.get("brandName"),
-        "amount": order.get("amount"),
-        "discount": order.get("discountAmount"),
-        "status": order.get("orderStatus"),
+        "hubble_ref": ref,
+        "seller": seller,
+        "firebase_uid": uid,
+        "brand": brand,
+        "amount": amount,
+        "discount": discount,
+        "status": status,
         "environment": environment,
     }
     try:
@@ -125,4 +142,4 @@ async def save_purchase(order: dict, environment: str) -> None:
             )
             resp.raise_for_status()
     except httpx.HTTPError as exc:
-        print(f"[buyers] could not save purchase {row['hubble_ref']}: {exc}")
+        print(f"[buyers] could not save {seller} sale {ref}: {exc}")

@@ -11,7 +11,7 @@ import JourneyChips from './JourneyChips';
 import JourneyPanels from './JourneyPanels';
 import HubbleVoucherPanel from '@/components/hubble/HubbleVoucherPanel';
 import BuyFlow from '@/components/hubble/BuyFlow';
-import { hubbleApi } from '@/api/hubble.api';
+import { soldApi } from '@/api/sold.api';
 
 const HUBBLE_ON = import.meta.env.VITE_HUBBLE_ENABLED === 'true';
 // Staging only: show Hubble even when its test rates lose to today's price.
@@ -86,17 +86,18 @@ export default function Journey({ rec, payingByCard = false, skipVoucher = false
 
   const paid = v ? paidForVoucher(v, payingByCard) : null;
 
-  // Buying the voucher inside Dealo (Hubble). Shown when Hubble's rate is
-  // within HUBBLE_RATE_TOLERANCE points of today's best voucher rate (the
-  // server decides; owner's call 28 Oct 2026, since Dealo earns on a Hubble
-  // sale and nothing on a redirect).
+  // Buying the voucher inside Dealo (Hubble or Maximize; the server picks
+  // the seller with the better rate for the shopper). Shown when that rate
+  // is within HUBBLE_RATE_TOLERANCE points of today's best voucher rate
+  // (owner's calls, 28 and 30 Oct 2026: Dealo earns on its own sale and
+  // nothing on a redirect).
   const [hubble, setHubble] = useState(null);
   const [buying, setBuying] = useState(false);
   const orderPrice = rec.listed_price;
   useEffect(() => {
     if (!HUBBLE_ON || !v || !orderPrice || payingByCard) return undefined;
     let live = true;
-    hubbleApi
+    soldApi
       .offer(shopName, orderPrice, Boolean(v.offline_only), HUBBLE_FORCE ? null : v.upi?.pct)
       .then((res) => {
         if (live && res.available) setHubble(res.offer);

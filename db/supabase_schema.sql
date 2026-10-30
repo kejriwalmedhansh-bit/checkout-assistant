@@ -17,7 +17,8 @@ create table if not exists public.buyers (
 -- One row per Hubble order. Voucher codes and PINs are never stored here.
 create table if not exists public.purchases (
   id uuid primary key default gen_random_uuid(),
-  hubble_ref text unique not null,
+  hubble_ref text unique not null,          -- the seller's own order reference
+  seller text not null default 'hubble',    -- 'hubble' or 'maximize'
   firebase_uid text references public.buyers (firebase_uid),
   brand text,
   amount numeric,
@@ -29,3 +30,6 @@ create table if not exists public.purchases (
 
 alter table public.buyers enable row level security;
 alter table public.purchases enable row level security;
+
+-- Added 30 Oct 2026 for the second seller (run once on an existing project):
+-- alter table public.purchases add column if not exists seller text not null default 'hubble';

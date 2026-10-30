@@ -4,7 +4,7 @@ import { Box, Button, Flex, Input, Link, Text, Wrap, WrapItem } from '@chakra-ui
 import Card from '@/components/common/Card';
 import { I } from '@/components/common/icons';
 import BuyFlow from '@/components/hubble/BuyFlow';
-import { hubbleApi } from '@/api/hubble.api';
+import { soldApi } from '@/api/sold.api';
 import { fmt } from '@/utils/format';
 import { outboundLink, track } from '@/utils/analytics';
 
@@ -32,7 +32,7 @@ function HubbleBrandCard({ brand, merchant, query }) {
     setOffer(null);
     if (!inRange(amount)) return undefined;
     const t = setTimeout(() => {
-      hubbleApi
+      soldApi
         .offer(merchant, amount, brand.in_store)
         .then((res) => live && res.available && setOffer(res.offer))
         .catch(() => {});
@@ -197,13 +197,14 @@ function HubbleBrandCard({ brand, merchant, query }) {
 const SOURCE_LABELS = { maximize: 'Maximize', buyhatke: 'BuyHatke', gyftr: 'Gyftr' };
 
 export default function BrandVoucherCard({ voucher, query }) {
-  // Dealo's own voucher for this shop (Hubble), when its rate is close
-  // enough to this card's. Decided by the server; see /hubble/brand.
+  // Dealo's own voucher for this shop (Hubble or Maximize, whichever rate is
+  // better for the shopper), when it is close enough to this card's. Decided
+  // by the server; see /sold/brand.
   const [hubble, setHubble] = useState(null);
   useEffect(() => {
     if (!HUBBLE_ON || !voucher?.brand_name) return undefined;
     let live = true;
-    hubbleApi
+    soldApi
       .brand(voucher.brand_name, HUBBLE_FORCE ? null : voucher.best_discount_pct)
       .then((res) => live && res.available && setHubble(res.brand))
       .catch(() => {});
