@@ -18,35 +18,175 @@
     "dealo_id": "The device id (see identity)"
   },
   "events": {
-    "Hubble Store Opened": {
-      "description": "Hubble branch only (off on the live site): shopper tapped Buy voucher and Hubble's payment screen opened inside Dealo.",
+    "Dealo Voucher Shown": {
+      "description": "Dealo's own voucher (sold through Hubble or Maximize) appeared on screen: the Buy voucher panel on a cart result, Dealo's shop card, or Dealo's rate on a what-are-you-buying chip. Once per offer shown. Funnel step 1.",
       "surfaces": ["web"],
-      "properties": { "merchant": "shop the voucher is for", "amount": "voucher value in rupees" }
+      "properties": {
+        "seller": "hubble | maximize — who issued the voucher behind Dealo's Buy button",
+        "merchant": "shop the voucher is for",
+        "brand": "the seller's voucher title",
+        "amount": "voucher value in rupees (null before an amount is chosen)",
+        "discount_pct": "Dealo's rate on this voucher, in %",
+        "best_pct": "best public rate (Gyftr/Maximize/BuyHatke) it was compared with, in %; null when unknown",
+        "surface": "journey (cart result) | shop_card (shop-name search) | choice_chip (what-are-you-buying picker)",
+        "in_store": "true when the voucher is for paying at the counter"
+      }
     },
-    "Hubble Payment Success": {
-      "description": "Hubble branch only: Hubble reported the shopper's UPI payment went through.",
+    "Buy Voucher Tapped": {
+      "description": "Shopper tapped Dealo's Buy voucher button (cart result or shop card); the buy sheet opened. Funnel step 2.",
       "surfaces": ["web"],
-      "properties": { "merchant": "shop the voucher is for", "amount": "voucher value in rupees" }
+      "properties": {
+        "seller": "hubble | maximize — who issued the voucher behind Dealo's Buy button",
+        "merchant": "shop the voucher is for",
+        "brand": "the seller's voucher title",
+        "amount": "voucher value in rupees (null before an amount is chosen)",
+        "discount_pct": "Dealo's rate on this voucher, in %",
+        "best_pct": "best public rate (Gyftr/Maximize/BuyHatke) it was compared with, in %; null when unknown",
+        "surface": "journey (cart result) | shop_card (shop-name search) | choice_chip (what-are-you-buying picker)",
+        "in_store": "true when the voucher is for paying at the counter"
+      }
     },
     "Hubble Shop Card Buy": {
-      "description": "Hubble branch only: on a shop-name search, the shopper picked an amount and tapped Buy voucher on Dealo's own card.",
+      "description": "Kept for continuity (older name): on a shop-name search, the shopper picked an amount and tapped Buy voucher on Dealo's own card. Fires together with Buy Voucher Tapped.",
       "surfaces": ["web"],
-      "properties": { "query": "what was typed", "brand": "Hubble voucher title", "amount": "voucher value in rupees" }
-    },
-    "Hubble Payment Failed": {
-      "description": "Hubble branch only: Hubble reported the shopper's UPI payment did not go through (Hubble's screen offers a retry).",
-      "surfaces": ["web"],
-      "properties": { "merchant": "shop the voucher is for", "amount": "voucher value in rupees" }
-    },
-    "Hubble Voucher Failed": {
-      "description": "Hubble branch only: payment went through but the brand did not issue the voucher; Hubble refunds in 5-7 working days and Dealo shows the shopper that message.",
-      "surfaces": ["web"],
-      "properties": { "merchant": "shop the voucher is for", "amount": "voucher value in rupees" }
+      "properties": {
+        "seller": "hubble | maximize — who issued the voucher behind Dealo's Buy button",
+        "merchant": "shop the voucher is for",
+        "brand": "the seller's voucher title",
+        "amount": "voucher value in rupees (null before an amount is chosen)",
+        "discount_pct": "Dealo's rate on this voucher, in %",
+        "best_pct": "best public rate (Gyftr/Maximize/BuyHatke) it was compared with, in %; null when unknown",
+        "surface": "journey (cart result) | shop_card (shop-name search) | choice_chip (what-are-you-buying picker)",
+        "in_store": "true when the voucher is for paying at the counter",
+        "query": "what was typed"
+      }
     },
     "Login Code Sent": {
-      "description": "Hubble branch only: Dealo sent the shopper an SMS login code before their first purchase.",
+      "description": "Dealo sent the shopper an SMS login code before their first purchase (both sellers).",
       "surfaces": ["web"],
-      "properties": { "merchant": "shop the voucher is for" }
+      "properties": {
+        "seller": "hubble | maximize — who issued the voucher behind Dealo's Buy button",
+        "merchant": "shop the voucher is for",
+        "brand": "the seller's voucher title",
+        "amount": "voucher value in rupees (null before an amount is chosen)",
+        "discount_pct": "Dealo's rate on this voucher, in %",
+        "best_pct": "best public rate (Gyftr/Maximize/BuyHatke) it was compared with, in %; null when unknown",
+        "surface": "journey (cart result) | shop_card (shop-name search) | choice_chip (what-are-you-buying picker)",
+        "in_store": "true when the voucher is for paying at the counter"
+      }
+    },
+    "Hubble Store Opened": {
+      "description": "Kept name, both sellers: the seller's payment screen opened inside Dealo (see `seller`). Funnel step 3.",
+      "surfaces": ["web"],
+      "properties": {
+        "seller": "hubble | maximize — who issued the voucher behind Dealo's Buy button",
+        "merchant": "shop the voucher is for",
+        "brand": "the seller's voucher title",
+        "amount": "voucher value in rupees (null before an amount is chosen)",
+        "discount_pct": "Dealo's rate on this voucher, in %",
+        "best_pct": "best public rate (Gyftr/Maximize/BuyHatke) it was compared with, in %; null when unknown",
+        "surface": "journey (cart result) | shop_card (shop-name search) | choice_chip (what-are-you-buying picker)",
+        "in_store": "true when the voucher is for paying at the counter"
+      }
+    },
+    "Store Open Failed": {
+      "description": "The seller's payment screen could not be opened: Dealo's session call failed (reason=session), the seller's screen reported an error (reason=error), or Maximize's frame reported session_expired / sdk_error.",
+      "surfaces": ["web"],
+      "properties": {
+        "seller": "hubble | maximize — who issued the voucher behind Dealo's Buy button",
+        "merchant": "shop the voucher is for",
+        "brand": "the seller's voucher title",
+        "amount": "voucher value in rupees (null before an amount is chosen)",
+        "discount_pct": "Dealo's rate on this voucher, in %",
+        "best_pct": "best public rate (Gyftr/Maximize/BuyHatke) it was compared with, in %; null when unknown",
+        "surface": "journey (cart result) | shop_card (shop-name search) | choice_chip (what-are-you-buying picker)",
+        "in_store": "true when the voucher is for paying at the counter",
+        "reason": "session | error | session_expired | sdk_error"
+      }
+    },
+    "Store Closed Without Payment": {
+      "description": "Shopper closed the seller's payment screen before paying: Dealo's own close button, or the seller's close/sdk_close message.",
+      "surfaces": ["web"],
+      "properties": {
+        "seller": "hubble | maximize — who issued the voucher behind Dealo's Buy button",
+        "merchant": "shop the voucher is for",
+        "brand": "the seller's voucher title",
+        "amount": "voucher value in rupees (null before an amount is chosen)",
+        "discount_pct": "Dealo's rate on this voucher, in %",
+        "best_pct": "best public rate (Gyftr/Maximize/BuyHatke) it was compared with, in %; null when unknown",
+        "surface": "journey (cart result) | shop_card (shop-name search) | choice_chip (what-are-you-buying picker)",
+        "in_store": "true when the voucher is for paying at the counter",
+        "closed_by": "dealo_button | seller_screen"
+      }
+    },
+    "Hubble Payment Success": {
+      "description": "Kept name, both sellers: the seller reported the payment went through (Hubble payment_success, Maximize purchase_complete). Funnel step 4.",
+      "surfaces": ["web"],
+      "properties": {
+        "seller": "hubble | maximize — who issued the voucher behind Dealo's Buy button",
+        "merchant": "shop the voucher is for",
+        "brand": "the seller's voucher title",
+        "amount": "voucher value in rupees (null before an amount is chosen)",
+        "discount_pct": "Dealo's rate on this voucher, in %",
+        "best_pct": "best public rate (Gyftr/Maximize/BuyHatke) it was compared with, in %; null when unknown",
+        "surface": "journey (cart result) | shop_card (shop-name search) | choice_chip (what-are-you-buying picker)",
+        "in_store": "true when the voucher is for paying at the counter"
+      }
+    },
+    "Hubble Payment Failed": {
+      "description": "Hubble reported the shopper's UPI payment did not go through (Hubble's screen offers a retry).",
+      "surfaces": ["web"],
+      "properties": {
+        "seller": "hubble | maximize — who issued the voucher behind Dealo's Buy button",
+        "merchant": "shop the voucher is for",
+        "brand": "the seller's voucher title",
+        "amount": "voucher value in rupees (null before an amount is chosen)",
+        "discount_pct": "Dealo's rate on this voucher, in %",
+        "best_pct": "best public rate (Gyftr/Maximize/BuyHatke) it was compared with, in %; null when unknown",
+        "surface": "journey (cart result) | shop_card (shop-name search) | choice_chip (what-are-you-buying picker)",
+        "in_store": "true when the voucher is for paying at the counter"
+      }
+    },
+    "Hubble Voucher Failed": {
+      "description": "Payment went through but the brand did not issue the voucher; Hubble refunds in 5-7 working days and Dealo shows the shopper that message.",
+      "surfaces": ["web"],
+      "properties": {
+        "seller": "hubble | maximize — who issued the voucher behind Dealo's Buy button",
+        "merchant": "shop the voucher is for",
+        "brand": "the seller's voucher title",
+        "amount": "voucher value in rupees (null before an amount is chosen)",
+        "discount_pct": "Dealo's rate on this voucher, in %",
+        "best_pct": "best public rate (Gyftr/Maximize/BuyHatke) it was compared with, in %; null when unknown",
+        "surface": "journey (cart result) | shop_card (shop-name search) | choice_chip (what-are-you-buying picker)",
+        "in_store": "true when the voucher is for paying at the counter"
+      }
+    },
+    "Voucher Ready": {
+      "description": "Dealo's 'Voucher ready' screen appeared: the voucher exists (Hubble voucher_generation_success, or a paid Maximize shopper closed the frame). Funnel step 5, the last step the website sees.",
+      "surfaces": ["web"],
+      "properties": {
+        "seller": "hubble | maximize — who issued the voucher behind Dealo's Buy button",
+        "merchant": "shop the voucher is for",
+        "brand": "the seller's voucher title",
+        "amount": "voucher value in rupees (null before an amount is chosen)",
+        "discount_pct": "Dealo's rate on this voucher, in %",
+        "best_pct": "best public rate (Gyftr/Maximize/BuyHatke) it was compared with, in %; null when unknown",
+        "surface": "journey (cart result) | shop_card (shop-name search) | choice_chip (what-are-you-buying picker)",
+        "in_store": "true when the voucher is for paying at the counter"
+      }
+    },
+    "Voucher Sold": {
+      "description": "The seller's webhook confirmed a completed sale; sent by the backend from buyer_service.save_sale, once per order (retried webhooks are deduplicated). The day-30 number: vouchers bought through Dealo, by seller. Carries no codes, PINs or phone numbers.",
+      "surfaces": ["server"],
+      "properties": {
+        "seller": "hubble | maximize",
+        "brand": "the seller's voucher title",
+        "amount": "voucher value in rupees",
+        "discount": "rupees the shopper saved",
+        "discount_pct": "discount as % of value",
+        "seller_environment": "the seller's sandbox or production, from HUBBLE_ENV / MAXIMIZE_ENV",
+        "buyer_key": "one-way hash of the shopper's login id, to count distinct buyers"
+      }
     },
     "Session Started": {
       "description": "A visit or conversation began. Website: page load. WhatsApp: first message after 30 quiet minutes.",

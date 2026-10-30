@@ -6,7 +6,7 @@ import { I } from '@/components/common/icons';
 import BuyFlow from '@/components/hubble/BuyFlow';
 import { soldApi } from '@/api/sold.api';
 import { fmt } from '@/utils/format';
-import { outboundLink, track } from '@/utils/analytics';
+import { outboundLink, soldEventProps, track } from '@/utils/analytics';
 
 const HUBBLE_ON = import.meta.env.VITE_HUBBLE_ENABLED === 'true';
 const HUBBLE_FORCE = import.meta.env.VITE_HUBBLE_FORCE === 'true';
@@ -19,7 +19,7 @@ const HUBBLE_FORCE = import.meta.env.VITE_HUBBLE_FORCE === 'true';
  * amount, so what is shown is what Hubble charges. The outside link is not
  * shown here (owner's call, 28 Oct 2026).
  */
-function HubbleBrandCard({ brand, merchant, query }) {
+function HubbleBrandCard({ brand, merchant, query, bestPct }) {
   const quick = brand.cards.length ? brand.cards.slice(0, 4) : [500, 1000, 2000, 5000].filter((a) => a >= brand.min_amount && (!brand.max_amount || a <= brand.max_amount));
   const [amount, setAmount] = useState(quick[1] || quick[0] || brand.min_amount);
   const [typed, setTyped] = useState('');
@@ -34,7 +34,11 @@ function HubbleBrandCard({ brand, merchant, query }) {
     const t = setTimeout(() => {
       soldApi
         .offer(merchant, amount, brand.in_store)
-        .then((res) => live && res.available && setOffer(res.offer))
+        .then((res) => {
+          if (!live || !res.available) return;
+          setOffer(res.offer);
+          track('Dealo Voucher Shown', soldEventProps(res.offer, { merchant, surface: 'shop_card', bestPct }));
+        })
         .catch(() => {});
     }, 250);
     return () => {
@@ -159,7 +163,9 @@ function HubbleBrandCard({ brand, merchant, query }) {
 
       <Button
         onClick={() => {
-          track('Hubble Shop Card Buy', { query, brand: brand.brand_name, amount });
+          const props = soldEventProps(offer, { merchant, surface: 'shop_card', bestPct, amount });
+          track('Hubble Shop Card Buy', { ...props, query });
+          track('Buy Voucher Tapped', props);
           setBuying(true);
         }}
         isDisabled={!offer}
@@ -178,7 +184,7 @@ function HubbleBrandCard({ brand, merchant, query }) {
       </Button>
 
       {buying && offer && (
-        <BuyFlow offer={offer} merchant={merchant} price={amount} onClose={() => setBuying(false)} />
+        <BuyFlow offer={offer} merchant={merchant} price={amount} surface="shop_card" bestPct={bestPct} onClose={() => setBuying(false)} />
       )}
     </Card>
   );
@@ -212,7 +218,7 @@ export default function BrandVoucherCard({ voucher, query }) {
       live = false;
     };
   }, [voucher?.brand_name, voucher?.best_discount_pct]);
-  if (hubble) return <HubbleBrandCard brand={hubble} merchant={voucher.brand_name} query={query} />;
+  if (hubble) return <HubbleBrandCard brand={hubble} merchant={voucher.brand_name} query={query} bestPct={voucher.best_discount_pct} />;
 
   // A type-any-amount card (Amazon Pay on Maximize: ₹100–₹10,000) shows its
   // range even when the seller also lists quick-pick amounts — the list would

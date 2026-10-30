@@ -392,6 +392,27 @@ if (!isGranted()) {
   countStage('Dashboard Opened');
 }
 
+/**
+ * The properties every event about a voucher Dealo sells itself carries
+ * (offer or brand from GET /sold/offer and /sold/brand), so one funnel per
+ * seller can be built: seller, which shop, Dealo's rate, the public best
+ * rate it was compared with, the voucher value, and where on the page.
+ * surface: 'journey' (cart result) | 'shop_card' (shop-name search) |
+ * 'choice_chip' (what-are-you-buying picker).
+ */
+export function soldEventProps(offer, { merchant, surface, bestPct, amount } = {}) {
+  return {
+    seller: offer?.seller || 'hubble',
+    merchant: merchant ?? offer?.brand_name ?? null,
+    brand: offer?.brand_name ?? null,
+    amount: amount ?? offer?.voucher_total ?? null,
+    discount_pct: offer?.discount_pct ?? null,
+    best_pct: bestPct ?? null,
+    surface: surface ?? null,
+    in_store: Boolean(offer?.in_store),
+  };
+}
+
 /** Fire-and-forget event tracking. */
 export function track(event, props = {}) {
   if (isGranted()) mixpanel.track(event, props);
