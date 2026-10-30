@@ -3,7 +3,7 @@ import { Box, Flex, Text } from '@chakra-ui/react';
 
 import BrandVoucherCard from '@/components/dashboard/BrandVoucherCard';
 import { soldApi } from '@/api/sold.api';
-import { track } from '@/utils/analytics';
+import { soldEventProps, track } from '@/utils/analytics';
 
 // "MakeMyTrip" from "MakeMyTrip Hotel e-Pay", "MakeMyTrip Cab"... — the first
 // word every card name shares, spelled as in the shortest name. Same rule as
@@ -42,7 +42,11 @@ export default function VoucherChoicePicker({ choices, query }) {
       if (!c.brand_name) return;
       soldApi
         .brand(c.brand_name, HUBBLE_FORCE ? null : c.best_discount_pct)
-        .then((res) => live && res.available && setSold((prev) => ({ ...prev, [c.brand_name]: res.brand.discount_pct })))
+        .then((res) => {
+          if (!live || !res.available) return;
+          setSold((prev) => ({ ...prev, [c.brand_name]: res.brand.discount_pct }));
+          track('Dealo Voucher Shown', soldEventProps(res.brand, { merchant: c.brand_name, surface: 'choice_chip', bestPct: c.best_discount_pct }));
+        })
         .catch(() => {});
     });
     return () => {

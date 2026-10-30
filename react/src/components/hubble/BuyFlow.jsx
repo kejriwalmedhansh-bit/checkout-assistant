@@ -4,7 +4,7 @@ import { Box, Button, Checkbox, Flex, Input, InputGroup, InputLeftAddon, Text } 
 import { I } from '@/components/common/icons';
 import { SELLER_FRAME_HOSTS, SELLER_NAMES, soldApi } from '@/api/sold.api';
 import { confirmCode, currentUser, idToken, sendCode } from '@/lib/firebase';
-import { track } from '@/utils/analytics';
+import { soldEventProps, track } from '@/utils/analytics';
 import { fmt } from '@/utils/format';
 
 const NAME_KEY = 'dealo_buyer_name';
@@ -39,10 +39,13 @@ const openHubbleLink = (link) => {
  * Maximize shows the voucher code on its own thank-you screen inside the
  * frame, so that frame stays open after payment until the shopper closes it.
  */
-export default function BuyFlow({ offer, merchant, price, shopLink, onClose, onBought }) {
+export default function BuyFlow({ offer, merchant, price, shopLink, surface, bestPct, onClose, onBought }) {
   const seller = offer.seller || 'hubble';
   const sellerName = SELLER_NAMES[seller] || 'Hubble';
   const frameHost = SELLER_FRAME_HOSTS[seller] || SELLER_FRAME_HOSTS.hubble;
+  // The same facts on every event of this flow, so Mixpanel can build one
+  // funnel per seller (see tracking-plan.json and docs/sprint-mixpanel.md).
+  const tp = soldEventProps(offer, { merchant, surface, bestPct });
   const [step, setStep] = useState('loading');
   const [name, setName] = useState(readName);
   const [phone, setPhone] = useState('');
@@ -66,10 +69,11 @@ export default function BuyFlow({ offer, merchant, price, shopLink, onClose, onB
         price,
         in_store: Boolean(offer.in_store),
       });
-      track('Hubble Store Opened', { merchant, amount: offer.voucher_total, seller });
+      track('Hubble Store Opened', tp);
       setStoreUrl(url);
       setStep('store');
     } catch {
+      track('Store Open Failed', { ...tp, reason: 'session' });
       setError('Something went wrong. Please try again.');
       setStep('details');
     } finally {
@@ -110,18 +114,19 @@ export default function BuyFlow({ offer, merchant, price, shopLink, onClose, onB
       if (kind === 'launch_link') openHubbleLink(msg.properties?.link);
       if (kind === 'payment_success') {
         paid.current = true;
-        track('Hubble Payment Success', { merchant, amount: offer.voucher_total });
+        track('Hubble Payment Success', tp);
       }
-      if (kind === 'payment_fail') track('Hubble Payment Failed', { merchant, amount: offer.voucher_total });
+      if (kind === 'payment_fail') track('Hubble Payment Failed', tp);
       // Paid, but Hubble couldn't make the card: Hubble refunds the payment
       // itself (5–7 working days per Yash, 27 Oct 2026). Say so plainly
       // rather than leaving the shopper on a blank "generating" screen.
       if (kind === 'voucher_generation_fail') {
-        track('Hubble Voucher Failed', { merchant, amount: offer.voucher_total });
+        track('Hubble Voucher Failed', tp);
         setStep('failed');
       }
       // Hubble's screen itself failed to load (bad keys, network, login).
       if (kind === 'error' && msg?.type === 'action') {
+        track('Store Open Failed', { ...tp, reason: 'error' });
         setError("Couldn't open the payment screen. Please try again.");
         setStep('details');
       }
@@ -135,22 +140,31 @@ export default function BuyFlow({ offer, merchant, price, shopLink, onClose, onB
       // inside its frame, so a paid shopper keeps the frame until they close it.
       if (kind === 'purchase_complete') {
         paid.current = true;
-        track('Hubble Payment Success', { merchant, amount: offer.voucher_total, seller });
+        track('Hubble Payment Success', tp);
       }
       if (kind === 'session_expired' || kind === 'sdk_error') {
+        track('Store Open Failed', { ...tp, reason: kind });
         setError("Couldn't open the payment screen. Please try again.");
         setStep('details');
       }
-      if (kind === 'close' || kind === 'sdk_close') (paid.current ? setStep('done') : onClose());
+      if (kind === 'close' || kind === 'sdk_close') {
+        if (paid.current) setStep('done');
+        else {
+          track('Store Closed Without Payment', { ...tp, closed_by: 'seller_screen' });
+          onClose();
+        }
+      }
     };
     window.addEventListener('message', onMessage);
     return () => window.removeEventListener('message', onMessage);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [step, merchant, offer.voucher_total, onClose, seller, frameHost]);
 
   // The voucher code reaches Dealo through the seller's order webhook a moment
   // after payment; ask a few times before falling back to the seller's own copy.
   useEffect(() => {
     if (step !== 'done') return undefined;
+    track('Voucher Ready', tp);
     onBought?.();
     let tries = 0;
     let timer;
@@ -172,7 +186,7 @@ export default function BuyFlow({ offer, merchant, price, shopLink, onClose, onB
     try {
       saveName(name.trim());
       confirmation.current = await sendCode(phone, 'dealo-get-code');
-      track('Login Code Sent', { merchant });
+      track('Login Code Sent', tp);
       setStep('code');
     } catch (err) {
       console.error('[login] send code failed', err?.code, err?.message);
@@ -212,7 +226,18 @@ export default function BuyFlow({ offer, merchant, price, shopLink, onClose, onB
               </Box>
               Secure payment · {sellerName}
             </Flex>
-            <Button aria-label="Close" variant="ghost" size="sm" onClick={() => (paid.current ? setStep('done') : onClose())}>
+            <Button
+              aria-label="Close"
+              variant="ghost"
+              size="sm"
+              onClick={() => {
+                if (paid.current) setStep('done');
+                else {
+                  track('Store Closed Without Payment', { ...tp, closed_by: 'dealo_button' });
+                  onClose();
+                }
+              }}
+            >
               <I.x size={18} />
             </Button>
           </Flex>

@@ -7,6 +7,7 @@ published keys, so a made-up phone number can never reach Hubble.
 """
 from __future__ import annotations
 
+import hashlib
 import time
 from datetime import datetime, timezone
 
@@ -15,6 +16,7 @@ import jwt
 from cryptography.x509 import load_pem_x509_certificate
 
 from ..config import get_settings
+from . import analytics_service
 
 _GOOGLE_CERTS = (
     "https://www.googleapis.com/robot/v1/metadata/x509/"
@@ -116,10 +118,45 @@ async def save_purchase(order: dict, environment: str) -> None:
     )
 
 
+def voucher_sold_event(*, seller: str, ref: str, uid: str | None, brand: str | None, amount, discount, environment: str) -> dict:
+    """The Mixpanel event for one completed sale, built from the seller's
+    webhook. No codes, PINs or phone numbers: the buyer is a one-way hash of
+    their login id, enough to count distinct buyers and nothing more. The
+    insert id is fixed per seller+order, so a webhook that is retried does
+    not count the sale twice."""
+    try:
+        amt = float(amount) if amount is not None else None
+        disc = float(discount) if discount is not None else None
+    except (TypeError, ValueError):
+        amt, disc = None, None
+    pct = round(disc / amt * 100, 2) if amt and disc is not None else None
+    return analytics_service.build_event(
+        "Voucher Sold",
+        surface="web",
+        insert_id=hashlib.sha256(f"{seller}:{ref}".encode()).hexdigest()[:32],
+        properties={
+            "seller": seller,
+            "brand": brand,
+            "amount": amt,
+            "discount": disc,
+            "discount_pct": pct,
+            "seller_environment": environment,
+            "buyer_key": hashlib.sha256(uid.encode()).hexdigest()[:16] if uid else None,
+        },
+    )
+
+
 async def save_sale(*, seller: str, ref: str | None, uid: str | None, brand: str | None, amount, discount, status: str | None, environment: str) -> None:
     """One row per voucher sold inside Dealo, whichever seller issued it.
     `hubble_ref` is the seller's own order reference (column name predates
-    the second seller). Never stores codes or PINs; never fails the purchase."""
+    the second seller). Never stores codes or PINs; never fails the purchase.
+    A completed sale also goes to Mixpanel as 'Voucher Sold' (the day-30
+    number: vouchers bought through Dealo, by seller)."""
+    if ref and status == "COMPLETED":
+        try:
+            analytics_service.fire(voucher_sold_event(seller=seller, ref=ref, uid=uid, brand=brand, amount=amount, discount=discount, environment=environment))
+        except Exception as exc:  # analytics must never fail the purchase
+            print(f"[buyers] could not report {seller} sale {ref}: {exc}")
     s = get_settings()
     if not s.SUPABASE_URL or not s.SUPABASE_SECRET_KEY or not ref:
         return
