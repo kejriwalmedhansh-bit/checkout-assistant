@@ -291,15 +291,14 @@ def _split(info: dict, price: float, pct: float, qty: int = 1) -> list[tuple[int
             if n and (best is None or n * amount > best[0] * best[1]):
                 best = (amount, n)
     elif lo is not None:
+        # A type-any-amount card is one voucher per order: their card page
+        # has no quantity control for these (seen 30 Oct 2026, AJIO), only
+        # the amount box. So: the bill, capped at the card's maximum.
         top = min(budget, hi or budget)
-        n = 1
-        if hi and budget > hi:
-            n = min(qty, budget // hi)
-            top = hi
-        while n and n * top * (1 - pct / 100) > cap:
-            n -= 1
-        if n and top >= lo:
-            best = (top, n)
+        if top * (1 - pct / 100) > cap:
+            top = int(cap / (1 - pct / 100))
+        if top >= lo:
+            best = (top, 1)
     return [best] if best else None
 
 

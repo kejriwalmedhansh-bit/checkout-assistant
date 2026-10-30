@@ -73,7 +73,8 @@ def test_where_it_works_comes_from_the_card_or_dealos_own_scrape():
 def test_splits_follow_their_frame_rules():
     # range card: one voucher for the bill, or several of the top amount
     assert mx._split(AJIO, 650, 7.65) == [(650, 1)]
-    assert mx._split(AJIO, 2799, 7.65, 4) == [(1000, 2)]
+    # a type-any-amount card is one voucher per order (no quantity control on their page)
+    assert mx._split(AJIO, 2799, 7.65, 4) == [(1000, 1)]
     assert mx._split(AJIO, 2799, 7.65, 1) == [(1000, 1)]
     assert mx._split(AJIO, 60, 7.65) is None                      # below the minimum
     # fixed cards: one denomination, as many as the shop takes on one bill
