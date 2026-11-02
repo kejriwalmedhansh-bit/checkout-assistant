@@ -37,6 +37,41 @@ const openHubbleLink = (link) => {
  *   inside Dealo → voucher ready.
  * A shopper already logged in on this browser skips straight to payment.
  */
+// One line of the voucher card: label, the value in mono, and a copy
+// button on the right (2026-11-02, owner's ask: copy the code and the PIN
+// with one tap, the way bank apps do, instead of selecting the text).
+function CodeRow({ label, value, copied, onCopy }) {
+  return (
+    <Flex align="center" justify="space-between" gap="12px">
+      <Box minW={0}>
+        <Text fontSize="11px" letterSpacing=".12em" opacity={0.6}>
+          {label}
+        </Text>
+        <Text fontFamily="mono" fontWeight={600} fontSize="17px" wordBreak="break-all">
+          {value}
+        </Text>
+      </Box>
+      <Button
+        onClick={onCopy}
+        size="sm"
+        h="36px"
+        px="12px"
+        flexShrink={0}
+        borderRadius="pill"
+        bg={copied ? 'brass' : 'whiteAlpha.200'}
+        color="white"
+        fontSize="13px"
+        fontWeight={700}
+        leftIcon={copied ? <I.check size={14} /> : <I.copy size={14} />}
+        _hover={{ bg: copied ? 'brass' : 'whiteAlpha.300' }}
+        aria-label={`Copy ${label.toLowerCase()}`}
+      >
+        {copied ? 'Copied' : 'Copy'}
+      </Button>
+    </Flex>
+  );
+}
+
 export default function BuyFlow({ offer, merchant, price, shopLink, onClose, onBought }) {
   const [step, setStep] = useState('loading');
   const [name, setName] = useState(readName);
@@ -185,6 +220,17 @@ export default function BuyFlow({ offer, merchant, price, shopLink, onClose, onB
 
   const voucher = order?.vouchers?.[0];
   const copy = (text) => navigator.clipboard?.writeText(text).catch(() => {});
+  // Which field's copy button just fired ('code' | 'pin'), so it can read
+  // "Copied" for a moment — the same tap-to-copy people know from bank apps.
+  const [copied, setCopied] = useState(null);
+  const copiedTimer = useRef(null);
+  const copyField = (field, text) => {
+    copy(text);
+    setCopied(field);
+    clearTimeout(copiedTimer.current);
+    copiedTimer.current = setTimeout(() => setCopied(null), 1600);
+  };
+  useEffect(() => () => clearTimeout(copiedTimer.current), []);
 
   if (step === 'store') {
     return (
@@ -376,21 +422,11 @@ export default function BuyFlow({ offer, merchant, price, shopLink, onClose, onB
             </Flex>
             {voucher ? (
               <Box borderRadius="18px" bg="text" color="onBrand" p="16px">
-                <Text fontSize="11px" letterSpacing=".12em" opacity={0.6}>
-                  CODE
-                </Text>
-                <Text fontFamily="mono" fontWeight={600} fontSize="17px">
-                  {voucher.code}
-                </Text>
+                <CodeRow label="CODE" value={voucher.code} copied={copied === 'code'} onCopy={() => copyField('code', voucher.code)} />
                 {voucher.pin && (
-                  <>
-                    <Text fontSize="11px" letterSpacing=".12em" opacity={0.6} mt="8px">
-                      PIN
-                    </Text>
-                    <Text fontFamily="mono" fontWeight={600} fontSize="17px">
-                      {voucher.pin}
-                    </Text>
-                  </>
+                  <Box mt="8px">
+                    <CodeRow label="PIN" value={voucher.pin} copied={copied === 'pin'} onCopy={() => copyField('pin', voucher.pin)} />
+                  </Box>
                 )}
               </Box>
             ) : (
