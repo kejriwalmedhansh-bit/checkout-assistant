@@ -77,3 +77,33 @@ def test_shop_key_strips_domains_and_suffixes():
     assert hs.shop_key("https://www.Amazon.in/dp/123") == "amazon"
     assert hs.shop_key("Westside (in-store)") == "westside"
     assert hs.shop_key("Hamleys India") == "hamleys"
+
+
+# --- Buy links -------------------------------------------------------------
+# Every surface hands the shopper to getdealo.in/buy/<slug>. The slug must
+# name exactly one catalogue voucher, for every voucher Hubble sells.
+
+
+def test_buy_slug_shape():
+    assert hs.buy_slug("AJIO Luxe") == "ajio-luxe"
+    assert hs.buy_slug("DOMINO'S") == "domino-s"
+    assert hs.buy_slug("  Myntra ") == "myntra"
+
+
+def test_buy_link_carries_amount_and_source(monkeypatch):
+    link = hs.buy_link("Myntra", 2000, "wa")
+    assert link.endswith("/buy/myntra?amount=2000&src=wa")
+    assert hs.buy_link("Myntra").endswith("/buy/myntra")
+
+
+def test_every_catalogue_voucher_has_a_working_slug():
+    import json
+    brands = json.loads(PROD.read_text())
+    broken = []
+    for b in brands:
+        found = hs.brand_by_slug(hs.buy_slug(b["name"]))
+        if not found or hs.normalize(found["name"]) != hs.normalize(b["name"]):
+            broken.append(b["name"])
+    # Titles that collide once punctuation is dropped resolve to the online
+    # one; a tie with no online entry answers nothing rather than guessing.
+    assert broken == [], broken

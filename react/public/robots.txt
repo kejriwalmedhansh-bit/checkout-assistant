@@ -2,5 +2,8 @@ User-agent: *
 Allow: /
 Disallow: /select
 Disallow: /results
+# Buy pages are hand-off targets for WhatsApp, the extension and the chat
+# apps, not content pages. Link previews still read them; search engines need not.
+Disallow: /buy
 
 Sitemap: https://getdealo.in/sitemap.xml

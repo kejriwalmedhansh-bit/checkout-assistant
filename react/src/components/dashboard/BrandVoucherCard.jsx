@@ -19,10 +19,16 @@ const HUBBLE_FORCE = import.meta.env.VITE_HUBBLE_FORCE === 'true';
  * amount, so what is shown is what Hubble charges. The outside link is not
  * shown here (owner's call, 28 Oct 2026).
  */
-function HubbleBrandCard({ brand, merchant, query }) {
+export function HubbleBrandCard({ brand, merchant, query, initialAmount = null }) {
   const quick = brand.cards.length ? brand.cards.slice(0, 4) : [500, 1000, 2000, 5000].filter((a) => a >= brand.min_amount && (!brand.max_amount || a <= brand.max_amount));
-  const [amount, setAmount] = useState(quick[1] || quick[0] || brand.min_amount);
-  const [typed, setTyped] = useState('');
+  // A buy link can arrive with the amount already chosen (WhatsApp worked it
+  // out from the cart). Honour it when this voucher can be bought for it:
+  // one of its fixed cards, or any amount in range when Hubble takes typed
+  // amounts. Otherwise fall back to the usual default.
+  const fits = (a) => a > 0 && a >= brand.min_amount && (!brand.max_amount || a <= brand.max_amount);
+  const preset = initialAmount && (quick.includes(initialAmount) || (brand.typed && fits(initialAmount))) ? initialAmount : null;
+  const [amount, setAmount] = useState(preset || quick[1] || quick[0] || brand.min_amount);
+  const [typed, setTyped] = useState(preset && !quick.includes(preset) ? String(preset) : '');
   const [offer, setOffer] = useState(null);
   const [buying, setBuying] = useState(false);
   const inRange = (a) => a >= brand.min_amount && (!brand.max_amount || a <= brand.max_amount);

@@ -10,6 +10,9 @@ export const ROUTES = {
   brands: '/brands',
   brand: '/brands/:slug',
   brandFor: (slug) => `/brands/${slug}`,
+  // Buy a voucher inside Dealo. The address every other surface sends people to.
+  buy: '/buy/:slug',
+  buyFor: (slug) => `/buy/${slug}`,
   about: '/about',
   contact: '/contact',
   join: '/join',

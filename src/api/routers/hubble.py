@@ -50,10 +50,16 @@ async def offer(
 
 
 @router.get("/brand")
-async def brand(merchant: str = Query(...), best_pct: float | None = Query(default=None)) -> dict:
-    """Shop-name search (no cart price yet): can Dealo sell this shop's
-    voucher, at what rate, and which amounts may the shopper pick."""
-    found = await hubble_service.brand_info(merchant)
+async def brand(
+    merchant: str | None = Query(default=None),
+    slug: str | None = Query(default=None, description="the voucher a /buy/<slug> link names"),
+    best_pct: float | None = Query(default=None),
+) -> dict:
+    """Shop-name search (no cart price yet), or a buy link: can Dealo sell
+    this shop's voucher, at what rate, and which amounts may the shopper pick."""
+    if not merchant and not slug:
+        raise HTTPException(status_code=422, detail="merchant or slug is required")
+    found = await hubble_service.brand_info(merchant, slug=slug)
     if found and not hubble_service.worth_showing(found["discount_pct"], best_pct):
         found = None
     return {"available": bool(found), "brand": found}

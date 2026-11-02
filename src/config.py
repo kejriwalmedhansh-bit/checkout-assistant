@@ -126,6 +126,10 @@ class Settings(BaseSettings):
     # WhatsApp buttons point at our own domain instead of linksredirect.com
     # directly. Render URL in prod, ngrok URL for local WhatsApp testing.
     PUBLIC_BASE_URL: str = "http://localhost:8000"
+    # The website people are sent to from WhatsApp, the extension and the
+    # chat apps to buy a voucher inside Dealo (/buy/<shop>). Local testing
+    # points it at the Vite dev server.
+    WEBSITE_URL: str = "https://getdealo.in"
 
     # --- CORS — comma-separated list of allowed origins ---
     CORS_ORIGINS: str = ",".join(_DEFAULT_CORS_ORIGINS)
