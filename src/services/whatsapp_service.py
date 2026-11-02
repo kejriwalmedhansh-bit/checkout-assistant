@@ -42,7 +42,7 @@ from ..constants import (
     WHATSAPP_RATE_LIMITED_MSG,
     WHATSAPP_SESSION_EXPIRED_MSG,
 )
-from . import analytics_service, price_list, search_service
+from . import analytics_service, hubble_service, price_list, search_service
 
 _search_rate_limiter = RateLimiter(
     max_per_window=get_settings().WHATSAPP_MAX_SEARCHES_PER_HOUR, window_seconds=3600,
@@ -342,6 +342,56 @@ def _voucher_box(denom_breakdown: list[dict], discount_pct: float) -> str:
     return "\n".join(lines) + "\n" + total_line
 
 
+async def _dealo_offer(merchant: str, price: float, in_store: bool, best_pct) -> dict | None:
+    """Dealo's own voucher (Hubble) for this cart, when its rate is within
+    HUBBLE_RATE_TOLERANCE points of today's best — the same rule the website's
+    results page applies. Any Hubble hiccup means "not today", never an error
+    in the chat."""
+    try:
+        offer = await hubble_service.offer_for(merchant, price, in_store)
+    except Exception:  # noqa: BLE001 — a partner outage must not break the step
+        return None
+    if offer and hubble_service.worth_showing(offer["discount_pct"], best_pct):
+        return offer
+    return None
+
+
+async def _dealo_brand(merchant: str, best_pct) -> dict | None:
+    """Same, for a shop-name search with no cart yet."""
+    try:
+        info = await hubble_service.brand_info(merchant)
+    except Exception:  # noqa: BLE001
+        return None
+    if info and hubble_service.worth_showing(info["discount_pct"], best_pct):
+        return info
+    return None
+
+
+def _dealo_buy_step(offer: dict, step_n: int, total_steps: int) -> str:
+    """The buy step when Dealo sells the voucher itself: what to buy, the
+    rate, and that it is paid by UPI and arrives in seconds. The amounts are
+    Hubble's cards for this cart, boxed the same way as a partner's."""
+    pct = offer["discount_pct"]
+    pct_text = f"{pct:g}"
+    brand = offer["brand_name"]
+    cards = [{"denom": d["amount"], "count": d["count"]} for d in offer.get("denominations") or []]
+    units = sum(c["count"] for c in cards)
+    word = _voucher_word(cards)
+    if units > 1:
+        text = (
+            f"*Step {step_n} of {total_steps}*\n\n"
+            f"Buy these {brand} {word} on Dealo — *{pct_text}% off*:\n\n"
+            f"{_voucher_box(cards, pct)}"
+        )
+    else:
+        text = (
+            f"*Step {step_n} of {total_steps}*\n\n"
+            f"Buy a *₹{offer['voucher_total']:,.0f}* {brand} {word} on Dealo — *{pct_text}% off*."
+        )
+    text += "\n\nPay by UPI, voucher in seconds."
+    return text
+
+
 async def _send_voucher_steps(phone: str, route: dict) -> None:
     """All steps for a voucher route are sent back-to-back with only brief
     breathing room between bubbles — never gated on the user having actually
@@ -389,6 +439,28 @@ async def _send_voucher_steps(phone: str, route: dict) -> None:
     voucher_word = _voucher_word(denom_breakdown)
     voucher_brand = voucher.get("brand_name") or voucher.get("merchant") or merchant
     discount_pct = upi.get("pct", 0)
+
+    # Dealo sells the voucher itself when Hubble's rate is close enough to
+    # today's best (see _dealo_offer). The step then points at the website's
+    # buy page — login and payment only run there — with the amount filled in.
+    dealo = await _dealo_offer(merchant, route.get("listed_price") or 0, in_store, discount_pct)
+    if dealo:
+        step1_text = _dealo_buy_step(dealo, step_n, total_steps)
+        buy_url = hubble_service.buy_link(dealo["brand_name"], dealo["voucher_total"], "wa")
+        if not await send_cta_url(phone, step1_text, "Buy on Dealo", buy_url):
+            await send_text(phone, f"{step1_text}\n{buy_url}")
+        _track(
+            "WhatsApp Buy Step Shown", phone,
+            step="voucher", platform="Dealo", merchant=merchant,
+            discount_pct=dealo["discount_pct"],
+        )
+        step_n += 1
+        await asyncio.sleep(_MESSAGE_PACE_SECONDS)
+        await _send_redeem_step(
+            phone, route, merchant, in_store, step_n, total_steps,
+            remainder=dealo.get("rest_at_shop") or 0, link=link,
+        )
+        return
     # "10%", not "10.0%" — same form as the result message above it.
     pct_text = f"{discount_pct:g}" if isinstance(discount_pct, (int, float)) else str(discount_pct)
     # "Maximize" is a recognizable app name we can show as-is; "Gyftr" isn't
@@ -451,8 +523,18 @@ async def _send_voucher_steps(phone: str, route: dict) -> None:
     )
     step_n += 1
     await asyncio.sleep(_MESSAGE_PACE_SECONDS)
+    await _send_redeem_step(
+        phone, route, merchant, in_store, step_n, total_steps,
+        remainder=upi.get("remainder", 0), link=link,
+    )
 
-    remainder = upi.get("remainder", 0)
+
+async def _send_redeem_step(
+    phone: str, route: dict, merchant: str, in_store: bool, step_n: int, total_steps: int,
+    *, remainder: float, link: str | None,
+) -> None:
+    """The last step: use the voucher at the shop, pay whatever is left."""
+    voucher = route["voucher"]
     remainder_line = f"Pay the remaining *₹{remainder:,.0f}*." if remainder else "It covers the full order."
     redeem_instruction = voucher.get("how_to_redeem_short")
     if in_store:
@@ -499,6 +581,13 @@ async def _send_brand_voucher(phone: str, query: str, voucher: dict, shop: str |
     platform_name = {"maximize": "Maximize", "buyhatke": "BuyHatke"}.get(source)
     platform_label = platform_name or "our voucher partner"
     pct = voucher.get("best_discount_pct")
+
+    # Dealo sells this shop's voucher itself when Hubble's rate is close
+    # enough to the best listing (same rule as the website's shop card).
+    dealo = await _dealo_brand(brand, pct)
+    if dealo:
+        await _send_dealo_brand_voucher(phone, query, brand, dealo)
+        return
 
     lines = [f"*{brand} Gift Voucher — {choice}*" if choice else f"*{brand} Gift Voucher*"]
     if pct:
@@ -552,6 +641,41 @@ async def _send_brand_voucher(phone: str, query: str, voucher: dict, shop: str |
         "WhatsApp Brand Voucher Shown", phone,
         query=query, brand=brand, platform=platform_label, discount_pct=pct or 0,
         choice=choice or "",
+    )
+    await asyncio.sleep(_MESSAGE_PACE_SECONDS)
+    await send_text(phone, WHATSAPP_BRAND_VOUCHER_NEXT_MSG)
+
+
+async def _send_dealo_brand_voucher(phone: str, query: str, brand: str, info: dict) -> None:
+    """The shop-name answer when Dealo sells the voucher: rate, where it
+    works, the amounts on offer, and a button to the website's buy page."""
+    pct = info["discount_pct"]
+    lines = [f"*{brand} Gift Voucher*", f"*{pct:g}% off* on Dealo"]
+    if info.get("in_store"):
+        lines.append(f"Works in store — show the code at the {brand} counter.")
+    elif "OFFLINE" in (info.get("works") or []):
+        lines.append("Works online and in store.")
+    cards = info.get("cards") or []
+    if info.get("typed"):
+        top = f"₹{info['max_amount']:,}" if info.get("max_amount") else "any amount"
+        lines.append(f"\nAny amount, `₹{info['min_amount']:,}`–`{top}`")
+    elif cards:
+        lines.append("\n" + "  ".join(f"`₹{d:,}`" for d in cards))
+    lines.append("\nPay by UPI, voucher in seconds. Use it at *" + brand + "* checkout.")
+    text = "\n".join(lines)
+
+    session = session_store.get_session(phone) or {}
+    session_store.set_session(phone, {
+        **session, "query": query, "candidates": [], "routes": {},
+        "state": "brand_voucher_shown",
+    })
+
+    url = hubble_service.buy_link(info["brand_name"], None, "wa")
+    if not await send_cta_url(phone, text, "Buy on Dealo", url):
+        await send_text(phone, f"{text}\n{url}")
+    _track(
+        "WhatsApp Brand Voucher Shown", phone,
+        query=query, brand=brand, platform="Dealo", discount_pct=pct, choice="",
     )
     await asyncio.sleep(_MESSAGE_PACE_SECONDS)
     await send_text(phone, WHATSAPP_BRAND_VOUCHER_NEXT_MSG)
