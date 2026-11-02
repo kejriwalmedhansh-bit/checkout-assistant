@@ -28,6 +28,14 @@ def test_a_web_address_ending_comes_off_the_store_name():
     assert _strip_generic_suffix_words("Hamleys India") == "Hamleys"
     # Only a trailing ending: a dot inside the name is left alone.
     assert _strip_generic_suffix_words("Dr. Oetker") == "Dr. Oetker"
+    # Never down to under four letters: "Air" alone would match nothing.
+    assert _strip_generic_suffix_words("Air India") == "Air India"
+
+
+def test_and_and_ampersand_are_the_same_word():
+    records = [{"brand_name": "Adani Meet and Greet"}, {"brand_name": "Air India"}]
+    assert find_best_match("Adani Meet & Greet", records)["brand_name"] == "Adani Meet and Greet"
+    assert find_best_match("Air India", records)["brand_name"] == "Air India"
 
 
 def test_a_short_brand_is_found_from_its_web_address_name():
@@ -36,6 +44,8 @@ def test_a_short_brand_is_found_from_its_web_address_name():
     assert find_best_match("amazon.in", _RECORDS)["brand_name"] == "Amazon"
     # A brand whose real name is a web address still matches itself.
     assert find_best_match("Booking.com", _RECORDS)["brand_name"] == "Booking.com"
+    # A short store name only ever matches exactly: "EA" is not EatSure.
+    assert find_best_match("EA.com", _RECORDS + [{"brand_name": "EatSure"}]) is None
 
 
 def test_igp_dot_com_finds_igp_on_every_voucher_source():

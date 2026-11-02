@@ -2424,7 +2424,9 @@ def _clean_brand_name(name: str | None) -> str | None:
     name = re.sub(r"\s+", " ", name).strip()
     while True:
         stripped = _BRAND_NOISE_RE.sub("", name).strip(" -")
-        if stripped == name or len(stripped) < 2:
+        # Under four letters nothing can match it but an exact twin, so
+        # "Air India" keeps its "India" (audit 2026-11-02).
+        if stripped == name or len(re.sub(r"[^a-z0-9]", "", stripped.lower())) < 4:
             break
         name = stripped
     name = re.sub(r"\s+and\s+", " & ", name, flags=re.IGNORECASE)
@@ -2459,7 +2461,14 @@ def _brand_website_name(markup: str, host: str, jsonld_brand: str | None) -> str
             brand and _brand_signature(brand) != _brand_signature(listed)
         ):
             return None
-        return site_name or brand or listed
+        # The catalogue's own name for the shop, not the page's: this string
+        # becomes the merchant key the voucher lookup matches on, and the
+        # page's name for itself often isn't the voucher's (igp.com says
+        # "IGP.com", fnp.com says "FNP" while its voucher is "Ferns N
+        # Petals", pvrcinemas.com's is "PVR INOX"). Audit 2026-11-02: 68 of
+        # 350 known shop websites named themselves in a way no text rule
+        # could bridge; the website list already knows the right name.
+        return listed
     if brand and site_name and _brand_signature(brand) == _brand_signature(site_name):
         return site_name
     return None

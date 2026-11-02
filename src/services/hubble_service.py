@@ -26,7 +26,15 @@ import httpx
 import jwt
 
 from ..config import get_settings
-from ..repositories._brand_matching import _strip_generic_suffix_words, normalize
+from ..repositories._brand_matching import _strip_generic_suffix_words
+
+
+def normalize(name: str) -> str:
+    """Hubble's own catalogue key: letters and digits only. Kept apart from
+    the voucher matcher's normalize (which reads "&" as "and") because the
+    /buy/<slug> links already shared ("bath-body-works") must keep
+    resolving to the same brand."""
+    return re.sub(r"[^a-z0-9]", "", name.lower())
 
 SDK_HOST = {
     "staging": "https://sdk.dev.myhubble.money",

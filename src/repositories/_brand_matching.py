@@ -73,16 +73,22 @@ _DOMAIN_ENDING_RE = re.compile(r"\.(?:com|in|co\.in|net|org|co)$", re.IGNORECASE
 
 
 def normalize(name: str) -> str:
-    return re.sub(r"[^a-z0-9]", "", name.lower())
+    # "&" and "and" are the same word in a shop's name ("Adani Meet & Greet"
+    # on its website, "Adani Meet and Greet" in the catalogue), so both read
+    # as "and" before the punctuation goes (audit 2026-11-02).
+    return re.sub(r"[^a-z0-9]", "", name.lower().replace("&", " and "))
 
 
 def _strip_generic_suffix_words(name: str) -> str:
     """Drop trailing generic words ("Hamleys India" -> "Hamleys") and a web
     address ending ("IGP.com" -> "IGP"). Stops at the first non-generic word
-    from the end, so a real brand word is never removed. Falls back to the
-    original name if stripping would empty it."""
+    from the end, so a real brand word is never removed, and never leaves
+    fewer than four letters behind ("Air India" stays whole: "Air" alone is
+    too short to match anything but itself). Falls back to the original
+    name if stripping would empty it."""
     words = _DOMAIN_ENDING_RE.sub("", name.strip()).split()
-    while words and re.sub(r"[^a-z0-9]", "", words[-1].lower()) in _GENERIC_MERCHANT_SUFFIX_WORDS:
+    while (len(words) > 1 and re.sub(r"[^a-z0-9]", "", words[-1].lower()) in _GENERIC_MERCHANT_SUFFIX_WORDS
+           and len(normalize(" ".join(words[:-1]))) >= 4):
         words.pop()
     return " ".join(words) if words else name
 
@@ -108,7 +114,10 @@ def find_best_match(merchant_name: str, records: list[dict], name_key: str = "br
             continue
         if norm_brand == norm_merchant:
             rank = 0
-        elif len(norm_brand) < 4:
+        elif len(norm_brand) < 4 or len(norm_merchant) < 4:
+            # Too short to partial-match either way: "igp" must not match
+            # "igp-something-else", and a store called "EA" must not match
+            # "EatSure" (audit 2026-11-02, once ".com" came off "EA.com").
             continue
         elif norm_merchant.startswith(norm_brand) or norm_brand.startswith(norm_merchant):
             rank = 1
