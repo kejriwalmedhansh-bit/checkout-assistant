@@ -34,7 +34,7 @@ from fastapi.responses import JSONResponse, PlainTextResponse, Response
 from ...config import get_settings
 from ...repositories import buyhatke_repository, maximize_repository, voucher_repository
 from ...services import analytics_service, hubble_service
-from .voucher_check import voucher_check
+from .voucher_check import voucher_check_with_dealo
 
 logger = logging.getLogger(__name__)
 router = APIRouter(tags=["chat-app"])
@@ -320,11 +320,11 @@ async def _find_deal(args: dict, request: Request) -> dict:
     key = _shop_key(shop)
     surface = _surface(request)
     try:
-        deal = await voucher_check(key, amount)
+        deal = await voucher_check_with_dealo(key, amount)
         if not deal.get("has_voucher"):
             closest = _closest_shop(key)
             if closest:
-                deal = await voucher_check(closest, amount)
+                deal = await voucher_check_with_dealo(closest, amount)
         if amount:
             deal["cart_total"] = amount
         deal = _as_dealo(deal, surface)
