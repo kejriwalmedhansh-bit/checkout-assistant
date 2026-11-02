@@ -33,8 +33,8 @@ from fastapi.responses import JSONResponse, PlainTextResponse, Response
 
 from ...config import get_settings
 from ...repositories import buyhatke_repository, maximize_repository, voucher_repository
-from ...services import analytics_service
-from .voucher_check import voucher_check
+from ...services import analytics_service, hubble_service
+from .voucher_check import voucher_check_with_dealo
 
 logger = logging.getLogger(__name__)
 router = APIRouter(tags=["chat-app"])
@@ -117,7 +117,7 @@ CARD_RESOURCE = {
     "mimeType": CARD_MIME,
 }
 
-_SOURCE_NAMES = {"gyftr": "Gyftr", "maximize": "Maximize", "buyhatke": "BuyHatke"}
+_SOURCE_NAMES = {"gyftr": "Gyftr", "maximize": "Maximize", "buyhatke": "BuyHatke", "dealo": "Dealo"}
 
 
 def _surface(request: Request) -> str:
@@ -204,13 +204,46 @@ def _origin(request: Request) -> str:
     return base_url
 
 
+def _as_dealo(deal: dict, surface: str) -> dict:
+    """The same deal, sold by Dealo itself (Hubble) when /voucher-check says
+    its rate is close enough. The chat only links out: login and payment
+    run on getdealo.in/buy/<shop>, never inside the chat, which is what both
+    app stores require. The buy link is Dealo's own page, so it is not
+    wrapped in /out; the page counts the arrival with src=<surface>."""
+    d = deal.get("dealo")
+    if not d or not d.get("buy_url"):
+        return deal
+    total = d["voucher_total"]
+    return {
+        **deal,
+        "voucher_source": "dealo",
+        "voucher_url": hubble_service.buy_link(d["brand_name"], total, surface),
+        "pct": d["discount_pct"],
+        "saving": d["you_save"],
+        "effective_price": round((deal.get("cart_total") or 0) - d["you_save"], 2) if deal.get("cart_total") else None,
+        "voucher_amount": total,
+        "purchase_breakdown": f"₹{total:,.0f}",
+        "denomination_breakdown": d.get("denomination_breakdown") or [],
+        "txns_needed": 1,
+        "remainder": d.get("rest_at_shop") or 0,
+        # Dealo takes UPI only: no worse card rate to warn about.
+        "card_pct": None,
+        "priced": True,
+        "restrictions": [],
+    }
+
+
 def _deal_for_card(deal: dict, base_url: str, surface: str) -> dict:
-    """The fields the card draws, plus a logged link to the voucher site."""
+    """The fields the card draws, plus a logged link to the voucher site
+    (or Dealo's own buy page, which needs no /out wrapper)."""
     url = deal.get("voucher_url") or ""
-    buy_url = (
-        f"{base_url}/out?url={quote(url, safe='')}&surface={surface}&ctx=chat_card"
-        if url else ""
-    )
+    if deal.get("voucher_source") == "dealo":
+        buy_url = url
+    else:
+        buy_url = (
+            f"{base_url}/out?url={quote(url, safe='')}&surface={surface}&ctx=chat_card"
+            if url else ""
+        )
     keep = (
         "brand_name", "voucher_source", "pct", "card_pct", "saving", "effective_price",
         "priced", "voucher_amount", "purchase_breakdown", "txns_needed", "remainder",
@@ -249,9 +282,10 @@ def _summary(shop: str, amount: float | None, deal: dict, choices: list[dict]) -
             f"cards on {source} (pay by UPI), then pay with them at checkout. The rupee "
             "saving depends on the amount spent."
         ) + _footnote(deal)
+    on = "on Dealo itself (pay by UPI, voucher in seconds)" if deal.get("voucher_source") == "dealo" else f"on {source}, paying by UPI"
     text = (
         f"{deal['brand_name']}: buy {deal.get('purchase_breakdown')} of {deal['brand_name']} "
-        f"gift cards on {source}, paying by UPI. They pay {_rupees(deal.get('effective_price'))} "
+        f"gift cards {on}. They pay {_rupees(deal.get('effective_price'))} "
         f"for {_rupees(amount)} of shopping: {_pct(deal.get('pct'))} off, saving {_rupees(deal.get('saving'))}. "
         f"Then choose gift card as the payment method at {deal['brand_name']} checkout."
     )
@@ -276,7 +310,7 @@ def _footnote(deal: dict) -> str:
     return out
 
 
-def _find_deal(args: dict, request: Request) -> dict:
+async def _find_deal(args: dict, request: Request) -> dict:
     shop = str(args.get("shop") or "").strip()
     if not shop:
         return {"content": [{"type": "text", "text": "Which shop? Give a shop name or website."}], "isError": True}
@@ -284,12 +318,16 @@ def _find_deal(args: dict, request: Request) -> dict:
     amount = float(amount) if isinstance(amount, (int, float)) and amount > 0 else None
 
     key = _shop_key(shop)
+    surface = _surface(request)
     try:
-        deal = voucher_check(key, amount)
+        deal = await voucher_check_with_dealo(key, amount)
         if not deal.get("has_voucher"):
             closest = _closest_shop(key)
             if closest:
-                deal = voucher_check(closest, amount)
+                deal = await voucher_check_with_dealo(closest, amount)
+        if amount:
+            deal["cart_total"] = amount
+        deal = _as_dealo(deal, surface)
     except Exception:
         logger.exception("[chat_app] lookup failed for %r", shop)
         return {"content": [{"type": "text", "text": (
@@ -297,7 +335,6 @@ def _find_deal(args: dict, request: Request) -> dict:
             "Trying again in a minute usually works."
         )}], "isError": True}
     choices = deal.get("product_choices") or []
-    surface = _surface(request)
     base_url = _origin(request)
 
     logger.info("[chat_app] %s lookup %r amount=%s -> %s %s%%", _surface(request), shop[:60], amount,
@@ -385,7 +422,7 @@ async def mcp(request: Request) -> Response:
     if method == "tools/call":
         if params.get("name") != TOOL["name"]:
             return _error(rpc_id, -32602, f"Unknown tool: {params.get('name')}")
-        return _ok(rpc_id, _find_deal(params.get("arguments") or {}, request))
+        return _ok(rpc_id, await _find_deal(params.get("arguments") or {}, request))
     if method == "resources/list":
         return _ok(rpc_id, {"resources": [CARD_RESOURCE]})
     if method == "resources/templates/list":
@@ -408,7 +445,8 @@ async def mcp(request: Request) -> Response:
                     "connect_domains": [],
                     "resource_domains": [],
                     "redirect_domains": [
-                        _origin(request), "https://www.gyftr.com", "https://www.maximize.money",
+                        _origin(request), get_settings().WEBSITE_URL,
+                        "https://www.gyftr.com", "https://www.maximize.money",
                         "https://buyhatke.com", "https://www.buyhatke.com",
                     ],
                 },
