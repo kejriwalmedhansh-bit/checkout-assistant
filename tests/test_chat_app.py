@@ -91,3 +91,29 @@ def test_buy_link_is_in_the_words_too():
     text = _rpc("tools/call", {"name": "find_gift_card_deal",
                                "arguments": {"shop": "Nykaa", "amount_inr": 4000}})["result"]["content"][0]["text"]
     assert "/out?url=" in text
+
+
+def test_dealo_sells_it_when_hubble_is_close(monkeypatch):
+    """When Hubble's rate is close enough, the card says Dealo and the buy
+    link is getdealo.in/buy/<shop> with the amount filled in: the chat only
+    links out, it never takes the payment."""
+    from src.services import hubble_service
+
+    async def fake_offer(merchant, price, in_store=False):
+        return {"brand_name": "Nykaa", "discount_pct": 6.0, "voucher_total": 4000, "you_pay": 3760,
+                "you_save": 240, "rest_at_shop": 0, "denominations": [{"amount": 4000, "count": 1}]}
+    monkeypatch.setattr(hubble_service, "offer_for", fake_offer)
+    monkeypatch.setattr(hubble_service, "worth_showing", lambda pct, best: True)
+    res = _rpc("tools/call", {"name": "find_gift_card_deal",
+                              "arguments": {"shop": "Nykaa", "amount_inr": 4000}}, ua="openai-mcp/1.0")["result"]
+    deal = res["structuredContent"]["deal"]
+    assert deal["source_name"] == "Dealo" and deal["pct"] == 6.0 and deal["saving"] == 240
+    assert deal["buy_url"].endswith("/buy/nykaa?amount=4000&src=chatgpt")
+    assert "/out?" not in deal["buy_url"]
+    assert "on Dealo itself" in res["content"][0]["text"]
+
+
+def test_chatgpt_may_open_dealo_buy_page():
+    card = _rpc("resources/read", {"uri": _rpc("tools/list")["result"]["tools"][0]["_meta"]["ui"]["resourceUri"]})
+    allowed = card["result"]["contents"][0]["_meta"]["openai/widgetCSP"]["redirect_domains"]
+    assert "https://getdealo.in" in allowed
