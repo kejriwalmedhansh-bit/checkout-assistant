@@ -35,13 +35,21 @@ window.__dealoPopup = (() => {
     return d.innerHTML;
   }
 
-  const SOURCE_NAMES = { gyftr: "Gyftr", maximize: "Maximize", buyhatke: "BuyHatke" };
+  const SOURCE_NAMES = { gyftr: "Gyftr", maximize: "Maximize", buyhatke: "BuyHatke", dealo: "Dealo" };
   function sourceName(src) {
     return SOURCE_NAMES[(src || "").toLowerCase()] || "our voucher partner";
   }
 
   function rupees(n) {
     return Math.round(n).toLocaleString("en-IN");
+  }
+
+  // Dealo sells this voucher itself (through Hubble, on getdealo.in). The
+  // journey is the same shape — buy, get a code, paste it at the shop — but
+  // the buying happens on Dealo's own page, which needs no pointing tour.
+  function onDealo(deal) {
+    const d = deal?.deal ?? deal;
+    return (d?.voucherSource || d?.voucher_source || "").toLowerCase() === "dealo";
   }
 
   // Copying the code is the single most important action in the journey, and
@@ -505,7 +513,7 @@ window.__dealoPopup = (() => {
       ${plan}
       ${strip}
       <button class="dealo-button dealo-ring dealo-withicon" id="dealo-open-voucher">
-        ${svg("voucher", 16, "currentColor", 1.9)} Get voucher
+        ${svg("voucher", 16, "currentColor", 1.9)} ${onDealo(deal) ? "Buy on Dealo" : "Get voucher"}
       </button>
       <button class="dealo-explain-toggle dealo-centered" aria-expanded="false">
         ${svg("info", 13, "currentColor", 2)} how it works
@@ -627,10 +635,17 @@ window.__dealoPopup = (() => {
     // drawn instead, like the voucher -> pay -> done strip on the first screen.
     // Maximize keeps the tour: there it points at the buttons reliably.
     const onGyftr = (d.voucherSource || "").toLowerCase() === "gyftr";
+    const dealo = onDealo(d);
     const step = (icon, color, label) =>
       `<div class="dealo-j-step">${svg(icon, 19, color, 1.8)}<span>${label}</span></div>`;
     const arrow = svg("arrow", 12, "#C7BFAF", 2.2);
-    const howTo = onGyftr
+    const howTo = dealo
+      ? `<div class="dealo-journey dealo-journey-tight" role="img" aria-label="Log in with your phone, pay by UPI, then copy the code">
+           ${step("user", "#1F3A5F", "phone login")}${arrow}
+           ${step("phone", "#4A9B8E", "pay by UPI")}${arrow}
+           ${step("copy", "#1F3A5F", "copy code")}
+         </div>`
+      : onGyftr
       ? `<div class="dealo-journey dealo-journey-tight" role="img" aria-label="Log in to Gyftr, add these to the cart, pay by UPI, then copy each code and PIN">
            ${step("user", "#1F3A5F", "log in")}${arrow}
            ${step("cart", "#C2712F", "add to cart")}${arrow}
@@ -654,15 +669,15 @@ window.__dealoPopup = (() => {
          </div>`;
 
     const root = card(`
-      <div class="dealo-eyebrow">Add to your ${esc(where)} basket</div>
+      <div class="dealo-eyebrow">${dealo ? "Buy here on Dealo" : `Add to your ${esc(where)} basket`}</div>
       ${chips}
       <div class="dealo-figure dealo-figure-tight">${figure}</div>
       <div class="dealo-caption">${caption}</div>
       ${rest}
       ${payRows}
       ${howTo}
-      <button class="dealo-button ${onGyftr ? "dealo-ring" : "dealo-secondary"} dealo-withicon" id="dealo-have-code">
-        ${svg("check", 16, "currentColor", 2.2)} I've bought them
+      <button class="dealo-button ${onGyftr || dealo ? "dealo-ring" : "dealo-secondary"} dealo-withicon" id="dealo-have-code">
+        ${svg("check", 16, "currentColor", 2.2)} ${dealo ? "I have the code" : "I've bought them"}
       </button>
       <button class="dealo-link dealo-centered" id="dealo-abandon">Not doing this now</button>
     `, 1);

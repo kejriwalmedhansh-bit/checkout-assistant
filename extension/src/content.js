@@ -374,6 +374,32 @@
     return Boolean(voucherHost) && siteOf(getDomain()) === siteOf(voucherHost);
   }
 
+  // When the backend says Dealo sells this voucher itself (deal.dealo, from
+  // Hubble, within 2 points of the partner's rate), the journey runs through
+  // getdealo.in/buy/<shop> instead of the partner site. Same deal shape, so
+  // every later screen — trip, codes, back at the store — needs no new case.
+  function asDealoDeal(deal, price) {
+    const d = deal?.dealo;
+    if (!d || !d.buy_url) return deal;
+    const saving = d.you_save;
+    return {
+      ...deal,
+      voucher_source: "dealo",
+      voucher_url: d.buy_url,
+      pct: d.discount_pct,
+      saving,
+      effective_price: price != null && saving != null ? price - saving : deal.effective_price,
+      voucher_amount: d.voucher_total,
+      purchase_breakdown: `₹${Math.round(d.voucher_total).toLocaleString("en-IN")}`,
+      denomination_breakdown: d.denomination_breakdown || [],
+      txns_needed: 1,
+      remainder: d.rest_at_shop || 0,
+      // Dealo takes UPI only, so there is no worse card rate to warn about.
+      card_pct: null,
+      priced: true,
+    };
+  }
+
   // ...or they've come back to the store they started from, code in hand.
   function backAtStoreFor(trip) {
     return Boolean(trip?.store?.domain) && siteOf(getDomain()) === siteOf(trip.store.domain);
@@ -902,7 +928,8 @@
       // Carry the order total through: the popup needs it to state the saving
       // as a share of THIS order rather than the voucher's headline rate.
       result.cart_total = price;
-      const offer = (deal, onChangeChoice) => {
+      const offer = (partnerDeal, onChangeChoice) => {
+        const deal = asDealoDeal(partnerDeal, price);
         track("Deal Shown", {
           merchant: deal.brand_name,
           has_voucher: true,

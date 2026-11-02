@@ -17,6 +17,10 @@ class VoucherCheckResponse(BaseModel):
     effective_price: float | None = None
     voucher_url: str | None = None
     priced: bool = False
+    # Dealo's own voucher (Hubble) for this order, when its rate is close
+    # enough to the partner's: the extension sends the shopper to
+    # getdealo.in/buy/<shop> instead. Absent otherwise.
+    dealo: dict | None = None
 
     # --- the guided journey needs all of this, and only exists when priced ---
     # How much voucher to actually buy, and the real executable breakdown
