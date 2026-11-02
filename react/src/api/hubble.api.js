@@ -10,8 +10,10 @@ export const hubbleApi = {
     return data;
   },
   /** GET /hubble/brand -> { available, brand:{discount_pct, cards, min_amount, max_amount, typed, in_store} } — shop-name search, no cart yet. */
-  brand: async (merchant, bestPct = null) => {
-    const params = { merchant };
+  brand: async (merchant, bestPct = null, { slug = null } = {}) => {
+    // A buy link names the voucher by slug (/buy/ajio-luxe); a shop-name
+    // search names the shop. One of the two.
+    const params = slug ? { slug } : { merchant };
     if (bestPct != null) params.best_pct = bestPct;
     const { data } = await apiClient.get('/hubble/brand', { params });
     return data;
