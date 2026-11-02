@@ -160,6 +160,7 @@ the affiliate "Okay" button sends the page address.
 
 | Version | Date | Changes | Status |
 |---------|------|---------|--------|
+| 0.2.6 | 2026-11-02 | When Dealo sells the shop's voucher itself (within 2 points of the best partner rate), the panel says "Buy on Dealo" and sends the shopper to getdealo.in/buy/<shop> with the amount filled in; on that page the panel shows phone login → pay by UPI → copy code. Partner journeys unchanged. Package `dealo-v0.2.6.zip`. | Draft |
 | 0.2.3 | 2026-09-17 | Dealo appears on carts that draw late (boAt), on booking review and payment pages (MakeMyTrip, AJIO's payment site) and across a shop's own subdomains. It starts as soon as a page begins loading instead of waiting for it to finish, runs one copy per page, and gives up on a slow backend reply after 12 seconds instead of waiting forever. Amounts in pointer labels are highlighted. Package `dealo-v0.2.3.zip`. | Draft |
 | 0.2.2 | 2026-09-17 | Panel can be dragged out of the way (position remembered). Redeem steps shown as a checklist with the code and PIN in the step where they're pasted; in-store steps dropped. New welcome page: a picture of the panel, "Free discounts, right at checkout". Package `dealo-v0.2.2.zip`. Supersedes 0.2.1, which was built but not uploaded. | Draft |
 | 0.2.1 | 2026-09-17 | On shops that sell a different voucher per kind of product (GIVA, MakeMyTrip, Yatra, Air India and 17 more), the popup asks "What are you buying?" first, then shows that voucher, what it covers and a link to its terms. Package `dealo-v0.2.1.zip`. | Draft |

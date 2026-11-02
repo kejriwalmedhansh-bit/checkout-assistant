@@ -23,7 +23,7 @@ from ...repositories import (
     voucher_repository,
 )
 from ...schemas.voucher_check import VoucherCheckResponse
-from ...services import voucher_service
+from ...services import hubble_service, voucher_service
 
 router = APIRouter(tags=["voucher-check"])
 
@@ -145,7 +145,38 @@ def _usable_online(deal: dict | None) -> bool:
 
 
 @router.get("/voucher-check", response_model=VoucherCheckResponse)
-def voucher_check(domain: str = Query(..., min_length=1), price: float | None = None) -> dict:
+async def voucher_check_with_dealo(domain: str = Query(..., min_length=1), price: float | None = None) -> dict:
+    """The partner deal for this checkout, plus Dealo's own voucher (Hubble)
+    when its rate is within HUBBLE_RATE_TOLERANCE points of it. The extension
+    then sends the shopper to getdealo.in/buy/<shop> instead of the partner.
+    The partner lookup itself stays a plain function (voucher_check) for the
+    chat app and the tests."""
+    return await _with_dealo(voucher_check(domain, price), price)
+
+
+async def _with_dealo(deal: dict, price: float | None) -> dict:
+    if not deal.get("has_voucher") or not price or not deal.get("brand_name"):
+        return deal
+    try:
+        offer = await hubble_service.offer_for(deal["brand_name"], price, False)
+    except Exception:  # noqa: BLE001 — a partner outage must never break the popup
+        return deal
+    if not offer or not hubble_service.worth_showing(offer["discount_pct"], deal.get("pct")):
+        return deal
+    deal["dealo"] = {
+        "brand_name": offer["brand_name"],
+        "discount_pct": offer["discount_pct"],
+        "voucher_total": offer["voucher_total"],
+        "you_pay": offer["you_pay"],
+        "you_save": offer["you_save"],
+        "rest_at_shop": offer["rest_at_shop"],
+        "denomination_breakdown": [{"denom": d["amount"], "count": d["count"]} for d in offer["denominations"]],
+        "buy_url": hubble_service.buy_link(offer["brand_name"], offer["voucher_total"], "ext"),
+    }
+    return deal
+
+
+def voucher_check(domain: str, price: float | None = None) -> dict:
     # The domain map is built from an audit CSV whose row for a domain is
     # sometimes a SUB-brand rather than the parent (ajio.com's only row is
     # "Ajio Luxe", AJIO's premium arm) — telling a shopper on ordinary AJIO
