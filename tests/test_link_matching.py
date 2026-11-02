@@ -107,3 +107,65 @@ def test_a_category_first_title_still_names_the_product():
     assert pi.match_tier(ident, "Kiprun Kipcore Men Running Shoes | DECATHLON KIPRUN")[0] == "exact"
     # A brand that is also a plain word still leads its own titles.
     assert pi.build_identity("noise colorfit pro 5 smartwatch")["brand"] == "noise"
+
+
+# Myntra's in-app Share link (2026-11-02): read at the product page itself.
+_MYNTRA_SHARED = (
+    "https://www.myntra.com/mailers/backpacks/corsica/corsica-women-embellished-backpack"
+    "/43300391/buy?utm_source=social_share&utm_medium=social_share_pdp&shared=true"
+)
+_MYNTRA_PRODUCT = (
+    "https://www.myntra.com/backpacks/corsica/corsica-women-embellished-backpack"
+    "/43300391/buy?utm_source=social_share&utm_medium=social_share_pdp&shared=true"
+)
+# Trimmed from the real page, 2026-11-02 (og:title ships with Myntra's
+# broken "-  -" template, as every /mailers/ page does).
+_MYNTRA_PAGE = """
+<title>Buy CORSICA Women Embellished Backpack  - Backpacks for Women 43300391 | Myntra</title>
+<meta property="og:title" content="Buy CORSICA Women Embellished Backpack -  - Accessories for Women" />
+<meta property="og:image" content="https://assets.myntassets.com/corsica.jpg" />
+<script type="application/ld+json">{"@type": "Product", "name": "CORSICA Women Embellished Backpack",
+ "brand": {"@type": "Thing", "name": "CORSICA"},
+ "offers": {"@type": "Offer", "price": "2679", "priceCurrency": "INR"}}</script>
+"""
+
+
+def test_a_myntra_share_link_is_read_at_its_product_page():
+    assert ss._store_page_url(_MYNTRA_SHARED) == _MYNTRA_PRODUCT
+    assert ss._store_page_url(_MYNTRA_PRODUCT) == _MYNTRA_PRODUCT
+    # Only Myntra's share prefix is known; another shop's path is left alone.
+    other = "https://www.ajio.com/mailers/p/469755273_pink"
+    assert ss._store_page_url(other) == other
+
+
+def test_the_page_fetch_asks_myntra_for_the_product_page(monkeypatch):
+    asked = []
+
+    class _Url:
+        host = "www.myntra.com"
+        def __str__(self):
+            return _MYNTRA_PRODUCT
+
+    class _Response:
+        status_code = 200
+        text = _MYNTRA_PAGE
+        history = ()
+        url = _Url()
+
+    class _Client:
+        def __init__(self, **kwargs):
+            pass
+        def __enter__(self):
+            return self
+        def __exit__(self, *exc):
+            return False
+        def get(self, url):
+            asked.append(url)
+            return _Response()
+
+    monkeypatch.setattr(ss.httpx, "Client", _Client)
+    title, price, merchant, image, final_url = ss._fetch_url_page(_MYNTRA_SHARED)
+    assert asked == [_MYNTRA_PRODUCT]
+    assert (title, price, merchant) == ("CORSICA Women Embellished Backpack", 2679.0, "Myntra")
+    assert image == "https://assets.myntassets.com/corsica.jpg"
+    assert final_url == _MYNTRA_PRODUCT

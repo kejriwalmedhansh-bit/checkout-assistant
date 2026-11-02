@@ -28,7 +28,7 @@ import re
 import threading
 import time
 from concurrent.futures import ThreadPoolExecutor, wait
-from urllib.parse import parse_qs, unquote, urljoin, urlsplit
+from urllib.parse import parse_qs, unquote, urljoin, urlsplit, urlunsplit
 
 import httpx
 
@@ -2508,6 +2508,32 @@ def _title_with_brand(title: str, brand: str | None) -> str:
 _DEEPLINK_URL_PARAMS = ("deep_link_value",)
 
 
+# Myntra's in-app "Share" button hands out the product page under a
+# /mailers/ prefix (myntra.com/mailers/backpacks/corsica/.../43300391/buy).
+# Myntra itself answers that address with a 301 to the plain product page
+# (/backpacks/corsica/.../43300391/buy) — from a normal connection. From the
+# deployed server that redirect hop is where the read fails (reported
+# 2026-11-02: a shared backpack link came back with four other CORSICA bags
+# and no live row, while the same link without /mailers/ was auto-picked at
+# its real ₹2,679 — reproduced against the live API both ways, same minute).
+# So the hop is skipped: the page is read at the address Myntra sends every
+# visitor to anyway. Myntra only; other hosts pass through untouched.
+_MYNTRA_SHARE_PREFIX_RE = re.compile(r"^/mailers(?=/)", re.IGNORECASE)
+
+
+def _store_page_url(url: str) -> str:
+    """The pasted link at the address the store serves the product page
+    from, where a shared form is known to differ from it (see
+    _MYNTRA_SHARE_PREFIX_RE). Any other link comes back unchanged."""
+    parts = urlsplit(url)
+    host = (parts.hostname or "").lower()
+    if host == "myntra.com" or host.endswith(".myntra.com"):
+        path = _MYNTRA_SHARE_PREFIX_RE.sub("", parts.path)
+        if path != parts.path:
+            return urlunsplit(parts._replace(path=path))
+    return url
+
+
 def _deeplink_redirect_target(resp: httpx.Response) -> str | None:
     """The real product URL hiding inside a smart-link's own redirect chain
     (see _DEEPLINK_URL_PARAMS), if this response followed one — None for an
@@ -2573,6 +2599,10 @@ def _fetch_url_page(url: str) -> tuple[str | None, float | None, str | None, str
     makes a blocked or JS-only page searchable at all. Price stays gated on
     _RENDER_PRICE_HOSTS; see _try_render for why the two differ.
     """
+    page_url = _store_page_url(url)
+    if page_url != url:
+        logger.info("[url-search] reading shared link at its product page: %s", page_url)
+        url = page_url
     render_host = (urlsplit(url).hostname or "").lower()
     render_merchant_name = _render_price_merchant(render_host)
     final_url = url
