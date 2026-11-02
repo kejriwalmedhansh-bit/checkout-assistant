@@ -25,8 +25,8 @@ def _with(monkeypatch, offer):
     async def fake(merchant, price, in_store=False):
         return offer
     monkeypatch.setattr(hubble_service, "offer_for", fake)
-    monkeypatch.setattr(vc, "_partner_check", lambda domain, price: dict(PARTNER))
-    return asyncio.run(vc.voucher_check("myntra.com", 2000))
+    monkeypatch.setattr(vc, "voucher_check", lambda domain, price=None: dict(PARTNER))
+    return asyncio.run(vc.voucher_check_with_dealo("myntra.com", 2000))
 
 
 def test_dealo_block_when_hubble_is_close(monkeypatch):
@@ -53,6 +53,6 @@ def test_hubble_error_is_swallowed(monkeypatch):
     async def boom(merchant, price, in_store=False):
         raise RuntimeError("hubble down")
     monkeypatch.setattr(hubble_service, "offer_for", boom)
-    monkeypatch.setattr(vc, "_partner_check", lambda domain, price: dict(PARTNER))
-    out = asyncio.run(vc.voucher_check("myntra.com", 2000))
+    monkeypatch.setattr(vc, "voucher_check", lambda domain, price=None: dict(PARTNER))
+    out = asyncio.run(vc.voucher_check_with_dealo("myntra.com", 2000))
     assert out["has_voucher"] and "dealo" not in out

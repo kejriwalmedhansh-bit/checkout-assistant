@@ -145,11 +145,13 @@ def _usable_online(deal: dict | None) -> bool:
 
 
 @router.get("/voucher-check", response_model=VoucherCheckResponse)
-async def voucher_check(domain: str = Query(..., min_length=1), price: float | None = None) -> dict:
+async def voucher_check_with_dealo(domain: str = Query(..., min_length=1), price: float | None = None) -> dict:
     """The partner deal for this checkout, plus Dealo's own voucher (Hubble)
     when its rate is within HUBBLE_RATE_TOLERANCE points of it. The extension
-    then sends the shopper to getdealo.in/buy/<shop> instead of the partner."""
-    return await _with_dealo(_partner_check(domain, price), price)
+    then sends the shopper to getdealo.in/buy/<shop> instead of the partner.
+    The partner lookup itself stays a plain function (voucher_check) for the
+    chat app and the tests."""
+    return await _with_dealo(voucher_check(domain, price), price)
 
 
 async def _with_dealo(deal: dict, price: float | None) -> dict:
@@ -174,7 +176,7 @@ async def _with_dealo(deal: dict, price: float | None) -> dict:
     return deal
 
 
-def _partner_check(domain: str, price: float | None) -> dict:
+def voucher_check(domain: str, price: float | None = None) -> dict:
     # The domain map is built from an audit CSV whose row for a domain is
     # sometimes a SUB-brand rather than the parent (ajio.com's only row is
     # "Ajio Luxe", AJIO's premium arm) — telling a shopper on ordinary AJIO
