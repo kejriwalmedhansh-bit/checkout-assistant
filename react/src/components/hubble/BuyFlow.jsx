@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { Box, Button, Checkbox, Flex, Input, InputGroup, InputLeftAddon, Text } from '@chakra-ui/react';
+import { Box, Button, Checkbox, Flex, IconButton, Input, InputGroup, InputLeftAddon, Text } from '@chakra-ui/react';
 
 import { I } from '@/components/common/icons';
 import { hubbleApi } from '@/api/hubble.api';
@@ -37,9 +37,10 @@ const openHubbleLink = (link) => {
  *   inside Dealo → voucher ready.
  * A shopper already logged in on this browser skips straight to payment.
  */
-// One line of the voucher card: label, the value in mono, and a copy
-// button on the right (2026-11-02, owner's ask: copy the code and the PIN
-// with one tap, the way bank apps do, instead of selecting the text).
+// One line of the voucher card: label, the value in mono, and a quiet copy
+// icon on the right (2026-11-02, owner's ask: copy the code and the PIN with
+// one tap, the way bank apps do; icon only, no pill or word, and a tick for
+// about half a second once copied).
 function CodeRow({ label, value, copied, onCopy }) {
   return (
     <Flex align="center" justify="space-between" gap="12px">
@@ -51,23 +52,21 @@ function CodeRow({ label, value, copied, onCopy }) {
           {value}
         </Text>
       </Box>
-      <Button
+      <IconButton
         onClick={onCopy}
-        size="sm"
-        h="36px"
-        px="12px"
+        aria-label={copied ? `${label} copied` : `Copy ${label.toLowerCase()}`}
+        icon={copied ? <I.check size={18} /> : <I.copy size={18} />}
+        variant="iconSubtle"
+        minW="40px"
+        h="40px"
         flexShrink={0}
-        borderRadius="pill"
-        bg={copied ? 'brass' : 'whiteAlpha.200'}
-        color="white"
-        fontSize="13px"
-        fontWeight={700}
-        leftIcon={copied ? <I.check size={14} /> : <I.copy size={14} />}
-        _hover={{ bg: copied ? 'brass' : 'whiteAlpha.300' }}
-        aria-label={`Copy ${label.toLowerCase()}`}
-      >
-        {copied ? 'Copied' : 'Copy'}
-      </Button>
+        borderRadius="12px"
+        bg="transparent"
+        color={copied ? 'brass' : 'onBrand'}
+        opacity={copied ? 1 : 0.7}
+        _hover={{ opacity: 1, bg: 'whiteAlpha.100', color: copied ? 'brass' : 'onBrand' }}
+        _active={{ bg: 'whiteAlpha.200' }}
+      />
     </Flex>
   );
 }
@@ -221,14 +220,14 @@ export default function BuyFlow({ offer, merchant, price, shopLink, onClose, onB
   const voucher = order?.vouchers?.[0];
   const copy = (text) => navigator.clipboard?.writeText(text).catch(() => {});
   // Which field's copy button just fired ('code' | 'pin'), so it can read
-  // "Copied" for a moment — the same tap-to-copy people know from bank apps.
+  // a tick for a moment — the same tap-to-copy people know from bank apps.
   const [copied, setCopied] = useState(null);
   const copiedTimer = useRef(null);
   const copyField = (field, text) => {
     copy(text);
     setCopied(field);
     clearTimeout(copiedTimer.current);
-    copiedTimer.current = setTimeout(() => setCopied(null), 1600);
+    copiedTimer.current = setTimeout(() => setCopied(null), 600);
   };
   useEffect(() => () => clearTimeout(copiedTimer.current), []);
 
