@@ -33,6 +33,21 @@
       "surfaces": ["web"],
       "properties": { "query": "what was typed", "brand": "Hubble voucher title", "amount": "voucher value in rupees" }
     },
+    "Buy Link Opened": {
+      "description": "Someone opened getdealo.in/buy/<shop>, the page WhatsApp, the extension and the chat apps send people to; available says whether Hubble sold that voucher that day.",
+      "surfaces": ["web"],
+      "properties": { "slug": "shop in the address", "amount": "rupees the link asked for, or null", "src": "wa | ext | chat | link", "available": "true when Hubble had the voucher" }
+    },
+    "Buy Link Redirected": {
+      "description": "A buy link whose shop Hubble did not sell that day sent the person to the best partner listing instead.",
+      "surfaces": ["web"],
+      "properties": { "slug": "shop in the address", "src": "wa | ext | chat | link", "source": "gyftr | maximize | buyhatke", "pct": "that listing's rate" }
+    },
+    "Buy Link Fallback Search": {
+      "description": "A buy link whose shop no seller had: the page ran an ordinary Dealo search for the shop name.",
+      "surfaces": ["web"],
+      "properties": { "slug": "shop in the address", "src": "wa | ext | chat | link" }
+    },
     "Hubble Payment Failed": {
       "description": "Hubble branch only: Hubble reported the shopper's UPI payment did not go through (Hubble's screen offers a retry).",
       "surfaces": ["web"],
