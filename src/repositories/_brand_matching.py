@@ -61,15 +61,27 @@ _GENERIC_MERCHANT_SUFFIX_WORDS = {
 }
 
 
+# A web address ending glued to the last word of a merchant's display name
+# ("IGP.com", "ajio.com", "KFC.in"). The word-by-word pass below can't see
+# it, because ".com" isn't a word of its own there. Found 2026-11-02: an
+# igp.com product page names itself "IGP.com", and after normalising to
+# "igpcom" the only partial match on offer was against "igp" — a brand name
+# under 4 letters, which the matcher deliberately never partial-matches
+# (too many false hits) — so IGP's vouchers on all three sources went
+# unfound and the shopper was sent to pay full price.
+_DOMAIN_ENDING_RE = re.compile(r"\.(?:com|in|co\.in|net|org|co)$", re.IGNORECASE)
+
+
 def normalize(name: str) -> str:
     return re.sub(r"[^a-z0-9]", "", name.lower())
 
 
 def _strip_generic_suffix_words(name: str) -> str:
-    """Drop trailing generic words ("Hamleys India" -> "Hamleys"). Stops at
-    the first non-generic word from the end, so a real brand word is never
-    removed. Falls back to the original name if stripping would empty it."""
-    words = name.strip().split()
+    """Drop trailing generic words ("Hamleys India" -> "Hamleys") and a web
+    address ending ("IGP.com" -> "IGP"). Stops at the first non-generic word
+    from the end, so a real brand word is never removed. Falls back to the
+    original name if stripping would empty it."""
+    words = _DOMAIN_ENDING_RE.sub("", name.strip()).split()
     while words and re.sub(r"[^a-z0-9]", "", words[-1].lower()) in _GENERIC_MERCHANT_SUFFIX_WORDS:
         words.pop()
     return " ".join(words) if words else name
