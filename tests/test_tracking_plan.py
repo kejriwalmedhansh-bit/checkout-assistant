@@ -98,11 +98,22 @@ def test_every_plan_event_is_fired_somewhere():
     assert not unused, "Listed in tracking-plan.json but never fired:\n" + "\n".join(unused)
 
 
-def test_anonymous_stage_counters_are_plan_events():
+def test_anonymous_events_never_carry_personal_properties():
+    """Visitors without consent are counted on every event, stripped to an
+    allow-list of page/deal facts. Nothing stored on the device, no ad click
+    ids, no free text, nothing from the login."""
     text = (ROOT / "react/src/utils/analytics.js").read_text()
-    block = re.search(r"ANONYMOUS_STAGES = new Set\(\[(.*?)\]\)", text, re.S).group(1)
-    stages = set(re.findall(r"'([^']+)'", block))
-    assert stages <= PLAN_EVENTS, stages - PLAN_EVENTS
+    block = re.search(r"ANONYMOUS_SAFE_PROPS = new Set\(\[(.*?)\]\)", text, re.S).group(1)
+    allowed = set(re.findall(r"'([^']+)'", block))
+    never = {"is_returning_visitor", "gclid", "fbclid", "ad_click_id", "note", "name", "phone", "email", "code", "pin",
+             "dealo_user_id", "dealo_id", "$device_id", "$user_id", "ip"}
+    assert not (allowed & never), allowed & never
+    # Every allowed name is a property some web event in the plan actually has.
+    plan_props = {p for e in PLAN["events"].values() if "web" in e["surfaces"] for k in e["properties"] for p in re.split(r",\s*", k)}
+    assert allowed <= plan_props, allowed - plan_props
+    # And the anonymous id is minted in memory, never read from storage.
+    assert "VISIT_ID = `visit:${newId()}`" in text
+    assert "ip: '0'" in text
 
 
 # --- /go and /out -----------------------------------------------------------

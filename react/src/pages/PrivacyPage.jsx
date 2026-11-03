@@ -115,8 +115,10 @@ export default function PrivacyPage() {
           </li>
           <li>
             <strong>Say no and there is no recording at all</strong>, and nothing that identifies your browser.
-            We keep a count of how many people reached each step, and the words searched — not tied to you or to
-            anyone — so we can still see where the site loses people.
+            We still count each step people take — the page, the words searched, the shop and the prices shown,
+            which site or campaign link brought the visit — under a random tag that exists only while the tab is
+            open and is never saved. It cannot recognise you on your next visit, and it carries no address or
+            location.
           </li>
           <li>
             <strong>If you say yes</strong>, the replay shows the Dealo window only. We can’t see your other tabs,
@@ -142,11 +144,13 @@ export default function PrivacyPage() {
         location — city and region — from your internet connection.
         <br />
         <br />
-        If you haven’t agreed, none of that happens: no identifier, no replay, nothing that ties a search to you.
-        All that’s kept is a count of how many people reached each step of the site — including opening a store or
-        voucher link, which our server counts as it forwards you — and, for a search, the words searched (a pasted
-        link cut down to the shop and page, without the tracking codes after the “?”), with nothing attached to say
-        who they were.
+        If you haven’t agreed, none of that happens: no identifier is saved, no replay, no address or location,
+        nothing that ties a search to you. What’s kept is each step of the visit with facts about the page rather
+        than the person — the page opened, the words searched (a pasted link cut down to the shop and page, without
+        the tracking codes after the “?”), the shop, price and saving shown, which button was pressed, and which
+        site or campaign link the visit came from — plus opening a store or voucher link, which our server counts
+        as it forwards you. The steps of one visit are grouped under a random tag held only in the page’s memory;
+        close the tab and it is gone, so a later visit looks like a stranger.
 
         <SubHeading>Links to stores and voucher partners</SubHeading>
         Store, voucher-partner and card links on Dealo pass through our own server on the way. It records that the

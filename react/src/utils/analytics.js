@@ -97,83 +97,73 @@ function getIsInternalTester() {
   }
 }
 
+const APP_VERSION = import.meta.env.VITE_APP_VERSION || 'dev';
+
 function environment() {
   return window.location.hostname === 'getdealo.in' ? 'production' : 'development';
 }
 
 /**
- * The stage counters kept for visitors who haven't agreed to be recorded.
+ * Visitors who haven't agreed to be recorded are still counted — every event,
+ * but stripped to facts about the page and the deal, never about the person.
  *
- * Only these event names are sent, only their names, and every one of them is
- * a step in the funnel — enough to answer "where do people stop?", which is
- * the question the recording was for. Nothing carrying detail about a
- * particular person is on this list.
+ * What makes this lawful without consent is what is NOT done: nothing is
+ * written to or read from the browser (no cookie, no localStorage id), no IP
+ * address is kept (ip=0, so no location either), no session replay, and
+ * nothing that could point back at a person is carried (see the allow-list
+ * below). Two visits by the same person look like two strangers, which is
+ * the point. Sent by fetch rather than through the SDK, because the SDK would
+ * write its own identifier into storage on the way past.
+ *
+ * Owner's decision, 3 Nov 2026: track the most that is allowed without
+ * consent, so the 85% who never answer the banner still show where people
+ * stop, which shops they looked at and which link brought them.
  */
-const ANONYMOUS_STAGES = new Set([
-  'Session Started',
-  'Page Viewed',
-  'Product Searched',
-  'Deal Shown',
-  'Dashboard Opened',
-  'Searched',
-  'Selected Product',
-  'Viewed Deal',
-  'Clicked Buy Link',
-  'Join Page Viewed',
-  'Joined WhatsApp Clicked',
-  // The buy flow for vouchers Dealo sells itself (Hubble). Every step is a
-  // funnel stage and none carries anything about the person: without these,
-  // the 85% of visitors who never answer the cookie banner vanish from the
-  // one funnel the business runs on.
-  'Buy Link Opened',
-  'Buy Link Redirected',
-  'Buy Link Fallback Search',
-  'Dealo Voucher Shown',
-  'Buy Voucher Tapped',
-  'Hubble Shop Card Buy',
-  'Login Code Sent',
-  'Hubble Store Opened',
-  'Store Open Failed',
-  'Store Closed Without Payment',
-  'Hubble Payment Success',
-  'Hubble Payment Failed',
-  'Hubble Voucher Failed',
-  'Voucher Ready',
+
+/**
+ * A random id that lives only in this page's memory: it ties one visit's
+ * steps together (search -> deal -> buy) so funnels work for anonymous
+ * visitors, and it is gone the moment the tab closes. Never stored, so it
+ * cannot recognise anyone on a later visit. For anonymous visitors, "unique
+ * users" in Mixpanel therefore means visits.
+ */
+const VISIT_ID = `visit:${newId()}`;
+
+/**
+ * Event properties a visitor who hasn't agreed may carry. Everything here is
+ * about the page, the search or the deal — words searched, shop, price,
+ * saving, voucher rate, which button, which step, where the visit came from.
+ * Left off on purpose: anything stored on the device (is_returning_visitor),
+ * ad click ids that identify one click (gclid, fbclid, ad_click_id), free
+ * text people type (note), and anything from the buy flow's login (name,
+ * phone, code, PIN — which no event carries anyway).
+ */
+const ANONYMOUS_SAFE_PROPS = new Set([
+  // where the visit came from
+  'landing_page', 'referrer_domain', 'utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term',
+  'entry', 'ad_source_type', 'ad_source_id', 'ad_source_url', 'ad_headline',
+  // pages and steps
+  'path', 'step', 'step_index', 'view', 'trigger', 'placement', 'source', 'rank', 'reason', 'closed_by',
+  // searches
+  'query', 'mode', 'input_type', 'result_count', 'group', 'corrected_query', 'title', 'product_title', 'choice',
+  // deals and prices
+  'merchant', 'brand', 'shops', 'cheapest', 'spread', 'has_voucher', 'voucher_platform', 'voucher_aggregator',
+  'listed_price', 'original_price', 'final_price', 'final_cost', 'discount', 'saving', 'saving_amount', 'saving_pct',
+  'alternatives_count', 'pct', 'slug', 'available', 'src',
+  // vouchers Dealo sells itself
+  'seller', 'amount', 'discount_pct', 'best_pct', 'in_store',
+  // bank cards (which banks, not which card)
+  'cards', 'prime', 'bank',
 ]);
 
-/**
- * One shared id for every un-consented visitor, so Mixpanel counts the step
- * and cannot tell two people apart — which is the point. Sent with ip=0 so no
- * address is recorded and no location derived from one, and by fetch rather
- * than through the SDK, because the SDK would write its own identifier into
- * storage on the way past — which is exactly what a visitor who said no is
- * entitled not to have happen.
- */
-const ANONYMOUS_ID = 'anonymous';
-
-/**
- * What a search stage may carry for a visitor who hasn't agreed: the words
- * searched and what kind of answer came back — never anything that says who
- * searched. Without this, most searches arrive blank and we can't see what
- * Dealo is failing to answer.
- */
-const ANONYMOUS_SEARCH_PROPS = ['query', 'mode', 'input_type', 'result_count', 'group', 'corrected_query'];
-const ANONYMOUS_SEARCH_EVENTS = new Set(['Searched', 'Product Searched']);
-
-/**
- * What a buy-flow stage may carry without consent: which shop, the voucher
- * value, the rates, where on the page, and where the link came from. The
- * shopper's name, phone, login, code and PIN never go anywhere near here.
- */
-const ANONYMOUS_BUY_PROPS = [
-  'seller', 'merchant', 'brand', 'amount', 'discount_pct', 'best_pct', 'placement', 'in_store',
-  'slug', 'src', 'available', 'source', 'pct', 'reason', 'closed_by',
-];
-const ANONYMOUS_BUY_EVENTS = new Set([
-  'Buy Link Opened', 'Buy Link Redirected', 'Buy Link Fallback Search', 'Dealo Voucher Shown', 'Buy Voucher Tapped',
-  'Hubble Shop Card Buy', 'Login Code Sent', 'Hubble Store Opened', 'Store Open Failed', 'Store Closed Without Payment',
-  'Hubble Payment Success', 'Hubble Payment Failed', 'Hubble Voucher Failed', 'Voucher Ready',
-]);
+/** Phone or desktop, from the screen — the one fact about the device kept. */
+function deviceClass() {
+  try {
+    return window.matchMedia('(max-width: 768px)').matches ? 'phone' : 'desktop';
+  } catch {
+    return 'unknown';
+  }
+}
 
 /**
  * A pasted link keeps only its shop and page (amzn.in/d/0ab6OVDJ): the part
@@ -191,27 +181,27 @@ function withoutLinkTracking(text) {
   });
 }
 
-function anonymousProps(event, props) {
-  const allowed = ANONYMOUS_SEARCH_EVENTS.has(event) ? ANONYMOUS_SEARCH_PROPS : ANONYMOUS_BUY_EVENTS.has(event) ? ANONYMOUS_BUY_PROPS : [];
+function anonymousProps(props) {
   const kept = {};
-  for (const key of allowed) {
-    if (props[key] !== undefined && props[key] !== null) kept[key] = props[key];
+  for (const [key, value] of Object.entries(props || {})) {
+    if (ANONYMOUS_SAFE_PROPS.has(key) && value !== undefined && value !== null) kept[key] = value;
   }
   if (kept.query) kept.query = withoutLinkTracking(kept.query);
   return kept;
 }
 
 function countStage(event, props = {}) {
-  if (!ANONYMOUS_STAGES.has(event)) return;
   const payload = [{
     event,
     properties: {
-      ...anonymousProps(event, props),
+      ...anonymousProps(props),
       token: MIXPANEL_TOKEN,
-      distinct_id: ANONYMOUS_ID,
+      distinct_id: VISIT_ID,
       time: Math.floor(Date.now() / 1000),
       consent: 'not_granted',
+      device: deviceClass(),
       surface: 'web',
+      app_version: APP_VERSION,
       environment: environment(),
     },
   }];
@@ -235,7 +225,6 @@ function countStage(event, props = {}) {
 }
 
 
-const APP_VERSION = import.meta.env.VITE_APP_VERSION || 'dev';
 
 function prefixed(obj, prefix) {
   return Object.fromEntries(Object.entries(obj).map(([k, v]) => [`${prefix}${k}`, v]));
@@ -421,7 +410,7 @@ syncAnalyticsToConsent();
 // without agreeing still counts as an arrival. Fired at module scope rather
 // than in a component so StrictMode's double-mount can't double-count it.
 if (!isGranted()) {
-  countStage('Session Started');
+  countStage('Session Started', currentTouch());
   countStage('Dashboard Opened');
 }
 

@@ -7,7 +7,7 @@
     "Buy funnel (vouchers Dealo sells itself, through Hubble): Dealo Voucher Shown -> Buy Voucher Tapped -> Hubble Store Opened -> Hubble Payment Success -> Voucher Ready (website) and Voucher Sold (server, from Hubble's webhook). Read docs/sprint-mixpanel.md."
   ],
   "identity": {
-    "$device_id": "Anonymous id. Website: the visitor's dealo_user_id (only after consent). Extension: an id created at install. WhatsApp: wa-<scrambled phone>. Also sent as dealo_id.",
+    "$device_id": "Anonymous id. Website: the visitor's dealo_user_id (only after consent); without consent every event is sent under a random per-visit id (visit:<random>) that lives only in page memory, so one visit's steps line up but two visits never do. Extension: an id created at install. WhatsApp: wa-<scrambled phone>. Also sent as dealo_id.",
     "$user_id": "A known person. Only WhatsApp has one: wa:<phone>. An event carrying both ids joins every earlier event of that device to the person.",
     "links": "Website -> WhatsApp: the bot's pre-filled message carries (ref <website id>) and the bot fires Identity Linked. Every shop link carries the device id as affiliate subid, so purchases come back already attributed."
   },
@@ -16,7 +16,9 @@
     "environment": "production | development",
     "app_version": "Git commit (backend, website) or version number (extension) that sent the event",
     "is_internal_tester": "True for the team's own devices/phones — filter these out of real numbers",
-    "dealo_id": "The device id (see identity)"
+    "dealo_id": "The device id (see identity)",
+    "consent": "web: granted | not_granted. Without consent every website event is still sent, stripped to an allow-list of page/deal properties (ANONYMOUS_SAFE_PROPS in react/src/utils/analytics.js), with no IP, no stored id, no replay.",
+    "device": "web, without consent only: phone | desktop (the SDK's own $device/$os fields cover consented visits)"
   },
   "events": {
     "Dealo Voucher Shown": {
@@ -334,7 +336,9 @@
       "properties": {
         "query": "What they typed or pasted",
         "input_type": "products | url | brand_voucher (web) or product_name | url (whatsapp)",
-        "result_count": "web: candidates returned"
+        "result_count": "web: candidates returned",
+        "group": "voucher group the search fell into (shop-name searches), when any",
+        "corrected_query": "the spelling Dealo searched instead, when it corrected the typed words"
       }
     },
     "Deal Shown": {
@@ -455,7 +459,9 @@
       "properties": {
         "query": "Search text",
         "mode": "products | url | brand_voucher",
-        "result_count": "Candidates"
+        "result_count": "Candidates",
+        "group": "voucher group the search fell into (shop-name searches), when any",
+        "corrected_query": "the spelling Dealo searched instead, when it corrected the typed words"
       }
     },
     "Voucher Type Picked": {
