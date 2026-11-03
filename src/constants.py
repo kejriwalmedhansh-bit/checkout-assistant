@@ -224,6 +224,11 @@ WHATSAPP_ABOUT_MSG = (
     "for your shop, and you buy it there. It's free.\n\n"
     "Send a shop name or a product, like *Myntra* or *boAt Airdopes 141*."
 )
+# Reply to "stop" / "unsubscribe": one line, then silence until they ask
+# for a price again (see whatsapp_service._opted_out).
+WHATSAPP_OPT_OUT_MSG = (
+    "Okay, stopping here. Send a product name or link whenever you want a price check."
+)
 WHATSAPP_RATE_LIMITED_MSG = (
     "You're searching a lot in a short time — give it a few minutes and try again."
 )

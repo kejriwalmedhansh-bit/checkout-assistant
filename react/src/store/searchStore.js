@@ -2,7 +2,8 @@
  * Two-step search state.
  *   Step 1 (runSearch)     -> candidate products; tracked by `searchStatus`.
  *   Step 2 (selectProduct) -> full route result; tracked by `status`.
- * query + candidates + selectedToken + result are persisted (so reloads keep
+ * query + candidates + the picked product (token, title, price, thumbnail)
+ * + result + cardOffers are persisted (so reloads keep
  * the view); the two status fields and error are transient.
  *
  * Persisted state also carries `persistedAt` (set on every successful
@@ -75,6 +76,11 @@ export const useSearchStore = create(
       correctedQuery: '',
       selectedToken: null,
       selectedThumbnail: null,
+      // The picked candidate's own title and price: the results page needs
+      // them after a reload too (card question, price list), so they're
+      // declared here and persisted below like the rest of the pick.
+      selectedTitle: '',
+      selectedPrice: null,
       // A pasted link Dealo is sure about skips the picker: `autoPicked` tells
       // the picker page to move straight on to results (then clears), and
       // `skippedPicker` lets the results page offer "Not the right product?".
@@ -111,9 +117,13 @@ export const useSearchStore = create(
           groupLine: '',
           correctedQuery: '',
           selectedToken: null,
+          selectedThumbnail: null,
+          selectedTitle: '',
+          selectedPrice: null,
           autoPicked: false,
           skippedPicker: false,
           result: null,
+          cardOffers: [],
           searchStatus: 'loading',
           status: 'idle',
           error: null,
@@ -239,20 +249,34 @@ export const useSearchStore = create(
       // Results page -> "Not the right product?": back to the full picker.
       showPicker: () => set({ autoPicked: false, skippedPicker: false }),
 
+      // Every data field back to its starting value. Keep this list in step
+      // with the state above: a field left out here survives "start over"
+      // and a stale-session reset (onRehydrateStorage) and shows up on the
+      // next search.
       reset: () =>
         set({
           query: '',
           resolvedQuery: '',
           candidates: [],
           approximate: false,
+          otherColours: false,
+          closest: false,
+          unconfirmed: false,
           mode: 'products',
           voucher: null,
           voucherChoices: [],
+          group: null,
+          groupHeadline: '',
+          groupLine: '',
+          correctedQuery: '',
           selectedToken: null,
           selectedThumbnail: null,
+          selectedTitle: '',
+          selectedPrice: null,
           autoPicked: false,
           skippedPicker: false,
           result: null,
+          cardOffers: [],
           searchStatus: 'idle',
           status: 'idle',
           error: null,
@@ -269,24 +293,46 @@ export const useSearchStore = create(
         approximate: s.approximate,
         otherColours: s.otherColours,
         closest: s.closest,
+        unconfirmed: s.unconfirmed,
         mode: s.mode,
         voucher: s.voucher,
         voucherChoices: s.voucherChoices,
+        group: s.group,
+        groupHeadline: s.groupHeadline,
+        groupLine: s.groupLine,
+        correctedQuery: s.correctedQuery,
         selectedToken: s.selectedToken,
         selectedThumbnail: s.selectedThumbnail,
+        selectedTitle: s.selectedTitle,
+        selectedPrice: s.selectedPrice,
         skippedPicker: s.skippedPicker,
         result: s.result,
+        cardOffers: s.cardOffers,
         persistedAt: s.persistedAt,
       }),
-      // A rehydrated `result`/`candidates` older than STALE_AFTER_MS is
-      // reset immediately, before any page can render it — status fields
-      // aren't persisted (see file header), so without this an old session
-      // reopened after a long gap would otherwise render a stale product
-      // with searchStatus/status back at 'idle', no fresh search behind it.
-      onRehydrateStorage: () => (state) => {
-        if (state?.persistedAt && Date.now() - state.persistedAt > STALE_AFTER_MS) {
-          state.reset();
+      // Saved state is loaded through `merge` so a reload lands where the
+      // shopper was:
+      //  - anything older than STALE_AFTER_MS is dropped, so reopening an
+      //    old tab doesn't resurface a stale product with no search behind it;
+      //  - the two status fields aren't persisted, so they're derived here:
+      //    a saved candidate list is a finished search and a saved result is
+      //    a finished pick. Without this the picker page saw `searchStatus`
+      //    back at 'idle' on every reload and bounced to the home page.
+      merge: (saved, current) => {
+        if (!saved || !saved.persistedAt || Date.now() - saved.persistedAt > STALE_AFTER_MS) {
+          return current;
         }
+        const merged = { ...current, ...saved };
+        const hasSearch =
+          merged.candidates.length > 0 ||
+          Boolean(merged.voucher) ||
+          merged.voucherChoices.length > 0 ||
+          merged.mode !== 'products';
+        return {
+          ...merged,
+          searchStatus: hasSearch ? 'success' : 'idle',
+          status: merged.result ? 'success' : 'idle',
+        };
       },
     },
   ),

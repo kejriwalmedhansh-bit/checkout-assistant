@@ -28,6 +28,7 @@ from fastapi import APIRouter, HTTPException, Query, Request
 from fastapi.responses import RedirectResponse
 
 from ...config import get_settings
+from ..rate_limit import client_ip
 from ...constants import CUELINKS_BASE, INRDEALS_BASE, OUTBOUND_ALLOWED_HOSTS
 from ...repositories.affiliate_coverage_repository import network_for_brand
 from ...repositories.domain_brand_repository import brand_for_domain
@@ -49,10 +50,12 @@ def _clean(value: str | None, pattern: re.Pattern) -> str | None:
 
 
 def _client_ip(request: Request) -> str | None:
-    forwarded = request.headers.get("x-forwarded-for")
-    if forwarded:
-        return forwarded.split(",")[0].strip()
-    return request.client.host if request.client else None
+    # Same reading as the rate limiter: the last X-Forwarded-For hop is the
+    # address Render actually saw; the first is whatever the client chose to
+    # send. Until 2026-11-03 this read the first hop, so a forged header
+    # could place a click anywhere.
+    ip = client_ip(request)
+    return None if ip == "unknown" else ip
 
 
 def _host_allowed(host: str) -> bool:

@@ -39,6 +39,7 @@ from ..constants import (
     WHATSAPP_NO_ALTERNATIVES_MSG,
     WHATSAPP_ONBOARDING_MSG,
     WHATSAPP_PICK_REMINDER_MSG,
+    WHATSAPP_OPT_OUT_MSG,
     WHATSAPP_RATE_LIMITED_MSG,
     WHATSAPP_SESSION_EXPIRED_MSG,
 )
@@ -155,10 +156,9 @@ NOISE_PHRASES = {
     "help", "start", "menu",
 }
 
-# Distinct from a plain confused/noise message — a real (if unactionable
-# right now) opt-out or command signal, worth its own analytics tag even
-# though the reply to the user is the same "didn't catch that" nudge. Not
-# acted on beyond that yet — see Phase C follow-up-messaging work.
+# A real opt-out signal, acted on in _process_text_message: one short
+# confirmation, then the bot stays quiet for this phone until they send a
+# product or link again (see _opted_out).
 OPT_OUT_PHRASES = {"stop", "unsubscribe", "cancel", "no thanks", "not interested"}
 
 # Collapses a run of 3+ identical characters down to 2 ("hiiiiii" -> "hii",
@@ -1721,6 +1721,13 @@ def _track_conversation_start(phone: str, msg: dict) -> None:
 _SEEN_MESSAGE_TTL_SECONDS = 600  # comfortably longer than Meta's webhook retry window
 _seen_message_ids = TTLCache(default_ttl=_SEEN_MESSAGE_TTL_SECONDS)
 
+# Phones that said "stop": no nudges, no onboarding, no replies to filler,
+# until they send a product or link again. In process memory like every
+# other store here, so a restart forgets it — a one-line "okay, stopping"
+# after a restart is the worst case, never a stream of nudges.
+_OPT_OUT_TTL_SECONDS = 30 * 24 * 3600
+_opted_out = TTLCache(default_ttl=_OPT_OUT_TTL_SECONDS)
+
 
 async def handle_incoming(body: dict) -> None:
     """Parse a Meta webhook payload and dispatch. Swallows malformed payloads
@@ -1728,114 +1735,123 @@ async def handle_incoming(body: dict) -> None:
     an uncaught exception here would surface as a 500 in the webhook route,
     risking Meta's retry/backoff behavior on an already-processed message."""
     try:
-        entry = body["entry"][0]["changes"][0]["value"]
-        messages = entry.get("messages")
-        if not messages:
-            return
-        msg = messages[0]
-        phone = msg["from"]
-        msg_id = msg.get("id")
-        msg_type = msg.get("type")
-
-        # Meta delivers "at least once", not "exactly once" — if our ack is
-        # slow (e.g. a Render free-tier cold start), it retries the same
-        # message, and without this check that meant the whole reply
-        # sequence (onboarding, nudges, everything) ran twice, landing as
-        # duplicate/out-of-order bubbles. The check+set below has no await
-        # between them, so it's race-safe against a near-simultaneous retry
-        # within this one process.
-        if msg_id:
-            if _seen_message_ids.get(msg_id):
-                return
-            _seen_message_ids.set(msg_id, True)
-
-        _track("WhatsApp Message Received", phone, msg_type=msg_type)
-        _track_conversation_start(phone, msg)
-
-        if msg_type == "interactive":
-            interactive = msg.get("interactive", {})
-            itype = interactive.get("type")
-            if itype == "button_reply":
-                reply_id = interactive["button_reply"]["id"]
-                reply_title = interactive["button_reply"].get("title", reply_id)
-                message_log.record(phone, "in", f"[tapped] {reply_title}")
-                _track("WhatsApp Button Tapped", phone, button_id=reply_id, button_title=reply_title)
-                if reply_id == "see_alternatives":
-                    await send_typing_indicator(msg_id)
-                    _run_exclusive(phone, handle_alternatives(phone))
-                elif reply_id == "pick_again":
-                    await send_typing_indicator(msg_id)
-                    _run_exclusive(phone, handle_pick_again(phone))
-            elif itype == "list_reply":
-                reply_id = interactive["list_reply"]["id"]
-                reply_title = interactive["list_reply"].get("title", reply_id)
-                message_log.record(phone, "in", f"[tapped] {reply_title}")
-                if reply_id.startswith("alt_"):
-                    # Not a fresh pricing search, but still a real wait —
-                    # the image download/convert/upload + several message
-                    # sends take noticeable time, so this gets the typing
-                    # indicator too rather than assuming "cached = instant".
-                    await send_typing_indicator(msg_id)
-                    _run_exclusive(
-                        phone, _run_with_typing_keepalive(msg_id, handle_alternative_selection(phone, reply_id))
-                    )
-                elif reply_id.startswith("prod_"):
-                    await send_typing_indicator(msg_id)
-                    _run_exclusive(
-                        phone, _run_with_typing_keepalive(msg_id, handle_product_selection(phone, reply_id))
-                    )
-                elif reply_id.startswith("vtype_"):
-                    _run_exclusive(phone, handle_voucher_type_selection(phone, reply_id))
-            elif itype == "nfm_reply":
-                # A completed WhatsApp Flow (the photo picker) — same
-                # destination as a list_reply's "prod_" branch above, just
-                # arriving through the Flow's own response shape instead of
-                # a plain interactive id.
-                raw_response = interactive.get("nfm_reply", {}).get("response_json")
-                try:
-                    response = json.loads(raw_response) if raw_response else {}
-                except (TypeError, ValueError):
-                    response = {}
-                reply_id = response.get(WHATSAPP_FLOW_FIELD_NAME)
-                message_log.record(phone, "in", f"[flow pick] {reply_id or 'unknown'}")
-                if reply_id and reply_id.startswith("prod_"):
-                    await send_typing_indicator(msg_id)
-                    _run_exclusive(
-                        phone, _run_with_typing_keepalive(msg_id, handle_product_selection(phone, reply_id))
-                    )
-            return
-
-        if msg_type == "text":
-            text = msg["text"]["body"]
-        elif msg_type in ("image", "video") and (msg.get(msg_type) or {}).get("caption"):
-            # A phone's native "Share" sheet from a shopping app almost
-            # always lands on WhatsApp as a photo/video with the product
-            # link in its caption, not as a plain text message — Meta
-            # delivers it as an "image"/"video" message either way, so
-            # without this branch the caption (and any link in it) was
-            # never even looked at, and this exact real-world flow (share
-            # a product straight from a shopping app to Dealo) silently
-            # never worked. Reuses the normal text pipeline unchanged —
-            # classify_input already finds a URL anywhere in the string.
-            text = msg[msg_type]["caption"]
-        else:
-            message_log.record(phone, "in", f"[{msg_type} message]")
-            await _send_state_aware_nudge(phone)
-            _track("WhatsApp Nudge Sent", phone, reason=f"non_text:{msg_type}")
-            return
-
-        message_log.record(phone, "in", text)
-        # Marks this message read + shows typing immediately, regardless of
-        # what it turns out to be — without this, the debounce delay below
-        # would read as dead silence instead of "the bot is composing a
-        # reply." A later message in the same burst re-marks/re-shows this
-        # harmlessly; only one of them ends up producing an actual reply.
-        await send_typing_indicator(msg_id)
-        _run_exclusive(phone, _process_text_message(phone, msg_id, text))
-    except (KeyError, IndexError):
+        # Meta batches: one payload can carry several entries, changes and
+        # messages (a photo and its caption, two quick texts). Only the
+        # first of each used to be looked at; the rest were dropped silently.
+        for entry in body.get("entry") or []:
+            for change in entry.get("changes") or []:
+                for msg in (change.get("value") or {}).get("messages") or []:
+                    try:
+                        await _handle_message(msg)
+                    except (KeyError, IndexError, TypeError):
+                        pass
+    except (KeyError, IndexError, TypeError):
         pass
     except Exception as e:
         print(f"[Webhook] handle_incoming error: {e}")
+
+
+async def _handle_message(msg: dict) -> None:
+    """Dispatch one incoming message (see handle_incoming for the payload loop)."""
+    phone = msg["from"]
+    msg_id = msg.get("id")
+    msg_type = msg.get("type")
+
+    # Meta delivers "at least once", not "exactly once" — if our ack is
+    # slow (e.g. a Render free-tier cold start), it retries the same
+    # message, and without this check that meant the whole reply
+    # sequence (onboarding, nudges, everything) ran twice, landing as
+    # duplicate/out-of-order bubbles. The check+set below has no await
+    # between them, so it's race-safe against a near-simultaneous retry
+    # within this one process.
+    if msg_id:
+        if _seen_message_ids.get(msg_id):
+            return
+        _seen_message_ids.set(msg_id, True)
+
+    _track("WhatsApp Message Received", phone, msg_type=msg_type)
+    _track_conversation_start(phone, msg)
+
+    if msg_type == "interactive":
+        interactive = msg.get("interactive", {})
+        itype = interactive.get("type")
+        if itype == "button_reply":
+            reply_id = interactive["button_reply"]["id"]
+            reply_title = interactive["button_reply"].get("title", reply_id)
+            message_log.record(phone, "in", f"[tapped] {reply_title}")
+            _track("WhatsApp Button Tapped", phone, button_id=reply_id, button_title=reply_title)
+            if reply_id == "see_alternatives":
+                await send_typing_indicator(msg_id)
+                _run_exclusive(phone, handle_alternatives(phone))
+            elif reply_id == "pick_again":
+                await send_typing_indicator(msg_id)
+                _run_exclusive(phone, handle_pick_again(phone))
+        elif itype == "list_reply":
+            reply_id = interactive["list_reply"]["id"]
+            reply_title = interactive["list_reply"].get("title", reply_id)
+            message_log.record(phone, "in", f"[tapped] {reply_title}")
+            if reply_id.startswith("alt_"):
+                # Not a fresh pricing search, but still a real wait —
+                # the image download/convert/upload + several message
+                # sends take noticeable time, so this gets the typing
+                # indicator too rather than assuming "cached = instant".
+                await send_typing_indicator(msg_id)
+                _run_exclusive(
+                    phone, _run_with_typing_keepalive(msg_id, handle_alternative_selection(phone, reply_id))
+                )
+            elif reply_id.startswith("prod_"):
+                await send_typing_indicator(msg_id)
+                _run_exclusive(
+                    phone, _run_with_typing_keepalive(msg_id, handle_product_selection(phone, reply_id))
+                )
+            elif reply_id.startswith("vtype_"):
+                _run_exclusive(phone, handle_voucher_type_selection(phone, reply_id))
+        elif itype == "nfm_reply":
+            # A completed WhatsApp Flow (the photo picker) — same
+            # destination as a list_reply's "prod_" branch above, just
+            # arriving through the Flow's own response shape instead of
+            # a plain interactive id.
+            raw_response = interactive.get("nfm_reply", {}).get("response_json")
+            try:
+                response = json.loads(raw_response) if raw_response else {}
+            except (TypeError, ValueError):
+                response = {}
+            reply_id = response.get(WHATSAPP_FLOW_FIELD_NAME)
+            message_log.record(phone, "in", f"[flow pick] {reply_id or 'unknown'}")
+            if reply_id and reply_id.startswith("prod_"):
+                await send_typing_indicator(msg_id)
+                _run_exclusive(
+                    phone, _run_with_typing_keepalive(msg_id, handle_product_selection(phone, reply_id))
+                )
+        return
+
+    if msg_type == "text":
+        text = msg["text"]["body"]
+    elif msg_type in ("image", "video") and (msg.get(msg_type) or {}).get("caption"):
+        # A phone's native "Share" sheet from a shopping app almost
+        # always lands on WhatsApp as a photo/video with the product
+        # link in its caption, not as a plain text message — Meta
+        # delivers it as an "image"/"video" message either way, so
+        # without this branch the caption (and any link in it) was
+        # never even looked at, and this exact real-world flow (share
+        # a product straight from a shopping app to Dealo) silently
+        # never worked. Reuses the normal text pipeline unchanged —
+        # classify_input already finds a URL anywhere in the string.
+        text = msg[msg_type]["caption"]
+    else:
+        message_log.record(phone, "in", f"[{msg_type} message]")
+        await _send_state_aware_nudge(phone)
+        _track("WhatsApp Nudge Sent", phone, reason=f"non_text:{msg_type}")
+        return
+
+    message_log.record(phone, "in", text)
+    # Marks this message read + shows typing immediately, regardless of
+    # what it turns out to be — without this, the debounce delay below
+    # would read as dead silence instead of "the bot is composing a
+    # reply." A later message in the same burst re-marks/re-shows this
+    # harmlessly; only one of them ends up producing an actual reply.
+    await send_typing_indicator(msg_id)
+    _run_exclusive(phone, _process_text_message(phone, msg_id, text))
 
 
 _TEXT_DEBOUNCE_SECONDS = 2  # see _process_text_message
@@ -1873,6 +1889,7 @@ async def _process_text_message(phone: str, msg_id: str | None, text: str) -> No
         found = await asyncio.to_thread(search_service.routes_for_handoff, handoff_code)
         _track("WhatsApp Website Handoff", phone, found=bool(found), query=text)
         if found:
+            _opted_out.pop(phone)
             if is_new:
                 await send_text(phone, WHATSAPP_ONBOARDING_MSG)
                 _track("WhatsApp Onboarded", phone)
@@ -1882,6 +1899,21 @@ async def _process_text_message(phone: str, msg_id: str | None, text: str) -> No
     classification = (
         {"type": "unparseable", "reason": "website_greeting"} if is_website_greeting else classify_input(text)
     )
+
+    if classification.get("reason") == "opt_out":
+        # "stop" / "unsubscribe": confirm once, then go quiet. Comes before
+        # onboarding so a first-time "stop" isn't answered with a welcome.
+        _opted_out.set(phone, True)
+        await send_text(phone, WHATSAPP_OPT_OUT_MSG)
+        _track("WhatsApp Opted Out", phone, text=text)
+        return
+    if _opted_out.get(phone):
+        if classification["type"] in ("url", "product_name"):
+            _opted_out.pop(phone)
+            _track("WhatsApp Opted Back In", phone, text=text)
+        else:
+            _track("WhatsApp Nudge Suppressed", phone, reason="opted_out", text=text)
+            return
 
     if is_new:
         await send_text(phone, WHATSAPP_ONBOARDING_MSG)
