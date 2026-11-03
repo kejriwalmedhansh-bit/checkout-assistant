@@ -29,14 +29,16 @@ import {
   FAQ_JSON_LD,
   HOME_TITLE,
   PAGE_META,
+  SELLER_NAME,
+  SELLERS_EXPLAINED,
   SITE_NAME,
   SITE_URL,
-  brandJsonLd,
-  brandPageMeta,
   brandsIndexMeta,
-  canClubText,
-  multiUseText,
-  whereToRedeem,
+  pct,
+  shopFaqs,
+  shopJsonLd,
+  shopPageMeta,
+  whereToRedeemShop,
 } from '../src/seo/pageMeta.js';
 
 const HERE = path.dirname(fileURLToPath(import.meta.url));
@@ -61,9 +63,12 @@ const BUY_PAGES = [...new Map(HUBBLE_CATALOGUE.map((b) => [buySlug(b.name), b.na
 const ALL_BRAND_DEALS = JSON.parse(
   await readFile(path.join(HERE, '..', 'src', 'data', 'allBrandDeals.json'), 'utf8'),
 );
-const normalizeKey = (name) => name.toLowerCase().replace(/[^a-z0-9]/g, '');
-const LIVE_DEAL_BY_KEY = new Map(ALL_BRAND_DEALS.map((b) => [normalizeKey(b.name), b]));
-const brandRate = (b) => LIVE_DEAL_BY_KEY.get(normalizeKey(b.name))?.pct ?? b.ratePct;
+
+// The shop pages: today's rate from every seller side by side, built by
+// scripts/build_shop_pages.py from the seller catalogues + the live Dealo
+// rate. The six hand-written pages in brandDeals.js lend their copy.
+const SHOP_PAGES = JSON.parse(await readFile(path.join(HERE, '..', 'src', 'data', 'shopPages.json'), 'utf8'));
+const CURATED = new Map(BRAND_DEALS.map((b) => [b.slug, b]));
 
 // Trailing slashes on purpose: the host 301-redirects /privacy to /privacy/,
 // so the slashed form is the URL that actually answers. Publishing the
@@ -78,27 +83,53 @@ const link = (href, text) => `<a href="${href}">${esc(text)}</a>`;
 /** Visible top of a page, as plain HTML: its h1 and subtitle. */
 const head = (meta) => `<h1>${esc(meta.heading)}</h1>${p(meta.intro)}`;
 
-function brandBody(b) {
-  const rate = brandRate(b);
-  const meta = brandPageMeta(b, rate);
+function shopBody(shop) {
+  const meta = shopPageMeta(shop);
+  const curated = CURATED.get(shop.slug);
+  const rows = [...(shop.hubble ? [{ source: 'dealo', pct: shop.hubble.pct }] : []), ...shop.sellers].sort((a, b) => b.pct - a.pct);
+  const top = rows[0]?.pct;
+  const table =
+    '<table><thead><tr><th>Seller</th><th>Discount today</th></tr></thead><tbody>' +
+    rows
+      .map((r) => {
+        const name = r.source === 'dealo' ? 'Dealo (sold by Dealo, code in seconds)' : SELLER_NAME[r.source];
+        const href = r.source === 'dealo' ? `/buy/${buySlug(shop.hubble.brand_name || shop.name)}/` : r.url;
+        return `<tr><td>${link(href, name)}${r.pct === top ? ' — cheapest today' : ''}</td><td>${esc(pct(r.pct))} off</td></tr>`;
+      })
+      .join('') +
+    '</tbody></table>';
+  const steps = curated?.steps?.length
+    ? curated.steps
+    : [
+        `Pick the seller above with the best rate${shop.hubble ? ' (Dealo sells it with the code in seconds)' : ''}.`,
+        `Buy a ${shop.name} gift voucher for the amount you plan to spend.`,
+        ...(shop.steps.length ? shop.steps.slice(0, 2) : [`Pay at ${shop.name} with the voucher code and keep the difference.`]),
+      ];
+  const multi = shop.multiUse === true ? 'Multi-use, spend it across orders' : shop.multiUse === false ? 'Single-use, the full value goes in one order' : 'Not stated by the shop';
+  const club = shop.canClub === true ? 'Yes, pays the price after sale and coupons' : shop.canClub === false ? 'No, cannot be combined with other offers' : 'Not stated, treat it as store credit';
   return [
     head(meta),
-    p(`${rate}% off${b.online ? ' · Works online' : ''}${b.offline ? ' · Works in-store' : ''}`),
-    p(b.blurb),
+    p(`${shop.online ? 'Works online. ' : ''}${shop.offline ? 'Works in store. ' : ''}Checked ${shop.checked}.`),
+    '<h2>Today’s rate, every seller</h2>',
+    table,
+    p(SELLERS_EXPLAINED),
     '<h2>How to get the discount</h2>',
-    list(b.steps.map(esc), 'ol'),
+    list(steps.map(esc), 'ol'),
     '<h2>Quick facts</h2>',
     list([
-      `Where to redeem: ${esc(whereToRedeem(b))}`,
-      `Multi-use or single-use: ${esc(multiUseText(b))}`,
-      `Can be clubbed with offers: ${esc(canClubText(b))}`,
+      `Where to redeem: ${esc(whereToRedeemShop(shop))}`,
+      `Multi-use or single-use: ${esc(multi)}`,
+      `Works with other offers: ${esc(club)}`,
+      ...(shop.restrictions.length ? [`Cannot be used for: ${esc(shop.restrictions.join(' · '))}`] : []),
     ]),
-    p(b.notes),
+    p(curated?.notes),
+    '<h2>Questions people ask</h2>',
+    shopFaqs(shop).map((f) => `<h3>${esc(f.q)}</h3>${p(f.a)}`).join(''),
   ].join('');
 }
 
-const brandLinks = () =>
-  list(BRAND_DEALS.map((b) => link(`/brands/${b.slug}/`, `${b.name} Gift Voucher — ${brandRate(b)}% off`)));
+const shopLinks = () =>
+  list(SHOP_PAGES.map((s) => link(`/brands/${s.slug}/`, `${s.name} Gift Voucher — ${s.best ? pct(s.best.pct) + ' off' : 'today’s rate'}`)));
 
 // Each route: its URL, the <head> text (title/description/JSON-LD) and the
 // plain-HTML body a crawler reads before React boots. Everything is drawn
@@ -130,15 +161,15 @@ const ROUTES = [
     changefreq: 'weekly',
     priority: '0.8',
     meta: brandsIndexMeta(ALL_BRAND_DEALS.length),
-    body: () => head(brandsIndexMeta(ALL_BRAND_DEALS.length)) + brandLinks(),
+    body: () => head(brandsIndexMeta(ALL_BRAND_DEALS.length)) + shopLinks(),
   },
-  ...BRAND_DEALS.map((b) => ({
-    path: `/brands/${b.slug}/`,
+  ...SHOP_PAGES.map((shop) => ({
+    path: `/brands/${shop.slug}/`,
     changefreq: 'weekly',
     priority: '0.7',
-    meta: brandPageMeta(b, brandRate(b)),
-    jsonLd: brandJsonLd(b),
-    body: () => brandBody(b),
+    meta: shopPageMeta(shop),
+    jsonLd: shopJsonLd(shop),
+    body: () => shopBody(shop),
   })),
   { path: '/about/', changefreq: 'yearly', priority: '0.4', meta: PAGE_META.about },
   { path: '/contact/', changefreq: 'yearly', priority: '0.4', meta: PAGE_META.contact },

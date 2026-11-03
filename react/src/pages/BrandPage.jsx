@@ -1,41 +1,45 @@
+import { useEffect, useState } from 'react';
 import { Box, Button, Flex, Text } from '@chakra-ui/react';
-import { Navigate, useNavigate, useParams } from 'react-router-dom';
+import { Navigate, Link as RouterLink, useParams } from 'react-router-dom';
 
 import BrandAvatar from '@/components/common/BrandAvatar';
-import ALL_BRAND_DEALS from '@/data/allBrandDeals.json';
 import InfoPageShell from '@/components/common/InfoPageShell';
 import { I } from '@/components/common/icons';
+import SHOP_PAGES from '@/data/shopPages.json';
 import { getBrandDeal } from '@/data/brandDeals';
+import { hubbleApi } from '@/api/hubble.api';
 import { useJsonLd } from '@/hooks/useJsonLd';
 import { usePageTitle } from '@/hooks/usePageTitle';
-import { brandJsonLd, brandPageMeta, canClubText, multiUseText, whereToRedeem } from '@/seo/pageMeta';
+import {
+  SELLER_NAME,
+  SELLERS_EXPLAINED,
+  pct,
+  shopFaqs,
+  shopJsonLd,
+  shopPageMeta,
+  whereToRedeemShop,
+} from '@/seo/pageMeta';
 import { outboundLink, track } from '@/utils/analytics';
+import { fmt } from '@/utils/format';
 import { ROUTES } from '@/routes/paths';
 
-const SOURCE_LABEL = { gyftr: 'Gyftr', maximize: 'Maximize', buyhatke: 'BuyHatke' };
+const HUBBLE_ON = import.meta.env.VITE_HUBBLE_ENABLED === 'true';
+const SHOP_BY_SLUG = new Map(SHOP_PAGES.map((s) => [s.slug, s]));
+// Same slug rule as buy_slug() in src/services/hubble_service.py.
+const buySlug = (name) => name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
 
-const normalizeKey = (name) => name.toLowerCase().replace(/[^a-z0-9]/g, '');
-
-// These pages stay in sitemap.xml and take search traffic directly, so they
-// cannot rely on the hand-typed `ratePct` in brandDeals.js — those had drifted
-// up to 2 points low. The rate and the partner link come from the same
-// generated file the rest of the site reads.
-const LIVE_DEAL_BY_KEY = new Map(ALL_BRAND_DEALS.map((b) => [normalizeKey(b.name), b]));
+/**
+ * /brands/<slug>/ — the page Google sends people to for "<shop> gift card
+ * discount". One table: today's rate from every seller, cheapest first,
+ * Dealo's own voucher with a Buy button, partners with a link out. The
+ * partner rates are baked in at build time (scripts/build_shop_pages.py);
+ * Dealo's rate is re-read live when the page opens, since it is the one
+ * the page can sell.
+ */
 
 function Badge({ children, ...props }) {
   return (
-    <Flex
-      align="center"
-      gap="5px"
-      px="10px"
-      py="4px"
-      borderRadius="999px"
-      bg="surface3"
-      color="text2"
-      fontSize="11.5px"
-      fontWeight={700}
-      {...props}
-    >
+    <Flex align="center" gap="5px" px="10px" py="4px" borderRadius="999px" bg="surface3" color="text2" fontSize="11.5px" fontWeight={700} {...props}>
       {children}
     </Flex>
   );
@@ -59,120 +63,215 @@ function Fact({ icon, label, value }) {
   );
 }
 
-function Step({ n, children }) {
+function H2({ children }) {
   return (
-    <Flex align="flex-start" gap="12px" mb="14px">
-      <Flex
-        flex="0 0 auto"
-        w="26px"
-        h="26px"
-        align="center"
-        justify="center"
-        borderRadius="999px"
-        bg="brand"
-        color="onBrand"
-        fontSize="12px"
-        fontWeight={800}
-      >
-        {n}
-      </Flex>
-      <Text m="3px 0 0" fontSize="13.5px" color="text2" lineHeight={1.6}>
-        {children}
+    <Text as="h2" m="0 0 12px" fontSize="15px" fontWeight={800} letterSpacing="-.01em">
+      {children}
+    </Text>
+  );
+}
+
+/** One seller's row: who, today's rate, what happens on tap. */
+function SellerRow({ shop, seller, cheapest }) {
+  const isDealo = seller.source === 'dealo';
+  const name = SELLER_NAME[seller.source];
+  const sub = isDealo
+    ? 'Sold by Dealo · code in seconds'
+    : seller.card_pct > 0 && seller.card_pct < seller.pct
+      ? `${pct(seller.pct)} from your bank app · ${pct(seller.card_pct)} by card`
+      : seller.card_pct === 0
+        ? 'Pay from your bank app, not by card'
+        : 'Official gift voucher seller';
+  const common = {
+    display: 'flex',
+    alignItems: 'center',
+    gap: '12px',
+    p: '12px 14px',
+    borderRadius: '14px',
+    border: '1.5px solid',
+    borderColor: cheapest ? 'green' : 'border',
+    bg: cheapest ? 'greenSoft' : 'surface2',
+    _hover: { textDecoration: 'none', borderColor: cheapest ? 'green' : 'borderStrong' },
+  };
+  const body = (
+    <>
+      <Box flex="1" minW={0}>
+        <Flex align="center" gap="8px" flexWrap="wrap">
+          <Text fontSize="14px" fontWeight={800}>
+            {name}
+          </Text>
+          {cheapest && (
+            <Badge bg="green" color="white">
+              Cheapest today
+            </Badge>
+          )}
+        </Flex>
+        <Text fontSize="12px" color="text2" mt="2px">
+          {sub}
+        </Text>
+      </Box>
+      <Text fontFamily="mono" fontWeight={800} fontSize="20px" color={cheapest ? 'green' : 'text'} flexShrink={0}>
+        {pct(seller.pct)} off
       </Text>
-    </Flex>
+      <Box color="text2" flexShrink={0}>
+        {isDealo ? <I.arrowRight size={16} /> : <I.external size={14} />}
+      </Box>
+    </>
+  );
+  if (isDealo) {
+    return (
+      <Box
+        as={RouterLink}
+        to={`${ROUTES.buyFor(buySlug(seller.brand_name || shop.name))}?src=page`}
+        onClick={() => track('Clicked Brand Voucher Link', { brand: shop.name, source: 'dealo', pct: seller.pct, placement: 'brand-page' })}
+        {...common}
+      >
+        {body}
+      </Box>
+    );
+  }
+  return (
+    <Box
+      as="a"
+      href={outboundLink(seller.url, 'voucher_site', 'brand_page')}
+      target="_blank"
+      rel="noopener noreferrer"
+      onClick={() => track('Clicked Brand Voucher Link', { brand: shop.name, source: seller.source, pct: seller.pct, placement: 'brand-page' })}
+      {...common}
+    >
+      {body}
+    </Box>
   );
 }
 
 export default function BrandPage() {
   const { slug } = useParams();
-  const navigate = useNavigate();
-  const brand = getBrandDeal(slug);
-  const deal = brand ? LIVE_DEAL_BY_KEY.get(normalizeKey(brand.name)) : null;
-  const ratePct = deal ? deal.pct : brand?.ratePct;
+  const shop = SHOP_BY_SLUG.get(slug);
+  // The six original pages carry hand-written copy; keep it where it exists.
+  const curated = getBrandDeal(slug);
 
-  useJsonLd(brand ? brandJsonLd(brand) : null);
+  // Dealo's own rate, live: it is the one this page sells.
+  const [hubble, setHubble] = useState(shop?.hubble || null);
+  useEffect(() => {
+    if (!HUBBLE_ON || !shop) return undefined;
+    let live = true;
+    hubbleApi
+      .brand(shop.name)
+      .then((res) => {
+        if (!live) return;
+        setHubble(res.available && res.brand?.discount_pct ? { ...shop.hubble, ...res.brand, pct: res.brand.discount_pct } : null);
+      })
+      .catch(() => {});
+    return () => {
+      live = false;
+    };
+  }, [shop]);
 
-  const meta = brand ? brandPageMeta(brand, ratePct) : null;
+  const meta = shop ? shopPageMeta(shop) : null;
+  useJsonLd(shop ? shopJsonLd(shop) : null);
   usePageTitle(meta ? meta.title : 'Store not found', meta?.description);
 
-  if (!brand) return <Navigate to={ROUTES.brands} replace />;
+  if (!shop) return <Navigate to={ROUTES.brands} replace />;
+
+  const rows = [
+    ...(hubble ? [{ source: 'dealo', pct: hubble.pct, brand_name: hubble.brand_name }] : []),
+    ...shop.sellers,
+  ].sort((a, b) => b.pct - a.pct || (a.source === 'dealo' ? -1 : 1));
+  const topPct = rows[0]?.pct;
+  const faqs = shopFaqs(shop);
+  const steps = curated?.steps?.length
+    ? curated.steps
+    : [
+        `Pick the seller above with the best rate${hubble ? ' (Dealo sells it with the code in seconds)' : ''}.`,
+        `Buy a ${shop.name} gift voucher for the amount you plan to spend.`,
+        ...(shop.steps.length ? shop.steps.slice(0, 2) : [`Pay at ${shop.name} with the voucher code and keep the difference.`]),
+      ];
 
   return (
-    <InfoPageShell title={`${brand.name} Gift Voucher deal`} subtitle={brand.tagline}>
-      <BrandAvatar name={brand.name} size={72} logoSrc={`/brand-logos/${brand.slug}.webp`} radius="14px" fontSize="26px" />
-      <Flex align="center" gap="8px" mt="14px" mb="20px" flexWrap="wrap">
-        <Badge bg="brandSoft" color="brandText">
-          <I.zap size={12} />
-          {ratePct}% off{deal ? '' : `, checked ${brand.lastChecked}`}
-        </Badge>
-        {brand.online && <Badge>Works online</Badge>}
-        {brand.offline && <Badge>Works in-store</Badge>}
+    <InfoPageShell title={meta.heading} subtitle={meta.intro}>
+      <Flex align="center" gap="14px" mb="18px">
+        <BrandAvatar name={shop.name} size={56} logoSrc={curated ? `/brand-logos/${slug}.webp` : undefined} radius="14px" fontSize="22px" />
+        <Flex gap="8px" flexWrap="wrap">
+          {shop.online && <Badge>Works online</Badge>}
+          {shop.offline && <Badge>Works in store</Badge>}
+          <Badge>Checked {shop.checked}</Badge>
+        </Flex>
       </Flex>
 
-      <Text fontSize="14px" color="text2" lineHeight={1.65} mb="26px">
-        {brand.blurb}
+      <H2>Today’s rate, every seller</H2>
+      <Flex direction="column" gap="8px" mb="10px">
+        {rows.map((r) => (
+          <SellerRow key={r.source} shop={shop} seller={r} cheapest={r.pct === topPct} />
+        ))}
+      </Flex>
+      <Text fontSize="12px" color="text2" lineHeight={1.5} mb="26px">
+        {SELLERS_EXPLAINED}
       </Text>
 
-      <Text as="h2" m="0 0 14px" fontSize="15px" fontWeight={800} letterSpacing="-.01em">
-        How to get the discount
-      </Text>
+      {hubble?.cards?.length > 0 && (
+        <Text fontSize="12.5px" color="text2" mb="26px">
+          Dealo sells it in {hubble.cards.slice(0, 5).map((c) => fmt(c)).join(', ')}
+          {hubble.typed ? ' or any amount you type' : ''}.
+        </Text>
+      )}
+
+      <H2>How to get the discount</H2>
       <Box mb="24px">
-        {brand.steps.map((s, i) => (
-          <Step key={s} n={i + 1}>
-            {s}
-          </Step>
+        {steps.map((s, i) => (
+          <Flex key={s} align="flex-start" gap="12px" mb="12px">
+            <Flex flex="0 0 auto" w="26px" h="26px" align="center" justify="center" borderRadius="999px" bg="brand" color="onBrand" fontSize="12px" fontWeight={800}>
+              {i + 1}
+            </Flex>
+            <Text m="3px 0 0" fontSize="13.5px" color="text2" lineHeight={1.6}>
+              {s}
+            </Text>
+          </Flex>
         ))}
       </Box>
 
-      <Text as="h2" m="0 0 14px" fontSize="15px" fontWeight={800} letterSpacing="-.01em">
-        Quick facts
-      </Text>
+      <H2>Quick facts</H2>
       <Box display="grid" gridTemplateColumns={{ base: '1fr', sm: 'repeat(2, 1fr)' }} gap="10px" mb="22px">
-        <Fact icon={<I.globe size={15} />} label="Where to redeem" value={whereToRedeem(brand)} />
-        <Fact icon={<I.doc size={15} />} label="Multi-use or single-use" value={multiUseText(brand)} />
-        <Fact icon={<I.check size={15} />} label="Can be clubbed with offers" value={canClubText(brand)} />
+        <Fact icon={<I.globe size={15} />} label="Where to redeem" value={whereToRedeemShop(shop)} />
+        <Fact
+          icon={<I.doc size={15} />}
+          label="Multi-use or single-use"
+          value={shop.multiUse === true ? 'Multi-use, spend it across orders' : shop.multiUse === false ? 'Single-use, the full value goes in one order' : 'Not stated by the shop'}
+        />
+        <Fact
+          icon={<I.check size={15} />}
+          label="Works with other offers"
+          value={shop.canClub === true ? 'Yes, pays the price after sale and coupons' : shop.canClub === false ? 'No, cannot be combined with other offers' : 'Not stated, treat it as store credit'}
+        />
+        {shop.restrictions.length > 0 && <Fact icon={<I.alert size={15} />} label="Cannot be used for" value={shop.restrictions.join(' · ')} />}
       </Box>
 
-      {brand.notes && (
+      {curated?.notes && (
         <Flex align="flex-start" gap="10px" p="14px 16px" borderRadius="14px" bg="amberSoft" mb="22px">
           <Box color="amber" mt="1px" flex="0 0 auto">
             <I.info size={16} />
           </Box>
           <Text m={0} fontSize="12.5px" color="text2" lineHeight={1.55}>
-            {brand.notes}
+            {curated.notes}
           </Text>
         </Flex>
       )}
 
-      {/* Was a button that navigated to the empty search homepage, leaving the
-          reader to retype the brand they had just clicked. It now goes where
-          the page has spent its whole length telling them to go. Falls back to
-          search only when no live row exists for this brand. */}
-      <Button
-        as={deal ? 'a' : 'button'}
-        href={deal ? outboundLink(deal.url, 'voucher_site', 'brand_page') : undefined}
-        target={deal ? '_blank' : undefined}
-        rel={deal ? 'noopener noreferrer' : undefined}
-        variant="solid"
-        bg="brand"
-        color="onBrand"
-        _hover={{ bg: 'brandHover', textDecoration: 'none' }}
-        h="46px"
-        w="100%"
-        borderRadius="14px"
-        fontSize="14px"
-        fontWeight={700}
-        onClick={
-          deal
-            ? () => track('Clicked Brand Voucher Link', {
-                brand: brand.name, source: deal.source, pct: deal.pct, placement: 'brand-page',
-              })
-            : () => navigate(ROUTES.home)
-        }
-      >
-        {deal
-          ? `Buy on ${SOURCE_LABEL[deal.source] || deal.source} — ${deal.pct}% off`
-          : `Search ${brand.name} on Dealo`}
+      <H2>Questions people ask</H2>
+      <Box mb="24px">
+        {faqs.map((f) => (
+          <Box key={f.q} mb="14px">
+            <Text fontSize="13.5px" fontWeight={700} mb="3px">
+              {f.q}
+            </Text>
+            <Text fontSize="13px" color="text2" lineHeight={1.6}>
+              {f.a}
+            </Text>
+          </Box>
+        ))}
+      </Box>
+
+      <Button as={RouterLink} to={ROUTES.home} variant="outline" h="46px" w="100%" borderRadius="14px" fontSize="14px" fontWeight={700}>
+        Buying something specific? Search it on Dealo
       </Button>
     </InfoPageShell>
   );

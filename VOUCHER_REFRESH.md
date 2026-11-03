@@ -133,3 +133,8 @@ listing is held out of the data at load, the name is left out of the
 
 A held item goes live only once it's added to the review file.
 
+
+Then the shop pages (today's rate from every seller, /brands/<slug>/), which also reads Dealo's live Hubble rate, so run it with the network on:
+
+    python3.11 scripts/build_shop_pages.py
+
