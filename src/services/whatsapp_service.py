@@ -343,8 +343,8 @@ def _voucher_box(denom_breakdown: list[dict], discount_pct: float) -> str:
 
 
 async def _dealo_offer(merchant: str, price: float, in_store: bool, best_pct) -> dict | None:
-    """Dealo's own voucher (Hubble) for this cart, when its rate is within
-    HUBBLE_RATE_TOLERANCE points of today's best — the same rule the website's
+    """Dealo's own voucher (Hubble) for this cart, whenever Hubble sells
+    it (owner's call, 3 Nov 2026) — the same rule the website's
     results page applies. Any Hubble hiccup means "not today", never an error
     in the chat."""
     try:
