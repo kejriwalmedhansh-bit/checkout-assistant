@@ -1,6 +1,6 @@
 # Reading the Hubble buy numbers in Mixpanel
 
-Everything below is in the Mixpanel project **DealO**. Always add the filter
+Everything below is in the Mixpanel project **DealO**; the board **Dealo · Hubble buy numbers** has all of it on one page. Always add the filter
 **is_internal_tester is not true** so our own testing is left out, and
 **environment = production** so local builds are left out.
 
