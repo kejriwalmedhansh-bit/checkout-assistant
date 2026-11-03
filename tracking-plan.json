@@ -429,10 +429,25 @@
         "whatsapp"
       ],
       "properties": {
-        "reason": "noise_phrase | opt_out | website_greeting | non_text:<type> | ...",
+        "reason": "noise_phrase | website_greeting | non_text:<type> | ...",
         "text": "Message text",
         "suppressed_first_time": "Nudge skipped after onboarding"
       }
+    },
+    "WhatsApp Opted Out": {
+      "description": "User sent stop/unsubscribe; one confirmation sent, bot now quiet for this phone.",
+      "surfaces": ["whatsapp"],
+      "properties": {"text": "Message text"}
+    },
+    "WhatsApp Opted Back In": {
+      "description": "An opted-out phone sent a product or link again; replies resume.",
+      "surfaces": ["whatsapp"],
+      "properties": {"text": "Message text"}
+    },
+    "WhatsApp Nudge Suppressed": {
+      "description": "A nudge the bot would have sent but did not, because the phone opted out.",
+      "surfaces": ["whatsapp"],
+      "properties": {"reason": "opted_out", "text": "Message text", "msg_type": "Non-text message type"}
     },
     "WhatsApp Rate Limited": {
       "description": "Phone hit the hourly search limit.",
