@@ -11,7 +11,6 @@ import { hubbleApi } from '@/api/hubble.api';
 import { useJsonLd } from '@/hooks/useJsonLd';
 import { usePageTitle } from '@/hooks/usePageTitle';
 import {
-  DEALO_EXPLAINED,
   SELLER_NAME,
   SELLERS_EXPLAINED,
   pct,
@@ -21,7 +20,6 @@ import {
   whereToRedeemShop,
 } from '@/seo/pageMeta';
 import { outboundLink, track } from '@/utils/analytics';
-import { fmt } from '@/utils/format';
 import { shopLogos } from '@/utils/priceList';
 import { ROUTES } from '@/routes/paths';
 
@@ -47,21 +45,44 @@ function Badge({ children, ...props }) {
   );
 }
 
-function Fact({ icon, label, value }) {
+/** One line of "About this voucher": the question in bold, the answer under it. */
+function FactRow({ icon, q, a }) {
   return (
-    <Flex align="flex-start" gap="10px" p="13px 14px" borderRadius="12px" bg="surface2" border="1px solid" borderColor="border">
-      <Flex flex="0 0 auto" w="30px" h="30px" align="center" justify="center" borderRadius="9px" bg="brassSoft" color="brass">
+    <Flex align="flex-start" gap="12px" py="10px" borderBottom="1px dashed" borderColor="border" _last={{ borderBottom: 'none' }}>
+      <Box color="brass" mt="2px" flex="0 0 auto">
         {icon}
-      </Flex>
-      <Box>
-        <Text m="0 0 2px" fontSize="11.5px" fontWeight={700}>
-          {label}
+      </Box>
+      <Box minW={0}>
+        <Text m={0} fontSize="13.5px" fontWeight={700}>
+          {q}
         </Text>
-        <Text m={0} fontSize="11.5px" color="text2" lineHeight={1.45}>
-          {value}
+        <Text m={0} fontSize="12.5px" color="text2" lineHeight={1.45}>
+          {a}
         </Text>
       </Box>
     </Flex>
+  );
+}
+
+/** A section folded behind its heading, the way Maximize keeps "How to
+ * redeem" and the terms off the first screen. Open by default on wide
+ * screens is not needed: the crawler reads the prerendered copy. */
+function Fold({ title, children }) {
+  const [open, setOpen] = useState(false);
+  return (
+    <Box border="1px solid" borderColor="border" borderRadius="14px" mb="10px" overflow="hidden">
+      <Flex as="button" type="button" onClick={() => setOpen((o) => !o)} w="100%" align="center" justify="space-between" px="14px" py="12px" bg="surface2" fontSize="14px" fontWeight={700} textAlign="left">
+        {title}
+        <Box color="text2" transform={open ? 'rotate(180deg)' : 'none'} transition="transform .15s">
+          <I.chevDown size={16} />
+        </Box>
+      </Flex>
+      {open && (
+        <Box px="14px" py="12px">
+          {children}
+        </Box>
+      )}
+    </Box>
   );
 }
 
@@ -223,71 +244,58 @@ export default function BrandPage() {
           <SellerRow key={r.source} shop={shop} seller={r} cheapest={!hubble && r.pct === topPct} />
         ))}
       </Flex>
-      <Text fontSize="12px" color="text2" lineHeight={1.5} mb="26px">
-        {hubble ? DEALO_EXPLAINED : SELLERS_EXPLAINED}
+      <Text fontSize="12px" color="text2" lineHeight={1.5} mb="22px">
+        {hubble ? 'Issued through Hubble, an official gift voucher issuer. The shop accepts it like store credit.' : SELLERS_EXPLAINED}
       </Text>
 
-      {hubble?.cards?.length > 0 && (
-        <Text fontSize="12.5px" color="text2" mb="26px">
-          Dealo sells it in {hubble.cards.slice(0, 5).map((c) => fmt(c)).join(', ')}
-          {hubble.typed ? ' or any amount you type' : ''}.
-        </Text>
-      )}
 
-      <H2>How to get the discount</H2>
-      <Box mb="24px">
-        {steps.map((s, i) => (
-          <Flex key={s} align="flex-start" gap="12px" mb="12px">
-            <Flex flex="0 0 auto" w="26px" h="26px" align="center" justify="center" borderRadius="999px" bg="brand" color="onBrand" fontSize="12px" fontWeight={800}>
-              {i + 1}
-            </Flex>
-            <Text m="3px 0 0" fontSize="13.5px" color="text2" lineHeight={1.6}>
-              {s}
+      <H2>About this voucher</H2>
+      <Box px="14px" borderRadius="14px" bg="surface2" border="1px solid" borderColor="border" mb="18px">
+        <FactRow icon={<I.globe size={15} />} q="Where to redeem?" a={whereToRedeemShop(shop)} />
+        <FactRow icon={<I.pay size={15} />} q="How do I pay?" a={hubble ? 'From your bank app; the code arrives in seconds' : 'On the seller’s site, best rate from your bank app'} />
+        <FactRow
+          icon={<I.doc size={15} />}
+          q="Multi-use or single-use?"
+          a={shop.multiUse === true ? 'Multi-use, spend it across orders' : shop.multiUse === false ? 'Must use the full value in one go' : 'Not stated by the shop'}
+        />
+        <FactRow
+          icon={<I.check size={15} />}
+          q="Can it be clubbed with other offers?"
+          a={shop.canClub === true ? 'Yes, it pays the price after sale and coupons' : shop.canClub === false ? 'No, not with other offers' : 'Not stated, treat it as store credit'}
+        />
+        {shop.stack && <FactRow icon={<I.ticket size={15} />} q="Several vouchers in one order?" a={shop.stack} />}
+        {shop.restrictions.length > 0 && <FactRow icon={<I.alert size={15} />} q="Not valid for" a={shop.restrictions.join(' · ')} />}
+      </Box>
+
+      <Fold title="How to redeem">
+        {steps.map((st, i) => (
+          <Flex key={st} align="flex-start" gap="10px" mb="8px">
+            <Text flex="0 0 auto" w="20px" fontSize="13px" fontWeight={800} color="brand">
+              {i + 1}.
+            </Text>
+            <Text m={0} fontSize="13px" color="text2" lineHeight={1.55}>
+              {st}
             </Text>
           </Flex>
         ))}
-      </Box>
-
-      <H2>Quick facts</H2>
-      <Box display="grid" gridTemplateColumns={{ base: '1fr', sm: 'repeat(2, 1fr)' }} gap="10px" mb="22px">
-        <Fact icon={<I.globe size={15} />} label="Where to redeem" value={whereToRedeemShop(shop)} />
-        <Fact
-          icon={<I.doc size={15} />}
-          label="Multi-use or single-use"
-          value={shop.multiUse === true ? 'Multi-use, spend it across orders' : shop.multiUse === false ? 'Single-use, the full value goes in one order' : 'Not stated by the shop'}
-        />
-        <Fact
-          icon={<I.check size={15} />}
-          label="Works with other offers"
-          value={shop.canClub === true ? 'Yes, pays the price after sale and coupons' : shop.canClub === false ? 'No, cannot be combined with other offers' : 'Not stated, treat it as store credit'}
-        />
-        {shop.restrictions.length > 0 && <Fact icon={<I.alert size={15} />} label="Cannot be used for" value={shop.restrictions.join(' · ')} />}
-      </Box>
-
-      {curated?.notes && (
-        <Flex align="flex-start" gap="10px" p="14px 16px" borderRadius="14px" bg="amberSoft" mb="22px">
-          <Box color="amber" mt="1px" flex="0 0 auto">
-            <I.info size={16} />
-          </Box>
-          <Text m={0} fontSize="12.5px" color="text2" lineHeight={1.55}>
+        {curated?.notes && (
+          <Text mt="6px" fontSize="12.5px" color="text2">
             {curated.notes}
           </Text>
-        </Flex>
-      )}
-
-      <H2>Questions people ask</H2>
-      <Box mb="24px">
+        )}
+      </Fold>
+      <Fold title="Questions people ask">
         {faqs.map((f) => (
-          <Box key={f.q} mb="14px">
-            <Text fontSize="13.5px" fontWeight={700} mb="3px">
+          <Box key={f.q} mb="12px">
+            <Text fontSize="13px" fontWeight={700} mb="2px">
               {f.q}
             </Text>
-            <Text fontSize="13px" color="text2" lineHeight={1.6}>
+            <Text fontSize="12.5px" color="text2" lineHeight={1.55}>
               {f.a}
             </Text>
           </Box>
         ))}
-      </Box>
+      </Fold>
 
       <Button as={RouterLink} to={ROUTES.home} variant="outline" h="46px" w="100%" borderRadius="14px" fontSize="14px" fontWeight={700}>
         Buying something specific? Search it on Dealo

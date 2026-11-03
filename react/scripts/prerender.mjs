@@ -29,7 +29,6 @@ import {
   FAQ_JSON_LD,
   HOME_TITLE,
   PAGE_META,
-  DEALO_EXPLAINED,
   SELLER_NAME,
   SELLERS_EXPLAINED,
   SITE_NAME,
@@ -107,23 +106,25 @@ function shopBody(shop) {
         `Buy a ${shop.name} gift voucher for the amount you plan to spend.`,
         ...(shop.steps.length ? shop.steps.slice(0, 2) : [`Pay at ${shop.name} with the voucher code and keep the difference.`]),
       ];
-  const multi = shop.multiUse === true ? 'Multi-use, spend it across orders' : shop.multiUse === false ? 'Single-use, the full value goes in one order' : 'Not stated by the shop';
-  const club = shop.canClub === true ? 'Yes, pays the price after sale and coupons' : shop.canClub === false ? 'No, cannot be combined with other offers' : 'Not stated, treat it as store credit';
+  const multi = shop.multiUse === true ? 'Multi-use, spend it across orders' : shop.multiUse === false ? 'Must use the full value in one go' : 'Not stated by the shop';
+  const club = shop.canClub === true ? 'Yes, it pays the price after sale and coupons' : shop.canClub === false ? 'No, not with other offers' : 'Not stated, treat it as store credit';
   return [
     head(meta),
     p(`${shop.online ? 'Works online. ' : ''}${shop.offline ? 'Works in store. ' : ''}Checked ${shop.checked}.`),
     `<h2>${shop.hubble ? 'Today’s rate' : 'Today’s rate, every seller'}</h2>`,
     table,
-    p(shop.hubble ? DEALO_EXPLAINED : SELLERS_EXPLAINED),
-    '<h2>How to get the discount</h2>',
-    list(steps.map(esc), 'ol'),
-    '<h2>Quick facts</h2>',
+    p(shop.hubble ? 'Issued through Hubble, an official gift voucher issuer. The shop accepts it like store credit.' : SELLERS_EXPLAINED),
+    '<h2>About this voucher</h2>',
     list([
-      `Where to redeem: ${esc(whereToRedeemShop(shop))}`,
-      `Multi-use or single-use: ${esc(multi)}`,
-      `Works with other offers: ${esc(club)}`,
-      ...(shop.restrictions.length ? [`Cannot be used for: ${esc(shop.restrictions.join(' · '))}`] : []),
+      `Where to redeem? ${esc(whereToRedeemShop(shop))}`,
+      `How do I pay? ${shop.hubble ? 'From your bank app; the code arrives in seconds' : 'On the seller’s site, best rate from your bank app'}`,
+      `Multi-use or single-use? ${esc(multi)}`,
+      `Can it be clubbed with other offers? ${esc(club)}`,
+      ...(shop.stack ? [`Several vouchers in one order? ${esc(shop.stack)}`] : []),
+      ...(shop.restrictions.length ? [`Not valid for: ${esc(shop.restrictions.join(' · '))}`] : []),
     ]),
+    '<h2>How to redeem</h2>',
+    list(steps.map(esc), 'ol'),
     p(curated?.notes),
     '<h2>Questions people ask</h2>',
     shopFaqs(shop).map((f) => `<h3>${esc(f.q)}</h3>${p(f.a)}`).join(''),

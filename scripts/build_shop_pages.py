@@ -221,6 +221,11 @@ def main() -> None:
             print(f"  skip {name}: no seller")
             continue
         terms = pick_terms(matched_brands)
+        limits = [r["stack_limit"] for r in sellers if r.get("stack_limit")]
+        stack = None
+        if limits:
+            n = min(int(x) for x in limits)
+            stack = "One voucher per order" if n == 1 else f"Yes, up to {n} in one order"
         best = {"source": "dealo", "pct": h["pct"]} if h and (not best_partner or h["pct"] >= best_partner["pct"]) else (
             {"source": best_partner["source"], "pct": best_partner["pct"]} if best_partner else None)
         pages.append({
@@ -233,6 +238,7 @@ def main() -> None:
             "best": best,
             "online": any(r["online"] for r in sellers) or bool(h and not h["in_store"]),
             "offline": any(r["offline"] for r in sellers) or bool(h and h["in_store"]),
+            "stack": stack,
             **terms,
         })
         print(f"  {name}: dealo {h['pct'] if h else '-'}%  " + "  ".join(f"{r['label']} {r['pct']}%" for r in sellers))

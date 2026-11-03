@@ -94,6 +94,7 @@
     },
     "online": true,
     "offline": false,
+    "stack": null,
     "steps": [
       "Login or Register to Myntra website or On Myntra Mobile App. Go to my profile section.",
       "Select Payment & currencies option & click on Myntra Credit.",
@@ -197,6 +198,7 @@
     },
     "online": true,
     "offline": false,
+    "stack": "Yes, up to 4 in one order",
     "steps": [
       "Visit https://www.ajio.com/ or open the AJIO App and log in using your mobile number. Go to ‘My Account’ and click on ‘AJIO Wallet’.",
       "Go to the ‘Have a Gift Card?’ option and click on ‘Add’.",
@@ -302,6 +304,7 @@
     },
     "online": true,
     "offline": true,
+    "stack": "One voucher per order",
     "steps": [
       "Go to Nykaa.com and select the items you want to purchase.",
       "Once you reach our payment page, select the \"Gift Card\" payment option. Enter your 16-digit Card Code and the corresponding Card PIN and click on apply. The Gift Card amount will be deducted from the payable amount.",
@@ -407,6 +410,7 @@
     },
     "online": true,
     "offline": true,
+    "stack": "One voucher per order",
     "steps": [
       "Go to Nykaa.com and select the items you want to purchase.",
       "Once you reach our payment page, select the \"Gift Card\" payment option. Enter your 16-digit Card Code and the corresponding Card PIN and click on apply. The Gift Card amount will be deducted from the payable amount.",
@@ -481,6 +485,7 @@
     },
     "online": true,
     "offline": false,
+    "stack": null,
     "steps": [
       "Download/update the latest Zomato app. Login on the Zomato app and go to your profile",
       "Scroll down and tap on “claim gift card” under ‘Credits and gift cards’ section.",
@@ -535,6 +540,7 @@
     },
     "online": true,
     "offline": false,
+    "stack": null,
     "steps": [],
     "restrictions": [],
     "multiUse": null,
@@ -627,6 +633,7 @@
     },
     "online": true,
     "offline": false,
+    "stack": "One voucher per order",
     "steps": [
       "Visit : https://www.amazon.in and login.",
       "Redeem your gift card: To add our GC to your Amazon Pay balance, Visit www.amazon.in/addgiftcard. Alternatively, you can redeem by entering Gift Card Code at \"Amazon Pay- Add Gift Card\" through app. If you are not an Amazon customer yet, please sign up.",
@@ -728,6 +735,7 @@
     },
     "online": true,
     "offline": false,
+    "stack": "One voucher per order",
     "steps": [
       "Visit : https://www.flipkart.com/",
       "Select Saved cards & wallets option.",
@@ -831,6 +839,7 @@
     },
     "online": true,
     "offline": true,
+    "stack": "Yes, up to 5 in one order",
     "steps": [
       "-Visit Croma website at www.croma.com Or -Visit Croma listed outlet",
       "Please share the Gift Card with the cashier before billing",
@@ -879,6 +888,7 @@
     },
     "online": false,
     "offline": true,
+    "stack": null,
     "steps": [
       "Visit listed outlet. You can locate the outlet on storelocator.ril.com/Retail",
       "Select your choice of product",
@@ -960,6 +970,7 @@
     },
     "online": true,
     "offline": false,
+    "stack": "Yes, up to 3 in one order",
     "steps": [
       "Visit the MakeMyTrip website or mobile app.",
       "Select your travel service (Flight, Hotel, Holiday, Train, Bus, or Cab).",
@@ -1040,6 +1051,7 @@
     },
     "online": true,
     "offline": false,
+    "stack": "One voucher per order",
     "steps": [
       "Visit : https://www.yatra.com/ and make your travel plans.",
       "Review your booking, enter your personal details, and click on Proceed to Payment. Then, select Gift Vouchers as your payment method.",
@@ -1142,6 +1154,7 @@
     },
     "online": true,
     "offline": false,
+    "stack": "Yes, up to 15 in one order",
     "steps": [
       "Search your flight and fill in the required details on our desktop or mobile app.",
       "Select the suitable flight.",
@@ -1241,6 +1254,7 @@
     },
     "online": true,
     "offline": true,
+    "stack": null,
     "steps": [
       "Log on to PVR/INOX website www.pvrcinemas.com / inoxmovies.com or PVR/INOX Cinema Mobile App.",
       "Click on Book Now to proceed further.",
@@ -1298,6 +1312,7 @@
     },
     "online": true,
     "offline": false,
+    "stack": null,
     "steps": [
       "Log on to in.bookmyshow.com or BookMyShow Mobile App.",
       "Select Location, Event, Venue, Show Date, Time & Seats of your preference as the logic flows.",
@@ -1397,6 +1412,7 @@
     },
     "online": true,
     "offline": false,
+    "stack": null,
     "steps": [
       "Open the Uber app, go to Account, tap on Wallet, and select +Add voucher code.",
       "Enter the voucher code and click on ‘Continue'.",
@@ -1495,6 +1511,7 @@
     },
     "online": true,
     "offline": false,
+    "stack": "Yes, up to 3 in one order",
     "steps": [
       "Login to the Big Basket App.",
       "Click on the icon on the top right and choose, 'My Gift Cards'",
@@ -1613,6 +1630,7 @@
     },
     "online": true,
     "offline": false,
+    "stack": null,
     "steps": [
       "Visit www.tatacliq.com & Log In or Sign up on Tata CLiQ",
       "Go to your CLiQ Cash page & Verify your Mobile number to complete KYC",
@@ -1692,6 +1710,7 @@
     },
     "online": true,
     "offline": false,
+    "stack": "One voucher per order",
     "steps": [
       "Online Redemption",
       "Visit Pepperfry.com or the Pepperfry App.",
@@ -1801,6 +1820,7 @@
     },
     "online": true,
     "offline": true,
+    "stack": "Yes, up to 4 in one order",
     "steps": [
       "Visit the website. Add items to your cart and proceed to checkout.",
       "Select \"Gift Card\" option.",
@@ -1886,6 +1906,7 @@
     },
     "online": true,
     "offline": false,
+    "stack": "Yes, up to 5 in one order",
     "steps": [
       "Visit https://www.urbanladder.com and choose the product you would like to buy.",
       "Select Gift Card as the payment option.",
@@ -1980,6 +2001,7 @@
     },
     "online": true,
     "offline": false,
+    "stack": "One voucher per order",
     "steps": [
       "Open the GyFTR ePay app, add the voucher to your ePay balance, tap Redeem ePay, enter the amount, and confirm the redemption.",
       "Your unique custom ePay code will be generated.",
@@ -2090,6 +2112,7 @@
     },
     "online": true,
     "offline": true,
+    "stack": "One voucher per order",
     "steps": [
       "Select your desired food products and add them to your cart.",
       "Click on 'ADD GIFT CARD,' enter the number and PIN, and the amount will be deducted from your total. Any remaining balance can be paid using available payment options.",
@@ -2195,6 +2218,7 @@
     },
     "online": true,
     "offline": true,
+    "stack": "One voucher per order",
     "steps": [
       "-Visit KFC website at online.kfc.co.in  Or  -Visit KFC listed outlet",
       "Please share the voucher code with the cashier before billing.",
@@ -2270,6 +2294,7 @@
     },
     "online": false,
     "offline": true,
+    "stack": null,
     "steps": [
       "Share the registered mobile number with the cashier, once products are scanned for invoicing by the cashier. . Cashier to inform the available Gift Voucher and its balance.",
       "Customer to confirm the amount to be used for redemption and proceed further for balance payment, if any.",
@@ -2356,6 +2381,7 @@
     },
     "online": true,
     "offline": true,
+    "stack": "One voucher per order",
     "steps": [
       "Download the Starbucks app and navigate to the “Pay” option in the sticky menu. Tap on “Starbucks Pay” at the top of the page, then choose the “Already have a Starbucks Card” option.",
       "Choose the option to enter your card details manually, then input the card number and security code.",
@@ -2453,6 +2479,7 @@
     },
     "online": true,
     "offline": false,
+    "stack": "Yes, up to 10 in one order",
     "steps": [
       "Check the outlet locator for a store nearby you that accepts the Gift Voucher.",
       "Choose your product.",
@@ -2558,6 +2585,7 @@
     },
     "online": true,
     "offline": true,
+    "stack": "Yes, up to 10 in one order",
     "steps": [
       "-Visit Decathlon website at www.decathlon.in  Or  -Visit Decathlon listed outlet www.decathlon.in/store",
       "Please share the voucher code with the cashier before billing.",
@@ -2641,6 +2669,7 @@
     },
     "online": false,
     "offline": true,
+    "stack": "One voucher per order",
     "steps": [
       "Use the outlet locator to locate the nearest outlet that accepts this Gift Voucher.",
       "Select your choice of product.",
@@ -2743,6 +2772,7 @@
     },
     "online": true,
     "offline": true,
+    "stack": null,
     "steps": [
       "-Visit Skechers website at www.skechers.in  Or  -Visit Skechers listed outlet",
       "Please share the voucher code with the cashier before billing.",
@@ -2822,6 +2852,7 @@
     },
     "online": false,
     "offline": true,
+    "stack": "Yes, up to 7 in one order",
     "steps": [
       "Share the registered mobile number with the cashier, once products are scanned for invoicing by the cashier. . Cashier to inform the available Gift Voucher and its balance.",
       "Customer to confirm the amount to be used for redemption and proceed further for balance payment, if any.",
@@ -2933,6 +2964,7 @@
     },
     "online": true,
     "offline": true,
+    "stack": null,
     "steps": [
       "Go to \"My Profile\" and select \"Claim Gift Card.",
       "Enter the gift card code and PIN, then click the \"Claim Gift Card\" button.",
@@ -3006,6 +3038,7 @@
     },
     "online": true,
     "offline": false,
+    "stack": "Yes, up to 4 in one order",
     "steps": [
       "Go to My Account on the boAt website - https://www.boat-lifestyle.com/",
       "Choose boAt Credits.",
@@ -3075,6 +3108,7 @@
     },
     "online": false,
     "offline": true,
+    "stack": "Yes, up to 5 in one order",
     "steps": [
       "Use the outlet locator to locate the nearest outlet that accepts this Gift Voucher.",
       "Select your choice of product.",
@@ -3191,6 +3225,7 @@
     },
     "online": true,
     "offline": true,
+    "stack": "One voucher per order",
     "steps": [
       "Log in to the FirstCry app or website and choose the products you wish to purchase.",
       "Add the products to your cart and proceed to checkout.",
@@ -3290,6 +3325,7 @@
     },
     "online": true,
     "offline": false,
+    "stack": null,
     "steps": [
       "Log in to the Netmeds website/app, add products to your cart, and proceed to checkout.",
       "Choose the GyFTR voucher/e-Pay option. You'll be able to view and add available vouchers linked to your account.",
@@ -3334,6 +3370,7 @@
     },
     "online": true,
     "offline": false,
+    "stack": "One voucher per order",
     "steps": [
       "Visit the profile section and click on “Jockey Credit”. Then click on “Add Gift Card”.",
       "Enter the Voucher number & captcha, agree to T&Cs, and click on ‘APPLY’ to update the e-Pay balance (Jockey Credit). Then, add desired items to the cart, & proceed to checkout.",
