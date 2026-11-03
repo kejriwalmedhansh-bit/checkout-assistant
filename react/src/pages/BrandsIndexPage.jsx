@@ -46,21 +46,9 @@ const LIVE_DEAL_BY_KEY = new Map(ALL_BRAND_DEALS.map((b) => [normalizeKey(b.name
 
 function FlagshipCard({ brand }) {
   const deal = LIVE_DEAL_BY_KEY.get(normalizeKey(brand.name));
-  // No live row (brand delisted between builds) — fall back to the internal
-  // page rather than rendering a card that goes nowhere.
-  const linkProps = deal
-    ? {
-        href: outboundLink(deal.url, 'voucher_site', 'brands_popular'),
-        isExternal: true,
-        onClick: () =>
-          track('Clicked Brand Voucher Link', {
-            brand: brand.name,
-            source: deal.source,
-            pct: deal.pct,
-            placement: 'popular',
-          }),
-      }
-    : { as: RouterLink, to: ROUTES.brandFor(brand.slug) };
+  // Every flagship brand has a shop page with all sellers' rates side by side
+  // and Dealo's own Buy button, so the card opens that page.
+  const linkProps = { as: RouterLink, to: ROUTES.brandFor(brand.slug) };
 
   return (
     <ChakraLink

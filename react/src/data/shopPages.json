@@ -1,0 +1,3383 @@
+[
+  {
+    "slug": "myntra",
+    "name": "Myntra",
+    "website": "https://www.myntra.com/",
+    "checked": "2026-11-03",
+    "hubble": {
+      "pct": 4.0,
+      "brand_name": "Myntra",
+      "in_store": false,
+      "cards": [],
+      "min_amount": 10,
+      "max_amount": 10000,
+      "typed": true
+    },
+    "sellers": [
+      {
+        "source": "buyhatke",
+        "label": "BuyHatke",
+        "pct": 3.62,
+        "upi_pct": 3.62,
+        "card_pct": null,
+        "url": "https://buyhatke.com/gift-cards/myntra-gift-card",
+        "online": true,
+        "offline": false,
+        "denominations": [
+          100,
+          500,
+          1000,
+          1500,
+          2000,
+          2500,
+          5000,
+          7500
+        ],
+        "typed": false,
+        "typed_min": null,
+        "typed_max": null,
+        "stack_limit": null,
+        "value_cap": 10000.0
+      },
+      {
+        "source": "maximize",
+        "label": "Maximize",
+        "pct": 3.5,
+        "upi_pct": 3.5,
+        "card_pct": 1.6,
+        "url": "https://www.maximize.money/gift-cards/Myntra/1316",
+        "online": true,
+        "offline": false,
+        "denominations": [
+          250,
+          500,
+          1000,
+          1500,
+          2000,
+          2500,
+          5000,
+          10000
+        ],
+        "typed": false,
+        "typed_min": null,
+        "typed_max": null,
+        "stack_limit": null,
+        "value_cap": null
+      },
+      {
+        "source": "gyftr",
+        "label": "Gyftr",
+        "pct": 3.0,
+        "upi_pct": 3.0,
+        "card_pct": 1.0,
+        "url": "https://www.gyftr.com/myntra",
+        "online": true,
+        "offline": false,
+        "denominations": [
+          500,
+          1000,
+          2000,
+          5000,
+          7500,
+          10000
+        ],
+        "typed": false,
+        "typed_min": null,
+        "typed_max": null,
+        "stack_limit": null,
+        "value_cap": null
+      }
+    ],
+    "best": {
+      "source": "dealo",
+      "pct": 4.0
+    },
+    "online": true,
+    "offline": false,
+    "stack": null,
+    "steps": [
+      "Login or Register to Myntra website or On Myntra Mobile App. Go to my profile section.",
+      "Select Payment & currencies option & click on Myntra Credit.",
+      "Click on Add Gift Card & enter the voucher details & Pin.",
+      "Your wallet will be updated."
+    ],
+    "restrictions": [
+      "Gold & Silver coins, Fine Jewellery",
+      "This E-Gift Card cannot be used to purchase other gift cards"
+    ],
+    "multiUse": true,
+    "canClub": true
+  },
+  {
+    "slug": "ajio",
+    "name": "AJIO",
+    "website": "https://www.ajio.com/",
+    "checked": "2026-11-03",
+    "hubble": {
+      "pct": 6.5,
+      "brand_name": "AJIO",
+      "in_store": false,
+      "cards": [],
+      "min_amount": 50,
+      "max_amount": 10695,
+      "typed": true
+    },
+    "sellers": [
+      {
+        "source": "maximize",
+        "label": "Maximize",
+        "pct": 7.0,
+        "upi_pct": 7.0,
+        "card_pct": 5.1,
+        "url": "https://www.maximize.money/gift-cards/Ajio/416",
+        "online": true,
+        "offline": false,
+        "denominations": [
+          100,
+          500,
+          1000,
+          2000,
+          3000,
+          5000
+        ],
+        "typed": true,
+        "typed_min": 100,
+        "typed_max": 10000,
+        "stack_limit": null,
+        "value_cap": null
+      },
+      {
+        "source": "buyhatke",
+        "label": "BuyHatke",
+        "pct": 6.26,
+        "upi_pct": 6.26,
+        "card_pct": null,
+        "url": "https://buyhatke.com/gift-cards/ajio-gift-card",
+        "online": true,
+        "offline": false,
+        "denominations": [
+          100,
+          500,
+          1000,
+          2000,
+          3000,
+          5000,
+          10000
+        ],
+        "typed": false,
+        "typed_min": null,
+        "typed_max": null,
+        "stack_limit": 4,
+        "value_cap": 50000.0
+      },
+      {
+        "source": "gyftr",
+        "label": "Gyftr",
+        "pct": 5.0,
+        "upi_pct": 5.0,
+        "card_pct": 4.0,
+        "url": "https://www.gyftr.com/ajio",
+        "online": true,
+        "offline": false,
+        "denominations": [
+          500,
+          1000,
+          2000,
+          5000
+        ],
+        "typed": false,
+        "typed_min": null,
+        "typed_max": null,
+        "stack_limit": null,
+        "value_cap": null
+      }
+    ],
+    "best": {
+      "source": "maximize",
+      "pct": 7.0
+    },
+    "online": true,
+    "offline": false,
+    "stack": "Yes, up to 4 in one order",
+    "steps": [
+      "Visit https://www.ajio.com/ or open the AJIO App and log in using your mobile number. Go to ‘My Account’ and click on ‘AJIO Wallet’.",
+      "Go to the ‘Have a Gift Card?’ option and click on ‘Add’.",
+      "Enter the Voucher Code and PIN. After validation, the Voucher Value will be added to your AJIO Wallet.",
+      "Use AJIO Wallet as a payment option during checkout to use your AJIO Cash balance."
+    ],
+    "restrictions": [
+      "other Gift Cards on Ajio or related platforms",
+      "E-Gift Card is not applicable for H&M branded products"
+    ],
+    "multiUse": false,
+    "canClub": false
+  },
+  {
+    "slug": "nykaa",
+    "name": "Nykaa",
+    "website": "https://www.nykaa.com/",
+    "checked": "2026-11-03",
+    "hubble": {
+      "pct": 5.0,
+      "brand_name": "Nykaa",
+      "in_store": false,
+      "cards": [],
+      "min_amount": 250,
+      "max_amount": 10000,
+      "typed": true
+    },
+    "sellers": [
+      {
+        "source": "maximize",
+        "label": "Maximize",
+        "pct": 6.25,
+        "upi_pct": 6.25,
+        "card_pct": 4.35,
+        "url": "https://www.maximize.money/gift-cards/Nykaa/657",
+        "online": true,
+        "offline": true,
+        "denominations": [
+          500,
+          1000,
+          1500,
+          2000,
+          5000,
+          10000
+        ],
+        "typed": false,
+        "typed_min": null,
+        "typed_max": null,
+        "stack_limit": null,
+        "value_cap": null
+      },
+      {
+        "source": "buyhatke",
+        "label": "BuyHatke",
+        "pct": 5.26,
+        "upi_pct": 5.26,
+        "card_pct": null,
+        "url": "https://buyhatke.com/gift-cards/nykaa-gift-card",
+        "online": true,
+        "offline": false,
+        "denominations": [
+          250,
+          500,
+          1000,
+          1500,
+          2000,
+          5000,
+          10000
+        ],
+        "typed": false,
+        "typed_min": null,
+        "typed_max": null,
+        "stack_limit": 1,
+        "value_cap": 10000.0
+      },
+      {
+        "source": "gyftr",
+        "label": "Gyftr",
+        "pct": 5.0,
+        "upi_pct": 5.0,
+        "card_pct": 3.0,
+        "url": "https://www.gyftr.com/nykaa",
+        "online": true,
+        "offline": true,
+        "denominations": [
+          500,
+          1000,
+          1500,
+          2000,
+          5000,
+          10000
+        ],
+        "typed": false,
+        "typed_min": null,
+        "typed_max": null,
+        "stack_limit": 1,
+        "value_cap": null
+      }
+    ],
+    "best": {
+      "source": "maximize",
+      "pct": 6.25
+    },
+    "online": true,
+    "offline": true,
+    "stack": "One voucher per order",
+    "steps": [
+      "Go to Nykaa.com and select the items you want to purchase.",
+      "Once you reach our payment page, select the \"Gift Card\" payment option. Enter your 16-digit Card Code and the corresponding Card PIN and click on apply. The Gift Card amount will be deducted from the payable amount.",
+      "To use multiple gift cards add them in your wallet.",
+      "Go to any Nykaa retail store and select the items you want to purchase."
+    ],
+    "restrictions": [
+      "other gift cards"
+    ],
+    "multiUse": true,
+    "canClub": true
+  },
+  {
+    "slug": "nykaa-fashion",
+    "name": "Nykaa Fashion",
+    "website": "https://www.nykaafashion.com/",
+    "checked": "2026-11-03",
+    "hubble": {
+      "pct": 5.0,
+      "brand_name": "Nykaa Fashion",
+      "in_store": false,
+      "cards": [],
+      "min_amount": 250,
+      "max_amount": 10000,
+      "typed": true
+    },
+    "sellers": [
+      {
+        "source": "maximize",
+        "label": "Maximize",
+        "pct": 6.0,
+        "upi_pct": 6.0,
+        "card_pct": 4.1,
+        "url": "https://www.maximize.money/gift-cards/Nykaa%20Fashion/340",
+        "online": true,
+        "offline": true,
+        "denominations": [
+          250,
+          500,
+          1000,
+          1500,
+          2500,
+          5000,
+          7500,
+          10000
+        ],
+        "typed": true,
+        "typed_min": 250,
+        "typed_max": 10000,
+        "stack_limit": 1,
+        "value_cap": null
+      },
+      {
+        "source": "buyhatke",
+        "label": "BuyHatke",
+        "pct": 5.01,
+        "upi_pct": 5.01,
+        "card_pct": null,
+        "url": "https://buyhatke.com/gift-cards/nykaa-fashion-gift-card",
+        "online": true,
+        "offline": false,
+        "denominations": [
+          250,
+          500,
+          1000,
+          1500,
+          2000,
+          2500,
+          5000,
+          7500
+        ],
+        "typed": false,
+        "typed_min": null,
+        "typed_max": null,
+        "stack_limit": 1,
+        "value_cap": 10000.0
+      },
+      {
+        "source": "gyftr",
+        "label": "Gyftr",
+        "pct": 4.0,
+        "upi_pct": 4.0,
+        "card_pct": 3.0,
+        "url": "https://www.gyftr.com/nykaa-fashion",
+        "online": true,
+        "offline": true,
+        "denominations": [
+          1000,
+          2000,
+          5000,
+          10000
+        ],
+        "typed": false,
+        "typed_min": null,
+        "typed_max": null,
+        "stack_limit": 1,
+        "value_cap": null
+      }
+    ],
+    "best": {
+      "source": "maximize",
+      "pct": 6.0
+    },
+    "online": true,
+    "offline": true,
+    "stack": "One voucher per order",
+    "steps": [
+      "Go to Nykaa.com and select the items you want to purchase.",
+      "Once you reach our payment page, select the \"Gift Card\" payment option. Enter your 16-digit Card Code and the corresponding Card PIN and click on apply. The Gift Card amount will be deducted from the payable amount.",
+      "To use multiple gift cards add them in your wallet.",
+      "Go to any Nykaa retail store and select the items you want to purchase."
+    ],
+    "restrictions": [
+      "other gift cards",
+      "This Gift Card cannot be used to purchase other gift cards"
+    ],
+    "multiUse": true,
+    "canClub": true
+  },
+  {
+    "slug": "zomato",
+    "name": "Zomato",
+    "website": "https://www.zomato.com/",
+    "checked": "2026-11-03",
+    "hubble": {
+      "pct": 4.0,
+      "brand_name": "Zomato",
+      "in_store": false,
+      "cards": [],
+      "min_amount": 1001,
+      "max_amount": 10416,
+      "typed": true
+    },
+    "sellers": [
+      {
+        "source": "maximize",
+        "label": "Maximize",
+        "pct": 3.5,
+        "upi_pct": 3.5,
+        "card_pct": 1.6,
+        "url": "https://www.maximize.money/gift-cards/Zomato/1313",
+        "online": true,
+        "offline": false,
+        "denominations": [
+          2000,
+          5000,
+          10000
+        ],
+        "typed": true,
+        "typed_min": 1000,
+        "typed_max": 10000,
+        "stack_limit": null,
+        "value_cap": null
+      },
+      {
+        "source": "gyftr",
+        "label": "Gyftr",
+        "pct": 2.0,
+        "upi_pct": 2.0,
+        "card_pct": 0.0,
+        "url": "https://www.gyftr.com/zomato-gift-card",
+        "online": true,
+        "offline": false,
+        "denominations": [
+          500,
+          1000
+        ],
+        "typed": false,
+        "typed_min": null,
+        "typed_max": null,
+        "stack_limit": null,
+        "value_cap": null
+      }
+    ],
+    "best": {
+      "source": "dealo",
+      "pct": 4.0
+    },
+    "online": true,
+    "offline": false,
+    "stack": null,
+    "steps": [
+      "Download/update the latest Zomato app. Login on the Zomato app and go to your profile",
+      "Scroll down and tap on “claim gift card” under ‘Credits and gift cards’ section.",
+      "Enter 16 digit gift card code and PIN to claim your gift card. Claimed gift card amount will be added to your Zomato credits balance. The balance then can be used to place order on the Zomato app."
+    ],
+    "restrictions": [],
+    "multiUse": true,
+    "canClub": true
+  },
+  {
+    "slug": "swiggy",
+    "name": "Swiggy",
+    "website": "https://www.swiggy.com/",
+    "checked": "2026-11-03",
+    "hubble": {
+      "pct": 3.0,
+      "brand_name": "Swiggy",
+      "in_store": false,
+      "cards": [
+        100,
+        150,
+        200,
+        250,
+        300,
+        350,
+        450,
+        500,
+        600,
+        750,
+        900,
+        1000,
+        1250,
+        1500,
+        1700,
+        1750,
+        2000,
+        2500,
+        3000,
+        4000,
+        5000,
+        7500,
+        10000
+      ],
+      "min_amount": 100,
+      "max_amount": 10309,
+      "typed": false
+    },
+    "sellers": [],
+    "best": {
+      "source": "dealo",
+      "pct": 3.0
+    },
+    "online": true,
+    "offline": false,
+    "stack": null,
+    "steps": [],
+    "restrictions": [],
+    "multiUse": null,
+    "canClub": null
+  },
+  {
+    "slug": "amazon",
+    "name": "Amazon",
+    "website": "https://www.amazon.in/",
+    "checked": "2026-11-03",
+    "hubble": {
+      "pct": 1.5,
+      "brand_name": "Amazon shopping",
+      "in_store": false,
+      "cards": [],
+      "min_amount": 50,
+      "max_amount": 10000,
+      "typed": true
+    },
+    "sellers": [
+      {
+        "source": "gyftr",
+        "label": "Gyftr",
+        "pct": 1.75,
+        "upi_pct": 1.75,
+        "card_pct": 0.0,
+        "url": "https://www.gyftr.com/amazon-shopping-voucher",
+        "online": true,
+        "offline": false,
+        "denominations": [
+          1000,
+          2000
+        ],
+        "typed": false,
+        "typed_min": 100,
+        "typed_max": 10000,
+        "stack_limit": null,
+        "value_cap": 50000.0
+      },
+      {
+        "source": "buyhatke",
+        "label": "BuyHatke",
+        "pct": 1.56,
+        "upi_pct": 1.56,
+        "card_pct": null,
+        "url": "https://buyhatke.com/gift-cards/amazon-shopping-gift-card",
+        "online": true,
+        "offline": false,
+        "denominations": [
+          500,
+          1000,
+          2000,
+          5000,
+          10000
+        ],
+        "typed": false,
+        "typed_min": null,
+        "typed_max": null,
+        "stack_limit": 1,
+        "value_cap": 10000.0
+      },
+      {
+        "source": "maximize",
+        "label": "Maximize",
+        "pct": 1.25,
+        "upi_pct": 1.25,
+        "card_pct": 0.0,
+        "url": "https://www.maximize.money/gift-cards/Amazon/1084",
+        "online": true,
+        "offline": false,
+        "denominations": [
+          100,
+          500,
+          1000,
+          2000,
+          3000,
+          5000,
+          8000
+        ],
+        "typed": true,
+        "typed_min": 100,
+        "typed_max": 10000,
+        "stack_limit": 1,
+        "value_cap": null
+      }
+    ],
+    "best": {
+      "source": "gyftr",
+      "pct": 1.75
+    },
+    "online": true,
+    "offline": false,
+    "stack": "One voucher per order",
+    "steps": [
+      "Visit : https://www.amazon.in and login.",
+      "Redeem your gift card: To add our GC to your Amazon Pay balance, Visit www.amazon.in/addgiftcard. Alternatively, you can redeem by entering Gift Card Code at \"Amazon Pay- Add Gift Card\" through app. If you are not an Amazon customer yet, please sign up.",
+      "Start Shopping!",
+      "Pay using balance: Gift card added to your Amazon Pay balance will be available as payment method during checkout. Any unused balance will remain in your Amazon account and can be used for subsequent purchases."
+    ],
+    "restrictions": [
+      "digital content like e-books, video games"
+    ],
+    "multiUse": true,
+    "canClub": true
+  },
+  {
+    "slug": "flipkart",
+    "name": "Flipkart",
+    "website": "https://www.flipkart.com/",
+    "checked": "2026-11-03",
+    "hubble": {
+      "pct": 2.0,
+      "brand_name": "Flipkart",
+      "in_store": false,
+      "cards": [],
+      "min_amount": 50,
+      "max_amount": 10000,
+      "typed": true
+    },
+    "sellers": [
+      {
+        "source": "buyhatke",
+        "label": "BuyHatke",
+        "pct": 2.01,
+        "upi_pct": 2.01,
+        "card_pct": null,
+        "url": "https://buyhatke.com/gift-cards/flipkart-gift-card",
+        "online": true,
+        "offline": false,
+        "denominations": [
+          500,
+          1000,
+          2000,
+          5000,
+          10000
+        ],
+        "typed": false,
+        "typed_min": null,
+        "typed_max": null,
+        "stack_limit": 1,
+        "value_cap": 10000.0
+      },
+      {
+        "source": "gyftr",
+        "label": "Gyftr",
+        "pct": 2.0,
+        "upi_pct": 2.0,
+        "card_pct": 0.0,
+        "url": "https://www.gyftr.com/flipkart",
+        "online": true,
+        "offline": false,
+        "denominations": [
+          250,
+          500,
+          1000,
+          2000,
+          10000
+        ],
+        "typed": false,
+        "typed_min": 10,
+        "typed_max": 10000,
+        "stack_limit": 15,
+        "value_cap": null
+      },
+      {
+        "source": "maximize",
+        "label": "Maximize",
+        "pct": 1.75,
+        "upi_pct": 1.75,
+        "card_pct": 0.0,
+        "url": "https://www.maximize.money/gift-cards/Flipkart%20-%20%28Custom%29/410",
+        "online": true,
+        "offline": false,
+        "denominations": [
+          250,
+          500,
+          1000,
+          2000,
+          5000,
+          10000
+        ],
+        "typed": true,
+        "typed_min": 100,
+        "typed_max": 10000,
+        "stack_limit": 15,
+        "value_cap": null
+      }
+    ],
+    "best": {
+      "source": "buyhatke",
+      "pct": 2.01
+    },
+    "online": true,
+    "offline": false,
+    "stack": "One voucher per order",
+    "steps": [
+      "Visit : https://www.flipkart.com/",
+      "Select Saved cards & wallets option.",
+      "Click on Add Flipkart Gift Card. Enter Gift Card Code & PIN.",
+      "Gift Card Successfully Added to account."
+    ],
+    "restrictions": [
+      "other Flipkart Gift Cards or Flipkart First subscriptions"
+    ],
+    "multiUse": true,
+    "canClub": true
+  },
+  {
+    "slug": "croma",
+    "name": "Croma",
+    "website": "https://www.croma.com/",
+    "checked": "2026-11-03",
+    "hubble": {
+      "pct": 2.0,
+      "brand_name": "Croma",
+      "in_store": false,
+      "cards": [],
+      "min_amount": 500,
+      "max_amount": 10000,
+      "typed": true
+    },
+    "sellers": [
+      {
+        "source": "gyftr",
+        "label": "Gyftr",
+        "pct": 3.0,
+        "upi_pct": 3.0,
+        "card_pct": 1.0,
+        "url": "https://www.gyftr.com/croma",
+        "online": true,
+        "offline": true,
+        "denominations": [
+          500,
+          1000,
+          2000,
+          3000,
+          5000,
+          10000
+        ],
+        "typed": false,
+        "typed_min": 100,
+        "typed_max": 10000,
+        "stack_limit": 5,
+        "value_cap": null
+      },
+      {
+        "source": "maximize",
+        "label": "Maximize",
+        "pct": 3.0,
+        "upi_pct": 3.0,
+        "card_pct": 1.15,
+        "url": "https://www.maximize.money/gift-cards/Croma/873",
+        "online": true,
+        "offline": true,
+        "denominations": [
+          1000,
+          2000,
+          5000,
+          10000
+        ],
+        "typed": false,
+        "typed_min": null,
+        "typed_max": null,
+        "stack_limit": 5,
+        "value_cap": null
+      },
+      {
+        "source": "buyhatke",
+        "label": "BuyHatke",
+        "pct": 1.96,
+        "upi_pct": 1.96,
+        "card_pct": null,
+        "url": "https://buyhatke.com/gift-cards/croma-gift-card",
+        "online": true,
+        "offline": false,
+        "denominations": [
+          500,
+          1000,
+          2000,
+          2500,
+          5000,
+          10000,
+          15000,
+          25000
+        ],
+        "typed": false,
+        "typed_min": null,
+        "typed_max": null,
+        "stack_limit": 5,
+        "value_cap": 25000.0
+      }
+    ],
+    "best": {
+      "source": "gyftr",
+      "pct": 3.0
+    },
+    "online": true,
+    "offline": true,
+    "stack": "Yes, up to 5 in one order",
+    "steps": [
+      "-Visit Croma website at www.croma.com Or -Visit Croma listed outlet",
+      "Please share the Gift Card with the cashier before billing",
+      "1. Login to your account or Sign up as a new user 2. Add products to cart. Review cart and proceed to checkout. Add or review shipping & contact information 3. Proceed to payment 4. Select Gift Card Voucher option and choose voucher. Enter the voucher number and apply for availing the discount for the face value of the voucher"
+    ],
+    "restrictions": [],
+    "multiUse": false,
+    "canClub": true
+  },
+  {
+    "slug": "reliance-digital",
+    "name": "Reliance Digital",
+    "website": "https://www.reliancedigital.in/",
+    "checked": "2026-11-03",
+    "hubble": null,
+    "sellers": [
+      {
+        "source": "gyftr",
+        "label": "Gyftr",
+        "pct": 0.5,
+        "upi_pct": 0.5,
+        "card_pct": 0.0,
+        "url": "https://www.gyftr.com/reliance-digital",
+        "online": false,
+        "offline": true,
+        "denominations": [
+          500,
+          1000,
+          1500,
+          2000,
+          2500,
+          3000,
+          5000,
+          7500
+        ],
+        "typed": false,
+        "typed_min": 250,
+        "typed_max": 10000,
+        "stack_limit": null,
+        "value_cap": null
+      }
+    ],
+    "best": {
+      "source": "gyftr",
+      "pct": 0.5
+    },
+    "online": false,
+    "offline": true,
+    "stack": null,
+    "steps": [
+      "Visit listed outlet. You can locate the outlet on storelocator.ril.com/Retail",
+      "Select your choice of product",
+      "Share the voucher code with the cashier before billing. You can make the balance payment by any other payment mode"
+    ],
+    "restrictions": [],
+    "multiUse": false,
+    "canClub": false
+  },
+  {
+    "slug": "makemytrip",
+    "name": "MakeMyTrip",
+    "website": "https://www.makemytrip.com/",
+    "checked": "2026-11-03",
+    "hubble": {
+      "pct": 6.25,
+      "brand_name": "MakeMyTrip",
+      "in_store": false,
+      "cards": [],
+      "min_amount": 250,
+      "max_amount": 10666,
+      "typed": true
+    },
+    "sellers": [
+      {
+        "source": "buyhatke",
+        "label": "BuyHatke",
+        "pct": 6.39,
+        "upi_pct": 6.39,
+        "card_pct": null,
+        "url": "https://buyhatke.com/gift-cards/makemytrip-gift-card",
+        "online": true,
+        "offline": false,
+        "denominations": [
+          100,
+          250,
+          500,
+          750,
+          1000,
+          1500,
+          2000,
+          2500
+        ],
+        "typed": false,
+        "typed_min": null,
+        "typed_max": null,
+        "stack_limit": 3,
+        "value_cap": 100000.0
+      },
+      {
+        "source": "maximize",
+        "label": "Maximize",
+        "pct": 5.5,
+        "upi_pct": 5.5,
+        "card_pct": 3.6,
+        "url": "https://www.maximize.money/gift-cards/MakeMyTrip/579",
+        "online": true,
+        "offline": false,
+        "denominations": [
+          500,
+          1000,
+          2000,
+          5000,
+          10000,
+          20000,
+          50000,
+          100000
+        ],
+        "typed": true,
+        "typed_min": 250,
+        "typed_max": 100000,
+        "stack_limit": 3,
+        "value_cap": null
+      }
+    ],
+    "best": {
+      "source": "buyhatke",
+      "pct": 6.39
+    },
+    "online": true,
+    "offline": false,
+    "stack": "Yes, up to 3 in one order",
+    "steps": [
+      "Visit the MakeMyTrip website or mobile app.",
+      "Select your travel service (Flight, Hotel, Holiday, Train, Bus, or Cab).",
+      "Enter the required booking details and proceed to the payment page.",
+      "Select Gift Card as the payment option."
+    ],
+    "restrictions": [],
+    "multiUse": true,
+    "canClub": false
+  },
+  {
+    "slug": "yatra",
+    "name": "Yatra",
+    "website": "https://www.yatra.com/",
+    "checked": "2026-11-03",
+    "hubble": {
+      "pct": 5.0,
+      "brand_name": "Yatra",
+      "in_store": false,
+      "cards": [
+        500,
+        1000,
+        5000
+      ],
+      "min_amount": 500,
+      "max_amount": 5000,
+      "typed": false
+    },
+    "sellers": [
+      {
+        "source": "maximize",
+        "label": "Maximize",
+        "pct": 5.25,
+        "upi_pct": 5.25,
+        "card_pct": 3.35,
+        "url": "https://www.maximize.money/gift-cards/Yatra/470",
+        "online": true,
+        "offline": false,
+        "denominations": [
+          1000,
+          2000,
+          5000,
+          10000,
+          20000,
+          50000
+        ],
+        "typed": true,
+        "typed_min": 500,
+        "typed_max": 50000,
+        "stack_limit": 1,
+        "value_cap": null
+      },
+      {
+        "source": "buyhatke",
+        "label": "BuyHatke",
+        "pct": 4.26,
+        "upi_pct": 4.26,
+        "card_pct": null,
+        "url": "https://buyhatke.com/gift-cards/yatra-gift-card",
+        "online": true,
+        "offline": false,
+        "denominations": [
+          500,
+          1000,
+          2000,
+          5000
+        ],
+        "typed": false,
+        "typed_min": null,
+        "typed_max": null,
+        "stack_limit": 1,
+        "value_cap": 50000.0
+      }
+    ],
+    "best": {
+      "source": "maximize",
+      "pct": 5.25
+    },
+    "online": true,
+    "offline": false,
+    "stack": "One voucher per order",
+    "steps": [
+      "Visit : https://www.yatra.com/ and make your travel plans.",
+      "Review your booking, enter your personal details, and click on Proceed to Payment. Then, select Gift Vouchers as your payment method.",
+      "Enter Gift Card Number & press Redeem Gift Card.The remaining amount (if any) can be paid via any other payment method."
+    ],
+    "restrictions": [],
+    "multiUse": false,
+    "canClub": false
+  },
+  {
+    "slug": "cleartrip",
+    "name": "Cleartrip",
+    "website": "https://www.cleartrip.com/",
+    "checked": "2026-11-03",
+    "hubble": {
+      "pct": 8.0,
+      "brand_name": "Cleartrip",
+      "in_store": false,
+      "cards": [],
+      "min_amount": 300,
+      "max_amount": 10869,
+      "typed": true
+    },
+    "sellers": [
+      {
+        "source": "gyftr",
+        "label": "Gyftr",
+        "pct": 8.0,
+        "upi_pct": 8.0,
+        "card_pct": 7.0,
+        "url": "https://www.gyftr.com/cleartrip-generic",
+        "online": true,
+        "offline": false,
+        "denominations": [
+          1000,
+          2000,
+          5000,
+          7500
+        ],
+        "typed": false,
+        "typed_min": null,
+        "typed_max": null,
+        "stack_limit": 15,
+        "value_cap": null
+      },
+      {
+        "source": "maximize",
+        "label": "Maximize",
+        "pct": 7.0,
+        "upi_pct": 7.0,
+        "card_pct": 5.1,
+        "url": "https://www.maximize.money/gift-cards/Cleartrip/377",
+        "online": true,
+        "offline": false,
+        "denominations": [
+          500,
+          1000,
+          1500,
+          2000,
+          2500,
+          3000,
+          5000,
+          7500
+        ],
+        "typed": true,
+        "typed_min": 500,
+        "typed_max": 10000,
+        "stack_limit": 15,
+        "value_cap": null
+      },
+      {
+        "source": "buyhatke",
+        "label": "BuyHatke",
+        "pct": 6.17,
+        "upi_pct": 6.17,
+        "card_pct": null,
+        "url": "https://buyhatke.com/gift-cards/cleartrip-gift-card",
+        "online": true,
+        "offline": false,
+        "denominations": [
+          500,
+          1000,
+          1500,
+          2000,
+          2500,
+          3000,
+          5000,
+          7500
+        ],
+        "typed": false,
+        "typed_min": null,
+        "typed_max": null,
+        "stack_limit": 15,
+        "value_cap": 50000.0
+      }
+    ],
+    "best": {
+      "source": "dealo",
+      "pct": 8.0
+    },
+    "online": true,
+    "offline": false,
+    "stack": "Yes, up to 15 in one order",
+    "steps": [
+      "Search your flight and fill in the required details on our desktop or mobile app.",
+      "Select the suitable flight.",
+      "Enter the 16 digit gift card number and pin (Apply Coupon or Gift Card) before making the payment as shown below. Click on \"Make Payment\" and pay the balance amount (if any) using another payment mode."
+    ],
+    "restrictions": [
+      "other Gift Cards and can’t be redeemed for Cash or Credit"
+    ],
+    "multiUse": true,
+    "canClub": false
+  },
+  {
+    "slug": "pvr",
+    "name": "PVR",
+    "website": "https://www.pvrcinemas.com/",
+    "checked": "2026-11-03",
+    "hubble": {
+      "pct": 18.0,
+      "brand_name": "PVR",
+      "in_store": false,
+      "cards": [],
+      "min_amount": 100,
+      "max_amount": 5000,
+      "typed": true
+    },
+    "sellers": [
+      {
+        "source": "buyhatke",
+        "label": "BuyHatke",
+        "pct": 21.01,
+        "upi_pct": 21.01,
+        "card_pct": null,
+        "url": "https://buyhatke.com/gift-cards/pvr-gift-card",
+        "online": true,
+        "offline": true,
+        "denominations": [
+          100,
+          450,
+          1500,
+          5000
+        ],
+        "typed": false,
+        "typed_min": null,
+        "typed_max": null,
+        "stack_limit": null,
+        "value_cap": null
+      },
+      {
+        "source": "gyftr",
+        "label": "Gyftr",
+        "pct": 16.0,
+        "upi_pct": 16.0,
+        "card_pct": 14.0,
+        "url": "https://www.gyftr.com/pvr",
+        "online": true,
+        "offline": false,
+        "denominations": [
+          500,
+          750,
+          1000,
+          2000,
+          2500,
+          5000
+        ],
+        "typed": false,
+        "typed_min": null,
+        "typed_max": null,
+        "stack_limit": null,
+        "value_cap": null
+      },
+      {
+        "source": "maximize",
+        "label": "Maximize",
+        "pct": 6.0,
+        "upi_pct": 6.0,
+        "card_pct": 4.1,
+        "url": "https://www.maximize.money/gift-cards/PVR/553",
+        "online": true,
+        "offline": false,
+        "denominations": [
+          200,
+          500,
+          1000,
+          2000,
+          5000
+        ],
+        "typed": true,
+        "typed_min": 100,
+        "typed_max": 5000,
+        "stack_limit": null,
+        "value_cap": null
+      }
+    ],
+    "best": {
+      "source": "buyhatke",
+      "pct": 21.01
+    },
+    "online": true,
+    "offline": true,
+    "stack": null,
+    "steps": [
+      "Log on to PVR/INOX website www.pvrcinemas.com / inoxmovies.com or PVR/INOX Cinema Mobile App.",
+      "Click on Book Now to proceed further.",
+      "Select Location, Event, Venue, Show Date, Time and Seats of your preference.",
+      "Click on the GyFTR option to enter the Gift Voucher Number."
+    ],
+    "restrictions": [
+      "the ‘APP100’ coupon code"
+    ],
+    "multiUse": false,
+    "canClub": true
+  },
+  {
+    "slug": "bookmyshow",
+    "name": "BookMyShow",
+    "website": "https://www.bookmyshow.com/",
+    "checked": "2026-11-03",
+    "hubble": {
+      "pct": 2.0,
+      "brand_name": "BookMyShow",
+      "in_store": false,
+      "cards": [],
+      "min_amount": 100,
+      "max_amount": 10000,
+      "typed": true
+    },
+    "sellers": [
+      {
+        "source": "maximize",
+        "label": "Maximize",
+        "pct": 4.0,
+        "upi_pct": 4.0,
+        "card_pct": 2.1,
+        "url": "https://www.maximize.money/gift-cards/BookMyShow/375",
+        "online": true,
+        "offline": false,
+        "denominations": [
+          200,
+          500,
+          1000,
+          2000,
+          5000,
+          10000
+        ],
+        "typed": true,
+        "typed_min": 100,
+        "typed_max": 10000,
+        "stack_limit": null,
+        "value_cap": null
+      }
+    ],
+    "best": {
+      "source": "maximize",
+      "pct": 4.0
+    },
+    "online": true,
+    "offline": false,
+    "stack": null,
+    "steps": [
+      "Log on to in.bookmyshow.com or BookMyShow Mobile App.",
+      "Select Location, Event, Venue, Show Date, Time & Seats of your preference as the logic flows.",
+      "On payment page, click on the 'More Payment Options' & click on the 'Gift Voucher' tab to enter the Gift Voucher Alphanumeric Pin in the text box that appears & click on 'Apply' button to avail the offer.",
+      "Note: At the end of the successful transaction, Booking ID gets generated which needs to be exchanged at the Cinema/Venue Box Office for actual tickets."
+    ],
+    "restrictions": [
+      "Gift Voucher cannot be used to purchase another Gift Card"
+    ],
+    "multiUse": true,
+    "canClub": false
+  },
+  {
+    "slug": "uber",
+    "name": "Uber",
+    "website": "https://www.uber.com/",
+    "checked": "2026-11-03",
+    "hubble": {
+      "pct": 4.0,
+      "brand_name": "Uber.",
+      "in_store": false,
+      "cards": [],
+      "min_amount": 50,
+      "max_amount": 10416,
+      "typed": true
+    },
+    "sellers": [
+      {
+        "source": "maximize",
+        "label": "Maximize",
+        "pct": 4.0,
+        "upi_pct": 4.0,
+        "card_pct": 2.1,
+        "url": "https://www.maximize.money/gift-cards/Uber/433",
+        "online": true,
+        "offline": false,
+        "denominations": [
+          200,
+          500,
+          1000,
+          2000,
+          5000,
+          10000
+        ],
+        "typed": true,
+        "typed_min": 100,
+        "typed_max": 10000,
+        "stack_limit": null,
+        "value_cap": null
+      },
+      {
+        "source": "buyhatke",
+        "label": "BuyHatke",
+        "pct": 3.01,
+        "upi_pct": 3.01,
+        "card_pct": null,
+        "url": "https://buyhatke.com/gift-cards/uber-gift-card",
+        "online": true,
+        "offline": false,
+        "denominations": [
+          100,
+          250,
+          500,
+          1000
+        ],
+        "typed": false,
+        "typed_min": null,
+        "typed_max": null,
+        "stack_limit": null,
+        "value_cap": 10000.0
+      },
+      {
+        "source": "gyftr",
+        "label": "Gyftr",
+        "pct": 3.0,
+        "upi_pct": 3.0,
+        "card_pct": 1.0,
+        "url": "https://www.gyftr.com/uber",
+        "online": true,
+        "offline": false,
+        "denominations": [
+          100,
+          250,
+          500,
+          1000
+        ],
+        "typed": false,
+        "typed_min": null,
+        "typed_max": null,
+        "stack_limit": null,
+        "value_cap": null
+      }
+    ],
+    "best": {
+      "source": "dealo",
+      "pct": 4.0
+    },
+    "online": true,
+    "offline": false,
+    "stack": null,
+    "steps": [
+      "Open the Uber app, go to Account, tap on Wallet, and select +Add voucher code.",
+      "Enter the voucher code and click on ‘Continue'.",
+      "The voucher is redeemed successfully and the Uber Cash balance gets updated."
+    ],
+    "restrictions": [],
+    "multiUse": true,
+    "canClub": false
+  },
+  {
+    "slug": "bigbasket",
+    "name": "BigBasket",
+    "website": "https://www.bigbasket.com/",
+    "checked": "2026-11-03",
+    "hubble": {
+      "pct": 2.75,
+      "brand_name": "BigBasket",
+      "in_store": false,
+      "cards": [],
+      "min_amount": 50,
+      "max_amount": 10000,
+      "typed": true
+    },
+    "sellers": [
+      {
+        "source": "gyftr",
+        "label": "Gyftr",
+        "pct": 3.0,
+        "upi_pct": 3.0,
+        "card_pct": 1.0,
+        "url": "https://www.gyftr.com/bigbasket",
+        "online": true,
+        "offline": false,
+        "denominations": [
+          250,
+          300,
+          500,
+          1000,
+          2000
+        ],
+        "typed": false,
+        "typed_min": null,
+        "typed_max": null,
+        "stack_limit": null,
+        "value_cap": null
+      },
+      {
+        "source": "maximize",
+        "label": "Maximize",
+        "pct": 3.0,
+        "upi_pct": 3.0,
+        "card_pct": 1.1,
+        "url": "https://www.maximize.money/gift-cards/Bigbasket/499",
+        "online": true,
+        "offline": false,
+        "denominations": [
+          250,
+          500,
+          1000,
+          2000
+        ],
+        "typed": false,
+        "typed_min": null,
+        "typed_max": null,
+        "stack_limit": null,
+        "value_cap": null
+      },
+      {
+        "source": "buyhatke",
+        "label": "BuyHatke",
+        "pct": 2.61,
+        "upi_pct": 2.61,
+        "card_pct": null,
+        "url": "https://buyhatke.com/gift-cards/bigbasket-gift-card",
+        "online": true,
+        "offline": false,
+        "denominations": [
+          100,
+          250,
+          750,
+          1500,
+          2000,
+          3000,
+          10000
+        ],
+        "typed": false,
+        "typed_min": null,
+        "typed_max": null,
+        "stack_limit": 3,
+        "value_cap": 10000.0
+      }
+    ],
+    "best": {
+      "source": "gyftr",
+      "pct": 3.0
+    },
+    "online": true,
+    "offline": false,
+    "stack": "Yes, up to 3 in one order",
+    "steps": [
+      "Login to the Big Basket App.",
+      "Click on the icon on the top right and choose, 'My Gift Cards'",
+      "Enter Gift Voucher number and pin. Entire Gift Voucher amount gets credited to bigbasket wallet.",
+      "Choose the product & add to the cart."
+    ],
+    "restrictions": [
+      "Purchase of Gold or Silver Coins",
+      "Purchases of any product from the electronics category",
+      "such other categories"
+    ],
+    "multiUse": false,
+    "canClub": true
+  },
+  {
+    "slug": "tata-cliq",
+    "name": "Tata CLiQ",
+    "website": "https://www.tatacliq.com/",
+    "checked": "2026-11-03",
+    "hubble": {
+      "pct": 9.0,
+      "brand_name": "Tata Cliq",
+      "in_store": false,
+      "cards": [
+        500,
+        1000,
+        1500,
+        2000,
+        2500,
+        3000,
+        5000,
+        7500,
+        10000
+      ],
+      "min_amount": 500,
+      "max_amount": 10000,
+      "typed": false
+    },
+    "sellers": [
+      {
+        "source": "gyftr",
+        "label": "Gyftr",
+        "pct": 10.0,
+        "upi_pct": 10.0,
+        "card_pct": 9.0,
+        "url": "https://www.gyftr.com/tata-cliq",
+        "online": true,
+        "offline": false,
+        "denominations": [
+          500,
+          1000,
+          2000,
+          5000,
+          7500,
+          10000
+        ],
+        "typed": false,
+        "typed_min": null,
+        "typed_max": null,
+        "stack_limit": null,
+        "value_cap": null
+      },
+      {
+        "source": "maximize",
+        "label": "Maximize",
+        "pct": 10.0,
+        "upi_pct": 10.0,
+        "card_pct": 8.1,
+        "url": "https://www.maximize.money/gift-cards/TataCliq/430",
+        "online": true,
+        "offline": false,
+        "denominations": [
+          250,
+          1000,
+          1500,
+          2000,
+          2500,
+          5000,
+          10000
+        ],
+        "typed": false,
+        "typed_min": null,
+        "typed_max": null,
+        "stack_limit": null,
+        "value_cap": null
+      },
+      {
+        "source": "buyhatke",
+        "label": "BuyHatke",
+        "pct": 8.76,
+        "upi_pct": 8.76,
+        "card_pct": null,
+        "url": "https://buyhatke.com/gift-cards/tatacliq-fashion-gift-card",
+        "online": true,
+        "offline": false,
+        "denominations": [
+          250,
+          500,
+          1000,
+          1500,
+          2000,
+          2500,
+          3000,
+          5000
+        ],
+        "typed": false,
+        "typed_min": null,
+        "typed_max": null,
+        "stack_limit": null,
+        "value_cap": 10000.0
+      }
+    ],
+    "best": {
+      "source": "gyftr",
+      "pct": 10.0
+    },
+    "online": true,
+    "offline": false,
+    "stack": null,
+    "steps": [
+      "Visit www.tatacliq.com & Log In or Sign up on Tata CLiQ",
+      "Go to your CLiQ Cash page & Verify your Mobile number to complete KYC",
+      "Enter the gift card code to add the amount to your CLiQ Cash account",
+      "Apply CLiQ Cash on payment page to pay through CLiQ Cash"
+    ],
+    "restrictions": [
+      "Gift Cards cannot be used to purchase other gift cards",
+      "Not applicable on purchase of bullions"
+    ],
+    "multiUse": true,
+    "canClub": true
+  },
+  {
+    "slug": "pepperfry",
+    "name": "Pepperfry",
+    "website": "https://www.pepperfry.com/",
+    "checked": "2026-11-03",
+    "hubble": {
+      "pct": 3.0,
+      "brand_name": "Pepperfry",
+      "in_store": false,
+      "cards": [],
+      "min_amount": 250,
+      "max_amount": 10309,
+      "typed": true
+    },
+    "sellers": [
+      {
+        "source": "maximize",
+        "label": "Maximize",
+        "pct": 6.75,
+        "upi_pct": 6.75,
+        "card_pct": 4.85,
+        "url": "https://www.maximize.money/gift-cards/Pepperfry/443",
+        "online": true,
+        "offline": false,
+        "denominations": [
+          200,
+          500,
+          1000,
+          2000,
+          5000,
+          10000
+        ],
+        "typed": true,
+        "typed_min": 100,
+        "typed_max": 10000,
+        "stack_limit": 5,
+        "value_cap": null
+      },
+      {
+        "source": "buyhatke",
+        "label": "BuyHatke",
+        "pct": 5.61,
+        "upi_pct": 5.61,
+        "card_pct": null,
+        "url": "https://buyhatke.com/gift-cards/pepperfry-gift-card",
+        "online": true,
+        "offline": false,
+        "denominations": [
+          100,
+          500,
+          2500,
+          50000
+        ],
+        "typed": false,
+        "typed_min": null,
+        "typed_max": null,
+        "stack_limit": 1,
+        "value_cap": 10000.0
+      }
+    ],
+    "best": {
+      "source": "maximize",
+      "pct": 6.75
+    },
+    "online": true,
+    "offline": false,
+    "stack": "One voucher per order",
+    "steps": [
+      "Online Redemption",
+      "Visit Pepperfry.com or the Pepperfry App.",
+      "Select the items of your choice and proceed to checkout.",
+      "Choose Gift Card as the payment method."
+    ],
+    "restrictions": [],
+    "multiUse": true,
+    "canClub": true
+  },
+  {
+    "slug": "ikea",
+    "name": "IKEA",
+    "website": "https://www.ikea.com/",
+    "checked": "2026-11-03",
+    "hubble": {
+      "pct": 6.0,
+      "brand_name": "IKEA",
+      "in_store": false,
+      "cards": [
+        1000,
+        2000,
+        5000,
+        10000
+      ],
+      "min_amount": 1000,
+      "max_amount": 10638,
+      "typed": false
+    },
+    "sellers": [
+      {
+        "source": "gyftr",
+        "label": "Gyftr",
+        "pct": 6.0,
+        "upi_pct": 6.0,
+        "card_pct": 4.5,
+        "url": "https://www.gyftr.com/ikea",
+        "online": true,
+        "offline": true,
+        "denominations": [
+          1000,
+          1500,
+          2000,
+          2500,
+          3000,
+          5000,
+          7500,
+          10000
+        ],
+        "typed": false,
+        "typed_min": null,
+        "typed_max": null,
+        "stack_limit": null,
+        "value_cap": null
+      },
+      {
+        "source": "maximize",
+        "label": "Maximize",
+        "pct": 5.0,
+        "upi_pct": 5.0,
+        "card_pct": 3.1,
+        "url": "https://www.maximize.money/gift-cards/IKEA/716",
+        "online": true,
+        "offline": true,
+        "denominations": [
+          1000,
+          1500,
+          2500,
+          5000,
+          10000
+        ],
+        "typed": false,
+        "typed_min": null,
+        "typed_max": null,
+        "stack_limit": null,
+        "value_cap": null
+      },
+      {
+        "source": "buyhatke",
+        "label": "BuyHatke",
+        "pct": 4.87,
+        "upi_pct": 4.87,
+        "card_pct": null,
+        "url": "https://buyhatke.com/gift-cards/ikea-gift-card",
+        "online": true,
+        "offline": false,
+        "denominations": [
+          1000,
+          1500,
+          2000,
+          2500,
+          3000,
+          5000,
+          7500,
+          10000
+        ],
+        "typed": false,
+        "typed_min": null,
+        "typed_max": null,
+        "stack_limit": 4,
+        "value_cap": 10000.0
+      }
+    ],
+    "best": {
+      "source": "dealo",
+      "pct": 6.0
+    },
+    "online": true,
+    "offline": true,
+    "stack": "Yes, up to 4 in one order",
+    "steps": [
+      "Visit the website. Add items to your cart and proceed to checkout.",
+      "Select \"Gift Card\" option.",
+      "The amount will be deducted. Pay any remaining balance via another payment method, if needed."
+    ],
+    "restrictions": [],
+    "multiUse": true,
+    "canClub": true
+  },
+  {
+    "slug": "urban-ladder",
+    "name": "Urban Ladder",
+    "website": "https://www.urbanladder.com/",
+    "checked": "2026-11-03",
+    "hubble": {
+      "pct": 4.0,
+      "brand_name": "Urban Ladder",
+      "in_store": false,
+      "cards": [
+        1000,
+        5000,
+        10000
+      ],
+      "min_amount": 1000,
+      "max_amount": 10416,
+      "typed": false
+    },
+    "sellers": [
+      {
+        "source": "maximize",
+        "label": "Maximize",
+        "pct": 6.0,
+        "upi_pct": 6.0,
+        "card_pct": 4.1,
+        "url": "https://www.maximize.money/gift-cards/Urban%20Ladder/721",
+        "online": true,
+        "offline": false,
+        "denominations": [
+          1000,
+          2000,
+          3000,
+          5000,
+          6000,
+          10000,
+          12000,
+          20000
+        ],
+        "typed": false,
+        "typed_min": null,
+        "typed_max": null,
+        "stack_limit": 5,
+        "value_cap": null
+      },
+      {
+        "source": "buyhatke",
+        "label": "BuyHatke",
+        "pct": 1.01,
+        "upi_pct": 1.01,
+        "card_pct": null,
+        "url": "https://buyhatke.com/gift-cards/urban-ladder-gift-card",
+        "online": true,
+        "offline": false,
+        "denominations": [
+          1000,
+          5000,
+          6000,
+          10000,
+          12000,
+          20000,
+          24000,
+          50000
+        ],
+        "typed": false,
+        "typed_min": null,
+        "typed_max": null,
+        "stack_limit": 5,
+        "value_cap": 100000.0
+      }
+    ],
+    "best": {
+      "source": "maximize",
+      "pct": 6.0
+    },
+    "online": true,
+    "offline": false,
+    "stack": "Yes, up to 5 in one order",
+    "steps": [
+      "Visit https://www.urbanladder.com and choose the product you would like to buy.",
+      "Select Gift Card as the payment option.",
+      "Enter the Gift Card Code and PIN."
+    ],
+    "restrictions": [],
+    "multiUse": true,
+    "canClub": false
+  },
+  {
+    "slug": "dominos",
+    "name": "Domino's",
+    "website": "https://www.dominos.co.in/",
+    "checked": "2026-11-03",
+    "hubble": {
+      "pct": 16.0,
+      "brand_name": "Dominos",
+      "in_store": false,
+      "cards": [],
+      "min_amount": 100,
+      "max_amount": 10000,
+      "typed": true
+    },
+    "sellers": [
+      {
+        "source": "maximize",
+        "label": "Maximize",
+        "pct": 19.0,
+        "upi_pct": 19.0,
+        "card_pct": 17.1,
+        "url": "https://www.maximize.money/gift-cards/Dominos/1216",
+        "online": true,
+        "offline": false,
+        "denominations": [
+          750,
+          2000
+        ],
+        "typed": false,
+        "typed_min": null,
+        "typed_max": null,
+        "stack_limit": 1,
+        "value_cap": null
+      },
+      {
+        "source": "buyhatke",
+        "label": "BuyHatke",
+        "pct": 16.77,
+        "upi_pct": 16.77,
+        "card_pct": null,
+        "url": "https://buyhatke.com/gift-cards/dominos-gift-card",
+        "online": true,
+        "offline": false,
+        "denominations": [
+          750,
+          2000
+        ],
+        "typed": false,
+        "typed_min": null,
+        "typed_max": null,
+        "stack_limit": 1,
+        "value_cap": 10000.0
+      },
+      {
+        "source": "gyftr",
+        "label": "Gyftr",
+        "pct": 12.0,
+        "upi_pct": 12.0,
+        "card_pct": 12.0,
+        "url": "https://www.gyftr.com/dominos",
+        "online": true,
+        "offline": false,
+        "denominations": [
+          100,
+          250,
+          500,
+          1000,
+          1500,
+          2000,
+          2500,
+          5000
+        ],
+        "typed": false,
+        "typed_min": 100,
+        "typed_max": 10000,
+        "stack_limit": 1,
+        "value_cap": null
+      }
+    ],
+    "best": {
+      "source": "maximize",
+      "pct": 19.0
+    },
+    "online": true,
+    "offline": false,
+    "stack": "One voucher per order",
+    "steps": [
+      "Open the GyFTR ePay app, add the voucher to your ePay balance, tap Redeem ePay, enter the amount, and confirm the redemption.",
+      "Your unique custom ePay code will be generated.",
+      "Open the Domino’s app, select your product and add it to the cart, go to the cart to view payment options, and choose Gift Card / e-Voucher to enter the voucher code.",
+      "If any balance remains after applying the voucher, select Pay in Cash to complete the payment."
+    ],
+    "restrictions": [],
+    "multiUse": true,
+    "canClub": true
+  },
+  {
+    "slug": "pizza-hut",
+    "name": "Pizza Hut",
+    "website": "https://www.pizzahut.co.in/",
+    "checked": "2026-11-03",
+    "hubble": {
+      "pct": 7.0,
+      "brand_name": "Pizza Hut",
+      "in_store": false,
+      "cards": [
+        100,
+        200,
+        250,
+        500,
+        1000,
+        2000,
+        5000,
+        10000
+      ],
+      "min_amount": 100,
+      "max_amount": 10000,
+      "typed": false
+    },
+    "sellers": [
+      {
+        "source": "maximize",
+        "label": "Maximize",
+        "pct": 11.0,
+        "upi_pct": 11.0,
+        "card_pct": 9.1,
+        "url": "https://www.maximize.money/gift-cards/PizzaHut/665",
+        "online": true,
+        "offline": true,
+        "denominations": [
+          100,
+          250,
+          500,
+          1000,
+          2000
+        ],
+        "typed": false,
+        "typed_min": null,
+        "typed_max": null,
+        "stack_limit": 1,
+        "value_cap": null
+      },
+      {
+        "source": "buyhatke",
+        "label": "BuyHatke",
+        "pct": 9.76,
+        "upi_pct": 9.76,
+        "card_pct": null,
+        "url": "https://buyhatke.com/gift-cards/pizza-hut-gift-card",
+        "online": true,
+        "offline": false,
+        "denominations": [
+          100,
+          200,
+          250,
+          500,
+          1000,
+          1500,
+          2000,
+          5000
+        ],
+        "typed": false,
+        "typed_min": null,
+        "typed_max": null,
+        "stack_limit": 1,
+        "value_cap": 10000.0
+      },
+      {
+        "source": "gyftr",
+        "label": "Gyftr",
+        "pct": 8.5,
+        "upi_pct": 8.5,
+        "card_pct": 7.0,
+        "url": "https://www.gyftr.com/pizza-hut",
+        "online": true,
+        "offline": true,
+        "denominations": [
+          100,
+          250,
+          500,
+          1000,
+          2000
+        ],
+        "typed": false,
+        "typed_min": null,
+        "typed_max": null,
+        "stack_limit": 1,
+        "value_cap": null
+      }
+    ],
+    "best": {
+      "source": "maximize",
+      "pct": 11.0
+    },
+    "online": true,
+    "offline": true,
+    "stack": "One voucher per order",
+    "steps": [
+      "Select your desired food products and add them to your cart.",
+      "Click on 'ADD GIFT CARD,' enter the number and PIN, and the amount will be deducted from your total. Any remaining balance can be paid using available payment options.",
+      "Go to your nearest Pizza Hut store and confirm with the cashier that they accept Gift Cards.",
+      "Select your food products, then show the cashier your Gift Card number and PIN. The amount will be deducted, with any remaining balance payable through other payment methods."
+    ],
+    "restrictions": [],
+    "multiUse": false,
+    "canClub": null
+  },
+  {
+    "slug": "kfc",
+    "name": "KFC",
+    "website": "https://www.online.kfc.co.in/",
+    "checked": "2026-11-03",
+    "hubble": {
+      "pct": 6.0,
+      "brand_name": "KFC",
+      "in_store": false,
+      "cards": [
+        100,
+        250,
+        500,
+        1000,
+        2000,
+        2500
+      ],
+      "min_amount": 100,
+      "max_amount": 10638,
+      "typed": false
+    },
+    "sellers": [
+      {
+        "source": "maximize",
+        "label": "Maximize",
+        "pct": 6.25,
+        "upi_pct": 6.25,
+        "card_pct": 4.35,
+        "url": "https://www.maximize.money/gift-cards/KFC/811",
+        "online": true,
+        "offline": true,
+        "denominations": [
+          100,
+          250,
+          500,
+          1000,
+          2000,
+          2500
+        ],
+        "typed": false,
+        "typed_min": null,
+        "typed_max": null,
+        "stack_limit": 1,
+        "value_cap": null
+      },
+      {
+        "source": "buyhatke",
+        "label": "BuyHatke",
+        "pct": 5.76,
+        "upi_pct": 5.76,
+        "card_pct": null,
+        "url": "https://buyhatke.com/gift-cards/kfc-gift-card",
+        "online": true,
+        "offline": false,
+        "denominations": [
+          100,
+          250,
+          500,
+          1000,
+          2000
+        ],
+        "typed": false,
+        "typed_min": null,
+        "typed_max": null,
+        "stack_limit": null,
+        "value_cap": 1000.0
+      },
+      {
+        "source": "gyftr",
+        "label": "Gyftr",
+        "pct": 3.0,
+        "upi_pct": 3.0,
+        "card_pct": 2.0,
+        "url": "https://www.gyftr.com/kfc",
+        "online": true,
+        "offline": true,
+        "denominations": [
+          100,
+          250,
+          500,
+          1000
+        ],
+        "typed": false,
+        "typed_min": null,
+        "typed_max": null,
+        "stack_limit": 1,
+        "value_cap": null
+      }
+    ],
+    "best": {
+      "source": "maximize",
+      "pct": 6.25
+    },
+    "online": true,
+    "offline": true,
+    "stack": "One voucher per order",
+    "steps": [
+      "-Visit KFC website at online.kfc.co.in  Or  -Visit KFC listed outlet",
+      "Please share the voucher code with the cashier before billing.",
+      "-Make your order and click on ‘Place Order’. -On the payment page, choose ‘Gift Card’ option and enter the ‘voucher code & ‘PIN’ . -The bill amount should be equal to or less than the gift voucher amount and not higher."
+    ],
+    "restrictions": [],
+    "multiUse": false,
+    "canClub": null
+  },
+  {
+    "slug": "subway",
+    "name": "Subway",
+    "website": "https://www.subway.com/",
+    "checked": "2026-11-03",
+    "hubble": {
+      "pct": 8.0,
+      "brand_name": "Subway",
+      "in_store": true,
+      "cards": [],
+      "min_amount": 100,
+      "max_amount": 5000,
+      "typed": true
+    },
+    "sellers": [
+      {
+        "source": "maximize",
+        "label": "Maximize",
+        "pct": 11.0,
+        "upi_pct": 11.0,
+        "card_pct": 9.1,
+        "url": "https://www.maximize.money/gift-cards/Subway/896",
+        "online": false,
+        "offline": true,
+        "denominations": [
+          100,
+          250,
+          500,
+          750,
+          1000
+        ],
+        "typed": false,
+        "typed_min": null,
+        "typed_max": null,
+        "stack_limit": null,
+        "value_cap": null
+      },
+      {
+        "source": "gyftr",
+        "label": "Gyftr",
+        "pct": 7.0,
+        "upi_pct": 7.0,
+        "card_pct": 5.0,
+        "url": "https://www.gyftr.com/subway",
+        "online": false,
+        "offline": true,
+        "denominations": [
+          100,
+          250,
+          500,
+          750,
+          1000
+        ],
+        "typed": false,
+        "typed_min": null,
+        "typed_max": null,
+        "stack_limit": null,
+        "value_cap": null
+      }
+    ],
+    "best": {
+      "source": "maximize",
+      "pct": 11.0
+    },
+    "online": false,
+    "offline": true,
+    "stack": null,
+    "steps": [
+      "Share the registered mobile number with the cashier, once products are scanned for invoicing by the cashier. . Cashier to inform the available Gift Voucher and its balance.",
+      "Customer to confirm the amount to be used for redemption and proceed further for balance payment, if any.",
+      "Cashier to proceed with invoicing."
+    ],
+    "restrictions": [],
+    "multiUse": true,
+    "canClub": true
+  },
+  {
+    "slug": "starbucks",
+    "name": "Starbucks",
+    "website": "https://www.starbucks.in/",
+    "checked": "2026-11-03",
+    "hubble": null,
+    "sellers": [
+      {
+        "source": "maximize",
+        "label": "Maximize",
+        "pct": 8.75,
+        "upi_pct": 8.75,
+        "card_pct": 6.85,
+        "url": "https://www.maximize.money/gift-cards/Starbucks/321",
+        "online": false,
+        "offline": true,
+        "denominations": [
+          1000,
+          2000
+        ],
+        "typed": false,
+        "typed_min": null,
+        "typed_max": null,
+        "stack_limit": 1,
+        "value_cap": null
+      },
+      {
+        "source": "gyftr",
+        "label": "Gyftr",
+        "pct": 8.0,
+        "upi_pct": 8.0,
+        "card_pct": 6.0,
+        "url": "https://www.gyftr.com/starbucks",
+        "online": false,
+        "offline": true,
+        "denominations": [
+          1000,
+          2000
+        ],
+        "typed": false,
+        "typed_min": null,
+        "typed_max": null,
+        "stack_limit": 1,
+        "value_cap": null
+      },
+      {
+        "source": "buyhatke",
+        "label": "BuyHatke",
+        "pct": 5.26,
+        "upi_pct": 5.26,
+        "card_pct": null,
+        "url": "https://buyhatke.com/gift-cards/starbucks-%28in-store%29-gift-card",
+        "online": true,
+        "offline": false,
+        "denominations": [
+          250,
+          500,
+          1000,
+          1500,
+          2000,
+          2500,
+          3000,
+          5000
+        ],
+        "typed": false,
+        "typed_min": null,
+        "typed_max": null,
+        "stack_limit": null,
+        "value_cap": 2000.0
+      }
+    ],
+    "best": {
+      "source": "maximize",
+      "pct": 8.75
+    },
+    "online": true,
+    "offline": true,
+    "stack": "One voucher per order",
+    "steps": [
+      "Download the Starbucks app and navigate to the “Pay” option in the sticky menu. Tap on “Starbucks Pay” at the top of the page, then choose the “Already have a Starbucks Card” option.",
+      "Choose the option to enter your card details manually, then input the card number and security code.",
+      "To place an order online, simply add the items to your cart.",
+      "Choose \"Pay with Starbucks Card\" as your payment method."
+    ],
+    "restrictions": [],
+    "multiUse": true,
+    "canClub": false
+  },
+  {
+    "slug": "lifestyle",
+    "name": "Lifestyle",
+    "website": "https://www.lifestylestores.com/",
+    "checked": "2026-11-03",
+    "hubble": {
+      "pct": 8.0,
+      "brand_name": "Lifestyle",
+      "in_store": false,
+      "cards": [
+        1000,
+        1500,
+        5000,
+        10000
+      ],
+      "min_amount": 1000,
+      "max_amount": 10869,
+      "typed": false
+    },
+    "sellers": [
+      {
+        "source": "maximize",
+        "label": "Maximize",
+        "pct": 9.25,
+        "upi_pct": 9.25,
+        "card_pct": 7.35,
+        "url": "https://www.maximize.money/gift-cards/Lifestyle%20Online/572",
+        "online": true,
+        "offline": false,
+        "denominations": [
+          1000,
+          2000
+        ],
+        "typed": false,
+        "typed_min": null,
+        "typed_max": null,
+        "stack_limit": null,
+        "value_cap": null
+      },
+      {
+        "source": "gyftr",
+        "label": "Gyftr",
+        "pct": 8.0,
+        "upi_pct": 8.0,
+        "card_pct": 6.0,
+        "url": "https://www.gyftr.com/lifestyle-online",
+        "online": true,
+        "offline": false,
+        "denominations": [
+          1000,
+          2000
+        ],
+        "typed": false,
+        "typed_min": null,
+        "typed_max": null,
+        "stack_limit": 10,
+        "value_cap": null
+      },
+      {
+        "source": "buyhatke",
+        "label": "BuyHatke",
+        "pct": 6.59,
+        "upi_pct": 6.59,
+        "card_pct": null,
+        "url": "https://buyhatke.com/gift-cards/lifestyle-gift-card",
+        "online": true,
+        "offline": false,
+        "denominations": [
+          1000,
+          1500,
+          2000,
+          5000,
+          10000
+        ],
+        "typed": false,
+        "typed_min": null,
+        "typed_max": null,
+        "stack_limit": 10,
+        "value_cap": 10000.0
+      }
+    ],
+    "best": {
+      "source": "maximize",
+      "pct": 9.25
+    },
+    "online": true,
+    "offline": false,
+    "stack": "Yes, up to 10 in one order",
+    "steps": [
+      "Check the outlet locator for a store nearby you that accepts the Gift Voucher.",
+      "Choose your product.",
+      "Share your Gift Voucher at the time of billing & pay rest by cash or card if required."
+    ],
+    "restrictions": [],
+    "multiUse": true,
+    "canClub": true
+  },
+  {
+    "slug": "decathlon",
+    "name": "Decathlon",
+    "website": "https://www.decathlon.in/",
+    "checked": "2026-11-03",
+    "hubble": {
+      "pct": 4.0,
+      "brand_name": "Decathlon",
+      "in_store": false,
+      "cards": [
+        500,
+        1000,
+        2000,
+        5000,
+        10000
+      ],
+      "min_amount": 500,
+      "max_amount": 10000,
+      "typed": false
+    },
+    "sellers": [
+      {
+        "source": "maximize",
+        "label": "Maximize",
+        "pct": 4.25,
+        "upi_pct": 4.25,
+        "card_pct": 3.1,
+        "url": "https://www.maximize.money/gift-cards/Decathlon/387",
+        "online": true,
+        "offline": true,
+        "denominations": [
+          500,
+          1000,
+          2000,
+          5000,
+          10000
+        ],
+        "typed": true,
+        "typed_min": 250,
+        "typed_max": 10000,
+        "stack_limit": null,
+        "value_cap": null
+      },
+      {
+        "source": "gyftr",
+        "label": "Gyftr",
+        "pct": 4.0,
+        "upi_pct": 4.0,
+        "card_pct": 3.0,
+        "url": "https://www.gyftr.com/decathlon",
+        "online": true,
+        "offline": true,
+        "denominations": [
+          500,
+          1000,
+          2000,
+          5000
+        ],
+        "typed": false,
+        "typed_min": null,
+        "typed_max": null,
+        "stack_limit": 10,
+        "value_cap": 10000
+      },
+      {
+        "source": "buyhatke",
+        "label": "BuyHatke",
+        "pct": 4.0,
+        "upi_pct": 4.0,
+        "card_pct": null,
+        "url": "https://buyhatke.com/gift-cards/decathlon-gift-card",
+        "online": true,
+        "offline": false,
+        "denominations": [
+          250,
+          500,
+          750,
+          1000,
+          1500,
+          2000,
+          5000,
+          7500
+        ],
+        "typed": false,
+        "typed_min": null,
+        "typed_max": null,
+        "stack_limit": 10,
+        "value_cap": 10000.0
+      }
+    ],
+    "best": {
+      "source": "maximize",
+      "pct": 4.25
+    },
+    "online": true,
+    "offline": true,
+    "stack": "Yes, up to 10 in one order",
+    "steps": [
+      "-Visit Decathlon website at www.decathlon.in  Or  -Visit Decathlon listed outlet www.decathlon.in/store",
+      "Please share the voucher code with the cashier before billing.",
+      "Make your order and click on ‘Proceed to Checkout’.  On the payment page, select ‘Have a Gift Card’ option and enter the ‘voucher code & ‘PIN’ .  You can make the balance payment by any other payment mode."
+    ],
+    "restrictions": [],
+    "multiUse": true,
+    "canClub": true
+  },
+  {
+    "slug": "puma",
+    "name": "PUMA",
+    "website": "https://www.in.puma.com/",
+    "checked": "2026-11-03",
+    "hubble": {
+      "pct": 11.0,
+      "brand_name": "Puma",
+      "in_store": true,
+      "cards": [
+        1000,
+        3000,
+        5000,
+        7500,
+        10000
+      ],
+      "min_amount": 1000,
+      "max_amount": 11235,
+      "typed": false
+    },
+    "sellers": [
+      {
+        "source": "gyftr",
+        "label": "Gyftr",
+        "pct": 11.0,
+        "upi_pct": 11.0,
+        "card_pct": 8.0,
+        "url": "https://www.gyftr.com/puma",
+        "online": false,
+        "offline": true,
+        "denominations": [
+          500,
+          1000,
+          1500,
+          2000,
+          5000,
+          10000
+        ],
+        "typed": false,
+        "typed_min": null,
+        "typed_max": null,
+        "stack_limit": 1,
+        "value_cap": null
+      },
+      {
+        "source": "maximize",
+        "label": "Maximize",
+        "pct": 10.75,
+        "upi_pct": 10.75,
+        "card_pct": 8.85,
+        "url": "https://www.maximize.money/gift-cards/Puma/669",
+        "online": false,
+        "offline": true,
+        "denominations": [
+          500,
+          1000,
+          1500,
+          2000,
+          5000,
+          10000
+        ],
+        "typed": false,
+        "typed_min": null,
+        "typed_max": null,
+        "stack_limit": 1,
+        "value_cap": null
+      }
+    ],
+    "best": {
+      "source": "dealo",
+      "pct": 11.0
+    },
+    "online": false,
+    "offline": true,
+    "stack": "One voucher per order",
+    "steps": [
+      "Use the outlet locator to locate the nearest outlet that accepts this Gift Voucher.",
+      "Select your choice of product.",
+      "Share your Gift Voucher with the cashier at the time of billing & pay the remaining amount by cash or card if required."
+    ],
+    "restrictions": [],
+    "multiUse": false,
+    "canClub": true
+  },
+  {
+    "slug": "skechers",
+    "name": "Skechers",
+    "website": "https://www.skechers.in/",
+    "checked": "2026-11-03",
+    "hubble": {
+      "pct": 10.0,
+      "brand_name": "Skechers",
+      "in_store": true,
+      "cards": [],
+      "min_amount": 500,
+      "max_amount": 11111,
+      "typed": true
+    },
+    "sellers": [
+      {
+        "source": "maximize",
+        "label": "Maximize",
+        "pct": 11.75,
+        "upi_pct": 11.75,
+        "card_pct": 9.85,
+        "url": "https://www.maximize.money/gift-cards/Skechers/288",
+        "online": true,
+        "offline": true,
+        "denominations": [
+          250,
+          500,
+          1000,
+          1500,
+          2000,
+          2500,
+          3000,
+          5000
+        ],
+        "typed": true,
+        "typed_min": 100,
+        "typed_max": 10000,
+        "stack_limit": null,
+        "value_cap": null
+      },
+      {
+        "source": "gyftr",
+        "label": "Gyftr",
+        "pct": 10.0,
+        "upi_pct": 10.0,
+        "card_pct": 10.0,
+        "url": "https://www.gyftr.com/skechers",
+        "online": true,
+        "offline": true,
+        "denominations": [
+          500,
+          1000,
+          2000,
+          5000
+        ],
+        "typed": false,
+        "typed_min": 100,
+        "typed_max": 10000,
+        "stack_limit": null,
+        "value_cap": null
+      },
+      {
+        "source": "buyhatke",
+        "label": "BuyHatke",
+        "pct": 9.76,
+        "upi_pct": 9.76,
+        "card_pct": null,
+        "url": "https://buyhatke.com/gift-cards/skechers-gift-card",
+        "online": true,
+        "offline": false,
+        "denominations": [
+          250,
+          500,
+          1000,
+          1500,
+          2000,
+          2500,
+          3000,
+          5000
+        ],
+        "typed": false,
+        "typed_min": null,
+        "typed_max": null,
+        "stack_limit": null,
+        "value_cap": 10000.0
+      }
+    ],
+    "best": {
+      "source": "maximize",
+      "pct": 11.75
+    },
+    "online": true,
+    "offline": true,
+    "stack": null,
+    "steps": [
+      "-Visit Skechers website at www.skechers.in  Or  -Visit Skechers listed outlet",
+      "Please share the voucher code with the cashier before billing.",
+      "-Make your order and click on ‘Proceed to cart’.  -Enter the Gift Voucher in 'Apply vouchers/Skechers Vouchers’ section & click on Apply. Enter the Mobile number and Click on Submit on the pop up  -Enter your details and Login in to the Account. Confirm the Shipping Address and click on Next. Select the Payment Mode and Click on “Place Order”."
+    ],
+    "restrictions": [],
+    "multiUse": true,
+    "canClub": false
+  },
+  {
+    "slug": "bata",
+    "name": "Bata",
+    "website": "https://www.bata.in/",
+    "checked": "2026-11-03",
+    "hubble": {
+      "pct": 7.0,
+      "brand_name": "Bata",
+      "in_store": true,
+      "cards": [
+        2000,
+        3000,
+        4000,
+        5000
+      ],
+      "min_amount": 2000,
+      "max_amount": 10752,
+      "typed": false
+    },
+    "sellers": [
+      {
+        "source": "maximize",
+        "label": "Maximize",
+        "pct": 10.25,
+        "upi_pct": 10.25,
+        "card_pct": 8.35,
+        "url": "https://www.maximize.money/gift-cards/Bata/1213",
+        "online": false,
+        "offline": true,
+        "denominations": [
+          2000,
+          3000,
+          4000,
+          5000
+        ],
+        "typed": false,
+        "typed_min": null,
+        "typed_max": null,
+        "stack_limit": 7,
+        "value_cap": null
+      },
+      {
+        "source": "gyftr",
+        "label": "Gyftr",
+        "pct": 7.0,
+        "upi_pct": 7.0,
+        "card_pct": 5.0,
+        "url": "https://www.gyftr.com/bata",
+        "online": false,
+        "offline": true,
+        "denominations": [
+          1000,
+          2000,
+          3000,
+          4000,
+          5000
+        ],
+        "typed": false,
+        "typed_min": 100,
+        "typed_max": 10000,
+        "stack_limit": null,
+        "value_cap": 20000
+      }
+    ],
+    "best": {
+      "source": "maximize",
+      "pct": 10.25
+    },
+    "online": false,
+    "offline": true,
+    "stack": "Yes, up to 7 in one order",
+    "steps": [
+      "Share the registered mobile number with the cashier, once products are scanned for invoicing by the cashier. . Cashier to inform the available Gift Voucher and its balance.",
+      "Customer to confirm the amount to be used for redemption and proceed further for balance payment, if any.",
+      "Cashier to proceed with invoicing."
+    ],
+    "restrictions": [],
+    "multiUse": true,
+    "canClub": false
+  },
+  {
+    "slug": "lenskart",
+    "name": "Lenskart",
+    "website": "https://www.lenskart.com/",
+    "checked": "2026-11-03",
+    "hubble": {
+      "pct": 10.0,
+      "brand_name": "Lenskart",
+      "in_store": false,
+      "cards": [
+        1000,
+        2000,
+        2500,
+        3000,
+        5000,
+        7500,
+        10000
+      ],
+      "min_amount": 1000,
+      "max_amount": 11111,
+      "typed": false
+    },
+    "sellers": [
+      {
+        "source": "buyhatke",
+        "label": "BuyHatke",
+        "pct": 13.51,
+        "upi_pct": 13.51,
+        "card_pct": null,
+        "url": "https://buyhatke.com/gift-cards/lenskart-gift-card",
+        "online": true,
+        "offline": true,
+        "denominations": [
+          1000,
+          2000,
+          2500,
+          3000,
+          5000,
+          7500,
+          10000
+        ],
+        "typed": false,
+        "typed_min": null,
+        "typed_max": null,
+        "stack_limit": null,
+        "value_cap": null
+      },
+      {
+        "source": "maximize",
+        "label": "Maximize",
+        "pct": 13.0,
+        "upi_pct": 13.0,
+        "card_pct": 11.1,
+        "url": "https://www.maximize.money/gift-cards/Lenskartcom/1209",
+        "online": true,
+        "offline": true,
+        "denominations": [
+          1000,
+          2000,
+          2500,
+          3000,
+          5000,
+          7500,
+          10000
+        ],
+        "typed": false,
+        "typed_min": null,
+        "typed_max": null,
+        "stack_limit": null,
+        "value_cap": null
+      },
+      {
+        "source": "gyftr",
+        "label": "Gyftr",
+        "pct": 10.0,
+        "upi_pct": 10.0,
+        "card_pct": 10.0,
+        "url": "https://www.gyftr.com/lenskart",
+        "online": true,
+        "offline": true,
+        "denominations": [
+          1000,
+          2000,
+          2500,
+          3000,
+          5000,
+          7500,
+          10000
+        ],
+        "typed": false,
+        "typed_min": null,
+        "typed_max": null,
+        "stack_limit": null,
+        "value_cap": 100000
+      }
+    ],
+    "best": {
+      "source": "buyhatke",
+      "pct": 13.51
+    },
+    "online": true,
+    "offline": true,
+    "stack": null,
+    "steps": [
+      "Go to \"My Profile\" and select \"Claim Gift Card.",
+      "Enter the gift card code and PIN, then click the \"Claim Gift Card\" button.",
+      "A confirmation page appears, verifying that the gift card has been successfully added to your balance.",
+      "The gift card balance is displayed on the payment page. Select it to apply, then click \"Pay Now.\""
+    ],
+    "restrictions": [],
+    "multiUse": true,
+    "canClub": true
+  },
+  {
+    "slug": "boat",
+    "name": "boAt",
+    "website": "https://www.boat-lifestyle.com/",
+    "checked": "2026-11-03",
+    "hubble": {
+      "pct": 6.0,
+      "brand_name": "Boat",
+      "in_store": false,
+      "cards": [],
+      "min_amount": 500,
+      "max_amount": 5000,
+      "typed": true
+    },
+    "sellers": [
+      {
+        "source": "maximize",
+        "label": "Maximize",
+        "pct": 7.0,
+        "upi_pct": 7.0,
+        "card_pct": 5.1,
+        "url": "https://www.maximize.money/gift-cards/Boat/554",
+        "online": true,
+        "offline": false,
+        "denominations": [
+          1000,
+          2000,
+          5000
+        ],
+        "typed": true,
+        "typed_min": 500,
+        "typed_max": 5000,
+        "stack_limit": null,
+        "value_cap": null
+      },
+      {
+        "source": "buyhatke",
+        "label": "BuyHatke",
+        "pct": 6.01,
+        "upi_pct": 6.01,
+        "card_pct": null,
+        "url": "https://buyhatke.com/gift-cards/boat-gift-card",
+        "online": true,
+        "offline": false,
+        "denominations": [
+          500,
+          1000,
+          1500,
+          2000
+        ],
+        "typed": false,
+        "typed_min": null,
+        "typed_max": null,
+        "stack_limit": 4,
+        "value_cap": 5000.0
+      }
+    ],
+    "best": {
+      "source": "maximize",
+      "pct": 7.0
+    },
+    "online": true,
+    "offline": false,
+    "stack": "Yes, up to 4 in one order",
+    "steps": [
+      "Go to My Account on the boAt website - https://www.boat-lifestyle.com/",
+      "Choose boAt Credits.",
+      "Under \"Add Balance\", enter the 16-digit alphanumeric Gift Card code along with the Security PIN, then submit.",
+      "The Gift Card amount will be added to your boAt Credits wallet."
+    ],
+    "restrictions": [],
+    "multiUse": true,
+    "canClub": true
+  },
+  {
+    "slug": "titan",
+    "name": "Titan",
+    "website": "https://www.titan.co.in/",
+    "checked": "2026-11-03",
+    "hubble": null,
+    "sellers": [
+      {
+        "source": "gyftr",
+        "label": "Gyftr",
+        "pct": 8.0,
+        "upi_pct": 8.0,
+        "card_pct": 8.0,
+        "url": "https://www.gyftr.com/titan",
+        "online": false,
+        "offline": true,
+        "denominations": [
+          500,
+          2000,
+          5000
+        ],
+        "typed": false,
+        "typed_min": 100,
+        "typed_max": 10000,
+        "stack_limit": 5,
+        "value_cap": null
+      },
+      {
+        "source": "maximize",
+        "label": "Maximize",
+        "pct": 8.0,
+        "upi_pct": 8.0,
+        "card_pct": 6.1,
+        "url": "https://www.maximize.money/gift-cards/Titan/253",
+        "online": false,
+        "offline": true,
+        "denominations": [
+          100,
+          500,
+          1000,
+          1500,
+          2000,
+          2500,
+          5000,
+          7500
+        ],
+        "typed": true,
+        "typed_min": 100,
+        "typed_max": 10000,
+        "stack_limit": 5,
+        "value_cap": null
+      }
+    ],
+    "best": {
+      "source": "gyftr",
+      "pct": 8.0
+    },
+    "online": false,
+    "offline": true,
+    "stack": "Yes, up to 5 in one order",
+    "steps": [
+      "Use the outlet locator to locate the nearest outlet that accepts this Gift Voucher.",
+      "Select your choice of product.",
+      "Share your Gift Voucher with the cashier at the time of billing & pay the remaining amount by cash or card if required."
+    ],
+    "restrictions": [],
+    "multiUse": true,
+    "canClub": false
+  },
+  {
+    "slug": "firstcry",
+    "name": "FirstCry",
+    "website": "https://www.firstcry.com/",
+    "checked": "2026-11-03",
+    "hubble": {
+      "pct": 6.0,
+      "brand_name": "Firstcry",
+      "in_store": false,
+      "cards": [
+        100,
+        250,
+        500,
+        750,
+        1000,
+        2000,
+        2500,
+        3000,
+        5000,
+        10000
+      ],
+      "min_amount": 100,
+      "max_amount": 10000,
+      "typed": false
+    },
+    "sellers": [
+      {
+        "source": "maximize",
+        "label": "Maximize",
+        "pct": 6.75,
+        "upi_pct": 6.75,
+        "card_pct": 4.85,
+        "url": "https://www.maximize.money/gift-cards/FirstCry/350",
+        "online": true,
+        "offline": false,
+        "denominations": [
+          100,
+          250,
+          500,
+          750,
+          1000,
+          2000,
+          2500,
+          3000
+        ],
+        "typed": false,
+        "typed_min": null,
+        "typed_max": null,
+        "stack_limit": 1,
+        "value_cap": null
+      },
+      {
+        "source": "gyftr",
+        "label": "Gyftr",
+        "pct": 6.5,
+        "upi_pct": 6.5,
+        "card_pct": 5.5,
+        "url": "https://www.gyftr.com/firstcry",
+        "online": true,
+        "offline": true,
+        "denominations": [
+          250,
+          500,
+          1000,
+          2000,
+          2500,
+          5000,
+          10000
+        ],
+        "typed": false,
+        "typed_min": null,
+        "typed_max": null,
+        "stack_limit": 1,
+        "value_cap": null
+      },
+      {
+        "source": "buyhatke",
+        "label": "BuyHatke",
+        "pct": 5.86,
+        "upi_pct": 5.86,
+        "card_pct": null,
+        "url": "https://buyhatke.com/gift-cards/first-cry-gift-card",
+        "online": true,
+        "offline": false,
+        "denominations": [
+          100,
+          250,
+          500,
+          750,
+          1000,
+          2000,
+          2500,
+          3000
+        ],
+        "typed": false,
+        "typed_min": null,
+        "typed_max": null,
+        "stack_limit": 1,
+        "value_cap": null
+      }
+    ],
+    "best": {
+      "source": "maximize",
+      "pct": 6.75
+    },
+    "online": true,
+    "offline": true,
+    "stack": "One voucher per order",
+    "steps": [
+      "Log in to the FirstCry app or website and choose the products you wish to purchase.",
+      "Add the products to your cart and proceed to checkout.",
+      "Select “Have a Gift Certificate?”, enter the voucher code and click “Apply.”",
+      "For store redemption, use the outlet locator to find the nearest store accepting the voucher. Select your product and share your Gift Voucher with the cashier at checkout. Pay any remaining balance with cash or card, if needed."
+    ],
+    "restrictions": [],
+    "multiUse": true,
+    "canClub": false
+  },
+  {
+    "slug": "netmeds",
+    "name": "Netmeds",
+    "website": "https://www.netmeds.com/",
+    "checked": "2026-11-03",
+    "hubble": {
+      "pct": 8.0,
+      "brand_name": "Netmeds",
+      "in_store": false,
+      "cards": [
+        500,
+        1000,
+        2000
+      ],
+      "min_amount": 500,
+      "max_amount": 2000,
+      "typed": false
+    },
+    "sellers": [
+      {
+        "source": "maximize",
+        "label": "Maximize",
+        "pct": 16.0,
+        "upi_pct": 16.0,
+        "card_pct": 14.1,
+        "url": "https://www.maximize.money/gift-cards/Netmeds/280",
+        "online": true,
+        "offline": false,
+        "denominations": [
+          250,
+          500,
+          1000
+        ],
+        "typed": false,
+        "typed_min": null,
+        "typed_max": null,
+        "stack_limit": null,
+        "value_cap": null
+      },
+      {
+        "source": "buyhatke",
+        "label": "BuyHatke",
+        "pct": 15.04,
+        "upi_pct": 15.04,
+        "card_pct": null,
+        "url": "https://buyhatke.com/gift-cards/netmeds-gift-card",
+        "online": true,
+        "offline": false,
+        "denominations": [
+          250,
+          500,
+          1000,
+          2000
+        ],
+        "typed": false,
+        "typed_min": null,
+        "typed_max": null,
+        "stack_limit": null,
+        "value_cap": 2000.0
+      },
+      {
+        "source": "gyftr",
+        "label": "Gyftr",
+        "pct": 10.0,
+        "upi_pct": 10.0,
+        "card_pct": 10.0,
+        "url": "https://www.gyftr.com/netmeds",
+        "online": true,
+        "offline": false,
+        "denominations": [
+          250,
+          500,
+          1000,
+          1500,
+          2000
+        ],
+        "typed": false,
+        "typed_min": null,
+        "typed_max": null,
+        "stack_limit": null,
+        "value_cap": null
+      }
+    ],
+    "best": {
+      "source": "maximize",
+      "pct": 16.0
+    },
+    "online": true,
+    "offline": false,
+    "stack": null,
+    "steps": [
+      "Log in to the Netmeds website/app, add products to your cart, and proceed to checkout.",
+      "Choose the GyFTR voucher/e-Pay option. You'll be able to view and add available vouchers linked to your account.",
+      "After adding the vouchers to your wallet, you can use them to make purchases."
+    ],
+    "restrictions": [],
+    "multiUse": true,
+    "canClub": false
+  },
+  {
+    "slug": "jockey",
+    "name": "Jockey",
+    "website": "https://www.jockey.in/",
+    "checked": "2026-11-03",
+    "hubble": null,
+    "sellers": [
+      {
+        "source": "buyhatke",
+        "label": "BuyHatke",
+        "pct": 13.51,
+        "upi_pct": 13.51,
+        "card_pct": null,
+        "url": "https://buyhatke.com/gift-cards/jockey-gift-card",
+        "online": true,
+        "offline": false,
+        "denominations": [
+          100,
+          500,
+          2500,
+          50000
+        ],
+        "typed": false,
+        "typed_min": null,
+        "typed_max": null,
+        "stack_limit": 1,
+        "value_cap": 50000.0
+      }
+    ],
+    "best": {
+      "source": "buyhatke",
+      "pct": 13.51
+    },
+    "online": true,
+    "offline": false,
+    "stack": "One voucher per order",
+    "steps": [
+      "Visit the profile section and click on “Jockey Credit”. Then click on “Add Gift Card”.",
+      "Enter the Voucher number & captcha, agree to T&Cs, and click on ‘APPLY’ to update the e-Pay balance (Jockey Credit). Then, add desired items to the cart, & proceed to checkout.",
+      "You can see the updated e-Pay balance (Jockey Credit). Redeem your Jockey Credit for your purchase & if there is any balance amount, you can use other modes of payment."
+    ],
+    "restrictions": [],
+    "multiUse": true,
+    "canClub": null
+  }
+]

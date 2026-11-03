@@ -179,3 +179,94 @@ export const FAQ_JSON_LD = {
     acceptedAnswer: { '@type': 'Answer', text: f.a },
   })),
 };
+
+// ---------------------------------------------------------------------------
+// Shop pages (/brands/<slug>/) built from react/src/data/shopPages.json —
+// today's rate from every seller side by side. Read by BrandPage.jsx and by
+// scripts/prerender.mjs, so the crawled HTML and the live page agree.
+// ---------------------------------------------------------------------------
+
+/** The sellers, named once with what they are, as the copy rules require. */
+export const SELLER_NAME = { dealo: 'Dealo', gyftr: 'Gyftr', maximize: 'Maximize', buyhatke: 'BuyHatke' };
+export const SELLERS_EXPLAINED =
+  'Gyftr, Maximize and BuyHatke are official gift voucher sellers; the shop honours their vouchers like store credit. Dealo’s own voucher is issued through Hubble, paid from your bank app, code in seconds.';
+
+export function pct(n) {
+  return `${Number(n).toFixed(2).replace(/\.?0+$/, '')}%`;
+}
+
+export function bestLine(shop) {
+  if (!shop.best) return `${shop.name} gift vouchers`;
+  if (shop.hubble) return `${pct(shop.hubble.pct)} off on Dealo`;
+  return `${pct(shop.best.pct)} off on ${SELLER_NAME[shop.best.source]}`;
+}
+
+export function shopPageMeta(shop) {
+  const n = shop.sellers.length;
+  const compare = shop.hubble
+    ? 'Sold by Dealo: pay from your bank app, code in seconds.'
+    : `Today’s discount from ${n} official seller${n === 1 ? '' : 's'} side by side, cheapest marked.`;
+  return {
+    title: `${shop.name} Gift Voucher discount today`,
+    description: `${shop.name} gift voucher: ${bestLine(shop)}. ${compare} With what the voucher can and cannot buy. Checked ${shop.checked}.`,
+    heading: `${shop.name} Gift Voucher discount today`,
+    intro: `${bestLine(shop)}. Buy the voucher, pay at ${shop.name} with it, keep the difference.`,
+  };
+}
+
+/** Owner's call, 3 Nov 2026: where Dealo sells the voucher, the page shows
+ * Dealo alone; the partner list appears only for shops Dealo cannot sell. */
+export function shownSellers(shop) {
+  if (shop.hubble) return [{ source: 'dealo', pct: shop.hubble.pct, brand_name: shop.hubble.brand_name }];
+  return [...shop.sellers].sort((a, b) => b.pct - a.pct);
+}
+
+export const DEALO_EXPLAINED = 'Dealo’s own voucher is issued through Hubble, an official gift voucher issuer. Pay from your bank app, the code arrives in seconds, and the shop accepts it like store credit.';
+
+export function whereToRedeemShop(shop) {
+  if (shop.online && shop.offline) return 'Online and in store';
+  if (shop.offline) return 'In store only';
+  return 'Online only';
+}
+
+export function shopFaqs(shop) {
+  const best = shop.best ? bestLine(shop) : 'the rate shown above';
+  return [
+    {
+      q: `Is a discounted ${shop.name} gift voucher safe?`,
+      a: shop.hubble
+        ? `Yes. ${DEALO_EXPLAINED}`
+        : `Yes. ${SELLERS_EXPLAINED} You pay the seller, get a code, and ${shop.name} accepts the code like money at checkout.`,
+    },
+    {
+      q: `What is the ${shop.name} gift voucher discount today?`,
+      a: `${best} (checked ${shop.checked}). Rates move; this page is rebuilt with every catalogue refresh and the Dealo rate is checked live when the page opens.`,
+    },
+    {
+      q: `Does the ${shop.name} voucher work with sale prices and coupons?`,
+      a: shop.canClub === false
+        ? `No. ${shop.name} does not let a gift voucher be combined with other offers; the voucher pays the final price only.`
+        : `A gift voucher is store credit, so it pays whatever price is on screen, after any sale or coupon ${shop.name} itself applies.`,
+    },
+  ];
+}
+
+export function shopJsonLd(shop) {
+  const faqs = shopFaqs(shop);
+  return [
+    {
+      '@context': 'https://schema.org',
+      '@type': 'FAQPage',
+      mainEntity: faqs.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })),
+    },
+    {
+      '@context': 'https://schema.org',
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: SITE_NAME, item: `${SITE_URL}/` },
+        { '@type': 'ListItem', position: 2, name: 'Store deals', item: `${SITE_URL}/brands/` },
+        { '@type': 'ListItem', position: 3, name: shop.name, item: `${SITE_URL}/brands/${shop.slug}/` },
+      ],
+    },
+  ];
+}
