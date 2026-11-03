@@ -44,52 +44,52 @@ API = "https://dealo-backend.onrender.com"
 MIN_PCT = 3.0
 CURATED = {"amazon", "flipkart", "myntra", "croma", "reliance-digital", "ajio"}
 
-# (slug, display name, extra names the sellers list it under). Exact
+# (slug, display name, website for the logo, extra names the sellers list it under). Exact
 # normalized-name matching only, same rule as build_all_brand_deals.py:
 # a sibling like "Myntra LUXE" or "Zomato (1 Day Wait)" never merges in.
-SHOPS: list[tuple[str, str, list[str]]] = [
-    ("myntra", "Myntra", []),
-    ("ajio", "AJIO", []),
-    ("nykaa", "Nykaa", []),
-    ("nykaa-fashion", "Nykaa Fashion", []),
-    ("zomato", "Zomato", []),
-    ("swiggy", "Swiggy", []),
-    ("amazon", "Amazon", ["Amazon Pay", "Amazon Shopping"]),
-    ("flipkart", "Flipkart", []),
-    ("croma", "Croma", []),
-    ("reliance-digital", "Reliance Digital", []),
-    ("makemytrip", "MakeMyTrip", ["MakeMyTrip Flights", "MakeMyTrip Hotels"]),
-    ("yatra", "Yatra", ["Yatra Flights", "Yatra Hotels"]),
-    ("cleartrip", "Cleartrip", []),
-    ("pvr", "PVR", ["PVR Cinemas", "PVR INOX"]),
-    ("bookmyshow", "BookMyShow", []),
-    ("uber", "Uber", []),
-    ("bigbasket", "BigBasket", []),
-    ("blinkit", "Blinkit", []),
-    ("zepto", "Zepto", []),
-    ("tata-cliq", "Tata CLiQ", ["Tata CLiQ Fashion"]),
-    ("pepperfry", "Pepperfry", []),
-    ("ikea", "IKEA", []),
-    ("urban-ladder", "Urban Ladder", []),
-    ("dominos", "Domino's", ["Dominos", "Domino's Pizza"]),
-    ("pizza-hut", "Pizza Hut", []),
-    ("kfc", "KFC", []),
-    ("subway", "Subway", []),
-    ("starbucks", "Starbucks", []),
-    ("lifestyle", "Lifestyle", []),
-    ("westside", "Westside", []),
-    ("shoppers-stop", "Shoppers Stop", []),
-    ("decathlon", "Decathlon", []),
-    ("puma", "PUMA", []),
-    ("skechers", "Skechers", []),
-    ("bata", "Bata", []),
-    ("lenskart", "Lenskart", []),
-    ("boat", "boAt", []),
-    ("titan", "Titan", []),
-    ("firstcry", "FirstCry", []),
-    ("netmeds", "Netmeds", []),
-    ("jockey", "Jockey", []),
-    ("airbnb", "Airbnb", []),
+SHOPS: list[tuple[str, str, str, list[str]]] = [
+    ("myntra", "Myntra", "myntra.com", []),
+    ("ajio", "AJIO", "ajio.com", []),
+    ("nykaa", "Nykaa", "nykaa.com", []),
+    ("nykaa-fashion", "Nykaa Fashion", "nykaafashion.com", []),
+    ("zomato", "Zomato", "zomato.com", []),
+    ("swiggy", "Swiggy", "swiggy.com", []),
+    ("amazon", "Amazon", "amazon.in", ["Amazon Pay", "Amazon Shopping"]),
+    ("flipkart", "Flipkart", "flipkart.com", []),
+    ("croma", "Croma", "croma.com", []),
+    ("reliance-digital", "Reliance Digital", "reliancedigital.in", []),
+    ("makemytrip", "MakeMyTrip", "makemytrip.com", ["MakeMyTrip Flights", "MakeMyTrip Hotels"]),
+    ("yatra", "Yatra", "yatra.com", ["Yatra Flights", "Yatra Hotels"]),
+    ("cleartrip", "Cleartrip", "cleartrip.com", []),
+    ("pvr", "PVR", "pvrcinemas.com", ["PVR Cinemas", "PVR INOX"]),
+    ("bookmyshow", "BookMyShow", "bookmyshow.com", []),
+    ("uber", "Uber", "uber.com", []),
+    ("bigbasket", "BigBasket", "bigbasket.com", []),
+    ("blinkit", "Blinkit", "blinkit.com", []),
+    ("zepto", "Zepto", "zeptonow.com", []),
+    ("tata-cliq", "Tata CLiQ", "tatacliq.com", ["Tata CLiQ Fashion"]),
+    ("pepperfry", "Pepperfry", "pepperfry.com", []),
+    ("ikea", "IKEA", "ikea.com", []),
+    ("urban-ladder", "Urban Ladder", "urbanladder.com", []),
+    ("dominos", "Domino's", "dominos.co.in", ["Dominos", "Domino's Pizza"]),
+    ("pizza-hut", "Pizza Hut", "pizzahut.co.in", []),
+    ("kfc", "KFC", "online.kfc.co.in", []),
+    ("subway", "Subway", "subway.com", []),
+    ("starbucks", "Starbucks", "starbucks.in", []),
+    ("lifestyle", "Lifestyle", "lifestylestores.com", []),
+    ("westside", "Westside", "westside.com", []),
+    ("shoppers-stop", "Shoppers Stop", "shoppersstop.com", []),
+    ("decathlon", "Decathlon", "decathlon.in", []),
+    ("puma", "PUMA", "in.puma.com", []),
+    ("skechers", "Skechers", "skechers.in", []),
+    ("bata", "Bata", "bata.in", []),
+    ("lenskart", "Lenskart", "lenskart.com", []),
+    ("boat", "boAt", "boat-lifestyle.com", []),
+    ("titan", "Titan", "titan.co.in", []),
+    ("firstcry", "FirstCry", "firstcry.com", []),
+    ("netmeds", "Netmeds", "netmeds.com", []),
+    ("jockey", "Jockey", "jockey.in", []),
+    ("airbnb", "Airbnb", "airbnb.co.in", []),
 ]
 
 SOURCES = [("gyftr", "Gyftr"), ("maximize", "Maximize"), ("buyhatke", "BuyHatke")]
@@ -198,7 +198,7 @@ def main() -> None:
         hubble = dict(zip([s[0] for s in SHOPS], ex.map(lambda s: hubble_rate(s[1]), SHOPS)))
 
     pages = []
-    for slug, name, aliases in SHOPS:
+    for slug, name, website, aliases in SHOPS:
         wanted = {norm(name)} | {norm(a) for a in aliases}
         sellers = []
         matched_brands = []
@@ -226,6 +226,7 @@ def main() -> None:
         pages.append({
             "slug": slug,
             "name": name,
+            "website": f"https://www.{website}/",
             "checked": date.today().isoformat(),
             "hubble": h,
             "sellers": sorted(sellers, key=lambda r: -r["pct"]),

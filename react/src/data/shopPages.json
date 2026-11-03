@@ -2,6 +2,7 @@
   {
     "slug": "myntra",
     "name": "Myntra",
+    "website": "https://www.myntra.com/",
     "checked": "2026-11-03",
     "hubble": {
       "pct": 4.0,
@@ -109,6 +110,7 @@
   {
     "slug": "ajio",
     "name": "AJIO",
+    "website": "https://www.ajio.com/",
     "checked": "2026-11-03",
     "hubble": {
       "pct": 6.5,
@@ -211,6 +213,7 @@
   {
     "slug": "nykaa",
     "name": "Nykaa",
+    "website": "https://www.nykaa.com/",
     "checked": "2026-11-03",
     "hubble": {
       "pct": 5.0,
@@ -314,6 +317,7 @@
   {
     "slug": "nykaa-fashion",
     "name": "Nykaa Fashion",
+    "website": "https://www.nykaafashion.com/",
     "checked": "2026-11-03",
     "hubble": {
       "pct": 5.0,
@@ -419,6 +423,7 @@
   {
     "slug": "zomato",
     "name": "Zomato",
+    "website": "https://www.zomato.com/",
     "checked": "2026-11-03",
     "hubble": {
       "pct": 4.0,
@@ -488,6 +493,7 @@
   {
     "slug": "swiggy",
     "name": "Swiggy",
+    "website": "https://www.swiggy.com/",
     "checked": "2026-11-03",
     "hubble": {
       "pct": 3.0,
@@ -537,6 +543,7 @@
   {
     "slug": "amazon",
     "name": "Amazon",
+    "website": "https://www.amazon.in/",
     "checked": "2026-11-03",
     "hubble": {
       "pct": 1.5,
@@ -635,6 +642,7 @@
   {
     "slug": "flipkart",
     "name": "Flipkart",
+    "website": "https://www.flipkart.com/",
     "checked": "2026-11-03",
     "hubble": {
       "pct": 2.0,
@@ -735,6 +743,7 @@
   {
     "slug": "croma",
     "name": "Croma",
+    "website": "https://www.croma.com/",
     "checked": "2026-11-03",
     "hubble": {
       "pct": 2.0,
@@ -834,6 +843,7 @@
   {
     "slug": "reliance-digital",
     "name": "Reliance Digital",
+    "website": "https://www.reliancedigital.in/",
     "checked": "2026-11-03",
     "hubble": null,
     "sellers": [
@@ -881,6 +891,7 @@
   {
     "slug": "makemytrip",
     "name": "MakeMyTrip",
+    "website": "https://www.makemytrip.com/",
     "checked": "2026-11-03",
     "hubble": {
       "pct": 6.25,
@@ -962,6 +973,7 @@
   {
     "slug": "yatra",
     "name": "Yatra",
+    "website": "https://www.yatra.com/",
     "checked": "2026-11-03",
     "hubble": {
       "pct": 5.0,
@@ -1040,6 +1052,7 @@
   {
     "slug": "cleartrip",
     "name": "Cleartrip",
+    "website": "https://www.cleartrip.com/",
     "checked": "2026-11-03",
     "hubble": {
       "pct": 8.0,
@@ -1143,6 +1156,7 @@
   {
     "slug": "pvr",
     "name": "PVR",
+    "website": "https://www.pvrcinemas.com/",
     "checked": "2026-11-03",
     "hubble": {
       "pct": 18.0,
@@ -1242,6 +1256,7 @@
   {
     "slug": "bookmyshow",
     "name": "BookMyShow",
+    "website": "https://www.bookmyshow.com/",
     "checked": "2026-11-03",
     "hubble": {
       "pct": 2.0,
@@ -1298,6 +1313,7 @@
   {
     "slug": "uber",
     "name": "Uber",
+    "website": "https://www.uber.com/",
     "checked": "2026-11-03",
     "hubble": {
       "pct": 4.0,
@@ -1393,6 +1409,7 @@
   {
     "slug": "bigbasket",
     "name": "BigBasket",
+    "website": "https://www.bigbasket.com/",
     "checked": "2026-11-03",
     "hubble": {
       "pct": 2.75,
@@ -1495,6 +1512,7 @@
   {
     "slug": "tata-cliq",
     "name": "Tata CLiQ",
+    "website": "https://www.tatacliq.com/",
     "checked": "2026-11-03",
     "hubble": {
       "pct": 9.0,
@@ -1611,6 +1629,7 @@
   {
     "slug": "pepperfry",
     "name": "Pepperfry",
+    "website": "https://www.pepperfry.com/",
     "checked": "2026-11-03",
     "hubble": {
       "pct": 3.0,
@@ -1686,6 +1705,7 @@
   {
     "slug": "ikea",
     "name": "IKEA",
+    "website": "https://www.ikea.com/",
     "checked": "2026-11-03",
     "hubble": {
       "pct": 6.0,
@@ -1793,6 +1813,7 @@
   {
     "slug": "urban-ladder",
     "name": "Urban Ladder",
+    "website": "https://www.urbanladder.com/",
     "checked": "2026-11-03",
     "hubble": {
       "pct": 4.0,
@@ -1877,6 +1898,7 @@
   {
     "slug": "dominos",
     "name": "Domino's",
+    "website": "https://www.dominos.co.in/",
     "checked": "2026-11-03",
     "hubble": {
       "pct": 16.0,
@@ -1971,6 +1993,7 @@
   {
     "slug": "pizza-hut",
     "name": "Pizza Hut",
+    "website": "https://www.pizzahut.co.in/",
     "checked": "2026-11-03",
     "hubble": {
       "pct": 7.0,
@@ -2080,6 +2103,7 @@
   {
     "slug": "kfc",
     "name": "KFC",
+    "website": "https://www.online.kfc.co.in/",
     "checked": "2026-11-03",
     "hubble": {
       "pct": 6.0,
@@ -2183,6 +2207,7 @@
   {
     "slug": "subway",
     "name": "Subway",
+    "website": "https://www.subway.com/",
     "checked": "2026-11-03",
     "hubble": {
       "pct": 8.0,
@@ -2257,6 +2282,7 @@
   {
     "slug": "starbucks",
     "name": "Starbucks",
+    "website": "https://www.starbucks.in/",
     "checked": "2026-11-03",
     "hubble": null,
     "sellers": [
@@ -2343,6 +2369,7 @@
   {
     "slug": "lifestyle",
     "name": "Lifestyle",
+    "website": "https://www.lifestylestores.com/",
     "checked": "2026-11-03",
     "hubble": {
       "pct": 8.0,
@@ -2438,6 +2465,7 @@
   {
     "slug": "decathlon",
     "name": "Decathlon",
+    "website": "https://www.decathlon.in/",
     "checked": "2026-11-03",
     "hubble": {
       "pct": 4.0,
@@ -2542,6 +2570,7 @@
   {
     "slug": "puma",
     "name": "PUMA",
+    "website": "https://www.in.puma.com/",
     "checked": "2026-11-03",
     "hubble": {
       "pct": 11.0,
@@ -2624,6 +2653,7 @@
   {
     "slug": "skechers",
     "name": "Skechers",
+    "website": "https://www.skechers.in/",
     "checked": "2026-11-03",
     "hubble": {
       "pct": 10.0,
@@ -2725,6 +2755,7 @@
   {
     "slug": "bata",
     "name": "Bata",
+    "website": "https://www.bata.in/",
     "checked": "2026-11-03",
     "hubble": {
       "pct": 7.0,
@@ -2803,6 +2834,7 @@
   {
     "slug": "lenskart",
     "name": "Lenskart",
+    "website": "https://www.lenskart.com/",
     "checked": "2026-11-03",
     "hubble": {
       "pct": 10.0,
@@ -2914,6 +2946,7 @@
   {
     "slug": "boat",
     "name": "boAt",
+    "website": "https://www.boat-lifestyle.com/",
     "checked": "2026-11-03",
     "hubble": {
       "pct": 6.0,
@@ -2986,6 +3019,7 @@
   {
     "slug": "titan",
     "name": "Titan",
+    "website": "https://www.titan.co.in/",
     "checked": "2026-11-03",
     "hubble": null,
     "sellers": [
@@ -3053,6 +3087,7 @@
   {
     "slug": "firstcry",
     "name": "FirstCry",
+    "website": "https://www.firstcry.com/",
     "checked": "2026-11-03",
     "hubble": {
       "pct": 6.0,
@@ -3169,6 +3204,7 @@
   {
     "slug": "netmeds",
     "name": "Netmeds",
+    "website": "https://www.netmeds.com/",
     "checked": "2026-11-03",
     "hubble": {
       "pct": 8.0,
@@ -3266,6 +3302,7 @@
   {
     "slug": "jockey",
     "name": "Jockey",
+    "website": "https://www.jockey.in/",
     "checked": "2026-11-03",
     "hubble": null,
     "sellers": [

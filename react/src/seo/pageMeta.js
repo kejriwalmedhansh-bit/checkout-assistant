@@ -197,19 +197,31 @@ export function pct(n) {
 
 export function bestLine(shop) {
   if (!shop.best) return `${shop.name} gift vouchers`;
-  const who = shop.best.source === 'dealo' ? 'on Dealo' : `on ${SELLER_NAME[shop.best.source]}`;
-  return `${pct(shop.best.pct)} off ${who}`;
+  if (shop.hubble) return `${pct(shop.hubble.pct)} off on Dealo`;
+  return `${pct(shop.best.pct)} off on ${SELLER_NAME[shop.best.source]}`;
 }
 
 export function shopPageMeta(shop) {
-  const sellers = (shop.hubble ? 1 : 0) + shop.sellers.length;
+  const n = shop.sellers.length;
+  const compare = shop.hubble
+    ? 'Sold by Dealo: pay from your bank app, code in seconds.'
+    : `Today’s discount from ${n} official seller${n === 1 ? '' : 's'} side by side, cheapest marked.`;
   return {
     title: `${shop.name} Gift Voucher discount today`,
-    description: `${shop.name} gift voucher: ${bestLine(shop)}. Today’s discount from ${sellers} seller${sellers === 1 ? '' : 's'} side by side, cheapest marked, with what the voucher can and cannot buy. Checked ${shop.checked}.`,
+    description: `${shop.name} gift voucher: ${bestLine(shop)}. ${compare} With what the voucher can and cannot buy. Checked ${shop.checked}.`,
     heading: `${shop.name} Gift Voucher discount today`,
     intro: `${bestLine(shop)}. Buy the voucher, pay at ${shop.name} with it, keep the difference.`,
   };
 }
+
+/** Owner's call, 3 Nov 2026: where Dealo sells the voucher, the page shows
+ * Dealo alone; the partner list appears only for shops Dealo cannot sell. */
+export function shownSellers(shop) {
+  if (shop.hubble) return [{ source: 'dealo', pct: shop.hubble.pct, brand_name: shop.hubble.brand_name }];
+  return [...shop.sellers].sort((a, b) => b.pct - a.pct);
+}
+
+export const DEALO_EXPLAINED = 'Dealo’s own voucher is issued through Hubble, an official gift voucher issuer. Pay from your bank app, the code arrives in seconds, and the shop accepts it like store credit.';
 
 export function whereToRedeemShop(shop) {
   if (shop.online && shop.offline) return 'Online and in store';
@@ -222,7 +234,9 @@ export function shopFaqs(shop) {
   return [
     {
       q: `Is a discounted ${shop.name} gift voucher safe?`,
-      a: `Yes. ${SELLERS_EXPLAINED} You pay the seller, get a code, and ${shop.name} accepts the code like money at checkout.`,
+      a: shop.hubble
+        ? `Yes. ${DEALO_EXPLAINED}`
+        : `Yes. ${SELLERS_EXPLAINED} You pay the seller, get a code, and ${shop.name} accepts the code like money at checkout.`,
     },
     {
       q: `What is the ${shop.name} gift voucher discount today?`,

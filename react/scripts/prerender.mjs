@@ -29,6 +29,7 @@ import {
   FAQ_JSON_LD,
   HOME_TITLE,
   PAGE_META,
+  DEALO_EXPLAINED,
   SELLER_NAME,
   SELLERS_EXPLAINED,
   SITE_NAME,
@@ -38,6 +39,7 @@ import {
   shopFaqs,
   shopJsonLd,
   shopPageMeta,
+  shownSellers,
   whereToRedeemShop,
 } from '../src/seo/pageMeta.js';
 
@@ -86,8 +88,8 @@ const head = (meta) => `<h1>${esc(meta.heading)}</h1>${p(meta.intro)}`;
 function shopBody(shop) {
   const meta = shopPageMeta(shop);
   const curated = CURATED.get(shop.slug);
-  const rows = [...(shop.hubble ? [{ source: 'dealo', pct: shop.hubble.pct }] : []), ...shop.sellers].sort((a, b) => b.pct - a.pct);
-  const top = rows[0]?.pct;
+  const rows = shownSellers(shop);
+  const top = shop.hubble ? null : rows[0]?.pct;
   const table =
     '<table><thead><tr><th>Seller</th><th>Discount today</th></tr></thead><tbody>' +
     rows
@@ -101,7 +103,7 @@ function shopBody(shop) {
   const steps = curated?.steps?.length
     ? curated.steps
     : [
-        `Pick the seller above with the best rate${shop.hubble ? ' (Dealo sells it with the code in seconds)' : ''}.`,
+        shop.hubble ? 'Tap Dealo above and pick the voucher amount.' : 'Pick the seller above with the best rate.',
         `Buy a ${shop.name} gift voucher for the amount you plan to spend.`,
         ...(shop.steps.length ? shop.steps.slice(0, 2) : [`Pay at ${shop.name} with the voucher code and keep the difference.`]),
       ];
@@ -110,9 +112,9 @@ function shopBody(shop) {
   return [
     head(meta),
     p(`${shop.online ? 'Works online. ' : ''}${shop.offline ? 'Works in store. ' : ''}Checked ${shop.checked}.`),
-    '<h2>Today’s rate, every seller</h2>',
+    `<h2>${shop.hubble ? 'Today’s rate' : 'Today’s rate, every seller'}</h2>`,
     table,
-    p(SELLERS_EXPLAINED),
+    p(shop.hubble ? DEALO_EXPLAINED : SELLERS_EXPLAINED),
     '<h2>How to get the discount</h2>',
     list(steps.map(esc), 'ol'),
     '<h2>Quick facts</h2>',

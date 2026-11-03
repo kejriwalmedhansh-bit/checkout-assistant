@@ -11,6 +11,7 @@ import { hubbleApi } from '@/api/hubble.api';
 import { useJsonLd } from '@/hooks/useJsonLd';
 import { usePageTitle } from '@/hooks/usePageTitle';
 import {
+  DEALO_EXPLAINED,
   SELLER_NAME,
   SELLERS_EXPLAINED,
   pct,
@@ -21,6 +22,7 @@ import {
 } from '@/seo/pageMeta';
 import { outboundLink, track } from '@/utils/analytics';
 import { fmt } from '@/utils/format';
+import { shopLogos } from '@/utils/priceList';
 import { ROUTES } from '@/routes/paths';
 
 const HUBBLE_ON = import.meta.env.VITE_HUBBLE_ENABLED === 'true';
@@ -59,6 +61,24 @@ function Fact({ icon, label, value }) {
           {value}
         </Text>
       </Box>
+    </Flex>
+  );
+}
+
+/** The shop's logo from the same sources the price list uses (Brandfetch,
+ * then the site's favicon), on a white disc; initials if both are missing. */
+function ShopLogo({ shop, size = 56 }) {
+  const sources = shopLogos(shop.website);
+  const [tries, setTries] = useState(0);
+  const src = sources[tries];
+  const filled = tries === 0;
+  return (
+    <Flex w={`${size}px`} h={`${size}px`} borderRadius="14px" bg="white" border="1px solid" borderColor="border" align="center" justify="center" overflow="hidden" flexShrink={0}>
+      {src ? (
+        <Box as="img" src={src} alt={`${shop.name} logo`} decoding="async" w={filled ? '100%' : '28px'} h={filled ? '100%' : '28px'} objectFit={filled ? 'cover' : 'contain'} onError={() => setTries((t) => t + 1)} />
+      ) : (
+        <BrandAvatar name={shop.name} size={size} radius="14px" fontSize="22px" />
+      )}
     </Flex>
   );
 }
@@ -173,16 +193,15 @@ export default function BrandPage() {
 
   if (!shop) return <Navigate to={ROUTES.brands} replace />;
 
-  const rows = [
-    ...(hubble ? [{ source: 'dealo', pct: hubble.pct, brand_name: hubble.brand_name }] : []),
-    ...shop.sellers,
-  ].sort((a, b) => b.pct - a.pct || (a.source === 'dealo' ? -1 : 1));
+  // Dealo alone where Dealo sells it (owner's call, 3 Nov 2026); the
+  // partner list only for shops Dealo cannot sell.
+  const rows = hubble ? [{ source: 'dealo', pct: hubble.pct, brand_name: hubble.brand_name }] : [...shop.sellers].sort((a, b) => b.pct - a.pct);
   const topPct = rows[0]?.pct;
   const faqs = shopFaqs(shop);
   const steps = curated?.steps?.length
     ? curated.steps
     : [
-        `Pick the seller above with the best rate${hubble ? ' (Dealo sells it with the code in seconds)' : ''}.`,
+        hubble ? 'Tap Dealo above and pick the voucher amount.' : 'Pick the seller above with the best rate.',
         `Buy a ${shop.name} gift voucher for the amount you plan to spend.`,
         ...(shop.steps.length ? shop.steps.slice(0, 2) : [`Pay at ${shop.name} with the voucher code and keep the difference.`]),
       ];
@@ -190,7 +209,7 @@ export default function BrandPage() {
   return (
     <InfoPageShell title={meta.heading} subtitle={meta.intro}>
       <Flex align="center" gap="14px" mb="18px">
-        <BrandAvatar name={shop.name} size={56} logoSrc={curated ? `/brand-logos/${slug}.webp` : undefined} radius="14px" fontSize="22px" />
+        <ShopLogo shop={shop} />
         <Flex gap="8px" flexWrap="wrap">
           {shop.online && <Badge>Works online</Badge>}
           {shop.offline && <Badge>Works in store</Badge>}
@@ -198,14 +217,14 @@ export default function BrandPage() {
         </Flex>
       </Flex>
 
-      <H2>Today’s rate, every seller</H2>
+      <H2>{hubble ? 'Today’s rate' : 'Today’s rate, every seller'}</H2>
       <Flex direction="column" gap="8px" mb="10px">
         {rows.map((r) => (
-          <SellerRow key={r.source} shop={shop} seller={r} cheapest={r.pct === topPct} />
+          <SellerRow key={r.source} shop={shop} seller={r} cheapest={!hubble && r.pct === topPct} />
         ))}
       </Flex>
       <Text fontSize="12px" color="text2" lineHeight={1.5} mb="26px">
-        {SELLERS_EXPLAINED}
+        {hubble ? DEALO_EXPLAINED : SELLERS_EXPLAINED}
       </Text>
 
       {hubble?.cards?.length > 0 && (
