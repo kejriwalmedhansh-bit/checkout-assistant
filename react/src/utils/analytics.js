@@ -156,13 +156,39 @@ const ANONYMOUS_SAFE_PROPS = new Set([
   'cards', 'prime', 'bank',
 ]);
 
-/** Phone or desktop, from the screen — the one fact about the device kept. */
+/**
+ * The three facts about the device kept without consent: phone or desktop,
+ * the operating system family and the browser family. Coarse on purpose
+ * (no versions, no model), so millions of people share each value.
+ */
 function deviceClass() {
   try {
     return window.matchMedia('(max-width: 768px)').matches ? 'phone' : 'desktop';
   } catch {
     return 'unknown';
   }
+}
+
+function osFamily() {
+  const ua = navigator.userAgent || '';
+  if (/iPhone|iPad|iPod/i.test(ua)) return 'iOS';
+  if (/Android/i.test(ua)) return 'Android';
+  if (/Windows/i.test(ua)) return 'Windows';
+  if (/Mac OS X/i.test(ua)) return 'macOS';
+  if (/CrOS/i.test(ua)) return 'ChromeOS';
+  if (/Linux/i.test(ua)) return 'Linux';
+  return 'other';
+}
+
+function browserFamily() {
+  const ua = navigator.userAgent || '';
+  if (/Edg\//i.test(ua)) return 'Edge';
+  if (/SamsungBrowser/i.test(ua)) return 'Samsung Internet';
+  if (/OPR\//i.test(ua)) return 'Opera';
+  if (/Firefox\//i.test(ua)) return 'Firefox';
+  if (/Chrome\//i.test(ua) && !/Chromium/i.test(ua)) return 'Chrome';
+  if (/Safari\//i.test(ua)) return 'Safari';
+  return 'other';
 }
 
 /**
@@ -200,6 +226,8 @@ function countStage(event, props = {}) {
       time: Math.floor(Date.now() / 1000),
       consent: 'not_granted',
       device: deviceClass(),
+      os: osFamily(),
+      browser: browserFamily(),
       surface: 'web',
       app_version: APP_VERSION,
       environment: environment(),

@@ -18,7 +18,9 @@
     "is_internal_tester": "True for the team's own devices/phones — filter these out of real numbers",
     "dealo_id": "The device id (see identity)",
     "consent": "web: granted | not_granted. Without consent every website event is still sent, stripped to an allow-list of page/deal properties (ANONYMOUS_SAFE_PROPS in react/src/utils/analytics.js), with no IP, no stored id, no replay.",
-    "device": "web, without consent only: phone | desktop (the SDK's own $device/$os fields cover consented visits)"
+    "device": "web, without consent only: phone | desktop (consented visits carry Mixpanel's own $device / $os / $browser)",
+    "os": "web, without consent only: iOS | Android | Windows | macOS | ChromeOS | Linux | other (family only, no version)",
+    "browser": "web, without consent only: Chrome | Safari | Firefox | Edge | Samsung Internet | Opera | other (family only, no version)"
   },
   "events": {
     "Dealo Voucher Shown": {
