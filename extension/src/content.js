@@ -378,6 +378,11 @@
   // Hubble, within 2 points of the partner's rate), the journey runs through
   // getdealo.in/buy/<shop> instead of the partner site. Same deal shape, so
   // every later screen — trip, codes, back at the store — needs no new case.
+  // The same spelling the website sends on Deal Shown (Gyftr / Maximize /
+  // BuyHatke / Dealo), so one Mixpanel breakdown covers both surfaces.
+  const PLATFORM_NAMES = { gyftr: "Gyftr", maximize: "Maximize", buyhatke: "BuyHatke", dealo: "Dealo" };
+  const platformName = (source) => PLATFORM_NAMES[source] || source || "none";
+
   function asDealoDeal(deal, price) {
     const d = deal?.dealo;
     if (!d || !d.buy_url) return deal;
@@ -675,7 +680,7 @@
     return {
       confirmed_by: how,
       merchant: trip.store?.brandName,
-      voucher_platform: trip.deal?.voucherSource,
+      voucher_platform: platformName(trip.deal?.voucherSource),
       saving_amount: trip.deal?.saving ?? null,
       saving_pct: trip.deal?.pct ?? null,
       cart_total: trip.store?.cartTotal ?? null,
@@ -918,7 +923,7 @@
     track("Checkout Detected", {
       cart_total: price ?? null,
       result: !result.has_voucher ? "no_voucher" : tooSmall ? "too_small" : "deal",
-      voucher_platform: result.voucher_source || "none",
+      voucher_platform: platformName(result.voucher_source),
       saving_amount: result.saving ?? null,
       saving_pct: result.pct ?? null,
       product_choices: (result.product_choices || []).length,
@@ -933,7 +938,7 @@
         track("Deal Shown", {
           merchant: deal.brand_name,
           has_voucher: true,
-          voucher_platform: deal.voucher_source,
+          voucher_platform: platformName(deal.voucher_source),
           listed_price: price ?? null,
           final_cost: deal.priced && deal.saving != null && price != null ? price - deal.saving : null,
           saving_amount: deal.saving ?? null,

@@ -7,6 +7,8 @@ published keys, so a made-up phone number can never reach Hubble.
 """
 from __future__ import annotations
 
+import hashlib
+import re
 import time
 from datetime import datetime, timezone
 
@@ -15,6 +17,7 @@ import jwt
 from cryptography.x509 import load_pem_x509_certificate
 
 from ..config import get_settings
+from . import analytics_service
 
 _GOOGLE_CERTS = (
     "https://www.googleapis.com/robot/v1/metadata/x509/"
@@ -102,8 +105,61 @@ async def save_buyer(uid: str, phone: str, name: str | None, email: str | None, 
         print(f"[buyers] could not save buyer {uid}: {exc}")
 
 
-async def save_purchase(order: dict, environment: str) -> None:
-    """One row per Hubble order, from its webhook. Never stores codes or PINs."""
+_DEALO_ID = re.compile(r"^[A-Za-z0-9_-]{8,64}$")
+
+
+def voucher_sold_event(order: dict, environment: str, attribution: dict | None = None) -> dict | None:
+    """The Mixpanel event for one completed Hubble order, built from its
+    webhook. This is the number the business runs on: vouchers actually
+    bought through Dealo. Carries no codes, PINs or phone numbers; the buyer
+    is a one-way hash of their login id, enough to count distinct buyers and
+    nothing more. The insert id is fixed per order, so a webhook Hubble
+    retries does not count the sale twice. `attribution` (noted when the
+    payment screen opened) joins the sale to the visit and to the link that
+    brought the shopper, when known."""
+    ref = order.get("transactionReferenceId")
+    if not ref or order.get("orderStatus") != "COMPLETED":
+        return None
+    try:
+        amount = float(order["amount"]) if order.get("amount") is not None else None
+        discount = float(order["discountAmount"]) if order.get("discountAmount") is not None else None
+    except (TypeError, ValueError):
+        amount, discount = None, None
+    pct = round(discount / amount * 100, 2) if amount and discount is not None else None
+    uid = order.get("userId")
+    attribution = attribution or {}
+    dealo_id = attribution.get("dealo_id")
+    if dealo_id and not _DEALO_ID.match(str(dealo_id)):
+        dealo_id = None
+    return analytics_service.build_event(
+        "Voucher Sold",
+        surface="web",
+        device_id=dealo_id,
+        insert_id=hashlib.sha256(f"hubble:{ref}".encode()).hexdigest()[:32],
+        properties={
+            "seller": "hubble",
+            "brand": order.get("brandName"),
+            "merchant": attribution.get("merchant") or order.get("brandName"),
+            "amount": amount,
+            "discount": discount,
+            "discount_pct": pct,
+            "src": attribution.get("src"),
+            "placement": attribution.get("placement"),
+            "seller_environment": environment,
+            "buyer_key": hashlib.sha256(str(uid).encode()).hexdigest()[:16] if uid else None,
+        },
+    )
+
+
+async def save_purchase(order: dict, environment: str, attribution: dict | None = None) -> None:
+    """One row per Hubble order, from its webhook. Never stores codes or PINs.
+    A completed order also goes to Mixpanel as 'Voucher Sold'."""
+    try:
+        event = voucher_sold_event(order, environment, attribution)
+        if event:
+            analytics_service.fire(event)
+    except Exception as exc:  # noqa: BLE001 — analytics must never fail the purchase
+        print(f"[buyers] could not report sale {order.get('transactionReferenceId')}: {exc}")
     s = get_settings()
     if not s.SUPABASE_URL or not s.SUPABASE_SECRET_KEY:
         return

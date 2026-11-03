@@ -98,11 +98,22 @@ def test_every_plan_event_is_fired_somewhere():
     assert not unused, "Listed in tracking-plan.json but never fired:\n" + "\n".join(unused)
 
 
-def test_anonymous_stage_counters_are_plan_events():
+def test_anonymous_events_never_carry_personal_properties():
+    """Visitors without consent are counted on every event, stripped to an
+    allow-list of page/deal facts. Nothing stored on the device, no ad click
+    ids, no free text, nothing from the login."""
     text = (ROOT / "react/src/utils/analytics.js").read_text()
-    block = re.search(r"ANONYMOUS_STAGES = new Set\(\[(.*?)\]\)", text, re.S).group(1)
-    stages = set(re.findall(r"'([^']+)'", block))
-    assert stages <= PLAN_EVENTS, stages - PLAN_EVENTS
+    block = re.search(r"ANONYMOUS_SAFE_PROPS = new Set\(\[(.*?)\]\)", text, re.S).group(1)
+    allowed = set(re.findall(r"'([^']+)'", block))
+    never = {"is_returning_visitor", "gclid", "fbclid", "ad_click_id", "note", "name", "phone", "email", "code", "pin",
+             "dealo_user_id", "dealo_id", "$device_id", "$user_id", "ip"}
+    assert not (allowed & never), allowed & never
+    # Every allowed name is a property some web event in the plan actually has.
+    plan_props = {p for e in PLAN["events"].values() if "web" in e["surfaces"] for k in e["properties"] for p in re.split(r",\s*", k)}
+    assert allowed <= plan_props, allowed - plan_props
+    # And the anonymous id is minted in memory, never read from storage.
+    assert "VISIT_ID = `visit:${newId()}`" in text
+    assert "ip: '0'" in text
 
 
 # --- /go and /out -----------------------------------------------------------
@@ -279,3 +290,63 @@ def test_unattributed_purchase_is_kept_anonymously():
 
     events = sync.to_events(sync.normalize("inrdeals", {"transaction_id": "X1", "sub_id1": "anon", "sale_amount": 500, "status": "pending"}))
     assert all(e["properties"]["distinct_id"] == "anonymous-purchase" for e in events)
+
+
+# --- vouchers Dealo sells itself (Hubble) -----------------------------------
+
+def _hubble_order(**over):
+    order = {"transactionReferenceId": "HB-9", "userId": "u1", "brandName": "Myntra", "amount": 1000,
+             "discountAmount": 85, "orderStatus": "COMPLETED", "vouchers": [{"cardNumber": "SECRET", "cardPin": "1234"}]}
+    return {**order, **over}
+
+
+def test_completed_hubble_order_becomes_one_voucher_sold_event(monkeypatch):
+    """A webhook Hubble retries must not count the sale twice, and the event
+    must carry nothing that identifies the shopper or the voucher."""
+    import asyncio
+
+    from src.services import analytics_service, buyer_service
+
+    sent: list[dict] = []
+    monkeypatch.setattr(analytics_service, "fire", lambda payload: sent.append(payload))
+    asyncio.run(buyer_service.save_purchase(_hubble_order(), "production"))
+    asyncio.run(buyer_service.save_purchase(_hubble_order(), "production"))
+    assert len(sent) == 2 and sent[0]["event"] == "Voucher Sold"
+    a, b = (e["properties"] for e in sent)
+    assert a["$insert_id"] == b["$insert_id"]  # Mixpanel keeps one copy
+    assert a["seller"] == "hubble" and a["brand"] == "Myntra" and a["surface"] == "web"
+    assert a["amount"] == 1000.0 and a["discount"] == 85.0 and a["discount_pct"] == 8.5
+    assert a["seller_environment"] == "production" and a["distinct_id"] == "anonymous"
+    blob = json.dumps(a)
+    assert "u1" != a.get("buyer_key") and len(a["buyer_key"]) == 16
+    assert "SECRET" not in blob and "1234" not in blob
+    assert not any(k in a for k in ("code", "pin", "phone", "codes", "vouchers", "userId"))
+
+    # A pending or failed order is a row in Supabase, not a sale in Mixpanel.
+    asyncio.run(buyer_service.save_purchase(_hubble_order(ref="HB-2", orderStatus="PENDING"), "production"))
+    asyncio.run(buyer_service.save_purchase(_hubble_order(transactionReferenceId=None), "production"))
+    assert len(sent) == 2
+
+
+def test_voucher_sold_joins_the_visit_that_opened_the_payment_screen(monkeypatch):
+    import asyncio
+
+    from src.api.routers import hubble as hubble_router
+    from src.services import analytics_service, buyer_service
+
+    sent: list[dict] = []
+    monkeypatch.setattr(analytics_service, "fire", lambda payload: sent.append(payload))
+    body = hubble_router.SessionRequest(id_token="x", name="A", merchant="Myntra", price=1000,
+                                        dealo_id="3f2c1a9e-aaaa-4bbb-8ccc-123456789abc", src="wa", placement="shop_card")
+    hubble_router._remember_attribution("u1", body)
+    asyncio.run(buyer_service.save_purchase(_hubble_order(), "production", attribution=hubble_router._attribution_for("u1")))
+    props = sent[0]["properties"]
+    assert props["$device_id"] == "3f2c1a9e-aaaa-4bbb-8ccc-123456789abc" and props["distinct_id"].startswith("$device:")
+    assert props["src"] == "wa" and props["placement"] == "shop_card" and props["merchant"] == "Myntra"
+    # An unknown buyer, or a junk id, stays anonymous.
+    assert hubble_router._attribution_for("nobody") == {}
+    bad = hubble_router.SessionRequest(id_token="x", name="A", merchant="Myntra", price=1000, dealo_id="<script>")
+    hubble_router._remember_attribution("u2", bad)
+    asyncio.run(buyer_service.save_purchase(_hubble_order(transactionReferenceId="HB-3", userId="u2"), "production",
+                                            attribution=hubble_router._attribution_for("u2")))
+    assert "$device_id" not in sent[1]["properties"] and sent[1]["properties"]["distinct_id"] == "anonymous"

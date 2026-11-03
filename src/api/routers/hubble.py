@@ -35,6 +35,33 @@ router = APIRouter(prefix="/hubble", tags=["hubble"])
 _RECENT_SECONDS = 30 * 60
 _recent_orders: dict[str, tuple[float, dict]] = {}
 
+# Which visit and which link a shopper's purchase belongs to, noted when the
+# payment screen opens and read back when Hubble's webhook reports the order
+# (usually within minutes). Lets the 'Voucher Sold' event join the shopper's
+# funnel in Mixpanel. Memory only: a restart in between loses the join, never
+# the sale.
+_ATTRIBUTION_SECONDS = 6 * 60 * 60
+_attribution: dict[str, tuple[float, dict]] = {}
+
+
+def _remember_attribution(uid: str, body: "SessionRequest") -> None:
+    now = time.time()
+    for stale in [k for k, (t, _) in _attribution.items() if now - t > _ATTRIBUTION_SECONDS]:
+        _attribution.pop(stale, None)
+    _attribution[uid] = (now, {
+        "dealo_id": body.dealo_id,
+        "src": body.src,
+        "placement": body.placement,
+        "merchant": body.merchant,
+    })
+
+
+def _attribution_for(uid: str | None) -> dict:
+    stamped = _attribution.get(uid or "")
+    if not stamped or time.time() - stamped[0] > _ATTRIBUTION_SECONDS:
+        return {}
+    return stamped[1]
+
 
 @router.get("/offer")
 async def offer(
@@ -73,6 +100,11 @@ class SessionRequest(BaseModel):
     merchant: str
     price: float
     in_store: bool = False
+    # Analytics only (see _attribution): the visitor's anonymous Mixpanel id
+    # when they agreed to cookies, and the buy link's src / page placement.
+    dealo_id: str | None = None
+    src: str | None = None
+    placement: str | None = None
 
 
 @router.post("/session")
@@ -87,6 +119,7 @@ async def session(body: SessionRequest) -> dict:
     name = body.name.strip()[:80] or None
     email = (body.email or "").strip()[:120] or None
     await buyer_service.save_buyer(login["uid"], login["phone"], name, email, body.marketing_optin)
+    _remember_attribution(login["uid"], body)
     token = hubble_service.sso_token(login["uid"], login["phone"], name, email)
     return {"url": hubble_service.store_url(found, token), "offer": found}
 
@@ -125,7 +158,7 @@ async def webhook(request: Request, x_verify: str = Header(default="")) -> dict:
         raise HTTPException(401, "bad signature")
     order = json.loads(raw)
     if "orderStatus" in order:
-        await buyer_service.save_purchase(order, get_settings().HUBBLE_ENV)
+        await buyer_service.save_purchase(order, get_settings().HUBBLE_ENV, attribution=_attribution_for(order.get("userId")))
         if order["orderStatus"] == "COMPLETED" and order.get("userId"):
             _recent_orders[order["userId"]] = (time.time(), order)
     return {"ok": True}

@@ -4,7 +4,7 @@ import { Box, Button, Checkbox, Flex, IconButton, Input, InputGroup, InputLeftAd
 import { I } from '@/components/common/icons';
 import { hubbleApi } from '@/api/hubble.api';
 import { confirmCode, currentUser, idToken, sendCode } from '@/lib/firebase';
-import { track } from '@/utils/analytics';
+import { getDealoId, soldEventProps, track } from '@/utils/analytics';
 import { fmt } from '@/utils/format';
 
 const NAME_KEY = 'dealo_buyer_name';
@@ -71,7 +71,10 @@ function CodeRow({ label, value, copied, onCopy }) {
   );
 }
 
-export default function BuyFlow({ offer, merchant, price, shopLink, onClose, onBought }) {
+export default function BuyFlow({ offer, merchant, price, shopLink, placement, bestPct, src, onClose, onBought }) {
+  // The same facts on every event of this purchase, so Mixpanel can line
+  // them up as one funnel (see soldEventProps).
+  const ev = soldEventProps(offer, { merchant, placement, bestPct, src });
   const [step, setStep] = useState('loading');
   const [name, setName] = useState(readName);
   const [phone, setPhone] = useState('');
@@ -94,11 +97,17 @@ export default function BuyFlow({ offer, merchant, price, shopLink, onClose, onB
         merchant,
         price,
         in_store: Boolean(offer.in_store),
+        // So the sale Hubble reports later can be joined to this visit and
+        // to the link that brought the shopper (null without consent).
+        dealo_id: getDealoId(),
+        src: src || null,
+        placement: placement || null,
       });
-      track('Hubble Store Opened', { merchant, amount: offer.voucher_total });
+      track('Hubble Store Opened', ev);
       setStoreUrl(url);
       setStep('store');
     } catch {
+      track('Store Open Failed', { ...ev, reason: 'session' });
       setError('Something went wrong. Please try again.');
       setStep('details');
     } finally {
@@ -139,18 +148,19 @@ export default function BuyFlow({ offer, merchant, price, shopLink, onClose, onB
       if (kind === 'launch_link') openHubbleLink(msg.properties?.link);
       if (kind === 'payment_success') {
         paid.current = true;
-        track('Hubble Payment Success', { merchant, amount: offer.voucher_total });
+        track('Hubble Payment Success', ev);
       }
-      if (kind === 'payment_fail') track('Hubble Payment Failed', { merchant, amount: offer.voucher_total });
+      if (kind === 'payment_fail') track('Hubble Payment Failed', ev);
       // Paid, but Hubble couldn't make the card: Hubble refunds the payment
       // itself (5–7 working days per Yash, 27 Oct 2026). Say so plainly
       // rather than leaving the shopper on a blank "generating" screen.
       if (kind === 'voucher_generation_fail') {
-        track('Hubble Voucher Failed', { merchant, amount: offer.voucher_total });
+        track('Hubble Voucher Failed', ev);
         setStep('failed');
       }
       // Hubble's screen itself failed to load (bad keys, network, login).
       if (kind === 'error' && msg?.type === 'action') {
+        track('Store Open Failed', { ...ev, reason: 'error' });
         setError("Couldn't open the payment screen. Please try again.");
         setStep('details');
       }
@@ -160,16 +170,31 @@ export default function BuyFlow({ offer, merchant, price, shopLink, onClose, onB
         paid.current = true;
         setStep('done');
       }
-      if (kind === 'close') (paid.current ? setStep('done') : onClose());
+      if (kind === 'close') {
+        if (!paid.current) track('Store Closed Without Payment', { ...ev, closed_by: 'hubble_screen' });
+        paid.current ? setStep('done') : onClose();
+      }
     };
     window.addEventListener('message', onMessage);
     return () => window.removeEventListener('message', onMessage);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [step, merchant, offer.voucher_total, onClose]);
+
+  // Dealo's own close button on the payment screen, before paying.
+  const closeStore = () => {
+    if (paid.current) {
+      setStep('done');
+      return;
+    }
+    track('Store Closed Without Payment', { ...ev, closed_by: 'dealo_button' });
+    onClose();
+  };
 
   // The voucher code reaches Dealo through Hubble's order webhook a moment
   // after payment; ask a few times before falling back to Hubble's own copy.
   useEffect(() => {
     if (step !== 'done') return undefined;
+    track('Voucher Ready', ev);
     onBought?.();
     let tries = 0;
     let timer;
@@ -191,7 +216,7 @@ export default function BuyFlow({ offer, merchant, price, shopLink, onClose, onB
     try {
       saveName(name.trim());
       confirmation.current = await sendCode(phone, 'dealo-get-code');
-      track('Login Code Sent', { merchant });
+      track('Login Code Sent', ev);
       setStep('code');
     } catch (err) {
       console.error('[login] send code failed', err?.code, err?.message);
@@ -242,7 +267,7 @@ export default function BuyFlow({ offer, merchant, price, shopLink, onClose, onB
               </Box>
               Secure payment · Hubble
             </Flex>
-            <Button aria-label="Close" variant="ghost" size="sm" onClick={() => (paid.current ? setStep('done') : onClose())}>
+            <Button aria-label="Close" variant="ghost" size="sm" onClick={closeStore}>
               <I.x size={18} />
             </Button>
           </Flex>
