@@ -106,12 +106,6 @@ export function myBestOffer(shop, myCards) {
   return o && beatsVoucher(o, shop) ? o : null;
 }
 
-/** The best real offer on this shop, for someone without that card. */
-export function bestRealOffer(shop) {
-  const o = (shop.cardOffers || []).find((x) => isRealOffer(x, shop.price));
-  return o && beatsVoucher(o, shop) ? o : null;
-}
-
 /** For a shopper without the card: the one card offer that would beat the
  * cheapest deal on the page, or null. Shown only when that is true. */
 export function missingOut(shops, myCards, cheapest) {
