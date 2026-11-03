@@ -3,7 +3,8 @@
     "The one list of every analytics event Dealo sends to Mixpanel (project DealO, EU data residency).",
     "HOW TO ADD AN EVENT: 1) add it below with a one-line meaning, its surfaces and its properties; 2) fire it in code with a literal name; 3) run .venv/bin/python -m pytest tests/test_tracking_plan.py -q. The test fails if code fires a name that isn't listed here, if a listed event is never fired, or if a name is built dynamically.",
     "Prefer adding a property to an existing event over a new near-duplicate event.",
-    "Shared funnel (same name on every surface): Session Started -> Product Searched / Checkout Detected -> Deal Shown -> Shop Link Opened / Voucher Site Opened -> Purchase Recorded -> Purchase Status Changed."
+    "Shared funnel (same name on every surface): Session Started -> Product Searched / Checkout Detected -> Deal Shown -> Shop Link Opened / Voucher Site Opened -> Purchase Recorded -> Purchase Status Changed.",
+    "Buy funnel (vouchers Dealo sells itself, through Hubble): Dealo Voucher Shown -> Buy Voucher Tapped -> Hubble Store Opened -> Hubble Payment Success -> Voucher Ready (website) and Voucher Sold (server, from Hubble's webhook). Read docs/sprint-mixpanel.md."
   ],
   "identity": {
     "$device_id": "Anonymous id. Website: the visitor's dealo_user_id (only after consent). Extension: an id created at install. WhatsApp: wa-<scrambled phone>. Also sent as dealo_id.",
@@ -18,50 +19,287 @@
     "dealo_id": "The device id (see identity)"
   },
   "events": {
-    "Hubble Store Opened": {
-      "description": "Hubble branch only (off on the live site): shopper tapped Buy voucher and Hubble's payment screen opened inside Dealo.",
-      "surfaces": ["web"],
-      "properties": { "merchant": "shop the voucher is for", "amount": "voucher value in rupees" }
+    "Dealo Voucher Shown": {
+      "description": "Dealo's own voucher (sold through Hubble) appeared on screen: the Buy voucher panel on a cart result, or Dealo's shop card. Once per card. Buy funnel step 1. Counted without cookie consent too (no personal detail is carried).",
+      "surfaces": [
+        "web"
+      ],
+      "properties": {
+        "seller": "hubble (the one seller today; Maximize would be a second value)",
+        "merchant": "shop the voucher is for",
+        "brand": "Hubble's voucher title",
+        "amount": "voucher value in rupees (null before an amount is chosen)",
+        "discount_pct": "Dealo's rate on this voucher, in %",
+        "best_pct": "best public rate (Gyftr/Maximize/BuyHatke) it was compared with, in %; null when unknown",
+        "placement": "journey (cart result) | shop_card (shop-name search, or a buy link)",
+        "src": "the buy link that brought the shopper: wa | ext | chat | link; null when they searched on the site",
+        "in_store": "true when the voucher is for paying at the counter"
+      }
     },
-    "Hubble Payment Success": {
-      "description": "Hubble branch only: Hubble reported the shopper's UPI payment went through.",
-      "surfaces": ["web"],
-      "properties": { "merchant": "shop the voucher is for", "amount": "voucher value in rupees" }
+    "Buy Voucher Tapped": {
+      "description": "Shopper tapped Dealo's Buy voucher button (cart result or shop card); the buy sheet opened. Buy funnel step 2. Counted without cookie consent too (no personal detail is carried).",
+      "surfaces": [
+        "web"
+      ],
+      "properties": {
+        "seller": "hubble (the one seller today; Maximize would be a second value)",
+        "merchant": "shop the voucher is for",
+        "brand": "Hubble's voucher title",
+        "amount": "voucher value in rupees (null before an amount is chosen)",
+        "discount_pct": "Dealo's rate on this voucher, in %",
+        "best_pct": "best public rate (Gyftr/Maximize/BuyHatke) it was compared with, in %; null when unknown",
+        "placement": "journey (cart result) | shop_card (shop-name search, or a buy link)",
+        "src": "the buy link that brought the shopper: wa | ext | chat | link; null when they searched on the site",
+        "in_store": "true when the voucher is for paying at the counter"
+      }
     },
     "Hubble Shop Card Buy": {
-      "description": "Hubble branch only: on a shop-name search, the shopper picked an amount and tapped Buy voucher on Dealo's own card.",
-      "surfaces": ["web"],
-      "properties": { "query": "what was typed", "brand": "Hubble voucher title", "amount": "voucher value in rupees" }
-    },
-    "Buy Link Opened": {
-      "description": "Someone opened getdealo.in/buy/<shop>, the page WhatsApp, the extension and the chat apps send people to; available says whether Hubble sold that voucher that day.",
-      "surfaces": ["web"],
-      "properties": { "slug": "shop in the address", "amount": "rupees the link asked for, or null", "src": "wa | ext | chat | link", "available": "true when Hubble had the voucher" }
-    },
-    "Buy Link Redirected": {
-      "description": "A buy link whose shop Hubble did not sell that day sent the person to the best partner listing instead.",
-      "surfaces": ["web"],
-      "properties": { "slug": "shop in the address", "src": "wa | ext | chat | link", "source": "gyftr | maximize | buyhatke", "pct": "that listing's rate" }
-    },
-    "Buy Link Fallback Search": {
-      "description": "A buy link whose shop no seller had: the page ran an ordinary Dealo search for the shop name.",
-      "surfaces": ["web"],
-      "properties": { "slug": "shop in the address", "src": "wa | ext | chat | link" }
-    },
-    "Hubble Payment Failed": {
-      "description": "Hubble branch only: Hubble reported the shopper's UPI payment did not go through (Hubble's screen offers a retry).",
-      "surfaces": ["web"],
-      "properties": { "merchant": "shop the voucher is for", "amount": "voucher value in rupees" }
-    },
-    "Hubble Voucher Failed": {
-      "description": "Hubble branch only: payment went through but the brand did not issue the voucher; Hubble refunds in 5-7 working days and Dealo shows the shopper that message.",
-      "surfaces": ["web"],
-      "properties": { "merchant": "shop the voucher is for", "amount": "voucher value in rupees" }
+      "description": "Older name, kept for continuity: on a shop-name search or a buy link, the shopper picked an amount and tapped Buy voucher on Dealo's own card. Fires together with Buy Voucher Tapped.",
+      "surfaces": [
+        "web"
+      ],
+      "properties": {
+        "seller": "hubble (the one seller today; Maximize would be a second value)",
+        "merchant": "shop the voucher is for",
+        "brand": "Hubble's voucher title",
+        "amount": "voucher value in rupees (null before an amount is chosen)",
+        "discount_pct": "Dealo's rate on this voucher, in %",
+        "best_pct": "best public rate (Gyftr/Maximize/BuyHatke) it was compared with, in %; null when unknown",
+        "placement": "journey (cart result) | shop_card (shop-name search, or a buy link)",
+        "src": "the buy link that brought the shopper: wa | ext | chat | link; null when they searched on the site",
+        "in_store": "true when the voucher is for paying at the counter",
+        "query": "what was typed (buy:<slug> on a buy link)"
+      }
     },
     "Login Code Sent": {
-      "description": "Hubble branch only: Dealo sent the shopper an SMS login code before their first purchase.",
-      "surfaces": ["web"],
-      "properties": { "merchant": "shop the voucher is for" }
+      "description": "Dealo sent the shopper an SMS login code before their first purchase. Counted without cookie consent too (no personal detail is carried).",
+      "surfaces": [
+        "web"
+      ],
+      "properties": {
+        "seller": "hubble (the one seller today; Maximize would be a second value)",
+        "merchant": "shop the voucher is for",
+        "brand": "Hubble's voucher title",
+        "amount": "voucher value in rupees (null before an amount is chosen)",
+        "discount_pct": "Dealo's rate on this voucher, in %",
+        "best_pct": "best public rate (Gyftr/Maximize/BuyHatke) it was compared with, in %; null when unknown",
+        "placement": "journey (cart result) | shop_card (shop-name search, or a buy link)",
+        "src": "the buy link that brought the shopper: wa | ext | chat | link; null when they searched on the site",
+        "in_store": "true when the voucher is for paying at the counter"
+      }
+    },
+    "Hubble Store Opened": {
+      "description": "Hubble's payment screen opened inside Dealo. Buy funnel step 3. Counted without cookie consent too (no personal detail is carried).",
+      "surfaces": [
+        "web"
+      ],
+      "properties": {
+        "seller": "hubble (the one seller today; Maximize would be a second value)",
+        "merchant": "shop the voucher is for",
+        "brand": "Hubble's voucher title",
+        "amount": "voucher value in rupees (null before an amount is chosen)",
+        "discount_pct": "Dealo's rate on this voucher, in %",
+        "best_pct": "best public rate (Gyftr/Maximize/BuyHatke) it was compared with, in %; null when unknown",
+        "placement": "journey (cart result) | shop_card (shop-name search, or a buy link)",
+        "src": "the buy link that brought the shopper: wa | ext | chat | link; null when they searched on the site",
+        "in_store": "true when the voucher is for paying at the counter"
+      }
+    },
+    "Store Open Failed": {
+      "description": "Hubble's payment screen could not be opened: Dealo's session call failed (reason=session) or Hubble's screen reported an error (reason=error).",
+      "surfaces": [
+        "web"
+      ],
+      "properties": {
+        "seller": "hubble (the one seller today; Maximize would be a second value)",
+        "merchant": "shop the voucher is for",
+        "brand": "Hubble's voucher title",
+        "amount": "voucher value in rupees (null before an amount is chosen)",
+        "discount_pct": "Dealo's rate on this voucher, in %",
+        "best_pct": "best public rate (Gyftr/Maximize/BuyHatke) it was compared with, in %; null when unknown",
+        "placement": "journey (cart result) | shop_card (shop-name search, or a buy link)",
+        "src": "the buy link that brought the shopper: wa | ext | chat | link; null when they searched on the site",
+        "in_store": "true when the voucher is for paying at the counter",
+        "reason": "session | error"
+      }
+    },
+    "Store Closed Without Payment": {
+      "description": "Shopper closed Hubble's payment screen before paying.",
+      "surfaces": [
+        "web"
+      ],
+      "properties": {
+        "seller": "hubble (the one seller today; Maximize would be a second value)",
+        "merchant": "shop the voucher is for",
+        "brand": "Hubble's voucher title",
+        "amount": "voucher value in rupees (null before an amount is chosen)",
+        "discount_pct": "Dealo's rate on this voucher, in %",
+        "best_pct": "best public rate (Gyftr/Maximize/BuyHatke) it was compared with, in %; null when unknown",
+        "placement": "journey (cart result) | shop_card (shop-name search, or a buy link)",
+        "src": "the buy link that brought the shopper: wa | ext | chat | link; null when they searched on the site",
+        "in_store": "true when the voucher is for paying at the counter",
+        "closed_by": "dealo_button | hubble_screen"
+      }
+    },
+    "Hubble Payment Success": {
+      "description": "Hubble reported the shopper's UPI payment went through. Buy funnel step 4. Counted without cookie consent too (no personal detail is carried).",
+      "surfaces": [
+        "web"
+      ],
+      "properties": {
+        "seller": "hubble (the one seller today; Maximize would be a second value)",
+        "merchant": "shop the voucher is for",
+        "brand": "Hubble's voucher title",
+        "amount": "voucher value in rupees (null before an amount is chosen)",
+        "discount_pct": "Dealo's rate on this voucher, in %",
+        "best_pct": "best public rate (Gyftr/Maximize/BuyHatke) it was compared with, in %; null when unknown",
+        "placement": "journey (cart result) | shop_card (shop-name search, or a buy link)",
+        "src": "the buy link that brought the shopper: wa | ext | chat | link; null when they searched on the site",
+        "in_store": "true when the voucher is for paying at the counter"
+      }
+    },
+    "Hubble Payment Failed": {
+      "description": "Hubble reported the shopper's UPI payment did not go through (Hubble's screen offers a retry).",
+      "surfaces": [
+        "web"
+      ],
+      "properties": {
+        "seller": "hubble (the one seller today; Maximize would be a second value)",
+        "merchant": "shop the voucher is for",
+        "brand": "Hubble's voucher title",
+        "amount": "voucher value in rupees (null before an amount is chosen)",
+        "discount_pct": "Dealo's rate on this voucher, in %",
+        "best_pct": "best public rate (Gyftr/Maximize/BuyHatke) it was compared with, in %; null when unknown",
+        "placement": "journey (cart result) | shop_card (shop-name search, or a buy link)",
+        "src": "the buy link that brought the shopper: wa | ext | chat | link; null when they searched on the site",
+        "in_store": "true when the voucher is for paying at the counter"
+      }
+    },
+    "Hubble Voucher Failed": {
+      "description": "Payment went through but the brand did not issue the voucher; Hubble refunds in 5-7 working days and Dealo shows the shopper that message.",
+      "surfaces": [
+        "web"
+      ],
+      "properties": {
+        "seller": "hubble (the one seller today; Maximize would be a second value)",
+        "merchant": "shop the voucher is for",
+        "brand": "Hubble's voucher title",
+        "amount": "voucher value in rupees (null before an amount is chosen)",
+        "discount_pct": "Dealo's rate on this voucher, in %",
+        "best_pct": "best public rate (Gyftr/Maximize/BuyHatke) it was compared with, in %; null when unknown",
+        "placement": "journey (cart result) | shop_card (shop-name search, or a buy link)",
+        "src": "the buy link that brought the shopper: wa | ext | chat | link; null when they searched on the site",
+        "in_store": "true when the voucher is for paying at the counter"
+      }
+    },
+    "Voucher Ready": {
+      "description": "Dealo's 'Voucher ready' screen appeared: the voucher exists. Buy funnel step 5, the last step the website sees. Counted without cookie consent too (no personal detail is carried).",
+      "surfaces": [
+        "web"
+      ],
+      "properties": {
+        "seller": "hubble (the one seller today; Maximize would be a second value)",
+        "merchant": "shop the voucher is for",
+        "brand": "Hubble's voucher title",
+        "amount": "voucher value in rupees (null before an amount is chosen)",
+        "discount_pct": "Dealo's rate on this voucher, in %",
+        "best_pct": "best public rate (Gyftr/Maximize/BuyHatke) it was compared with, in %; null when unknown",
+        "placement": "journey (cart result) | shop_card (shop-name search, or a buy link)",
+        "src": "the buy link that brought the shopper: wa | ext | chat | link; null when they searched on the site",
+        "in_store": "true when the voucher is for paying at the counter"
+      }
+    },
+    "Voucher Sold": {
+      "description": "Hubble's webhook confirmed a completed order; sent by the backend from buyer_service.save_purchase, once per order (a retried webhook is deduplicated). THE number: vouchers actually bought through Dealo. Carries no codes, PINs or phone numbers. Joined to the shopper's visit ($device_id) and buy link when the payment screen was opened in the last 6 hours on the same server.",
+      "surfaces": [
+        "server"
+      ],
+      "properties": {
+        "seller": "hubble",
+        "brand": "Hubble's voucher title",
+        "merchant": "shop the voucher was offered for (brand when unknown)",
+        "amount": "voucher value in rupees",
+        "discount": "rupees the shopper saved",
+        "discount_pct": "discount as % of value",
+        "src": "buy link that brought the shopper: wa | ext | chat | link | null",
+        "placement": "journey | shop_card | null",
+        "seller_environment": "Hubble sandbox or production (HUBBLE_ENV); filter to production",
+        "buyer_key": "one-way hash of the shopper's login id, to count distinct buyers"
+      }
+    },
+    "Join Page Viewed": {
+      "description": "Website: the /join page (WhatsApp community invite) was opened.",
+      "surfaces": [
+        "web"
+      ],
+      "properties": {
+        "utm_source, utm_medium, utm_campaign": "campaign tags on the link, when present"
+      }
+    },
+    "Joined WhatsApp Clicked": {
+      "description": "Website: tapped the join button on the /join page.",
+      "surfaces": [
+        "web"
+      ],
+      "properties": {
+        "utm_source, utm_medium, utm_campaign": "campaign tags on the link, when present"
+      }
+    },
+    "Played Tutorial Video": {
+      "description": "Website: pressed play on the how-it-works video.",
+      "surfaces": [
+        "web"
+      ],
+      "properties": {}
+    },
+    "Chat App Lookup": {
+      "description": "A Claude or ChatGPT app asked Dealo for a shop's deal (one shared id per app, so people cannot be counted).",
+      "surfaces": [
+        "server"
+      ],
+      "properties": {
+        "shop_query": "what the person asked for",
+        "amount": "cart total, or null",
+        "has_voucher": "a voucher route exists",
+        "brand": "shop matched",
+        "pct": "best rate",
+        "choices": "how many what-are-you-buying choices",
+        "sold_by_dealo": "true when the card links to getdealo.in/buy/<shop> (Hubble) instead of a partner"
+      }
+    },
+    "Buy Link Opened": {
+      "description": "Someone opened getdealo.in/buy/<shop>, the page WhatsApp, the extension and the chat apps send people to; available says whether Hubble sold that voucher that day. Counted without cookie consent too (no personal detail is carried).",
+      "surfaces": [
+        "web"
+      ],
+      "properties": {
+        "slug": "shop in the address",
+        "amount": "rupees the link asked for, or null",
+        "src": "wa | ext | chat | link",
+        "available": "true when Hubble had the voucher"
+      }
+    },
+    "Buy Link Redirected": {
+      "description": "A buy link whose shop Hubble did not sell that day sent the person to the best partner listing instead. Counted without cookie consent too (no personal detail is carried).",
+      "surfaces": [
+        "web"
+      ],
+      "properties": {
+        "slug": "shop in the address",
+        "src": "wa | ext | chat | link",
+        "source": "gyftr | maximize | buyhatke",
+        "pct": "that listing's rate"
+      }
+    },
+    "Buy Link Fallback Search": {
+      "description": "A buy link whose shop no seller had: the page ran an ordinary Dealo search for the shop name. Counted without cookie consent too (no personal detail is carried).",
+      "surfaces": [
+        "web"
+      ],
+      "properties": {
+        "slug": "shop in the address",
+        "src": "wa | ext | chat | link"
+      }
     },
     "Session Started": {
       "description": "A visit or conversation began. Website: page load. WhatsApp: first message after 30 quiet minutes.",
@@ -366,20 +604,6 @@
       ],
       "properties": {}
     },
-    "Tour Step Shown": {
-      "description": "Onboarding tour step displayed.",
-      "surfaces": [
-        "web"
-      ],
-      "properties": {}
-    },
-    "Tour Skipped": {
-      "description": "Onboarding tour skipped.",
-      "surfaces": [
-        "web"
-      ],
-      "properties": {}
-    },
     "Onboarding Reopened": {
       "description": "Visitor reopened the onboarding tour.",
       "surfaces": [
@@ -436,18 +660,32 @@
     },
     "WhatsApp Opted Out": {
       "description": "User sent stop/unsubscribe; one confirmation sent, bot now quiet for this phone.",
-      "surfaces": ["whatsapp"],
-      "properties": {"text": "Message text"}
+      "surfaces": [
+        "whatsapp"
+      ],
+      "properties": {
+        "text": "Message text"
+      }
     },
     "WhatsApp Opted Back In": {
       "description": "An opted-out phone sent a product or link again; replies resume.",
-      "surfaces": ["whatsapp"],
-      "properties": {"text": "Message text"}
+      "surfaces": [
+        "whatsapp"
+      ],
+      "properties": {
+        "text": "Message text"
+      }
     },
     "WhatsApp Nudge Suppressed": {
       "description": "A nudge the bot would have sent but did not, because the phone opted out.",
-      "surfaces": ["whatsapp"],
-      "properties": {"reason": "opted_out", "text": "Message text", "msg_type": "Non-text message type"}
+      "surfaces": [
+        "whatsapp"
+      ],
+      "properties": {
+        "reason": "opted_out",
+        "text": "Message text",
+        "msg_type": "Non-text message type"
+      }
     },
     "WhatsApp Rate Limited": {
       "description": "Phone hit the hourly search limit.",
@@ -758,6 +996,15 @@
         "merchant": "shop with the offer",
         "bank": "bank named in the offer",
         "saving": "rupees the card takes off"
+      }
+    },
+    "Try It Yourself Clicked": {
+      "description": "Website: on the /join page, tapped the button that opens the search page instead of joining.",
+      "surfaces": [
+        "web"
+      ],
+      "properties": {
+        "utm_source, utm_medium, utm_campaign": "campaign tags on the link, when present"
       }
     }
   }

@@ -349,6 +349,9 @@ async def _find_deal(args: dict, request: Request) -> dict:
             "brand": deal.get("brand_name") or "",
             "pct": deal.get("pct"),
             "choices": len(choices),
+            # Dealo itself sells this voucher (Hubble): the card links to
+            # getdealo.in/buy/<shop> instead of a partner site.
+            "sold_by_dealo": bool((deal.get("dealo") or {}).get("buy_url")),
         },
     ))
 

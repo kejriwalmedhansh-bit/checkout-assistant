@@ -5,7 +5,7 @@ import { I } from '@/components/common/icons';
 import { fmt, affiliateUrl, paidForVoucher } from '@/utils/format';
 import { useUiStore } from '@/store/uiStore';
 import { voucherSourceName } from '@/utils/voucherSource';
-import { outboundLink, track } from '@/utils/analytics';
+import { outboundLink, soldEventProps, track } from '@/utils/analytics';
 import JourneyRow from './JourneyRow';
 import JourneyChips from './JourneyChips';
 import JourneyPanels from './JourneyPanels';
@@ -99,7 +99,9 @@ export default function Journey({ rec, payingByCard = false, skipVoucher = false
     hubbleApi
       .offer(shopName, orderPrice, Boolean(v.offline_only), HUBBLE_FORCE ? null : v.upi?.pct)
       .then((res) => {
-        if (live && res.available) setHubble(res.offer);
+        if (!live || !res.available) return;
+        setHubble(res.offer);
+        track('Dealo Voucher Shown', soldEventProps(res.offer, { merchant: shopName, placement: 'journey', bestPct: v.upi?.pct }));
       })
       .catch(() => {});
     return () => {
@@ -258,7 +260,13 @@ export default function Journey({ rec, payingByCard = false, skipVoucher = false
         {[
         hubble ? (
           <Box key="voucher" pt="4px">
-            <HubbleVoucherPanel offer={hubble} onBuy={() => setBuying(true)} />
+            <HubbleVoucherPanel
+              offer={hubble}
+              onBuy={() => {
+                track('Buy Voucher Tapped', soldEventProps(hubble, { merchant: shopName, placement: 'journey', bestPct: v.upi?.pct }));
+                setBuying(true);
+              }}
+            />
           </Box>
         ) : (
         <JourneyRow
@@ -358,6 +366,8 @@ export default function Journey({ rec, payingByCard = false, skipVoucher = false
           offer={hubble}
           merchant={shopName}
           price={orderPrice}
+          placement="journey"
+          bestPct={v.upi?.pct}
           shopLink={sellerLink ? affiliateUrl(sellerLink, 'hubble_done') : undefined}
           onClose={() => setBuying(false)}
           onBought={check('voucher')}

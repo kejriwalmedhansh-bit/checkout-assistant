@@ -122,7 +122,7 @@ export default function BuyPage() {
         </Text>
       )}
       {state.status === 'ready' && (
-        <HubbleBrandCard brand={state.brand} merchant={state.brand.brand_name} query={`buy:${slug}`} initialAmount={amount} />
+        <HubbleBrandCard brand={state.brand} merchant={state.brand.brand_name} query={`buy:${slug}`} initialAmount={amount} src={src} />
       )}
       {state.status === 'missing' && (
         <Text color="text3" fontSize="14px">

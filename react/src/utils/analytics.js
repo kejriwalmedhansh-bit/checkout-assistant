@@ -121,6 +121,24 @@ const ANONYMOUS_STAGES = new Set([
   'Clicked Buy Link',
   'Join Page Viewed',
   'Joined WhatsApp Clicked',
+  // The buy flow for vouchers Dealo sells itself (Hubble). Every step is a
+  // funnel stage and none carries anything about the person: without these,
+  // the 85% of visitors who never answer the cookie banner vanish from the
+  // one funnel the business runs on.
+  'Buy Link Opened',
+  'Buy Link Redirected',
+  'Buy Link Fallback Search',
+  'Dealo Voucher Shown',
+  'Buy Voucher Tapped',
+  'Hubble Shop Card Buy',
+  'Login Code Sent',
+  'Hubble Store Opened',
+  'Store Open Failed',
+  'Store Closed Without Payment',
+  'Hubble Payment Success',
+  'Hubble Payment Failed',
+  'Hubble Voucher Failed',
+  'Voucher Ready',
 ]);
 
 /**
@@ -143,6 +161,21 @@ const ANONYMOUS_SEARCH_PROPS = ['query', 'mode', 'input_type', 'result_count', '
 const ANONYMOUS_SEARCH_EVENTS = new Set(['Searched', 'Product Searched']);
 
 /**
+ * What a buy-flow stage may carry without consent: which shop, the voucher
+ * value, the rates, where on the page, and where the link came from. The
+ * shopper's name, phone, login, code and PIN never go anywhere near here.
+ */
+const ANONYMOUS_BUY_PROPS = [
+  'seller', 'merchant', 'brand', 'amount', 'discount_pct', 'best_pct', 'placement', 'in_store',
+  'slug', 'src', 'available', 'source', 'pct', 'reason', 'closed_by',
+];
+const ANONYMOUS_BUY_EVENTS = new Set([
+  'Buy Link Opened', 'Buy Link Redirected', 'Buy Link Fallback Search', 'Dealo Voucher Shown', 'Buy Voucher Tapped',
+  'Hubble Shop Card Buy', 'Login Code Sent', 'Hubble Store Opened', 'Store Open Failed', 'Store Closed Without Payment',
+  'Hubble Payment Success', 'Hubble Payment Failed', 'Hubble Voucher Failed', 'Voucher Ready',
+]);
+
+/**
  * A pasted link keeps only its shop and page (amzn.in/d/0ab6OVDJ): the part
  * after "?" is where share and ad links put tracking codes, which can point
  * back at a person.
@@ -158,10 +191,10 @@ function withoutLinkTracking(text) {
   });
 }
 
-function anonymousSearchProps(event, props) {
-  if (!ANONYMOUS_SEARCH_EVENTS.has(event)) return {};
+function anonymousProps(event, props) {
+  const allowed = ANONYMOUS_SEARCH_EVENTS.has(event) ? ANONYMOUS_SEARCH_PROPS : ANONYMOUS_BUY_EVENTS.has(event) ? ANONYMOUS_BUY_PROPS : [];
   const kept = {};
-  for (const key of ANONYMOUS_SEARCH_PROPS) {
+  for (const key of allowed) {
     if (props[key] !== undefined && props[key] !== null) kept[key] = props[key];
   }
   if (kept.query) kept.query = withoutLinkTracking(kept.query);
@@ -173,7 +206,7 @@ function countStage(event, props = {}) {
   const payload = [{
     event,
     properties: {
-      ...anonymousSearchProps(event, props),
+      ...anonymousProps(event, props),
       token: MIXPANEL_TOKEN,
       distinct_id: ANONYMOUS_ID,
       time: Math.floor(Date.now() / 1000),
@@ -390,6 +423,29 @@ syncAnalyticsToConsent();
 if (!isGranted()) {
   countStage('Session Started');
   countStage('Dashboard Opened');
+}
+
+/**
+ * The properties every event about a voucher Dealo sells itself carries
+ * (the offer from GET /hubble/offer or the brand from /hubble/brand), so one
+ * funnel can be built from "offer shown" to "voucher ready": who sold it,
+ * which shop, Dealo's rate, the public best rate it was compared with, the
+ * voucher value, where on the page, and which link brought the shopper.
+ * placement: 'journey' (cart result) | 'shop_card' (shop-name search or a
+ * buy link). src: the buy link's src (wa | ext | chat | link), else null.
+ */
+export function soldEventProps(offer, { merchant, placement, bestPct, amount, src } = {}) {
+  return {
+    seller: 'hubble',
+    merchant: merchant ?? offer?.brand_name ?? null,
+    brand: offer?.brand_name ?? null,
+    amount: amount ?? offer?.voucher_total ?? null,
+    discount_pct: offer?.discount_pct ?? null,
+    best_pct: bestPct ?? null,
+    placement: placement ?? null,
+    src: src ?? null,
+    in_store: Boolean(offer?.in_store),
+  };
 }
 
 /** Fire-and-forget event tracking. */

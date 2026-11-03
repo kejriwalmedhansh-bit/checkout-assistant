@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Box, Button, Flex, Input, Link, Text, Wrap, WrapItem } from '@chakra-ui/react';
 
 import Card from '@/components/common/Card';
@@ -6,7 +6,7 @@ import { I } from '@/components/common/icons';
 import BuyFlow from '@/components/hubble/BuyFlow';
 import { hubbleApi } from '@/api/hubble.api';
 import { fmt } from '@/utils/format';
-import { outboundLink, track } from '@/utils/analytics';
+import { outboundLink, soldEventProps, track } from '@/utils/analytics';
 
 const HUBBLE_ON = import.meta.env.VITE_HUBBLE_ENABLED === 'true';
 const HUBBLE_FORCE = import.meta.env.VITE_HUBBLE_FORCE === 'true';
@@ -19,7 +19,7 @@ const HUBBLE_FORCE = import.meta.env.VITE_HUBBLE_FORCE === 'true';
  * amount, so what is shown is what Hubble charges. The outside link is not
  * shown here (owner's call, 28 Oct 2026).
  */
-export function HubbleBrandCard({ brand, merchant, query, initialAmount = null }) {
+export function HubbleBrandCard({ brand, merchant, query, initialAmount = null, bestPct = null, src = null }) {
   const base = brand.cards.length ? brand.cards.slice(0, 4) : [500, 1000, 2000, 5000].filter((a) => a >= brand.min_amount && (!brand.max_amount || a <= brand.max_amount));
   // A buy link can arrive with the amount already chosen (WhatsApp worked it
   // out from the cart). Honour it when this voucher can be bought for it:
@@ -34,6 +34,8 @@ export function HubbleBrandCard({ brand, merchant, query, initialAmount = null }
   const [offer, setOffer] = useState(null);
   const [buying, setBuying] = useState(false);
   const inRange = (a) => a >= brand.min_amount && (!brand.max_amount || a <= brand.max_amount);
+  // 'Dealo Voucher Shown' once per card, not once per amount tried.
+  const shown = useRef(false);
 
   useEffect(() => {
     let live = true;
@@ -42,7 +44,13 @@ export function HubbleBrandCard({ brand, merchant, query, initialAmount = null }
     const t = setTimeout(() => {
       hubbleApi
         .offer(merchant, amount, brand.in_store)
-        .then((res) => live && res.available && setOffer(res.offer))
+        .then((res) => {
+          if (!live || !res.available) return;
+          setOffer(res.offer);
+          if (shown.current) return;
+          shown.current = true;
+          track('Dealo Voucher Shown', soldEventProps(res.offer, { merchant, placement: 'shop_card', bestPct, src }));
+        })
         .catch(() => {});
     }, 250);
     return () => {
@@ -167,7 +175,9 @@ export function HubbleBrandCard({ brand, merchant, query, initialAmount = null }
 
       <Button
         onClick={() => {
-          track('Hubble Shop Card Buy', { query, brand: brand.brand_name, amount });
+          const props = soldEventProps(offer, { merchant, placement: 'shop_card', bestPct, amount, src });
+          track('Hubble Shop Card Buy', { ...props, query });
+          track('Buy Voucher Tapped', props);
           setBuying(true);
         }}
         isDisabled={!offer}
@@ -186,7 +196,7 @@ export function HubbleBrandCard({ brand, merchant, query, initialAmount = null }
       </Button>
 
       {buying && offer && (
-        <BuyFlow offer={offer} merchant={merchant} price={amount} onClose={() => setBuying(false)} />
+        <BuyFlow offer={offer} merchant={merchant} price={amount} placement="shop_card" bestPct={bestPct} src={src} onClose={() => setBuying(false)} />
       )}
     </Card>
   );
@@ -219,7 +229,7 @@ export default function BrandVoucherCard({ voucher, query }) {
       live = false;
     };
   }, [voucher?.brand_name, voucher?.best_discount_pct]);
-  if (hubble) return <HubbleBrandCard brand={hubble} merchant={voucher.brand_name} query={query} />;
+  if (hubble) return <HubbleBrandCard brand={hubble} merchant={voucher.brand_name} query={query} bestPct={voucher.best_discount_pct ?? null} />;
 
   // A type-any-amount card (Amazon Pay on Maximize: ₹100–₹10,000) shows its
   // range even when the seller also lists quick-pick amounts — the list would
