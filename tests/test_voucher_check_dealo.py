@@ -39,9 +39,10 @@ def test_dealo_block_when_hubble_is_close(monkeypatch):
     assert out["voucher_source"] == "buyhatke"
 
 
-def test_no_dealo_block_when_hubble_is_far_behind(monkeypatch):
+def test_dealo_block_even_when_hubble_is_behind(monkeypatch):
+    """Owner's call, 3 Nov 2026: Dealo sells wherever Hubble has it."""
     out = _with(monkeypatch, {**OFFER, "discount_pct": 1.0})
-    assert "dealo" not in out
+    assert out["dealo"]["discount_pct"] == 1.0
 
 
 def test_no_dealo_block_without_hubble(monkeypatch):

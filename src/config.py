@@ -174,7 +174,6 @@ class Settings(BaseSettings):
     # percentage points of today's best voucher rate (7% vs 7.75% shows
     # Hubble; 7% vs 10% doesn't). No rupee cap. The cheaper route is not
     # named on the card. 0 = ties only.
-    HUBBLE_RATE_TOLERANCE: float = 2.0
 
     # --- Shopper login (Firebase phone sign-in) ---
     FIREBASE_PROJECT_ID: str = "dealo-e9a72"

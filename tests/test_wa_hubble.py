@@ -82,12 +82,14 @@ def test_product_route_buys_on_dealo_when_hubble_is_close(monkeypatch):
     assert ("WhatsApp Buy Step Shown", {"step": "voucher", "platform": "Dealo", "merchant": "Myntra", "discount_pct": 4.0}) in calls["events"]
 
 
-def test_product_route_keeps_partner_when_hubble_is_far_behind(monkeypatch):
+def test_product_route_buys_on_dealo_even_when_hubble_is_behind(monkeypatch):
+    """Owner's call, 3 Nov 2026: Dealo sells wherever Hubble has it, however
+    the partner's rate compares."""
     calls = _harness(monkeypatch, offer={**OFFER, "discount_pct": 1.0})
     asyncio.run(whatsapp_service._send_voucher_steps("919999999999", ROUTE))
     body, button, url = calls["cta"][0]
-    assert button == "Buy Gift Voucher Now"
-    assert "BuyHatke" in body and "/out?url=" in url
+    assert button == "Buy on Dealo"
+    assert "/buy/" in url and "/out?url=" not in url
 
 
 def test_product_route_keeps_partner_when_hubble_has_nothing(monkeypatch):
@@ -107,10 +109,12 @@ def test_shop_name_search_buys_on_dealo(monkeypatch):
     assert "*4% off* on Dealo" in body and "₹1,001" in body and "₹10,000" in body
 
 
-def test_shop_name_search_keeps_partner_when_hubble_is_behind(monkeypatch):
+def test_shop_name_search_buys_on_dealo_even_when_hubble_is_behind(monkeypatch):
     calls = _harness(monkeypatch, brand={**BRAND, "discount_pct": 1.0})
     voucher = {"brand_name": "Zomato", "voucher_source": "maximize", "best_discount_pct": 3.5,
                "voucher_url": "https://www.maximize.money/gift-cards/Zomato/1"}
     asyncio.run(whatsapp_service._send_brand_voucher("919999999999", "zomato", voucher))
-    assert calls["cta"][0][1] == "Buy Gift Voucher Now"
-    assert "Maximize" in calls["cta"][0][0]
+    assert calls["cta"][0][1] == "Buy on Dealo"
+    assert "Maximize" not in calls["cta"][0][0]
+
+

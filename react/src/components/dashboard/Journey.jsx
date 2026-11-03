@@ -86,10 +86,10 @@ export default function Journey({ rec, payingByCard = false, skipVoucher = false
 
   const paid = v ? paidForVoucher(v, payingByCard) : null;
 
-  // Buying the voucher inside Dealo (Hubble). Shown when Hubble's rate is
-  // within HUBBLE_RATE_TOLERANCE points of today's best voucher rate (the
-  // server decides; owner's call 28 Oct 2026, since Dealo earns on a Hubble
-  // sale and nothing on a redirect).
+  // Buying the voucher inside Dealo (Hubble). Shown whenever Hubble sells
+  // it, whatever the partners' rate (the server decides; owner's call
+  // 3 Nov 2026, since Dealo earns on a Hubble sale and nothing on a
+  // redirect).
   const [hubble, setHubble] = useState(null);
   const [buying, setBuying] = useState(false);
   const orderPrice = rec.listed_price;

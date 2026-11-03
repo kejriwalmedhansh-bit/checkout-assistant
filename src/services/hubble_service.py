@@ -288,13 +288,13 @@ async def offer_for(merchant: str, price: float, in_store: bool = False) -> dict
     }
 
 
-def worth_showing(hubble_pct: float, best_pct: float | None) -> bool:
-    """Show Hubble when its rate is within HUBBLE_RATE_TOLERANCE points of
-    today's best voucher rate (owner's call, 28 Oct 2026). With no best
-    rate known there is nothing to lose to."""
-    if best_pct is None:
-        return hubble_pct > 0
-    return hubble_pct > 0 and hubble_pct + get_settings().HUBBLE_RATE_TOLERANCE >= float(best_pct)
+def worth_showing(hubble_pct: float, best_pct: float | None = None) -> bool:  # noqa: ARG001 — best_pct kept for callers
+    """Dealo sells the voucher itself wherever Hubble has it at a real rate
+    (owner's call, 3 Nov 2026, replacing the earlier within-2-points rule).
+    Partner sellers are offered only for shops Hubble does not sell. The
+    public best rate is no longer compared; the parameter stays so every
+    caller reads the same."""
+    return hubble_pct > 0
 
 
 async def brand_info(merchant: str | None = None, slug: str | None = None) -> dict | None:
