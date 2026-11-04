@@ -79,6 +79,42 @@ def test_shop_key_strips_domains_and_suffixes():
     assert hs.shop_key("Hamleys India") == "hamleys"
 
 
+# A partner listing's name often carries words about the listing, not the
+# shop. Found 4 Nov 2026: PVR showed no Dealo voucher because the cheapest
+# listing was "PVR Cinemas - GYFTR". 23 listings across the three partners
+# missed the same way.
+@pytest.mark.parametrize("listing,expected", [
+    ("PVR Cinemas - GYFTR", "PVR"),
+    ("Zomato Gift Card", "Zomato"),
+    ("Swiggy Money Voucher", "Swiggy"),
+    ("Swiggy Money", "Swiggy"),
+    ("Amazon Shopping Voucher", "Amazon shopping"),
+    ("Bigbasket (Custom)", "BigBasket"),
+    ("Decathlon - Fixed", "Decathlon"),
+    ("Yatra Hotel Gift Card", "Yatra Hotels & Holidays"),
+    ("Adventra", "Adventra Sports"),      # alias: adventrasports.com
+    ("Naturals", "Naturals Salons"),      # alias
+])
+def test_listing_decoration_is_ignored(listing, expected):
+    assert _name(listing) == expected
+
+
+@pytest.mark.parametrize("listing,expected", [
+    ("Pantaloons (In Store, 4 Hr Wait)", "Pantaloons"),
+    ("Liberty (In Store, 3 Day Wait)", "Liberty Shoes"),
+    ("Max Fashion (Offline)", "Max Fashion"),
+])
+def test_listing_decoration_is_ignored_in_store(listing, expected):
+    assert _name(listing, in_store=True) == expected
+
+
+def test_decoration_never_breaks_a_title_that_matches_as_given():
+    # "Hugo Boss-Luxe Gift Card" is a Hubble title of its own; stripping
+    # "Gift Card" first would leave "hugobossluxe" and lose it.
+    assert _name("Hugo Boss-Luxe Gift Card", in_store=True) == "Hugo Boss-Luxe Gift Card"
+    assert _name("BGMI UC Official Voucher") == "BGMI UC OFFICIAL VOUCHER"
+
+
 # --- Buy links -------------------------------------------------------------
 # Every surface hands the shopper to getdealo.in/buy/<slug>. The slug must
 # name exactly one catalogue voucher, for every voucher Hubble sells.
