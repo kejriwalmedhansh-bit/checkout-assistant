@@ -71,6 +71,7 @@ export default function Journey({ rec, payingByCard = false, skipVoucher = false
   const [dismissed, setDismissed] = useState({ checkout: false });
   const hintsEnabled = useUiStore((s) => s.hintsEnabled);
   const markBuyLinkClicked = useUiStore((s) => s.markBuyLinkClicked);
+  const setHubbleOffer = useUiStore((s) => s.setHubbleOffer);
 
   // A brief "pending" beat before the checkmark lands — an instant flip is
   // easy to miss; this makes the confirmation a moment you actually notice.
@@ -101,11 +102,13 @@ export default function Journey({ rec, payingByCard = false, skipVoucher = false
       .then((res) => {
         if (!live || !res.available) return;
         setHubble(res.offer);
+        setHubbleOffer(res.offer);
         track('Dealo Voucher Shown', soldEventProps(res.offer, { merchant: shopName, placement: 'journey', bestPct: v.upi?.pct }));
       })
       .catch(() => {});
     return () => {
       live = false;
+      setHubbleOffer(null);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [shopName, orderPrice, payingByCard]);
@@ -119,6 +122,11 @@ export default function Journey({ rec, payingByCard = false, skipVoucher = false
   // gets added to a Myntra Wallet from your profile *before* you shop, not
   // typed in at checkout), and we already have the real mechanics scraped
   // per brand. Only merchants missing real data fall back to the old guess.
+  // What is left to pay at the shop after the voucher step 1 shows. Dealo's
+  // own voucher (Hubble) can cover less of the bill than the partner's plan
+  // (Flipkart on Kartik's demo, 2026-11-04: ₹10,000 of ₹15,000), and this
+  // used to read the partner's remainder (₹0) under a Dealo voucher.
+  const restToPay = hubble ? hubble.rest_at_shop || 0 : v?.upi?.remainder || 0;
   const redeemStep = v?.how_to_redeem_short;
   // Scraped short instructions don't reliably end in punctuation — sentence
   // ends up run together with whatever gets appended after it otherwise
@@ -126,9 +134,9 @@ export default function Journey({ rec, payingByCard = false, skipVoucher = false
   const redeemStepSentence = redeemStep ? redeemStep.replace(/[.!]?\s*$/, '.') : redeemStep;
   const HINT_TEXT = {
     checkout: redeemStep
-      ? `${redeemStepSentence}${v.upi?.remainder ? ` Then pay ${fmt(v.upi.remainder)}.` : ''}`
-      : v?.upi?.remainder
-        ? `Add to cart, apply the code, then pay ${fmt(v.upi.remainder)}.`
+      ? `${redeemStepSentence}${restToPay ? ` Then pay ${fmt(restToPay)}.` : ''}`
+      : restToPay
+        ? `Add to cart, apply the code, then pay ${fmt(restToPay)}.`
         : v
           ? 'Add to cart and apply the code — it covers your order.'
           : 'This is the cheapest price we found.',
@@ -136,11 +144,11 @@ export default function Journey({ rec, payingByCard = false, skipVoucher = false
   const HINT_DETAIL = {
     checkout: redeemStep
       ? `On ${rec.merchant}: ${redeemStepSentence}${
-          v.upi?.remainder ? ` Then pay the last ${fmt(v.upi.remainder)} any way you like.` : ' It covers your whole order.'
+          restToPay ? ` Then pay the last ${fmt(restToPay)} any way you like.` : ' It covers your whole order.'
         }`
       : v
         ? `Open ${rec.merchant}, add your item to the basket, and apply your voucher code at checkout${
-            v.upi?.remainder ? `, then pay the last ${fmt(v.upi.remainder)} any way you like` : ' — it covers your whole order'
+            restToPay ? `, then pay the last ${fmt(restToPay)} any way you like` : ' — it covers your whole order'
           }.`
         : `Open ${rec.merchant} and buy it there — this is already the cheapest way we found.`,
   };
@@ -225,7 +233,7 @@ export default function Journey({ rec, payingByCard = false, skipVoucher = false
   const denominationSentence = breakdown[0]?.typed
     ? `Type ${fmt(v.upi?.voucher_amount)} in the amount box`
     : `1 × ${fmt(v.upi?.voucher_amount)} voucher`;
-  const remainder = v.upi?.remainder || 0;
+  const remainder = restToPay;
 
   return (
     <Box>
