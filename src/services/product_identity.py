@@ -66,6 +66,7 @@ jeans shirt tshirt t-shirt polo tee trousers shorts jacket hoodie sweatshirt dre
 backpack bag rucksack handbag tote duffel duffle satchel wallet suitcase trolley
 serum sunscreen cleanser wash facewash moisturiser moisturizer cream lotion gel
 shampoo conditioner mask foundation primer powder lipstick kajal eyeliner mascara
+coin coins necklace ring earrings bangle bangles pendant bracelet chain mangalsutra anklet
 """.split())
 
 # Type words that name the same kind of product ("Shoes" on one shop is
@@ -90,6 +91,7 @@ kids junior jr refurbished renewed business signature
 
 _UNIT = (r"(?:gb|tb|mb|ml|l|ltr|ltrs|litre|litres|liter|liters|g|gm|gms|kg|mah|w|watt|watts|v|mm|cm|inch|in|"
          r"hz|db|ms|dpi|mp|h|hr|hrs|hours|nits|core|%|compartments?|jars?|pieces|pcs|blades?|speeds?|"
+         r"gram|grams|karat|karats|kt|carat|carats|"
          r"burners?|layers?|stars?|months?|years?|yrs?|days?)")
 _SPEC_RE = re.compile(r"(?<![a-z0-9.\-])\d+(?:\.\d+)?\s*" + _UNIT + r"(?![a-z0-9\-])"
                       r"|\b(?:spf|ipx|ip|pa)(?![a-z])\s*\d*\+*")
@@ -244,9 +246,15 @@ def _variants(title: str) -> dict:
     if vol:
         v = float(vol.group(1)) * (1 if vol.group(2) == "ml" else 1000)
         out["volume"] = round(v)
-    wt = re.search(r"(\d+(?:\.\d+)?)\s*(g|gm|gms|kg)(?![a-z])", n)
+    wt = re.search(r"(\d+(?:\.\d+)?)\s*(g|gm|gms|gram|grams|kg)(?![a-z])", n)
     if wt and not (wt.group(2) == "g" and wt.group(1) in ("2", "3", "4", "5")):
         out["weight"] = round(float(wt.group(1)) * (1000 if wt.group(2) == "kg" else 1))
+    # Jewellery: "1 gram 24 Karat Gold Coin" (tanishq.co.in, 2026-11-04). The
+    # weight above tells a 1g coin from a 10g one; the purity tells 22K
+    # jewellery from a 24K coin. Neither is a model number.
+    karat = re.search(r"(?<![a-z0-9.])(\d{1,2})\s*(?:karat|karats|kt|k)(?![a-z0-9])", n)
+    if karat and karat.group(1) in ("9", "14", "18", "22", "24"):
+        out["karat"] = int(karat.group(1))
     material = re.search(r"stainless|alumin(?:i)?um|hard[\s\-]*anodi[sz]ed|cast iron|tri[\s\-]*ply|triply", n)
     if material:
         m = material.group(0)
@@ -337,6 +345,12 @@ def build_identity(title: str, url: str | None = None) -> dict:
     # cut. A head that names nothing is no ID card: keep taking segments
     # until one carries a word that is not generic, a colour or a type.
     category_first = not distinct(_tokens(head)) - _TYPE_WORDS
+    # A head that is only a brand, measurements and a type ("Tanishq 1 gram
+    # 24 Karat Gold Coin" - the motif that tells this coin from the shop's
+    # other 1g coins sits after " with ") names nothing either.
+    head_words = _tokens(_SPEC_RE.sub(" ", _norm(head)))
+    if not category_first and head_words and not (distinct(head_words) - _TYPE_WORDS - {head_words[0]}):
+        category_first = True
     if category_first:
         for seg in _HEAD_CUT_RE.split(title)[1:]:
             head = f"{head} {seg}"

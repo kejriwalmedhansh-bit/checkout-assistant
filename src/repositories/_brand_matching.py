@@ -94,7 +94,13 @@ def _strip_generic_suffix_words(name: str) -> str:
 
 
 def find_best_match(merchant_name: str, records: list[dict], name_key: str = "brand_name") -> dict | None:
-    """Find the record whose name_key best matches merchant_name.
+    """The first of find_matches, or None."""
+    matches = find_matches(merchant_name, records, name_key)
+    return matches[0] if matches else None
+
+
+def find_matches(merchant_name: str, records: list[dict], name_key: str = "brand_name") -> list[dict]:
+    """Every record whose name_key matches merchant_name, best first.
 
     Case-insensitive; partial match OK (e.g. "amazon.in" matches "Amazon").
     Prefers the closest/shortest match over more specific sub-brand entries,
@@ -105,7 +111,7 @@ def find_best_match(merchant_name: str, records: list[dict], name_key: str = "br
     """
     norm_merchant = normalize(_strip_generic_suffix_words(merchant_name))
     if not norm_merchant:
-        return None
+        return []
 
     candidates = []
     for record in records:
@@ -132,7 +138,5 @@ def find_best_match(merchant_name: str, records: list[dict], name_key: str = "br
                 continue
         candidates.append((rank, _channel_stripped_length(brand_name_raw), len(norm_brand), record))
 
-    if not candidates:
-        return None
     candidates.sort(key=lambda c: (c[0], c[1], c[2]))
-    return candidates[0][3]
+    return [c[3] for c in candidates]
