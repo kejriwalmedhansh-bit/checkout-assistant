@@ -16,6 +16,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
+from src.services import product_identity as pi  # noqa: E402
 from src.services import search_service as ss  # noqa: E402
 from src.services import voucher_service as vs  # noqa: E402
 
@@ -169,3 +170,66 @@ def test_the_page_fetch_asks_myntra_for_the_product_page(monkeypatch):
     assert (title, price, merchant) == ("CORSICA Women Embellished Backpack", 2679.0, "Myntra")
     assert image == "https://assets.myntassets.com/corsica.jpg"
     assert final_url == _MYNTRA_PRODUCT
+
+
+# Trimmed from tanishq.co.in's real product page as Context.dev renders it,
+# 2026-11-04. The plain fetch gets a 403 "Access Blocked" page from Tanishq.
+_TANISHQ_PRODUCT = ("https://www.tanishq.co.in/product/1-gram-24-karat-gold-coin-with-lakshmi-"
+                    "ganesha-motif-600113zeasaw00.html?lang=en_IN")
+_TANISHQ_PAGE = """
+<title>1 gram 24 Karat Gold Coin with Lakshmi Ganesha Motif | Tanishq Online Store</title>
+<meta property="og:site_name" content="Tanishq" />
+<meta property="og:title" content="1 gram 24 Karat Gold Coin with Lakshmi Ganesha Motif | Tanishq Online Store" />
+<script type="application/ld+json">{"@context":"https://schema.org/","@type":"Product",
+ "name":"1 gram 24 Karat Gold Coin with Lakshmi Ganesha Motif","sku":"600113zeasaw00",
+ "brand":{"@type":"Thing","name":"Tanishq"},
+ "image":["https://www.tanishq.co.in/images/600113ZEASAW00_1.jpg"],
+ "offers":{"@type":"Offer","url":"","priceCurrency":"INR","price":"15503","availability":"https://schema.org/InStock"}}</script>
+"""
+
+
+def test_a_blocked_brand_page_still_reads_its_brand_and_price(monkeypatch):
+    """Kartik's demo, 2026-11-04: a Tanishq gold-coin link came back as four
+    BlueStone coins. Tanishq answers every plain fetch with a 403, and the
+    rendered-page path searched the bare title ("1" became the brand) and
+    never read the page's own price, though tanishq.co.in has been on the
+    trusted JSON-LD price list since July."""
+    class _Url:
+        host = "www.tanishq.co.in"
+        def __str__(self):
+            return _TANISHQ_PRODUCT
+
+    class _Response:
+        status_code = 403
+        text = "<title>Access Blocked</title>"
+        history = ()
+        url = _Url()
+
+    class _Client:
+        def __init__(self, **kwargs):
+            pass
+        def __enter__(self):
+            return self
+        def __exit__(self, *exc):
+            return False
+        def get(self, url):
+            return _Response()
+
+    monkeypatch.setattr(ss.httpx, "Client", _Client)
+    monkeypatch.setattr(ss.context_dev_repository, "fetch_rendered_html", lambda url: _TANISHQ_PAGE)
+    monkeypatch.setattr(ss.crawlbase_repository, "fetch_rendered_html", lambda url: None)
+    title, price, merchant, image, _ = ss._fetch_url_page(_TANISHQ_PRODUCT)
+    assert title == "Tanishq 1 gram 24 Karat Gold Coin with Lakshmi Ganesha Motif"
+    assert (price, merchant) == (15503.0, "Tanishq")
+    assert image == "https://www.tanishq.co.in/images/600113ZEASAW00_1.jpg"
+
+
+def test_jewellery_measurements_are_not_model_numbers():
+    """"1 gram 24 Karat" used to give brand "1" and model "24"; the motif after
+    " with " is what tells this coin from the shop's other 1g coins."""
+    ident = pi.build_identity("Tanishq 1 gram 24 Karat Gold Coin with Lakshmi Ganesha Motif", _TANISHQ_PRODUCT)
+    assert ident["brand"] == "tanishq"
+    assert ident["variants"] == {"weight": 1, "karat": 24}
+    assert "lakshmi" in ident["all_name"] and "ganesha" in ident["all_name"]
+    assert "1" not in ident["codes"] and "24" not in ident["codes"]
+    assert ss._extract_jsonld_price(_TANISHQ_PAGE) == 15503.0

@@ -16,6 +16,7 @@ from pathlib import Path
 from ..category_classifier import classify_product, restriction_mentions_category
 from ..repositories import buyhatke_repository, maximize_repository, voucher_repository
 from ..repositories import platform_rules_repository as platform_rules
+from ..repositories._brand_matching import find_matches
 
 # Maps the caller-facing payment_method argument to the keys used in the
 # discounts dict of gyftr_master.json / maximize_master.json. "card" means
@@ -1123,10 +1124,10 @@ def calculate_effective_price(price: float, voucher: dict, payment_method: str =
     }
 
 
-def get_best_voucher_deal(merchant_name: str, price: float) -> dict | None:
+def get_best_voucher_deal(merchant_name: str, price: float, product_name: str = "") -> dict | None:
     """UPI-rate voucher deal for merchant_name, or None if no voucher, 0% UPI
     discount, or price below the minimum denomination."""
-    record = voucher_repository.get_by_merchant(merchant_name)
+    record = _card_for_product("gyftr", voucher_repository.all_vouchers(), merchant_name, product_name)
     if record is None:
         return None
     products = [p for p in (record.get("products") or []) if _is_sellable(p)]
@@ -1187,13 +1188,13 @@ def _best_tier_deal(price: float, tiers: list[dict], payment_method: str = "upi"
     return best_deal, best_tier
 
 
-def get_best_maximize_deal(merchant_name: str, price: float) -> tuple[dict, dict, str | None] | None:
+def get_best_maximize_deal(merchant_name: str, price: float, product_name: str = "") -> tuple[dict, dict, str | None] | None:
     """Maximize equivalent of get_best_voucher_deal — returns (deal, tier,
     brand_name). brand_name is the catalog's own clean display name (e.g.
     "AJIO Luxe") — the tier dict itself doesn't carry it, and callers need
     it for display instead of the raw seller string a search result reports
     for this merchant (sometimes a bare domain like "luxe.ajio.com")."""
-    record = maximize_repository.get_by_merchant(merchant_name)
+    record = _card_for_product("maximize", maximize_repository.all_brands(), merchant_name, product_name)
     if record is None:
         return None
     # Canonical schema's actual key is "products" (same as Gyftr), not
@@ -1209,7 +1210,7 @@ def get_best_maximize_deal(merchant_name: str, price: float) -> tuple[dict, dict
         {
             **record, **p,
             "voucher_platform": "Maximize",
-            "voucher_url": p.get("source_url"),
+            "voucher_url": maximize_repository.card_link(p.get("source_url")),
             **_terms_fields(*_listing_vouchers_per_bill("maximize", p.get("source_url"), merchant_name)),
             # Maximize's own real per-order quantity cap, kept under a
             # separate key so it survives the "stacks" override just below —
@@ -1434,7 +1435,7 @@ def _store_value_cap(merchant_name: str) -> float | None:
     return min(caps) if caps else None
 
 
-def get_best_buyhatke_deal(merchant_name: str, price: float) -> tuple[dict, dict, str | None] | None:
+def get_best_buyhatke_deal(merchant_name: str, price: float, product_name: str = "") -> tuple[dict, dict, str | None] | None:
     """BuyHatke equivalent of get_best_maximize_deal — same multi-tier shape
     (different denomination bands can carry different discount %, e.g.
     Myntra's ₹250 tier vs its ₹200/₹500/etc tier), same tier-picking logic.
@@ -1444,7 +1445,7 @@ def get_best_buyhatke_deal(merchant_name: str, price: float) -> tuple[dict, dict
     "Credit Card", so calculate_effective_price's card path naturally yields
     a 0% card discount here instead of a fabricated one.
     """
-    record = buyhatke_repository.get_by_merchant(merchant_name)
+    record = _card_for_product("buyhatke", buyhatke_repository.all_brands(), merchant_name, product_name)
     if record is None:
         return None
     stacks = _store_allows_stacking(merchant_name)
@@ -1590,15 +1591,60 @@ def _excluded_by_rules(rules: dict, category: str | None, product_name: str) -> 
     # away a Tanishq voucher for a gold necklace, which is precisely what it is
     # for. These exclusions are the sellers' own free text, so they are matched
     # against the product's own words instead.
-    words = {w for w in re.findall(r"[a-z]{4,}", product_name.lower())}
+    # Singular and plural are one word: Maximize's Tanishq Diamond card
+    # excludes "gold coins", and the page sells a "Gold Coin" (2026-11-04).
+    words = {_singular(w) for w in re.findall(r"[a-z]{4,}", product_name.lower())}
     for item in excludes:
         text = str(item).lower()
         if text.startswith(("location:", "date:")):
             continue
-        hits = {w for w in re.findall(r"[a-z]{4,}", text)} & words
+        hits = {_singular(w) for w in re.findall(r"[a-z]{4,}", text)} & words
         if len(hits) >= 2:
             return str(item)
     return None
+
+
+def _singular(word: str) -> str:
+    return word[:-1] if len(word) > 4 and word.endswith("s") else word
+
+
+def _card_for_product(source: str, records: list[dict], merchant_name: str, product_name: str = "") -> dict | None:
+    """The seller's card for this shop that this product can be paid with.
+
+    A shop can sell one card per kind of purchase (Tanishq: Gold Coin, Gold
+    Jewellery, Diamond). With no product in hand the usual best name match
+    stands. With one, a card whose own terms exclude the product steps aside
+    for the next card of the family, and a card named for coins is kept for
+    coins: Maximize's "Tanishq Diamond" (4%, "studded jewellery only", excludes
+    gold coins) was the answer for a ₹15,503 gold coin because it has the
+    shortest name, while the 1% "Tanishq Gold Coin" card that actually pays
+    for it was never looked at (Kartik's demo, 2026-11-04).
+    """
+    matches = find_matches(merchant_name, records)
+    if not product_name or len(matches) <= 1:
+        return matches[0] if matches else None
+    try:
+        category = classify_product(product_name)
+    except Exception:
+        category = None
+    product_words = {_singular(w) for w in re.findall(r"[a-z]+", product_name.lower())}
+    for rec in matches:
+        rules = _standardised_rules(source, rec.get("slug") or "")
+        if _excluded_by_rules(rules, category, product_name):
+            continue
+        card_words = set(_card_words(rec.get("brand_name") or ""))
+        if "coin" in card_words and "coin" not in product_words:
+            continue
+        # A diamond/studded card pays for studded jewellery; a plain gold
+        # necklace takes the family's gold-jewellery card instead.
+        if card_words & _STUDDED_CARD_WORDS and not product_words & _STUDDED_PRODUCT_WORDS:
+            continue
+        return rec
+    return None
+
+
+_STUDDED_CARD_WORDS = {"diamond", "studded"}
+_STUDDED_PRODUCT_WORDS = {"diamond", "studded", "solitaire", "platinum", "gemstone", "polki", "kundan"}
 
 
 def build_deals(results: list[dict], product_name: str = "") -> list[dict]:
@@ -1641,22 +1687,22 @@ def build_deals(results: list[dict], product_name: str = "") -> list[dict]:
             slug = (rec or {}).get("slug") or _slug_for(source, brand or merchant)
             return _standardised_rules(source, slug) if slug else {}
 
-        gyftr_voucher = voucher_repository.get_by_merchant(merchant)
+        gyftr_voucher = _card_for_product("gyftr", voucher_repository.all_vouchers(), merchant, product_name)
         gyftr_rules = _rules_for(gyftr_voucher, "gyftr")
         gyftr_deal = None
         if gyftr_voucher is not None and not _category_blocked(
                 gyftr_voucher.get("redemption_restrictions", [])) and not _excluded_by_rules(
                 gyftr_rules, category, product_name):
-            gyftr_deal = get_best_voucher_deal(merchant, price)
+            gyftr_deal = get_best_voucher_deal(merchant, price, product_name)
 
         # Maximize and BuyHatke never had a redemption_restrictions field, so
         # category filtering used to apply to Gyftr alone. The read terms carry
         # an exclusion list for all three now, so the same product that is
         # blocked on one source is blocked on the others.
-        maximize_result = get_best_maximize_deal(merchant, price)
+        maximize_result = get_best_maximize_deal(merchant, price, product_name)
         maximize_deal, maximize_tier, maximize_brand_name = maximize_result if maximize_result else (None, None, None)
 
-        buyhatke_result = get_best_buyhatke_deal(merchant, price)
+        buyhatke_result = get_best_buyhatke_deal(merchant, price, product_name)
         buyhatke_deal, buyhatke_tier, buyhatke_brand_name = buyhatke_result if buyhatke_result else (None, None, None)
 
         candidates = [
@@ -2267,6 +2313,7 @@ def get_voucher_check(merchant_name: str, price: float | None = None) -> dict | 
     hits = _prefer_exact_name_matches(hits, merchant_name, brand_index=2)
     pct, product, brand_name, voucher_source = max(hits, key=lambda h: h[0])
     voucher_url = product.get("voucher_url") or product.get("source_url")
+    voucher_url = maximize_repository.card_link(voucher_url)
     if voucher_source == "gyftr" and not voucher_url:
         voucher_url = f"https://www.gyftr.com/{product.get('slug') or ''}"
 

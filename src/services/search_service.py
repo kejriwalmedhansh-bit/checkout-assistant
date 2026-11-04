@@ -2647,7 +2647,8 @@ def _fetch_url_page(url: str) -> tuple[str | None, float | None, str | None, str
         from the same HTML for free. Skipped entirely when there's nothing
         left to recover.
         """
-        need_price = render_merchant_name is not None
+        price_merchant = render_merchant_name or _jsonld_host_merchant(render_host)
+        need_price = price_merchant is not None
         if not need_title and not need_price:
             return None, None, None, None
         if _should_skip_render(render_host):
@@ -2679,7 +2680,23 @@ def _fetch_url_page(url: str) -> tuple[str | None, float | None, str | None, str
         elif need_title:
             logger.info("[url-search] %s render had no usable title for %s", render_source, render_host)
 
-        render_image = _extract_page_image(markup, url)
+        # The same brand-name and own-shop reading the plain fetch does
+        # (below): a blocked page that renders is still the brand's own page.
+        # Found 2026-11-04 on tanishq.co.in (403 to every plain fetch): the
+        # rendered title "1 gram 24 Karat Gold Coin..." was searched without
+        # "Tanishq", so "1" became the brand and BlueStone coins were
+        # recommended, while the page's own ₹15,503 offer price (a host
+        # hand-checked for JSON-LD prices since 2026-07-28) was never read
+        # because this path only trusted _RENDER_PRICE_HOSTS.
+        _, jsonld_brand, jsonld_image = _extract_jsonld_product(markup)
+        brand_site = _brand_website_name(markup, render_host, jsonld_brand)
+        if render_title:
+            branded = _title_with_brand(render_title, brand_site or _clean_brand_name(jsonld_brand))
+            if branded != render_title:
+                logger.info("[url-search] rendered title had no brand, searching %r", branded)
+                render_title = branded
+
+        render_image = _extract_page_image(markup, url) or jsonld_image
         if render_image:
             logger.info("[url-search] image via %s: %s", render_source, render_image)
 
@@ -2688,17 +2705,21 @@ def _fetch_url_page(url: str) -> tuple[str | None, float | None, str | None, str
         # against the page's real selling price" is not — an unverified host
         # could be handing us an MRP or a range. A title is a name; a price
         # is a promise, and only the second one needs the whitelist.
+        # A brand's own shop (known only once the page is read) is trusted
+        # the same way the plain fetch trusts it: its offer is today's price.
+        price_merchant = price_merchant or brand_site
+        need_price = price_merchant is not None
         render_price = _extract_jsonld_price(markup) if need_price else None
         if render_price is not None:
             logger.info(
-                "[url-search] %s live price via %s: %s", render_merchant_name, render_source, render_price
+                "[url-search] %s live price via %s: %s", price_merchant, render_source, render_price
             )
         elif need_price:
             logger.info("[url-search] %s fallback found no price for %s", render_source, render_host)
         return (
             render_title,
             render_price,
-            render_merchant_name if render_price is not None else None,
+            price_merchant if render_price is not None else None,
             render_image,
         )
 

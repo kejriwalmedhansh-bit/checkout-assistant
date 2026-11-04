@@ -32,6 +32,7 @@ from ..rate_limit import client_ip
 from ...constants import CUELINKS_BASE, INRDEALS_BASE, OUTBOUND_ALLOWED_HOSTS
 from ...repositories.affiliate_coverage_repository import network_for_brand
 from ...repositories.domain_brand_repository import brand_for_domain
+from ...repositories import maximize_repository
 from ...services import analytics_service
 
 router = APIRouter(tags=["redirect"])
@@ -143,6 +144,11 @@ async def out(
         raise HTTPException(status_code=400, detail="destination not allowed")
     surface, did, props = _context(request, surface, did, ctx)
     event = "Card Link Opened" if kind == "card_apply" else "Voucher Site Opened"
+    # A Maximize catalogue link opens the brand's default card, not the one
+    # named; rewrite it the way Maximize's own listing links a card. Safety
+    # net for links built before this fix (shared WhatsApp messages, the
+    # extension) - see maximize_repository.card_link.
+    url = maximize_repository.card_link(url) or url
 
     analytics_service.fire(analytics_service.build_event(
         event,

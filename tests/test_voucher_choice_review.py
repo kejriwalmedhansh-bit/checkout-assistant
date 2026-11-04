@@ -138,7 +138,7 @@ def test_amazon_shopping_never_offers_a_prime_voucher():
         for c in choices:
             assert ("prime" in c["brand_name"].lower()) == ("prime" in c["choice_label"].lower()), (price, c["brand_name"], c["choice_label"])
     deal = voucher_service.get_best_maximize_deal("Amazon", 1200)
-    assert deal and "/1084" in deal[0]["voucher_url"]
+    assert deal and "giftcardId=1084" in deal[0]["voucher_url"]  # the card link (see maximize_repository.card_link)
 
 
 def test_new_voucher_names_at_a_reviewed_shop_wait_for_review():
