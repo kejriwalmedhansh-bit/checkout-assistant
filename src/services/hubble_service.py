@@ -50,6 +50,18 @@ _ALIASES = _DATA / "hubble_aliases.json"
 # voucher under Gyftr's "Luxe" label; the shop is "Hugo Boss".
 _LUXE_SUFFIX = re.compile(r"[\s-]*luxe\s+(gift|brand)\s+card$", re.IGNORECASE)
 _TLD = re.compile(r"\.(com|in|co\.in|net|org|co)(/.*)?$")
+# Words a partner's listing hangs on the shop's name that say nothing about
+# which shop it is: "PVR Cinemas - GYFTR", "Zomato Gift Card", "Swiggy Money
+# Voucher", "Bigbasket (Custom)", "Pantaloons (In Store, 4 Hr Wait)". Peeled
+# off the end, one layer at a time, before the shop key is built. Hubble's
+# own titles are never touched, so "Dominos Fixed" and "Zomato Fixed" stay
+# the distinct vouchers they are.
+_LISTING_DECOR = re.compile(
+    r"\s*(?:\((?:in[\s-]?store|offline|custom|fixed)[^)]*\)"
+    r"|-\s*(?:gyftr|fixed)"
+    r"|e-?gift\s*(?:card|voucher)|gift\s*(?:card|voucher)|voucher|money)\s*$",
+    re.IGNORECASE,
+)
 # Hubble asks partners not to hold store data for long; ten minutes keeps a
 # busy results page from calling them on every view.
 _PRODUCT_TTL_SECONDS = 600
@@ -84,11 +96,18 @@ def _aliases() -> dict[str, list[str]]:
     return {k: v for k, v in json.loads(_ALIASES.read_text()).items() if not k.startswith("_")}
 
 
-def shop_key(merchant: str) -> str:
+def shop_key(merchant: str, strip_decor: bool = True) -> str:
     """The shop behind a results-page name: "Amazon.in", "AJIO.com",
     "Hamleys India", "Westside (in-store)" all become amazon / ajio /
-    hamleys / westside."""
-    name = re.sub(r"\s*\(in-store\)\s*$", "", merchant or "", flags=re.IGNORECASE).strip().lower()
+    hamleys / westside. With strip_decor, a partner listing's decoration
+    goes too: "PVR Cinemas - GYFTR" -> pvrcinemas, "Zomato Gift Card" ->
+    zomato."""
+    name = (merchant or "").strip().lower()
+    while strip_decor:
+        bare = _LISTING_DECOR.sub("", name).strip()
+        if bare == name or not bare:
+            break
+        name = bare
     name = re.sub(r"^(https?://)?(www\.)?", "", name)
     name = _TLD.sub("", name)
     return normalize(_strip_generic_suffix_words(name))
@@ -102,17 +121,25 @@ def brand_for(merchant: str, in_store: bool = False) -> dict | None:
     (data/hubble_aliases.json), or a "-Luxe Gift Card" title for the same
     shop. Two candidates with no way to tell them apart means neither."""
     want = "OFFLINE" if in_store else "ONLINE"
-    key = shop_key(merchant)
-    if not key:
-        return None
     exact, luxe = _catalogue(_catalogue_path())
-    names = _aliases().get(key)
-    if names:
-        pool = [b for n in names for b in exact.get(normalize(n), [])]
-    else:
-        pool = exact.get(key) or luxe.get(key) or []
-    fits = [b for b in pool if want in b["works"]]
-    return fits[0] if len(fits) == 1 else None
+    aliases = _aliases()
+    # The name as given first ("Hugo Boss-Luxe Gift Card" is a Hubble title
+    # of its own); the listing's decoration comes off only when that finds
+    # nothing ("Zomato Gift Card" -> Zomato).
+    tried: set[str] = set()
+    for key in (shop_key(merchant, strip_decor=False), shop_key(merchant)):
+        if not key or key in tried:
+            continue
+        tried.add(key)
+        names = aliases.get(key)
+        if names:
+            pool = [b for n in names for b in exact.get(normalize(n), [])]
+        else:
+            pool = exact.get(key) or luxe.get(key) or []
+        fits = [b for b in pool if want in b["works"]]
+        if len(fits) == 1:
+            return fits[0]
+    return None
 
 
 def buy_slug(brand_name: str) -> str:
