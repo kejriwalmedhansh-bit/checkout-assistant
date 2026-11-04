@@ -1210,7 +1210,7 @@ def get_best_maximize_deal(merchant_name: str, price: float, product_name: str =
         {
             **record, **p,
             "voucher_platform": "Maximize",
-            "voucher_url": p.get("source_url"),
+            "voucher_url": maximize_repository.card_link(p.get("source_url")),
             **_terms_fields(*_listing_vouchers_per_bill("maximize", p.get("source_url"), merchant_name)),
             # Maximize's own real per-order quantity cap, kept under a
             # separate key so it survives the "stacks" override just below —
@@ -2313,6 +2313,7 @@ def get_voucher_check(merchant_name: str, price: float | None = None) -> dict | 
     hits = _prefer_exact_name_matches(hits, merchant_name, brand_index=2)
     pct, product, brand_name, voucher_source = max(hits, key=lambda h: h[0])
     voucher_url = product.get("voucher_url") or product.get("source_url")
+    voucher_url = maximize_repository.card_link(voucher_url)
     if voucher_source == "gyftr" and not voucher_url:
         voucher_url = f"https://www.gyftr.com/{product.get('slug') or ''}"
 
