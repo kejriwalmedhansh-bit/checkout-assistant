@@ -59,8 +59,9 @@ CASES = [
      "rule 3 — needs ₹5,000 + ₹2,000, and Maximize has no cart"),
     ("myfrido.com", 29999, "gyftr",
      "rule 3/4 — the order that was wrongly sent to Maximize as 8 purchases"),
-    ("skullcandy.in", 5000, "buyhatke",
-     "rule 2 — one voucher, BuyHatke cheapest"),
+    ("skullcandy.in", 5000, "maximize",
+     "rule 2 — one voucher, Maximize's 17.5% beats BuyHatke's 16.77% "
+     "(BuyHatke was cheapest at 17.61% until the 2026-11-05 refresh)"),
     ("skullcandy.in", 12000, "maximize",
      "rule 1+3 — still one typed-in amount only, but ₹10,000 there plus "
      "₹2,000 on the card is one checkout and beats Gyftr's three-voucher basket"),

@@ -28982,11 +28982,11 @@
     "rules": {
       "can_combine": {
         "value": "no",
-        "evidence": "Only one GV/GC can be used per subscription."
+        "evidence": "Maximum 1 voucher can be in one transaction"
       },
       "max_cards_per_order": {
         "value": 1,
-        "evidence": "Only one GV/GC can be used per subscription."
+        "evidence": "Maximum 1 voucher can be in one transaction"
       },
       "ceiling_amount": {
         "value": "not_stated",
@@ -28998,11 +28998,11 @@
       },
       "one_time_use": {
         "value": "yes",
-        "evidence": "This GV/GC is valid for one-time use only and has an expiration date."
+        "evidence": "This voucher can be used only 1 time"
       },
       "works_online": {
         "value": "yes",
-        "evidence": "This Gift Voucher/Gift Card (GV/GC) is valid only on subscription.alistetechnologies.com."
+        "evidence": "This voucher can be used only online"
       },
       "works_in_store": {
         "value": "no",
@@ -29014,7 +29014,7 @@
       },
       "combines_with_store_offers": {
         "value": "no",
-        "evidence": "This GV/GC cannot be combined with any ongoing offers on the website."
+        "evidence": "The GV/GC cannot be clubbed with any existing offer on its website."
       },
       "min_order_value": {
         "value": "not_stated",
@@ -29033,8 +29033,8 @@
         "evidence": ""
       },
       "spend_scope": {
-        "value": "Aliste subscriptions on subscription.alistetechnologies.com only",
-        "evidence": "This Gift Voucher/Gift Card (GV/GC) is valid only on subscription.alistetechnologies.com."
+        "value": "Subscriptions on subscription.alistetechnologies.com",
+        "evidence": "will be accepted only online on the website subscription.alistetechnologies.com."
       }
     }
   },
@@ -29640,7 +29640,7 @@
     "rules": {
       "can_combine": {
         "value": "yes",
-        "evidence": "Multiple Instant Gift Vouchers can be used against one bill at the outlet"
+        "evidence": "Multiple GVs can be used against one bill for outlet redemption."
       },
       "max_cards_per_order": {
         "value": null,
@@ -29655,24 +29655,24 @@
         "evidence": ""
       },
       "one_time_use": {
-        "value": "yes",
-        "evidence": "This voucher can be used only 1 time"
+        "value": "not_stated",
+        "evidence": ""
       },
       "works_online": {
         "value": "yes",
-        "evidence": "The Gift Vouchers are acceptable at the outlet and online at archiesonline.com"
+        "evidence": "This voucher can be used both online and in-store"
       },
       "works_in_store": {
         "value": "yes",
-        "evidence": "The Gift Vouchers are acceptable at the outlet and online at archiesonline.com"
+        "evidence": "This voucher can be used both online and in-store"
       },
       "works_on_sale_items": {
         "value": "not_stated",
         "evidence": ""
       },
       "combines_with_store_offers": {
-        "value": "not_stated",
-        "evidence": ""
+        "value": "yes",
+        "evidence": "The GV/e-Pay can be clubbed with existing offers."
       },
       "min_order_value": {
         "value": "not_stated",
@@ -29680,9 +29680,11 @@
       },
       "excludes": {
         "value": [
-          "date: specific block out dates"
+          "date: specific block-out dates",
+          "location: only listed Archies outlets",
+          "location: once added to e-Pay balance, cannot be used at retail outlets"
         ],
-        "evidence": "This Instant Gift Voucher cannot be redeemed on specific block out dates. Archies may add or delete any date on its sole discretion"
+        "evidence": "The GV/e-Pay cannot be redeemed on specific block-out dates."
       },
       "max_spend_per_purchase": {
         "value": "not_stated",
@@ -30230,11 +30232,11 @@
     "rules": {
       "can_combine": {
         "value": "no",
-        "evidence": "Only one voucher allowed per transaction."
+        "evidence": "More than 1 voucher cannot be clubbed together"
       },
       "max_cards_per_order": {
         "value": 1,
-        "evidence": "Only one voucher allowed per transaction."
+        "evidence": "More than 1 voucher cannot be clubbed together"
       },
       "ceiling_amount": {
         "value": "not_stated",
@@ -30246,11 +30248,11 @@
       },
       "one_time_use": {
         "value": "yes",
-        "evidence": "One-time use only. No credit/refund for unused balance of the voucher."
+        "evidence": "Auric Gift Voucher is a One-time use Gift Voucher"
       },
       "works_online": {
         "value": "yes",
-        "evidence": "Valid only on https://www.theauric.com."
+        "evidence": "This voucher can be used only online"
       },
       "works_in_store": {
         "value": "no",
@@ -30262,7 +30264,7 @@
       },
       "combines_with_store_offers": {
         "value": "no",
-        "evidence": "Cannot be combined with any other coupon or voucher."
+        "evidence": "Vouchers cannot be clubbed with any other coupon or voucher."
       },
       "min_order_value": {
         "value": "not_stated",
@@ -30270,9 +30272,9 @@
       },
       "excludes": {
         "value": [
-          "Ghee purchases"
+          "Ghee"
         ],
-        "evidence": "Not valid on Ghee purchases."
+        "evidence": "The GV is not valid on the purchase of Ghee"
       },
       "max_spend_per_purchase": {
         "value": "not_stated",
@@ -30283,8 +30285,8 @@
         "evidence": ""
       },
       "spend_scope": {
-        "value": "https://www.theauric.com only",
-        "evidence": "Valid only on https://www.theauric.com."
+        "value": "not_stated",
+        "evidence": ""
       }
     }
   },
@@ -32246,7 +32248,7 @@
     "rules": {
       "can_combine": {
         "value": "yes",
-        "evidence": "Multiple Gift Vouchers can be used in a single transaction or Gift Voucher can be combined with any other payment type on BookMyShow."
+        "evidence": "Multiple cards can be used in 1 transaction"
       },
       "max_cards_per_order": {
         "value": null,
@@ -32262,23 +32264,23 @@
       },
       "one_time_use": {
         "value": "no",
-        "evidence": "Gift Voucher can be used multiple times until the last rupee loaded on it gets exhausted within the validity period."
+        "evidence": "Comes with 6 months validity and a gift card can be used multiple times"
       },
       "works_online": {
         "value": "yes",
-        "evidence": "Gift Voucher can be redeemed only on BookMyShow Website/Mobile App & cannot be redeemed directly at the Cinema/Venue Box Office."
+        "evidence": "This voucher can be used only online"
       },
       "works_in_store": {
         "value": "no",
-        "evidence": "Gift Voucher can be redeemed only on BookMyShow Website/Mobile App & cannot be redeemed directly at the Cinema/Venue Box Office."
+        "evidence": "Cannot be redeemed at the Box Office, cinema halls or venues"
       },
       "works_on_sale_items": {
         "value": "not_stated",
         "evidence": ""
       },
       "combines_with_store_offers": {
-        "value": "not_stated",
-        "evidence": ""
+        "value": "yes",
+        "evidence": "All brand-funded offers can be clubbed during the purchase"
       },
       "min_order_value": {
         "value": "not_stated",
@@ -32286,10 +32288,11 @@
       },
       "excludes": {
         "value": [
-          "another Gift Card",
-          "location: Cinema/Venue Box Office"
+          "Purchase of another gift card",
+          "Other gift cards",
+          "location: Box Office, cinema halls or venues"
         ],
-        "evidence": "Gift Voucher cannot be used to purchase another Gift Card."
+        "evidence": "Gift card balance cannot be used to purchase another gift card"
       },
       "max_spend_per_purchase": {
         "value": "not_stated",
@@ -32300,8 +32303,8 @@
         "evidence": ""
       },
       "spend_scope": {
-        "value": "E-tickets for Movies/Virtual Events/Plays/Concerts/Sports/BMS Stream on BookMyShow",
-        "evidence": "Gift Voucher can be redeemed on the purchase of e-tickets for Movies/Virtual Events/Plays/Concerts/Sports/BMS Stream available on BookMyShow."
+        "value": "not_stated",
+        "evidence": ""
       }
     }
   },
@@ -32697,80 +32700,6 @@
       }
     }
   },
-  "buyhatke:brooks-brothers-luxe-gift-card": {
-    "brand_name": "Brooks Brothers Luxe",
-    "source": "buyhatke",
-    "slug": "brooks-brothers-luxe-gift-card",
-    "rules": {
-      "can_combine": {
-        "value": "not_stated",
-        "evidence": ""
-      },
-      "max_cards_per_order": {
-        "value": null,
-        "evidence": ""
-      },
-      "ceiling_amount": {
-        "value": "not_stated",
-        "evidence": ""
-      },
-      "ceiling_period": {
-        "value": "not_stated",
-        "evidence": ""
-      },
-      "one_time_use": {
-        "value": "not_stated",
-        "evidence": ""
-      },
-      "works_online": {
-        "value": "not_stated",
-        "evidence": ""
-      },
-      "works_in_store": {
-        "value": "not_stated",
-        "evidence": ""
-      },
-      "works_on_sale_items": {
-        "value": "not_stated",
-        "evidence": ""
-      },
-      "combines_with_store_offers": {
-        "value": "not_stated",
-        "evidence": ""
-      },
-      "min_order_value": {
-        "value": "not_stated",
-        "evidence": ""
-      },
-      "excludes": {
-        "value": [
-          "n",
-          "o",
-          "t",
-          "_",
-          "s",
-          "t",
-          "a",
-          "t",
-          "e",
-          "d"
-        ],
-        "evidence": ""
-      },
-      "max_spend_per_purchase": {
-        "value": "not_stated",
-        "evidence": ""
-      },
-      "delivery_wait_days": {
-        "value": "not_stated",
-        "evidence": ""
-      },
-      "spend_scope": {
-        "value": "not_stated",
-        "evidence": ""
-      }
-    }
-  },
   "buyhatke:campus-(in-store)-gift-card": {
     "brand_name": "Campus (In Store)",
     "source": "buyhatke",
@@ -32778,7 +32707,7 @@
     "rules": {
       "can_combine": {
         "value": "yes",
-        "evidence": "Multiple GV/GCs can be combined and added to the e-Pay balance."
+        "evidence": "Multiple Gift cards can be combined"
       },
       "max_cards_per_order": {
         "value": null,
@@ -32802,7 +32731,7 @@
       },
       "works_in_store": {
         "value": "yes",
-        "evidence": "This is a Campus Gift Voucher (GV)/Gift Card (GC)/e-Pay and would be only accepted at the listed stores."
+        "evidence": "This voucher can be used only in-store"
       },
       "works_on_sale_items": {
         "value": "not_stated",
@@ -32820,7 +32749,7 @@
         "value": [
           "location: only the listed stores"
         ],
-        "evidence": "This is a Campus Gift Voucher (GV)/Gift Card (GC)/e-Pay and would be only accepted at the listed stores."
+        "evidence": "Comes with 6 months validity and would be only accepted at the listed stores"
       },
       "max_spend_per_purchase": {
         "value": "not_stated",
@@ -34280,8 +34209,8 @@
         "evidence": ""
       },
       "one_time_use": {
-        "value": "no",
-        "evidence": "Any unused amount shall remain as EPay balance which can be utilized till the balance gets exhausted or expires."
+        "value": "not_stated",
+        "evidence": ""
       },
       "works_online": {
         "value": "no",
@@ -34293,7 +34222,7 @@
       },
       "works_on_sale_items": {
         "value": "no",
-        "evidence": "The ColorPlus GV / GC will not be applicable for Custom Tailoring bills."
+        "evidence": "The ColorPlus GV / GC will not be applicable for Custom Tailoring bills. GV/e-Pay can be used during the End of Season Sale (EOSS), but they cannot be applied to discounted products during the sale."
       },
       "combines_with_store_offers": {
         "value": "no",
@@ -34306,11 +34235,12 @@
       "excludes": {
         "value": [
           "Custom Tailoring bills",
-          "discounted products during the sale",
+          "Discounted products during End of Season Sale (EOSS)",
+          "Discounted products during End of Season Sale",
           "date: specific block out dates",
           "location: only listed outlets"
         ],
-        "evidence": "The ColorPlus GV / GC will not be applicable for Custom Tailoring bills."
+        "evidence": "The ColorPlus GV / GC will not be applicable for Custom Tailoring bills. GV/e-Pay can be used during the End of Season Sale (EOSS), but they cannot be applied to discounted products during the sale."
       },
       "max_spend_per_purchase": {
         "value": "not_stated",
@@ -34321,7 +34251,7 @@
         "evidence": ""
       },
       "spend_scope": {
-        "value": "ready-made products only",
+        "value": "Ready-made products only",
         "evidence": "The ColorPlus GV / GC can only be used to purchase ready-made products."
       }
     }
@@ -35004,7 +34934,7 @@
       },
       "one_time_use": {
         "value": "yes",
-        "evidence": "Comes with a 3 month validity. The gift card can only be used once"
+        "evidence": "This voucher can be used only 1 time"
       },
       "works_online": {
         "value": "yes",
@@ -35599,8 +35529,8 @@
         "evidence": ""
       },
       "combines_with_store_offers": {
-        "value": "yes",
-        "evidence": "It can be used for all product and service purchases on the Duroflex website and is applicable over and above any discounts offered."
+        "value": "not_stated",
+        "evidence": ""
       },
       "min_order_value": {
         "value": "not_stated",
@@ -35951,12 +35881,12 @@
     "slug": "eatsure-gift-card",
     "rules": {
       "can_combine": {
-        "value": "yes",
-        "evidence": "Multiple GV/GC can be combined and added to the EatSure wallet balance."
+        "value": "no",
+        "evidence": "Only 1 Gift Card can be used per order."
       },
       "max_cards_per_order": {
-        "value": null,
-        "evidence": ""
+        "value": 1,
+        "evidence": "Only 1 Gift Card can be used per order."
       },
       "ceiling_amount": {
         "value": "not_stated",
@@ -35967,8 +35897,8 @@
         "evidence": ""
       },
       "one_time_use": {
-        "value": "not_stated",
-        "evidence": ""
+        "value": "no",
+        "evidence": "Can be used multiple times until the balance is exhausted."
       },
       "works_online": {
         "value": "yes",
@@ -35979,20 +35909,22 @@
         "evidence": "This voucher can be used only online"
       },
       "works_on_sale_items": {
-        "value": "no",
-        "evidence": "GV/GC can be used to buy discounted items on the EatSure app, but it cannot be clubbed with other aggregator offers."
+        "value": "not_stated",
+        "evidence": ""
       },
       "combines_with_store_offers": {
-        "value": "no",
-        "evidence": "GV/GC can be used to buy discounted items on the EatSure app, but it cannot be clubbed with other aggregator offers."
+        "value": "not_stated",
+        "evidence": ""
       },
       "min_order_value": {
         "value": "not_stated",
         "evidence": ""
       },
       "excludes": {
-        "value": [],
-        "evidence": ""
+        "value": [
+          "location: EatSure website (app only)"
+        ],
+        "evidence": "Can only be redeemed on the EatSure Android/iOS app."
       },
       "max_spend_per_purchase": {
         "value": "not_stated",
@@ -36529,11 +36461,11 @@
     "rules": {
       "can_combine": {
         "value": "yes",
-        "evidence": "Up to 5 gift cards can be used per order"
+        "evidence": "Maximum of five GV/GCs can be redeemed against a single invoice."
       },
       "max_cards_per_order": {
         "value": 5,
-        "evidence": "Up to 5 gift cards can be used per order"
+        "evidence": "Maximum of five GV/GCs can be redeemed against a single invoice."
       },
       "ceiling_amount": {
         "value": "not_stated",
@@ -36549,27 +36481,29 @@
       },
       "works_online": {
         "value": "yes",
-        "evidence": "Only redeemable at: www.estele.co"
+        "evidence": "This voucher can be used only online"
       },
       "works_in_store": {
         "value": "no",
-        "evidence": "Only redeemable at: www.estele.co"
+        "evidence": "This voucher can be used only online"
       },
       "works_on_sale_items": {
         "value": "not_stated",
         "evidence": ""
       },
       "combines_with_store_offers": {
-        "value": "not_stated",
-        "evidence": ""
+        "value": "yes",
+        "evidence": "The GV/GC can be clubbed with existing promotions on the website."
       },
       "min_order_value": {
         "value": "not_stated",
         "evidence": ""
       },
       "excludes": {
-        "value": [],
-        "evidence": ""
+        "value": [
+          "location: offline retail outlets, multi brand or departmental stores, and marketplaces like Amazon, Flipkart, Paytm"
+        ],
+        "evidence": "The GV/GC cannot be redeemed at offline retail outlets, any other multi brand or departmental stores or any other marketplaces like Amazon, Flipkart, Paytm etc. for purchase of Estele products."
       },
       "max_spend_per_purchase": {
         "value": "not_stated",
@@ -36577,7 +36511,7 @@
       },
       "delivery_wait_days": {
         "value": 1.0,
-        "evidence": "E-Gift cards are generally delivered instantly (may take up to 24 hours)"
+        "evidence": "GV/GCs are normally delivered instantly. However, due to system issues, the delivery can be delayed up to 24 hours."
       },
       "spend_scope": {
         "value": "not_stated",
@@ -36655,7 +36589,7 @@
     "rules": {
       "can_combine": {
         "value": "yes",
-        "evidence": "Multiple GVs can be used in one bill"
+        "evidence": "Multiple GV/GCs can be used against one bill."
       },
       "max_cards_per_order": {
         "value": null,
@@ -36671,15 +36605,15 @@
       },
       "one_time_use": {
         "value": "yes",
-        "evidence": "One-time use voucher - balance not reusable"
+        "evidence": "This voucher can be used only 1 time"
       },
       "works_online": {
         "value": "yes",
-        "evidence": "Online only at euphoriajewellery.in"
+        "evidence": "This voucher can be used only online"
       },
       "works_in_store": {
         "value": "no",
-        "evidence": "Online only at euphoriajewellery.in"
+        "evidence": "This voucher can be used only online"
       },
       "works_on_sale_items": {
         "value": "not_stated",
@@ -36687,7 +36621,7 @@
       },
       "combines_with_store_offers": {
         "value": "yes",
-        "evidence": "Can be clubbed with ongoing website promotions, but not with other coupons"
+        "evidence": "The GV/GC can be clubbed with ongoing promotions on the website, but cannot be clubbed with any other coupon."
       },
       "min_order_value": {
         "value": "not_stated",
@@ -36695,9 +36629,10 @@
       },
       "excludes": {
         "value": [
-          "date: blockout dates"
+          "Other coupons",
+          "date: specific block-out dates"
         ],
-        "evidence": "Cannot be redeemed on blockout dates (subject to change by A.himanshu)"
+        "evidence": "The GV/GC cannot be redeemed on specific block-out dates."
       },
       "max_spend_per_purchase": {
         "value": "not_stated",
@@ -36708,8 +36643,8 @@
         "evidence": ""
       },
       "spend_scope": {
-        "value": "Gold and Silver coins only",
-        "evidence": "Applicable only for purchasing Gold and Silver coins"
+        "value": "Gold and Silver Coins only",
+        "evidence": "The offer is valid only for the purchase of Gold and Silver Coins on https://euphoriajewellery.in."
       }
     }
   },
@@ -37574,7 +37509,7 @@
     "rules": {
       "can_combine": {
         "value": "yes",
-        "evidence": "Multiple GVs can be combined and added to your Femmella e-Pay balance."
+        "evidence": "Multiple GVs can be clubbed and added to the Femmella e-Pay balance."
       },
       "max_cards_per_order": {
         "value": null,
@@ -37605,8 +37540,8 @@
         "evidence": ""
       },
       "combines_with_store_offers": {
-        "value": "yes",
-        "evidence": "GV/e-Pay can be used along with ongoing discounts or sales on the website."
+        "value": "not_stated",
+        "evidence": ""
       },
       "min_order_value": {
         "value": "not_stated",
@@ -37764,12 +37699,12 @@
     "slug": "firstcry-gift-card",
     "rules": {
       "can_combine": {
-        "value": "not_stated",
-        "evidence": ""
+        "value": "no",
+        "evidence": "Multiple GCs cannot be applied for a single order."
       },
       "max_cards_per_order": {
-        "value": null,
-        "evidence": ""
+        "value": 1,
+        "evidence": "Multiple GCs cannot be applied for a single order."
       },
       "ceiling_amount": {
         "value": "not_stated",
@@ -37780,16 +37715,16 @@
         "evidence": ""
       },
       "one_time_use": {
-        "value": "not_stated",
-        "evidence": ""
+        "value": "no",
+        "evidence": "Single E-Gift Card value can be redeemed in multiple purchases."
       },
       "works_online": {
-        "value": "not_stated",
-        "evidence": ""
+        "value": "yes",
+        "evidence": "This voucher can be used only online"
       },
       "works_in_store": {
-        "value": "not_stated",
-        "evidence": ""
+        "value": "yes",
+        "evidence": "The E-Gift Card can be used against your purchase on FirstCry.com App/Website as well as in the Offline Store."
       },
       "works_on_sale_items": {
         "value": "not_stated",
@@ -37805,18 +37740,9 @@
       },
       "excludes": {
         "value": [
-          "n",
-          "o",
-          "t",
-          "_",
-          "s",
-          "t",
-          "a",
-          "t",
-          "e",
-          "d"
+          "location: orders shipped outside India"
         ],
-        "evidence": ""
+        "evidence": "E-Gift Card may only be redeemed for orders shipped in India."
       },
       "max_spend_per_purchase": {
         "value": "not_stated",
@@ -38416,11 +38342,11 @@
     "rules": {
       "can_combine": {
         "value": "no",
-        "evidence": "Can be combined with promo codes and other digital payments, but only one gift card can be used per order."
+        "evidence": "Multiple gift cards cannot be clubbed in one order and the user needs to add the Gift Card to the EatSure User Account"
       },
       "max_cards_per_order": {
         "value": 1,
-        "evidence": "Can be combined with promo codes and other digital payments, but only one gift card can be used per order."
+        "evidence": "Multiple gift cards cannot be clubbed in one order and the user needs to add the Gift Card to the EatSure User Account"
       },
       "ceiling_amount": {
         "value": "not_stated",
@@ -38432,7 +38358,7 @@
       },
       "one_time_use": {
         "value": "no",
-        "evidence": "Supports multiple redemptions until balance is exhausted."
+        "evidence": "The EatSure Gift Card can be redeemed multiple times until the value of the Gift Card is exhausted"
       },
       "works_online": {
         "value": "yes",
@@ -38447,8 +38373,8 @@
         "evidence": ""
       },
       "combines_with_store_offers": {
-        "value": "yes",
-        "evidence": "Can be combined with promo codes and other digital payments, but only one gift card can be used per order."
+        "value": "not_stated",
+        "evidence": ""
       },
       "min_order_value": {
         "value": "not_stated",
@@ -38463,8 +38389,8 @@
         "evidence": ""
       },
       "delivery_wait_days": {
-        "value": 2.0,
-        "evidence": "Usually delivered instantly, but delivery can take up to 24–48 hours in case of system issues."
+        "value": "not_stated",
+        "evidence": ""
       },
       "spend_scope": {
         "value": "not_stated",
@@ -38927,8 +38853,8 @@
     "slug": "future-world-apple-gift-card",
     "rules": {
       "can_combine": {
-        "value": "yes",
-        "evidence": "Multiple GVs can be combined and added to the e-Pay balance."
+        "value": "not_stated",
+        "evidence": ""
       },
       "max_cards_per_order": {
         "value": null,
@@ -38959,24 +38885,26 @@
         "evidence": ""
       },
       "combines_with_store_offers": {
-        "value": "not_stated",
-        "evidence": ""
+        "value": "no",
+        "evidence": "The GV/e-Pay cannot be clubbed with any ongoing offer."
       },
       "min_order_value": {
         "value": "not_stated",
         "evidence": ""
       },
       "excludes": {
-        "value": [],
-        "evidence": ""
+        "value": [
+          "location: only listed stores"
+        ],
+        "evidence": "This is a FutureWorld GV (Gift Voucher)/e-Pay, and it can be redeemed at all the listed stores and at www.futureworldindia.co.in."
       },
       "max_spend_per_purchase": {
         "value": "not_stated",
         "evidence": ""
       },
       "delivery_wait_days": {
-        "value": 2.0,
-        "evidence": "GV/GCs are normally delivered instantly. But sometimes due to system issues, the delivery can be delayed up to 24 - 48 hours."
+        "value": "not_stated",
+        "evidence": ""
       },
       "spend_scope": {
         "value": "not_stated",
@@ -39878,69 +39806,6 @@
       "combines_with_store_offers": {
         "value": "no",
         "evidence": "Vouchers cannot be clubbed with any other coupon or voucher."
-      },
-      "min_order_value": {
-        "value": "not_stated",
-        "evidence": ""
-      },
-      "excludes": {
-        "value": [],
-        "evidence": ""
-      },
-      "max_spend_per_purchase": {
-        "value": "not_stated",
-        "evidence": ""
-      },
-      "delivery_wait_days": {
-        "value": "not_stated",
-        "evidence": ""
-      },
-      "spend_scope": {
-        "value": "not_stated",
-        "evidence": ""
-      }
-    }
-  },
-  "buyhatke:healthifyme-smart-plan-gift-card": {
-    "brand_name": "HealthifyMe Smart Plan",
-    "source": "buyhatke",
-    "slug": "healthifyme-smart-plan-gift-card",
-    "rules": {
-      "can_combine": {
-        "value": "no",
-        "evidence": "Only one GV / GC can be used per purchase"
-      },
-      "max_cards_per_order": {
-        "value": 1,
-        "evidence": "Only one GV / GC can be used per purchase"
-      },
-      "ceiling_amount": {
-        "value": "not_stated",
-        "evidence": ""
-      },
-      "ceiling_period": {
-        "value": "not_stated",
-        "evidence": ""
-      },
-      "one_time_use": {
-        "value": "not_stated",
-        "evidence": ""
-      },
-      "works_online": {
-        "value": "yes",
-        "evidence": "This voucher can be used only online"
-      },
-      "works_in_store": {
-        "value": "no",
-        "evidence": "This voucher can be used only online"
-      },
-      "works_on_sale_items": {
-        "value": "not_stated",
-        "evidence": ""
-      },
-      "combines_with_store_offers": {
-        "value": "no",
-        "evidence": "The voucher cannot be combined with other coupons, promotions, or offers."
       },
       "min_order_value": {
         "value": "not_stated",
@@ -42008,69 +41873,6 @@
       }
     }
   },
-  "buyhatke:ixigo-hotel-gift-card": {
-    "brand_name": "Ixigo Hotel",
-    "source": "buyhatke",
-    "slug": "ixigo-hotel-gift-card",
-    "rules": {
-      "can_combine": {
-        "value": "no",
-        "evidence": "Only ONE/SINGLE GV/GC can be used in one bill/transaction."
-      },
-      "max_cards_per_order": {
-        "value": 1,
-        "evidence": "Only ONE/SINGLE GV/GC can be used in one bill/transaction."
-      },
-      "ceiling_amount": {
-        "value": "not_stated",
-        "evidence": ""
-      },
-      "ceiling_period": {
-        "value": "not_stated",
-        "evidence": ""
-      },
-      "one_time_use": {
-        "value": "yes",
-        "evidence": "This is a one-time use GV/GC."
-      },
-      "works_online": {
-        "value": "yes",
-        "evidence": "This is an ixigo Hotel GV/GC (Gift Voucher/Gift Card), and it can only be redeemed on the ixigo app and www.ixigo.com."
-      },
-      "works_in_store": {
-        "value": "no",
-        "evidence": "This voucher can be used only online"
-      },
-      "works_on_sale_items": {
-        "value": "not_stated",
-        "evidence": ""
-      },
-      "combines_with_store_offers": {
-        "value": "no",
-        "evidence": "GV/GC cannot be clubbed with existing offers on the ixigo website/app."
-      },
-      "min_order_value": {
-        "value": "not_stated",
-        "evidence": ""
-      },
-      "excludes": {
-        "value": [],
-        "evidence": ""
-      },
-      "max_spend_per_purchase": {
-        "value": "not_stated",
-        "evidence": ""
-      },
-      "delivery_wait_days": {
-        "value": "not_stated",
-        "evidence": ""
-      },
-      "spend_scope": {
-        "value": "Booking of ixigo Hotel (Domestic/International) only",
-        "evidence": "The GV/GC is valid for booking of ixigo Hotel (Domestic/International) only."
-      }
-    }
-  },
   "buyhatke:jhari-eco-stay-(in-store)-gift-card": {
     "brand_name": "Jhari Eco Stay (In Store)",
     "source": "buyhatke",
@@ -42494,7 +42296,7 @@
       },
       "one_time_use": {
         "value": "yes",
-        "evidence": "This is a one-time use E-GC. If the order value exceeds the E-GC value, the difference must be paid by other payment option. If the order value is less than the E-GC value, E-GC cannot be redeemed."
+        "evidence": "This is a one-time use E-GC."
       },
       "works_online": {
         "value": "yes",
@@ -42502,7 +42304,7 @@
       },
       "works_in_store": {
         "value": "no",
-        "evidence": "This voucher can be used only online"
+        "evidence": "This E-GC is redeemable only on www.jockey.in website and not through the Jockey mobile app or any other mode whether online or offline."
       },
       "works_on_sale_items": {
         "value": "not_stated",
@@ -42513,13 +42315,12 @@
         "evidence": ""
       },
       "min_order_value": {
-        "value": "not_stated",
-        "evidence": ""
+        "value": "order value must be at least the gift card value",
+        "evidence": "If the order value is less than the E-GC value, E-GC cannot be redeemed."
       },
       "excludes": {
         "value": [
-          "Jockey mobile app",
-          "any other mode whether online or offline"
+          "location: Jockey mobile app (website www.jockey.in only)"
         ],
         "evidence": "This E-GC is redeemable only on www.jockey.in website and not through the Jockey mobile app or any other mode whether online or offline."
       },
@@ -43132,7 +42933,7 @@
     "rules": {
       "can_combine": {
         "value": "yes",
-        "evidence": "The voucher can be converted into e-Pay balance"
+        "evidence": "The GV can be converted into e-Pay as per the holder's convenience"
       },
       "max_cards_per_order": {
         "value": null,
@@ -43147,16 +42948,16 @@
         "evidence": ""
       },
       "one_time_use": {
-        "value": "no",
-        "evidence": "After conversion into e-Pay, partial redemption is allowed and the remaining balance can be used for future transactions within the validity period."
+        "value": "yes",
+        "evidence": "This voucher can be used only 1 time"
       },
       "works_online": {
         "value": "yes",
-        "evidence": "Gift Voucher/e-Pay is accepted on the KALKI website and at listed KALKI retail stores."
+        "evidence": "This voucher can be used only online"
       },
       "works_in_store": {
-        "value": "yes",
-        "evidence": "Gift Voucher/e-Pay is accepted on the KALKI website and at listed KALKI retail stores."
+        "value": "no",
+        "evidence": "This voucher can be used only online"
       },
       "works_on_sale_items": {
         "value": "not_stated",
@@ -43164,15 +42965,17 @@
       },
       "combines_with_store_offers": {
         "value": "yes",
-        "evidence": "Gift Vouchers can be used over and above brand discounts."
+        "evidence": "The GV/e-Pay can be used over and above any discounts offered by the brand on its website."
       },
       "min_order_value": {
         "value": "not_stated",
         "evidence": ""
       },
       "excludes": {
-        "value": [],
-        "evidence": ""
+        "value": [
+          "Promo codes (only one code: either a Gift Voucher or a promo code)"
+        ],
+        "evidence": "However, only one code can be redeemed, either a Gift Voucher or a promo code, along with the brand offer."
       },
       "max_spend_per_purchase": {
         "value": "not_stated",
@@ -43457,7 +43260,7 @@
     "rules": {
       "can_combine": {
         "value": "yes",
-        "evidence": "More than one GV / GC can be used in one bill/transaction."
+        "evidence": "Multiple GV/GC can be used against one bill."
       },
       "max_cards_per_order": {
         "value": null,
@@ -43473,7 +43276,7 @@
       },
       "one_time_use": {
         "value": "yes",
-        "evidence": "This is a one-time use GV / GC with an expiration date."
+        "evidence": "This voucher can be used only 1 time"
       },
       "works_online": {
         "value": "yes",
@@ -43489,7 +43292,7 @@
       },
       "combines_with_store_offers": {
         "value": "yes",
-        "evidence": "Ketan Diamonds GV / GC can be clubbed with ongoing promotions & offers."
+        "evidence": "The GV/GC can be clubbed with the existing offers."
       },
       "min_order_value": {
         "value": "not_stated",
@@ -43499,7 +43302,7 @@
         "value": [
           "date: specific block-out dates"
         ],
-        "evidence": "Ketan Diamonds GV / GC cannot be redeemed on specific block-out dates. Ketan Diamonds may add or delete any date(s)/period(s) at its sole discretion without any liability."
+        "evidence": "The GV/GC cannot be redeemed on specific block-out dates, which the brand may add or delete at its sole discretion."
       },
       "max_spend_per_purchase": {
         "value": "not_stated",
@@ -43511,7 +43314,7 @@
       },
       "spend_scope": {
         "value": "Diamond Jewellery only",
-        "evidence": "Ketan Diamonds Diamond Jewellery Insta Gift Voucher (GV) / Gift Card can only be used to purchase Diamond Jewellery."
+        "evidence": "This GV/GC can only be used to purchase Diamond Jewellery."
       }
     }
   },
@@ -43641,80 +43444,6 @@
       }
     }
   },
-  "buyhatke:kate-spade-luxe-gift-card": {
-    "brand_name": "Kate Spade Luxe",
-    "source": "buyhatke",
-    "slug": "kate-spade-luxe-gift-card",
-    "rules": {
-      "can_combine": {
-        "value": "not_stated",
-        "evidence": ""
-      },
-      "max_cards_per_order": {
-        "value": null,
-        "evidence": ""
-      },
-      "ceiling_amount": {
-        "value": "not_stated",
-        "evidence": ""
-      },
-      "ceiling_period": {
-        "value": "not_stated",
-        "evidence": ""
-      },
-      "one_time_use": {
-        "value": "not_stated",
-        "evidence": ""
-      },
-      "works_online": {
-        "value": "not_stated",
-        "evidence": ""
-      },
-      "works_in_store": {
-        "value": "not_stated",
-        "evidence": ""
-      },
-      "works_on_sale_items": {
-        "value": "not_stated",
-        "evidence": ""
-      },
-      "combines_with_store_offers": {
-        "value": "not_stated",
-        "evidence": ""
-      },
-      "min_order_value": {
-        "value": "not_stated",
-        "evidence": ""
-      },
-      "excludes": {
-        "value": [
-          "n",
-          "o",
-          "t",
-          "_",
-          "s",
-          "t",
-          "a",
-          "t",
-          "e",
-          "d"
-        ],
-        "evidence": ""
-      },
-      "max_spend_per_purchase": {
-        "value": "not_stated",
-        "evidence": ""
-      },
-      "delivery_wait_days": {
-        "value": "not_stated",
-        "evidence": ""
-      },
-      "spend_scope": {
-        "value": "not_stated",
-        "evidence": ""
-      }
-    }
-  },
   "buyhatke:ketan-diamonds-gold-jewellery-gift-card": {
     "brand_name": "Ketan Diamonds Gold Jewellery",
     "source": "buyhatke",
@@ -43722,7 +43451,7 @@
     "rules": {
       "can_combine": {
         "value": "yes",
-        "evidence": "More than one GV / GC can be used in one bill/transaction."
+        "evidence": "More than One Gift card can be used in one bill/transaction"
       },
       "max_cards_per_order": {
         "value": null,
@@ -43738,7 +43467,7 @@
       },
       "one_time_use": {
         "value": "yes",
-        "evidence": "This is a one-time use GV / GC with an expiration date."
+        "evidence": "This voucher can be used only 1 time"
       },
       "works_online": {
         "value": "yes",
@@ -43754,17 +43483,15 @@
       },
       "combines_with_store_offers": {
         "value": "yes",
-        "evidence": "Ketan Diamonds GV / GC can be clubbed with on-going promotions & offers."
+        "evidence": "Ketan Diamonds Gift card can be clubbed with on-going promotions & offers"
       },
       "min_order_value": {
         "value": "not_stated",
         "evidence": ""
       },
       "excludes": {
-        "value": [
-          "date: specific block out dates"
-        ],
-        "evidence": "Ketan Diamonds GV / GC cannot be redeemed on specific block out dates."
+        "value": [],
+        "evidence": ""
       },
       "max_spend_per_purchase": {
         "value": "not_stated",
@@ -43776,7 +43503,7 @@
       },
       "spend_scope": {
         "value": "Gold Jewellery only",
-        "evidence": "Ketan Diamonds Gold Jewellery Insta Gift Voucher (GV) / Gift Card can only be used to purchase Gold Jewellery."
+        "evidence": "Ketan Diamonds Gold Jewellery Insta Gift Voucher Gift card can only be used to purchase Gold Jewellery"
       }
     }
   },
@@ -44104,11 +43831,11 @@
     "rules": {
       "can_combine": {
         "value": "no",
-        "evidence": "Only one GV/GC can be used in one bill."
+        "evidence": "Only one Gift Voucher can be used in one bill."
       },
       "max_cards_per_order": {
         "value": 1,
-        "evidence": "Only one GV/GC can be used in one bill."
+        "evidence": "Only one Gift Voucher can be used in one bill."
       },
       "ceiling_amount": {
         "value": "not_stated",
@@ -44120,7 +43847,7 @@
       },
       "one_time_use": {
         "value": "yes",
-        "evidence": "This is a one-time use GV/GC."
+        "evidence": "This voucher can be used only 1 time"
       },
       "works_online": {
         "value": "yes",
@@ -44136,7 +43863,7 @@
       },
       "combines_with_store_offers": {
         "value": "no",
-        "evidence": "GV/GC cannot be combined with existing offers on its website or any other promo codes."
+        "evidence": "This Gift voucher cannot be combined with existing offers on its website or any other promo coded."
       },
       "min_order_value": {
         "value": "not_stated",
@@ -44144,12 +43871,9 @@
       },
       "excludes": {
         "value": [
-          "Non-Eligible Activity List",
-          "location: Indian users only",
-          "Non-Eligible Activity List on klook.com",
-          "Non-Indian users"
+          "Promo codes"
         ],
-        "evidence": "GV/GC will not be applicable for the Non-Eligible Activity List: https://www.klook.com/no_applicable_activities_list_new/?coupon_forbid_act_batch_ids=1."
+        "evidence": "This Gift voucher cannot be combined with existing offers on its website or any other promo coded."
       },
       "max_spend_per_purchase": {
         "value": "not_stated",
@@ -44447,7 +44171,7 @@
       },
       "one_time_use": {
         "value": "yes",
-        "evidence": "This E- Gift Card can be redeemed only once"
+        "evidence": "This E- Gift Card can be redeemed only once."
       },
       "works_online": {
         "value": "no",
@@ -44458,28 +44182,33 @@
         "evidence": "This voucher can be used only in-store"
       },
       "works_on_sale_items": {
-        "value": "not_stated",
-        "evidence": ""
+        "value": "no",
+        "evidence": "E- Gift Cards cannot be redeemed at Factory stores. The E-Gift Card which are purchased on or after 3rd Feb 2025 will Not be accepted on Discounted Articles during EOSS/Sale period."
       },
       "combines_with_store_offers": {
-        "value": "not_stated",
-        "evidence": ""
+        "value": "no",
+        "evidence": "The E-Gift Card which are purchased on or after 3rd Feb 2025 will Not be accepted on Discounted Articles during EOSS/Sale period."
       },
       "min_order_value": {
         "value": "not_stated",
         "evidence": ""
       },
       "excludes": {
-        "value": [],
-        "evidence": ""
+        "value": [
+          "location: Factory stores",
+          "Discounted articles during EOSS/Sale period (cards bought on or after 3 Feb 2025)",
+          "location: Factory stores",
+          "location: only participating Exclusive Levi's Stores in India"
+        ],
+        "evidence": "E- Gift Cards cannot be redeemed at Factory stores. The E-Gift Card which are purchased on or after 3rd Feb 2025 will Not be accepted on Discounted Articles during EOSS/Sale period."
       },
       "max_spend_per_purchase": {
         "value": "not_stated",
         "evidence": ""
       },
       "delivery_wait_days": {
-        "value": "not_stated",
-        "evidence": ""
+        "value": 1.0,
+        "evidence": "E-Gift Cards are normally delivered instantly. But sometimes due to system issues, the delivery can be delayed upto 24 hours."
       },
       "spend_scope": {
         "value": "not_stated",
@@ -44735,80 +44464,6 @@
           "location: vouchers added to e-Pay online cannot be used in Retail Stores"
         ],
         "evidence": "The Levis GV / GC cannot be redeemed on articles on discount during EOSS in retail outlets and stores."
-      },
-      "max_spend_per_purchase": {
-        "value": "not_stated",
-        "evidence": ""
-      },
-      "delivery_wait_days": {
-        "value": "not_stated",
-        "evidence": ""
-      },
-      "spend_scope": {
-        "value": "not_stated",
-        "evidence": ""
-      }
-    }
-  },
-  "buyhatke:liberty-(in-store)-gift-card": {
-    "brand_name": "Liberty In Store",
-    "source": "buyhatke",
-    "slug": "liberty-(in-store)-gift-card",
-    "rules": {
-      "can_combine": {
-        "value": "not_stated",
-        "evidence": ""
-      },
-      "max_cards_per_order": {
-        "value": null,
-        "evidence": ""
-      },
-      "ceiling_amount": {
-        "value": "not_stated",
-        "evidence": ""
-      },
-      "ceiling_period": {
-        "value": "not_stated",
-        "evidence": ""
-      },
-      "one_time_use": {
-        "value": "not_stated",
-        "evidence": ""
-      },
-      "works_online": {
-        "value": "not_stated",
-        "evidence": ""
-      },
-      "works_in_store": {
-        "value": "not_stated",
-        "evidence": ""
-      },
-      "works_on_sale_items": {
-        "value": "not_stated",
-        "evidence": ""
-      },
-      "combines_with_store_offers": {
-        "value": "not_stated",
-        "evidence": ""
-      },
-      "min_order_value": {
-        "value": "not_stated",
-        "evidence": ""
-      },
-      "excludes": {
-        "value": [
-          "n",
-          "o",
-          "t",
-          "_",
-          "s",
-          "t",
-          "a",
-          "t",
-          "e",
-          "d"
-        ],
-        "evidence": ""
       },
       "max_spend_per_purchase": {
         "value": "not_stated",
@@ -45229,12 +44884,12 @@
         "evidence": ""
       },
       "one_time_use": {
-        "value": "no",
-        "evidence": "After conversion into e-Pay balance, this GV is valid for partial redemption. The balance will remain in the e-Pay balance and can be used for multiple transactions within the validity period."
+        "value": "not_stated",
+        "evidence": ""
       },
       "works_online": {
         "value": "yes",
-        "evidence": "This is a Lohono Stays GV (Gift Voucher)/e-Pay that will be accepted on the website www.lohono.com."
+        "evidence": "This voucher can be used only online"
       },
       "works_in_store": {
         "value": "no",
@@ -45246,7 +44901,7 @@
       },
       "combines_with_store_offers": {
         "value": "yes",
-        "evidence": "GV/e-Pay can be clubbed with deals and offers on the Lohono website."
+        "evidence": "Gift card/e-Pay can be clubbed with deals and offers on the Lohono website."
       },
       "min_order_value": {
         "value": "not_stated",
@@ -45254,9 +44909,9 @@
       },
       "excludes": {
         "value": [
-          "international trips"
+          "International trips"
         ],
-        "evidence": "The GV/e-Pay is not valid for international trips."
+        "evidence": "The Gift card/e-Pay is not valid for international trips."
       },
       "max_spend_per_purchase": {
         "value": "not_stated",
@@ -45613,11 +45268,11 @@
     "rules": {
       "can_combine": {
         "value": "yes",
-        "evidence": "Multiple GV/GC (maximum 9) can be used in on single bill."
+        "evidence": "Multiple cards (maximum 9) can be used in on single bill"
       },
       "max_cards_per_order": {
         "value": 9,
-        "evidence": "Multiple GV/GC (maximum 9) can be used in on single bill."
+        "evidence": "Multiple cards (maximum 9) can be used in on single bill"
       },
       "ceiling_amount": {
         "value": "not_stated",
@@ -45645,7 +45300,7 @@
       },
       "combines_with_store_offers": {
         "value": "no",
-        "evidence": "GV/GC cannot be clubbed with any ongoing/existing offers."
+        "evidence": "Gift cards cannot be clubbed with any ongoing/existing offers"
       },
       "min_order_value": {
         "value": "not_stated",
@@ -45660,12 +45315,12 @@
         "evidence": ""
       },
       "delivery_wait_days": {
-        "value": 0.5,
-        "evidence": "The activation time typically ranges from 30 minutes to 12 hours, and in some cases, up to 24 hours."
+        "value": "not_stated",
+        "evidence": ""
       },
       "spend_scope": {
-        "value": "Gold Jewelry, Silver, Diamond Jewelry, Watches, Coins & Bars",
-        "evidence": "The GV/GC can be redeemed against purchases of Gold Jewelry, Silver, Diamond Jewelry, Watches, Coins & Bars"
+        "value": "Gold, Diamond and Platinum including Gold Coin/Bar",
+        "evidence": "The GV/GC can be redeemed against purchases of Gold, Diamond, and, Platinum including Gold Coin/Bar"
       }
     }
   },
@@ -46345,7 +46000,7 @@
     "rules": {
       "can_combine": {
         "value": "yes",
-        "evidence": "Multiple eGift Cards can be redeemed in a single invoice"
+        "evidence": "Comes with 1-year validity; multiple gift cards can be used for one purchase"
       },
       "max_cards_per_order": {
         "value": null,
@@ -46361,11 +46016,11 @@
       },
       "one_time_use": {
         "value": "yes",
-        "evidence": "eGift Cards are redeemable only once and in full"
+        "evidence": "This voucher can be used only 1 time"
       },
       "works_online": {
         "value": "no",
-        "evidence": "Max eGift Cards are redeemable at Max offline stores in India only"
+        "evidence": "Gift Card is redeemable at Max Fashion within India, and it is not allowed for redemption for any purchase through online platforms"
       },
       "works_in_store": {
         "value": "yes",
@@ -46384,8 +46039,10 @@
         "evidence": ""
       },
       "excludes": {
-        "value": [],
-        "evidence": ""
+        "value": [
+          "location: Max Fashion within India only"
+        ],
+        "evidence": "Gift Card is redeemable at Max Fashion within India, and it is not allowed for redemption for any purchase through online platforms"
       },
       "max_spend_per_purchase": {
         "value": "not_stated",
@@ -47165,73 +46822,6 @@
       }
     }
   },
-  "buyhatke:modern-bazaar-gift-card": {
-    "brand_name": "Modern Bazaar",
-    "source": "buyhatke",
-    "slug": "modern-bazaar-gift-card",
-    "rules": {
-      "can_combine": {
-        "value": "yes",
-        "evidence": "Multiple vouchers can be used in one bill (online & in-store, except Select City Walk)"
-      },
-      "max_cards_per_order": {
-        "value": null,
-        "evidence": ""
-      },
-      "ceiling_amount": {
-        "value": "not_stated",
-        "evidence": ""
-      },
-      "ceiling_period": {
-        "value": "not_stated",
-        "evidence": ""
-      },
-      "one_time_use": {
-        "value": "yes",
-        "evidence": "One-time use only"
-      },
-      "works_online": {
-        "value": "yes",
-        "evidence": "Multiple vouchers can be used in one bill (online & in-store, except Select City Walk)"
-      },
-      "works_in_store": {
-        "value": "yes",
-        "evidence": "This voucher can be used both online and in-store"
-      },
-      "works_on_sale_items": {
-        "value": "not_stated",
-        "evidence": ""
-      },
-      "combines_with_store_offers": {
-        "value": "yes",
-        "evidence": "Can be used with existing offers and schemes"
-      },
-      "min_order_value": {
-        "value": "No minimum purchase required",
-        "evidence": "No minimum purchase required"
-      },
-      "excludes": {
-        "value": [
-          "location: Select City Walk (Delhi NCR) store",
-          "location: Select City Walk (Delhi NCR) store",
-          "location: delivery not available in Faridabad & Ghaziabad"
-        ],
-        "evidence": "Valid at all stores except Select City Walk (Delhi NCR)"
-      },
-      "max_spend_per_purchase": {
-        "value": "not_stated",
-        "evidence": ""
-      },
-      "delivery_wait_days": {
-        "value": "not_stated",
-        "evidence": ""
-      },
-      "spend_scope": {
-        "value": "not_stated",
-        "evidence": ""
-      }
-    }
-  },
   "buyhatke:moments-by-the-leela-(in-store)-gift-card": {
     "brand_name": "Moments by The Leela (In Store)",
     "source": "buyhatke",
@@ -47367,12 +46957,12 @@
     "slug": "muthoot-gold-gift-card",
     "rules": {
       "can_combine": {
-        "value": "not_stated",
-        "evidence": ""
+        "value": "yes",
+        "evidence": "A maximum of 5 GV/GCs CAN be used in one bill."
       },
       "max_cards_per_order": {
-        "value": null,
-        "evidence": ""
+        "value": 5,
+        "evidence": "A maximum of 5 GV/GCs CAN be used in one bill."
       },
       "ceiling_amount": {
         "value": "not_stated",
@@ -47384,23 +46974,23 @@
       },
       "one_time_use": {
         "value": "yes",
-        "evidence": "GV/GC is redeemable only once and cannot be split for partial use."
+        "evidence": "This is a one-time use GV/GC."
       },
       "works_online": {
         "value": "yes",
-        "evidence": "Muthoot Exim GV/GC (Gift Voucher/Gift Card) is accepted only on https://buygold.muthoot.com and can be redeemed for all articles available on the website."
+        "evidence": "This voucher can be used only online"
       },
       "works_in_store": {
         "value": "no",
-        "evidence": "Muthoot Exim GV/GC (Gift Voucher/Gift Card) is accepted only on https://buygold.muthoot.com and can be redeemed for all articles available on the website."
+        "evidence": "This voucher can be used only online"
       },
       "works_on_sale_items": {
         "value": "not_stated",
         "evidence": ""
       },
       "combines_with_store_offers": {
-        "value": "not_stated",
-        "evidence": ""
+        "value": "yes",
+        "evidence": "GV/GC CAN be clubbed with existing offers."
       },
       "min_order_value": {
         "value": "not_stated",
@@ -47415,12 +47005,12 @@
         "evidence": ""
       },
       "delivery_wait_days": {
-        "value": "not_stated",
-        "evidence": ""
+        "value": 10,
+        "evidence": "If the product selected by the end customer is gold jewelry or silver articles, the same shall be dispatched within 15 days."
       },
       "spend_scope": {
-        "value": "All articles available on https://buygold.muthoot.com",
-        "evidence": "Muthoot Exim GV/GC (Gift Voucher/Gift Card) is accepted only on https://buygold.muthoot.com and can be redeemed for all articles available on the website."
+        "value": "not_stated",
+        "evidence": ""
       }
     }
   },
@@ -48217,71 +47807,6 @@
       }
     }
   },
-  "buyhatke:nua-women-gift-card": {
-    "brand_name": "Nua Women",
-    "source": "buyhatke",
-    "slug": "nua-women-gift-card",
-    "rules": {
-      "can_combine": {
-        "value": "not_stated",
-        "evidence": ""
-      },
-      "max_cards_per_order": {
-        "value": null,
-        "evidence": ""
-      },
-      "ceiling_amount": {
-        "value": "not_stated",
-        "evidence": ""
-      },
-      "ceiling_period": {
-        "value": "not_stated",
-        "evidence": ""
-      },
-      "one_time_use": {
-        "value": "no",
-        "evidence": "Remaining balance stays in e-Pay and can be used for multiple transactions within validity"
-      },
-      "works_online": {
-        "value": "yes",
-        "evidence": "Redeemable only on Nua official website: https://nuawoman.com"
-      },
-      "works_in_store": {
-        "value": "no",
-        "evidence": "Redeemable only on Nua official website: https://nuawoman.com"
-      },
-      "works_on_sale_items": {
-        "value": "not_stated",
-        "evidence": ""
-      },
-      "combines_with_store_offers": {
-        "value": "yes",
-        "evidence": "GV can be used over and above existing website discounts"
-      },
-      "min_order_value": {
-        "value": "not_stated",
-        "evidence": ""
-      },
-      "excludes": {
-        "value": [
-          "subscriptions"
-        ],
-        "evidence": "Valid for all products & services on Nua website except subscriptions"
-      },
-      "max_spend_per_purchase": {
-        "value": "not_stated",
-        "evidence": ""
-      },
-      "delivery_wait_days": {
-        "value": "not_stated",
-        "evidence": ""
-      },
-      "spend_scope": {
-        "value": "All products & services on the Nua website except subscriptions",
-        "evidence": "Valid for all products & services on Nua website except subscriptions"
-      }
-    }
-  },
   "buyhatke:nykaa-fashion-gift-card": {
     "brand_name": "Nykaa Fashion",
     "source": "buyhatke",
@@ -48624,11 +48149,11 @@
     "rules": {
       "can_combine": {
         "value": "no",
-        "evidence": "Cannot be clubbed with other offers or vouchers"
+        "evidence": "GV/GC cannot be clubbed with any other offer or voucher"
       },
       "max_cards_per_order": {
         "value": 1,
-        "evidence": "Cannot be clubbed with other offers or vouchers"
+        "evidence": "GV/GC cannot be clubbed with any other offer or voucher"
       },
       "ceiling_amount": {
         "value": "not_stated",
@@ -48640,7 +48165,7 @@
       },
       "one_time_use": {
         "value": "yes",
-        "evidence": "This is a one-time use voucher."
+        "evidence": "This voucher can be used only 1 time"
       },
       "works_online": {
         "value": "no",
@@ -48656,7 +48181,7 @@
       },
       "combines_with_store_offers": {
         "value": "no",
-        "evidence": "Cannot be clubbed with other offers or vouchers. Cannot be used on Meal Combos."
+        "evidence": "GV/GC cannot be clubbed with any other offer or voucher."
       },
       "min_order_value": {
         "value": "not_stated",
@@ -48664,12 +48189,10 @@
       },
       "excludes": {
         "value": [
-          "Meal Combos",
-          "Blockout dates",
-          "date: blockout dates",
-          "location: only listed outlets"
+          "date: specific blackout dates",
+          "location: only listed stores"
         ],
-        "evidence": "Cannot be clubbed with other offers or vouchers. Cannot be used on Meal Combos."
+        "evidence": "Speciality Restaurants GV/GC cannot be redeemed on specific blackout dates."
       },
       "max_spend_per_purchase": {
         "value": "not_stated",
@@ -48680,8 +48203,8 @@
         "evidence": ""
       },
       "spend_scope": {
-        "value": "Food and non-alcoholic beverages only",
-        "evidence": "Valid only for food and non-alcoholic beverages."
+        "value": "Food & Non-Alcoholic beverages only",
+        "evidence": "Speciality Restaurants GV/GC is valid only on Food & Non-Alcoholic beverages"
       }
     }
   },
@@ -48956,7 +48479,7 @@
     "rules": {
       "can_combine": {
         "value": "yes",
-        "evidence": "Multiple GVs/GCs can be used in one bill."
+        "evidence": "Multiple GVs can be clubbed and added to the e-Pay balance."
       },
       "max_cards_per_order": {
         "value": null,
@@ -48971,8 +48494,8 @@
         "evidence": ""
       },
       "one_time_use": {
-        "value": "no",
-        "evidence": "Unused amount will remain as e-Pay balance and can be used later till exhausted or expired."
+        "value": "not_stated",
+        "evidence": ""
       },
       "works_online": {
         "value": "no",
@@ -48980,7 +48503,7 @@
       },
       "works_in_store": {
         "value": "yes",
-        "evidence": "This Gift Voucher is valid only at listed Organic India outlets."
+        "evidence": "This voucher can be used only in-store"
       },
       "works_on_sale_items": {
         "value": "not_stated",
@@ -48988,7 +48511,7 @@
       },
       "combines_with_store_offers": {
         "value": "no",
-        "evidence": "GVs cannot be clubbed with ongoing promotions or on block-out dates."
+        "evidence": "The GV/e-Pay cannot be clubbed with the existing offers."
       },
       "min_order_value": {
         "value": "not_stated",
@@ -48996,85 +48519,10 @@
       },
       "excludes": {
         "value": [
-          "Block-out dates",
-          "date: block-out dates",
-          "location: listed Organic India outlets"
+          "date: specific block-out dates",
+          "location: only listed retail stores/outlets"
         ],
-        "evidence": "GVs cannot be clubbed with ongoing promotions or on block-out dates."
-      },
-      "max_spend_per_purchase": {
-        "value": "not_stated",
-        "evidence": ""
-      },
-      "delivery_wait_days": {
-        "value": "not_stated",
-        "evidence": ""
-      },
-      "spend_scope": {
-        "value": "not_stated",
-        "evidence": ""
-      }
-    }
-  },
-  "buyhatke:ovenstory-gift-card": {
-    "brand_name": "Ovenstory",
-    "source": "buyhatke",
-    "slug": "ovenstory-gift-card",
-    "rules": {
-      "can_combine": {
-        "value": "not_stated",
-        "evidence": ""
-      },
-      "max_cards_per_order": {
-        "value": null,
-        "evidence": ""
-      },
-      "ceiling_amount": {
-        "value": "not_stated",
-        "evidence": ""
-      },
-      "ceiling_period": {
-        "value": "not_stated",
-        "evidence": ""
-      },
-      "one_time_use": {
-        "value": "not_stated",
-        "evidence": ""
-      },
-      "works_online": {
-        "value": "not_stated",
-        "evidence": ""
-      },
-      "works_in_store": {
-        "value": "not_stated",
-        "evidence": ""
-      },
-      "works_on_sale_items": {
-        "value": "not_stated",
-        "evidence": ""
-      },
-      "combines_with_store_offers": {
-        "value": "not_stated",
-        "evidence": ""
-      },
-      "min_order_value": {
-        "value": "not_stated",
-        "evidence": ""
-      },
-      "excludes": {
-        "value": [
-          "n",
-          "o",
-          "t",
-          "_",
-          "s",
-          "t",
-          "a",
-          "t",
-          "e",
-          "d"
-        ],
-        "evidence": ""
+        "evidence": "The Organic India GV/e-Pay cannot be redeemed on specific block-out dates."
       },
       "max_spend_per_purchase": {
         "value": "not_stated",
@@ -49694,8 +49142,8 @@
         "evidence": ""
       },
       "one_time_use": {
-        "value": "not_stated",
-        "evidence": ""
+        "value": "no",
+        "evidence": "Multiple transactions can be performed on a Gift Card / e-Gift Card until the value of the card is exhausted."
       },
       "works_online": {
         "value": "no",
@@ -49718,11 +49166,8 @@
         "evidence": ""
       },
       "excludes": {
-        "value": [
-          "gold coins/bars",
-          "subscription schemes"
-        ],
-        "evidence": "The gift cards are not valid on gold coins/bars. Not valid for subscription schemes."
+        "value": [],
+        "evidence": ""
       },
       "max_spend_per_purchase": {
         "value": "not_stated",
@@ -49733,8 +49178,8 @@
         "evidence": ""
       },
       "spend_scope": {
-        "value": "Diamond Jewellery/Gold Jewellery",
-        "evidence": "This card can be used to purchase Diamond Jewellery/ Gold Jewellery"
+        "value": "Gold & Diamond Jewellery only",
+        "evidence": "This Gift card is acceptable only on Gold & Diamond Jewellery"
       }
     }
   },
@@ -49930,71 +49375,6 @@
       "spend_scope": {
         "value": "Any Jewellery at Peora Fashion Jewellery Pvt Ltd Stores in India",
         "evidence": "This E-Gift Card is Redeemable on Any Jewellery at Peora Fashion Jewellery Pvt Ltd Stores in India."
-      }
-    }
-  },
-  "buyhatke:pcj-gold-jewellery-gift-card": {
-    "brand_name": "PCJ Gold Jewellery",
-    "source": "buyhatke",
-    "slug": "pcj-gold-jewellery-gift-card",
-    "rules": {
-      "can_combine": {
-        "value": "yes",
-        "evidence": "More than one GV can be used in one bill."
-      },
-      "max_cards_per_order": {
-        "value": null,
-        "evidence": ""
-      },
-      "ceiling_amount": {
-        "value": "not_stated",
-        "evidence": ""
-      },
-      "ceiling_period": {
-        "value": "not_stated",
-        "evidence": ""
-      },
-      "one_time_use": {
-        "value": "yes",
-        "evidence": "This is a ONE time use GV."
-      },
-      "works_online": {
-        "value": "yes",
-        "evidence": "This is a PC Jeweller Instant Gift Voucher / Card (GV) and would be accepted at listed outlets and can also be redeemed on PC Jeweller website i.e. www.pcjeweller.com."
-      },
-      "works_in_store": {
-        "value": "yes",
-        "evidence": "This voucher can be used both online and in-store"
-      },
-      "works_on_sale_items": {
-        "value": "not_stated",
-        "evidence": ""
-      },
-      "combines_with_store_offers": {
-        "value": "yes",
-        "evidence": "PC Jeweller Insta Gift Voucher (GV) / Gift Card can be used during sale."
-      },
-      "min_order_value": {
-        "value": "not_stated",
-        "evidence": ""
-      },
-      "excludes": {
-        "value": [
-          "location: only the listed PC Jeweller outlets"
-        ],
-        "evidence": "Only the listed PC Jeweller outlets at its sole discretion accept the GV. PC Jeweller may add or remove an outlet without giving any prior notice."
-      },
-      "max_spend_per_purchase": {
-        "value": "not_stated",
-        "evidence": ""
-      },
-      "delivery_wait_days": {
-        "value": "not_stated",
-        "evidence": ""
-      },
-      "spend_scope": {
-        "value": "Gold Jewellery only",
-        "evidence": "PC Jeweller Gold Jewellery Insta Gift Voucher (GV) / Gift Card can only be used to purchase Gold Jewellery."
       }
     }
   },
@@ -50371,72 +49751,6 @@
           "location: listed Pigeon Exclusive Stores"
         ],
         "evidence": "Cannot be redeemed for exchange offers in-store."
-      },
-      "max_spend_per_purchase": {
-        "value": "not_stated",
-        "evidence": ""
-      },
-      "delivery_wait_days": {
-        "value": "not_stated",
-        "evidence": ""
-      },
-      "spend_scope": {
-        "value": "not_stated",
-        "evidence": ""
-      }
-    }
-  },
-  "buyhatke:pixel-go-gift-card": {
-    "brand_name": "Pixel Go",
-    "source": "buyhatke",
-    "slug": "pixel-go-gift-card",
-    "rules": {
-      "can_combine": {
-        "value": "no",
-        "evidence": "A single GV/GC can be used in one bill/transaction only."
-      },
-      "max_cards_per_order": {
-        "value": 1,
-        "evidence": "A single GV/GC can be used in one bill/transaction only."
-      },
-      "ceiling_amount": {
-        "value": "not_stated",
-        "evidence": ""
-      },
-      "ceiling_period": {
-        "value": "not_stated",
-        "evidence": ""
-      },
-      "one_time_use": {
-        "value": "yes",
-        "evidence": "This is a one-time use GV/GC with an expiration date."
-      },
-      "works_online": {
-        "value": "yes",
-        "evidence": "Pixel Go Gift Voucher/Gift Card (GV/GC) can only be used on their app."
-      },
-      "works_in_store": {
-        "value": "no",
-        "evidence": "This voucher can be used only online"
-      },
-      "works_on_sale_items": {
-        "value": "not_stated",
-        "evidence": ""
-      },
-      "combines_with_store_offers": {
-        "value": "no",
-        "evidence": "GV/GC cannot be combined with any other ongoing offers on the Pixel Go website."
-      },
-      "min_order_value": {
-        "value": "not_stated",
-        "evidence": ""
-      },
-      "excludes": {
-        "value": [
-          "Block-out dates",
-          "date: block-out dates announced by Pixel Go"
-        ],
-        "evidence": "GV/GC cannot be redeemed on block-out dates announced by Pixel Go. Dates may change without prior notice."
       },
       "max_spend_per_purchase": {
         "value": "not_stated",
@@ -52262,7 +51576,7 @@
       },
       "one_time_use": {
         "value": "yes",
-        "evidence": "This is a one-time use card and needs to be redeemed for full value"
+        "evidence": "This voucher can be used only 1 time"
       },
       "works_online": {
         "value": "no",
@@ -52293,8 +51607,7 @@
           "Sugar",
           "Baby Food",
           "Milk and Milk products",
-          "Alcohol",
-          "Tobacco"
+          "Alcohol & Tobacco"
         ],
         "evidence": "This Card is NOT valid on purchase of Gold/Silver coins, Mobiles,Oil,Ghee, Sugar, Baby Food, Milk and Milk products, Alcohol & Tobacco"
       },
@@ -52833,7 +52146,7 @@
     "rules": {
       "can_combine": {
         "value": "yes",
-        "evidence": "Multiple GV's can be used in one single purchase."
+        "evidence": "Multiple GV's can be used in one single purchase"
       },
       "max_cards_per_order": {
         "value": null,
@@ -52849,7 +52162,7 @@
       },
       "one_time_use": {
         "value": "yes",
-        "evidence": "Samsonite GV is a one-time use Gift Voucher."
+        "evidence": "Samsonite GV is a One-Time use Gift Voucher"
       },
       "works_online": {
         "value": "no",
@@ -52857,15 +52170,15 @@
       },
       "works_in_store": {
         "value": "yes",
-        "evidence": "This is a Samsonite Insta Gift Voucher and would be accepted at the store."
+        "evidence": "This voucher can be used only in-store"
       },
       "works_on_sale_items": {
         "value": "not_stated",
         "evidence": ""
       },
       "combines_with_store_offers": {
-        "value": "not_stated",
-        "evidence": ""
+        "value": "yes",
+        "evidence": "GV will be Valid for redemption only on products on discount upto 30% in case of Samsonite and upto 50% on American Tourister respectively."
       },
       "min_order_value": {
         "value": "not_stated",
@@ -52873,10 +52186,11 @@
       },
       "excludes": {
         "value": [
-          "Samsonite products discounted more than 30%, and American Tourister products discounted more than 50%",
+          "Samsonite products discounted more than 30%",
+          "American Tourister products discounted more than 50%",
           "products discounted more than 30%"
         ],
-        "evidence": "GV will be valid for redemption only on products on discount up to 30% in case of Samsonite and up to 50% on American Tourister respectively."
+        "evidence": "GV will be Valid for redemption only on products on discount upto 30% in case of Samsonite and upto 50% on American Tourister respectively."
       },
       "max_spend_per_purchase": {
         "value": "not_stated",
@@ -52962,7 +52276,7 @@
     "rules": {
       "can_combine": {
         "value": "yes",
-        "evidence": "This is a one-time use giftcard; multiple cards can be used in 1 transaction"
+        "evidence": "Multiple Luxe Gift Cards can be used in a single transaction."
       },
       "max_cards_per_order": {
         "value": null,
@@ -52978,7 +52292,7 @@
       },
       "one_time_use": {
         "value": "yes",
-        "evidence": "This is a one-time use giftcard; multiple cards can be used in 1 transaction"
+        "evidence": "Luxe Gift Card can be redeemed only once until expiry."
       },
       "works_online": {
         "value": "no",
@@ -52990,11 +52304,11 @@
       },
       "works_on_sale_items": {
         "value": "no",
-        "evidence": "Luxe Gift Card can only be redeemed against full-priced merchandise"
+        "evidence": "Luxe Gift Card is not redeemable at airport stores."
       },
       "combines_with_store_offers": {
-        "value": "not_stated",
-        "evidence": ""
+        "value": "no",
+        "evidence": "Luxe Gift Card can be redeemed only against full priced merchandise."
       },
       "min_order_value": {
         "value": "not_stated",
@@ -53002,9 +52316,11 @@
       },
       "excludes": {
         "value": [
-          "location: not redeemable at airport stores"
+          "location: Airport stores",
+          "Discounted merchandise",
+          "location: airport stores"
         ],
-        "evidence": "Valid for 1 year and in-store use only; not redeemable at airport stores"
+        "evidence": "Luxe Gift Card is not redeemable at airport stores."
       },
       "max_spend_per_purchase": {
         "value": "not_stated",
@@ -53015,8 +52331,8 @@
         "evidence": ""
       },
       "spend_scope": {
-        "value": "full-priced merchandise",
-        "evidence": "Luxe Gift Card can only be redeemed against full-priced merchandise"
+        "value": "Full priced merchandise only",
+        "evidence": "Luxe Gift Card can be redeemed only against full priced merchandise."
       }
     }
   },
@@ -53146,80 +52462,6 @@
       "spend_scope": {
         "value": "Sathya company-owned stores",
         "evidence": "Comes with 6 months validity and can only be redeemed at Sathya company-owned stores."
-      }
-    }
-  },
-  "buyhatke:satya-paul-luxe-gift-card": {
-    "brand_name": "Satya Paul Luxe",
-    "source": "buyhatke",
-    "slug": "satya-paul-luxe-gift-card",
-    "rules": {
-      "can_combine": {
-        "value": "not_stated",
-        "evidence": ""
-      },
-      "max_cards_per_order": {
-        "value": null,
-        "evidence": ""
-      },
-      "ceiling_amount": {
-        "value": "not_stated",
-        "evidence": ""
-      },
-      "ceiling_period": {
-        "value": "not_stated",
-        "evidence": ""
-      },
-      "one_time_use": {
-        "value": "not_stated",
-        "evidence": ""
-      },
-      "works_online": {
-        "value": "not_stated",
-        "evidence": ""
-      },
-      "works_in_store": {
-        "value": "not_stated",
-        "evidence": ""
-      },
-      "works_on_sale_items": {
-        "value": "not_stated",
-        "evidence": ""
-      },
-      "combines_with_store_offers": {
-        "value": "not_stated",
-        "evidence": ""
-      },
-      "min_order_value": {
-        "value": "not_stated",
-        "evidence": ""
-      },
-      "excludes": {
-        "value": [
-          "n",
-          "o",
-          "t",
-          "_",
-          "s",
-          "t",
-          "a",
-          "t",
-          "e",
-          "d"
-        ],
-        "evidence": ""
-      },
-      "max_spend_per_purchase": {
-        "value": "not_stated",
-        "evidence": ""
-      },
-      "delivery_wait_days": {
-        "value": "not_stated",
-        "evidence": ""
-      },
-      "spend_scope": {
-        "value": "not_stated",
-        "evidence": ""
       }
     }
   },
@@ -53735,69 +52977,6 @@
       }
     }
   },
-  "buyhatke:simon-carter-(in-store)-gift-card": {
-    "brand_name": "Simon Carter (In Store)",
-    "source": "buyhatke",
-    "slug": "simon-carter-(in-store)-gift-card",
-    "rules": {
-      "can_combine": {
-        "value": "yes",
-        "evidence": "Multiple Gift Vouchers CAN be used in one bill at the Stores"
-      },
-      "max_cards_per_order": {
-        "value": null,
-        "evidence": ""
-      },
-      "ceiling_amount": {
-        "value": "not_stated",
-        "evidence": ""
-      },
-      "ceiling_period": {
-        "value": "not_stated",
-        "evidence": ""
-      },
-      "one_time_use": {
-        "value": "not_stated",
-        "evidence": ""
-      },
-      "works_online": {
-        "value": "no",
-        "evidence": "This voucher can be used only in-store"
-      },
-      "works_in_store": {
-        "value": "yes",
-        "evidence": "This voucher can be used only in-store"
-      },
-      "works_on_sale_items": {
-        "value": "not_stated",
-        "evidence": ""
-      },
-      "combines_with_store_offers": {
-        "value": "not_stated",
-        "evidence": ""
-      },
-      "min_order_value": {
-        "value": "not_stated",
-        "evidence": ""
-      },
-      "excludes": {
-        "value": [],
-        "evidence": ""
-      },
-      "max_spend_per_purchase": {
-        "value": "not_stated",
-        "evidence": ""
-      },
-      "delivery_wait_days": {
-        "value": "not_stated",
-        "evidence": ""
-      },
-      "spend_scope": {
-        "value": "not_stated",
-        "evidence": ""
-      }
-    }
-  },
   "buyhatke:shopy-vision-gift-card": {
     "brand_name": "Shopy Vision",
     "source": "buyhatke",
@@ -54141,7 +53320,7 @@
       },
       "one_time_use": {
         "value": "yes",
-        "evidence": "This is a one-time-use DV with an expiration date. The expiration period is 6 months after purchase, after which the DV will be considered redeemed if unused."
+        "evidence": "This voucher can be used only 1 time"
       },
       "works_online": {
         "value": "yes",
@@ -54176,8 +53355,8 @@
         "evidence": ""
       },
       "spend_scope": {
-        "value": "Donation at https://donate.smilefoundationindia.org/shiksha-na-ruke-voucher only",
-        "evidence": "This is a Smile Foundation Donation Voucher (DV) and can only be used at https://donate.smilefoundationindia.org/shiksha-na-ruke-voucher. The voucher will be sent to your registered email ID or phone number."
+        "value": "Donations to the Smile Foundation Shiksha Na Ruke campaign only",
+        "evidence": "The GV can only be used to make donations to the Smile Foundation Shiksha Na Ruke campaign on the Smile Foundation website."
       }
     }
   },
@@ -54347,8 +53526,8 @@
         "evidence": ""
       },
       "combines_with_store_offers": {
-        "value": "not_stated",
-        "evidence": ""
+        "value": "no",
+        "evidence": "The GV/e-Pay cannot be clubbed with the existing offers."
       },
       "min_order_value": {
         "value": "not_stated",
@@ -54356,9 +53535,9 @@
       },
       "excludes": {
         "value": [
-          "date: Skullcandy GV / GC cannot be redeemed on specific block out dates as may be intimated / updated by Skullcandy on its website from time to time."
+          "date: specific block-out dates"
         ],
-        "evidence": "Skullcandy GV / GC cannot be redeemed on specific block out dates as may be intimated / updated by Skullcandy on its website from time to time. Skullcandy may add or delete any date(s)/period(s) on its sole discretion without any liability."
+        "evidence": "Skullcandy GV/e-Pay cannot be redeemed on specific block-out dates"
       },
       "max_spend_per_purchase": {
         "value": "not_stated",
@@ -54375,13 +53554,13 @@
     }
   },
   "buyhatke:soch-(in-store)-gift-card": {
-    "brand_name": "Soch (In Store)",
+    "brand_name": "SOCH (In Store)",
     "source": "buyhatke",
     "slug": "soch-(in-store)-gift-card",
     "rules": {
       "can_combine": {
-        "value": "yes",
-        "evidence": "GV/e-Pay can be clubbed with ongoing offers and schemes. Multiple vouchers can be combined and added to the e-Pay balance."
+        "value": "not_stated",
+        "evidence": ""
       },
       "max_cards_per_order": {
         "value": null,
@@ -54396,34 +53575,32 @@
         "evidence": ""
       },
       "one_time_use": {
-        "value": "no",
-        "evidence": "GV can be converted into e-Pay and used partially at the holder’s convenience."
+        "value": "yes",
+        "evidence": "Single E-Gift Voucher cannot be used in a Multiple billing."
       },
       "works_online": {
         "value": "no",
-        "evidence": "GV/e-Pay cannot be redeemed online."
+        "evidence": "E Gift Vouchers cannot be redeemed online on https://www.soch.com/in/"
       },
       "works_in_store": {
         "value": "yes",
-        "evidence": "This is a Soch GV (Gift Voucher) / e-Pay, accepted only in Soch stores listed at https://www.soch.com/in/store-locator?page=1."
+        "evidence": "This voucher can be used only in-store"
       },
       "works_on_sale_items": {
         "value": "not_stated",
         "evidence": ""
       },
       "combines_with_store_offers": {
-        "value": "yes",
-        "evidence": "GV/e-Pay can be clubbed with ongoing offers and schemes. Multiple vouchers can be combined and added to the e-Pay balance."
+        "value": "not_stated",
+        "evidence": ""
       },
       "min_order_value": {
         "value": "not_stated",
         "evidence": ""
       },
       "excludes": {
-        "value": [
-          "location: accepted only in Soch stores listed at https://www.soch.com/in/store-locator?page=1"
-        ],
-        "evidence": "This is a Soch GV (Gift Voucher) / e-Pay, accepted only in Soch stores listed at https://www.soch.com/in/store-locator?page=1."
+        "value": [],
+        "evidence": ""
       },
       "max_spend_per_purchase": {
         "value": "not_stated",
@@ -54856,33 +54033,31 @@
       },
       "one_time_use": {
         "value": "no",
-        "evidence": "Remaining balance stays in e-Pay and can be used for multiple transactions within validity"
+        "evidence": "The balance would remain in the e-pay balance and can be used for multiple transactions within the validity period."
       },
       "works_online": {
         "value": "yes",
-        "evidence": "Redeemable only on www.ssunsu.in"
+        "evidence": "This voucher can be used only online"
       },
       "works_in_store": {
         "value": "no",
-        "evidence": "Redeemable only on www.ssunsu.in"
+        "evidence": "This voucher can be used only online"
       },
       "works_on_sale_items": {
         "value": "not_stated",
         "evidence": ""
       },
       "combines_with_store_offers": {
-        "value": "no",
-        "evidence": "GV/e-Pay can be used on slash-priced items, not applicable with promo codes"
+        "value": "not_stated",
+        "evidence": ""
       },
       "min_order_value": {
         "value": "not_stated",
         "evidence": ""
       },
       "excludes": {
-        "value": [
-          "use together with promo codes"
-        ],
-        "evidence": "GV/e-Pay can be used on slash-priced items, not applicable with promo codes"
+        "value": [],
+        "evidence": ""
       },
       "max_spend_per_purchase": {
         "value": "not_stated",
@@ -55647,7 +54822,7 @@
       },
       "one_time_use": {
         "value": "yes",
-        "evidence": "GV/GC is for one-time use only."
+        "evidence": "This is a one-time use GV/GC."
       },
       "works_online": {
         "value": "no",
@@ -55671,9 +54846,10 @@
       },
       "excludes": {
         "value": [
-          "date: Cannot be redeemed on specific blackout dates (dates may change at the restaurant’s discretion)."
+          "Alcoholic beverages",
+          "date: specific blackout dates"
         ],
-        "evidence": "Cannot be redeemed on specific blackout dates (dates may change at the restaurant’s discretion)."
+        "evidence": "Speciality Restaurants GV/GC cannot be redeemed on specific blackout dates."
       },
       "max_spend_per_purchase": {
         "value": "not_stated",
@@ -55684,8 +54860,8 @@
         "evidence": ""
       },
       "spend_scope": {
-        "value": "Food & non-alcoholic beverages only",
-        "evidence": "Valid only on food & non-alcoholic beverages."
+        "value": "Food & Non-Alcoholic beverages",
+        "evidence": "Speciality Restaurants GV/GC is valid only on Food & Non-Alcoholic beverages"
       }
     }
   },
@@ -55696,7 +54872,7 @@
     "rules": {
       "can_combine": {
         "value": "yes",
-        "evidence": "Vouchers (GVs) convert into EatSure wallet balance, which can be used partially, over multiple transactions, and for any amount; multiple GVs can be combined."
+        "evidence": "Multiple GV/GC can be combined and added to the EatSure wallet balance."
       },
       "max_cards_per_order": {
         "value": null,
@@ -55711,8 +54887,8 @@
         "evidence": ""
       },
       "one_time_use": {
-        "value": "no",
-        "evidence": "Vouchers (GVs) convert into EatSure wallet balance, which can be used partially, over multiple transactions, and for any amount; multiple GVs can be combined."
+        "value": "not_stated",
+        "evidence": ""
       },
       "works_online": {
         "value": "yes",
@@ -55720,15 +54896,15 @@
       },
       "works_in_store": {
         "value": "no",
-        "evidence": "Valid for online orders via the EatSure app/website (www.eatsure.com); applicable across all available cities."
+        "evidence": "This voucher can be used only online"
       },
       "works_on_sale_items": {
         "value": "no",
-        "evidence": "EatSure GVs are different from promotional coupon codes; they can be used to buy discounted products but cannot be clubbed with other aggregator offers."
+        "evidence": "GV/GC can be used to buy discounted items on the EatSure app, but it cannot be clubbed with other aggregator offers."
       },
       "combines_with_store_offers": {
         "value": "no",
-        "evidence": "EatSure GVs are different from promotional coupon codes; they can be used to buy discounted products but cannot be clubbed with other aggregator offers."
+        "evidence": "GV/GC can be used to buy discounted items on the EatSure app, but it cannot be clubbed with other aggregator offers."
       },
       "min_order_value": {
         "value": "not_stated",
@@ -55736,9 +54912,9 @@
       },
       "excludes": {
         "value": [
-          "other aggregator offers"
+          "aggregator offers (cannot be clubbed)"
         ],
-        "evidence": "EatSure GVs are different from promotional coupon codes; they can be used to buy discounted products but cannot be clubbed with other aggregator offers."
+        "evidence": "GV/GC can be used to buy discounted items on the EatSure app, but it cannot be clubbed with other aggregator offers."
       },
       "max_spend_per_purchase": {
         "value": "not_stated",
@@ -55749,8 +54925,8 @@
         "evidence": ""
       },
       "spend_scope": {
-        "value": "Online orders via the EatSure app/website (www.eatsure.com)",
-        "evidence": "Valid for online orders via the EatSure app/website (www.eatsure.com); applicable across all available cities."
+        "value": "not_stated",
+        "evidence": ""
       }
     }
   },
@@ -55781,11 +54957,11 @@
       },
       "works_online": {
         "value": "yes",
-        "evidence": "This is a SuperBottoms Insta Gift Voucher and is accepted only at https://superbottoms.com/"
+        "evidence": "This voucher can be used only online"
       },
       "works_in_store": {
         "value": "no",
-        "evidence": "This is a SuperBottoms Insta Gift Voucher and is accepted only at https://superbottoms.com/"
+        "evidence": "This voucher can be used only online"
       },
       "works_on_sale_items": {
         "value": "not_stated",
@@ -55801,7 +54977,7 @@
       },
       "excludes": {
         "value": [
-          "Cash on Delivery option"
+          "Cash on Delivery orders"
         ],
         "evidence": "Gift Card cannot be used with Cash on Delivery option"
       },
@@ -56998,8 +56174,8 @@
     "slug": "tattva-spa-gift-card",
     "rules": {
       "can_combine": {
-        "value": "yes",
-        "evidence": "Multiple GVs can be combined and added to the e-Pay balance."
+        "value": "not_stated",
+        "evidence": ""
       },
       "max_cards_per_order": {
         "value": null,
@@ -57014,12 +56190,12 @@
         "evidence": ""
       },
       "one_time_use": {
-        "value": "not_stated",
-        "evidence": ""
+        "value": "no",
+        "evidence": "The balance would remain in the e-Pay balance and can be used for multiple transactions within the validity period."
       },
       "works_online": {
         "value": "yes",
-        "evidence": "This is a Tattva Spa Gift Voucher (GV)/e-Pay and will be accepted on the website at https://tattvaspa.com/"
+        "evidence": "This voucher can be used only online"
       },
       "works_in_store": {
         "value": "no",
@@ -57038,8 +56214,12 @@
         "evidence": ""
       },
       "excludes": {
-        "value": [],
-        "evidence": ""
+        "value": [
+          "memberships",
+          "gift vouchers",
+          "deals/experiences"
+        ],
+        "evidence": "The GV/e-Pay is valid only on spa therapies and not on memberships, gift vouchers, or deals/experiences."
       },
       "max_spend_per_purchase": {
         "value": "not_stated",
@@ -57050,8 +56230,8 @@
         "evidence": ""
       },
       "spend_scope": {
-        "value": "not_stated",
-        "evidence": ""
+        "value": "Spa therapies only",
+        "evidence": "The GV/e-Pay is valid only on spa therapies and not on memberships, gift vouchers, or deals/experiences."
       }
     }
   },
@@ -57124,8 +56304,8 @@
     "slug": "tatacliq-fashion-gift-card",
     "rules": {
       "can_combine": {
-        "value": "yes",
-        "evidence": "Multiple GV/GC can be used against one bill. The number of GVs that can be aggregated is at the sole discretion of Tata CLiQ."
+        "value": "not_stated",
+        "evidence": ""
       },
       "max_cards_per_order": {
         "value": null,
@@ -57140,8 +56320,8 @@
         "evidence": ""
       },
       "one_time_use": {
-        "value": "no",
-        "evidence": "The GV/GC can be used multiple times, till the expiration date or till the time the balance is exhausted, whichever happens earlier"
+        "value": "not_stated",
+        "evidence": ""
       },
       "works_online": {
         "value": "yes",
@@ -57156,8 +56336,8 @@
         "evidence": ""
       },
       "combines_with_store_offers": {
-        "value": "yes",
-        "evidence": "The GV/GC can be clubbed with the existing offers."
+        "value": "not_stated",
+        "evidence": ""
       },
       "min_order_value": {
         "value": "not_stated",
@@ -57165,10 +56345,13 @@
       },
       "excludes": {
         "value": [
-          "Gold Jewellery and bullions",
-          "date: cannot be redeemed on specific block-out dates as may be intimated/updated by Tata CLiQ on its website from time to time"
+          "bullions",
+          "gold jewellery (from 20th June 2025)",
+          "other gift cards",
+          "gold jewellery (from 20th June 2025 onwards)",
+          "gift cards"
         ],
-        "evidence": "GV/GC is not applicable on the purchase of Gold Jewellery and bullions."
+        "evidence": "Gift Cards are not applicable on purchase of bullions. Additionally, Gift Cards will not be applicable on purchase of gold jewellery from 20th June 2025 onwards."
       },
       "max_spend_per_purchase": {
         "value": "not_stated",
@@ -57915,8 +57098,8 @@
         "evidence": ""
       },
       "one_time_use": {
-        "value": "no",
-        "evidence": "After conversion to e-Pay, the GV becomes eligible for partial redemption. The remaining balance stays in the e-Pay wallet and can be used for multiple transactions until expiry."
+        "value": "not_stated",
+        "evidence": ""
       },
       "works_online": {
         "value": "no",
@@ -57924,7 +57107,7 @@
       },
       "works_in_store": {
         "value": "yes",
-        "evidence": "This is a Tim Hortons Gift Voucher (GV) / e-Pay that is accepted at participating Tim Hortons outlets."
+        "evidence": "This voucher can be used only in-store"
       },
       "works_on_sale_items": {
         "value": "not_stated",
@@ -57932,7 +57115,7 @@
       },
       "combines_with_store_offers": {
         "value": "yes",
-        "evidence": "The GV/e-Pay can be clubbed with existing offers."
+        "evidence": "The Gift Voucher can be clubbed with the existing offers."
       },
       "min_order_value": {
         "value": "not_stated",
@@ -57940,9 +57123,9 @@
       },
       "excludes": {
         "value": [
-          "location: participating Tim Hortons outlets"
+          "location: participating Tim Hortons outlets only"
         ],
-        "evidence": "This is a Tim Hortons Gift Voucher (GV) / e-Pay that is accepted at participating Tim Hortons outlets."
+        "evidence": "Comes with 6 months validity and will be accepted at participating Tim Hortons outlets."
       },
       "max_spend_per_purchase": {
         "value": "not_stated",
@@ -59309,7 +58492,7 @@
     "rules": {
       "can_combine": {
         "value": "yes",
-        "evidence": "Multiple Vouchers can be used against one bill."
+        "evidence": "Multiple GVs can be combined and added to the e-Pay balance."
       },
       "max_cards_per_order": {
         "value": null,
@@ -59324,8 +58507,8 @@
         "evidence": ""
       },
       "one_time_use": {
-        "value": "not_stated",
-        "evidence": ""
+        "value": "no",
+        "evidence": "The balance would remain in the e-Pay balance and can be used for multiple transactions within the validity period."
       },
       "works_online": {
         "value": "no",
@@ -59336,12 +58519,12 @@
         "evidence": "This voucher can be used only in-store"
       },
       "works_on_sale_items": {
-        "value": "no",
-        "evidence": "The GV/GC cannot be clubbed with ongoing promotions/discounts."
+        "value": "not_stated",
+        "evidence": ""
       },
       "combines_with_store_offers": {
-        "value": "no",
-        "evidence": "The GV/GC cannot be clubbed with ongoing promotions/discounts."
+        "value": "yes",
+        "evidence": "The GV/e-Pay can be clubbed with the existing offers."
       },
       "min_order_value": {
         "value": "not_stated",
@@ -59353,11 +58536,9 @@
           "memberships",
           "gift cards",
           "combo packages",
-          "Truefitt & Hill products, memberships, gift cards, and combo packages",
-          "location: selected Truefitt & Hill stores",
           "date: specific block-out dates"
         ],
-        "evidence": "Truefitt & Hill GV/GC is only applicable to paid services. GV/GCs do not apply to Truefitt & Hill products, memberships, gift cards, and combo packages."
+        "evidence": "It cannot be used for products, memberships, gift cards, or combo packages."
       },
       "max_spend_per_purchase": {
         "value": "not_stated",
@@ -59369,7 +58550,7 @@
       },
       "spend_scope": {
         "value": "Paid services only",
-        "evidence": "Truefitt & Hill GV/GC is only applicable to paid services. GV/GCs do not apply to Truefitt & Hill products, memberships, gift cards, and combo packages."
+        "evidence": "The GV/e-Pay is only applicable to paid services at Truefitt & Hill."
       }
     }
   },
@@ -60278,11 +59459,11 @@
     "rules": {
       "can_combine": {
         "value": "no",
-        "evidence": "EGV can use multiple times but multiple EGV cannot be clubbed against single retail billing"
+        "evidence": "Maximum 1 voucher can be in one transaction"
       },
       "max_cards_per_order": {
         "value": 1,
-        "evidence": "EGV can use multiple times but multiple EGV cannot be clubbed against single retail billing"
+        "evidence": "Maximum 1 voucher can be in one transaction"
       },
       "ceiling_amount": {
         "value": "not_stated",
@@ -60509,80 +59690,6 @@
       },
       "excludes": {
         "value": [],
-        "evidence": ""
-      },
-      "max_spend_per_purchase": {
-        "value": "not_stated",
-        "evidence": ""
-      },
-      "delivery_wait_days": {
-        "value": "not_stated",
-        "evidence": ""
-      },
-      "spend_scope": {
-        "value": "not_stated",
-        "evidence": ""
-      }
-    }
-  },
-  "buyhatke:victorias-secret-gift-card": {
-    "brand_name": "Victorias Secret",
-    "source": "buyhatke",
-    "slug": "victorias-secret-gift-card",
-    "rules": {
-      "can_combine": {
-        "value": "not_stated",
-        "evidence": ""
-      },
-      "max_cards_per_order": {
-        "value": null,
-        "evidence": ""
-      },
-      "ceiling_amount": {
-        "value": "not_stated",
-        "evidence": ""
-      },
-      "ceiling_period": {
-        "value": "not_stated",
-        "evidence": ""
-      },
-      "one_time_use": {
-        "value": "not_stated",
-        "evidence": ""
-      },
-      "works_online": {
-        "value": "not_stated",
-        "evidence": ""
-      },
-      "works_in_store": {
-        "value": "not_stated",
-        "evidence": ""
-      },
-      "works_on_sale_items": {
-        "value": "not_stated",
-        "evidence": ""
-      },
-      "combines_with_store_offers": {
-        "value": "not_stated",
-        "evidence": ""
-      },
-      "min_order_value": {
-        "value": "not_stated",
-        "evidence": ""
-      },
-      "excludes": {
-        "value": [
-          "n",
-          "o",
-          "t",
-          "_",
-          "s",
-          "t",
-          "a",
-          "t",
-          "e",
-          "d"
-        ],
         "evidence": ""
       },
       "max_spend_per_purchase": {
@@ -61123,7 +60230,7 @@
     "rules": {
       "can_combine": {
         "value": "yes",
-        "evidence": "Multiple GVs can be used in a single bill/transaction."
+        "evidence": "Multiple GV can be used in one bill/transaction."
       },
       "max_cards_per_order": {
         "value": null,
@@ -61139,15 +60246,15 @@
       },
       "one_time_use": {
         "value": "yes",
-        "evidence": "Partial redemption is not allowed. This GV can be redeemed only once, has an expiration date, is not reloadable, and cannot be revalidated."
+        "evidence": "Gift Vouchers cannot be redeemed partially and can only be used ONCE."
       },
       "works_online": {
         "value": "no",
-        "evidence": "GV cannot be redeemed for online purchases."
+        "evidence": "GV cannot be redeemed during online purchase."
       },
       "works_in_store": {
         "value": "yes",
-        "evidence": "This GV is accepted at all listed Westside stores across India and can be redeemed for any merchandise at the store, except food courts & cafés inside Westside."
+        "evidence": "This voucher can be used only in-store"
       },
       "works_on_sale_items": {
         "value": "not_stated",
@@ -61155,7 +60262,7 @@
       },
       "combines_with_store_offers": {
         "value": "yes",
-        "evidence": "GVs can be used during sale periods and with existing offers in the store."
+        "evidence": "GV/e-pay can be used during sale period and existing offers in the Westside store."
       },
       "min_order_value": {
         "value": "not_stated",
@@ -61163,10 +60270,10 @@
       },
       "excludes": {
         "value": [
-          "food courts & cafés inside Westside",
-          "date: block-out dates"
+          "location: food courts & cafes within the Westside Store",
+          "date: specific block out dates"
         ],
-        "evidence": "This GV is accepted at all listed Westside stores across India and can be redeemed for any merchandise at the store, except food courts & cafés inside Westside."
+        "evidence": "can be redeemed for any merchandise in the Westside Store across India, except food courts & cafes within the Westside Store."
       },
       "max_spend_per_purchase": {
         "value": "not_stated",
@@ -61573,7 +60680,7 @@
     "rules": {
       "can_combine": {
         "value": "yes",
-        "evidence": "Multiple GV/GCs can be used in one bill, but each GV/GC is valid for one-time use only."
+        "evidence": "Multiple Gift Vouchers can be used in one bill but please note vouchers cannot be redeemed at airport stores."
       },
       "max_cards_per_order": {
         "value": null,
@@ -61589,7 +60696,7 @@
       },
       "one_time_use": {
         "value": "yes",
-        "evidence": "Multiple GV/GCs can be used in one bill, but each GV/GC is valid for one-time use only."
+        "evidence": "This is a one-time use card and any unused balance will lapse"
       },
       "works_online": {
         "value": "no",
@@ -61604,8 +60711,8 @@
         "evidence": ""
       },
       "combines_with_store_offers": {
-        "value": "yes",
-        "evidence": "GV/GC can be redeemed during sales but not on specific block-out dates"
+        "value": "not_stated",
+        "evidence": ""
       },
       "min_order_value": {
         "value": "not_stated",
@@ -61613,11 +60720,9 @@
       },
       "excludes": {
         "value": [
-          "location: airport stores",
-          "location: listed outlets only, not valid at airport stores",
-          "date: specific block-out dates"
+          "location: airport stores"
         ],
-        "evidence": "William Penn Insta Gift Voucher (GV) / Gift Card (GC) is accepted at listed outlets only (not valid at airport stores)."
+        "evidence": "Multiple Gift Vouchers can be used in one bill but please note vouchers cannot be redeemed at airport stores."
       },
       "max_spend_per_purchase": {
         "value": "not_stated",
@@ -61919,8 +61024,8 @@
         "evidence": ""
       },
       "one_time_use": {
-        "value": "not_stated",
-        "evidence": ""
+        "value": "no",
+        "evidence": "The balance would remain in the e-Pay balance and can be used for multiple transactions within the validity period."
       },
       "works_online": {
         "value": "no",
@@ -61928,7 +61033,7 @@
       },
       "works_in_store": {
         "value": "yes",
-        "evidence": "This is a Wow! China GV (Gift Voucher)/e-Pay and it would be accepted at the listed stores."
+        "evidence": "This voucher can be used only in-store"
       },
       "works_on_sale_items": {
         "value": "not_stated",
@@ -61936,7 +61041,7 @@
       },
       "combines_with_store_offers": {
         "value": "yes",
-        "evidence": "The GV/e-Pay can be clubbed with ongoing deals and discounts."
+        "evidence": "The GV/e-Pay can be clubbed with the existing offers, ongoing deals, and discounts."
       },
       "min_order_value": {
         "value": "not_stated",
@@ -61944,8 +61049,7 @@
       },
       "excludes": {
         "value": [
-          "Delivery services",
-          "location: listed stores"
+          "Delivery services"
         ],
         "evidence": "The GV/e-Pay is valid only on Take Away & Dine-in and not on Delivery services."
       },
@@ -61958,7 +61062,7 @@
         "evidence": ""
       },
       "spend_scope": {
-        "value": "Take Away & Dine-in only, not Delivery",
+        "value": "Take Away & Dine-in only",
         "evidence": "The GV/e-Pay is valid only on Take Away & Dine-in and not on Delivery services."
       }
     }
@@ -62830,11 +61934,11 @@
       },
       "ceiling_amount": {
         "value": 25000.0,
-        "evidence": "The aggregated value of all such Gift Cards per user per month shall not exceed ₹25,000."
+        "evidence": "Maximum purchase limit: ₹25,000 per month"
       },
       "ceiling_period": {
         "value": "month",
-        "evidence": "The aggregated value of all such Gift Cards per user per month shall not exceed ₹25,000."
+        "evidence": "Maximum purchase limit: ₹25,000 per month"
       },
       "one_time_use": {
         "value": "not_stated",
@@ -62861,21 +61965,16 @@
         "evidence": ""
       },
       "excludes": {
-        "value": [
-          "precious metals such as gold, silver products",
-          "online commerce vouchers",
-          "other Gift Cards",
-          "location: outside India"
-        ],
-        "evidence": "Users may not be able to utilise the Gift Card for certain products, including precious metals such as gold, silver products, online commerce vouchers, and such other products or categories as may be determined by Zepto and/or its sellers from time to time."
+        "value": [],
+        "evidence": ""
       },
       "max_spend_per_purchase": {
         "value": "not_stated",
         "evidence": ""
       },
       "delivery_wait_days": {
-        "value": "instant",
-        "evidence": "Receive your gift card instantly via email"
+        "value": "not_stated",
+        "evidence": ""
       },
       "spend_scope": {
         "value": "not_stated",
@@ -63405,11 +62504,11 @@
     "rules": {
       "can_combine": {
         "value": "no",
-        "evidence": "Cannot be clubbed with any other offers or vouchers"
+        "evidence": "GV/GC cannot be clubbed with any other offer or voucher"
       },
       "max_cards_per_order": {
         "value": 1,
-        "evidence": "Cannot be clubbed with any other offers or vouchers"
+        "evidence": "GV/GC cannot be clubbed with any other offer or voucher"
       },
       "ceiling_amount": {
         "value": "not_stated",
@@ -63421,7 +62520,7 @@
       },
       "one_time_use": {
         "value": "yes",
-        "evidence": "One-time use only."
+        "evidence": "This voucher can be used only 1 time"
       },
       "works_online": {
         "value": "no",
@@ -63429,7 +62528,7 @@
       },
       "works_in_store": {
         "value": "yes",
-        "evidence": "Valid at listed outlets of Speciality Restaurants (see gyftr.com for the outlet list)."
+        "evidence": "This voucher can be used only in-store"
       },
       "works_on_sale_items": {
         "value": "not_stated",
@@ -63437,7 +62536,7 @@
       },
       "combines_with_store_offers": {
         "value": "no",
-        "evidence": "Cannot be clubbed with any other offers or vouchers."
+        "evidence": "GV/GC cannot be clubbed with any other offer or voucher."
       },
       "min_order_value": {
         "value": "not_stated",
@@ -63445,10 +62544,10 @@
       },
       "excludes": {
         "value": [
-          "date: specific block-out dates",
-          "location: listed outlets of Speciality Restaurants"
+          "date: specific blackout dates",
+          "location: only listed stores"
         ],
-        "evidence": "Not redeemable on specific block-out dates (as decided by the brand)."
+        "evidence": "Speciality Restaurants GV/GC cannot be redeemed on specific blackout dates."
       },
       "max_spend_per_purchase": {
         "value": "not_stated",
@@ -63459,8 +62558,8 @@
         "evidence": ""
       },
       "spend_scope": {
-        "value": "Food and non-alcoholic beverages only",
-        "evidence": "Valid only for food and non-alcoholic beverages."
+        "value": "Food & Non-Alcoholic beverages only",
+        "evidence": "Speciality Restaurants GV/GC is valid only on Food & Non-Alcoholic beverages"
       }
     }
   },
@@ -64317,8 +63416,8 @@
     "slug": "max-fashion-gift-card",
     "rules": {
       "can_combine": {
-        "value": "yes",
-        "evidence": "Multiple E-Gift Cards can be redeemed in a single invoice"
+        "value": "not_stated",
+        "evidence": ""
       },
       "max_cards_per_order": {
         "value": null,
@@ -64333,24 +63432,24 @@
         "evidence": ""
       },
       "one_time_use": {
-        "value": "no",
-        "evidence": "E-Gift Cards can be partially redeemed and used multiple times until the balance is exhausted"
+        "value": "yes",
+        "evidence": "This voucher can be used only 1 time"
       },
       "works_online": {
         "value": "yes",
-        "evidence": "E-Gift Cards can be redeemed only on Max Online platforms including website and mobile apps at maxfashion.com"
+        "evidence": "This voucher can be used only online"
       },
       "works_in_store": {
         "value": "no",
-        "evidence": "E-Gift Cards cannot be redeemed at physical or brick-and-mortar Max stores"
+        "evidence": "Valid only for online purchase"
       },
       "works_on_sale_items": {
         "value": "not_stated",
         "evidence": ""
       },
       "combines_with_store_offers": {
-        "value": "yes",
-        "evidence": "E-Gift Cards can be used during sales and promotional periods"
+        "value": "not_stated",
+        "evidence": ""
       },
       "min_order_value": {
         "value": "not_stated",
@@ -64365,8 +63464,8 @@
         "evidence": ""
       },
       "delivery_wait_days": {
-        "value": 2.0,
-        "evidence": "E-Gift Cards are generally delivered instantly but delivery may be delayed up to 24–48 hours due to system issues"
+        "value": "not_stated",
+        "evidence": ""
       },
       "spend_scope": {
         "value": "not_stated",
@@ -64953,8 +64052,8 @@
         "evidence": ""
       },
       "spend_scope": {
-        "value": "Items in the PS Store available to Indian account holders (redeeming account holder and child Family Member accounts)",
-        "evidence": "Comes with 12 months validity and can be used by the redeeming account holder (and their child Family Member accounts) to pay for items in the PS Store available to Indian account holders"
+        "value": "not_stated",
+        "evidence": ""
       }
     }
   },
@@ -67025,11 +66124,11 @@
     "rules": {
       "can_combine": {
         "value": "yes",
-        "evidence": "Multiple GV/GCs can be used against one bill."
+        "evidence": "Upto 10 vouchers can be clubbed in single invoice."
       },
       "max_cards_per_order": {
-        "value": null,
-        "evidence": ""
+        "value": 10,
+        "evidence": "Upto 10 vouchers can be clubbed in single invoice."
       },
       "ceiling_amount": {
         "value": "not_stated",
@@ -67041,7 +66140,7 @@
       },
       "one_time_use": {
         "value": "yes",
-        "evidence": "This is a one-time use GV/GC. The remaining balance in the GV/GC will be forfeited once the card is redeemed."
+        "evidence": "This electronic gift card is a single use gift card and cannot be re-used; any unutilised balance shall be forfeited by the customer."
       },
       "works_online": {
         "value": "no",
@@ -67056,8 +66155,8 @@
         "evidence": ""
       },
       "combines_with_store_offers": {
-        "value": "yes",
-        "evidence": "The GV/GC can be clubbed with existing offers."
+        "value": "not_stated",
+        "evidence": ""
       },
       "min_order_value": {
         "value": "not_stated",
@@ -67065,10 +66164,11 @@
       },
       "excludes": {
         "value": [
-          "bulk purchases and customized pricing",
-          "location: WADIWADI, ALKAPURI, VADODARA (BARODA), GUJARAT outlet"
+          "new gift cards",
+          "location: only standalone Outlets of Spencer’s Retail",
+          "gift cards"
         ],
-        "evidence": "The GV/GC is not applicable on bulk purchases and customized pricing."
+        "evidence": "Gift Card value cannot be used to purchase a new gift card"
       },
       "max_spend_per_purchase": {
         "value": "not_stated",
@@ -70364,16 +69464,16 @@
         "evidence": ""
       },
       "one_time_use": {
-        "value": "not_stated",
-        "evidence": ""
+        "value": "no",
+        "evidence": "Any unused Vouchers balance will remain associated with the redeemers Vouchers balance account and applied to purchases, in order of earliest expiration date."
       },
       "works_online": {
-        "value": "not_stated",
-        "evidence": ""
+        "value": "yes",
+        "evidence": "This voucher can be used only online"
       },
       "works_in_store": {
-        "value": "not_stated",
-        "evidence": ""
+        "value": "no",
+        "evidence": "This voucher can be used only online"
       },
       "works_on_sale_items": {
         "value": "not_stated",
@@ -70388,18 +69488,7 @@
         "evidence": ""
       },
       "excludes": {
-        "value": [
-          "n",
-          "o",
-          "t",
-          "_",
-          "s",
-          "t",
-          "a",
-          "t",
-          "e",
-          "d"
-        ],
+        "value": [],
         "evidence": ""
       },
       "max_spend_per_purchase": {
@@ -70458,7 +69547,7 @@
         "evidence": "The GV/GC cannot be combined with any other offer available on the Adani One platform."
       },
       "min_order_value": {
-        "value": "Bill value must match the value of the gift card",
+        "value": "bill must be at least the gift card value",
         "evidence": "Minimum bill value should match the value of the gift card."
       },
       "excludes": {
@@ -70474,8 +69563,8 @@
         "evidence": ""
       },
       "spend_scope": {
-        "value": "Adani meet & greet service bookings on the Adani One app or official website",
-        "evidence": "This is an Adani Meet & Greet GV(Gift Voucher)/GC (Gift Card), and it is applicable only for booking Adani meet & greet services from the Adani One app or official website."
+        "value": "Adani meet & greet services booked on the Adani One app or official website",
+        "evidence": "it is applicable only for booking Adani meet & greet services from the Adani One app or official website."
       }
     }
   },
@@ -70768,12 +69857,12 @@
     "slug": "amazon-prime-gift-card",
     "rules": {
       "can_combine": {
-        "value": "not_stated",
-        "evidence": ""
+        "value": "no",
+        "evidence": "Comes with 1 year validity, and only 1 Gift Card can be used in one transaction"
       },
       "max_cards_per_order": {
-        "value": null,
-        "evidence": ""
+        "value": 1,
+        "evidence": "Comes with 1 year validity, and only 1 Gift Card can be used in one transaction"
       },
       "ceiling_amount": {
         "value": "not_stated",
@@ -70785,7 +69874,7 @@
       },
       "one_time_use": {
         "value": "yes",
-        "evidence": "Can be redeemed only once per user."
+        "evidence": "This voucher can be used only 1 time"
       },
       "works_online": {
         "value": "yes",
@@ -70809,12 +69898,9 @@
       },
       "excludes": {
         "value": [
-          "Amazon Business accounts",
-          "location: Global Store products",
-          "recharges",
-          "bill payments"
+          "Amazon Business marketplace"
         ],
-        "evidence": "Not redeemable for cash, nor for non-eligible items like Global Store products, recharges, bill payments, etc."
+        "evidence": "This is a one-time use Gift Card and is not eligible for use on Amazon Business marketplace"
       },
       "max_spend_per_purchase": {
         "value": "not_stated",
@@ -70825,8 +69911,8 @@
         "evidence": ""
       },
       "spend_scope": {
-        "value": "Prime memberships (3/12 months, Prime Lite/Shopping Edition) or Amazon Pay Anytime Gift Cards",
-        "evidence": "Valid for purchasing Prime memberships (3/12 months, Prime Lite/Shopping Edition) or Amazon Pay Anytime Gift Cards."
+        "value": "not_stated",
+        "evidence": ""
       }
     }
   },
@@ -71430,8 +70516,8 @@
     "slug": "starbucks-(in-store)-gift-card",
     "rules": {
       "can_combine": {
-        "value": "not_stated",
-        "evidence": ""
+        "value": "yes",
+        "evidence": "multiple cards can be used on single purchase"
       },
       "max_cards_per_order": {
         "value": null,
@@ -71446,8 +70532,8 @@
         "evidence": ""
       },
       "one_time_use": {
-        "value": "not_stated",
-        "evidence": ""
+        "value": "no",
+        "evidence": "The gift card can be used multiple times."
       },
       "works_online": {
         "value": "no",
@@ -71462,8 +70548,8 @@
         "evidence": ""
       },
       "combines_with_store_offers": {
-        "value": "not_stated",
-        "evidence": ""
+        "value": "yes",
+        "evidence": "All brand-funded offers can be clubbed during the purchase"
       },
       "min_order_value": {
         "value": "not_stated",
@@ -71482,8 +70568,8 @@
         "evidence": ""
       },
       "spend_scope": {
-        "value": "not_stated",
-        "evidence": ""
+        "value": "Redeemed only via Starbucks India mobile app",
+        "evidence": "Can only be redeemed via Starbucks India mobile app"
       }
     }
   },
@@ -71572,11 +70658,11 @@
     "rules": {
       "can_combine": {
         "value": "no",
-        "evidence": "Maximum 1 voucher can be in one transaction"
+        "evidence": "One Gift card can be used in a single transaction."
       },
       "max_cards_per_order": {
         "value": 1,
-        "evidence": "Maximum 1 voucher can be in one transaction"
+        "evidence": "One Gift card can be used in a single transaction."
       },
       "ceiling_amount": {
         "value": "not_stated",
@@ -71612,8 +70698,8 @@
       },
       "excludes": {
         "value": [
-          "date: specific block-out dates as updated by Jubilant FoodWorks Ltd./Domino’s on its website",
-          "date: block-out dates as updated by Jubilant FoodWorks Ltd./Domino's on its website"
+          "location: Domino's website (app only)",
+          "date: specific block-out dates"
         ],
         "evidence": "However, it cannot be redeemed on specific block-out dates as updated by Jubilant FoodWorks Ltd./Domino’s on its website."
       },
@@ -71626,8 +70712,8 @@
         "evidence": ""
       },
       "spend_scope": {
-        "value": "not_stated",
-        "evidence": ""
+        "value": "Domino's India Mobile App only",
+        "evidence": "Comes with the validity of 6 months and is accepted only on the Domino's India Mobile App."
       }
     }
   },
@@ -73672,9 +72758,9 @@
       },
       "excludes": {
         "value": [
-          "location: cannot be redeemed at WADIWADI, ALKAPURI VADODARA(BARODA)GUJARAT outlet"
+          "location: WADIWADI, ALKAPURI VADODARA(BARODA)GUJARAT outlet"
         ],
-        "evidence": "This is a Spencers Insta Gift Card (GC) and cannot be redeemed at WADIWADI, ALKAPURI VADODARA(BARODA)GUJARAT outlet. Only the listed Spencer's outlets at its sole discretion accept the GV / GC."
+        "evidence": "This is a Spencers Insta Gift Card (GC) and cannot be redeemed at WADIWADI, ALKAPURI VADODARA(BARODA)GUJARAT outlet."
       },
       "max_spend_per_purchase": {
         "value": "not_stated",
@@ -74692,6 +73778,71 @@
       }
     }
   },
+  "buyhatke:nestasia-(in-store)-gift-card": {
+    "brand_name": "Nestasia (In Store)",
+    "source": "buyhatke",
+    "slug": "nestasia-(in-store)-gift-card",
+    "rules": {
+      "can_combine": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "max_cards_per_order": {
+        "value": null,
+        "evidence": ""
+      },
+      "ceiling_amount": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "ceiling_period": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "one_time_use": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "works_online": {
+        "value": "no",
+        "evidence": "This voucher can be used only in-store"
+      },
+      "works_in_store": {
+        "value": "yes",
+        "evidence": "This voucher can be used only in-store"
+      },
+      "works_on_sale_items": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "combines_with_store_offers": {
+        "value": "no",
+        "evidence": "The GV/e-Pay cannot be clubbed with any existing offers."
+      },
+      "min_order_value": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "excludes": {
+        "value": [
+          "location: only listed Nestasia stores"
+        ],
+        "evidence": "This is a Nestasia GV (Gift Voucher)/e-Pay that will be accepted only at the listed Nestasia stores."
+      },
+      "max_spend_per_purchase": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "delivery_wait_days": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "spend_scope": {
+        "value": "not_stated",
+        "evidence": ""
+      }
+    }
+  },
   "buyhatke:zoomcar-gift-card": {
     "brand_name": "Zoomcar",
     "source": "buyhatke",
@@ -74699,7 +73850,7 @@
     "rules": {
       "can_combine": {
         "value": "yes",
-        "evidence": "Multiple GV/GC can be added to the Customer’s Zoomcar Wallet, and the balance can be used partially or fully for multiple transactions."
+        "evidence": "Multiple GV/GC can be added to the Customer’s Zoomcar Wallet"
       },
       "max_cards_per_order": {
         "value": null,
@@ -74750,7 +73901,7 @@
         "evidence": ""
       },
       "spend_scope": {
-        "value": "Zoomcar Host Services, including self-drive and subscription vehicle bookings, on the Zoomcar App",
+        "value": "Zoomcar Host Services (self-drive and subscription vehicle bookings) on the Zoomcar App",
         "evidence": "The offer is valid for availing Zoomcar Host Services, including self-drive and subscription vehicle bookings, available on the Zoomcar App"
       }
     }
@@ -76862,7 +76013,7 @@
       },
       "one_time_use": {
         "value": "yes",
-        "evidence": "This e-GV is allowed for one-time redemption only. Any unused balance on the e- GV will not be refunded or credited."
+        "evidence": "This voucher can be used only 1 time"
       },
       "works_online": {
         "value": "no",
@@ -76887,7 +76038,8 @@
       "excludes": {
         "value": [
           "Coins",
-          "Plain Gold jewellery"
+          "Plain Gold jewellery",
+          "location: only participating Indriya showrooms in India"
         ],
         "evidence": "This GV is not valid on purchase of Coins & Plain Gold jewellery."
       },
@@ -76896,11 +76048,11 @@
         "evidence": ""
       },
       "delivery_wait_days": {
-        "value": "not_stated",
-        "evidence": ""
+        "value": 0.17,
+        "evidence": "Gift Card can be redeemed only after 4 hours from the time of purchase, across any Indriya store."
       },
       "spend_scope": {
-        "value": "Studded, Diamond, Polki, Platinum & Solitaire jewellery",
+        "value": "Studded, Diamond, Polki, Platinum & Solitaire jewellery only",
         "evidence": "This e-Gift card is valid on Studded, Diamond, Polki, Platinum & Solitaire jewellery at the participating Indriya showrooms in India."
       }
     }
@@ -76928,7 +76080,7 @@
       },
       "one_time_use": {
         "value": "yes",
-        "evidence": "This e-GV is allowed for one-time redemption only. Any unused balance on the e- GV will not be refunded or credited."
+        "evidence": "This voucher can be used only 1 time"
       },
       "works_online": {
         "value": "no",
@@ -76951,20 +76103,22 @@
         "evidence": ""
       },
       "excludes": {
-        "value": [],
-        "evidence": ""
+        "value": [
+          "location: only participating Indriya showrooms in India"
+        ],
+        "evidence": "This e-GV is valid on all categories including coins, at the participating Indriya showrooms in India."
       },
       "max_spend_per_purchase": {
         "value": "not_stated",
         "evidence": ""
       },
       "delivery_wait_days": {
-        "value": "not_stated",
-        "evidence": ""
+        "value": 0.17,
+        "evidence": "Gift Card can be redeemed only after 4 hours from the time of purchase, across any Indriya store."
       },
       "spend_scope": {
-        "value": "all categories including coins",
-        "evidence": "This e-GV is valid on all categories including coins, at the participating Indriya showrooms in India."
+        "value": "not_stated",
+        "evidence": ""
       }
     }
   },
@@ -77220,6 +76374,1158 @@
       "delivery_wait_days": {
         "value": 2.0,
         "evidence": "E-Gift Cards are normally delivered instantly. But sometimes due to system issues, the delivery can be delayed up-to 24 - 48 hours."
+      },
+      "spend_scope": {
+        "value": "not_stated",
+        "evidence": ""
+      }
+    }
+  },
+  "buyhatke:real-cricket-gift-card": {
+    "brand_name": "Real Cricket",
+    "source": "buyhatke",
+    "slug": "real-cricket-gift-card",
+    "rules": {
+      "can_combine": {
+        "value": "no",
+        "evidence": "Multiple Vouchers cannot be clubbed in a single order, and Vouchers cannot be combined with any other offer, cashback, or discount."
+      },
+      "max_cards_per_order": {
+        "value": 1,
+        "evidence": "Multiple Vouchers cannot be clubbed in a single order, and Vouchers cannot be combined with any other offer, cashback, or discount."
+      },
+      "ceiling_amount": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "ceiling_period": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "one_time_use": {
+        "value": "yes",
+        "evidence": "Each Voucher can be redeemed only once."
+      },
+      "works_online": {
+        "value": "yes",
+        "evidence": "This voucher can be used only online"
+      },
+      "works_in_store": {
+        "value": "no",
+        "evidence": "This voucher can be used only online"
+      },
+      "works_on_sale_items": {
+        "value": "no",
+        "evidence": "Multiple Vouchers cannot be clubbed in a single order, and Vouchers cannot be combined with any other offer, cashback, or discount."
+      },
+      "combines_with_store_offers": {
+        "value": "no",
+        "evidence": "Multiple Vouchers cannot be clubbed in a single order, and Vouchers cannot be combined with any other offer, cashback, or discount."
+      },
+      "min_order_value": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "excludes": {
+        "value": [],
+        "evidence": ""
+      },
+      "max_spend_per_purchase": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "delivery_wait_days": {
+        "value": 1.0,
+        "evidence": "Currency delivery is typically instant after redemption but may take up to 24 hours depending on server load."
+      },
+      "spend_scope": {
+        "value": "Real Cricket in-game currency (Tickets, Coins or MGs pack), redeemed on Swag",
+        "evidence": "The associated Tickets, Coins or MGs pack is auto-selected for confirmation."
+      }
+    }
+  },
+  "buyhatke:lego-gift-card": {
+    "brand_name": "Lego",
+    "source": "buyhatke",
+    "slug": "lego-gift-card",
+    "rules": {
+      "can_combine": {
+        "value": "yes",
+        "evidence": "Multiple GVs can be combined and added to the e-Pay balance."
+      },
+      "max_cards_per_order": {
+        "value": null,
+        "evidence": ""
+      },
+      "ceiling_amount": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "ceiling_period": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "one_time_use": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "works_online": {
+        "value": "yes",
+        "evidence": "This voucher can be used both online and in-store"
+      },
+      "works_in_store": {
+        "value": "yes",
+        "evidence": "This voucher can be used both online and in-store"
+      },
+      "works_on_sale_items": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "combines_with_store_offers": {
+        "value": "yes",
+        "evidence": "The GV/e-Pay can be clubbed with existing offers."
+      },
+      "min_order_value": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "excludes": {
+        "value": [
+          "location: only listed LEGO retail outlets"
+        ],
+        "evidence": "This is a LEGO® GV (Gift Voucher)/e-Pay and will be accepted at the listed LEGO® retail outlets and on the LEGO® website at https://www.lego.in."
+      },
+      "max_spend_per_purchase": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "delivery_wait_days": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "spend_scope": {
+        "value": "not_stated",
+        "evidence": ""
+      }
+    }
+  },
+  "buyhatke:forever-21-(in-store)-gift-card": {
+    "brand_name": "Forever 21 (In Store)",
+    "source": "buyhatke",
+    "slug": "forever-21-(in-store)-gift-card",
+    "rules": {
+      "can_combine": {
+        "value": "yes",
+        "evidence": "Multiple Gift Vouchers CAN be used in one bill at the Stores"
+      },
+      "max_cards_per_order": {
+        "value": null,
+        "evidence": ""
+      },
+      "ceiling_amount": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "ceiling_period": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "one_time_use": {
+        "value": "yes",
+        "evidence": "This voucher can be used only 1 time"
+      },
+      "works_online": {
+        "value": "no",
+        "evidence": "Comes with 6 months validity and cannot be used online"
+      },
+      "works_in_store": {
+        "value": "yes",
+        "evidence": "This voucher can be used only in-store"
+      },
+      "works_on_sale_items": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "combines_with_store_offers": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "min_order_value": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "excludes": {
+        "value": [],
+        "evidence": ""
+      },
+      "max_spend_per_purchase": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "delivery_wait_days": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "spend_scope": {
+        "value": "not_stated",
+        "evidence": ""
+      }
+    }
+  },
+  "buyhatke:nua-women-gift-card": {
+    "brand_name": "Nua Women",
+    "source": "buyhatke",
+    "slug": "nua-women-gift-card",
+    "rules": {
+      "can_combine": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "max_cards_per_order": {
+        "value": null,
+        "evidence": ""
+      },
+      "ceiling_amount": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "ceiling_period": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "one_time_use": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "works_online": {
+        "value": "yes",
+        "evidence": "This voucher can be used only online"
+      },
+      "works_in_store": {
+        "value": "no",
+        "evidence": "This voucher can be used only online"
+      },
+      "works_on_sale_items": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "combines_with_store_offers": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "min_order_value": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "excludes": {
+        "value": [
+          "Subscription at Nua website"
+        ],
+        "evidence": "The Nua Gift card/E-Pay can be used for all purchases of products and services at the Nua website except subscription at Nua website."
+      },
+      "max_spend_per_purchase": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "delivery_wait_days": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "spend_scope": {
+        "value": "not_stated",
+        "evidence": ""
+      }
+    }
+  },
+  "buyhatke:healthifyme-smart-plan-gift-card": {
+    "brand_name": "HealthifyMe Smart Plan",
+    "source": "buyhatke",
+    "slug": "healthifyme-smart-plan-gift-card",
+    "rules": {
+      "can_combine": {
+        "value": "no",
+        "evidence": "Only one GV / GC can be used per purchase"
+      },
+      "max_cards_per_order": {
+        "value": 1,
+        "evidence": "Only one GV / GC can be used per purchase"
+      },
+      "ceiling_amount": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "ceiling_period": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "one_time_use": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "works_online": {
+        "value": "yes",
+        "evidence": "This voucher can be used only online"
+      },
+      "works_in_store": {
+        "value": "no",
+        "evidence": "This voucher can be used only online"
+      },
+      "works_on_sale_items": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "combines_with_store_offers": {
+        "value": "no",
+        "evidence": "The voucher cannot be combined with other coupons, promotions, or offers."
+      },
+      "min_order_value": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "excludes": {
+        "value": [],
+        "evidence": ""
+      },
+      "max_spend_per_purchase": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "delivery_wait_days": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "spend_scope": {
+        "value": "not_stated",
+        "evidence": ""
+      }
+    }
+  },
+  "buyhatke:modern-bazaar-gift-card": {
+    "brand_name": "Modern Bazaar",
+    "source": "buyhatke",
+    "slug": "modern-bazaar-gift-card",
+    "rules": {
+      "can_combine": {
+        "value": "yes",
+        "evidence": "Multiple vouchers can be used in one bill (online & in-store, except Select City Walk)"
+      },
+      "max_cards_per_order": {
+        "value": null,
+        "evidence": ""
+      },
+      "ceiling_amount": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "ceiling_period": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "one_time_use": {
+        "value": "yes",
+        "evidence": "One-time use only"
+      },
+      "works_online": {
+        "value": "yes",
+        "evidence": "Multiple vouchers can be used in one bill (online & in-store, except Select City Walk)"
+      },
+      "works_in_store": {
+        "value": "yes",
+        "evidence": "This voucher can be used both online and in-store"
+      },
+      "works_on_sale_items": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "combines_with_store_offers": {
+        "value": "yes",
+        "evidence": "Can be used with existing offers and schemes"
+      },
+      "min_order_value": {
+        "value": "No minimum purchase required",
+        "evidence": "No minimum purchase required"
+      },
+      "excludes": {
+        "value": [
+          "location: Select City Walk (Delhi NCR) store",
+          "location: Select City Walk (Delhi NCR) store",
+          "location: delivery not available in Faridabad & Ghaziabad"
+        ],
+        "evidence": "Valid at all stores except Select City Walk (Delhi NCR)"
+      },
+      "max_spend_per_purchase": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "delivery_wait_days": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "spend_scope": {
+        "value": "not_stated",
+        "evidence": ""
+      }
+    }
+  },
+  "buyhatke:pixel-go-gift-card": {
+    "brand_name": "Pixel Go",
+    "source": "buyhatke",
+    "slug": "pixel-go-gift-card",
+    "rules": {
+      "can_combine": {
+        "value": "no",
+        "evidence": "A single GV/GC can be used in one bill/transaction only."
+      },
+      "max_cards_per_order": {
+        "value": 1,
+        "evidence": "A single GV/GC can be used in one bill/transaction only."
+      },
+      "ceiling_amount": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "ceiling_period": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "one_time_use": {
+        "value": "yes",
+        "evidence": "This is a one-time use GV/GC with an expiration date."
+      },
+      "works_online": {
+        "value": "yes",
+        "evidence": "Pixel Go Gift Voucher/Gift Card (GV/GC) can only be used on their app."
+      },
+      "works_in_store": {
+        "value": "no",
+        "evidence": "This voucher can be used only online"
+      },
+      "works_on_sale_items": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "combines_with_store_offers": {
+        "value": "no",
+        "evidence": "GV/GC cannot be combined with any other ongoing offers on the Pixel Go website."
+      },
+      "min_order_value": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "excludes": {
+        "value": [
+          "Block-out dates",
+          "date: block-out dates announced by Pixel Go"
+        ],
+        "evidence": "GV/GC cannot be redeemed on block-out dates announced by Pixel Go. Dates may change without prior notice."
+      },
+      "max_spend_per_purchase": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "delivery_wait_days": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "spend_scope": {
+        "value": "not_stated",
+        "evidence": ""
+      }
+    }
+  },
+  "buyhatke:ixigo-hotels-gift-card": {
+    "brand_name": "Ixigo Hotels",
+    "source": "buyhatke",
+    "slug": "ixigo-hotels-gift-card",
+    "rules": {
+      "can_combine": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "max_cards_per_order": {
+        "value": null,
+        "evidence": ""
+      },
+      "ceiling_amount": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "ceiling_period": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "one_time_use": {
+        "value": "yes",
+        "evidence": "This is a one time use gift card"
+      },
+      "works_online": {
+        "value": "yes",
+        "evidence": "This voucher can be used only online"
+      },
+      "works_in_store": {
+        "value": "no",
+        "evidence": "This voucher can be used only online"
+      },
+      "works_on_sale_items": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "combines_with_store_offers": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "min_order_value": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "excludes": {
+        "value": [],
+        "evidence": ""
+      },
+      "max_spend_per_purchase": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "delivery_wait_days": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "spend_scope": {
+        "value": "not_stated",
+        "evidence": ""
+      }
+    }
+  },
+  "buyhatke:brooks-brothers-luxe-gift-card": {
+    "brand_name": "Brooks Brothers Luxe",
+    "source": "buyhatke",
+    "slug": "brooks-brothers-luxe-gift-card",
+    "rules": {
+      "can_combine": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "max_cards_per_order": {
+        "value": null,
+        "evidence": ""
+      },
+      "ceiling_amount": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "ceiling_period": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "one_time_use": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "works_online": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "works_in_store": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "works_on_sale_items": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "combines_with_store_offers": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "min_order_value": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "excludes": {
+        "value": [
+          "n",
+          "o",
+          "t",
+          "_",
+          "s",
+          "t",
+          "a",
+          "t",
+          "e",
+          "d"
+        ],
+        "evidence": ""
+      },
+      "max_spend_per_purchase": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "delivery_wait_days": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "spend_scope": {
+        "value": "not_stated",
+        "evidence": ""
+      }
+    }
+  },
+  "buyhatke:forever21-(in-store)-gift-card": {
+    "brand_name": "Forever21 (In Store)",
+    "source": "buyhatke",
+    "slug": "forever21-(in-store)-gift-card",
+    "rules": {
+      "can_combine": {
+        "value": "yes",
+        "evidence": "More than one GV / GC can be used in one bill."
+      },
+      "max_cards_per_order": {
+        "value": null,
+        "evidence": ""
+      },
+      "ceiling_amount": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "ceiling_period": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "one_time_use": {
+        "value": "yes",
+        "evidence": "This is a one-time use GV / GC."
+      },
+      "works_online": {
+        "value": "no",
+        "evidence": "This voucher can be used only in-store"
+      },
+      "works_in_store": {
+        "value": "yes",
+        "evidence": "This voucher can be used only in-store"
+      },
+      "works_on_sale_items": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "combines_with_store_offers": {
+        "value": "yes",
+        "evidence": "This GV / GC can be used during sale."
+      },
+      "min_order_value": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "excludes": {
+        "value": [
+          "date: block-out dates"
+        ],
+        "evidence": "GV / GC cannot be redeemed on specific block-out dates. Forever 21 may add or delete any date at its sole discretion."
+      },
+      "max_spend_per_purchase": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "delivery_wait_days": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "spend_scope": {
+        "value": "not_stated",
+        "evidence": ""
+      }
+    }
+  },
+  "buyhatke:ixigo-hotel-gift-card": {
+    "brand_name": "Ixigo Hotel",
+    "source": "buyhatke",
+    "slug": "ixigo-hotel-gift-card",
+    "rules": {
+      "can_combine": {
+        "value": "no",
+        "evidence": "Only ONE/SINGLE GV/GC can be used in one bill/transaction."
+      },
+      "max_cards_per_order": {
+        "value": 1,
+        "evidence": "Only ONE/SINGLE GV/GC can be used in one bill/transaction."
+      },
+      "ceiling_amount": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "ceiling_period": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "one_time_use": {
+        "value": "yes",
+        "evidence": "This is a one-time use GV/GC."
+      },
+      "works_online": {
+        "value": "yes",
+        "evidence": "This is an ixigo Hotel GV/GC (Gift Voucher/Gift Card), and it can only be redeemed on the ixigo app and www.ixigo.com."
+      },
+      "works_in_store": {
+        "value": "no",
+        "evidence": "This voucher can be used only online"
+      },
+      "works_on_sale_items": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "combines_with_store_offers": {
+        "value": "no",
+        "evidence": "GV/GC cannot be clubbed with existing offers on the ixigo website/app."
+      },
+      "min_order_value": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "excludes": {
+        "value": [],
+        "evidence": ""
+      },
+      "max_spend_per_purchase": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "delivery_wait_days": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "spend_scope": {
+        "value": "Booking of ixigo Hotel (Domestic/International) only",
+        "evidence": "The GV/GC is valid for booking of ixigo Hotel (Domestic/International) only."
+      }
+    }
+  },
+  "buyhatke:kate-spade-luxe-gift-card": {
+    "brand_name": "Kate Spade Luxe",
+    "source": "buyhatke",
+    "slug": "kate-spade-luxe-gift-card",
+    "rules": {
+      "can_combine": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "max_cards_per_order": {
+        "value": null,
+        "evidence": ""
+      },
+      "ceiling_amount": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "ceiling_period": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "one_time_use": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "works_online": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "works_in_store": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "works_on_sale_items": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "combines_with_store_offers": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "min_order_value": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "excludes": {
+        "value": [
+          "n",
+          "o",
+          "t",
+          "_",
+          "s",
+          "t",
+          "a",
+          "t",
+          "e",
+          "d"
+        ],
+        "evidence": ""
+      },
+      "max_spend_per_purchase": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "delivery_wait_days": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "spend_scope": {
+        "value": "not_stated",
+        "evidence": ""
+      }
+    }
+  },
+  "buyhatke:liberty-(in-store)-gift-card": {
+    "brand_name": "Liberty In Store",
+    "source": "buyhatke",
+    "slug": "liberty-(in-store)-gift-card",
+    "rules": {
+      "can_combine": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "max_cards_per_order": {
+        "value": null,
+        "evidence": ""
+      },
+      "ceiling_amount": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "ceiling_period": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "one_time_use": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "works_online": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "works_in_store": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "works_on_sale_items": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "combines_with_store_offers": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "min_order_value": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "excludes": {
+        "value": [
+          "n",
+          "o",
+          "t",
+          "_",
+          "s",
+          "t",
+          "a",
+          "t",
+          "e",
+          "d"
+        ],
+        "evidence": ""
+      },
+      "max_spend_per_purchase": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "delivery_wait_days": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "spend_scope": {
+        "value": "not_stated",
+        "evidence": ""
+      }
+    }
+  },
+  "buyhatke:ovenstory-gift-card": {
+    "brand_name": "Ovenstory",
+    "source": "buyhatke",
+    "slug": "ovenstory-gift-card",
+    "rules": {
+      "can_combine": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "max_cards_per_order": {
+        "value": null,
+        "evidence": ""
+      },
+      "ceiling_amount": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "ceiling_period": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "one_time_use": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "works_online": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "works_in_store": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "works_on_sale_items": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "combines_with_store_offers": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "min_order_value": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "excludes": {
+        "value": [
+          "n",
+          "o",
+          "t",
+          "_",
+          "s",
+          "t",
+          "a",
+          "t",
+          "e",
+          "d"
+        ],
+        "evidence": ""
+      },
+      "max_spend_per_purchase": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "delivery_wait_days": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "spend_scope": {
+        "value": "not_stated",
+        "evidence": ""
+      }
+    }
+  },
+  "buyhatke:pcj-gold-jewellery-gift-card": {
+    "brand_name": "PCJ Gold Jewellery",
+    "source": "buyhatke",
+    "slug": "pcj-gold-jewellery-gift-card",
+    "rules": {
+      "can_combine": {
+        "value": "yes",
+        "evidence": "More than one GV can be used in one bill."
+      },
+      "max_cards_per_order": {
+        "value": null,
+        "evidence": ""
+      },
+      "ceiling_amount": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "ceiling_period": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "one_time_use": {
+        "value": "yes",
+        "evidence": "This is a ONE time use GV."
+      },
+      "works_online": {
+        "value": "yes",
+        "evidence": "This is a PC Jeweller Instant Gift Voucher / Card (GV) and would be accepted at listed outlets and can also be redeemed on PC Jeweller website i.e. www.pcjeweller.com."
+      },
+      "works_in_store": {
+        "value": "yes",
+        "evidence": "This voucher can be used both online and in-store"
+      },
+      "works_on_sale_items": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "combines_with_store_offers": {
+        "value": "yes",
+        "evidence": "PC Jeweller Insta Gift Voucher (GV) / Gift Card can be used during sale."
+      },
+      "min_order_value": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "excludes": {
+        "value": [
+          "location: only the listed PC Jeweller outlets"
+        ],
+        "evidence": "Only the listed PC Jeweller outlets at its sole discretion accept the GV. PC Jeweller may add or remove an outlet without giving any prior notice."
+      },
+      "max_spend_per_purchase": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "delivery_wait_days": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "spend_scope": {
+        "value": "Gold Jewellery only",
+        "evidence": "PC Jeweller Gold Jewellery Insta Gift Voucher (GV) / Gift Card can only be used to purchase Gold Jewellery."
+      }
+    }
+  },
+  "buyhatke:satya-paul-luxe-gift-card": {
+    "brand_name": "Satya Paul Luxe",
+    "source": "buyhatke",
+    "slug": "satya-paul-luxe-gift-card",
+    "rules": {
+      "can_combine": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "max_cards_per_order": {
+        "value": null,
+        "evidence": ""
+      },
+      "ceiling_amount": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "ceiling_period": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "one_time_use": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "works_online": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "works_in_store": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "works_on_sale_items": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "combines_with_store_offers": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "min_order_value": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "excludes": {
+        "value": [
+          "n",
+          "o",
+          "t",
+          "_",
+          "s",
+          "t",
+          "a",
+          "t",
+          "e",
+          "d"
+        ],
+        "evidence": ""
+      },
+      "max_spend_per_purchase": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "delivery_wait_days": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "spend_scope": {
+        "value": "not_stated",
+        "evidence": ""
+      }
+    }
+  },
+  "buyhatke:victorias-secret-gift-card": {
+    "brand_name": "Victorias Secret",
+    "source": "buyhatke",
+    "slug": "victorias-secret-gift-card",
+    "rules": {
+      "can_combine": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "max_cards_per_order": {
+        "value": null,
+        "evidence": ""
+      },
+      "ceiling_amount": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "ceiling_period": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "one_time_use": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "works_online": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "works_in_store": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "works_on_sale_items": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "combines_with_store_offers": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "min_order_value": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "excludes": {
+        "value": [
+          "n",
+          "o",
+          "t",
+          "_",
+          "s",
+          "t",
+          "a",
+          "t",
+          "e",
+          "d"
+        ],
+        "evidence": ""
+      },
+      "max_spend_per_purchase": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "delivery_wait_days": {
+        "value": "not_stated",
+        "evidence": ""
       },
       "spend_scope": {
         "value": "not_stated",
@@ -84064,15 +84370,15 @@
       },
       "one_time_use": {
         "value": "no",
-        "evidence": "Any such unused balance amount shall remain in the EPay balance which can be utilized till the balance gets exhausted or expires."
+        "evidence": "Multi-Use or Single Use? Can be used multiple times"
       },
       "works_online": {
-        "value": "no",
-        "evidence": "This is a Wonderchef Insta Gift Voucher (GV) / Gift Card (GC) and would only be accepted at listed Wonderchef outlets."
+        "value": "yes",
+        "evidence": "This is a Wonderchef GV/e-Pay accepted only at listed Wonderchef outlets and on the Wonderchef website."
       },
       "works_in_store": {
         "value": "yes",
-        "evidence": "This is a Wonderchef Insta Gift Voucher (GV) / Gift Card (GC) and would only be accepted at listed Wonderchef outlets."
+        "evidence": "This is a Wonderchef GV/e-Pay accepted only at listed Wonderchef outlets and on the Wonderchef website."
       },
       "works_on_sale_items": {
         "value": "not_stated",
@@ -84080,7 +84386,7 @@
       },
       "combines_with_store_offers": {
         "value": "yes",
-        "evidence": "Wonderchef GV / GC can be used during sale."
+        "evidence": "The GV/e-Pay can be combined with existing offers and used during sales."
       },
       "min_order_value": {
         "value": "not_stated",
@@ -84088,10 +84394,9 @@
       },
       "excludes": {
         "value": [
-          "date: specific block out dates",
-          "location: listed Wonderchef outlets only"
+          "date: specific blackout dates"
         ],
-        "evidence": "Wonderchef GV / GC cannot be redeemed on specific block out dates."
+        "evidence": "The GV/e-Pay cannot be redeemed on specific blackout dates, which Wonderchef may add or remove at its sole discretion."
       },
       "max_spend_per_purchase": {
         "value": "not_stated",
@@ -101303,12 +101608,12 @@
     "slug": "daily-objects-816",
     "rules": {
       "can_combine": {
-        "value": "not_stated",
-        "evidence": ""
+        "value": "no",
+        "evidence": "Multiple vouchers cannot be used against one bill."
       },
       "max_cards_per_order": {
-        "value": null,
-        "evidence": ""
+        "value": 1,
+        "evidence": "Multiple vouchers cannot be used against one bill."
       },
       "ceiling_amount": {
         "value": "not_stated",
@@ -101319,12 +101624,12 @@
         "evidence": ""
       },
       "one_time_use": {
-        "value": "not_stated",
-        "evidence": ""
+        "value": "yes",
+        "evidence": "This is a ONE-time use GV / GC."
       },
       "works_online": {
-        "value": "not_stated",
-        "evidence": ""
+        "value": "yes",
+        "evidence": "This is a DAILY OBJECTS Insta Gift Voucher (GV) / Gift Card (GC) and would be accepted on app and online at https://www.dailyobjects.com."
       },
       "works_in_store": {
         "value": "not_stated",
@@ -101335,8 +101640,8 @@
         "evidence": ""
       },
       "combines_with_store_offers": {
-        "value": "not_stated",
-        "evidence": ""
+        "value": "yes",
+        "evidence": "DAILY OBJECTS Insta GV / GC can be clubbed with existing offers and is applicable on ongoing sale on its website."
       },
       "min_order_value": {
         "value": "not_stated",
@@ -101344,18 +101649,9 @@
       },
       "excludes": {
         "value": [
-          "n",
-          "o",
-          "t",
-          "_",
-          "s",
-          "t",
-          "a",
-          "t",
-          "e",
-          "d"
+          "date: specific block out dates"
         ],
-        "evidence": ""
+        "evidence": "This Instant Gift Voucher cannot be redeemed on specific block out dates."
       },
       "max_spend_per_purchase": {
         "value": "not_stated",
@@ -115857,6 +116153,980 @@
       "delivery_wait_days": {
         "value": "not_stated",
         "evidence": ""
+      },
+      "spend_scope": {
+        "value": "not_stated",
+        "evidence": ""
+      }
+    }
+  },
+  "maximize:healthkart-717": {
+    "brand_name": "HealthKart",
+    "source": "maximize",
+    "slug": "healthkart-717",
+    "rules": {
+      "can_combine": {
+        "value": "yes",
+        "evidence": "Can the cards be clubbed? Use several gift cards in one purchase"
+      },
+      "max_cards_per_order": {
+        "value": null,
+        "evidence": ""
+      },
+      "ceiling_amount": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "ceiling_period": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "one_time_use": {
+        "value": "yes",
+        "evidence": "The voucher can be redeemed only once to add HK cash in your HealthKart account."
+      },
+      "works_online": {
+        "value": "yes",
+        "evidence": "Valid on HealthKart website/app."
+      },
+      "works_in_store": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "works_on_sale_items": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "combines_with_store_offers": {
+        "value": "yes",
+        "evidence": "Can be clubbed with other offers? Yes, clubbable with other offers / coupons"
+      },
+      "min_order_value": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "excludes": {
+        "value": [],
+        "evidence": ""
+      },
+      "max_spend_per_purchase": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "delivery_wait_days": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "spend_scope": {
+        "value": "not_stated",
+        "evidence": ""
+      }
+    }
+  },
+  "maximize:miniklub-729": {
+    "brand_name": "MiniKlub",
+    "source": "maximize",
+    "slug": "miniklub-729",
+    "rules": {
+      "can_combine": {
+        "value": "no",
+        "evidence": "Can the cards be clubbed? Multiple cards can''t be clubbed"
+      },
+      "max_cards_per_order": {
+        "value": 1,
+        "evidence": "Can the cards be clubbed? Multiple cards can''t be clubbed"
+      },
+      "ceiling_amount": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "ceiling_period": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "one_time_use": {
+        "value": "yes",
+        "evidence": "Can be redeemed only once and in full."
+      },
+      "works_online": {
+        "value": "yes",
+        "evidence": "Gift Cards are redeemable at Miniklub online and exclusive stores."
+      },
+      "works_in_store": {
+        "value": "yes",
+        "evidence": "Gift Cards are redeemable at Miniklub online and exclusive stores."
+      },
+      "works_on_sale_items": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "combines_with_store_offers": {
+        "value": "no",
+        "evidence": "Can be clubbed with other offers? No, can''t club with other offers / coupons"
+      },
+      "min_order_value": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "excludes": {
+        "value": [
+          "location: Miniklub exclusive stores only (offline)"
+        ],
+        "evidence": "Gift Cards are redeemable at Miniklub online and exclusive stores."
+      },
+      "max_spend_per_purchase": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "delivery_wait_days": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "spend_scope": {
+        "value": "not_stated",
+        "evidence": ""
+      }
+    }
+  },
+  "maximize:blinkit-757": {
+    "brand_name": "Blinkit",
+    "source": "maximize",
+    "slug": "blinkit-757",
+    "rules": {
+      "can_combine": {
+        "value": "yes",
+        "evidence": "Can the cards be clubbed? Use several gift cards in one purchase"
+      },
+      "max_cards_per_order": {
+        "value": null,
+        "evidence": ""
+      },
+      "ceiling_amount": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "ceiling_period": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "one_time_use": {
+        "value": "no",
+        "evidence": "Multi-Use or Single Use? Can be used multiple times"
+      },
+      "works_online": {
+        "value": "yes",
+        "evidence": "only on the Blinkit website"
+      },
+      "works_in_store": {
+        "value": "no",
+        "evidence": "only on the Blinkit website"
+      },
+      "works_on_sale_items": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "combines_with_store_offers": {
+        "value": "yes",
+        "evidence": "The Gift Card can be combined with promotional codes and with other digital payment options"
+      },
+      "min_order_value": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "excludes": {
+        "value": [
+          "other gift cards",
+          "gift cards"
+        ],
+        "evidence": "Card cannot be used to purchase other"
+      },
+      "max_spend_per_purchase": {
+        "value": 25000.0,
+        "evidence": "Gift Card redemptions are limited to ₹25,000, per User, per calendar month."
+      },
+      "delivery_wait_days": {
+        "value": 3.0,
+        "evidence": "Cards are normally delivered instantly. However, there may be delays in the system upto seventy-two (72) hours."
+      },
+      "spend_scope": {
+        "value": "not_stated",
+        "evidence": ""
+      }
+    }
+  },
+  "maximize:spicejet-924": {
+    "brand_name": "SpiceJet",
+    "source": "maximize",
+    "slug": "spicejet-924",
+    "rules": {
+      "can_combine": {
+        "value": "no",
+        "evidence": "Gift Cards cannot be refunded, cancelled, returned, renewed, extended, or exchanged for cash and cannot be clubbed with any other voucher, promo code, scheme, or offer"
+      },
+      "max_cards_per_order": {
+        "value": 1,
+        "evidence": "Gift Cards cannot be refunded, cancelled, returned, renewed, extended, or exchanged for cash and cannot be clubbed with any other voucher, promo code, scheme, or offer"
+      },
+      "ceiling_amount": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "ceiling_period": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "one_time_use": {
+        "value": "no",
+        "evidence": "Remaining Gift Card balance can be reused until expiry"
+      },
+      "works_online": {
+        "value": "yes",
+        "evidence": "Gift Cards are redeemable only on www.spicejet.com for booking flights and eligible add-on services, subject to availability"
+      },
+      "works_in_store": {
+        "value": "no",
+        "evidence": "Gift Cards cannot be redeemed on the SpiceJet mobile app, airport ticket counters, or reservation desks"
+      },
+      "works_on_sale_items": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "combines_with_store_offers": {
+        "value": "no",
+        "evidence": "cannot be clubbed with any other voucher, promo code, scheme, or offer"
+      },
+      "min_order_value": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "excludes": {
+        "value": [
+          "SpiceJet mobile app",
+          "location: airport ticket counters",
+          "reservation desks"
+        ],
+        "evidence": "Gift Cards cannot be redeemed on the SpiceJet mobile app, airport ticket counters, or reservation desks"
+      },
+      "max_spend_per_purchase": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "delivery_wait_days": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "spend_scope": {
+        "value": "Flight bookings and eligible add-on services on www.spicejet.com",
+        "evidence": "Gift Cards are redeemable only on www.spicejet.com for booking flights and eligible add-on services, subject to availability"
+      }
+    }
+  },
+  "maximize:nintendo-wallet-card-955": {
+    "brand_name": "Nintendo Wallet Card",
+    "source": "maximize",
+    "slug": "nintendo-wallet-card-955",
+    "rules": {
+      "can_combine": {
+        "value": "no",
+        "evidence": "Can the cards be clubbed? Multiple cards can't be clubbed"
+      },
+      "max_cards_per_order": {
+        "value": 1,
+        "evidence": "Can the cards be clubbed? Multiple cards can't be clubbed"
+      },
+      "ceiling_amount": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "ceiling_period": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "one_time_use": {
+        "value": "yes",
+        "evidence": "There will be no remaining balance on the code itself after redemption."
+      },
+      "works_online": {
+        "value": "yes",
+        "evidence": "The balance is redeemable only through a Nintendo Account on Nintendo eShop and other Nintendo shopping services to purchase games and other digital content."
+      },
+      "works_in_store": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "works_on_sale_items": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "combines_with_store_offers": {
+        "value": "no",
+        "evidence": "Can be clubbed with other offers? No, can't club with other offers / coupons"
+      },
+      "min_order_value": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "excludes": {
+        "value": [],
+        "evidence": ""
+      },
+      "max_spend_per_purchase": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "delivery_wait_days": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "spend_scope": {
+        "value": "Games and other digital content on Nintendo eShop / Nintendo shopping services",
+        "evidence": "The balance is redeemable only through a Nintendo Account on Nintendo eShop and other Nintendo shopping services to purchase games and other digital content."
+      }
+    }
+  },
+  "maximize:landmark-group-1301": {
+    "brand_name": "Landmark Group",
+    "source": "maximize",
+    "slug": "landmark-group-1301",
+    "rules": {
+      "can_combine": {
+        "value": "yes",
+        "evidence": "Multiple e-Gift Cards can be redeemed in a single invoice."
+      },
+      "max_cards_per_order": {
+        "value": null,
+        "evidence": ""
+      },
+      "ceiling_amount": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "ceiling_period": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "one_time_use": {
+        "value": "yes",
+        "evidence": "This Landmark Group e-Gift Card can be redeemed only once and in full."
+      },
+      "works_online": {
+        "value": "no",
+        "evidence": "This e-Gift Card can be used at offline stores only."
+      },
+      "works_in_store": {
+        "value": "yes",
+        "evidence": "This e-Gift Card can be used at offline stores only."
+      },
+      "works_on_sale_items": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "combines_with_store_offers": {
+        "value": "yes",
+        "evidence": "Can be clubbed with other offers? Yes, clubbable with other offers / coupons"
+      },
+      "min_order_value": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "excludes": {
+        "value": [
+          "location: only Lifestyle, Home Centre, Max, Easybuy, and Babyshop stores in India"
+        ],
+        "evidence": "Landmark Group e-Gift Cards are redeemable at all Lifestyle, Home Centre, Max, Easybuy, and Babyshop stores in India."
+      },
+      "max_spend_per_purchase": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "delivery_wait_days": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "spend_scope": {
+        "value": "not_stated",
+        "evidence": ""
+      }
+    }
+  },
+  "maximize:noise-1320": {
+    "brand_name": "Noise",
+    "source": "maximize",
+    "slug": "noise-1320",
+    "rules": {
+      "can_combine": {
+        "value": "yes",
+        "evidence": "Multiple GVs can be combined and added to the e-Pay balance."
+      },
+      "max_cards_per_order": {
+        "value": null,
+        "evidence": ""
+      },
+      "ceiling_amount": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "ceiling_period": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "one_time_use": {
+        "value": "no",
+        "evidence": "Multi-Use or Single Use? Can be used multiple times"
+      },
+      "works_online": {
+        "value": "yes",
+        "evidence": "This is a Noise Gift Voucher (GV) or e-Pay and will be accepted only on the Noise website at https://www.gonoise.com."
+      },
+      "works_in_store": {
+        "value": "no",
+        "evidence": "This is a Noise Gift Voucher (GV) or e-Pay and will be accepted only on the Noise website at https://www.gonoise.com."
+      },
+      "works_on_sale_items": {
+        "value": "no",
+        "evidence": "However, Noise may choose not to apply the GV/e-Pay to certain deeply discounted SKUs during special promotions, such as Diwali."
+      },
+      "combines_with_store_offers": {
+        "value": "yes",
+        "evidence": "The GV/e-Pay can be clubbed with existing offers and used during sales."
+      },
+      "min_order_value": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "excludes": {
+        "value": [
+          "certain deeply discounted SKUs during special promotions",
+          "certain deeply discounted SKUs during special promotions such as Diwali"
+        ],
+        "evidence": "However, Noise may choose not to apply the GV/e-Pay to certain deeply discounted SKUs during special promotions, such as Diwali."
+      },
+      "max_spend_per_purchase": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "delivery_wait_days": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "spend_scope": {
+        "value": "not_stated",
+        "evidence": ""
+      }
+    }
+  },
+  "maximize:urban-company-1321": {
+    "brand_name": "Urban Company",
+    "source": "maximize",
+    "slug": "urban-company-1321",
+    "rules": {
+      "can_combine": {
+        "value": "no",
+        "evidence": "Can the cards be clubbed? Multiple cards can''t be clubbed"
+      },
+      "max_cards_per_order": {
+        "value": 1,
+        "evidence": "Can the cards be clubbed? Multiple cards can''t be clubbed"
+      },
+      "ceiling_amount": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "ceiling_period": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "one_time_use": {
+        "value": "yes",
+        "evidence": "Multi-Use or Single Use? Must use the full balance in one go"
+      },
+      "works_online": {
+        "value": "yes",
+        "evidence": "Where to Redeem? Redeem Online on website / app"
+      },
+      "works_in_store": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "works_on_sale_items": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "combines_with_store_offers": {
+        "value": "no",
+        "evidence": "Can be clubbed with other offers? No, can''t club with other offers / coupons"
+      },
+      "min_order_value": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "excludes": {
+        "value": [],
+        "evidence": ""
+      },
+      "max_spend_per_purchase": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "delivery_wait_days": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "spend_scope": {
+        "value": "Spa or massage services",
+        "evidence": "Book your spa or massage service."
+      }
+    }
+  },
+  "maximize:farzi-cafe-1326": {
+    "brand_name": "Farzi Cafe",
+    "source": "maximize",
+    "slug": "farzi-cafe-1326",
+    "rules": {
+      "can_combine": {
+        "value": "yes",
+        "evidence": "Can the cards be clubbed? Use several gift cards in one purchase"
+      },
+      "max_cards_per_order": {
+        "value": null,
+        "evidence": ""
+      },
+      "ceiling_amount": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "ceiling_period": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "one_time_use": {
+        "value": "no",
+        "evidence": "Multi-Use or Single Use? Can be used multiple times"
+      },
+      "works_online": {
+        "value": "no",
+        "evidence": "This is a Farzi Cafe Gift Voucher (GV)/e-Pay and will only be accepted at the listed retail outlets of Farzi Cafe."
+      },
+      "works_in_store": {
+        "value": "yes",
+        "evidence": "This is a Farzi Cafe Gift Voucher (GV)/e-Pay and will only be accepted at the listed retail outlets of Farzi Cafe."
+      },
+      "works_on_sale_items": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "combines_with_store_offers": {
+        "value": "no",
+        "evidence": "The GV/e-Pay cannot be clubbed with any existing offers."
+      },
+      "min_order_value": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "excludes": {
+        "value": [
+          "date: 25 December, 31 December, 1 January, 14 February"
+        ],
+        "evidence": "The GV/e-Pay cannot be redeemed on the following block-out dates: 25 December, 31 December, 1 January, and 14 February."
+      },
+      "max_spend_per_purchase": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "delivery_wait_days": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "spend_scope": {
+        "value": "not_stated",
+        "evidence": ""
+      }
+    }
+  },
+  "maximize:pa-pa-ya-1327": {
+    "brand_name": "Pa pa ya",
+    "source": "maximize",
+    "slug": "pa-pa-ya-1327",
+    "rules": {
+      "can_combine": {
+        "value": "yes",
+        "evidence": "Can the cards be clubbed? Use several gift cards in one purchase"
+      },
+      "max_cards_per_order": {
+        "value": null,
+        "evidence": ""
+      },
+      "ceiling_amount": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "ceiling_period": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "one_time_use": {
+        "value": "no",
+        "evidence": "Multi-Use or Single Use? Can be used multiple times"
+      },
+      "works_online": {
+        "value": "no",
+        "evidence": "This is a Pa Pa Ya Gift Voucher (GV)/e-Pay and will only be accepted at the listed retail outlets of Pa Pa Ya."
+      },
+      "works_in_store": {
+        "value": "yes",
+        "evidence": "This is a Pa Pa Ya Gift Voucher (GV)/e-Pay and will only be accepted at the listed retail outlets of Pa Pa Ya."
+      },
+      "works_on_sale_items": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "combines_with_store_offers": {
+        "value": "no",
+        "evidence": "The GV/e-Pay cannot be clubbed with any existing offers."
+      },
+      "min_order_value": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "excludes": {
+        "value": [
+          "date: 25 December, 31 December, 1 January, 14 February"
+        ],
+        "evidence": "The GV/e-Pay cannot be redeemed on the following block-out dates: 25 December, 31 December, 1 January, and 14 February."
+      },
+      "max_spend_per_purchase": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "delivery_wait_days": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "spend_scope": {
+        "value": "not_stated",
+        "evidence": ""
+      }
+    }
+  },
+  "maximize:bo-tai-1328": {
+    "brand_name": "Bo Tai",
+    "source": "maximize",
+    "slug": "bo-tai-1328",
+    "rules": {
+      "can_combine": {
+        "value": "yes",
+        "evidence": "Can the cards be clubbed? Use several gift cards in one purchase"
+      },
+      "max_cards_per_order": {
+        "value": null,
+        "evidence": ""
+      },
+      "ceiling_amount": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "ceiling_period": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "one_time_use": {
+        "value": "no",
+        "evidence": "Multi-Use or Single Use? Can be used multiple times"
+      },
+      "works_online": {
+        "value": "no",
+        "evidence": "Important: The voucher cannot be used online."
+      },
+      "works_in_store": {
+        "value": "yes",
+        "evidence": "This is a BO-TAI Gift Voucher (GV)/e-Pay and will only be accepted at the listed retail outlets of BO-TAI."
+      },
+      "works_on_sale_items": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "combines_with_store_offers": {
+        "value": "no",
+        "evidence": "The GV/e-Pay cannot be clubbed with any existing offers."
+      },
+      "min_order_value": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "excludes": {
+        "value": [
+          "date: 25 December, 31 December, 1 January, 14 February"
+        ],
+        "evidence": "The GV/e-Pay cannot be redeemed on 25 December, 31 December, 1 January, or 14 February."
+      },
+      "max_spend_per_purchase": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "delivery_wait_days": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "spend_scope": {
+        "value": "not_stated",
+        "evidence": ""
+      }
+    }
+  },
+  "maximize:made-in-punjab-1329": {
+    "brand_name": "Made in Punjab",
+    "source": "maximize",
+    "slug": "made-in-punjab-1329",
+    "rules": {
+      "can_combine": {
+        "value": "yes",
+        "evidence": "Can the cards be clubbed? Use several gift cards in one purchase"
+      },
+      "max_cards_per_order": {
+        "value": null,
+        "evidence": ""
+      },
+      "ceiling_amount": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "ceiling_period": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "one_time_use": {
+        "value": "no",
+        "evidence": "Multi-Use or Single Use? Can be used multiple times"
+      },
+      "works_online": {
+        "value": "no",
+        "evidence": "This is a Made In Punjab GV (Gift Voucher)/e-Pay and will only be accepted at the listed retail outlets of Made In Punjab."
+      },
+      "works_in_store": {
+        "value": "yes",
+        "evidence": "This is a Made In Punjab GV (Gift Voucher)/e-Pay and will only be accepted at the listed retail outlets of Made In Punjab."
+      },
+      "works_on_sale_items": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "combines_with_store_offers": {
+        "value": "no",
+        "evidence": "The GV/e-Pay cannot be clubbed with any existing offers."
+      },
+      "min_order_value": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "excludes": {
+        "value": [
+          "date: 25 December, 31 December, 1 January, 14 February"
+        ],
+        "evidence": "The GV/e-Pay cannot be redeemed on 25 December, 31 December, 1 January, or 14 February."
+      },
+      "max_spend_per_purchase": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "delivery_wait_days": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "spend_scope": {
+        "value": "not_stated",
+        "evidence": ""
+      }
+    }
+  },
+  "maximize:swan-1330": {
+    "brand_name": "Swan",
+    "source": "maximize",
+    "slug": "swan-1330",
+    "rules": {
+      "can_combine": {
+        "value": "yes",
+        "evidence": "Can the cards be clubbed? Use several gift cards in one purchase"
+      },
+      "max_cards_per_order": {
+        "value": null,
+        "evidence": ""
+      },
+      "ceiling_amount": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "ceiling_period": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "one_time_use": {
+        "value": "no",
+        "evidence": "Multi-Use or Single Use? Can be used multiple times"
+      },
+      "works_online": {
+        "value": "no",
+        "evidence": "This is a Swan GV (Gift Voucher)/e-Pay and will only be accepted at the listed retail outlets of Swan."
+      },
+      "works_in_store": {
+        "value": "yes",
+        "evidence": "This is a Swan GV (Gift Voucher)/e-Pay and will only be accepted at the listed retail outlets of Swan."
+      },
+      "works_on_sale_items": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "combines_with_store_offers": {
+        "value": "no",
+        "evidence": "The GV/e-Pay cannot be clubbed with any existing offers."
+      },
+      "min_order_value": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "excludes": {
+        "value": [
+          "date: 25 December, 31 December, 1 January, 14 February"
+        ],
+        "evidence": "The GV/e-Pay cannot be redeemed on 25 December, 31 December, 1 January, or 14 February."
+      },
+      "max_spend_per_purchase": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "delivery_wait_days": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "spend_scope": {
+        "value": "not_stated",
+        "evidence": ""
+      }
+    }
+  },
+  "maximize:masala-library-1331": {
+    "brand_name": "Masala Library",
+    "source": "maximize",
+    "slug": "masala-library-1331",
+    "rules": {
+      "can_combine": {
+        "value": "yes",
+        "evidence": "Can the cards be clubbed? Use several gift cards in one purchase"
+      },
+      "max_cards_per_order": {
+        "value": null,
+        "evidence": ""
+      },
+      "ceiling_amount": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "ceiling_period": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "one_time_use": {
+        "value": "no",
+        "evidence": "Multi-Use or Single Use? Can be used multiple times"
+      },
+      "works_online": {
+        "value": "no",
+        "evidence": "This is a Masala Library GV (Gift Voucher)/e-Pay and will only be accepted at the listed retail outlets of Masala Library."
+      },
+      "works_in_store": {
+        "value": "yes",
+        "evidence": "This is a Masala Library GV (Gift Voucher)/e-Pay and will only be accepted at the listed retail outlets of Masala Library."
+      },
+      "works_on_sale_items": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "combines_with_store_offers": {
+        "value": "no",
+        "evidence": "The GV/e-Pay cannot be clubbed with any existing offers."
+      },
+      "min_order_value": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "excludes": {
+        "value": [
+          "date: 25 December, 31 December, 1 January, 14 February"
+        ],
+        "evidence": "The GV/e-Pay cannot be redeemed on 25 December, 31 December, 1 January, or 14 February."
+      },
+      "max_spend_per_purchase": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "delivery_wait_days": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "spend_scope": {
+        "value": "not_stated",
+        "evidence": ""
+      }
+    }
+  },
+  "maximize:zudio-1339": {
+    "brand_name": "Zudio",
+    "source": "maximize",
+    "slug": "zudio-1339",
+    "rules": {
+      "can_combine": {
+        "value": "yes",
+        "evidence": "Multiple E-Gift Vouchers can be combined in a single transaction."
+      },
+      "max_cards_per_order": {
+        "value": null,
+        "evidence": ""
+      },
+      "ceiling_amount": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "ceiling_period": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "one_time_use": {
+        "value": "yes",
+        "evidence": "The voucher is valid for one-time redemption only."
+      },
+      "works_online": {
+        "value": "no",
+        "evidence": "The E-Gift Voucher can be used only offline at selected Zudio stores and cannot be redeemed online."
+      },
+      "works_in_store": {
+        "value": "yes",
+        "evidence": "The E-Gift Voucher can be used only offline at selected Zudio stores and cannot be redeemed online."
+      },
+      "works_on_sale_items": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "combines_with_store_offers": {
+        "value": "yes",
+        "evidence": "The E-Gift Voucher can be used during sale periods and along with existing offers available in stores."
+      },
+      "min_order_value": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "excludes": {
+        "value": [
+          "location: Zudio Shop-in-Shop (SIS) stores",
+          "location: stores with combined operations with Star Bazaar Hypermarket or Star Quick"
+        ],
+        "evidence": "It is not valid at Zudio Shop-in-Shop (SIS) stores or stores that have combined operations with Star Bazaar Hypermarket or Star Quick."
+      },
+      "max_spend_per_purchase": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "delivery_wait_days": {
+        "value": 2.0,
+        "evidence": "E-Gift Vouchers are normally delivered instantly. However, due to system issues, delivery may be delayed by up to 24–48 hours."
       },
       "spend_scope": {
         "value": "not_stated",

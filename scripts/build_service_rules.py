@@ -151,7 +151,8 @@ WALLET_COMBINES = {
     "maximize:nykaa": "registered users may add multiple cards to Wallet",
     # buyhatke:nykaa-gift-card dropped 2026-09-28: the listing's page is empty.
     "buyhatke:nykaa-fashion-gift-card": "add multiple Nykaa Gift Cards to their Nykaa Wallet",
-    "buyhatke:kalki-gift-card": "The voucher can be converted into e-Pay balance",
+    # Reworded by 2026-11-05; the wallet route is unchanged.
+    "buyhatke:kalki-gift-card": "The GV can be converted into e-Pay as per the holder's convenience",
     "buyhatke:lunch-box-gift-card": "add the Gift Card to the EatSure User Account",
     "buyhatke:firangi-bake-gift-card": "add the Gift Card to the EatSure User Account",
     # buyhatke:fricken-gift-card dropped 2026-09-28: it now says "only one gift
