@@ -50,7 +50,7 @@ from ..repositories import (
     searchapi_repository,
     voucher_repository,
 )
-from . import card_service, product_identity, search_fallbacks, voucher_service
+from . import card_service, hubble_service, product_identity, search_fallbacks, voucher_service
 
 # ── price parsing ──────────────────────────────────────────────────────────────
 
@@ -441,7 +441,16 @@ def _on_sale(record: dict | None) -> dict | None:
     if products is None:
         return record
     live = [p for p in products if voucher_service._is_sellable(p)]
-    return {**record, "products": live} if live else None
+    if live:
+        return {**record, "products": live}
+    # Dealo shows its own (Hubble) card wherever Hubble sells the shop, and
+    # the website puts that card in place of this one — so a shop the
+    # partners have dropped stays findable while Hubble still sells it
+    # (PVR Cinemas, Amazon Pay, BPCL... on 2026-11-09).
+    name = record.get("brand_name") or ""
+    if hubble_service.brand_for(name) or hubble_service.brand_for(name, in_store=True):
+        return record
+    return None
 
 
 def _load_brand_voucher_index() -> dict[str, dict]:
