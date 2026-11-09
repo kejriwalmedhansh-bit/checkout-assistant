@@ -48,6 +48,12 @@ Cards that answer 404 are retired. On 2026-10-19 that was 60 of 410, and every
 one was also missing from the site's own list; several (Cinepolis, District,
 Zomato, Myntra) had moved to new ids, which the list supplied.
 
+Maximize collector: set `window.__mxIDS` before `__mxNewIDS`; the first ~15
+cards after login time out, and a retry at the end collects them.
+BuyHatke: a page can come back in another language (Turkish, 2026-11-05) and
+dead pages show a placeholder "40% off" — re-collect or ignore those; slugs
+get renamed (ixigo-hotel → ixigo-hotels), which sync handles as a move.
+
 **Check the collection before reading anything.** Any BuyHatke listing with no
 amounts and no "currently unavailable" notice is a page that did not load, not a
 card that has gone — re-collect those (six on 2026-09-28, Nykaa, Zomato and PVR
@@ -85,6 +91,14 @@ added. Every quote must be verbatim; the gate checks it.
     python3.11 scripts/update_masters_from_scrape.py      # prices, amounts, stock, status
     python3.11 scripts/export_offers_csv.py               # the Sheet's current-catalogue tab
     python3.11 scripts/build_voucher_history.py           # the Sheet's History tab: every scrape, for trends
+
+Run the steps one by one, or in `bash` with each step quoted as its own word.
+A zsh loop over `"merge_two_readings.py --tag rMMDD"` passes the whole string
+as the file name and the step is silently skipped (2026-11-05 and 2026-11-09).
+
+`update_masters_from_scrape.py` stamps each seller's `last_scraped` with that
+seller's own newest collection date (before 2026-11-09 it used the newest date
+across all three, so a Gyftr-only top-up re-dated BuyHatke and Maximize).
 
 `build_service_rules.py` stops if a hand-listed wallet sentence
 (`WALLET_COMBINES`) is no longer in the terms — read the new wording and update

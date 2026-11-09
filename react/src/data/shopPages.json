@@ -3,7 +3,7 @@
     "slug": "myntra",
     "name": "Myntra",
     "website": "https://www.myntra.com/",
-    "checked": "2026-11-05",
+    "checked": "2026-11-09",
     "hubble": {
       "pct": 4.0,
       "brand_name": "Myntra",
@@ -110,7 +110,7 @@
     "slug": "ajio",
     "name": "AJIO",
     "website": "https://www.ajio.com/",
-    "checked": "2026-11-05",
+    "checked": "2026-11-09",
     "hubble": {
       "pct": 6.5,
       "brand_name": "AJIO",
@@ -213,7 +213,7 @@
     "slug": "nykaa",
     "name": "Nykaa",
     "website": "https://www.nykaa.com/",
-    "checked": "2026-11-05",
+    "checked": "2026-11-09",
     "hubble": {
       "pct": 5.0,
       "brand_name": "Nykaa",
@@ -224,6 +224,29 @@
       "typed": true
     },
     "sellers": [
+      {
+        "source": "gyftr",
+        "label": "Gyftr",
+        "pct": 6.5,
+        "upi_pct": 6.5,
+        "card_pct": 5.0,
+        "url": "https://www.gyftr.com/nykaa",
+        "online": true,
+        "offline": true,
+        "denominations": [
+          500,
+          1000,
+          1500,
+          2000,
+          5000,
+          10000
+        ],
+        "typed": false,
+        "typed_min": null,
+        "typed_max": null,
+        "stack_limit": 1,
+        "value_cap": null
+      },
       {
         "source": "maximize",
         "label": "Maximize",
@@ -270,34 +293,11 @@
         "typed_max": null,
         "stack_limit": 1,
         "value_cap": 10000.0
-      },
-      {
-        "source": "gyftr",
-        "label": "Gyftr",
-        "pct": 5.0,
-        "upi_pct": 5.0,
-        "card_pct": 3.0,
-        "url": "https://www.gyftr.com/nykaa",
-        "online": true,
-        "offline": true,
-        "denominations": [
-          500,
-          1000,
-          1500,
-          2000,
-          5000,
-          10000
-        ],
-        "typed": false,
-        "typed_min": null,
-        "typed_max": null,
-        "stack_limit": 1,
-        "value_cap": null
       }
     ],
     "best": {
-      "source": "maximize",
-      "pct": 6.25
+      "source": "gyftr",
+      "pct": 6.5
     },
     "online": true,
     "offline": true,
@@ -318,7 +318,7 @@
     "slug": "nykaa-fashion",
     "name": "Nykaa Fashion",
     "website": "https://www.nykaafashion.com/",
-    "checked": "2026-11-05",
+    "checked": "2026-11-09",
     "hubble": {
       "pct": 5.0,
       "brand_name": "Nykaa Fashion",
@@ -425,7 +425,7 @@
     "slug": "zomato",
     "name": "Zomato",
     "website": "https://www.zomato.com/",
-    "checked": "2026-11-05",
+    "checked": "2026-11-09",
     "hubble": {
       "pct": 4.0,
       "brand_name": "Zomato",
@@ -436,6 +436,28 @@
       "typed": true
     },
     "sellers": [
+      {
+        "source": "gyftr",
+        "label": "Gyftr",
+        "pct": 4.0,
+        "upi_pct": 4.0,
+        "card_pct": 3.0,
+        "url": "https://www.gyftr.com/zomato-gift-card",
+        "online": true,
+        "offline": false,
+        "denominations": [
+          1000,
+          2000,
+          5000,
+          7500,
+          10000
+        ],
+        "typed": false,
+        "typed_min": null,
+        "typed_max": null,
+        "stack_limit": null,
+        "value_cap": null
+      },
       {
         "source": "maximize",
         "label": "Maximize",
@@ -453,25 +475,6 @@
         "typed": true,
         "typed_min": 1000,
         "typed_max": 10000,
-        "stack_limit": null,
-        "value_cap": null
-      },
-      {
-        "source": "gyftr",
-        "label": "Gyftr",
-        "pct": 2.0,
-        "upi_pct": 2.0,
-        "card_pct": 0.0,
-        "url": "https://www.gyftr.com/zomato-gift-card",
-        "online": true,
-        "offline": false,
-        "denominations": [
-          500,
-          1000
-        ],
-        "typed": false,
-        "typed_min": null,
-        "typed_max": null,
         "stack_limit": null,
         "value_cap": null
       }
@@ -496,7 +499,7 @@
     "slug": "swiggy",
     "name": "Swiggy",
     "website": "https://www.swiggy.com/",
-    "checked": "2026-11-05",
+    "checked": "2026-11-09",
     "hubble": {
       "pct": 3.0,
       "brand_name": "Swiggy",
@@ -515,15 +518,13 @@
         900,
         1000,
         1250,
+        1500,
         1700,
         1750,
         2000,
         2500,
         3000,
-        4000,
-        5000,
-        7500,
-        10000
+        7500
       ],
       "min_amount": 100,
       "max_amount": 10309,
@@ -546,7 +547,7 @@
     "slug": "amazon",
     "name": "Amazon",
     "website": "https://www.amazon.in/",
-    "checked": "2026-11-05",
+    "checked": "2026-11-09",
     "hubble": {
       "pct": 1.5,
       "brand_name": "Amazon shopping",
@@ -646,7 +647,7 @@
     "slug": "flipkart",
     "name": "Flipkart",
     "website": "https://www.flipkart.com/",
-    "checked": "2026-11-05",
+    "checked": "2026-11-09",
     "hubble": {
       "pct": 2.0,
       "brand_name": "Flipkart",
@@ -680,28 +681,6 @@
         "value_cap": 10000.0
       },
       {
-        "source": "gyftr",
-        "label": "Gyftr",
-        "pct": 2.0,
-        "upi_pct": 2.0,
-        "card_pct": 0.0,
-        "url": "https://www.gyftr.com/flipkart",
-        "online": true,
-        "offline": false,
-        "denominations": [
-          250,
-          500,
-          1000,
-          2000,
-          10000
-        ],
-        "typed": false,
-        "typed_min": 10,
-        "typed_max": 10000,
-        "stack_limit": 15,
-        "value_cap": null
-      },
-      {
         "source": "maximize",
         "label": "Maximize",
         "pct": 1.75,
@@ -720,6 +699,28 @@
         ],
         "typed": true,
         "typed_min": 100,
+        "typed_max": 10000,
+        "stack_limit": 15,
+        "value_cap": null
+      },
+      {
+        "source": "gyftr",
+        "label": "Gyftr",
+        "pct": 1.5,
+        "upi_pct": 1.5,
+        "card_pct": 0.0,
+        "url": "https://www.gyftr.com/flipkart",
+        "online": true,
+        "offline": false,
+        "denominations": [
+          250,
+          500,
+          1000,
+          2000,
+          10000
+        ],
+        "typed": false,
+        "typed_min": 10,
         "typed_max": 10000,
         "stack_limit": 15,
         "value_cap": null
@@ -748,7 +749,7 @@
     "slug": "croma",
     "name": "Croma",
     "website": "https://www.croma.com/",
-    "checked": "2026-11-05",
+    "checked": "2026-11-09",
     "hubble": {
       "pct": 2.0,
       "brand_name": "Croma",
@@ -848,7 +849,7 @@
     "slug": "reliance-digital",
     "name": "Reliance Digital",
     "website": "https://www.reliancedigital.in/",
-    "checked": "2026-11-05",
+    "checked": "2026-11-09",
     "hubble": null,
     "sellers": [
       {
@@ -897,7 +898,7 @@
     "slug": "makemytrip",
     "name": "MakeMyTrip",
     "website": "https://www.makemytrip.com/",
-    "checked": "2026-11-05",
+    "checked": "2026-11-09",
     "hubble": {
       "pct": 6.25,
       "brand_name": "MakeMyTrip",
@@ -980,7 +981,7 @@
     "slug": "yatra",
     "name": "Yatra",
     "website": "https://www.yatra.com/",
-    "checked": "2026-11-05",
+    "checked": "2026-11-09",
     "hubble": {
       "pct": 5.0,
       "brand_name": "Yatra",
@@ -1061,7 +1062,7 @@
     "slug": "cleartrip",
     "name": "Cleartrip",
     "website": "https://www.cleartrip.com/",
-    "checked": "2026-11-05",
+    "checked": "2026-11-09",
     "hubble": {
       "pct": 8.0,
       "brand_name": "Cleartrip",
@@ -1166,7 +1167,7 @@
     "slug": "pvr",
     "name": "PVR",
     "website": "https://www.pvrcinemas.com/",
-    "checked": "2026-11-05",
+    "checked": "2026-11-09",
     "hubble": {
       "pct": 10.0,
       "brand_name": "PVR",
@@ -1267,7 +1268,7 @@
     "slug": "bookmyshow",
     "name": "BookMyShow",
     "website": "https://www.bookmyshow.com/",
-    "checked": "2026-11-05",
+    "checked": "2026-11-09",
     "hubble": {
       "pct": 2.0,
       "brand_name": "BookMyShow",
@@ -1325,7 +1326,7 @@
     "slug": "uber",
     "name": "Uber",
     "website": "https://www.uber.com/",
-    "checked": "2026-11-05",
+    "checked": "2026-11-09",
     "hubble": {
       "pct": 4.0,
       "brand_name": "Uber.",
@@ -1390,9 +1391,6 @@
         "online": true,
         "offline": false,
         "denominations": [
-          100,
-          250,
-          500,
           1000
         ],
         "typed": false,
@@ -1422,7 +1420,7 @@
     "slug": "bigbasket",
     "name": "BigBasket",
     "website": "https://www.bigbasket.com/",
-    "checked": "2026-11-05",
+    "checked": "2026-11-09",
     "hubble": {
       "pct": 2.75,
       "brand_name": "BigBasket",
@@ -1527,7 +1525,7 @@
     "slug": "tata-cliq",
     "name": "Tata CLiQ",
     "website": "https://www.tatacliq.com/",
-    "checked": "2026-11-05",
+    "checked": "2026-11-09",
     "hubble": {
       "pct": 9.0,
       "brand_name": "Tata Cliq",
@@ -1645,7 +1643,7 @@
     "slug": "pepperfry",
     "name": "Pepperfry",
     "website": "https://www.pepperfry.com/",
-    "checked": "2026-11-05",
+    "checked": "2026-11-09",
     "hubble": {
       "pct": 3.0,
       "brand_name": "Pepperfry",
@@ -1722,7 +1720,7 @@
     "slug": "ikea",
     "name": "IKEA",
     "website": "https://www.ikea.com/",
-    "checked": "2026-11-05",
+    "checked": "2026-11-09",
     "hubble": {
       "pct": 6.0,
       "brand_name": "IKEA",
@@ -1738,31 +1736,6 @@
       "typed": false
     },
     "sellers": [
-      {
-        "source": "gyftr",
-        "label": "Gyftr",
-        "pct": 6.0,
-        "upi_pct": 6.0,
-        "card_pct": 4.5,
-        "url": "https://www.gyftr.com/ikea",
-        "online": true,
-        "offline": true,
-        "denominations": [
-          1000,
-          1500,
-          2000,
-          2500,
-          3000,
-          5000,
-          7500,
-          10000
-        ],
-        "typed": false,
-        "typed_min": null,
-        "typed_max": null,
-        "stack_limit": null,
-        "value_cap": null
-      },
       {
         "source": "maximize",
         "label": "Maximize",
@@ -1829,7 +1802,7 @@
     "slug": "urban-ladder",
     "name": "Urban Ladder",
     "website": "https://www.urbanladder.com/",
-    "checked": "2026-11-05",
+    "checked": "2026-11-09",
     "hubble": {
       "pct": 4.0,
       "brand_name": "Urban Ladder",
@@ -1915,7 +1888,7 @@
     "slug": "dominos",
     "name": "Domino's",
     "website": "https://www.dominos.co.in/",
-    "checked": "2026-11-05",
+    "checked": "2026-11-09",
     "hubble": {
       "pct": 16.0,
       "brand_name": "Dominos",
@@ -2014,7 +1987,7 @@
     "slug": "pizza-hut",
     "name": "Pizza Hut",
     "website": "https://www.pizzahut.co.in/",
-    "checked": "2026-11-05",
+    "checked": "2026-11-09",
     "hubble": {
       "pct": 7.0,
       "brand_name": "Pizza Hut",
@@ -2125,7 +2098,7 @@
     "slug": "kfc",
     "name": "KFC",
     "website": "https://www.online.kfc.co.in/",
-    "checked": "2026-11-05",
+    "checked": "2026-11-09",
     "hubble": {
       "pct": 6.0,
       "brand_name": "KFC",
@@ -2231,7 +2204,7 @@
     "slug": "subway",
     "name": "Subway",
     "website": "https://www.subway.com/",
-    "checked": "2026-11-05",
+    "checked": "2026-11-09",
     "hubble": {
       "pct": 8.0,
       "brand_name": "Subway",
@@ -2307,7 +2280,7 @@
     "slug": "starbucks",
     "name": "Starbucks",
     "website": "https://www.starbucks.in/",
-    "checked": "2026-11-05",
+    "checked": "2026-11-09",
     "hubble": {
       "pct": 7.0,
       "brand_name": "Starbucks",
@@ -2408,7 +2381,7 @@
     "slug": "lifestyle",
     "name": "Lifestyle",
     "website": "https://www.lifestylestores.com/",
-    "checked": "2026-11-05",
+    "checked": "2026-11-09",
     "hubble": {
       "pct": 8.0,
       "brand_name": "Lifestyle",
@@ -2505,7 +2478,7 @@
     "slug": "decathlon",
     "name": "Decathlon",
     "website": "https://www.decathlon.in/",
-    "checked": "2026-11-05",
+    "checked": "2026-11-09",
     "hubble": {
       "pct": 4.0,
       "brand_name": "Decathlon",
@@ -2611,7 +2584,7 @@
     "slug": "puma",
     "name": "PUMA",
     "website": "https://www.in.puma.com/",
-    "checked": "2026-11-05",
+    "checked": "2026-11-09",
     "hubble": {
       "pct": 11.0,
       "brand_name": "Puma",
@@ -2695,7 +2668,7 @@
     "slug": "skechers",
     "name": "Skechers",
     "website": "https://www.skechers.in/",
-    "checked": "2026-11-05",
+    "checked": "2026-11-09",
     "hubble": {
       "pct": 10.0,
       "brand_name": "Skechers",
@@ -2798,7 +2771,7 @@
     "slug": "bata",
     "name": "Bata",
     "website": "https://www.bata.in/",
-    "checked": "2026-11-05",
+    "checked": "2026-11-09",
     "hubble": {
       "pct": 7.0,
       "brand_name": "Bata",
@@ -2878,7 +2851,7 @@
     "slug": "lenskart",
     "name": "Lenskart",
     "website": "https://www.lenskart.com/",
-    "checked": "2026-11-05",
+    "checked": "2026-11-09",
     "hubble": {
       "pct": 10.0,
       "brand_name": "Lenskart",
@@ -2991,7 +2964,7 @@
     "slug": "boat",
     "name": "boAt",
     "website": "https://www.boat-lifestyle.com/",
-    "checked": "2026-11-05",
+    "checked": "2026-11-09",
     "hubble": {
       "pct": 6.0,
       "brand_name": "Boat",
@@ -3065,7 +3038,7 @@
     "slug": "titan",
     "name": "Titan",
     "website": "https://www.titan.co.in/",
-    "checked": "2026-11-05",
+    "checked": "2026-11-09",
     "hubble": null,
     "sellers": [
       {
@@ -3079,6 +3052,7 @@
         "offline": true,
         "denominations": [
           500,
+          1000,
           2000,
           5000
         ],
@@ -3134,7 +3108,7 @@
     "slug": "firstcry",
     "name": "FirstCry",
     "website": "https://www.firstcry.com/",
-    "checked": "2026-11-05",
+    "checked": "2026-11-09",
     "hubble": {
       "pct": 6.0,
       "brand_name": "Firstcry",
@@ -3144,7 +3118,6 @@
         250,
         500,
         750,
-        1000,
         2000,
         2500,
         3000,
@@ -3252,7 +3225,7 @@
     "slug": "netmeds",
     "name": "Netmeds",
     "website": "https://www.netmeds.com/",
-    "checked": "2026-11-05",
+    "checked": "2026-11-09",
     "hubble": {
       "pct": 8.0,
       "brand_name": "Netmeds",
@@ -3350,7 +3323,7 @@
     "slug": "jockey",
     "name": "Jockey",
     "website": "https://www.jockey.in/",
-    "checked": "2026-11-05",
+    "checked": "2026-11-09",
     "hubble": null,
     "sellers": [
       {

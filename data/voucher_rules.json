@@ -690,7 +690,7 @@
     "rules": {
       "can_combine": {
         "value": "yes",
-        "evidence": "Multiple e-gift cards can be redeemed in single invoice."
+        "evidence": "Multiple Gift Vouchers CAN be used in one bill."
       },
       "max_cards_per_order": {
         "value": null,
@@ -706,23 +706,23 @@
       },
       "one_time_use": {
         "value": "yes",
-        "evidence": "This Home Centre eGift Card can be redeemed only once and in full, in case the value of the merchandise exceeds the value of e-gift card, the difference shall be paid by the bearer, No refunds / credit note shall be issued for unused part of the eGift card."
+        "evidence": "This is a one-time use GV/GC. The remaining balance in the GV/GC will be forfeited once the card is redeemed."
       },
       "works_online": {
         "value": "no",
-        "evidence": "Gift Vouchers CANNOT be used online ."
+        "evidence": "The GV/GC can be used only at offline Home Centre stores."
       },
       "works_in_store": {
         "value": "yes",
-        "evidence": "eGift card are redeemable at all stores of Home Centre in India."
+        "evidence": "Gift Vouchers are ACCEPTED at all Listed Outlets."
       },
       "works_on_sale_items": {
         "value": "not_stated",
         "evidence": ""
       },
       "combines_with_store_offers": {
-        "value": "not_stated",
-        "evidence": ""
+        "value": "yes",
+        "evidence": "The GV/GC can be used to purchase discounted products at Home Centre stores."
       },
       "min_order_value": {
         "value": "not_stated",
@@ -819,7 +819,7 @@
     "rules": {
       "can_combine": {
         "value": "yes",
-        "evidence": "More than one GV / GC can be used in one bill."
+        "evidence": "Multiple GVs can be used in one bill at Pantaloons stores."
       },
       "max_cards_per_order": {
         "value": null,
@@ -834,16 +834,16 @@
         "evidence": ""
       },
       "one_time_use": {
-        "value": "yes",
-        "evidence": "This is a one-time use GV/GC. The remaining balance in the GV/GC will be forfeited once the card is redeemed."
-      },
-      "works_online": {
         "value": "not_stated",
         "evidence": ""
       },
+      "works_online": {
+        "value": "yes",
+        "evidence": "The GV can only be used online on the Pantaloons website or app after being converted to the e-Pay wallet via https://www.brandpts.com or the GyFTR e-Pay app."
+      },
       "works_in_store": {
         "value": "yes",
-        "evidence": "GV/GC can be redeemed for any product at participating pantaloons stores across India."
+        "evidence": "Multiple GVs can be used in one bill at Pantaloons stores."
       },
       "works_on_sale_items": {
         "value": "not_stated",
@@ -851,7 +851,7 @@
       },
       "combines_with_store_offers": {
         "value": "yes",
-        "evidence": "Pantaloons GV / GC can be used during sale."
+        "evidence": "The GV/e-Pay can be clubbed with existing offers."
       },
       "min_order_value": {
         "value": "not_stated",
@@ -862,7 +862,7 @@
           "shop-in-shops",
           "jewellery"
         ],
-        "evidence": "Pantaloons E-Gift voucher is not valid at shop-in-shops & on jewellery."
+        "evidence": "The GV/e-Pay is not valid at shop-in-shops or on jewellery."
       },
       "max_spend_per_purchase": {
         "value": "not_stated",
@@ -1758,7 +1758,7 @@
       },
       "one_time_use": {
         "value": "yes",
-        "evidence": "3. This is a one-time use GV/GC. The remaining balance in the GV/GC will be forfeited once the card is redeemed."
+        "evidence": "This is a one-time use GV/GC. The remaining balance in the GV/GC will be forfeited once the card is redeemed."
       },
       "works_online": {
         "value": "no",
@@ -1766,7 +1766,7 @@
       },
       "works_in_store": {
         "value": "yes",
-        "evidence": "Gift Vouchers CAN be used at all Listed Outlets."
+        "evidence": "The GV/GC can be redeemed only at offline Lifestyle stores."
       },
       "works_on_sale_items": {
         "value": "not_stated",
@@ -1774,7 +1774,7 @@
       },
       "combines_with_store_offers": {
         "value": "yes",
-        "evidence": "Gift Vouchers CAN be used to buy discounted products."
+        "evidence": "The GV/GC can be clubbed with existing offers."
       },
       "min_order_value": {
         "value": "not_stated",
@@ -5908,15 +5908,15 @@
       },
       "one_time_use": {
         "value": "no",
-        "evidence": "4.Lifestyle Online e-Gift Cards can be partially redeemed and can be used multiple times till balance exists in the E-Gift Card."
+        "evidence": "The Lifestyle Online Gift Card can be used multiple times."
       },
       "works_online": {
         "value": "yes",
-        "evidence": "E-Gift Cards are redeemable only through online stores and apps of lifestylestores.com and homecentre.in"
+        "evidence": "This is a Lifestyle Online GV/GC (Gift Voucher/Gift Card) and will be accepted only online on the mobile app and website at www.lifestylestores.com."
       },
       "works_in_store": {
         "value": "no",
-        "evidence": "E- Gift Cards CANNOT be redeemed at physical outlets"
+        "evidence": "The GV/GC is not redeemable at the physical/brick-and-mortar stores of Lifestyle and Home Centre."
       },
       "works_on_sale_items": {
         "value": "not_stated",
@@ -5924,7 +5924,7 @@
       },
       "combines_with_store_offers": {
         "value": "yes",
-        "evidence": "9.The Lifestyle E-Gift Cards are valid and redeemable on all offers and during EOSS on the website and apps."
+        "evidence": "The GV/GC can be clubbed with existing offers."
       },
       "min_order_value": {
         "value": "not_stated",
@@ -5940,7 +5940,7 @@
       },
       "delivery_wait_days": {
         "value": 2.0,
-        "evidence": "E-Gift Cards are normally delivered instantly. But sometimes due to system issues, the delivery can be delayed up-to 24 - 48 hours."
+        "evidence": "GV/GCs are normally delivered instantly, but due to system issues, delivery can be delayed up to 24–48 hours."
       },
       "spend_scope": {
         "value": "not_stated",
@@ -13699,7 +13699,7 @@
       },
       "works_online": {
         "value": "yes",
-        "evidence": "This is a Home Centre Online GV/GC (Gift Voucher/Gift Card) and will be accepted only online on the mobile app and website at www.homecentre.in."
+        "evidence": "Home Centre Online Gift Cards can only be redeemed online at https://www.homecentre.in/in/en."
       },
       "works_in_store": {
         "value": "no",
@@ -14997,8 +14997,8 @@
         "evidence": ""
       },
       "one_time_use": {
-        "value": "yes",
-        "evidence": "The Nestasia Gift Card can be used only once, but once converted to an ePay balance, you can use the balance to make partial payments."
+        "value": "not_stated",
+        "evidence": ""
       },
       "works_online": {
         "value": "no",
@@ -15006,15 +15006,15 @@
       },
       "works_in_store": {
         "value": "yes",
-        "evidence": "Gift Voucher/e-pay is ACCEPTED only at Listed Outlets."
+        "evidence": "This is a Nestasia GV (Gift Voucher)/e-Pay that will be accepted only at the listed Nestasia stores."
       },
       "works_on_sale_items": {
         "value": "not_stated",
         "evidence": ""
       },
       "combines_with_store_offers": {
-        "value": "yes",
-        "evidence": "The GV/e-Pay can be clubbed with existing offers."
+        "value": "no",
+        "evidence": "The GV/e-Pay cannot be clubbed with any existing offers."
       },
       "min_order_value": {
         "value": "not_stated",
@@ -17893,7 +17893,8 @@
       },
       "excludes": {
         "value": [
-          "the Roblox App"
+          "Roblox app",
+          "location: cannot be used on the Roblox App"
         ],
         "evidence": "GV/GC cannot be used on App."
       },
@@ -17902,11 +17903,11 @@
         "evidence": ""
       },
       "delivery_wait_days": {
-        "value": "not_stated",
-        "evidence": ""
+        "value": "delivered digitally right after payment",
+        "evidence": "Your Gift Card is delivered digitally via SMS, email, or WhatsApp right after payment."
       },
       "spend_scope": {
-        "value": "Roblox Credit, which can be used to purchase Robux or a Premium subscription",
+        "value": "Roblox Credit to buy Robux or a Premium subscription",
         "evidence": "Upon redemption, the card value is converted to Roblox Credit, which can be used to purchase Robux or a Premium subscription."
       }
     }
@@ -27877,7 +27878,7 @@
     }
   },
   "gyftr:rarez": {
-    "brand_name": " Rare'z",
+    "brand_name": "Rare'z",
     "source": "gyftr",
     "slug": "rarez",
     "rules": {
@@ -28324,6 +28325,577 @@
       "spend_scope": {
         "value": "Skullcandy Uproar ANC product page only",
         "evidence": "This is Skullcandy Coupon code would be accepted and can be redeemed at https://www.skullcandy.in/shop/uproar-anc/ only (Official distributors of Skullcandy in India)"
+      }
+    }
+  },
+  "gyftr:theobroma": {
+    "brand_name": "Theobroma",
+    "source": "gyftr",
+    "slug": "theobroma",
+    "rules": {
+      "can_combine": {
+        "value": "yes",
+        "evidence": "Multiple GVs can be combined and added to the e-Pay balance."
+      },
+      "max_cards_per_order": {
+        "value": null,
+        "evidence": ""
+      },
+      "ceiling_amount": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "ceiling_period": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "one_time_use": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "works_online": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "works_in_store": {
+        "value": "yes",
+        "evidence": "This is a Theobroma GV (Gift Voucher)/e-Pay and will be accepted at all the listed Theobroma outlets."
+      },
+      "works_on_sale_items": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "combines_with_store_offers": {
+        "value": "yes",
+        "evidence": "The GV/e-Pay can be clubbed with existing offers."
+      },
+      "min_order_value": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "excludes": {
+        "value": [],
+        "evidence": ""
+      },
+      "max_spend_per_purchase": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "delivery_wait_days": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "spend_scope": {
+        "value": "not_stated",
+        "evidence": ""
+      }
+    }
+  },
+  "gyftr:bose": {
+    "brand_name": "Bose",
+    "source": "gyftr",
+    "slug": "bose",
+    "rules": {
+      "can_combine": {
+        "value": "yes",
+        "evidence": "Multiple GVs can be combined and added to the e-Pay balance."
+      },
+      "max_cards_per_order": {
+        "value": null,
+        "evidence": ""
+      },
+      "ceiling_amount": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "ceiling_period": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "one_time_use": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "works_online": {
+        "value": "yes",
+        "evidence": "This is a Bose GV (Gift Voucher)/e-Pay and will be accepted on the Bose website at https://www.soundscape.store."
+      },
+      "works_in_store": {
+        "value": "yes",
+        "evidence": "The GV/e-Pay can be used for all purchases of products at the Bose outlets and website."
+      },
+      "works_on_sale_items": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "combines_with_store_offers": {
+        "value": "yes",
+        "evidence": "The GV/e-Pay can be clubbed with existing offers."
+      },
+      "min_order_value": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "excludes": {
+        "value": [],
+        "evidence": ""
+      },
+      "max_spend_per_purchase": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "delivery_wait_days": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "spend_scope": {
+        "value": "not_stated",
+        "evidence": ""
+      }
+    }
+  },
+  "gyftr:hero-moto": {
+    "brand_name": "HERO MOTO",
+    "source": "gyftr",
+    "slug": "hero-moto",
+    "rules": {
+      "can_combine": {
+        "value": "no",
+        "evidence": "Only one Voucher can be used per booking."
+      },
+      "max_cards_per_order": {
+        "value": 1,
+        "evidence": "Only one Voucher can be used per booking."
+      },
+      "ceiling_amount": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "ceiling_period": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "one_time_use": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "works_online": {
+        "value": "yes",
+        "evidence": "This is a Hero Vehicle Voucher issued by GyFTR for the purchase of Hero MotoCorp two-wheelers, and it can be redeemed only on the dedicated Hero redemption page at gyftr.com/redeem/hero."
+      },
+      "works_in_store": {
+        "value": "no",
+        "evidence": "This is a Hero Vehicle Voucher issued by GyFTR for the purchase of Hero MotoCorp two-wheelers, and it can be redeemed only on the dedicated Hero redemption page at gyftr.com/redeem/hero."
+      },
+      "works_on_sale_items": {
+        "value": "no",
+        "evidence": "The voucher cannot be clubbed with any ongoing offers, discounts, or promotions at Hero dealerships."
+      },
+      "combines_with_store_offers": {
+        "value": "no",
+        "evidence": "The voucher cannot be clubbed with any ongoing offers, discounts, or promotions at Hero dealerships."
+      },
+      "min_order_value": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "excludes": {
+        "value": [],
+        "evidence": ""
+      },
+      "max_spend_per_purchase": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "delivery_wait_days": {
+        "value": 2.0,
+        "evidence": "The voucher issuance TAT will be up to 48 hours from the receipt of 100% advance payment via RTGS in favour of M/S. Hero MotoCorp Ltd., payable at New Delhi."
+      },
+      "spend_scope": {
+        "value": "Hero MotoCorp two-wheelers",
+        "evidence": "This is a Hero Vehicle Voucher issued by GyFTR for the purchase of Hero MotoCorp two-wheelers, and it can be redeemed only on the dedicated Hero redemption page at gyftr.com/redeem/hero."
+      }
+    }
+  },
+  "gyftr:mg-motor": {
+    "brand_name": "MG MOTOR",
+    "source": "gyftr",
+    "slug": "mg-motor",
+    "rules": {
+      "can_combine": {
+        "value": "no",
+        "evidence": "Only one Voucher can be used per booking."
+      },
+      "max_cards_per_order": {
+        "value": 1,
+        "evidence": "Only one Voucher can be used per booking."
+      },
+      "ceiling_amount": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "ceiling_period": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "one_time_use": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "works_online": {
+        "value": "yes",
+        "evidence": "This is an MG Automobile Voucher issued by GyFTR for the purchase of MG vehicles, and it can be redeemed only on the dedicated MG redemption page at gyftr.com/redeem/mg."
+      },
+      "works_in_store": {
+        "value": "no",
+        "evidence": "This is an MG Automobile Voucher issued by GyFTR for the purchase of MG vehicles, and it can be redeemed only on the dedicated MG redemption page at gyftr.com/redeem/mg."
+      },
+      "works_on_sale_items": {
+        "value": "no",
+        "evidence": "The voucher cannot be clubbed with any ongoing offers, discounts, or promotions at MG dealerships."
+      },
+      "combines_with_store_offers": {
+        "value": "no",
+        "evidence": "The voucher cannot be clubbed with any ongoing offers, discounts, or promotions at MG dealerships."
+      },
+      "min_order_value": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "excludes": {
+        "value": [],
+        "evidence": ""
+      },
+      "max_spend_per_purchase": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "delivery_wait_days": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "spend_scope": {
+        "value": "MG vehicles",
+        "evidence": "This is an MG Automobile Voucher issued by GyFTR for the purchase of MG vehicles, and it can be redeemed only on the dedicated MG redemption page at gyftr.com/redeem/mg."
+      }
+    }
+  },
+  "gyftr:maruti-suzuki": {
+    "brand_name": "Maruti Suzuki",
+    "source": "gyftr",
+    "slug": "maruti-suzuki",
+    "rules": {
+      "can_combine": {
+        "value": "no",
+        "evidence": "Only one Voucher can be used per booking."
+      },
+      "max_cards_per_order": {
+        "value": 1,
+        "evidence": "Only one Voucher can be used per booking."
+      },
+      "ceiling_amount": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "ceiling_period": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "one_time_use": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "works_online": {
+        "value": "yes",
+        "evidence": "This is a Maruti Value Voucher issued by GyFTR for the purchase of Maruti Suzuki vehicles, and it can be redeemed only on the dedicated Maruti Suzuki redemption page at gyftr.com/redeem/maruti-suzuki"
+      },
+      "works_in_store": {
+        "value": "no",
+        "evidence": "This is a Maruti Value Voucher issued by GyFTR for the purchase of Maruti Suzuki vehicles, and it can be redeemed only on the dedicated Maruti Suzuki redemption page at gyftr.com/redeem/maruti-suzuki"
+      },
+      "works_on_sale_items": {
+        "value": "no",
+        "evidence": "The voucher cannot be clubbed with any ongoing offers, discounts, or promotions at Maruti Suzuki dealerships."
+      },
+      "combines_with_store_offers": {
+        "value": "no",
+        "evidence": "The voucher cannot be clubbed with any ongoing offers, discounts, or promotions at Maruti Suzuki dealerships."
+      },
+      "min_order_value": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "excludes": {
+        "value": [],
+        "evidence": ""
+      },
+      "max_spend_per_purchase": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "delivery_wait_days": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "spend_scope": {
+        "value": "Maruti Suzuki vehicles",
+        "evidence": "This is a Maruti Value Voucher issued by GyFTR for the purchase of Maruti Suzuki vehicles, and it can be redeemed only on the dedicated Maruti Suzuki redemption page at gyftr.com/redeem/maruti-suzuki"
+      }
+    }
+  },
+  "gyftr:tvs-motor": {
+    "brand_name": "TVS MOTOR",
+    "source": "gyftr",
+    "slug": "tvs-motor",
+    "rules": {
+      "can_combine": {
+        "value": "no",
+        "evidence": "Only one Voucher can be used per booking."
+      },
+      "max_cards_per_order": {
+        "value": 1,
+        "evidence": "Only one Voucher can be used per booking."
+      },
+      "ceiling_amount": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "ceiling_period": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "one_time_use": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "works_online": {
+        "value": "yes",
+        "evidence": "This is a TVS Motor Value Voucher issued by GyFTR for the purchase of TVS Motor two-wheelers, and it can be redeemed only on the dedicated TVS redemption page at gyftr.com/redeem/tvs."
+      },
+      "works_in_store": {
+        "value": "no",
+        "evidence": "This is a TVS Motor Value Voucher issued by GyFTR for the purchase of TVS Motor two-wheelers, and it can be redeemed only on the dedicated TVS redemption page at gyftr.com/redeem/tvs."
+      },
+      "works_on_sale_items": {
+        "value": "no",
+        "evidence": "The voucher cannot be clubbed with any ongoing offers, discounts, or promotions at TVS Motor dealerships."
+      },
+      "combines_with_store_offers": {
+        "value": "no",
+        "evidence": "The voucher cannot be clubbed with any ongoing offers, discounts, or promotions at TVS Motor dealerships."
+      },
+      "min_order_value": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "excludes": {
+        "value": [],
+        "evidence": ""
+      },
+      "max_spend_per_purchase": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "delivery_wait_days": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "spend_scope": {
+        "value": "TVS Motor two-wheelers",
+        "evidence": "This is a TVS Motor Value Voucher issued by GyFTR for the purchase of TVS Motor two-wheelers, and it can be redeemed only on the dedicated TVS redemption page at gyftr.com/redeem/tvs."
+      }
+    }
+  },
+  "gyftr:tekne": {
+    "brand_name": "Tekne",
+    "source": "gyftr",
+    "slug": "tekne",
+    "rules": {
+      "can_combine": {
+        "value": "yes",
+        "evidence": "Multiple GVs can be combined and added to the e-Pay balance."
+      },
+      "max_cards_per_order": {
+        "value": null,
+        "evidence": ""
+      },
+      "ceiling_amount": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "ceiling_period": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "one_time_use": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "works_online": {
+        "value": "yes",
+        "evidence": "This is a Tekne GV (Gift Voucher)/e-Pay and will be accepted on the Tekne website at www.tekneworld.com."
+      },
+      "works_in_store": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "works_on_sale_items": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "combines_with_store_offers": {
+        "value": "yes",
+        "evidence": "The GV/e-Pay can be clubbed with existing offers."
+      },
+      "min_order_value": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "excludes": {
+        "value": [],
+        "evidence": ""
+      },
+      "max_spend_per_purchase": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "delivery_wait_days": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "spend_scope": {
+        "value": "not_stated",
+        "evidence": ""
+      }
+    }
+  },
+  "gyftr:ather": {
+    "brand_name": "ATHER",
+    "source": "gyftr",
+    "slug": "ather",
+    "rules": {
+      "can_combine": {
+        "value": "no",
+        "evidence": "Only one Voucher can be used per booking."
+      },
+      "max_cards_per_order": {
+        "value": 1,
+        "evidence": "Only one Voucher can be used per booking."
+      },
+      "ceiling_amount": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "ceiling_period": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "one_time_use": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "works_online": {
+        "value": "yes",
+        "evidence": "This is an Ather Value Voucher issued by GyFTR for the purchase of Ather electric two-wheelers, and it can be redeemed only on the dedicated Ather redemption page at gyftr.com/redeem/ather."
+      },
+      "works_in_store": {
+        "value": "no",
+        "evidence": "This is an Ather Value Voucher issued by GyFTR for the purchase of Ather electric two-wheelers, and it can be redeemed only on the dedicated Ather redemption page at gyftr.com/redeem/ather."
+      },
+      "works_on_sale_items": {
+        "value": "no",
+        "evidence": "The voucher cannot be clubbed with any ongoing offers, discounts, or promotions at Ather dealerships or experience centres."
+      },
+      "combines_with_store_offers": {
+        "value": "no",
+        "evidence": "The voucher cannot be clubbed with any ongoing offers, discounts, or promotions at Ather dealerships or experience centres."
+      },
+      "min_order_value": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "excludes": {
+        "value": [
+          "Ather Rizta",
+          "Ather 350 models",
+          "Ather Rizta and Ather 350 models"
+        ],
+        "evidence": "The voucher is not applicable on Ather Rizta and Ather 350 models."
+      },
+      "max_spend_per_purchase": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "delivery_wait_days": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "spend_scope": {
+        "value": "Ather electric two-wheelers; voucher value used only on the ex-showroom price (including GST)",
+        "evidence": "The GyFTR Contribution (voucher value) shall be utilised only on the ex-showroom price (including GST) of the vehicle."
+      }
+    }
+  },
+  "gyftr:salty": {
+    "brand_name": "Salty",
+    "source": "gyftr",
+    "slug": "salty",
+    "rules": {
+      "can_combine": {
+        "value": "yes",
+        "evidence": "Multiple GVs can be combined and added to the e-Pay balance."
+      },
+      "max_cards_per_order": {
+        "value": null,
+        "evidence": ""
+      },
+      "ceiling_amount": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "ceiling_period": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "one_time_use": {
+        "value": "no",
+        "evidence": "A Salty Gift Card can be used multiple times when added to e-Pay."
+      },
+      "works_online": {
+        "value": "yes",
+        "evidence": "Salty Gift Cards can be redeemed on the website: https://salty.co.in and app."
+      },
+      "works_in_store": {
+        "value": "no",
+        "evidence": "This is a Salty GV (Gift Voucher)/e-Pay and will be accepted only on the Salty website at"
+      },
+      "works_on_sale_items": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "combines_with_store_offers": {
+        "value": "yes",
+        "evidence": "The GV/e-Pay can be clubbed with existing offers."
+      },
+      "min_order_value": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "excludes": {
+        "value": [],
+        "evidence": ""
+      },
+      "max_spend_per_purchase": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "delivery_wait_days": {
+        "value": "not_stated",
+        "evidence": ""
+      },
+      "spend_scope": {
+        "value": "not_stated",
+        "evidence": ""
       }
     }
   },
