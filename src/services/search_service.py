@@ -430,6 +430,20 @@ def _voucher_card(source: str | None, brand_name: str | None, url: str | None = 
     return card
 
 
+def _on_sale(record: dict | None) -> dict | None:
+    """The record with only its listings still on sale, or None when none
+    are. A shop-name search must never offer a card the refresh retired or
+    marked out of stock (Ikea left Gyftr on 2026-11-09 and still showed at
+    6%); the price engine already skips them via voucher_service._is_sellable."""
+    if not record:
+        return None
+    products = record.get("products")
+    if products is None:
+        return record
+    live = [p for p in products if voucher_service._is_sellable(p)]
+    return {**record, "products": live} if live else None
+
+
 def _load_brand_voucher_index() -> dict[str, dict]:
     """Maps a normalized, spaceless full Gyftr brand name ("Tata CLiQ" ->
     "tatacliq") to its raw voucher record, for exact whole-phrase query
@@ -440,8 +454,9 @@ def _load_brand_voucher_index() -> dict[str, dict]:
     index: dict[str, dict] = {}
     for voucher in voucher_repository.all_vouchers():
         key = _norm(voucher.get("brand_name", ""))
-        if key:
-            index[key] = voucher
+        live = _on_sale(voucher)
+        if key and live:
+            index[key] = live
     _brand_voucher_index_cache = index
     return index
 
@@ -454,8 +469,9 @@ def _load_maximize_brand_index() -> dict[str, dict]:
     index: dict[str, dict] = {}
     for record in maximize_repository.all_brands():
         key = _norm(record.get("brand_name", ""))
-        if key:
-            index[key] = record
+        live = _on_sale(record)
+        if key and live:
+            index[key] = live
     _maximize_brand_index_cache = index
     return index
 
@@ -468,8 +484,9 @@ def _load_buyhatke_brand_index() -> dict[str, dict]:
     index: dict[str, dict] = {}
     for record in buyhatke_repository.all_brands():
         key = _norm(record.get("brand_name", ""))
-        if key:
-            index[key] = record
+        live = _on_sale(record)
+        if key and live:
+            index[key] = live
     _buyhatke_brand_index_cache = index
     return index
 
@@ -622,8 +639,10 @@ def _match_brand_voucher(query: str) -> dict | None:
                 if any(w not in _BRAND_VOUCHER_FILLER_WORDS for w in leftover):
                     continue
                 g_slug, m_slug = override
-                g_shaped = _gyftr_voucher_to_output_shape(voucher_repository.get_by_slug(g_slug)) if g_slug else None
-                m_shaped = _maximize_brand_to_output_shape(maximize_repository.get_by_slug(m_slug)) if m_slug else None
+                g_live = _on_sale(voucher_repository.get_by_slug(g_slug)) if g_slug else None
+                m_live = _on_sale(maximize_repository.get_by_slug(m_slug)) if m_slug else None
+                g_shaped = _gyftr_voucher_to_output_shape(g_live) if g_live else None
+                m_shaped = _maximize_brand_to_output_shape(m_live) if m_live else None
                 result = _pick_better_voucher(g_shaped, m_shaped)
                 if result is not None:
                     return result
