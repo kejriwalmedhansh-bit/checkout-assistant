@@ -7,7 +7,7 @@ import { track } from '@/utils/analytics';
 /**
  * What a Dealo (Hubble) voucher is good for, before the shopper pays: four
  * icons with two words each, and one tappable box for what it can't pay for
- * (or "Good to know" when nothing is hand-picked for that shop). The box
+ * (only for shops with hand-picked items; the icon row covers the rest). The box
  * opens a sheet with those items as pictures, and the shop's full terms
  * folded away. Everything comes from Hubble's own terms via the server
  * (hubble_service.card_details). Designed in rounds 1–4, 9 Nov 2026.
@@ -79,7 +79,7 @@ function Sheet({ card, brandName, onClose }) {
         <Box w="36px" h="4px" borderRadius="2px" bg="surface3" mx="auto" mb="12px" />
         <Flex justify="space-between" align="center" mb="12px">
           <Text fontSize="17px" fontWeight={800}>
-            {cant.length ? 'Can’t pay for' : 'Good to know'}
+            Can’t pay for
           </Text>
           <Button size="sm" w="30px" h="30px" minW="30px" p={0} borderRadius="50%" bg="surface3" onClick={onClose} aria-label="Close">
             <I.x size={14} />
@@ -102,8 +102,8 @@ function Sheet({ card, brandName, onClose }) {
         )}
         {card.terms?.length > 0 && (
           <Box as="details" mt="14px" borderTop="1px solid" borderColor="border" pt="10px">
-            <Box as="summary" fontSize="12.5px" fontWeight={700} color="text3" cursor="pointer" listStyleType="none">
-              {brandName}’s full terms ›
+            <Box as="summary" fontSize="13px" fontWeight={700} color="text2" cursor="pointer" listStyleType="none" sx={{ '&::-webkit-details-marker': { display: 'none' } }}>
+              Read all of {brandName}’s rules ⌄
             </Box>
             <Box as="ol" mt="8px" pl="18px" fontSize="12.5px" lineHeight={1.45} color="text2">
               {card.terms.map((t) => (
@@ -153,6 +153,7 @@ export default function VoucherFacts({ card, brandName, placement }) {
         })}
       </Grid>
 
+      {cant.length > 0 && (
       <Flex
         as="button"
         type="button"
@@ -165,22 +166,23 @@ export default function VoucherFacts({ card, brandName, placement }) {
         gap="10px"
         borderRadius="12px"
         border="1.5px solid"
-        borderColor={cant.length ? 'dangerLine' : 'border'}
-        bg={cant.length ? 'dangerSoft' : 'surface2'}
-        color={cant.length ? 'danger' : 'text'}
+        borderColor="dangerLine"
+        bg="dangerSoft"
+        color="danger"
         textAlign="left"
         _focusVisible={{ outline: '2px solid', outlineColor: 'brass', outlineOffset: '2px' }}
       >
-        <Flex w="26px" h="26px" borderRadius="50%" flex="0 0 auto" align="center" justify="center" bg={cant.length ? 'danger' : 'surface3'} color={cant.length ? 'white' : 'text'} fontFamily="mono" fontWeight={800} fontSize="13px">
-          {cant.length ? cant.length : <Glyph name="check" size={13} stroke={3} />}
+        <Flex w="26px" h="26px" borderRadius="50%" flex="0 0 auto" align="center" justify="center" bg="danger" color="white" fontFamily="mono" fontWeight={800} fontSize="13px">
+          {cant.length}
         </Flex>
         <Text flex="1" fontSize="13.5px" fontWeight={800}>
-          {cant.length ? 'Things it can’t pay for' : 'Good to know'}
+          Things it can’t pay for
         </Text>
         <I.chevRight size={16} />
       </Flex>
+      )}
 
-      {open && <Sheet card={card} brandName={brandName} onClose={() => setOpen(false)} />}
+      {open && cant.length > 0 && <Sheet card={card} brandName={brandName} onClose={() => setOpen(false)} />}
     </Box>
   );
 }
