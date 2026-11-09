@@ -1014,6 +1014,17 @@
       "properties": {
         "utm_source, utm_medium, utm_campaign": "campaign tags on the link, when present"
       }
+    },
+    "Voucher Terms Opened": {
+      "description": "On a Dealo (Hubble) voucher card the shopper tapped the 'Things it can't pay for' / 'Good to know' box, opening the sheet with what the voucher can't pay for and the shop's full terms. Counted without cookie consent too (no personal detail is carried).",
+      "surfaces": [
+        "web"
+      ],
+      "properties": {
+        "brand": "Hubble's voucher title",
+        "placement": "journey (cart result) | shop_card (shop-name search, or a buy link)",
+        "cant_count": "how many 'can't pay for' items the box showed (0 = the grey 'Good to know' box)"
+      }
     }
   }
 }

@@ -55,6 +55,8 @@ export const semanticColors = {
 
   // danger
   danger: '#B23A2E',
+  dangerSoft: '#F8E6E3',
+  dangerLine: '#EFCFC9',
 };
 
 /**

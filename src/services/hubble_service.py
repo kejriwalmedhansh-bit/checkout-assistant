@@ -179,6 +179,93 @@ def _discount_pct(product: dict) -> float:
     return 0.0
 
 
+_NOTES = _DATA / "hubble_card_notes.json"
+
+# What the icon row says, read from Hubble's own terms. Each fact is shown
+# only when one sentence says it plainly; a voucher whose terms say both
+# ("once offline; multiple times online") gets no fact for that question.
+_ONE_USE = re.compile(r"one[- ]time|only (?:be )?used once|can only be used once|redeemed only once|"
+                      r"cannot be redeemed in part|partial redemption is not allowed|use all value in one", re.I)
+_REUSE = re.compile(r"multiple times|multi-use|partially redeemed|multiple transactions|multiple purchases", re.I)
+_NO_OFFERS = re.compile(r"cannot be clubbed with|no other offers|cannot be combined with|"
+                        r"cannot be redeemed on existing discount|not be clubbed", re.I)
+_OFFERS = re.compile(r"offers can be clubbed|can be clubbed with (?:existing|selected) offer|"
+                     r"clubbed with existing offers|can be used during sale", re.I)
+_NO_REFUND = re.compile(r"cannot be cancelled or refunded|no refunds|non-refundable", re.I)
+_VALIDITY = re.compile(r"(\d+)\s*-?\s*(year|month)s?", re.I)
+
+
+def _first(terms: list[str], pattern: re.Pattern) -> str | None:
+    return next((t for t in terms if pattern.search(t)), None)
+
+
+def _yes_no(terms: list[str], yes: re.Pattern, no: re.Pattern, no_wins: bool = False) -> tuple[bool | None, str | None]:
+    """With no_wins, a sentence that says no is a no even when it also reads
+    like a yes ("No other offers can be clubbed" holds "offers can be
+    clubbed"). Without it, such a sentence is mixed ("once offline; multiple
+    times online") and nothing is said."""
+    both = [t for t in terms if yes.search(t) and no.search(t)]
+    if both and not no_wins:
+        return None, None
+    said_no = _first(terms, no)
+    said_yes = next((t for t in terms if yes.search(t) and not no.search(t)), None)
+    if said_yes and said_no:
+        return None, None
+    return (True, said_yes) if said_yes else (False, said_no) if said_no else (None, None)
+
+
+def _facts(terms: list[str], modes: set[str], in_store: bool) -> list[dict]:
+    facts = []
+    if in_store:
+        facts.append({"icon": "store", "title": "In store", "sub": "show the code", "tone": "info"})
+    elif "OFFLINE" in modes:
+        facts.append({"icon": "globe", "title": "Online", "sub": "& in store", "tone": "info"})
+    else:
+        facts.append({"icon": "globe", "title": "Online", "sub": "shopping", "tone": "info"})
+    reuse, quote = _yes_no(terms, _REUSE, _ONE_USE)
+    if reuse is not None:
+        facts.append({"icon": "repeat", "title": "Reuse" if reuse else "One use",
+                      "sub": "till \u20b90" if reuse else "spend it all", "tone": "yes" if reuse else "no", "quote": quote})
+    offers, quote = _yes_no(terms, _OFFERS, _NO_OFFERS, no_wins=True)
+    if offers is not None:
+        facts.append({"icon": "tag", "title": "Offers" if offers else "No offers",
+                      "sub": "still apply" if offers else "on top", "tone": "yes" if offers else "no", "quote": quote})
+    valid = next(((t, m) for t in terms if "valid" in t.lower() or "within a period" in t.lower()
+                  for m in [_VALIDITY.search(t)] if m), None)
+    if valid:
+        n, unit = int(valid[1].group(1)), valid[1].group(2).lower()
+        facts.append({"icon": "cal", "title": f"{n} {unit}{'s' if n != 1 else ''}", "sub": "validity",
+                      "tone": "info", "quote": valid[0]})
+    refund = _first(terms, _NO_REFUND)
+    if refund and len(facts) < 4:
+        facts.append({"icon": "undo", "title": "No refund", "sub": "once bought", "tone": "no", "quote": refund})
+    return facts[:4]
+
+
+@lru_cache(maxsize=1)
+def _notes() -> dict[str, list[dict]]:
+    return {k: v for k, v in json.loads(_NOTES.read_text()).items() if not k.startswith("_")}
+
+
+def card_details(product: dict, brand_name: str, in_store: bool) -> dict:
+    """What the Dealo voucher card shows besides the price, all from Hubble's
+    own terms: an icon row of plain facts, the hand-picked things it can't
+    pay for (data/hubble_card_notes.json; an item whose sentence Hubble no
+    longer has is dropped), the full terms, and the how-to steps for where
+    the shopper will use it (shown after buying when there is no direct
+    add-voucher link)."""
+    meta = product.get("voucherProductMetadata") or {}
+    terms = [t.strip(" -") for t in meta.get("conditions") or [] if t and t.strip(" -")]
+    ways = meta.get("howToUseSteps") or []
+    modes = {(w.get("retailMode") or "").upper() for w in ways}
+    want = ("OFFLINE",) if in_store else ("ONLINE", "APP")
+    way = next((w for w in ways if (w.get("retailMode") or "").upper() in want), None)
+    steps = [h for h in ((way or {}).get("howToUseHints") or {}).get("hints") or [] if h]
+    cant = [{k: i[k] for k in ("icon", "label")} for i in _notes().get(normalize(brand_name), [])
+            if any(i["quote"] in t for t in terms)]
+    return {"facts": _facts(terms, modes, in_store), "cant": cant[:3], "terms": terms, "steps": steps}
+
+
 def _one_order(product: dict, amount: int, order_max: int) -> list[tuple[int, int]]:
     """The vouchers one Hubble order can hold towards `amount`, never more
     than it: [(value, count), ...], empty if nothing fits.
@@ -285,6 +372,7 @@ async def offer_for(merchant: str, price: float, in_store: bool = False) -> dict
         "rest_at_shop": max(0, int(price) - voucher_total),
         "in_store": in_store,
         "add_voucher_url": brand.get("add_voucher_url"),
+        "card": card_details(product, brand["name"], in_store),
     }
 
 
@@ -336,6 +424,7 @@ async def brand_info(merchant: str | None = None, slug: str | None = None) -> di
         "max_amount": max_amount,
         "cards": [c for c in cards if not max_amount or c <= max_amount],
         "typed": not cards,
+        "card": card_details(product, brand["name"], brand is in_store and not online),
     }
 
 
