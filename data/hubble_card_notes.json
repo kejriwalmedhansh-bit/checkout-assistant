@@ -1,0 +1,103 @@
+{
+  "_about": "What each Dealo (Hubble) voucher can't pay for, shown in the red 'Things it can't pay for' box on the voucher card. Picked by hand from Hubble's own terms for the top shops (2026-11-09). Each item's quote must appear word for word in that voucher's live Hubble terms; when Hubble changes the wording the item is dropped automatically (hubble_service.card_details), so a stale pick never shows. Keys are hubble_service.normalize(Hubble voucher name). Icons: ring coins cash plane bus home tag store truck gift receipt film phone pill.",
+  "myntra": [
+    {"icon": "ring", "label": "Jewellery", "quote": "Gold & Silver, Gold & Silver coins, and Fine Jewellery"},
+    {"icon": "coins", "label": "Gold & silver", "quote": "Gold & Silver, Gold & Silver coins, and Fine Jewellery"},
+    {"icon": "cash", "label": "Cash on delivery", "quote": "The Cash on Delivery payment option cannot be used to pay the balance amount"}
+  ],
+  "ajio": [
+    {"icon": "ring", "label": "Jewellery & coins", "quote": "except purchase of fine jewellery, silver and gold coins"},
+    {"icon": "tag", "label": "H&M products", "quote": "Voucher will not be applicable on H&M branded products"},
+    {"icon": "truck", "label": "Delivery fees", "quote": "delivery and platform fee cant be paid through gift card"}
+  ],
+  "nykaa": [
+    {"icon": "ring", "label": "Jewellery", "quote": "cannot be used to purchase Gold/Silver Coins, Gold/Silver Bars, Jewellery and cross-border products"},
+    {"icon": "coins", "label": "Gold & silver", "quote": "cannot be used to purchase Gold/Silver Coins, Gold/Silver Bars, Jewellery and cross-border products"},
+    {"icon": "plane", "label": "Imported items", "quote": "cannot be used to purchase Gold/Silver Coins, Gold/Silver Bars, Jewellery and cross-border products"}
+  ],
+  "flipkart": [
+    {"icon": "plane", "label": "Flights", "quote": "can't be used on flights"}
+  ],
+  "amazonshopping": [
+    {"icon": "receipt", "label": "Bills & recharges", "quote": "bill payment and recharge"},
+    {"icon": "plane", "label": "Travel", "quote": "travel and financial services"},
+    {"icon": "gift", "label": "Gift cards", "quote": "gift cards and digital content"}
+  ],
+  "croma": [
+    {"icon": "coins", "label": "With NeuCoins", "quote": "gift card cannot be used along with Tata Neu coins"}
+  ],
+  "makemytrip": [
+    {"icon": "bus", "label": "Cabs, buses, trains", "quote": "This Gift card is not valid on Cab, Bus, Rail, Homestays and VISA bookings"},
+    {"icon": "home", "label": "Homestays", "quote": "This Gift card is not valid on Cab, Bus, Rail, Homestays and VISA bookings"},
+    {"icon": "tag", "label": "Other offers", "quote": "No other offers can be clubbed while purchasing with this virtual card"}
+  ],
+  "zomato": [
+    {"icon": "store", "label": "Dining out", "quote": "CANNOT be used for dineout (paying offline at restaurants)"}
+  ],
+  "bigbasket": [
+    {"icon": "truck", "label": "BBdaily", "quote": "gift card cannot be used on BBdaily"},
+    {"icon": "coins", "label": "With NeuCoins", "quote": "Gift Card cannot be used along with Tata neu coins"}
+  ],
+  "lifestyle": [
+    {"icon": "store", "label": "In store", "quote": "Gift Cards cannot be redeemed at the physical/brick-and-mortar stores of Lifestyle"}
+  ],
+  "pvr": [
+    {"icon": "film", "label": "PVR Opulent", "quote": "Not applicable on PVR Opulent"},
+    {"icon": "film", "label": "Some INOX cinemas", "quote": "Not applicable on certain INOX properties"}
+  ],
+  "bookmyshow": [
+    {"icon": "store", "label": "Box office", "quote": "Cannot be redeemed at the Box Office, cinema halls or venues"},
+    {"icon": "gift", "label": "Gift cards", "quote": "Gift card balance cannot be used to purchase another gift card"}
+  ],
+  "firstcry": [
+    {"icon": "tag", "label": "Other offers", "quote": "This E-Gift Card cannot be clubbed with other offers"}
+  ],
+  "pepperfry": [
+    {"icon": "phone", "label": "Mobile app", "quote": "cannot be redeemed on the Pepperfry Mobile App or in-store"},
+    {"icon": "store", "label": "In store", "quote": "cannot be redeemed on the Pepperfry Mobile App or in-store"}
+  ],
+  "netmeds": [
+    {"icon": "pill", "label": "Non-medicines", "quote": "This GV/e-Pay entitles customers to order medicines ONLY."},
+    {"icon": "tag", "label": "Other offers", "quote": "The Gift Card/e-Pay cannot be clubbed with ongoing offers and promo codes available on the website."}
+  ],
+  "maxfashion": [
+    {"icon": "store", "label": "In store", "quote": "Valid only for online purchase"}
+  ],
+  "dominos": [
+    {"icon": "store", "label": "At outlets", "quote": "It cannot be redeemed directly at Domino’s outlets."}
+  ],
+  "apollo": [
+    {"icon": "pill", "label": "Lab tests & consults", "quote": "It is not applicable on FMCG products, lab tests, consultations, or insurance plans"},
+    {"icon": "receipt", "label": "Non-medicine items", "quote": "It is not applicable on FMCG products, lab tests, consultations, or insurance plans"},
+    {"icon": "tag", "label": "Other offers", "quote": "It cannot be combined with other offers"}
+  ],
+  "tira": [
+    {"icon": "tag", "label": "Other offers", "quote": "Gift card cannot be clubbed with any offers during the purchase."}
+  ],
+  "cleartrip": [
+    {"icon": "bus", "label": "Buses & trains", "quote": "Gift card is not valid on Bus, Rail, Homestays, VISA and convenience fee"},
+    {"icon": "home", "label": "Homestays", "quote": "Gift card is not valid on Bus, Rail, Homestays, VISA and convenience fee"},
+    {"icon": "tag", "label": "Card offers", "quote": "Gift Cards cannot be clubbed with any other offer"}
+  ],
+  "yatra": [
+    {"icon": "bus", "label": "Buses & trains", "quote": "This Gift card is not valid on Bus, Rail, Homestays and VISA"},
+    {"icon": "home", "label": "Homestays", "quote": "This Gift card is not valid on Bus, Rail, Homestays and VISA"},
+    {"icon": "tag", "label": "Other offers", "quote": "No other offers can be clubbed while purchasing with this virtual card"}
+  ],
+  "ixigo": [
+    {"icon": "bus", "label": "Trains, buses, hotels", "quote": "Gift card is only valid for booking of ixigo Flights (Domestic/International) only"},
+    {"icon": "tag", "label": "Other offers", "quote": "Gift card cannot be clubbed with existing offers on the ixigo website/app"}
+  ],
+  "fernsnpetals": [
+    {"icon": "truck", "label": "Shipping fees", "quote": "the balance cannot be used for shipping and convenience charges"},
+    {"icon": "tag", "label": "Discounted items", "quote": "The GV cannot be redeemed on existing discount offers available on the FNP website"}
+  ],
+  "biba": [
+    {"icon": "store", "label": "In store", "quote": "Gift Vouchers can only be used online"}
+  ],
+  "tatacliq": [
+    {"icon": "ring", "label": "Jewellery", "quote": "excluding the purchase of gold or silver items such as jewellery and coins"},
+    {"icon": "coins", "label": "Gold & silver", "quote": "excluding the purchase of gold or silver items such as jewellery and coins"},
+    {"icon": "coins", "label": "With NeuCoins", "quote": "Gift card cannot be used along with Tata Neu coins"}
+  ]
+}

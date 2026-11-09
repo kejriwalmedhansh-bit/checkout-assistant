@@ -7,6 +7,8 @@ import { confirmCode, currentUser, idToken, sendCode } from '@/lib/firebase';
 import { getDealoId, soldEventProps, track } from '@/utils/analytics';
 import { fmt } from '@/utils/format';
 
+import { VoucherSteps } from './VoucherFacts';
+
 const NAME_KEY = 'dealo_buyer_name';
 const readName = () => {
   try {
@@ -458,6 +460,7 @@ export default function BuyFlow({ offer, merchant, price, shopLink, placement, b
                 Fetching your code…
               </Text>
             )}
+            {!offer.in_store && !offer.add_voucher_url && offer.card?.steps?.length > 0 && <VoucherSteps steps={offer.card.steps} />}
             {offer.in_store ? (
               <Text fontSize="14px" fontWeight={700} textAlign="center">
                 Show this code and PIN at the {offer.brand_name} counter when you pay.

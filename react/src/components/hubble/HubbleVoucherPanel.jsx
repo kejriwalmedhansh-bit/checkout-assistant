@@ -3,6 +3,8 @@ import { Box, Button, Flex, Text } from '@chakra-ui/react';
 import { I } from '@/components/common/icons';
 import { fmt } from '@/utils/format';
 
+import VoucherFacts from './VoucherFacts';
+
 /**
  * The voucher step when Dealo can sell the voucher itself (through Hubble):
  * the voucher drawn as a gift card, a strip that says why it saves money
@@ -44,6 +46,8 @@ export default function HubbleVoucherPanel({ offer, onBuy }) {
           </Text>
         </Box>
       </Box>
+
+      {offer.card?.facts?.length > 0 && <VoucherFacts card={offer.card} brandName={offer.brand_name} placement="journey" />}
 
       <Flex bg="greenSoft" border="1.5px solid" borderColor="green" borderRadius="16px" px="14px" py="12px" align="center" gap="10px">
         <Box>

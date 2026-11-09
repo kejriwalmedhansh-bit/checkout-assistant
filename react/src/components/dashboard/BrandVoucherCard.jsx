@@ -4,6 +4,7 @@ import { Box, Button, Flex, Input, Link, Text, Wrap, WrapItem } from '@chakra-ui
 import Card from '@/components/common/Card';
 import { I } from '@/components/common/icons';
 import BuyFlow from '@/components/hubble/BuyFlow';
+import VoucherFacts from '@/components/hubble/VoucherFacts';
 import { hubbleApi } from '@/api/hubble.api';
 import { fmt } from '@/utils/format';
 import { outboundLink, soldEventProps, track } from '@/utils/analytics';
@@ -99,10 +100,16 @@ export function HubbleBrandCard({ brand, merchant, query, initialAmount = null, 
           Pay by UPI, voucher in seconds
         </Text>
       </Box>
-      <Flex display="inline-flex" align="center" gap="6px" bg="surface2" border="1px solid" borderColor="border" borderRadius="pill" px="10px" py="5px" fontSize="12px" fontWeight={700} color="text2" mb="16px">
-        {brand.in_store ? <I.store size={13} /> : <I.globe size={13} />}
-        {where}
-      </Flex>
+      {brand.card?.facts?.length ? (
+        <Box mb="16px">
+          <VoucherFacts card={brand.card} brandName={brand.brand_name} placement="shop_card" />
+        </Box>
+      ) : (
+        <Flex display="inline-flex" align="center" gap="6px" bg="surface2" border="1px solid" borderColor="border" borderRadius="pill" px="10px" py="5px" fontSize="12px" fontWeight={700} color="text2" mb="16px">
+          {brand.in_store ? <I.store size={13} /> : <I.globe size={13} />}
+          {where}
+        </Flex>
+      )}
 
       <Text fontSize="11px" color="text3" fontWeight={600} letterSpacing=".04em" textTransform="uppercase" mb="8px">
         How much do you need?

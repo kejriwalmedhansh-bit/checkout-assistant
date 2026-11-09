@@ -151,7 +151,7 @@ const ANONYMOUS_SAFE_PROPS = new Set([
   'listed_price', 'original_price', 'final_price', 'final_cost', 'discount', 'saving', 'saving_amount', 'saving_pct',
   'alternatives_count', 'pct', 'slug', 'available', 'src',
   // vouchers Dealo sells itself
-  'seller', 'amount', 'discount_pct', 'best_pct', 'in_store',
+  'seller', 'amount', 'discount_pct', 'best_pct', 'in_store', 'cant_count',
   // bank cards (which banks, not which card)
   'cards', 'prime', 'bank',
 ]);
