@@ -76,7 +76,6 @@ def main() -> None:
     # that keys both sides. The other two match on URL, which survives a brand
     # being renamed.
     by_slug = {(o["source"], o["slug"]): o for o in offers.values()}
-    scraped_at = max((o.get("collected_at") or "")[:10] for o in offers.values())
 
     for source in SOURCES:
         path = DATA / f"{source}_master.json"
@@ -172,7 +171,7 @@ def main() -> None:
                     product["status"] = want
                     stats[f"marked {want}"] += 1
 
-                product["last_scraped"] = scraped_at
+                product["last_scraped"] = latest[source]
 
         print(f"\n{source}")
         for k, v in stats.most_common():

@@ -602,6 +602,22 @@
       "label": "Flights · ₹1,000 card",
       "covers": "Flights only (not hotels, buses, trains or cabs)",
       "owner_note": "2026-10-19: show beside the other Yatra cards, saying plainly how many fit one booking"
+    },
+    "Ixigo Hotels": {
+      "label": "Hotels",
+      "same": "ixigo-hotels"
+    },
+    "Nintendo Wallet Card": {
+      "label": "eShop games & content",
+      "same": "nintendo"
+    },
+    "Steam Gift Card": {
+      "label": "Steam Wallet",
+      "same": "steam"
+    },
+    "Steam": {
+      "label": "Steam Wallet",
+      "same": "steam"
     }
   },
   "_listings_about": "For each reviewed voucher name, the exact Maximize/BuyHatke listings it covered when the owner reviewed it (data of 2026-09-26). A listing a later refresh files under the same name is held back until reviewed (src/repositories/_corrections.py). Gyftr sells one listing per name, so its names need no pins.",
@@ -1055,6 +1071,16 @@
     ],
     "Yatra Flight – 1000": [
       "https://www.maximize.money/gift-cards/Yatra/1318"
+    ],
+    "Ixigo Hotels": [
+      "https://buyhatke.com/gift-cards/ixigo-hotels-gift-card"
+    ],
+    "Nintendo Wallet Card": [
+      "https://www.maximize.money/gift-cards/Nintendo/955"
+    ],
+    "Steam": [
+      "https://buyhatke.com/gift-cards/steam-gift-card",
+      "https://www.maximize.money/gift-cards/SteamWallet/1253"
     ]
   }
 }

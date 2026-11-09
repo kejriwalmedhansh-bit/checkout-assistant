@@ -36,7 +36,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 88500,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": 100,
         "typed_max": 10000
       }
@@ -93,7 +93,7 @@
         "value_cap": 20000,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": 100,
         "typed_max": 10000
       }
@@ -147,7 +147,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 86000,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": 100,
         "typed_max": 10000
       }
@@ -203,7 +203,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -259,7 +259,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -313,7 +313,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -366,7 +366,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -424,7 +424,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 19000,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": 100,
         "typed_max": 10000
       }
@@ -456,6 +456,7 @@
         "denominations": [
           250,
           500,
+          1000,
           2000,
           5000
         ],
@@ -478,7 +479,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 87500,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": 100,
         "typed_max": 10000
       }
@@ -535,7 +536,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": 100,
         "typed_max": 10000
       }
@@ -588,7 +589,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -642,7 +643,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 87500,
         "status": "inactive",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -698,7 +699,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": 100,
         "typed_max": 10000
       }
@@ -751,7 +752,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 85000,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": 100,
         "typed_max": 10000
       }
@@ -804,7 +805,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -853,7 +854,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "inactive",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -908,7 +909,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -1012,7 +1013,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -1065,7 +1066,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -1119,7 +1120,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 260000,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -1153,6 +1154,7 @@
         "redemption_type": "Offline",
         "denominations": [
           500,
+          1000,
           2000,
           5000
         ],
@@ -1175,7 +1177,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": 100,
         "typed_max": 10000
       }
@@ -1230,7 +1232,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -1284,7 +1286,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 87500,
         "status": "inactive",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -1341,7 +1343,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 85000,
         "status": "inactive",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": 100,
         "typed_max": 10000
       }
@@ -1395,7 +1397,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 80000,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -1427,6 +1429,7 @@
         "denominations": [
           250,
           500,
+          1000,
           2000,
           5000
         ],
@@ -1450,7 +1453,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 87500,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": 100,
         "typed_max": 10000
       }
@@ -1508,7 +1511,7 @@
         "value_cap": 20000,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": 100,
         "typed_max": 10000
       }
@@ -1539,7 +1542,6 @@
         "redemption_type": "Offline",
         "denominations": [
           500,
-          1000,
           2000,
           5000
         ],
@@ -1563,7 +1565,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -1616,7 +1618,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "inactive",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -1650,7 +1652,6 @@
           500,
           1000,
           2000,
-          5000,
           10000
         ],
         "is_custom_denom": false,
@@ -1668,7 +1669,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "inactive",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -1723,7 +1724,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -1779,7 +1780,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -1832,7 +1833,7 @@
         "value_cap": 50000.0,
         "purchase_cap_per_txn": 187500,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": 100,
         "typed_max": 10000
       }
@@ -1889,7 +1890,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": 100,
         "typed_max": 10000
       }
@@ -1931,17 +1932,17 @@
         "discounts": {
           "Credit Card": 0.0,
           "Debit Card": 0.0,
-          "UPI": 2.0,
-          "e-Pay": 2.0,
-          "PAYTM UPI": 2.0
+          "UPI": 1.5,
+          "e-Pay": 1.5,
+          "PAYTM UPI": 1.5
         },
         "best_payment_method": "UPI",
-        "best_discount_pct": 2.0,
+        "best_discount_pct": 1.5,
         "stack_limit": 15,
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": 10,
         "typed_max": 10000
       }
@@ -1993,7 +1994,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "inactive",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -2048,7 +2049,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 85000,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -2103,7 +2104,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 37500,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": 250,
         "typed_max": 10000
       }
@@ -2149,7 +2150,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "inactive",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -2200,7 +2201,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "inactive",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": 100,
         "typed_max": 10000
       }
@@ -2256,7 +2257,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": 100,
         "typed_max": 10000
       }
@@ -2311,7 +2312,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": 100,
         "typed_max": 10000
       }
@@ -2365,7 +2366,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -2414,7 +2415,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "inactive",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -2467,7 +2468,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": 100,
         "typed_max": 10000
       }
@@ -2519,7 +2520,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": 100,
         "typed_max": 10000
       }
@@ -2571,7 +2572,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 27500,
         "status": "inactive",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": 100,
         "typed_max": 10000
       }
@@ -2628,7 +2629,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 87500,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": 100,
         "typed_max": 10000
       }
@@ -2684,7 +2685,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -2742,7 +2743,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 187500,
         "status": "inactive",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": 100,
         "typed_max": 10000
       }
@@ -2795,7 +2796,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "inactive",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -2852,7 +2853,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 38500,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": 100,
         "typed_max": 10000
       }
@@ -2909,7 +2910,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -2962,7 +2963,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "inactive",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": 100,
         "typed_max": 10000
       }
@@ -3018,7 +3019,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -3049,9 +3050,6 @@
         "source_url": null,
         "redemption_type": "Offline",
         "denominations": [
-          2000,
-          2500,
-          5000,
           10000
         ],
         "is_custom_denom": false,
@@ -3072,7 +3070,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -3122,7 +3120,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": 100,
         "typed_max": 10000
       }
@@ -3178,7 +3176,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -3217,9 +3215,6 @@
         "source_url": null,
         "redemption_type": "Online",
         "denominations": [
-          100,
-          250,
-          500,
           1000
         ],
         "is_custom_denom": false,
@@ -3239,7 +3234,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -3293,7 +3288,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 87500,
         "status": "inactive",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": 100,
         "typed_max": 10000
       }
@@ -3345,7 +3340,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": 100,
         "typed_max": 10000
       }
@@ -3398,7 +3393,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": 100,
         "typed_max": 10000
       }
@@ -3429,9 +3424,7 @@
         "source_url": null,
         "redemption_type": "Both",
         "denominations": [
-          1000,
-          2000,
-          5000
+          1000
         ],
         "is_custom_denom": false,
         "custom_min": null,
@@ -3452,7 +3445,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "inactive",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -3483,8 +3476,6 @@
         "redemption_type": "Both",
         "denominations": [
           1000,
-          2000,
-          5000,
           10000
         ],
         "is_custom_denom": false,
@@ -3507,7 +3498,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -3537,9 +3528,7 @@
         "source_url": null,
         "redemption_type": "Offline",
         "denominations": [
-          1000,
-          2000,
-          5000
+          1000
         ],
         "is_custom_denom": false,
         "custom_min": null,
@@ -3560,7 +3549,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "inactive",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -3591,8 +3580,6 @@
         "redemption_type": "Both",
         "denominations": [
           1000,
-          2000,
-          5000,
           10000
         ],
         "is_custom_denom": false,
@@ -3612,7 +3599,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -3643,8 +3630,6 @@
         "redemption_type": "Both",
         "denominations": [
           1000,
-          2000,
-          5000,
           10000
         ],
         "is_custom_denom": false,
@@ -3667,7 +3652,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -3698,8 +3683,6 @@
         "redemption_type": "Offline",
         "denominations": [
           1000,
-          2000,
-          5000,
           10000
         ],
         "is_custom_denom": false,
@@ -3719,7 +3702,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -3750,9 +3733,6 @@
         "redemption_type": "Offline",
         "denominations": [
           1000,
-          2000,
-          2500,
-          5000,
           10000
         ],
         "is_custom_denom": false,
@@ -3772,7 +3752,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -3802,9 +3782,7 @@
         "source_url": null,
         "redemption_type": "Both",
         "denominations": [
-          1000,
-          2000,
-          5000
+          1000
         ],
         "is_custom_denom": false,
         "custom_min": null,
@@ -3823,7 +3801,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -3854,8 +3832,6 @@
         "redemption_type": "Both",
         "denominations": [
           1000,
-          2000,
-          5000,
           10000
         ],
         "is_custom_denom": false,
@@ -3875,7 +3851,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -3906,8 +3882,6 @@
         "redemption_type": "Both",
         "denominations": [
           1000,
-          2000,
-          5000,
           10000
         ],
         "is_custom_denom": false,
@@ -3927,7 +3901,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -3958,8 +3932,6 @@
         "redemption_type": "Both",
         "denominations": [
           1000,
-          2000,
-          5000,
           10000
         ],
         "is_custom_denom": false,
@@ -3979,7 +3951,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -4032,7 +4004,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -4087,7 +4059,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 37500,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -4142,7 +4114,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": 100,
         "typed_max": 10000
       }
@@ -4198,7 +4170,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": 100,
         "typed_max": 10000
       }
@@ -4254,7 +4226,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": 100,
         "typed_max": 10000
       }
@@ -4309,7 +4281,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 110000,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": 100,
         "typed_max": 10000
       }
@@ -4365,7 +4337,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 52500,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -4419,7 +4391,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "inactive",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -4477,7 +4449,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 263500,
         "status": "inactive",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": 100,
         "typed_max": 10000
       }
@@ -4533,7 +4505,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -4587,7 +4559,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -4636,7 +4608,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "inactive",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -4693,7 +4665,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 85000,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": 100,
         "typed_max": 10000
       }
@@ -4747,7 +4719,7 @@
         "value_cap": 10000,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -4802,7 +4774,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -4907,7 +4879,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -4938,8 +4910,6 @@
         "redemption_type": "Both",
         "denominations": [
           1000,
-          2000,
-          5000,
           10000
         ],
         "is_custom_denom": false,
@@ -4959,7 +4929,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -4990,8 +4960,6 @@
         "redemption_type": "Offline",
         "denominations": [
           1000,
-          2000,
-          5000,
           10000
         ],
         "is_custom_denom": false,
@@ -5011,7 +4979,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -5042,8 +5010,6 @@
         "redemption_type": "Offline",
         "denominations": [
           1000,
-          2000,
-          5000,
           10000
         ],
         "is_custom_denom": false,
@@ -5063,7 +5029,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -5094,8 +5060,6 @@
         "redemption_type": "Offline",
         "denominations": [
           1000,
-          2000,
-          5000,
           10000
         ],
         "is_custom_denom": false,
@@ -5115,7 +5079,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -5146,8 +5110,6 @@
         "redemption_type": "Offline",
         "denominations": [
           1000,
-          2000,
-          5000,
           10000
         ],
         "is_custom_denom": false,
@@ -5167,7 +5129,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -5221,7 +5183,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": 100,
         "typed_max": 10000
       }
@@ -5275,7 +5237,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": 100,
         "typed_max": 10000
       }
@@ -5328,7 +5290,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -5383,7 +5345,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -5413,9 +5375,7 @@
         "source_url": null,
         "redemption_type": "Online",
         "denominations": [
-          100,
-          500,
-          1000
+          500
         ],
         "is_custom_denom": false,
         "custom_min": null,
@@ -5434,7 +5394,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -5492,7 +5452,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -5546,7 +5506,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 85000,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": 100,
         "typed_max": 10000
       }
@@ -5599,7 +5559,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 17500,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": 100,
         "typed_max": 10000
       }
@@ -5652,7 +5612,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -5705,7 +5665,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "inactive",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -5759,7 +5719,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -5812,7 +5772,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "inactive",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -5866,7 +5826,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 37500,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -5917,7 +5877,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "inactive",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -5972,7 +5932,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "inactive",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -6030,7 +5990,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": 250,
         "typed_max": 10000
       }
@@ -6089,7 +6049,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -6147,7 +6107,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -6186,19 +6146,21 @@
         "custom_min": null,
         "custom_max": null,
         "discounts": {
-          "Credit Card": 0.0,
-          "Net Banking": 0.0,
-          "Debit Card": 0.0,
-          "UPI": 0.0,
-          "e-Pay": 0.0
+          "Credit Card": 3.0,
+          "Net Banking": 3.0,
+          "Debit Card": 3.0,
+          "MobiKwik": 3.0,
+          "UPI": 4.0,
+          "e-Pay": 4.0,
+          "PAYTM UPI": 4.0
         },
-        "best_payment_method": "Credit Card",
-        "best_discount_pct": 0.0,
+        "best_payment_method": "UPI",
+        "best_discount_pct": 4.0,
         "stack_limit": null,
         "value_cap": null,
         "purchase_cap_per_txn": null,
-        "status": "inactive",
-        "last_scraped": "2026-10-19",
+        "status": "active",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -6243,20 +6205,20 @@
         "custom_min": null,
         "custom_max": null,
         "discounts": {
-          "Credit Card": 0.0,
-          "Net Banking": 0.0,
-          "Debit Card": 0.0,
-          "UPI": 0.0,
-          "Amazon Pay": 0.0,
-          "e-Pay": 0.0
+          "Credit Card": 3.0,
+          "Net Banking": 3.0,
+          "Debit Card": 3.0,
+          "MobiKwik": 3.0,
+          "UPI": 4.0,
+          "e-Pay": 4.0
         },
-        "best_payment_method": "Credit Card",
-        "best_discount_pct": 0.0,
+        "best_payment_method": "UPI",
+        "best_discount_pct": 4.0,
         "stack_limit": null,
         "value_cap": null,
         "purchase_cap_per_txn": null,
-        "status": "inactive",
-        "last_scraped": "2026-10-19",
+        "status": "active",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -6310,7 +6272,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": 100,
         "typed_max": 10000
       }
@@ -6367,7 +6329,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 32500,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": 100,
         "typed_max": 10000
       }
@@ -6401,7 +6363,6 @@
           1000,
           1500,
           2000,
-          2500,
           3000,
           5000,
           7500,
@@ -6425,7 +6386,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "inactive",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -6481,7 +6442,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": 100,
         "typed_max": 10000
       }
@@ -6536,7 +6497,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 60000,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -6589,7 +6550,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 32500,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": 100,
         "typed_max": 10000
       }
@@ -6645,7 +6606,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 38500,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": 100,
         "typed_max": 10000
       }
@@ -6699,7 +6660,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 8500,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": 100,
         "typed_max": 10000
       }
@@ -6756,7 +6717,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 75000,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": 100,
         "typed_max": 10000
       }
@@ -6863,7 +6824,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "inactive",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -6894,7 +6855,7 @@
         "redemption_type": "Offline",
         "denominations": [
           500,
-          1250,
+          800,
           2000,
           3000
         ],
@@ -6917,7 +6878,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "inactive",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -6970,7 +6931,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -7021,7 +6982,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "inactive",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -7079,7 +7040,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 115000,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": 100,
         "typed_max": 10000
       }
@@ -7133,7 +7094,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -7187,7 +7148,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 50000,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": 100,
         "typed_max": 10000
       }
@@ -7242,7 +7203,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -7291,7 +7252,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "inactive",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -7396,7 +7357,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 52500,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": 100,
         "typed_max": 10000
       }
@@ -7496,7 +7457,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 52500,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": 100,
         "typed_max": 10000
       }
@@ -7551,7 +7512,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 50000,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": 100,
         "typed_max": 10000
       }
@@ -7607,7 +7568,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -7659,7 +7620,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "inactive",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -7757,7 +7718,7 @@
         "value_cap": 50000.0,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": 100,
         "typed_max": 10000
       }
@@ -7812,7 +7773,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -7861,7 +7822,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "inactive",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -7917,7 +7878,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "inactive",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -7966,7 +7927,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "inactive",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -8015,7 +7976,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "inactive",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -8056,21 +8017,20 @@
         "custom_min": null,
         "custom_max": null,
         "discounts": {
-          "Credit Card": 3.0,
-          "Net Banking": 3.0,
-          "Debit Card": 3.0,
-          "UPI": 5.0,
-          "e-Pay": 5.0,
-          "PAYTM UPI": 5.0,
-          "Paytm Wallet": 3.0
+          "Credit Card": 5.0,
+          "Net Banking": 5.0,
+          "Debit Card": 5.0,
+          "UPI": 6.5,
+          "e-Pay": 6.5,
+          "PAYTM UPI": 6.5
         },
         "best_payment_method": "UPI",
-        "best_discount_pct": 5.0,
+        "best_discount_pct": 6.5,
         "stack_limit": 1,
         "value_cap": null,
         "purchase_cap_per_txn": 200000,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -8112,22 +8072,22 @@
         "custom_min": null,
         "custom_max": null,
         "discounts": {
-          "Credit Card": 21.0,
-          "Net Banking": 21.0,
-          "Debit Card": 21.0,
-          "MobiKwik": 21.0,
-          "UPI": 22.0,
-          "e-Pay": 22.0,
-          "PAYTM UPI": 22.0,
-          "Paytm Wallet": 21.0
+          "Credit Card": 15.0,
+          "Net Banking": 15.0,
+          "Debit Card": 15.0,
+          "MobiKwik": 15.0,
+          "UPI": 15.0,
+          "e-Pay": 15.0,
+          "PAYTM UPI": 15.0,
+          "Paytm Wallet": 15.0
         },
-        "best_payment_method": "UPI",
-        "best_discount_pct": 22.0,
+        "best_payment_method": "Credit Card",
+        "best_discount_pct": 15.0,
         "stack_limit": null,
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": 100,
         "typed_max": 10000
       }
@@ -8157,28 +8117,31 @@
         "source_url": null,
         "redemption_type": "Online",
         "denominations": [
-          500,
-          1000
+          1000,
+          2000,
+          5000,
+          7500,
+          10000
         ],
         "is_custom_denom": false,
         "custom_min": null,
         "custom_max": null,
         "discounts": {
-          "Credit Card": 0.0,
-          "Net Banking": 0.0,
-          "Debit Card": 0.0,
+          "Credit Card": 3.0,
+          "Net Banking": 3.0,
+          "Debit Card": 3.0,
           "MobiKwik": 0.0,
-          "UPI": 2.0,
-          "e-Pay": 2.0,
-          "PAYTM UPI": 2.0
+          "UPI": 4.0,
+          "e-Pay": 4.0,
+          "PAYTM UPI": 4.0
         },
         "best_payment_method": "UPI",
-        "best_discount_pct": 2.0,
+        "best_discount_pct": 4.0,
         "stack_limit": null,
         "value_cap": null,
         "purchase_cap_per_txn": 37500,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -8227,7 +8190,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "inactive",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -8282,7 +8245,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": 1000,
         "typed_max": 10000
       }
@@ -8337,7 +8300,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": 1000,
         "typed_max": 10000
       }
@@ -8391,7 +8354,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -8440,7 +8403,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "inactive",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -8543,7 +8506,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -8597,7 +8560,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "inactive",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": 100,
         "typed_max": 10000
       }
@@ -8627,7 +8590,8 @@
         "source_url": null,
         "redemption_type": "Online",
         "denominations": [
-          500
+          500,
+          2000
         ],
         "is_custom_denom": false,
         "custom_min": null,
@@ -8649,7 +8613,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -8702,7 +8666,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -8756,7 +8720,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -8811,7 +8775,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -8860,7 +8824,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "inactive",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -8909,7 +8873,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "inactive",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -8968,7 +8932,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 111000,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -9020,7 +8984,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "inactive",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -9075,7 +9039,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 180000,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -9132,7 +9096,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 180000,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -9185,7 +9149,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "inactive",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -9286,7 +9250,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "inactive",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -9334,7 +9298,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "inactive",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -9388,7 +9352,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 50000,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": 100,
         "typed_max": 10000
       }
@@ -9443,7 +9407,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 50000,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": 100,
         "typed_max": 10000
       }
@@ -9496,7 +9460,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 53500,
         "status": "inactive",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -9554,7 +9518,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -9609,7 +9573,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -9665,7 +9629,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -9720,7 +9684,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -9776,7 +9740,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -9830,7 +9794,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -9886,7 +9850,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 32500,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -9938,7 +9902,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "inactive",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -9995,7 +9959,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 255000,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": 100,
         "typed_max": 10000
       }
@@ -10052,7 +10016,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -10101,7 +10065,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -10150,7 +10114,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "inactive",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -10203,7 +10167,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "inactive",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -10256,7 +10220,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": 100,
         "typed_max": 10000
       }
@@ -10310,7 +10274,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -10365,7 +10329,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -10414,7 +10378,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "inactive",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -10469,7 +10433,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -10521,7 +10485,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -10574,7 +10538,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "inactive",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -10622,7 +10586,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -10676,7 +10640,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 35000,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": 100,
         "typed_max": 10000
       }
@@ -10728,7 +10692,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 37500,
         "status": "inactive",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -10783,7 +10747,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "inactive",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": 100,
         "typed_max": 10000
       }
@@ -10837,7 +10801,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "inactive",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -10886,7 +10850,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "inactive",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -10940,7 +10904,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -10997,7 +10961,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "inactive",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -11055,7 +11019,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "inactive",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -11113,7 +11077,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "inactive",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -11169,7 +11133,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "inactive",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -11227,7 +11191,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "inactive",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -11285,7 +11249,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "inactive",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -11343,7 +11307,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "inactive",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -11398,7 +11362,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 52500,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": 100,
         "typed_max": 10000
       }
@@ -11453,7 +11417,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 50000,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": 100,
         "typed_max": 10000
       }
@@ -11509,7 +11473,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 52500,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": 100,
         "typed_max": 10000
       }
@@ -11547,8 +11511,7 @@
           2500,
           3000,
           5000,
-          7500,
-          10000
+          7500
         ],
         "is_custom_denom": false,
         "custom_min": null,
@@ -11569,7 +11532,7 @@
         "value_cap": 25000,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -11602,6 +11565,7 @@
           500,
           1000,
           1500,
+          2000,
           2500,
           7500,
           10000
@@ -11626,7 +11590,7 @@
         "value_cap": 25000,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": 100,
         "typed_max": 10000
       }
@@ -11686,7 +11650,7 @@
         "value_cap": 25000,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": 100,
         "typed_max": 10000
       }
@@ -11746,7 +11710,7 @@
         "value_cap": 25000,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": 100,
         "typed_max": 10000
       }
@@ -11806,7 +11770,7 @@
         "value_cap": 25000,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": 100,
         "typed_max": 10000
       }
@@ -11868,7 +11832,7 @@
         "value_cap": 25000,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": 100,
         "typed_max": 10000
       }
@@ -11928,7 +11892,7 @@
         "value_cap": 25000,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": 100,
         "typed_max": 10000
       }
@@ -12040,7 +12004,7 @@
         "value_cap": 25000,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": 100,
         "typed_max": 10000
       }
@@ -12070,9 +12034,7 @@
         "source_url": null,
         "redemption_type": "Offline",
         "denominations": [
-          1000,
-          2000,
-          5000
+          1000
         ],
         "is_custom_denom": false,
         "custom_min": null,
@@ -12091,7 +12053,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -12122,8 +12084,6 @@
         "redemption_type": "Offline",
         "denominations": [
           1000,
-          2000,
-          5000,
           10000
         ],
         "is_custom_denom": false,
@@ -12144,7 +12104,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -12174,9 +12134,7 @@
         "source_url": null,
         "redemption_type": "Offline",
         "denominations": [
-          1000,
-          2000,
-          5000
+          1000
         ],
         "is_custom_denom": false,
         "custom_min": null,
@@ -12197,7 +12155,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -12228,8 +12186,6 @@
         "redemption_type": "Offline",
         "denominations": [
           1000,
-          2000,
-          5000,
           10000
         ],
         "is_custom_denom": false,
@@ -12249,7 +12205,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -12280,8 +12236,6 @@
         "redemption_type": "Offline",
         "denominations": [
           1000,
-          2000,
-          5000,
           10000
         ],
         "is_custom_denom": false,
@@ -12301,7 +12255,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -12332,8 +12286,6 @@
         "redemption_type": "Offline",
         "denominations": [
           1000,
-          2000,
-          5000,
           10000
         ],
         "is_custom_denom": false,
@@ -12353,7 +12305,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -12384,8 +12336,6 @@
         "redemption_type": "Both",
         "denominations": [
           1000,
-          2000,
-          5000,
           10000
         ],
         "is_custom_denom": false,
@@ -12405,7 +12355,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -12436,8 +12386,6 @@
         "redemption_type": "Offline",
         "denominations": [
           1000,
-          2000,
-          5000,
           10000
         ],
         "is_custom_denom": false,
@@ -12457,7 +12405,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -12488,8 +12436,6 @@
         "redemption_type": "Offline",
         "denominations": [
           1000,
-          2000,
-          5000,
           10000
         ],
         "is_custom_denom": false,
@@ -12509,7 +12455,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -12539,9 +12485,7 @@
         "source_url": null,
         "redemption_type": "Both",
         "denominations": [
-          1000,
-          2000,
-          5000
+          1000
         ],
         "is_custom_denom": false,
         "custom_min": null,
@@ -12560,7 +12504,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -12596,7 +12540,8 @@
           5000,
           7500,
           10000,
-          25000
+          25000,
+          50000
         ],
         "is_custom_denom": false,
         "custom_min": null,
@@ -12618,7 +12563,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -12677,7 +12622,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -12730,7 +12675,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "inactive",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -12785,7 +12730,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 35000,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -12816,8 +12761,8 @@
         "redemption_type": "Offline",
         "denominations": [
           1000,
-          5000,
-          10000
+          2000,
+          5000
         ],
         "is_custom_denom": false,
         "custom_min": null,
@@ -12838,7 +12783,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "inactive",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -12891,7 +12836,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 30000,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": 100,
         "typed_max": 10000
       }
@@ -12943,7 +12888,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -12996,7 +12941,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -13049,7 +12994,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -13080,6 +13025,7 @@
         "redemption_type": "Offline",
         "denominations": [
           500,
+          1000,
           2000
         ],
         "is_custom_denom": false,
@@ -13102,7 +13048,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -13151,7 +13097,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "inactive",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -13206,7 +13152,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 18500,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -13267,7 +13213,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 330000,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -13328,7 +13274,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 330000,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -13389,7 +13335,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 330000,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -13450,7 +13396,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 330000,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -13504,7 +13450,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -13564,7 +13510,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 261000,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -13620,7 +13566,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 81000,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": 100,
         "typed_max": 10000
       }
@@ -13673,7 +13619,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -13731,7 +13677,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 127500,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -13780,7 +13726,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "inactive",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -13837,7 +13783,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 140000,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -13892,7 +13838,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 85000,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": 100,
         "typed_max": 10000
       }
@@ -13951,7 +13897,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -14010,7 +13956,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -14068,7 +14014,7 @@
         "value_cap": 100000,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -14126,7 +14072,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": 100,
         "typed_max": 10000
       }
@@ -14182,7 +14128,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -14237,7 +14183,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 85000,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": 100,
         "typed_max": 10000
       }
@@ -14267,6 +14213,7 @@
         "source_url": null,
         "redemption_type": "Online",
         "denominations": [
+          500,
           1000
         ],
         "is_custom_denom": false,
@@ -14289,7 +14236,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -14343,7 +14290,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 110000,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": 100,
         "typed_max": 10000
       }
@@ -14394,7 +14341,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -14449,7 +14396,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -14533,9 +14480,10 @@
         "redemption_type": "Online",
         "denominations": [
           435,
-          475,
           870,
-          950
+          1740,
+          2175,
+          4350
         ],
         "is_custom_denom": false,
         "custom_min": null,
@@ -14556,7 +14504,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 22950,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -14612,7 +14560,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 260000,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -14666,7 +14614,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 35000,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": 100,
         "typed_max": 10000
       }
@@ -14724,7 +14672,7 @@
         "stack_limit": null,
         "value_cap": null,
         "purchase_cap_per_txn": null,
-        "status": "active",
+        "status": "inactive",
         "last_scraped": "2026-10-19",
         "typed_min": null,
         "typed_max": null
@@ -14780,7 +14728,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 85000,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -14988,7 +14936,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 85000,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": 100,
         "typed_max": 10000
       }
@@ -15044,7 +14992,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 111000,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": 100,
         "typed_max": 10000
       }
@@ -15098,7 +15046,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 35000,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": 100,
         "typed_max": 10000
       }
@@ -15147,7 +15095,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "inactive",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -15198,7 +15146,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -15252,7 +15200,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "inactive",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -15292,7 +15240,6 @@
         "source_url": null,
         "redemption_type": "Offline",
         "denominations": [
-          5000,
           10000
         ],
         "is_custom_denom": false,
@@ -15314,7 +15261,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -15370,7 +15317,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 45000,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -15428,7 +15375,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 262500,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": 100,
         "typed_max": 10000
       }
@@ -15465,7 +15412,6 @@
           2000,
           2500,
           3000,
-          5000,
           7500,
           9999
         ],
@@ -15473,21 +15419,21 @@
         "custom_min": null,
         "custom_max": null,
         "discounts": {
-          "Credit Card": 0.0,
-          "Net Banking": 0.0,
-          "Debit Card": 0.0,
-          "MobiKwik": 0.0,
-          "UPI": 1.0,
-          "e-Pay": 1.0,
-          "PAYTM UPI": 1.0
+          "Credit Card": 3.0,
+          "Net Banking": 3.0,
+          "Debit Card": 3.0,
+          "MobiKwik": 3.0,
+          "UPI": 4.0,
+          "e-Pay": 4.0,
+          "PAYTM UPI": 4.0
         },
         "best_payment_method": "UPI",
-        "best_discount_pct": 1.0,
+        "best_discount_pct": 4.0,
         "stack_limit": null,
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -15544,7 +15490,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 185000,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -15599,7 +15545,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 85500,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": 100,
         "typed_max": 10000
       }
@@ -15645,7 +15591,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "inactive",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -15690,7 +15636,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "inactive",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -15746,7 +15692,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": 100,
         "typed_max": 10000
       }
@@ -15776,7 +15722,6 @@
         "source_url": null,
         "redemption_type": "Online",
         "denominations": [
-          299,
           449,
           699,
           999
@@ -15801,7 +15746,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -15854,7 +15799,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -15906,7 +15851,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -15992,8 +15937,7 @@
         "redemption_type": "Online",
         "denominations": [
           2000,
-          5000,
-          10000
+          5000
         ],
         "is_custom_denom": false,
         "custom_min": null,
@@ -16013,7 +15957,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 170000,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -16046,11 +15990,8 @@
         "source_url": null,
         "redemption_type": "Online",
         "denominations": [
-          420,
           585,
-          740,
-          930,
-          999
+          930
         ],
         "is_custom_denom": false,
         "custom_min": null,
@@ -16071,7 +16012,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -16126,7 +16067,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 260000,
         "status": "inactive",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": 100,
         "typed_max": 10000
       }
@@ -16179,7 +16120,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 35000,
         "status": "inactive",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -16232,7 +16173,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 35000,
         "status": "inactive",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -16285,7 +16226,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 35000,
         "status": "inactive",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -16339,7 +16280,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 85000,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": 100,
         "typed_max": 10000
       }
@@ -16397,7 +16338,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 263500,
         "status": "inactive",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": 100,
         "typed_max": 10000
       }
@@ -16455,7 +16396,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 263500,
         "status": "inactive",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": 100,
         "typed_max": 10000
       }
@@ -16513,7 +16454,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 263500,
         "status": "inactive",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": 100,
         "typed_max": 10000
       }
@@ -16571,7 +16512,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 263500,
         "status": "inactive",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": 100,
         "typed_max": 10000
       }
@@ -16629,7 +16570,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 263500,
         "status": "inactive",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": 100,
         "typed_max": 10000
       }
@@ -16687,7 +16628,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 263500,
         "status": "inactive",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": 100,
         "typed_max": 10000
       }
@@ -16742,7 +16683,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 36000,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": 100,
         "typed_max": 10000
       }
@@ -16798,7 +16739,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 87500,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -16853,7 +16794,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 87500,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -16884,8 +16825,6 @@
         "redemption_type": "Offline",
         "denominations": [
           1000,
-          2000,
-          5000,
           10000
         ],
         "is_custom_denom": false,
@@ -16905,7 +16844,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -16936,8 +16875,6 @@
         "redemption_type": "Offline",
         "denominations": [
           1000,
-          2000,
-          5000,
           10000
         ],
         "is_custom_denom": false,
@@ -16957,7 +16894,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -16988,8 +16925,6 @@
         "redemption_type": "Offline",
         "denominations": [
           1000,
-          2000,
-          5000,
           10000
         ],
         "is_custom_denom": false,
@@ -17009,7 +16944,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -17040,8 +16975,6 @@
         "redemption_type": "Offline",
         "denominations": [
           1000,
-          2000,
-          5000,
           10000
         ],
         "is_custom_denom": false,
@@ -17061,7 +16994,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -17092,8 +17025,6 @@
         "redemption_type": "Offline",
         "denominations": [
           1000,
-          2000,
-          5000,
           10000
         ],
         "is_custom_denom": false,
@@ -17113,7 +17044,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -17144,8 +17075,6 @@
         "redemption_type": "Offline",
         "denominations": [
           1000,
-          2000,
-          5000,
           10000
         ],
         "is_custom_denom": false,
@@ -17165,7 +17094,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -17196,8 +17125,6 @@
         "redemption_type": "Offline",
         "denominations": [
           1000,
-          2000,
-          5000,
           10000
         ],
         "is_custom_denom": false,
@@ -17220,7 +17147,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -17251,8 +17178,6 @@
         "redemption_type": "Offline",
         "denominations": [
           1000,
-          2000,
-          5000,
           10000
         ],
         "is_custom_denom": false,
@@ -17272,7 +17197,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -17303,8 +17228,6 @@
         "redemption_type": "Offline",
         "denominations": [
           1000,
-          2000,
-          5000,
           10000
         ],
         "is_custom_denom": false,
@@ -17324,7 +17247,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -17355,8 +17278,6 @@
         "redemption_type": "Offline",
         "denominations": [
           1000,
-          2000,
-          5000,
           10000
         ],
         "is_custom_denom": false,
@@ -17376,7 +17297,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -17407,8 +17328,6 @@
         "redemption_type": "Offline",
         "denominations": [
           1000,
-          2000,
-          5000,
           10000
         ],
         "is_custom_denom": false,
@@ -17428,7 +17347,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -17459,8 +17378,6 @@
         "redemption_type": "Offline",
         "denominations": [
           1000,
-          2000,
-          5000,
           10000
         ],
         "is_custom_denom": false,
@@ -17482,7 +17399,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "inactive",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -17513,8 +17430,6 @@
         "redemption_type": "Offline",
         "denominations": [
           1000,
-          2000,
-          5000,
           10000
         ],
         "is_custom_denom": false,
@@ -17534,7 +17449,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -17565,8 +17480,6 @@
         "redemption_type": "Both",
         "denominations": [
           1000,
-          2000,
-          5000,
           10000
         ],
         "is_custom_denom": false,
@@ -17586,7 +17499,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -17617,8 +17530,6 @@
         "redemption_type": "Offline",
         "denominations": [
           1000,
-          2000,
-          5000,
           10000
         ],
         "is_custom_denom": false,
@@ -17638,7 +17549,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -17669,8 +17580,6 @@
         "redemption_type": "Both",
         "denominations": [
           1000,
-          2000,
-          5000,
           10000
         ],
         "is_custom_denom": false,
@@ -17690,7 +17599,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -17721,8 +17630,6 @@
         "redemption_type": "Offline",
         "denominations": [
           1000,
-          2000,
-          5000,
           10000
         ],
         "is_custom_denom": false,
@@ -17742,7 +17649,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -17773,8 +17680,6 @@
         "redemption_type": "Both",
         "denominations": [
           1000,
-          2000,
-          5000,
           10000
         ],
         "is_custom_denom": false,
@@ -17794,7 +17699,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -17825,8 +17730,6 @@
         "redemption_type": "Offline",
         "denominations": [
           1000,
-          2000,
-          5000,
           10000
         ],
         "is_custom_denom": false,
@@ -17846,7 +17749,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -17877,8 +17780,6 @@
         "redemption_type": "Offline",
         "denominations": [
           1000,
-          2000,
-          5000,
           10000
         ],
         "is_custom_denom": false,
@@ -17898,7 +17799,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -17929,8 +17830,6 @@
         "redemption_type": "Both",
         "denominations": [
           1000,
-          2000,
-          5000,
           10000
         ],
         "is_custom_denom": false,
@@ -17950,7 +17849,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -17981,8 +17880,6 @@
         "redemption_type": "Offline",
         "denominations": [
           1000,
-          2000,
-          5000,
           10000
         ],
         "is_custom_denom": false,
@@ -18002,7 +17899,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -18056,7 +17953,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 35000,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": 100,
         "typed_max": 10000
       }
@@ -18110,7 +18007,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 35000,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": 100,
         "typed_max": 10000
       }
@@ -18165,7 +18062,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 85000,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": 100,
         "typed_max": 10000
       }
@@ -18220,7 +18117,7 @@
         "stack_limit": 1,
         "value_cap": null,
         "purchase_cap_per_txn": null,
-        "status": "active",
+        "status": "inactive",
         "last_scraped": "2026-10-19",
         "typed_min": null,
         "typed_max": null
@@ -18273,7 +18170,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "inactive",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -18329,7 +18226,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 26000,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -18385,7 +18282,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 185000,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": 100,
         "typed_max": 10000
       }
@@ -18438,7 +18335,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 15000,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -18492,7 +18389,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 35000,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": 100,
         "typed_max": 10000
       }
@@ -18549,7 +18446,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 85000,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": 100,
         "typed_max": 10000
       }
@@ -18603,7 +18500,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 35000,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -18657,7 +18554,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "inactive",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -18709,7 +18606,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -18762,7 +18659,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 85000,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -18818,7 +18715,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -18869,7 +18766,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "inactive",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -18899,6 +18796,7 @@
         "source_url": null,
         "redemption_type": "Online",
         "denominations": [
+          500,
           1000,
           5000
         ],
@@ -18922,7 +18820,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -18977,7 +18875,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 85000,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -19030,7 +18928,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 35000,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": 100,
         "typed_max": 10000
       }
@@ -19085,7 +18983,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 85000,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": 10,
         "typed_max": 10000
       }
@@ -19143,7 +19041,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 128500,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": 100,
         "typed_max": 10000
       }
@@ -19197,7 +19095,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 36000,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -19252,7 +19150,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 185000,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": 100,
         "typed_max": 10000
       }
@@ -19307,7 +19205,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 180000,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": 100,
         "typed_max": 10000
       }
@@ -19363,7 +19261,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 185000,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": 100,
         "typed_max": 10000
       }
@@ -19418,7 +19316,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 90000,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -19472,7 +19370,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 37500,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": 100,
         "typed_max": 10000
       }
@@ -19527,7 +19425,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 185000,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": 100,
         "typed_max": 10000
       }
@@ -19584,7 +19482,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -19624,22 +19522,22 @@
         "custom_min": null,
         "custom_max": null,
         "discounts": {
-          "Credit Card": 11.0,
-          "Net Banking": 11.0,
-          "Debit Card": 11.0,
-          "MobiKwik": 11.0,
-          "UPI": 13.0,
-          "Amazon Pay": 11.0,
-          "e-Pay": 13.0,
-          "PAYTM UPI": 13.0
+          "Credit Card": 13.0,
+          "Net Banking": 13.0,
+          "Debit Card": 13.0,
+          "MobiKwik": 13.0,
+          "UPI": 15.0,
+          "Amazon Pay": 13.0,
+          "e-Pay": 15.0,
+          "PAYTM UPI": 15.0
         },
         "best_payment_method": "UPI",
-        "best_discount_pct": 13.0,
+        "best_discount_pct": 15.0,
         "stack_limit": null,
         "value_cap": null,
         "purchase_cap_per_txn": 110000,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": 100,
         "typed_max": 10000
       }
@@ -19695,7 +19593,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 185000,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": 100,
         "typed_max": 10000
       }
@@ -19802,7 +19700,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 61000,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": 100,
         "typed_max": 10000
       }
@@ -19859,7 +19757,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 290000,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": 100,
         "typed_max": 10000
       }
@@ -19915,7 +19813,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 110000,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": 100,
         "typed_max": 10000
       }
@@ -19948,7 +19846,6 @@
         "denominations": [
           1000,
           2000,
-          2500,
           3000,
           4000,
           5000,
@@ -19976,7 +19873,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -20028,7 +19925,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -20058,32 +19955,28 @@
         "source_url": null,
         "redemption_type": "Online",
         "denominations": [
-          150,
-          250,
-          500,
-          1000,
-          2500
+          500
         ],
         "is_custom_denom": false,
         "custom_min": null,
         "custom_max": null,
         "discounts": {
-          "Credit Card": 1.5,
-          "Net Banking": 1.5,
-          "Debit Card": 1.5,
-          "MobiKwik": 1.5,
-          "UPI": 2.0,
-          "Amazon Pay": 1.5,
-          "e-Pay": 2.0,
-          "PAYTM UPI": 2.0
+          "Credit Card": 3.5,
+          "Net Banking": 3.5,
+          "Debit Card": 3.5,
+          "MobiKwik": 3.5,
+          "UPI": 4.5,
+          "Amazon Pay": 3.5,
+          "e-Pay": 4.5,
+          "PAYTM UPI": 4.5
         },
         "best_payment_method": "UPI",
-        "best_discount_pct": 2.0,
+        "best_discount_pct": 4.5,
         "stack_limit": null,
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -20137,7 +20030,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 80000,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": 100,
         "typed_max": 10000
       }
@@ -20191,7 +20084,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": 100,
         "typed_max": 10000
       }
@@ -20247,7 +20140,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 187500,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": 100,
         "typed_max": 10000
       }
@@ -20298,7 +20191,7 @@
         "stack_limit": null,
         "value_cap": null,
         "purchase_cap_per_txn": 14250,
-        "status": "active",
+        "status": "inactive",
         "last_scraped": "2026-10-19",
         "typed_min": null,
         "typed_max": null
@@ -20329,7 +20222,6 @@
         "source_url": null,
         "redemption_type": "Online",
         "denominations": [
-          250,
           500,
           1000,
           2000,
@@ -20354,7 +20246,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -20515,7 +20407,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 47500,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -20595,7 +20487,6 @@
         "source_url": null,
         "redemption_type": "Online",
         "denominations": [
-          190,
           475,
           950,
           2375
@@ -20618,7 +20509,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 39900,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -20672,7 +20563,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 109250,
         "status": "inactive",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -20726,7 +20617,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 8690,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -20782,7 +20673,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 127500,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": 100,
         "typed_max": 10000
       }
@@ -20837,7 +20728,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 62500,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": 100,
         "typed_max": 10000
       }
@@ -20892,7 +20783,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -20946,7 +20837,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 21920,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -21050,7 +20941,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 35000,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -21100,7 +20991,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "inactive",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -21153,7 +21044,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -21208,7 +21099,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 185000,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": 100,
         "typed_max": 10000
       }
@@ -21264,7 +21155,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 185000,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": 100,
         "typed_max": 10000
       }
@@ -21320,7 +21211,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 185000,
         "status": "inactive",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": 100,
         "typed_max": 10000
       }
@@ -21355,7 +21246,6 @@
           30,
           75,
           380,
-          750,
           1900,
           3800,
           7500
@@ -21379,7 +21269,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 144500,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -21436,7 +21326,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -21492,7 +21382,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 62500,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -21525,6 +21415,7 @@
           250,
           500,
           1000,
+          1500,
           2500,
           5000,
           10000
@@ -21548,7 +21439,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 207500,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -21603,7 +21494,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 185000,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": 100,
         "typed_max": 10000
       }
@@ -21658,7 +21549,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 290000,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -21712,7 +21603,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 185000,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -21768,7 +21659,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 265000,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": 100,
         "typed_max": 10000
       }
@@ -21824,7 +21715,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 265000,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": 100,
         "typed_max": 10000
       }
@@ -21880,7 +21771,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 265000,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": 100,
         "typed_max": 10000
       }
@@ -21936,7 +21827,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 265000,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": 100,
         "typed_max": 10000
       }
@@ -21992,7 +21883,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 265000,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": 100,
         "typed_max": 10000
       }
@@ -22048,7 +21939,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 265000,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": 100,
         "typed_max": 10000
       }
@@ -22081,6 +21972,7 @@
           250,
           500,
           1000,
+          1500,
           2500,
           5000,
           10000
@@ -22103,7 +21995,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 207500,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -22136,6 +22028,7 @@
           250,
           500,
           1000,
+          1500,
           2500,
           5000,
           10000
@@ -22158,7 +22051,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 207500,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -22191,6 +22084,7 @@
           250,
           500,
           1000,
+          1500,
           2500,
           5000,
           10000
@@ -22213,7 +22107,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 207500,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -22246,6 +22140,7 @@
           250,
           500,
           1000,
+          1500,
           2500,
           5000,
           10000
@@ -22268,7 +22163,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 207500,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -22301,6 +22196,7 @@
           250,
           500,
           1000,
+          1500,
           2500,
           5000,
           10000
@@ -22323,7 +22219,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 207500,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -22356,6 +22252,7 @@
           250,
           500,
           1000,
+          1500,
           2500,
           5000,
           10000
@@ -22378,7 +22275,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 207500,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -22411,6 +22308,7 @@
           250,
           500,
           1000,
+          1500,
           2500,
           5000,
           10000
@@ -22433,7 +22331,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 207500,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -22466,6 +22364,7 @@
           250,
           500,
           1000,
+          1500,
           2500,
           5000,
           10000
@@ -22488,7 +22387,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 207500,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -22521,6 +22420,7 @@
           250,
           500,
           1000,
+          1500,
           2500,
           5000,
           10000
@@ -22543,7 +22443,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 207500,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -22576,6 +22476,7 @@
           250,
           500,
           1000,
+          1500,
           2500,
           5000,
           10000
@@ -22598,7 +22499,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 207500,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -22631,6 +22532,7 @@
           250,
           500,
           1000,
+          1500,
           2500,
           5000,
           10000
@@ -22653,7 +22555,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 207500,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -22686,6 +22588,7 @@
           250,
           500,
           1000,
+          1500,
           2500,
           5000,
           10000
@@ -22708,7 +22611,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 207500,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -22741,6 +22644,7 @@
           250,
           500,
           1000,
+          1500,
           2500,
           5000,
           10000
@@ -22763,7 +22667,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": 207500,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -22816,7 +22720,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": null,
         "typed_max": null
       }
@@ -22869,7 +22773,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-10-19"
+        "last_scraped": "2026-11-09"
       }
     ],
     "description": "Amazon Prime is a membership that brings shopping, streaming, and everyday savings together under one roof. For a single subscription, members get fast and free delivery on millions of products, unlimited access to Prime Video, ad-light streaming, exclusive music, and a steady stream of deals throughout the year, making it one of the most complete lifestyle memberships available in the country today.\nOn the entertainment side, Prime Video’s 2026 line-up is one of its strongest yet. Returning favorites like Farzi Season 2, Panchayat Season 5, Dahaad Season 2, Call Me Bae Season 2, Matka King, and Raakh, giving members a steady mix of thrillers, dramas, and reality entertainment to look forward to all year. Everyday convenience becomes even better when shopping, entertainment, and exclusive benefits come together in one place. Amazon Prime Subscription Members also enjoy early access to exclusive launches, limited-time promotions, and exciting deals throughout the year. Whether you’re catching up on the latest release, shopping for everyday essentials, or waiting for the biggest Amazon Prime Sale, the membership offers exceptional value for everyday lifestyle. During peak sale days, members unlock exclusive savings across multiple categories, making the membership even more rewarding.\nGet an Amazon Prime Gift Card from GyFTR, and enjoy a seamless way to access premium shopping and entertainment benefits. An Amazon Prime Membership Offer is a thoughtful choice for anyone who enjoys convenience, exclusive savings, and an all-in-one digital lifestyle.\nHow to buy an Amazon Prime Gift Card?\nBuying an Amazon Prime Gift Card is simple:\nVisit www.gyftr.com.\nLog in using your account credentials.\nSearch ‘Amazon Prime Membership’ in the search bar.\nChoose the desired denomination.\nClick on the BUY NOW button and complete the transaction using the available payment modes.\nYou will receive the Amazon Prime Membership Gift Card via SMS/Email/WhatsApp.\nHow to redeem Amazon Prime Gift Cards?\nVisit www.amazon.in/ vouchers.\nEnter the voucher code (13-digit alphanumeric code).\nClick on 'Add to your vouchers'.\nAdd the billing address & proceed to checkout\nYour Prime Membership has been activated\nAmazon Prime Membership Gift Cards for Special Occasions\nSome gifts continue to add value long after they're received. These Gift Cards cater to all your festive gifting needs, covering Diwali gifting, Raksha Bandhan gift ideas, Dhanteras, Holi gifting, Christmas gift ideas, and New Year gifts. They are equally perfect for personal milestones and special days, including Birthdays, Anniversaries, Graduations, Promotions, Father’s Day, and Mother’s Day. From fast delivery on eligible purchases to unlimited entertainment on Prime Video, music streaming, and reading benefits, recipients can enjoy everyday convenience all year round. They can also make the most of an Amazon Prime Subscription Offer, exclusive member benefits, and exciting Amazon Prime Day Deals, making every occasion even more memorable.\nAmazon Prime Membership Gift Cards for Corporate Gifting\nMeaningful rewards are those that recipients can enjoy every day. Amazon Prime Membership is an excellent choice for corporate Diwali gifts, corporate gift ideas, Employee Benefits, corporate gifts for employees, and Diwali gift ideas for corporates. It offers employees, clients, and business associates access to faster deliveries, premium entertainment, music, reading, and member-exclusive shopping benefits through a single subscription. An Amazon Prime Membership Offer gives recipients the flexibility to enjoy year-round convenience while taking advantage of exclusive Amazon Prime Deals and member-only shopping events.",
@@ -22922,7 +22826,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": 100,
         "typed_max": 10000
       }
@@ -22972,7 +22876,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": 100,
         "typed_max": 10000
       }
@@ -23007,7 +22911,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "inactive",
-        "last_scraped": "2026-10-19"
+        "last_scraped": "2026-11-09"
       }
     ],
     "description": null,
@@ -23052,7 +22956,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-10-19"
+        "last_scraped": "2026-11-09"
       }
     ],
     "description": "Some gifts become cherished family heirlooms, carrying memories, prosperity, and lasting value through generations. An MMTC Gold Coin from MMTC-PAMP is crafted with 24K 999.9+ pure gold and Swiss precision, making it a timeless choice for celebrations, milestones, and wealth preservation. Whether you're exploring premium gold coins, looking for an MMTC 10 GM Gold Coin, or planning to buy gold coins online, MMTC-PAMP offers certified products in elegant tamper-proof CertiCard packaging that reflects exceptional purity and trust.\nFrom beautifully crafted Lotus, Lakshmi & Ganesha, and other commemorative collections to multiple weight options, every coin is designed to celebrate life's special moments. Whether you're comparing the Gold Coin Price, searching for a festive Gold Coin Offer, or browsing exclusive Gold Coin Offers Online, MMTC-PAMP delivers unmatched craftsmanship and authenticity with every purchase.\nWith MMTC-PAMP Gold Coin Gift Cards from GyFTR, gift timeless elegance and enjoy additional savings on all your Gold Coin purchases.\nHow to buy an MMTC-PAMP Gold Coin Gift Card?\nBuying an MMTC-PAMP Gold Coin Gift Card is simple:\nVisit www.gyftr.com.\nLog in using your account credentials.\nSearch ‘MMTC-PAMP’ in the search bar.\nChoose the desired denomination.\nClick on the BUY NOW button and complete the transaction using the available payment modes.\nYou will receive the MMTC-PAMP Gold Coin Gift Card via SMS/Email/WhatsApp.\nHow to redeem MMTC-PAMP Gold Coin Gift Cards?\nVisit the MMTC-PAMP website at https://www.mmtcpamp.com and log in to your account.\nSelect your preferred product and add it to the cart.\nAt checkout, select “Pay using GyFTR ePay” and click on Proceed\nMMTC-PAMP Gold Coin Gift Cards for Special Occasions\nCelebrate life's most meaningful moments with a gift that lasts forever. Whether you're looking for a memorable Raksha Bandhan Gift, a premium Christmas Gift, an elegant Anniversary Gift for Wife, or a thoughtful Anniversary Gift for Husband, an MMTC-PAMP Gold Coin Gift Card is a timeless expression of love and appreciation. Recipients can choose from beautifully crafted 24K 999.9+ pure gold coins in a variety of designs and weight options, making every celebration even more meaningful with a gift that represents prosperity, blessings, and lasting memories.\nMMTC-PAMP Gold Coin Gift Cards for Corporate Gifting\nCelebrate excellence with a gift that reflects prestige, trust, and enduring value. MMTC-PAMP Gold Coin Gift Cards are an exceptional choice for corporate Diwali gifts, corporate gift ideas, Employee Benefits, corporate gifts for employees, leadership recognition, and client appreciation. They offer recipients the flexibility to choose certified 24K 999.9+ pure gold coins crafted with Swiss precision, making every reward memorable and meaningful. A premium gifting solution that perfectly complements festive celebrations, these Gift Cards stand out among the most appreciated Diwali gift ideas for corporates.",
@@ -23097,7 +23001,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-10-19"
+        "last_scraped": "2026-11-09"
       }
     ],
     "description": "Some gifts are treasured for a lifetime, carrying memories, blessings, and lasting value across generations. An MMTC Silver Coin combines 999.9 purity with Swiss craftsmanship, making it a meaningful choice for festive gifting, celebrations, and precious metal collections. Whether you're looking for a 10 GM Silver Coin, exploring a premium MMTC Silver Bar, or planning to buy silver coins online, MMTC-PAMP offers certified products in elegant tamper-proof packaging that reflects trust and authenticity. From devotional collections featuring Lakshmi and Ganesha to commemorative designs and classic silver coins, every piece is crafted to celebrate life's special moments.\nWhether you're checking the Silver Coin Rate Today, comparing the Silver Coin 10 GM Price, or looking for an attractive silver coin Offer, MMTC-PAMP delivers unmatched quality with every purchase. With MMTC-PAMP Silver Coin Gift Cards from GyFTR, gifting timeless value becomes effortless. Redeem your Gift Card against eligible silver coin purchases and celebrate every milestone with a keepsake that lasts for years to come.\nHow to buy MMTC-PAMP Silver Coins Gift Card?\nBuying MMTC-PAMP Silver Coins Gift Card is simple:\nVisit www.gyftr.com.\nLog in using your account credentials.\nSearch ‘MMTC-PAMP’ in the search bar.\nChoose the desired denomination.\nClick on the BUY NOW button and complete the transaction using the available payment modes.\nYou will receive the MMTC-PAMP Silver Coins Gift Card via SMS/Email/WhatsApp.\nHow to redeem MMTC-PAMP Silver Coins Gift Cards?\nVisit the MMTC-PAMP website at https://www.mmtcpamp.com and log in to your account.\nSelect your preferred product and add it to the cart.\nAt checkout, select “Pay using GyFTR ePay” and click on Proceed.\nMMTC-PAMP Silver Coins Gift Cards for Special Occasions\nSome gifts never lose their value. Whether you're searching for a thoughtful Raksha Bandhan Gift, a memorable Christmas Gift, an elegant Anniversary Gift for Wife, or a meaningful Anniversary Gift for Husband, an MMTC-PAMP Silver Coin Gift Card is a timeless choice. Recipients can choose from beautifully crafted 999.9+ pure silver coins featuring devotional, festive, and commemorative designs in multiple weight options, making every celebration even more memorable with a gift that symbolises prosperity, blessings, and lasting appreciation.\nMMTC-PAMP Silver Coins Gift Cards for Corporate Gifting\nCelebrate achievements with a gift that reflects prestige and lasting value. MMTC-PAMP Silver Coin Gift Cards are an excellent choice for corporate Diwali gifts, corporate gift ideas, Employee Benefits, corporate gifts for employees, dealer rewards, and client appreciation. They give recipients the freedom to choose certified 999.9+ pure silver coins crafted with Swiss precision, making every reward meaningful and memorable. It's a premium gifting solution that perfectly complements festive celebrations and stands out among the most appreciated Diwali gift ideas for corporates.",
@@ -23146,7 +23050,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-10-19"
+        "last_scraped": "2026-11-09"
       }
     ],
     "description": "Make your ethnicwear collection more colourful and varied with Koskii, a premium Indian fashion brand that celebrates the beauty of traditional craftsmanship through contemporary designs. Built on over 150 years of textile heritage, the brand offers elegant ethnic wear that blends timeless artistry with modern designs.\nFrom intricately crafted Koskii sarees and a stunning Koskii lehenga collection to graceful salwar suits, kurta sets, gowns, and festive ensembles, the brand offers a wide selection of ethnic wear for women. Whether you're looking for a classic designer saree, a stylish saree for women for festive occasions, or elegant traditional wear for women, Koskii has thoughtfully curated collections for weddings, receptions, festive celebrations, and family gatherings. While you can have a seamless online shopping experience with the Koskii Website, with more than 30 stores across India, finding a Koskii near me is equally convenient.\nA Koskii Gift Card from GyFTR lets your loved ones explore premium Indian traditional wear while enjoying additional savings.\nHow to buy a Koskii Gift Card?\nBuying a Koskii Gift Card is simple:\nVisit www.gyftr.com.\nLog in using your account credentials.\nSearch ‘Koskii’ in the search bar.\nChoose your desired denomination.\nClick on the BUY NOW button and complete the transaction using the available payment modes.\nYou will receive your Koskii Gift Card via SMS/Email/WhatsApp.\nHow to redeem Koskii Gift Cards?\nKoskii Gift Cards for Special Occasions\nA Koskii Gift Card is a thoughtful gift for anyone who loves dressing up for life's special moments. Whether it's a birthday, wedding, anniversary, festive celebration like Diwali, Holi, Eid, Rakhi, and more, it gives recipients the freedom to choose styles that reflect their personality and occasion. From elegant Koskii sarees and beautifully embroidered designer saree collections to a stunning Koskii lehenga and festive ethnic wear, there's something for every celebration. Instead of guessing sizes or preferences, let your loved ones choose outfits they'll truly enjoy wearing.\nKoskii Gift Cards for Corporate Gifting\nA Koskii Gift Card is a refined and meaningful choice for workplace gifting, offering recipients the flexibility to shop for premium festive and occasion wear. Whether you're planning corporate Diwali gifts, corporate gifts for Women’s Day, exploring corporate gift ideas, or enhancing Employee Benefits, it gives employees access to elegant ethnic fashion for every celebration. As part of corporate gifts for employees or Diwali gift ideas for corporates, Koskii Gift Cards stand out by offering beautifully crafted ethnic wear and occasion-ready styles that recipients can wear for weddings, festivals, and memorable family celebrations.",
@@ -23172,33 +23076,28 @@
           500,
           1000,
           1500,
-          2000,
-          2500,
-          3000,
-          5000,
-          7500,
-          10000
+          2000
         ],
         "is_custom_denom": false,
         "custom_min": null,
         "custom_max": null,
         "discounts": {
-          "Credit Card": 7.0,
-          "Net Banking": 7.0,
-          "Debit Card": 7.0,
-          "MobiKwik": 7.0,
-          "UPI": 9.0,
-          "Amazon Pay": 7.0,
-          "e-Pay": 9.0,
-          "PAYTM UPI": 9.0
+          "Credit Card": 10.0,
+          "Net Banking": 10.0,
+          "Debit Card": 10.0,
+          "MobiKwik": 10.0,
+          "UPI": 12.0,
+          "Amazon Pay": 10.0,
+          "e-Pay": 12.0,
+          "PAYTM UPI": 12.0
         },
         "best_payment_method": "UPI",
-        "best_discount_pct": 9.0,
+        "best_discount_pct": 12.0,
         "stack_limit": null,
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": 100,
         "typed_max": 10000
       }
@@ -23250,7 +23149,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-10-19"
+        "last_scraped": "2026-11-09"
       }
     ],
     "description": null,
@@ -23287,22 +23186,22 @@
         "custom_min": null,
         "custom_max": null,
         "discounts": {
-          "Credit Card": 7.0,
-          "Net Banking": 7.0,
-          "Debit Card": 7.0,
-          "MobiKwik": 7.0,
-          "UPI": 9.0,
-          "Amazon Pay": 7.0,
-          "e-Pay": 9.0,
-          "PAYTM UPI": 9.0
+          "Credit Card": 10.0,
+          "Net Banking": 10.0,
+          "Debit Card": 10.0,
+          "MobiKwik": 10.0,
+          "UPI": 12.0,
+          "Amazon Pay": 10.0,
+          "e-Pay": 12.0,
+          "PAYTM UPI": 12.0
         },
         "best_payment_method": "UPI",
-        "best_discount_pct": 9.0,
+        "best_discount_pct": 12.0,
         "stack_limit": null,
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": 100,
         "typed_max": 10000
       }
@@ -23341,22 +23240,22 @@
         "custom_min": null,
         "custom_max": null,
         "discounts": {
-          "Credit Card": 7.0,
-          "Net Banking": 7.0,
-          "Debit Card": 7.0,
-          "MobiKwik": 7.0,
-          "UPI": 9.0,
-          "Amazon Pay": 7.0,
-          "e-Pay": 9.0,
-          "PAYTM UPI": 9.0
+          "Credit Card": 10.0,
+          "Net Banking": 10.0,
+          "Debit Card": 10.0,
+          "MobiKwik": 10.0,
+          "UPI": 12.0,
+          "Amazon Pay": 10.0,
+          "e-Pay": 12.0,
+          "PAYTM UPI": 12.0
         },
         "best_payment_method": "UPI",
-        "best_discount_pct": 9.0,
+        "best_discount_pct": 12.0,
         "stack_limit": null,
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": 100,
         "typed_max": 10000
       }
@@ -23395,22 +23294,22 @@
         "custom_min": null,
         "custom_max": null,
         "discounts": {
-          "Credit Card": 7.0,
-          "Net Banking": 7.0,
-          "Debit Card": 7.0,
-          "MobiKwik": 7.0,
-          "UPI": 9.0,
-          "Amazon Pay": 7.0,
-          "e-Pay": 9.0,
-          "PAYTM UPI": 9.0
+          "Credit Card": 10.0,
+          "Net Banking": 10.0,
+          "Debit Card": 10.0,
+          "MobiKwik": 10.0,
+          "UPI": 12.0,
+          "Amazon Pay": 10.0,
+          "e-Pay": 12.0,
+          "PAYTM UPI": 12.0
         },
         "best_payment_method": "UPI",
-        "best_discount_pct": 9.0,
+        "best_discount_pct": 12.0,
         "stack_limit": null,
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": 100,
         "typed_max": 10000
       }
@@ -23449,22 +23348,22 @@
         "custom_min": null,
         "custom_max": null,
         "discounts": {
-          "Credit Card": 7.0,
-          "Net Banking": 7.0,
-          "Debit Card": 7.0,
-          "MobiKwik": 7.0,
-          "UPI": 9.0,
-          "Amazon Pay": 7.0,
-          "e-Pay": 9.0,
-          "PAYTM UPI": 9.0
+          "Credit Card": 10.0,
+          "Net Banking": 10.0,
+          "Debit Card": 10.0,
+          "MobiKwik": 10.0,
+          "UPI": 12.0,
+          "Amazon Pay": 10.0,
+          "e-Pay": 12.0,
+          "PAYTM UPI": 12.0
         },
         "best_payment_method": "UPI",
-        "best_discount_pct": 9.0,
+        "best_discount_pct": 12.0,
         "stack_limit": null,
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-10-19"
+        "last_scraped": "2026-11-09"
       }
     ],
     "description": null,
@@ -23511,7 +23410,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": 100,
         "typed_max": 10000
       }
@@ -23565,7 +23464,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": 100,
         "typed_max": 10000
       }
@@ -23618,7 +23517,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-10-19",
+        "last_scraped": "2026-11-09",
         "typed_min": 100,
         "typed_max": 10000
       }
@@ -23671,7 +23570,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-10-19"
+        "last_scraped": "2026-11-09"
       }
     ],
     "description": "Noise is a leading Indian brand specializing in smart wearables and audio technology. Noise has become a youth favorite brand offering a range of smartwatches, earbuds, and accessories to amplify your everyday audio experience.\nNoise smartwatches have various features like AMOLED display, sleep tracking, stress monitoring, heart rate monitoring, and menstrual cycle tracking, and has metallic, and leather finishes. Their range of popular smartwatches includes Noise ColorFit, Halo, Evolve, Endure, and Active.\nFor audio enthusiasts, Noise provides a selection of wireless earbuds, that offer superior sound clarity, and seamless Bluetooth connectivity. These are extremely stylish, compact, affordable, and durable, sweat-resistant. Some of their best-sellers include Noise Buds VS104, Noise Air Buds Pro, and Noise Buds Compact.\nUse your Noise Gift Card from GyFTR to avail of exclusive discounts on their stylish and cool range of wearables and audio gear.\nHow to buy Noise Gift Cards?\nBuying a Noise Gift Card is simple:\nVisit www.gyftr.com.\nLog in using your account credentials.\nSearch ‘Noise’ on the search bar.\nChoose the desired denomination.\nClick on the BUY NOW button and complete the transaction using the available payment modes.\nYou will receive the Gift Card via SMS/Email/WhatsApp.\nHow to redeem Noise Gift Cards?\nVisit the Noise website and add your desired products to the cart.\nLog in using your email ID and provide the necessary details, such as your shipping address.\nChoose the \"Pay via e-Pay/Gift Vouchers\" option and enter your voucher code.\nNoise Gift Cards for special occasions\nLooking for the ideal gift to celebrate a special moment? Noise Gift Cards are a perfect choice for any occasion. Whether it's an anniversary gift, a birthday gift, or simply a token of love, these Gift Cards let your loved ones know how much you care about them. They can shop for good quality audio gear and smart wearables.\nNoise Gift Cards for corporate gifting\nNoise Gift Cards from GyFTR make an ideal choice for corporate gifting, offering versatile options for rewarding employees. These Gift Cards allow recipients to shop for superior quality and stylish earbuds and smartwatches. Whether acknowledge achievements, expressing gratitude, or celebrating milestones, Noise Gift Cards from GyFTR ensure that your corporate gifts are cherished and appreciated.\nFAQs\nWhat can I purchase with my Noise Gift Cards?\nWith Noise Gift Cards from GyFTR, one can shop for smart wearables and earbuds from their range of stylish products.\nCan I send a Noise Gift Card to someone else?\nYes, you can send Noise Gift Cards from GyFTR to your loved ones using the ‘I am Gyfting’ option.\nHow to send Noise Gift Cards to someone else?\nSend a Noise Gift Card by following these steps:\nChoose the desired denomination you want to send.\nPress the “I am Gyfting” checkbox.\nEnter the details of the recipient and choose a message to make it more personalized.\nPress the CHECKOUT button and complete the transaction using the available payment modes.\nWhat are the available denominations of Noise Gift Cards?\nOn GyFTR, you will find Noise Gift Cards in various denominations that suit your purchase requirements. The denominations of Gift Cards are subject to change based on availability.\nHow many times can Noise Gift Cards be used?\nThis Gift Card once added to your e-pay balance, can be used partially.\nWhere can I use the Noise Gift Card?\nThis Gift Card is only accepted at https://www.gonoise.com/.\nWhat if my Noise Gift Card expires?\nGyFTR advises redeeming your Noise Gift Card before the validity date. The Gift Card shall be invalid after the date mentioned in the details received with the Gift Card via SMS/Email/WhatsApp.\nWhat happens if I lose my Noise Gift Card?\nTo recover your Noise Gift Card visit, https://www.gvhelpdesk.com/ & use the ‘I WANT TO RESEND MY VOUCHER’ section of this page.",
@@ -23698,9 +23597,8 @@
         "source_url": null,
         "redemption_type": "Online",
         "denominations": [
-          100,
-          150,
-          200
+          250,
+          500
         ],
         "is_custom_denom": false,
         "custom_min": null,
@@ -23720,7 +23618,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "active",
-        "last_scraped": "2026-10-19"
+        "last_scraped": "2026-11-09"
       }
     ],
     "description": "When you run out of milk at 11 PM or need party snacks in a hurry, Swiggy Instamart is the answer. Backed by the trust of Swiggy, Instamart has changed how India shops for everyday essentials. It is one of the most convenient ways to get online grocery delivery, with fresh fruits and vegetables, dairy, atta, rice, pulses, snacks, beverages, personal care, home care, and pet supplies delivered to your door in minutes.\nThe same Swiggy app you use for a Swiggy online order also lets you shop on Instamart, so you can switch from ordering dinner to restocking your kitchen without leaving the app. Whether you want a full month's ration or a few last-minute items, Swiggy grocery delivery makes it easy. Use a Swiggy Instamart Money Voucher from GyFTR while placing Instamart Swiggy orders, and save more!\nHow to buy a Swiggy Instamart Money Voucher?\nBuying a Swiggy Instamart Money Voucher is simple:\nVisit www.gyftr.com.\nLog in using your account credentials.\nSearch ‘Swiggy Instamart Money’ in the search bar.\nChoose the desired denomination.\nClick on the BUY NOW button and complete the transaction using the available payment modes.\nYou will receive the Swiggy Instamart Money Voucher via SMS/Email/WhatsApp.\nHow to redeem Swiggy Instamart Money Vouchers?\nDownload/update the latest Swiggy app. Log in to the Swiggy app and go to your profile\nScroll down and tap on \"claim gift card\" under the 'Credits and Gift Cards' section.\nEnter the 16-digit Gift Card code and PIN to claim your Gift Card.\nThe claimed Gift Card amount will be added to your Swiggy credits balance.\nThe balance can then be used to place an order on the Swiggy app.\nSwiggy Instamart Money Vouchers for Special Occasions\nA Swiggy Instamart Money Voucher from GyFTR lets your loved ones stock up on what they need, when they need it. It's the best kind of gift for them, as they can use it for everyday requirements like groceries, dairy, household products, and more. It suits every celebration, from Diwali, Raksha Bandhan, Holi, and Christmas to New Year's. It also works for housewarmings, birthdays, anniversaries, graduations, Mother's Day and Father's Day. It is especially useful for a friend moving into a new home, parents who enjoy hosting, or students living away from home. They can pick pantry staples, festive snacks, and more using Swiggy Instamart Money Vouchers. Instead of guessing what to buy, you let them choose exactly what they need.\nSwiggy Instamart Money Vouchers for Corporate Gifting\nThe best rewards are the ones people can use seamlessly. A Swiggy Instamart Money Voucher is perfect in such scenarios, since groceries and daily essentials are something everyone buys quite often. It works for recognising a great quarter, marking work anniversaries, adding a practical touch to corporate Diwali gifts, or building a flexible Employee Benefits programme. Recipients get the freedom to choose what they want, from kitchen staples and fresh produce to snacks and household items, through reliable online grocery delivery on Swiggy Instamart. It's a simple, useful way to show your team their work is valued, and it saves them time too.",
@@ -23762,7 +23660,7 @@
         "value_cap": null,
         "purchase_cap_per_txn": null,
         "status": "inactive",
-        "last_scraped": "2026-10-19"
+        "last_scraped": "2026-11-09"
       }
     ],
     "description": null,
@@ -23771,6 +23669,412 @@
     "full_terms_and_conditions": "Skullcandy Uproar ANC Terms & Conditions\n1. This is Skullcandy Coupon code would be accepted and can be redeemed at https://www.skullcandy.in/shop/uproar-anc/ only (Official distributors of Skullcandy in India)\n2. The person who has the Skullcandy Coupon code is deemed to be the beneficiary.\n3. Skullcandy is not responsible if Coupon code is used without permission.\n4. Multiple Coupon code can’t be used in one bill/transaction.\n5. This is a ONE time use coupon code with an expiration date.\n6. Skullcandy Coupon code CANNOT be revalidated once expired or cancelled under any situations.\n7. Skullcandy Coupon code can’t be clubbed with any one of the existing offer on its website.\n8. Skullcandy Coupon code cannot be redeemed on specific block out dates as may be intimated / updated by Skullcandy on its website from time to time. Skullcandy may add or delete any date(s)/period(s) on its sole discretion without any liability.\n9. Any dispute related to the Coupon code should be referred to the issuing company and the decision of the issuing company shall be final. In case of any legal disputes, the courts at New Delhi shall have the exclusive jurisdiction.\n10. Skullcandy shall on best effort basis attempt to accept Coupon code, but on account of any technical reason or for any reason beyond control of Skullcandy, Coupon code may not get accepted on the website and Skullcandy shall have no liability for the same.\n11. If an Coupon code gets blocked on account of technical issue, it would get enabled in 72 hours. In case of transaction failures after Coupon code is applied, amount would be refunded to the same cards within 72 hours of request raised.\n12. For any queries / issues related to Coupon code you can write in to customercare@brandeyes.in or call 011-42700400 | Mon-Fri, 10 AM – 4 PM.\n13. Skullcandy reserves the rights to edit/change the terms and conditions for the Coupon code at any time without any notice or liability.\n14. Skullcandy has the final authority on the interpretation of these rules.\n15. Skullcandy reserves the right to withdraw Coupon code scheme/offer before the completion of validity period without any notice or liability at its sole discretion.\n16. Skullcandy reserves the right to deny accepting any Coupon code if it suspects that there is duplicity of cards.\n17. In no event the liability of Skullcandy for any claims shall exceed the value of the Coupon code in dispute.",
     "can_club_with_offers": null,
     "one_time_use": true,
+    "redemption_restrictions": [],
+    "notes": "added by sync_master_listings.py",
+    "stack_limit_confidence": null
+  },
+  "theobroma": {
+    "brand_name": "Theobroma",
+    "slug": "theobroma",
+    "source": "GyFTR",
+    "products": [
+      {
+        "product_name": "Theobroma",
+        "source_url": null,
+        "redemption_type": "Offline",
+        "denominations": [
+          100,
+          250,
+          500,
+          1000,
+          1500,
+          2000
+        ],
+        "is_custom_denom": false,
+        "custom_min": null,
+        "custom_max": null,
+        "discounts": {
+          "Credit Card": 6.0,
+          "Net Banking": 6.0,
+          "Debit Card": 6.0,
+          "MobiKwik": 6.0,
+          "UPI": 8.0,
+          "Amazon Pay": 6.0,
+          "e-Pay": 8.0,
+          "PAYTM UPI": 8.0
+        },
+        "best_payment_method": "UPI",
+        "best_discount_pct": 8.0,
+        "stack_limit": null,
+        "value_cap": null,
+        "purchase_cap_per_txn": null,
+        "status": "active",
+        "last_scraped": "2026-11-09",
+        "typed_min": 100,
+        "typed_max": 10000
+      }
+    ],
+    "description": null,
+    "important_instructions_raw": null,
+    "how_to_redeem_steps": [],
+    "full_terms_and_conditions": "Theobroma Terms & Conditions\n1. This is a Theobroma GV (Gift Voucher)/e-Pay and will be accepted at all the listed Theobroma outlets.\n2. The person having the GV/e-Pay is deemed to be the beneficiary.\n3. The GV/e-Pay can be clubbed with existing offers.\n4. The GV/e-Pay can be used during a sale.\n5. The GV can be converted into e-Pay as per the convenience of the holder.\n6. The beneficiary is required to add the GV to the e-Pay wallet balance via https://brandpts.com/login or the e-Pay App before going to the cash counter.\n7. The GV/e-Pay balance cannot be transferred to another e-Pay account, exchanged for cash, or converted into any other form of currency.\n8. The e-Pay balance must be linked to the registered mobile number.\n9. After conversion into e-Pay balance, this GV is valid for partial redemption. The balance would remain in the e-Pay balance and can be used for multiple transactions within the validity period. Multiple GVs can be combined and added to the e-Pay balance.\n10. The GV/e-Pay can be used for all purchases at the listed Theobroma outlets.\n11. Only valid GV/e-Pay at the sole discretion of Theobroma shall be accepted for redemption.\n12. The GV/e-Pay CANNOT be revalidated once expired or cancelled under any circumstances.\n13. Theobroma/GyFTR is not responsible if the GV/e-Pay is lost, stolen, or used without permission.\n14. If the GV/e-Pay gets blocked on account of a technical issue, it will be enabled within 72 hours.\n15. Any dispute should be referred to the company from which the GV/e-Pay has been received, and the company's decision shall be final.\n16. Theobroma Foods Private Limited/GyFTR reserves the right to withdraw, modify, cancel, or change the offer at any point without prior notice and at its sole discretion.\n17. For any queries or issues related to the GV/e-Pay, kindly raise a request at www.gvhelpdesk.com.",
+    "can_club_with_offers": null,
+    "one_time_use": null,
+    "redemption_restrictions": [],
+    "notes": "added by sync_master_listings.py",
+    "stack_limit_confidence": null
+  },
+  "bose": {
+    "brand_name": "Bose",
+    "slug": "bose",
+    "source": "GyFTR",
+    "products": [
+      {
+        "product_name": "Bose",
+        "source_url": null,
+        "redemption_type": "Both",
+        "denominations": [
+          500,
+          1000,
+          2000,
+          5000,
+          10000
+        ],
+        "is_custom_denom": false,
+        "custom_min": null,
+        "custom_max": null,
+        "discounts": {
+          "Credit Card": 3.0,
+          "Net Banking": 3.0,
+          "Debit Card": 3.0,
+          "MobiKwik": 3.0,
+          "UPI": 4.0,
+          "e-Pay": 4.0,
+          "PAYTM UPI": 4.0
+        },
+        "best_payment_method": "UPI",
+        "best_discount_pct": 4.0,
+        "stack_limit": null,
+        "value_cap": null,
+        "purchase_cap_per_txn": null,
+        "status": "active",
+        "last_scraped": "2026-11-09"
+      }
+    ],
+    "description": null,
+    "important_instructions_raw": null,
+    "how_to_redeem_steps": [],
+    "full_terms_and_conditions": "Bose Terms & Conditions\n1. This is a Bose GV (Gift Voucher)/e-Pay and will be accepted on the Bose website at https://www.soundscape.store.\n2. The person who has the GV/e-Pay is deemed to be the beneficiary.\n3. The GV/e-Pay can be clubbed with existing offers.\n4. The GV/e-Pay can be used during sale.\n5. The GV can be converted into e-Pay as per the convenience of the holder.\n6. The GV/e-Pay balance cannot be transferred to another e-Pay account, exchanged for cash, or converted into any other form of currency.\n7. The e-Pay balance must be linked to the registered mobile number.\n8. After conversion into e-Pay balance, this GV is valid for partial redemption. The balance would remain in the e-Pay balance and can be used for multiple transactions within the validity period. Multiple GVs can be combined and added to the e-Pay balance.\n9. The GV/e-Pay can be used for all purchases of products at the Bose outlets and website.\n10. Only valid GV/e-Pay at the sole discretion of Bose shall be accepted for redemption.\n11. The GV/e-Pay CANNOT be revalidated once expired or cancelled under any circumstances.\n12. Bose/GyFTR is not responsible if the GV/e-Pay is lost, stolen, or used without permission.\n13. If the GV/e-Pay gets blocked on account of a technical issue, it will be enabled within 72 hours.\n14. Any dispute should be referred to the company from which the GV/e-Pay has been received, and the company's decision shall be final.\n15. Ample Retail Private Limited/GyFTR reserves the right to withdraw, modify, cancel, or change the offer at any point without prior notice and at its sole discretion.\n16. For any queries or issues related to the GV/e-Pay, kindly raise a request at www.gvhelpdesk.com.",
+    "can_club_with_offers": null,
+    "one_time_use": null,
+    "redemption_restrictions": [],
+    "notes": "added by sync_master_listings.py",
+    "stack_limit_confidence": null
+  },
+  "hero-moto": {
+    "brand_name": "HERO MOTO",
+    "slug": "hero-moto",
+    "source": "GyFTR",
+    "products": [
+      {
+        "product_name": "HERO MOTO",
+        "source_url": null,
+        "redemption_type": "Online",
+        "denominations": [
+          50000
+        ],
+        "is_custom_denom": false,
+        "custom_min": null,
+        "custom_max": null,
+        "discounts": {
+          "Credit Card": 3.0,
+          "Net Banking": 3.0,
+          "Debit Card": 3.0,
+          "UPI": 3.0,
+          "e-Pay": 3.0,
+          "PAYTM UPI": 3.0
+        },
+        "best_payment_method": "Credit Card",
+        "best_discount_pct": 3.0,
+        "stack_limit": 1,
+        "value_cap": null,
+        "purchase_cap_per_txn": null,
+        "status": "active",
+        "last_scraped": "2026-11-09"
+      }
+    ],
+    "description": null,
+    "important_instructions_raw": null,
+    "how_to_redeem_steps": [],
+    "full_terms_and_conditions": "HERO MOTO Terms & Conditions\n1. This is a Hero Vehicle Voucher issued by GyFTR for the purchase of Hero MotoCorp two-wheelers, and it can be redeemed only on the dedicated Hero redemption page at gyftr.com/redeem/hero.\n2. The person logged in to the Hero redemption page at the time of voucher addition is deemed to be the beneficiary.\n3. To redeem the voucher, the beneficiary must log in to the Hero redemption page using their mobile number and OTP, add the voucher balance to their wallet, and complete the booking form with the required personal and vehicle preference details.\n4. Only one Voucher can be used per booking. A new Voucher can be purchased only after the booking form for the existing Voucher has been submitted.\n5. Once the voucher balance is added to the wallet, the voucher is marked as redeemed on the platform.\n6. After the booking form is submitted, the GyFTR team or its authorised fulfilment partner will contact the beneficiary to verify the submitted information before passing it on to Hero MotoCorp for final voucher issuance.\n7. The voucher validity is 30 days from the date of issuance and can be extended only once.\n8. The voucher issuance TAT will be up to 48 hours from the receipt of 100% advance payment via RTGS in favour of M/S. Hero MotoCorp Ltd., payable at New Delhi.\n9. Ex-showroom or on-road prices prevailing at the time of delivery will apply.\n10. Vehicle colour will be as per availability at the time of delivery.\n11. The nearest Hero dealership to the beneficiary’s location will be mapped for vehicle delivery.\n12. The vehicle’s sale price will be the on-road price, which includes the ex-showroom price, RTO, insurance, HSRP, local taxes/charges, handling charges, and other applicable charges. The beneficiary must pay any difference exceeding the voucher value.\n13. The authorised Hero dealer will provide the invoice or bill in the customer’s name at the time of vehicle delivery.\n14. Once the voucher is redeemed, no refund requests will be entertained.\n15. No cash will be refunded against the voucher.\n16. The voucher is non-refundable, non-transferable, may not be exchanged or resold, and may not be redeemed for cash.\n17. The voucher cannot be clubbed with any ongoing offers, discounts, or promotions at Hero dealerships.\n18. The voucher CANNOT be revalidated once expired or cancelled, except where the one-time extension described above has been applied.\n19. GyFTR is not responsible if the voucher is lost, stolen, or used without permission.\n20. Any dispute related to the voucher should be referred to the issuing company, and the decision of the issuing company shall be final.\n21. Hero MotoCorp Ltd./GyFTR reserves the right to withdraw, modify, cancel, or change the offer at any point without prior notice and at its sole discretion.\n22. For any queries or issues related to the voucher, kindly raise a request at www.gvhelpdesk.com.",
+    "can_club_with_offers": null,
+    "one_time_use": null,
+    "redemption_restrictions": [],
+    "notes": "added by sync_master_listings.py",
+    "stack_limit_confidence": null
+  },
+  "mg-motor": {
+    "brand_name": "MG MOTOR",
+    "slug": "mg-motor",
+    "source": "GyFTR",
+    "products": [
+      {
+        "product_name": "MG MOTOR",
+        "source_url": null,
+        "redemption_type": "Online",
+        "denominations": [
+          100000,
+          200000
+        ],
+        "is_custom_denom": false,
+        "custom_min": null,
+        "custom_max": null,
+        "discounts": {
+          "Credit Card": 5.0,
+          "Net Banking": 5.0,
+          "Debit Card": 5.0,
+          "UPI": 5.0,
+          "e-Pay": 5.0,
+          "PAYTM UPI": 5.0
+        },
+        "best_payment_method": "Credit Card",
+        "best_discount_pct": 5.0,
+        "stack_limit": 1,
+        "value_cap": null,
+        "purchase_cap_per_txn": null,
+        "status": "active",
+        "last_scraped": "2026-11-09"
+      }
+    ],
+    "description": null,
+    "important_instructions_raw": null,
+    "how_to_redeem_steps": [],
+    "full_terms_and_conditions": "MG MOTOR Terms & Conditions\n1. This is an MG Automobile Voucher issued by GyFTR for the purchase of MG vehicles, and it can be redeemed only on the dedicated MG redemption page at gyftr.com/redeem/mg.\n2. The person logged in to the MG redemption page at the time of voucher addition is deemed to be the beneficiary.\n3. To redeem the voucher, the beneficiary must log in to the MG redemption page using their mobile number and OTP, add the voucher balance to their wallet, and complete the booking form with the required personal and vehicle preference details.\n4. Only one Voucher can be used per booking. A new Voucher can be purchased only after the booking form for the existing Voucher has been submitted.\n5. Once the voucher balance is added to the wallet, the voucher is marked as redeemed on the platform.\n6. After the booking form is submitted, the GyFTR team or its authorised fulfilment partner will contact the beneficiary to verify the submitted information before passing it on to MG for final voucher issuance.\n7. The customer can choose to buy any MG model by paying the balance amount after deducting the voucher value from the on-road cost of the vehicle, on or before taking vehicle delivery.\n8. RTO, Insurance, accessories, and government taxes will be applicable as prevailing at the time of delivery.\n9. Name change and transfer of the voucher are not allowed.\n10. An expired voucher is not applicable for vehicle delivery.\n11. Vehicle delivery and colour will be subject to stock availability.\n12. The customer is required to present valid KYC on or before the time of vehicle delivery.\n13. The voucher is non-refundable, non-transferable, may not be exchanged or resold, and may not be redeemed for cash.\n14. The voucher cannot be clubbed with any ongoing offers, discounts, or promotions at MG dealerships.\n15. GyFTR is not responsible if the voucher is lost, stolen, or used without permission.\n16. Any dispute related to the voucher should be referred to the issuing company, and the decision of the issuing company shall be final.\n17. JSW MG Motor India Private Limited/GyFTR reserves the right to withdraw, modify, cancel, or change the offer at any point without prior notice and at its sole discretion.\n18. For any queries or issues related to the voucher, kindly raise a request at www.gvhelpdesk.com.",
+    "can_club_with_offers": null,
+    "one_time_use": null,
+    "redemption_restrictions": [],
+    "notes": "added by sync_master_listings.py",
+    "stack_limit_confidence": null
+  },
+  "maruti-suzuki": {
+    "brand_name": "Maruti Suzuki",
+    "slug": "maruti-suzuki",
+    "source": "GyFTR",
+    "products": [
+      {
+        "product_name": "Maruti Suzuki",
+        "source_url": null,
+        "redemption_type": "Online",
+        "denominations": [
+          50000
+        ],
+        "is_custom_denom": false,
+        "custom_min": null,
+        "custom_max": null,
+        "discounts": {
+          "Credit Card": 10.0,
+          "Net Banking": 10.0,
+          "Debit Card": 10.0,
+          "UPI": 10.0,
+          "e-Pay": 10.0,
+          "PAYTM UPI": 10.0
+        },
+        "best_payment_method": "Credit Card",
+        "best_discount_pct": 10.0,
+        "stack_limit": 1,
+        "value_cap": null,
+        "purchase_cap_per_txn": null,
+        "status": "active",
+        "last_scraped": "2026-11-09"
+      }
+    ],
+    "description": null,
+    "important_instructions_raw": null,
+    "how_to_redeem_steps": [],
+    "full_terms_and_conditions": "Maruti Suzuki Terms & Conditions\n1. This is a Maruti Value Voucher issued by GyFTR for the purchase of Maruti Suzuki vehicles, and it can be redeemed only on the dedicated Maruti Suzuki redemption page at gyftr.com/redeem/maruti-suzuki\n2. The person logged in to the Maruti Suzuki redemption page at the time of voucher addition is deemed to be the beneficiary.\n3. To redeem the voucher, the beneficiary must log in to the Maruti Suzuki redemption page using their mobile number and OTP, add the voucher balance to their wallet, and complete the booking form with the required personal and vehicle preference details.\n4. Only one Voucher can be used per booking. A new Voucher can be purchased only after the booking form for the existing Voucher has been submitted.\n5. Once the voucher balance is added to the wallet, the voucher is marked as redeemed on the platform.\n6. After the booking form is submitted, the GyFTR team or its authorised fulfilment partner will contact the beneficiary to verify the submitted information before passing it on to Maruti Suzuki for final voucher issuance.\n7. The customer can choose to buy any Maruti Suzuki model by paying the balance amount after deducting the voucher value from the on-road cost of the vehicle, on or before taking vehicle delivery.\n8. RTO, Insurance, accessories, and government taxes will be applicable as prevailing at the time of delivery.\n9. Name change and transfer of the voucher are not allowed.\n10. An expired voucher is not applicable for vehicle delivery.\n11. Vehicle delivery and colour will be subject to stock availability.\n12. The customer is required to present valid KYC on or before the time of vehicle delivery.\n13. The voucher is non-refundable, non-transferable, may not be exchanged or resold, and may not be redeemed for cash.\n14. The voucher cannot be clubbed with any ongoing offers, discounts, or promotions at Maruti Suzuki dealerships.\n15. GyFTR is not responsible if the voucher is lost, stolen, or used without permission.\n16. Any dispute related to the voucher should be referred to the issuing company, and the decision of the issuing company shall be final.\n17. Maruti Suzuki India Limited/GyFTR reserves the right to withdraw, modify, cancel, or change the offer at any point without prior notice and at its sole discretion.\n18. For any queries or issues related to the voucher, kindly raise a request at www.gvhelpdesk.com.",
+    "can_club_with_offers": null,
+    "one_time_use": null,
+    "redemption_restrictions": [],
+    "notes": "added by sync_master_listings.py",
+    "stack_limit_confidence": null
+  },
+  "tvs-motor": {
+    "brand_name": "TVS MOTOR",
+    "slug": "tvs-motor",
+    "source": "GyFTR",
+    "products": [
+      {
+        "product_name": "TVS MOTOR",
+        "source_url": null,
+        "redemption_type": "Online",
+        "denominations": [
+          50000
+        ],
+        "is_custom_denom": false,
+        "custom_min": null,
+        "custom_max": null,
+        "discounts": {
+          "Credit Card": 3.0,
+          "Net Banking": 3.0,
+          "Debit Card": 3.0,
+          "UPI": 3.0,
+          "e-Pay": 3.0,
+          "PAYTM UPI": 3.0
+        },
+        "best_payment_method": "Credit Card",
+        "best_discount_pct": 3.0,
+        "stack_limit": 1,
+        "value_cap": null,
+        "purchase_cap_per_txn": null,
+        "status": "active",
+        "last_scraped": "2026-11-09"
+      }
+    ],
+    "description": null,
+    "important_instructions_raw": null,
+    "how_to_redeem_steps": [],
+    "full_terms_and_conditions": "TVS MOTOR Terms & Conditions\n1. This is a TVS Motor Value Voucher issued by GyFTR for the purchase of TVS Motor two-wheelers, and it can be redeemed only on the dedicated TVS redemption page at gyftr.com/redeem/tvs.\n2. The person logged in to the TVS redemption page at the time of voucher addition is deemed to be the beneficiary.\n3. To redeem the voucher, the beneficiary must log in to the TVS redemption page using their mobile number and OTP, add the voucher balance to their wallet, and complete the booking form with the required personal and vehicle preference details.\n4. Only one Voucher can be used per booking. A new Voucher can be purchased only after the booking form for the existing Voucher has been submitted.\n5. Once the voucher balance is added to the wallet, the voucher is marked as redeemed on the platform.\n6. After the booking form is submitted, the GyFTR team or its authorised fulfilment partner will contact the beneficiary to verify the submitted information before passing it on to TVS Motor for final voucher issuance.\n7. The voucher is valid for 30 days from the date of issue. Beyond this validity period, the beneficiary will be required to pay any applicable price increase on the vehicle.\n8. The vehicle will be delivered only after the registration process is completed.\n9. The vehicle will be invoiced and registered in the beneficiary’s name only. In case the beneficiary wishes to register the vehicle in a family member’s name, prior approval from GyFTR is required.\n10. In case the beneficiary wishes to upgrade to another TVS Motor vehicle, they may do so by submitting a request letter to the dealer and paying the price difference directly to the dealer.\n11. The voucher is only a communication about the allotment of the vehicle to the beneficiary. Neither the beneficiary nor GyFTR may use this voucher for any other purpose.\n12. The voucher cannot be clubbed with any ongoing offers, discounts, or promotions at TVS Motor dealerships.\n13. The voucher is non-refundable, non-transferable, may not be exchanged or resold, and may not be redeemed for cash.\n14. GyFTR is not responsible if the voucher is lost, stolen, or used without permission.\n15. Any dispute related to the voucher should be referred to the issuing company, and the decision of the issuing company shall be final.\n16. TVS Motor Company Limited/GyFTR reserves the right to withdraw, modify, cancel, or change the offer at any point without prior notice and at its sole discretion.\n17. For any queries or issues related to the voucher, kindly raise a request at www.gvhelpdesk.com.",
+    "can_club_with_offers": null,
+    "one_time_use": null,
+    "redemption_restrictions": [],
+    "notes": "added by sync_master_listings.py",
+    "stack_limit_confidence": null
+  },
+  "tekne": {
+    "brand_name": "Tekne",
+    "slug": "tekne",
+    "source": "GyFTR",
+    "products": [
+      {
+        "product_name": "Tekne",
+        "source_url": null,
+        "redemption_type": "Online",
+        "denominations": [
+          500,
+          1000,
+          2000,
+          5000,
+          10000
+        ],
+        "is_custom_denom": false,
+        "custom_min": null,
+        "custom_max": null,
+        "discounts": {
+          "Credit Card": 6.0,
+          "Net Banking": 6.0,
+          "Debit Card": 6.0,
+          "MobiKwik": 6.0,
+          "UPI": 8.0,
+          "e-Pay": 8.0,
+          "PAYTM UPI": 8.0
+        },
+        "best_payment_method": "UPI",
+        "best_discount_pct": 8.0,
+        "stack_limit": null,
+        "value_cap": null,
+        "purchase_cap_per_txn": null,
+        "status": "active",
+        "last_scraped": "2026-11-09"
+      }
+    ],
+    "description": null,
+    "important_instructions_raw": null,
+    "how_to_redeem_steps": [],
+    "full_terms_and_conditions": "Tekne Terms & Conditions\n1. This is a Tekne GV (Gift Voucher)/e-Pay and will be accepted on the Tekne website at www.tekneworld.com.\n2. The person who has the GV/e-Pay is deemed to be the beneficiary.\n3. The GV/e-Pay can be clubbed with existing offers.\n4. The GV/e-Pay can be used during sale.\n5. The GV can be converted into e-Pay as per the convenience of the holder.\n6. The GV/e-Pay balance cannot be transferred to another e-Pay account, exchanged for cash, or converted into any other form of currency.\n7. The e-Pay balance must be linked to the registered mobile number.\n8. After conversion into e-Pay balance, this GV is valid for partial redemption. The balance would remain in the e-Pay balance and can be used for multiple transactions within the validity period. Multiple GVs can be combined and added to the e-Pay balance.\n9. The GV/e-Pay can be used for all purchases of products at the Tekne website.\n10. Only valid GV/e-Pay at the sole discretion of Tekne shall be accepted for redemption.\n11. The GV/e-Pay CANNOT be revalidated once expired or cancelled under any circumstances.\n12. Tekne/GyFTR is not responsible if the GV/e-Pay is lost, stolen, or used without permission.\n13. If the GV/e-Pay gets blocked on account of a technical issue, it will be enabled within 72 hours.\n14. Any dispute should be referred to the company from which the GV/e-Pay has been received, and the company's decision shall be final.\n15. Ample Technologies Private Limited/GyFTR reserves the right to withdraw, modify, cancel, or change the offer at any point without prior notice and at its sole discretion.\n16. For any queries or issues related to the GV/e-Pay, kindly raise a request at www.gvhelpdesk.com.",
+    "can_club_with_offers": null,
+    "one_time_use": null,
+    "redemption_restrictions": [],
+    "notes": "added by sync_master_listings.py",
+    "stack_limit_confidence": null
+  },
+  "ather": {
+    "brand_name": "ATHER",
+    "slug": "ather",
+    "source": "GyFTR",
+    "products": [
+      {
+        "product_name": "ATHER",
+        "source_url": null,
+        "redemption_type": "Online",
+        "denominations": [
+          50000
+        ],
+        "is_custom_denom": false,
+        "custom_min": null,
+        "custom_max": null,
+        "discounts": {
+          "Credit Card": 5.0,
+          "Net Banking": 5.0,
+          "Debit Card": 5.0,
+          "UPI": 5.0,
+          "e-Pay": 5.0,
+          "PAYTM UPI": 5.0
+        },
+        "best_payment_method": "Credit Card",
+        "best_discount_pct": 5.0,
+        "stack_limit": 1,
+        "value_cap": null,
+        "purchase_cap_per_txn": null,
+        "status": "active",
+        "last_scraped": "2026-11-09"
+      }
+    ],
+    "description": null,
+    "important_instructions_raw": null,
+    "how_to_redeem_steps": [],
+    "full_terms_and_conditions": "ATHER Terms & Conditions\n1. This is an Ather Value Voucher issued by GyFTR for the purchase of Ather electric two-wheelers, and it can be redeemed only on the dedicated Ather redemption page at gyftr.com/redeem/ather.\n2. The person logged in to the Ather redemption page at the time of voucher addition is deemed to be the beneficiary.\n3. To redeem the voucher, the beneficiary must log in to the Ather redemption page using their mobile number and OTP, add the voucher balance to their wallet, and complete the booking form with the required personal and vehicle preference details.\n4. Only one Voucher can be used per booking. A new Voucher can be purchased only after the booking form for the existing Voucher has been submitted.\n5. Once the voucher balance is added to the wallet, the voucher is marked as redeemed on the platform.\n6. After the booking form is submitted, the GyFTR team or its authorised fulfilment partner will contact the beneficiary to verify the submitted information before passing it on to Ather for final voucher issuance.\n7. The voucher is valid for 30 days from the date of issue. Under no circumstances will the validity be extended, except in cases of delivery delay beyond the validity period, where the voucher tenure will be suitably extended.\n8. The voucher does not carry any monetary value and can only be used towards the purchase of an Ather vehicle on the terms stated herein.\n9. The voucher is not applicable on Ather Rizta and Ather 350 models.\n10. The beneficiary may choose any Ather model with Ather Stackpro. The GyFTR Contribution (voucher value) shall be utilised only on the ex-showroom price (including GST) of the vehicle. Any difference between the on-road price (including road tax, insurance, and state taxes) and the voucher value shall be paid directly by the beneficiary to the Ather dealership.\n11. Ather pro-pack, Ather Battery Protect, Ather Connect, and any other subscriptions or accessories (whether or not bundled with the vehicle) shall be purchased separately by the beneficiary.\n12. The vehicle, model, and colour, once selected and the Balance Price paid, cannot be changed later.\n13. The vehicle will be invoiced on the final price, inclusive of applicable taxes, as on the time of intimation or delivery, whichever is later. Appointed dealerships cannot be changed or altered.\n14. Central and State subsidies shall be applicable as per availability from the Government at the time of billing.\n15. The beneficiary must carry the proper ID proofs submitted at the time of issue of the voucher, along with the original letter of intimation, at the time of vehicle delivery.\n16. The voucher cannot be clubbed with any ongoing offers, discounts, or promotions at Ather dealerships or experience centres.\n17. The voucher is non-refundable, non-transferable, may not be exchanged or resold, and may not be redeemed for cash.\n18. GyFTR is not responsible if the voucher is lost, stolen, or used without permission.\n19. Any dispute related to the voucher should be referred to the issuing company, and the decision of the issuing company shall be final.\n20. Ather Energy Limited/GyFTR reserves the right to withdraw, modify, cancel, or change the offer at any point without prior notice and at its sole discretion.\n21. For any queries or issues related to the voucher, kindly raise a request at www.gvhelpdesk.com.",
+    "can_club_with_offers": null,
+    "one_time_use": null,
+    "redemption_restrictions": [],
+    "notes": "added by sync_master_listings.py",
+    "stack_limit_confidence": null
+  },
+  "salty": {
+    "brand_name": "Salty",
+    "slug": "salty",
+    "source": "GyFTR",
+    "products": [
+      {
+        "product_name": "Salty",
+        "source_url": null,
+        "redemption_type": "Online",
+        "denominations": [
+          250,
+          500,
+          1000,
+          1500,
+          2500,
+          5000
+        ],
+        "is_custom_denom": false,
+        "custom_min": null,
+        "custom_max": null,
+        "discounts": {
+          "Credit Card": 25.0,
+          "Net Banking": 25.0,
+          "Debit Card": 25.0,
+          "MobiKwik": 25.0,
+          "UPI": 27.0,
+          "e-Pay": 27.0,
+          "PAYTM UPI": 27.0
+        },
+        "best_payment_method": "UPI",
+        "best_discount_pct": 27.0,
+        "stack_limit": null,
+        "value_cap": null,
+        "purchase_cap_per_txn": null,
+        "status": "active",
+        "last_scraped": "2026-11-09",
+        "typed_min": 100,
+        "typed_max": 10000
+      }
+    ],
+    "description": "Ever feel like your accessory drawer is missing that one perfect piece? That's the exact gap Salty was built to fill. Founded by three friends who were tired of hunting across different places just to find good-quality, affordable accessories, Salty set out to be the one place you actually reach for, whether you're building your everyday jewellery stack, hunting for a watch that matches your vibe, or picking sunglasses for your next trip.\nYou'll find something new almost every time you visit. Salty keeps its catalogue fresh with new designs dropping regularly, spanning earrings, necklaces, bracelets, rings, watches, sunglasses, scarves, bags, and more, so your look never has to feel repeated. And it's not just about trends: pieces are made to actually last through daily wear, without the price tag of \"fine\" jewellery. Whether you're dressing up for a night out or just want your everyday fit to feel a little more you, Salty's got a piece for that. Can't decide what to grab? A Salty Gift Card lets someone else do the picking, so they get exactly what they'd choose for themselves.\nHow to buy a Salty Gift Card?\nBuying a Salty Gift Card is simple:\nVisit www.gyftr.com.\nLog in using your account credentials.\nSearch ‘Salty’ in the search bar.\nChoose the desired denomination.\nClick on the BUY NOW button and complete the transaction using the available payment modes.\nYou will receive the Salty Gift Card via SMS/Email/WhatsApp.\nHow to redeem Salty Gift Cards?\nChoose the product of your choice and add it to the cart.\nOn the payment page, select ‘Add balance to your GyFTR Gift Card & Use’.\nEnter the 16-digit Voucher code to top up your balance, and complete the transaction.\nSalty Gift Cards for Special Occasions\nFashion accessories are exciting gifts, but picking the right style, colour, or piece for someone else can be tricky. A Salty Gift Card keeps the surprise while giving them the final choice. It works well for birthdays, anniversaries, graduations, housewarmings, or as a practical Rakshabandhan gift, Valentine's Day gift, or addition to your festive gifting. Recipients can browse jewellery, watches, sunglasses, or gift boxes before deciding what suits their style best.\nSalty Gift Cards for Corporate Gifting\nSalty Gift Cards make fashion accessory gifting easier for employee rewards, milestone celebrations, festive gifting, sales incentives, and client appreciation. Instead of choosing one piece for everyone, businesses can give recipients the flexibility to pick what matches their own taste, from jewellery and watches to sunglasses, scarves, or bags. It's a practical option for teams with different preferences and budgets, while digital fulfilment through GyFTR keeps distribution simple. GyFTR also supports bulk Gift Card purchases for corporate gifting programmes.",
+    "important_instructions_raw": null,
+    "how_to_redeem_steps": [],
+    "full_terms_and_conditions": "Salty Terms & Conditions\n1. This is a Salty GV (Gift Voucher)/e-Pay and will be accepted only on the Salty website at\nhttps://salty.co.in and on the Salty mobile app.\n2. The person who has the GV/e-Pay is deemed to be the beneficiary.\n3. The GV/e-Pay can be clubbed with existing offers.\n4. The GV/e-Pay can be used during the sale.\n5. The GV can be converted into e-Pay as per the convenience of the holder.\n6. The GV/e-Pay balance cannot be transferred to another e-Pay account, exchanged for cash, or\nconverted into any other form of currency.\n7. The e-Pay balance must be linked to the registered mobile number.\n8. After conversion into e-Pay balance, this GV is valid for partial redemption. The balance would\nremain in the e-Pay balance and can be used for multiple transactions within the validity period.\nMultiple GVs can be combined and added to the e-Pay balance.\n9. The GV/e-Pay can be used for all purchases of products at the Salty website and app.\n10. Only valid GV/e-Pay at the sole discretion of Salty shall be accepted for redemption.\n11. The GV/e-Pay CANNOT be revalidated once expired or cancelled under any circumstances.\n12. Salty/GyFTR is not responsible if the GV/e-Pay is lost, stolen, or used without permission.\n13. If the GV/e-Pay gets blocked on account of a technical issue, it will be enabled within 72 hours.\n14. Any dispute should be referred to the company from which the GV/e-Pay has been received, and\nthe company's decision shall be final.\n15. Salty E-commerce Private Limited/GyFTR reserves the right to withdraw, modify, cancel, or\nchange the offer at any point without prior notice and at its sole discretion.\n16. For any queries or issues related to the GV/e-Pay, kindly raise a request at www.gvhelpdesk.com.",
+    "can_club_with_offers": null,
+    "one_time_use": false,
     "redemption_restrictions": [],
     "notes": "added by sync_master_listings.py",
     "stack_limit_confidence": null
