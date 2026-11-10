@@ -22,7 +22,6 @@ import useCardsStore from '@/store/cardsStore';
 import { track } from '@/utils/analytics';
 import { missingOut, pricesFor, shouldAskForCards } from '@/utils/myCards';
 import SendToWhatsApp from '@/components/dashboard/SendToWhatsApp';
-import ShareSaving from '@/components/dashboard/ShareSaving';
 import { usePageHeader } from '@/hooks/usePageHeader';
 import { usePageTitle } from '@/hooks/usePageTitle';
 import { ROUTES } from '@/routes/paths';
@@ -202,8 +201,6 @@ export default function ResultsPage() {
   // the backend. Without a code the bot just searches their words.
   const handoffCode = result?.card_offers_id?.slice(0, 10);
   const whatsappMessage = `${query || productName}${handoffCode ? ` (deal ${handoffCode})` : ''}`;
-  // "Tell a friend": a short product name, so the forwarded message stays one glance long.
-  const shareProduct = productName && productName.length <= 60 ? productName : null;
 
   return (
     <Box ref={scrollRef} w="100%" maxW="640px" mx="auto">
@@ -287,12 +284,7 @@ export default function ResultsPage() {
                 shops={shops}
                 onPickGiftCard={selectAlt}
                 missing={missingBox}
-                afterFirst={
-                  <>
-                    <SendToWhatsApp message={whatsappMessage} view="price_list" />
-                    <ShareSaving shop={shops[0]?.merchant} original={shops[0]?.listPrice} pay={shops[0]?.price} product={shareProduct} view="price_list" />
-                  </>
-                }
+                afterFirst={<SendToWhatsApp message={whatsappMessage} view="price_list" />}
               />
             ) : (
             <>
@@ -328,13 +320,6 @@ export default function ResultsPage() {
             </Flex>
             {missingBox}
             <SendToWhatsApp message={whatsappMessage} view="route" />
-            <ShareSaving
-              shop={activeRoute.merchant}
-              original={calcOriginal(result, activeRoute)}
-              pay={calcFinal(activeRoute)}
-              product={shareProduct}
-              view="route"
-            />
             <AlternativesToggle
               alternatives={result.routes?.alternatives}
               onSelect={selectAlt}
