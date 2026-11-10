@@ -17,16 +17,16 @@
 export const SITE_URL = 'https://getdealo.in';
 export const SITE_NAME = 'Dealo';
 
-export const HOME_TITLE = 'Dealo — Never pay full price, just search the product';
+export const HOME_TITLE = 'Dealo — Pay less at Myntra, Nykaa, AJIO and 800+ shops';
 export const DEFAULT_DESCRIPTION =
-  'Dealo finds the cheapest legitimate way to buy anything online in India — stacking discounted gift vouchers with cashback cards to cut your final checkout price.';
+  "Buy the shop's own gift card for less and pay with it at checkout. Free, no login. See what you'd really pay at Myntra, Nykaa, AJIO, Skechers, MakeMyTrip and 800+ Indian shops.";
 
 /** `title` is what usePageTitle gets (it appends " — Dealo"); `heading`/`intro` mirror the page's visible top. */
 export const PAGE_META = {
   home: {
     title: null,
     description: DEFAULT_DESCRIPTION,
-    heading: 'Never pay full price. Just search.',
+    heading: 'Pay less at Myntra, Nykaa, AJIO and 800+ shops.',
     // No subtitle on the live homepage — prerender shows the three-step strip instead.
     intro: null,
   },

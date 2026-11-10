@@ -4,6 +4,7 @@ import { motion, useReducedMotion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 
 import FloatingOutlines from '@/components/common/FloatingOutlines';
+import HomeExamples from '@/components/common/HomeExamples';
 import PeekCard from '@/components/common/PeekCard';
 import SearchBox from '@/components/common/SearchBox';
 import { HOW_IT_WORKS } from '@/components/onboarding/tourSteps';
@@ -121,13 +122,34 @@ export default function SearchPage() {
           color="text"
           m={0}
         >
-          Never pay full price.{' '}
-          {/* nowrap: on a phone the line breaks before "Just search.", never
-              between the two words, which left "search." alone on a line. */}
+          Pay less at Myntra, Nykaa, AJIO{' '}
+          {/* nowrap: keeps "and 800+ shops." together on a phone. 800+ is
+              the count of shops with a live gift card deal (933 listings on
+              10 Nov 2026, minus the same shop sold online and in-store). */}
           <Box as="span" color="brand" whiteSpace="nowrap">
-            Just search.
+            and 800+ shops.
           </Box>
         </Text>
+
+        {/* Three facts a first-time visitor needs before trusting a new
+            site, as ticks instead of a sentence. */}
+        <Flex as={motion.div} {...fadeUp(0.04)} gap="6px" mt="14px" wrap="wrap" justify="center">
+          {['Free', 'No login', 'Works on sale prices'].map((t) => (
+            <Text
+              key={t}
+              as="span"
+              fontSize="12px"
+              fontWeight={700}
+              color="brand"
+              bg="brandSoft"
+              borderRadius="999px"
+              px="10px"
+              py="4px"
+            >
+              ✓ {t}
+            </Text>
+          ))}
+        </Flex>
 
         <Box
           as={motion.div}
@@ -148,6 +170,10 @@ export default function SearchPage() {
             onSubmit={handleSubmit}
             placeholder={searchPlaceholder}
           />
+        </Box>
+
+        <Box as={motion.div} {...fadeUp(0.12)} w="100%" mt={{ base: '20px', md: '28px' }}>
+          <HomeExamples onPick={handleSubmit} />
         </Box>
 
         {/* The 3-icon strip is the "how it works" copy — pictures instead

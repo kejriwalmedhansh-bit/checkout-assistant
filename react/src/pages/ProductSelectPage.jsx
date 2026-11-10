@@ -10,6 +10,7 @@ import LoadingCard from '@/components/common/LoadingCard';
 import SearchBox from '@/components/common/SearchBox';
 import { I } from '@/components/common/icons';
 import BrandVoucherCard from '@/components/dashboard/BrandVoucherCard';
+import ShareSaving from '@/components/dashboard/ShareSaving';
 import VoucherChoicePicker from '@/components/dashboard/VoucherChoicePicker';
 import VoucherGroupCards from '@/components/dashboard/VoucherGroupCards';
 import LowConfidenceNotice from '@/components/dashboard/LowConfidenceNotice';
@@ -178,6 +179,17 @@ export default function ProductSelectPage() {
             {voucherChoices.length >= 2
               ? <VoucherChoicePicker key={query} choices={voucherChoices} query={query} />
               : <BrandVoucherCard voucher={voucher} query={query} />}
+            {voucher.best_discount_pct > 0 && (
+              <Box mt="12px">
+                <ShareSaving
+                  giftCard
+                  shop={voucher.brand_name}
+                  original={1000}
+                  pay={Math.round(1000 * (1 - voucher.best_discount_pct / 100))}
+                  view="shop_card"
+                />
+              </Box>
+            )}
           </motion.div>
         )}
 
