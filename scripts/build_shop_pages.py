@@ -90,6 +90,24 @@ SHOPS: list[tuple[str, str, str, list[str]]] = [
     ("netmeds", "Netmeds", "netmeds.com", []),
     ("jockey", "Jockey", "jockey.in", []),
     ("airbnb", "Airbnb", "airbnb.co.in", []),
+    # Added 10 Nov 2026: searched on Dealo (Mixpanel, Aug–Nov) or a well-known
+    # brand, and a real gift card discount that day. Exact names only, so a
+    # hotels-only card (ixigo hotel, Goibibo Hotel) never becomes the headline.
+    ("frido", "Frido", "myfrido.com", []),
+    ("dailyobjects", "DailyObjects", "dailyobjects.com", ["Daily Objects"]),
+    ("beyoung", "Beyoung", "beyoung.in", []),
+    ("ixigo", "Ixigo", "ixigo.com", []),
+    ("third-wave-coffee", "Third Wave Coffee", "thirdwavecoffee.in", []),
+    ("philips", "Philips", "philips.co.in", []),
+    ("birkenstock", "Birkenstock", "birkenstock.com/in", []),
+    ("goibibo", "Goibibo", "goibibo.com", []),
+    ("easemytrip", "EaseMyTrip", "easemytrip.com", []),
+    ("woodland", "Woodland", "woodlandworldwide.com", []),
+    ("giva", "GIVA", "giva.co", []),
+    ("mokobara", "Mokobara", "mokobara.com", []),
+    ("snitch", "Snitch", "snitch.co.in", []),
+    ("max-fashion", "Max Fashion", "maxfashion.in", ["Max"]),
+    ("biba", "BIBA", "biba.in", []),
 ]
 
 SOURCES = [("gyftr", "Gyftr"), ("maximize", "Maximize"), ("buyhatke", "BuyHatke")]
