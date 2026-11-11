@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { Box, Button, Checkbox, Flex, Input, InputGroup, InputLeftAddon, Text } from '@chakra-ui/react';
+import { Box, Button, Checkbox, Flex, Input, InputGroup, InputLeftAddon, Portal, Text } from '@chakra-ui/react';
 
 import { I } from '@/components/common/icons';
 import { hubbleApi } from '@/api/hubble.api';
@@ -243,261 +243,268 @@ export default function BuyFlow({ offer, merchant, price, shopLink, placement, b
   };
   useEffect(() => () => clearTimeout(copiedTimer.current), []);
 
+  // Both screens are attached to the page body (Portal): inside a page
+  // section with its own layer (ProductSelectPage's zIndex 1 wrapper) the
+  // laptop left menu (zIndex 16) covered the left of Hubble's payment screen.
   if (step === 'store') {
     return (
-      <Box position="fixed" inset={0} zIndex={1400} bg="rgba(22,32,43,.6)">
-        <Flex direction="column" position="absolute" top="24px" left={0} right={0} bottom={0} bg="surface" borderTopRadius="24px" overflow="hidden">
-          <Flex h="52px" align="center" justify="space-between" px="14px" borderBottom="1px solid" borderColor="border">
-            <Flex align="center" gap="8px" fontSize="13px" fontWeight={700} color="text2">
-              <Box color="green">
-                <I.check size={14} />
-              </Box>
-              Secure payment · Hubble
+      <Portal>
+        <Box position="fixed" inset={0} zIndex={1400} bg="rgba(22,32,43,.6)">
+          <Flex direction="column" position="absolute" top="24px" left={0} right={0} bottom={0} bg="surface" borderTopRadius="24px" overflow="hidden">
+            <Flex h="52px" align="center" justify="space-between" px="14px" borderBottom="1px solid" borderColor="border">
+              <Flex align="center" gap="8px" fontSize="13px" fontWeight={700} color="text2">
+                <Box color="green">
+                  <I.check size={14} />
+                </Box>
+                Secure payment · Hubble
+              </Flex>
+              <Button aria-label="Close" variant="ghost" size="sm" onClick={closeStore}>
+                <I.x size={18} />
+              </Button>
             </Flex>
-            <Button aria-label="Close" variant="ghost" size="sm" onClick={closeStore}>
-              <I.x size={18} />
-            </Button>
+            <Box as="iframe" title="Hubble payment" src={storeUrl} allow="payment; clipboard-write" flex="1" w="100%" border={0} />
           </Flex>
-          <Box as="iframe" title="Hubble payment" src={storeUrl} allow="payment; clipboard-write" flex="1" w="100%" border={0} />
-        </Flex>
-      </Box>
+        </Box>
+      </Portal>
     );
   }
 
   return (
-    <Box position="fixed" inset={0} zIndex={1400} bg="rgba(22,32,43,.55)" onClick={step === 'done' || step === 'failed' ? undefined : onClose}>
-      <Box
-        position="absolute"
-        left={0}
-        right={0}
-        bottom={0}
-        mx="auto"
-        maxW="480px"
-        bg="surface"
-        borderTopRadius="28px"
-        px="20px"
-        pt="10px"
-        pb="28px"
-        onClick={(e) => e.stopPropagation()}
-      >
-        <Box w="38px" h="5px" borderRadius="3px" bg="borderStrong" mx="auto" mb="14px" />
+    <Portal>
+      <Box position="fixed" inset={0} zIndex={1400} bg="rgba(22,32,43,.55)" onClick={step === 'done' || step === 'failed' ? undefined : onClose}>
+        <Box
+          position="absolute"
+          left={0}
+          right={0}
+          bottom={0}
+          mx="auto"
+          maxW="480px"
+          bg="surface"
+          borderTopRadius="28px"
+          px="20px"
+          pt="10px"
+          pb="28px"
+          onClick={(e) => e.stopPropagation()}
+        >
+          <Box w="38px" h="5px" borderRadius="3px" bg="borderStrong" mx="auto" mb="14px" />
 
-        {step === 'loading' && (
-          <Text textAlign="center" py="40px" color="text2" fontWeight={600}>
-            Opening…
-          </Text>
-        )}
-
-        {step === 'details' && (
-          <Flex direction="column" gap="16px">
-            <Flex justify="space-between" align="center">
-              <Text fontSize="24px" fontWeight={800} letterSpacing="-.02em">
-                Almost there
-              </Text>
-              <Text fontFamily="mono" fontWeight={700} fontSize="13px" bg="surface2" border="1px solid" borderColor="border" borderRadius="pill" px="10px" py="4px">
-                {offer.brand_name} · {fmt(Math.round(offer.you_pay))}
-              </Text>
-            </Flex>
-            <Box as="label">
-              <Text fontSize="13px" fontWeight={700} color="text2" mb="6px">
-                Your name
-              </Text>
-              <Input value={name} onChange={(e) => setName(e.target.value)} autoComplete="name" h="54px" borderRadius="14px" fontSize="17px" fontWeight={600} />
-            </Box>
-            <Box as="label">
-              <Text fontSize="13px" fontWeight={700} color="text2" mb="6px">
-                Mobile number
-              </Text>
-              <InputGroup h="54px">
-                <InputLeftAddon h="54px" fontFamily="mono" fontWeight={600} borderLeftRadius="14px" bg="surface2" border="1px solid" borderColor="border" color="text2">
-                  +91
-                </InputLeftAddon>
-                <Input
-                  type="tel"
-                  inputMode="numeric"
-                  autoComplete="tel-national"
-                  value={phone}
-                  onChange={(e) => setPhone(e.target.value.replace(/\D/g, '').slice(-10))}
-                  h="54px"
-                  borderRightRadius="14px"
-                  fontFamily="mono"
-                  fontSize="17px"
-                  fontWeight={600}
-                />
-              </InputGroup>
-            </Box>
-            <Checkbox isChecked={optin} onChange={(e) => setOptin(e.target.checked)} size="lg" colorScheme="blue">
-              <Text fontSize="13px" fontWeight={600}>
-                Send me deals and updates on WhatsApp
-              </Text>
-            </Checkbox>
-            {error && (
-              <Text fontSize="13px" color="danger" fontWeight={600}>
-                {error}
-              </Text>
-            )}
-            <Button
-              id="dealo-get-code"
-              onClick={getCode}
-              isDisabled={!name.trim() || !phoneOk}
-              isLoading={busy}
-              h="56px"
-              borderRadius="pill"
-              bg="amber"
-              color="white"
-              fontSize="17px"
-              fontWeight={800}
-              rightIcon={<I.arrowRight size={18} />}
-              _hover={{ bg: 'amber' }}
-            >
-              Get code by SMS
-            </Button>
-            <Text fontSize="13px" color="text2" textAlign="center">
-              Only for your login and voucher · <a href="/privacy">Privacy</a>
+          {step === 'loading' && (
+            <Text textAlign="center" py="40px" color="text2" fontWeight={600}>
+              Opening…
             </Text>
-          </Flex>
-        )}
+          )}
 
-        {step === 'code' && (
-          <Flex direction="column" gap="16px">
-            <Flex justify="space-between" align="center">
-              <Box>
+          {step === 'details' && (
+            <Flex direction="column" gap="16px">
+              <Flex justify="space-between" align="center">
                 <Text fontSize="24px" fontWeight={800} letterSpacing="-.02em">
-                  Enter the code
+                  Almost there
                 </Text>
-                <Text fontFamily="mono" fontSize="13px" color="text2">
-                  Sent by SMS to +91 {phone}
+                <Text fontFamily="mono" fontWeight={700} fontSize="13px" bg="surface2" border="1px solid" borderColor="border" borderRadius="pill" px="10px" py="4px">
+                  {offer.brand_name} · {fmt(Math.round(offer.you_pay))}
                 </Text>
-              </Box>
-              <Button variant="link" size="sm" onClick={() => setStep('details')}>
-                Change
-              </Button>
-            </Flex>
-            <Input
-              autoFocus
-              value={code}
-              onChange={(e) => onCode(e.target.value)}
-              inputMode="numeric"
-              autoComplete="one-time-code"
-              maxLength={6}
-              placeholder="••••••"
-              textAlign="center"
-              letterSpacing=".5em"
-              fontFamily="mono"
-              fontSize="26px"
-              fontWeight={700}
-              h="64px"
-              borderRadius="14px"
-              isDisabled={busy}
-            />
-            {error && (
-              <Text fontSize="13px" color="danger" fontWeight={600}>
-                {error}
-              </Text>
-            )}
-            {busy && (
-              <Text textAlign="center" fontSize="14px" fontWeight={700} color="brand">
-                Opening payment…
-              </Text>
-            )}
-          </Flex>
-        )}
-
-        {step === 'failed' && (
-          <Flex direction="column" gap="14px" py="8px">
-            <Text fontSize="22px" fontWeight={800}>
-              Voucher couldn’t be made
-            </Text>
-            <Text fontSize="14px" color="text2">
-              {offer.brand_name} didn’t issue the voucher this time. If your payment went through, Hubble refunds it
-              to the same account automatically within 5–7 working days. You don’t need to do anything.
-            </Text>
-            <Button onClick={onClose} h="52px" borderRadius="pill" bg="text" color="white" fontWeight={800} _hover={{ bg: 'text' }}>
-              OK
-            </Button>
-          </Flex>
-        )}
-
-        {step === 'done' && (
-          <Flex direction="column" gap="14px">
-            <Flex direction="column" align="center" gap="6px">
-              <Flex w="48px" h="48px" borderRadius="50%" bg="brass" color="white" align="center" justify="center">
-                <I.check size={22} />
               </Flex>
-              <Text fontSize="22px" fontWeight={800}>
-                Voucher ready
-              </Text>
-              <Text fontFamily="mono" fontWeight={700} color="green">
-                {fmt(Math.round(offer.you_save))} saved
-              </Text>
-            </Flex>
-            {voucher ? (
-              cards.map((v, i) => (
-                <Box key={v.code} borderRadius="18px" bg="text" color="onBrand" p="16px">
-                  {cards.length > 1 && v.amount && (
-                    <Text fontSize="12px" opacity={0.6} mb="6px">
-                      Card {i + 1} of {cards.length} · {fmt(v.amount)}
-                    </Text>
-                  )}
-                  <CodeRow label="CODE" value={v.code} copied={copied === `code${i}`} onCopy={() => copyField(`code${i}`, v.code)} />
-                  {v.pin && (
-                    <Box mt="8px">
-                      <CodeRow label="PIN" value={v.pin} copied={copied === `pin${i}`} onCopy={() => copyField(`pin${i}`, v.pin)} />
-                    </Box>
-                  )}
-                </Box>
-              ))
-            ) : (
-              <Text fontSize="13px" color="text2" textAlign="center">
-                {slow ? 'Your code is on its way. It will show under “Your vouchers” in the menu.' : 'Fetching your code…'}
-              </Text>
-            )}
-            {!offer.in_store && !offer.add_voucher_url && offer.card?.steps?.length > 0 && <VoucherSteps steps={offer.card.steps} />}
-            {offer.in_store ? (
-              <Text fontSize="14px" fontWeight={700} textAlign="center">
-                Show this code and PIN at the {offer.brand_name} counter when you pay.
-              </Text>
-            ) : (
+              <Box as="label">
+                <Text fontSize="13px" fontWeight={700} color="text2" mb="6px">
+                  Your name
+                </Text>
+                <Input value={name} onChange={(e) => setName(e.target.value)} autoComplete="name" h="54px" borderRadius="14px" fontSize="17px" fontWeight={600} />
+              </Box>
+              <Box as="label">
+                <Text fontSize="13px" fontWeight={700} color="text2" mb="6px">
+                  Mobile number
+                </Text>
+                <InputGroup h="54px">
+                  <InputLeftAddon h="54px" fontFamily="mono" fontWeight={600} borderLeftRadius="14px" bg="surface2" border="1px solid" borderColor="border" color="text2">
+                    +91
+                  </InputLeftAddon>
+                  <Input
+                    type="tel"
+                    inputMode="numeric"
+                    autoComplete="tel-national"
+                    value={phone}
+                    onChange={(e) => setPhone(e.target.value.replace(/\D/g, '').slice(-10))}
+                    h="54px"
+                    borderRightRadius="14px"
+                    fontFamily="mono"
+                    fontSize="17px"
+                    fontWeight={600}
+                  />
+                </InputGroup>
+              </Box>
+              <Checkbox isChecked={optin} onChange={(e) => setOptin(e.target.checked)} size="lg" colorScheme="blue">
+                <Text fontSize="13px" fontWeight={600}>
+                  Send me deals and updates on WhatsApp
+                </Text>
+              </Checkbox>
+              {error && (
+                <Text fontSize="13px" color="danger" fontWeight={600}>
+                  {error}
+                </Text>
+              )}
               <Button
-                as="a"
-                href={offer.add_voucher_url || shopLink || undefined}
-                target="_blank"
-                rel="noopener"
-                onClick={() => voucher && copy(voucher.code)}
+                id="dealo-get-code"
+                onClick={getCode}
+                isDisabled={!name.trim() || !phoneOk}
+                isLoading={busy}
                 h="56px"
                 borderRadius="pill"
-                bg="text"
+                bg="amber"
                 color="white"
                 fontSize="17px"
                 fontWeight={800}
-                rightIcon={<I.external size={16} />}
-                _hover={{ bg: 'text' }}
+                rightIcon={<I.arrowRight size={18} />}
+                _hover={{ bg: 'amber' }}
               >
-                {offer.add_voucher_url ? `Add to ${offer.brand_name} wallet` : `Open ${offer.brand_name}`}
+                Get code by SMS
               </Button>
-            )}
-            {voucher && (
-              <Text fontSize="12px" color="text2" textAlign="center">
-                Saved on this phone · find it again in{' '}
-                <Box
-                  as="button"
-                  type="button"
-                  textDecoration="underline"
-                  onClick={() => {
-                    onClose();
-                    setVouchersOpen(true);
-                  }}
-                >
-                  Your vouchers
-                </Box>
+              <Text fontSize="13px" color="text2" textAlign="center">
+                Only for your login and voucher · <a href="/privacy">Privacy</a>
               </Text>
-            )}
-            <Button variant="ghost" onClick={onClose}>
-              Done
-            </Button>
-          </Flex>
-        )}
+            </Flex>
+          )}
+
+          {step === 'code' && (
+            <Flex direction="column" gap="16px">
+              <Flex justify="space-between" align="center">
+                <Box>
+                  <Text fontSize="24px" fontWeight={800} letterSpacing="-.02em">
+                    Enter the code
+                  </Text>
+                  <Text fontFamily="mono" fontSize="13px" color="text2">
+                    Sent by SMS to +91 {phone}
+                  </Text>
+                </Box>
+                <Button variant="link" size="sm" onClick={() => setStep('details')}>
+                  Change
+                </Button>
+              </Flex>
+              <Input
+                autoFocus
+                value={code}
+                onChange={(e) => onCode(e.target.value)}
+                inputMode="numeric"
+                autoComplete="one-time-code"
+                maxLength={6}
+                placeholder="••••••"
+                textAlign="center"
+                letterSpacing=".5em"
+                fontFamily="mono"
+                fontSize="26px"
+                fontWeight={700}
+                h="64px"
+                borderRadius="14px"
+                isDisabled={busy}
+              />
+              {error && (
+                <Text fontSize="13px" color="danger" fontWeight={600}>
+                  {error}
+                </Text>
+              )}
+              {busy && (
+                <Text textAlign="center" fontSize="14px" fontWeight={700} color="brand">
+                  Opening payment…
+                </Text>
+              )}
+            </Flex>
+          )}
+
+          {step === 'failed' && (
+            <Flex direction="column" gap="14px" py="8px">
+              <Text fontSize="22px" fontWeight={800}>
+                Voucher couldn’t be made
+              </Text>
+              <Text fontSize="14px" color="text2">
+                {offer.brand_name} didn’t issue the voucher this time. If your payment went through, Hubble refunds it
+                to the same account automatically within 5–7 working days. You don’t need to do anything.
+              </Text>
+              <Button onClick={onClose} h="52px" borderRadius="pill" bg="text" color="white" fontWeight={800} _hover={{ bg: 'text' }}>
+                OK
+              </Button>
+            </Flex>
+          )}
+
+          {step === 'done' && (
+            <Flex direction="column" gap="14px">
+              <Flex direction="column" align="center" gap="6px">
+                <Flex w="48px" h="48px" borderRadius="50%" bg="brass" color="white" align="center" justify="center">
+                  <I.check size={22} />
+                </Flex>
+                <Text fontSize="22px" fontWeight={800}>
+                  Voucher ready
+                </Text>
+                <Text fontFamily="mono" fontWeight={700} color="green">
+                  {fmt(Math.round(offer.you_save))} saved
+                </Text>
+              </Flex>
+              {voucher ? (
+                cards.map((v, i) => (
+                  <Box key={v.code} borderRadius="18px" bg="text" color="onBrand" p="16px">
+                    {cards.length > 1 && v.amount && (
+                      <Text fontSize="12px" opacity={0.6} mb="6px">
+                        Card {i + 1} of {cards.length} · {fmt(v.amount)}
+                      </Text>
+                    )}
+                    <CodeRow label="CODE" value={v.code} copied={copied === `code${i}`} onCopy={() => copyField(`code${i}`, v.code)} />
+                    {v.pin && (
+                      <Box mt="8px">
+                        <CodeRow label="PIN" value={v.pin} copied={copied === `pin${i}`} onCopy={() => copyField(`pin${i}`, v.pin)} />
+                      </Box>
+                    )}
+                  </Box>
+                ))
+              ) : (
+                <Text fontSize="13px" color="text2" textAlign="center">
+                  {slow ? 'Your code is on its way. It will show under “Your vouchers” in the menu.' : 'Fetching your code…'}
+                </Text>
+              )}
+              {!offer.in_store && !offer.add_voucher_url && offer.card?.steps?.length > 0 && <VoucherSteps steps={offer.card.steps} />}
+              {offer.in_store ? (
+                <Text fontSize="14px" fontWeight={700} textAlign="center">
+                  Show this code and PIN at the {offer.brand_name} counter when you pay.
+                </Text>
+              ) : (
+                <Button
+                  as="a"
+                  href={offer.add_voucher_url || shopLink || undefined}
+                  target="_blank"
+                  rel="noopener"
+                  onClick={() => voucher && copy(voucher.code)}
+                  h="56px"
+                  borderRadius="pill"
+                  bg="text"
+                  color="white"
+                  fontSize="17px"
+                  fontWeight={800}
+                  rightIcon={<I.external size={16} />}
+                  _hover={{ bg: 'text' }}
+                >
+                  {offer.add_voucher_url ? `Add to ${offer.brand_name} wallet` : `Open ${offer.brand_name}`}
+                </Button>
+              )}
+              {voucher && (
+                <Text fontSize="12px" color="text2" textAlign="center">
+                  Saved on this phone · find it again in{' '}
+                  <Box
+                    as="button"
+                    type="button"
+                    textDecoration="underline"
+                    onClick={() => {
+                      onClose();
+                      setVouchersOpen(true);
+                    }}
+                  >
+                    Your vouchers
+                  </Box>
+                </Text>
+              )}
+              <Button variant="ghost" onClick={onClose}>
+                Done
+              </Button>
+            </Flex>
+          )}
+        </Box>
       </Box>
-    </Box>
+    </Portal>
   );
 }
