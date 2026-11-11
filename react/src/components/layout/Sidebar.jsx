@@ -129,7 +129,7 @@ function SidebarFooterItem({ icon: Icon, label, onClick, href, isExternal, onNav
   );
 }
 
-const TicketIcon = () => <I.ticket size={17} />;
+const AccountIcon = () => <I.account size={17} />;
 
 function SidebarFooter({ onNavigate, collapsed, onOpenOnboarding, onOpenVouchers }) {
   const whatsappHref = botWhatsAppHref();
@@ -139,7 +139,7 @@ function SidebarFooter({ onNavigate, collapsed, onOpenOnboarding, onOpenVouchers
       {/* Only once someone has logged in or bought a voucher on this phone. */}
       {onOpenVouchers && (
         <SidebarFooterItem
-          icon={TicketIcon}
+          icon={AccountIcon}
           label="Your account"
           onClick={onOpenVouchers}
           onNavigate={onNavigate}

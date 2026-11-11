@@ -190,7 +190,7 @@ export default function AppLayout() {
                 p={0}
                 borderRadius="10px"
               >
-                <I.ticket size={19} />
+                <I.account size={20} />
               </Button>
             )}
             <Button
