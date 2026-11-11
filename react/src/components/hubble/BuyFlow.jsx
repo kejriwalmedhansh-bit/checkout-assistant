@@ -1,12 +1,14 @@
 import { useEffect, useRef, useState } from 'react';
-import { Box, Button, Checkbox, Flex, IconButton, Input, InputGroup, InputLeftAddon, Text } from '@chakra-ui/react';
+import { Box, Button, Checkbox, Flex, Input, InputGroup, InputLeftAddon, Text } from '@chakra-ui/react';
 
 import { I } from '@/components/common/icons';
 import { hubbleApi } from '@/api/hubble.api';
 import { confirmCode, currentUser, idToken, sendCode } from '@/lib/firebase';
+import { markPending, saveOrder, setVouchersOpen } from '@/lib/myVouchers';
 import { getDealoId, soldEventProps, track } from '@/utils/analytics';
 import { fmt } from '@/utils/format';
 
+import CodeRow from './CodeRow';
 import { VoucherSteps } from './VoucherFacts';
 
 const NAME_KEY = 'dealo_buyer_name';
@@ -39,44 +41,18 @@ const openHubbleLink = (link) => {
  *   inside Dealo → voucher ready.
  * A shopper already logged in on this browser skips straight to payment.
  */
-// One line of the voucher card: label, the value in mono, and a quiet copy
-// icon on the right (2026-11-02, owner's ask: copy the code and the PIN with
-// one tap, the way bank apps do; icon only, no pill or word, and a tick for
-// about half a second once copied).
-function CodeRow({ label, value, copied, onCopy }) {
-  return (
-    <Flex align="center" justify="space-between" gap="12px">
-      <Box minW={0}>
-        <Text fontSize="11px" letterSpacing=".12em" opacity={0.6}>
-          {label}
-        </Text>
-        <Text fontFamily="mono" fontWeight={600} fontSize="17px" wordBreak="break-all">
-          {value}
-        </Text>
-      </Box>
-      <IconButton
-        onClick={onCopy}
-        aria-label={copied ? `${label} copied` : `Copy ${label.toLowerCase()}`}
-        icon={copied ? <I.check size={18} /> : <I.copy size={18} />}
-        variant="iconSubtle"
-        minW="40px"
-        h="40px"
-        flexShrink={0}
-        borderRadius="12px"
-        bg="transparent"
-        color={copied ? 'brass' : 'onBrand'}
-        opacity={copied ? 1 : 0.7}
-        _hover={{ opacity: 1, bg: 'whiteAlpha.100', color: copied ? 'brass' : 'onBrand' }}
-        _active={{ bg: 'whiteAlpha.200' }}
-      />
-    </Flex>
-  );
-}
-
 export default function BuyFlow({ offer, merchant, price, shopLink, placement, bestPct, src, onClose, onBought }) {
   // The same facts on every event of this purchase, so Mixpanel can line
   // them up as one funnel (see soldEventProps).
   const ev = soldEventProps(offer, { merchant, placement, bestPct, src });
+  // Kept beside the code on this phone, so "Your vouchers" can reopen it
+  // with the right button later (see lib/myVouchers).
+  const keepWith = {
+    brand: offer.brand_name,
+    add_voucher_url: offer.add_voucher_url || null,
+    shop_link: shopLink || null,
+    in_store: Boolean(offer.in_store),
+  };
   const [step, setStep] = useState('loading');
   const [name, setName] = useState(readName);
   const [phone, setPhone] = useState('');
@@ -86,6 +62,7 @@ export default function BuyFlow({ offer, merchant, price, shopLink, placement, b
   const [busy, setBusy] = useState(false);
   const [storeUrl, setStoreUrl] = useState('');
   const [order, setOrder] = useState(null);
+  const [slow, setSlow] = useState(false);
   const confirmation = useRef(null);
   const paid = useRef(false);
 
@@ -150,6 +127,7 @@ export default function BuyFlow({ offer, merchant, price, shopLink, placement, b
       if (kind === 'launch_link') openHubbleLink(msg.properties?.link);
       if (kind === 'payment_success') {
         paid.current = true;
+        markPending(keepWith);
         track('Hubble Payment Success', ev);
       }
       if (kind === 'payment_fail') track('Hubble Payment Failed', ev);
@@ -170,6 +148,7 @@ export default function BuyFlow({ offer, merchant, price, shopLink, placement, b
       // straight away, instead of waiting for the shopper to close Hubble's.
       if (kind === 'voucher_generation_success') {
         paid.current = true;
+        markPending(keepWith);
         setStep('done');
       }
       if (kind === 'close') {
@@ -203,8 +182,11 @@ export default function BuyFlow({ offer, merchant, price, shopLink, placement, b
     const poll = async () => {
       const token = await idToken();
       const res = token ? await hubbleApi.latestOrder(token).catch(() => null) : null;
-      if (res?.found) setOrder(res);
-      else if (++tries < 10) timer = setTimeout(poll, 2000);
+      if (res?.found) {
+        setOrder(res);
+        saveOrder(res, keepWith);
+      } else if (++tries < 10) timer = setTimeout(poll, 2000);
+      else setSlow(true);
     };
     poll();
     return () => clearTimeout(timer);
@@ -244,7 +226,9 @@ export default function BuyFlow({ offer, merchant, price, shopLink, placement, b
     }
   };
 
-  const voucher = order?.vouchers?.[0];
+  // An order can hold several cards (e.g. 2 × ₹500): show every one.
+  const cards = (order?.vouchers || []).filter((v) => v?.code);
+  const voucher = cards[0];
   const copy = (text) => navigator.clipboard?.writeText(text).catch(() => {});
   // Which field's copy button just fired ('code' | 'pin'), so it can read
   // a tick for a moment — the same tap-to-copy people know from bank apps.
@@ -447,17 +431,24 @@ export default function BuyFlow({ offer, merchant, price, shopLink, placement, b
               </Text>
             </Flex>
             {voucher ? (
-              <Box borderRadius="18px" bg="text" color="onBrand" p="16px">
-                <CodeRow label="CODE" value={voucher.code} copied={copied === 'code'} onCopy={() => copyField('code', voucher.code)} />
-                {voucher.pin && (
-                  <Box mt="8px">
-                    <CodeRow label="PIN" value={voucher.pin} copied={copied === 'pin'} onCopy={() => copyField('pin', voucher.pin)} />
-                  </Box>
-                )}
-              </Box>
+              cards.map((v, i) => (
+                <Box key={v.code} borderRadius="18px" bg="text" color="onBrand" p="16px">
+                  {cards.length > 1 && v.amount && (
+                    <Text fontSize="12px" opacity={0.6} mb="6px">
+                      Card {i + 1} of {cards.length} · {fmt(v.amount)}
+                    </Text>
+                  )}
+                  <CodeRow label="CODE" value={v.code} copied={copied === `code${i}`} onCopy={() => copyField(`code${i}`, v.code)} />
+                  {v.pin && (
+                    <Box mt="8px">
+                      <CodeRow label="PIN" value={v.pin} copied={copied === `pin${i}`} onCopy={() => copyField(`pin${i}`, v.pin)} />
+                    </Box>
+                  )}
+                </Box>
+              ))
             ) : (
               <Text fontSize="13px" color="text2" textAlign="center">
-                Fetching your code…
+                {slow ? 'Your code is on its way. It will show under “Your vouchers” in the menu.' : 'Fetching your code…'}
               </Text>
             )}
             {!offer.in_store && !offer.add_voucher_url && offer.card?.steps?.length > 0 && <VoucherSteps steps={offer.card.steps} />}
@@ -484,9 +475,20 @@ export default function BuyFlow({ offer, merchant, price, shopLink, placement, b
                 {offer.add_voucher_url ? `Add to ${offer.brand_name} wallet` : `Open ${offer.brand_name}`}
               </Button>
             )}
-            {!offer.in_store && voucher && (
+            {voucher && (
               <Text fontSize="12px" color="text2" textAlign="center">
-                Code copied · paste it there
+                Saved on this phone · find it again in{' '}
+                <Box
+                  as="button"
+                  type="button"
+                  textDecoration="underline"
+                  onClick={() => {
+                    onClose();
+                    setVouchersOpen(true);
+                  }}
+                >
+                  Your vouchers
+                </Box>
               </Text>
             )}
             <Button variant="ghost" onClick={onClose}>

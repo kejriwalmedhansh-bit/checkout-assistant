@@ -16,7 +16,9 @@ import ConsentBanner from '@/components/common/ConsentBanner';
 import FloatingWhatsAppButton from '@/components/common/FloatingWhatsAppButton';
 import Logo from '@/components/common/Logo';
 import { I } from '@/components/common/icons';
+import MyVouchers from '@/components/hubble/MyVouchers';
 import TutorialVideoModal from '@/components/onboarding/TutorialVideoModal';
+import { setVouchersOpen, useSavedVouchers } from '@/lib/myVouchers';
 import { PageHeaderContext } from '@/hooks/usePageHeader';
 import { ROUTES } from '@/routes/paths';
 import { track, trackPageView } from '@/utils/analytics';
@@ -47,6 +49,12 @@ export default function AppLayout() {
   // A page can replace the mobile bar's menu/logo/spacer slots with its own
   // controls (see usePageHeader) — null means the default shown below.
   const [pageHeader, setPageHeader] = useState(null);
+  // Shown only once this phone has bought a voucher through Dealo.
+  const hasVouchers = useSavedVouchers().length > 0;
+  const openVouchers = () => {
+    track('Your Vouchers Opened', { path: location.pathname });
+    setVouchersOpen(true);
+  };
 
   // "How it works" reopens the tutorial video popup from any page — same
   // popup a first-time visitor sees automatically on the home page (see
@@ -90,7 +98,7 @@ export default function AppLayout() {
           borderRight="1px solid"
           borderColor="border"
         >
-          <SidebarContent collapsed={false} onOpenOnboarding={openOnboarding} />
+          <SidebarContent collapsed={false} onOpenOnboarding={openOnboarding} onOpenVouchers={hasVouchers ? openVouchers : null} />
         </Box>
       </Box>
 
@@ -101,6 +109,7 @@ export default function AppLayout() {
           <DrawerBody p={0}>
             <SidebarContent
               onNavigate={drawer.onClose}
+              onOpenVouchers={hasVouchers ? openVouchers : null}
               onOpenOnboarding={() => {
                 drawer.onClose();
                 openOnboarding();
@@ -116,6 +125,8 @@ export default function AppLayout() {
       <ScrollRestoration />
 
       {tutorialOpen && <TutorialVideoModal onClose={closeTutorial} />}
+
+      <MyVouchers />
 
       {/* Asked once, on whichever page the visitor happens to land on, so it
           isn't tied to the homepage — a shared link to /results is somebody's
@@ -168,6 +179,20 @@ export default function AppLayout() {
               (back/search on results, etc.) usePageHeader supplies, rather
               than replacing it. */}
           <Flex align="center" gap="4px" flex="0 0 auto">
+            {hasVouchers && (
+              <Button
+                variant="iconSubtle"
+                onClick={openVouchers}
+                aria-label="Your vouchers"
+                w="40px"
+                h="40px"
+                minW="40px"
+                p={0}
+                borderRadius="10px"
+              >
+                <I.ticket size={19} />
+              </Button>
+            )}
             <Button
               variant="iconSubtle"
               onClick={openOnboarding}

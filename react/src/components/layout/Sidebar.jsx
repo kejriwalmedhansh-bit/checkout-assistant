@@ -129,11 +129,23 @@ function SidebarFooterItem({ icon: Icon, label, onClick, href, isExternal, onNav
   );
 }
 
-function SidebarFooter({ onNavigate, collapsed, onOpenOnboarding }) {
+const TicketIcon = () => <I.ticket size={17} />;
+
+function SidebarFooter({ onNavigate, collapsed, onOpenOnboarding, onOpenVouchers }) {
   const whatsappHref = botWhatsAppHref();
 
   return (
     <Flex direction="column" gap="3px">
+      {/* Only once this phone has bought a voucher through Dealo. */}
+      {onOpenVouchers && (
+        <SidebarFooterItem
+          icon={TicketIcon}
+          label="Your vouchers"
+          onClick={onOpenVouchers}
+          onNavigate={onNavigate}
+          collapsed={collapsed}
+        />
+      )}
       <SidebarFooterItem
         icon={WhatsAppIcon}
         label="Chat on WhatsApp"
@@ -215,7 +227,7 @@ function NavItem({ to, end, icon: Ico, label, onNavigate, collapsed }) {
  * mobile drawer (`collapsed` is always false). `onNavigate` closes the mobile
  * drawer on nav clicks.
  */
-export default function SidebarContent({ onNavigate, collapsed = false, onOpenOnboarding }) {
+export default function SidebarContent({ onNavigate, collapsed = false, onOpenOnboarding, onOpenVouchers }) {
   const fx = fade(collapsed);
   const hintsEnabled = useUiStore((s) => s.hintsEnabled);
   const toggleHints = useUiStore((s) => s.toggleHints);
@@ -274,7 +286,7 @@ export default function SidebarContent({ onNavigate, collapsed = false, onOpenOn
 
         <Box h="1px" bg="border" mt="12px" />
 
-        <SidebarFooter onNavigate={onNavigate} collapsed={collapsed} onOpenOnboarding={onOpenOnboarding} />
+        <SidebarFooter onNavigate={onNavigate} collapsed={collapsed} onOpenOnboarding={onOpenOnboarding} onOpenVouchers={onOpenVouchers} />
       </Flex>
     </Flex>
   );
