@@ -10,6 +10,9 @@
     GET  /hubble/orders/latest   (Authorization: Bearer <id_token>)
         -> the shopper's voucher from the last 30 minutes, for the
            "voucher ready" screen
+    GET  /hubble/me              (Authorization: Bearer <id_token>)
+        -> everything the shopper bought and saved, for "Your account"
+           (no codes: those stay on the shopper's phone)
 
 Voucher codes from the webhook are held in memory for 30 minutes so the
 website can show them once, then forgotten. They never reach Supabase.
@@ -181,4 +184,31 @@ async def latest_order(authorization: str = Header(default="")) -> dict:
             {"code": v.get("cardNumber"), "pin": v.get("cardPin"), "amount": v.get("amount"), "valid_till": v.get("validTill")}
             for v in order.get("vouchers") or []
         ],
+    }
+
+
+@router.get("/me")
+async def me(authorization: str = Header(default="")) -> dict:
+    try:
+        login = await buyer_service.verify_login(authorization.removeprefix("Bearer ").strip())
+    except ValueError as exc:
+        raise HTTPException(401, str(exc)) from exc
+    try:
+        rows = await buyer_service.purchases_for(login["uid"], get_settings().HUBBLE_ENV)
+    except Exception as exc:  # noqa: BLE001 — say "couldn't load", never "you bought nothing"
+        raise HTTPException(503, "Couldn't load your purchases") from exc
+    purchases = [
+        {
+            "brand": r.get("brand"),
+            "amount": float(r["amount"]) if r.get("amount") is not None else None,
+            "saved": float(r["discount"]) if r.get("discount") is not None else 0.0,
+            "at": r.get("created_at"),
+        }
+        for r in rows
+    ]
+    return {
+        "phone": login["phone"],
+        "total_saved": round(sum(p["saved"] for p in purchases), 2),
+        "total_bought": round(sum(p["amount"] or 0 for p in purchases), 2),
+        "purchases": purchases,
     }
