@@ -108,6 +108,30 @@ async def save_buyer(uid: str, phone: str, name: str | None, email: str | None, 
 _DEALO_ID = re.compile(r"^[A-Za-z0-9_-]{8,64}$")
 
 
+async def purchases_for(uid: str, environment: str) -> list[dict]:
+    """The shopper's own finished Hubble orders, newest first, for their
+    "Your account" screen. Never includes codes (they are never stored)."""
+    s = get_settings()
+    if not s.SUPABASE_URL or not s.SUPABASE_SECRET_KEY:
+        return []
+    params = {
+        "select": "brand,amount,discount,created_at",
+        "firebase_uid": f"eq.{uid}",
+        "environment": f"eq.{environment}",
+        "status": "eq.COMPLETED",
+        "order": "created_at.desc",
+        "limit": "200",
+    }
+    try:
+        async with httpx.AsyncClient(timeout=10) as client:
+            resp = await client.get(f"{s.SUPABASE_URL}/rest/v1/purchases", headers=_headers(), params=params)
+            resp.raise_for_status()
+            return resp.json()
+    except httpx.HTTPError as exc:
+        print(f"[buyers] could not read purchases: {exc}")
+        raise
+
+
 def voucher_sold_event(order: dict, environment: str, attribution: dict | None = None) -> dict | None:
     """The Mixpanel event for one completed Hubble order, built from its
     webhook. This is the number the business runs on: vouchers actually

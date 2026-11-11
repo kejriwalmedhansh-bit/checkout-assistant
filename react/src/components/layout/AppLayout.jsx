@@ -18,7 +18,7 @@ import Logo from '@/components/common/Logo';
 import { I } from '@/components/common/icons';
 import MyVouchers from '@/components/hubble/MyVouchers';
 import TutorialVideoModal from '@/components/onboarding/TutorialVideoModal';
-import { setVouchersOpen, useSavedVouchers } from '@/lib/myVouchers';
+import { setVouchersOpen, useHasAccount } from '@/lib/myVouchers';
 import { PageHeaderContext } from '@/hooks/usePageHeader';
 import { ROUTES } from '@/routes/paths';
 import { track, trackPageView } from '@/utils/analytics';
@@ -49,10 +49,10 @@ export default function AppLayout() {
   // A page can replace the mobile bar's menu/logo/spacer slots with its own
   // controls (see usePageHeader) — null means the default shown below.
   const [pageHeader, setPageHeader] = useState(null);
-  // Shown only once this phone has bought a voucher through Dealo.
-  const hasVouchers = useSavedVouchers().length > 0;
+  // Shown only once someone has logged in or bought a voucher on this phone.
+  const hasVouchers = useHasAccount();
   const openVouchers = () => {
-    track('Your Vouchers Opened', { path: location.pathname });
+    track('Your Account Opened', { path: location.pathname });
     setVouchersOpen(true);
   };
 
@@ -183,7 +183,7 @@ export default function AppLayout() {
               <Button
                 variant="iconSubtle"
                 onClick={openVouchers}
-                aria-label="Your vouchers"
+                aria-label="Your account"
                 w="40px"
                 h="40px"
                 minW="40px"

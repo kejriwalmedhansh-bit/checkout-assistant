@@ -4,7 +4,7 @@ import { Box, Button, Checkbox, Flex, Input, InputGroup, InputLeftAddon, Text } 
 import { I } from '@/components/common/icons';
 import { hubbleApi } from '@/api/hubble.api';
 import { confirmCode, currentUser, idToken, sendCode } from '@/lib/firebase';
-import { markPending, saveOrder, setVouchersOpen } from '@/lib/myVouchers';
+import { markPending, saveOrder, setSignedIn, setVouchersOpen } from '@/lib/myVouchers';
 import { getDealoId, soldEventProps, track } from '@/utils/analytics';
 import { fmt } from '@/utils/format';
 
@@ -82,6 +82,7 @@ export default function BuyFlow({ offer, merchant, price, shopLink, placement, b
         src: src || null,
         placement: placement || null,
       });
+      setSignedIn(true);
       track('Hubble Store Opened', ev);
       setStoreUrl(url);
       setStep('store');

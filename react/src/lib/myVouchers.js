@@ -110,6 +110,43 @@ export function useSavedVouchers() {
   );
 }
 
+// Whether a buyer has logged in on this browser, so the top bar can show
+// "Your account" without loading Firebase on every page (lib/firebase.js
+// loads only when needed). Set after a buy-flow login, cleared on log out.
+const SIGNED_KEY = 'dealo_signed_in';
+let signedIn = null;
+export function setSignedIn(value) {
+  signedIn = Boolean(value);
+  write(SIGNED_KEY, signedIn ? 1 : null);
+  notify();
+}
+const readSignedIn = () => {
+  if (signedIn === null) {
+    // Buyers from before this flag existed still have their saved name.
+    let hadName = false;
+    try {
+      hadName = Boolean(localStorage.getItem('dealo_buyer_name'));
+    } catch {
+      /* private mode */
+    }
+    signedIn = Boolean(read(SIGNED_KEY)) || hadName;
+  }
+  return signedIn;
+};
+/** True when this browser has a buyer: a login or any saved code. */
+export function useHasAccount() {
+  const vouchers = useSavedVouchers();
+  const signed = useSyncExternalStore(
+    (fn) => {
+      listeners.add(fn);
+      return () => listeners.delete(fn);
+    },
+    readSignedIn,
+    () => false,
+  );
+  return signed || vouchers.length > 0;
+}
+
 // Opening the "Your vouchers" sheet from anywhere (top bar, menu, buy flow).
 let open = false;
 const openListeners = new Set();

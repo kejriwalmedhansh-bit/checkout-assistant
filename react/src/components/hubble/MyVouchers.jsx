@@ -3,12 +3,13 @@ import { Box, Button, Flex, Text } from '@chakra-ui/react';
 
 import { I } from '@/components/common/icons';
 import { hubbleApi } from '@/api/hubble.api';
-import { idToken } from '@/lib/firebase';
+import { idToken, signOut } from '@/lib/firebase';
 import {
   clearPending,
   forgetVoucher,
   pendingPurchase,
   saveOrder,
+  setSignedIn,
   setVouchersOpen,
   useSavedVouchers,
   useVouchersOpen,
@@ -79,9 +80,72 @@ function VoucherCard({ v }) {
   );
 }
 
+const shortDate = (iso) => new Date(iso).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' });
+
+// Total saved + every purchase, from Dealo's server (any device). Codes are
+// not part of it: those stay on the phone they were bought on.
+function Savings({ account }) {
+  if (account.status === 'loading') {
+    return (
+      <Text fontSize="13px" color="text2" mb="18px">
+        Loading your savings…
+      </Text>
+    );
+  }
+  if (account.status === 'error') {
+    return (
+      <Text fontSize="13px" color="text2" mb="18px">
+        Couldn’t load your savings right now. Please try again in a bit.
+      </Text>
+    );
+  }
+  if (account.status !== 'ready') return null;
+  const { total_saved: saved, total_bought: bought, purchases } = account.data;
+  return (
+    <Box mb="20px">
+      <Box borderRadius="18px" bg="surface2" border="1px solid" borderColor="border" p="16px" textAlign="center">
+        <Text fontSize="13px" color="text2" fontWeight={700}>
+          You’ve saved
+        </Text>
+        <Text fontFamily="mono" fontSize="34px" fontWeight={800} color="green" lineHeight="1.15">
+          {fmt(saved)}
+        </Text>
+        <Text fontSize="13px" color="text2">
+          {purchases.length} {purchases.length === 1 ? 'voucher' : 'vouchers'} · {fmt(bought)} bought
+        </Text>
+      </Box>
+      {purchases.length > 0 && (
+        <Flex direction="column" mt="10px">
+          {purchases.map((p, i) => (
+            <Flex key={`${p.at}-${i}`} justify="space-between" align="center" py="10px" borderBottom="1px solid" borderColor="border" gap="10px">
+              <Box minW={0}>
+                <Text fontWeight={700} fontSize="15px">
+                  {p.brand}
+                </Text>
+                <Text fontSize="12px" color="text3">
+                  {shortDate(p.at)}
+                </Text>
+              </Box>
+              <Box textAlign="right" flexShrink={0}>
+                <Text fontFamily="mono" fontWeight={700} fontSize="15px">
+                  {fmt(p.amount)}
+                </Text>
+                <Text fontFamily="mono" fontSize="12px" color="green">
+                  saved {fmt(p.saved)}
+                </Text>
+              </Box>
+            </Flex>
+          ))}
+        </Flex>
+      )}
+    </Box>
+  );
+}
+
 /**
- * "Your vouchers": every code bought through Dealo on this phone, reopened
- * from the top bar or the menu. Mounted once in AppLayout.
+ * "Your account": total saved and every purchase (from the server, any
+ * device), plus the codes bought on this phone (kept only here). Opened from
+ * the top bar or the menu. Mounted once in AppLayout.
  *
  * Also catches the buyer who paid and left before the code showed (an app
  * link from Hubble's screen took the whole page away): on the next page
@@ -92,6 +156,8 @@ export default function MyVouchers() {
   const open = useVouchersOpen();
   // Removing is the only copy going away, so it takes a second tap.
   const [removing, setRemoving] = useState(null);
+  // { status: 'loading' | 'ready' | 'error' | 'out', data?, phone? }
+  const [account, setAccount] = useState({ status: 'loading' });
 
   useEffect(() => {
     const pending = pendingPurchase();
@@ -119,11 +185,47 @@ export default function MyVouchers() {
     };
   }, []);
 
+  // Fresh numbers every time the sheet opens (a purchase may have just landed).
+  useEffect(() => {
+    if (!open) return undefined;
+    let live = true;
+    setAccount({ status: 'loading' });
+    (async () => {
+      const token = await idToken().catch(() => null);
+      if (!live) return;
+      if (!token) {
+        setAccount({ status: 'out' });
+        return;
+      }
+      try {
+        const data = await hubbleApi.me(token);
+        if (live) setAccount({ status: 'ready', data });
+      } catch {
+        if (live) setAccount({ status: 'error' });
+      }
+    })();
+    return () => {
+      live = false;
+    };
+  }, [open]);
+
   if (!open) return null;
   const close = () => {
     setRemoving(null);
     setVouchersOpen(false);
   };
+  const logOut = async () => {
+    track('Logged Out');
+    await signOut().catch(() => {});
+    try {
+      localStorage.removeItem('dealo_buyer_name');
+    } catch {
+      /* private mode */
+    }
+    setSignedIn(false);
+    setAccount({ status: 'out' });
+  };
+  const phone = account.data?.phone;
 
   return (
     <Box position="fixed" inset={0} zIndex={1500} bg="rgba(22,32,43,.55)" onClick={close}>
@@ -143,15 +245,21 @@ export default function MyVouchers() {
       >
         <Flex justify="space-between" align="center" mb="14px">
           <Text fontSize="20px" fontWeight={800}>
-            Your vouchers
+            Your account
           </Text>
           <Button aria-label="Close" variant="ghost" size="sm" onClick={close}>
             <I.x size={18} />
           </Button>
         </Flex>
+
+        <Savings account={account} />
+
+        <Text fontSize="13px" fontWeight={800} color="text2" letterSpacing=".04em" mb="10px">
+          CODES ON THIS PHONE
+        </Text>
         {vouchers.length === 0 ? (
           <Text fontSize="14px" color="text2">
-            Vouchers you buy on Dealo show up here.
+            Codes you buy on this phone show up here.
           </Text>
         ) : (
           <Flex direction="column" gap="12px">
@@ -179,9 +287,16 @@ export default function MyVouchers() {
             ))}
           </Flex>
         )}
-        <Text fontSize="12px" color="text3" mt="16px" textAlign="center">
-          Saved on this phone only.
-        </Text>
+
+        {(account.status === 'ready' || account.status === 'error') && (
+          <Flex justify="center" align="center" gap="6px" mt="22px" fontSize="12px" color="text3">
+            {phone && <Text>Logged in as {phone}</Text>}
+            {phone && <Text>·</Text>}
+            <Box as="button" type="button" textDecoration="underline" onClick={logOut}>
+              Log out
+            </Box>
+          </Flex>
+        )}
       </Box>
     </Box>
   );

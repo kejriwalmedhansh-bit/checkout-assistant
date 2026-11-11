@@ -59,3 +59,9 @@ export async function idToken() {
   const user = await currentUser();
   return user ? user.getIdToken() : null;
 }
+
+/** Logs the shopper out of this browser ("Your account" → Log out). */
+export async function signOut() {
+  const { a, fa } = await auth();
+  await fa.signOut(a);
+}

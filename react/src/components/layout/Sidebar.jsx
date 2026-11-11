@@ -136,11 +136,11 @@ function SidebarFooter({ onNavigate, collapsed, onOpenOnboarding, onOpenVouchers
 
   return (
     <Flex direction="column" gap="3px">
-      {/* Only once this phone has bought a voucher through Dealo. */}
+      {/* Only once someone has logged in or bought a voucher on this phone. */}
       {onOpenVouchers && (
         <SidebarFooterItem
           icon={TicketIcon}
-          label="Your vouchers"
+          label="Your account"
           onClick={onOpenVouchers}
           onNavigate={onNavigate}
           collapsed={collapsed}
