@@ -65,7 +65,6 @@ def test_in_store_matches(merchant, expected):
     ("Reliance Digital", False),   # Hubble's voucher is in-store only (asked Yash for online)
     ("Tata CLiQ Jewellery", False),  # sub-brand with its own terms: no guess
     ("Lee", False),                # must not become "Moments by The Leela"
-    ("Swiggy Instamart", False),   # not the same voucher as Swiggy food
     ("Apollo Pharmacy", False),    # Hubble's "Apollo" isn't confirmed to be the pharmacy
     ("", False),
 ])
@@ -88,6 +87,7 @@ def test_shop_key_strips_domains_and_suffixes():
     ("Zomato Gift Card", "Zomato"),
     ("Swiggy Money Voucher", "Swiggy"),
     ("Swiggy Money", "Swiggy"),
+    ("Swiggy Instamart", "Swiggy"),  # owner 2026-11-12: Instamart vouchers are Swiggy credit too
     ("Amazon Shopping Voucher", "Amazon shopping"),
     ("Bigbasket (Custom)", "BigBasket"),
     ("Decathlon - Fixed", "Decathlon"),

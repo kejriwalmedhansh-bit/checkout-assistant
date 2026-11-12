@@ -618,6 +618,26 @@
     "Steam": {
       "label": "Steam Wallet",
       "same": "steam"
+    },
+    "Swiggy Money Voucher": {
+      "label": "Swiggy",
+      "same": "swiggy-money",
+      "owner_note": "Owner 2026-11-12: Swiggy Money and Instamart vouchers all become credit usable on the whole Swiggy platform, so Swiggy gets no 'what are you buying?' question."
+    },
+    "Swiggy Instamart - Money Voucher": {
+      "label": "Swiggy",
+      "same": "swiggy-money",
+      "owner_note": "Owner 2026-11-12: Swiggy Money and Instamart vouchers all become credit usable on the whole Swiggy platform, so Swiggy gets no 'what are you buying?' question."
+    },
+    "Swiggy Money": {
+      "label": "Swiggy",
+      "same": "swiggy-money",
+      "owner_note": "Owner 2026-11-12: Swiggy Money and Instamart vouchers all become credit usable on the whole Swiggy platform, so Swiggy gets no 'what are you buying?' question."
+    },
+    "Swiggy Instamart": {
+      "label": "Swiggy",
+      "same": "swiggy-money",
+      "owner_note": "Owner 2026-11-12: Swiggy Money and Instamart vouchers all become credit usable on the whole Swiggy platform, so Swiggy gets no 'what are you buying?' question."
     }
   },
   "_listings_about": "For each reviewed voucher name, the exact Maximize/BuyHatke listings it covered when the owner reviewed it (data of 2026-09-26). A listing a later refresh files under the same name is held back until reviewed (src/repositories/_corrections.py). Gyftr sells one listing per name, so its names need no pins.",
