@@ -1,7 +1,7 @@
 /**
- * Shopper login by SMS code (Firebase phone sign-in), used only when someone
- * buys a voucher inside Dealo. Loaded on demand so the rest of the site never
- * downloads Firebase.
+ * Shopper login by SMS code (Firebase phone sign-in), used when someone buys
+ * a voucher inside Dealo or logs in from "Your account". Loaded on demand so
+ * the rest of the site never downloads Firebase.
  *
  * Firebase keeps the login in this browser until the shopper signs out, so a
  * returning buyer skips the number and code entirely. (Safari clears site
@@ -40,12 +40,21 @@ export async function currentUser() {
 let verifier;
 
 /**
- * Sends the SMS. `buttonId` is the "Get code" button: Firebase's robot check
- * runs invisibly on it and only shows a puzzle when it suspects a bot.
+ * Sends the SMS (first time or Resend). `holder` is a hidden spot that stays
+ * on screen for the whole login: Firebase's robot check runs invisibly there
+ * and only shows a puzzle when it suspects a bot. A used check can't run
+ * again, so every send gets a fresh one in a fresh box inside that spot.
  */
-export async function sendCode(phone10, buttonId) {
+export async function sendCode(phone10, holder) {
   const { a, fa } = await auth();
-  if (!verifier) verifier = new fa.RecaptchaVerifier(a, buttonId, { size: 'invisible' });
+  try {
+    verifier?.clear();
+  } catch {
+    /* already gone with its screen */
+  }
+  const box = document.createElement('div');
+  holder.replaceChildren(box);
+  verifier = new fa.RecaptchaVerifier(a, box, { size: 'invisible' });
   return fa.signInWithPhoneNumber(a, `+91${phone10}`, verifier);
 }
 

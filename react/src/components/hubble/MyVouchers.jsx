@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { Box, Button, Flex, Text } from '@chakra-ui/react';
+import { Box, Button, Flex, Portal, Text } from '@chakra-ui/react';
 
 import { I } from '@/components/common/icons';
 import { hubbleApi } from '@/api/hubble.api';
@@ -8,6 +8,7 @@ import {
   clearPending,
   forgetVoucher,
   pendingPurchase,
+  saveBuyerName,
   saveOrder,
   setSignedIn,
   setVouchersOpen,
@@ -18,6 +19,7 @@ import { track } from '@/utils/analytics';
 import { fmt } from '@/utils/format';
 
 import CodeRow from './CodeRow';
+import PhoneLogin from './PhoneLogin';
 
 const copyText = (text) => navigator.clipboard?.writeText(text).catch(() => {});
 
@@ -83,12 +85,13 @@ function VoucherCard({ v }) {
 const shortDate = (iso) => new Date(iso).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' });
 
 // Total saved + every purchase, from Dealo's server (any device). Codes are
-// not part of it: those stay on the phone they were bought on.
-function Savings({ account }) {
+// never on Dealo's server: "Show code" opens the card on Hubble's own page,
+// which works on any phone or laptop the shopper logs in on.
+function Savings({ account, onShowCode }) {
   if (account.status === 'loading') {
     return (
       <Text fontSize="13px" color="text2" mb="18px">
-        Loading your savings…
+        Loading…
       </Text>
     );
   }
@@ -126,14 +129,19 @@ function Savings({ account }) {
                   {shortDate(p.at)}
                 </Text>
               </Box>
-              <Box textAlign="right" flexShrink={0}>
-                <Text fontFamily="mono" fontWeight={700} fontSize="15px">
-                  {fmt(p.amount)}
-                </Text>
-                <Text fontFamily="mono" fontSize="12px" color="green">
-                  saved {fmt(p.saved)}
-                </Text>
-              </Box>
+              <Flex align="center" gap="12px" flexShrink={0}>
+                <Box textAlign="right">
+                  <Text fontFamily="mono" fontWeight={700} fontSize="15px">
+                    {fmt(p.amount)}
+                  </Text>
+                  <Text fontFamily="mono" fontSize="12px" color="green">
+                    saved {fmt(p.saved)}
+                  </Text>
+                </Box>
+                <Button size="sm" h="36px" borderRadius="pill" variant="outline" fontWeight={800} onClick={() => onShowCode(p.ref || null, p.brand)}>
+                  Show code
+                </Button>
+              </Flex>
             </Flex>
           ))}
         </Flex>
@@ -141,6 +149,60 @@ function Savings({ account }) {
     </Box>
   );
 }
+
+// Hubble's own page for a gift card the shopper bought (card number, PIN,
+// Redeem), inside Dealo like the payment screen. Hubble's back arrow and
+// Dealo's ✕ both close it.
+function HubbleCard({ url, onClose }) {
+  useEffect(() => {
+    const onMessage = (e) => {
+      let host = '';
+      try {
+        host = new URL(e.origin).hostname;
+      } catch {
+        return;
+      }
+      if (!/myhubble\.money$/.test(host)) return;
+      let msg = e.data;
+      if (typeof msg === 'string') {
+        try {
+          msg = JSON.parse(msg);
+        } catch {
+          return;
+        }
+      }
+      const kind = msg?.event || msg?.action || msg?.type;
+      // "Redeem now" asks the host to open the shop's site or app.
+      if (kind === 'launch_link') openLink(msg.properties?.link);
+      if (kind === 'close') onClose();
+    };
+    window.addEventListener('message', onMessage);
+    return () => window.removeEventListener('message', onMessage);
+  }, [onClose]);
+  return (
+    <Portal>
+      <Box position="fixed" inset={0} zIndex={1600} bg="rgba(22,32,43,.6)">
+        <Flex direction="column" position="absolute" top="24px" left={0} right={0} bottom={0} mx="auto" maxW="480px" bg="surface" borderTopRadius="24px" overflow="hidden">
+          <Flex h="52px" align="center" justify="space-between" px="14px" borderBottom="1px solid" borderColor="border">
+            <Text fontSize="13px" fontWeight={700} color="text2">
+              Your gift card · Hubble
+            </Text>
+            <Button aria-label="Close" variant="ghost" size="sm" onClick={onClose}>
+              <I.x size={18} />
+            </Button>
+          </Flex>
+          <Box as="iframe" title="Your gift card" src={url} allow="clipboard-write" flex="1" w="100%" border={0} />
+        </Flex>
+      </Box>
+    </Portal>
+  );
+}
+
+const openLink = (link) => {
+  if (typeof link !== 'string' || !link || /^(javascript|data):/i.test(link)) return;
+  if (/^https?:/i.test(link)) window.open(link, '_blank', 'noopener');
+  else window.location.href = link;
+};
 
 /**
  * "Your account": total saved and every purchase (from the server, any
@@ -158,6 +220,9 @@ export default function MyVouchers() {
   const [removing, setRemoving] = useState(null);
   // { status: 'loading' | 'ready' | 'error' | 'out', data?, phone? }
   const [account, setAccount] = useState({ status: 'loading' });
+  // Hubble's page for one card (or all of them) while it's open.
+  const [cardUrl, setCardUrl] = useState(null);
+  const [cardError, setCardError] = useState('');
 
   useEffect(() => {
     const pending = pendingPurchase();
@@ -185,7 +250,9 @@ export default function MyVouchers() {
     };
   }, []);
 
-  // Fresh numbers every time the sheet opens (a purchase may have just landed).
+  // Fresh numbers every time the sheet opens (a purchase may have just
+  // landed), and again right after logging in here.
+  const [loads, setLoads] = useState(0);
   useEffect(() => {
     if (!open) return undefined;
     let live = true;
@@ -207,9 +274,20 @@ export default function MyVouchers() {
     return () => {
       live = false;
     };
-  }, [open]);
+  }, [open, loads]);
 
   if (!open) return null;
+  const showCode = async (ref, brand) => {
+    setCardError('');
+    track('Code Opened On Hubble', { brand: brand || null, all: !ref });
+    try {
+      const token = await idToken();
+      const { url } = await hubbleApi.card(token, ref);
+      setCardUrl(url);
+    } catch {
+      setCardError('Couldn’t open your code right now. Please try again.');
+    }
+  };
   const close = () => {
     setRemoving(null);
     setVouchersOpen(false);
@@ -217,11 +295,7 @@ export default function MyVouchers() {
   const logOut = async () => {
     track('Logged Out');
     await signOut().catch(() => {});
-    try {
-      localStorage.removeItem('dealo_buyer_name');
-    } catch {
-      /* private mode */
-    }
+    saveBuyerName('');
     setSignedIn(false);
     setAccount({ status: 'out' });
   };
@@ -245,19 +319,42 @@ export default function MyVouchers() {
       >
         <Flex justify="space-between" align="center" mb="14px">
           <Text fontSize="20px" fontWeight={800}>
-            Your account
+            {account.status === 'out' ? 'Log in or sign up' : 'Your account'}
           </Text>
           <Button aria-label="Close" variant="ghost" size="sm" onClick={close}>
             <I.x size={18} />
           </Button>
         </Flex>
 
-        <Savings account={account} />
+        {account.status === 'out' ? (
+          <Box mb="20px">
+            <PhoneLogin
+              place="account"
+              intro={
+                <Text fontSize="14px" color="text2">
+                  See every voucher you’ve bought, with its code, on any phone.
+                </Text>
+              }
+              onDone={() => setLoads((n) => n + 1)}
+            />
+          </Box>
+        ) : (
+          <Savings account={account} onShowCode={showCode} />
+        )}
+        {cardError && (
+          <Text fontSize="13px" color="danger" fontWeight={600} mb="14px">
+            {cardError}
+          </Text>
+        )}
+        {cardUrl && <HubbleCard url={cardUrl} onClose={() => setCardUrl(null)} />}
 
-        <Text fontSize="13px" fontWeight={800} color="text2" letterSpacing=".04em" mb="10px">
-          CODES ON THIS PHONE
-        </Text>
-        {vouchers.length === 0 ? (
+        {/* Logged out with nothing saved here: the login is all there is. */}
+        {(account.status !== 'out' || vouchers.length > 0) && (
+          <Text fontSize="13px" fontWeight={800} color="text2" letterSpacing=".04em" mb="10px">
+            CODES ON THIS PHONE
+          </Text>
+        )}
+        {account.status === 'out' && vouchers.length === 0 ? null : vouchers.length === 0 ? (
           <Text fontSize="14px" color="text2">
             Codes you buy on this phone show up here.
           </Text>

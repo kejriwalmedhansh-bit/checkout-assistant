@@ -136,7 +136,7 @@ function SidebarFooter({ onNavigate, collapsed, onOpenOnboarding, onOpenVouchers
 
   return (
     <Flex direction="column" gap="3px">
-      {/* Only once someone has logged in or bought a voucher on this phone. */}
+      {/* For everyone: logged out, it opens the login. */}
       {onOpenVouchers && (
         <SidebarFooterItem
           icon={AccountIcon}

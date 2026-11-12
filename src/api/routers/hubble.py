@@ -10,6 +10,12 @@
     GET  /hubble/orders/latest   (Authorization: Bearer <id_token>)
         -> the shopper's voucher from the last 30 minutes, for the
            "voucher ready" screen
+    POST /hubble/login {id_token}
+        -> after the SMS code: saves the number, returns the name we know (if any)
+    POST /hubble/account {id_token, name, email}
+        -> a new number's name and email (asked once, after the code)
+    GET  /hubble/card[?ref=]     (Authorization: Bearer <id_token>)
+        -> link to the shopper's gift card (code + PIN) on Hubble's own page
     GET  /hubble/me              (Authorization: Bearer <id_token>)
         -> everything the shopper bought and saved, for "Your account"
            (no codes: those stay on the shopper's phone)
@@ -187,6 +193,48 @@ async def latest_order(authorization: str = Header(default="")) -> dict:
     }
 
 
+class LoginRequest(BaseModel):
+    id_token: str
+
+
+@router.post("/login")
+async def login(body: LoginRequest) -> dict:
+    """Right after the SMS code, from either login (Your account or the buy
+    flow): notes the number as a buyer and says whether we already know
+    their name. Phone first, like the big apps: only new numbers are asked
+    for a name (then POST /hubble/account)."""
+    try:
+        login = await buyer_service.verify_login(body.id_token)
+    except ValueError as exc:
+        raise HTTPException(401, str(exc)) from exc
+    known = await buyer_service.buyer_profile(login["uid"])
+    await buyer_service.save_buyer(login["uid"], login["phone"], None, None, False)
+    name = (known.get("name") or "").strip()
+    return {"name": name or None, "email": known.get("email") or None, "new": not name}
+
+
+class AccountRequest(BaseModel):
+    id_token: str
+    name: str
+    email: str | None = None
+
+
+@router.post("/account")
+async def account(body: AccountRequest) -> dict:
+    """Logging in from "Your account" without buying anything: keeps the
+    shopper's name (and email, if given) against their number, the same row
+    a purchase would create. Firebase gives a number the same login on every
+    browser, so /me then shows purchases made anywhere."""
+    try:
+        login = await buyer_service.verify_login(body.id_token)
+    except ValueError as exc:
+        raise HTTPException(401, str(exc)) from exc
+    name = body.name.strip()[:80] or None
+    email = (body.email or "").strip()[:120] or None
+    await buyer_service.save_buyer(login["uid"], login["phone"], name, email, False)
+    return {"ok": True}
+
+
 @router.get("/me")
 async def me(authorization: str = Header(default="")) -> dict:
     try:
@@ -203,6 +251,8 @@ async def me(authorization: str = Header(default="")) -> dict:
             "amount": float(r["amount"]) if r.get("amount") is not None else None,
             "saved": float(r["discount"]) if r.get("discount") is not None else 0.0,
             "at": r.get("created_at"),
+            # Opens this card's code on Hubble (GET /hubble/card).
+            "ref": r.get("hubble_ref"),
         }
         for r in rows
     ]
@@ -212,3 +262,17 @@ async def me(authorization: str = Header(default="")) -> dict:
         "total_bought": round(sum(p["amount"] or 0 for p in purchases), 2),
         "purchases": purchases,
     }
+
+
+@router.get("/card")
+async def card(ref: str | None = Query(default=None), authorization: str = Header(default="")) -> dict:
+    """The link to one of the shopper's gift cards on Hubble (code + PIN),
+    or to all of them without `ref`: how codes reach every phone and laptop
+    without Dealo keeping them. The login token makes Hubble show only this
+    shopper's own cards."""
+    try:
+        login = await buyer_service.verify_login(authorization.removeprefix("Bearer ").strip())
+    except ValueError as exc:
+        raise HTTPException(401, str(exc)) from exc
+    token = hubble_service.sso_token(login["uid"], login["phone"], None, None)
+    return {"url": hubble_service.card_url(token, ref)}

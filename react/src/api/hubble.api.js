@@ -23,9 +23,24 @@ export const hubbleApi = {
     const { data } = await apiClient.post('/hubble/session', body);
     return data;
   },
+  /** POST /hubble/login -> { name, email, new } — right after the SMS code; new numbers are then asked their name. */
+  login: async (idToken) => {
+    const { data } = await apiClient.post('/hubble/login', { id_token: idToken });
+    return data;
+  },
+  /** POST /hubble/account -> { ok } — logging in from "Your account" without buying. */
+  account: async (body) => {
+    const { data } = await apiClient.post('/hubble/account', body);
+    return data;
+  },
   /** GET /hubble/me -> { phone, total_saved, total_bought, purchases:[{brand, amount, saved, at}] } — "Your account". */
   me: async (idToken) => {
     const { data } = await apiClient.get('/hubble/me', { headers: { Authorization: `Bearer ${idToken}` } });
+    return data;
+  },
+  /** GET /hubble/card[?ref] -> { url } — Hubble's own page for one gift card (code + PIN), or all of them. */
+  card: async (idToken, ref = null) => {
+    const { data } = await apiClient.get('/hubble/card', { params: ref ? { ref } : {}, headers: { Authorization: `Bearer ${idToken}` } });
     return data;
   },
   /** GET /hubble/orders/latest -> { found, brand, vouchers:[{code,pin,amount}] } */

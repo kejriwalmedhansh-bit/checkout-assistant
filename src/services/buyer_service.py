@@ -105,17 +105,37 @@ async def save_buyer(uid: str, phone: str, name: str | None, email: str | None, 
         print(f"[buyers] could not save buyer {uid}: {exc}")
 
 
+async def buyer_profile(uid: str) -> dict:
+    """The name and email we already have for this login, so a returning
+    shopper is never asked again. Empty when Supabase is off or down: the
+    worst case is asking for a name we had."""
+    s = get_settings()
+    if not s.SUPABASE_URL or not s.SUPABASE_SECRET_KEY:
+        return {}
+    params = {"select": "name,email", "firebase_uid": f"eq.{uid}", "limit": "1"}
+    try:
+        async with httpx.AsyncClient(timeout=10) as client:
+            resp = await client.get(f"{s.SUPABASE_URL}/rest/v1/buyers", headers=_headers(), params=params)
+            resp.raise_for_status()
+            rows = resp.json()
+    except httpx.HTTPError as exc:
+        print(f"[buyers] could not read buyer {uid}: {exc}")
+        return {}
+    return rows[0] if rows else {}
+
+
 _DEALO_ID = re.compile(r"^[A-Za-z0-9_-]{8,64}$")
 
 
 async def purchases_for(uid: str, environment: str) -> list[dict]:
     """The shopper's own finished Hubble orders, newest first, for their
-    "Your account" screen. Never includes codes (they are never stored)."""
+    "Your account" screen. Never includes codes (they are never stored);
+    hubble_ref opens the code on Hubble's own page."""
     s = get_settings()
     if not s.SUPABASE_URL or not s.SUPABASE_SECRET_KEY:
         return []
     params = {
-        "select": "brand,amount,discount,created_at",
+        "select": "brand,amount,discount,created_at,hubble_ref",
         "firebase_uid": f"eq.{uid}",
         "environment": f"eq.{environment}",
         "status": "eq.COMPLETED",
