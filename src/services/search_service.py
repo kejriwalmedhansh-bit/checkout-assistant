@@ -48,6 +48,7 @@ from ..repositories import (
     flipkart_repository,
     maximize_repository,
     searchapi_repository,
+    shopify_repository,
     voucher_repository,
 )
 from . import card_service, hubble_service, product_identity, search_fallbacks, voucher_service
@@ -2593,6 +2594,54 @@ def _deeplink_redirect_target(resp: httpx.Response) -> str | None:
     return None
 
 
+def _read_shopify_link(url: str) -> tuple[str, float | None, str | None, str | None] | None:
+    """(title, live_price, live_merchant, image) for a product link on one of
+    the 87 Shopify shops Dealo knows, read from the shop's own clean product
+    data (shopify_repository), or None to fall back to the page read.
+
+    Added 2026-11-12. The page read guesses a name from <title>/og:title and a
+    price from structured data that only some shops publish; Shopify's product
+    data states the exact name, the brand and the pasted variant's own price.
+    A Shopify shop in the list is the brand's own website, so its price is
+    trusted the same way _fetch_url_page trusts a brand site's offer price."""
+    host = (urlsplit(url).hostname or "").lower()
+    if not shopify_repository.is_shopify_host(host):
+        return None
+    product = shopify_repository.read_product(url)
+    if not product:
+        return None
+    # The shop's name from Dealo's own website list, not Shopify's "vendor":
+    # that field is often the shop's account name ("boAtlifestylein" on
+    # boat-lifestyle.com), and the voucher lookup matches on the list's name.
+    # Every shop in the Shopify list is a brand's or retailer's own website,
+    # so the voucher for that name is spent right there at this price.
+    shop = _clean_brand_name(domain_brand_repository.brand_for_domain(host))
+    vendor = _clean_brand_name(product.get("vendor"))
+    if shop and vendor:
+        shop_sig, vendor_sig = _brand_signature(shop), _brand_signature(vendor)
+        same_brand = shop.split()[0].lower() == vendor.split()[0].lower()
+        if same_brand and shop_sig != vendor_sig and not vendor_sig.startswith(shop_sig):
+            # The list names one particular card, not the brand: giva.co is
+            # "GIVA Silver Coin" there, while this bracelet is "GIVA
+            # Jewellery". That name would pick the 5% coin card over the 13%
+            # jewellery one, so the page read (which settles on "GIVA") decides.
+            logger.info("[url-search] shopify %s: shop listed as %r, product says %r; using the page read",
+                        host, shop, vendor)
+            return None
+    # Brand for the title: the shop's own name when the vendor is just its
+    # account name (or missing); the vendor when it is a different real brand
+    # (a book publisher on crossword.in), as the page read would do.
+    if not vendor or (shop and _brand_signature(shop) in _brand_signature(vendor)):
+        title_brand = shop
+    else:
+        title_brand = vendor
+    title = _title_with_brand(product["title"], title_brand)
+    price = product.get("price") if shop else None
+    merchant = shop if price is not None else None
+    logger.info("[url-search] shopify %s: %r price=%s merchant=%s", host, title, price, merchant)
+    return title, price, merchant, product.get("image")
+
+
 def _fetch_url_page(url: str) -> tuple[str | None, float | None, str | None, str | None, str]:
     """One GET for a pasted link (redirects resolved — amzn.in -> amazon.in).
     Returns (title, live_price, live_merchant, image, final_url).
@@ -2750,6 +2799,10 @@ def _fetch_url_page(url: str) -> tuple[str | None, float | None, str | None, str
             price_merchant if render_price is not None else None,
             render_image,
         )
+
+    shopify = _read_shopify_link(url)
+    if shopify is not None:
+        return (*shopify, final_url)
 
     try:
         timeout = float(get_settings().LINK_TITLE_TIMEOUT)
@@ -3821,6 +3874,26 @@ def _offer_rows(token: str, pages: int, tag: str) -> list[dict]:
     return rows
 
 
+# How long the brand's own Shopify search may take, counted from when the
+# store lists started (it runs alongside them). A plain read takes under a
+# second; Context.dev, when the shop blocks us, a few.
+_SHOP_SEARCH_BUDGET = 12.0
+
+
+def _shopify_shop_for_brand(brand: str) -> tuple[str, str] | None:
+    """(host, shop name) when `brand` has its own Shopify shop, else None.
+    Matched on the shop name in Dealo's website list, so "boAt" finds
+    boat-lifestyle.com ("Boat")."""
+    sig = _brand_signature(brand or "")
+    if not sig:
+        return None
+    for domain, host in shopify_repository.shops().items():
+        shop = _clean_brand_name(domain_brand_repository.brand_for_domain(domain))
+        if shop and _brand_signature(shop) == sig:
+            return host, shop
+    return None
+
+
 def _discover_exact_offers(
     identity: dict, product_token: str, full_title: str, tag: str = "[routes]",
     picked_price: float | None = None,
@@ -3897,6 +3970,11 @@ def _discover_exact_offers(
     flipkart_pool = ThreadPoolExecutor(max_workers=1)
     flipkart_f = flipkart_pool.submit(flipkart_repository.search, id_query)
     flipkart_started = time.monotonic()
+    # The brand's own shop, when it runs on Shopify: its search box answers
+    # with today's price and stock, often missing from Google (2026-11-12).
+    brand_shop = _shopify_shop_for_brand(brand)
+    shop_pool = ThreadPoolExecutor(max_workers=1) if brand_shop else None
+    shop_f = shop_pool.submit(shopify_repository.search, brand_shop[0], id_query, brand_shop[1]) if brand_shop else None
     # Round 2, all at once: every page of every exact entry's store list, and
     # - for big stores that carry this kind of product (they showed up in the
     # searches) but gave no exact match - a "<product> <store>" search, which
@@ -3941,6 +4019,14 @@ def _discover_exact_offers(
         else:
             logger.info("%s Flipkart search slower than %ss, left out", tag, _FLIPKART_SEARCH_BUDGET)
         lap("flipkart")
+    if shop_f:
+        done, _ = wait([shop_f], timeout=max(0, _SHOP_SEARCH_BUDGET - (time.monotonic() - flipkart_started)))
+        shop_pool.shutdown(wait=False)
+        if done:
+            rows += shop_f.result()
+        else:
+            logger.info("%s %s's own search slower than %ss, left out", tag, brand_shop[1], _SHOP_SEARCH_BUDGET)
+        lap("brand_shop")
 
     def _verified(rows: list[dict]) -> list[dict]:
         out = []
