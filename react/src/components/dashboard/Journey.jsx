@@ -61,8 +61,14 @@ export default function Journey({ rec, payingByCard = false, skipVoucher = false
   // in-store fact is said once, on step 2.
   const shopName = rec.merchant.replace(/\s*\(in-store\)\s*$/i, '');
   const sellerLink = rec.sellers?.[0]?.link;
-  const [checked, setChecked] = useState({ voucher: false, checkout: false });
-  const [pending, setPending] = useState({ voucher: false, checkout: false });
+  // A Gift Voucher that only works in the shop's stores (12 Nov 2026): the
+  // steps become check-your-store → voucher → pay at the counter, since the
+  // card is no use if the nearby store doesn't have the item.
+  // Needs the store link from the server; without it (an older backend) the
+  // usual two steps show, rather than a store step with no button.
+  const inStore = Boolean(v?.offline_only && v?.store_finder_url);
+  const [checked, setChecked] = useState({ store: false, voucher: false, checkout: false });
+  const [pending, setPending] = useState({ store: false, voucher: false, checkout: false });
   // "Hide" silences a hint for this visit only; the sidebar switch is the
   // durable off. The voucher step has no dismissible hint of its own — its
   // "why this helps" explanation lives behind the discount line's own
@@ -161,8 +167,9 @@ export default function Journey({ rec, payingByCard = false, skipVoucher = false
 
   // Which step is next — moves forward as steps are checked off, so the
   // glow travels through the flow instead of sitting on one fixed step.
-  const currentStep = checked.voucher ? 'checkout' : 'voucher';
-  const STEP_INDEX = { voucher: 0, checkout: 1 };
+  const currentStep = inStore && !checked.store ? 'store' : checked.voucher ? 'checkout' : 'voucher';
+  const STEP_INDEX = inStore ? { store: 0, voucher: 1, checkout: 2 } : { voucher: 0, checkout: 1 };
+  const totalSteps = inStore ? 3 : 2;
 
   // Which step's full detail is on screen right now (see JourneyPanels).
   // Tapping a chip or swiping sets this directly for browsing; completing a
@@ -243,20 +250,34 @@ export default function Journey({ rec, payingByCard = false, skipVoucher = false
           two amounts add up to "You pay" below, so there's no separate sum. */}
       <JourneyChips
         steps={[
+          ...(inStore
+            ? [{
+                key: 'store',
+                icon: I.store,
+                label: 'Store',
+                sub: 'In stock?',
+                done: checked.store,
+              }]
+            : []),
           {
             key: 'voucher',
             icon: I.ticket,
             label: hubble ? 'Dealo' : sourceLabel,
-            sub: `Voucher · ${fmt(hubble ? Math.round(hubble.you_pay) : paid)}`,
+            // Three tabs share the row in store, so each keeps to a word.
+            sub: inStore
+              ? fmt(hubble ? Math.round(hubble.you_pay) : paid)
+              : `Voucher · ${fmt(hubble ? Math.round(hubble.you_pay) : paid)}`,
             done: checked.voucher,
           },
           {
             key: 'checkout',
             icon: I.cart,
-            label: shopName,
-            sub: remainder
-              ? `Pay the rest · ${fmt(remainder)}`
-              : 'Pay with it · ₹0 more',
+            label: inStore ? 'Pay' : shopName,
+            sub: inStore
+              ? remainder ? `+ ${fmt(remainder)}` : 'In store'
+              : remainder
+                ? `Pay the rest · ${fmt(remainder)}`
+                : 'Pay with it · ₹0 more',
             done: checked.checkout,
           },
         ]}
@@ -266,6 +287,35 @@ export default function Journey({ rec, payingByCard = false, skipVoucher = false
 
       <JourneyPanels activeIndex={viewIndex} onChangeIndex={setViewIndex}>
         {[
+        ...(inStore
+          ? [
+            <JourneyRow
+              key="store"
+              tone="brand"
+              icon={I.store}
+              label={`Check your nearest ${shopName} store`}
+              current={currentStep === 'store'}
+              stepNumber={1}
+              totalSteps={3}
+              nextLabel="Step 2 — Buy the Gift Voucher"
+              facts={
+                <>
+                  <Text fontSize="12.5px" color="text2">Ask the store for</Text>
+                  <Text fontSize="16px" color="text" fontWeight={800} lineHeight={1.3} mt="2px">
+                    {rec.title || 'this item'}
+                  </Text>
+                  <Text fontSize="12.5px" color="text2" mt="6px">
+                    This Gift Voucher works only in {shopName} stores, and store stock can differ from the website.
+                  </Text>
+                </>
+              }
+              link={v.store_finder_url ? { href: v.store_finder_url, label: 'Find a store near me ↗' } : undefined}
+              checked={checked.store}
+              pending={pending.store}
+              onCheck={check('store')}
+            />,
+          ]
+          : []),
         hubble ? (
           <Box key="voucher" pt="4px">
             <HubbleVoucherPanel
@@ -281,13 +331,13 @@ export default function Journey({ rec, payingByCard = false, skipVoucher = false
           key="voucher"
           tone="voucher"
           icon={I.ticket}
-          label={`Buy a ${shopName} voucher`}
+          label={`Buy ${/^[aeiou]/i.test(shopName) ? 'an' : 'a'} ${shopName} voucher`}
           badge={`on ${sourceLabel} · ${priceSet?.pct}% off`}
           current={currentStep === 'voucher'}
-          stepNumber={1}
-          totalSteps={2}
-          nextLabel={`Step 2 — Pay at ${shopName}`}
-          preCheck={sellerLink ? { href: affiliateUrl(sellerLink, 'check_page_step'), merchantName: shopName } : undefined}
+          stepNumber={inStore ? 2 : 1}
+          totalSteps={totalSteps}
+          nextLabel={inStore ? `Step 3 — Pay at the ${shopName} store` : `Step 2 — Pay at ${shopName}`}
+          preCheck={sellerLink && !inStore ? { href: affiliateUrl(sellerLink, 'check_page_step'), merchantName: shopName } : undefined}
           facts={
             singleVoucher ? (
               <Text fontSize="17px" color="text" fontWeight={800} fontFamily="mono">
@@ -332,14 +382,18 @@ export default function Journey({ rec, payingByCard = false, skipVoucher = false
           key="checkout"
           tone="checkout"
           icon={I.cart}
-          label={`Pay at ${shopName}${v.offline_only ? ' (in store)' : ''}`}
+          label={inStore ? `Pay at the ${shopName} store` : `Pay at ${shopName}`}
           facts={
             <>
               {/* The shop's own redeem step leads; it used to sit in the
                   hint underneath, which now stays off for this step so the
                   same sentence isn't shown twice. */}
               <Text fontSize="16px" color="text" fontWeight={800} lineHeight={1.3}>
-                {redeemStepSentence ? redeemStepSentence[0].toUpperCase() + redeemStepSentence.slice(1) : 'Apply your voucher code at checkout.'}
+                {redeemStepSentence
+                  ? redeemStepSentence[0].toUpperCase() + redeemStepSentence.slice(1)
+                  : inStore
+                    ? 'Tell the cashier before billing, then show your Gift Voucher code.'
+                    : 'Apply your voucher code at checkout.'}
               </Text>
               <Text fontSize="12.5px" color="text2" mt="6px">
                 {remainder ? `Then pay the last ${fmt(remainder)} any way you like` : 'It covers your whole order'}
@@ -359,12 +413,16 @@ export default function Journey({ rec, payingByCard = false, skipVoucher = false
               )}
             </>
           }
-          link={sellerLink ? { href: affiliateUrl(sellerLink, 'redeem_step'), label: `Open ${shopName} ↗` } : undefined}
+          link={
+            inStore
+              ? v.store_finder_url ? { href: v.store_finder_url, label: 'Directions to the store ↗' } : undefined
+              : sellerLink ? { href: affiliateUrl(sellerLink, 'redeem_step'), label: `Open ${shopName} ↗` } : undefined
+          }
           checked={checked.checkout}
           pending={pending.checkout}
           current={currentStep === 'checkout'}
-          stepNumber={2}
-          totalSteps={2}
+          stepNumber={totalSteps}
+          totalSteps={totalSteps}
           onCheck={check('checkout')}
         />,
         ]}
