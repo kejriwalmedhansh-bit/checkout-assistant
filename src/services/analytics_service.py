@@ -10,7 +10,9 @@ events carry $device_id / $user_id):
                 /go and /out. A WhatsApp phone gets a scrambled one from
                 whatsapp_device_id() — that is the id that leaves our systems
                 (affiliate sub-ids), never the phone number itself.
-  - $user_id    a known person. Only WhatsApp has one: wa:<phone>.
+  - $user_id    a known person. Only WhatsApp has one: wa:<scrambled phone>
+                from whatsapp_user_id(). The phone number itself is never
+                sent to Mixpanel (privacy page promise).
 The first event carrying both joins every earlier event of that device to
 the person, which is how a website visit, an affiliate click and a purchase
 reported days later all land on one WhatsApp user.
@@ -57,6 +59,12 @@ def whatsapp_device_id(phone: str) -> str:
     secret = get_settings().ANALYTICS_ID_SECRET.encode()
     digest = hmac.new(secret, phone.encode(), hashlib.sha256).hexdigest()
     return f"wa-{digest[:24]}"
+
+
+def whatsapp_user_id(phone: str) -> str:
+    """The WhatsApp person's Mixpanel id. Same scrambling as the device id, so
+    it is stable per phone but never reveals the number."""
+    return "wa:" + whatsapp_device_id(phone)[len("wa-"):]
 
 
 def is_internal_phone(phone: str) -> bool:
@@ -135,11 +143,10 @@ def whatsapp_event(event: str, phone: str, properties: dict | None = None, *, de
     return build_event(
         event,
         surface="whatsapp",
-        user_id=f"wa:{phone}",
+        user_id=whatsapp_user_id(phone),
         device_id=device_id or whatsapp_device_id(phone),
         properties={
             "channel": "whatsapp",
-            "phone": phone,
             "is_internal_tester": is_internal_phone(phone),
             **(properties or {}),
         },

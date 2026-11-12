@@ -9,6 +9,7 @@
  "pvrinox": ["PVR"],
  "inox": ["PVR"],
  "dominospizza": ["Dominos"],
+ "swiggyinstamart": ["Swiggy"],
  "archiesgallery": ["Archies"],
  "bathandbodyworks": ["Bath & Body Works"],
  "marksandspencer": ["Marks & Spencer"],
@@ -46,5 +47,7 @@
  "tatacliqfashion": ["Tata Cliq"],
  "liberty": ["Liberty Online", "Liberty Shoes"],
  "streetfoodsbypunjabgrill": ["Street Foods By Punjab Grill"],
- "sunglasshut": ["Sunglass Hut"]
+ "sunglasshut": ["Sunglass Hut"],
+ "adventra": ["Adventra Sports"],
+ "naturals": ["Naturals Salons"]
 }

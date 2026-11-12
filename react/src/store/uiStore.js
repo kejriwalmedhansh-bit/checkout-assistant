@@ -38,6 +38,15 @@ export const useUiStore = create(
       // them. Not persisted: it describes this visit only.
       buyLinkClicked: false,
       markBuyLinkClicked: () => set({ buyLinkClicked: true }),
+
+      // The Dealo (Hubble) voucher offer the journey is currently showing,
+      // or null. The savings box at the top of the results page reads it so
+      // its "YOU SAVE" is the same figure as the voucher card's: on Kartik's
+      // demo (2026-11-04) the top box said ₹300 (the partner voucher on the
+      // full ₹15,000) while the card said ₹200 (Dealo's voucher covers
+      // ₹10,000, the rest is paid at the shop). Not persisted: one result.
+      hubbleOffer: null,
+      setHubbleOffer: (offer) => set({ hubbleOffer: offer }),
     }),
     {
       name: 'dealo-ui',

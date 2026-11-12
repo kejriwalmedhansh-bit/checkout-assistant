@@ -26,6 +26,7 @@ import { usePageHeader } from '@/hooks/usePageHeader';
 import { usePageTitle } from '@/hooks/usePageTitle';
 import { ROUTES } from '@/routes/paths';
 import { useSearchStore } from '@/store/searchStore';
+import { useUiStore } from '@/store/uiStore';
 import { friendlyMessage } from '@/utils/errors';
 import {
   affiliateUrl,
@@ -82,6 +83,7 @@ export default function ResultsPage() {
   const cardsAnswer = useCardsStore((s) => s.answer);
   const editingCards = useCardsStore((s) => s.editing);
   const saveCards = useCardsStore((s) => s.save);
+  const hubbleOffer = useUiStore((s) => s.hubbleOffer);
   const askCards = editingCards || (!cardsAnswer && shouldAskForCards(selectedTitle || result?.source?.name, selectedPrice));
   const cardPicker = askCards && (
     <CardPicker
@@ -294,12 +296,16 @@ export default function ResultsPage() {
                 user has to scroll past to find what to do. */}
             <Flex direction="column" gap={0}>
               {(() => {
-                const voucherOnlySaving = calcSaving(result, activeRoute) || 0;
+                // When the journey sells Dealo's own voucher, the box shows
+                // that voucher's saving and total, not the partner plan's —
+                // the two green figures must agree (see uiStore.hubbleOffer).
+                const dealo = hubbleOffer && hubbleOffer.you_save > 0 ? hubbleOffer : null;
+                const voucherOnlySaving = dealo ? Math.round(dealo.you_save) : calcSaving(result, activeRoute) || 0;
                 return voucherOnlySaving > 0 ? (
                   <>
                     <SavingsBar
                       originalPrice={calcOriginal(result, activeRoute)}
-                      finalPrice={calcFinal(activeRoute)}
+                      finalPrice={dealo ? Math.round(dealo.you_pay + (dealo.rest_at_shop || 0)) : calcFinal(activeRoute)}
                       saving={voucherOnlySaving}
                       voucherRequired={!!activeRoute.voucher}
                     />

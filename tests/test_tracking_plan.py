@@ -221,9 +221,19 @@ def test_whatsapp_events_carry_person_and_device():
     from src.services import analytics_service as a
 
     props = a.whatsapp_event("WhatsApp Search", "919812345678")["properties"]
-    assert props["$user_id"] == props["distinct_id"] == "wa:919812345678"
+    assert props["$user_id"] == props["distinct_id"] == a.whatsapp_user_id("919812345678")
+    assert props["$user_id"].startswith("wa:")
     assert props["$device_id"] == a.whatsapp_device_id("919812345678")
     assert a.whatsapp_device_id("919812345678") == a.whatsapp_device_id("919812345678")
+
+
+def test_whatsapp_events_never_contain_the_phone():
+    from src.services import analytics_service as a
+
+    phone = "919812345678"
+    event = a.whatsapp_event("WhatsApp Search", phone, {"query": "nykaa"}, device_id="web-visitor-1")
+    assert phone not in str(event)
+    assert "phone" not in event["properties"]
 
 
 def _js_ref_code(visitor_id: str) -> str:
