@@ -102,3 +102,29 @@ def test_card_link_is_for_the_logged_in_shopper_only(logged_in, monkeypatch):
     with pytest.raises(HTTPException) as err:
         asyncio.run(hubble.card(None, "Bearer bad"))
     assert err.value.status_code == 401
+
+
+def test_login_tells_a_new_number_from_a_known_one(logged_in, monkeypatch):
+    saved = []
+
+    async def save(uid, phone, name, email, optin):
+        saved.append((uid, phone, name, email, optin))
+    monkeypatch.setattr(hubble.buyer_service, "save_buyer", save)
+
+    async def known(uid):
+        return {"name": "Asha", "email": None}
+    monkeypatch.setattr(hubble.buyer_service, "buyer_profile", known)
+    assert asyncio.run(hubble.login(hubble.LoginRequest(id_token="good"))) == {"name": "Asha", "email": None, "new": False}
+
+    async def unknown(uid):
+        return {}
+    monkeypatch.setattr(hubble.buyer_service, "buyer_profile", unknown)
+    assert asyncio.run(hubble.login(hubble.LoginRequest(id_token="good")))["new"] is True
+    # The number is noted either way, and an empty name never wipes one we have.
+    assert saved == [("u1", "+919999999999", None, None, False)] * 2
+
+
+def test_login_needs_a_real_login(logged_in):
+    with pytest.raises(HTTPException) as err:
+        asyncio.run(hubble.login(hubble.LoginRequest(id_token="bad")))
+    assert err.value.status_code == 401

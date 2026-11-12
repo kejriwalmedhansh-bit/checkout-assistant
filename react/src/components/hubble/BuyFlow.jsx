@@ -3,13 +3,13 @@ import { Box, Button, Checkbox, Flex, Input, InputGroup, InputLeftAddon, Portal,
 
 import { I } from '@/components/common/icons';
 import { hubbleApi } from '@/api/hubble.api';
-import { confirmCode, currentUser, idToken, sendCode } from '@/lib/firebase';
-import { markPending, readBuyerName as readName, saveBuyerName as saveName, saveOrder, setSignedIn, setVouchersOpen } from '@/lib/myVouchers';
+import { currentUser, idToken } from '@/lib/firebase';
+import { markPending, readBuyerName as readName, saveOrder, setSignedIn, setVouchersOpen } from '@/lib/myVouchers';
 import { getDealoId, soldEventProps, track } from '@/utils/analytics';
 import { fmt } from '@/utils/format';
 
 import CodeRow from './CodeRow';
-import ResendCode from './ResendCode';
+import PhoneLogin from './PhoneLogin';
 import { VoucherSteps } from './VoucherFacts';
 
 // Web pages open in a new tab; app links (upi://, phonepe://, myntra://) are
@@ -40,25 +40,20 @@ export default function BuyFlow({ offer, merchant, price, shopLink, placement, b
   };
   const [step, setStep] = useState('loading');
   const [name, setName] = useState(readName);
-  const [phone, setPhone] = useState('');
   const [optin, setOptin] = useState(false);
-  const [code, setCode] = useState('');
   const [error, setError] = useState('');
   const [busy, setBusy] = useState(false);
-  // Checking the typed code (kept apart from busy so Resend's timer survives).
-  const [checking, setChecking] = useState(false);
   const [storeUrl, setStoreUrl] = useState('');
   const [order, setOrder] = useState(null);
   const [slow, setSlow] = useState(false);
-  const confirmation = useRef(null);
   const paid = useRef(false);
 
-  const openStore = async (token) => {
+  const openStore = async (token, buyerName = name) => {
     setBusy(true);
     try {
       const { url } = await hubbleApi.session({
         id_token: token,
-        name: name.trim() || readName(),
+        name: (buyerName || '').trim() || readName(),
         marketing_optin: optin,
         merchant,
         price,
@@ -76,7 +71,7 @@ export default function BuyFlow({ offer, merchant, price, shopLink, placement, b
     } catch {
       track('Store Open Failed', { ...ev, reason: 'session' });
       setError('Something went wrong. Please try again.');
-      setStep('details');
+      setStep('retry');
     } finally {
       setBusy(false);
     }
@@ -87,7 +82,8 @@ export default function BuyFlow({ offer, merchant, price, shopLink, placement, b
     (async () => {
       const user = await currentUser();
       if (!live) return;
-      if (user && readName()) openStore(await user.getIdToken());
+      // Logged in on this browser already: straight to payment.
+      if (user) openStore(await user.getIdToken());
       else setStep('details');
     })();
     return () => {
@@ -181,42 +177,11 @@ export default function BuyFlow({ offer, merchant, price, shopLink, placement, b
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [step]);
 
-  const phoneOk = /^[6-9]\d{9}$/.test(phone);
-  // Also the Resend link's action. The robot check lives in one hidden
-  // spot that stays on screen for both, so Firebase can run it again.
-  const getCode = async () => {
+  const retry = async () => {
     setError('');
-    setBusy(true);
-    try {
-      saveName(name.trim());
-      confirmation.current = await sendCode(phone, 'dealo-buy-recaptcha');
-      track('Login Code Sent', ev);
-      setCode('');
-      setStep('code');
-      return true;
-    } catch (err) {
-      console.error('[login] send code failed', err?.code, err?.message);
-      setError("Couldn't send the code. Check the number and try again.");
-      return false;
-    } finally {
-      setBusy(false);
-    }
-  };
-
-  const onCode = async (value) => {
-    const digits = value.replace(/\D/g, '').slice(0, 6);
-    setCode(digits);
-    if (digits.length !== 6) return;
-    setError('');
-    setChecking(true);
-    try {
-      const token = await confirmCode(confirmation.current, digits);
-      await openStore(token);
-    } catch {
-      setError('That code didn’t match. Try again.');
-      setCode('');
-      setChecking(false);
-    }
+    const user = await currentUser().catch(() => null);
+    if (user) openStore(await user.getIdToken());
+    else setStep('details');
   };
 
   // An order can hold several cards (e.g. 2 × ₹500): show every one.
@@ -279,8 +244,6 @@ export default function BuyFlow({ offer, merchant, price, shopLink, placement, b
           onClick={(e) => e.stopPropagation()}
         >
           <Box w="38px" h="5px" borderRadius="3px" bg="borderStrong" mx="auto" mb="14px" />
-          {/* Firebase's invisible robot check for "Get code" and "Resend code". */}
-          <div id="dealo-buy-recaptcha" />
 
           {step === 'loading' && (
             <Text textAlign="center" py="40px" color="text2" fontWeight={600}>
@@ -298,111 +261,38 @@ export default function BuyFlow({ offer, merchant, price, shopLink, placement, b
                   {offer.brand_name} · {fmt(Math.round(offer.you_pay))}
                 </Text>
               </Flex>
-              <Box as="label">
-                <Text fontSize="13px" fontWeight={700} color="text2" mb="6px">
-                  Your name
-                </Text>
-                <Input value={name} onChange={(e) => setName(e.target.value)} autoComplete="name" h="54px" borderRadius="14px" fontSize="17px" fontWeight={600} />
-              </Box>
-              <Box as="label">
-                <Text fontSize="13px" fontWeight={700} color="text2" mb="6px">
-                  Mobile number
-                </Text>
-                <InputGroup h="54px">
-                  <InputLeftAddon h="54px" fontFamily="mono" fontWeight={600} borderLeftRadius="14px" bg="surface2" border="1px solid" borderColor="border" color="text2">
-                    +91
-                  </InputLeftAddon>
-                  <Input
-                    type="tel"
-                    inputMode="numeric"
-                    autoComplete="tel-national"
-                    value={phone}
-                    onChange={(e) => setPhone(e.target.value.replace(/\D/g, '').slice(-10))}
-                    h="54px"
-                    borderRightRadius="14px"
-                    fontFamily="mono"
-                    fontSize="17px"
-                    fontWeight={600}
-                  />
-                </InputGroup>
-              </Box>
-              <Checkbox isChecked={optin} onChange={(e) => setOptin(e.target.checked)} size="lg" colorScheme="blue">
-                <Text fontSize="13px" fontWeight={600}>
-                  Send me deals and updates on WhatsApp
-                </Text>
-              </Checkbox>
-              {error && (
-                <Text fontSize="13px" color="danger" fontWeight={600}>
-                  {error}
-                </Text>
-              )}
-              <Button
-                                onClick={() => getCode()}
-                isDisabled={!name.trim() || !phoneOk}
-                isLoading={busy}
-                h="56px"
-                borderRadius="pill"
-                bg="amber"
-                color="white"
-                fontSize="17px"
-                fontWeight={800}
-                rightIcon={<I.arrowRight size={18} />}
-                _hover={{ bg: 'amber' }}
-              >
-                Get code by SMS
-              </Button>
-              <Text fontSize="13px" color="text2" textAlign="center">
-                Only for your login and voucher · <a href="/privacy">Privacy</a>
-              </Text>
-            </Flex>
-          )}
-
-          {step === 'code' && (
-            <Flex direction="column" gap="16px">
-              <Flex justify="space-between" align="center">
-                <Box>
-                  <Text fontSize="24px" fontWeight={800} letterSpacing="-.02em">
-                    Enter the code
-                  </Text>
-                  <Text fontFamily="mono" fontSize="13px" color="text2">
-                    Sent by SMS to +91 {phone}
-                  </Text>
-                </Box>
-                <Button variant="link" size="sm" onClick={() => setStep('details')}>
-                  Change
-                </Button>
-              </Flex>
-              <Input
-                autoFocus
-                value={code}
-                onChange={(e) => onCode(e.target.value)}
-                inputMode="numeric"
-                autoComplete="one-time-code"
-                maxLength={6}
-                placeholder="••••••"
-                textAlign="center"
-                letterSpacing=".5em"
-                fontFamily="mono"
-                fontSize="26px"
-                fontWeight={700}
-                h="64px"
-                borderRadius="14px"
-                isDisabled={busy || checking}
-              />
-              {error && (
-                <Text fontSize="13px" color="danger" fontWeight={600}>
-                  {error}
-                </Text>
-              )}
-              {checking ? (
-                <Text textAlign="center" fontSize="14px" fontWeight={700} color="brand">
+              {busy ? (
+                <Text textAlign="center" py="24px" fontSize="15px" fontWeight={700} color="brand">
                   Opening payment…
                 </Text>
               ) : (
-                <div>
-                  <ResendCode onResend={getCode} />
-                </div>
+                <PhoneLogin
+                  place="buy"
+                  trackProps={ev}
+                  phoneExtra={
+                    <Checkbox isChecked={optin} onChange={(e) => setOptin(e.target.checked)} size="lg" colorScheme="blue">
+                      <Text fontSize="13px" fontWeight={600}>
+                        Send me deals and updates on WhatsApp
+                      </Text>
+                    </Checkbox>
+                  }
+                  onDone={({ token, name: buyerName }) => {
+                    setName(buyerName);
+                    openStore(token, buyerName);
+                  }}
+                />
               )}
+            </Flex>
+          )}
+
+          {step === 'retry' && (
+            <Flex direction="column" gap="14px" py="12px" textAlign="center">
+              <Text fontSize="15px" fontWeight={700}>
+                {error || 'Something went wrong. Please try again.'}
+              </Text>
+              <Button onClick={retry} isLoading={busy} h="52px" borderRadius="pill" bg="amber" color="white" fontWeight={800} _hover={{ bg: 'amber' }}>
+                Try again
+              </Button>
             </Flex>
           )}
 

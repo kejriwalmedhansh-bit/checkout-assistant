@@ -1,14 +1,13 @@
 import { useEffect, useRef, useState } from 'react';
-import { Box, Button, Flex, Input, InputGroup, InputLeftAddon, Portal, Text } from '@chakra-ui/react';
+import { Box, Button, Flex, Portal, Text } from '@chakra-ui/react';
 
 import { I } from '@/components/common/icons';
 import { hubbleApi } from '@/api/hubble.api';
-import { confirmCode, idToken, sendCode, signOut } from '@/lib/firebase';
+import { idToken, signOut } from '@/lib/firebase';
 import {
   clearPending,
   forgetVoucher,
   pendingPurchase,
-  readBuyerName,
   saveBuyerName,
   saveOrder,
   setSignedIn,
@@ -20,7 +19,7 @@ import { track } from '@/utils/analytics';
 import { fmt } from '@/utils/format';
 
 import CodeRow from './CodeRow';
-import ResendCode from './ResendCode';
+import PhoneLogin from './PhoneLogin';
 
 const copyText = (text) => navigator.clipboard?.writeText(text).catch(() => {});
 
@@ -205,191 +204,6 @@ const openLink = (link) => {
   else window.location.href = link;
 };
 
-const label = (text) => (
-  <Text fontSize="13px" fontWeight={700} color="text2" mb="6px">
-    {text}
-  </Text>
-);
-
-/**
- * Logged out: name, mobile, optional email → SMS code. The same phone login
- * as the buy flow, so someone who bought on another phone sees those
- * purchases here as soon as the code goes in.
- */
-function LoginForm({ onDone }) {
-  const [step, setStep] = useState('details');
-  const [name, setName] = useState(readBuyerName);
-  const [phone, setPhone] = useState('');
-  const [email, setEmail] = useState('');
-  const [code, setCode] = useState('');
-  const [error, setError] = useState('');
-  const [busy, setBusy] = useState(false);
-  // Checking the typed code (kept apart from busy so Resend's timer survives).
-  const [checking, setChecking] = useState(false);
-  const confirmation = useRef(null);
-  const phoneOk = /^[6-9]\d{9}$/.test(phone);
-  const emailOk = !email.trim() || /^\S+@\S+\.\S+$/.test(email.trim());
-
-  // Also the Resend link's action. The robot check lives in one hidden
-  // spot that stays on screen for both, so Firebase can run it again.
-  const getCode = async () => {
-    setError('');
-    setBusy(true);
-    try {
-      confirmation.current = await sendCode(phone, 'dealo-account-recaptcha');
-      track('Login Code Sent', { placement: 'account' });
-      setCode('');
-      setStep('code');
-      return true;
-    } catch (err) {
-      console.error('[login] send code failed', err?.code, err?.message);
-      setError("Couldn't send the code. Check the number and try again.");
-      return false;
-    } finally {
-      setBusy(false);
-    }
-  };
-
-  const onCode = async (value) => {
-    const digits = value.replace(/\D/g, '').slice(0, 6);
-    setCode(digits);
-    if (digits.length !== 6) return;
-    setError('');
-    setChecking(true);
-    let token;
-    try {
-      token = await confirmCode(confirmation.current, digits);
-    } catch {
-      setError('That code didn’t match. Try again.');
-      setCode('');
-      setChecking(false);
-      return;
-    }
-    saveBuyerName(name.trim());
-    setSignedIn(true);
-    track('Logged In', { placement: 'account' });
-    // Saving the name is a nicety: the login works even if this fails.
-    await hubbleApi.account({ id_token: token, name: name.trim(), email: email.trim() || null }).catch(() => {});
-    onDone();
-  };
-
-  if (step === 'code') {
-    return (
-      <Flex direction="column" gap="14px" mb="20px">
-        <Flex justify="space-between" align="center">
-          <Text fontFamily="mono" fontSize="13px" color="text2">
-            Code sent by SMS to +91 {phone}
-          </Text>
-          <Button variant="link" size="sm" onClick={() => setStep('details')}>
-            Change
-          </Button>
-        </Flex>
-        <Input
-          autoFocus
-          value={code}
-          onChange={(e) => onCode(e.target.value)}
-          inputMode="numeric"
-          autoComplete="one-time-code"
-          maxLength={6}
-          placeholder="••••••"
-          textAlign="center"
-          letterSpacing=".5em"
-          fontFamily="mono"
-          fontSize="26px"
-          fontWeight={700}
-          h="64px"
-          borderRadius="14px"
-          isDisabled={busy || checking}
-        />
-        {error && (
-          <Text fontSize="13px" color="danger" fontWeight={600}>
-            {error}
-          </Text>
-        )}
-        {checking ? (
-          <Text textAlign="center" fontSize="14px" fontWeight={700} color="brand">
-            Logging in…
-          </Text>
-        ) : (
-          <div>
-            <ResendCode onResend={getCode} />
-          </div>
-        )}
-      </Flex>
-    );
-  }
-
-  return (
-    <Flex direction="column" gap="14px" mb="20px">
-      <Text fontSize="14px" color="text2">
-        Log in or sign up to see every voucher you’ve bought, on any phone.
-      </Text>
-      <Box as="label">
-        {label('Your name')}
-        <Input value={name} onChange={(e) => setName(e.target.value)} autoComplete="name" h="54px" borderRadius="14px" fontSize="17px" fontWeight={600} />
-      </Box>
-      <Box as="label">
-        {label('Mobile number')}
-        <InputGroup h="54px">
-          <InputLeftAddon h="54px" fontFamily="mono" fontWeight={600} borderLeftRadius="14px" bg="surface2" border="1px solid" borderColor="border" color="text2">
-            +91
-          </InputLeftAddon>
-          <Input
-            type="tel"
-            inputMode="numeric"
-            autoComplete="tel-national"
-            value={phone}
-            onChange={(e) => setPhone(e.target.value.replace(/\D/g, '').slice(-10))}
-            h="54px"
-            borderRightRadius="14px"
-            fontFamily="mono"
-            fontSize="17px"
-            fontWeight={600}
-          />
-        </InputGroup>
-      </Box>
-      <Box as="label">
-        {label('Email (optional)')}
-        <Input
-          type="email"
-          inputMode="email"
-          autoComplete="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          h="54px"
-          borderRadius="14px"
-          fontSize="17px"
-          fontWeight={600}
-          isInvalid={!emailOk}
-        />
-      </Box>
-      {error && (
-        <Text fontSize="13px" color="danger" fontWeight={600}>
-          {error}
-        </Text>
-      )}
-      <Button
-                onClick={() => getCode()}
-        isDisabled={!name.trim() || !phoneOk || !emailOk}
-        isLoading={busy}
-        h="56px"
-        borderRadius="pill"
-        bg="amber"
-        color="white"
-        fontSize="17px"
-        fontWeight={800}
-        rightIcon={<I.arrowRight size={18} />}
-        _hover={{ bg: 'amber' }}
-      >
-        Get code by SMS
-      </Button>
-      <Text fontSize="13px" color="text2" textAlign="center">
-        Only for your login · <a href="/privacy">Privacy</a>
-      </Text>
-    </Flex>
-  );
-}
-
 /**
  * "Your account": total saved and every purchase (from the server, any
  * device), plus the codes bought on this phone (kept only here). Opened from
@@ -503,18 +317,30 @@ export default function MyVouchers() {
         p="20px 16px 28px"
         onClick={(e) => e.stopPropagation()}
       >
-        {/* Firebase's invisible robot check for the SMS login (see LoginForm). */}
-        <div id="dealo-account-recaptcha" />
         <Flex justify="space-between" align="center" mb="14px">
           <Text fontSize="20px" fontWeight={800}>
-            Your account
+            {account.status === 'out' ? 'Log in or sign up' : 'Your account'}
           </Text>
           <Button aria-label="Close" variant="ghost" size="sm" onClick={close}>
             <I.x size={18} />
           </Button>
         </Flex>
 
-        {account.status === 'out' ? <LoginForm onDone={() => setLoads((n) => n + 1)} /> : <Savings account={account} onShowCode={showCode} />}
+        {account.status === 'out' ? (
+          <Box mb="20px">
+            <PhoneLogin
+              place="account"
+              intro={
+                <Text fontSize="14px" color="text2">
+                  See every voucher you’ve bought, with its code, on any phone.
+                </Text>
+              }
+              onDone={() => setLoads((n) => n + 1)}
+            />
+          </Box>
+        ) : (
+          <Savings account={account} onShowCode={showCode} />
+        )}
         {cardError && (
           <Text fontSize="13px" color="danger" fontWeight={600} mb="14px">
             {cardError}

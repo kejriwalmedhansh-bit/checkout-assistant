@@ -1036,12 +1036,13 @@
       }
     },
     "Logged In": {
-      "description": "Someone logged in (or signed up) from the Your account screen, without buying. placement is always 'account'.",
+      "description": "Someone finished the phone-first SMS login (number, code, and a name if the number was new), from Your account or the buy flow.",
       "surfaces": [
         "web"
       ],
       "properties": {
-        "placement": "account"
+        "placement": "account (Your account) | journey / shop_card (buy flow, plus that flow's voucher properties)",
+        "new": "true when the number was new and was asked for a name"
       }
     },
     "Code Opened On Hubble": {

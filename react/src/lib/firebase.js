@@ -40,19 +40,18 @@ export async function currentUser() {
 let verifier;
 
 /**
- * Sends the SMS (first time or Resend). `holderId` is a hidden spot that stays
+ * Sends the SMS (first time or Resend). `holder` is a hidden spot that stays
  * on screen for the whole login: Firebase's robot check runs invisibly there
  * and only shows a puzzle when it suspects a bot. A used check can't run
  * again, so every send gets a fresh one in a fresh box inside that spot.
  */
-export async function sendCode(phone10, holderId) {
+export async function sendCode(phone10, holder) {
   const { a, fa } = await auth();
   try {
     verifier?.clear();
   } catch {
     /* already gone with its screen */
   }
-  const holder = document.getElementById(holderId);
   const box = document.createElement('div');
   holder.replaceChildren(box);
   verifier = new fa.RecaptchaVerifier(a, box, { size: 'invisible' });

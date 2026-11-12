@@ -50,3 +50,13 @@
     animation: none !important;
   }
 }
+
+/* Small loading ring (login "Checking…"): constant motion, so linear. */
+@keyframes dealoSpin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+.dealo-spin {
+  animation: dealoSpin 0.6s linear infinite;
+}

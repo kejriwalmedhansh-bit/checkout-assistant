@@ -10,8 +10,10 @@
     GET  /hubble/orders/latest   (Authorization: Bearer <id_token>)
         -> the shopper's voucher from the last 30 minutes, for the
            "voucher ready" screen
+    POST /hubble/login {id_token}
+        -> after the SMS code: saves the number, returns the name we know (if any)
     POST /hubble/account {id_token, name, email}
-        -> logging in from "Your account" without buying: saves them as a buyer
+        -> a new number's name and email (asked once, after the code)
     GET  /hubble/card[?ref=]     (Authorization: Bearer <id_token>)
         -> link to the shopper's gift card (code + PIN) on Hubble's own page
     GET  /hubble/me              (Authorization: Bearer <id_token>)
@@ -189,6 +191,26 @@ async def latest_order(authorization: str = Header(default="")) -> dict:
             for v in order.get("vouchers") or []
         ],
     }
+
+
+class LoginRequest(BaseModel):
+    id_token: str
+
+
+@router.post("/login")
+async def login(body: LoginRequest) -> dict:
+    """Right after the SMS code, from either login (Your account or the buy
+    flow): notes the number as a buyer and says whether we already know
+    their name. Phone first, like the big apps: only new numbers are asked
+    for a name (then POST /hubble/account)."""
+    try:
+        login = await buyer_service.verify_login(body.id_token)
+    except ValueError as exc:
+        raise HTTPException(401, str(exc)) from exc
+    known = await buyer_service.buyer_profile(login["uid"])
+    await buyer_service.save_buyer(login["uid"], login["phone"], None, None, False)
+    name = (known.get("name") or "").strip()
+    return {"name": name or None, "email": known.get("email") or None, "new": not name}
 
 
 class AccountRequest(BaseModel):
