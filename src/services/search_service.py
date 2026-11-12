@@ -321,12 +321,19 @@ def _brand_voucher_choices(query: str) -> list[dict]:
         return False
 
     cards = []
+    website = domain_brand_repository.domain_for_shop(shop)
     for choice in voucher_service.product_choices(shop):
         if not names_this_shop(choice.get("brand_name") or ""):
             continue
         card = _voucher_card(choice.get("voucher_source"), choice.get("brand_name"), choice.get("voucher_url"))
         if card:
-            cards.append({**card, "choice_label": choice.get("choice_label"), "covers": choice.get("covers")})
+            cards.append({
+                **card,
+                "choice_label": choice.get("choice_label"),
+                "covers": choice.get("covers"),
+                "shop_website": website,
+                "choice_host": choice.get("choice_host"),
+            })
     return cards if len(cards) >= 2 else []
 
 
