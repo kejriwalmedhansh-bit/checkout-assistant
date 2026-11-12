@@ -38,26 +38,24 @@ export async function currentUser() {
 }
 
 let verifier;
-let verifierButton;
 
 /**
- * Sends the SMS. `buttonId` is the "Get code" button: Firebase's robot check
- * runs invisibly on it and only shows a puzzle when it suspects a bot. The
- * buy flow and "Your account" each have their own button, and either can be
- * closed and reopened, so the check is rebuilt whenever the button changes.
+ * Sends the SMS (first time or Resend). `holderId` is a hidden spot that stays
+ * on screen for the whole login: Firebase's robot check runs invisibly there
+ * and only shows a puzzle when it suspects a bot. A used check can't run
+ * again, so every send gets a fresh one in a fresh box inside that spot.
  */
-export async function sendCode(phone10, buttonId) {
+export async function sendCode(phone10, holderId) {
   const { a, fa } = await auth();
-  const button = document.getElementById(buttonId);
-  if (!verifier || verifierButton !== button) {
-    try {
-      verifier?.clear();
-    } catch {
-      /* the old button is already gone */
-    }
-    verifier = new fa.RecaptchaVerifier(a, button, { size: 'invisible' });
-    verifierButton = button;
+  try {
+    verifier?.clear();
+  } catch {
+    /* already gone with its screen */
   }
+  const holder = document.getElementById(holderId);
+  const box = document.createElement('div');
+  holder.replaceChildren(box);
+  verifier = new fa.RecaptchaVerifier(a, box, { size: 'invisible' });
   return fa.signInWithPhoneNumber(a, `+91${phone10}`, verifier);
 }
 

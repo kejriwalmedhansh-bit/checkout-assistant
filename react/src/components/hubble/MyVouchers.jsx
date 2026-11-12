@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { Box, Button, Flex, Input, InputGroup, InputLeftAddon, Text } from '@chakra-ui/react';
+import { Box, Button, Flex, Input, InputGroup, InputLeftAddon, Portal, Text } from '@chakra-ui/react';
 
 import { I } from '@/components/common/icons';
 import { hubbleApi } from '@/api/hubble.api';
@@ -20,6 +20,7 @@ import { track } from '@/utils/analytics';
 import { fmt } from '@/utils/format';
 
 import CodeRow from './CodeRow';
+import ResendCode from './ResendCode';
 
 const copyText = (text) => navigator.clipboard?.writeText(text).catch(() => {});
 
@@ -85,8 +86,9 @@ function VoucherCard({ v }) {
 const shortDate = (iso) => new Date(iso).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' });
 
 // Total saved + every purchase, from Dealo's server (any device). Codes are
-// not part of it: those stay on the phone they were bought on.
-function Savings({ account }) {
+// never on Dealo's server: "Show code" opens the card on Hubble's own page,
+// which works on any phone or laptop the shopper logs in on.
+function Savings({ account, onShowCode }) {
   if (account.status === 'loading') {
     return (
       <Text fontSize="13px" color="text2" mb="18px">
@@ -128,14 +130,19 @@ function Savings({ account }) {
                   {shortDate(p.at)}
                 </Text>
               </Box>
-              <Box textAlign="right" flexShrink={0}>
-                <Text fontFamily="mono" fontWeight={700} fontSize="15px">
-                  {fmt(p.amount)}
-                </Text>
-                <Text fontFamily="mono" fontSize="12px" color="green">
-                  saved {fmt(p.saved)}
-                </Text>
-              </Box>
+              <Flex align="center" gap="12px" flexShrink={0}>
+                <Box textAlign="right">
+                  <Text fontFamily="mono" fontWeight={700} fontSize="15px">
+                    {fmt(p.amount)}
+                  </Text>
+                  <Text fontFamily="mono" fontSize="12px" color="green">
+                    saved {fmt(p.saved)}
+                  </Text>
+                </Box>
+                <Button size="sm" h="36px" borderRadius="pill" variant="outline" fontWeight={800} onClick={() => onShowCode(p.ref || null, p.brand)}>
+                  Show code
+                </Button>
+              </Flex>
             </Flex>
           ))}
         </Flex>
@@ -143,6 +150,60 @@ function Savings({ account }) {
     </Box>
   );
 }
+
+// Hubble's own page for a gift card the shopper bought (card number, PIN,
+// Redeem), inside Dealo like the payment screen. Hubble's back arrow and
+// Dealo's ✕ both close it.
+function HubbleCard({ url, onClose }) {
+  useEffect(() => {
+    const onMessage = (e) => {
+      let host = '';
+      try {
+        host = new URL(e.origin).hostname;
+      } catch {
+        return;
+      }
+      if (!/myhubble\.money$/.test(host)) return;
+      let msg = e.data;
+      if (typeof msg === 'string') {
+        try {
+          msg = JSON.parse(msg);
+        } catch {
+          return;
+        }
+      }
+      const kind = msg?.event || msg?.action || msg?.type;
+      // "Redeem now" asks the host to open the shop's site or app.
+      if (kind === 'launch_link') openLink(msg.properties?.link);
+      if (kind === 'close') onClose();
+    };
+    window.addEventListener('message', onMessage);
+    return () => window.removeEventListener('message', onMessage);
+  }, [onClose]);
+  return (
+    <Portal>
+      <Box position="fixed" inset={0} zIndex={1600} bg="rgba(22,32,43,.6)">
+        <Flex direction="column" position="absolute" top="24px" left={0} right={0} bottom={0} mx="auto" maxW="480px" bg="surface" borderTopRadius="24px" overflow="hidden">
+          <Flex h="52px" align="center" justify="space-between" px="14px" borderBottom="1px solid" borderColor="border">
+            <Text fontSize="13px" fontWeight={700} color="text2">
+              Your gift card · Hubble
+            </Text>
+            <Button aria-label="Close" variant="ghost" size="sm" onClick={onClose}>
+              <I.x size={18} />
+            </Button>
+          </Flex>
+          <Box as="iframe" title="Your gift card" src={url} allow="clipboard-write" flex="1" w="100%" border={0} />
+        </Flex>
+      </Box>
+    </Portal>
+  );
+}
+
+const openLink = (link) => {
+  if (typeof link !== 'string' || !link || /^(javascript|data):/i.test(link)) return;
+  if (/^https?:/i.test(link)) window.open(link, '_blank', 'noopener');
+  else window.location.href = link;
+};
 
 const label = (text) => (
   <Text fontSize="13px" fontWeight={700} color="text2" mb="6px">
@@ -163,20 +224,27 @@ function LoginForm({ onDone }) {
   const [code, setCode] = useState('');
   const [error, setError] = useState('');
   const [busy, setBusy] = useState(false);
+  // Checking the typed code (kept apart from busy so Resend's timer survives).
+  const [checking, setChecking] = useState(false);
   const confirmation = useRef(null);
   const phoneOk = /^[6-9]\d{9}$/.test(phone);
   const emailOk = !email.trim() || /^\S+@\S+\.\S+$/.test(email.trim());
 
+  // Also the Resend link's action. The robot check lives in one hidden
+  // spot that stays on screen for both, so Firebase can run it again.
   const getCode = async () => {
     setError('');
     setBusy(true);
     try {
-      confirmation.current = await sendCode(phone, 'dealo-account-code');
+      confirmation.current = await sendCode(phone, 'dealo-account-recaptcha');
       track('Login Code Sent', { placement: 'account' });
+      setCode('');
       setStep('code');
+      return true;
     } catch (err) {
       console.error('[login] send code failed', err?.code, err?.message);
       setError("Couldn't send the code. Check the number and try again.");
+      return false;
     } finally {
       setBusy(false);
     }
@@ -187,14 +255,14 @@ function LoginForm({ onDone }) {
     setCode(digits);
     if (digits.length !== 6) return;
     setError('');
-    setBusy(true);
+    setChecking(true);
     let token;
     try {
       token = await confirmCode(confirmation.current, digits);
     } catch {
       setError('That code didn’t match. Try again.');
       setCode('');
-      setBusy(false);
+      setChecking(false);
       return;
     }
     saveBuyerName(name.trim());
@@ -231,17 +299,21 @@ function LoginForm({ onDone }) {
           fontWeight={700}
           h="64px"
           borderRadius="14px"
-          isDisabled={busy}
+          isDisabled={busy || checking}
         />
         {error && (
           <Text fontSize="13px" color="danger" fontWeight={600}>
             {error}
           </Text>
         )}
-        {busy && (
+        {checking ? (
           <Text textAlign="center" fontSize="14px" fontWeight={700} color="brand">
             Logging in…
           </Text>
+        ) : (
+          <div>
+            <ResendCode onResend={getCode} />
+          </div>
         )}
       </Flex>
     );
@@ -297,8 +369,7 @@ function LoginForm({ onDone }) {
         </Text>
       )}
       <Button
-        id="dealo-account-code"
-        onClick={getCode}
+                onClick={() => getCode()}
         isDisabled={!name.trim() || !phoneOk || !emailOk}
         isLoading={busy}
         h="56px"
@@ -335,6 +406,9 @@ export default function MyVouchers() {
   const [removing, setRemoving] = useState(null);
   // { status: 'loading' | 'ready' | 'error' | 'out', data?, phone? }
   const [account, setAccount] = useState({ status: 'loading' });
+  // Hubble's page for one card (or all of them) while it's open.
+  const [cardUrl, setCardUrl] = useState(null);
+  const [cardError, setCardError] = useState('');
 
   useEffect(() => {
     const pending = pendingPurchase();
@@ -389,6 +463,17 @@ export default function MyVouchers() {
   }, [open, loads]);
 
   if (!open) return null;
+  const showCode = async (ref, brand) => {
+    setCardError('');
+    track('Code Opened On Hubble', { brand: brand || null, all: !ref });
+    try {
+      const token = await idToken();
+      const { url } = await hubbleApi.card(token, ref);
+      setCardUrl(url);
+    } catch {
+      setCardError('Couldn’t open your code right now. Please try again.');
+    }
+  };
   const close = () => {
     setRemoving(null);
     setVouchersOpen(false);
@@ -418,6 +503,8 @@ export default function MyVouchers() {
         p="20px 16px 28px"
         onClick={(e) => e.stopPropagation()}
       >
+        {/* Firebase's invisible robot check for the SMS login (see LoginForm). */}
+        <div id="dealo-account-recaptcha" />
         <Flex justify="space-between" align="center" mb="14px">
           <Text fontSize="20px" fontWeight={800}>
             Your account
@@ -427,7 +514,13 @@ export default function MyVouchers() {
           </Button>
         </Flex>
 
-        {account.status === 'out' ? <LoginForm onDone={() => setLoads((n) => n + 1)} /> : <Savings account={account} />}
+        {account.status === 'out' ? <LoginForm onDone={() => setLoads((n) => n + 1)} /> : <Savings account={account} onShowCode={showCode} />}
+        {cardError && (
+          <Text fontSize="13px" color="danger" fontWeight={600} mb="14px">
+            {cardError}
+          </Text>
+        )}
+        {cardUrl && <HubbleCard url={cardUrl} onClose={() => setCardUrl(null)} />}
 
         {/* Logged out with nothing saved here: the login is all there is. */}
         {(account.status !== 'out' || vouchers.length > 0) && (

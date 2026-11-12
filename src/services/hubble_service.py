@@ -509,3 +509,25 @@ def home_url(token: str) -> str:
     params = {"clientId": s.HUBBLE_CLIENT_ID, "appSecret": s.HUBBLE_APP_SECRET, "token": token, "wrap-plt": "web"}
     host = SDK_HOST.get(s.HUBBLE_ENV, SDK_HOST["staging"])
     return f"{host}/?{urlencode(params)}"
+
+
+_REF = re.compile(r"^[0-9A-Z]{26}$")
+
+
+def card_url(token: str, ref: str | None = None) -> str:
+    """Hubble's own page for one gift card the shopper bought (card number,
+    PIN, redeem button), or their whole "My gift cards" list. Whose cards
+    is set by the login token, so a shopper only ever sees their own; Dealo
+    never stores a code. `ref` is the order's transactionReferenceId."""
+    s = get_settings()
+    params = {
+        "clientId": s.HUBBLE_CLIENT_ID,
+        "appSecret": s.HUBBLE_APP_SECRET,
+        "token": token,
+        "wrap-plt": "web",
+        "showBackButton": "true",
+        "exitOnBack": "true",
+    }
+    path = f"/transaction/{ref}" if ref and _REF.match(ref) else "/transactions"
+    host = SDK_HOST.get(s.HUBBLE_ENV, SDK_HOST["staging"])
+    return f"{host}{path}?{urlencode(params)}"

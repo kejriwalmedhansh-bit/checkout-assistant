@@ -33,6 +33,11 @@ export const hubbleApi = {
     const { data } = await apiClient.get('/hubble/me', { headers: { Authorization: `Bearer ${idToken}` } });
     return data;
   },
+  /** GET /hubble/card[?ref] -> { url } — Hubble's own page for one gift card (code + PIN), or all of them. */
+  card: async (idToken, ref = null) => {
+    const { data } = await apiClient.get('/hubble/card', { params: ref ? { ref } : {}, headers: { Authorization: `Bearer ${idToken}` } });
+    return data;
+  },
   /** GET /hubble/orders/latest -> { found, brand, vouchers:[{code,pin,amount}] } */
   latestOrder: async (idToken) => {
     const { data } = await apiClient.get('/hubble/orders/latest', { headers: { Authorization: `Bearer ${idToken}` } });

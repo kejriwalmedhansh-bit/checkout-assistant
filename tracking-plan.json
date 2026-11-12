@@ -1044,6 +1044,16 @@
         "placement": "account"
       }
     },
+    "Code Opened On Hubble": {
+      "description": "A logged-in buyer tapped Show code on Your account, opening that gift card (code + PIN) on Hubble's own page. Works on any device; Dealo never stores codes.",
+      "surfaces": [
+        "web"
+      ],
+      "properties": {
+        "brand": "shop the gift card is for",
+        "all": "true when it opened the full gift-card list (no order id on record)"
+      }
+    },
     "Logged Out": {
       "description": "A logged-in buyer tapped Log out on the Your account screen.",
       "surfaces": [

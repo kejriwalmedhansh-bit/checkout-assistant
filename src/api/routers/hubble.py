@@ -12,6 +12,8 @@
            "voucher ready" screen
     POST /hubble/account {id_token, name, email}
         -> logging in from "Your account" without buying: saves them as a buyer
+    GET  /hubble/card[?ref=]     (Authorization: Bearer <id_token>)
+        -> link to the shopper's gift card (code + PIN) on Hubble's own page
     GET  /hubble/me              (Authorization: Bearer <id_token>)
         -> everything the shopper bought and saved, for "Your account"
            (no codes: those stay on the shopper's phone)
@@ -227,6 +229,8 @@ async def me(authorization: str = Header(default="")) -> dict:
             "amount": float(r["amount"]) if r.get("amount") is not None else None,
             "saved": float(r["discount"]) if r.get("discount") is not None else 0.0,
             "at": r.get("created_at"),
+            # Opens this card's code on Hubble (GET /hubble/card).
+            "ref": r.get("hubble_ref"),
         }
         for r in rows
     ]
@@ -236,3 +240,17 @@ async def me(authorization: str = Header(default="")) -> dict:
         "total_bought": round(sum(p["amount"] or 0 for p in purchases), 2),
         "purchases": purchases,
     }
+
+
+@router.get("/card")
+async def card(ref: str | None = Query(default=None), authorization: str = Header(default="")) -> dict:
+    """The link to one of the shopper's gift cards on Hubble (code + PIN),
+    or to all of them without `ref`: how codes reach every phone and laptop
+    without Dealo keeping them. The login token makes Hubble show only this
+    shopper's own cards."""
+    try:
+        login = await buyer_service.verify_login(authorization.removeprefix("Bearer ").strip())
+    except ValueError as exc:
+        raise HTTPException(401, str(exc)) from exc
+    token = hubble_service.sso_token(login["uid"], login["phone"], None, None)
+    return {"url": hubble_service.card_url(token, ref)}

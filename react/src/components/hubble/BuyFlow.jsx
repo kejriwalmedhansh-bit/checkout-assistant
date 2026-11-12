@@ -9,6 +9,7 @@ import { getDealoId, soldEventProps, track } from '@/utils/analytics';
 import { fmt } from '@/utils/format';
 
 import CodeRow from './CodeRow';
+import ResendCode from './ResendCode';
 import { VoucherSteps } from './VoucherFacts';
 
 // Web pages open in a new tab; app links (upi://, phonepe://, myntra://) are
@@ -44,6 +45,8 @@ export default function BuyFlow({ offer, merchant, price, shopLink, placement, b
   const [code, setCode] = useState('');
   const [error, setError] = useState('');
   const [busy, setBusy] = useState(false);
+  // Checking the typed code (kept apart from busy so Resend's timer survives).
+  const [checking, setChecking] = useState(false);
   const [storeUrl, setStoreUrl] = useState('');
   const [order, setOrder] = useState(null);
   const [slow, setSlow] = useState(false);
@@ -179,17 +182,22 @@ export default function BuyFlow({ offer, merchant, price, shopLink, placement, b
   }, [step]);
 
   const phoneOk = /^[6-9]\d{9}$/.test(phone);
+  // Also the Resend link's action. The robot check lives in one hidden
+  // spot that stays on screen for both, so Firebase can run it again.
   const getCode = async () => {
     setError('');
     setBusy(true);
     try {
       saveName(name.trim());
-      confirmation.current = await sendCode(phone, 'dealo-get-code');
+      confirmation.current = await sendCode(phone, 'dealo-buy-recaptcha');
       track('Login Code Sent', ev);
+      setCode('');
       setStep('code');
+      return true;
     } catch (err) {
       console.error('[login] send code failed', err?.code, err?.message);
       setError("Couldn't send the code. Check the number and try again.");
+      return false;
     } finally {
       setBusy(false);
     }
@@ -200,14 +208,14 @@ export default function BuyFlow({ offer, merchant, price, shopLink, placement, b
     setCode(digits);
     if (digits.length !== 6) return;
     setError('');
-    setBusy(true);
+    setChecking(true);
     try {
       const token = await confirmCode(confirmation.current, digits);
       await openStore(token);
     } catch {
       setError('That code didn’t match. Try again.');
       setCode('');
-      setBusy(false);
+      setChecking(false);
     }
   };
 
@@ -271,6 +279,8 @@ export default function BuyFlow({ offer, merchant, price, shopLink, placement, b
           onClick={(e) => e.stopPropagation()}
         >
           <Box w="38px" h="5px" borderRadius="3px" bg="borderStrong" mx="auto" mb="14px" />
+          {/* Firebase's invisible robot check for "Get code" and "Resend code". */}
+          <div id="dealo-buy-recaptcha" />
 
           {step === 'loading' && (
             <Text textAlign="center" py="40px" color="text2" fontWeight={600}>
@@ -327,8 +337,7 @@ export default function BuyFlow({ offer, merchant, price, shopLink, placement, b
                 </Text>
               )}
               <Button
-                id="dealo-get-code"
-                onClick={getCode}
+                                onClick={() => getCode()}
                 isDisabled={!name.trim() || !phoneOk}
                 isLoading={busy}
                 h="56px"
@@ -378,17 +387,21 @@ export default function BuyFlow({ offer, merchant, price, shopLink, placement, b
                 fontWeight={700}
                 h="64px"
                 borderRadius="14px"
-                isDisabled={busy}
+                isDisabled={busy || checking}
               />
               {error && (
                 <Text fontSize="13px" color="danger" fontWeight={600}>
                   {error}
                 </Text>
               )}
-              {busy && (
+              {checking ? (
                 <Text textAlign="center" fontSize="14px" fontWeight={700} color="brand">
                   Opening payment…
                 </Text>
+              ) : (
+                <div>
+                  <ResendCode onResend={getCode} />
+                </div>
               )}
             </Flex>
           )}
