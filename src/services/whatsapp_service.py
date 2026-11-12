@@ -416,8 +416,25 @@ async def _send_voucher_steps(phone: str, route: dict) -> None:
     sellers = route.get("sellers") or []
     link = sellers[0].get("link") if sellers else None
     check_page_first = bool(link) and not in_store
-    total_steps = 3 if check_page_first else 2
+    # In-store: the first step is checking a nearby store has the item, since
+    # the card is no use if the store doesn't (store stock differs from the
+    # website). Same pause as the check-the-page step after it.
+    store_first = in_store and bool(voucher.get("store_finder_url"))
+    total_steps = 3 if (check_page_first or store_first) else 2
     step_n = 1
+
+    if store_first:
+        store_text = (
+            f"*Step {step_n} of {total_steps}*\n\n"
+            f"This Gift Voucher works only in {merchant} stores 🏬\n"
+            f"First check your nearest store has it — store stock can differ from the website.\n\n"
+            f"*Come back here* for Steps 2 & 3."
+        )
+        store_url = voucher["store_finder_url"]
+        if not await send_cta_url(phone, store_text, "Find a store", store_url):
+            await send_text(phone, f"{store_text}\n{store_url}")
+        step_n += 1
+        await asyncio.sleep(_CHECK_PAGE_GAP_SECONDS)
 
     if check_page_first:
         affiliate_link = _affiliate_url(link, phone, "check_page_step")

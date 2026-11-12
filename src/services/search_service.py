@@ -944,6 +944,15 @@ def _card_fomo_for_route(route: dict) -> dict | None:
     }
 
 
+# How much an in-store route must save over the best online price before it
+# is recommended first (12 Nov 2026).
+IN_STORE_MIN_SAVING = 200
+
+
+def _is_in_store_route(route: dict) -> bool:
+    return bool((route.get("voucher") or {}).get("offline_only")) or route["merchant"].endswith("(in-store)")
+
+
 def _build_routes(results: list[dict], vouchers: list[dict]) -> dict:
     """Merge results + vouchers into route objects sorted by final_cost.
 
@@ -1003,7 +1012,24 @@ def _build_routes(results: list[dict], vouchers: list[dict]) -> dict:
     # Otherwise a route through one of these could win "Recommended" on
     # price alone despite delivery/stock we can't actually confirm for the
     # user's location.
-    routes.sort(key=lambda x: (_is_hyperlocal(x["merchant"]), x["final_cost"]))
+    # An in-store route asks for a trip to a shop, so it leads only when it
+    # beats the best online price by at least IN_STORE_MIN_SAVING; a smaller
+    # gap sorts it after the online routes (owner's call, 12 Nov 2026).
+    online_costs = [r["final_cost"] for r in routes
+                    if not _is_in_store_route(r) and not _is_hyperlocal(r["merchant"])]
+    best_online = min(online_costs) if online_costs else None
+
+    def _in_store_demoted(r: dict) -> bool:
+        return (_is_in_store_route(r) and best_online is not None
+                and best_online - r["final_cost"] < IN_STORE_MIN_SAVING)
+
+    # A demoted in-store route sorts right behind the best online one, not
+    # behind every online route: it still beats a dearer online price.
+    routes.sort(key=lambda x: (
+        _is_hyperlocal(x["merchant"]),
+        best_online if _in_store_demoted(x) else x["final_cost"],
+        _in_store_demoted(x),
+    ))
 
     if not routes:
         return {"recommended": None, "alternatives": [], "compared_count": 0}
@@ -3902,10 +3928,19 @@ def _shopify_shop_for_brand(brand: str) -> tuple[str, str] | None:
     sig = _brand_signature(brand or "")
     if not sig:
         return None
-    for domain, host in shopify_repository.shops().items():
+    shops = shopify_repository.shops()
+    for domain, host in shops.items():
         shop = _clean_brand_name(domain_brand_repository.brand_for_domain(domain))
         if shop and _brand_signature(shop) == sig:
             return host, shop
+    # Shops missing from the website list (mostly brands whose card works
+    # only in stores, e.g. indianterrain.com): the address spells the brand.
+    for domain, host in shops.items():
+        if domain_brand_repository.brand_for_domain(domain):
+            continue
+        if _compact(domain.split(".")[0]) == sig:
+            name = brand if brand != brand.lower() else brand.title()
+            return host, name
     return None
 
 

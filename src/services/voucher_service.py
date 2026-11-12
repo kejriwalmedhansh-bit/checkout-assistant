@@ -10,6 +10,7 @@ import json
 import math
 from datetime import date
 import re
+from urllib.parse import quote_plus
 from functools import lru_cache
 from pathlib import Path
 
@@ -1487,6 +1488,13 @@ def get_best_buyhatke_deal(merchant_name: str, price: float, product_name: str =
     return deal, tier, record.get("brand_name")
 
 
+def store_finder_url(shop: str) -> str:
+    """A Google Maps search for the shop's nearest outlets. "(in-store)" and
+    "In Store" are Dealo's and the sellers' labels, not part of the name."""
+    name = re.sub(r"\s*\(?in[- ]store\)?\s*$", "", shop or "", flags=re.IGNORECASE).strip()
+    return "https://www.google.com/maps/search/?api=1&query=" + quote_plus(f"{name} store near me")
+
+
 def _deal_is_offline_only(deal: dict, rules: dict) -> bool:
     """True when a deal's voucher can only be spent in a physical shop.
 
@@ -1780,6 +1788,11 @@ def build_deals(results: list[dict], product_name: str = "") -> list[dict]:
             "voucher_url": deal["voucher_url"],
             "voucher_source": voucher_source,
             "offline_only": offline_only,
+            # An in-store card is only worth buying once the item is in a
+            # nearby store (store stock differs from the website), so the
+            # steps start with this. A maps search works for every brand;
+            # few brands' own store pages share one address pattern.
+            "store_finder_url": store_finder_url(merchant) if offline_only else None,
             "must_be_used_for": must_be_used_for,
             "confirm_with_cashier": bool(
                 _rule_value(won_rules, "works_in_store") == "yes"),

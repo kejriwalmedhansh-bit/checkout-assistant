@@ -140,6 +140,9 @@ class VoucherDeal(BaseModel):
     voucher_url: str
     voucher_source: str = "gyftr"
     offline_only: bool = False
+    # Maps search for the shop's nearest outlets: an in-store card's first
+    # step is checking a nearby store has the item (12 Nov 2026).
+    store_finder_url: str | None = None
     # What the seller's own terms say this voucher may be spent on, when they
     # narrow it — "Seat Selection, Extra Baggage" on an 18% Air India card that
     # cannot buy a ticket. Shown to the shopper rather than filtered on, because
