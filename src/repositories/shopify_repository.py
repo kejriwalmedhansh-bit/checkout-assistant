@@ -5,7 +5,7 @@ Every Shopify shop publishes each product as plain data at
 size/colour with its own price and stock, and the photos. Reading that is
 faster and more exact than reading the rendered page and guessing.
 
-87 of the 350 shop websites Dealo knows run on Shopify
+119 of the ~520 shop websites Dealo knows run on Shopify
 (data/shopify_shops.json, checked 2026-11-12: each one's /products.json read
 back through Context.dev). Shopify answers a server's plain request with 429
 for most of them (boAt, Snitch: bot protection, not a rate limit), so we try
@@ -123,8 +123,11 @@ def read_product(url: str) -> dict | None:
     ?variant=), or the first variant's; None if it reads as zero."""
     parts = urlsplit(url)
     host = (parts.hostname or "").lower()
-    if not is_shopify_host(host):
-        return None
+    # Any shop can run on Shopify, not just the ones in the list. For an
+    # unlisted shop with a Shopify-shaped product link, one free plain read is
+    # tried; the paid Context.dev read stays for listed shops, so a random
+    # /products/ link can't spend credits.
+    known = is_shopify_host(host)
     handle = product_handle(url)
     if not handle:
         return None
@@ -133,7 +136,8 @@ def read_product(url: str) -> dict | None:
 
     product = None
     try:
-        with httpx.Client(timeout=_PLAIN_TIMEOUT, follow_redirects=True, headers=_PLAIN_HEADERS) as client:
+        with httpx.Client(timeout=_PLAIN_TIMEOUT if known else 3.0, follow_redirects=True,
+                          headers=_PLAIN_HEADERS) as client:
             resp = client.get(json_url)
         if resp.status_code == 200:
             product = _parse_product(resp.text)
@@ -149,7 +153,7 @@ def read_product(url: str) -> dict | None:
     except httpx.HTTPError as exc:
         logger.info("[shopify] plain read failed for %s: %s", json_url, exc)
 
-    if product is None:
+    if product is None and known:
         product = _parse_product(context_dev_repository.fetch_rendered_html(json_url) or "")
         if product:
             logger.info("[shopify] Context.dev read ok: %s", json_url)

@@ -2605,7 +2605,7 @@ def _read_shopify_link(url: str) -> tuple[str, float | None, str | None, str | N
     A Shopify shop in the list is the brand's own website, so its price is
     trusted the same way _fetch_url_page trusts a brand site's offer price."""
     host = (urlsplit(url).hostname or "").lower()
-    if not shopify_repository.is_shopify_host(host):
+    if not (shopify_repository.is_shopify_host(host) or shopify_repository.product_handle(url)):
         return None
     product = shopify_repository.read_product(url)
     if not product:
@@ -2617,6 +2617,14 @@ def _read_shopify_link(url: str) -> tuple[str, float | None, str | None, str | N
     # so the voucher for that name is spent right there at this price.
     shop = _clean_brand_name(domain_brand_repository.brand_for_domain(host))
     vendor = _clean_brand_name(product.get("vendor"))
+    if not shop:
+        # A shop missing from Dealo's website list: it is the brand's own shop
+        # only when the brand names the web address (Snitch on snitch.com),
+        # the same test the page read applies. Otherwise the page read decides.
+        if vendor and _brand_signature(vendor) and _brand_signature(vendor) in _compact(host):
+            shop = vendor
+        else:
+            return None
     if shop and vendor:
         shop_sig, vendor_sig = _brand_signature(shop), _brand_signature(vendor)
         same_brand = shop.split()[0].lower() == vendor.split()[0].lower()
