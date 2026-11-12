@@ -87,6 +87,17 @@ def test_other_shops_untouched():
     assert search_service._read_shopify_link("https://www.myntra.com/shoes/nike/123/buy") is None
 
 
+def test_unlisted_shopify_shop(monkeypatch):
+    """A shop not in the list: trusted as the brand's own only when the brand
+    names the web address; otherwise the page read decides."""
+    product = {"title": "Oversized Linen Shirt", "vendor": "Snitch", "price": 1299.0, "image": None, "variant": None}
+    monkeypatch.setattr(shopify_repository, "read_product", lambda url: product)
+    title, price, merchant, _ = search_service._read_shopify_link("https://www.snitch.com/products/oversized-linen-shirt")
+    assert merchant == "Snitch" and price == 1299.0 and title.startswith("Snitch")
+    product = {**product, "vendor": "Some Other Label"}
+    assert search_service._read_shopify_link("https://www.randomshop.in/products/oversized-linen-shirt") is None
+
+
 def test_listed_single_card_name_falls_back(monkeypatch):
     """giva.co is listed as "GIVA Silver Coin"; a bracelet must not be priced
     against the coin card, so the shortcut steps aside for the page read."""
