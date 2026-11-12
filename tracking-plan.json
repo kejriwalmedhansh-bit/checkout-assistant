@@ -1025,6 +1025,49 @@
         "placement": "journey (cart result) | shop_card (shop-name search, or a buy link)",
         "cant_count": "how many 'can't pay for' items the box showed (0 = the grey 'Good to know' box)"
       }
+    },
+    "Voucher Recovered After Reload": {
+      "description": "A buyer who left mid-payment came back (page reload, within 30 min) and their paid voucher code was recovered from the server and saved on their phone.",
+      "surfaces": [
+        "web"
+      ],
+      "properties": {
+        "brand": "Hubble's voucher title"
+      }
+    },
+    "Logged Out": {
+      "description": "A logged-in buyer tapped Log out on the Your account screen.",
+      "surfaces": [
+        "web"
+      ],
+      "properties": {}
+    },
+    "Voucher Removed": {
+      "description": "A buyer removed a saved voucher code from this phone (two-tap remove on Your account).",
+      "surfaces": [
+        "web"
+      ],
+      "properties": {
+        "brand": "Hubble's voucher title"
+      }
+    },
+    "Your Account Opened": {
+      "description": "The Your account screen (savings, purchases, saved codes) was opened from the top bar or menu.",
+      "surfaces": [
+        "web"
+      ],
+      "properties": {
+        "path": "page it was opened from"
+      }
+    },
+    "Clicked Home Example": {
+      "description": "A visitor tapped one of the example shops on the home page, which starts a search for it.",
+      "surfaces": [
+        "web"
+      ],
+      "properties": {
+        "shop": "the example's shop label"
+      }
     }
   }
 }
