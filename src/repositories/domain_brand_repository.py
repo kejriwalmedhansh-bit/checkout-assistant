@@ -33,3 +33,21 @@ def brand_for_domain(domain: str) -> str | None:
     if domain.startswith("www."):
         domain = domain[4:]
     return _domain_to_brand.get(domain)  # type: ignore[union-attr]
+
+
+def domain_for_shop(shop_key: str) -> str | None:
+    """The website of a shop named by its letters-only key ("makemytrip" ->
+    "makemytrip.com"), for showing its logo. A domain whose own name is the
+    shop wins ("ajio.com" for "ajio"); else one whose mapped brand starts with
+    the shop's name ("giva.co" -> "GIVA Silver Coin" for "giva")."""
+    _load()
+    key = "".join(ch for ch in (shop_key or "").lower() if ch.isalnum())
+    if len(key) < 3:
+        return None
+    by_brand = None
+    for domain, brand in sorted(_domain_to_brand.items()):  # type: ignore[union-attr]
+        if domain.split(".")[0].replace("-", "") == key:
+            return domain
+        if by_brand is None and "".join(ch for ch in brand.lower() if ch.isalnum()).startswith(key):
+            by_brand = domain
+    return by_brand
