@@ -37,6 +37,10 @@ class VoucherDetailOut(BaseModel):
     # and the card's own words for what it pays for.
     choice_label: str | None = None
     covers: str | None = None
+    # The shop's website (for its logo) and, when one shop runs two sites
+    # (AJIO and AJIO Luxe), the site this voucher is for.
+    shop_website: str | None = None
+    choice_host: str | None = None
 
     @field_validator("how_to_redeem_steps", mode="before")
     @classmethod
