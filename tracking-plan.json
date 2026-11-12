@@ -35,7 +35,7 @@
         "amount": "voucher value in rupees (null before an amount is chosen)",
         "discount_pct": "Dealo's rate on this voucher, in %",
         "best_pct": "best public rate (Gyftr/Maximize/BuyHatke) it was compared with, in %; null when unknown",
-        "placement": "journey (cart result) | shop_card (shop-name search, or a buy link)",
+        "placement": "journey (cart result) | shop_card (shop-name search, or a buy link) | account (logging in from Your account)",
         "src": "the buy link that brought the shopper: wa | ext | chat | link; null when they searched on the site",
         "in_store": "true when the voucher is for paying at the counter"
       }
@@ -76,7 +76,7 @@
       }
     },
     "Login Code Sent": {
-      "description": "Dealo sent the shopper an SMS login code before their first purchase. Counted without cookie consent too (no personal detail is carried).",
+      "description": "Dealo sent the shopper an SMS login code: before their first purchase, or from the Your account screen (placement account, no voucher details). Counted without cookie consent too (no personal detail is carried).",
       "surfaces": [
         "web"
       ],
@@ -1033,6 +1033,15 @@
       ],
       "properties": {
         "brand": "Hubble's voucher title"
+      }
+    },
+    "Logged In": {
+      "description": "Someone logged in (or signed up) from the Your account screen, without buying. placement is always 'account'.",
+      "surfaces": [
+        "web"
+      ],
+      "properties": {
+        "placement": "account"
       }
     },
     "Logged Out": {

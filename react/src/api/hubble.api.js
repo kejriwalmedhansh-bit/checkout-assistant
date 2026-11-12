@@ -23,6 +23,11 @@ export const hubbleApi = {
     const { data } = await apiClient.post('/hubble/session', body);
     return data;
   },
+  /** POST /hubble/account -> { ok } — logging in from "Your account" without buying. */
+  account: async (body) => {
+    const { data } = await apiClient.post('/hubble/account', body);
+    return data;
+  },
   /** GET /hubble/me -> { phone, total_saved, total_bought, purchases:[{brand, amount, saved, at}] } — "Your account". */
   me: async (idToken) => {
     const { data } = await apiClient.get('/hubble/me', { headers: { Authorization: `Bearer ${idToken}` } });

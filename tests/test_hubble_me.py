@@ -59,3 +59,21 @@ def test_database_down_is_an_error_not_an_empty_list(logged_in, monkeypatch):
     with pytest.raises(HTTPException) as err:
         asyncio.run(hubble.me("Bearer good"))
     assert err.value.status_code == 503
+
+
+def test_login_without_buying_saves_the_buyer(logged_in, monkeypatch):
+    saved = {}
+
+    async def save(uid, phone, name, email, optin):
+        saved.update(uid=uid, phone=phone, name=name, email=email, optin=optin)
+    monkeypatch.setattr(hubble.buyer_service, "save_buyer", save)
+    body = hubble.AccountRequest(id_token="good", name="  Asha  ", email="  ")
+    assert asyncio.run(hubble.account(body)) == {"ok": True}
+    # Blank email is left out; logging in never ticks the deals box.
+    assert saved == {"uid": "u1", "phone": "+919999999999", "name": "Asha", "email": None, "optin": False}
+
+
+def test_login_without_buying_needs_a_real_login(logged_in):
+    with pytest.raises(HTTPException) as err:
+        asyncio.run(hubble.account(hubble.AccountRequest(id_token="bad", name="Asha")))
+    assert err.value.status_code == 401

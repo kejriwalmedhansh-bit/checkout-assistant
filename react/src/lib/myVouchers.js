@@ -110,6 +110,25 @@ export function useSavedVouchers() {
   );
 }
 
+// The buyer's name, kept on this browser so a returning buyer isn't asked
+// again (the buy flow skips straight to payment when it has a login + name).
+const NAME_KEY = 'dealo_buyer_name';
+export const readBuyerName = () => {
+  try {
+    return localStorage.getItem(NAME_KEY) || '';
+  } catch {
+    return '';
+  }
+};
+export const saveBuyerName = (n) => {
+  try {
+    if (n) localStorage.setItem(NAME_KEY, n);
+    else localStorage.removeItem(NAME_KEY);
+  } catch {
+    /* private mode: the name is only a convenience */
+  }
+};
+
 // Whether a buyer has logged in on this browser, so the top bar can show
 // "Your account" without loading Firebase on every page (lib/firebase.js
 // loads only when needed). Set after a buy-flow login, cleared on log out.
@@ -125,7 +144,7 @@ const readSignedIn = () => {
     // Buyers from before this flag existed still have their saved name.
     let hadName = false;
     try {
-      hadName = Boolean(localStorage.getItem('dealo_buyer_name'));
+      hadName = Boolean(localStorage.getItem(NAME_KEY));
     } catch {
       /* private mode */
     }

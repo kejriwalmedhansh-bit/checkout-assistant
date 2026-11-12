@@ -1,13 +1,15 @@
 import { useEffect, useRef, useState } from 'react';
-import { Box, Button, Flex, Text } from '@chakra-ui/react';
+import { Box, Button, Flex, Input, InputGroup, InputLeftAddon, Text } from '@chakra-ui/react';
 
 import { I } from '@/components/common/icons';
 import { hubbleApi } from '@/api/hubble.api';
-import { idToken, signOut } from '@/lib/firebase';
+import { confirmCode, idToken, sendCode, signOut } from '@/lib/firebase';
 import {
   clearPending,
   forgetVoucher,
   pendingPurchase,
+  readBuyerName,
+  saveBuyerName,
   saveOrder,
   setSignedIn,
   setVouchersOpen,
@@ -88,7 +90,7 @@ function Savings({ account }) {
   if (account.status === 'loading') {
     return (
       <Text fontSize="13px" color="text2" mb="18px">
-        Loading your savings…
+        Loading…
       </Text>
     );
   }
@@ -142,6 +144,181 @@ function Savings({ account }) {
   );
 }
 
+const label = (text) => (
+  <Text fontSize="13px" fontWeight={700} color="text2" mb="6px">
+    {text}
+  </Text>
+);
+
+/**
+ * Logged out: name, mobile, optional email → SMS code. The same phone login
+ * as the buy flow, so someone who bought on another phone sees those
+ * purchases here as soon as the code goes in.
+ */
+function LoginForm({ onDone }) {
+  const [step, setStep] = useState('details');
+  const [name, setName] = useState(readBuyerName);
+  const [phone, setPhone] = useState('');
+  const [email, setEmail] = useState('');
+  const [code, setCode] = useState('');
+  const [error, setError] = useState('');
+  const [busy, setBusy] = useState(false);
+  const confirmation = useRef(null);
+  const phoneOk = /^[6-9]\d{9}$/.test(phone);
+  const emailOk = !email.trim() || /^\S+@\S+\.\S+$/.test(email.trim());
+
+  const getCode = async () => {
+    setError('');
+    setBusy(true);
+    try {
+      confirmation.current = await sendCode(phone, 'dealo-account-code');
+      track('Login Code Sent', { placement: 'account' });
+      setStep('code');
+    } catch (err) {
+      console.error('[login] send code failed', err?.code, err?.message);
+      setError("Couldn't send the code. Check the number and try again.");
+    } finally {
+      setBusy(false);
+    }
+  };
+
+  const onCode = async (value) => {
+    const digits = value.replace(/\D/g, '').slice(0, 6);
+    setCode(digits);
+    if (digits.length !== 6) return;
+    setError('');
+    setBusy(true);
+    let token;
+    try {
+      token = await confirmCode(confirmation.current, digits);
+    } catch {
+      setError('That code didn’t match. Try again.');
+      setCode('');
+      setBusy(false);
+      return;
+    }
+    saveBuyerName(name.trim());
+    setSignedIn(true);
+    track('Logged In', { placement: 'account' });
+    // Saving the name is a nicety: the login works even if this fails.
+    await hubbleApi.account({ id_token: token, name: name.trim(), email: email.trim() || null }).catch(() => {});
+    onDone();
+  };
+
+  if (step === 'code') {
+    return (
+      <Flex direction="column" gap="14px" mb="20px">
+        <Flex justify="space-between" align="center">
+          <Text fontFamily="mono" fontSize="13px" color="text2">
+            Code sent by SMS to +91 {phone}
+          </Text>
+          <Button variant="link" size="sm" onClick={() => setStep('details')}>
+            Change
+          </Button>
+        </Flex>
+        <Input
+          autoFocus
+          value={code}
+          onChange={(e) => onCode(e.target.value)}
+          inputMode="numeric"
+          autoComplete="one-time-code"
+          maxLength={6}
+          placeholder="••••••"
+          textAlign="center"
+          letterSpacing=".5em"
+          fontFamily="mono"
+          fontSize="26px"
+          fontWeight={700}
+          h="64px"
+          borderRadius="14px"
+          isDisabled={busy}
+        />
+        {error && (
+          <Text fontSize="13px" color="danger" fontWeight={600}>
+            {error}
+          </Text>
+        )}
+        {busy && (
+          <Text textAlign="center" fontSize="14px" fontWeight={700} color="brand">
+            Logging in…
+          </Text>
+        )}
+      </Flex>
+    );
+  }
+
+  return (
+    <Flex direction="column" gap="14px" mb="20px">
+      <Text fontSize="14px" color="text2">
+        Log in or sign up to see every voucher you’ve bought, on any phone.
+      </Text>
+      <Box as="label">
+        {label('Your name')}
+        <Input value={name} onChange={(e) => setName(e.target.value)} autoComplete="name" h="54px" borderRadius="14px" fontSize="17px" fontWeight={600} />
+      </Box>
+      <Box as="label">
+        {label('Mobile number')}
+        <InputGroup h="54px">
+          <InputLeftAddon h="54px" fontFamily="mono" fontWeight={600} borderLeftRadius="14px" bg="surface2" border="1px solid" borderColor="border" color="text2">
+            +91
+          </InputLeftAddon>
+          <Input
+            type="tel"
+            inputMode="numeric"
+            autoComplete="tel-national"
+            value={phone}
+            onChange={(e) => setPhone(e.target.value.replace(/\D/g, '').slice(-10))}
+            h="54px"
+            borderRightRadius="14px"
+            fontFamily="mono"
+            fontSize="17px"
+            fontWeight={600}
+          />
+        </InputGroup>
+      </Box>
+      <Box as="label">
+        {label('Email (optional)')}
+        <Input
+          type="email"
+          inputMode="email"
+          autoComplete="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          h="54px"
+          borderRadius="14px"
+          fontSize="17px"
+          fontWeight={600}
+          isInvalid={!emailOk}
+        />
+      </Box>
+      {error && (
+        <Text fontSize="13px" color="danger" fontWeight={600}>
+          {error}
+        </Text>
+      )}
+      <Button
+        id="dealo-account-code"
+        onClick={getCode}
+        isDisabled={!name.trim() || !phoneOk || !emailOk}
+        isLoading={busy}
+        h="56px"
+        borderRadius="pill"
+        bg="amber"
+        color="white"
+        fontSize="17px"
+        fontWeight={800}
+        rightIcon={<I.arrowRight size={18} />}
+        _hover={{ bg: 'amber' }}
+      >
+        Get code by SMS
+      </Button>
+      <Text fontSize="13px" color="text2" textAlign="center">
+        Only for your login · <a href="/privacy">Privacy</a>
+      </Text>
+    </Flex>
+  );
+}
+
 /**
  * "Your account": total saved and every purchase (from the server, any
  * device), plus the codes bought on this phone (kept only here). Opened from
@@ -185,7 +362,9 @@ export default function MyVouchers() {
     };
   }, []);
 
-  // Fresh numbers every time the sheet opens (a purchase may have just landed).
+  // Fresh numbers every time the sheet opens (a purchase may have just
+  // landed), and again right after logging in here.
+  const [loads, setLoads] = useState(0);
   useEffect(() => {
     if (!open) return undefined;
     let live = true;
@@ -207,7 +386,7 @@ export default function MyVouchers() {
     return () => {
       live = false;
     };
-  }, [open]);
+  }, [open, loads]);
 
   if (!open) return null;
   const close = () => {
@@ -217,11 +396,7 @@ export default function MyVouchers() {
   const logOut = async () => {
     track('Logged Out');
     await signOut().catch(() => {});
-    try {
-      localStorage.removeItem('dealo_buyer_name');
-    } catch {
-      /* private mode */
-    }
+    saveBuyerName('');
     setSignedIn(false);
     setAccount({ status: 'out' });
   };
@@ -252,12 +427,15 @@ export default function MyVouchers() {
           </Button>
         </Flex>
 
-        <Savings account={account} />
+        {account.status === 'out' ? <LoginForm onDone={() => setLoads((n) => n + 1)} /> : <Savings account={account} />}
 
-        <Text fontSize="13px" fontWeight={800} color="text2" letterSpacing=".04em" mb="10px">
-          CODES ON THIS PHONE
-        </Text>
-        {vouchers.length === 0 ? (
+        {/* Logged out with nothing saved here: the login is all there is. */}
+        {(account.status !== 'out' || vouchers.length > 0) && (
+          <Text fontSize="13px" fontWeight={800} color="text2" letterSpacing=".04em" mb="10px">
+            CODES ON THIS PHONE
+          </Text>
+        )}
+        {account.status === 'out' && vouchers.length === 0 ? null : vouchers.length === 0 ? (
           <Text fontSize="14px" color="text2">
             Codes you buy on this phone show up here.
           </Text>

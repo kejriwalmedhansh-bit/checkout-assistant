@@ -10,6 +10,8 @@
     GET  /hubble/orders/latest   (Authorization: Bearer <id_token>)
         -> the shopper's voucher from the last 30 minutes, for the
            "voucher ready" screen
+    POST /hubble/account {id_token, name, email}
+        -> logging in from "Your account" without buying: saves them as a buyer
     GET  /hubble/me              (Authorization: Bearer <id_token>)
         -> everything the shopper bought and saved, for "Your account"
            (no codes: those stay on the shopper's phone)
@@ -185,6 +187,28 @@ async def latest_order(authorization: str = Header(default="")) -> dict:
             for v in order.get("vouchers") or []
         ],
     }
+
+
+class AccountRequest(BaseModel):
+    id_token: str
+    name: str
+    email: str | None = None
+
+
+@router.post("/account")
+async def account(body: AccountRequest) -> dict:
+    """Logging in from "Your account" without buying anything: keeps the
+    shopper's name (and email, if given) against their number, the same row
+    a purchase would create. Firebase gives a number the same login on every
+    browser, so /me then shows purchases made anywhere."""
+    try:
+        login = await buyer_service.verify_login(body.id_token)
+    except ValueError as exc:
+        raise HTTPException(401, str(exc)) from exc
+    name = body.name.strip()[:80] or None
+    email = (body.email or "").strip()[:120] or None
+    await buyer_service.save_buyer(login["uid"], login["phone"], name, email, False)
+    return {"ok": True}
 
 
 @router.get("/me")

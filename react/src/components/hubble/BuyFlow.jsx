@@ -4,28 +4,12 @@ import { Box, Button, Checkbox, Flex, Input, InputGroup, InputLeftAddon, Portal,
 import { I } from '@/components/common/icons';
 import { hubbleApi } from '@/api/hubble.api';
 import { confirmCode, currentUser, idToken, sendCode } from '@/lib/firebase';
-import { markPending, saveOrder, setSignedIn, setVouchersOpen } from '@/lib/myVouchers';
+import { markPending, readBuyerName as readName, saveBuyerName as saveName, saveOrder, setSignedIn, setVouchersOpen } from '@/lib/myVouchers';
 import { getDealoId, soldEventProps, track } from '@/utils/analytics';
 import { fmt } from '@/utils/format';
 
 import CodeRow from './CodeRow';
 import { VoucherSteps } from './VoucherFacts';
-
-const NAME_KEY = 'dealo_buyer_name';
-const readName = () => {
-  try {
-    return localStorage.getItem(NAME_KEY) || '';
-  } catch {
-    return '';
-  }
-};
-const saveName = (n) => {
-  try {
-    localStorage.setItem(NAME_KEY, n);
-  } catch {
-    /* private mode: the name is only a convenience */
-  }
-};
 
 // Web pages open in a new tab; app links (upi://, phonepe://, myntra://) are
 // handed to the phone, which opens the app.

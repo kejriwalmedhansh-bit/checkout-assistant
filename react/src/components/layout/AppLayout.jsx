@@ -18,7 +18,7 @@ import Logo from '@/components/common/Logo';
 import { I } from '@/components/common/icons';
 import MyVouchers from '@/components/hubble/MyVouchers';
 import TutorialVideoModal from '@/components/onboarding/TutorialVideoModal';
-import { setVouchersOpen, useHasAccount } from '@/lib/myVouchers';
+import { setVouchersOpen } from '@/lib/myVouchers';
 import { PageHeaderContext } from '@/hooks/usePageHeader';
 import { ROUTES } from '@/routes/paths';
 import { track, trackPageView } from '@/utils/analytics';
@@ -50,7 +50,6 @@ export default function AppLayout() {
   // controls (see usePageHeader) — null means the default shown below.
   const [pageHeader, setPageHeader] = useState(null);
   // Shown only once someone has logged in or bought a voucher on this phone.
-  const hasVouchers = useHasAccount();
   const openVouchers = () => {
     track('Your Account Opened', { path: location.pathname });
     setVouchersOpen(true);
@@ -98,7 +97,7 @@ export default function AppLayout() {
           borderRight="1px solid"
           borderColor="border"
         >
-          <SidebarContent collapsed={false} onOpenOnboarding={openOnboarding} onOpenVouchers={hasVouchers ? openVouchers : null} />
+          <SidebarContent collapsed={false} onOpenOnboarding={openOnboarding} onOpenVouchers={openVouchers} />
         </Box>
       </Box>
 
@@ -109,7 +108,7 @@ export default function AppLayout() {
           <DrawerBody p={0}>
             <SidebarContent
               onNavigate={drawer.onClose}
-              onOpenVouchers={hasVouchers ? openVouchers : null}
+              onOpenVouchers={openVouchers}
               onOpenOnboarding={() => {
                 drawer.onClose();
                 openOnboarding();
@@ -179,20 +178,18 @@ export default function AppLayout() {
               (back/search on results, etc.) usePageHeader supplies, rather
               than replacing it. */}
           <Flex align="center" gap="4px" flex="0 0 auto">
-            {hasVouchers && (
-              <Button
-                variant="iconSubtle"
-                onClick={openVouchers}
-                aria-label="Your account"
-                w="40px"
-                h="40px"
-                minW="40px"
-                p={0}
-                borderRadius="10px"
-              >
-                <I.account size={20} />
-              </Button>
-            )}
+            <Button
+              variant="iconSubtle"
+              onClick={openVouchers}
+              aria-label="Your account"
+              w="40px"
+              h="40px"
+              minW="40px"
+              p={0}
+              borderRadius="10px"
+            >
+              <I.account size={20} />
+            </Button>
             <Button
               variant="iconSubtle"
               onClick={openOnboarding}
