@@ -52,14 +52,15 @@ _LUXE_SUFFIX = re.compile(r"[\s-]*luxe\s+(gift|brand)\s+card$", re.IGNORECASE)
 _TLD = re.compile(r"\.(com|in|co\.in|net|org|co)(/.*)?$")
 # Words a partner's listing hangs on the shop's name that say nothing about
 # which shop it is: "PVR Cinemas - GYFTR", "Zomato Gift Card", "Swiggy Money
-# Voucher", "Bigbasket (Custom)", "Pantaloons (In Store, 4 Hr Wait)". Peeled
+# Voucher", "Bigbasket (Custom)", "Pantaloons (In Store, 4 Hr Wait)",
+# "MakeMyTrip Hotel e-Pay" (Gyftr) / "MakeMyTrip Hotel E Pay" (Maximize). Peeled
 # off the end, one layer at a time, before the shop key is built. Hubble's
 # own titles are never touched, so "Dominos Fixed" and "Zomato Fixed" stay
 # the distinct vouchers they are.
 _LISTING_DECOR = re.compile(
     r"\s*(?:\((?:in[\s-]?store|offline|custom|fixed)[^)]*\)"
     r"|-\s*(?:gyftr|fixed)"
-    r"|e-?gift\s*(?:card|voucher)|gift\s*(?:card|voucher)|voucher|money)\s*$",
+    r"|e[\s-]?pay|e-?gift\s*(?:card|voucher)|gift\s*(?:card|voucher)|voucher|money)\s*$",
     re.IGNORECASE,
 )
 # Hubble asks partners not to hold store data for long; ten minutes keeps a
