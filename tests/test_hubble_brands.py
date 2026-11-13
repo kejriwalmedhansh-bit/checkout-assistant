@@ -94,6 +94,11 @@ def test_shop_key_strips_domains_and_suffixes():
     ("Yatra Hotel Gift Card", "Yatra Hotels & Holidays"),
     ("Adventra", "Adventra Sports"),      # alias: adventrasports.com
     ("Naturals", "Naturals Salons"),      # alias
+    # 13 Nov 2026: searching "MakeMyTrip Hotel" sold Gyftr's card, not Dealo's.
+    ("MakeMyTrip Hotel e-Pay", "MakeMyTrip Hotel"),  # Gyftr
+    ("MakeMyTrip Hotel E Pay", "MakeMyTrip Hotel"),  # Maximize
+    ("MakeMyTrip e-Pay", "MakeMyTrip"),
+    ("MakeMyTrip E-Pay", "MakeMyTrip"),
 ])
 def test_listing_decoration_is_ignored(listing, expected):
     assert _name(listing) == expected
