@@ -1,9 +1,18 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Box, Button, Flex, Link as ChakraLink, Text } from '@chakra-ui/react';
 import { Link as RouterLink } from 'react-router-dom';
 
 import { ROUTES } from '@/routes/paths';
+import { useSearchStore } from '@/store/searchStore';
 import { CONSENT_DENIED, CONSENT_GRANTED, hasAnswered, setConsent } from '@/utils/consent';
+
+// When to ask (owner call, 2026-11-14). Asking the moment someone lands put a
+// card over the bottom third of the phone before they had done anything, and
+// 121 of 316 visitors (9–14 Nov) left without a single tap. Now the question
+// waits until they have searched once (a short pause so the deal shows
+// first), or until they have spent 30 seconds on the site, whichever is first.
+const AFTER_SEARCH_MS = 2500;
+const AFTER_IDLE_MS = 30000;
 
 /**
  * Asks before recording, and takes no for an answer.
@@ -25,10 +34,22 @@ export default function ConsentBanner() {
   // localStorage, and reading storage while rendering makes the first paint
   // depend on something that can throw.
   const [visible, setVisible] = useState(false);
+  const query = useSearchStore((st) => st.query);
+  // The last search is remembered between visits, so only a search made
+  // during this visit (a change from what was there on arrival) counts.
+  const queryOnArrival = useRef(query);
 
   useEffect(() => {
-    if (!hasAnswered()) setVisible(true);
+    if (hasAnswered()) return undefined;
+    const t = setTimeout(() => setVisible(true), AFTER_IDLE_MS);
+    return () => clearTimeout(t);
   }, []);
+
+  useEffect(() => {
+    if (!query || query === queryOnArrival.current || hasAnswered()) return undefined;
+    const t = setTimeout(() => setVisible(true), AFTER_SEARCH_MS);
+    return () => clearTimeout(t);
+  }, [query]);
 
   if (!visible) return null;
 
@@ -43,10 +64,12 @@ export default function ConsentBanner() {
       aria-label="Recording permission"
       position="fixed"
       zIndex={1400}
-      bottom={{ base: '12px', md: '20px' }}
-      left={{ base: '12px', md: '20px' }}
-      // Clear of the floating WhatsApp button, which sits bottom-right.
-      right={{ base: '12px', md: 'auto' }}
+      // Laptop: bottom-right, just above the floating WhatsApp button. The
+      // old bottom-left spot sat over the sidebar's "Your account" and
+      // extension buttons. Phone: full width along the bottom, as before.
+      bottom={{ base: '12px', md: '96px' }}
+      left={{ base: '12px', md: 'auto' }}
+      right={{ base: '12px', md: '28px' }}
       maxW={{ base: 'none', md: '380px' }}
       bg="surface"
       border="1px solid"
@@ -96,14 +119,15 @@ export default function ConsentBanner() {
           </Text>
         </Box>
       </Flex>
-      {/* Equal weight, kept from before: the answer only means something if
-          it isn't engineered. 44px tall for thumbs on a phone. */}
+      {/* "Sure" on the right (owner call, 2026-11-14): the right-hand button
+          is where people's eyes and thumbs finish. Same visual weight as "No"
+          is kept. 44px tall for thumbs on a phone. */}
       <Flex gap="8px">
-        <Button h="44px" flex={1} onClick={() => answer(CONSENT_GRANTED)}>
-          Sure
-        </Button>
         <Button h="44px" flex={1} variant="outline" onClick={() => answer(CONSENT_DENIED)}>
           No
+        </Button>
+        <Button h="44px" flex={1} onClick={() => answer(CONSENT_GRANTED)}>
+          Sure
         </Button>
       </Flex>
     </Box>
