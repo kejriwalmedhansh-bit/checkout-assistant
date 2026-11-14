@@ -21,8 +21,11 @@ and needs no rate limit.
 from __future__ import annotations
 
 import difflib
+import hashlib
+import hmac
 import logging
 import re
+import secrets
 from datetime import date
 from functools import lru_cache
 from pathlib import Path
@@ -129,6 +132,36 @@ def _surface(request: Request) -> str:
     if "claude" in ua or "anthropic" in ua:
         return "claude"
     return "chat_app"
+
+
+# Telling conversations apart (owner ask, 2026-11-14). Every lookup used to
+# arrive as one "anonymous" caller, so our own research bursts (75 shops in
+# minutes) looked like growth. On "initialize" we now hand out an
+# Mcp-Session-Id, which both chat apps send back on every later request (MCP
+# Streamable HTTP). The server still keeps no memory: the id carries the app's
+# own name and version, so nothing has to be looked up.
+_SAFE = re.compile(r"[^A-Za-z0-9._-]")
+
+
+def _new_session_id(client_info: dict) -> str:
+    name = _SAFE.sub("", str(client_info.get("name") or "unknown"))[:40] or "unknown"
+    version = _SAFE.sub("", str(client_info.get("version") or ""))[:20]
+    return f"{secrets.token_hex(12)}~{name}~{version}"
+
+
+def _caller(request: Request) -> dict:
+    """Who is asking: a short scrambled conversation id, the app's name and
+    version, and whether it is one of our own (internal) sessions."""
+    sid = request.headers.get("mcp-session-id", "")
+    parts = sid.split("~") if sid else []
+    token = get_settings().DEALO_INTERNAL_MCP_TOKEN
+    given = request.headers.get("x-dealo-internal") or request.query_params.get("internal") or ""
+    return {
+        "session": hashlib.sha256(sid.encode()).hexdigest()[:16] if sid else None,
+        "client_name": parts[1] if len(parts) == 3 else None,
+        "client_version": parts[2] if len(parts) == 3 and parts[2] else None,
+        "is_internal": bool(token) and hmac.compare_digest(given.encode(), token.encode()),
+    }
 
 
 def _shop_key(shop: str) -> str:
@@ -339,10 +372,18 @@ async def _find_deal(args: dict, request: Request) -> dict:
 
     logger.info("[chat_app] %s lookup %r amount=%s -> %s %s%%", _surface(request), shop[:60], amount,
                 deal.get("brand_name"), deal.get("pct"))
+    caller = _caller(request)
     analytics_service.fire(analytics_service.build_event(
         "Chat App Lookup",
         surface=surface,
+        # One id per conversation, so Mixpanel's unique count = conversations.
+        # Old connections that never got an id stay "anonymous".
+        user_id=f"mcp:{caller['session']}" if caller["session"] else None,
         properties={
+            "mcp_session_id": caller["session"],
+            "client_name": caller["client_name"],
+            "client_version": caller["client_version"],
+            "is_internal": caller["is_internal"],
             "shop_query": shop[:100],
             "amount": amount,
             "has_voucher": bool(deal.get("has_voucher")),
@@ -412,12 +453,14 @@ async def mcp(request: Request) -> Response:
 
     if method == "initialize":
         asked = params.get("protocolVersion")
-        return _ok(rpc_id, {
+        reply = _ok(rpc_id, {
             "protocolVersion": asked if asked in PROTOCOL_VERSIONS else PROTOCOL_VERSIONS[0],
             "capabilities": {"tools": {"listChanged": False}, "resources": {"listChanged": False}},
             "serverInfo": {"name": "dealo", "title": "Dealo", "version": "1.0.0"},
             "instructions": SERVER_INSTRUCTIONS,
         })
+        reply.headers["Mcp-Session-Id"] = _new_session_id(params.get("clientInfo") or {})
+        return reply
     if method == "ping":
         return _ok(rpc_id, {})
     if method == "tools/list":

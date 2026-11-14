@@ -257,7 +257,7 @@
       "properties": {}
     },
     "Chat App Lookup": {
-      "description": "A Claude or ChatGPT app asked Dealo for a shop's deal (one shared id per app, so people cannot be counted).",
+      "description": "A Claude or ChatGPT app asked Dealo for a shop's deal. distinct_id is mcp:<conversation id> since 2026-11-14 (anonymous for older connections).",
       "surfaces": [
         "server"
       ],
@@ -268,7 +268,11 @@
         "brand": "shop matched",
         "pct": "best rate",
         "choices": "how many what-are-you-buying choices",
-        "sold_by_dealo": "true when the card links to getdealo.in/buy/<shop> (Hubble) instead of a partner"
+        "sold_by_dealo": "true when the card links to getdealo.in/buy/<shop> (Hubble) instead of a partner",
+        "mcp_session_id": "short scrambled id of the chat connection (roughly one conversation), or null",
+        "client_name": "the chat app's own name from its first hello, e.g. claude-ai, or null",
+        "client_version": "that app's version, or null",
+        "is_internal": "true for our own research sessions (connected with ?internal=<token>)"
       }
     },
     "Buy Link Opened": {
