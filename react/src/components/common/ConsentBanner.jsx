@@ -24,10 +24,10 @@ const AFTER_IDLE_MS = 30000;
  * dismissed is exactly what trains people to click the first button without
  * reading it.
  *
- * Both buttons carry the same visual weight. Making "Allow" the loud one and
- * "No thanks" a grey whisper is the standard trick, and it is the reason
- * nobody trusts these banners. The whole value of asking is lost if the answer
- * is engineered.
+ * "Sure" is the solid button and sits on the right (owner call, 2026-11-14,
+ * after ~86% of visitors ignored the equal-weight version). "No" is still a
+ * full-size, clearly labelled button next to it, and not answering is
+ * treated as no, so nothing is recorded unless someone taps "Sure".
  */
 export default function ConsentBanner() {
   // Read once on mount rather than during render: the answer lives in
@@ -119,14 +119,15 @@ export default function ConsentBanner() {
           </Text>
         </Box>
       </Flex>
-      {/* "Sure" on the right (owner call, 2026-11-14): the right-hand button
-          is where people's eyes and thumbs finish. Same visual weight as "No"
-          is kept. 44px tall for thumbs on a phone. */}
+      {/* Owner call, 2026-11-14 (mockup option B): "Sure" on the right,
+          where eyes and thumbs finish, as the solid button. "No" stays a full,
+          readable button of the same size, so saying no is never hidden.
+          44px tall for thumbs on a phone. */}
       <Flex gap="8px">
-        <Button h="44px" flex={1} variant="outline" onClick={() => answer(CONSENT_DENIED)}>
+        <Button h="44px" flex={1} variant="ghost" onClick={() => answer(CONSENT_DENIED)}>
           No
         </Button>
-        <Button h="44px" flex={1} onClick={() => answer(CONSENT_GRANTED)}>
+        <Button h="44px" flex={1} variant="primary" onClick={() => answer(CONSENT_GRANTED)}>
           Sure
         </Button>
       </Flex>
