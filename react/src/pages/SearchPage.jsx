@@ -16,6 +16,11 @@ import { useSearchStore } from '@/store/searchStore';
 import { hasAnswered, onConsentChange } from '@/utils/consent';
 import { useUiStore } from '@/store/uiStore';
 
+// Example searches typed into the empty box one after another, so a visitor
+// arriving from a reel sees what to type (owner pick, 2026-11-14 mockup).
+// Short enough to fit a phone-width box after "Try: ".
+const SEARCH_HINTS = ['Nike Air Force 1', 'iPhone 16 128GB', 'a Myntra link', 'Lifestyle kurta', 'Nykaa lipstick'];
+
 export default function SearchPage() {
   usePageTitle(PAGE_META.home.title, PAGE_META.home.description);
   // The full example gets cut off mid-word in a phone-width box.
@@ -169,6 +174,8 @@ export default function SearchPage() {
             initialValue={query}
             onSubmit={handleSubmit}
             placeholder={searchPlaceholder}
+            hints={SEARCH_HINTS}
+            emptyMessage="Type a product, paste a link, or tap a shop below"
           />
         </Box>
 
