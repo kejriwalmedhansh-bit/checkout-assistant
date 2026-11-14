@@ -97,7 +97,6 @@ _BUDGET_PHRASE_RE = re.compile(
     re.IGNORECASE | re.VERBOSE,
 )
 
-_UNDER_KINDS = {"under", "below", "less than", "cheaper than", "max", "maximum", "upto", "up to"}
 _OVER_KINDS = {"over", "above", "more than", "min", "minimum"}
 
 

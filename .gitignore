@@ -24,4 +24,9 @@ __pycache__/
 .impeccable/live/deferred-svelte-component-accepts.json
 .impeccable/live/*.png
 # impeccable-ignore-end
-venv/dealo-v*.zip
+venv/
+dealo-v*.zip
+logs/
+.claude/skills/
+.claude/worktrees/
+

@@ -103,38 +103,6 @@ function CheckIcon(props) {
 }
 
 /**
- * Vertical connector between two rows, aligned under the icon dots. Colors
- * in once the row above is done — a real, growing green line rather than a
- * neutral divider — so the checklist reads as one path being walked rather
- * than three independent rows. A small "then" chevron always shows on the
- * line (not just once done) — a static divider reads as a boundary between
- * unrelated facts; the chevron is what makes it read as a sequence you're
- * meant to walk through in order.
- */
-export function JourneyConnector({ done = false }) {
-  return (
-    <Flex align="center" gap="14px">
-      <Flex w="34px" flex="0 0 34px" direction="column" align="center" gap="1px">
-        <Box w="2px" h="10px" bg={done ? 'brand' : 'borderStrong'} transition="background .3s" />
-        <Box
-          as="svg"
-          viewBox="0 0 12 7"
-          w="10px"
-          h="6px"
-          color={done ? 'brand' : 'text3'}
-          opacity={done ? 1 : 0.7}
-          transition="color .3s"
-        >
-          <path d="M1 1l5 5 5-5" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
-        </Box>
-        <Box w="2px" h="10px" bg={done ? 'brand' : 'borderStrong'} transition="background .3s" />
-      </Flex>
-      <Box flex="1" />
-    </Flex>
-  );
-}
-
-/**
  * One step, rendered as its own self-contained card — always the only thing
  * on screen inside JourneyPanels' one-at-a-time viewport, so it doesn't need
  * to compete visually with neighboring steps (that's what the "quiet

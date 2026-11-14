@@ -164,60 +164,6 @@ def _get_voucher_rules(source: str, slug: str) -> dict | None:
     Returns rules dict or None if not found."""
     return VOUCHER_RULES.get(f"{source}:{slug}")
 
-def validate_voucher_against_rules(source: str, slug: str, use_case: dict) -> tuple[bool, str | None]:
-    """Validate whether a voucher can be used based on standardized T&C rules.
-
-    Args:
-        source: 'gyftr', 'maximize', or 'buyhatke'
-        slug: brand slug
-        use_case: dict with optional keys:
-            - combine_with_other: bool (using multiple vouchers together)
-            - on_sale_item: bool
-            - with_store_offers: bool
-            - num_cards: int (number of cards being combined)
-            - product_category: str (e.g., "H&M", "Fine Jewellery")
-
-    Returns: (is_valid, reason_if_invalid) where reason is a human-readable string
-    explaining why voucher cannot be used (or None if valid/not stated).
-    """
-    rules = _get_voucher_rules(source, slug)
-    if not rules or "rules" not in rules:
-        return True, None  # No rules = assume valid
-
-    rules = rules["rules"]
-
-    # Check: can_combine
-    if use_case.get("combine_with_other") and rules.get("can_combine", {}).get("value") == "no":
-        max_cards = rules.get("max_cards_per_order", {}).get("value")
-        if max_cards is not None:
-            return False, f"This voucher allows a maximum of {max_cards} card per order."
-        return False, "This voucher cannot be combined with other gift cards."
-
-    # Check: works_on_sale_items
-    if use_case.get("on_sale_item") and rules.get("works_on_sale_items", {}).get("value") == "no":
-        return False, "This voucher is not applicable on sale or discounted items."
-
-    # Check: combines_with_store_offers
-    if use_case.get("with_store_offers") and rules.get("combines_with_store_offers", {}).get("value") == "no":
-        return False, "This voucher cannot be combined with other store offers."
-
-    # Check: max_cards_per_order
-    num_cards = use_case.get("num_cards", 1)
-    max_cards = rules.get("max_cards_per_order", {}).get("value")
-    if max_cards is not None and num_cards > max_cards:
-        return False, f"This voucher allows a maximum of {max_cards} cards per order, but you're trying to use {num_cards}."
-
-    # Check: product exclusions
-    product_category = use_case.get("product_category", "")
-    excludes = rules.get("excludes", {}).get("value") or []
-    if product_category and excludes:
-        for excluded in excludes:
-            if product_category.lower() in excluded.lower() or excluded.lower() in product_category.lower():
-                return False, f"This voucher cannot be used on {excluded.lower()}."
-
-    return True, None
-
-
 def _leftover_is_reusable(voucher: dict) -> bool:
     """Does unspent value on this voucher survive the order?
 

@@ -43,16 +43,6 @@ export function saving(result, rec, payingByCard = false) {
   return round(priceSet?.saving);
 }
 
-/** The cashback ₹ figure that actually applies for a selected card's quote
- * (see CreditCardPrompt/card_service.get_card_quote) — `direct_cashback`
- * when the route is skipping the voucher for this card (`skip_voucher`),
- * else the voucher-funded `cashback`. Single source of truth so the
- * top savings box and the card's own cashback tile can never disagree. */
-export function effectiveCashback(quote) {
-  if (!quote) return 0;
-  return (quote.skip_voucher ? quote.direct_cashback ?? quote.cashback : quote.cashback) || 0;
-}
-
 /** What the buyer actually pays for the voucher itself (face value less the applicable
  * discount — UPI's or, once a card is picked, the card rate's, per `payingByCard`). The
  * face value itself (`voucher_amount`) doesn't depend on payment method, so it's always
@@ -61,21 +51,6 @@ export function paidForVoucher(v, payingByCard = false) {
   if (!v?.upi) return null;
   const pct = (payingByCard ? v.card?.pct : v.upi.pct) ?? v.upi.pct;
   return Math.round(v.upi.voucher_amount * (1 - pct / 100));
-}
-
-/**
- * Clean raw Gyftr redemption instructions: drop empties, trailing "Important
- * Instructions" headers, and all-caps heading lines. Only still needed for
- * VoucherDetailPage, which reads straight from voucher_repository (raw data)
- * — the route-building path (HowToSteps) gets pre-cleaned data straight from
- * voucher_service.py::_clean_instructions() now, the single source of truth
- * for both web and WhatsApp there.
- */
-export function cleanInstructions(list) {
-  return (list || []).filter((i) => {
-    const t = (i || '').trim();
-    return t && !/Important Instructions\s*$/.test(t) && !/^[A-Z][A-Z\s&/-]+$/.test(t);
-  });
 }
 
 /**
