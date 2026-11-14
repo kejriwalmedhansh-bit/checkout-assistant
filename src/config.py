@@ -112,6 +112,9 @@ class Settings(BaseSettings):
     # The token OpenAI's submission page issues to prove we own the /mcp host.
     # Served as plain text at /.well-known/openai-apps-challenge. Not secret.
     OPENAI_APPS_CHALLENGE: str = ""
+    # Marks our own Claude/ChatGPT research as internal in Mixpanel: connect
+    # with https://mcp.getdealo.in/mcp?internal=<this value>. Empty = off.
+    DEALO_INTERNAL_MCP_TOKEN: str = ""
 
     # --- Mixpanel import (scripts/sync_affiliate_purchases.py only) ---
     # Service account (Mixpanel -> Organization settings -> Service accounts).

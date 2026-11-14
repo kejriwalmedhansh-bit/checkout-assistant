@@ -117,3 +117,34 @@ def test_chatgpt_may_open_dealo_buy_page():
     card = _rpc("resources/read", {"uri": _rpc("tools/list")["result"]["tools"][0]["_meta"]["ui"]["resourceUri"]})
     allowed = card["result"]["contents"][0]["_meta"]["openai/widgetCSP"]["redirect_domains"]
     assert "https://getdealo.in" in allowed
+
+
+def test_lookups_carry_a_conversation_id(monkeypatch):
+    """initialize hands out an Mcp-Session-Id; lookups that send it back are
+    counted per conversation, and ?internal=<token> marks our own sessions."""
+    from src.api.routers import chat_app
+    from src.config import get_settings
+    from src.services import analytics_service
+
+    sent = []
+    monkeypatch.setattr(analytics_service, "fire", sent.append)
+    monkeypatch.setattr(get_settings(), "DEALO_INTERNAL_MCP_TOKEN", "s3cret")
+
+    r = client.post("/mcp", json={"jsonrpc": "2.0", "id": 1, "method": "initialize",
+                                   "params": {"clientInfo": {"name": "claude-ai", "version": "0.1.0"}}})
+    sid = r.headers["mcp-session-id"]
+    assert sid.endswith("~claude-ai~0.1.0")
+
+    call = {"jsonrpc": "2.0", "id": 2, "method": "tools/call",
+            "params": {"name": chat_app.TOOL["name"], "arguments": {"shop": "Nykaa"}}}
+    client.post("/mcp", json=call, headers={"mcp-session-id": sid})
+    client.post("/mcp?internal=s3cret", json=call, headers={"mcp-session-id": sid})
+    client.post("/mcp", json=call)  # an old connection with no id
+
+    outside, ours, old = sent[-3:]
+    assert outside["properties"]["distinct_id"].startswith("mcp:")
+    assert outside["properties"]["client_name"] == "claude-ai"
+    assert outside["properties"]["is_internal"] is False
+    assert ours["properties"]["is_internal"] is True
+    assert ours["properties"]["distinct_id"] == outside["properties"]["distinct_id"]
+    assert old["properties"]["mcp_session_id"] is None
