@@ -7,9 +7,9 @@ import { track } from '@/utils/analytics';
 /**
  * What a Dealo (Hubble) voucher is good for, before the shopper pays: up to
  * five icons with two words each (incl. how many cards one bill takes), small
- * red "Not for …" tags, three picture steps for using it (or, when it works
- * both ways, two plain lines: in store / online, nothing to tap), and a "Read all rules" link to the
- * shop's own terms word for word. Everything comes from the server
+ * red "Not for …" tags and one plain line per way of using it (in store /
+ * online, nothing to tap), all in one box whose bottom row opens the shop's
+ * own rules word for word. Everything comes from the server
  * (hubble_service.card_details). Designed 9 Nov 2026; rules round 16 Nov 2026.
  */
 
@@ -55,19 +55,11 @@ const TONE = {
   info: { bg: 'surface3', color: 'text', text: 'text' },
 };
 
-// Short picture steps for each way of using the card. Hubble's own wording
-// is in the rules sheet; these say the same thing in three taps' worth.
-const STEPS = {
-  store: () => [
-    ['bag', 'Pick your items'],
-    ['qr', 'Show this code at the counter'],
-    ['card', 'Pay the rest by card or UPI'],
-  ],
-  online: (brand) => [
-    ['bag', `Shop on ${brand}`],
-    ['card', 'Pick “Gift Card” at payment'],
-    ['key', 'Type the code + PIN'],
-  ],
+// One plain line per way of using the card. Hubble's own step-by-step
+// wording is in the rules sheet.
+const HOW = {
+  store: { icon: 'store', where: 'In store', how: 'Show the code at the counter' },
+  online: { icon: 'globe', where: 'Online', how: 'Pick “Gift Card” at payment, type the code + PIN' },
 };
 
 // Which ways this card can be used, and which one to show first.
@@ -175,7 +167,6 @@ function Sheet({ card, brandName, modes, onClose }) {
 export default function VoucherFacts({ card, brandName, placement }) {
   const [open, setOpen] = useState(false);
   const usage = usageModes(card);
-  const mode = usage.start;
   const facts = card?.facts || [];
   const cant = card?.cant || [];
   if (!facts.length) return null;
@@ -183,17 +174,21 @@ export default function VoucherFacts({ card, brandName, placement }) {
     setOpen(true);
     track('Voucher Terms Opened', { brand: brandName, placement, cant_count: cant.length });
   };
-  const steps = mode ? STEPS[mode](brandName) : [];
+  // The way the shopper is most likely to use it goes first.
+  const ways = [usage.start, ...usage.list.filter((m) => m !== usage.start)].filter(Boolean);
+  const rules = card.terms?.length || 0;
 
+  // One calm box: what the card is (icons), what it can't buy (tags), how to
+  // use it (one line per way), and the full rules behind a row at the bottom.
   return (
-    <Flex direction="column" gap="10px">
-      <Grid templateColumns={`repeat(${facts.length}, 1fr)`} gap="4px" py="12px" px="2px" borderTop="1px dashed" borderBottom="1px dashed" borderColor="border">
+    <Box bg="surface2" border="1px solid" borderColor="border" borderRadius="16px" overflow="hidden">
+      <Grid templateColumns={`repeat(${facts.length}, 1fr)`} gap="4px" px="8px" pt="14px" pb="12px">
         {facts.map((f) => {
           const t = TONE[f.tone] || TONE.info;
           return (
             <Flex key={f.title + f.sub} direction="column" align="center" textAlign="center" gap="6px" minW={0}>
-              <Flex w="36px" h="36px" borderRadius="12px" bg={t.bg} color={t.color} align="center" justify="center">
-                <Glyph name={f.icon} />
+              <Flex w="34px" h="34px" borderRadius="11px" bg={t.bg} color={t.color} align="center" justify="center">
+                <Glyph name={f.icon} size={17} />
               </Flex>
               <Text fontSize="12px" fontWeight={700} lineHeight={1.2} color={t.text} overflowWrap="anywhere">
                 {f.title}
@@ -207,86 +202,61 @@ export default function VoucherFacts({ card, brandName, placement }) {
       </Grid>
 
       {cant.length > 0 && (
-        <Flex gap="6px" wrap="wrap">
+        <Flex gap="6px" wrap="wrap" justify="center" px="12px" pb="12px">
           {cant.map((c) => (
-            <Flex key={c.label} align="center" gap="6px" fontSize="12.5px" fontWeight={700} color="danger" bg="dangerSoft" border="1px solid" borderColor="dangerLine" borderRadius="pill" pl="6px" pr="10px" py="4px">
-              <Glyph name={c.icon} size={14} />
+            <Flex key={c.label} align="center" gap="5px" fontSize="12px" fontWeight={700} color="danger" bg="dangerSoft" borderRadius="pill" pl="7px" pr="10px" py="3px">
+              <Glyph name={c.icon} size={13} />
               Not for {c.label.toLowerCase()}
             </Flex>
           ))}
         </Flex>
       )}
 
-      {steps.length > 0 && (
-        <Box>
-          {usage.list.length > 1 ? (
-            // One card, two ways to use it: shown side by side as plain text,
-            // nothing to tap, so it never reads as two different vouchers.
-            <Box>
-              <Text fontSize="11px" fontWeight={800} letterSpacing=".1em" color="text3" textAlign="center" mb="8px">
-                ONE CARD · USE IT EITHER WAY
-              </Text>
-              <Flex direction="column" gap="6px">
-                {[
-                  ['store', 'In store', 'Show the code at the counter'],
-                  ['globe', 'Online', 'Pick “Gift Card” at payment, type the code + PIN'],
-                ].map(([icon, where, how]) => (
-                  <Flex key={where} align="center" gap="10px" px="2px">
-                    <Flex w="30px" h="30px" flex="0 0 auto" borderRadius="50%" bg="brandSoft" color="brand" align="center" justify="center">
-                      <Glyph name={icon} size={15} />
-                    </Flex>
-                    <Text fontSize="12.5px" color="text2" lineHeight={1.3} minW={0}>
-                      <Text as="span" fontWeight={800} color="text">
-                        {where}:{' '}
-                      </Text>
-                      {how}
-                    </Text>
-                  </Flex>
-                ))}
+      {ways.length > 0 && (
+        <Flex direction="column" gap="8px" px="14px" py="12px" borderTop="1px solid" borderColor="border">
+          {ways.map((m) => (
+            <Flex key={m} align="center" gap="10px">
+              <Flex w="26px" h="26px" flex="0 0 auto" borderRadius="50%" bg="brandSoft" color="brand" align="center" justify="center">
+                <Glyph name={HOW[m].icon} size={14} />
               </Flex>
-            </Box>
-          ) : (
-            <>
-              <Text fontSize="11px" fontWeight={800} letterSpacing=".1em" color="text3" textAlign="center" mb="8px">
-                {mode === 'store' ? 'AT THE COUNTER' : `HOW TO USE ON ${brandName.toUpperCase()}`}
-              </Text>
-          <Grid templateColumns={`repeat(${steps.length}, 1fr)`} gap="6px" alignItems="start">
-            {steps.map(([icon, label], i) => (
-              <Flex key={label} direction="column" align="center" textAlign="center" gap="5px" minW={0}>
-                <Flex position="relative" w="34px" h="34px" borderRadius="50%" bg="brandSoft" color="brand" align="center" justify="center">
-                  <Flex position="absolute" top="-4px" left="-4px" w="16px" h="16px" borderRadius="50%" bg="brand" color="onBrand" fontFamily="mono" fontWeight={700} fontSize="10px" align="center" justify="center">
-                    {i + 1}
-                  </Flex>
-                  <Glyph name={icon} size={16} />
-                </Flex>
-                <Text fontSize="11.5px" fontWeight={600} color="text2" lineHeight={1.25}>
-                  {label}
+              <Text fontSize="13px" color="text2" lineHeight={1.35} minW={0}>
+                <Text as="span" fontWeight={800} color="text">
+                  {HOW[m].where}:{' '}
                 </Text>
-              </Flex>
-            ))}
-          </Grid>
-            </>
-          )}
-        </Box>
+                {HOW[m].how}
+              </Text>
+            </Flex>
+          ))}
+        </Flex>
       )}
 
-      {card.terms?.length > 0 && (
-        <Button
-          variant="link"
-          alignSelf="center"
+      {rules > 0 && (
+        <Flex
+          as="button"
+          type="button"
+          onClick={openSheet}
+          w="100%"
+          minH="44px"
+          px="14px"
+          align="center"
+          justify="space-between"
+          borderTop="1px solid"
+          borderColor="border"
+          bg="surface"
+          color="brand"
           fontSize="13px"
           fontWeight={700}
-          color="brand"
-          textDecoration="underline"
-          textUnderlineOffset="3px"
-          onClick={openSheet}
+          textAlign="left"
+          _hover={{ bg: 'brandSoft2' }}
+          _focusVisible={{ outline: '2px solid', outlineColor: 'brass', outlineOffset: '-2px' }}
         >
-          Read all {card.terms.length} {brandName} rules
-        </Button>
+          Read all {rules} {brandName} rules
+          <I.chevRight size={16} />
+        </Flex>
       )}
 
-      {open && <Sheet card={card} brandName={brandName} modes={usage.list.length ? usage.list : [mode]} onClose={() => setOpen(false)} />}
-    </Flex>
+      {open && <Sheet card={card} brandName={brandName} modes={ways} onClose={() => setOpen(false)} />}
+    </Box>
   );
 }
 
