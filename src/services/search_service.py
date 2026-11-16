@@ -696,7 +696,12 @@ def _match_hubble_shop(query: str) -> dict | None:
     kept = [w for w in (query or "").split() if _norm(w) not in _BRAND_VOUCHER_FILLER_WORDS]
     if not kept or len(kept) > _MAX_BRAND_WORDS:
         return None
-    name = " ".join(kept)
+    return _hubble_card(" ".join(kept))
+
+
+def _hubble_card(name: str) -> dict | None:
+    """Dealo's own card for the shop `name`, in the search's voucher shape,
+    only when Hubble lists the shop AND confirms it is on sale right now."""
     if not (hubble_service.brand_for(name) or hubble_service.brand_for(name, in_store=True)):
         return None
     try:
@@ -719,6 +724,24 @@ def _match_hubble_shop(query: str) -> dict | None:
         "best_discount_pct": info["discount_pct"],
         "denominations": info["cards"],
     }
+
+
+def _partner_sells_now(card: dict) -> bool:
+    """False for a partner card the voucher refresh retired or marked out of
+    stock. `_on_sale` keeps such a record in the name index whenever Hubble
+    lists the shop, so the website can show Dealo's card instead; but when
+    Hubble isn't selling it either, the dead card itself was shown (Westside
+    at 0% on Gyftr, 2026-11-16; 106 such records that day)."""
+    index = {
+        "gyftr": _load_brand_voucher_index,
+        "maximize": _load_maximize_brand_index,
+        "buyhatke": _load_buyhatke_brand_index,
+    }.get(card.get("voucher_source") or "")
+    record = index().get(_norm(card.get("brand_name") or "")) if index else None
+    products = (record or {}).get("products")
+    if products is None:
+        return True  # not from a name index (hand-matched pairs check their own listings)
+    return any(voucher_service._is_sellable(p) for p in products)
 
 
 # Words a genuine storefront appends to its brand name ("Croma Retail",
@@ -3312,6 +3335,10 @@ def search_candidates(query: str, exact: bool = False, shops_only: bool = False)
     # ("Giva-Silver Jewellery", "Malabar Diamonds"): there's no card called
     # just "GIVA", so the exact-name match above misses them.
     choices = [] if is_url else _brand_voucher_choices(query)
+    live_choices = [c for c in choices if _partner_sells_now(c)]
+    if len(live_choices) < len(choices):
+        choices = live_choices if len(live_choices) >= 2 else []
+        matched_voucher = matched_voucher or (live_choices[0] if len(live_choices) == 1 else None)
     matched_voucher = matched_voucher or (choices[0] if choices else None)
     if matched_voucher and not choices:
         # The same voucher on another site at a better rate (owner review).
@@ -3319,6 +3346,10 @@ def search_candidates(query: str, exact: bool = False, shops_only: bool = False)
         better_card = _voucher_card(better["source"], better["name"]) if better else None
         if better_card and (better_card.get("best_discount_pct") or 0) > (matched_voucher.get("best_discount_pct") or 0):
             matched_voucher = better_card
+    if matched_voucher and not choices and not _partner_sells_now(matched_voucher):
+        # The partner retired this card: Dealo's own card if Hubble sells the
+        # shop right now, otherwise nothing (never a dead 0% card).
+        matched_voucher = _hubble_card(matched_voucher.get("brand_name") or query)
     if matched_voucher:
         out["mode"] = "brand_voucher"
         out["voucher"] = matched_voucher
