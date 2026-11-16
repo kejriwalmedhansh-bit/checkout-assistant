@@ -1030,17 +1030,6 @@
         "cant_count": "how many 'can't pay for' items the card showed"
       }
     },
-    "Voucher Steps Switched": {
-      "description": "On a Dealo (Hubble) voucher card that works both online and in store, the shopper tapped the In store / Online switch above the picture steps. Counted without cookie consent too (no personal detail is carried).",
-      "surfaces": [
-        "web"
-      ],
-      "properties": {
-        "brand": "Hubble's voucher title",
-        "placement": "journey (cart result) | shop_card (shop-name search, or a buy link)",
-        "mode": "store | online: the steps the shopper switched to"
-      }
-    },
     "Voucher Recovered After Reload": {
       "description": "A buyer who left mid-payment came back (page reload, within 30 min) and their paid voucher code was recovered from the server and saved on their phone.",
       "surfaces": [

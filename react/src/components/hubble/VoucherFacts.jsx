@@ -7,8 +7,8 @@ import { track } from '@/utils/analytics';
 /**
  * What a Dealo (Hubble) voucher is good for, before the shopper pays: up to
  * five icons with two words each (incl. how many cards one bill takes), small
- * red "Not for …" tags, three picture steps for using it (with an In store /
- * Online switch when it works both ways), and a "Read all rules" link to the
+ * red "Not for …" tags, three picture steps for using it (or, when it works
+ * both ways, two plain lines: in store / online, nothing to tap), and a "Read all rules" link to the
  * shop's own terms word for word. Everything comes from the server
  * (hubble_service.card_details). Designed 9 Nov 2026; rules round 16 Nov 2026.
  */
@@ -84,14 +84,16 @@ function usageModes(card) {
   return { list, start: first.title === 'In store' ? 'store' : list.includes('online') ? 'online' : list[0] };
 }
 
-function Sheet({ card, brandName, mode, onClose }) {
+function Sheet({ card, brandName, modes, onClose }) {
   useEffect(() => {
     const onKey = (e) => e.key === 'Escape' && onClose();
     window.addEventListener('keydown', onKey);
     return () => window.removeEventListener('keydown', onKey);
   }, [onClose]);
   const cant = card.cant || [];
-  const how = card.ways?.[mode] || card.steps || [];
+  const hows = modes
+    .map((m) => [m, card.ways?.[m] || (modes.length === 1 ? card.steps : null) || []])
+    .filter(([, list]) => list.length);
   return (
     <Box position="fixed" inset={0} zIndex={1400} bg="rgba(22,32,43,.45)" onClick={onClose}>
       <Box
@@ -145,10 +147,10 @@ function Sheet({ card, brandName, mode, onClose }) {
             ))}
           </Box>
         )}
-        {how.length > 0 && (
-          <Box mt="14px" borderTop="1px solid" borderColor="border" pt="10px">
+        {hows.map(([m, how]) => (
+          <Box key={m} mt="14px" borderTop="1px solid" borderColor="border" pt="10px">
             <Text fontSize="12px" fontWeight={800} letterSpacing=".08em" color="text3" mb="4px">
-              {mode === 'store' ? 'IN STORE, STEP BY STEP' : 'ONLINE, STEP BY STEP'}
+              {m === 'store' ? 'IN STORE, STEP BY STEP' : 'ONLINE, STEP BY STEP'}
             </Text>
             <Box as="ol" pl="18px" fontSize="13px" lineHeight={1.45} color="text2">
               {how.map((t) => (
@@ -158,7 +160,7 @@ function Sheet({ card, brandName, mode, onClose }) {
               ))}
             </Box>
           </Box>
-        )}
+        ))}
         <Text fontSize="11.5px" color="text3" mt="12px">
           Word for word from the seller.
         </Text>
@@ -173,17 +175,13 @@ function Sheet({ card, brandName, mode, onClose }) {
 export default function VoucherFacts({ card, brandName, placement }) {
   const [open, setOpen] = useState(false);
   const usage = usageModes(card);
-  const [mode, setMode] = useState(usage.start);
+  const mode = usage.start;
   const facts = card?.facts || [];
   const cant = card?.cant || [];
   if (!facts.length) return null;
   const openSheet = () => {
     setOpen(true);
     track('Voucher Terms Opened', { brand: brandName, placement, cant_count: cant.length });
-  };
-  const pick = (m) => {
-    setMode(m);
-    track('Voucher Steps Switched', { brand: brandName, placement, mode: m });
   };
   const steps = mode ? STEPS[mode](brandName) : [];
 
@@ -222,33 +220,36 @@ export default function VoucherFacts({ card, brandName, placement }) {
       {steps.length > 0 && (
         <Box>
           {usage.list.length > 1 ? (
-            <Flex justify="center" gap="4px" mb="8px" role="group" aria-label="Where you'll use it">
-              {usage.list.map((m) => (
-                <Button
-                  key={m}
-                  size="sm"
-                  h="30px"
-                  px="14px"
-                  borderRadius="pill"
-                  fontSize="12.5px"
-                  fontWeight={700}
-                  border="1.5px solid"
-                  borderColor={m === mode ? 'brand' : 'border'}
-                  bg={m === mode ? 'brand' : 'surface'}
-                  color={m === mode ? 'onBrand' : 'text2'}
-                  _hover={{ bg: m === mode ? 'brand' : 'surface2' }}
-                  aria-pressed={m === mode}
-                  onClick={() => pick(m)}
-                >
-                  {m === 'store' ? 'In store' : 'Online'}
-                </Button>
-              ))}
-            </Flex>
+            // One card, two ways to use it: shown side by side as plain text,
+            // nothing to tap, so it never reads as two different vouchers.
+            <Box>
+              <Text fontSize="11px" fontWeight={800} letterSpacing=".1em" color="text3" textAlign="center" mb="8px">
+                ONE CARD · USE IT EITHER WAY
+              </Text>
+              <Flex direction="column" gap="6px">
+                {[
+                  ['store', 'In store', 'Show the code at the counter'],
+                  ['globe', 'Online', 'Pick “Gift Card” at payment, type the code + PIN'],
+                ].map(([icon, where, how]) => (
+                  <Flex key={where} align="center" gap="10px" px="2px">
+                    <Flex w="30px" h="30px" flex="0 0 auto" borderRadius="50%" bg="brandSoft" color="brand" align="center" justify="center">
+                      <Glyph name={icon} size={15} />
+                    </Flex>
+                    <Text fontSize="12.5px" color="text2" lineHeight={1.3} minW={0}>
+                      <Text as="span" fontWeight={800} color="text">
+                        {where}:{' '}
+                      </Text>
+                      {how}
+                    </Text>
+                  </Flex>
+                ))}
+              </Flex>
+            </Box>
           ) : (
-            <Text fontSize="11px" fontWeight={800} letterSpacing=".1em" color="text3" textAlign="center" mb="8px">
-              {mode === 'store' ? 'AT THE COUNTER' : `HOW TO USE ON ${brandName.toUpperCase()}`}
-            </Text>
-          )}
+            <>
+              <Text fontSize="11px" fontWeight={800} letterSpacing=".1em" color="text3" textAlign="center" mb="8px">
+                {mode === 'store' ? 'AT THE COUNTER' : `HOW TO USE ON ${brandName.toUpperCase()}`}
+              </Text>
           <Grid templateColumns={`repeat(${steps.length}, 1fr)`} gap="6px" alignItems="start">
             {steps.map(([icon, label], i) => (
               <Flex key={label} direction="column" align="center" textAlign="center" gap="5px" minW={0}>
@@ -264,6 +265,8 @@ export default function VoucherFacts({ card, brandName, placement }) {
               </Flex>
             ))}
           </Grid>
+            </>
+          )}
         </Box>
       )}
 
@@ -282,7 +285,7 @@ export default function VoucherFacts({ card, brandName, placement }) {
         </Button>
       )}
 
-      {open && <Sheet card={card} brandName={brandName} mode={mode} onClose={() => setOpen(false)} />}
+      {open && <Sheet card={card} brandName={brandName} modes={usage.list.length ? usage.list : [mode]} onClose={() => setOpen(false)} />}
     </Flex>
   );
 }
