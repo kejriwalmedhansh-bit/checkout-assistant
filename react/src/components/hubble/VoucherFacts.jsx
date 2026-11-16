@@ -5,12 +5,12 @@ import { I } from '@/components/common/icons';
 import { track } from '@/utils/analytics';
 
 /**
- * What a Dealo (Hubble) voucher is good for, before the shopper pays: four
- * icons with two words each, and one tappable box for what it can't pay for
- * (only for shops with hand-picked items; the icon row covers the rest). The box
- * opens a sheet with those items as pictures, and the shop's full terms
- * folded away. Everything comes from Hubble's own terms via the server
- * (hubble_service.card_details). Designed in rounds 1–4, 9 Nov 2026.
+ * What a Dealo (Hubble) voucher is good for, before the shopper pays: up to
+ * five icons with two words each (incl. how many cards one bill takes), small
+ * red "Not for …" tags and one plain line per way of using it (in store /
+ * online, nothing to tap), all in one box whose bottom row opens the shop's
+ * own rules word for word. Everything comes from the server
+ * (hubble_service.card_details). Designed 9 Nov 2026; rules round 16 Nov 2026.
  */
 
 const PATHS = {
@@ -33,6 +33,12 @@ const PATHS = {
   phone: <><rect x="6" y="2" width="12" height="20" rx="2" /><path d="M11 18h2" /></>,
   pill: <><rect x="2" y="8" width="20" height="8" rx="4" transform="rotate(-35 12 12)" /><path d="M9 8.5l6 7" /></>,
   check: <path d="M5 12l5 5L20 7" />,
+  stack: <><rect x="3" y="9" width="14" height="10" rx="2" /><path d="M7 6h12a2 2 0 0 1 2 2v8" /></>,
+  one: <><rect x="5" y="7" width="14" height="10" rx="2" /><path d="M12 10v4" /></>,
+  bag: <><path d="M5 8h14l-1 13H6z" /><path d="M9 8V6a3 3 0 0 1 6 0v2" /></>,
+  qr: <><rect x="3" y="3" width="7" height="7" rx="1" /><rect x="14" y="3" width="7" height="7" rx="1" /><rect x="3" y="14" width="7" height="7" rx="1" /><path d="M14 14h3v3M21 14v7h-4M14 18v3" /></>,
+  card: <><rect x="2" y="5" width="20" height="14" rx="2" /><path d="M2 10h20" /></>,
+  key: <><circle cx="8" cy="15" r="4" /><path d="M11 12l9-9M17 6l3 3" /></>,
 };
 
 function Glyph({ name, size = 18, stroke = 2.1 }) {
@@ -49,18 +55,42 @@ const TONE = {
   info: { bg: 'surface3', color: 'text', text: 'text' },
 };
 
-function Sheet({ card, brandName, onClose }) {
+// One plain line per way of using the card. Hubble's own step-by-step
+// wording is in the rules sheet.
+const HOW = {
+  store: { icon: 'store', where: 'In store', how: 'Show the code at the counter' },
+  online: { icon: 'globe', where: 'Online', how: 'Pick “Gift Card” at payment, type the code + PIN' },
+};
+
+// Which ways this card can be used, and which one to show first.
+function usageModes(card) {
+  const ways = card?.ways || {};
+  const first = card?.facts?.[0] || {};
+  const modes = new Set(Object.keys(ways));
+  if (first.title === 'In store') modes.add('store');
+  if (first.title === 'Online') {
+    modes.add('online');
+    if (first.sub === '& in store') modes.add('store');
+  }
+  const list = ['store', 'online'].filter((m) => modes.has(m));
+  return { list, start: first.title === 'In store' ? 'store' : list.includes('online') ? 'online' : list[0] };
+}
+
+function Sheet({ card, brandName, modes, onClose }) {
   useEffect(() => {
     const onKey = (e) => e.key === 'Escape' && onClose();
     window.addEventListener('keydown', onKey);
     return () => window.removeEventListener('keydown', onKey);
   }, [onClose]);
   const cant = card.cant || [];
+  const hows = modes
+    .map((m) => [m, card.ways?.[m] || (modes.length === 1 ? card.steps : null) || []])
+    .filter(([, list]) => list.length);
   return (
     <Box position="fixed" inset={0} zIndex={1400} bg="rgba(22,32,43,.45)" onClick={onClose}>
       <Box
         role="dialog"
-        aria-label={`${brandName} voucher`}
+        aria-label={`${brandName} voucher rules`}
         position="absolute"
         left={0}
         right={0}
@@ -79,14 +109,14 @@ function Sheet({ card, brandName, onClose }) {
         <Box w="36px" h="4px" borderRadius="2px" bg="surface3" mx="auto" mb="12px" />
         <Flex justify="space-between" align="center" mb="12px">
           <Text fontSize="17px" fontWeight={800}>
-            Can’t pay for
+            {brandName}’s own rules
           </Text>
           <Button size="sm" w="30px" h="30px" minW="30px" p={0} borderRadius="50%" bg="surface3" onClick={onClose} aria-label="Close">
             <I.x size={14} />
           </Button>
         </Flex>
         {cant.length > 0 && (
-          <Grid templateColumns={`repeat(${Math.min(cant.length, 3)}, 1fr)`} gap="8px">
+          <Grid templateColumns={`repeat(${Math.min(cant.length, 3)}, 1fr)`} gap="8px" mb="14px">
             {cant.map((c) => (
               <Flex key={c.label} direction="column" align="center" gap="7px" textAlign="center" py="12px" px="4px" borderRadius="14px" bg="dangerSoft">
                 <Flex position="relative" w="42px" h="42px" borderRadius="50%" bg="surface" color="danger" align="center" justify="center">
@@ -101,20 +131,32 @@ function Sheet({ card, brandName, onClose }) {
           </Grid>
         )}
         {card.terms?.length > 0 && (
-          <Box as="details" mt="14px" borderTop="1px solid" borderColor="border" pt="10px">
-            <Box as="summary" fontSize="13px" fontWeight={700} color="text2" cursor="pointer" listStyleType="none" sx={{ '&::-webkit-details-marker': { display: 'none' } }}>
-              Read all of {brandName}’s rules ⌄
-            </Box>
-            <Box as="ol" mt="8px" pl="18px" fontSize="12.5px" lineHeight={1.45} color="text2">
-              {card.terms.map((t) => (
+          <Box as="ol" pl="18px" fontSize="13px" lineHeight={1.45} color="text">
+            {card.terms.map((t) => (
+              <Box as="li" key={t} mt="6px">
+                {t}
+              </Box>
+            ))}
+          </Box>
+        )}
+        {hows.map(([m, how]) => (
+          <Box key={m} mt="14px" borderTop="1px solid" borderColor="border" pt="10px">
+            <Text fontSize="12px" fontWeight={800} letterSpacing=".08em" color="text3" mb="4px">
+              {m === 'store' ? 'IN STORE, STEP BY STEP' : 'ONLINE, STEP BY STEP'}
+            </Text>
+            <Box as="ol" pl="18px" fontSize="13px" lineHeight={1.45} color="text2">
+              {how.map((t) => (
                 <Box as="li" key={t} mt="4px">
                   {t}
                 </Box>
               ))}
             </Box>
           </Box>
-        )}
-        <Button onClick={onClose} w="100%" h="48px" mt="16px" borderRadius="pill" bg="text" color="onBrand" fontWeight={800} _hover={{ bg: 'text' }}>
+        ))}
+        <Text fontSize="11.5px" color="text3" mt="12px">
+          Word for word from the seller.
+        </Text>
+        <Button onClick={onClose} w="100%" h="48px" mt="12px" borderRadius="pill" bg="text" color="onBrand" fontWeight={800} _hover={{ bg: 'text' }}>
           Got it
         </Button>
       </Box>
@@ -124,6 +166,7 @@ function Sheet({ card, brandName, onClose }) {
 
 export default function VoucherFacts({ card, brandName, placement }) {
   const [open, setOpen] = useState(false);
+  const usage = usageModes(card);
   const facts = card?.facts || [];
   const cant = card?.cant || [];
   if (!facts.length) return null;
@@ -131,18 +174,23 @@ export default function VoucherFacts({ card, brandName, placement }) {
     setOpen(true);
     track('Voucher Terms Opened', { brand: brandName, placement, cant_count: cant.length });
   };
+  // The way the shopper is most likely to use it goes first.
+  const ways = [usage.start, ...usage.list.filter((m) => m !== usage.start)].filter(Boolean);
+  const rules = card.terms?.length || 0;
 
+  // One calm box: what the card is (icons), what it can't buy (tags), how to
+  // use it (one line per way), and the full rules behind a row at the bottom.
   return (
-    <Box>
-      <Grid templateColumns={`repeat(${facts.length}, 1fr)`} gap="4px" py="12px" px="2px" borderTop="1px dashed" borderBottom="1px dashed" borderColor="border">
+    <Box bg="surface2" border="1px solid" borderColor="border" borderRadius="16px" overflow="hidden">
+      <Grid templateColumns={`repeat(${facts.length}, 1fr)`} gap="4px" px="8px" pt="14px" pb="12px">
         {facts.map((f) => {
           const t = TONE[f.tone] || TONE.info;
           return (
-            <Flex key={f.title} direction="column" align="center" textAlign="center" gap="6px" minW={0}>
-              <Flex w="36px" h="36px" borderRadius="12px" bg={t.bg} color={t.color} align="center" justify="center">
-                <Glyph name={f.icon} />
+            <Flex key={f.title + f.sub} direction="column" align="center" textAlign="center" gap="6px" minW={0}>
+              <Flex w="34px" h="34px" borderRadius="11px" bg={t.bg} color={t.color} align="center" justify="center">
+                <Glyph name={f.icon} size={17} />
               </Flex>
-              <Text fontSize="12px" fontWeight={700} lineHeight={1.2} color={t.text}>
+              <Text fontSize="12px" fontWeight={700} lineHeight={1.2} color={t.text} overflowWrap="anywhere">
                 {f.title}
                 <Text as="span" display="block" fontWeight={500} fontSize="11px" color="text3" mt="1px">
                   {f.sub}
@@ -154,35 +202,60 @@ export default function VoucherFacts({ card, brandName, placement }) {
       </Grid>
 
       {cant.length > 0 && (
-      <Flex
-        as="button"
-        type="button"
-        onClick={openSheet}
-        w="100%"
-        mt="10px"
-        px="12px"
-        py="10px"
-        align="center"
-        gap="10px"
-        borderRadius="12px"
-        border="1.5px solid"
-        borderColor="dangerLine"
-        bg="dangerSoft"
-        color="danger"
-        textAlign="left"
-        _focusVisible={{ outline: '2px solid', outlineColor: 'brass', outlineOffset: '2px' }}
-      >
-        <Flex w="26px" h="26px" borderRadius="50%" flex="0 0 auto" align="center" justify="center" bg="danger" color="white" fontFamily="mono" fontWeight={800} fontSize="13px">
-          {cant.length}
+        <Flex gap="6px" wrap="wrap" justify="center" px="12px" pb="12px">
+          {cant.map((c) => (
+            <Flex key={c.label} align="center" gap="5px" fontSize="12px" fontWeight={700} color="danger" bg="dangerSoft" borderRadius="pill" pl="7px" pr="10px" py="3px">
+              <Glyph name={c.icon} size={13} />
+              Not for {c.label.toLowerCase()}
+            </Flex>
+          ))}
         </Flex>
-        <Text flex="1" fontSize="13.5px" fontWeight={800}>
-          Things it can’t pay for
-        </Text>
-        <I.chevRight size={16} />
-      </Flex>
       )}
 
-      {open && cant.length > 0 && <Sheet card={card} brandName={brandName} onClose={() => setOpen(false)} />}
+      {ways.length > 0 && (
+        <Flex direction="column" gap="8px" px="14px" py="12px" borderTop="1px solid" borderColor="border">
+          {ways.map((m) => (
+            <Flex key={m} align="center" gap="10px">
+              <Flex w="26px" h="26px" flex="0 0 auto" borderRadius="50%" bg="brandSoft" color="brand" align="center" justify="center">
+                <Glyph name={HOW[m].icon} size={14} />
+              </Flex>
+              <Text fontSize="13px" color="text2" lineHeight={1.35} minW={0}>
+                <Text as="span" fontWeight={800} color="text">
+                  {HOW[m].where}:{' '}
+                </Text>
+                {HOW[m].how}
+              </Text>
+            </Flex>
+          ))}
+        </Flex>
+      )}
+
+      {rules > 0 && (
+        <Flex
+          as="button"
+          type="button"
+          onClick={openSheet}
+          w="100%"
+          minH="44px"
+          px="14px"
+          align="center"
+          justify="space-between"
+          borderTop="1px solid"
+          borderColor="border"
+          bg="surface"
+          color="brand"
+          fontSize="13px"
+          fontWeight={700}
+          textAlign="left"
+          _hover={{ bg: 'brandSoft2' }}
+          _focusVisible={{ outline: '2px solid', outlineColor: 'brass', outlineOffset: '-2px' }}
+        >
+          Read all {rules} {brandName} rules
+          <I.chevRight size={16} />
+        </Flex>
+      )}
+
+      {open && <Sheet card={card} brandName={brandName} modes={ways} onClose={() => setOpen(false)} />}
     </Box>
   );
 }

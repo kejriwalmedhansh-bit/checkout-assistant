@@ -34,7 +34,8 @@ def titles(card):
 
 def test_myntra_reads_like_the_mockup():
     card = h.card_details(product(MYNTRA), "Myntra", in_store=False)
-    assert titles(card) == [("Online", "info"), ("Reuse", "yes"), ("Offers", "yes"), ("1 year", "info")]
+    # "Many" per order comes from Gyftr's Myntra rules (Hubble's lines here don't say).
+    assert titles(card) == [("Online", "info"), ("Many", "yes"), ("Reuse", "yes"), ("Offers", "yes"), ("1 year", "info")]
     assert [c["label"] for c in card["cant"]] == ["Jewellery", "Gold & silver", "Cash on delivery"]
     assert card["steps"] == ["Open the app", "Add the card"]
 
@@ -65,3 +66,59 @@ def test_in_store_card_uses_in_store_steps():
     card = h.card_details(p, "X", in_store=True)
     assert card["facts"][0]["title"] == "In store"
     assert card["steps"] == ["Show the code at the till"]
+
+
+# --- How many cards one bill takes (added 16 Nov 2026) ---------------------
+
+def per_bill(card):
+    return next(((f["title"], f["sub"]) for f in card["facts"] if f["icon"] in ("stack", "one")), None)
+
+
+def test_hubble_number_per_order_is_read():
+    card = h.card_details(product(["Upto 15 virtual cards can be clubbed in a single order and gift card "
+                                   "can be used multiple times as long as it carries a balance"]), "Zzshop", False)
+    assert per_bill(card) == ("Up to 15", "per order")
+
+
+def test_cant_be_clubbed_means_one_card():
+    card = h.card_details(product(["Multiple cards can't be clubbed"]), "Zzshop", True)
+    assert per_bill(card) == ("1 card", "per bill")
+
+
+def test_several_allowed_reads_many():
+    card = h.card_details(product(["Multiple Gift cards can be clubbed and added to the e-Pay balance."]), "Zzshop", True)
+    assert per_bill(card) == ("Many", "per bill")
+
+
+def test_a_sentence_that_splits_online_and_store_says_nothing():
+    card = h.card_details(product(["Online: only one GV/GC per bill; Offline: multiple GV/GCs can be used"]), "Zzshop", True)
+    assert per_bill(card) is None
+
+
+def test_reuse_sentence_is_not_a_per_bill_rule():
+    card = h.card_details(product(["Gift card can be used multiple times"]), "Zzshop", False)
+    assert per_bill(card) is None
+
+
+def test_other_sellers_fill_the_gap_and_the_stricter_wins():
+    # Hubble's Mia terms say nothing; Gyftr allows several, Maximize says one.
+    card = h.card_details(product(["Comes with 6 months validity"]), "Mia", True)
+    fact = next(f for f in card["facts"] if f["icon"] == "one")
+    assert (fact["title"], fact["source"]) == ("1 card", "Maximize")
+
+
+def test_a_rule_about_online_orders_is_not_used_for_the_store_card():
+    # KFC: Gyftr's one-per-bill line is about online orders; in store several are fine.
+    assert h._per_bill_fact([], "KFC", True)["title"] == "Many"
+    assert h._per_bill_fact([], "KFC", False)["title"] == "1 card"
+
+
+def test_existing_offers_wording_with_the():
+    card = h.card_details(product(["The Gift card can be clubbed with the existing offers."]), "Zzshop", True)
+    assert ("Offers", "yes") in titles(card)
+
+
+def test_both_ways_of_using_the_card_are_returned():
+    p = product(["Comes with 1 year validity"], ways=(("ONLINE", ["web step"]), ("OFFLINE", ["Show the code"])))
+    card = h.card_details(p, "Zzshop", in_store=False)
+    assert card["ways"] == {"store": ["Show the code"], "online": ["web step"]}

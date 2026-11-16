@@ -217,7 +217,7 @@ _ONE_USE = re.compile(r"one[- ]time|only (?:be )?used once|can only be used once
 _REUSE = re.compile(r"multiple times|multi-use|partially redeemed|multiple transactions|multiple purchases", re.I)
 _NO_OFFERS = re.compile(r"cannot be clubbed with|no other offers|cannot be combined with|"
                         r"cannot be redeemed on existing discount|not be clubbed", re.I)
-_OFFERS = re.compile(r"offers can be clubbed|can be clubbed with (?:existing|selected) offer|"
+_OFFERS = re.compile(r"offers can be clubbed|can be clubbed with (?:the )?(?:existing|selected) offer|"
                      r"clubbed with existing offers|can be used during sale", re.I)
 _NO_REFUND = re.compile(r"cannot be cancelled or refunded|no refunds|non-refundable", re.I)
 _VALIDITY = re.compile(r"(\d+)\s*-?\s*(year|month)s?", re.I)
@@ -242,7 +242,7 @@ def _yes_no(terms: list[str], yes: re.Pattern, no: re.Pattern, no_wins: bool = F
     return (True, said_yes) if said_yes else (False, said_no) if said_no else (None, None)
 
 
-def _facts(terms: list[str], modes: set[str], in_store: bool) -> list[dict]:
+def _facts(terms: list[str], modes: set[str], in_store: bool, per_bill: dict | None = None) -> list[dict]:
     facts = []
     if in_store:
         facts.append({"icon": "store", "title": "In store", "sub": "show the code", "tone": "info"})
@@ -250,6 +250,8 @@ def _facts(terms: list[str], modes: set[str], in_store: bool) -> list[dict]:
         facts.append({"icon": "globe", "title": "Online", "sub": "& in store", "tone": "info"})
     else:
         facts.append({"icon": "globe", "title": "Online", "sub": "shopping", "tone": "info"})
+    if per_bill:
+        facts.append(per_bill)
     reuse, quote = _yes_no(terms, _REUSE, _ONE_USE)
     if reuse is not None:
         facts.append({"icon": "repeat", "title": "Reuse" if reuse else "One use",
@@ -265,9 +267,93 @@ def _facts(terms: list[str], modes: set[str], in_store: bool) -> list[dict]:
         facts.append({"icon": "cal", "title": f"{n} {unit}{'s' if n != 1 else ''}", "sub": "validity",
                       "tone": "info", "quote": valid[0]})
     refund = _first(terms, _NO_REFUND)
-    if refund and len(facts) < 4:
+    if refund and len(facts) < 5:
         facts.append({"icon": "undo", "title": "No refund", "sub": "once bought", "tone": "no", "quote": refund})
-    return facts[:4]
+    return facts[:5]
+
+# How many of this shop's cards one bill takes. Read from Hubble's own terms
+# first, then from what Gyftr, Maximize and BuyHatke say about the same
+# shop's card (data/voucher_rules.json); when they disagree the stricter
+# answer wins (owner's rule). A sentence that splits online and in-store
+# ("Online: one per bill; Offline: multiple") says nothing.
+_CARD = r"(?:(?:e[\s-]*)?gift\s+|virtual\s+|e[\s-]*)?(?:cards?|vouchers?|gvs?|gcs?|gv\s*/\s*gcs?|egvs?|codes?)"
+_PER = r"(?:bill|order|transaction|invoice|purchase|booking)"
+_MAX_N = re.compile(rf"(?:up\s*to|upto|maximum(?:\s+of)?|max\.?|only)\s+(\d+)\s+{_CARD}\b.*?\b(?:single|one|per|each|same)\s+{_PER}", re.I)
+_N_IN_ONE = re.compile(rf"\b(\d+)\s+{_CARD}\s+(?:can|may)\s+be\s+(?:used|redeemed|clubbed|combined)\b.*?\b(?:single|one|per)\s+{_PER}", re.I)
+_ONLY_ONE = re.compile(
+    rf"(?:only\s+(?:one|1|a\s+single)|maximum\s+(?:one|1)|\bsingle|\bone)\s+{_CARD}\s+(?:can|may|shall)\s+be\s+(?:used|redeemed|applied)"
+    rf"\b.*?\b(?:per|in\s+one|against\s+one|in\s+a\s+single|single|one)\s+{_PER}"
+    rf"|(?:multiple|more\s+than\s+one)\s+{_CARD}\s+(?:can['’]?t|cannot|can\s+not|shall\s+not|will\s+not|may\s+not)\s+be\s+(?:used|clubbed|combined|redeemed)"
+    rf"|{_CARD}\s+can['’]?t\s+be\s+clubbed", re.I)
+_MANY = re.compile(
+    rf"(?:multiple|more\s+than\s+one|several)\s+{_CARD}\s+(?:can|may|could)\s+be\s+(?:used|clubbed|combined|redeemed|added)"
+    rf"|{_CARD}\s+can\s+be\s+clubbed\s+(?:together|in\s+a\s+single)", re.I)
+_MIXED = re.compile(r"\bonline\b.*\boff-?line\b|\boff-?line\b.*\bonline\b|in[\s-]?store.*\bonline\b|\bonline\b.*in[\s-]?store", re.I)
+_ONLINE_WORDS = re.compile(r"\bonline\b|\.com\b|\bwebsite\b|\bapp\b", re.I)
+_STORE_WORDS = re.compile(r"off-?line|in[\s-]?store|\bstores?\b|\boutlets?\b|showrooms?|\bat the counter", re.I)
+_MANY_N = 99
+_VOUCHER_RULES = _DATA / "voucher_rules.json"
+_SELLER = {"gyftr": "Gyftr", "maximize": "Maximize", "buyhatke": "BuyHatke"}
+
+
+def _cards_per_bill(sentence: str) -> int | None:
+    """1, a number, _MANY_N for "several", or None when the sentence doesn't say."""
+    if _MIXED.search(sentence):
+        return None
+    m = _MAX_N.search(sentence) or _N_IN_ONE.search(sentence)
+    if m:
+        return max(1, int(m.group(1)))
+    if _ONLY_ONE.search(sentence):
+        return 1
+    if _MANY.search(sentence):
+        return _MANY_N
+    return None
+
+
+@lru_cache(maxsize=1)
+def _partner_rules() -> dict[str, list[dict]]:
+    by_shop: dict[str, list[dict]] = {}
+    for key, entry in json.loads(_VOUCHER_RULES.read_text()).items():
+        if key.startswith("_"):
+            continue
+        by_shop.setdefault(shop_key(entry.get("brand_name") or ""), []).append(entry)
+    return by_shop
+
+
+def _per_bill_fact(terms: list[str], brand_name: str, in_store: bool) -> dict | None:
+    found: list[tuple[int, str, str]] = []  # (cards, quote, seller)
+    for t in terms:
+        n = _cards_per_bill(t)
+        if n:
+            found.append((n, t, "Hubble"))
+    where = "works_in_store" if in_store else "works_online"
+    other_mode = _ONLINE_WORDS if in_store else _STORE_WORDS
+    keys = {shop_key(brand_name)} | {k for k, titles in _aliases().items() if brand_name in titles}
+    entries = [e for k in sorted(keys) for e in _partner_rules().get(k, [])]
+    for entry in entries:
+        rules = entry.get("rules") or {}
+        if (rules.get(where) or {}).get("value") == "no":
+            continue
+        combine = rules.get("can_combine") or {}
+        quote = (combine.get("evidence") or "").strip()
+        if not quote or _MIXED.search(quote) or other_mode.search(quote):
+            continue  # says nothing, or speaks only of the other way of paying
+        most = (rules.get("max_cards_per_order") or {}).get("value")
+        if combine.get("value") == "no":
+            n = 1
+        elif combine.get("value") == "yes":
+            n = int(most) if isinstance(most, (int, float)) and most >= 1 else _MANY_N
+        else:
+            continue
+        found.append((n, quote, _SELLER.get(entry.get("source"), entry.get("source") or "")))
+    if not found:
+        return None
+    n, quote, seller = min(found, key=lambda f: f[0])
+    sub = "per bill" if in_store else "per order"
+    if n == 1:
+        return {"icon": "one", "title": "1 card", "sub": sub, "tone": "no", "quote": quote, "source": seller}
+    title = "Many" if n >= _MANY_N else f"Up to {n}"
+    return {"icon": "stack", "title": title, "sub": sub, "tone": "yes", "quote": quote, "source": seller}
 
 
 @lru_cache(maxsize=1)
@@ -287,11 +373,18 @@ def card_details(product: dict, brand_name: str, in_store: bool) -> dict:
     ways = meta.get("howToUseSteps") or []
     modes = {(w.get("retailMode") or "").upper() for w in ways}
     want = ("OFFLINE",) if in_store else ("ONLINE", "APP")
-    way = next((w for w in ways if (w.get("retailMode") or "").upper() in want), None)
-    steps = [h for h in ((way or {}).get("howToUseHints") or {}).get("hints") or [] if h]
+    def hints(modes_wanted: tuple[str, ...]) -> list[str]:
+        way = next((w for w in ways if (w.get("retailMode") or "").upper() in modes_wanted), None)
+        return [h for h in ((way or {}).get("howToUseHints") or {}).get("hints") or [] if h]
+
+    steps = hints(want)
+    # Both ways of using the card, for the In store / Online switch.
+    usage = {k: v for k, v in (("store", hints(("OFFLINE",))), ("online", hints(("ONLINE", "APP")))) if v}
     cant = [{k: i[k] for k in ("icon", "label")} for i in _notes().get(normalize(brand_name), [])
             if any(i["quote"] in t for t in terms)]
-    return {"facts": _facts(terms, modes, in_store), "cant": cant[:3], "terms": terms, "steps": steps}
+    per_bill = _per_bill_fact(terms, brand_name, in_store)
+    return {"facts": _facts(terms, modes, in_store, per_bill), "cant": cant[:3], "terms": terms,
+            "steps": steps, "ways": usage}
 
 
 def _one_order(product: dict, amount: int, order_max: int) -> list[tuple[int, int]]:
