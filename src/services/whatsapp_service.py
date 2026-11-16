@@ -607,7 +607,14 @@ async def _send_brand_voucher(phone: str, query: str, voucher: dict, shop: str |
 
     # Dealo sells this shop's voucher itself when Hubble's rate is close
     # enough to the best listing (same rule as the website's shop card).
-    dealo = await _dealo_brand(hubble_title or brand, pct)
+    # Asked by the card's own name, as the website does: a card picked from
+    # a shop's picker ("Hotels" -> "MakeMyTrip Hotel e-Pay") must get Dealo's
+    # matching card, never the shop's general one ("MakeMyTrip"). The shop
+    # name is only a fallback for a plain shop search.
+    card_name = hubble_title or voucher.get("brand_name") or brand
+    dealo = await _dealo_brand(card_name, pct)
+    if not dealo and not shop and not choice and card_name != brand:
+        dealo = await _dealo_brand(brand, pct)
     if dealo:
         await _send_dealo_brand_voucher(phone, query, brand, dealo)
         return

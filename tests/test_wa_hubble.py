@@ -136,3 +136,29 @@ def test_shop_found_only_in_hubble_catalogue_buys_on_dealo(monkeypatch):
     assert asked == ["Hamleys-Luxe Gift Card"]
     assert calls["cta"][0][1] == "Buy on Dealo"
     assert "Hamleys-Luxe" not in calls["cta"][0][0]
+
+
+def test_picker_card_gets_dealos_matching_card_not_the_shops_general_one(monkeypatch):
+    # "MakeMyTrip" -> tap "Hotels": Hubble must be asked about the hotel card.
+    asked = []
+    calls = _harness(monkeypatch)
+
+    async def fake_brand(merchant=None, slug=None):
+        asked.append(merchant)
+        return {**BRAND, "brand_name": "MakeMyTrip Hotel", "discount_pct": 13.0} if "Hotel" in (merchant or "") else None
+
+    monkeypatch.setattr(hubble_service, "brand_info", fake_brand)
+    hotel = {"brand_name": "MakeMyTrip Hotel e-Pay", "voucher_source": "gyftr", "best_discount_pct": 14.0,
+             "voucher_url": "https://www.gyftr.com/makemytrip-hotel", "choice_label": "Hotels"}
+    asyncio.run(whatsapp_service._send_brand_voucher("919999999999", "makemytrip", hotel, shop="MakeMyTrip"))
+    assert asked == ["MakeMyTrip Hotel e-Pay"]
+    assert calls["cta"][0][1] == "Buy on Dealo"
+
+    # A picker card Hubble doesn't sell (Cabs) stays with the partner,
+    # never falling back to Dealo's general MakeMyTrip card.
+    asked.clear(); calls["cta"].clear()
+    cab = {"brand_name": "MakeMyTrip Cab", "voucher_source": "maximize", "best_discount_pct": 8.25,
+           "voucher_url": "https://www.maximize.money/gift-cards/x/1", "choice_label": "Cabs"}
+    asyncio.run(whatsapp_service._send_brand_voucher("919999999999", "makemytrip", cab, shop="MakeMyTrip"))
+    assert asked == ["MakeMyTrip Cab"]
+    assert calls["cta"][0][1] != "Buy on Dealo"
