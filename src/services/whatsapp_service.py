@@ -598,10 +598,16 @@ async def _send_brand_voucher(phone: str, query: str, voucher: dict, shop: str |
     platform_name = {"maximize": "Maximize", "buyhatke": "BuyHatke"}.get(source)
     platform_label = platform_name or "our voucher partner"
     pct = voucher.get("best_discount_pct")
+    hubble_title = voucher.get("brand_name") if source == "hubble" else None
+    if hubble_title and not shop:
+        # Found by Hubble's own catalogue ("Hamleys" -> "Hamleys-Luxe Gift
+        # Card"): name the shop as people say it, and ask Hubble by its exact
+        # title, which the suffix-trimmed "Hamleys-Luxe" would not match.
+        brand = search_service._clean_brand_name(hubble_title) or brand
 
     # Dealo sells this shop's voucher itself when Hubble's rate is close
     # enough to the best listing (same rule as the website's shop card).
-    dealo = await _dealo_brand(brand, pct)
+    dealo = await _dealo_brand(hubble_title or brand, pct)
     if dealo:
         await _send_dealo_brand_voucher(phone, query, brand, dealo)
         return

@@ -118,3 +118,21 @@ def test_shop_name_search_buys_on_dealo_even_when_hubble_is_behind(monkeypatch):
     assert "Maximize" not in calls["cta"][0][0]
 
 
+
+
+def test_shop_found_only_in_hubble_catalogue_buys_on_dealo(monkeypatch):
+    # "Hamleys" typed on WhatsApp: search found it by Hubble's own title.
+    asked = []
+    calls = _harness(monkeypatch)
+
+    async def fake_brand(merchant=None, slug=None):
+        asked.append(merchant)
+        return {**BRAND, "brand_name": "Hamleys-Luxe Gift Card", "works": ["OFFLINE"], "in_store": True}
+
+    monkeypatch.setattr(hubble_service, "brand_info", fake_brand)
+    voucher = {"brand_name": "Hamleys-Luxe Gift Card", "voucher_source": "hubble", "best_discount_pct": 10.0,
+               "voucher_url": "https://getdealo.in/buy/hamleys-luxe-gift-card"}
+    asyncio.run(whatsapp_service._send_brand_voucher("919999999999", "Hamleys", voucher))
+    assert asked == ["Hamleys-Luxe Gift Card"]
+    assert calls["cta"][0][1] == "Buy on Dealo"
+    assert "Hamleys-Luxe" not in calls["cta"][0][0]
