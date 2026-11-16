@@ -71,3 +71,30 @@ def test_almost_every_hubble_shop_is_findable_by_name(monkeypatch):
     # Known leftovers: "Giva Gold Voucher" ("Giva" finds it), "Organic India"
     # ("organic" is too common a word to alias). Anything more is a regression.
     assert len(missed) <= 3, sorted(missed)
+
+
+def _a_retired_partner_card_hubble_lists():
+    # A shop whose partner card the refresh retired but Hubble still lists
+    # (Westside on 2026-11-16); picked from the data so a refresh can't break it.
+    for name, rec in search_service._load_brand_voucher_index().items():
+        products = rec.get("products") or []
+        if products and not any(search_service.voucher_service._is_sellable(p) for p in products):
+            return rec["brand_name"]
+    return None
+
+
+def test_a_retired_partner_card_is_never_shown(monkeypatch):
+    _hubble_says(monkeypatch, on_sale=False)
+    name = _a_retired_partner_card_hubble_lists()
+    assert name, "expected at least one retired card that Hubble lists"
+    found = search_service.search_candidates(name, exact=True, shops_only=True)
+    for card in found.get("voucher_choices") or ([found["voucher"]] if found.get("voucher") else []):
+        assert search_service._partner_sells_now(card) or card.get("voucher_source") == "hubble", (name, card.get("brand_name"))
+
+
+def test_a_retired_partner_card_becomes_dealos_card_when_hubble_sells(monkeypatch):
+    _hubble_says(monkeypatch)
+    name = _a_retired_partner_card_hubble_lists()
+    found = search_service.search_candidates(name, exact=True, shops_only=True)
+    assert found.get("mode") == "brand_voucher", name
+    assert found["voucher"]["voucher_source"] == "hubble" or search_service._partner_sells_now(found["voucher"])
