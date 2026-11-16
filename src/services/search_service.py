@@ -713,6 +713,7 @@ def _match_hubble_shop(query: str) -> dict | None:
         return None
     return {
         "brand_name": info["brand_name"],
+        "slug": hubble_service.buy_slug(info["brand_name"]),
         "voucher_source": "hubble",
         "voucher_url": hubble_service.buy_link(info["brand_name"]),
         "best_discount_pct": info["discount_pct"],

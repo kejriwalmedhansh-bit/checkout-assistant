@@ -41,9 +41,13 @@ def test_plain_shop_name_finds_the_hubble_card(monkeypatch):
 
 def test_hamleys_is_dealos_own_card(monkeypatch):
     _hubble_says(monkeypatch)
-    card = search_service.search_candidates("Hamleys", exact=True, shops_only=True)["voucher"]
+    found = search_service.search_candidates("Hamleys", exact=True, shops_only=True)
+    card = found["voucher"]
     assert card["voucher_source"] == "hubble"
     assert card["brand_name"] == "Hamleys-Luxe Gift Card"
+    # The website's /search answer must accept it (it rejected a card with no slug).
+    from src.schemas.search import SearchCandidatesResponse
+    SearchCandidatesResponse.model_validate(found)
 
 
 def test_a_shop_hubble_is_not_selling_right_now_is_not_offered(monkeypatch):
