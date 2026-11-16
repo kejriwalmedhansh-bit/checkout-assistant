@@ -18,6 +18,7 @@ URL mode is gone, so mode is always "text".
 """
 from __future__ import annotations
 
+import asyncio
 import copy
 import difflib
 import hashlib
@@ -678,6 +679,45 @@ def _match_brand_voucher(query: str) -> dict | None:
             b_shaped = _buyhatke_brand_to_output_shape(buyhatke_record) if buyhatke_record else None
             return _pick_better_voucher(g_shaped, m_shaped, b_shaped)
     return None
+
+
+def _match_hubble_shop(query: str) -> dict | None:
+    """A shop name that only Hubble's catalogue knows by that name. The
+    partners call Hamleys "Hamleys - LUXE" / "Hamleys-Luxe Gift Card", so
+    `_match_brand_voucher` never matches a plain "Hamleys" and the search
+    fell through to a toy product search; 111 of Hubble's 466 shops were
+    unfindable that way (audit 2026-11-16). Same whole-query rule as the
+    partner match: the search must be just the shop's name, plus filler
+    words like "gift card" at most. hubble_service.brand_for only accepts
+    an exact title, a hand-checked alias or the shop behind a "-Luxe Gift
+    Card" title, so this never guesses. The card is offered only when Hubble
+    confirms it is on sale right now, so a shop it lists but isn't selling
+    (Westside, on 2026-11-16) still goes to the product search."""
+    kept = [w for w in (query or "").split() if _norm(w) not in _BRAND_VOUCHER_FILLER_WORDS]
+    if not kept or len(kept) > _MAX_BRAND_WORDS:
+        return None
+    name = " ".join(kept)
+    if not (hubble_service.brand_for(name) or hubble_service.brand_for(name, in_store=True)):
+        return None
+    try:
+        asyncio.get_running_loop()
+        return None  # both callers run this in a worker thread; never block a live event loop
+    except RuntimeError:
+        pass
+    try:
+        info = asyncio.run(hubble_service.brand_info(merchant=name))
+    except Exception as exc:  # noqa: BLE001 — a Hubble hiccup must not break search
+        logger.warning("[search] hubble shop check failed for %r: %s", name, exc)
+        return None
+    if not info:
+        return None
+    return {
+        "brand_name": info["brand_name"],
+        "voucher_source": "hubble",
+        "voucher_url": hubble_service.buy_link(info["brand_name"]),
+        "best_discount_pct": info["discount_pct"],
+        "denominations": info["cards"],
+    }
 
 
 # Words a genuine storefront appends to its brand name ("Croma Retail",
@@ -3284,6 +3324,11 @@ def search_candidates(query: str, exact: bool = False, shops_only: bool = False)
         if choices:
             out["voucher"] = choices[0]
             out["voucher_choices"] = choices
+        return out
+    hubble_card = None if is_url else _match_hubble_shop(query)
+    if hubble_card:
+        out["mode"] = "brand_voucher"
+        out["voucher"] = hubble_card
         return out
     if shops_only:
         return out
