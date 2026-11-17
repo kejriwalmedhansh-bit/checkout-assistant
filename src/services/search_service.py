@@ -359,6 +359,12 @@ def _search_miss_fallback(query: str) -> dict | None:
         hit = as_shop(alias)
         if hit:
             return hit
+        # "mmt hotels" names no exact card: show the shop's own cards,
+        # as "mmt" alone does.
+        shop_only = search_fallbacks.shop_alias(query.split()[0]) if " " in alias else None
+        hit = as_shop(shop_only) if shop_only else None
+        if hit:
+            return hit
     missing = search_fallbacks.no_deal_shop(query)
     if missing:
         return _voucher_group(missing["group"], f"No {missing['name']} deal yet")
