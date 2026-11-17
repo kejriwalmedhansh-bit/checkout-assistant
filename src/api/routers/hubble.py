@@ -78,8 +78,9 @@ async def offer(
     price: float = Query(..., gt=0),
     in_store: bool = False,
     best_pct: float | None = Query(default=None, description="today's best voucher rate for this shop, if any"),
+    link: str | None = Query(default=None, description="the result's buy link; its website finds the shop when the name doesn't"),
 ) -> dict:
-    found = await hubble_service.offer_for(merchant, price, in_store)
+    found = await hubble_service.offer_for(merchant, price, in_store, link)
     if found and not hubble_service.worth_showing(found["discount_pct"], best_pct):
         found = None
     return {"available": bool(found), "offer": found}
@@ -109,6 +110,8 @@ class SessionRequest(BaseModel):
     merchant: str
     price: float
     in_store: bool = False
+    # The result's buy link, so the shop is found the same way /offer found it.
+    link: str | None = None
     # Analytics only (see _attribution): the visitor's anonymous Mixpanel id
     # when they agreed to cookies, and the buy link's src / page placement.
     dealo_id: str | None = None
@@ -118,7 +121,7 @@ class SessionRequest(BaseModel):
 
 @router.post("/session")
 async def session(body: SessionRequest) -> dict:
-    found = await hubble_service.offer_for(body.merchant, body.price, body.in_store)
+    found = await hubble_service.offer_for(body.merchant, body.price, body.in_store, body.link)
     if not found:
         raise HTTPException(404, "Hubble doesn't sell this voucher")
     try:

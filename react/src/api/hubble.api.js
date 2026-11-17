@@ -3,9 +3,12 @@ import { apiClient } from './client';
 
 export const hubbleApi = {
   /** GET /hubble/offer -> { available, offer } */
-  offer: async (merchant, price, inStore = false, bestPct = null) => {
+  offer: async (merchant, price, inStore = false, bestPct = null, link = null) => {
     const params = { merchant, price: Math.round(price), in_store: inStore };
     if (bestPct != null) params.best_pct = bestPct;
+    // The result's store link: its website finds the shop when Google's shop
+    // name doesn't ("Decathlon Sports India" -> decathlon.in -> Decathlon).
+    if (link) params.link = link;
     const { data } = await apiClient.get('/hubble/offer', { params });
     return data;
   },

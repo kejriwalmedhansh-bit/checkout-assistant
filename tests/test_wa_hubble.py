@@ -53,7 +53,7 @@ def _harness(monkeypatch, *, offer=None, brand=None):
     async def fake_text(phone, body):
         calls["texts"].append(body)
 
-    async def fake_offer(merchant, price, in_store=False):
+    async def fake_offer(merchant, price, in_store=False, link=None):
         return offer
 
     async def fake_brand(merchant=None, slug=None):
