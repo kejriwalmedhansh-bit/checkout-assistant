@@ -40,6 +40,7 @@ def _name(merchant, in_store=False):
     ("Nykaa Luxe", "Nykaa LUXE"),
     ("PVR Cinemas", "PVR"),
     ("Domino's Pizza", "Dominos"),          # never "Dominos Fixed"
+    ("Decathlon Sports India", "Decathlon"),  # Google Shopping's name for decathlon.in
     ("Uber", "Uber."),
     ("firstcry.com", "Firstcry"),
     ("Liberty", "Liberty Online"),          # alias lists two; only one works online
