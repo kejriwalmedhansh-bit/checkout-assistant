@@ -21,14 +21,19 @@ const HUBBLE_FORCE = import.meta.env.VITE_HUBBLE_FORCE === 'true';
  * shown here (owner's call, 28 Oct 2026).
  */
 export function HubbleBrandCard({ brand, merchant, query, initialAmount = null, bestPct = null, src = null }) {
-  const base = brand.cards.length ? brand.cards.slice(0, 4) : [500, 1000, 2000, 5000].filter((a) => a >= brand.min_amount && (!brand.max_amount || a <= brand.max_amount));
+  // Shops sold in fixed cards (Decathlon: ₹500 … ₹10,000) take a typed
+  // amount too: Dealo splits it into cards, as the product search does
+  // (₹3,149 -> ₹2,000 + ₹1,000, ₹149 paid at the shop). Owner's pick A,
+  // 17 Nov 2026, after comparing Maximize (one value × quantity) and Gyftr
+  // (a cart of cards): one box, fewest taps.
+  const base = brand.cards.length ? brand.cards.slice(0, 5) : [500, 1000, 2000, 5000].filter((a) => a >= brand.min_amount && (!brand.max_amount || a <= brand.max_amount));
   // A buy link can arrive with the amount already chosen (WhatsApp worked it
   // out from the cart). Honour it when this voucher can be bought for it:
-  // one of its fixed cards, or any amount in range when Hubble takes typed
-  // amounts. It then sits among the quick picks as the selected one, so the
-  // page opens looking chosen rather than half-typed.
+  // any amount in range (fixed-card shops get it split into cards). It then
+  // sits among the quick picks as the selected one, so the page opens
+  // looking chosen rather than half-typed.
   const fits = (a) => a > 0 && a >= brand.min_amount && (!brand.max_amount || a <= brand.max_amount);
-  const preset = initialAmount && (base.includes(initialAmount) || (brand.typed && fits(initialAmount))) ? initialAmount : null;
+  const preset = initialAmount && fits(initialAmount) ? initialAmount : null;
   const quick = preset && !base.includes(preset) ? [...base, preset].sort((a, b) => a - b) : base;
   const [amount, setAmount] = useState(preset || quick[1] || quick[0] || brand.min_amount);
   const [typed, setTyped] = useState('');
@@ -70,6 +75,10 @@ export function HubbleBrandCard({ brand, merchant, query, initialAmount = null, 
     setTyped(digits);
     if (digits) setAmount(Number(digits));
   };
+  // The cards this amount becomes, when it isn't one card of its own.
+  const parts = (offer?.denominations || []).flatMap((d) => Array(d.count).fill(d.amount));
+  const split = parts.length > 1;
+  const restAtShop = offer?.rest_at_shop || 0;
   const where = brand.in_store
     ? `Works in store · show the code at the ${brand.brand_name} counter`
     : brand.works.includes('OFFLINE')
@@ -112,7 +121,7 @@ export function HubbleBrandCard({ brand, merchant, query, initialAmount = null, 
       )}
 
       <Text fontSize="11px" color="text3" fontWeight={600} letterSpacing=".04em" textTransform="uppercase" mb="8px">
-        How much do you need?
+        How much will you spend?
       </Text>
       <Wrap spacing="6px" mb="4px">
         {quick.map((a) => (
@@ -135,27 +144,45 @@ export function HubbleBrandCard({ brand, merchant, query, initialAmount = null, 
             </Button>
           </WrapItem>
         ))}
-        {brand.typed && (
-          <WrapItem>
-            <Input
-              value={typed}
-              onChange={(e) => onTyped(e.target.value)}
-              inputMode="numeric"
-              placeholder="or type ₹"
-              w="120px"
-              h="36px"
-              fontFamily="mono"
-              fontWeight={700}
-              fontSize="16px"
-              borderRadius="10px"
-            />
-          </WrapItem>
-        )}
+        <WrapItem>
+          <Input
+            value={typed}
+            onChange={(e) => onTyped(e.target.value)}
+            inputMode="numeric"
+            placeholder="or type ₹"
+            aria-label="Amount you will spend"
+            w="120px"
+            h="36px"
+            fontFamily="mono"
+            fontWeight={700}
+            fontSize="16px"
+            borderRadius="10px"
+          />
+        </WrapItem>
       </Wrap>
       {!inRange(amount) && (
         <Text fontSize="12px" color="danger" fontWeight={600} mt="4px">
           Between {fmt(brand.min_amount)} and {fmt(brand.max_amount)}
         </Text>
+      )}
+      {offer && (split || restAtShop > 0) && (
+        <Box mt="10px" aria-live="polite">
+          <Flex wrap="wrap" align="center" gap="6px">
+            {parts.map((a, i) => (
+              <Flex key={`${a}-${i}`} align="center" gap="6px">
+                {i > 0 && <Text color="text3" fontWeight={700}>+</Text>}
+                <Box fontFamily="mono" fontSize="13px" fontWeight={700} color="amber" bg="amberSoft" border="1px dashed" borderColor="amber" borderRadius="8px" px="8px" py="5px">
+                  {fmt(a)}
+                </Box>
+              </Flex>
+            ))}
+          </Flex>
+          {restAtShop > 0 && (
+            <Text fontSize="12.5px" color="text2" mt="6px">
+              {fmt(restAtShop)} you pay at {brand.brand_name} as usual
+            </Text>
+          )}
+        </Box>
       )}
 
       <Flex bg="greenSoft" border="1.5px solid" borderColor="green" borderRadius="14px" px="12px" py="10px" align="center" gap="10px" mt="14px" opacity={offer ? 1 : 0.55}>
@@ -168,7 +195,7 @@ export function HubbleBrandCard({ brand, merchant, query, initialAmount = null, 
           </Text>
         </Box>
         <Text flex="1" textAlign="center" color="green" fontSize="12px" fontWeight={700}>
-          for this card
+          {split ? `for ${parts.length} cards` : 'for this card'}
         </Text>
         <Box textAlign="right">
           <Text fontSize="11px" fontWeight={700} letterSpacing=".06em" color="green">
@@ -199,7 +226,7 @@ export function HubbleBrandCard({ brand, merchant, query, initialAmount = null, 
         rightIcon={<I.arrowRight size={16} />}
         _hover={{ bg: 'amber', filter: 'brightness(0.95)' }}
       >
-        Buy voucher
+        {split ? `Buy ${parts.length} vouchers` : 'Buy voucher'}
       </Button>
 
       {buying && offer && (
