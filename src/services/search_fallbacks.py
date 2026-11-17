@@ -67,7 +67,16 @@ def shop_key(query: str) -> str:
 
 def shop_alias(query: str) -> str | None:
     """A hand-listed spelling ("nyka", "swiggy") -> the search that finds it."""
-    return _groups_data()["shop_aliases"].get(shop_key(query))
+    aliases = _groups_data()["shop_aliases"]
+    whole = aliases.get(shop_key(query))
+    if whole:
+        return whole
+    # "Mmt Hotel" -> "makemytrip hotel": a nickname as the first word, the
+    # rest kept so the shop's own card (Hotel, Holidays…) is found.
+    words = [w for w in _words(query) if w not in _SHOP_FILLER]
+    if len(words) >= 2 and words[0] in aliases:
+        return " ".join([aliases[words[0]]] + words[1:])
+    return None
 
 
 def no_deal_shop(query: str) -> dict | None:
