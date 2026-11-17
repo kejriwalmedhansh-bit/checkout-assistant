@@ -26,7 +26,7 @@ const openHubbleLink = (link) => {
  *   inside Dealo → voucher ready.
  * A shopper already logged in on this browser skips straight to payment.
  */
-export default function BuyFlow({ offer, merchant, price, shopLink, placement, bestPct, src, onClose, onBought }) {
+export default function BuyFlow({ offer, merchant, storeLink, price, shopLink, placement, bestPct, src, onClose, onBought }) {
   // The same facts on every event of this purchase, so Mixpanel can line
   // them up as one funnel (see soldEventProps).
   const ev = soldEventProps(offer, { merchant, placement, bestPct, src });
@@ -56,6 +56,7 @@ export default function BuyFlow({ offer, merchant, price, shopLink, placement, b
         name: (buyerName || '').trim() || readName(),
         marketing_optin: optin,
         merchant,
+        link: storeLink || null,
         price,
         in_store: Boolean(offer.in_store),
         // So the sale Hubble reports later can be joined to this visit and

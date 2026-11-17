@@ -27,6 +27,7 @@ import jwt
 
 from ..config import get_settings
 from ..repositories._brand_matching import _strip_generic_suffix_words
+from ..repositories.domain_brand_repository import brand_for_domain
 
 
 def normalize(name: str) -> str:
@@ -114,21 +115,20 @@ def shop_key(merchant: str, strip_decor: bool = True) -> str:
     return normalize(_strip_generic_suffix_words(name))
 
 
-def brand_for(merchant: str, in_store: bool = False) -> dict | None:
-    """The one Hubble voucher for this shop that works where the shopper
-    pays: online orders get an online voucher, in-store orders an in-store
-    one. A near-miss or a guess would sell a voucher for the wrong shop, so
-    only three things count: the exact title, a hand-checked alias
-    (data/hubble_aliases.json), or a "-Luxe Gift Card" title for the same
-    shop. Two candidates with no way to tell them apart means neither."""
+def _brand_by_name(merchant: str, in_store: bool) -> dict | None:
+    """The exact-name half of brand_for()."""
     want = "OFFLINE" if in_store else "ONLINE"
     exact, luxe = _catalogue(_catalogue_path())
     aliases = _aliases()
     # The name as given first ("Hugo Boss-Luxe Gift Card" is a Hubble title
     # of its own); the listing's decoration comes off only when that finds
     # nothing ("Zomato Gift Card" -> Zomato).
+    # The whole name first: "Shop", "India" and "Online" come off a results
+    # page's name ("Hamleys India" -> hamleys), but in "The Body Shop", "The
+    # Raymond Shop" and "Organic India" they are the shop's own name.
+    whole = normalize(_TLD.sub("", re.sub(r"^(https?://)?(www\.)?", "", (merchant or "").strip().lower())))
     tried: set[str] = set()
-    for key in (shop_key(merchant, strip_decor=False), shop_key(merchant)):
+    for key in (whole, shop_key(merchant, strip_decor=False), shop_key(merchant)):
         if not key or key in tried:
             continue
         tried.add(key)
@@ -141,6 +141,62 @@ def brand_for(merchant: str, in_store: bool = False) -> dict | None:
         if len(fits) == 1:
             return fits[0]
     return None
+
+
+def _hosts(merchant: str, link: str | None) -> list[str]:
+    """The websites a result points at: the shop name itself when it is a web
+    address ("decathlon.in"), then the buy link's host
+    ("https://www.decathlon.in/p/..." -> "decathlon.in"). Only "www." comes
+    off: "luxe.ajio.com" must never be read as "ajio.com"."""
+    found: list[str] = []
+    for raw in (merchant, link):
+        host = re.sub(r"^[a-z]+://", "", (raw or "").strip().lower())
+        host = re.split(r"[/?#:]", host)[0]
+        host = host[4:] if host.startswith("www.") else host
+        if "." in host and " " not in host and host not in found:
+            found.append(host)
+    return found
+
+
+def brand_for(merchant: str, in_store: bool = False, link: str | None = None) -> dict | None:
+    """The one Hubble voucher for this shop that works where the shopper
+    pays: online orders get an online voucher, in-store orders an in-store
+    one. A near-miss or a guess would sell a voucher for the wrong shop, so
+    only four things count: the exact title, a hand-checked alias
+    (data/hubble_aliases.json), a "-Luxe Gift Card" title for the same
+    shop, or the shop's website in the hand-checked website list
+    (data/domain_brand_map.json). Two candidates with no way to tell them
+    apart means neither."""
+    found = _brand_by_name(merchant, in_store)
+    if found:
+        return found
+    # The shop's own name didn't match: Google Shopping calls decathlon.in
+    # "Decathlon Sports India" (fishing rod, 17 Nov 2026). Its website does,
+    # through the hand-checked website list (data/domain_brand_map.json),
+    # so a long or odd display name never hides Dealo's card.
+    for host in _hosts(merchant, link):
+        name = brand_for_domain(host)
+        found = _brand_by_name(name, in_store) if name else None
+        if found and not _has_siblings(found, in_store):
+            return found
+    return None
+
+
+def _has_siblings(brand: dict, in_store: bool) -> bool:
+    """Does Hubble sell this shop's voucher in more than one kind? The
+    website list names one partner card per site, and for some shops that is
+    one kind of several (candere.com -> "Candere Gold Coin", though Hubble
+    also sells Candere Gold and Diamond Jewellery; timesprime.com -> "Times
+    Prime Lite" of Lite/Power/Prive). A website can't say which kind the
+    cart needs, so such a shop gets no card from its website, as a shop name
+    with two candidates gets none."""
+    want = "OFFLINE" if in_store else "ONLINE"
+    words = [normalize(w) for w in brand["name"].split() if normalize(w)]
+    stem = words[0] if words and len(words[0]) >= 4 else "".join(words[:2])
+    exact, _ = _catalogue(_catalogue_path())
+    kinds = {key for key, items in exact.items()
+             if key.startswith(stem) and any(want in b["works"] for b in items)}
+    return len(kinds) > 1
 
 
 def buy_slug(brand_name: str) -> str:
@@ -459,11 +515,11 @@ def _orders(product: dict, price: float, pct: float) -> list[list[tuple[int, int
     return orders or None
 
 
-async def offer_for(merchant: str, price: float, in_store: bool = False) -> dict | None:
+async def offer_for(merchant: str, price: float, in_store: bool = False, link: str | None = None) -> dict | None:
     s = get_settings()
     if not s.HUBBLE_ENABLED or price <= 0:
         return None
-    brand = brand_for(merchant, in_store)
+    brand = brand_for(merchant, in_store, link)
     if not brand:
         return None
     product = await _product(brand["id"])

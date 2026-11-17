@@ -342,13 +342,13 @@ def _voucher_box(denom_breakdown: list[dict], discount_pct: float) -> str:
     return "\n".join(lines) + "\n" + total_line
 
 
-async def _dealo_offer(merchant: str, price: float, in_store: bool, best_pct) -> dict | None:
+async def _dealo_offer(merchant: str, price: float, in_store: bool, best_pct, link: str | None = None) -> dict | None:
     """Dealo's own voucher (Hubble) for this cart, whenever Hubble sells
     it (owner's call, 3 Nov 2026) — the same rule the website's
     results page applies. Any Hubble hiccup means "not today", never an error
     in the chat."""
     try:
-        offer = await hubble_service.offer_for(merchant, price, in_store)
+        offer = await hubble_service.offer_for(merchant, price, in_store, link)
     except Exception:  # noqa: BLE001 — a partner outage must not break the step
         return None
     if offer and hubble_service.worth_showing(offer["discount_pct"], best_pct):
@@ -460,7 +460,8 @@ async def _send_voucher_steps(phone: str, route: dict) -> None:
     # Dealo sells the voucher itself when Hubble's rate is close enough to
     # today's best (see _dealo_offer). The step then points at the website's
     # buy page — login and payment only run there — with the amount filled in.
-    dealo = await _dealo_offer(merchant, route.get("listed_price") or 0, in_store, discount_pct)
+    seller_link = ((route.get("sellers") or [{}])[0] or {}).get("link")
+    dealo = await _dealo_offer(merchant, route.get("listed_price") or 0, in_store, discount_pct, seller_link)
     if dealo:
         step1_text = _dealo_buy_step(dealo, step_n, total_steps)
         buy_url = hubble_service.buy_link(dealo["brand_name"], dealo["voucher_total"], "wa")

@@ -104,7 +104,7 @@ export default function Journey({ rec, payingByCard = false, skipVoucher = false
     if (!HUBBLE_ON || !v || !orderPrice || payingByCard) return undefined;
     let live = true;
     hubbleApi
-      .offer(shopName, orderPrice, Boolean(v.offline_only), HUBBLE_FORCE ? null : v.upi?.pct)
+      .offer(shopName, orderPrice, Boolean(v.offline_only), HUBBLE_FORCE ? null : v.upi?.pct, sellerLink)
       .then((res) => {
         if (!live || !res.available) return;
         setHubble(res.offer);
@@ -431,6 +431,7 @@ export default function Journey({ rec, payingByCard = false, skipVoucher = false
         <BuyFlow
           offer={hubble}
           merchant={shopName}
+          storeLink={sellerLink}
           price={orderPrice}
           placement="journey"
           bestPct={v.upi?.pct}

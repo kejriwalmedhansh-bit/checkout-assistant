@@ -9,6 +9,7 @@ Run:  .venv/bin/python -m pytest tests/test_hubble_brands.py -q
 """
 from __future__ import annotations
 
+import json
 import sys
 from pathlib import Path
 
@@ -41,6 +42,12 @@ def _name(merchant, in_store=False):
     ("PVR Cinemas", "PVR"),
     ("Domino's Pizza", "Dominos"),          # never "Dominos Fixed"
     ("Decathlon Sports India", "Decathlon"),  # Google Shopping's name for decathlon.in
+    ("Apollo Pharmacy", "Apollo"),            # Hubble terms: Apollo Pharmacy + Apollo 24|7
+    ("JioMart Electronics", "Jio Mart"),
+    ("The Body Shop", "The Body Shop"),       # "Shop" is part of the name here
+    ("apollopharmacy.in", "Apollo"),          # website -> "Apollo Pharmacy" -> alias
+    ("luzo.app", "Luzo"),
+    ("resonate.store", "Resonate"),
     ("Uber", "Uber."),
     ("firstcry.com", "Firstcry"),
     ("Liberty", "Liberty Online"),          # alias lists two; only one works online
@@ -66,7 +73,8 @@ def test_in_store_matches(merchant, expected):
     ("Reliance Digital", False),   # Hubble's voucher is in-store only (asked Yash for online)
     ("Tata CLiQ Jewellery", False),  # sub-brand with its own terms: no guess
     ("Lee", False),                # must not become "Moments by The Leela"
-    ("Apollo Pharmacy", False),    # Hubble's "Apollo" isn't confirmed to be the pharmacy
+    # "Apollo Pharmacy" was here until 17 Nov 2026, when Hubble's own terms
+    # confirmed its "Apollo" card is the pharmacy one (now in the alias list).
     ("", False),
 ])
 def test_no_guessing(merchant, in_store):
@@ -139,7 +147,6 @@ def test_buy_link_carries_amount_and_source(monkeypatch):
 
 
 def test_every_catalogue_voucher_has_a_working_slug():
-    import json
     brands = json.loads(PROD.read_text())
     broken = []
     for b in brands:
@@ -149,3 +156,53 @@ def test_every_catalogue_voucher_has_a_working_slug():
     # Titles that collide once punctuation is dropped resolve to the online
     # one; a tie with no online entry answers nothing rather than guessing.
     assert broken == [], broken
+
+
+# Google Shopping's shop names don't always match Hubble's ("Decathlon Sports
+# India" for decathlon.in, fishing rod search 17 Nov 2026). The result's buy
+# link — or a shop name that is itself a web address — is read through the
+# hand-checked website list (data/domain_brand_map.json) instead.
+@pytest.mark.parametrize("merchant,link,expected", [
+    ("Lifestyle Stores", "https://www.lifestylestores.com/in/en/p/123", "Lifestyle"),
+    ("Some Odd Shop Name", "https://www.decathlon.in/p/8739959/lure-rod", "Decathlon"),
+    ("zeptonow.com", None, "Zepto"),
+    ("lifestylestores.com", None, "Lifestyle"),
+])
+def test_the_store_website_finds_the_shop(merchant, link, expected):
+    found = hs.brand_for(merchant, False, link)
+    assert found and found["name"] == expected
+
+
+def test_a_website_off_the_list_finds_nothing():
+    assert hs.brand_for("Some Odd Shop Name", False, "https://www.example-unknown-shop.in/p/1") is None
+
+
+def test_a_subdomain_is_never_read_as_its_parent_site():
+    # luxe.ajio.com is AJIO Luxe, not AJIO: only "www." comes off the host.
+    assert "ajio.com" not in hs._hosts("Some Shop", "https://luxe.ajio.com/p/1")
+    assert hs._hosts("x", "https://www.decathlon.in/p/1?a=b") == ["decathlon.in"]
+
+
+def test_the_shop_name_still_wins_over_the_website():
+    # A name that matches is never second-guessed by its link.
+    assert _name("Nykaa") == "Nykaa"
+    assert hs.brand_for("Nykaa", False, "https://www.decathlon.in/p/1")["name"] == "Nykaa"
+
+
+@pytest.mark.parametrize("domain", ["candere.com", "timesprime.com", "xbox.com", "ketandiamonds.com", "apollo247.com"])
+def test_a_website_never_picks_one_kind_of_several(domain):
+    # Hubble sells several kinds of these shops' vouchers (coin / gold /
+    # diamond, Lite / Power / Prive...); the website can't say which one the
+    # cart needs, so it finds none.
+    assert hs.brand_for("Some Odd Shop Name", False, f"https://www.{domain}/p/1") is None
+
+
+def test_every_hubble_card_is_found_by_its_own_name():
+    # "The Body Shop" / "The Raymond Shop" / "Organic India" were unreachable:
+    # their last word was dropped as a generic "Shop"/"India" (17 Nov 2026).
+    for b in json.loads(PROD.read_text()):
+        for in_store in (False, True):
+            if ("OFFLINE" if in_store else "ONLINE") not in b["works"]:
+                continue
+            found = hs.brand_for(b["name"], in_store)
+            assert found and found["id"] == b["id"], (b["name"], in_store)
