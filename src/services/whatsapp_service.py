@@ -692,6 +692,9 @@ async def _send_dealo_brand_voucher(phone: str, query: str, brand: str, info: di
         lines.append(f"\nAny amount, `₹{info['min_amount']:,}`–`{top}`")
     elif cards:
         lines.append("\n" + "  ".join(f"`₹{d:,}`" for d in cards))
+        if len(cards) > 1:
+            # The buy page takes a typed amount and picks the cards (17 Nov 2026).
+            lines.append("Type what you'll spend, Dealo picks the cards.")
     lines.append("\nPay by UPI, voucher in seconds. Use it at *" + brand + "* checkout.")
     text = "\n".join(lines)
 
