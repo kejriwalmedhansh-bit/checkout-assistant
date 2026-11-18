@@ -14,7 +14,7 @@ from src.services import hubble_service, search_service  # noqa: E402
 
 
 def _hubble_says(monkeypatch, on_sale: bool = True):
-    async def fake(merchant=None, slug=None):
+    async def fake(merchant=None, slug=None, in_store=False):
         b = hubble_service.brand_for(merchant) or hubble_service.brand_for(merchant, True)
         if not (b and on_sale):
             return None

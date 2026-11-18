@@ -56,7 +56,7 @@ def _harness(monkeypatch, *, offer=None, brand=None):
     async def fake_offer(merchant, price, in_store=False, link=None):
         return offer
 
-    async def fake_brand(merchant=None, slug=None):
+    async def fake_brand(merchant=None, slug=None, in_store=False):
         return brand
 
     monkeypatch.setattr(whatsapp_service.asyncio, "sleep", noop)
@@ -125,7 +125,7 @@ def test_shop_found_only_in_hubble_catalogue_buys_on_dealo(monkeypatch):
     asked = []
     calls = _harness(monkeypatch)
 
-    async def fake_brand(merchant=None, slug=None):
+    async def fake_brand(merchant=None, slug=None, in_store=False):
         asked.append(merchant)
         return {**BRAND, "brand_name": "Hamleys-Luxe Gift Card", "works": ["OFFLINE"], "in_store": True}
 
@@ -143,7 +143,7 @@ def test_picker_card_gets_dealos_matching_card_not_the_shops_general_one(monkeyp
     asked = []
     calls = _harness(monkeypatch)
 
-    async def fake_brand(merchant=None, slug=None):
+    async def fake_brand(merchant=None, slug=None, in_store=False):
         asked.append(merchant)
         return {**BRAND, "brand_name": "MakeMyTrip Hotel", "discount_pct": 13.0} if "Hotel" in (merchant or "") else None
 
