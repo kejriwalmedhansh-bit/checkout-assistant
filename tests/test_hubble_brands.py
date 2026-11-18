@@ -184,7 +184,8 @@ def test_every_catalogue_voucher_has_a_working_slug():
 @pytest.mark.parametrize("merchant,link,expected", [
     ("Lifestyle Stores", "https://www.lifestylestores.com/in/en/p/123", "Lifestyle"),
     ("Some Odd Shop Name", "https://www.decathlon.in/p/8739959/lure-rod", "Decathlon"),
-    ("wakefit.co", None, "Wakefit"),        # Zepto left Hubble by 18 Nov 2026
+    ("zeptonow.com", None, "Zepto"),
+    ("wakefit.co", None, "Wakefit"),
     ("lifestylestores.com", None, "Lifestyle"),
 ])
 def test_the_store_website_finds_the_shop(merchant, link, expected):

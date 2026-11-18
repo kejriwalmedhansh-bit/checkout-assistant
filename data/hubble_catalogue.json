@@ -4259,9 +4259,27 @@
   "add_voucher_url": null
  },
  {
+  "id": "01JAT1K3Y5MRY65RKGR4F9R69D",
+  "name": "Zepto",
+  "brand_key": "zepto",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
   "id": "01JY18WTYDBTDZS06RR30QKQZY",
   "name": "Zomato",
   "brand_key": "zomato",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": "zomato://gift_card/claim_page"
+ },
+ {
+  "id": "01GMAW822RPDJ5C50XK24QC2C4",
+  "name": "Zomato Fixed",
+  "brand_key": "zomato-fixed",
   "works": [
    "ONLINE"
   ],
