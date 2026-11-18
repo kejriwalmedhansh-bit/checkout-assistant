@@ -14,7 +14,6 @@
  "jiomartelectronics": ["Jio Mart"],
  "luzosalonsspasclinics": ["Luzo"],
  "resonaterouterups": ["Resonate"],
- "swiggyinstamart": ["Swiggy"],
  "archiesgallery": ["Archies"],
  "bathandbodyworks": ["Bath & Body Works"],
  "marksandspencer": ["Marks & Spencer"],
@@ -106,8 +105,8 @@
  "libertyoffline": ["Liberty Shoes"],
  "porterpackersandmovers": ["Porter"],
  "barbequenationvaluevoucher": ["Barbeque Nation"],
- "bpclsmartdrivefuel": ["BPCL"],
- "bpclsmartdrivefuelevoucher": ["BPCL"],
  "axoralifesilverjewellery": ["Axora Life"],
- "snitche": ["Snitch"]
+ "snitche": ["Snitch"],
+ "spotify": ["Spotify Premium"],
+ "instamart": ["Swiggy Instamart"]
 }

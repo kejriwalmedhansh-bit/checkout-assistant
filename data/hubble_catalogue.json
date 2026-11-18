@@ -1,23 +1,5 @@
 [
  {
-  "id": "01HE2BQF43VGNAHM51G8K66YRD",
-  "name": "1-month Prime Membership worth ₹245",
-  "brand_key": "easydiner",
-  "works": [
-   "ONLINE"
-  ],
-  "add_voucher_url": ""
- },
- {
-  "id": "01H782FT2T0XBHSDKA2QARMJZ7",
-  "name": "3 Months membership",
-  "brand_key": "swiggy-one-lite",
-  "works": [
-   "ONLINE"
-  ],
-  "add_voucher_url": ""
- },
- {
   "id": "01HG8M33F9WB9JT5XEQEX4B6Z3",
   "name": "@Home",
   "brand_key": "athome",
@@ -152,7 +134,7 @@
    "OFFLINE",
    "ONLINE"
   ],
-  "add_voucher_url": null
+  "add_voucher_url": "https://www.amazon.in/gp/css/gc/payment"
  },
  {
   "id": "01HFBM14YKNVRB92S8AP79ZFRZ",
@@ -290,16 +272,6 @@
    "ONLINE"
   ],
   "add_voucher_url": ""
- },
- {
-  "id": "01HYN4KQ25NY468572K57Q5S3X",
-  "name": "Bagline",
-  "brand_key": "bagline",
-  "works": [
-   "OFFLINE",
-   "ONLINE"
-  ],
-  "add_voucher_url": "https://www.bigbasket.com/member/gift_cards/"
  },
  {
   "id": "01HZQ0TF2QZEF2K1KFXT3VRJMD",
@@ -482,15 +454,6 @@
   "add_voucher_url": null
  },
  {
-  "id": "01HGDE4FTG7MM97CGJARE3VTGC",
-  "name": "Blaupunkt",
-  "brand_key": "blaupunkt",
-  "works": [
-   "ONLINE"
-  ],
-  "add_voucher_url": ""
- },
- {
   "id": "01H1VVFFAQ52F3E3SGEXEMNC84",
   "name": "Blinkit",
   "brand_key": "blinkit",
@@ -569,15 +532,6 @@
   "brand_key": "bottega-veneta",
   "works": [
    "OFFLINE"
-  ],
-  "add_voucher_url": null
- },
- {
-  "id": "01KN9B5Y42RHC2D15M7ST5GWXE",
-  "name": "BPCL",
-  "brand_key": "bpcl",
-  "works": [
-   "ONLINE"
   ],
   "add_voucher_url": null
  },
@@ -754,13 +708,13 @@
   "add_voucher_url": ""
  },
  {
-  "id": "01HYN90XG1T0BMD4RZC1664KX4",
-  "name": "Citizen Watches",
-  "brand_key": "citizen-watches",
+  "id": "01M1DWA5THD3AY441TWREWXFKR",
+  "name": "Cinepolis Fixed",
+  "brand_key": "cinepolis_fixed",
   "works": [
    "ONLINE"
   ],
-  "add_voucher_url": "https://www.bigbasket.com/member/gift_cards/"
+  "add_voucher_url": ""
  },
  {
   "id": "01H25HGERX6CAXY6Q0BP1SJHJJ",
@@ -855,6 +809,24 @@
   "add_voucher_url": "https://www.ajio.com/my-account/ajio-wallet"
  },
  {
+  "id": "01H9HV0CPEMB39JQFH8CVHHSWK",
+  "name": "CultFit",
+  "brand_key": "cultfit",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": ""
+ },
+ {
+  "id": "01M0CVM7QF9CP5GH799EKJ38EF",
+  "name": "CultFit Fixed",
+  "brand_key": "cultfit_fixed",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": ""
+ },
+ {
   "id": "01KJ2TFE2VWWY7K0NBEZZG0PMC",
   "name": "Dabba & Co",
   "brand_key": "dabba_co",
@@ -908,6 +880,15 @@
    "ONLINE"
   ],
   "add_voucher_url": "zomato://gift_card/claim_page"
+ },
+ {
+  "id": "01KQF1G10JZ153W6425DC3AZWA",
+  "name": "District Pass",
+  "brand_key": "district_pass",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": null
  },
  {
   "id": "01H5024DFRQJHJ3SY7W2ZN658G",
@@ -1022,6 +1003,15 @@
   "id": "01HEDYKNAS3BAZT0EEA3AT5P6H",
   "name": "EatSure",
   "brand_key": "eatsure",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": ""
+ },
+ {
+  "id": "01HE2BQF43VGNAHM51G8K66YRD",
+  "name": "EazyDiner",
+  "brand_key": "easydiner",
   "works": [
    "ONLINE"
   ],
@@ -1484,15 +1474,6 @@
   "add_voucher_url": ""
  },
  {
-  "id": "01HZQ0TFNMAW8YGXR99X699KFG",
-  "name": "HealthKart",
-  "brand_key": "healthkart",
-  "works": [
-   "ONLINE"
-  ],
-  "add_voucher_url": null
- },
- {
   "id": "01H6DRCD4SGGY0DGSKQC71XCCB",
   "name": "Helios",
   "brand_key": "helios",
@@ -1582,15 +1563,6 @@
    "ONLINE"
   ],
   "add_voucher_url": ""
- },
- {
-  "id": "01KN725WHCA8DK9J43NBNG783F",
-  "name": "HP Pay",
-  "brand_key": "hp_pay",
-  "works": [
-   "ONLINE"
-  ],
-  "add_voucher_url": null
  },
  {
   "id": "01H8BSJNSPP3Y2RQH15K4Z3HHS",
@@ -1700,15 +1672,6 @@
    "ONLINE"
   ],
   "add_voucher_url": null
- },
- {
-  "id": "01KN74VHHR1E5VJSXH5FPJ8M4B",
-  "name": "IOCL",
-  "brand_key": "iocl",
-  "works": [
-   "OFFLINE"
-  ],
-  "add_voucher_url": ""
  },
  {
   "id": "01HEE01AX4NSP7XF0C30F5HJMX",
@@ -2011,6 +1974,15 @@
   "add_voucher_url": ""
  },
  {
+  "id": "01H6H824MN5R3SNGDXCGNASRZ7",
+  "name": "Levi's",
+  "brand_key": "levis",
+  "works": [
+   "OFFLINE"
+  ],
+  "add_voucher_url": ""
+ },
+ {
   "id": "01M0QGP82Y7T9QZE45VXN6VF6T",
   "name": "Libas",
   "brand_key": "libas",
@@ -2273,6 +2245,15 @@
    "OFFLINE"
   ],
   "add_voucher_url": ""
+ },
+ {
+  "id": "01K9D3HH3Y5K3DGAYSWBPR627G",
+  "name": "Manyavar",
+  "brand_key": "manyavar",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": "https://www.bigbasket.com/member/gift_cards/"
  },
  {
   "id": "01HHHWZY881RH97MP6JRKHKD4K",
@@ -2744,7 +2725,8 @@
   "name": "PCJ Diamond Jewellery",
   "brand_key": "pcj-diamond-jewellery",
   "works": [
-   "OFFLINE"
+   "OFFLINE",
+   "ONLINE"
   ],
   "add_voucher_url": ""
  },
@@ -2918,15 +2900,6 @@
   "brand_key": "pronto",
   "works": [
    "ONLINE"
-  ],
-  "add_voucher_url": ""
- },
- {
-  "id": "01H6HA1SWGH9VNX26XXKM85VBN",
-  "name": "Puma",
-  "brand_key": "puma",
-  "works": [
-   "OFFLINE"
   ],
   "add_voucher_url": ""
  },
@@ -3356,6 +3329,15 @@
   "add_voucher_url": null
  },
  {
+  "id": "01M36TENKNEGN24AK8SPJQRYRF",
+  "name": "Spotify Premium",
+  "brand_key": "spotifypromo",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": ""
+ },
+ {
   "id": "01KKBZF7J15TH42PRAEC1SCNEB",
   "name": "Sri Jagdamba Pearls",
   "brand_key": "jagadamba-pearls",
@@ -3480,6 +3462,24 @@
    "ONLINE"
   ],
   "add_voucher_url": "https://www.swiggy.com/my-account/swiggy-money/add-money"
+ },
+ {
+  "id": "01GYW8R3NW699V7MPCVJZ3SNA2",
+  "name": "Swiggy Instamart",
+  "brand_key": "swiggy-instamart",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": "https://www.swiggy.com/my-account/swiggy-money/add-money"
+ },
+ {
+  "id": "01H782FT2T0XBHSDKA2QARMJZ7",
+  "name": "Swiggy One",
+  "brand_key": "swiggy-one-lite",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": ""
  },
  {
   "id": "01H1XMAPJMZ3E12PGH6B9HBZ6R",
@@ -4034,6 +4034,15 @@
   "add_voucher_url": ""
  },
  {
+  "id": "01GMMNQ3KFRH6JR7NSDP9YMK6Z",
+  "name": "Wakefit",
+  "brand_key": "wakefit",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": null
+ },
+ {
   "id": "01KMZGFKENJS42P6GSGDBMFD7B",
   "name": "Wellbeing Nutrition",
   "brand_key": "wellbeing_nutrients",
@@ -4250,27 +4259,9 @@
   "add_voucher_url": null
  },
  {
-  "id": "01JAT1K3Y5MRY65RKGR4F9R69D",
-  "name": "Zepto",
-  "brand_key": "zepto",
-  "works": [
-   "ONLINE"
-  ],
-  "add_voucher_url": null
- },
- {
   "id": "01JY18WTYDBTDZS06RR30QKQZY",
   "name": "Zomato",
   "brand_key": "zomato",
-  "works": [
-   "ONLINE"
-  ],
-  "add_voucher_url": "zomato://gift_card/claim_page"
- },
- {
-  "id": "01GMAW822RPDJ5C50XK24QC2C4",
-  "name": "Zomato Fixed",
-  "brand_key": "zomato-fixed",
   "works": [
    "ONLINE"
   ],
@@ -4284,5 +4275,14 @@
    "ONLINE"
   ],
   "add_voucher_url": null
+ },
+ {
+  "id": "01M77SHY57Q0FG6BGZ4HPTG1V5",
+  "name": "Zudio",
+  "brand_key": "zudio",
+  "works": [
+   "OFFLINE"
+  ],
+  "add_voucher_url": ""
  }
 ]

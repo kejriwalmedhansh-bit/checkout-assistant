@@ -51,6 +51,9 @@ def _name(merchant, in_store=False):
     ("Uber", "Uber."),
     ("firstcry.com", "Firstcry"),
     ("Liberty", "Liberty Online"),          # alias lists two; only one works online
+    ("Swiggy Instamart", "Swiggy Instamart"),  # its own card since Nov 2026, not the Swiggy food one
+    ("Instamart", "Swiggy Instamart"),
+    ("Spotify", "Spotify Premium"),
     ("Steam", "Steam wallet"),              # Maximize/BuyHatke call it "Steam" (18 Nov 2026: sent to Maximize)
     ("Steam Wallet INR 500", "Steam wallet"),
     ("Nintendo eShop Voucher", "Nintendo"),
@@ -112,7 +115,7 @@ def test_shop_key_strips_domains_and_suffixes():
     ("Zomato Gift Card", "Zomato"),
     ("Swiggy Money Voucher", "Swiggy"),
     ("Swiggy Money", "Swiggy"),
-    ("Swiggy Instamart", "Swiggy"),  # owner 2026-11-12: Instamart vouchers are Swiggy credit too
+    ("Swiggy Instamart", "Swiggy Instamart"),  # Hubble added its own Instamart card by 18 Nov 2026 (was Swiggy, owner call 12 Nov)
     ("Amazon Shopping Voucher", "Amazon shopping"),
     ("Bigbasket (Custom)", "BigBasket"),
     ("Decathlon - Fixed", "Decathlon"),
@@ -181,7 +184,7 @@ def test_every_catalogue_voucher_has_a_working_slug():
 @pytest.mark.parametrize("merchant,link,expected", [
     ("Lifestyle Stores", "https://www.lifestylestores.com/in/en/p/123", "Lifestyle"),
     ("Some Odd Shop Name", "https://www.decathlon.in/p/8739959/lure-rod", "Decathlon"),
-    ("zeptonow.com", None, "Zepto"),
+    ("wakefit.co", None, "Wakefit"),        # Zepto left Hubble by 18 Nov 2026
     ("lifestylestores.com", None, "Lifestyle"),
 ])
 def test_the_store_website_finds_the_shop(merchant, link, expected):
