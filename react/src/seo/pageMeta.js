@@ -255,6 +255,12 @@ export function shopFaqs(shop) {
       a: `${best} (checked ${shop.checked}). Rates move; this page is rebuilt with every catalogue refresh and the Dealo rate is checked live when the page opens.`,
     },
     {
+      q: `How do I buy a ${shop.name} gift card at a discount?`,
+      a: shop.hubble
+        ? `Tap Dealo on this page, pick the amount and pay from your bank app. The code arrives in seconds; enter it at ${shop.name}’s checkout as a gift card.`
+        : `Pick a seller on this page, buy the ${shop.name} gift card for the amount you plan to spend, and enter the code at ${shop.name}’s checkout as a gift card.`,
+    },
+    {
       q: `Does the ${shop.name} gift card work with sale prices and coupon codes?`,
       a: shop.canClub === false
         ? `No. ${shop.name} does not let a gift voucher be combined with other offers; the voucher pays the final price only.`

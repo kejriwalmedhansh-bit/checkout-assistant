@@ -17,6 +17,7 @@ const HowItWorksPage = lazy(() => import('@/pages/HowItWorksPage'));
 const BrandsIndexPage = lazy(() => import('@/pages/BrandsIndexPage'));
 const BrandPage = lazy(() => import('@/pages/BrandPage'));
 const CategoryPage = lazy(() => import('@/pages/CategoryPage'));
+const GuidePage = lazy(() => import('@/pages/GuidePage'));
 const AboutPage = lazy(() => import('@/pages/AboutPage'));
 const ContactPage = lazy(() => import('@/pages/ContactPage'));
 const JoinCommunityPage = lazy(() => import('@/pages/JoinCommunityPage'));
@@ -46,6 +47,7 @@ export const router = createBrowserRouter([
       { path: ROUTES.brands, element: lazyPage(BrandsIndexPage) },
       { path: ROUTES.brand, element: lazyPage(BrandPage) },
       { path: ROUTES.category, element: lazyPage(CategoryPage) },
+      { path: ROUTES.guide, element: lazyPage(GuidePage) },
       { path: ROUTES.about, element: lazyPage(AboutPage) },
       { path: ROUTES.contact, element: lazyPage(ContactPage) },
       { path: ROUTES.join, element: lazyPage(JoinCommunityPage) },

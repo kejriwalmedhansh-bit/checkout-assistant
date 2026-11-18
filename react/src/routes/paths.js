@@ -13,6 +13,9 @@ export const ROUTES = {
   // Shop pages grouped by kind of shop (food, fashion…), see src/seo/categories.js.
   category: '/gift-cards/:slug',
   categoryFor: (slug) => `/gift-cards/${slug}`,
+  // Plain-language guides, see src/seo/guides.js.
+  guide: '/guides/:slug',
+  guideFor: (slug) => `/guides/${slug}`,
   // Buy a voucher inside Dealo. The address every other surface sends people to.
   buy: '/buy/:slug',
   buyFor: (slug) => `/buy/${slug}`,

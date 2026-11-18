@@ -54,6 +54,7 @@ import {
   payOn,
   similarShops,
 } from '../src/seo/categories.js';
+import { buildGuides, guideJsonLd } from '../src/seo/guides.js';
 
 const HERE = path.dirname(fileURLToPath(import.meta.url));
 const DIST = path.join(HERE, '..', 'dist');
@@ -188,6 +189,8 @@ function homeBody() {
     list(top),
     '<h2>Gift card discounts by kind of shop</h2>',
     categoryLinks(),
+    '<h2>Guides</h2>',
+    guideLinks(),
     `<p>${link('/brands/', 'See every shop')} · ${link('/how-it-works/', 'How it works')} · ${link('/chatgpt-claude/', 'Use Dealo in ChatGPT and Claude')}</p>`,
   ].join('');
 }
@@ -218,6 +221,9 @@ Dealo does not count cashback as a saving and only shows cards that are in stock
 - [About](${SITE_URL}/about/)
 - [Contact](${SITE_URL}/contact/)
 
+## Guides
+${GUIDES.map((g) => `- [${g.title}](${SITE_URL}/guides/${g.slug}/): ${g.description}`).join('\n')}
+
 ## Gift card discounts by kind of shop
 ${CATEGORIES.map((c) => `- [${c.name}](${SITE_URL}/gift-cards/${c.slug}/)`).join('\n')}
 
@@ -234,6 +240,29 @@ function similarBlock(shop) {
   if (!cat || !similar.length) return '';
   return `<h2>More ${esc(cat.short.toLowerCase())} gift card discounts</h2>${list(similar.map(shopItem))}<p>${link(`/gift-cards/${cat.slug}/`, `All ${cat.name.toLowerCase()}`)}</p>`;
 }
+
+const GUIDES = buildGuides(SHOP_PAGES);
+const LAST_CHECKED = SHOP_PAGES.map((s) => s.checked).sort().pop();
+const BY_SLUG = new Map(SHOP_PAGES.map((s) => [s.slug, s]));
+
+function guideBody(g) {
+  return [
+    head({ heading: g.heading, intro: g.intro }),
+    ...g.sections.map(
+      (sec) =>
+        `<h2>${esc(sec.h)}</h2>` +
+        (sec.p || []).map(p).join('') +
+        (sec.ol ? list(sec.ol.map(esc), 'ol') : '') +
+        (sec.ul ? list(sec.ul.map(esc)) : '') +
+        (sec.shops ? list(sec.shops.map((sl) => BY_SLUG.get(sl)).filter(Boolean).map(shopItem)) + p(`Rates checked ${LAST_CHECKED}.`) : ''),
+    ),
+    '<h2>Questions people ask</h2>',
+    g.faqs.map((f) => `<h3>${esc(f.q)}</h3>${p(f.a)}`).join(''),
+    list(GUIDES.filter((o) => o.slug !== g.slug).map((o) => link(`/guides/${o.slug}/`, o.title))),
+  ].join('');
+}
+
+const guideLinks = () => list(GUIDES.map((g) => link(`/guides/${g.slug}/`, g.title)));
 
 const categoryLinks = () => list(CATEGORIES.map((c) => link(`/gift-cards/${c.slug}/`, `${c.name} gift card discounts`)));
 
@@ -284,6 +313,15 @@ const ROUTES = [
         list(CATEGORIES.filter((o) => o.slug !== c.slug).map((o) => link(`/gift-cards/${o.slug}/`, o.name))),
     };
   }),
+  ...GUIDES.map((g) => ({
+    path: `/guides/${g.slug}/`,
+    lastmod: LAST_CHECKED,
+    changefreq: 'weekly',
+    priority: '0.8',
+    meta: { title: g.title, description: g.description, heading: g.heading, intro: g.intro },
+    jsonLd: guideJsonLd(g, LAST_CHECKED),
+    body: () => guideBody(g),
+  })),
   ...SHOP_PAGES.map((shop) => ({
     path: `/brands/${shop.slug}/`,
     lastmod: shop.checked,
