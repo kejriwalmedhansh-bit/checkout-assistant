@@ -13,11 +13,13 @@ export const hubbleApi = {
     return data;
   },
   /** GET /hubble/brand -> { available, brand:{discount_pct, cards, min_amount, max_amount, typed, in_store} } — shop-name search, no cart yet. */
-  brand: async (merchant, bestPct = null, { slug = null } = {}) => {
+  brand: async (merchant, bestPct = null, { slug = null, inStore = false } = {}) => {
     // A buy link names the voucher by slug (/buy/ajio-luxe); a shop-name
-    // search names the shop. One of the two.
+    // search names the shop. One of the two. inStore: the link's ?store=1
+    // (Lifestyle sells an online and an in-store card under one name).
     const params = slug ? { slug } : { merchant };
     if (bestPct != null) params.best_pct = bestPct;
+    if (inStore) params.in_store = true;
     const { data } = await apiClient.get('/hubble/brand', { params });
     return data;
   },
@@ -46,9 +48,14 @@ export const hubbleApi = {
     const { data } = await apiClient.get('/hubble/card', { params: ref ? { ref } : {}, headers: { Authorization: `Bearer ${idToken}` } });
     return data;
   },
-  /** GET /hubble/orders/latest -> { found, brand, vouchers:[{code,pin,amount}] } */
-  latestOrder: async (idToken) => {
-    const { data } = await apiClient.get('/hubble/orders/latest', { headers: { Authorization: `Bearer ${idToken}` } });
+  /** GET /hubble/orders/latest -> { found, brand, vouchers:[{code,pin,amount}] }
+   * session (from /session) + brand: only the order this purchase made, so a
+   * second voucher bought soon after never shows the first one's code. */
+  latestOrder: async (idToken, { session = null, brand = null } = {}) => {
+    const params = {};
+    if (session) params.session = session;
+    if (brand) params.brand = brand;
+    const { data } = await apiClient.get('/hubble/orders/latest', { params, headers: { Authorization: `Bearer ${idToken}` } });
     return data;
   },
 };

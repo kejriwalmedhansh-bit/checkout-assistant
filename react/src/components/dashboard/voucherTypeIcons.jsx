@@ -178,12 +178,15 @@ const ICONS = {
   ),
   globe: (p) => <I.globe size={p.size ?? 22} />,
   ticket: (p) => <I.ticket size={p.size ?? 22} />,
+  store: (p) => <I.store size={p.size ?? 22} />,
 };
 
 // First match wins, so the narrow words come before the broad ones:
 // "AJIO (not Luxe)" is clothes, not the Luxe gem; "Hotels & holidays" is a
 // bed; "International trips" is the globe even though it holds flights.
 const RULES = [
+  [/^online$/, 'globe'],
+  [/^in store$/, 'store'],
   [/not luxe/, 'shirt'],
   [/except the pass/, 'ticket'],
   [/luxe|diamond|solitaire|platinum/, 'gem'],

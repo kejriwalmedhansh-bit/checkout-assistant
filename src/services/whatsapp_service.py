@@ -470,7 +470,7 @@ async def _send_voucher_steps(phone: str, route: dict) -> None:
         dealo = await _dealo_offer(merchant, route.get("listed_price") or 0, in_store, discount_pct, seller_link)
     if dealo:
         step1_text = _dealo_buy_step(dealo, step_n, total_steps)
-        buy_url = hubble_service.buy_link(dealo["brand_name"], dealo["voucher_total"], "wa")
+        buy_url = hubble_service.buy_link(dealo["brand_name"], dealo["voucher_total"], "wa", in_store=in_store)
         if not await send_cta_url(phone, step1_text, "Buy on Dealo", buy_url):
             await send_text(phone, f"{step1_text}\n{buy_url}")
         _track(

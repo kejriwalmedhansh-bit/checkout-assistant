@@ -1,0 +1,111 @@
+/**
+ * Shop categories (/gift-cards/<slug>/): each groups the shop pages of one
+ * kind of shop, so Google finds every shop page through the site's own links
+ * and has a page to send "food gift card discount"-type searches to.
+ *
+ * Why (18 Nov 2026): Search Console showed "Referring page: none detected"
+ * for every new shop page. A page nothing links to gets crawled late and
+ * ranks low.
+ *
+ * Read by BrandsIndexPage, CategoryPage, BrandPage ("more shops like this")
+ * and scripts/prerender.mjs. Relative imports only (prerender runs in Node).
+ * Every slug in shopPages.json belongs to exactly one category; a test-free
+ * guard in prerender.mjs fails the build if a shop page is left out.
+ */
+import { SITE_NAME, SITE_URL, pct, shownPct } from './pageMeta.js';
+
+export const CATEGORIES = [
+  {
+    slug: 'food',
+    name: 'Food, coffee & groceries',
+    short: 'Food',
+    shops: ['dominos', 'pizza-hut', 'kfc', 'subway', 'starbucks', 'third-wave-coffee', 'zomato', 'swiggy', 'bigbasket'],
+  },
+  {
+    slug: 'fashion',
+    name: 'Fashion & footwear',
+    short: 'Fashion',
+    shops: [
+      'myntra', 'ajio', 'ajio-luxe', 'nykaa-fashion', 'lifestyle', 'westside', 'max-fashion', 'snitch', 'biba', 'beyoung',
+      'jockey', 'tata-cliq', 'tata-cliq-luxury', 'puma', 'skechers', 'bata', 'woodland', 'birkenstock', 'decathlon',
+    ],
+  },
+  { slug: 'beauty-jewellery', name: 'Beauty, eyewear & jewellery', short: 'Beauty & jewellery', shops: ['nykaa', 'nykaa-luxe', 'giva', 'titan', 'lenskart'] },
+  { slug: 'electronics', name: 'Electronics & online shopping', short: 'Electronics', shops: ['amazon', 'flipkart', 'croma', 'reliance-digital', 'boat', 'philips'] },
+  { slug: 'travel', name: 'Travel & rides', short: 'Travel', shops: ['makemytrip', 'goibibo', 'cleartrip', 'yatra', 'ixigo', 'easemytrip', 'uber', 'mokobara'] },
+  { slug: 'movies', name: 'Movies & events', short: 'Movies', shops: ['pvr', 'cinepolis', 'bookmyshow'] },
+  { slug: 'home', name: 'Home & furniture', short: 'Home', shops: ['ikea', 'pepperfry', 'urban-ladder', 'duroflex', 'dailyobjects', 'frido'] },
+  { slug: 'gifts-kids-health', name: 'Gifts, kids & health', short: 'Gifts, kids & health', shops: ['hamleys', 'firstcry', 'archies', 'netmeds'] },
+];
+
+// Per ₹1,000 rather than a big bill: true whatever card sizes a shop sells
+// and however many cards it allows per order.
+export const BILL = 1000;
+export const inr = (n) => `₹${Math.round(n).toLocaleString('en-IN')}`;
+/** What ₹1,000 of shopping costs with the gift card at this rate. */
+export const payOn = (rate, bill = BILL) => bill * (1 - rate / 100);
+
+export const categoryBySlug = (slug) => CATEGORIES.find((c) => c.slug === slug) || null;
+export const categoryOf = (shopSlug) => CATEGORIES.find((c) => c.shops.includes(shopSlug)) || null;
+
+/** The category's shops that have a page, biggest discount first. */
+export function categoryShops(cat, shopPages) {
+  const bySlug = new Map(shopPages.map((s) => [s.slug, s]));
+  return cat.shops
+    .map((slug) => bySlug.get(slug))
+    .filter((s) => s && shownPct(s))
+    .sort((a, b) => shownPct(b) - shownPct(a));
+}
+
+/** Up to `n` other shops from the same category, for "more shops like this". */
+export function similarShops(shop, shopPages, n = 6) {
+  const cat = categoryOf(shop.slug);
+  if (!cat) return [];
+  return categoryShops(cat, shopPages).filter((s) => s.slug !== shop.slug).slice(0, n);
+}
+
+export function categoryMeta(cat, shops) {
+  const top = shops.slice(0, 2).map((s) => `${s.name} ${pct(shownPct(s))}`);
+  const names = shops.slice(0, 4).map((s) => s.name);
+  return {
+    title: `${cat.short} gift card discounts today${top.length ? `: ${top.join(', ')}` : ''}`,
+    description: `Today's gift card discount at ${shops.length} ${cat.name.toLowerCase()} shops, including ${names.join(', ')}. Buy the shop's gift card for less and pay with it.`,
+    heading: `${cat.name}: gift card discounts today`,
+    intro: `What every ${inr(BILL)} you spend at each shop costs with its own gift card, bought for less. Tap a shop for its terms and how to buy.`,
+  };
+}
+
+export function categoryJsonLd(cat, shops) {
+  const meta = categoryMeta(cat, shops);
+  const url = `${SITE_URL}/gift-cards/${cat.slug}/`;
+  const checked = shops.map((s) => s.checked).sort().pop();
+  return [
+    {
+      '@context': 'https://schema.org',
+      '@type': 'CollectionPage',
+      name: `${meta.title} — ${SITE_NAME}`,
+      description: meta.description,
+      url,
+      ...(checked ? { dateModified: checked } : {}),
+      inLanguage: 'en-IN',
+      mainEntity: {
+        '@type': 'ItemList',
+        itemListElement: shops.map((s, i) => ({
+          '@type': 'ListItem',
+          position: i + 1,
+          name: `${s.name} gift card: ${pct(shownPct(s))} off`,
+          url: `${SITE_URL}/brands/${s.slug}/`,
+        })),
+      },
+    },
+    {
+      '@context': 'https://schema.org',
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: SITE_NAME, item: `${SITE_URL}/` },
+        { '@type': 'ListItem', position: 2, name: 'Store deals', item: `${SITE_URL}/brands/` },
+        { '@type': 'ListItem', position: 3, name: cat.name, item: url },
+      ],
+    },
+  ];
+}

@@ -15,6 +15,13 @@ const COLUMNS = [
     ],
   },
   {
+    heading: 'Guides',
+    links: [
+      { to: `${ROUTES.guideFor('buy-gift-cards-at-discount')}/`, label: 'Buy gift cards at a discount' },
+      { to: `${ROUTES.guideFor('is-it-safe-to-buy-discounted-gift-cards')}/`, label: 'Is it safe?' },
+    ],
+  },
+  {
     heading: 'Company',
     links: [
       { to: ROUTES.about, label: 'About' },

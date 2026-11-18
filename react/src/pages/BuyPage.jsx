@@ -50,6 +50,7 @@ export default function BuyPage() {
   const params = new URLSearchParams(location.search);
   const amount = Number(params.get('amount')) || null;
   const src = params.get('src') || 'link';
+  const inStore = params.get('store') === '1';
 
   const [state, setState] = useState({ status: HUBBLE_ON ? 'loading' : 'missing', brand: null, rival: null });
   const name = state.brand?.brand_name || state.rival?.brand_name || shopName(slug);
@@ -61,7 +62,7 @@ export default function BuyPage() {
     let live = true;
     setState({ status: 'loading', brand: null });
     hubbleApi
-      .brand(null, null, { slug })
+      .brand(null, null, { slug, inStore })
       .then((res) => {
         if (!live) return;
         track('Buy Link Opened', { slug, amount, src, available: Boolean(res.available) });

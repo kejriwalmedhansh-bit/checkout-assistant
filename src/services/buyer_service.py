@@ -195,9 +195,11 @@ def voucher_sold_event(order: dict, environment: str, attribution: dict | None =
     )
 
 
-async def save_purchase(order: dict, environment: str, attribution: dict | None = None) -> None:
+async def save_purchase(order: dict, environment: str, attribution: dict | None = None) -> bool:
     """One row per Hubble order, from its webhook. Never stores codes or PINs.
-    A completed order also goes to Mixpanel as 'Voucher Sold'."""
+    A completed order also goes to Mixpanel as 'Voucher Sold' (a resent order
+    carries the same $insert_id, so Mixpanel keeps one). False when the row
+    didn't save, so the webhook can ask Hubble to send it again."""
     try:
         event = voucher_sold_event(order, environment, attribution)
         if event:
@@ -206,7 +208,7 @@ async def save_purchase(order: dict, environment: str, attribution: dict | None 
         print(f"[buyers] could not report sale {order.get('transactionReferenceId')}: {exc}")
     s = get_settings()
     if not s.SUPABASE_URL or not s.SUPABASE_SECRET_KEY:
-        return
+        return True
     row = {
         "hubble_ref": order.get("transactionReferenceId"),
         "firebase_uid": order.get("userId"),
@@ -226,3 +228,5 @@ async def save_purchase(order: dict, environment: str, attribution: dict | None 
             resp.raise_for_status()
     except httpx.HTTPError as exc:
         print(f"[buyers] could not save purchase {row['hubble_ref']}: {exc}")
+        return False
+    return True
