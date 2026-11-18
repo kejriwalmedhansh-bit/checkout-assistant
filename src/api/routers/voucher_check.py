@@ -151,29 +151,59 @@ async def voucher_check_with_dealo(domain: str = Query(..., min_length=1), price
     then sends the shopper to getdealo.in/buy/<shop> instead of the partner.
     The partner lookup itself stays a plain function (voucher_check) for the
     chat app and the tests."""
-    return await _with_dealo(voucher_check(domain, price), price)
+    return await _with_dealo(voucher_check(domain, price), price, domain)
 
 
-async def _with_dealo(deal: dict, price: float | None) -> dict:
-    if not deal.get("has_voucher") or not price or not deal.get("brand_name"):
+async def _with_dealo(deal: dict, price: float | None, domain: str = "") -> dict:
+    """Dealo's own voucher for this checkout whenever Hubble sells the shop,
+    found by the partner card's name or, failing that, by the website itself
+    (18 Nov 2026: the extension used to ask only when a partner had a deal,
+    and only by the partner card's name, so Hubble-only shops showed nothing).
+    With no partner deal, the answer is shaped as a full Dealo deal so the
+    extension's existing screens show it without a new release."""
+    if not price:
         return deal
+    host = domain.strip().lower().removeprefix("www.")
+    offer = None
     try:
-        offer = await hubble_service.offer_for(deal["brand_name"], price, False)
+        for name in dict.fromkeys(n for n in (deal.get("brand_name"), host) if n):
+            offer = await hubble_service.offer_for(name, price, False, host or None)
+            if offer:
+                break
     except Exception:  # noqa: BLE001 — a partner outage must never break the popup
         return deal
     if not offer or not hubble_service.worth_showing(offer["discount_pct"], deal.get("pct")):
         return deal
-    deal["dealo"] = {
+    buy_url = hubble_service.buy_link(offer["brand_name"], offer["voucher_total"], "ext")
+    breakdown = [{"denom": d["amount"], "count": d["count"]} for d in offer["denominations"]]
+    dealo = {
         "brand_name": offer["brand_name"],
         "discount_pct": offer["discount_pct"],
         "voucher_total": offer["voucher_total"],
         "you_pay": offer["you_pay"],
         "you_save": offer["you_save"],
         "rest_at_shop": offer["rest_at_shop"],
-        "denomination_breakdown": [{"denom": d["amount"], "count": d["count"]} for d in offer["denominations"]],
-        "buy_url": hubble_service.buy_link(offer["brand_name"], offer["voucher_total"], "ext"),
+        "denomination_breakdown": breakdown,
+        "buy_url": buy_url,
     }
-    return deal
+    if deal.get("has_voucher"):
+        return {**deal, "dealo": dealo}
+    return {
+        "has_voucher": True,
+        "brand_name": offer["brand_name"],
+        "voucher_source": "dealo",
+        "pct": offer["discount_pct"],
+        "saving": offer["you_save"],
+        "effective_price": round(price - offer["you_save"], 2),
+        "voucher_url": buy_url,
+        "priced": True,
+        "voucher_amount": offer["voucher_total"],
+        "purchase_breakdown": f"₹{offer['voucher_total']:,.0f}",
+        "denomination_breakdown": breakdown,
+        "txns_needed": 1,
+        "remainder": offer["rest_at_shop"],
+        "dealo": dealo,
+    }
 
 
 def voucher_check(domain: str, price: float | None = None) -> dict:

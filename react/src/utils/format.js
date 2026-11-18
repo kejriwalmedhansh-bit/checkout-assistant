@@ -19,6 +19,8 @@ const round = (n) => (n == null ? null : Math.round(n));
  * different (not just relabeled) number once the shopper says they're paying by card. */
 export function finalPrice(rec, payingByCard = false) {
   if (!rec) return null;
+  // Dealo's own voucher (asked on the server) is paid by UPI only.
+  if (rec.hubble && !payingByCard) return round(rec.hubble.you_pay + (rec.hubble.rest_at_shop || 0));
   const v = rec.voucher || null;
   if (!v) return round(rec.listed_price);
   const priceSet = payingByCard ? v.card : v.upi;

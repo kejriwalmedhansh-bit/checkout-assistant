@@ -22,7 +22,7 @@ OFFER = {"brand_name": "Myntra", "discount_pct": 4.0, "voucher_total": 2000, "yo
 
 
 def _with(monkeypatch, offer):
-    async def fake(merchant, price, in_store=False):
+    async def fake(merchant, price, in_store=False, link=None):
         return offer
     monkeypatch.setattr(hubble_service, "offer_for", fake)
     monkeypatch.setattr(vc, "voucher_check", lambda domain, price=None: dict(PARTNER))
@@ -57,3 +57,38 @@ def test_hubble_error_is_swallowed(monkeypatch):
     monkeypatch.setattr(vc, "voucher_check", lambda domain, price=None: dict(PARTNER))
     out = asyncio.run(vc.voucher_check_with_dealo("myntra.com", 2000))
     assert out["has_voucher"] and "dealo" not in out
+
+
+def test_hubble_only_shop_becomes_a_dealo_deal(monkeypatch):
+    """18 Nov 2026: a shop with no partner deal used to show nothing in the
+    extension even when Hubble sells it. Now the whole answer is Dealo's,
+    shaped so the extension's existing screens draw it."""
+    asked = []
+
+    async def fake(merchant, price, in_store=False, link=None):
+        asked.append((merchant, link))
+        return OFFER
+    monkeypatch.setattr(hubble_service, "offer_for", fake)
+    monkeypatch.setattr(vc, "voucher_check", lambda domain, price=None: {"has_voucher": False})
+    out = asyncio.run(vc.voucher_check_with_dealo("www.myntra.com", 2000))
+    assert out["has_voucher"] and out["voucher_source"] == "dealo" and out["priced"]
+    assert out["pct"] == 4.0 and out["saving"] == 80 and out["effective_price"] == 1920
+    assert out["voucher_url"].endswith("/buy/myntra?amount=2000&src=ext")
+    assert asked == [("myntra.com", "myntra.com")]  # found by the website itself
+
+
+def test_partner_name_misses_then_website_finds_it(monkeypatch):
+    async def fake(merchant, price, in_store=False, link=None):
+        return OFFER if merchant == "myntra.com" else None
+    monkeypatch.setattr(hubble_service, "offer_for", fake)
+    monkeypatch.setattr(vc, "voucher_check", lambda domain, price=None: {**PARTNER, "brand_name": "Myntra Odd Name"})
+    out = asyncio.run(vc.voucher_check_with_dealo("myntra.com", 2000))
+    assert out["dealo"]["brand_name"] == "Myntra" and out["voucher_source"] == "buyhatke"
+
+
+def test_no_price_leaves_the_answer_alone(monkeypatch):
+    async def fake(*a, **k):
+        raise AssertionError("Hubble must not be asked without an amount")
+    monkeypatch.setattr(hubble_service, "offer_for", fake)
+    monkeypatch.setattr(vc, "voucher_check", lambda domain, price=None: {"has_voucher": False})
+    assert asyncio.run(vc.voucher_check_with_dealo("myntra.com", None)) == {"has_voucher": False}

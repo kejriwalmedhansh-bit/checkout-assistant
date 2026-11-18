@@ -30,7 +30,7 @@ const HUBBLE_ON = import.meta.env.VITE_HUBBLE_ENABLED === 'true';
  * finds whichever of Gyftr/Maximize/BuyHatke has the best rate and they are
  * sent there, with the rate named on the way (owner's call, 2 Nov 2026).
  */
-const SOURCE_LABELS = { maximize: 'Maximize', buyhatke: 'BuyHatke', gyftr: 'Gyftr' };
+const SOURCE_LABELS = { maximize: 'Maximize', buyhatke: 'BuyHatke', gyftr: 'Gyftr', hubble: 'Dealo' };
 const REDIRECT_AFTER_MS = 1800;
 
 function shopName(slug) {
@@ -84,7 +84,10 @@ export default function BuyPage() {
       .then((data) => {
         if (!live) return;
         const v = data.mode === 'brand_voucher' && data.voucher?.voucher_url ? data.voucher : null;
-        if (v) {
+        if (v?.voucher_source === 'hubble' && v.slug && v.slug !== slug) {
+          // Dealo sells it under another name (a renamed card): its own buy page.
+          navigate(`/buy/${v.slug}${location.search}`, { replace: true });
+        } else if (v && v.voucher_source !== 'hubble') {
           setState({ status: 'redirect', brand: null, rival: v });
         } else {
           track('Buy Link Fallback Search', { slug, src });

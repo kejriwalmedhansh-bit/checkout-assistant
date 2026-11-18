@@ -266,6 +266,57 @@ def _as_dealo(deal: dict, surface: str) -> dict:
     }
 
 
+async def _dealo_without_amount(deal: dict, names: list[str], surface: str) -> dict:
+    """No order amount yet: Dealo's own card at its headline rate whenever
+    Hubble sells the shop (18 Nov 2026: without an amount the chat apps
+    never asked Hubble, so MakeMyTrip Hotel, PVR, Zomato went to partners)."""
+    for name in dict.fromkeys(n for n in names if n):
+        try:
+            info = await hubble_service.brand_info(name)
+        except Exception:  # noqa: BLE001 — a Hubble hiccup keeps the partner answer
+            return deal
+        if info and hubble_service.worth_showing(info["discount_pct"]):
+            return {
+                **deal,
+                "has_voucher": True,
+                "brand_name": deal.get("brand_name") or info["brand_name"],
+                "voucher_source": "dealo",
+                "voucher_url": hubble_service.buy_link(info["brand_name"], None, surface),
+                "pct": info["discount_pct"],
+                "saving": None,
+                "priced": False,
+                "card_pct": None,
+                "restrictions": [],
+                "dealo": {"brand_name": info["brand_name"], "discount_pct": info["discount_pct"],
+                          "buy_url": hubble_service.buy_link(info["brand_name"], None, surface)},
+            }
+    return deal
+
+
+async def _choice_as_dealo(choice: dict, amount: float | None, surface: str) -> dict:
+    """One of a shop's cards (MakeMyTrip Hotels, Flights...) as Dealo's own
+    when Hubble sells that card."""
+    name = choice.get("brand_name")
+    if not name:
+        return choice
+    if not amount:
+        return await _dealo_without_amount(choice, [name], surface)
+    try:
+        offer = await hubble_service.offer_for(name, amount, False)
+    except Exception:  # noqa: BLE001
+        return choice
+    if not offer:
+        return choice
+    dealo = {
+        "brand_name": offer["brand_name"], "discount_pct": offer["discount_pct"],
+        "voucher_total": offer["voucher_total"], "you_pay": offer["you_pay"], "you_save": offer["you_save"],
+        "rest_at_shop": offer["rest_at_shop"],
+        "denomination_breakdown": [{"denom": d["amount"], "count": d["count"]} for d in offer["denominations"]],
+        "buy_url": hubble_service.buy_link(offer["brand_name"], offer["voucher_total"], surface),
+    }
+    return _as_dealo({**choice, "dealo": dealo, "cart_total": amount}, surface)
+
+
 def _deal_for_card(deal: dict, base_url: str, surface: str) -> dict:
     """The fields the card draws, plus a logged link to the voucher site
     (or Dealo's own buy page, which needs no /out wrapper)."""
@@ -360,7 +411,11 @@ async def _find_deal(args: dict, request: Request) -> dict:
                 deal = await voucher_check_with_dealo(closest, amount)
         if amount:
             deal["cart_total"] = amount
-        deal = _as_dealo(deal, surface)
+            deal = _as_dealo(deal, surface)
+        else:
+            deal = await _dealo_without_amount(deal, [deal.get("brand_name"), key], surface)
+        if deal.get("product_choices"):
+            deal["product_choices"] = [await _choice_as_dealo(c, amount, surface) for c in deal["product_choices"]]
     except Exception:
         logger.exception("[chat_app] lookup failed for %r", shop)
         return {"content": [{"type": "text", "text": (

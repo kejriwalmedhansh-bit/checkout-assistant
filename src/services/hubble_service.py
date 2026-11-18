@@ -14,6 +14,7 @@ and how much, and tells Hubble who the shopper is. Three jobs live here:
 """
 from __future__ import annotations
 
+import asyncio
 import json
 import math
 import re
@@ -551,6 +552,46 @@ async def offer_for(merchant: str, price: float, in_store: bool = False, link: s
         "add_voucher_url": brand.get("add_voucher_url"),
         "card": card_details(product, brand["name"], in_store),
     }
+
+
+async def _offers(items: list[tuple[str, float, bool, str | None]], timeout: float) -> list[tuple[bool, dict | None]]:
+    async def one(item):
+        merchant, price, in_store, link = item
+        if not price or price <= 0 or not brand_for(merchant, in_store, link):
+            return True, None  # Hubble doesn't sell this shop: a sure "no"
+        try:
+            offer = await asyncio.wait_for(offer_for(merchant, price, in_store, link), timeout)
+        except Exception:  # noqa: BLE001 — slow or failing Hubble: "don't know"
+            return False, None
+        if offer is None and brand_for(merchant, in_store, link)["id"] not in _products:
+            return False, None  # the product page didn't load: "don't know", not "no"
+        return True, offer
+    return list(await asyncio.gather(*(one(i) for i in items)))
+
+
+def offers_for_shops(items: list[tuple[str, float, bool, str | None]], timeout: float = 5.0) -> list[tuple[bool, dict | None]]:
+    """Dealo's own voucher for each (shop, price, in_store, buy link), asked
+    once on the server so every screen (website, WhatsApp, price lists) shows
+    the same answer (18 Nov 2026: the website used to ask only when a partner
+    also sold the shop, so Hubble-only shops showed no voucher at all).
+
+    Each answer is (checked, offer): checked is False when Hubble didn't
+    answer in time, so a caller can ask again later instead of reading that
+    as "Hubble doesn't sell it". Called from worker threads (search runs off
+    the event loop); inside a running loop it answers "don't know" for all."""
+    if not get_settings().HUBBLE_ENABLED:
+        return [(True, None) for _ in items]
+    if not items:
+        return []
+    try:
+        asyncio.get_running_loop()
+        return [(False, None) for _ in items]
+    except RuntimeError:
+        pass
+    try:
+        return asyncio.run(_offers(items, timeout))
+    except Exception:  # noqa: BLE001
+        return [(False, None) for _ in items]
 
 
 def worth_showing(hubble_pct: float, best_pct: float | None = None) -> bool:  # noqa: ARG001 — best_pct kept for callers

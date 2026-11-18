@@ -93,7 +93,7 @@ export function isRealOffer(o, price) {
 
 /** What the shop's Gift Voucher takes off, in ₹ (0 without one). */
 export const giftVoucherSaving = (shop) =>
-  shop.voucher && shop.voucherRoute ? Math.round(shop.price - shop.voucherRoute.final_cost) : 0;
+  shop.voucherRoute ? Math.round(shop.price - shop.voucherRoute.final_cost) : 0;
 
 // Owner's call 2026-10-27: a card offer only shows where it takes off more
 // than that shop's Gift Voucher; otherwise the Gift Voucher stays the deal.

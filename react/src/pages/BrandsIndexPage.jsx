@@ -18,6 +18,7 @@ const SOURCE_LABEL = {
   gyftr: 'Gyftr',
   maximize: 'Maximize',
   buyhatke: 'BuyHatke',
+  dealo: 'Dealo',
 };
 
 // Brands already covered by a full, hand-written /brands/:slug page — kept
@@ -78,20 +79,20 @@ function FlagshipCard({ brand }) {
           </Text>
         )}
       </Box>
-      {deal && (
-        <Box color="text3" flex="0 0 auto">
-          <I.external size={13} />
-        </Box>
-      )}
+
     </ChakraLink>
   );
 }
 
 function BrandRow({ brand }) {
+  // Dealo's own card opens its buy page here; a partner's opens their site.
+  const own = brand.source === 'dealo';
+  const linkProps = own
+    ? { as: RouterLink, to: brand.url }
+    : { href: outboundLink(brand.url, 'voucher_site', 'brands_list'), isExternal: true };
   return (
     <ChakraLink
-      href={outboundLink(brand.url, 'voucher_site', 'brands_list')}
-      isExternal
+      {...linkProps}
       onClick={() => track('Clicked Brand Voucher Link', { brand: brand.name, source: brand.source, pct: brand.pct })}
       display="flex"
       alignItems="center"
@@ -116,9 +117,11 @@ function BrandRow({ brand }) {
         <I.zap size={10} />
         {brand.pct}%
       </Flex>
-      <Box color="text3" flex="0 0 auto">
-        <I.external size={13} />
-      </Box>
+      {!own && (
+        <Box color="text3" flex="0 0 auto">
+          <I.external size={13} />
+        </Box>
+      )}
     </ChakraLink>
   );
 }

@@ -246,7 +246,7 @@ export function HubbleBrandCard({ brand, merchant, query, initialAmount = null, 
  * BuyHatke — whichever has the best headline rate (see `_pick_better_voucher`
  * in search_service.py).
  */
-const SOURCE_LABELS = { maximize: 'Maximize', buyhatke: 'BuyHatke', gyftr: 'Gyftr' };
+const SOURCE_LABELS = { maximize: 'Maximize', buyhatke: 'BuyHatke', gyftr: 'Gyftr', hubble: 'Dealo' };
 
 export default function BrandVoucherCard({ voucher, query }) {
   // Dealo's own voucher for this shop (Hubble), when its rate is close
@@ -275,7 +275,10 @@ export default function BrandVoucherCard({ voucher, query }) {
   // Never fabricate a store link — a guessed gyftr.com/{slug} URL is wrong
   // whenever this voucher actually came from Maximize (or the backend just
   // didn't have a real URL for this brand). Trust > a confident wrong link.
-  const link = voucher.voucher_url ? outboundLink(voucher.voucher_url, 'voucher_site', 'brand_voucher_card') : null;
+  const own = voucher.voucher_source === 'hubble';
+  const link = voucher.voucher_url
+    ? own ? voucher.voucher_url : outboundLink(voucher.voucher_url, 'voucher_site', 'brand_voucher_card')
+    : null;
   // How many vouchers one booking takes, said plainly whenever the terms cap
   // it. Yatra's flight cards are 40% off but only three ₹500 cards fit one
   // booking — with no booking amount here, the rate alone would oversell it,

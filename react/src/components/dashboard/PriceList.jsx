@@ -226,7 +226,7 @@ export default function PriceList({ shops, onPickGiftCard, afterFirst = null, mi
                   py="3px"
                   _focusVisible={{ boxShadow: 'ring', outline: 'none' }}
                 >
-                  −{fmt(gc)} with {s.voucher.offline_only ? 'in-store ' : ''}Gift Voucher ›
+                  −{fmt(gc)} with {s.voucher?.offline_only ? 'in-store ' : ''}Gift Voucher ›
                 </Box>
                 </Flex>
               )}

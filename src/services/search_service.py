@@ -732,6 +732,20 @@ def _hubble_card(name: str) -> dict | None:
     }
 
 
+def _as_hubble_card(card: dict, query: str | None = None) -> dict:
+    """`card` (a partner's) replaced by Dealo's own card for the same voucher
+    when Hubble sells it, keeping the shopper's choice label ("Hotels").
+    `query` is tried too for a single card ("steam" when the card is
+    "Steam Gift Voucher")."""
+    if card.get("voucher_source") == "hubble":
+        return card
+    for name in (card.get("brand_name"), query):
+        found = _hubble_card(name) if name else None
+        if found:
+            return {**found, **({"choice_label": card["choice_label"]} if card.get("choice_label") else {})}
+    return card
+
+
 def _partner_sells_now(card: dict) -> bool:
     """False for a partner card the voucher refresh retired or marked out of
     stock. `_on_sale` keeps such a record in the name index whenever Hubble
@@ -1023,6 +1037,33 @@ def _is_in_store_route(route: dict) -> bool:
     return bool((route.get("voucher") or {}).get("offline_only")) or route["merchant"].endswith("(in-store)")
 
 
+def _add_hubble(routes: list[dict], results: list[dict]) -> None:
+    """Dealo's own voucher (Hubble) on every route whose shop Hubble sells,
+    whether or not a partner sells it too (owner: Dealo sells wherever Hubble
+    has it). The route's cost becomes what the shopper pays that way, so it
+    ranks by it. Each result listing gets the same answer for the price
+    lists. hubble_checked=False means Hubble didn't answer in time; the
+    website then asks it itself, as it used to."""
+    items = []
+    for r in routes:
+        in_store = _is_in_store_route(r)
+        link = ((r.get("sellers") or [{}])[0] or {}).get("link")
+        items.append((r["merchant"].replace(" (in-store)", ""), r.get("listed_price") or 0, in_store, link))
+    answers = hubble_service.offers_for_shops(items)
+    online: dict[str, tuple[bool, dict | None]] = {}
+    for r, (checked, offer) in zip(routes, answers):
+        r["hubble_checked"] = checked
+        r["hubble"] = offer
+        if offer:
+            r["final_cost"] = round(offer["you_pay"] + (offer.get("rest_at_shop") or 0), 2)
+        if not _is_in_store_route(r):
+            online[r["merchant"].lower()] = (checked, offer)
+    for res in results:
+        checked, offer = online.get((res.get("merchant") or "").lower(), (False, None))
+        res["hubble_checked"] = checked
+        res["hubble"] = offer
+
+
 def _build_routes(results: list[dict], vouchers: list[dict]) -> dict:
     """Merge results + vouchers into route objects sorted by final_cost.
 
@@ -1076,6 +1117,8 @@ def _build_routes(results: list[dict], vouchers: list[dict]) -> dict:
             continue  # no price, no voucher — unrankable
 
         add_route(merchant, listed_price, final_cost, r.get("sellers") or [], r.get("match_type") or "", title, v)
+
+    _add_hubble(routes, results)
 
     # Hyperlocal apps (Blinkit/Zepto/Swiggy/Zomato) sort after every normal
     # route regardless of price — see HYPERLOCAL_MERCHANTS in constants.py.
@@ -3357,10 +3400,17 @@ def search_candidates(query: str, exact: bool = False, shops_only: bool = False)
         # shop right now, otherwise nothing (never a dead 0% card).
         matched_voucher = _hubble_card(matched_voucher.get("brand_name") or query)
     if matched_voucher:
+        # Dealo's own card wherever Hubble sells that card, decided here so
+        # every screen gets it (the website used to draw the partner card
+        # and swap it only if its own Hubble call came back in time).
+        if choices:
+            choices = [_as_hubble_card(c) for c in choices]
+            matched_voucher = choices[0]
+        else:
+            matched_voucher = _as_hubble_card(matched_voucher, query)
         out["mode"] = "brand_voucher"
         out["voucher"] = matched_voucher
         if choices:
-            out["voucher"] = choices[0]
             out["voucher_choices"] = choices
         return out
     hubble_card = None if is_url else _match_hubble_shop(query)

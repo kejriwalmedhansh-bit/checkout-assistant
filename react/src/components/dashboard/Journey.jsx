@@ -48,7 +48,13 @@ export default function Journey({ rec, payingByCard = false, skipVoucher = false
   // 0%-off voucher, where the voucher step adds friction for no benefit.
   // Treated exactly like "no voucher": the direct-buy row below already
   // covers it, no separate rendering path needed.
-  const v = skipVoucher ? null : rec.voucher || null;
+  // The server asks Hubble about every shop (search_service._add_hubble):
+  // undefined here means it didn't get an answer in time (or an older
+  // server), and the page asks Hubble itself below, as it used to.
+  const serverHubble = rec.hubble_checked ? rec.hubble || null : undefined;
+  // A shop only Hubble sells has no partner voucher: an empty stand-in
+  // keeps the two-step voucher layout, filled from Dealo's own offer.
+  const v = skipVoucher ? null : rec.voucher || (serverHubble && !payingByCard ? {} : null);
   // Gyftr/Maximize give a lower discount when the voucher is paid for by
   // card than by UPI — once the shopper has said they're paying by card,
   // this step's price/percentage figures switch to that real, lower number
@@ -97,11 +103,22 @@ export default function Journey({ rec, payingByCard = false, skipVoucher = false
   // it, whatever the partners' rate (the server decides; owner's call
   // 3 Nov 2026, since Dealo earns on a Hubble sale and nothing on a
   // redirect).
-  const [hubble, setHubble] = useState(null);
+  const [hubble, setHubble] = useState(serverHubble && !payingByCard ? serverHubble : null);
   const [buying, setBuying] = useState(false);
   const orderPrice = rec.listed_price;
   useEffect(() => {
-    if (!HUBBLE_ON || !v || !orderPrice || payingByCard) return undefined;
+    if (!HUBBLE_ON || !v || !orderPrice || payingByCard) {
+      setHubble(null);
+      return undefined;
+    }
+    if (serverHubble !== undefined) {
+      setHubble(serverHubble);
+      setHubbleOffer(serverHubble);
+      if (serverHubble) {
+        track('Dealo Voucher Shown', soldEventProps(serverHubble, { merchant: shopName, placement: 'journey', bestPct: v.upi?.pct }));
+      }
+      return () => setHubbleOffer(null);
+    }
     let live = true;
     hubbleApi
       .offer(shopName, orderPrice, Boolean(v.offline_only), HUBBLE_FORCE ? null : v.upi?.pct, sellerLink)
@@ -117,7 +134,7 @@ export default function Journey({ rec, payingByCard = false, skipVoucher = false
       setHubbleOffer(null);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [shopName, orderPrice, payingByCard]);
+  }, [shopName, orderPrice, payingByCard, serverHubble === undefined, serverHubble?.you_pay]);
   // Short line shown by default; DETAIL is the original full sentence, one
   // tap away behind the row's own InfoNote toggle — same content as before,
   // just not all of it on screen at once.

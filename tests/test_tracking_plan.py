@@ -200,7 +200,8 @@ def test_every_voucher_and_card_link_in_data_is_allowed():
         if f.exists():
             hosts |= {urlparse(m.group(2)).netloc for m in link_re.finditer(f.read_text(errors="ignore"))}
     deals = json.loads((ROOT / "react/src/data/allBrandDeals.json").read_text())
-    hosts |= {urlparse(d["url"]).netloc for d in deals if d.get("url")}
+    # Dealo's own rows link to its /buy page, not out through /out.
+    hosts |= {urlparse(d["url"]).netloc for d in deals if d.get("url") and d.get("source") != "dealo"}
     blocked = sorted(h for h in hosts if not _host_allowed(h))
     assert not blocked, f"Add to OUTBOUND_ALLOWED_HOSTS in src/constants.py: {blocked}"
 

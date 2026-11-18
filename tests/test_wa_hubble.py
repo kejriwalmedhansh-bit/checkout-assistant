@@ -162,3 +162,22 @@ def test_picker_card_gets_dealos_matching_card_not_the_shops_general_one(monkeyp
     asyncio.run(whatsapp_service._send_brand_voucher("919999999999", "makemytrip", cab, shop="MakeMyTrip"))
     assert asked == ["MakeMyTrip Cab"]
     assert calls["cta"][0][1] != "Buy on Dealo"
+
+
+def test_shop_only_hubble_sells_gets_dealo_steps(monkeypatch):
+    """18 Nov 2026: a route with no partner voucher (Zudio) used to get the
+    plain "buy at the shop" reply even when Hubble sells it. The search now
+    asks Hubble for every shop and the chat uses that answer as is."""
+    calls = _harness(monkeypatch, offer=None)  # must not need to ask again
+    route = {"merchant": "Zudio", "listed_price": 2000, "sellers": [{"link": "https://zudio.com/p"}],
+             "voucher": None, "hubble": {**OFFER, "brand_name": "Zudio"}, "hubble_checked": True}
+    asyncio.run(whatsapp_service._send_voucher_steps("919999999999", route))
+    body, button, url = calls["cta"][1]  # after the check-the-page step
+    assert button == "Buy on Dealo" and url.endswith("/buy/zudio?amount=2000&src=wa")
+    assert any("Open *Zudio*" in t for t in calls["texts"]) or any("Open Zudio" in b for _, b, _ in calls["cta"])
+
+
+def test_hubble_only_route_caption_says_gift_voucher():
+    route = {"merchant": "Zudio", "title": "Shirt", "listed_price": 2000, "final_cost": 1920,
+             "voucher": None, "hubble": {**OFFER, "in_store": False}, "hubble_checked": True}
+    assert "Zudio + Gift Voucher" in whatsapp_service._build_result_caption(route)
