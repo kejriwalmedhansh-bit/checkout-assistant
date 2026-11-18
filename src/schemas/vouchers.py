@@ -36,6 +36,8 @@ class VoucherDetailOut(BaseModel):
     # (see `voucher_choices` on the search response): what the shopper taps,
     # and the card's own words for what it pays for.
     choice_label: str | None = None
+    # Dealo's own (Hubble) card that works only in the shop's stores.
+    in_store: bool = False
     covers: str | None = None
     # The shop's website (for its logo) and, when one shop runs two sites
     # (AJIO and AJIO Luxe), the site this voucher is for.

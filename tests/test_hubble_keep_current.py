@@ -63,6 +63,7 @@ def _client(listing, pages):
 
 @pytest.fixture(autouse=True)
 def _reset(monkeypatch):
+    monkeypatch.setattr(h.get_settings(), "HUBBLE_CLIENT_ID", "dealo-test-id")
     monkeypatch.setattr(h, "_live", {"brands": None, "index": None, "at": 0.0})
     monkeypatch.setattr(h, "catalogue_brands", lambda: h._live["brands"] if h._live["brands"] is not None else list(OLD))
 
@@ -76,24 +77,27 @@ def test_new_voucher_is_sellable_the_same_day(monkeypatch):
     assert h.brand_for("Zudio", in_store=True)["id"] == "n"
 
 
-def test_voucher_off_the_listing_but_still_on_sale_is_kept(monkeypatch):
-    monkeypatch.setattr(h.httpx, "AsyncClient", _client(_listing(("a", "Myntra", "myntra")), {"z": {"status": "ACTIVE"}}))
-    assert asyncio.run(h.refresh_catalogue())["removed"] == []
-
-
-def test_voucher_gone_for_good_is_dropped(monkeypatch):
+def test_listing_is_the_answer(monkeypatch):
+    # Read with Dealo's id, Hubble's listing is what Dealo may sell: a voucher
+    # off it is gone (18 Nov: Zepto only looked gone when read without the id).
     monkeypatch.setattr(h.httpx, "AsyncClient", _client(_listing(("a", "Myntra", "myntra"), ("b", "Nykaa", "nykaa")),
-                                                         {"z": 404, "b": {"status": "ACTIVE"}}))
+                                                         {"b": {"status": "ACTIVE"}}))
     out = asyncio.run(h.refresh_catalogue())
     assert out["removed"] == ["Zepto"] and out["added"] == ["Nykaa"]
 
 
-def test_one_erroring_voucher_does_not_sink_the_read(monkeypatch):
-    monkeypatch.setattr(h.httpx, "AsyncClient", _client(_listing(("a", "Myntra", "myntra"), ("n", "Zudio", "zudio")),
-                                                         {"z": 500, "n": httpx.ReadTimeout("slow")}))
+def test_new_voucher_that_errors_waits(monkeypatch):
+    monkeypatch.setattr(h.httpx, "AsyncClient", _client(
+        _listing(("a", "Myntra", "myntra"), ("z", "Zepto", "zepto"), ("n", "Zudio", "zudio")),
+        {"n": httpx.ReadTimeout("slow")}))
     out = asyncio.run(h.refresh_catalogue())
-    # Zepto (known) kept until a clear answer; Zudio (new) waits for next time.
     assert out["removed"] == [] and out["added"] == []
+
+
+def test_never_read_without_dealos_id(monkeypatch):
+    monkeypatch.setattr(h.get_settings(), "HUBBLE_CLIENT_ID", "")
+    with pytest.raises(RuntimeError):
+        asyncio.run(h.fetch_catalogue())
 
 
 def test_a_much_smaller_read_is_not_trusted(monkeypatch):

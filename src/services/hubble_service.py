@@ -672,12 +672,18 @@ _REFRESH_BEFORE = 3 * 60          # re-read it this long before its copy runs ou
 
 
 async def fetch_catalogue(previous: list[dict] | None = None) -> list[dict]:
-    """Every voucher Hubble sells us right now, with where each works
-    (online / in store) and its add-to-wallet link. A voucher that left
-    Hubble's listing but whose page still says it's on sale is kept (Zepto
-    and Zomato Fixed, 18 Nov 2026). Raises on a Hubble error, so a bad read
+    """Every voucher Hubble sells Dealo right now (its listing, read with
+    Dealo's id, is the answer), with where each works (online / in store)
+    and its add-to-wallet link. Vouchers already known keep their details;
+    only new ones are read. Raises on a Hubble listing error, so a bad read
     never replaces a good list."""
     s = get_settings()
+    if not s.HUBBLE_CLIENT_ID:
+        # Without Dealo's id Hubble answers with its general catalogue, not
+        # the vouchers Dealo may sell: on 18 Nov that list added Zudio,
+        # Levi's, Spotify... (not Dealo's) and dropped BPCL, IOCL, Zepto
+        # (Dealo's). Never read it that way.
+        raise RuntimeError("HUBBLE_CLIENT_ID is not set; Hubble's list must be read with Dealo's id")
     base = API_HOST[s.HUBBLE_ENV]
     async with httpx.AsyncClient(headers={"X-CLIENT-ID": s.HUBBLE_CLIENT_ID}, timeout=60) as client:
         resp = await client.get(f"{base}/v3/store/products/search", params={"pageNo": 0, "limit": 2000})
@@ -694,8 +700,7 @@ async def fetch_catalogue(previous: list[dict] | None = None) -> list[dict]:
 
         async def details(brand: dict) -> dict | None:
             # One voucher's page failing must not sink the whole read: a new
-            # one is skipped until it answers, a known one is kept until a
-            # clear answer says it's gone (Zepto's page gave 500s, 18 Nov).
+            # one is skipped until it answers.
             try:
                 async with gate:
                     r = await client.get(f"{base}/v1/store/products/voucher-product/{brand['id']}")
@@ -714,13 +719,10 @@ async def fetch_catalogue(previous: list[dict] | None = None) -> list[dict]:
                 modes = ["OFFLINE"] if "offline" in brand["brand_key"] else ["ONLINE"]
             return {**brand, "works": modes, "add_voucher_url": meta.get("addVoucherBrandPageUrl")}
 
-        # Known vouchers keep their details; only new ones (and ones that
-        # left the listing, to see whether they still sell) are read.
         to_read = [b for i, b in listed.items() if i not in known]
-        gone = [b for i, b in known.items() if i not in listed]
-        fresh = await asyncio.gather(*(details(b) for b in to_read + gone))
-    out = [known[i] if i in known else None for i in listed]
-    out = [b for b in out if b] + [b for b in fresh if b]
+        fresh = await asyncio.gather(*(details(b) for b in to_read))
+    out = [{**known[i], "name": listed[i]["name"]} for i in listed if i in known]
+    out += [b for b in fresh if b]
     return sorted({b["id"]: b for b in out}.values(), key=lambda b: (b["name"].lower(), b["brand_key"]))
 
 

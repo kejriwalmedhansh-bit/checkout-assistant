@@ -120,7 +120,7 @@
   },
   {
     "name": "Ajio",
-    "pct": 6.5,
+    "pct": 7.0,
     "source": "dealo",
     "url": "/buy/ajio",
     "redemptionType": "Online"
@@ -1029,13 +1029,6 @@
     "redemptionType": "Online"
   },
   {
-    "name": "Cinepolis Fixed",
-    "pct": 26.0,
-    "source": "dealo",
-    "url": "/buy/cinepolis-fixed",
-    "redemptionType": "Online"
-  },
-  {
     "name": "Circle Empires 2",
     "pct": 13.0,
     "source": "maximize",
@@ -1191,16 +1184,9 @@
   },
   {
     "name": "CultFit",
-    "pct": 8.0,
-    "source": "dealo",
-    "url": "/buy/cultfit",
-    "redemptionType": "Online"
-  },
-  {
-    "name": "CultFit Fixed",
-    "pct": 8.0,
-    "source": "dealo",
-    "url": "/buy/cultfit-fixed",
+    "pct": 40.0,
+    "source": "buyhatke",
+    "url": "https://buyhatke.com/gift-cards/cultfit-gift-card",
     "redemptionType": "Online"
   },
   {
@@ -1303,9 +1289,9 @@
   },
   {
     "name": "District Pass",
-    "pct": 8.5,
-    "source": "dealo",
-    "url": "/buy/district-pass",
+    "pct": 7.02,
+    "source": "buyhatke",
+    "url": "https://buyhatke.com/gift-cards/district-pass-gift-card",
     "redemptionType": "Online"
   },
   {
@@ -2941,9 +2927,9 @@
   },
   {
     "name": "Levis",
-    "pct": 5.0,
-    "source": "dealo",
-    "url": "/buy/levi-s",
+    "pct": 4.62,
+    "source": "buyhatke",
+    "url": "https://buyhatke.com/gift-cards/levis-gift-card",
     "redemptionType": "Online"
   },
   {
@@ -2952,6 +2938,13 @@
     "source": "buyhatke",
     "url": "https://buyhatke.com/gift-cards/levis-%283-day-wait%29-gift-card",
     "redemptionType": "Both"
+  },
+  {
+    "name": "Levis In Store",
+    "pct": 9.0,
+    "source": "buyhatke",
+    "url": "https://buyhatke.com/gift-cards/levis-%28in-store%29-gift-card",
+    "redemptionType": "Offline"
   },
   {
     "name": "Libas",
@@ -4971,9 +4964,9 @@
   },
   {
     "name": "Spotify",
-    "pct": 64.0,
-    "source": "dealo",
-    "url": "/buy/spotify-premium",
+    "pct": 3.0,
+    "source": "gyftr",
+    "url": "https://www.gyftr.com/spotify",
     "redemptionType": "Online"
   },
   {
@@ -5184,13 +5177,6 @@
     "pct": 12.0,
     "source": "gyftr",
     "url": "https://www.gyftr.com/swiggy-food-discount-voucher",
-    "redemptionType": "Online"
-  },
-  {
-    "name": "Swiggy Instamart",
-    "pct": 3.0,
-    "source": "dealo",
-    "url": "/buy/swiggy-instamart",
     "redemptionType": "Online"
   },
   {
@@ -6042,9 +6028,9 @@
   },
   {
     "name": "Wakefit",
-    "pct": 3.0,
-    "source": "dealo",
-    "url": "/buy/wakefit",
+    "pct": 4.0,
+    "source": "maximize",
+    "url": "https://www.maximize.money/gift-cards/Wakefit/352",
     "redemptionType": "Online"
   },
   {
@@ -6077,9 +6063,9 @@
   },
   {
     "name": "Westside In Store",
-    "pct": 40.0,
-    "source": "buyhatke",
-    "url": "https://buyhatke.com/gift-cards/westside-%28in-store%29-gift-card",
+    "pct": 10.0,
+    "source": "dealo",
+    "url": "/buy/westside",
     "redemptionType": "Offline"
   },
   {
@@ -6329,9 +6315,9 @@
   },
   {
     "name": "Zepto",
-    "pct": 2.0,
-    "source": "gyftr",
-    "url": "https://www.gyftr.com/zepto",
+    "pct": 1.0,
+    "source": "dealo",
+    "url": "/buy/zepto",
     "redemptionType": "Online"
   },
   {
@@ -6339,6 +6325,13 @@
     "pct": 4.0,
     "source": "dealo",
     "url": "/buy/zomato",
+    "redemptionType": "Online"
+  },
+  {
+    "name": "Zomato Fixed",
+    "pct": 4.0,
+    "source": "dealo",
+    "url": "/buy/zomato-fixed",
     "redemptionType": "Online"
   },
   {
@@ -6354,12 +6347,5 @@
     "source": "gyftr",
     "url": "https://www.gyftr.com/zouk",
     "redemptionType": "Online"
-  },
-  {
-    "name": "Zudio",
-    "pct": 3.25,
-    "source": "dealo",
-    "url": "/buy/zudio",
-    "redemptionType": "Offline"
   }
 ]
