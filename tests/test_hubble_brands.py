@@ -51,13 +51,29 @@ def _name(merchant, in_store=False):
     ("Uber", "Uber."),
     ("firstcry.com", "Firstcry"),
     ("Liberty", "Liberty Online"),          # alias lists two; only one works online
+    ("Steam", "Steam wallet"),              # Maximize/BuyHatke call it "Steam" (18 Nov 2026: sent to Maximize)
+    ("Steam Wallet INR 500", "Steam wallet"),
+    ("Nintendo eShop Voucher", "Nintendo"),
+    ("Unipin- BGMI Voucher", "BGMI UniPin"),
 ])
 def test_online_matches(merchant, expected):
     assert _name(merchant) == expected
 
 
+def test_every_alias_reaches_a_hubble_card():
+    """A link to a title Hubble has renamed or dropped would quietly hand the
+    shop back to the partners. Every alias must still find a card."""
+    aliases = json.loads((PROD.parent / "hubble_aliases.json").read_text())
+    titles = {hs.normalize(b["name"]) for b in json.loads(PROD.read_text())}
+    dead = {k: v for k, v in aliases.items()
+            if not k.startswith("_") and not any(hs.normalize(n) in titles for n in v)}
+    assert not dead, dead
+
+
 @pytest.mark.parametrize("merchant,expected", [
     ("Westside (in-store)", "Westside"),
+    ("Absolute Barbeque", "Absolute Barbecues"),  # partner spelling
+    ("Marks &amp; Spencer", "Marks & Spencer"),   # Maximize's name arrives with "&amp;"
     ("Liberty", "Liberty Shoes"),
     ("Hugo Boss", "Hugo Boss-Luxe Gift Card"),
     ("Hamleys India", "Hamleys-Luxe Gift Card"),  # generic suffix + Luxe title
