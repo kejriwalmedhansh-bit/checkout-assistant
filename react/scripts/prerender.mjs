@@ -25,6 +25,7 @@ import { fileURLToPath } from 'node:url';
 
 import { BRAND_DEALS } from '../src/data/brandDeals.js';
 import {
+  DEFAULT_DESCRIPTION,
   FAQS,
   FAQ_JSON_LD,
   HOME_TITLE,
@@ -38,9 +39,22 @@ import {
   shopFaqs,
   shopJsonLd,
   shopPageMeta,
+  shownPct,
   shownSellers,
   whereToRedeemShop,
 } from '../src/seo/pageMeta.js';
+import {
+  BILL,
+  CATEGORIES,
+  categoryJsonLd,
+  categoryMeta,
+  categoryOf,
+  categoryShops,
+  inr,
+  payOn,
+  similarShops,
+} from '../src/seo/categories.js';
+import { buildGuides, guideJsonLd } from '../src/seo/guides.js';
 
 const HERE = path.dirname(fileURLToPath(import.meta.url));
 const DIST = path.join(HERE, '..', 'dist');
@@ -70,6 +84,11 @@ const ALL_BRAND_DEALS = JSON.parse(
 // rate. The six hand-written pages in brandDeals.js lend their copy.
 const SHOP_PAGES = JSON.parse(await readFile(path.join(HERE, '..', 'src', 'data', 'shopPages.json'), 'utf8'));
 const CURATED = new Map(BRAND_DEALS.map((b) => [b.slug, b]));
+
+// Every shop page must sit in a category, or nothing on the site links to it.
+const UNFILED = SHOP_PAGES.filter((s) => !categoryOf(s.slug)).map((s) => s.slug);
+if (UNFILED.length) throw new Error(`prerender: add these shop pages to src/seo/categories.js: ${UNFILED.join(', ')}`);
+
 
 // Trailing slashes on purpose: the host 301-redirects /privacy to /privacy/,
 // so the slashed form is the URL that actually answers. Publishing the
@@ -113,6 +132,7 @@ function shopBody(shop) {
     p(`${shop.online ? 'Works online. ' : ''}${shop.offline ? 'Works in store. ' : ''}Checked ${shop.checked}.`),
     `<h2>${shop.hubble ? 'Today’s rate' : 'Today’s rate, every seller'}</h2>`,
     table,
+    rows[0]?.pct > 0 ? p(`Every ${inr(BILL)} you spend at ${shop.name} costs ${inr(payOn(rows[0].pct))} with the gift card.`) : '',
     p(shop.hubble ? 'Issued through Hubble, an official gift voucher issuer. The shop accepts it like store credit.' : SELLERS_EXPLAINED),
     '<h2>About this voucher</h2>',
     list([
@@ -128,11 +148,123 @@ function shopBody(shop) {
     p(curated?.notes),
     '<h2>Questions people ask</h2>',
     shopFaqs(shop).map((f) => `<h3>${esc(f.q)}</h3>${p(f.a)}`).join(''),
+    similarBlock(shop),
   ].join('');
 }
 
-const shopLinks = () =>
-  list(SHOP_PAGES.map((s) => link(`/brands/${s.slug}/`, `${s.name} Gift Voucher — ${s.best ? pct(s.best.pct) + ' off' : 'today’s rate'}`)));
+// The homepage as AI crawlers and search engines read it (they don't run the
+// app). AI check, 18 Nov 2026: this used to be 45 words. Everything here is
+// also on the live homepage or one tap from it: the ticks, the six shop
+// tiles (same shops as HomeExamples.jsx, priced from the same catalogue),
+// the three steps, and links to the shop pages.
+const HOME_SHOPS = ['lifestyle', 'ajio', 'nykaa', 'myntra', 'croma', 'pvr'];
+
+function homeBody() {
+  const bySlug = new Map(SHOP_PAGES.map((s) => [s.slug, s]));
+  const tiles = HOME_SHOPS.map((slug) => bySlug.get(slug))
+    .filter((s) => s && shownPct(s))
+    .map((s) => link(`/brands/${s.slug}/`, `${s.name}: every ${inr(BILL)} you spend costs ${inr(payOn(shownPct(s)))}`));
+  const top = [...SHOP_PAGES]
+    .filter((s) => shownPct(s))
+    .sort((a, b) => shownPct(b) - shownPct(a))
+    .slice(0, 12)
+    .map((s) => link(`/brands/${s.slug}/`, `${s.name} gift card: ${pct(shownPct(s))} off`));
+  return [
+    head(PAGE_META.home),
+    p('✓ Free · ✓ No login · ✓ Works on sale prices'),
+    p(DEFAULT_DESCRIPTION),
+    '<h2>What you pay today</h2>',
+    list(tiles),
+    '<h2>How it works</h2>',
+    list(
+      [
+        'Paste a link, or type the shop or product. Dealo finds the cheapest way to pay.',
+        'Buy a voucher: the shop’s own gift card, sold below face value. It takes about 30 seconds and the seller is verified.',
+        'Pay less: pay at the shop with the gift card code, like store credit. Each shop page says if it also works on sale prices.',
+      ].map(esc),
+      'ol',
+    ),
+    p('Paying by credit card? Your results also show when a card saves you more.'),
+    '<h2>Biggest gift card discounts today</h2>',
+    list(top),
+    '<h2>Gift card discounts by kind of shop</h2>',
+    categoryLinks(),
+    '<h2>Guides</h2>',
+    guideLinks(),
+    `<p>${link('/brands/', 'See every shop')} · ${link('/how-it-works/', 'How it works')} · ${link('/chatgpt-claude/', 'Use Dealo in ChatGPT and Claude')}</p>`,
+  ].join('');
+}
+
+// /llms.txt: a plain summary for AI tools (ChatGPT, Perplexity, Claude),
+// following llmstxt.org. Rebuilt on every build, so rates stay current.
+function llmsTxt() {
+  const shops = [...SHOP_PAGES]
+    .filter((s) => shownPct(s))
+    .sort((a, b) => a.name.localeCompare(b.name))
+    .map((s) => `- [${s.name} gift card discount](${SITE_URL}/brands/${s.slug}/): ${pct(shownPct(s))} off${s.hubble ? ', sold by Dealo' : ''} (checked ${s.checked})`);
+  return `# Dealo
+
+> Dealo (getdealo.in) shows the cheapest way to pay at Indian shops. Many shops' own gift cards (gift vouchers) sell below face value; buying one and paying with it at checkout is a direct discount anyone can use, with no coupon or bank card needed. Each shop page says whether the card also works on sale prices. Free, no login. Covers Myntra, Nykaa, AJIO, Tata CLiQ, Lifestyle, MakeMyTrip, PVR and 800+ shops.
+
+How it works:
+1. Type a shop or product, or paste a product link, on ${SITE_URL}/
+2. Buy the shop's gift card for less (Dealo sells many itself through Hubble, an official issuer; others come from Gyftr, Maximize or BuyHatke, which are official gift voucher sellers).
+3. Pay at the shop with the gift card code. Dealo never handles card details.
+
+Dealo does not count cashback as a saving and only shows cards that are in stock.
+
+## Main pages
+- [Home: search any shop or product](${SITE_URL}/)
+- [How it works](${SITE_URL}/how-it-works/)
+- [All shops with gift card deals](${SITE_URL}/brands/)
+- [Dealo in ChatGPT and Claude](${SITE_URL}/chatgpt-claude/)
+- [About](${SITE_URL}/about/)
+- [Contact](${SITE_URL}/contact/)
+
+## Guides
+${GUIDES.map((g) => `- [${g.title}](${SITE_URL}/guides/${g.slug}/): ${g.description}`).join('\n')}
+
+## Gift card discounts by kind of shop
+${CATEGORIES.map((c) => `- [${c.name}](${SITE_URL}/gift-cards/${c.slug}/)`).join('\n')}
+
+## Gift card discount by shop
+${shops.join('\n')}
+`;
+}
+
+const shopItem = (s) => link(`/brands/${s.slug}/`, `${s.name} gift card: ${pct(shownPct(s))} off, every ${inr(BILL)} costs ${inr(payOn(shownPct(s)))}`);
+
+function similarBlock(shop) {
+  const cat = categoryOf(shop.slug);
+  const similar = similarShops(shop, SHOP_PAGES);
+  if (!cat || !similar.length) return '';
+  return `<h2>More ${esc(cat.short.toLowerCase())} gift card discounts</h2>${list(similar.map(shopItem))}<p>${link(`/gift-cards/${cat.slug}/`, `All ${cat.name.toLowerCase()}`)}</p>`;
+}
+
+const GUIDES = buildGuides(SHOP_PAGES);
+const LAST_CHECKED = SHOP_PAGES.map((s) => s.checked).sort().pop();
+const BY_SLUG = new Map(SHOP_PAGES.map((s) => [s.slug, s]));
+
+function guideBody(g) {
+  return [
+    head({ heading: g.heading, intro: g.intro }),
+    ...g.sections.map(
+      (sec) =>
+        `<h2>${esc(sec.h)}</h2>` +
+        (sec.p || []).map(p).join('') +
+        (sec.ol ? list(sec.ol.map(esc), 'ol') : '') +
+        (sec.ul ? list(sec.ul.map(esc)) : '') +
+        (sec.shops ? list(sec.shops.map((sl) => BY_SLUG.get(sl)).filter(Boolean).map(shopItem)) + p(`Rates checked ${LAST_CHECKED}.`) : ''),
+    ),
+    '<h2>Questions people ask</h2>',
+    g.faqs.map((f) => `<h3>${esc(f.q)}</h3>${p(f.a)}`).join(''),
+    list(GUIDES.filter((o) => o.slug !== g.slug).map((o) => link(`/guides/${o.slug}/`, o.title))),
+  ].join('');
+}
+
+const guideLinks = () => list(GUIDES.map((g) => link(`/guides/${g.slug}/`, g.title)));
+
+const categoryLinks = () => list(CATEGORIES.map((c) => link(`/gift-cards/${c.slug}/`, `${c.name} gift card discounts`)));
 
 // Each route: its URL, the <head> text (title/description/JSON-LD) and the
 // plain-HTML body a crawler reads before React boots. Everything is drawn
@@ -144,10 +276,7 @@ const ROUTES = [
     changefreq: 'weekly',
     priority: '1.0',
     meta: PAGE_META.home,
-    body: () =>
-      head(PAGE_META.home) +
-      list([esc('Paste a link'), esc('Buy a voucher — 30 sec · verified'), esc('Pay less')], 'ol') +
-      p('Paying by credit card? There’s something for you on your results.'),
+    body: homeBody,
   },
   {
     path: '/how-it-works/',
@@ -164,10 +293,38 @@ const ROUTES = [
     changefreq: 'weekly',
     priority: '0.8',
     meta: brandsIndexMeta(ALL_BRAND_DEALS.length),
-    body: () => head(brandsIndexMeta(ALL_BRAND_DEALS.length)) + shopLinks(),
+    body: () =>
+      head(brandsIndexMeta(ALL_BRAND_DEALS.length)) +
+      CATEGORIES.map((c) => `<h2>${link(`/gift-cards/${c.slug}/`, c.name)}</h2>${list(categoryShops(c, SHOP_PAGES).map(shopItem))}`).join(''),
   },
+  ...CATEGORIES.map((c) => {
+    const shops = categoryShops(c, SHOP_PAGES);
+    return {
+      path: `/gift-cards/${c.slug}/`,
+      lastmod: shops.map((x) => x.checked).sort().pop(),
+      changefreq: 'weekly',
+      priority: '0.7',
+      meta: categoryMeta(c, shops),
+      jsonLd: categoryJsonLd(c, shops),
+      body: () =>
+        head(categoryMeta(c, shops)) +
+        list(shops.map(shopItem)) +
+        `<h2>Other kinds of shops</h2>` +
+        list(CATEGORIES.filter((o) => o.slug !== c.slug).map((o) => link(`/gift-cards/${o.slug}/`, o.name))),
+    };
+  }),
+  ...GUIDES.map((g) => ({
+    path: `/guides/${g.slug}/`,
+    lastmod: LAST_CHECKED,
+    changefreq: 'weekly',
+    priority: '0.8',
+    meta: { title: g.title, description: g.description, heading: g.heading, intro: g.intro },
+    jsonLd: guideJsonLd(g, LAST_CHECKED),
+    body: () => guideBody(g),
+  })),
   ...SHOP_PAGES.map((shop) => ({
     path: `/brands/${shop.slug}/`,
+    lastmod: shop.checked,
     changefreq: 'weekly',
     priority: '0.7',
     meta: shopPageMeta(shop),
@@ -267,7 +424,7 @@ const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 ${ROUTES.filter((r) => r.sitemap !== false).map(
   (r) => `  <url>
-    <loc>${SITE_URL}${r.path}</loc>
+    <loc>${SITE_URL}${r.path}</loc>${r.lastmod ? `\n    <lastmod>${r.lastmod}</lastmod>` : ''}
     <changefreq>${r.changefreq}</changefreq>
     <priority>${r.priority}</priority>
   </url>`,
@@ -275,5 +432,6 @@ ${ROUTES.filter((r) => r.sitemap !== false).map(
 </urlset>
 `;
 await writeFile(path.join(DIST, 'sitemap.xml'), sitemap);
+await writeFile(path.join(DIST, 'llms.txt'), llmsTxt());
 
-console.log(`prerender: wrote ${ROUTES.length} pages (${BUY_PAGES.length} buy pages) + sitemap.xml`);
+console.log(`prerender: wrote ${ROUTES.length} pages (${BUY_PAGES.length} buy pages) + sitemap.xml + llms.txt`);
