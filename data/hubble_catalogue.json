@@ -1,23 +1,5 @@
 [
  {
-  "id": "01HE2BQF43VGNAHM51G8K66YRD",
-  "name": "1-month Prime Membership worth ₹245",
-  "brand_key": "easydiner",
-  "works": [
-   "ONLINE"
-  ],
-  "add_voucher_url": ""
- },
- {
-  "id": "01H782FT2T0XBHSDKA2QARMJZ7",
-  "name": "3 Months membership",
-  "brand_key": "swiggy-one-lite",
-  "works": [
-   "ONLINE"
-  ],
-  "add_voucher_url": ""
- },
- {
   "id": "01HG8M33F9WB9JT5XEQEX4B6Z3",
   "name": "@Home",
   "brand_key": "athome",
@@ -292,16 +274,6 @@
   "add_voucher_url": ""
  },
  {
-  "id": "01HYN4KQ25NY468572K57Q5S3X",
-  "name": "Bagline",
-  "brand_key": "bagline",
-  "works": [
-   "OFFLINE",
-   "ONLINE"
-  ],
-  "add_voucher_url": "https://www.bigbasket.com/member/gift_cards/"
- },
- {
   "id": "01HZQ0TF2QZEF2K1KFXT3VRJMD",
   "name": "Bakingo",
   "brand_key": "bakingo",
@@ -480,15 +452,6 @@
    "ONLINE"
   ],
   "add_voucher_url": null
- },
- {
-  "id": "01HGDE4FTG7MM97CGJARE3VTGC",
-  "name": "Blaupunkt",
-  "brand_key": "blaupunkt",
-  "works": [
-   "ONLINE"
-  ],
-  "add_voucher_url": ""
  },
  {
   "id": "01H1VVFFAQ52F3E3SGEXEMNC84",
@@ -754,15 +717,6 @@
   "add_voucher_url": ""
  },
  {
-  "id": "01HYN90XG1T0BMD4RZC1664KX4",
-  "name": "Citizen Watches",
-  "brand_key": "citizen-watches",
-  "works": [
-   "ONLINE"
-  ],
-  "add_voucher_url": "https://www.bigbasket.com/member/gift_cards/"
- },
- {
   "id": "01H25HGERX6CAXY6Q0BP1SJHJJ",
   "name": "Cleartrip",
   "brand_key": "cleartrip",
@@ -1022,6 +976,15 @@
   "id": "01HEDYKNAS3BAZT0EEA3AT5P6H",
   "name": "EatSure",
   "brand_key": "eatsure",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": ""
+ },
+ {
+  "id": "01HE2BQF43VGNAHM51G8K66YRD",
+  "name": "EazyDiner",
+  "brand_key": "easydiner",
   "works": [
    "ONLINE"
   ],
@@ -1482,15 +1445,6 @@
    "ONLINE"
   ],
   "add_voucher_url": ""
- },
- {
-  "id": "01HZQ0TFNMAW8YGXR99X699KFG",
-  "name": "HealthKart",
-  "brand_key": "healthkart",
-  "works": [
-   "ONLINE"
-  ],
-  "add_voucher_url": null
  },
  {
   "id": "01H6DRCD4SGGY0DGSKQC71XCCB",
@@ -2922,15 +2876,6 @@
   "add_voucher_url": ""
  },
  {
-  "id": "01H6HA1SWGH9VNX26XXKM85VBN",
-  "name": "Puma",
-  "brand_key": "puma",
-  "works": [
-   "OFFLINE"
-  ],
-  "add_voucher_url": ""
- },
- {
   "id": "01HGATGD3607DC245J73SAV99C",
   "name": "Punjab Grill",
   "brand_key": "punjab-grill",
@@ -3480,6 +3425,15 @@
    "ONLINE"
   ],
   "add_voucher_url": "https://www.swiggy.com/my-account/swiggy-money/add-money"
+ },
+ {
+  "id": "01H782FT2T0XBHSDKA2QARMJZ7",
+  "name": "Swiggy One",
+  "brand_key": "swiggy-one-lite",
+  "works": [
+   "ONLINE"
+  ],
+  "add_voucher_url": ""
  },
  {
   "id": "01H1XMAPJMZ3E12PGH6B9HBZ6R",

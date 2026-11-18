@@ -199,6 +199,11 @@ class RouteModel(BaseModel):
     title: str = ""
     voucher: VoucherDeal | None = None
     card_fomo: CardFomo | None = None
+    # Dealo's own voucher for this shop (hubble_service.offer_for's shape),
+    # asked on the server for every route. hubble_checked False: Hubble
+    # didn't answer in time, so the website asks it again itself.
+    hubble: dict[str, Any] | None = None
+    hubble_checked: bool = False
 
 
 class RoutesModel(BaseModel):

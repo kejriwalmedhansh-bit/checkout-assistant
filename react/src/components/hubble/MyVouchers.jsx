@@ -234,7 +234,7 @@ export default function MyVouchers() {
       const token = await idToken().catch(() => null);
       if (!live) return;
       if (!token) return;
-      const res = await hubbleApi.latestOrder(token).catch(() => null);
+      const res = await hubbleApi.latestOrder(token, { session: pending.session, brand: pending.brand }).catch(() => null);
       if (!live) return;
       if (res?.found) {
         saveOrder(res, pending);

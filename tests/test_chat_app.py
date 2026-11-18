@@ -99,7 +99,7 @@ def test_dealo_sells_it_when_hubble_is_close(monkeypatch):
     links out, it never takes the payment."""
     from src.services import hubble_service
 
-    async def fake_offer(merchant, price, in_store=False):
+    async def fake_offer(merchant, price, in_store=False, link=None):
         return {"brand_name": "Nykaa", "discount_pct": 6.0, "voucher_total": 4000, "you_pay": 3760,
                 "you_save": 240, "rest_at_shop": 0, "denominations": [{"amount": 4000, "count": 1}]}
     monkeypatch.setattr(hubble_service, "offer_for", fake_offer)

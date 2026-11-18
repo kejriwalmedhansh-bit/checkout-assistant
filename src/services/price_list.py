@@ -50,7 +50,24 @@ def build_price_list(result: dict) -> list[dict]:
         seller = (r.get("sellers") or [{}])[0] or {}
         v = vouchers.get(key)
         voucher_route = None
-        if v:
+        # Dealo's own voucher, asked on the server for every listing
+        # (search_service._add_hubble): an online shop only Hubble sells
+        # still gets its gift card saving here.
+        dealo = r.get("hubble") if not (v and v.get("offline_only")) else None
+        if dealo:
+            voucher_route = {
+                "listed_price": price,
+                "sellers": r.get("sellers") or [],
+                "match_type": r.get("match_type") or "",
+                "title": r.get("title") or "",
+                "card_fomo": None,
+                "merchant": merchant,
+                "final_cost": round(dealo["you_pay"] + (dealo.get("rest_at_shop") or 0), 2),
+                "voucher": v,
+                "hubble": dealo,
+                "hubble_checked": True,
+            }
+        elif v:
             voucher_route = {
                 "listed_price": price,
                 "sellers": r.get("sellers") or [],
@@ -91,7 +108,7 @@ def should_show_price_list(shops: list[dict], rec: dict | None) -> bool:
     if len(normal) < 2 or not rec:
         return False
     cheapest = normal[0]["price"]
-    saving = cheapest - (rec.get("final_cost") or cheapest) if rec.get("voucher") else 0
+    saving = cheapest - (rec.get("final_cost") or cheapest) if (rec.get("voucher") or rec.get("hubble")) else 0
     return saving < MIN_GIFT_CARD_SAVING_RS or saving / cheapest * 100 < MIN_GIFT_CARD_SAVING_PCT
 
 

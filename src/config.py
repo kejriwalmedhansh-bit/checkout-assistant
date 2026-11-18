@@ -9,6 +9,7 @@ actually invoked.
 """
 from functools import lru_cache
 
+from pydantic import field_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 from .constants import CORS_ORIGINS as _DEFAULT_CORS_ORIGINS
@@ -156,6 +157,17 @@ class Settings(BaseSettings):
     HUBBLE_ENABLED: bool = False
     # "staging" or "production" — picks Hubble's SDK host.
     HUBBLE_ENV: str = "staging"
+
+    @field_validator("HUBBLE_ENV", mode="before")
+    @classmethod
+    def _hubble_env_is_known(cls, value: str) -> str:
+        """A stray space or capital is forgiven. "prod" or a typo used to
+        fall back silently to Hubble's test store (or crash every lookup);
+        now the server refuses to start, so the mistake shows at deploy."""
+        env = str(value or "").strip().lower()
+        if env not in {"staging", "production"}:
+            raise ValueError(f"HUBBLE_ENV must be 'staging' or 'production', got {value!r}")
+        return env
     HUBBLE_CLIENT_ID: str = ""
     HUBBLE_APP_SECRET: str = ""
     # The private half of the key whose public half is saved in Hubble's

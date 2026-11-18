@@ -17,13 +17,20 @@ hit once (see voucher_service.py's _prefer_exact_name_matches). An exact
 match staying unmerged just means both show up as separate, correctly
 labeled rows, which is the safe failure mode.
 
-Run whenever the three source master files are refreshed:
-    python3.11 scripts/build_all_brand_deals.py
+Then every shop Hubble sells becomes Dealo's own row (rate read live from
+Hubble, link to getdealo.in/buy/<card>), and Hubble shops no partner lists
+are added (owner: Dealo sells wherever Hubble has it; 18 Nov 2026 the list
+still sent Swiggy and Dominos shoppers to partners).
+
+Run whenever the source master files or Hubble's list are refreshed:
+    HUBBLE_ENV=production HUBBLE_ENABLED=true .venv/bin/python scripts/build_all_brand_deals.py
 """
 from __future__ import annotations
 
+import asyncio
 import json
 import re
+import sys
 from pathlib import Path
 from urllib.parse import quote
 
@@ -93,6 +100,53 @@ def best_row_per_source(source: str, path: Path) -> dict[str, dict]:
     return rows
 
 
+def add_dealo(rows: list[dict]) -> list[dict]:
+    """Rows for shops Hubble sells become Dealo's, at Hubble's live rate."""
+    sys.path.insert(0, str(REPO_ROOT))
+    from src.config import get_settings
+    from src.services import hubble_service as h
+
+    s = get_settings()
+    if not s.HUBBLE_ENABLED or s.HUBBLE_ENV != "production":
+        sys.exit("Run with HUBBLE_ENV=production HUBBLE_ENABLED=true: the list must show live Dealo cards.")
+    gate = asyncio.Semaphore(8)
+
+    async def info(**kw):
+        async with gate:
+            try:
+                return await h.brand_info(**kw)
+            except Exception:  # noqa: BLE001 — a Hubble hiccup leaves the partner row
+                return None
+
+    async def run():
+        rows.sort(key=lambda r: len(r["name"]))  # one row per Dealo card, under its shortest partner name
+        found = await asyncio.gather(*(info(merchant=r["name"]) for r in rows))
+        used, dupes = set(), set()
+        for n, (row, i) in enumerate(zip(rows, found)):
+            if i:
+                if i["brand_id"] in used:
+                    dupes.add(n)
+                    continue
+                used.add(i["brand_id"])
+                row.update(pct=round(float(i["discount_pct"]), 2), source="dealo",
+                           url=f"/buy/{h.buy_slug(i['brand_name'])}")
+        rows[:] = [r for n, r in enumerate(rows) if n not in dupes]
+        catalogue = json.loads(h._catalogue_path().read_text())
+        rest = [b for b in catalogue if b["id"] not in used]
+        extra = await asyncio.gather(*(info(slug=h.buy_slug(b["name"])) for b in rest))
+        seen = {norm(r["name"]) for r in rows}
+        for b, i in zip(rest, extra):
+            if i and i["brand_id"] not in used and norm(i["brand_name"]) not in seen:
+                used.add(i["brand_id"])
+                seen.add(norm(i["brand_name"]))
+                rows.append({"name": i["brand_name"], "pct": round(float(i["discount_pct"]), 2), "source": "dealo",
+                             "url": f"/buy/{h.buy_slug(i['brand_name'])}",
+                             "redemptionType": "Offline" if i.get("in_store") else "Online"})
+        return rows
+
+    return asyncio.run(run())
+
+
 def main() -> None:
     merged: dict[str, dict] = {}
     for source, path in SOURCES:
@@ -101,7 +155,7 @@ def main() -> None:
             if existing is None or row["pct"] > existing["pct"]:
                 merged[key] = row
 
-    out = sorted(merged.values(), key=lambda r: r["name"].lower())
+    out = sorted(add_dealo(list(merged.values())), key=lambda r: r["name"].lower())
     OUT_PATH.parent.mkdir(parents=True, exist_ok=True)
     with open(OUT_PATH, "w") as f:
         json.dump(out, f, indent=2, ensure_ascii=False)
