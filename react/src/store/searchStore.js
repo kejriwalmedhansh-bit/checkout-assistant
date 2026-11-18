@@ -218,7 +218,7 @@ export const useSearchStore = create(
             track('Viewed Deal', {
               query: get().query,
               merchant: rec.merchant,
-              has_voucher: Boolean(rec.voucher),
+              has_voucher: Boolean(rec.voucher || rec.hubble),
               final_cost: rec.final_cost ?? null,
               alternatives_count: result?.routes?.alternatives?.length ?? 0,
               original_price: originalPrice(result, rec),
@@ -226,14 +226,14 @@ export const useSearchStore = create(
               discount: saving(result, rec),
               // Same source label Journey.jsx shows the user ("via Maximize" /
               // "via Gyftr"); null when the route has no voucher at all.
-              voucher_aggregator: rec.voucher ? voucherPlatform(rec.voucher.voucher_source) : null,
+              voucher_aggregator: rec.hubble ? 'Dealo' : rec.voucher ? voucherPlatform(rec.voucher.voucher_source) : null,
             });
             track('Deal Shown', {
               query: get().query,
               product_title: title,
               merchant: rec.merchant,
-              has_voucher: Boolean(rec.voucher),
-              voucher_platform: rec.voucher ? voucherPlatform(rec.voucher.voucher_source) : 'none',
+              has_voucher: Boolean(rec.voucher || rec.hubble),
+              voucher_platform: rec.hubble ? 'Dealo' : rec.voucher ? voucherPlatform(rec.voucher.voucher_source) : 'none',
               listed_price: originalPrice(result, rec),
               final_cost: finalPrice(rec),
               saving_amount: saving(result, rec),

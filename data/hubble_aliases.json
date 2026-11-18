@@ -107,11 +107,13 @@
  "barbequenationvaluevoucher": ["Barbeque Nation"],
  "axoralifesilverjewellery": ["Axora Life"],
  "snitche": ["Snitch"],
- "spotify": ["Spotify Premium"],
- "instamart": ["Swiggy Instamart"],
  "nuawoman": ["Nua Women"],
  "makemytripholidayepay": ["MakeMyTrip Holidays"],
  "makemytripholiday": ["MakeMyTrip Holidays"],
  "airindiaancillary": ["Air India Add-ons"],
- "amazonprimevoucher12monthsmembership": ["Amazon Prime 12 Months"]
+ "amazonprimevoucher12monthsmembership": ["Amazon Prime 12 Months"],
+ "bpclsmartdrivefuel": ["BPCL"],
+ "bpclsmartdrivefuelevoucher": ["BPCL"],
+ "swiggyinstamart": ["Swiggy"],
+ "instamart": ["Swiggy"]
 }

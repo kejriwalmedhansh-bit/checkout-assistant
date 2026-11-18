@@ -38,6 +38,10 @@ export function HubbleBrandCard({ brand, merchant, query, initialAmount = null, 
   const [amount, setAmount] = useState(preset || quick[1] || quick[0] || brand.min_amount);
   const [typed, setTyped] = useState('');
   const [offer, setOffer] = useState(null);
+  // 'none': Hubble won't sell this amount; 'error': it didn't answer. Either
+  // way the shopper is told, instead of a Buy button stuck on "…".
+  const [problem, setProblem] = useState(null);
+  const [attempt, setAttempt] = useState(0);
   const [buying, setBuying] = useState(false);
   const inRange = (a) => a >= brand.min_amount && (!brand.max_amount || a <= brand.max_amount);
   // 'Dealo Voucher Shown' once per card, not once per amount tried.
@@ -46,25 +50,30 @@ export function HubbleBrandCard({ brand, merchant, query, initialAmount = null, 
   useEffect(() => {
     let live = true;
     setOffer(null);
+    setProblem(null);
     if (!inRange(amount)) return undefined;
     const t = setTimeout(() => {
       hubbleApi
         .offer(merchant, amount, brand.in_store)
         .then((res) => {
-          if (!live || !res.available) return;
+          if (!live) return;
+          if (!res.available) {
+            setProblem('none');
+            return;
+          }
           setOffer(res.offer);
           if (shown.current) return;
           shown.current = true;
           track('Dealo Voucher Shown', soldEventProps(res.offer, { merchant, placement: 'shop_card', bestPct, src }));
         })
-        .catch(() => {});
+        .catch(() => live && setProblem('error'));
     }, 250);
     return () => {
       live = false;
       clearTimeout(t);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [amount, merchant]);
+  }, [amount, merchant, attempt]);
 
   const pick = (a) => {
     setTyped('');
@@ -162,7 +171,7 @@ export function HubbleBrandCard({ brand, merchant, query, initialAmount = null, 
       </Wrap>
       {!inRange(amount) && (
         <Text fontSize="12px" color="danger" fontWeight={600} mt="4px">
-          Between {fmt(brand.min_amount)} and {fmt(brand.max_amount)}
+          {brand.max_amount ? `Between ${fmt(brand.min_amount)} and ${fmt(brand.max_amount)}` : `At least ${fmt(brand.min_amount)}`}
         </Text>
       )}
       {offer && (split || restAtShop > 0) && (
@@ -229,6 +238,17 @@ export function HubbleBrandCard({ brand, merchant, query, initialAmount = null, 
         {split ? `Buy ${parts.length} vouchers` : 'Buy voucher'}
       </Button>
 
+      {problem && !offer && (
+        <Flex justify="center" align="center" gap="8px" mt="10px" fontSize="13px" color="text2" role="status">
+          <Text>{problem === 'none' ? 'Not available for this amount right now. Try another amount.' : 'Couldn’t get today’s price.'}</Text>
+          {problem === 'error' && (
+            <Box as="button" type="button" color="brand" fontWeight={700} textDecoration="underline" onClick={() => setAttempt((n) => n + 1)}>
+              Try again
+            </Box>
+          )}
+        </Flex>
+      )}
+
       {buying && offer && (
         <BuyFlow offer={offer} merchant={merchant} price={amount} placement="shop_card" bestPct={bestPct} src={src} onClose={() => setBuying(false)} />
       )}
@@ -246,7 +266,7 @@ export function HubbleBrandCard({ brand, merchant, query, initialAmount = null, 
  * BuyHatke — whichever has the best headline rate (see `_pick_better_voucher`
  * in search_service.py).
  */
-const SOURCE_LABELS = { maximize: 'Maximize', buyhatke: 'BuyHatke', gyftr: 'Gyftr' };
+const SOURCE_LABELS = { maximize: 'Maximize', buyhatke: 'BuyHatke', gyftr: 'Gyftr', hubble: 'Dealo' };
 
 export default function BrandVoucherCard({ voucher, query }) {
   // Dealo's own voucher for this shop (Hubble), when its rate is close
@@ -256,13 +276,13 @@ export default function BrandVoucherCard({ voucher, query }) {
     if (!HUBBLE_ON || !voucher?.brand_name) return undefined;
     let live = true;
     hubbleApi
-      .brand(voucher.brand_name, HUBBLE_FORCE ? null : voucher.best_discount_pct)
+      .brand(voucher.brand_name, HUBBLE_FORCE ? null : voucher.best_discount_pct, { inStore: Boolean(voucher.in_store) })
       .then((res) => live && res.available && setHubble(res.brand))
       .catch(() => {});
     return () => {
       live = false;
     };
-  }, [voucher?.brand_name, voucher?.best_discount_pct]);
+  }, [voucher?.brand_name, voucher?.best_discount_pct, voucher?.in_store]);
   if (hubble) return <HubbleBrandCard brand={hubble} merchant={voucher.brand_name} query={query} bestPct={voucher.best_discount_pct ?? null} />;
 
   // A type-any-amount card (Amazon Pay on Maximize: ₹100–₹10,000) shows its
@@ -275,7 +295,10 @@ export default function BrandVoucherCard({ voucher, query }) {
   // Never fabricate a store link — a guessed gyftr.com/{slug} URL is wrong
   // whenever this voucher actually came from Maximize (or the backend just
   // didn't have a real URL for this brand). Trust > a confident wrong link.
-  const link = voucher.voucher_url ? outboundLink(voucher.voucher_url, 'voucher_site', 'brand_voucher_card') : null;
+  const own = voucher.voucher_source === 'hubble';
+  const link = voucher.voucher_url
+    ? own ? voucher.voucher_url : outboundLink(voucher.voucher_url, 'voucher_site', 'brand_voucher_card')
+    : null;
   // How many vouchers one booking takes, said plainly whenever the terms cap
   // it. Yatra's flight cards are 40% off but only three ₹500 cards fit one
   // booking — with no booking amount here, the rate alone would oversell it,

@@ -284,7 +284,7 @@ def _build_result_caption(route: dict) -> str:
     # to a customer who's never heard of it; it only appears in the Step 1
     # instruction text, where naming the actual site orients them right
     # before they're sent there.
-    if voucher and not voucher.get("offline_only"):
+    if (voucher and not voucher.get("offline_only")) or (route.get("hubble") and not route["hubble"].get("in_store")):
         best_route = f"{merchant} + Gift Voucher"
     else:
         best_route = merchant
@@ -408,9 +408,10 @@ async def _send_voucher_steps(phone: str, route: dict) -> None:
     per-transaction cap forces multiple separate purchases, that requirement
     is folded into the same message rather than dropped, since skipping it
     risks a purchase failing with no explanation."""
-    voucher = route["voucher"]
+    # No partner voucher when only Hubble sells the shop (18 Nov 2026).
+    voucher = route.get("voucher") or {}
     merchant = _display_merchant(route).replace(" (in-store)", "")
-    in_store = bool(voucher.get("offline_only"))
+    in_store = bool(voucher.get("offline_only")) or (route.get("merchant") or "").endswith(" (in-store)")
     upi = voucher.get("upi", {})
 
     sellers = route.get("sellers") or []
@@ -461,10 +462,15 @@ async def _send_voucher_steps(phone: str, route: dict) -> None:
     # today's best (see _dealo_offer). The step then points at the website's
     # buy page — login and payment only run there — with the amount filled in.
     seller_link = ((route.get("sellers") or [{}])[0] or {}).get("link")
-    dealo = await _dealo_offer(merchant, route.get("listed_price") or 0, in_store, discount_pct, seller_link)
+    # The search already asked Hubble for every shop (search_service._add_hubble);
+    # only when Hubble didn't answer in time is it asked again here.
+    if route.get("hubble_checked"):
+        dealo = route.get("hubble")
+    else:
+        dealo = await _dealo_offer(merchant, route.get("listed_price") or 0, in_store, discount_pct, seller_link)
     if dealo:
         step1_text = _dealo_buy_step(dealo, step_n, total_steps)
-        buy_url = hubble_service.buy_link(dealo["brand_name"], dealo["voucher_total"], "wa")
+        buy_url = hubble_service.buy_link(dealo["brand_name"], dealo["voucher_total"], "wa", in_store=in_store)
         if not await send_cta_url(phone, step1_text, "Buy on Dealo", buy_url):
             await send_text(phone, f"{step1_text}\n{buy_url}")
         _track(
@@ -552,7 +558,7 @@ async def _send_redeem_step(
     *, remainder: float, link: str | None,
 ) -> None:
     """The last step: use the voucher at the shop, pay whatever is left."""
-    voucher = route["voucher"]
+    voucher = route.get("voucher") or {}
     remainder_line = f"Pay the remaining *₹{remainder:,.0f}*." if remainder else "It covers the full order."
     redeem_instruction = voucher.get("how_to_redeem_short")
     if in_store:
@@ -885,7 +891,9 @@ async def _send_success_flow(phone: str, route: dict, image_url: str | None) -> 
     final_cost = route.get("final_cost") or 0
     savings = (listed_price - final_cost) if listed_price else 0
     voucher_platform = "none"
-    if voucher:
+    if route.get("hubble"):
+        voucher_platform = "Dealo"
+    elif voucher:
         voucher_platform = {"maximize": "Maximize", "buyhatke": "BuyHatke"}.get(voucher.get("voucher_source"), "Gyftr")
     discount_pct = round((savings / listed_price) * 100) if listed_price and savings > 0 else 0
     _track(
@@ -902,7 +910,7 @@ async def _send_success_flow(phone: str, route: dict, image_url: str | None) -> 
         "Deal Shown", phone,
         product_title=route.get("title", ""),
         merchant=_display_merchant(route),
-        has_voucher=bool(voucher),
+        has_voucher=bool(voucher or route.get("hubble")),
         voucher_platform=voucher_platform,
         listed_price=listed_price,
         final_cost=final_cost,
@@ -910,7 +918,7 @@ async def _send_success_flow(phone: str, route: dict, image_url: str | None) -> 
         saving_pct=discount_pct,
     )
     await asyncio.sleep(_MESSAGE_PACE_SECONDS)
-    if route.get("voucher"):
+    if route.get("voucher") or route.get("hubble"):
         await _send_voucher_steps(phone, route)
     else:
         await _send_direct_cta(phone, route)

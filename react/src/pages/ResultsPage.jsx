@@ -307,7 +307,7 @@ export default function ResultsPage() {
                       originalPrice={calcOriginal(result, activeRoute)}
                       finalPrice={dealo ? Math.round(dealo.you_pay + (dealo.rest_at_shop || 0)) : calcFinal(activeRoute)}
                       saving={voucherOnlySaving}
-                      voucherRequired={!!activeRoute.voucher}
+                      voucherRequired={!!(activeRoute.voucher || activeRoute.hubble)}
                     />
                     <RouteWire animated={!prefersReduced} />
                   </>
@@ -336,7 +336,7 @@ export default function ResultsPage() {
           </Flex>
           <DropOffQuestion
             merchant={showPriceList ? shops[0].merchant : activeRoute.merchant}
-            hasVoucher={showPriceList ? false : !!activeRoute.voucher}
+            hasVoucher={showPriceList ? false : !!(activeRoute.voucher || activeRoute.hubble)}
           />
         </motion.div>
       )}

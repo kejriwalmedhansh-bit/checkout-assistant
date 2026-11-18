@@ -3,12 +3,15 @@ import { Box, Flex, Grid, Input, InputGroup, InputLeftElement, Link as ChakraLin
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
 
 import BrandAvatar from '@/components/common/BrandAvatar';
+import { ShopGrid } from '@/components/common/ShopLinkRow';
 import InfoPageShell from '@/components/common/InfoPageShell';
 import { I } from '@/components/common/icons';
 import ALL_BRAND_DEALS from '@/data/allBrandDeals.json';
+import SHOP_PAGES from '@/data/shopPages.json';
 import { BRAND_DEALS } from '@/data/brandDeals';
 import { useLenis } from '@/hooks/useLenis';
 import { usePageTitle } from '@/hooks/usePageTitle';
+import { CATEGORIES, categoryShops } from '@/seo/categories';
 import { brandsIndexMeta } from '@/seo/pageMeta';
 import { ROUTES } from '@/routes/paths';
 import { useSearchStore } from '@/store/searchStore';
@@ -18,13 +21,14 @@ const SOURCE_LABEL = {
   gyftr: 'Gyftr',
   maximize: 'Maximize',
   buyhatke: 'BuyHatke',
+  dealo: 'Dealo',
 };
 
 // Brands already covered by a full, hand-written /brands/:slug page — kept
 // out of the long list below so each brand appears exactly once, always
 // pointing at its richer internal page rather than the plain external link
 // every other row gets.
-const FLAGSHIP_KEYS = new Set(BRAND_DEALS.map((b) => b.name.toLowerCase().replace(/[^a-z0-9]/g, '')));
+const FLAGSHIP_KEYS = new Set([...BRAND_DEALS, ...SHOP_PAGES].map((b) => b.name.toLowerCase().replace(/[^a-z0-9]/g, '')));
 
 function normalizeKey(name) {
   return name.toLowerCase().replace(/[^a-z0-9]/g, '');
@@ -32,66 +36,15 @@ function normalizeKey(name) {
 
 const LONG_TAIL = ALL_BRAND_DEALS.filter((b) => !FLAGSHIP_KEYS.has(normalizeKey(b.name)));
 
-// The live deal behind each popular store, looked up the same way the long
-// list gets its own: by normalized name against allBrandDeals.json. The
-// flagship entries in brandDeals.js carry hand-typed copy and a hand-typed
-// `ratePct`, but no partner link at all — which is why these cards used to
-// dead-end on an internal page whose only button went back to the search
-// homepage, while every other store on this page linked straight out. The
-// hand-typed rates had also drifted: Amazon read 0.75% against a live 1.25%,
-// AJIO 5% against 7%, all four stale ones UNDER-selling. Reading the rate and
-// the link from the same generated file as everything else keeps the most
-// prominent placement on the page honest and current by construction.
-const LIVE_DEAL_BY_KEY = new Map(ALL_BRAND_DEALS.map((b) => [normalizeKey(b.name), b]));
-
-function FlagshipCard({ brand }) {
-  const deal = LIVE_DEAL_BY_KEY.get(normalizeKey(brand.name));
-  // Every flagship brand has a shop page with all sellers' rates side by side
-  // and Dealo's own Buy button, so the card opens that page.
-  const linkProps = { as: RouterLink, to: ROUTES.brandFor(brand.slug) };
-
+function BrandRow({ brand }) {
+  // Dealo's own card opens its buy page here; a partner's opens their site.
+  const own = brand.source === 'dealo';
+  const linkProps = own
+    ? { as: RouterLink, to: brand.url }
+    : { href: outboundLink(brand.url, 'voucher_site', 'brands_list'), isExternal: true };
   return (
     <ChakraLink
       {...linkProps}
-      display="flex"
-      alignItems="center"
-      gap="14px"
-      p="16px"
-      borderRadius="16px"
-      border="1px solid"
-      borderColor="border"
-      bg="surface2"
-      _hover={{ textDecoration: 'none', borderColor: 'borderStrong', bg: 'surface3' }}
-    >
-      <BrandAvatar name={brand.name} size={64} logoSrc={`/brand-logos/${brand.slug}.webp`} />
-      <Box minW={0} flex={1} textAlign="center">
-        <Text m="0 0 3px" fontSize="17px" fontWeight={800} noOfLines={1}>
-          {brand.name}
-        </Text>
-        <Flex align="center" justify="center" gap="4px" fontSize="13px" fontWeight={700} color="brandText">
-          <I.zap size={11} />
-          {(deal ? deal.pct : brand.ratePct)}% off
-        </Flex>
-        {deal && (
-          <Text m="2px 0 0" fontSize="10.5px" color="text3">
-            via {SOURCE_LABEL[deal.source] || deal.source}
-          </Text>
-        )}
-      </Box>
-      {deal && (
-        <Box color="text3" flex="0 0 auto">
-          <I.external size={13} />
-        </Box>
-      )}
-    </ChakraLink>
-  );
-}
-
-function BrandRow({ brand }) {
-  return (
-    <ChakraLink
-      href={outboundLink(brand.url, 'voucher_site', 'brands_list')}
-      isExternal
       onClick={() => track('Clicked Brand Voucher Link', { brand: brand.name, source: brand.source, pct: brand.pct })}
       display="flex"
       alignItems="center"
@@ -116,9 +69,11 @@ function BrandRow({ brand }) {
         <I.zap size={10} />
         {brand.pct}%
       </Flex>
-      <Box color="text3" flex="0 0 auto">
-        <I.external size={13} />
-      </Box>
+      {!own && (
+        <Box color="text3" flex="0 0 auto">
+          <I.external size={13} />
+        </Box>
+      )}
     </ChakraLink>
   );
 }
@@ -145,6 +100,13 @@ export default function BrandsIndexPage() {
     const list = LONG_TAIL.filter((b) => b.name.toLowerCase().includes(q));
     return [...list].sort((a, b) => (sort === 'az' ? a.name.localeCompare(b.name) : b.pct - a.pct));
   }, [trimmedQuery, sort]);
+
+  // Shops with their own page come first and open that page.
+  const pageMatches = useMemo(() => {
+    if (!trimmedQuery) return [];
+    const q = trimmedQuery.toLowerCase();
+    return SHOP_PAGES.filter((sp) => sp.name.toLowerCase().includes(q));
+  }, [trimmedQuery]);
 
   return (
     <InfoPageShell
@@ -193,13 +155,18 @@ export default function BrandsIndexPage() {
 
       {trimmedQuery && (
         <>
-          {filtered.length > 0 && (
+          {filtered.length + pageMatches.length > 0 && (
             <Text fontSize="11.5px" color="text3" mb="10px">
-              {filtered.length} store{filtered.length === 1 ? '' : 's'}
+              {filtered.length + pageMatches.length} store{filtered.length + pageMatches.length === 1 ? '' : 's'}
             </Text>
           )}
 
-          {filtered.length === 0 ? (
+          {pageMatches.length > 0 && (
+            <Box mb="8px">
+              <ShopGrid shops={pageMatches} />
+            </Box>
+          )}
+          {filtered.length === 0 && pageMatches.length > 0 ? null : filtered.length === 0 ? (
             <Box py="20px" textAlign="center">
               <Text fontSize="13px" color="text3">
                 No store here matches “{trimmedQuery}” yet — we can still check it live.
@@ -230,19 +197,28 @@ export default function BrandsIndexPage() {
         </>
       )}
 
-      <Text as="h2" m="32px 0 12px" fontSize="13px" fontWeight={700} color="text3" letterSpacing=".02em" textTransform="uppercase">
-        Popular stores
-      </Text>
-      <Grid templateColumns={{ base: '1fr', sm: 'repeat(2, 1fr)', md: 'repeat(3, 1fr)' }} gap="10px">
-        {BRAND_DEALS.map((b) => (
-          <FlagshipCard key={b.slug} brand={b} />
-        ))}
-      </Grid>
+      {CATEGORIES.map((c) => {
+        const shops = categoryShops(c, SHOP_PAGES);
+        if (!shops.length) return null;
+        return (
+          <Box key={c.slug} mt="28px">
+            <Flex align="baseline" justify="space-between" gap="10px" mb="10px">
+              <Text as="h2" m={0} fontSize="15px" fontWeight={800} letterSpacing="-.01em">
+                {c.name}
+              </Text>
+              <Text as={RouterLink} to={`${ROUTES.categoryFor(c.slug)}/`} fontSize="12.5px" fontWeight={700} color="brand" flexShrink={0}>
+                See all →
+              </Text>
+            </Flex>
+            <ShopGrid shops={shops} />
+          </Box>
+        );
+      })}
 
       <Box mt="24px">
         <Text fontSize="12.5px" color="text3" lineHeight={1.6}>
-          Each store above links straight to whichever voucher partner currently has its best rate. Buying something
-          from a store not listed? Search it on Dealo and we’ll check its rate live.
+          Each shop above has its own page with today’s rate, what the gift card can and cannot buy, and how to use it.
+          Buying from a shop not listed? Search it above, or search it on Dealo and we’ll check its rate live.
         </Text>
       </Box>
     </InfoPageShell>

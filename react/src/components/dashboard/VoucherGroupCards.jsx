@@ -4,7 +4,7 @@ import Card from '@/components/common/Card';
 import { I } from '@/components/common/icons';
 import { outboundLink, track } from '@/utils/analytics';
 
-const SOURCE_LABELS = { maximize: 'Maximize', buyhatke: 'BuyHatke', gyftr: 'Gyftr' };
+const SOURCE_LABELS = { maximize: 'Maximize', buyhatke: 'BuyHatke', gyftr: 'Gyftr', hubble: 'Dealo' };
 
 /**
  * A search Dealo can't price as a product (`mode: "voucher_group"` from POST
@@ -21,7 +21,9 @@ export default function VoucherGroupCards({ headline, line, cards, group, query 
       </Box>
       <SimpleGrid columns={2} spacing="10px">
         {cards.map((c) => {
-          const link = c.voucher_url ? outboundLink(c.voucher_url, 'voucher_site', 'voucher_group_card') : null;
+          // Dealo's own card opens its buy page here, and isn't counted as a trip to a partner site.
+          const own = c.voucher_source === 'hubble';
+          const link = c.voucher_url ? (own ? c.voucher_url : outboundLink(c.voucher_url, 'voucher_site', 'voucher_group_card')) : null;
           return (
             <Card key={`${c.brand_name}-${c.voucher_source}`} p="14px" display="flex" flexDirection="column" gap="8px" minW={0}>
               <Flex align="center" gap="8px" minW={0}>
@@ -43,7 +45,7 @@ export default function VoucherGroupCards({ headline, line, cards, group, query 
               {link && (
                 <Link
                   href={link}
-                  isExternal
+                  isExternal={!own}
                   onClick={() => track('Clicked Brand Voucher Link', { query, brand: c.brand_name, group, discount_pct: c.best_discount_pct })}
                   mt="auto"
                   display="inline-flex"

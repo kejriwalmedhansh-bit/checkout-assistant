@@ -705,9 +705,10 @@ def _match_hubble_shop(query: str) -> dict | None:
     return _hubble_card(" ".join(kept))
 
 
-def _hubble_card(name: str) -> dict | None:
+def _hubble_card(name: str, in_store: bool = False) -> dict | None:
     """Dealo's own card for the shop `name`, in the search's voucher shape,
-    only when Hubble lists the shop AND confirms it is on sale right now."""
+    only when Hubble lists the shop AND confirms it is on sale right now.
+    in_store: the shop's in-store card when it has a separate one."""
     if not (hubble_service.brand_for(name) or hubble_service.brand_for(name, in_store=True)):
         return None
     try:
@@ -716,7 +717,7 @@ def _hubble_card(name: str) -> dict | None:
     except RuntimeError:
         pass
     try:
-        info = asyncio.run(hubble_service.brand_info(merchant=name))
+        info = asyncio.run(hubble_service.brand_info(merchant=name, in_store=in_store))
     except Exception as exc:  # noqa: BLE001 — a Hubble hiccup must not break search
         logger.warning("[search] hubble shop check failed for %r: %s", name, exc)
         return None
@@ -726,10 +727,41 @@ def _hubble_card(name: str) -> dict | None:
         "brand_name": info["brand_name"],
         "slug": hubble_service.buy_slug(info["brand_name"]),
         "voucher_source": "hubble",
-        "voucher_url": hubble_service.buy_link(info["brand_name"]),
+        "voucher_url": hubble_service.buy_link(info["brand_name"], in_store=info["in_store"]),
         "best_discount_pct": info["discount_pct"],
+        "in_store": info["in_store"],
         "denominations": info["cards"],
     }
+
+
+def _online_or_in_store(name: str | None) -> list[dict] | None:
+    """A shop Hubble sells as two separate cards, one for its website and one
+    for its stores (Lifestyle: 8% online, 6% in store): a shop-name search
+    asks which, as MakeMyTrip asks hotels or flights (owner, 18 Nov 2026).
+    A product search keeps the online card; the price is for the website."""
+    if not name:
+        return None
+    online, store = hubble_service.brand_for(name, False), hubble_service.brand_for(name, True)
+    if not online or not store or online["id"] == store["id"]:
+        return None
+    cards = [_hubble_card(name, in_store=False), _hubble_card(name, in_store=True)]
+    if not all(cards) or not cards[1].get("in_store"):
+        return None
+    return [{**cards[0], "choice_label": "Online"}, {**cards[1], "choice_label": "In store"}]
+
+
+def _as_hubble_card(card: dict, query: str | None = None) -> dict:
+    """`card` (a partner's) replaced by Dealo's own card for the same voucher
+    when Hubble sells it, keeping the shopper's choice label ("Hotels").
+    `query` is tried too for a single card ("steam" when the card is
+    "Steam Gift Voucher")."""
+    if card.get("voucher_source") == "hubble":
+        return card
+    for name in (card.get("brand_name"), query):
+        found = _hubble_card(name) if name else None
+        if found:
+            return {**found, **({"choice_label": card["choice_label"]} if card.get("choice_label") else {})}
+    return card
 
 
 def _partner_sells_now(card: dict) -> bool:
@@ -1023,6 +1055,33 @@ def _is_in_store_route(route: dict) -> bool:
     return bool((route.get("voucher") or {}).get("offline_only")) or route["merchant"].endswith("(in-store)")
 
 
+def _add_hubble(routes: list[dict], results: list[dict]) -> None:
+    """Dealo's own voucher (Hubble) on every route whose shop Hubble sells,
+    whether or not a partner sells it too (owner: Dealo sells wherever Hubble
+    has it). The route's cost becomes what the shopper pays that way, so it
+    ranks by it. Each result listing gets the same answer for the price
+    lists. hubble_checked=False means Hubble didn't answer in time; the
+    website then asks it itself, as it used to."""
+    items = []
+    for r in routes:
+        in_store = _is_in_store_route(r)
+        link = ((r.get("sellers") or [{}])[0] or {}).get("link")
+        items.append((r["merchant"].replace(" (in-store)", ""), r.get("listed_price") or 0, in_store, link))
+    answers = hubble_service.offers_for_shops(items)
+    online: dict[str, tuple[bool, dict | None]] = {}
+    for r, (checked, offer) in zip(routes, answers):
+        r["hubble_checked"] = checked
+        r["hubble"] = offer
+        if offer:
+            r["final_cost"] = round(offer["you_pay"] + (offer.get("rest_at_shop") or 0), 2)
+        if not _is_in_store_route(r):
+            online[r["merchant"].lower()] = (checked, offer)
+    for res in results:
+        checked, offer = online.get((res.get("merchant") or "").lower(), (False, None))
+        res["hubble_checked"] = checked
+        res["hubble"] = offer
+
+
 def _build_routes(results: list[dict], vouchers: list[dict]) -> dict:
     """Merge results + vouchers into route objects sorted by final_cost.
 
@@ -1076,6 +1135,8 @@ def _build_routes(results: list[dict], vouchers: list[dict]) -> dict:
             continue  # no price, no voucher — unrankable
 
         add_route(merchant, listed_price, final_cost, r.get("sellers") or [], r.get("match_type") or "", title, v)
+
+    _add_hubble(routes, results)
 
     # Hyperlocal apps (Blinkit/Zepto/Swiggy/Zomato) sort after every normal
     # route regardless of price — see HYPERLOCAL_MERCHANTS in constants.py.
@@ -3357,16 +3418,27 @@ def search_candidates(query: str, exact: bool = False, shops_only: bool = False)
         # shop right now, otherwise nothing (never a dead 0% card).
         matched_voucher = _hubble_card(matched_voucher.get("brand_name") or query)
     if matched_voucher:
+        # Dealo's own card wherever Hubble sells that card, decided here so
+        # every screen gets it (the website used to draw the partner card
+        # and swap it only if its own Hubble call came back in time).
+        if choices:
+            choices = [_as_hubble_card(c) for c in choices]
+            matched_voucher = choices[0]
+        else:
+            choices = _online_or_in_store(matched_voucher.get("brand_name")) or _online_or_in_store(query) or []
+            matched_voucher = choices[0] if choices else _as_hubble_card(matched_voucher, query)
         out["mode"] = "brand_voucher"
         out["voucher"] = matched_voucher
         if choices:
-            out["voucher"] = choices[0]
             out["voucher_choices"] = choices
         return out
     hubble_card = None if is_url else _match_hubble_shop(query)
     if hubble_card:
         out["mode"] = "brand_voucher"
         out["voucher"] = hubble_card
+        modes = _online_or_in_store(hubble_card.get("brand_name"))
+        if modes:
+            out["voucher"], out["voucher_choices"] = modes[0], modes
         return out
     if shops_only:
         return out

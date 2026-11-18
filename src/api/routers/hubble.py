@@ -7,9 +7,9 @@
            returns the link that opens Hubble on the payment step
     POST /hubble/webhook
         -> Hubble tells us an order finished (signed with X-Verify)
-    GET  /hubble/orders/latest   (Authorization: Bearer <id_token>)
-        -> the shopper's voucher from the last 30 minutes, for the
-           "voucher ready" screen
+    GET  /hubble/orders/latest?session=&brand=   (Authorization: Bearer <id_token>)
+        -> the voucher this purchase made (the payment screen /session
+           opened, for this brand), for the "voucher ready" screen
     POST /hubble/login {id_token}
         -> after the SMS code: saves the number, returns the name we know (if any)
     POST /hubble/account {id_token, name, email}
@@ -30,6 +30,7 @@ import hashlib
 import hmac
 import html
 import json
+import secrets
 import time
 
 from fastapi import APIRouter, Header, HTTPException, Query, Request
@@ -42,7 +43,52 @@ from ...services import buyer_service, hubble_service
 router = APIRouter(prefix="/hubble", tags=["hubble"])
 
 _RECENT_SECONDS = 30 * 60
-_recent_orders: dict[str, tuple[float, dict]] = {}
+# Every order a shopper finished in the last 30 minutes, newest last. A list,
+# not one slot: a second voucher bought soon after the first used to show the
+# first one's code (audit 18 Nov 2026).
+_recent_orders: dict[str, list[tuple[float, dict]]] = {}
+# Each payment screen /session opens: who, which voucher, and when (server
+# clock), so the "voucher ready" screen gets this purchase's code only.
+_sessions: dict[str, tuple[float, str, str]] = {}
+
+
+def _remember_order(uid: str, order: dict) -> None:
+    now = time.time()
+    kept = [(t, o) for t, o in _recent_orders.get(uid, []) if now - t <= _RECENT_SECONDS]
+    ref = order.get("transactionReferenceId")
+    kept = [(t, o) for t, o in kept if not ref or o.get("transactionReferenceId") != ref]
+    _recent_orders[uid] = (kept + [(now, order)])[-10:]
+
+
+def _open_session(uid: str, brand_name: str) -> str:
+    now = time.time()
+    for stale in [k for k, (t, _, _) in _sessions.items() if now - t > _RECENT_SECONDS]:
+        _sessions.pop(stale, None)
+    sid = secrets.token_urlsafe(12)
+    _sessions[sid] = (now, uid, brand_name)
+    return sid
+
+
+def _this_purchase(uid: str, session: str | None, brand: str | None) -> dict | None:
+    """The order this purchase made. With the session /session handed out:
+    the shopper's first order for that voucher after its payment screen
+    opened. Without one (older page, or a restart forgot it): their newest
+    order for `brand`. With neither: their newest order, as before."""
+    now = time.time()
+    orders = [(t, o) for t, o in _recent_orders.get(uid, []) if now - t <= _RECENT_SECONDS]
+    started = _sessions.get(session or "")
+    if started and started[1] == uid:
+        after, want = started[0], started[2]
+        fits = [o for t, o in orders if t >= after and _same_brand(o, want)]
+        return fits[0] if fits else None
+    if brand:
+        fits = [o for _, o in orders if _same_brand(o, brand)]
+        return fits[-1] if fits else None
+    return orders[-1][1] if orders else None
+
+
+def _same_brand(order: dict, brand: str) -> bool:
+    return hubble_service.normalize(order.get("brandName") or "") == hubble_service.normalize(brand)
 
 # Which visit and which link a shopper's purchase belongs to, noted when the
 # payment screen opens and read back when Hubble's webhook reports the order
@@ -91,12 +137,13 @@ async def brand(
     merchant: str | None = Query(default=None),
     slug: str | None = Query(default=None, description="the voucher a /buy/<slug> link names"),
     best_pct: float | None = Query(default=None),
+    in_store: bool = Query(default=False, description="the shopper pays in a shop (a buy link's ?store=1)"),
 ) -> dict:
     """Shop-name search (no cart price yet), or a buy link: can Dealo sell
     this shop's voucher, at what rate, and which amounts may the shopper pick."""
     if not merchant and not slug:
         raise HTTPException(status_code=422, detail="merchant or slug is required")
-    found = await hubble_service.brand_info(merchant, slug=slug)
+    found = await hubble_service.brand_info(merchant, slug=slug, in_store=in_store)
     if found and not hubble_service.worth_showing(found["discount_pct"], best_pct):
         found = None
     return {"available": bool(found), "brand": found}
@@ -133,7 +180,8 @@ async def session(body: SessionRequest) -> dict:
     await buyer_service.save_buyer(login["uid"], login["phone"], name, email, body.marketing_optin)
     _remember_attribution(login["uid"], body)
     token = hubble_service.sso_token(login["uid"], login["phone"], name, email)
-    return {"url": hubble_service.store_url(found, token), "offer": found}
+    return {"url": hubble_service.store_url(found, token), "offer": found,
+            "session": _open_session(login["uid"], found["brand_name"])}
 
 
 @router.get("/test-home", response_class=HTMLResponse)
@@ -170,22 +218,31 @@ async def webhook(request: Request, x_verify: str = Header(default="")) -> dict:
         raise HTTPException(401, "bad signature")
     order = json.loads(raw)
     if "orderStatus" in order:
-        await buyer_service.save_purchase(order, get_settings().HUBBLE_ENV, attribution=_attribution_for(order.get("userId")))
+        # The code first, so the "voucher ready" screen shows it even if the
+        # record below fails to save.
         if order["orderStatus"] == "COMPLETED" and order.get("userId"):
-            _recent_orders[order["userId"]] = (time.time(), order)
+            _remember_order(order["userId"], order)
+        saved = await buyer_service.save_purchase(order, get_settings().HUBBLE_ENV, attribution=_attribution_for(order.get("userId")))
+        if not saved:
+            # Not "ok": Hubble can send it again, instead of the purchase
+            # silently missing from "Your account" (audit 18 Nov 2026).
+            raise HTTPException(503, "could not save the purchase")
     return {"ok": True}
 
 
 @router.get("/orders/latest")
-async def latest_order(authorization: str = Header(default="")) -> dict:
+async def latest_order(
+    authorization: str = Header(default=""),
+    session: str | None = Query(default=None, description="the session /hubble/session returned"),
+    brand: str | None = Query(default=None, description="the voucher bought, as Hubble names it"),
+) -> dict:
     try:
         login = await buyer_service.verify_login(authorization.removeprefix("Bearer ").strip())
     except ValueError as exc:
         raise HTTPException(401, str(exc)) from exc
-    stamped = _recent_orders.get(login["uid"])
-    if not stamped or time.time() - stamped[0] > _RECENT_SECONDS:
+    order = _this_purchase(login["uid"], session, brand)
+    if not order:
         return {"found": False}
-    order = stamped[1]
     return {
         "found": True,
         "brand": order.get("brandName"),

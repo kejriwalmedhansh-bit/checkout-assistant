@@ -1,0 +1,47 @@
+name: Hubble daily check
+
+# Every morning (8:30 IST): is every voucher Hubble sells buyable on
+# getdealo.in, and does every partner card name that looks like a Hubble card
+# have a decision? (scripts/hubble_daily_check.py, from the 18 Nov 2026 audit.)
+# Opens or updates an issue titled "Hubble daily check" only when something
+# needs a person; closes it when all is clear. GitHub emails the repo owner.
+#
+# Repository secret needed (Settings -> Secrets and variables -> Actions):
+#   HUBBLE_CLIENT_ID   (production client id; read-only listing access)
+on:
+  schedule:
+    - cron: "0 3 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -r requirements.txt
+      - name: Check
+        env:
+          HUBBLE_ENV: production
+          HUBBLE_ENABLED: "true"
+          HUBBLE_CLIENT_ID: ${{ secrets.HUBBLE_CLIENT_ID }}
+        run: python scripts/hubble_daily_check.py --out report.md --json result.json
+      - name: Tell a person (or close the issue)
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          title="Hubble daily check"
+          open=$(gh issue list --state open --search "in:title \"$title\"" --json number -q '.[0].number')
+          if [ "$(jq -r .needs_a_person result.json)" = "true" ]; then
+            if [ -n "$open" ]; then gh issue edit "$open" --body-file report.md && gh issue comment "$open" --body "Updated $(jq -r .checked_at result.json)."
+            else gh issue create --title "$title" --body-file report.md; fi
+          elif [ -n "$open" ]; then
+            gh issue close "$open" --comment "$(cat report.md)"
+          fi

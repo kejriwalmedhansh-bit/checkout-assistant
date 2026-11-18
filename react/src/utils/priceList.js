@@ -46,7 +46,18 @@ export function buildPriceList(result, cardOffers = [], { prime = false } = {}) 
       // This shop's bank card offers, best first: read off Flipkart's page,
       // or this week's Amazon bank offers worked out for this price.
       cardOffers: cards.get(key) || (key.includes('amazon') ? amazonCardOffers(r.price, r.title, undefined, prime) : []),
-      voucherRoute: v
+      // Dealo's own voucher, asked on the server for every listing: an
+      // online shop only Hubble sells still gets its gift card saving.
+      voucherRoute: r.hubble && !v?.offline_only
+        ? {
+            ...base,
+            merchant: r.merchant,
+            final_cost: Math.round((r.hubble.you_pay + (r.hubble.rest_at_shop || 0)) * 100) / 100,
+            voucher: v,
+            hubble: r.hubble,
+            hubble_checked: true,
+          }
+        : v
         ? {
             ...base,
             merchant: v.offline_only ? `${r.merchant} (in-store)` : r.merchant,
@@ -102,7 +113,7 @@ export function shouldShowPriceList(shops, rec) {
   const normal = shops.filter((s) => !s.hyperlocal);
   if (normal.length < 2 || !rec) return false;
   const cheapest = normal[0].price;
-  const saving = rec.voucher ? cheapest - rec.final_cost : 0;
+  const saving = rec.voucher || rec.hubble ? cheapest - rec.final_cost : 0;
   return saving < MIN_GIFT_CARD_SAVING_RS || (saving / cheapest) * 100 < MIN_GIFT_CARD_SAVING_PCT;
 }
 

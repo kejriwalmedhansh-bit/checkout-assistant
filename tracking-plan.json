@@ -1049,6 +1049,13 @@
         "new": "true when the number was new and was asked for a name"
       }
     },
+    "Code Slow Opened Hubble": {
+      "description": "Right after buying, the code hadn't reached Dealo after ~20 seconds and the buyer tapped See my code now, opening every card this number bought on Hubble's own page.",
+      "surfaces": [
+        "web"
+      ],
+      "properties": {}
+    },
     "Code Opened On Hubble": {
       "description": "A logged-in buyer tapped Show code on Your account, opening that gift card (code + PIN) on Hubble's own page. Works on any device; Dealo never stores codes.",
       "surfaces": [
