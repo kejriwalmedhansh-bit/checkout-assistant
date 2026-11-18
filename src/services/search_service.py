@@ -705,9 +705,10 @@ def _match_hubble_shop(query: str) -> dict | None:
     return _hubble_card(" ".join(kept))
 
 
-def _hubble_card(name: str) -> dict | None:
+def _hubble_card(name: str, in_store: bool = False) -> dict | None:
     """Dealo's own card for the shop `name`, in the search's voucher shape,
-    only when Hubble lists the shop AND confirms it is on sale right now."""
+    only when Hubble lists the shop AND confirms it is on sale right now.
+    in_store: the shop's in-store card when it has a separate one."""
     if not (hubble_service.brand_for(name) or hubble_service.brand_for(name, in_store=True)):
         return None
     try:
@@ -716,7 +717,7 @@ def _hubble_card(name: str) -> dict | None:
     except RuntimeError:
         pass
     try:
-        info = asyncio.run(hubble_service.brand_info(merchant=name))
+        info = asyncio.run(hubble_service.brand_info(merchant=name, in_store=in_store))
     except Exception as exc:  # noqa: BLE001 — a Hubble hiccup must not break search
         logger.warning("[search] hubble shop check failed for %r: %s", name, exc)
         return None
@@ -726,10 +727,27 @@ def _hubble_card(name: str) -> dict | None:
         "brand_name": info["brand_name"],
         "slug": hubble_service.buy_slug(info["brand_name"]),
         "voucher_source": "hubble",
-        "voucher_url": hubble_service.buy_link(info["brand_name"]),
+        "voucher_url": hubble_service.buy_link(info["brand_name"], in_store=info["in_store"]),
         "best_discount_pct": info["discount_pct"],
+        "in_store": info["in_store"],
         "denominations": info["cards"],
     }
+
+
+def _online_or_in_store(name: str | None) -> list[dict] | None:
+    """A shop Hubble sells as two separate cards, one for its website and one
+    for its stores (Lifestyle: 8% online, 6% in store): a shop-name search
+    asks which, as MakeMyTrip asks hotels or flights (owner, 18 Nov 2026).
+    A product search keeps the online card; the price is for the website."""
+    if not name:
+        return None
+    online, store = hubble_service.brand_for(name, False), hubble_service.brand_for(name, True)
+    if not online or not store or online["id"] == store["id"]:
+        return None
+    cards = [_hubble_card(name, in_store=False), _hubble_card(name, in_store=True)]
+    if not all(cards) or not cards[1].get("in_store"):
+        return None
+    return [{**cards[0], "choice_label": "Online"}, {**cards[1], "choice_label": "In store"}]
 
 
 def _as_hubble_card(card: dict, query: str | None = None) -> dict:
@@ -3407,7 +3425,8 @@ def search_candidates(query: str, exact: bool = False, shops_only: bool = False)
             choices = [_as_hubble_card(c) for c in choices]
             matched_voucher = choices[0]
         else:
-            matched_voucher = _as_hubble_card(matched_voucher, query)
+            choices = _online_or_in_store(matched_voucher.get("brand_name")) or _online_or_in_store(query) or []
+            matched_voucher = choices[0] if choices else _as_hubble_card(matched_voucher, query)
         out["mode"] = "brand_voucher"
         out["voucher"] = matched_voucher
         if choices:
@@ -3417,6 +3436,9 @@ def search_candidates(query: str, exact: bool = False, shops_only: bool = False)
     if hubble_card:
         out["mode"] = "brand_voucher"
         out["voucher"] = hubble_card
+        modes = _online_or_in_store(hubble_card.get("brand_name"))
+        if modes:
+            out["voucher"], out["voucher_choices"] = modes[0], modes
         return out
     if shops_only:
         return out

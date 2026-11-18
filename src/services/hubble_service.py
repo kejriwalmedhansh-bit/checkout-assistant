@@ -70,6 +70,9 @@ _LISTING_DECOR = re.compile(
 # busy results page from calling them on every view.
 _PRODUCT_TTL_SECONDS = 600
 _products: dict[str, tuple[float, dict]] = {}
+# When each voucher was last asked for by a shopper: those are kept fresh in
+# the background (refresh_popular) so a search never waits on Hubble for them.
+_looked_up: dict[str, float] = {}
 
 def _catalogue_path() -> Path:
     """Production and staging are different stores with different brand ids
@@ -80,12 +83,34 @@ def _catalogue_path() -> Path:
 
 @lru_cache(maxsize=2)
 def _catalogue(path: Path) -> tuple[dict[str, list[dict]], dict[str, list[dict]]]:
+    return _build_index(json.loads(path.read_text()))
+
+
+# Hubble's list as the server last read it (refresh_catalogue, daily), used
+# in place of the file once read, so a voucher Hubble adds is sold the same
+# day without anyone updating the file or deploying (audit 18 Nov 2026: the
+# file was three weeks old). The file stays the start-up copy.
+_live: dict = {"brands": None, "index": None, "at": 0.0}
+
+
+def catalogue_brands() -> list[dict]:
+    if _live["brands"] is not None:
+        return _live["brands"]
+    return json.loads(_catalogue_path().read_text())
+
+
+def _index() -> tuple[dict[str, list[dict]], dict[str, list[dict]]]:
+    if _live["index"] is not None:
+        return _live["index"]
+    return _catalogue(_catalogue_path())
+
+
+def _build_index(brands: list[dict]) -> tuple[dict[str, list[dict]], dict[str, list[dict]]]:
     """Hubble vouchers by exact title key, and by the shop name hidden in a
     "-Luxe Gift Card" title (only when no plain title already has that
     key: "Nykaa LUXE" must never answer for "Nykaa")."""
     exact: dict[str, list[dict]] = {}
     luxe: dict[str, list[dict]] = {}
-    brands = json.loads(path.read_text())
     for b in brands:
         exact.setdefault(normalize(b["name"]), []).append(b)
     for b in brands:
@@ -120,7 +145,7 @@ def shop_key(merchant: str, strip_decor: bool = True) -> str:
 def _brand_by_name(merchant: str, in_store: bool) -> dict | None:
     """The exact-name half of brand_for()."""
     want = "OFFLINE" if in_store else "ONLINE"
-    exact, luxe = _catalogue(_catalogue_path())
+    exact, luxe = _index()
     aliases = _aliases()
     # The name as given first ("Hugo Boss-Luxe Gift Card" is a Hubble title
     # of its own); the listing's decoration comes off only when that finds
@@ -195,7 +220,7 @@ def _has_siblings(brand: dict, in_store: bool) -> bool:
     want = "OFFLINE" if in_store else "ONLINE"
     words = [normalize(w) for w in brand["name"].split() if normalize(w)]
     stem = words[0] if words and len(words[0]) >= 4 else "".join(words[:2])
-    exact, _ = _catalogue(_catalogue_path())
+    exact, _ = _index()
     kinds = {key for key, items in exact.items()
              if key.startswith(stem) and any(want in b["works"] for b in items)}
     return len(kinds) > 1
@@ -230,7 +255,7 @@ def brand_by_slug(slug: str, in_store: bool = False) -> dict | None:
     """The catalogue entry a buy link names. Online first, unless the link
     says in store (?store=1); a shop Hubble sells only one way still
     answers, the page says so."""
-    exact, _ = _catalogue(_catalogue_path())
+    exact, _ = _index()
     pool = exact.get(normalize(slug)) or []
     if not pool:
         return None
@@ -244,15 +269,20 @@ def brand_by_slug(slug: str, in_store: bool = False) -> dict | None:
     return pool[0] if len(pool) == 1 and not online else None
 
 
-# A brief Hubble hiccup uses the last good copy (up to an hour old) instead
+# A brief Hubble hiccup uses the last good copy (up to 30 minutes old) instead
 # of turning a buy into "Something went wrong" (audit 18 Nov 2026). Rates
 # rarely move within the hour, and Hubble's own pay screen charges today's.
-_STALE_OK_SECONDS = 60 * 60
+_STALE_OK_SECONDS = 30 * 60
 
 
-async def _product(brand_id: str) -> dict | None:
+async def _product(brand_id: str, background: bool = False) -> dict | None:
+    """Hubble's page for one voucher (rate, amounts, terms), kept ten
+    minutes. `background`: the keep-fresh job re-reading it early, which
+    neither counts as a shopper's interest nor waits for the copy to expire."""
+    if not background:
+        _looked_up[brand_id] = time.time()
     hit = _products.get(brand_id)
-    if hit and time.time() - hit[0] < _PRODUCT_TTL_SECONDS:
+    if hit and not background and time.time() - hit[0] < _PRODUCT_TTL_SECONDS:
         return hit[1]
     s = get_settings()
     try:
@@ -633,6 +663,126 @@ def shop_url(brand_id: str) -> str | None:
         return _shop_sites().get(brand_id)
     except Exception:  # noqa: BLE001 — a missing list must never break a buy
         return None
+
+
+# ── Keeping Hubble current (audit 18 Nov 2026) ─────────────────────────────
+
+_POPULAR_SECONDS = 24 * 60 * 60   # a voucher asked for in the last day stays fresh
+_REFRESH_BEFORE = 3 * 60          # re-read it this long before its copy runs out
+
+
+async def fetch_catalogue(previous: list[dict] | None = None) -> list[dict]:
+    """Every voucher Hubble sells Dealo right now (its listing, read with
+    Dealo's id, is the answer), with where each works (online / in store)
+    and its add-to-wallet link. Vouchers already known keep their details;
+    only new ones are read. Raises on a Hubble listing error, so a bad read
+    never replaces a good list."""
+    s = get_settings()
+    if not s.HUBBLE_CLIENT_ID:
+        # Without Dealo's id Hubble answers with its general catalogue, not
+        # the vouchers Dealo may sell: on 18 Nov that list added Zudio,
+        # Levi's, Spotify... (not Dealo's) and dropped BPCL, IOCL, Zepto
+        # (Dealo's). Never read it that way.
+        raise RuntimeError("HUBBLE_CLIENT_ID is not set; Hubble's list must be read with Dealo's id")
+    base = API_HOST[s.HUBBLE_ENV]
+    async with httpx.AsyncClient(headers={"X-CLIENT-ID": s.HUBBLE_CLIENT_ID}, timeout=60) as client:
+        resp = await client.get(f"{base}/v3/store/products/search", params={"pageNo": 0, "limit": 2000})
+        resp.raise_for_status()
+        listed: dict[str, dict] = {}
+        for section in resp.json().get("data", []):
+            for p in section.get("products", []):
+                vp = p.get("voucherProduct") or {}
+                if p.get("type") == "VOUCHER" and vp.get("status") == "ACTIVE":
+                    listed[p["id"]] = {"id": p["id"], "name": vp.get("title", "").strip(),
+                                       "brand_key": (p.get("brandKey") or "").lower()}
+        known = {b["id"]: b for b in previous or []}
+        gate = asyncio.Semaphore(8)
+
+        async def details(brand: dict) -> dict | None:
+            # One voucher's page failing must not sink the whole read: a new
+            # one is skipped until it answers.
+            try:
+                async with gate:
+                    r = await client.get(f"{base}/v1/store/products/voucher-product/{brand['id']}")
+                if r.status_code == 404:
+                    return None
+                r.raise_for_status()
+                product = r.json()
+            except (httpx.HTTPError, ValueError) as exc:
+                print(f"[hubble] list read: {brand['name']} didn't answer ({exc})")
+                return known.get(brand["id"])
+            if product.get("status") not in (None, "ACTIVE"):
+                return None
+            meta = product.get("voucherProductMetadata") or {}
+            modes = sorted({(st.get("retailMode") or "").upper() for st in meta.get("howToUseSteps") or []} - {""})
+            if not modes:
+                modes = ["OFFLINE"] if "offline" in brand["brand_key"] else ["ONLINE"]
+            return {**brand, "works": modes, "add_voucher_url": meta.get("addVoucherBrandPageUrl")}
+
+        to_read = [b for i, b in listed.items() if i not in known]
+        fresh = await asyncio.gather(*(details(b) for b in to_read))
+    out = [{**known[i], "name": listed[i]["name"]} for i in listed if i in known]
+    out += [b for b in fresh if b]
+    return sorted({b["id"]: b for b in out}.values(), key=lambda b: (b["name"].lower(), b["brand_key"]))
+
+
+async def refresh_catalogue() -> dict:
+    """Read Hubble's list and use it from now on. A read that comes back much
+    smaller than the list in use is not trusted (a Hubble glitch must never
+    take Dealo's cards away). Returns what changed, for the logs."""
+    old = catalogue_brands()
+    new = await fetch_catalogue(old)
+    if len(new) < 0.8 * len(old):
+        print(f"[hubble] list read gave {len(new)} vouchers against {len(old)}; keeping the old list")
+        return {"kept_old": True, "read": len(new), "in_use": len(old)}
+    old_ids, new_ids = {b["id"] for b in old}, {b["id"] for b in new}
+    _live.update(brands=new, index=_build_index(new), at=time.time())
+    _shop_sites.cache_clear()
+    added = sorted(b["name"] for b in new if b["id"] not in old_ids)
+    removed = sorted(b["name"] for b in old if b["id"] not in new_ids)
+    print(f"[hubble] list refreshed: {len(new)} vouchers, added {added}, removed {removed}")
+    return {"kept_old": False, "count": len(new), "added": added, "removed": removed}
+
+
+async def refresh_popular() -> int:
+    """Re-read, just before its copy expires, every voucher a shopper asked
+    for in the last day, so a search for a popular shop never waits on
+    Hubble. Copies still never outlive the ten minutes Hubble allows."""
+    now = time.time()
+    for stale in [i for i, t in _looked_up.items() if now - t > _POPULAR_SECONDS]:
+        _looked_up.pop(stale, None)
+    due = [i for i in _looked_up
+           if not _products.get(i) or now - _products[i][0] > _PRODUCT_TTL_SECONDS - _REFRESH_BEFORE]
+    gate = asyncio.Semaphore(4)
+
+    async def one(brand_id: str) -> None:
+        async with gate:
+            await _product(brand_id, background=True)
+    await asyncio.gather(*(one(i) for i in due))
+    return len(due)
+
+
+async def keep_current(stop: asyncio.Event) -> None:
+    """Runs beside the server: Hubble's list once a day (first a minute after
+    start), popular vouchers every two minutes. Errors are logged, never
+    raised: a Hubble outage must not take the server down."""
+    if not get_settings().HUBBLE_ENABLED:
+        return
+    next_list = time.time() + 60
+    while not stop.is_set():
+        try:
+            if time.time() >= next_list:
+                await refresh_catalogue()
+                next_list = time.time() + 24 * 60 * 60
+            await refresh_popular()
+        except Exception as exc:  # noqa: BLE001
+            print(f"[hubble] keeping current failed: {exc}")
+            next_list = min(next_list, time.time() + 30 * 60)
+        try:
+            # Wake for the next popular refresh, or the first list read.
+            await asyncio.wait_for(stop.wait(), timeout=max(1.0, min(120.0, next_list - time.time())))
+        except asyncio.TimeoutError:
+            pass
 
 
 def worth_showing(hubble_pct: float, best_pct: float | None = None) -> bool:  # noqa: ARG001 — best_pct kept for callers

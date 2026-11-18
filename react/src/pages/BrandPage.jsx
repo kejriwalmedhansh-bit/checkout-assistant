@@ -2,14 +2,15 @@ import { useEffect, useState } from 'react';
 import { Box, Button, Flex, Text } from '@chakra-ui/react';
 import { Navigate, Link as RouterLink, useParams } from 'react-router-dom';
 
-import BrandAvatar from '@/components/common/BrandAvatar';
 import InfoPageShell from '@/components/common/InfoPageShell';
 import { I } from '@/components/common/icons';
+import { ShopGrid, ShopLogo } from '@/components/common/ShopLinkRow';
 import SHOP_PAGES from '@/data/shopPages.json';
 import { getBrandDeal } from '@/data/brandDeals';
 import { hubbleApi } from '@/api/hubble.api';
 import { useJsonLd } from '@/hooks/useJsonLd';
 import { usePageTitle } from '@/hooks/usePageTitle';
+import { BILL, categoryOf, inr, payOn, similarShops } from '@/seo/categories';
 import {
   SELLER_NAME,
   SELLERS_EXPLAINED,
@@ -20,7 +21,6 @@ import {
   whereToRedeemShop,
 } from '@/seo/pageMeta';
 import { outboundLink, track } from '@/utils/analytics';
-import { shopLogos } from '@/utils/priceList';
 import { ROUTES } from '@/routes/paths';
 
 const HUBBLE_ON = import.meta.env.VITE_HUBBLE_ENABLED === 'true';
@@ -83,24 +83,6 @@ function Fold({ title, children }) {
         </Box>
       )}
     </Box>
-  );
-}
-
-/** The shop's logo from the same sources the price list uses (Brandfetch,
- * then the site's favicon), on a white disc; initials if both are missing. */
-function ShopLogo({ shop, size = 56 }) {
-  const sources = shopLogos(shop.website);
-  const [tries, setTries] = useState(0);
-  const src = sources[tries];
-  const filled = tries === 0;
-  return (
-    <Flex w={`${size}px`} h={`${size}px`} borderRadius="14px" bg="white" border="1px solid" borderColor="border" align="center" justify="center" overflow="hidden" flexShrink={0}>
-      {src ? (
-        <Box as="img" src={src} alt={`${shop.name} logo`} decoding="async" w={filled ? '100%' : '28px'} h={filled ? '100%' : '28px'} objectFit={filled ? 'cover' : 'contain'} onError={() => setTries((t) => t + 1)} />
-      ) : (
-        <BrandAvatar name={shop.name} size={size} radius="14px" fontSize="22px" />
-      )}
-    </Flex>
   );
 }
 
@@ -219,6 +201,8 @@ export default function BrandPage() {
   const rows = hubble ? [{ source: 'dealo', pct: hubble.pct, brand_name: hubble.brand_name }] : [...shop.sellers].sort((a, b) => b.pct - a.pct);
   const topPct = rows[0]?.pct;
   const faqs = shopFaqs(shop);
+  const cat = categoryOf(shop.slug);
+  const similar = similarShops(shop, SHOP_PAGES);
   const steps = curated?.steps?.length
     ? curated.steps
     : [
@@ -244,6 +228,11 @@ export default function BrandPage() {
           <SellerRow key={r.source} shop={shop} seller={r} cheapest={!hubble && r.pct === topPct} />
         ))}
       </Flex>
+      {topPct > 0 && (
+        <Text fontSize="13.5px" fontWeight={700} mb="6px">
+          Every {inr(BILL)} you spend at {shop.name} costs {inr(payOn(topPct))} with the gift card.
+        </Text>
+      )}
       <Text fontSize="12px" color="text2" lineHeight={1.5} mb="22px">
         {hubble ? 'Issued through Hubble, an official gift voucher issuer. The shop accepts it like store credit.' : SELLERS_EXPLAINED}
       </Text>
@@ -296,6 +285,16 @@ export default function BrandPage() {
           </Box>
         ))}
       </Fold>
+
+      {similar.length > 0 && (
+        <>
+          <H2>More {cat.short.toLowerCase()} gift card discounts</H2>
+          <ShopGrid shops={similar} />
+          <Text as={RouterLink} to={`${ROUTES.categoryFor(cat.slug)}/`} display="inline-block" mt="10px" mb="22px" fontSize="13px" fontWeight={700} color="brand">
+            All {cat.name.toLowerCase()} →
+          </Text>
+        </>
+      )}
 
       <Button as={RouterLink} to={ROUTES.home} variant="outline" h="46px" w="100%" borderRadius="14px" fontSize="14px" fontWeight={700}>
         Buying something specific? Search it on Dealo

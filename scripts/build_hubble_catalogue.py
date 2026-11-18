@@ -18,16 +18,14 @@ brand (services/hubble_service.py), never from here.
 """
 from __future__ import annotations
 
+import asyncio
 import json
 import sys
-from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
-
-import httpx
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 from src.config import get_settings  # noqa: E402
-from src.services.hubble_service import API_HOST  # noqa: E402
+from src.services import hubble_service  # noqa: E402
 
 DATA = Path(__file__).resolve().parent.parent / "data"
 
@@ -38,33 +36,13 @@ def out_path(env: str) -> Path:
     return DATA / ("hubble_catalogue.json" if env == "production" else "hubble_catalogue.staging.json")
 
 
-def _details(client: httpx.Client, base: str, brand: dict) -> dict | None:
-    resp = client.get(f"{base}/v1/store/products/voucher-product/{brand['id']}")
-    if resp.status_code == 404:
-        return None  # listed in search but has no product page: can't be bought
-    resp.raise_for_status()
-    meta = resp.json().get("voucherProductMetadata") or {}
-    modes = sorted({(s.get("retailMode") or "").upper() for s in meta.get("howToUseSteps") or []} - {""})
-    if not modes:
-        modes = ["OFFLINE"] if "offline" in brand["brand_key"] else ["ONLINE"]
-    return {**brand, "works": modes, "add_voucher_url": meta.get("addVoucherBrandPageUrl")}
-
-
 def build() -> list[dict]:
-    s = get_settings()
-    base = API_HOST[s.HUBBLE_ENV]
-    with httpx.Client(headers={"X-CLIENT-ID": s.HUBBLE_CLIENT_ID}, timeout=60) as client:
-        resp = client.get(f"{base}/v3/store/products/search", params={"pageNo": 0, "limit": 2000})
-        resp.raise_for_status()
-        brands = {}
-        for section in resp.json().get("data", []):
-            for p in section.get("products", []):
-                vp = p.get("voucherProduct") or {}
-                if p.get("type") == "VOUCHER" and vp.get("status") == "ACTIVE":
-                    brands[p["id"]] = {"id": p["id"], "name": vp.get("title", "").strip(), "brand_key": (p.get("brandKey") or "").lower()}
-        with ThreadPoolExecutor(8) as pool:
-            out = [b for b in pool.map(lambda b: _details(client, base, b), brands.values()) if b]
-    return sorted(out, key=lambda b: (b["name"].lower(), b["brand_key"]))
+    """Hubble's list today, read the same way the live server reads it
+    (hubble_service.fetch_catalogue): vouchers already in the file keep their
+    details, and one that left Hubble's listing but still sells is kept."""
+    out = out_path(get_settings().HUBBLE_ENV)
+    previous = json.loads(out.read_text()) if out.exists() else []
+    return asyncio.run(hubble_service.fetch_catalogue(previous))
 
 
 if __name__ == "__main__":

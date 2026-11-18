@@ -276,13 +276,13 @@ export default function BrandVoucherCard({ voucher, query }) {
     if (!HUBBLE_ON || !voucher?.brand_name) return undefined;
     let live = true;
     hubbleApi
-      .brand(voucher.brand_name, HUBBLE_FORCE ? null : voucher.best_discount_pct)
+      .brand(voucher.brand_name, HUBBLE_FORCE ? null : voucher.best_discount_pct, { inStore: Boolean(voucher.in_store) })
       .then((res) => live && res.available && setHubble(res.brand))
       .catch(() => {});
     return () => {
       live = false;
     };
-  }, [voucher?.brand_name, voucher?.best_discount_pct]);
+  }, [voucher?.brand_name, voucher?.best_discount_pct, voucher?.in_store]);
   if (hubble) return <HubbleBrandCard brand={hubble} merchant={voucher.brand_name} query={query} bestPct={voucher.best_discount_pct ?? null} />;
 
   // A type-any-amount card (Amazon Pay on Maximize: ₹100–₹10,000) shows its
