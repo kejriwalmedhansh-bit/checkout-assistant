@@ -10,6 +10,9 @@ export const ROUTES = {
   brands: '/brands',
   brand: '/brands/:slug',
   brandFor: (slug) => `/brands/${slug}`,
+  // Shop pages grouped by kind of shop (food, fashion…), see src/seo/categories.js.
+  category: '/gift-cards/:slug',
+  categoryFor: (slug) => `/gift-cards/${slug}`,
   // Buy a voucher inside Dealo. The address every other surface sends people to.
   buy: '/buy/:slug',
   buyFor: (slug) => `/buy/${slug}`,
