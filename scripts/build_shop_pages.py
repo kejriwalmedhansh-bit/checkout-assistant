@@ -108,6 +108,15 @@ SHOPS: list[tuple[str, str, str, list[str]]] = [
     ("snitch", "Snitch", "snitch.co.in", []),
     ("max-fashion", "Max Fashion", "maxfashion.in", ["Max"]),
     ("biba", "BIBA", "biba.in", []),
+    # Added 18 Nov 2026: shops people opened a Dealo voucher for in the last
+    # 60 days (Mixpanel "Dealo Voucher Shown") that had no page yet.
+    ("nykaa-luxe", "Nykaa Luxe", "nykaa.com/luxe", ["Nykaa LUXE"]),
+    ("tata-cliq-luxury", "Tata CLiQ Luxury", "luxury.tatacliq.com", []),
+    ("cinepolis", "Cinepolis", "cinepolisindia.com", []),
+    ("duroflex", "Duroflex", "duroflexworld.com", []),
+    ("archies", "Archies", "archiesonline.com", []),
+    ("hamleys", "Hamleys", "hamleys.in", []),
+    ("ajio-luxe", "AJIO Luxe", "luxe.ajio.com", ["Ajio Luxe"]),
 ]
 
 SOURCES = [("gyftr", "Gyftr"), ("maximize", "Maximize"), ("buyhatke", "BuyHatke")]

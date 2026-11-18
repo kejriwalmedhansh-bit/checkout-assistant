@@ -201,14 +201,23 @@ export function bestLine(shop) {
   return `${pct(shop.best.pct)} off on ${SELLER_NAME[shop.best.source]}`;
 }
 
+/** The rate the page leads with: Dealo's own when it sells the card, else the best seller's. */
+export function shownPct(shop) {
+  if (shop.hubble) return shop.hubble.pct;
+  return shop.best ? shop.best.pct : null;
+}
+
 export function shopPageMeta(shop) {
   const n = shop.sellers.length;
   const compare = shop.hubble
     ? 'Sold by Dealo: pay from your bank app, code in seconds.'
     : `Today’s discount from ${n} official seller${n === 1 ? '' : 's'} side by side, cheapest marked.`;
   return {
-    title: `${shop.name} Gift Voucher discount today`,
-    description: `${shop.name} gift voucher: ${bestLine(shop)}. ${compare} With what the voucher can and cannot buy. Checked ${shop.checked}.`,
+    // Search Console, 18 Nov 2026: people type "<shop> gift card discount",
+    // and the pages with a plain number in the result got the clicks. So the
+    // title uses their words and today's rate (the same one the page shows).
+    title: shownPct(shop) ? `${shop.name} gift card discount: ${pct(shownPct(shop))} off today` : `${shop.name} gift card discount today`,
+    description: `${shop.name} gift card (gift voucher): ${bestLine(shop)}. ${compare} With what the voucher can and cannot buy. Checked ${shop.checked}.`,
     heading: `${shop.name} Gift Voucher discount today`,
     intro: `${bestLine(shop)}. Buy the voucher, pay at ${shop.name} with it, keep the difference.`,
   };

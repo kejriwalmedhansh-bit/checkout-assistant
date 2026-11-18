@@ -3,7 +3,7 @@
     "slug": "myntra",
     "name": "Myntra",
     "website": "https://www.myntra.com/",
-    "checked": "2026-11-10",
+    "checked": "2026-11-18",
     "hubble": {
       "pct": 4.0,
       "brand_name": "Myntra",
@@ -110,14 +110,14 @@
     "slug": "ajio",
     "name": "AJIO",
     "website": "https://www.ajio.com/",
-    "checked": "2026-11-10",
+    "checked": "2026-11-18",
     "hubble": {
-      "pct": 6.5,
+      "pct": 7.0,
       "brand_name": "AJIO",
       "in_store": false,
       "cards": [],
       "min_amount": 50,
-      "max_amount": 10695,
+      "max_amount": 50000,
       "typed": true
     },
     "sellers": [
@@ -190,7 +190,7 @@
       }
     ],
     "best": {
-      "source": "maximize",
+      "source": "dealo",
       "pct": 7.0
     },
     "online": true,
@@ -213,7 +213,7 @@
     "slug": "nykaa",
     "name": "Nykaa",
     "website": "https://www.nykaa.com/",
-    "checked": "2026-11-10",
+    "checked": "2026-11-18",
     "hubble": {
       "pct": 5.0,
       "brand_name": "Nykaa",
@@ -318,7 +318,7 @@
     "slug": "nykaa-fashion",
     "name": "Nykaa Fashion",
     "website": "https://www.nykaafashion.com/",
-    "checked": "2026-11-10",
+    "checked": "2026-11-18",
     "hubble": {
       "pct": 5.0,
       "brand_name": "Nykaa Fashion",
@@ -425,14 +425,14 @@
     "slug": "zomato",
     "name": "Zomato",
     "website": "https://www.zomato.com/",
-    "checked": "2026-11-10",
+    "checked": "2026-11-18",
     "hubble": {
       "pct": 4.0,
       "brand_name": "Zomato",
       "in_store": false,
       "cards": [],
       "min_amount": 1001,
-      "max_amount": 10416,
+      "max_amount": 50000,
       "typed": true
     },
     "sellers": [
@@ -499,7 +499,7 @@
     "slug": "swiggy",
     "name": "Swiggy",
     "website": "https://www.swiggy.com/",
-    "checked": "2026-11-10",
+    "checked": "2026-11-18",
     "hubble": {
       "pct": 3.0,
       "brand_name": "Swiggy",
@@ -523,10 +523,14 @@
         1750,
         2000,
         2500,
-        3000
+        3000,
+        4000,
+        5000,
+        7500,
+        10000
       ],
       "min_amount": 100,
-      "max_amount": 10309,
+      "max_amount": 50000,
       "typed": false
     },
     "sellers": [],
@@ -546,7 +550,7 @@
     "slug": "amazon",
     "name": "Amazon",
     "website": "https://www.amazon.in/",
-    "checked": "2026-11-10",
+    "checked": "2026-11-18",
     "hubble": {
       "pct": 1.5,
       "brand_name": "Amazon shopping",
@@ -646,7 +650,7 @@
     "slug": "flipkart",
     "name": "Flipkart",
     "website": "https://www.flipkart.com/",
-    "checked": "2026-11-10",
+    "checked": "2026-11-18",
     "hubble": {
       "pct": 2.0,
       "brand_name": "Flipkart",
@@ -748,7 +752,7 @@
     "slug": "croma",
     "name": "Croma",
     "website": "https://www.croma.com/",
-    "checked": "2026-11-10",
+    "checked": "2026-11-18",
     "hubble": {
       "pct": 2.0,
       "brand_name": "Croma",
@@ -848,7 +852,7 @@
     "slug": "reliance-digital",
     "name": "Reliance Digital",
     "website": "https://www.reliancedigital.in/",
-    "checked": "2026-11-10",
+    "checked": "2026-11-18",
     "hubble": null,
     "sellers": [
       {
@@ -897,14 +901,14 @@
     "slug": "makemytrip",
     "name": "MakeMyTrip",
     "website": "https://www.makemytrip.com/",
-    "checked": "2026-11-10",
+    "checked": "2026-11-18",
     "hubble": {
       "pct": 6.25,
       "brand_name": "MakeMyTrip",
       "in_store": false,
       "cards": [],
       "min_amount": 250,
-      "max_amount": 10666,
+      "max_amount": 250000,
       "typed": true
     },
     "sellers": [
@@ -980,7 +984,7 @@
     "slug": "yatra",
     "name": "Yatra",
     "website": "https://www.yatra.com/",
-    "checked": "2026-11-10",
+    "checked": "2026-11-18",
     "hubble": {
       "pct": 5.0,
       "brand_name": "Yatra",
@@ -1061,14 +1065,14 @@
     "slug": "cleartrip",
     "name": "Cleartrip",
     "website": "https://www.cleartrip.com/",
-    "checked": "2026-11-10",
+    "checked": "2026-11-18",
     "hubble": {
       "pct": 8.0,
       "brand_name": "Cleartrip",
       "in_store": false,
       "cards": [],
       "min_amount": 300,
-      "max_amount": 10869,
+      "max_amount": 50000,
       "typed": true
     },
     "sellers": [
@@ -1166,7 +1170,7 @@
     "slug": "pvr",
     "name": "PVR",
     "website": "https://www.pvrcinemas.com/",
-    "checked": "2026-11-10",
+    "checked": "2026-11-18",
     "hubble": {
       "pct": 10.0,
       "brand_name": "PVR",
@@ -1267,7 +1271,7 @@
     "slug": "bookmyshow",
     "name": "BookMyShow",
     "website": "https://www.bookmyshow.com/",
-    "checked": "2026-11-10",
+    "checked": "2026-11-18",
     "hubble": {
       "pct": 2.0,
       "brand_name": "BookMyShow",
@@ -1325,14 +1329,14 @@
     "slug": "uber",
     "name": "Uber",
     "website": "https://www.uber.com/",
-    "checked": "2026-11-10",
+    "checked": "2026-11-18",
     "hubble": {
       "pct": 4.0,
       "brand_name": "Uber.",
       "in_store": false,
       "cards": [],
       "min_amount": 50,
-      "max_amount": 10416,
+      "max_amount": 20000,
       "typed": true
     },
     "sellers": [
@@ -1419,7 +1423,7 @@
     "slug": "bigbasket",
     "name": "BigBasket",
     "website": "https://www.bigbasket.com/",
-    "checked": "2026-11-10",
+    "checked": "2026-11-18",
     "hubble": {
       "pct": 2.75,
       "brand_name": "BigBasket",
@@ -1524,7 +1528,7 @@
     "slug": "tata-cliq",
     "name": "Tata CLiQ",
     "website": "https://www.tatacliq.com/",
-    "checked": "2026-11-10",
+    "checked": "2026-11-18",
     "hubble": {
       "pct": 9.0,
       "brand_name": "Tata Cliq",
@@ -1642,14 +1646,14 @@
     "slug": "pepperfry",
     "name": "Pepperfry",
     "website": "https://www.pepperfry.com/",
-    "checked": "2026-11-10",
+    "checked": "2026-11-18",
     "hubble": {
       "pct": 3.0,
       "brand_name": "Pepperfry",
       "in_store": false,
       "cards": [],
       "min_amount": 250,
-      "max_amount": 10309,
+      "max_amount": 50000,
       "typed": true
     },
     "sellers": [
@@ -1719,7 +1723,7 @@
     "slug": "ikea",
     "name": "IKEA",
     "website": "https://www.ikea.com/",
-    "checked": "2026-11-10",
+    "checked": "2026-11-18",
     "hubble": {
       "pct": 6.0,
       "brand_name": "IKEA",
@@ -1731,7 +1735,7 @@
         10000
       ],
       "min_amount": 1000,
-      "max_amount": 10638,
+      "max_amount": 50000,
       "typed": false
     },
     "sellers": [
@@ -1801,7 +1805,7 @@
     "slug": "urban-ladder",
     "name": "Urban Ladder",
     "website": "https://www.urbanladder.com/",
-    "checked": "2026-11-10",
+    "checked": "2026-11-18",
     "hubble": {
       "pct": 4.0,
       "brand_name": "Urban Ladder",
@@ -1812,7 +1816,7 @@
         10000
       ],
       "min_amount": 1000,
-      "max_amount": 10416,
+      "max_amount": 50000,
       "typed": false
     },
     "sellers": [
@@ -1887,7 +1891,7 @@
     "slug": "dominos",
     "name": "Domino's",
     "website": "https://www.dominos.co.in/",
-    "checked": "2026-11-10",
+    "checked": "2026-11-18",
     "hubble": {
       "pct": 16.0,
       "brand_name": "Dominos",
@@ -1986,7 +1990,7 @@
     "slug": "pizza-hut",
     "name": "Pizza Hut",
     "website": "https://www.pizzahut.co.in/",
-    "checked": "2026-11-10",
+    "checked": "2026-11-18",
     "hubble": {
       "pct": 7.0,
       "brand_name": "Pizza Hut",
@@ -2097,7 +2101,7 @@
     "slug": "kfc",
     "name": "KFC",
     "website": "https://www.online.kfc.co.in/",
-    "checked": "2026-11-10",
+    "checked": "2026-11-18",
     "hubble": {
       "pct": 6.0,
       "brand_name": "KFC",
@@ -2111,7 +2115,7 @@
         2500
       ],
       "min_amount": 100,
-      "max_amount": 10638,
+      "max_amount": 12500,
       "typed": false
     },
     "sellers": [
@@ -2203,7 +2207,7 @@
     "slug": "subway",
     "name": "Subway",
     "website": "https://www.subway.com/",
-    "checked": "2026-11-10",
+    "checked": "2026-11-18",
     "hubble": {
       "pct": 8.0,
       "brand_name": "Subway",
@@ -2279,7 +2283,7 @@
     "slug": "starbucks",
     "name": "Starbucks",
     "website": "https://www.starbucks.in/",
-    "checked": "2026-11-10",
+    "checked": "2026-11-18",
     "hubble": {
       "pct": 7.0,
       "brand_name": "Starbucks",
@@ -2380,7 +2384,7 @@
     "slug": "lifestyle",
     "name": "Lifestyle",
     "website": "https://www.lifestylestores.com/",
-    "checked": "2026-11-10",
+    "checked": "2026-11-18",
     "hubble": {
       "pct": 8.0,
       "brand_name": "Lifestyle",
@@ -2392,7 +2396,7 @@
         10000
       ],
       "min_amount": 1000,
-      "max_amount": 10869,
+      "max_amount": 20000,
       "typed": false
     },
     "sellers": [
@@ -2474,10 +2478,45 @@
     "canClub": true
   },
   {
+    "slug": "westside",
+    "name": "Westside",
+    "website": "https://www.westside.com/",
+    "checked": "2026-11-18",
+    "hubble": {
+      "pct": 10.0,
+      "brand_name": "Westside",
+      "in_store": true,
+      "cards": [],
+      "min_amount": 100,
+      "max_amount": 49000,
+      "typed": true
+    },
+    "sellers": [],
+    "best": {
+      "source": "dealo",
+      "pct": 10.0
+    },
+    "online": false,
+    "offline": true,
+    "stack": null,
+    "steps": [
+      "Visit https://brandpts.com/login or download the GyFTR ePay app. Search for Westside. View your ePay balance and available gift vouchers. Tap (+) to add a voucher to your wallet or enter the voucher code manually.",
+      "Tap Redeem/Pay to use your ePay balance.",
+      "Enter the amount and tap Redeem Balance to confirm.",
+      "A QR code is generated. Show it to the cashier for quick checkout."
+    ],
+    "restrictions": [
+      "food courts & cafes within the Westside Store",
+      "GV cannot be redeemed during online purchase"
+    ],
+    "multiUse": true,
+    "canClub": false
+  },
+  {
     "slug": "decathlon",
     "name": "Decathlon",
     "website": "https://www.decathlon.in/",
-    "checked": "2026-11-10",
+    "checked": "2026-11-18",
     "hubble": {
       "pct": 4.0,
       "brand_name": "Decathlon",
@@ -2583,22 +2622,8 @@
     "slug": "puma",
     "name": "PUMA",
     "website": "https://www.in.puma.com/",
-    "checked": "2026-11-10",
-    "hubble": {
-      "pct": 11.0,
-      "brand_name": "Puma",
-      "in_store": true,
-      "cards": [
-        1000,
-        3000,
-        5000,
-        7500,
-        10000
-      ],
-      "min_amount": 1000,
-      "max_amount": 11235,
-      "typed": false
-    },
+    "checked": "2026-11-18",
+    "hubble": null,
     "sellers": [
       {
         "source": "gyftr",
@@ -2648,7 +2673,7 @@
       }
     ],
     "best": {
-      "source": "dealo",
+      "source": "gyftr",
       "pct": 11.0
     },
     "online": false,
@@ -2667,14 +2692,14 @@
     "slug": "skechers",
     "name": "Skechers",
     "website": "https://www.skechers.in/",
-    "checked": "2026-11-10",
+    "checked": "2026-11-18",
     "hubble": {
       "pct": 10.0,
       "brand_name": "Skechers",
       "in_store": true,
       "cards": [],
       "min_amount": 500,
-      "max_amount": 11111,
+      "max_amount": 20000,
       "typed": true
     },
     "sellers": [
@@ -2770,7 +2795,7 @@
     "slug": "bata",
     "name": "Bata",
     "website": "https://www.bata.in/",
-    "checked": "2026-11-10",
+    "checked": "2026-11-18",
     "hubble": {
       "pct": 7.0,
       "brand_name": "Bata",
@@ -2782,7 +2807,7 @@
         5000
       ],
       "min_amount": 2000,
-      "max_amount": 10752,
+      "max_amount": 20000,
       "typed": false
     },
     "sellers": [
@@ -2850,7 +2875,7 @@
     "slug": "lenskart",
     "name": "Lenskart",
     "website": "https://www.lenskart.com/",
-    "checked": "2026-11-10",
+    "checked": "2026-11-18",
     "hubble": {
       "pct": 10.0,
       "brand_name": "Lenskart",
@@ -2861,11 +2886,10 @@
         2500,
         3000,
         5000,
-        7500,
         10000
       ],
       "min_amount": 1000,
-      "max_amount": 11111,
+      "max_amount": 50000,
       "typed": false
     },
     "sellers": [
@@ -2963,7 +2987,7 @@
     "slug": "boat",
     "name": "boAt",
     "website": "https://www.boat-lifestyle.com/",
-    "checked": "2026-11-10",
+    "checked": "2026-11-18",
     "hubble": {
       "pct": 6.0,
       "brand_name": "Boat",
@@ -3037,7 +3061,7 @@
     "slug": "titan",
     "name": "Titan",
     "website": "https://www.titan.co.in/",
-    "checked": "2026-11-10",
+    "checked": "2026-11-18",
     "hubble": null,
     "sellers": [
       {
@@ -3107,24 +3131,21 @@
     "slug": "firstcry",
     "name": "FirstCry",
     "website": "https://www.firstcry.com/",
-    "checked": "2026-11-10",
+    "checked": "2026-11-18",
     "hubble": {
       "pct": 6.0,
       "brand_name": "Firstcry",
       "in_store": false,
       "cards": [
-        100,
         250,
         500,
-        750,
+        1000,
         2000,
         2500,
-        3000,
-        5000,
-        10000
+        5000
       ],
-      "min_amount": 100,
-      "max_amount": 10000,
+      "min_amount": 250,
+      "max_amount": 25000,
       "typed": false
     },
     "sellers": [
@@ -3224,7 +3245,7 @@
     "slug": "netmeds",
     "name": "Netmeds",
     "website": "https://www.netmeds.com/",
-    "checked": "2026-11-10",
+    "checked": "2026-11-18",
     "hubble": {
       "pct": 8.0,
       "brand_name": "Netmeds",
@@ -3322,7 +3343,7 @@
     "slug": "jockey",
     "name": "Jockey",
     "website": "https://www.jockey.in/",
-    "checked": "2026-11-10",
+    "checked": "2026-11-18",
     "hubble": null,
     "sellers": [
       {
@@ -3367,7 +3388,7 @@
     "slug": "frido",
     "name": "Frido",
     "website": "https://www.myfrido.com/",
-    "checked": "2026-11-10",
+    "checked": "2026-11-18",
     "hubble": {
       "pct": 8.0,
       "brand_name": "Frido",
@@ -3469,7 +3490,7 @@
     "slug": "dailyobjects",
     "name": "DailyObjects",
     "website": "https://www.dailyobjects.com/",
-    "checked": "2026-11-10",
+    "checked": "2026-11-18",
     "hubble": {
       "pct": 10.0,
       "brand_name": "Daily Objects",
@@ -3566,7 +3587,7 @@
     "slug": "beyoung",
     "name": "Beyoung",
     "website": "https://www.beyoung.in/",
-    "checked": "2026-11-10",
+    "checked": "2026-11-18",
     "hubble": {
       "pct": 13.0,
       "brand_name": "Beyoung",
@@ -3661,7 +3682,7 @@
     "slug": "ixigo",
     "name": "Ixigo",
     "website": "https://www.ixigo.com/",
-    "checked": "2026-11-10",
+    "checked": "2026-11-18",
     "hubble": {
       "pct": 5.0,
       "brand_name": "Ixigo",
@@ -3763,7 +3784,7 @@
     "slug": "third-wave-coffee",
     "name": "Third Wave Coffee",
     "website": "https://www.thirdwavecoffee.in/",
-    "checked": "2026-11-10",
+    "checked": "2026-11-18",
     "hubble": {
       "pct": 8.0,
       "brand_name": "Third Wave Coffee",
@@ -3838,7 +3859,7 @@
     "slug": "philips",
     "name": "Philips",
     "website": "https://www.philips.co.in/",
-    "checked": "2026-11-10",
+    "checked": "2026-11-18",
     "hubble": {
       "pct": 6.0,
       "brand_name": "Philips",
@@ -3938,14 +3959,14 @@
     "slug": "birkenstock",
     "name": "Birkenstock",
     "website": "https://www.birkenstock.com/in/",
-    "checked": "2026-11-10",
+    "checked": "2026-11-18",
     "hubble": {
       "pct": 10.0,
       "brand_name": "Birkenstock",
       "in_store": false,
       "cards": [],
       "min_amount": 1000,
-      "max_amount": 11111,
+      "max_amount": 20000,
       "typed": true
     },
     "sellers": [
@@ -4013,14 +4034,14 @@
     "slug": "goibibo",
     "name": "Goibibo",
     "website": "https://www.goibibo.com/",
-    "checked": "2026-11-10",
+    "checked": "2026-11-18",
     "hubble": {
       "pct": 5.0,
       "brand_name": "Goibibo",
       "in_store": false,
       "cards": [],
       "min_amount": 250,
-      "max_amount": 10526,
+      "max_amount": 100000,
       "typed": true
     },
     "sellers": [
@@ -4067,7 +4088,7 @@
     "slug": "easemytrip",
     "name": "EaseMyTrip",
     "website": "https://www.easemytrip.com/",
-    "checked": "2026-11-10",
+    "checked": "2026-11-18",
     "hubble": {
       "pct": 6.0,
       "brand_name": "EaseMyTrip",
@@ -4077,10 +4098,11 @@
         1000,
         2500,
         5000,
-        10000
+        10000,
+        20000
       ],
       "min_amount": 500,
-      "max_amount": 10638,
+      "max_amount": 50000,
       "typed": false
     },
     "sellers": [
@@ -4152,7 +4174,7 @@
     "slug": "woodland",
     "name": "Woodland",
     "website": "https://www.woodlandworldwide.com/",
-    "checked": "2026-11-10",
+    "checked": "2026-11-18",
     "hubble": {
       "pct": 9.0,
       "brand_name": "Woodland",
@@ -4256,14 +4278,14 @@
     "slug": "giva",
     "name": "GIVA",
     "website": "https://www.giva.co/",
-    "checked": "2026-11-10",
+    "checked": "2026-11-18",
     "hubble": {
       "pct": 12.0,
       "brand_name": "Giva",
       "in_store": false,
       "cards": [],
       "min_amount": 500,
-      "max_amount": 11363,
+      "max_amount": 100000,
       "typed": true
     },
     "sellers": [],
@@ -4283,14 +4305,14 @@
     "slug": "mokobara",
     "name": "Mokobara",
     "website": "https://www.mokobara.com/",
-    "checked": "2026-11-10",
+    "checked": "2026-11-18",
     "hubble": {
       "pct": 7.0,
       "brand_name": "Mokobara",
       "in_store": false,
       "cards": [],
       "min_amount": 2500,
-      "max_amount": 10752,
+      "max_amount": 30000,
       "typed": true
     },
     "sellers": [
@@ -4357,7 +4379,7 @@
     "slug": "snitch",
     "name": "Snitch",
     "website": "https://www.snitch.co.in/",
-    "checked": "2026-11-10",
+    "checked": "2026-11-18",
     "hubble": {
       "pct": 6.5,
       "brand_name": "Snitch",
@@ -4368,10 +4390,11 @@
         2000,
         2500,
         5000,
-        7500
+        7500,
+        10000
       ],
       "min_amount": 500,
-      "max_amount": 10695,
+      "max_amount": 50000,
       "typed": false
     },
     "sellers": [
@@ -4443,7 +4466,7 @@
     "slug": "max-fashion",
     "name": "Max Fashion",
     "website": "https://www.maxfashion.in/",
-    "checked": "2026-11-10",
+    "checked": "2026-11-18",
     "hubble": {
       "pct": 9.0,
       "brand_name": "Max Fashion",
@@ -4521,7 +4544,7 @@
     "slug": "biba",
     "name": "BIBA",
     "website": "https://www.biba.in/",
-    "checked": "2026-11-10",
+    "checked": "2026-11-18",
     "hubble": {
       "pct": 6.0,
       "brand_name": "BIBA",
@@ -4596,5 +4619,579 @@
     "restrictions": [],
     "multiUse": true,
     "canClub": null
+  },
+  {
+    "slug": "nykaa-luxe",
+    "name": "Nykaa Luxe",
+    "website": "https://www.nykaa.com/luxe/",
+    "checked": "2026-11-18",
+    "hubble": {
+      "pct": 6.0,
+      "brand_name": "Nykaa LUXE",
+      "in_store": false,
+      "cards": [],
+      "min_amount": 250,
+      "max_amount": 10000,
+      "typed": true
+    },
+    "sellers": [
+      {
+        "source": "buyhatke",
+        "label": "BuyHatke",
+        "pct": 4.89,
+        "upi_pct": 4.89,
+        "card_pct": null,
+        "url": "https://buyhatke.com/gift-cards/nykaa-luxe-gift-card",
+        "online": true,
+        "offline": false,
+        "denominations": [
+          100,
+          500,
+          2000,
+          10000
+        ],
+        "typed": false,
+        "typed_min": null,
+        "typed_max": null,
+        "stack_limit": 1,
+        "value_cap": 10000.0
+      }
+    ],
+    "best": {
+      "source": "dealo",
+      "pct": 6.0
+    },
+    "online": true,
+    "offline": false,
+    "stack": "One voucher per order",
+    "steps": [
+      "Go to Nykaa.com and select the items you want to purchase.",
+      "Once you reach our payment page, select the Gift Card payment option.",
+      "Enter your 16-digit Card Code and the corresponding Card PIN and click on apply. The Gift Card amount will be deducted from the payable amount.",
+      "If the amount of your e-Gift Card doesn't cover your order amount, you will be prompted to select an additional payment option."
+    ],
+    "restrictions": [],
+    "multiUse": true,
+    "canClub": null
+  },
+  {
+    "slug": "tata-cliq-luxury",
+    "name": "Tata CLiQ Luxury",
+    "website": "https://www.luxury.tatacliq.com/",
+    "checked": "2026-11-18",
+    "hubble": {
+      "pct": 10.0,
+      "brand_name": "Tata Cliq Luxury",
+      "in_store": false,
+      "cards": [
+        500,
+        1000,
+        1500,
+        2000,
+        2500,
+        3000,
+        5000,
+        7500,
+        10000
+      ],
+      "min_amount": 500,
+      "max_amount": 10000,
+      "typed": false
+    },
+    "sellers": [
+      {
+        "source": "gyftr",
+        "label": "Gyftr",
+        "pct": 10.0,
+        "upi_pct": 10.0,
+        "card_pct": 9.0,
+        "url": "https://www.gyftr.com/tata-cliq-luxury",
+        "online": true,
+        "offline": false,
+        "denominations": [
+          500,
+          1000,
+          2000,
+          5000,
+          7500,
+          10000
+        ],
+        "typed": false,
+        "typed_min": null,
+        "typed_max": null,
+        "stack_limit": null,
+        "value_cap": null
+      },
+      {
+        "source": "maximize",
+        "label": "Maximize",
+        "pct": 10.0,
+        "upi_pct": 10.0,
+        "card_pct": 8.1,
+        "url": "https://www.maximize.money/gift-cards/TataCliq/849",
+        "online": true,
+        "offline": false,
+        "denominations": [
+          250,
+          1000,
+          1500,
+          2000,
+          2500,
+          5000,
+          10000
+        ],
+        "typed": false,
+        "typed_min": null,
+        "typed_max": null,
+        "stack_limit": null,
+        "value_cap": null
+      },
+      {
+        "source": "buyhatke",
+        "label": "BuyHatke",
+        "pct": 8.4,
+        "upi_pct": 8.4,
+        "card_pct": null,
+        "url": "https://buyhatke.com/gift-cards/tata-cliq-luxury-gift-card",
+        "online": true,
+        "offline": false,
+        "denominations": [
+          250,
+          500,
+          1000,
+          1500,
+          2000,
+          2500,
+          3000,
+          5000
+        ],
+        "typed": false,
+        "typed_min": null,
+        "typed_max": null,
+        "stack_limit": 4,
+        "value_cap": 10000.0
+      }
+    ],
+    "best": {
+      "source": "dealo",
+      "pct": 10.0
+    },
+    "online": true,
+    "offline": false,
+    "stack": "Yes, up to 4 in one order",
+    "steps": [
+      "Visit www.tatacliq.com & Log In or Sign up on Tata CLiQ",
+      "Go to your CLiQ Cash page & Verify your Mobile number to complete KYC",
+      "Enter the gift card code to add the amount to your CLiQ Cash account",
+      "Apply CLiQ Cash on payment page to pay through CLiQ Cash"
+    ],
+    "restrictions": [
+      "Gift Cards cannot be used to purchase other gift cards"
+    ],
+    "multiUse": true,
+    "canClub": true
+  },
+  {
+    "slug": "cinepolis",
+    "name": "Cinepolis",
+    "website": "https://www.cinepolisindia.com/",
+    "checked": "2026-11-18",
+    "hubble": {
+      "pct": 25.0,
+      "brand_name": "Cinepolis",
+      "in_store": false,
+      "cards": [
+        100,
+        200,
+        500,
+        1000,
+        1500,
+        2000,
+        2500,
+        3000,
+        5000
+      ],
+      "min_amount": 100,
+      "max_amount": 10000,
+      "typed": false
+    },
+    "sellers": [
+      {
+        "source": "maximize",
+        "label": "Maximize",
+        "pct": 25.0,
+        "upi_pct": 25.0,
+        "card_pct": 23.1,
+        "url": "https://www.maximize.money/gift-cards/Cinepolis/1312",
+        "online": true,
+        "offline": false,
+        "denominations": [
+          200,
+          500,
+          1000,
+          2000,
+          5000,
+          10000
+        ],
+        "typed": true,
+        "typed_min": 100,
+        "typed_max": 10000,
+        "stack_limit": 1,
+        "value_cap": null
+      },
+      {
+        "source": "buyhatke",
+        "label": "BuyHatke",
+        "pct": 22.26,
+        "upi_pct": 22.26,
+        "card_pct": null,
+        "url": "https://buyhatke.com/gift-cards/cinepolis-gift-card",
+        "online": true,
+        "offline": false,
+        "denominations": [
+          100,
+          200,
+          500,
+          1000,
+          1500,
+          2000,
+          2500,
+          3000
+        ],
+        "typed": false,
+        "typed_min": null,
+        "typed_max": null,
+        "stack_limit": 1,
+        "value_cap": 10000.0
+      },
+      {
+        "source": "gyftr",
+        "label": "Gyftr",
+        "pct": 14.0,
+        "upi_pct": 14.0,
+        "card_pct": 12.0,
+        "url": "https://www.gyftr.com/cinepolis",
+        "online": true,
+        "offline": false,
+        "denominations": [
+          500,
+          1000,
+          2000
+        ],
+        "typed": false,
+        "typed_min": null,
+        "typed_max": null,
+        "stack_limit": null,
+        "value_cap": null
+      }
+    ],
+    "best": {
+      "source": "dealo",
+      "pct": 25.0
+    },
+    "online": true,
+    "offline": false,
+    "stack": "One voucher per order",
+    "steps": [
+      "Visit cinepolisindia.com and select your city, cinema, movie, date, and show time. Then, choose your preferred seats.",
+      "Review the booking details and click Proceed to Pay.",
+      "On the payment page, select the GYFTR Voucher section to pay using your Gift Voucher/e-Pay."
+    ],
+    "restrictions": [],
+    "multiUse": true,
+    "canClub": false
+  },
+  {
+    "slug": "duroflex",
+    "name": "Duroflex",
+    "website": "https://www.duroflexworld.com/",
+    "checked": "2026-11-18",
+    "hubble": {
+      "pct": 9.0,
+      "brand_name": "Duroflex",
+      "in_store": false,
+      "cards": [
+        1000,
+        2500,
+        5000,
+        7500,
+        10000
+      ],
+      "min_amount": 1000,
+      "max_amount": 10000,
+      "typed": false
+    },
+    "sellers": [
+      {
+        "source": "gyftr",
+        "label": "Gyftr",
+        "pct": 11.0,
+        "upi_pct": 11.0,
+        "card_pct": 9.0,
+        "url": "https://www.gyftr.com/duroflex",
+        "online": true,
+        "offline": false,
+        "denominations": [
+          1000,
+          2500,
+          5000,
+          7500,
+          10000
+        ],
+        "typed": false,
+        "typed_min": null,
+        "typed_max": null,
+        "stack_limit": null,
+        "value_cap": null
+      },
+      {
+        "source": "maximize",
+        "label": "Maximize",
+        "pct": 10.25,
+        "upi_pct": 10.25,
+        "card_pct": 8.35,
+        "url": "https://www.maximize.money/gift-cards/DUROFLEX/731",
+        "online": true,
+        "offline": false,
+        "denominations": [
+          1000,
+          2500,
+          5000,
+          10000
+        ],
+        "typed": false,
+        "typed_min": null,
+        "typed_max": null,
+        "stack_limit": null,
+        "value_cap": null
+      },
+      {
+        "source": "buyhatke",
+        "label": "BuyHatke",
+        "pct": 8.29,
+        "upi_pct": 8.29,
+        "card_pct": null,
+        "url": "https://buyhatke.com/gift-cards/duroflex-gift-card",
+        "online": true,
+        "offline": false,
+        "denominations": [
+          1000,
+          2500,
+          5000,
+          7500,
+          10000
+        ],
+        "typed": false,
+        "typed_min": null,
+        "typed_max": null,
+        "stack_limit": null,
+        "value_cap": 10000.0
+      }
+    ],
+    "best": {
+      "source": "gyftr",
+      "pct": 11.0
+    },
+    "online": true,
+    "offline": false,
+    "stack": null,
+    "steps": [
+      "Visit the website. Add items to your cart and proceed to checkout.",
+      "Select \"Pay via e-pay/ Gift Vouchers\" option.",
+      "You can add vouchers to your e-Pay balance, and your balance will be shown."
+    ],
+    "restrictions": [],
+    "multiUse": true,
+    "canClub": false
+  },
+  {
+    "slug": "archies",
+    "name": "Archies",
+    "website": "https://www.archiesonline.com/",
+    "checked": "2026-11-18",
+    "hubble": {
+      "pct": 13.0,
+      "brand_name": "Archies",
+      "in_store": false,
+      "cards": [
+        100,
+        200,
+        250,
+        500,
+        1000,
+        1500,
+        2000,
+        5000
+      ],
+      "min_amount": 100,
+      "max_amount": 20000,
+      "typed": false
+    },
+    "sellers": [
+      {
+        "source": "buyhatke",
+        "label": "BuyHatke",
+        "pct": 9.76,
+        "upi_pct": 9.76,
+        "card_pct": null,
+        "url": "https://buyhatke.com/gift-cards/archies-gift-card",
+        "online": true,
+        "offline": false,
+        "denominations": [
+          100,
+          200,
+          250,
+          500,
+          1000,
+          1500,
+          2000,
+          5000
+        ],
+        "typed": false,
+        "typed_min": null,
+        "typed_max": null,
+        "stack_limit": null,
+        "value_cap": 5000.0
+      }
+    ],
+    "best": {
+      "source": "dealo",
+      "pct": 13.0
+    },
+    "online": true,
+    "offline": false,
+    "stack": null,
+    "steps": [
+      "Visit www.archiesonline.com",
+      "select the product of your choice and add to the cart.",
+      "Click on Add voucher to top-up balance and pay remaining balance(If any) by another payment modes."
+    ],
+    "restrictions": [],
+    "multiUse": true,
+    "canClub": null
+  },
+  {
+    "slug": "hamleys",
+    "name": "Hamleys",
+    "website": "https://www.hamleys.in/",
+    "checked": "2026-11-18",
+    "hubble": {
+      "pct": 10.0,
+      "brand_name": "Hamleys-Luxe Gift Card",
+      "in_store": true,
+      "cards": [],
+      "min_amount": 1000,
+      "max_amount": 10000,
+      "typed": true
+    },
+    "sellers": [],
+    "best": {
+      "source": "dealo",
+      "pct": 10.0
+    },
+    "online": false,
+    "offline": true,
+    "stack": null,
+    "steps": [],
+    "restrictions": [],
+    "multiUse": null,
+    "canClub": null
+  },
+  {
+    "slug": "ajio-luxe",
+    "name": "AJIO Luxe",
+    "website": "https://www.luxe.ajio.com/",
+    "checked": "2026-11-18",
+    "hubble": {
+      "pct": 6.5,
+      "brand_name": "AJIO LUXE",
+      "in_store": false,
+      "cards": [],
+      "min_amount": 2000,
+      "max_amount": 50000,
+      "typed": true
+    },
+    "sellers": [
+      {
+        "source": "maximize",
+        "label": "Maximize",
+        "pct": 7.0,
+        "upi_pct": 7.0,
+        "card_pct": 5.1,
+        "url": "https://www.maximize.money/gift-cards/AJIO%20Luxe/700",
+        "online": true,
+        "offline": false,
+        "denominations": [
+          5000,
+          10000,
+          20000,
+          50000
+        ],
+        "typed": true,
+        "typed_min": 2000,
+        "typed_max": 50000,
+        "stack_limit": null,
+        "value_cap": null
+      },
+      {
+        "source": "buyhatke",
+        "label": "BuyHatke",
+        "pct": 4.89,
+        "upi_pct": 4.89,
+        "card_pct": null,
+        "url": "https://buyhatke.com/gift-cards/ajio-luxe-gift-card",
+        "online": true,
+        "offline": false,
+        "denominations": [
+          2000,
+          5000,
+          20000,
+          50000
+        ],
+        "typed": false,
+        "typed_min": null,
+        "typed_max": null,
+        "stack_limit": 4,
+        "value_cap": 50000.0
+      },
+      {
+        "source": "gyftr",
+        "label": "Gyftr",
+        "pct": 3.0,
+        "upi_pct": 3.0,
+        "card_pct": 1.5,
+        "url": "https://www.gyftr.com/ajio-luxe",
+        "online": true,
+        "offline": false,
+        "denominations": [
+          2000,
+          5000
+        ],
+        "typed": false,
+        "typed_min": null,
+        "typed_max": null,
+        "stack_limit": null,
+        "value_cap": null
+      }
+    ],
+    "best": {
+      "source": "maximize",
+      "pct": 7.0
+    },
+    "online": true,
+    "offline": false,
+    "stack": "Yes, up to 4 in one order",
+    "steps": [
+      "Visit https://luxe.ajio.com/ or open the AJIO App and log in using your mobile number. Go to ‘My Account’ and click on ‘AJIO Wallet’.",
+      "Go to the ‘Have a Gift Card?’ option and click on ‘Add’.",
+      "Enter the Voucher Code and PIN. After validation, the Voucher Value will be added to your AJIO Wallet.",
+      "Use AJIO Wallet as a payment option during checkout to use your AJIO Cash balance."
+    ],
+    "restrictions": [
+      "other Gift Cards on AJIO Luxe or related platforms",
+      "The Gift Card cannot be used to purchase other Gift Cards"
+    ],
+    "multiUse": false,
+    "canClub": false
   }
 ]
