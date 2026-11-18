@@ -19,7 +19,8 @@ export const SITE_NAME = 'Dealo';
 
 export const HOME_TITLE = 'Dealo — Pay less at Myntra, Nykaa, AJIO and 800+ shops';
 export const DEFAULT_DESCRIPTION =
-  "Buy the shop's own gift card for less and pay with it at checkout. Free, no login. See what you'd really pay at Myntra, Nykaa, AJIO, Skechers, MakeMyTrip and 800+ Indian shops.";
+  // Under 160 characters so Google shows it whole.
+  "Buy the shop's own gift card for less and pay with it at checkout. Free, no login. See what you'd really pay at Myntra, Nykaa, AJIO and 800+ Indian shops.";
 
 /** `title` is what usePageTitle gets (it appends " — Dealo"); `heading`/`intro` mirror the page's visible top. */
 export const PAGE_META = {
@@ -217,7 +218,8 @@ export function shopPageMeta(shop) {
     // and the pages with a plain number in the result got the clicks. So the
     // title uses their words and today's rate (the same one the page shows).
     title: shownPct(shop) ? `${shop.name} gift card discount: ${pct(shownPct(shop))} off today` : `${shop.name} gift card discount today`,
-    description: `${shop.name} gift card (gift voucher): ${bestLine(shop)}. ${compare} With what the voucher can and cannot buy. Checked ${shop.checked}.`,
+    // Kept short so Google shows the "Checked" date instead of cutting it off.
+    description: `${shop.name} gift card (gift voucher): ${bestLine(shop)}. ${compare} Checked ${shop.checked}.`,
     // "gift card" is the phrase people search; "voucher" stays in the body.
     heading: `${shop.name} gift card discount today`,
     intro: `${bestLine(shop)}. Buy the voucher, pay at ${shop.name} with it, keep the difference.`,
@@ -253,7 +255,13 @@ export function shopFaqs(shop) {
       a: `${best} (checked ${shop.checked}). Rates move; this page is rebuilt with every catalogue refresh and the Dealo rate is checked live when the page opens.`,
     },
     {
-      q: `Does the ${shop.name} gift card work with sale prices and coupons?`,
+      q: `How do I buy a ${shop.name} gift card at a discount?`,
+      a: shop.hubble
+        ? `Tap Dealo on this page, pick the amount and pay from your bank app. The code arrives in seconds; enter it at ${shop.name}’s checkout as a gift card.`
+        : `Pick a seller on this page, buy the ${shop.name} gift card for the amount you plan to spend, and enter the code at ${shop.name}’s checkout as a gift card.`,
+    },
+    {
+      q: `Does the ${shop.name} gift card work with sale prices and coupon codes?`,
       a: shop.canClub === false
         ? `No. ${shop.name} does not let a gift voucher be combined with other offers; the voucher pays the final price only.`
         : `A gift voucher is store credit, so it pays whatever price is on screen, after any sale or coupon ${shop.name} itself applies.`,
