@@ -218,7 +218,8 @@ export function shopPageMeta(shop) {
     // title uses their words and today's rate (the same one the page shows).
     title: shownPct(shop) ? `${shop.name} gift card discount: ${pct(shownPct(shop))} off today` : `${shop.name} gift card discount today`,
     description: `${shop.name} gift card (gift voucher): ${bestLine(shop)}. ${compare} With what the voucher can and cannot buy. Checked ${shop.checked}.`,
-    heading: `${shop.name} Gift Voucher discount today`,
+    // "gift card" is the phrase people search; "voucher" stays in the body.
+    heading: `${shop.name} gift card discount today`,
     intro: `${bestLine(shop)}. Buy the voucher, pay at ${shop.name} with it, keep the difference.`,
   };
 }
@@ -242,17 +243,17 @@ export function shopFaqs(shop) {
   const best = shop.best ? bestLine(shop) : 'the rate shown above';
   return [
     {
-      q: `Is a discounted ${shop.name} gift voucher safe?`,
+      q: `Is a discounted ${shop.name} gift card safe?`,
       a: shop.hubble
         ? `Yes. ${DEALO_EXPLAINED}`
         : `Yes. ${SELLERS_EXPLAINED} You pay the seller, get a code, and ${shop.name} accepts the code like money at checkout.`,
     },
     {
-      q: `What is the ${shop.name} gift voucher discount today?`,
+      q: `What is the ${shop.name} gift card discount today?`,
       a: `${best} (checked ${shop.checked}). Rates move; this page is rebuilt with every catalogue refresh and the Dealo rate is checked live when the page opens.`,
     },
     {
-      q: `Does the ${shop.name} voucher work with sale prices and coupons?`,
+      q: `Does the ${shop.name} gift card work with sale prices and coupons?`,
       a: shop.canClub === false
         ? `No. ${shop.name} does not let a gift voucher be combined with other offers; the voucher pays the final price only.`
         : `A gift voucher is store credit, so it pays whatever price is on screen, after any sale or coupon ${shop.name} itself applies.`,
@@ -262,7 +263,20 @@ export function shopFaqs(shop) {
 
 export function shopJsonLd(shop) {
   const faqs = shopFaqs(shop);
+  const meta = shopPageMeta(shop);
   return [
+    // dateModified = the day the rates on the page were checked, so search
+    // engines and AI answers can tell the numbers are current.
+    {
+      '@context': 'https://schema.org',
+      '@type': 'WebPage',
+      name: `${meta.title} — ${SITE_NAME}`,
+      description: meta.description,
+      url: `${SITE_URL}/brands/${shop.slug}/`,
+      dateModified: shop.checked,
+      inLanguage: 'en-IN',
+      isPartOf: { '@type': 'WebSite', name: SITE_NAME, url: `${SITE_URL}/` },
+    },
     {
       '@context': 'https://schema.org',
       '@type': 'FAQPage',

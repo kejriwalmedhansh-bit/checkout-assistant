@@ -25,6 +25,7 @@ import { fileURLToPath } from 'node:url';
 
 import { BRAND_DEALS } from '../src/data/brandDeals.js';
 import {
+  DEFAULT_DESCRIPTION,
   FAQS,
   FAQ_JSON_LD,
   HOME_TITLE,
@@ -38,6 +39,7 @@ import {
   shopFaqs,
   shopJsonLd,
   shopPageMeta,
+  shownPct,
   shownSellers,
   whereToRedeemShop,
 } from '../src/seo/pageMeta.js';
@@ -131,6 +133,78 @@ function shopBody(shop) {
   ].join('');
 }
 
+// The homepage as AI crawlers and search engines read it (they don't run the
+// app). AI check, 18 Nov 2026: this used to be 45 words. Everything here is
+// also on the live homepage or one tap from it: the ticks, the six shop
+// tiles (same shops as HomeExamples.jsx, priced from the same catalogue),
+// the three steps, and links to the shop pages.
+const HOME_SHOPS = ['lifestyle', 'ajio', 'nykaa', 'myntra', 'croma', 'pvr'];
+const BILL = 5000;
+const inr = (n) => `₹${Math.round(n).toLocaleString('en-IN')}`;
+
+function homeBody() {
+  const bySlug = new Map(SHOP_PAGES.map((s) => [s.slug, s]));
+  const tiles = HOME_SHOPS.map((slug) => bySlug.get(slug))
+    .filter((s) => s && shownPct(s))
+    .map((s) => link(`/brands/${s.slug}/`, `${s.name}: a ${inr(BILL)} bill, you pay ${inr(BILL * (1 - shownPct(s) / 100))}`));
+  const top = [...SHOP_PAGES]
+    .filter((s) => shownPct(s))
+    .sort((a, b) => shownPct(b) - shownPct(a))
+    .slice(0, 12)
+    .map((s) => link(`/brands/${s.slug}/`, `${s.name} gift card: ${pct(shownPct(s))} off`));
+  return [
+    head(PAGE_META.home),
+    p('✓ Free · ✓ No login · ✓ Works on sale prices'),
+    p(DEFAULT_DESCRIPTION),
+    '<h2>What you pay today</h2>',
+    list(tiles),
+    '<h2>How it works</h2>',
+    list(
+      [
+        'Paste a link, or type the shop or product. Dealo finds the cheapest way to pay.',
+        'Buy a voucher: the shop’s own gift card, sold below face value. It takes about 30 seconds and the seller is verified.',
+        'Pay less: pay at the shop with the gift card code, like store credit. Each shop page says if it also works on sale prices.',
+      ].map(esc),
+      'ol',
+    ),
+    p('Paying by credit card? Your results also show when a card saves you more.'),
+    '<h2>Biggest gift card discounts today</h2>',
+    list(top),
+    `<p>${link('/brands/', 'See every shop')} · ${link('/how-it-works/', 'How it works')} · ${link('/chatgpt-claude/', 'Use Dealo in ChatGPT and Claude')}</p>`,
+  ].join('');
+}
+
+// /llms.txt: a plain summary for AI tools (ChatGPT, Perplexity, Claude),
+// following llmstxt.org. Rebuilt on every build, so rates stay current.
+function llmsTxt() {
+  const shops = [...SHOP_PAGES]
+    .filter((s) => shownPct(s))
+    .sort((a, b) => a.name.localeCompare(b.name))
+    .map((s) => `- [${s.name} gift card discount](${SITE_URL}/brands/${s.slug}/): ${pct(shownPct(s))} off${s.hubble ? ', sold by Dealo' : ''} (checked ${s.checked})`);
+  return `# Dealo
+
+> Dealo (getdealo.in) shows the cheapest way to pay at Indian shops. Many shops' own gift cards (gift vouchers) sell below face value; buying one and paying with it at checkout is a direct discount anyone can use, with no coupon or bank card needed. Each shop page says whether the card also works on sale prices. Free, no login. Covers Myntra, Nykaa, AJIO, Tata CLiQ, Lifestyle, MakeMyTrip, PVR and 800+ shops.
+
+How it works:
+1. Type a shop or product, or paste a product link, on ${SITE_URL}/
+2. Buy the shop's gift card for less (Dealo sells many itself through Hubble, an official issuer; others come from Gyftr, Maximize or BuyHatke, which are official gift voucher sellers).
+3. Pay at the shop with the gift card code. Dealo never handles card details.
+
+Dealo does not count cashback as a saving and only shows cards that are in stock.
+
+## Main pages
+- [Home: search any shop or product](${SITE_URL}/)
+- [How it works](${SITE_URL}/how-it-works/)
+- [All shops with gift card deals](${SITE_URL}/brands/)
+- [Dealo in ChatGPT and Claude](${SITE_URL}/chatgpt-claude/)
+- [About](${SITE_URL}/about/)
+- [Contact](${SITE_URL}/contact/)
+
+## Gift card discount by shop
+${shops.join('\n')}
+`;
+}
+
 const shopLinks = () =>
   list(SHOP_PAGES.map((s) => link(`/brands/${s.slug}/`, `${s.name} Gift Voucher — ${s.best ? pct(s.best.pct) + ' off' : 'today’s rate'}`)));
 
@@ -144,10 +218,7 @@ const ROUTES = [
     changefreq: 'weekly',
     priority: '1.0',
     meta: PAGE_META.home,
-    body: () =>
-      head(PAGE_META.home) +
-      list([esc('Paste a link'), esc('Buy a voucher — 30 sec · verified'), esc('Pay less')], 'ol') +
-      p('Paying by credit card? There’s something for you on your results.'),
+    body: homeBody,
   },
   {
     path: '/how-it-works/',
@@ -168,6 +239,7 @@ const ROUTES = [
   },
   ...SHOP_PAGES.map((shop) => ({
     path: `/brands/${shop.slug}/`,
+    lastmod: shop.checked,
     changefreq: 'weekly',
     priority: '0.7',
     meta: shopPageMeta(shop),
@@ -267,7 +339,7 @@ const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 ${ROUTES.filter((r) => r.sitemap !== false).map(
   (r) => `  <url>
-    <loc>${SITE_URL}${r.path}</loc>
+    <loc>${SITE_URL}${r.path}</loc>${r.lastmod ? `\n    <lastmod>${r.lastmod}</lastmod>` : ''}
     <changefreq>${r.changefreq}</changefreq>
     <priority>${r.priority}</priority>
   </url>`,
@@ -275,5 +347,6 @@ ${ROUTES.filter((r) => r.sitemap !== false).map(
 </urlset>
 `;
 await writeFile(path.join(DIST, 'sitemap.xml'), sitemap);
+await writeFile(path.join(DIST, 'llms.txt'), llmsTxt());
 
-console.log(`prerender: wrote ${ROUTES.length} pages (${BUY_PAGES.length} buy pages) + sitemap.xml`);
+console.log(`prerender: wrote ${ROUTES.length} pages (${BUY_PAGES.length} buy pages) + sitemap.xml + llms.txt`);
