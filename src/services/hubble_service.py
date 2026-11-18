@@ -28,6 +28,7 @@ import jwt
 
 from ..config import get_settings
 from ..repositories._brand_matching import _strip_generic_suffix_words
+from ..repositories import domain_brand_repository
 from ..repositories.domain_brand_repository import brand_for_domain
 
 
@@ -207,7 +208,7 @@ def buy_slug(brand_name: str) -> str:
     return re.sub(r"[^a-z0-9]+", "-", brand_name.lower()).strip("-")
 
 
-def buy_link(brand_name: str, amount: int | None = None, src: str | None = None) -> str:
+def buy_link(brand_name: str, amount: int | None = None, src: str | None = None, in_store: bool = False) -> str:
     """The web page where this voucher is bought inside Dealo. Every other
     surface (WhatsApp, extension, chat apps) hands the shopper here, because
     the login and Hubble's payment window only run on the website."""
@@ -217,21 +218,36 @@ def buy_link(brand_name: str, amount: int | None = None, src: str | None = None)
         params["amount"] = int(amount)
     if src:
         params["src"] = src
+    if in_store:
+        # Lifestyle, Max, Home Centre... sell an online and an in-store card
+        # under one name: the link must say which (audit 18 Nov 2026).
+        params["store"] = 1
     query = f"?{urlencode(params)}" if params else ""
     return f"{s.WEBSITE_URL.rstrip('/')}/buy/{buy_slug(brand_name)}{query}"
 
 
-def brand_by_slug(slug: str) -> dict | None:
-    """The catalogue entry a buy link names. Online first; a shop Hubble
-    only sells in-store still answers, the page says so."""
+def brand_by_slug(slug: str, in_store: bool = False) -> dict | None:
+    """The catalogue entry a buy link names. Online first, unless the link
+    says in store (?store=1); a shop Hubble sells only one way still
+    answers, the page says so."""
     exact, _ = _catalogue(_catalogue_path())
     pool = exact.get(normalize(slug)) or []
     if not pool:
         return None
+    if in_store:
+        store = [b for b in pool if "OFFLINE" in b["works"]]
+        if len(store) == 1:
+            return store[0]
     online = [b for b in pool if "ONLINE" in b["works"]]
     if len(online) == 1:
         return online[0]
     return pool[0] if len(pool) == 1 and not online else None
+
+
+# A brief Hubble hiccup uses the last good copy (up to an hour old) instead
+# of turning a buy into "Something went wrong" (audit 18 Nov 2026). Rates
+# rarely move within the hour, and Hubble's own pay screen charges today's.
+_STALE_OK_SECONDS = 60 * 60
 
 
 async def _product(brand_id: str) -> dict | None:
@@ -240,16 +256,18 @@ async def _product(brand_id: str) -> dict | None:
         return hit[1]
     s = get_settings()
     try:
-        async with httpx.AsyncClient(timeout=10) as client:
+        async with httpx.AsyncClient(timeout=6) as client:
             resp = await client.get(
                 f"{API_HOST[s.HUBBLE_ENV]}/v1/store/products/voucher-product/{brand_id}",
                 headers={"X-CLIENT-ID": s.HUBBLE_CLIENT_ID},
             )
             resp.raise_for_status()
-    except httpx.HTTPError as exc:
+            product = resp.json()
+    except (httpx.HTTPError, ValueError) as exc:
         print(f"[hubble] product {brand_id} unavailable: {exc}")
+        if hit and time.time() - hit[0] < _STALE_OK_SECONDS:
+            return hit[1]
         return None
-    product = resp.json()
     _products[brand_id] = (time.time(), product)
     return product
 
@@ -550,6 +568,7 @@ async def offer_for(merchant: str, price: float, in_store: bool = False, link: s
         "rest_at_shop": max(0, int(price) - voucher_total),
         "in_store": in_store,
         "add_voucher_url": brand.get("add_voucher_url"),
+        "shop_url": shop_url(brand["id"]),
         "card": card_details(product, brand["name"], in_store),
     }
 
@@ -594,6 +613,28 @@ def offers_for_shops(items: list[tuple[str, float, bool, str | None]], timeout: 
         return [(False, None) for _ in items]
 
 
+@lru_cache(maxsize=1)
+def _shop_sites() -> dict[str, str]:
+    """Hubble card id -> the shop's own website, from the hand-checked website
+    list, so the "voucher ready" screen's "Open <shop>" button always has
+    somewhere to go (it was empty for most shop-card buys; audit 18 Nov 2026)."""
+    domain_brand_repository._load()
+    sites: dict[str, str] = {}
+    for domain in sorted(domain_brand_repository._domain_to_brand or {}, key=len):
+        for in_store in (False, True):
+            brand = brand_for(domain, in_store)
+            if brand and brand["id"] not in sites:
+                sites[brand["id"]] = f"https://{domain}"
+    return sites
+
+
+def shop_url(brand_id: str) -> str | None:
+    try:
+        return _shop_sites().get(brand_id)
+    except Exception:  # noqa: BLE001 — a missing list must never break a buy
+        return None
+
+
 def worth_showing(hubble_pct: float, best_pct: float | None = None) -> bool:  # noqa: ARG001 — best_pct kept for callers
     """Dealo sells the voucher itself wherever Hubble has it at a real rate
     (owner's call, 3 Nov 2026, replacing the earlier within-2-points rule).
@@ -603,7 +644,7 @@ def worth_showing(hubble_pct: float, best_pct: float | None = None) -> bool:  # 
     return hubble_pct > 0
 
 
-async def brand_info(merchant: str | None = None, slug: str | None = None) -> dict | None:
+async def brand_info(merchant: str | None = None, slug: str | None = None, in_store: bool = False) -> dict | None:
     """What Hubble sells for this shop when there is no cart yet (a shop-name
     search, or a buy link naming the voucher by slug): rate, where it works,
     and the amounts the shopper may pick. Online first; a shop Hubble only
@@ -611,13 +652,17 @@ async def brand_info(merchant: str | None = None, slug: str | None = None) -> di
     s = get_settings()
     if not s.HUBBLE_ENABLED:
         return None
+    # A buy link or search for paying in a shop gets the in-store card when
+    # Hubble sells one (?store=1); otherwise online first, as before.
+    want_store = in_store
     if slug:
-        brand = brand_by_slug(slug)
-        online = brand if brand and "ONLINE" in brand["works"] else None
+        brand = brand_by_slug(slug, want_store)
+        online = brand if brand and "ONLINE" in brand["works"] and not want_store else None
         in_store = None if online else brand
     else:
-        online = brand_for(merchant or "", False)
-        in_store = brand_for(merchant or "", True)
+        store_card = brand_for(merchant or "", True)
+        online = None if (want_store and store_card) else brand_for(merchant or "", False)
+        in_store = store_card
         brand = online or in_store
     if not brand:
         return None

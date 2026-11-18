@@ -35,7 +35,7 @@ export default function BuyFlow({ offer, merchant, storeLink, price, shopLink, p
   const keepWith = {
     brand: offer.brand_name,
     add_voucher_url: offer.add_voucher_url || null,
-    shop_link: shopLink || null,
+    shop_link: shopLink || offer.shop_url || null,
     in_store: Boolean(offer.in_store),
   };
   const [step, setStep] = useState('loading');
@@ -47,11 +47,14 @@ export default function BuyFlow({ offer, merchant, storeLink, price, shopLink, p
   const [order, setOrder] = useState(null);
   const [slow, setSlow] = useState(false);
   const paid = useRef(false);
+  // Which payment screen this is (from /session): the code fetched after
+  // paying must be this purchase's, never an earlier one's.
+  const session = useRef(null);
 
   const openStore = async (token, buyerName = name) => {
     setBusy(true);
     try {
-      const { url } = await hubbleApi.session({
+      const { url, session: sid } = await hubbleApi.session({
         id_token: token,
         name: (buyerName || '').trim() || readName(),
         marketing_optin: optin,
@@ -65,6 +68,7 @@ export default function BuyFlow({ offer, merchant, storeLink, price, shopLink, p
         src: src || null,
         placement: placement || null,
       });
+      session.current = sid || null;
       setSignedIn(true);
       track('Hubble Store Opened', ev);
       setStoreUrl(url);
@@ -112,7 +116,7 @@ export default function BuyFlow({ offer, merchant, storeLink, price, shopLink, p
       if (kind === 'launch_link') openHubbleLink(msg.properties?.link);
       if (kind === 'payment_success') {
         paid.current = true;
-        markPending(keepWith);
+        markPending({ ...keepWith, session: session.current });
         track('Hubble Payment Success', ev);
       }
       if (kind === 'payment_fail') track('Hubble Payment Failed', ev);
@@ -133,7 +137,7 @@ export default function BuyFlow({ offer, merchant, storeLink, price, shopLink, p
       // straight away, instead of waiting for the shopper to close Hubble's.
       if (kind === 'voucher_generation_success') {
         paid.current = true;
-        markPending(keepWith);
+        markPending({ ...keepWith, session: session.current });
         setStep('done');
       }
       if (kind === 'close') {
@@ -158,15 +162,21 @@ export default function BuyFlow({ offer, merchant, storeLink, price, shopLink, p
 
   // The voucher code reaches Dealo through Hubble's order webhook a moment
   // after payment; ask a few times before falling back to Hubble's own copy.
+  const readyOnce = useRef(false);
   useEffect(() => {
-    if (step !== 'done') return undefined;
-    track('Voucher Ready', ev);
-    onBought?.();
+    if (step !== 'done' || order) return undefined;
+    if (!readyOnce.current) {
+      readyOnce.current = true;
+      track('Voucher Ready', ev);
+      onBought?.();
+    }
     let tries = 0;
     let timer;
     const poll = async () => {
       const token = await idToken();
-      const res = token ? await hubbleApi.latestOrder(token).catch(() => null) : null;
+      const res = token
+        ? await hubbleApi.latestOrder(token, { session: session.current, brand: offer.brand_name }).catch(() => null)
+        : null;
       if (res?.found) {
         setOrder(res);
         saveOrder(res, keepWith);
@@ -342,19 +352,47 @@ export default function BuyFlow({ offer, merchant, storeLink, price, shopLink, p
                   </Box>
                 ))
               ) : (
-                <Text fontSize="13px" color="text2" textAlign="center">
-                  {slow ? 'Your code is on its way. It will show under “Your vouchers” in the menu.' : 'Fetching your code…'}
-                </Text>
+                <Flex direction="column" align="center" gap="8px">
+                  <Text fontSize="13px" color="text2" textAlign="center">
+                    {slow ? 'Your code is on its way. It will show under “Your vouchers” in the menu.' : 'Fetching your code…'}
+                  </Text>
+                  {slow && (
+                    // Never a dead end: Hubble's own page with every card this
+                    // number bought (code + PIN), in the same window; closing
+                    // it comes back here.
+                    <Button
+                      size="sm"
+                      variant="outline"
+                      borderRadius="pill"
+                      onClick={async () => {
+                        track('Code Slow Opened Hubble', ev);
+                        try {
+                          const token = await idToken();
+                          const { url } = await hubbleApi.card(token);
+                          setStoreUrl(url);
+                          setStep('store');
+                        } catch {
+                          onClose();
+                          setVouchersOpen(true);
+                        }
+                      }}
+                    >
+                      See my code now
+                    </Button>
+                  )}
+                </Flex>
               )}
               {!offer.in_store && !offer.add_voucher_url && offer.card?.steps?.length > 0 && <VoucherSteps steps={offer.card.steps} />}
-              {offer.in_store ? (
+              {offer.in_store || !(offer.add_voucher_url || shopLink || offer.shop_url) ? (
                 <Text fontSize="14px" fontWeight={700} textAlign="center">
-                  Show this code and PIN at the {offer.brand_name} counter when you pay.
+                  {offer.in_store
+                    ? `Show this code and PIN at the ${offer.brand_name} counter when you pay.`
+                    : `Use this code at ${offer.brand_name} checkout.`}
                 </Text>
               ) : (
                 <Button
                   as="a"
-                  href={offer.add_voucher_url || shopLink || undefined}
+                  href={offer.add_voucher_url || shopLink || offer.shop_url}
                   target="_blank"
                   rel="noopener"
                   onClick={() => voucher && copy(voucher.code)}
