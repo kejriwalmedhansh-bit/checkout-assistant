@@ -7,6 +7,8 @@ auth. Everything (search cache, WhatsApp sessions) lives in process memory.
 """
 from __future__ import annotations
 
+import asyncio
+from contextlib import asynccontextmanager
 from typing import Any
 
 from fastapi import FastAPI
@@ -16,11 +18,27 @@ from .api.routers import cards, chat_app, conversations, health, hubble, redirec
 from .config import get_settings
 
 
+@asynccontextmanager
+async def _lifespan(app: FastAPI):
+    # Keeps Hubble's list and popular vouchers' rates current beside the
+    # server (see hubble_service.keep_current).
+    from .services import hubble_service
+
+    stop = asyncio.Event()
+    task = asyncio.create_task(hubble_service.keep_current(stop))
+    try:
+        yield
+    finally:
+        stop.set()
+        task.cancel()
+
+
 def create_app() -> FastAPI:
     app = FastAPI(
         title="Dealo Backend",
         description="Pre-checkout purchase optimization engine for Indian e-commerce.",
         version="0.2.0",
+        lifespan=_lifespan,
     )
 
     settings = get_settings()
