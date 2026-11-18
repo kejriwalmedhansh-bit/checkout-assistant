@@ -727,9 +727,9 @@ def _hubble_card(name: str, in_store: bool = False) -> dict | None:
         "brand_name": info["brand_name"],
         "slug": hubble_service.buy_slug(info["brand_name"]),
         "voucher_source": "hubble",
-        "voucher_url": hubble_service.buy_link(info["brand_name"], in_store=info["in_store"]),
+        "voucher_url": hubble_service.buy_link(info["brand_name"], in_store=bool(info.get("in_store"))),
         "best_discount_pct": info["discount_pct"],
-        "in_store": info["in_store"],
+        "in_store": bool(info.get("in_store")),
         "denominations": info["cards"],
     }
 
