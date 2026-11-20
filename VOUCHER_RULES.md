@@ -47,25 +47,6 @@ This prevents both:
 - False negatives (assuming "not mentioned = no")
 - False positives (assuming "not mentioned = yes")
 
-## Using in Code
-
-```python
-from src.services.voucher_service import validate_voucher_against_rules
-
-# Check if a voucher can be used for a specific scenario
-valid, reason = validate_voucher_against_rules(
-    source="gyftr",
-    slug="titan",
-    use_case={
-        "on_sale_item": True,
-        "combine_with_other": False,
-    }
-)
-
-if not valid:
-    print(f"Cannot use: {reason}")
-```
-
 ## Curating New Rules
 
 To add or update a brand's rules:
@@ -89,7 +70,6 @@ Until then, the 8-brand pilot rules are live and prevent the most common mistake
 ## Integration Status
 
 - ✅ `voucher_service.py`: Loads rules and provides validation API
-- ⏳ `build_deals()`: Can use `validate_voucher_against_rules()` to filter out invalid deals
 - ⏳ `pipeline.py`: Can check rules before recommending routes
 - ⏳ `whatsapp/formatter.py`: Can explain why a voucher can't be used
 

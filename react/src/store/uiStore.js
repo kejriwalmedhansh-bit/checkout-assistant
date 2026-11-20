@@ -10,7 +10,6 @@ export const useUiStore = create(
     (set, get) => ({
       sidebarCollapsed: false,
       toggleSidebar: () => set({ sidebarCollapsed: !get().sidebarCollapsed }),
-      setSidebarCollapsed: (value) => set({ sidebarCollapsed: value }),
 
       // The "do this next" bubbles on the results page. On by default and shown
       // every visit — the voucher-then-checkout order catches out repeat users
