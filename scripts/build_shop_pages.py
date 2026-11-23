@@ -140,7 +140,18 @@ SHOPS: list[tuple[str, str, str, list[str]]] = [
     ("ray-ban", "Ray-Ban", "ray-ban.com", []),
     ("wonderchef", "Wonderchef", "wonderchef.com", []),
     ("healthians", "Healthians", "healthians.com", []),
+    # Added 23 Nov 2026: subscriptions and memberships Dealo sells at 8% or
+    # more. Not gift cards, so the page says "subscription" / "membership"
+    # (see SUBSCRIPTIONS) and lists what each plan voucher costs.
+    ("sonyliv", "SonyLIV", "sonyliv.com", ["SonyLiv", "Sony LIV"]),
+    ("zee5", "ZEE5", "zee5.com", []),
+    ("amazon-prime", "Amazon Prime", "primevideo.com", []),
+    ("swiggy-one", "Swiggy One", "swiggy.com", []),
 ]
+
+# slug -> the word people search with ("sonyliv subscription offer",
+# "amazon prime membership offer"). These pages never say "gift card".
+SUBSCRIPTIONS = {"sonyliv": "subscription", "zee5": "subscription", "amazon-prime": "membership", "swiggy-one": "membership"}
 
 SOURCES = [("gyftr", "Gyftr"), ("maximize", "Maximize"), ("buyhatke", "BuyHatke")]
 _SUFFIX = re.compile(r"(egiftcard|giftcard|egiftvoucher|giftvoucher|evoucher|voucher|ecard|online)$")
@@ -213,6 +224,9 @@ def hubble_rate(name: str) -> dict | None:
         "min_amount": b.get("min_amount"),
         "max_amount": b.get("max_amount"),
         "typed": bool(b.get("typed")),
+        # The service's own redeem steps and terms, word for word.
+        "steps": [x for x in (b.get("card") or {}).get("steps") or [] if isinstance(x, str)][:6],
+        "terms": [x for x in (b.get("card") or {}).get("terms") or [] if isinstance(x, str)][:6],
     }
 
 
@@ -305,6 +319,7 @@ def main() -> None:
             "offline": any(r["offline"] for r in sellers) or bool(h and h["in_store"]),
             "stack": stack,
             **terms,
+            **({"kind": "subscription", "noun": SUBSCRIPTIONS[slug]} if slug in SUBSCRIPTIONS else {}),
         })
         print(f"  {name}: dealo {h['pct'] if h else '-'}%  " + "  ".join(f"{r['label']} {r['pct']}%" for r in sellers))
 

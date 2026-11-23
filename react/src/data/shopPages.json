@@ -11,7 +11,21 @@
       "cards": [],
       "min_amount": 10,
       "max_amount": 10000,
-      "typed": true
+      "typed": true,
+      "steps": [
+        "Open the app or website, visit the profile section and click on “Payments & Currencies”",
+        "Select the “gift cards” option and scroll down and click on “Manage gift cards”",
+        "Click on Add Gift Card and enter the Gift Card number and PIN.",
+        "Click on Gift Card or Myntra Credit at the time of checkout."
+      ],
+      "terms": [
+        "Comes with 1 year validity",
+        "Upto 15 virtual cards can be clubbed in a single order and gift card can be used multiple times as long as it carries a balance",
+        "All brand funded offers can be clubbed during purchase",
+        "This Gift Card cannot be used to purchase other gift cards",
+        "In cases where the order is cancelled, the Gift Card amount shall be refunded to the source Gift Card. The Gift Card amount shall not be refunded to the user's cashback account",
+        "If the order value exceeds the Gift Card amount, the balance must be paid by Credit Card/Debit Card/Internet Banking/. The Cash on Delivery payment option cannot be used to pay the balance amount"
+      ]
     },
     "sellers": [
       {
@@ -118,7 +132,20 @@
       "cards": [],
       "min_amount": 50,
       "max_amount": 50000,
-      "typed": true
+      "typed": true,
+      "steps": [
+        "Visit to www.ajio.com",
+        "Go to My Account and then <b>Ajio Wallet</b>.",
+        "In the section Have a Gift Card, click on Add.",
+        "Enter your 16 digit code and 6 digit pin and click on Add to Ajio Wallet.",
+        "The amount of the gift card can now be used at checkout."
+      ],
+      "terms": [
+        "Comes with 1 year validity; applicable on all products except purchase of fine jewellery, silver and gold coins",
+        "All Brand funded offers can be clubbed during the purchase but delivery and platform fee cant be paid through gift card, butVoucher will not be applicable on H&M branded products",
+        "Multiple gift cards can be clubbed to make a purchase and gift card can be used to make multiple purchases",
+        "Gift card once purchased cannot be cancelled or refunded"
+      ]
     },
     "sellers": [
       {
@@ -221,7 +248,18 @@
       "cards": [],
       "min_amount": 250,
       "max_amount": 10000,
-      "typed": true
+      "typed": true,
+      "steps": [
+        "Visit to www.Nykaa.com and select the items you want to purchase.",
+        "Once you reach our payment page, select the Gift Card payment option.",
+        "Enter your 16-digit Card Code and the corresponding Card PIN and click on apply. The Gift Card amount will be deducted from the payable amount.",
+        "If the amount of your e-Gift Card doesn't cover your order amount, you will be prompted to select an additional payment option."
+      ],
+      "terms": [
+        "Comes with 1-year validity and cannot be used to purchase Gold/Silver Coins, Gold/Silver Bars, Jewellery and cross-border products",
+        "Gift card can be used multiple times",
+        "For offline transaction, if the order value is less than the Gift Card amount, Gift Card won’t be applied to the order"
+      ]
     },
     "sellers": [
       {
@@ -326,7 +364,18 @@
       "cards": [],
       "min_amount": 250,
       "max_amount": 10000,
-      "typed": true
+      "typed": true,
+      "steps": [
+        "Go to Nykaa.com and select the items you want to purchase.",
+        "Once you reach our payment page, select the Gift Card payment option.",
+        "Enter your 16-digit Card Code and the corresponding Card PIN and click on apply. The Gift Card amount will be deducted from the payable amount.",
+        "If the amount of your e-Gift Card doesn't cover your order amount, you will be prompted to select an additional payment option."
+      ],
+      "terms": [
+        "Comes with 1 year validity and cannot be used to purchase Gold/Silver Coins, Gold/Silver Bars and Jewellery",
+        "Gift card can be used multiple times",
+        "For offline transaction if the order value is less than the Gift Card amount, Gift Card won’t be applied to the order"
+      ]
     },
     "sellers": [
       {
@@ -433,7 +482,21 @@
       "cards": [],
       "min_amount": 1001,
       "max_amount": 50000,
-      "typed": true
+      "typed": true,
+      "steps": [
+        "Go to the Money section in your Zomato profile",
+        "Tap on 'Claim a Gift Card'",
+        "Enter the 16-digit code and 6-digit PIN",
+        "The amount will reflect under Gift Card Balance."
+      ],
+      "terms": [
+        "Comes with 1 year validity. The gift card can be used multiple times",
+        "Users can add multiple gift cards to Zomato Money at once",
+        "Max. ₹25,000 per month can be loaded into Zomato Money; sometimes giftcards may take 24 hours to activate",
+        "All brand-funded offers can be clubbed during the purchase (no credit/debit/other payment mode related offers can be clubbed) for delivery",
+        "CANNOT be used for dineout (paying offline at restaurants)",
+        "In case multiple gift cards are loaded to a user's Zomato account, the one having the earliest expiration date will be applied to the user's purchases on the Zomato platform"
+      ]
     },
     "sellers": [
       {
@@ -531,7 +594,18 @@
       ],
       "min_amount": 100,
       "max_amount": 50000,
-      "typed": false
+      "typed": false,
+      "steps": [
+        "Open the Swiggy app and click on “Profile”",
+        "Click on “Swiggy Money” and then “Add Gift Card”",
+        "Enter your 16 digit code and 6 digit PIN, press “Add Gift Card”.",
+        "The amount of the gift card can now be used at checkout"
+      ],
+      "terms": [
+        "Comes with 6 month validity. Multiple gift cards can be added to an account.",
+        "The gift card can be used multiple times as long as it carries a balance",
+        "The amount can be used in multiple transactions. The amount covers taxes, packing charges, and delivery fees."
+      ]
     },
     "sellers": [],
     "best": {
@@ -558,7 +632,18 @@
       "cards": [],
       "min_amount": 50,
       "max_amount": 10000,
-      "typed": true
+      "typed": true,
+      "steps": [
+        "Download the Amazon App and log in",
+        "Visit the Menu Section and choose Amazon Pay tab",
+        "Click on a Gift Card tab to add the gift voucher",
+        "Gift card amount will be added to your existing balance"
+      ],
+      "terms": [
+        "Comes with 1 year validity and is not eligible for use on Amazon Business marketplace effective 15th November 23",
+        "Amazon Shopping voucher is not redeemable in the following categories – bill payment and recharge, travel and financial services, amazon pay merchants, gift cards and digital content, Audiobooks and kindle",
+        "Max. ₹15,000 worth of virtual cards can be generated per calendar month"
+      ]
     },
     "sellers": [
       {
@@ -658,7 +743,19 @@
       "cards": [],
       "min_amount": 50,
       "max_amount": 10000,
-      "typed": true
+      "typed": true,
+      "steps": [
+        "Download the flipkart app and log in.",
+        "Go to My account Section",
+        "Select Saved Credit/Debit & Gift Cards",
+        "You will see an option to Add Flipkart Gift Card"
+      ],
+      "terms": [
+        "Comes with 1 year validity and can't be used on flights",
+        "All brand funded offers can be clubbed during purchase",
+        "Max. voucher amount of ₹10,000 can be generated at a time.",
+        "You may purchase up to 100 Gift Cards in any 30-day period, with an aggregate value not exceeding ₹1,00,000 (Rupees One Lakh only) per month. Purchases exceeding these limits shall be cancelled automatically."
+      ]
     },
     "sellers": [
       {
@@ -760,7 +857,20 @@
       "cards": [],
       "min_amount": 500,
       "max_amount": 10000,
-      "typed": true
+      "typed": true,
+      "steps": [
+        "Visit https://www.croma.com/ . Choose the products you would like to buy",
+        "Click on Buy Now and Checkout.",
+        "Click on Proceed to Payment & select the option Gift card/voucher."
+      ],
+      "terms": [
+        "Comes with 1 year validity, and the gift card can used multiple times",
+        "All brand funded offers can be clubbed during purchase but gift card cannot be used along with Tata Neu coins",
+        "Upto 5 virtual cards can be clubbed in a single order",
+        "Should your purchase value exceed the value of the Electronic Gift Vouchers, the differential amount of such purchase should be paid using the other modes of payment available on the website",
+        "In case of Returns/cancellations of the redemption done via EGV, the refund of the same will be done to the effect of the value of the contribution of the EGV to the sale",
+        "Gift cards are multi-use. So you can use a gift card multiple times as long as it carries a balance. We would, however, recommend generating gift cards for the amount equivalent to your purchase"
+      ]
     },
     "sellers": [
       {
@@ -909,7 +1019,16 @@
       "cards": [],
       "min_amount": 250,
       "max_amount": 250000,
-      "typed": true
+      "typed": true,
+      "steps": [
+        "Login into www.makemytrip.com and select your Flight/Hotel/Holiday package and fill in the required details.",
+        "On the payment page, click on Gift Cards and e Wallets. Enter your voucher number and PIN number."
+      ],
+      "terms": [
+        "Comes with 1 year validity. Multiple Gift Cards (up to 3) can be clubbed in 1 transaction.",
+        "No other offers can be clubbed while purchasing with this virtual card. Gift Cards does not apply on mybiz accounts",
+        "This Gift card is not valid on Cab, Bus, Rail, Homestays and VISA bookings"
+      ]
     },
     "sellers": [
       {
@@ -997,7 +1116,20 @@
       ],
       "min_amount": 500,
       "max_amount": 5000,
-      "typed": false
+      "typed": false,
+      "steps": [
+        "Visit www.yatra.com",
+        "Please select your Flight/Hotel and fill required details till you reach the payment page.",
+        "On payments page, Select Gift Voucher as your Payment Mode.",
+        "Enter your Gift Card Number (16 Digit) and 6 Digit PIN.",
+        "Click on Pay Now and pay the Balance amount (if any) using other Payment Modes listed."
+      ],
+      "terms": [
+        "Comes with 6 months validity",
+        "No other offers can be clubbed while purchasing with this virtual card",
+        "This Gift card is not valid on Bus, Rail, Homestays and VISA",
+        "Upto 3 virtual cards can be clubbed in a single order"
+      ]
     },
     "sellers": [
       {
@@ -1073,7 +1205,18 @@
       "cards": [],
       "min_amount": 300,
       "max_amount": 50000,
-      "typed": true
+      "typed": true,
+      "steps": [
+        "Visit the Clear Trip website",
+        "Select the flights/ hotels/ packages you wish to buy",
+        "On the payment page, click on “Apply coupon or gift card”",
+        "Enter your 16 digit code and 6 digit PIN and click on “Make payment”"
+      ],
+      "terms": [
+        "Comes with 1 year validity and only valid on cleartrip website",
+        "Up to 15 gift cards can be used in a single transaction but Gift card is not valid on Bus, Rail, Homestays, VISA and convenience fee",
+        "Gift Cards cannot be clubbed with any other offer, including but not limited to cashback, discounts, etc., on a particular credit/debit card"
+      ]
     },
     "sellers": [
       {
@@ -1178,7 +1321,20 @@
       "cards": [],
       "min_amount": 100,
       "max_amount": 5000,
-      "typed": true
+      "typed": true,
+      "steps": [
+        "Log on to www.pvrcinemas.com and www.inoxmovies.com or download PVR and INOX Mobile APP Create an account with your Mobile No and Email ID to proceed. If already registered, kindly log in to proceed:",
+        "Select the preferred movie,  Select Date, Show Time and Cinema to proceed",
+        "accept the terms & conditions",
+        "Select Seat / Row and click on Proceed tab. (Recliner seats are not part of the deal)",
+        "Will take you to the next page for the food option you can select or skip the page.",
+        "Click on Proceed Button."
+      ],
+      "terms": [
+        "Can only be used once offline; can be used multiple times online",
+        "Not applicable on PVR Opulent",
+        "Not applicable on certain INOX properties"
+      ]
     },
     "sellers": [
       {
@@ -1279,7 +1435,21 @@
       "cards": [],
       "min_amount": 100,
       "max_amount": 10000,
-      "typed": true
+      "typed": true,
+      "steps": [
+        "Download the BookMyShow App and Log in.",
+        "Select a show/ event and proceed to checkout",
+        "Under “Choose Payment Method”, click on “More payment options”",
+        "Select the gift voucher option and enter the gift voucher card pin (Not card number) and click on “Pay now”"
+      ],
+      "terms": [
+        "Comes with 6 months validity and a gift card can be used multiple times",
+        "Multiple cards can be used in 1 transaction",
+        "Cannot be redeemed at the Box Office, cinema halls or venues",
+        "All brand-funded offers can be clubbed during the purchase",
+        "If the balance on the gift card is lower than the transaction value, the balance can be paid using other payment methods",
+        "Gift card balance cannot be used to purchase another gift card"
+      ]
     },
     "sellers": [
       {
@@ -1337,7 +1507,19 @@
       "cards": [],
       "min_amount": 50,
       "max_amount": 20000,
-      "typed": true
+      "typed": true,
+      "steps": [
+        "Open the Uber App and click on the Account tab.",
+        "Click Wallet and then + Gift Card",
+        "Enter the gift card code and click on Save",
+        "CANNOT be used for Auto, please read full terms",
+        "The amount of the gift card can now be used at checkout."
+      ],
+      "terms": [
+        "Comes with 6 months' validity.",
+        "All brand funded offers can be clubbed during purchase",
+        "Multiple gift cards can be added to an account, but max. ₹10000 per month can be loaded into Uber Wallet."
+      ]
     },
     "sellers": [
       {
@@ -1431,7 +1613,20 @@
       "cards": [],
       "min_amount": 50,
       "max_amount": 10000,
-      "typed": true
+      "typed": true,
+      "steps": [
+        "Visit to www.bigbasket.com",
+        "Click on the “profile” icon and then go to “My Account”",
+        "Open My Gift Card Tab from My Account Section",
+        "Enter your Gift Voucher number and PIN and click on “Redeem”",
+        "The entire Gift Card amount shall be credited to bigbasket wallet (‘bbWallet’).",
+        "Add products to the basket and complete the payment by choosing bbWallet payment option."
+      ],
+      "terms": [
+        "Comes with 1 year validity. Gift card can be used multiple times.",
+        "Gift Card cannot be used along with Tata neu coins",
+        "All brand funded offers can be clubbed during purchase; but gift card cannot be used on BBdaily"
+      ]
     },
     "sellers": [
       {
@@ -1546,7 +1741,19 @@
       ],
       "min_amount": 500,
       "max_amount": 10000,
-      "typed": false
+      "typed": false,
+      "steps": [
+        "Open the Tata Cliq App and click on the “My Account” tab",
+        "Click on “Cliq Cash",
+        "In the “Gift cards” section click on “Add It Here”",
+        "Enter your 16 digit code and 6 digit PIN, press “Add Card”",
+        "The amount of the gift card can now be used at checkout"
+      ],
+      "terms": [
+        "Comes with 1 year validity, and gift cards can be used multiple times",
+        "All brand-funded offers can be clubbed during purchase, excluding the purchase of gold or silver items such as jewellery and coins",
+        "Gift card cannot be used along with Tata Neu coins"
+      ]
     },
     "sellers": [
       {
@@ -1654,7 +1861,17 @@
       "cards": [],
       "min_amount": 250,
       "max_amount": 50000,
-      "typed": true
+      "typed": true,
+      "steps": [
+        "Visit www.pepperfry.com and choose the products you would like to buy.",
+        "Select Pepperfry Gift Card as the payment option.",
+        "Enter the Gift Card Number and the Gift Card PIN."
+      ],
+      "terms": [
+        "Comes with 1 year validity",
+        "This gift card can be used multiple times",
+        "Pepperfry GCs are applicable on website only and cannot be redeemed on the Pepperfry Mobile App or in-store"
+      ]
     },
     "sellers": [
       {
@@ -1736,7 +1953,19 @@
       ],
       "min_amount": 1000,
       "max_amount": 50000,
-      "typed": false
+      "typed": false,
+      "steps": [
+        "Before purchasing GC, please ensure that IKEA delivers to your location",
+        "To check, please follow these steps: https://coda.io/@sharad/does-ikea-deliver-to-my-location",
+        "Alternatively, you can check your PIN code against this list: https://coda.io/@sharad/ikea-servicable-pin-codes",
+        "Visit to www.ikea.com or ikea application and add products to you cart",
+        "Proceed to checkout, in the payment section, select Redeem an IKEA gift card",
+        "Enter the gift card details, complete checkout."
+      ],
+      "terms": [
+        "The Gift Card cannot be used to purchase other gift cards.",
+        "Gift Vouchers can only be used in-store and on website for purchases, redemption of gift card on application is not allowed"
+      ]
     },
     "sellers": [
       {
@@ -1817,7 +2046,17 @@
       ],
       "min_amount": 1000,
       "max_amount": 50000,
-      "typed": false
+      "typed": false,
+      "steps": [
+        "Visit the urban ladder website and select the items you want to buy.",
+        "During checkout, select “Gift Card” as the payment option.",
+        "Enter your 16-digit gift card number and PIN number."
+      ],
+      "terms": [
+        "Comes with 1-year validity, and the gift card can be used multiple times",
+        "Upto 5 virtual cards can be clubbed in a single order",
+        "Gift cards, once issued, can't be cancelled or refunded"
+      ]
     },
     "sellers": [
       {
@@ -1899,7 +2138,19 @@
       "cards": [],
       "min_amount": 100,
       "max_amount": 10000,
-      "typed": true
+      "typed": true,
+      "steps": [
+        "Open the Domino’s app, add your items to the cart, proceed to payment options, select Gift Card / e-Voucher, and enter the code.",
+        "If any balance remains after applying the voucher, select Pay in Cash; (or the appropriate payment method) to complete the transaction."
+      ],
+      "terms": [
+        "Comes with the validity of 6 months and is accepted only on the Domino's India Mobile App. It cannot be redeemed directly at Domino’s outlets.",
+        "One Gift card can be used in a single transaction.",
+        "Partial activation is not allowed. This Gift card can be activated only once and cannot be reloaded or revalidated.",
+        "Gift card/e-Pay can be clubbed with existing offers. However, it cannot be redeemed on specific block-out dates as updated by Jubilant FoodWorks Ltd./Domino’s on its website.",
+        "The GV can be converted into e-Pay at the holder's convenience.",
+        "The GV/e-Pay balance cannot be transferred to another e-Pay account, exchanged for cash, or converted into any other currency."
+      ]
     },
     "sellers": [
       {
@@ -2007,7 +2258,17 @@
       ],
       "min_amount": 100,
       "max_amount": 10000,
-      "typed": false
+      "typed": false,
+      "steps": [
+        "Select your choice of products",
+        "During checkout, enter your gift voucher details & pay the remaining amount by credit card/ debit card/ wallet if required.",
+        "To locate the nearest outlet please visit https://www.pizzahut.co.in/?msockid=00439da8d18369f72cc38a92d0e76868"
+      ],
+      "terms": [
+        "Comes with 6 month validity. This gift card can only be used only once.",
+        "Multiple cards can be used in one bill in stores but on Pizza Hut website & mobile app, only 1 gift card can be used in one bill",
+        "Do inform the cashier that you plan to use gift card for making payments before billing"
+      ]
     },
     "sellers": [
       {
@@ -2116,7 +2377,20 @@
       ],
       "min_amount": 100,
       "max_amount": 12500,
-      "typed": false
+      "typed": false,
+      "steps": [
+        "Visit www.online.kfc.co.in",
+        "Choose your preferred food options that you want to buy.",
+        "Choose the E-Gift Card option during the payment process and make the payment to redeem the gift card."
+      ],
+      "terms": [
+        "Comes with 6 months validity, this KFC E-Gift Card (E-GC) is issued by Yum! Restaurants (India) Private Limited & its authorized franchisees for making Payments at participating KFC Stores in India.",
+        "Do inform the cashier that you plan to use E-Gift Card for making payments before billing.",
+        "Purchases can be done on Website / App for the amount or less than that in the card, Example, if a card has a balance of Rs 500, customer can buy for Rs 500 or less on Website / App.",
+        "This E-Gift Card is a one-time use card & any unused balance cannot be used again or be exchanged for Cash.",
+        "Only participating KFC Stores would accept the E-Gift Card, YUM Restaurants and its authorized franchisees would add or remove an outlet without giving any prior notice",
+        "Gift cards, once purchased, cannot be cancelled or refunded"
+      ]
     },
     "sellers": [
       {
@@ -2215,7 +2489,21 @@
       "cards": [],
       "min_amount": 100,
       "max_amount": 5000,
-      "typed": true
+      "typed": true,
+      "steps": [
+        "To locate the nearest outlet please visit https://subway.in/stores",
+        "Customer should announce that he would like to use the Subway E-Gift voucher before placing the order at the Subway offline outlets",
+        "Customer to present the voucher to the cashier via Email/SMS /Whats app",
+        "On check out - provide the 16 digit card number and 6 digit PIN to the Subway outlet personnel"
+      ],
+      "terms": [
+        "Comes with 6 months' validity and can be used only for purchases at Subway restaurants (company-owned and Franchisees) shown in this list: https://coda.io/@sharad/subway-india-stores-gcs",
+        "The Gift card is redeemable only once. Any balance left on the card will be forfeited.",
+        "Each individual Gift Card is redeemable solely on a single transaction by the end customers, and if such gift card is redeemed partially, balance amount shall be deemed to have been lapsed.",
+        "Multiple Gift Cards (i.e. – more than one) cannot be clubbed in a single transaction.",
+        "If the invoice amount exceeds the value of the gift card, balance must be paid by cash, credit or debit card, UPI or any other acceptable forms of payment.",
+        "No refunds and no returns on Gift cards, E-Gift cards and E-Gift vouchers."
+      ]
     },
     "sellers": [
       {
@@ -2296,7 +2584,19 @@
       ],
       "min_amount": 500,
       "max_amount": 3000,
-      "typed": false
+      "typed": false,
+      "steps": [
+        "Open the starbucks website",
+        "Register for a new “My Starbucks Rewards” account or Sign-in with your existing details of “My Starbucks Rewards” account",
+        "On the ‘Add a Card’ screen, enter your 16 digit code and 6 digit PIN",
+        "Your Starbucks eGift Card is ready for use, Tap on the ‘Pay’ section & scan the barcode on the mobile app at any Starbucks store to redeem your eGift card",
+        "To locate the nearest starbucks outlet please visit https://www.starbucks.in/store-locator"
+      ],
+      "terms": [
+        "Comes with 1 year validity. The gift card can be used multiple times.",
+        "All brand-funded offers can be clubbed during the purchase and multiple cards can be used on single purchase",
+        "Can only be redeemed via Starbucks India mobile app"
+      ]
     },
     "sellers": [
       {
@@ -2397,7 +2697,20 @@
       ],
       "min_amount": 1000,
       "max_amount": 20000,
-      "typed": false
+      "typed": false,
+      "steps": [
+        "Open the lifestyle app or website",
+        "Choose the products you wish to buy and proceed to checkout",
+        "Place the order by clicking on the “Buy now button”",
+        "Click on “Have a gift card”",
+        "Enter your 16 digit code and 6 digit PIN",
+        "You can make the balance payment via any other available payment mode"
+      ],
+      "terms": [
+        "Comes with 6 month validity; Gift Cards can be partially redeemed",
+        "Gift Cards are redeemable only through online stores and app of lifestylestores.com",
+        "Gift Cards cannot be redeemed at the physical/brick-and-mortar stores of Lifestyle"
+      ]
     },
     "sellers": [
       {
@@ -2489,7 +2802,19 @@
       "cards": [],
       "min_amount": 100,
       "max_amount": 49000,
-      "typed": true
+      "typed": true,
+      "steps": [
+        "To locate the nearest outlet please visit https://westside.com/apps/s/storelocators",
+        "Before making the purchase confirm the acceptance of the Gift Card at the store",
+        "Choose the products you would like to buy",
+        "Show your Gift Card details to the cashier at the time of billing & pay any balance amount by cash or card",
+        "This E- Gift Card is valid on all merchandise in all Westside stores in India"
+      ],
+      "terms": [
+        "Comes with 1-year validity",
+        "This is a one-time use card and any unused balance will lapse",
+        "Gift Cards can be redeemed only after 8 hours from the time of activation across any Westside stores"
+      ]
     },
     "sellers": [],
     "best": {
@@ -2530,7 +2855,18 @@
       ],
       "min_amount": 500,
       "max_amount": 10000,
-      "typed": false
+      "typed": false,
+      "steps": [
+        "Visit the Decathlon app, website or store",
+        "Choose the products you wish to buy",
+        "For online, during checkout, click on “Add your gift card”",
+        "Enter your 16 digit code and 6 digit PIN and click on Get details"
+      ],
+      "terms": [
+        "Comes with 1-year validity. Gift card can be used multiple times",
+        "All brand-funded offers can be clubbed during purchase",
+        "If the Invoice value is above Omni Card value, then the balance amount can be paid through cash/debit/credit card/UPI for Store Purchases and debit/credit card/UPI/net banking for Online purchases"
+      ]
     },
     "sellers": [
       {
@@ -2700,7 +3036,17 @@
       "cards": [],
       "min_amount": 500,
       "max_amount": 20000,
-      "typed": true
+      "typed": true,
+      "steps": [
+        "Check the outlet locator for a store near you that accepts this Gift Voucher. To locate the nearest outlet please visit https://www.skechers.in/store-locator/",
+        "Choose your product",
+        "Show your Gift Card details to the cashier at the time of billing & pay any balance amount by cash or card."
+      ],
+      "terms": [
+        "Comes with a 6 month validity",
+        "Multiple gift cards can be used against 1 transaction",
+        "This is a 1 time use GC with an expiration date"
+      ]
     },
     "sellers": [
       {
@@ -2808,7 +3154,21 @@
       ],
       "min_amount": 2000,
       "max_amount": 20000,
-      "typed": false
+      "typed": false,
+      "steps": [
+        "Visit the nearest the bata outlet that accepts the gift card. To locate the nearest outlet please visit https://stores.bata.com/",
+        "Share the registered mobile number with the cashier, once products are scanned for invoicing by the cashier.",
+        "Cashier to inform the available Gift Voucher and its balance.",
+        "Customer to confirm the amount to be used for redemption and proceed further for balance payment, if any.",
+        "Cashier to proceed with invoicing."
+      ],
+      "terms": [
+        "Comes with a validity of 6 months and would be accepted at the listed stores",
+        "The Gift card can be clubbed with the existing offers.",
+        "The Gift card can be converted into e-Pay, as per the convenience of the holder.",
+        "Multiple Gift cards can be clubbed and added to the e-Pay balance. The maximum cumulative Gift card value that can be added to the e-Pay balance in 30 days is Rs. 20,000.",
+        "No refunds and no returns on Gift crad, E-Gift cards and E-Gift vouchers."
+      ]
     },
     "sellers": [
       {
@@ -2891,7 +3251,21 @@
       ],
       "min_amount": 1000,
       "max_amount": 50000,
-      "typed": false
+      "typed": false,
+      "steps": [
+        "Download lenskart app or visit https://www.lenskart.com",
+        "Go to \"My Profile\" and select claim gift card.",
+        "Enter the gift card code and pin and then click the claim gift card button.",
+        "A confirmation page appears, verifying that the gift card has been successfully added to the wallet"
+      ],
+      "terms": [
+        "Comes with a validity of 6 months and can be redeemed at the Lenskart-approved platforms, i.e., Lenskart website: www.lenskart.com, app, or offline stores and offline stores/websites/apps of Lenskart affiliates (Platform).",
+        "The Gift cards can be clubbed with existing offers on its website/app/store.",
+        "Gift cards can only be redeemed by adding the code to the Lenskart Wallet via the app or website.",
+        "Once activated, the membership cannot be transferred to another user.",
+        "The purchaser of Gift card may add the Gift Card to the Lenskart Money balance via the Claim option available on the Lenskart APP.",
+        "No refunds and no returns on Gift cards, E-gift cards ad E-Gift vouchers."
+      ]
     },
     "sellers": [
       {
@@ -2996,7 +3370,19 @@
       "cards": [],
       "min_amount": 500,
       "max_amount": 5000,
-      "typed": true
+      "typed": true,
+      "steps": [
+        "Visit https://www.boat-lifestyle.com",
+        "Choose boAt Credits: Add Balance into the Credits >> Enter the 16 Digit Alphanumeric gift cards codes along with Security PIN ,and submit.",
+        "Gift cards amount will be added into the Credits.",
+        "Add your Favourite Products into the cart",
+        "Click on Pay now."
+      ],
+      "terms": [
+        "Comes with 1-year validity and is accepted at https://www.boat-lifestyle.com",
+        "Boat Gift cards can be clubbed with selected offer & promotion",
+        "Gift cards, once purchased, cannot be cancelled or refunded"
+      ]
     },
     "sellers": [
       {
@@ -3151,7 +3537,20 @@
       ],
       "min_amount": 100,
       "max_amount": 50000,
-      "typed": false
+      "typed": false,
+      "steps": [
+        "Go to FirstCry.com and select the items you want to purchase.",
+        "Add products to the cart.",
+        "On the Cart page you will find two options 1- Coupon 2- Gift Certificate",
+        "Choose the Gift Certificate option and Enter your 14-digit Card Number in the field given and click on apply button.",
+        "You will get Gift Certificate applied option.",
+        "The Gift Card amount will be deducted from the payable amount."
+      ],
+      "terms": [
+        "E-Gift Card can be redeemed within a period of 1 year from the date of purchase",
+        "This E-Gift Card cannot be clubbed with other offers",
+        "Only one gift card can be used per order"
+      ]
     },
     "sellers": [
       {
@@ -3262,7 +3661,20 @@
       ],
       "min_amount": 500,
       "max_amount": 2000,
-      "typed": false
+      "typed": false,
+      "steps": [
+        "Log in to the Netmeds website/app, add products to your cart, and proceed to checkout.",
+        "Choose the GyFTR voucher/e-Pay option. You'll be able to view and add available vouchers linked to your account.",
+        "After adding the vouchers to your wallet, you can use them to make purchases."
+      ],
+      "terms": [
+        "Comes with 6-month validity and would be accepted on https://www.netmeds.com/ and Netmeds mobile application.",
+        "This GV/e-Pay entitles customers to order medicines ONLY.",
+        "Multiple GVs can be combined and added to the e-Pay balance.",
+        "The GV can be converted into e-Pay, and then it can be used partially at the holder's convenience.",
+        "The Netmeds e-Pay balance must be linked to the registered mobile number.",
+        "GV/e-Pay is applicable only on the medicine category. Toiletries, Cosmetics, FMCG products, or products of a similar kind cannot be purchased using GV/e-Pay."
+      ]
     },
     "sellers": [
       {
@@ -3406,7 +3818,20 @@
       ],
       "min_amount": 500,
       "max_amount": 5000,
-      "typed": false
+      "typed": false,
+      "steps": [
+        "Visit https://www.myfrido.com & https://mobility.myfrido.com",
+        "Select gift card card as mode of payment",
+        "Enter the amount you wish to redeem"
+      ],
+      "terms": [
+        "Comes with 6-months validity and shall be accepted and redeemed on the following websites https://www.myfrido.com & https://mobility.myfrido.com",
+        "GC is valid on slashed prices and can be clubbed with bank offers. But it cannot be clubbed with any brand promo code applicable on the website(s)",
+        "Gift cards, once purchased, cannot be cancelled or refunded",
+        "Once issued, the GVs shall neither be returned, refunded or cancelled by the Merchant under any circumstances.",
+        "In case of cancellation of the Product(s), the amount as paid by the End User will be transferred into e-Pay.",
+        "After conversion into e-Pay balance, the GV shall be valid for partial redemption. The balance would remain in the e-pay balance and can be used for multiple transactions within the Validity Period"
+      ]
     },
     "sellers": [
       {
@@ -3506,7 +3931,17 @@
       ],
       "min_amount": 500,
       "max_amount": 1000,
-      "typed": false
+      "typed": false,
+      "steps": [
+        "Visit the website, https://www.dailyobjects.com/",
+        "Add products to the cart and proceed to checkout",
+        "Apply the voucher code in the discount code section. Make the payment on the payment page only."
+      ],
+      "terms": [
+        "Comes with a 3 month validity. The gift card can only be used once",
+        "The gift card would be accepted online at https://www.dailyobjects.com & on app",
+        "Only 1 gift card can be used against 1 transaction"
+      ]
     },
     "sellers": [
       {
@@ -3601,7 +4036,21 @@
       "cards": [],
       "min_amount": 100,
       "max_amount": 10000,
-      "typed": true
+      "typed": true,
+      "steps": [
+        "Visit https://www.beyoung.in/",
+        "Select desired products & add to cart",
+        "On the payment page select Pay with E-pay option. Enter your mobile number and OTP",
+        "Add gift card and proceed for payment"
+      ],
+      "terms": [
+        "Comes with 6 months validity and will be accepted only on the website at www.beyoung.in",
+        "The GV/e-Pay can be clubbed with the existing offers.",
+        "The GV/e-Pay can be used for all purchases of products and services at the Beyoung website.",
+        "The GV can be converted into e-Pay as per the holder's convenience.",
+        "The GV/e-Pay balance cannot be transferred to another e-Pay account, exchanged for cash, or converted into any other form of currency.",
+        "The e-Pay balance must be linked to the registered mobile number."
+      ]
     },
     "sellers": [
       {
@@ -3699,7 +4148,21 @@
       ],
       "min_amount": 1000,
       "max_amount": 2000,
-      "typed": false
+      "typed": false,
+      "steps": [
+        "Visit the website/app and login",
+        "Search and select the Flight",
+        "On the website scroll through the “offer” section and click on “Have a coupon code?” and enter the code",
+        "App user can click on “Have a coupon code?” and enter the code"
+      ],
+      "terms": [
+        "Gift card can only be used ONCE, please use all value in one transaction itself",
+        "Comes with 3 months validy; can be redeemed only on ixigo website/app",
+        "Gift card is only valid for booking of ixigo Flights (Domestic/International) only",
+        "Only one voucher can be used in one transaction",
+        "Gift card cannot be clubbed with existing offers on the ixigo website/app",
+        "Gift cards, once purchased, cannot be cancelled or refunded"
+      ]
     },
     "sellers": [
       {
@@ -3798,7 +4261,20 @@
       "cards": [],
       "min_amount": 500,
       "max_amount": 5000,
-      "typed": true
+      "typed": true,
+      "steps": [
+        "Open the Third Wave coffee app",
+        "Sign-in on the app and click on “Pay” section followed by “Redeem Gift Card",
+        "Click on ‘Redeem Gift Card’",
+        "Enter your gift card code and pin number",
+        "Wallet will be recharged as per the gift card value.",
+        "Your Third Wave Coffee eGift Card is ready for use, Tap on ‘Pay’ section and scan the barcode any Third Wave Coffee store to redeem your eGift card"
+      ],
+      "terms": [
+        "Multiple gift cards can be added to an account.",
+        "The gift card can be used multiple times as long as it carries a balance",
+        "The amount covers taxes, packing charges, and delivery fees."
+      ]
     },
     "sellers": [
       {
@@ -3878,7 +4354,20 @@
       ],
       "min_amount": 500,
       "max_amount": 5000,
-      "typed": false
+      "typed": false,
+      "steps": [
+        "Visit the philip's website and add items to your cart.",
+        "Proceed to checkout.",
+        "In E-pay/Gift voucher section add the gift card and check the balance, then enter the amount that you want to redeem and proceed."
+      ],
+      "terms": [
+        "Comes with 6 months' validity and will be accepted on the Philips website at https://www.domesticappliances.philips.co.in/.",
+        "The Gift card will not be applicable to be used over and above any discounts offered by the brand on the website.",
+        "The Gift card can be used for all purchases of products and services at the Philips website.",
+        "The Gift card can be converted into e-Pay as per the holder's convenience.",
+        "The Gift card balance cannot be transferred to another e-Pay account, exchanged for cash, or converted into any other form of currency.",
+        "The e-Pay balance must be linked to the registered mobile number."
+      ]
     },
     "sellers": [
       {
@@ -3973,7 +4462,20 @@
       "cards": [],
       "min_amount": 1000,
       "max_amount": 20000,
-      "typed": true
+      "typed": true,
+      "steps": [
+        "Visit Birkenstock.in",
+        "Complete shopping",
+        "Go to checkout and select gift card tender",
+        "Enter Gift card no and pin and click redeem",
+        "Add any other coupon you have after you have appled gift card",
+        "Any additional value is paid by customer using other tender modes"
+      ],
+      "terms": [
+        "Comes with 1 year validity",
+        "Maximum 5 gift cards can be used in 1 transaction",
+        "GIft card can be used multiple times"
+      ]
     },
     "sellers": [
       {
@@ -4048,7 +4550,20 @@
       "cards": [],
       "min_amount": 250,
       "max_amount": 100000,
-      "typed": true
+      "typed": true,
+      "steps": [
+        "Visit www.goibibo.com or open goibibo Android & IOS app.",
+        "On my profile page, click on 'Add New Gift Card'.",
+        "Enter the 16-digit card number with the 6-digit PIN.",
+        "Tap on 'Add to My Account."
+      ],
+      "terms": [
+        "Comes with the validity of 12 months and can be redeemed online at www.goibibo.com or on the goibibo Android and IOS app.",
+        "This Gift Card is valid on Flights, Hotels, Holidays, Trains, Buses & Cabs.",
+        "This Gift Card/voucher cannot be clubbed with any other ongoing offer, discount, cashback, or promotion run by goibibo on the app or website",
+        "Multiple Gift Cards (up to 3) can be combined and used in one booking.",
+        "No returns and no refunds on Gift cards, E-Gift cards and E-Gift vouchers."
+      ]
     },
     "sellers": [
       {
@@ -4109,7 +4624,17 @@
       ],
       "min_amount": 500,
       "max_amount": 50000,
-      "typed": false
+      "typed": false,
+      "steps": [
+        "Go to www.easemytrip.com or open app",
+        "Enter the 16 digit Gift card number on the payment page under the Gift Card section",
+        "Click on Pay Now and pay the Balance amount (if any) using other Payment Modes listed."
+      ],
+      "terms": [
+        "Gift Cards are valid for a period of 12 months from the date of issuance.",
+        "You can combine a maximum of 3 Gift Cards only in a single booking for Hotels / Flights booking.",
+        "Gift Cards cannot be clubbed with any other offer including but not limited to cashbacks, discounts etc. on a particular credit/debit card."
+      ]
     },
     "sellers": [
       {
@@ -4193,7 +4718,17 @@
       ],
       "min_amount": 500,
       "max_amount": 5000,
-      "typed": false
+      "typed": false,
+      "steps": [
+        "Visit a store and select the products you wish to buy. To locate the nearby outlet please visit https://shop.woodlandworldwide.com/",
+        "At the Billing Counter, inform the cashier about the choice of making payment using Gift Cards.",
+        "Cashier will select Gift Card as payment mode, submit Gift Card & PIN details in the system and completes the billing process."
+      ],
+      "terms": [
+        "Comes with 3 month validity and cannot be used online",
+        "This is a 1 time use gift card",
+        "Multiple gift cards upto 3 can be used in one bill"
+      ]
     },
     "sellers": [
       {
@@ -4292,7 +4827,20 @@
       "cards": [],
       "min_amount": 500,
       "max_amount": 100000,
-      "typed": true
+      "typed": true,
+      "steps": [
+        "Customer comes to www.giva.co",
+        "Selects merchandise",
+        "Contacts Giva Customer support - 7829558887 (10 AM to 6:30 PM) or mail to care@giva.co for Gift Card Redemption",
+        "In case of the total bill value goes higher that GC Redemption value, customer is requested to opt for other mode of payment like credit / debit / wallet etc. for balance payment"
+      ],
+      "terms": [
+        "Comes with 180 days validity and is applicable at GIVA Jewellery's website, and Exclusive Brand Outlets",
+        "The Gift Cards are only valid on studded Silver Jewellery, Perfumes and Candles",
+        "This is a Giva silver Jewellery E-Gift Card and is not applicable on gold, diamond, coins, utensils & idols.",
+        "The gift card can be used during the sale.",
+        "Gift cards, once purchased, cannot be cancelled or refunded."
+      ]
     },
     "sellers": [],
     "best": {
@@ -4319,7 +4867,17 @@
       "cards": [],
       "min_amount": 2500,
       "max_amount": 30000,
-      "typed": true
+      "typed": true,
+      "steps": [
+        "Login to https://mokobara.com/",
+        "On the payment page, under Gift Cards, please enter your gift card details",
+        "Your order summary will be updated with the amount of the discount."
+      ],
+      "terms": [
+        "Comes with 180 days validity and is redeemable only on www.mokobara.com and exclusive brand retail stores.",
+        "Multiple E-Gift Cards can be combined in a single order.",
+        "Gift cards, once purchased, cannot be cancelled or refunded"
+      ]
     },
     "sellers": [
       {
@@ -4401,7 +4959,20 @@
       ],
       "min_amount": 500,
       "max_amount": 50000,
-      "typed": false
+      "typed": false,
+      "steps": [
+        "Open SNITCH app / website by visiting https://www.snitch.com and go to the accounts section.",
+        "Select Gift Cards.",
+        "Select 'Redeem Gift Card.",
+        "Enter the 16-digit Gift Card number and 4-digit PIN.",
+        "Amount is instantly added to your Wallet balance.",
+        "This wallet balance can be utilised against purchases made on SNITCH app / website or stores."
+      ],
+      "terms": [
+        "Comes with 1 year validity and can be used on SNITCH app and Website https://www.snitch.com",
+        "Gift cards cannot be recharged, topped up, or reused once the balance is exhausted.",
+        "No returns and no refunds on gift cards, E- gift cards and gift vouchers"
+      ]
     },
     "sellers": [
       {
@@ -4486,7 +5057,17 @@
       ],
       "min_amount": 500,
       "max_amount": 10000,
-      "typed": false
+      "typed": false,
+      "steps": [
+        "Visit www.maxfashion.in/in/en or your iOS/android Max fashion app & add products in the cart",
+        "Place your order by proceeding to the Buy Now button",
+        "Click on “Have a gift card’ -Enter your 16 digit gift card number along with your pin -You can make the balance payment by any other payment mode"
+      ],
+      "terms": [
+        "Comes with 1 Year validity",
+        "Valid only for online purchase",
+        "Gift Cards are valid for one-time redemption only and cannot be redeemed in part"
+      ]
     },
     "sellers": [
       {
@@ -4563,7 +5144,13 @@
       ],
       "min_amount": 500,
       "max_amount": 10000,
-      "typed": false
+      "typed": false,
+      "steps": [],
+      "terms": [
+        "Comes with 6 months validity",
+        "Gift Vouchers can only be used online",
+        "This is a one-time use gift card"
+      ]
     },
     "sellers": [
       {
@@ -4638,7 +5225,18 @@
       "cards": [],
       "min_amount": 250,
       "max_amount": 10000,
-      "typed": true
+      "typed": true,
+      "steps": [
+        "Go to Nykaa.com and select the items you want to purchase.",
+        "Once you reach our payment page, select the Gift Card payment option.",
+        "Enter your 16-digit Card Code and the corresponding Card PIN and click on apply. The Gift Card amount will be deducted from the payable amount.",
+        "If the amount of your e-Gift Card doesn't cover your order amount, you will be prompted to select an additional payment option."
+      ],
+      "terms": [
+        "Comes with 1 year validity and cannot be used to purchase Gold/Silver Coins, Gold/Silver Bars and Jewellery",
+        "Gift card can be used multiple times",
+        "For offline transaction if the order value is less than the Gift Card amount, Gift Card won’t be applied to the order"
+      ]
     },
     "sellers": [
       {
@@ -4702,7 +5300,19 @@
       ],
       "min_amount": 500,
       "max_amount": 10000,
-      "typed": false
+      "typed": false,
+      "steps": [
+        "Open the Tata Cliq App and click on the “My Account” tab",
+        "Click on “Cliq Cash",
+        "In the “Gift cards” section click on “Add It Here”",
+        "Enter your 16 digit code and 6 digit PIN, press “Add Card”",
+        "The amount of the gift card can now be used at checkout"
+      ],
+      "terms": [
+        "Comes with 1 year validity, and gift cards can be used multiple times",
+        "All brand-funded offers can be clubbed during purchase, excluding the purchase of gold or silver items such as jewellery and coins",
+        "Gift card cannot be used along with Tata Neu coins"
+      ]
     },
     "sellers": [
       {
@@ -4819,7 +5429,20 @@
       ],
       "min_amount": 100,
       "max_amount": 10000,
-      "typed": false
+      "typed": false,
+      "steps": [
+        "Login to Cinépolis Website or Cinépolis mobile app.",
+        "Select the city, movie, cinema, show date, show time, and seats of your choice.",
+        "Select the Food and Beverages of your choice.",
+        "When prompted, please enter the details by entering your email ID and mobile number, as this information will be used to confirm your transaction via email and SMS.",
+        "On the payment page, under Gift Cards, please enter your gift card details.",
+        "Your order summary will be updated with the amount of the discount."
+      ],
+      "terms": [
+        "Comes with 1 year validity and can be used on Cinépolis Website https://cinepolisindia.com/ or Cinépolis mobile app",
+        "Tickets once bought through, shall be considered sold and cannot be cancelled, refunded, or exchanged in any form whatsoever",
+        "No returns and no refunds on E-Gift Cards, E-Gift Cards and eGift vouchers"
+      ]
     },
     "sellers": [
       {
@@ -4925,7 +5548,18 @@
       ],
       "min_amount": 1000,
       "max_amount": 10000,
-      "typed": false
+      "typed": false,
+      "steps": [
+        "Visit to https://www.duroflexworld.com add item to your cart and proceed to checkout",
+        "Select pay via e-pay/Gift Voucher option.",
+        "You can add balance to your e-pay balance, and your balance bill be shown"
+      ],
+      "terms": [
+        "Comes with 6 months validity and can be redeemed only on www.duroflexworld.com.",
+        "The Gift Card can be converted into e-Pay, and then it can be used partially at the holder's convenience.",
+        "Multiple GVs can be combined and added to the e-Pay balance.",
+        "No returns and no refunds on E-Gift cards and E-Gift vouchers."
+      ]
     },
     "sellers": [
       {
@@ -5031,7 +5665,20 @@
       ],
       "min_amount": 100,
       "max_amount": 20000,
-      "typed": false
+      "typed": false,
+      "steps": [
+        "Visit www.archiesonline.com",
+        "select the product of your choice and add to the cart.",
+        "Click on Add voucher to top-up balance and pay remaining balance(If any) by another payment modes."
+      ],
+      "terms": [
+        "Comes with the validity of 6 months and is acceptable at the outlet and online at archiesonline.com",
+        "At the outlet, the beneficiary should announce the intent of using the Instant Gift Voucher before placing the order.",
+        "Multiple Instant Gift Vouchers can be used against one bill at the outlet.",
+        "Partial redemption is not allowed, and no refund or credit note would be issued against an unused or partially used Instant Gift Voucher at the outlet.",
+        "Instant Gift Vouchers will be accepted across all outlets but Archies at its sole discretion may add or remove an outlet from the list without giving any prior notice.",
+        "This Instant Gift Voucher cannot be redeemed on specific block out dates."
+      ]
     },
     "sellers": [
       {
@@ -5088,7 +5735,18 @@
       "cards": [],
       "min_amount": 1000,
       "max_amount": 10000,
-      "typed": true
+      "typed": true,
+      "steps": [
+        "Activate this gift card:SMS ACT [space] [16-Digit Card Number] [space] [CardPin] to 9704200300",
+        "Locate the nearest outlet that accepts this gift voucher. To visit the nearest outlet please visit https://stores.hamleys.in/",
+        "Select your choice of products",
+        "Share your gift voucher with the cashier at the time of billing & pay the remaining amount by cash or card if required."
+      ],
+      "terms": [
+        "Valid for 1 year and in-store use only; not redeemable at airport stores",
+        "This is a one-time use giftcard; multiple cards can be used in 1 transaction",
+        "Luxe Gift Card can only be redeemed against full-priced merchandise"
+      ]
     },
     "sellers": [],
     "best": {
@@ -5115,7 +5773,20 @@
       "cards": [],
       "min_amount": 2000,
       "max_amount": 50000,
-      "typed": true
+      "typed": true,
+      "steps": [
+        "Open the Ajio app or website.",
+        "Click on the Account tab and then <b>Ajio Wallet<b>",
+        "In the section Have a Gift Card, click on Add",
+        "Enter your 16 digit code and 6 digit pin and click on Add to Ajio Wallet",
+        "The amount of the gift card can now be used at checkout."
+      ],
+      "terms": [
+        "Comes with 1 year validity; applicable on all products except purchase of fine jewellery, silver and gold coins",
+        "All Brand funded offers can be clubbed during the purchase but delivery and platform fee cant be paid through gift card, butVoucher will not be applicable on H&M branded products",
+        "Multiple gift cards can be clubbed to make a purchase and gift card can be used to make multiple purchases",
+        "Gift card once purchased cannot be cancelled or refunded"
+      ]
     },
     "sellers": [
       {
@@ -5216,7 +5887,19 @@
       ],
       "min_amount": 245,
       "max_amount": 2999,
-      "typed": false
+      "typed": false,
+      "steps": [
+        "Click on the Prime Activation Link - https://b.ezyd.in/HUBBLE",
+        "Sign up for new customers or log in for existing customers",
+        "Select the plan and click on continue",
+        "Apply the unique coupon code",
+        "Complete purchase and activate your Prime membership"
+      ],
+      "terms": [
+        "Comes with 3 months validity, and only 1 Gift Card can be used in one transaction",
+        "This is a one-time use Gift Card",
+        "Gift cards, once purchased, cannot be canceled or refunded"
+      ]
     },
     "sellers": [
       {
@@ -5291,7 +5974,19 @@
       ],
       "min_amount": 500,
       "max_amount": 1000,
-      "typed": false
+      "typed": false,
+      "steps": [
+        "Visit https://www.bakingo.com/",
+        "Post signup select the product and proceed to checkout",
+        "Enter gift code in “Enter coupon code” section and click on apply"
+      ],
+      "terms": [
+        "Comes with 6 months validity and cannot be used directly at Bakingo stores",
+        "Only one Gift Voucher can be used against one bill",
+        "Card cannot be clubbed with other offers on the Bakingo website",
+        "This is a one-time use card and any unused balance will lapse",
+        "Gift cards, once purchased, cannot be cancelled or refunded"
+      ]
     },
     "sellers": [
       {
@@ -5349,7 +6044,18 @@
       ],
       "min_amount": 100,
       "max_amount": 2000,
-      "typed": false
+      "typed": false,
+      "steps": [
+        "Access Blue Tokai Coffee Roasters(BTCR) Wallet from the account section in BTCR App",
+        "You will land on the BTCR wallet tab. Click on Redeem Gift Card button",
+        "Enter your 10-digit gift card number and 4-digit PIN, press Redeem",
+        "BTCR validates code and adds the denomination to your BTCR wallet account"
+      ],
+      "terms": [
+        "Comes with 1 year validity - please check exact date after generation",
+        "Can be used on Blue Tokai app, website as well as in-store",
+        "Cannot be used along with other Promo codes or bank offers"
+      ]
     },
     "sellers": [
       {
@@ -5401,7 +6107,18 @@
       "cards": [],
       "min_amount": 100,
       "max_amount": 10000,
-      "typed": true
+      "typed": true,
+      "steps": [
+        "Visit a store nearby you that accepts the Gift Voucher. To locate the nearest outlet please visit https://baskinrobbinsindia.com/pages/store-locator",
+        "Visit the outlet and order your favorite ice creams from the available options.",
+        "Share the Baskin Robbins voucher code with the cashier.",
+        "Your card value will be redeemed instantly."
+      ],
+      "terms": [
+        "Gift cards cannot be used online. Multiple gift cards can be used in a single bill.",
+        "Comes with 3 months validity and can only be used once",
+        "Gift cards are not valid on discounted items, offer items, merchandise, cakes, sticks and pre-packed sundaes. The card is not valid at non-connected parlours, multiplexes, airports, shop-in-shops and select food courts where payments are made using food court cash cards."
+      ]
     },
     "sellers": [
       {
@@ -5479,7 +6196,18 @@
       "cards": [],
       "min_amount": 500,
       "max_amount": 5000,
-      "typed": true
+      "typed": true,
+      "steps": [
+        "Register the gift card by sending an SMS to +91 9695566677 with GACT(Space)16 digit card number(Space)6 Digit PIN. For example, GACT 3837462299874738 123456",
+        "To locate the nearest outlet please visit https://www.cafecoffeeday.com/store-locator/",
+        "Share the 16 digit card number at the time of store billing/website checkout",
+        "Share the OTP that you will receive for a successful transaction."
+      ],
+      "terms": [
+        "Comes with 1-year validity and is not valid on Coffee Day Lounge formats, Airport cafes, Corporate cafes, or discounted cafes",
+        "The gift card is valid on Food and Beverage, Merchandise, but not valid on Combos",
+        "After purchase this needs to be activated, to register the user needs to send an SMS to 9695566677 with GACT(Space) 16-digit card number (Space)6 Digit PIN. For example, GACT 3837462299874738 123456"
+      ]
     },
     "sellers": [
       {
@@ -5556,7 +6284,19 @@
       "cards": [],
       "min_amount": 500,
       "max_amount": 100000,
-      "typed": true
+      "typed": true,
+      "steps": [
+        "Visit to www.makemytrip.com",
+        "Select your Hotel and fill required details till you reach the payment page.",
+        "Click on More options and Select Gift Card as your Payment Mode.",
+        "Enter your Gift Card/ Card No. (16 Digit) and 6 Digit Pin No.",
+        "Click on Make Payment and Pay the Balance amount (if any) using other Payment Modes Listed."
+      ],
+      "terms": [
+        "Comes with 3 month validity. Gift card can be used multiple times.",
+        "Only 3 gift cards can be used in 1 transaction, and  gift card is not valid on Flights, Holiday packages, Homestays, Bus, Rail, VISA, experiences and Car bookings",
+        "This Gift card/voucher cannot be clubbed with any other ongoing offer discount/cash back/promotion run by Makemytrip.com on app or website"
+      ]
     },
     "sellers": [
       {
@@ -5639,7 +6379,23 @@
       "cards": [],
       "min_amount": 250,
       "max_amount": 100000,
-      "typed": true
+      "typed": true,
+      "steps": [
+        "Download the goibibo hotel app",
+        "Go to the Gift Cards page and click ‘Add New Gift Card’.",
+        "Enter the 16-digit card number and 6-digit PIN. Tap ‘Add to My Account’ to save the card.",
+        "Alternatively, you can also add your gift card during checkout—just head to the Payments page after selecting your hotel.",
+        "Using a Gift Card for Payment:",
+        "After choosing your hotel, proceed to the Payments page."
+      ],
+      "terms": [
+        "Comes with 1-year validity and is accepted at www.goibibo.com or on the goIbibo Android & IOS app",
+        "The Gift card is valid for purchases made at Hotels only and is not valid on Flights, Holiday packages, Homestays, Bus, Rail, VISA, experiences and Car bookings",
+        "This Gift card/voucher cannot be clubbed with any other ongoing offer discount/cash back/promotion run by Goibibo on app or website.",
+        "Multiple Gift Cards (up to 3) can be combined and used on 1 transaction.",
+        "This Gift card does not apply to the Pay Later Payment option.",
+        "Gift cards, once purchased, cannot be cancelled or refunded"
+      ]
     },
     "sellers": [
       {
@@ -5720,7 +6476,19 @@
       ],
       "min_amount": 500,
       "max_amount": 2000,
-      "typed": false
+      "typed": false,
+      "steps": [
+        "Visit the IGP website",
+        "Go to settings and click on WALLET",
+        "Enter voucher code and click on REDEEM CODE option",
+        "The voucher amount will get added to wallet and updated balance will be displayed. User can use updated balance to shop on IGP website or app"
+      ],
+      "terms": [
+        "Comes with 6 months validity and is redeemable only at igp.com",
+        "Multiple Vouchers can be used against one bill",
+        "Gift Vouchers CAN be used during Sale",
+        "Gift cards, once purchased, cannot be cancelled or refunded"
+      ]
     },
     "sellers": [
       {
@@ -5817,7 +6585,18 @@
       ],
       "min_amount": 500,
       "max_amount": 2500,
-      "typed": false
+      "typed": false,
+      "steps": [
+        "Visit https://www.fnp.com/",
+        "Login on the website and select products of choice",
+        "On the cart page click on “Have a discount coupon tab”",
+        "Submit Gift Card & PIN details in the system and completes the billing process."
+      ],
+      "terms": [
+        "Comes with a 3 month validity",
+        "Only 1 gift card can be used against a bill and the balance cannot be used for shipping and convenience charges",
+        "The GV cannot be redeemed on existing discount offers available on the FNP website"
+      ]
     },
     "sellers": [
       {
@@ -5919,7 +6698,20 @@
       ],
       "min_amount": 250,
       "max_amount": 25000,
-      "typed": false
+      "typed": false,
+      "steps": [
+        "Visit online website--https://rarerabbitapp.onelink.me/SMJT/wr52v8rz",
+        "Select your desired product.",
+        "Add the product to your Bag and proceed to checkout.",
+        "On the Payment Page, select “Redeem a Gift Card.”",
+        "Enter your Gift Card Number and PIN.",
+        "Click “Redeem.” The Gift Card amount will be deducted from the total bill amount."
+      ],
+      "terms": [
+        "E Gift vouchersCAN only be uesed on \"The House of Rare’s (THOR)\" exclusive stores (https://rarerabbitapp.onelink.me/SMJT/wr52v8rz ) , App and Website (https://rarerabbitapp.onelink.me/SMJT/wr52v8rz) Only.",
+        "E-Gift Vouchers can be clubbed with the on-going offers & schemes",
+        "The House of Rare (THOR) includes brands Rare Rabbit, Rareism, Rare Ones & Rare’Z."
+      ]
     },
     "sellers": [
       {
@@ -6000,7 +6792,17 @@
       "cards": [],
       "min_amount": 1000,
       "max_amount": 10000,
-      "typed": true
+      "typed": true,
+      "steps": [
+        "To locate the nearest outlet please visit https://www.marksandspencer.in/store",
+        "Select your choice of product.",
+        "Share your Gift Voucher with the cashier at the time of billing & pay the remaining amount by cash or card if required."
+      ],
+      "terms": [
+        "Comes with 1 year validity and would be accepted on the listed outlets (https://www.marksandspencer.in/store)",
+        "This is a one-time use gift card, any unused balance after redemption will lapse",
+        "More than one GV / GC can be used in one bill and can be used during sale"
+      ]
     },
     "sellers": [
       {
@@ -6059,7 +6861,18 @@
       ],
       "min_amount": 1000,
       "max_amount": 5000,
-      "typed": false
+      "typed": false,
+      "steps": [
+        "Visit blissclub.com and select the products you wish to buy",
+        "Proceed to checkout and choose the gift card option",
+        "Enter your 16-digit Card Number and the corresponding Card PIN.",
+        "Pay any balance amount using available payment modes."
+      ],
+      "terms": [
+        "Comes with 1 year of validity and cannot be combined or used alongside brand funded offers or promos",
+        "This is a one-time use code and multiple cards cannot be used in a single transaction",
+        "Valid on https://blissclub.com/pages/activewear"
+      ]
     },
     "sellers": [
       {
@@ -6157,7 +6970,17 @@
       ],
       "min_amount": 500,
       "max_amount": 1000,
-      "typed": false
+      "typed": false,
+      "steps": [
+        "Visit the website and log in using your credentials. Add to the cart your desired products",
+        "Select your best voucher applicable code (existing coupon code) and click to pay. Mention the 16-digit code of the gift card in the discount section",
+        "On the payment page check the Gift Voucher/ Discount Code tab. The remaining amount can be paid using the available payment methods"
+      ],
+      "terms": [
+        "Comes with 6-month validity and would be accepted on the website",
+        "This is a one-time use gift card, any unused balance after redemption will lapse",
+        "Freecultr gift card cannot be clubbed with any one of the existing offers on its website and a Maximum 1 Gift Voucher can be used in one purchase"
+      ]
     },
     "sellers": [
       {
@@ -6252,7 +7075,17 @@
       ],
       "min_amount": 500,
       "max_amount": 10000,
-      "typed": false
+      "typed": false,
+      "steps": [
+        "Visit Foxtale Website https://foxtale.in/",
+        "Login with mobile number and select the product",
+        "Add the voucher in e-pay balance at the checkout"
+      ],
+      "terms": [
+        "Can be used on Foxtale website https://foxtale.in/",
+        "Gift Voucher CANNOT be clubbed with any offer",
+        "Gift cards, once purchased, cannot be cancelled or refunded"
+      ]
     },
     "sellers": [
       {
@@ -6360,7 +7193,17 @@
       ],
       "min_amount": 2000,
       "max_amount": 10000,
-      "typed": false
+      "typed": false,
+      "steps": [
+        "Locate the nearest outlet that accepts this gift voucher.",
+        "Select your choice of products",
+        "Share your gift voucher with the cashier at the time of billing & pay the remaining amount by cash or card if required."
+      ],
+      "terms": [
+        "This is a one-time use Gift card and comes with 6 months of validity",
+        "Only one voucher can be used per transaction when redeeming online; Multiple Gift Vouchers can be used in one bill at the store/retail outlet",
+        "Gift Vouchers cannot be clubbed with any ongoing promotions/offers"
+      ]
     },
     "sellers": [
       {
@@ -6414,7 +7257,18 @@
       "cards": [],
       "min_amount": 500,
       "max_amount": 10000,
-      "typed": true
+      "typed": true,
+      "steps": [
+        "Visit https://india.ray-ban.com/ and select the products you wish to buy",
+        "Proceed to checkout and choose the gift card option",
+        "Enter your 16-digit Card Number and the corresponding Card PIN.",
+        "Pay any balance amount using available payment modes."
+      ],
+      "terms": [
+        "Comes with 6 months validity and a maximum of five gift cards can be redeemed against a single invoice",
+        "This Gift Card is only valid at https://www.ray-ban.com/india",
+        "Gift cards, once purchased, cannot be cancelled or refunded"
+      ]
     },
     "sellers": [
       {
@@ -6495,7 +7349,17 @@
       ],
       "min_amount": 500,
       "max_amount": 20000,
-      "typed": false
+      "typed": false,
+      "steps": [
+        "Log in to website – www.wonderchef.com",
+        "Select the products you wish to buy and add them to cart",
+        "During checkout, dd the Gift card number & Pin number for making a payment"
+      ],
+      "terms": [
+        "Comes with 1-year validity and is redeemable for products and services at all Wonderchef.com",
+        "Multiple E gift cards can be redeemed in the same bill only",
+        "This is a one-time use card and any unused amount will lapse"
+      ]
     },
     "sellers": [
       {
@@ -6601,7 +7465,19 @@
       ],
       "min_amount": 250,
       "max_amount": 5000,
-      "typed": false
+      "typed": false,
+      "steps": [
+        "Go to the official website of Healthians. Or you can also download the Healthians App or Call the Sales Agent/CC.",
+        "Make a booking for the the Health Test Check-up Package",
+        "Choose Healthians E -Gift Card as your payment option. Enter the 16-digit number and 6-digit PIN to redeem your Healthians E-Gift Card.",
+        "Confirm the booking and enjoy getting the health test done in the comfort of your home."
+      ],
+      "terms": [
+        "Comes with 6 months validity and only one gift card can be used against one bill",
+        "This is a Healthians Gift Card (GC) and would be accepted on the Website/App and partial redemption is allowed",
+        "Gift card cannot be clubbed with any ongoing coupon or offer. Also, it cannot be used on doctor appointments.",
+        "Gift cards, once purchased, cannot be cancelled or refunded"
+      ]
     },
     "sellers": [
       {
@@ -6681,5 +7557,341 @@
     "restrictions": [],
     "multiUse": true,
     "canClub": true
+  },
+  {
+    "slug": "sonyliv",
+    "name": "SonyLIV",
+    "website": "https://www.sonyliv.com/",
+    "checked": "2026-11-23",
+    "hubble": {
+      "pct": 20.0,
+      "brand_name": "SonyLiv",
+      "in_store": false,
+      "cards": [
+        299,
+        399,
+        699,
+        999
+      ],
+      "min_amount": 299,
+      "max_amount": 1499,
+      "typed": false,
+      "steps": [
+        "Download the SonyLIV app from Google play store or visit www.sonyliv.com. Signup with mobile/email if not registered. Cannot activate using iOS:  please activate using web and then login on iOS once activated.",
+        "Visit www.sonyliv.com/activate_offer . Enter the code in “Do you have a coupon” section & click on Activate offer. Subscription will be activated. Already active subscriber can redeem this offer only after expiry of their active subscription",
+        "In App, go to “Active offers” in mega menu on Android App version 6.9.0 and above. Enter code in the promo code section. Subscription will be activated. Already active subscriber can redeem this offer only after expiry of their subscription."
+      ],
+      "terms": [
+        "Comes with 6 months validity",
+        "Only 1 Gift Voucher can be used in one transaction",
+        "This is a ONE time use GV / GC with an expiration date",
+        "Please note, iOS users need to visit www.sonyliv.comorsubscription for redemption. Sony Liv Gift vouchers cannot be redeemed on iPhone iOS App",
+        "Sony LIV GV or GC cannot be clubbed with any one of the existing offer on its website."
+      ]
+    },
+    "sellers": [
+      {
+        "source": "buyhatke",
+        "label": "BuyHatke",
+        "pct": 29.54,
+        "upi_pct": 29.54,
+        "card_pct": null,
+        "url": "https://buyhatke.com/gift-cards/sonyliv-gift-card",
+        "online": true,
+        "offline": false,
+        "denominations": [
+          299,
+          399,
+          699,
+          999,
+          1490
+        ],
+        "typed": false,
+        "typed_min": null,
+        "typed_max": null,
+        "stack_limit": 1,
+        "value_cap": 1499.0
+      },
+      {
+        "source": "gyftr",
+        "label": "Gyftr",
+        "pct": 20.0,
+        "upi_pct": 20.0,
+        "card_pct": 20.0,
+        "url": "https://www.gyftr.com/sonyliv",
+        "online": true,
+        "offline": false,
+        "denominations": [
+          299,
+          399,
+          699,
+          999,
+          1499
+        ],
+        "typed": false,
+        "typed_min": null,
+        "typed_max": null,
+        "stack_limit": 1,
+        "value_cap": null
+      },
+      {
+        "source": "maximize",
+        "label": "Maximize",
+        "pct": 20.0,
+        "upi_pct": 20.0,
+        "card_pct": 18.1,
+        "url": "https://www.maximize.money/gift-cards/SonyLIV/686",
+        "online": true,
+        "offline": false,
+        "denominations": [
+          299,
+          399,
+          699,
+          999,
+          1499
+        ],
+        "typed": false,
+        "typed_min": null,
+        "typed_max": null,
+        "stack_limit": 1,
+        "value_cap": null
+      }
+    ],
+    "best": {
+      "source": "buyhatke",
+      "pct": 29.54
+    },
+    "online": true,
+    "offline": false,
+    "stack": "One voucher per order",
+    "steps": [
+      "Download the SonyLIV app from Google play store or visit www.sonyliv.com. Sign-up with Mobile/email-id if user is not registered.",
+      "Visit www.sonyliv.com/activate_offer . Enter the code in ‘Do you have a coupon’ section & click on Activate offer. Subscription will be activated. Already active subscriber can redeem this offer only after expiry of their active subscription.",
+      "Go to \"Activate Offer\" in mega menu on Android App version 6.9.0 and above. Enter Code in the promo code section. Subscription will be activated. Already active subscriber can redeem this offer only after expiry of their active subscription."
+    ],
+    "restrictions": [],
+    "multiUse": false,
+    "canClub": false,
+    "kind": "subscription",
+    "noun": "subscription"
+  },
+  {
+    "slug": "zee5",
+    "name": "ZEE5",
+    "website": "https://www.zee5.com/",
+    "checked": "2026-11-23",
+    "hubble": {
+      "pct": 17.0,
+      "brand_name": "ZEE5",
+      "in_store": false,
+      "cards": [
+        299,
+        599,
+        1499
+      ],
+      "min_amount": 299,
+      "max_amount": 1699,
+      "typed": false,
+      "steps": [
+        "Visit www. zee5.com or install & open Zee5 app",
+        "Select the plan you want to buy and click on “Have a code",
+        "Enter the code and click on “continue”",
+        "Log in to you account using email id or mobile no."
+      ],
+      "terms": [
+        "Comes with 6 months validity and can only be used once",
+        "Gift Vouchers can only be used at https://www.zee5.com/ and the Zee5 application",
+        "Only 1 Gift Voucher can be used in one transaction"
+      ]
+    },
+    "sellers": [
+      {
+        "source": "gyftr",
+        "label": "Gyftr",
+        "pct": 23.0,
+        "upi_pct": 23.0,
+        "card_pct": 20.0,
+        "url": "https://www.gyftr.com/zee5",
+        "online": true,
+        "offline": false,
+        "denominations": [
+          399,
+          1299,
+          1499
+        ],
+        "typed": false,
+        "typed_min": null,
+        "typed_max": null,
+        "stack_limit": 1,
+        "value_cap": null
+      },
+      {
+        "source": "maximize",
+        "label": "Maximize",
+        "pct": 22.5,
+        "upi_pct": 22.5,
+        "card_pct": 20.6,
+        "url": "https://www.maximize.money/gift-cards/Zee5/709",
+        "online": true,
+        "offline": false,
+        "denominations": [
+          399,
+          699,
+          1299,
+          1499
+        ],
+        "typed": false,
+        "typed_min": null,
+        "typed_max": null,
+        "stack_limit": 1,
+        "value_cap": null
+      },
+      {
+        "source": "buyhatke",
+        "label": "BuyHatke",
+        "pct": 19.25,
+        "upi_pct": 19.25,
+        "card_pct": null,
+        "url": "https://buyhatke.com/gift-cards/zee5-gift-card",
+        "online": true,
+        "offline": false,
+        "denominations": [
+          199,
+          399,
+          699,
+          799,
+          999,
+          1290,
+          1490
+        ],
+        "typed": false,
+        "typed_min": null,
+        "typed_max": null,
+        "stack_limit": 1,
+        "value_cap": 1499.0
+      }
+    ],
+    "best": {
+      "source": "gyftr",
+      "pct": 23.0
+    },
+    "online": true,
+    "offline": false,
+    "stack": "One voucher per order",
+    "steps": [
+      "Log in to the ZEE5 Android app or website: www.zee5.com",
+      "Click on “Buy Plan”",
+      "Enter your code in the “Apply Code” section and proceed."
+    ],
+    "restrictions": [],
+    "multiUse": false,
+    "canClub": false,
+    "kind": "subscription",
+    "noun": "subscription"
+  },
+  {
+    "slug": "amazon-prime",
+    "name": "Amazon Prime",
+    "website": "https://www.primevideo.com/",
+    "checked": "2026-11-23",
+    "hubble": {
+      "pct": 15.0,
+      "brand_name": "Amazon Prime",
+      "in_store": false,
+      "cards": [
+        599,
+        1499
+      ],
+      "min_amount": 599,
+      "max_amount": 2995,
+      "typed": false,
+      "steps": [
+        "Visit www.amazon.in/vouchers",
+        "Enter the voucher code in 'Add new' section.",
+        "Click on 'Add button' to add voucher."
+      ],
+      "terms": [
+        "Comes with 1 year validity, and only 1 Gift Card can be used in one transaction",
+        "This is a one-time use Gift Card and is not eligible for use on Amazon Business marketplace",
+        "If you have any pre-existing balance on your Prime Voucher (on your associated Amazon account), you won't be able to add the annual membership card until you consume the pre-existing amount.",
+        "Gift cards, once purchased, cannot be cancelled or refunded"
+      ]
+    },
+    "sellers": [
+      {
+        "source": "buyhatke",
+        "label": "BuyHatke",
+        "pct": 14.68,
+        "upi_pct": 14.68,
+        "card_pct": null,
+        "url": "https://buyhatke.com/gift-cards/amazon-prime-gift-card",
+        "online": true,
+        "offline": false,
+        "denominations": [
+          599,
+          1490
+        ],
+        "typed": false,
+        "typed_min": null,
+        "typed_max": null,
+        "stack_limit": 1,
+        "value_cap": null
+      }
+    ],
+    "best": {
+      "source": "dealo",
+      "pct": 15.0
+    },
+    "online": true,
+    "offline": false,
+    "stack": "One voucher per order",
+    "steps": [],
+    "restrictions": [],
+    "multiUse": false,
+    "canClub": null,
+    "kind": "subscription",
+    "noun": "membership"
+  },
+  {
+    "slug": "swiggy-one",
+    "name": "Swiggy One",
+    "website": "https://www.swiggy.com/",
+    "checked": "2026-11-23",
+    "hubble": {
+      "pct": 77.9,
+      "brand_name": "Swiggy One",
+      "in_store": false,
+      "cards": [
+        449
+      ],
+      "min_amount": 449,
+      "max_amount": 449,
+      "typed": false,
+      "steps": [
+        "Please update the app before redeeming the coupon. To update the app, please visit the Play Store (for Android) or the App Store (for iOS).",
+        "Open the updated Swiggy app and go to your Swiggy Accounts page.",
+        "Select the One membership tab and click on Redeem Membership Coupon",
+        "Enter your coupon code and click on the activate button to start Swiggy membership."
+      ],
+      "terms": [
+        "Comes with 3 months validity; it is recommended to update the app in case of an error in redeeming the gift card",
+        "For existing users of Swiggy One this code will end the existing plan. Hence recommended that you apply this card once your current subscription expires",
+        "Offers include(Not limited to) extra discounts on restaurant delivery orders"
+      ]
+    },
+    "sellers": [],
+    "best": {
+      "source": "dealo",
+      "pct": 77.9
+    },
+    "online": true,
+    "offline": false,
+    "stack": null,
+    "steps": [],
+    "restrictions": [],
+    "multiUse": null,
+    "canClub": null,
+    "kind": "subscription",
+    "noun": "membership"
   }
 ]
