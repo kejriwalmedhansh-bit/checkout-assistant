@@ -108,6 +108,9 @@ def _remember_attribution(uid: str, body: "SessionRequest") -> None:
         "src": body.src,
         "placement": body.placement,
         "merchant": body.merchant,
+        "referrer_domain": body.referrer_domain,
+        "landing_page": body.landing_page,
+        "utm_source": body.utm_source,
     })
 
 
@@ -164,6 +167,12 @@ class SessionRequest(BaseModel):
     dealo_id: str | None = None
     src: str | None = None
     placement: str | None = None
+    # Where the visit came from: the site that sent the shopper, the first
+    # page they landed on and any campaign tag. Facts about the visit, not
+    # the person, so they are sent with or without cookie consent.
+    referrer_domain: str | None = None
+    landing_page: str | None = None
+    utm_source: str | None = None
 
 
 @router.post("/session")

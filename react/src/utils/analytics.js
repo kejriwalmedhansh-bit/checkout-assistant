@@ -275,6 +275,26 @@ function currentTouch() {
   return touch;
 }
 
+/**
+ * Where THIS visit came from, read once as the site loads and held only in
+ * this page's memory: the site that sent the visitor (google, instagram...),
+ * the first page they landed on and any campaign tag. Read once because the
+ * landing page stops being the current page the moment they tap anything.
+ * Every buy-step event and the sale itself carry it (see soldEventProps), so
+ * "which source brings buyers" is a fact on the sale, not a guess from
+ * matching counts. Nothing is stored, so it says nothing about the person.
+ */
+const VISIT_TOUCH = currentTouch();
+
+/** This visit's source, in the shape the buy steps and /hubble/session take. */
+export function visitSource() {
+  return {
+    referrer_domain: VISIT_TOUCH.referrer_domain || null,
+    landing_page: VISIT_TOUCH.landing_page || null,
+    utm_source: VISIT_TOUCH.utm_source || null,
+  };
+}
+
 /** The very first visit's source, kept forever on this browser. */
 function getFirstTouch() {
   try {
@@ -450,6 +470,7 @@ if (!isGranted()) {
  * voucher value, where on the page, and which link brought the shopper.
  * placement: 'journey' (cart result) | 'shop_card' (shop-name search or a
  * buy link). src: the buy link's src (wa | ext | chat | link), else null.
+ * Also where the visit came from (visitSource): referring site, landing page.
  */
 export function soldEventProps(offer, { merchant, placement, bestPct, amount, src } = {}) {
   return {
@@ -462,6 +483,7 @@ export function soldEventProps(offer, { merchant, placement, bestPct, amount, sr
     placement: placement ?? null,
     src: src ?? null,
     in_store: Boolean(offer?.in_store),
+    ...visitSource(),
   };
 }
 

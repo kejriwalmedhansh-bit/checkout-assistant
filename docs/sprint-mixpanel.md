@@ -50,6 +50,10 @@ confirmed. On a healthy day the two agree.
 - **Buy Link Opened**, broken down by **src**: arrivals from WhatsApp (wa),
   the extension (ext), the Claude/ChatGPT apps (chat) and shared links (link).
 - **Voucher Sold**, broken down by **src**: which of those arrivals bought.
+- **Voucher Sold**, broken down by **referrer_domain** and **landing_page**: the
+  site that sent the buyer (www.google.com, l.instagram.com, direct) and the first
+  page they landed on (for example /brands/dominos/). The same two are on every
+  buy step (Dealo Voucher Shown, Buy Voucher Tapped, Hubble Store Opened...).
 - For links we hand to creators or communities, add `?src=<name>` to the buy
   link (for example `getdealo.in/buy/zomato?src=desidime`). The name shows up
   on both events above.

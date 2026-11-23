@@ -152,6 +152,15 @@ async def purchases_for(uid: str, environment: str) -> list[dict]:
         raise
 
 
+def _short(value: object) -> str | None:
+    """A visit-source value from the browser, cut to a sane length: it is
+    typed by nobody but still arrives from outside, so it is never trusted
+    to be short."""
+    if not isinstance(value, str) or not value.strip():
+        return None
+    return value.strip()[:120]
+
+
 def voucher_sold_event(order: dict, environment: str, attribution: dict | None = None) -> dict | None:
     """The Mixpanel event for one completed Hubble order, built from its
     webhook. This is the number the business runs on: vouchers actually
@@ -189,6 +198,9 @@ def voucher_sold_event(order: dict, environment: str, attribution: dict | None =
             "discount_pct": pct,
             "src": attribution.get("src"),
             "placement": attribution.get("placement"),
+            "referrer_domain": _short(attribution.get("referrer_domain")),
+            "landing_page": _short(attribution.get("landing_page")),
+            "utm_source": _short(attribution.get("utm_source")),
             "seller_environment": environment,
             "buyer_key": hashlib.sha256(str(uid).encode()).hexdigest()[:16] if uid else None,
         },
