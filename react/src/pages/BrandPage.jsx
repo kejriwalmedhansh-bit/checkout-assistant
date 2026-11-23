@@ -223,7 +223,7 @@ export default function BrandPage() {
         `Buy a ${shop.name} gift voucher for the amount you plan to spend.`,
         // Where Dealo sells the voucher, the steps are the ones for Dealo's own
         // voucher, not a partner's (a partner's can name its own app).
-        ...(hubble?.steps?.length ? hubble.steps.slice(0, 5) : shop.steps.length ? shop.steps.slice(0, 2) : [`Pay at ${shop.name} with the voucher code and keep the difference.`]),
+        ...(hubble?.steps?.length ? hubble.steps : shop.steps.length ? shop.steps.slice(0, 2) : [`Pay at ${shop.name} with the voucher code and keep the difference.`]),
       ];
 
   return (
