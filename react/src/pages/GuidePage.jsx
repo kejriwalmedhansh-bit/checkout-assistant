@@ -61,6 +61,34 @@ export default function GuidePage() {
           ))}
           {sec.ol && <Steps items={sec.ol} numbered />}
           {sec.ul && <Steps items={sec.ul} />}
+          {sec.table && (
+            <Box border="1px solid" borderColor="border" borderRadius="12px" overflow="hidden" mb="10px">
+              {sec.table.rows.map((r, i) => (
+                <Box
+                  key={r.label}
+                  as={RouterLink}
+                  to={r.href}
+                  display="block"
+                  p="10px 12px"
+                  borderTop={i ? '1px solid' : 'none'}
+                  borderColor="border"
+                  _hover={{ textDecoration: 'none', bg: 'surface2' }}
+                >
+                  <Flex justify="space-between" align="baseline" gap="10px">
+                    <Text m={0} fontSize="14px" fontWeight={700}>
+                      {r.label}
+                    </Text>
+                    <Text m={0} fontSize="12px" color="text3" flexShrink={0}>
+                      {r.count} shops
+                    </Text>
+                  </Flex>
+                  <Text m="2px 0 0" fontSize="13px" color="text2" lineHeight={1.5}>
+                    Biggest: {r.best} · Smallest: {r.least}
+                  </Text>
+                </Box>
+              ))}
+            </Box>
+          )}
           {sec.shops && (
             <>
               <ShopGrid shops={sec.shops.map((sl) => SHOP_BY_SLUG.get(sl)).filter(Boolean)} />
@@ -86,6 +114,12 @@ export default function GuidePage() {
           </Text>
         </Box>
       ))}
+
+      {guide.note && (
+        <Text fontSize="12px" color="text3" lineHeight={1.6} mt="18px">
+          {guide.note}
+        </Text>
+      )}
 
       {others.length > 0 && (
         <Flex direction="column" gap="6px" mt="18px" mb="22px">

@@ -286,10 +286,16 @@ function guideBody(g) {
         (sec.p || []).map(p).join('') +
         (sec.ol ? list(sec.ol.map(esc), 'ol') : '') +
         (sec.ul ? list(sec.ul.map(esc)) : '') +
+        (sec.table
+          ? `<table><thead><tr>${sec.table.cols.map((c) => `<th>${esc(c)}</th>`).join('')}</tr></thead><tbody>${sec.table.rows
+              .map((r) => `<tr><td>${link(r.href, r.label)}</td><td>${r.count}</td><td>${esc(r.best)}</td><td>${esc(r.least)}</td></tr>`)
+              .join('')}</tbody></table>`
+          : '') +
         (sec.shops ? list(sec.shops.map((sl) => BY_SLUG.get(sl)).filter(Boolean).map(shopItem)) + p(`Rates checked ${LAST_CHECKED}.`) : ''),
     ),
     '<h2>Questions people ask</h2>',
     g.faqs.map((f) => `<h3>${esc(f.q)}</h3>${p(f.a)}`).join(''),
+    p(g.note),
     list(GUIDES.filter((o) => o.slug !== g.slug).map((o) => link(`/guides/${o.slug}/`, o.title))),
   ].join('');
 }
