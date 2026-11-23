@@ -45,6 +45,8 @@ function figures(shopPages) {
     storeOnly: rated.filter((s) => !s.online && s.offline),
     both: rated.filter((s) => s.online && s.offline).length,
     checked: niceDate(shopPages.map((s) => s.checked).sort().pop()),
+    // The year the rates were last checked: turns to 2027 by itself with the first rebuild of January.
+    year: String(shopPages.map((s) => s.checked).sort().pop()).slice(0, 4),
     // One row per kind of shop: how many, and today's biggest and smallest.
     byType: CATEGORIES.map((c) => {
       const shops = categoryShops(c, shopPages);
@@ -73,7 +75,7 @@ export function buildGuides(shopPages) {
   return [
     {
       slug: 'buy-gift-cards-at-discount',
-      title: 'How to buy gift cards at a discount in India',
+      title: `How to buy gift cards at a discount in India (${f.year})`,
       description: `Today's gift card discount at ${f.total} Indian shops, checked ${f.checked}. A ₹1,000 ${ex.shop.name} gift card costs ${ex.pay}. Where it is worth it, where it is not, and how to buy one.`,
       heading: 'How to buy gift cards at a discount in India',
       intro: 'Pay less at the shop you already use, without a coupon or a special bank card.',
