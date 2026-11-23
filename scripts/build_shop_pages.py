@@ -117,6 +117,29 @@ SHOPS: list[tuple[str, str, str, list[str]]] = [
     ("archies", "Archies", "archiesonline.com", []),
     ("hamleys", "Hamleys", "hamleys.in", []),
     ("ajio-luxe", "AJIO Luxe", "luxe.ajio.com", ["Ajio Luxe"]),
+    # Added 23 Nov 2026: Domino's (16% off) is where the sales came from, and
+    # its buyers arrive on this kind of page. So: well-known shops where Dealo
+    # itself gives 8% or more (read from the live Hubble list that day) that
+    # had no page yet. Gift-card shops only; subscriptions (SonyLIV, ZEE5,
+    # Amazon Prime) need their own wording and are left for a later round.
+    ("eazydiner", "EazyDiner", "eazydiner.com", []),
+    ("bakingo", "Bakingo", "bakingo.com", []),
+    ("blue-tokai", "Blue Tokai", "bluetokaicoffee.com", ["Blue Tokai Coffee"]),
+    ("baskin-robbins", "Baskin Robbins", "baskinrobbinsindia.com", []),
+    ("cafe-coffee-day", "Cafe Coffee Day", "cafecoffeeday.com", ["CCD"]),
+    ("makemytrip-hotels", "MakeMyTrip Hotels", "makemytrip.com/hotels", ["MakeMyTrip Hotel"]),
+    ("goibibo-hotels", "Goibibo Hotels", "goibibo.com/hotels", ["Goibibo Hotel"]),
+    ("igp", "IGP", "igp.com", []),
+    ("ferns-n-petals", "Ferns N Petals", "fnp.com", ["FNP"]),
+    ("rare-rabbit", "Rare Rabbit", "thehouseofrare.com", []),
+    ("marks-and-spencer", "Marks & Spencer", "marksandspencer.in", []),
+    ("blissclub", "Blissclub", "blissclub.com", []),
+    ("freecultr", "Freecultr", "freecultr.com", []),
+    ("foxtale", "Foxtale", "foxtale.in", []),
+    ("kama-ayurveda", "Kama Ayurveda", "kamaayurveda.in", []),
+    ("ray-ban", "Ray-Ban", "ray-ban.com", []),
+    ("wonderchef", "Wonderchef", "wonderchef.com", []),
+    ("healthians", "Healthians", "healthians.com", []),
 ]
 
 SOURCES = [("gyftr", "Gyftr"), ("maximize", "Maximize"), ("buyhatke", "BuyHatke")]
@@ -193,6 +216,21 @@ def hubble_rate(name: str) -> dict | None:
     }
 
 
+def hubble_rate_for(name: str, aliases: list[str]) -> dict | None:
+    """Dealo's rate under the page's name, else under one of its other names
+    (Hubble lists "MakeMyTrip Hotel"; the page is "MakeMyTrip Hotels"). A
+    server error on the page's own name is kept as an error, so the last
+    known rate is used instead of a guess."""
+    found = hubble_rate(name)
+    if found:
+        return found
+    for other in aliases:
+        alt = hubble_rate(other)
+        if alt and not alt.get("error"):
+            return alt
+    return found
+
+
 def pick_terms(brands: list[dict]) -> dict:
     """Fine print from whichever seller states it; sellers agree far more
     often than they differ, and a stated value beats a blank."""
@@ -222,7 +260,7 @@ def main() -> None:
         previous = {s["slug"]: s for s in json.load(open(OUT))}
 
     with ThreadPoolExecutor(6) as ex:
-        hubble = dict(zip([s[0] for s in SHOPS], ex.map(lambda s: hubble_rate(s[1]), SHOPS)))
+        hubble = dict(zip([s[0] for s in SHOPS], ex.map(lambda s: hubble_rate_for(s[1], s[3]), SHOPS)))
 
     pages = []
     for slug, name, website, aliases in SHOPS:

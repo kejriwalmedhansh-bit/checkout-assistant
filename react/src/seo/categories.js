@@ -19,7 +19,9 @@ export const CATEGORIES = [
     slug: 'food',
     name: 'Food, coffee & groceries',
     short: 'Food',
-    shops: ['dominos', 'pizza-hut', 'kfc', 'subway', 'starbucks', 'third-wave-coffee', 'zomato', 'swiggy', 'bigbasket'],
+    shops: ['dominos', 'pizza-hut', 'kfc', 'subway', 'starbucks', 'third-wave-coffee', 'zomato', 'swiggy', 'bigbasket',
+      'eazydiner', 'bakingo', 'blue-tokai', 'baskin-robbins', 'cafe-coffee-day',
+    ],
   },
   {
     slug: 'fashion',
@@ -28,14 +30,15 @@ export const CATEGORIES = [
     shops: [
       'myntra', 'ajio', 'ajio-luxe', 'nykaa-fashion', 'lifestyle', 'westside', 'max-fashion', 'snitch', 'biba', 'beyoung',
       'jockey', 'tata-cliq', 'tata-cliq-luxury', 'puma', 'skechers', 'bata', 'woodland', 'birkenstock', 'decathlon',
+      'rare-rabbit', 'marks-and-spencer', 'blissclub', 'freecultr',
     ],
   },
-  { slug: 'beauty-jewellery', name: 'Beauty, eyewear & jewellery', short: 'Beauty & jewellery', shops: ['nykaa', 'nykaa-luxe', 'giva', 'titan', 'lenskart'] },
+  { slug: 'beauty-jewellery', name: 'Beauty, eyewear & jewellery', short: 'Beauty & jewellery', shops: ['nykaa', 'nykaa-luxe', 'giva', 'titan', 'lenskart', 'foxtale', 'kama-ayurveda', 'ray-ban'] },
   { slug: 'electronics', name: 'Electronics & online shopping', short: 'Electronics', shops: ['amazon', 'flipkart', 'croma', 'reliance-digital', 'boat', 'philips'] },
-  { slug: 'travel', name: 'Travel & rides', short: 'Travel', shops: ['makemytrip', 'goibibo', 'cleartrip', 'yatra', 'ixigo', 'easemytrip', 'uber', 'mokobara'] },
+  { slug: 'travel', name: 'Travel & rides', short: 'Travel', shops: ['makemytrip', 'goibibo', 'cleartrip', 'yatra', 'ixigo', 'easemytrip', 'uber', 'mokobara', 'makemytrip-hotels', 'goibibo-hotels'] },
   { slug: 'movies', name: 'Movies & events', short: 'Movies', shops: ['pvr', 'cinepolis', 'bookmyshow'] },
-  { slug: 'home', name: 'Home & furniture', short: 'Home', shops: ['ikea', 'pepperfry', 'urban-ladder', 'duroflex', 'dailyobjects', 'frido'] },
-  { slug: 'gifts-kids-health', name: 'Gifts, kids & health', short: 'Gifts, kids & health', shops: ['hamleys', 'firstcry', 'archies', 'netmeds'] },
+  { slug: 'home', name: 'Home & furniture', short: 'Home', shops: ['ikea', 'pepperfry', 'urban-ladder', 'duroflex', 'dailyobjects', 'frido', 'wonderchef'] },
+  { slug: 'gifts-kids-health', name: 'Gifts, kids & health', short: 'Gifts, kids & health', shops: ['hamleys', 'firstcry', 'archies', 'netmeds', 'igp', 'ferns-n-petals', 'healthians'] },
 ];
 
 // Per ₹1,000 rather than a big bill: true whatever card sizes a shop sells
