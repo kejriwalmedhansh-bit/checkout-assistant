@@ -11,7 +11,7 @@
  * Rates come from shopPages.json, so they move with every rebuild.
  */
 import { SITE_NAME, SITE_URL, pct, shownPct } from './pageMeta.js';
-import { inr, payOn } from './categories.js';
+import { CATEGORIES, categoryShops, inr, payOn } from './categories.js';
 
 const topShops = (shopPages, n) =>
   [...shopPages].filter((s) => shownPct(s)).sort((a, b) => shownPct(b) - shownPct(a)).slice(0, n);
@@ -24,14 +24,59 @@ function example(shopPages) {
   return { shop: s, rate: r, pay: inr(payOn(r)) };
 }
 
+const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+/** "2026-11-23" → "23 November 2026". */
+const niceDate = (iso) => {
+  const [y, m, d] = String(iso).split('-').map(Number);
+  return y && m && d ? `${d} ${MONTHS[m - 1]} ${y}` : String(iso);
+};
+
+const names = (shops) => shops.map((s) => `${s.name} (${pct(shownPct(s))})`).join(', ');
+
+/** Today's figures for the main guide, all counted from shopPages.json. */
+function figures(shopPages) {
+  const rated = shopPages.filter((s) => shownPct(s));
+  const low = rated.filter((s) => shownPct(s) < 3).sort((a, b) => shownPct(a) - shownPct(b));
+  return {
+    total: rated.length,
+    high: rated.filter((s) => shownPct(s) >= 8).length,
+    low,
+    onlineOnly: rated.filter((s) => s.online && !s.offline).length,
+    storeOnly: rated.filter((s) => !s.online && s.offline),
+    both: rated.filter((s) => s.online && s.offline).length,
+    checked: niceDate(shopPages.map((s) => s.checked).sort().pop()),
+    // The year the rates were last checked: turns to 2027 by itself with the first rebuild of January.
+    year: String(shopPages.map((s) => s.checked).sort().pop()).slice(0, 4),
+    // One row per kind of shop: how many, and today's biggest and smallest.
+    byType: CATEGORIES.map((c) => {
+      const shops = categoryShops(c, shopPages);
+      if (!shops.length) return null;
+      const best = shops[0];
+      const least = shops[shops.length - 1];
+      return {
+        href: `/gift-cards/${c.slug}/`,
+        label: c.name,
+        count: shops.length,
+        best: `${best.name} ${pct(shownPct(best))}`,
+        least: `${least.name} ${pct(shownPct(least))}`,
+      };
+    }).filter(Boolean),
+  };
+}
+
 export function buildGuides(shopPages) {
   const ex = example(shopPages);
   const top = topShops(shopPages, 10);
+  const f = figures(shopPages);
+  const knownStoreOnly = ['skechers', 'westside', 'puma', 'bata', 'titan', 'woodland']
+    .map((sl) => f.storeOnly.find((s) => s.slug === sl))
+    .filter(Boolean)
+    .map((s) => s.name);
   return [
     {
       slug: 'buy-gift-cards-at-discount',
-      title: 'How to buy gift cards at a discount in India',
-      description: `Shops' own gift cards sell below face value. A ₹1,000 ${ex.shop.name} gift card costs ${ex.pay} today. How it works, step by step, and where the discount is biggest.`,
+      title: `How to buy gift cards at a discount in India (${f.year})`,
+      description: `Today's gift card discount at ${f.total} Indian shops, checked ${f.checked}. A ₹1,000 ${ex.shop.name} gift card costs ${ex.pay}. Where it is worth it, where it is not, and how to buy one.`,
       heading: 'How to buy gift cards at a discount in India',
       intro: 'Pay less at the shop you already use, without a coupon or a special bank card.',
       sections: [
@@ -40,6 +85,13 @@ export function buildGuides(shopPages) {
           p: [
             `Most Indian shops sell their own gift cards. Official gift card issuers sell many of them below face value, so a ₹1,000 card costs less than ₹1,000. Today a ₹1,000 ${ex.shop.name} gift card costs ${ex.pay} (${pct(ex.rate)} off).`,
             'You then pay at the shop with the gift card code, like store credit. The shop gets its full price, and you keep the difference.',
+          ],
+        },
+        {
+          h: 'Today’s numbers',
+          p: [
+            `Dealo checked the gift card price at ${f.total} Indian shops on ${f.checked}. At ${f.high} of them the card costs at least 8% less than its value. At ${f.low.length} it is under 3%.`,
+            'Every number on this page is the price you pay today. Cashback is never counted, because it may or may not arrive later.',
           ],
         },
         {
@@ -52,8 +104,27 @@ export function buildGuides(shopPages) {
           ],
         },
         {
+          h: 'Discount by type of shop',
+          table: { cols: ['Type of shop', 'Shops', 'Biggest today', 'Smallest today'], rows: f.byType },
+        },
+        {
           h: 'Biggest gift card discounts today',
           shops: top.map((s) => s.slug),
+        },
+        {
+          h: 'When a gift card is not worth it',
+          p: [
+            `The biggest shops give very little: ${names(f.low)}. On a ₹1,000 order that is ₹${Math.round(shownPct(f.low[0]) * 10)} to ₹${Math.round(shownPct(f.low[f.low.length - 1]) * 10)}.`,
+            'At these shops a bank offer on the shop’s own payment page can be bigger than the gift card discount. Compare the two before you buy a card.',
+            'A gift card usually cannot be returned or turned back into money. Buy one only for an order you are about to place, and for the amount you plan to spend.',
+          ],
+        },
+        {
+          h: 'Online or in a store: check first',
+          p: [
+            `Of the ${f.total} shops, ${f.onlineOnly} cards work only on the shop’s website or app, ${f.storeOnly.length} work only at the counter in a store, and ${f.both} work in both.`,
+            `Cards that work only in a store today include ${knownStoreOnly.join(', ')}. You show the code at the billing counter. Each shop page says where its card works.`,
+          ],
         },
         {
           h: 'Before you buy, check three things',
@@ -64,7 +135,20 @@ export function buildGuides(shopPages) {
           ],
         },
       ],
+      note: 'Disclosure: Dealo sells gift cards itself, issued through Hubble, an official gift card issuer. The numbers here are read from live prices on the date shown and change often, so check the shop’s page before you pay.',
       faqs: [
+        {
+          q: 'Which shops give the biggest gift card discount in India?',
+          a: `Today the biggest are ${names(top.slice(0, 5))}. Smaller brands, food, salons and subscriptions usually give more than big marketplaces.`,
+        },
+        {
+          q: 'Is a gift card worth it for Amazon or Flipkart?',
+          a: `Barely. Today it is ${names(f.low.filter((s) => ['amazon', 'flipkart'].includes(s.slug)))}. A bank offer at checkout can be bigger.`,
+        },
+        {
+          q: 'Can I use a discounted gift card in a physical store?',
+          a: `At some shops, yes. Of ${f.total} shops checked, ${f.storeOnly.length} cards work only in a store and ${f.both} work both online and in a store. The rest are online only.`,
+        },
         {
           q: 'Can I really buy a gift card for less than its value?',
           a: `Yes. Official gift card issuers sell many Indian shops’ cards below face value. Today a ₹1,000 ${ex.shop.name} card costs ${ex.pay}.`,

@@ -154,7 +154,9 @@ function shopBody(shop) {
     : [
         shop.hubble ? 'Tap Dealo above and pick the voucher amount.' : 'Pick the seller above with the best rate.',
         `Buy a ${shop.name} gift voucher for the amount you plan to spend.`,
-        ...(shop.steps.length ? shop.steps.slice(0, 2) : [`Pay at ${shop.name} with the voucher code and keep the difference.`]),
+        // Where Dealo sells the voucher, the steps are the ones for Dealo's own
+        // voucher, not a partner's (a partner's can name its own app).
+        ...(shop.hubble?.steps?.length ? shop.hubble.steps : shop.steps.length ? shop.steps.slice(0, 2) : [`Pay at ${shop.name} with the voucher code and keep the difference.`]),
       ];
   if (isSubscription(shop)) return subscriptionBody(shop, meta, table);
   const multi = shop.multiUse === true ? 'Multi-use, spend it across orders' : shop.multiUse === false ? 'Must use the full value in one go' : 'Not stated by the shop';
@@ -286,10 +288,16 @@ function guideBody(g) {
         (sec.p || []).map(p).join('') +
         (sec.ol ? list(sec.ol.map(esc), 'ol') : '') +
         (sec.ul ? list(sec.ul.map(esc)) : '') +
+        (sec.table
+          ? `<table><thead><tr>${sec.table.cols.map((c) => `<th>${esc(c)}</th>`).join('')}</tr></thead><tbody>${sec.table.rows
+              .map((r) => `<tr><td>${link(r.href, r.label)}</td><td>${r.count}</td><td>${esc(r.best)}</td><td>${esc(r.least)}</td></tr>`)
+              .join('')}</tbody></table>`
+          : '') +
         (sec.shops ? list(sec.shops.map((sl) => BY_SLUG.get(sl)).filter(Boolean).map(shopItem)) + p(`Rates checked ${LAST_CHECKED}.`) : ''),
     ),
     '<h2>Questions people ask</h2>',
     g.faqs.map((f) => `<h3>${esc(f.q)}</h3>${p(f.a)}`).join(''),
+    p(g.note),
     list(GUIDES.filter((o) => o.slug !== g.slug).map((o) => link(`/guides/${o.slug}/`, o.title))),
   ].join('');
 }
