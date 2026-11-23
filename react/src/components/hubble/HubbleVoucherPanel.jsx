@@ -47,7 +47,7 @@ export default function HubbleVoucherPanel({ offer, onBuy }) {
         </Box>
       </Box>
 
-      {offer.card?.facts?.length > 0 && <VoucherFacts card={offer.card} brandName={offer.brand_name} placement="journey" />}
+      {(offer.card?.facts?.length > 0 || offer.card?.steps?.length > 0) && <VoucherFacts card={offer.card} brandName={offer.brand_name} placement="journey" />}
 
       <Flex bg="greenSoft" border="1.5px solid" borderColor="green" borderRadius="16px" px="14px" py="12px" align="center" gap="10px">
         <Box>

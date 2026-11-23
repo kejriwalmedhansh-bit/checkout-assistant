@@ -10,7 +10,7 @@ import { fmt } from '@/utils/format';
 
 import CodeRow from './CodeRow';
 import PhoneLogin from './PhoneLogin';
-import { VoucherSteps } from './VoucherFacts';
+import HowToRedeem from './HowToRedeem';
 
 // Web pages open in a new tab; app links (upi://, phonepe://, myntra://) are
 // handed to the phone, which opens the app.
@@ -382,7 +382,6 @@ export default function BuyFlow({ offer, merchant, storeLink, price, shopLink, p
                   )}
                 </Flex>
               )}
-              {!offer.in_store && !offer.add_voucher_url && offer.card?.steps?.length > 0 && <VoucherSteps steps={offer.card.steps} />}
               {offer.in_store || !(offer.add_voucher_url || shopLink || offer.shop_url) ? (
                 <Text fontSize="14px" fontWeight={700} textAlign="center">
                   {offer.in_store
@@ -408,6 +407,7 @@ export default function BuyFlow({ offer, merchant, storeLink, price, shopLink, p
                   {offer.add_voucher_url ? `Add to ${offer.brand_name} wallet` : `Open ${offer.brand_name}`}
                 </Button>
               )}
+              <HowToRedeem card={offer.card} brandName={offer.brand_name} inStore={offer.in_store} placement={placement} />
               {voucher && (
                 <Text fontSize="12px" color="text2" textAlign="center">
                   Saved on this phone · find it again in{' '}
