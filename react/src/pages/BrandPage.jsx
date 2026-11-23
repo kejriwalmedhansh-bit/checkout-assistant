@@ -10,11 +10,13 @@ import { getBrandDeal } from '@/data/brandDeals';
 import { hubbleApi } from '@/api/hubble.api';
 import { useJsonLd } from '@/hooks/useJsonLd';
 import { usePageTitle } from '@/hooks/usePageTitle';
-import { BILL, categoryOf, inr, payOn, similarShops } from '@/seo/categories';
+import { BILL, categoryOf, inr, moreHeading, payOn, similarShops } from '@/seo/categories';
 import {
   SELLER_NAME,
   SELLERS_EXPLAINED,
+  isSubscription,
   pct,
+  planPrices,
   shopFaqs,
   shopJsonLd,
   shopPageMeta,
@@ -203,7 +205,15 @@ export default function BrandPage() {
   const faqs = shopFaqs(shop);
   const cat = categoryOf(shop.slug);
   const similar = similarShops(shop, SHOP_PAGES);
-  const steps = curated?.steps?.length
+  // A subscription voucher buys a plan, not shopping: the page lists what
+  // each plan costs and gives the service's own terms and steps, word for word.
+  const sub = isSubscription(shop);
+  const plans = planPrices(shop, hubble?.pct);
+  const subSteps = hubble?.steps?.length ? hubble.steps : shop.steps;
+  const subTerms = hubble?.terms || [];
+  const steps = sub
+    ? [hubble ? 'Tap Dealo above and pick the plan amount.' : 'Pick the seller above with the best rate.', ...(subSteps.length ? subSteps : [`Redeem the code on ${shop.name}.`])]
+    : curated?.steps?.length
     ? curated.steps
     : [
         hubble ? 'Tap Dealo above and pick the voucher amount.' : 'Pick the seller above with the best rate.',
@@ -216,7 +226,7 @@ export default function BrandPage() {
       <Flex align="center" gap="14px" mb="18px">
         <ShopLogo shop={shop} />
         <Flex gap="8px" flexWrap="wrap">
-          {shop.online && <Badge>Works online</Badge>}
+          {shop.online && !sub && <Badge>Works online</Badge>}
           {shop.offline && <Badge>Works in store</Badge>}
           <Badge>Checked {shop.checked}</Badge>
         </Flex>
@@ -228,18 +238,46 @@ export default function BrandPage() {
           <SellerRow key={r.source} shop={shop} seller={r} cheapest={!hubble && r.pct === topPct} />
         ))}
       </Flex>
-      {topPct > 0 && (
+      {sub && plans.length > 0 && (
+        <Box px="14px" borderRadius="14px" bg="surface2" border="1px solid" borderColor="border" mb="10px">
+          {plans.map((x) => (
+            <Flex key={x.face} justify="space-between" align="center" py="10px" borderBottom="1px dashed" borderColor="border" _last={{ borderBottom: 'none' }}>
+              <Text m={0} fontSize="13.5px" fontWeight={700}>
+                {inr(x.face)} plan
+              </Text>
+              <Text m={0} fontSize="13.5px" fontWeight={800} color="green" fontFamily="mono">
+                You pay {inr(x.pay)}
+              </Text>
+            </Flex>
+          ))}
+        </Box>
+      )}
+      {!sub && topPct > 0 && (
         <Text fontSize="13.5px" fontWeight={700} mb="6px">
           Every {inr(BILL)} you spend at {shop.name} costs {inr(payOn(topPct))} with the gift card.
         </Text>
       )}
       <Text fontSize="12px" color="text2" lineHeight={1.5} mb="22px">
-        {hubble ? 'Issued through Hubble, an official gift voucher issuer. The shop accepts it like store credit.' : SELLERS_EXPLAINED}
+        {!hubble
+          ? SELLERS_EXPLAINED
+          : sub
+            ? `Issued through Hubble, an official gift voucher issuer. You redeem the code on ${shop.name} itself.`
+            : 'Issued through Hubble, an official gift voucher issuer. The shop accepts it like store credit.'}
       </Text>
 
 
-      <H2>About this voucher</H2>
-      <Box px="14px" borderRadius="14px" bg="surface2" border="1px solid" borderColor="border" mb="18px">
+      {sub && subTerms.length > 0 && (
+        <>
+          <H2>Good to know, in {shop.name}’s words</H2>
+          <Box px="14px" borderRadius="14px" bg="surface2" border="1px solid" borderColor="border" mb="18px">
+            {subTerms.map((t) => (
+              <FactRow key={t} icon={<I.doc size={15} />} q="" a={t} />
+            ))}
+          </Box>
+        </>
+      )}
+      {!sub && <H2>About this voucher</H2>}
+      <Box display={sub ? 'none' : 'block'} px="14px" borderRadius="14px" bg="surface2" border="1px solid" borderColor="border" mb="18px">
         <FactRow icon={<I.globe size={15} />} q="Where to redeem?" a={whereToRedeemShop(shop)} />
         <FactRow icon={<I.pay size={15} />} q="How do I pay?" a={hubble ? 'From your bank app; the code arrives in seconds' : 'On the seller’s site, best rate from your bank app'} />
         <FactRow
@@ -288,7 +326,7 @@ export default function BrandPage() {
 
       {similar.length > 0 && (
         <>
-          <H2>More {cat.short.toLowerCase()} gift card discounts</H2>
+          <H2>{moreHeading(cat)}</H2>
           <ShopGrid shops={similar} />
           <Text as={RouterLink} to={`${ROUTES.categoryFor(cat.slug)}/`} display="inline-block" mt="10px" mb="22px" fontSize="13px" fontWeight={700} color="brand">
             All {cat.name.toLowerCase()} →

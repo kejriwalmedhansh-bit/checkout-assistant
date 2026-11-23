@@ -12,7 +12,7 @@
  * Every slug in shopPages.json belongs to exactly one category; a test-free
  * guard in prerender.mjs fails the build if a shop page is left out.
  */
-import { SITE_NAME, SITE_URL, pct, shownPct } from './pageMeta.js';
+import { SITE_NAME, SITE_URL, isSubscription, pct, planLine, shopNoun, shownPct } from './pageMeta.js';
 
 export const CATEGORIES = [
   {
@@ -37,6 +37,9 @@ export const CATEGORIES = [
   { slug: 'electronics', name: 'Electronics & online shopping', short: 'Electronics', shops: ['amazon', 'flipkart', 'croma', 'reliance-digital', 'boat', 'philips'] },
   { slug: 'travel', name: 'Travel & rides', short: 'Travel', shops: ['makemytrip', 'goibibo', 'cleartrip', 'yatra', 'ixigo', 'easemytrip', 'uber', 'mokobara', 'makemytrip-hotels', 'goibibo-hotels'] },
   { slug: 'movies', name: 'Movies & events', short: 'Movies', shops: ['pvr', 'cinepolis', 'bookmyshow'] },
+  // Vouchers that buy a plan, not shopping: the pages say "subscription" /
+  // "membership", never "gift card" (see isSubscription in pageMeta.js).
+  { slug: 'subscriptions', name: 'Streaming & memberships', short: 'Subscription', plans: true, shops: ['sonyliv', 'zee5', 'amazon-prime', 'swiggy-one'] },
   { slug: 'home', name: 'Home & furniture', short: 'Home', shops: ['ikea', 'pepperfry', 'urban-ladder', 'duroflex', 'dailyobjects', 'frido', 'wonderchef'] },
   { slug: 'gifts-kids-health', name: 'Gifts, kids & health', short: 'Gifts, kids & health', shops: ['hamleys', 'firstcry', 'archies', 'netmeds', 'igp', 'ferns-n-petals', 'healthians'] },
 ];
@@ -47,6 +50,15 @@ export const BILL = 1000;
 export const inr = (n) => `₹${Math.round(n).toLocaleString('en-IN')}`;
 /** What ₹1,000 of shopping costs with the gift card at this rate. */
 export const payOn = (rate, bill = BILL) => bill * (1 - rate / 100);
+
+/** The small line under a shop's name in a list: what ₹1,000 of shopping
+ * costs, or for a subscription what its biggest plan costs. */
+export const costLine = (shop, rate = shownPct(shop)) =>
+  isSubscription(shop) ? planLine(shop, rate) : `Every ${inr(BILL)} costs ${inr(payOn(rate))}`;
+/** "Domino's gift card: 16% off" / "SonyLIV subscription: 20% off". */
+export const rateLabel = (shop) => `${shop.name} ${shopNoun(shop)}: ${pct(shownPct(shop))} off`;
+/** Heading over "more like this" on a shop page. */
+export const moreHeading = (cat) => (cat.plans ? 'More subscription discounts' : `More ${cat.short.toLowerCase()} gift card discounts`);
 
 export const categoryBySlug = (slug) => CATEGORIES.find((c) => c.slug === slug) || null;
 export const categoryOf = (shopSlug) => CATEGORIES.find((c) => c.shops.includes(shopSlug)) || null;
@@ -70,6 +82,14 @@ export function similarShops(shop, shopPages, n = 6) {
 export function categoryMeta(cat, shops) {
   const top = shops.slice(0, 2).map((s) => `${s.name} ${pct(shownPct(s))}`);
   const names = shops.slice(0, 4).map((s) => s.name);
+  if (cat.plans) {
+    return {
+      title: `Subscription discounts today${top.length ? `: ${top.join(', ')}` : ''}`,
+      description: `Today's discount on ${names.join(', ')} plans. Buy the plan voucher for less on Dealo and redeem the code on the service.`,
+      heading: `${cat.name}: discounts today`,
+      intro: 'Today’s discount on each plan voucher. Tap a service for its plans, terms and how to redeem.',
+    };
+  }
   return {
     title: `${cat.short} gift card discounts today${top.length ? `: ${top.join(', ')}` : ''}`,
     description: `Today's gift card discount at ${shops.length} ${cat.name.toLowerCase()} shops, including ${names.join(', ')}. Buy the shop's gift card for less and pay with it.`,

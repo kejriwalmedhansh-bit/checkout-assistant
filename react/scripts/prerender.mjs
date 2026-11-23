@@ -35,9 +35,12 @@ import {
   SITE_NAME,
   SITE_URL,
   brandsIndexMeta,
+  isSubscription,
   pct,
+  planPrices,
   shopFaqs,
   shopJsonLd,
+  shopNoun,
   shopPageMeta,
   shownPct,
   shownSellers,
@@ -50,8 +53,11 @@ import {
   categoryMeta,
   categoryOf,
   categoryShops,
+  costLine,
   inr,
+  moreHeading,
   payOn,
+  rateLabel,
   similarShops,
 } from '../src/seo/categories.js';
 import { buildGuides, guideJsonLd } from '../src/seo/guides.js';
@@ -103,6 +109,31 @@ const link = (href, text) => `<a href="${href}">${esc(text)}</a>`;
 /** Visible top of a page, as plain HTML: its h1 and subtitle. */
 const head = (meta) => `<h1>${esc(meta.heading)}</h1>${p(meta.intro)}`;
 
+/** A subscription page: plan prices, then the service's own terms and
+ * redeem steps, word for word. Mirrors BrandPage.jsx. */
+function subscriptionBody(shop, meta, table) {
+  const plans = planPrices(shop);
+  const steps = shop.hubble?.steps?.length ? shop.hubble.steps : shop.steps;
+  const terms = shop.hubble?.terms || [];
+  return [
+    head(meta),
+    p(`Checked ${shop.checked}.`),
+    `<h2>${shop.hubble ? 'Today’s rate' : 'Today’s rate, every seller'}</h2>`,
+    table,
+    plans.length ? '<h2>What each plan costs today</h2>' + list(plans.map((x) => `${inr(x.face)} plan: you pay ${inr(x.pay)}`)) : '',
+    p(shop.hubble ? `Issued through Hubble, an official gift voucher issuer. You redeem the code on ${esc(shop.name)} itself.` : SELLERS_EXPLAINED),
+    terms.length ? `<h2>Good to know, in ${esc(shop.name)}’s words</h2>` + list(terms.map(esc)) : '',
+    '<h2>How to redeem</h2>',
+    list(
+      [shop.hubble ? 'Tap Dealo above and pick the plan amount.' : 'Pick the seller above with the best rate.', ...(steps.length ? steps : [`Redeem the code on ${shop.name}.`])].map(esc),
+      'ol',
+    ),
+    '<h2>Questions people ask</h2>',
+    shopFaqs(shop).map((f) => `<h3>${esc(f.q)}</h3>${p(f.a)}`).join(''),
+    similarBlock(shop),
+  ].join('');
+}
+
 function shopBody(shop) {
   const meta = shopPageMeta(shop);
   const curated = CURATED.get(shop.slug);
@@ -125,6 +156,7 @@ function shopBody(shop) {
         `Buy a ${shop.name} gift voucher for the amount you plan to spend.`,
         ...(shop.steps.length ? shop.steps.slice(0, 2) : [`Pay at ${shop.name} with the voucher code and keep the difference.`]),
       ];
+  if (isSubscription(shop)) return subscriptionBody(shop, meta, table);
   const multi = shop.multiUse === true ? 'Multi-use, spend it across orders' : shop.multiUse === false ? 'Must use the full value in one go' : 'Not stated by the shop';
   const club = shop.canClub === true ? 'Yes, it pays the price after sale and coupons' : shop.canClub === false ? 'No, not with other offers' : 'Not stated, treat it as store credit';
   return [
@@ -168,7 +200,7 @@ function homeBody() {
     .filter((s) => shownPct(s))
     .sort((a, b) => shownPct(b) - shownPct(a))
     .slice(0, 12)
-    .map((s) => link(`/brands/${s.slug}/`, `${s.name} gift card: ${pct(shownPct(s))} off`));
+    .map((s) => link(`/brands/${s.slug}/`, rateLabel(s)));
   return [
     head(PAGE_META.home),
     p('✓ Free · ✓ No login · ✓ Works on sale prices'),
@@ -201,7 +233,7 @@ function llmsTxt() {
   const shops = [...SHOP_PAGES]
     .filter((s) => shownPct(s))
     .sort((a, b) => a.name.localeCompare(b.name))
-    .map((s) => `- [${s.name} gift card discount](${SITE_URL}/brands/${s.slug}/): ${pct(shownPct(s))} off${s.hubble ? ', sold by Dealo' : ''} (checked ${s.checked})`);
+    .map((s) => `- [${s.name} ${shopNoun(s)} discount](${SITE_URL}/brands/${s.slug}/): ${pct(shownPct(s))} off${s.hubble ? ', sold by Dealo' : ''} (checked ${s.checked})`);
   return `# Dealo
 
 > Dealo (getdealo.in) shows the cheapest way to pay at Indian shops. Many shops' own gift cards (gift vouchers) sell below face value; buying one and paying with it at checkout is a direct discount anyone can use, with no coupon or bank card needed. Each shop page says whether the card also works on sale prices. Free, no login. Covers Myntra, Nykaa, AJIO, Tata CLiQ, Lifestyle, MakeMyTrip, PVR and 800+ shops.
@@ -232,13 +264,13 @@ ${shops.join('\n')}
 `;
 }
 
-const shopItem = (s) => link(`/brands/${s.slug}/`, `${s.name} gift card: ${pct(shownPct(s))} off, every ${inr(BILL)} costs ${inr(payOn(shownPct(s)))}`);
+const shopItem = (s) => link(`/brands/${s.slug}/`, `${rateLabel(s)}, ${costLine(s).replace(/^E/, 'e')}`);
 
 function similarBlock(shop) {
   const cat = categoryOf(shop.slug);
   const similar = similarShops(shop, SHOP_PAGES);
   if (!cat || !similar.length) return '';
-  return `<h2>More ${esc(cat.short.toLowerCase())} gift card discounts</h2>${list(similar.map(shopItem))}<p>${link(`/gift-cards/${cat.slug}/`, `All ${cat.name.toLowerCase()}`)}</p>`;
+  return `<h2>${esc(moreHeading(cat))}</h2>${list(similar.map(shopItem))}<p>${link(`/gift-cards/${cat.slug}/`, `All ${cat.name.toLowerCase()}`)}</p>`;
 }
 
 const GUIDES = buildGuides(SHOP_PAGES);
@@ -264,7 +296,7 @@ function guideBody(g) {
 
 const guideLinks = () => list(GUIDES.map((g) => link(`/guides/${g.slug}/`, g.title)));
 
-const categoryLinks = () => list(CATEGORIES.map((c) => link(`/gift-cards/${c.slug}/`, `${c.name} gift card discounts`)));
+const categoryLinks = () => list(CATEGORIES.map((c) => link(`/gift-cards/${c.slug}/`, c.plans ? `${c.name} discounts` : `${c.name} gift card discounts`)));
 
 // Each route: its URL, the <head> text (title/description/JSON-LD) and the
 // plain-HTML body a crawler reads before React boots. Everything is drawn

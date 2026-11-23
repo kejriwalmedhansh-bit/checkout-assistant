@@ -208,7 +208,41 @@ export function shownPct(shop) {
   return shop.best ? shop.best.pct : null;
 }
 
+/** Subscriptions and memberships (SonyLIV, Amazon Prime): the voucher buys a
+ * plan, not shopping, so these pages never say "gift card". */
+export const isSubscription = (shop) => shop.kind === 'subscription';
+/** The word people search with for this page: "gift card", "subscription" or "membership". */
+export const shopNoun = (shop) => (isSubscription(shop) ? shop.noun : 'gift card');
+const rupees = (n) => `₹${Math.round(n).toLocaleString('en-IN')}`;
+
+/** What each plan voucher costs today: face value and what you pay on Dealo. */
+export function planPrices(shop, rate = shop.hubble?.pct) {
+  if (!isSubscription(shop) || !rate) return [];
+  return (shop.hubble?.cards || []).map((face) => ({ face, pay: face * (1 - rate / 100) }));
+}
+/** "₹999 plan for ₹799": the biggest plan, the line a searcher wants first. */
+export function planLine(shop, rate) {
+  const plans = planPrices(shop, rate);
+  const top = plans[plans.length - 1];
+  return top ? `${rupees(top.face)} plan for ${rupees(top.pay)}` : '';
+}
+
+function subscriptionMeta(shop) {
+  const noun = shop.noun;
+  const rate = shownPct(shop);
+  const plan = planLine(shop);
+  return {
+    // People type "<name> subscription offer" and "<name> subscription
+    // discount"; the title carries one, the heading the other.
+    title: rate ? `${shop.name} ${noun} offer: ${pct(rate)} off today` : `${shop.name} ${noun} offer today`,
+    description: `${shop.name} ${noun}: ${bestLine(shop)}${plan ? `, ${plan}` : ''}. ${shop.hubble ? 'Sold by Dealo: pay from your bank app, code in seconds.' : 'Today’s rate from official sellers.'} Checked ${shop.checked}.`,
+    heading: `${shop.name} ${noun} discount today`,
+    intro: `${bestLine(shop)}. Buy the voucher for the plan you want, then redeem the code on ${shop.name}.`,
+  };
+}
+
 export function shopPageMeta(shop) {
+  if (isSubscription(shop)) return subscriptionMeta(shop);
   const n = shop.sellers.length;
   const compare = shop.hubble
     ? 'Sold by Dealo: pay from your bank app, code in seconds.'
@@ -241,7 +275,39 @@ export function whereToRedeemShop(shop) {
   return 'Online only';
 }
 
+function subscriptionFaqs(shop) {
+  const noun = shop.noun;
+  const best = shop.best ? bestLine(shop) : 'the rate shown above';
+  const plans = planPrices(shop);
+  const faqs = [
+    {
+      q: `Is a discounted ${shop.name} ${noun} voucher safe?`,
+      a: shop.hubble
+        ? `Yes. Dealo’s own voucher is issued through Hubble, an official gift voucher issuer. Pay from your bank app, the code arrives in seconds, and you redeem it on ${shop.name} itself.`
+        : `Yes. ${SELLERS_EXPLAINED} You pay the seller, get a code, and redeem it on ${shop.name} itself.`,
+    },
+    {
+      q: `What is the ${shop.name} ${noun} discount today?`,
+      a: `${best} (checked ${shop.checked}). Rates move; this page is rebuilt with every catalogue refresh and the Dealo rate is checked live when the page opens.`,
+    },
+    {
+      q: `How do I get a ${shop.name} ${noun} at a discount?`,
+      a: shop.hubble
+        ? `Tap Dealo on this page, pick the plan amount and pay from your bank app. The code arrives in seconds; redeem it on ${shop.name}.`
+        : `Pick a seller on this page, buy the ${shop.name} voucher for the plan you want, and redeem the code on ${shop.name}.`,
+    },
+  ];
+  if (plans.length) {
+    faqs.push({
+      q: `Which ${shop.name} plans can I buy on Dealo?`,
+      a: `${plans.map((x) => `the ${rupees(x.face)} plan for ${rupees(x.pay)}`).join(', ')}. Check on ${shop.name} which plan each amount buys before you pay.`.replace(/^t/, 'T'),
+    });
+  }
+  return faqs;
+}
+
 export function shopFaqs(shop) {
+  if (isSubscription(shop)) return subscriptionFaqs(shop);
   const best = shop.best ? bestLine(shop) : 'the rate shown above';
   return [
     {

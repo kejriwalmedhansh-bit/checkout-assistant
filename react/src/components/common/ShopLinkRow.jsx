@@ -4,7 +4,7 @@ import { Link as RouterLink } from 'react-router-dom';
 
 import BrandAvatar from '@/components/common/BrandAvatar';
 import { I } from '@/components/common/icons';
-import { BILL, inr, payOn } from '@/seo/categories';
+import { costLine } from '@/seo/categories';
 import { pct, shownPct } from '@/seo/pageMeta';
 import { ROUTES } from '@/routes/paths';
 import { shopLogos } from '@/utils/priceList';
@@ -60,7 +60,7 @@ export function ShopLinkRow({ shop }) {
           {shop.name}
         </Text>
         <Text m={0} fontSize="11px" color="text3" noOfLines={1}>
-          Every {inr(BILL)} costs {inr(payOn(rate))}
+          {costLine(shop, rate)}
         </Text>
       </Box>
       <Flex align="center" gap="3px" flex="0 0 auto" px="8px" py="3px" borderRadius="999px" bg="brandSoft" color="brandText" fontSize="11px" fontWeight={700}>
