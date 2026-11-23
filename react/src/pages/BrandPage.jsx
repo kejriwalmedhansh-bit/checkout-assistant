@@ -14,7 +14,12 @@ import { BILL, categoryOf, inr, moreHeading, payOn, similarShops } from '@/seo/c
 import {
   SELLER_NAME,
   SELLERS_EXPLAINED,
+  buyAmounts,
+  defaultBuyAmount,
+  hasBuyBox,
+  isMultiUse,
   isSubscription,
+  payFor,
   pct,
   planPrices,
   shopFaqs,
@@ -169,6 +174,101 @@ function SellerRow({ shop, seller, cheapest }) {
   );
 }
 
+/** The buy box (test pages, see BUY_BOX_SHOPS): pick an amount, see what you
+ * pay, buy. Everything a buyer needs on the first phone screen. */
+function BuyBox({ shop, hubble }) {
+  const sub = isSubscription(shop);
+  const amounts = buyAmounts(shop, hubble);
+  const [amount, setAmount] = useState(defaultBuyAmount(shop, hubble));
+  const pay = payFor(amount, hubble.pct);
+  const facts = (hubble.facts || []).slice(0, 4);
+  return (
+    <Box mb="22px">
+      <Box p="14px" borderRadius="16px" bg="surface2" border="1px solid" borderColor="border" mb="10px">
+        <Text m="0 0 8px" fontSize="12.5px" fontWeight={700} color="text2">
+          {sub ? 'Which plan do you want?' : `How much will you spend at ${shop.name}?`}
+        </Text>
+        <Flex gap="8px" flexWrap="wrap" mb="14px">
+          {amounts.map((a) => (
+            <Box
+              key={a}
+              as="button"
+              type="button"
+              aria-pressed={a === amount}
+              onClick={() => setAmount(a)}
+              px="12px"
+              h="40px"
+              borderRadius="12px"
+              border="1.5px solid"
+              borderColor={a === amount ? 'green' : 'borderStrong'}
+              bg={a === amount ? 'greenSoft' : 'surface'}
+              color={a === amount ? 'green' : 'text'}
+              fontFamily="mono"
+              fontWeight={700}
+              fontSize="14px"
+            >
+              {inr(a)}
+            </Box>
+          ))}
+        </Flex>
+        <Flex justify="space-between" align="flex-end" gap="10px" mb="12px">
+          <Box>
+            <Text m={0} fontSize="12.5px" fontWeight={700} color="text2">
+              You pay
+            </Text>
+            <Text m={0} fontFamily="mono" fontWeight={800} fontSize="28px" lineHeight={1.1}>
+              {inr(pay)}
+            </Text>
+          </Box>
+          <Box textAlign="right">
+            <Text m={0} fontFamily="mono" fontSize="13px" color="text3" textDecoration="line-through">
+              {inr(amount)}
+            </Text>
+            <Text m={0} fontSize="12.5px" fontWeight={700} color="green">
+              You keep {inr(amount - pay)}
+            </Text>
+          </Box>
+        </Flex>
+        <Button
+          as={RouterLink}
+          to={`${ROUTES.buyFor(buySlug(hubble.brand_name || shop.name))}?amount=${amount}&src=page`}
+          onClick={() => track('Clicked Brand Voucher Link', { brand: shop.name, source: 'dealo', pct: hubble.pct, amount, placement: 'brand-page-buybox' })}
+          variant="primary"
+          _hover={{ textDecoration: 'none', bg: 'brandHover' }}
+          h="48px"
+          w="100%"
+          borderRadius="14px"
+          fontSize="15px"
+          fontWeight={700}
+        >
+          Buy for {inr(pay)}
+        </Button>
+        <Text m="10px 0 0" fontSize="12px" color="text2" lineHeight={1.5}>
+          Pay from your bank app. The code arrives in seconds.
+          {hubble.typed && hubble.min_amount && hubble.max_amount ? ` Any amount from ${inr(hubble.min_amount)} to ${inr(hubble.max_amount)}.` : ''}
+        </Text>
+      </Box>
+      {facts.length > 0 && (
+        <Box display="grid" gridTemplateColumns="1fr 1fr" gap="8px" mb="10px">
+          {facts.map((f) => (
+            <Box key={f.title + f.sub} p="9px 10px" borderRadius="12px" bg="surface3">
+              <Text m={0} fontSize="12.5px" fontWeight={700} lineHeight={1.35}>
+                {f.title}
+              </Text>
+              <Text m={0} fontSize="12.5px" color="text2" lineHeight={1.35}>
+                {f.sub}
+              </Text>
+            </Box>
+          ))}
+        </Box>
+      )}
+      <Text m={0} fontSize="12px" color="text2" lineHeight={1.5}>
+        Issued through Hubble, an official gift voucher issuer. Dealo never sees your card number, UPI PIN or OTP.
+      </Text>
+    </Box>
+  );
+}
+
 export default function BrandPage() {
   const { slug } = useParams();
   const shop = SHOP_BY_SLUG.get(slug);
@@ -211,6 +311,9 @@ export default function BrandPage() {
   // A subscription voucher buys a plan, not shopping: the page lists what
   // each plan costs and gives the service's own terms and steps, word for word.
   const sub = isSubscription(shop);
+  // Test pages put the price and the Buy button first (see BUY_BOX_SHOPS).
+  const box = Boolean(hubble) && hasBuyBox(shop);
+  const multiUse = isMultiUse(shop, hubble);
   const plans = planPrices(shop, hubble?.pct);
   const subSteps = hubble?.steps?.length ? hubble.steps : shop.steps;
   const subTerms = hubble?.terms || [];
@@ -237,38 +340,44 @@ export default function BrandPage() {
         </Flex>
       </Flex>
 
-      <H2>{hubble ? 'Today’s rate' : 'Today’s rate, every seller'}</H2>
-      <Flex direction="column" gap="8px" mb="10px">
-        {rows.map((r) => (
-          <SellerRow key={r.source} shop={shop} seller={r} cheapest={!hubble && r.pct === topPct} />
-        ))}
-      </Flex>
-      {sub && plans.length > 0 && (
-        <Box px="14px" borderRadius="14px" bg="surface2" border="1px solid" borderColor="border" mb="10px">
-          {plans.map((x) => (
-            <Flex key={x.face} justify="space-between" align="center" py="10px" borderBottom="1px dashed" borderColor="border" _last={{ borderBottom: 'none' }}>
-              <Text m={0} fontSize="13.5px" fontWeight={700}>
-                {inr(x.face)} plan
-              </Text>
-              <Text m={0} fontSize="13.5px" fontWeight={800} color="green" fontFamily="mono">
-                You pay {inr(x.pay)}
-              </Text>
-            </Flex>
+      {box ? (
+        <BuyBox shop={shop} hubble={hubble} />
+      ) : (
+        <>
+        <H2>{hubble ? 'Today’s rate' : 'Today’s rate, every seller'}</H2>
+        <Flex direction="column" gap="8px" mb="10px">
+          {rows.map((r) => (
+            <SellerRow key={r.source} shop={shop} seller={r} cheapest={!hubble && r.pct === topPct} />
           ))}
-        </Box>
-      )}
-      {!sub && topPct > 0 && (
-        <Text fontSize="13.5px" fontWeight={700} mb="6px">
-          Every {inr(BILL)} you spend at {shop.name} costs {inr(payOn(topPct))} with the gift card.
+        </Flex>
+        {sub && plans.length > 0 && (
+          <Box px="14px" borderRadius="14px" bg="surface2" border="1px solid" borderColor="border" mb="10px">
+            {plans.map((x) => (
+              <Flex key={x.face} justify="space-between" align="center" py="10px" borderBottom="1px dashed" borderColor="border" _last={{ borderBottom: 'none' }}>
+                <Text m={0} fontSize="13.5px" fontWeight={700}>
+                  {inr(x.face)} plan
+                </Text>
+                <Text m={0} fontSize="13.5px" fontWeight={800} color="green" fontFamily="mono">
+                  You pay {inr(x.pay)}
+                </Text>
+              </Flex>
+            ))}
+          </Box>
+        )}
+        {!sub && topPct > 0 && (
+          <Text fontSize="13.5px" fontWeight={700} mb="6px">
+            Every {inr(BILL)} you spend at {shop.name} costs {inr(payOn(topPct))} with the gift card.
+          </Text>
+        )}
+        <Text fontSize="12px" color="text2" lineHeight={1.5} mb="22px">
+          {!hubble
+            ? SELLERS_EXPLAINED
+            : sub
+              ? `Issued through Hubble, an official gift voucher issuer. You redeem the code on ${shop.name} itself.`
+              : 'Issued through Hubble, an official gift voucher issuer. The shop accepts it like store credit.'}
         </Text>
+        </>
       )}
-      <Text fontSize="12px" color="text2" lineHeight={1.5} mb="22px">
-        {!hubble
-          ? SELLERS_EXPLAINED
-          : sub
-            ? `Issued through Hubble, an official gift voucher issuer. You redeem the code on ${shop.name} itself.`
-            : 'Issued through Hubble, an official gift voucher issuer. The shop accepts it like store credit.'}
-      </Text>
 
 
       {sub && subTerms.length > 0 && (
@@ -288,7 +397,7 @@ export default function BrandPage() {
         <FactRow
           icon={<I.doc size={15} />}
           q="Multi-use or single-use?"
-          a={shop.multiUse === true ? 'Multi-use, spend it across orders' : shop.multiUse === false ? 'Must use the full value in one go' : 'Not stated by the shop'}
+          a={multiUse === true ? 'Multi-use, spend it across orders' : multiUse === false ? 'Must use the full value in one go' : 'Not stated by the shop'}
         />
         <FactRow
           icon={<I.check size={15} />}

@@ -227,6 +227,69 @@ export function planLine(shop, rate) {
   return top ? `${rupees(top.face)} plan for ${rupees(top.pay)}` : '';
 }
 
+/**
+ * Buy-box test (23 Nov 2026). Search research: every page above ours for
+ * "<shop> gift card discount" shows a price and a buy button on the first
+ * screen, a buying word in the title and the price in its page labels. Tried
+ * on five pages first; compare with the rest in Search Console after 28 days
+ * before widening (the price line in Google is Google's choice, untested).
+ */
+export const BUY_BOX_SHOPS = ['dominos', 'cinepolis', 'nua', 'sonyliv', 'westside'];
+export const hasBuyBox = (shop) => Boolean(shop?.hubble) && BUY_BOX_SHOPS.includes(shop.slug);
+
+/** The amounts the buy box offers: the voucher's own card values where it has
+ * them (every plan for a subscription), else round amounts inside its limits. */
+export function buyAmounts(shop, h = shop.hubble) {
+  if (!h) return [];
+  const cards = h.cards || [];
+  if (cards.length && isSubscription(shop)) return cards.slice(0, 4);
+  const round = [500, 1000, 2000];
+  if (cards.length) {
+    const hit = round.filter((a) => cards.includes(a));
+    return hit.length ? hit : cards.slice(0, 3);
+  }
+  return round.filter((a) => a >= (h.min_amount || 0) && a <= (h.max_amount || Infinity));
+}
+/** The amount picked when the page opens: ₹1,000, else the biggest plan / middle card. */
+export function defaultBuyAmount(shop, h = shop.hubble) {
+  const a = buyAmounts(shop, h);
+  if (a.includes(1000)) return 1000;
+  return isSubscription(shop) ? a[a.length - 1] : a[Math.floor(a.length / 2)];
+}
+export const payFor = (amount, rate) => amount * (1 - rate / 100);
+
+const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+/** "2026-11-23" → "November 2026". */
+export function monthYear(iso) {
+  const [y, m] = String(iso).split('-').map(Number);
+  return y && m ? `${MONTHS[m - 1]} ${y}` : '';
+}
+/** Dealo's first three short facts for the voucher, as one line: "Online shopping · 1 card per order". */
+export const factLine = (shop) => (shop.hubble?.facts || []).slice(0, 3).map((f) => `${f.title} ${f.sub}`.trim()).join(' · ');
+/** Dealo's facts say when a voucher must be spent in one go; they win over a partner's listing. */
+export const isMultiUse = (shop, h = shop.hubble) => ((h?.facts || []).some((f) => f.title === 'One use') ? false : shop.multiUse);
+
+function buyBoxMeta(shop) {
+  const rate = shop.hubble.pct;
+  const noun = shopNoun(shop);
+  const sub = isSubscription(shop);
+  const amount = defaultBuyAmount(shop);
+  const when = monthYear(shop.checked);
+  const facts = factLine(shop);
+  const price = sub
+    ? `Pay ${rupees(payFor(amount, rate))} for the ${rupees(amount)} ${shop.name} plan on Dealo.`
+    : `Pay ${rupees(payFor(amount, rate))} for a ${rupees(amount)} ${shop.name} gift card on Dealo.`;
+  return {
+    title: `${sub ? '' : 'Buy '}${shop.name} ${noun} at ${pct(rate)} off${when ? ` (${when})` : ''}`,
+    description: `${price}${facts ? ` ${facts}.` : ''} Pay from your bank app, code in seconds.`,
+    // The heading keeps the words people search: "<shop> gift card discount".
+    heading: `${shop.name} ${noun} discount: ${pct(rate)} off today`,
+    intro: sub
+      ? `Buy the voucher for the plan you want, then redeem the code on ${shop.name}.`
+      : `Buy the voucher, pay at ${shop.name} with it, keep the difference.`,
+  };
+}
+
 function subscriptionMeta(shop) {
   const noun = shop.noun;
   const rate = shownPct(shop);
@@ -242,6 +305,7 @@ function subscriptionMeta(shop) {
 }
 
 export function shopPageMeta(shop) {
+  if (hasBuyBox(shop)) return buyBoxMeta(shop);
   if (isSubscription(shop)) return subscriptionMeta(shop);
   const n = shop.sellers.length;
   const compare = shop.hubble
@@ -351,6 +415,29 @@ export function shopJsonLd(shop) {
       inLanguage: 'en-IN',
       isPartOf: { '@type': 'WebSite', name: SITE_NAME, url: `${SITE_URL}/` },
     },
+    // Buy-box pages sell the voucher on the page, so they carry its price: the
+    // same amount and "you pay" figure the buy box opens with.
+    ...(hasBuyBox(shop)
+      ? [
+          {
+            '@context': 'https://schema.org',
+            '@type': 'Product',
+            name: isSubscription(shop)
+              ? `${shop.name} ${shop.noun} voucher, ${rupees(defaultBuyAmount(shop))} plan`
+              : `${shop.name} gift card worth ${rupees(defaultBuyAmount(shop))}`,
+            description: meta.description,
+            brand: { '@type': 'Brand', name: shop.name },
+            offers: {
+              '@type': 'Offer',
+              price: Math.round(payFor(defaultBuyAmount(shop), shop.hubble.pct)),
+              priceCurrency: 'INR',
+              availability: 'https://schema.org/InStock',
+              url: `${SITE_URL}/brands/${shop.slug}/`,
+              seller: { '@type': 'Organization', name: SITE_NAME, url: `${SITE_URL}/` },
+            },
+          },
+        ]
+      : []),
     {
       '@context': 'https://schema.org',
       '@type': 'FAQPage',

@@ -36,6 +36,10 @@ import {
   SITE_URL,
   brandsIndexMeta,
   isSubscription,
+  hasBuyBox,
+  defaultBuyAmount,
+  payFor,
+  isMultiUse,
   pct,
   planPrices,
   shopFaqs,
@@ -109,6 +113,19 @@ const link = (href, text) => `<a href="${href}">${esc(text)}</a>`;
 /** Visible top of a page, as plain HTML: its h1 and subtitle. */
 const head = (meta) => `<h1>${esc(meta.heading)}</h1>${p(meta.intro)}`;
 
+/** The buy box as plain HTML (test pages): what you pay, a link to buy, Dealo's facts. */
+function buyBoxHtml(shop) {
+  if (!hasBuyBox(shop)) return '';
+  const h = shop.hubble;
+  const amount = defaultBuyAmount(shop);
+  const what = isSubscription(shop) ? `the ${inr(amount)} ${shop.name} plan` : `a ${inr(amount)} ${shop.name} gift card`;
+  return [
+    p(`Pay ${inr(payFor(amount, h.pct))} for ${what}. You keep ${inr(amount - payFor(amount, h.pct))}.`),
+    `<p>${link(`/buy/${buySlug(h.brand_name || shop.name)}/`, `Buy for ${inr(payFor(amount, h.pct))}`)}</p>`,
+    (h.facts || []).length ? list(h.facts.slice(0, 4).map((f) => esc(`${f.title} ${f.sub}`.trim()))) : '',
+  ].join('');
+}
+
 /** A subscription page: plan prices, then the service's own terms and
  * redeem steps, word for word. Mirrors BrandPage.jsx. */
 function subscriptionBody(shop, meta, table) {
@@ -117,6 +134,7 @@ function subscriptionBody(shop, meta, table) {
   const terms = shop.hubble?.terms || [];
   return [
     head(meta),
+    buyBoxHtml(shop),
     p(`Checked ${shop.checked}.`),
     `<h2>${shop.hubble ? 'Today’s rate' : 'Today’s rate, every seller'}</h2>`,
     table,
@@ -159,10 +177,12 @@ function shopBody(shop) {
         ...(shop.hubble?.steps?.length ? shop.hubble.steps : shop.steps.length ? shop.steps.slice(0, 2) : [`Pay at ${shop.name} with the voucher code and keep the difference.`]),
       ];
   if (isSubscription(shop)) return subscriptionBody(shop, meta, table);
-  const multi = shop.multiUse === true ? 'Multi-use, spend it across orders' : shop.multiUse === false ? 'Must use the full value in one go' : 'Not stated by the shop';
+  const multiUse = isMultiUse(shop);
+  const multi = multiUse === true ? 'Multi-use, spend it across orders' : multiUse === false ? 'Must use the full value in one go' : 'Not stated by the shop';
   const club = shop.canClub === true ? 'Yes, it pays the price after sale and coupons' : shop.canClub === false ? 'No, not with other offers' : 'Not stated, treat it as store credit';
   return [
     head(meta),
+    buyBoxHtml(shop),
     p(`${shop.online ? 'Works online. ' : ''}${shop.offline ? 'Works in store. ' : ''}Checked ${shop.checked}.`),
     `<h2>${shop.hubble ? 'Today’s rate' : 'Today’s rate, every seller'}</h2>`,
     table,

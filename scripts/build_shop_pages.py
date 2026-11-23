@@ -321,6 +321,13 @@ def hubble_rate(name: str) -> dict | None:
         # The service's own redeem steps and terms, word for word.
         "steps": [x for x in (b.get("card") or {}).get("steps") or [] if isinstance(x, str)][:6],
         "terms": [x for x in (b.get("card") or {}).get("terms") or [] if isinstance(x, str)][:6],
+        # Dealo's own short facts for this voucher ("1 card" / "per order"),
+        # the same ones the buy card shows.
+        "facts": [
+            {"title": f["title"], "sub": f.get("sub") or ""}
+            for f in (b.get("card") or {}).get("facts") or []
+            if isinstance(f, dict) and isinstance(f.get("title"), str)
+        ][:6],
     }
 
 
