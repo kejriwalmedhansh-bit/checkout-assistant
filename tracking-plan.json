@@ -1030,6 +1030,16 @@
         "cant_count": "how many 'can't pay for' items the card showed"
       }
     },
+    "How To Redeem Opened": {
+      "description": "The shopper tapped 'How to redeem' on a Dealo (Hubble) voucher, opening the shop's step-by-step use. Counted without cookie consent too (no personal detail is carried).",
+      "surfaces": [
+        "web"
+      ],
+      "properties": {
+        "brand": "Hubble's voucher title",
+        "placement": "where the button sat (journey, shop_card, done screen, account)"
+      }
+    },
     "Voucher Recovered After Reload": {
       "description": "A buyer who left mid-payment came back (page reload, within 30 min) and their paid voucher code was recovered from the server and saved on their phone.",
       "surfaces": [
