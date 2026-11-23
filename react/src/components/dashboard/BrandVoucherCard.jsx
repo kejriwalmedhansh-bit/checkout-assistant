@@ -5,6 +5,7 @@ import Card from '@/components/common/Card';
 import { I } from '@/components/common/icons';
 import BuyFlow from '@/components/hubble/BuyFlow';
 import VoucherFacts from '@/components/hubble/VoucherFacts';
+import HowToRedeem from '@/components/hubble/HowToRedeem';
 import { hubbleApi } from '@/api/hubble.api';
 import { fmt } from '@/utils/format';
 import { outboundLink, soldEventProps, track } from '@/utils/analytics';
@@ -127,6 +128,11 @@ export function HubbleBrandCard({ brand, merchant, query, initialAmount = null, 
           {brand.in_store ? <I.store size={13} /> : <I.globe size={13} />}
           {where}
         </Flex>
+      )}
+      {!brand.card?.facts?.length && brand.card?.steps?.length > 0 && (
+        <Box mt="-6px" mb="16px">
+          <HowToRedeem card={brand.card} brandName={brand.brand_name} inStore={brand.in_store} placement="shop_card" />
+        </Box>
       )}
 
       <Text fontSize="11px" color="text3" fontWeight={600} letterSpacing=".04em" textTransform="uppercase" mb="8px">

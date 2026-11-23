@@ -19,6 +19,7 @@ import { track } from '@/utils/analytics';
 import { fmt } from '@/utils/format';
 
 import CodeRow from './CodeRow';
+import HowToRedeem from './HowToRedeem';
 import PhoneLogin from './PhoneLogin';
 
 const copyText = (text) => navigator.clipboard?.writeText(text).catch(() => {});
@@ -78,6 +79,7 @@ function VoucherCard({ v }) {
           Open {v.brand}
         </Button>
       )}
+      <HowToRedeem brandName={v.brand} inStore={v.in_store} placement="your_account" look="onDark" />
     </Box>
   );
 }
@@ -128,6 +130,9 @@ function Savings({ account, onShowCode }) {
                 <Text fontSize="12px" color="text3">
                   {shortDate(p.at)}
                 </Text>
+                <Box mt="2px">
+                  <HowToRedeem brandName={p.brand} placement="your_account" look="link" />
+                </Box>
               </Box>
               <Flex align="center" gap="12px" flexShrink={0}>
                 <Box textAlign="right">

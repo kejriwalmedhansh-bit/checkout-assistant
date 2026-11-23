@@ -4,11 +4,13 @@ import { useEffect, useState } from 'react';
 import { I } from '@/components/common/icons';
 import { track } from '@/utils/analytics';
 
+import HowToRedeem from './HowToRedeem';
+
 /**
  * What a Dealo (Hubble) voucher is good for, before the shopper pays: up to
  * five icons with two words each (incl. how many cards one bill takes), small
- * red "Not for …" tags and one plain line per way of using it (in store /
- * online, nothing to tap), all in one box whose bottom row opens the shop's
+ * red "Not for …" tags and a "How to redeem" row (the shop's own steps,
+ * HowToRedeem.jsx), all in one box whose bottom row opens the shop's
  * own rules word for word. Everything comes from the server
  * (hubble_service.card_details). Designed 9 Nov 2026; rules round 16 Nov 2026.
  */
@@ -53,13 +55,6 @@ const TONE = {
   yes: { bg: 'greenSoft', color: 'green', text: 'text' },
   no: { bg: 'dangerSoft', color: 'danger', text: 'danger' },
   info: { bg: 'surface3', color: 'text', text: 'text' },
-};
-
-// One plain line per way of using the card. Hubble's own step-by-step
-// wording is in the rules sheet.
-const HOW = {
-  store: { icon: 'store', where: 'In store', how: 'Show the code at the counter' },
-  online: { icon: 'globe', where: 'Online', how: 'Pick “Gift Card” at payment, type the code + PIN' },
 };
 
 // Which ways this card can be used, and which one to show first.
@@ -169,7 +164,8 @@ export default function VoucherFacts({ card, brandName, placement }) {
   const usage = usageModes(card);
   const facts = card?.facts || [];
   const cant = card?.cant || [];
-  if (!facts.length) return null;
+  // No icon row for this card: still offer the shop's steps on their own.
+  if (!facts.length) return <HowToRedeem card={card} brandName={brandName} inStore={usage.start === 'store'} placement={placement} />;
   const openSheet = () => {
     setOpen(true);
     track('Voucher Terms Opened', { brand: brandName, placement, cant_count: cant.length });
@@ -206,29 +202,13 @@ export default function VoucherFacts({ card, brandName, placement }) {
           {cant.map((c) => (
             <Flex key={c.label} align="center" gap="5px" fontSize="12px" fontWeight={700} color="danger" bg="dangerSoft" borderRadius="pill" pl="7px" pr="10px" py="3px">
               <Glyph name={c.icon} size={13} />
-              Not for {c.label.toLowerCase()}
+              {/^at /i.test(c.label) ? `Not ${c.label.toLowerCase()}` : `Not for ${c.label.toLowerCase()}`}
             </Flex>
           ))}
         </Flex>
       )}
 
-      {ways.length > 0 && (
-        <Flex direction="column" gap="8px" px="14px" py="12px" borderTop="1px solid" borderColor="border">
-          {ways.map((m) => (
-            <Flex key={m} align="center" gap="10px">
-              <Flex w="26px" h="26px" flex="0 0 auto" borderRadius="50%" bg="brandSoft" color="brand" align="center" justify="center">
-                <Glyph name={HOW[m].icon} size={14} />
-              </Flex>
-              <Text fontSize="13px" color="text2" lineHeight={1.35} minW={0}>
-                <Text as="span" fontWeight={800} color="text">
-                  {HOW[m].where}:{' '}
-                </Text>
-                {HOW[m].how}
-              </Text>
-            </Flex>
-          ))}
-        </Flex>
-      )}
+      <HowToRedeem card={card} brandName={brandName} inStore={usage.start === 'store'} placement={placement} look="row" />
 
       {rules > 0 && (
         <Flex
@@ -256,41 +236,6 @@ export default function VoucherFacts({ card, brandName, placement }) {
       )}
 
       {open && <Sheet card={card} brandName={brandName} modes={ways} onClose={() => setOpen(false)} />}
-    </Box>
-  );
-}
-
-/**
- * After buying, when the shop has no direct "add voucher" link: Hubble's
- * steps one at a time with back / next, so the screen stays short.
- */
-export function VoucherSteps({ steps }) {
-  const [i, setI] = useState(0);
-  if (!steps?.length) return null;
-  const n = steps.length;
-  return (
-    <Box bg="surface" border="1px solid" borderColor="border" borderRadius="14px" p="12px" textAlign="left">
-      <Flex justify="space-between" align="center" mb="8px">
-        <Flex gap="4px">
-          {steps.map((s, k) => (
-            <Box key={s} w="6px" h="6px" borderRadius="50%" bg={k === i ? 'text' : 'surface3'} />
-          ))}
-        </Flex>
-        <Text fontFamily="mono" fontWeight={700} fontSize="11px" color="text3">
-          {i + 1} / {n}
-        </Text>
-      </Flex>
-      <Text fontSize="14.5px" fontWeight={700} lineHeight={1.35} minH="58px" color="text">
-        {steps[i]}
-      </Text>
-      <Flex gap="6px" mt="8px">
-        <Button flex="1" h="36px" borderRadius="10px" border="1.5px solid" borderColor="border" bg="surface2" isDisabled={i === 0} onClick={() => setI(i - 1)} aria-label="Previous step">
-          <I.arrowLeft size={16} />
-        </Button>
-        <Button flex="1" h="36px" borderRadius="10px" border="1.5px solid" borderColor="border" bg="surface2" isDisabled={i === n - 1} onClick={() => setI(i + 1)} aria-label="Next step">
-          <I.arrowRight size={16} />
-        </Button>
-      </Flex>
     </Box>
   );
 }
