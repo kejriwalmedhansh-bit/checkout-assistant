@@ -361,3 +361,31 @@ def test_voucher_sold_joins_the_visit_that_opened_the_payment_screen(monkeypatch
     asyncio.run(buyer_service.save_purchase(_hubble_order(transactionReferenceId="HB-3", userId="u2"), "production",
                                             attribution=hubble_router._attribution_for("u2")))
     assert "$device_id" not in sent[1]["properties"] and sent[1]["properties"]["distinct_id"] == "anonymous"
+
+
+def test_voucher_sold_says_which_source_brought_the_buyer(monkeypatch):
+    """The sale itself carries where the visit came from (google, a shop
+    page...), so 'which source brings buyers' is read off the sale."""
+    import asyncio
+
+    from src.api.routers import hubble as hubble_router
+    from src.services import analytics_service, buyer_service
+
+    sent: list[dict] = []
+    monkeypatch.setattr(analytics_service, "fire", lambda payload: sent.append(payload))
+    body = hubble_router.SessionRequest(id_token="x", name="A", merchant="Dominos", price=400, src="page",
+                                        placement="shop_card", referrer_domain="www.google.com",
+                                        landing_page="/brands/dominos/", utm_source="x" * 500)
+    hubble_router._remember_attribution("u-src", body)
+    asyncio.run(buyer_service.save_purchase(_hubble_order(transactionReferenceId="HB-SRC", userId="u-src"), "production",
+                                            attribution=hubble_router._attribution_for("u-src")))
+    props = sent[0]["properties"]
+    assert props["referrer_domain"] == "www.google.com" and props["landing_page"] == "/brands/dominos/"
+    assert len(props["utm_source"]) == 120  # never trusted to be short
+
+    # An older website (before this change) sends none of it: the sale still counts.
+    old = hubble_router.SessionRequest(id_token="x", name="A", merchant="Dominos", price=400)
+    hubble_router._remember_attribution("u-old", old)
+    asyncio.run(buyer_service.save_purchase(_hubble_order(transactionReferenceId="HB-OLD", userId="u-old"), "production",
+                                            attribution=hubble_router._attribution_for("u-old")))
+    assert sent[1]["properties"]["referrer_domain"] is None
