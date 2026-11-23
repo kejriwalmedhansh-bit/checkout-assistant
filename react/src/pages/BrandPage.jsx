@@ -181,7 +181,10 @@ export default function BrandPage() {
     if (!HUBBLE_ON || !shop) return undefined;
     let live = true;
     hubbleApi
-      .brand(shop.name)
+      // Ask by the name Dealo's catalogue lists the voucher under ("MakeMyTrip
+      // Hotel", "Superdry-Luxe Gift Card"), which is not always the page's name.
+      // Asking by the page's name made the Buy row vanish on those pages.
+      .brand(shop.hubble?.brand_name || shop.name)
       .then((res) => {
         if (!live) return;
         setHubble(res.available && res.brand?.discount_pct ? { ...shop.hubble, ...res.brand, pct: res.brand.discount_pct } : null);
