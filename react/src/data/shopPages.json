@@ -2219,6 +2219,28 @@
         "Gift card/e-Pay can be clubbed with existing offers. However, it cannot be redeemed on specific block-out dates as updated by Jubilant FoodWorks Ltd./Domino’s on its website.",
         "The GV can be converted into e-Pay at the holder's convenience.",
         "The GV/e-Pay balance cannot be transferred to another e-Pay account, exchanged for cash, or converted into any other currency."
+      ],
+      "facts": [
+        {
+          "title": "Online",
+          "sub": "shopping"
+        },
+        {
+          "title": "1 card",
+          "sub": "per order"
+        },
+        {
+          "title": "Offers",
+          "sub": "still apply"
+        },
+        {
+          "title": "6 months",
+          "sub": "validity"
+        },
+        {
+          "title": "No refund",
+          "sub": "once bought"
+        }
       ]
     },
     "sellers": [
@@ -2903,6 +2925,24 @@
         "Comes with 1-year validity",
         "This is a one-time use card and any unused balance will lapse",
         "Gift Cards can be redeemed only after 8 hours from the time of activation across any Westside stores"
+      ],
+      "facts": [
+        {
+          "title": "In store",
+          "sub": "show the code"
+        },
+        {
+          "title": "1 card",
+          "sub": "per bill"
+        },
+        {
+          "title": "One use",
+          "sub": "spend it all"
+        },
+        {
+          "title": "1 year",
+          "sub": "validity"
+        }
       ]
     },
     "sellers": [],
@@ -5612,6 +5652,24 @@
         "Comes with 1 year validity and can be used on Cinépolis Website https://cinepolisindia.com/ or Cinépolis mobile app",
         "Tickets once bought through, shall be considered sold and cannot be cancelled, refunded, or exchanged in any form whatsoever",
         "No returns and no refunds on E-Gift Cards, E-Gift Cards and eGift vouchers"
+      ],
+      "facts": [
+        {
+          "title": "Online",
+          "sub": "shopping"
+        },
+        {
+          "title": "1 card",
+          "sub": "per order"
+        },
+        {
+          "title": "1 year",
+          "sub": "validity"
+        },
+        {
+          "title": "No refund",
+          "sub": "once bought"
+        }
       ]
     },
     "sellers": [
@@ -7829,6 +7887,28 @@
         "This is a ONE time use GV / GC with an expiration date",
         "Please note, iOS users need to visit www.sonyliv.comorsubscription for redemption. Sony Liv Gift vouchers cannot be redeemed on iPhone iOS App",
         "Sony LIV GV or GC cannot be clubbed with any one of the existing offer on its website."
+      ],
+      "facts": [
+        {
+          "title": "Online",
+          "sub": "shopping"
+        },
+        {
+          "title": "1 card",
+          "sub": "per order"
+        },
+        {
+          "title": "One use",
+          "sub": "spend it all"
+        },
+        {
+          "title": "No offers",
+          "sub": "on top"
+        },
+        {
+          "title": "6 months",
+          "sub": "validity"
+        }
       ]
     },
     "sellers": [
@@ -8645,6 +8725,24 @@
         "The Gift card can be converted into e-Pay at the convenience of the holder.",
         "The Nua e-Pay balance must be linked to the registered mobile number.",
         "No returns and no refunds on Gift cards, E-Gift cards and E-Gift vouchers."
+      ],
+      "facts": [
+        {
+          "title": "Online",
+          "sub": "shopping"
+        },
+        {
+          "title": "Many",
+          "sub": "per order"
+        },
+        {
+          "title": "6 months",
+          "sub": "validity"
+        },
+        {
+          "title": "No refund",
+          "sub": "once bought"
+        }
       ]
     },
     "sellers": [
