@@ -12,11 +12,16 @@ import { useJsonLd } from '@/hooks/useJsonLd';
 import { usePageTitle } from '@/hooks/usePageTitle';
 import { BILL, categoryOf, inr, moreHeading, payOn, similarShops } from '@/seo/categories';
 import {
+  OTHERS_EXPLAINED,
   SELLER_NAME,
   SELLERS_EXPLAINED,
   isSubscription,
+  payExamples,
   pct,
   planPrices,
+  sellerRows,
+  shortDate,
+  showsComparison,
   shopFaqs,
   shopJsonLd,
   shopPageMeta,
@@ -32,8 +37,11 @@ const buySlug = (name) => name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace
 
 /**
  * /brands/<slug>/ — the page Google sends people to for "<shop> gift card
- * discount". One table: today's rate from every seller, cheapest first,
- * Dealo's own voucher with a Buy button, partners with a link out. The
+ * discount". Where Dealo sells the voucher, its row comes first with the
+ * way to buy; the other sellers are listed under it (rate and the day it
+ * was read, nothing to tap) only where Dealo's rate is the best or close
+ * to it (showsComparison in seo/pageMeta.js). Where Dealo cannot sell it,
+ * the sellers are the table, cheapest first, each with a link out. The
  * partner rates are baked in at build time (scripts/build_shop_pages.py);
  * Dealo's rate is re-read live when the page opens, since it is the one
  * the page can sell.
@@ -97,12 +105,14 @@ function H2({ children }) {
 }
 
 /** One seller's row: who, today's rate, what happens on tap. */
-function SellerRow({ shop, seller, cheapest }) {
+function SellerRow({ shop, seller, cheapest, plain = false, lead = false }) {
   const isDealo = seller.source === 'dealo';
   const name = SELLER_NAME[seller.source];
   const sub = isDealo
     ? 'Sold by Dealo · code in seconds'
-    : seller.card_pct > 0 && seller.card_pct < seller.pct
+    : plain
+      ? `${seller.card_pct === 0 ? 'Bank app only' : 'Official seller'}${seller.checked ? ` · checked ${shortDate(seller.checked)}` : ''}`
+      : seller.card_pct > 0 && seller.card_pct < seller.pct
       ? `${pct(seller.pct)} from your bank app · ${pct(seller.card_pct)} by card`
       : seller.card_pct === 0
         ? 'Pay from your bank app, not by card'
@@ -114,9 +124,10 @@ function SellerRow({ shop, seller, cheapest }) {
     p: '12px 14px',
     borderRadius: '14px',
     border: '1.5px solid',
-    borderColor: cheapest ? 'green' : 'border',
+    // `lead`: Dealo's row above the other sellers, the one row to tap.
+    borderColor: cheapest ? 'green' : lead ? 'brand' : 'border',
     bg: cheapest ? 'greenSoft' : 'surface2',
-    _hover: { textDecoration: 'none', borderColor: cheapest ? 'green' : 'borderStrong' },
+    _hover: plain ? undefined : { textDecoration: 'none', borderColor: cheapest ? 'green' : 'borderStrong' },
   };
   const body = (
     <>
@@ -138,11 +149,20 @@ function SellerRow({ shop, seller, cheapest }) {
       <Text fontFamily="mono" fontWeight={800} fontSize="20px" color={cheapest ? 'green' : 'text'} flexShrink={0}>
         {pct(seller.pct)} off
       </Text>
-      <Box color="text2" flexShrink={0}>
-        {isDealo ? <I.arrowRight size={16} /> : <I.external size={14} />}
+      {/* Same width whether or not there is an arrow, so the rates line up. */}
+      <Box color="text2" flexShrink={0} w="16px">
+        {isDealo ? <I.arrowRight size={16} /> : plain ? null : <I.external size={14} />}
       </Box>
     </>
   );
+  // Listed for comparison only: a rate to read, nothing to tap.
+  if (plain) {
+    return (
+      <Box {...common} border="1px solid" opacity={0.92}>
+        {body}
+      </Box>
+    );
+  }
   if (isDealo) {
     return (
       <Box
@@ -201,10 +221,14 @@ export default function BrandPage() {
 
   if (!shop) return <Navigate to={ROUTES.brands} replace />;
 
-  // Dealo alone where Dealo sells it (owner's call, 3 Nov 2026); the
-  // partner list only for shops Dealo cannot sell.
-  const rows = hubble ? [{ source: 'dealo', pct: hubble.pct, brand_name: hubble.brand_name }] : [...shop.sellers].sort((a, b) => b.pct - a.pct);
+  // Dealo first where Dealo sells it, the other sellers under it only where
+  // Dealo's rate is best or close (showsComparison); the sellers alone for
+  // shops Dealo cannot sell. Decided on the live rate, so the page stops
+  // comparing the moment Dealo's rate falls behind.
+  const rows = sellerRows(shop, hubble);
+  const compare = Boolean(hubble) && showsComparison(shop, hubble.pct);
   const topPct = rows[0]?.pct;
+  const examples = hubble ? payExamples(shop, hubble.pct) : [];
   const faqs = shopFaqs(shop);
   const cat = categoryOf(shop.slug);
   const similar = similarShops(shop, SHOP_PAGES);
@@ -237,10 +261,10 @@ export default function BrandPage() {
         </Flex>
       </Flex>
 
-      <H2>{hubble ? 'Today’s rate' : 'Today’s rate, every seller'}</H2>
+      <H2>{compare ? 'Every seller Dealo checks' : hubble ? 'Today’s rate' : 'Today’s rate, every seller'}</H2>
       <Flex direction="column" gap="8px" mb="10px">
         {rows.map((r) => (
-          <SellerRow key={r.source} shop={shop} seller={r} cheapest={!hubble && r.pct === topPct} />
+          <SellerRow key={r.source} shop={shop} seller={r} cheapest={!hubble && r.pct === topPct} plain={compare && r.source !== 'dealo'} lead={compare && r.source === 'dealo'} />
         ))}
       </Flex>
       {sub && plans.length > 0 && (
@@ -257,18 +281,40 @@ export default function BrandPage() {
           ))}
         </Box>
       )}
-      {!sub && topPct > 0 && (
+      {!sub && topPct > 0 && examples.length < 2 && (
         <Text fontSize="13.5px" fontWeight={700} mb="6px">
           Every {inr(BILL)} you spend at {shop.name} costs {inr(payOn(topPct))} with the gift card.
         </Text>
       )}
-      <Text fontSize="12px" color="text2" lineHeight={1.5} mb="22px">
+      {!sub && examples.length > 1 && (
+        <Flex gap="8px" mb="10px">
+          {examples.map((x) => (
+            <Box key={x.face} flex="1" minW={0} p="9px 10px" borderRadius="12px" bg="surface2" border="1px solid" borderColor="border">
+              <Text m={0} fontSize="11.5px" color="text2" textDecoration="line-through">
+                {inr(x.face)}
+              </Text>
+              <Text m={0} fontSize="15px" fontWeight={800} fontFamily="mono">
+                {inr(x.pay)}
+              </Text>
+              <Text m={0} fontSize="11px" fontWeight={700} color="green">
+                save {inr(x.save)}
+              </Text>
+            </Box>
+          ))}
+        </Flex>
+      )}
+      <Text fontSize="12px" color="text2" lineHeight={1.5} mb={compare ? '6px' : '22px'}>
         {!hubble
           ? SELLERS_EXPLAINED
           : sub
             ? `Issued through Hubble, an official gift voucher issuer. You redeem the code on ${shop.name} itself.`
             : 'Issued through Hubble, an official gift voucher issuer. The shop accepts it like store credit.'}
       </Text>
+      {compare && (
+        <Text fontSize="12px" color="text2" lineHeight={1.5} mb="22px">
+          {OTHERS_EXPLAINED}
+        </Text>
+      )}
 
 
       {sub && subTerms.length > 0 && (

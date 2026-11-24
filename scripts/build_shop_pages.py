@@ -419,6 +419,9 @@ def partner_row(source: str, label: str, brand: dict, slug: str) -> dict | None:
         "typed_max": best.get("custom_max") or best.get("typed_max"),
         "stack_limit": best.get("stack_limit"),
         "value_cap": best.get("value_cap"),
+        # The day this seller's rate was last read (the voucher refresh), shown
+        # beside its row: only Dealo's own rate is re-read every morning.
+        "checked": str(best.get("last_scraped") or "")[:10] or None,
     }
 
 
@@ -526,10 +529,14 @@ def main() -> None:
             print(f"  skip {name}: no seller")
             continue
         terms = pick_terms(matched_brands)
-        limits = [r["stack_limit"] for r in sellers if r.get("stack_limit")]
+        limits = [int(r["stack_limit"]) for r in sellers if r.get("stack_limit")]
         stack = None
-        if limits:
-            n = min(int(x) for x in limits)
+        # Where Dealo sells the voucher the page describes Dealo's card, so a
+        # partner's limit is stated only when every partner gives the same
+        # one. (Flipkart said "one voucher per order" from BuyHatke's limit
+        # and "up to 15" from Flipkart's own steps, on the same page.)
+        if limits and (not h or len(set(limits)) == 1):
+            n = min(limits)
             stack = "One voucher per order" if n == 1 else f"Yes, up to {n} in one order"
         best = {"source": "dealo", "pct": h["pct"]} if h and (not best_partner or h["pct"] >= best_partner["pct"]) else (
             {"source": best_partner["source"], "pct": best_partner["pct"]} if best_partner else None)
