@@ -1109,6 +1109,17 @@
       "properties": {
         "shop": "the example's shop label"
       }
+    },
+    "Heard From Answered": {
+      "description": "The buyer tapped an answer to 'How did you hear about Dealo?' on the voucher-ready screen. Asked once per buyer, after the voucher is theirs. Also saved on the buyer's record (buyers.heard_from). Counted without cookie consent too (no personal detail is carried).",
+      "surfaces": [
+        "web"
+      ],
+      "properties": {
+        "choice": "google | chatgpt | instagram | friend | other",
+        "merchant, brand, amount, discount_pct, placement, src": "the purchase just made (see soldEventProps)",
+        "referrer_domain, landing_page, utm_source, utm_medium, utm_campaign": "where the visit came from, to compare with the answer"
+      }
     }
   }
 }

@@ -7,7 +7,7 @@ import { hubbleApi } from '@/api/hubble.api';
 import { confirmCode, sendCode } from '@/lib/firebase';
 import { readBuyerName, saveBuyerName, setSignedIn } from '@/lib/myVouchers';
 import { EASE_OUT } from '@/theme/motion';
-import { track } from '@/utils/analytics';
+import { track, visitSource } from '@/utils/analytics';
 
 import ResendCode from './ResendCode';
 
@@ -127,7 +127,7 @@ export default function PhoneLogin({ intro, phoneExtra, place, trackProps, onDon
       return;
     }
     // Server down: fall back to the name kept on this browser, if any.
-    const known = await hubbleApi.login(token.current).catch(() => ({ name: readBuyerName() || null }));
+    const known = await hubbleApi.login(token.current, visitSource()).catch(() => ({ name: readBuyerName() || null }));
     if (known?.name) {
       finish(known.name, false);
       return;

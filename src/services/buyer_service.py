@@ -105,6 +105,77 @@ async def save_buyer(uid: str, phone: str, name: str | None, email: str | None, 
         print(f"[buyers] could not save buyer {uid}: {exc}")
 
 
+_SOURCE_FIELDS = ("utm_source", "utm_medium", "utm_campaign", "referrer_domain", "landing_page")
+
+# The one-tap answers to "How did you hear about Dealo?" (BuyFlow.jsx).
+HEARD_FROM_CHOICES = ("google", "chatgpt", "instagram", "friend", "other")
+
+
+def _source_columns(source: dict | None, prefix: str = "") -> dict:
+    """The visit's source as database columns, blanks left out."""
+    return {f"{prefix}{k}": v for k in _SOURCE_FIELDS if (v := _short((source or {}).get(k)))}
+
+
+async def note_first_source(uid: str, source: dict | None) -> None:
+    """Where the buyer came from the first time we saw them: written once,
+    never overwritten, so a buyer who first arrived from Instagram stays
+    "Instagram" however they come back. Never fails the login or purchase."""
+    s = get_settings()
+    columns = _source_columns(source, "first_")
+    if not columns or not s.SUPABASE_URL or not s.SUPABASE_SECRET_KEY:
+        return
+    columns["first_source_at"] = datetime.now(timezone.utc).isoformat()
+    try:
+        async with httpx.AsyncClient(timeout=10) as client:
+            resp = await client.patch(
+                f"{s.SUPABASE_URL}/rest/v1/buyers",
+                headers={**_headers(), "Prefer": "return=minimal"},
+                # Only a row with no source yet.
+                params={"firebase_uid": f"eq.{uid}", "first_source_at": "is.null"},
+                json=columns,
+            )
+            resp.raise_for_status()
+    except httpx.HTTPError as exc:
+        print(f"[buyers] could not note source for {uid}: {exc}")
+
+
+async def should_ask_heard_from(uid: str) -> bool:
+    """True when the buyer has not yet said how they heard about Dealo.
+    False when we can't tell (Supabase off or down): never ask twice."""
+    s = get_settings()
+    if not s.SUPABASE_URL or not s.SUPABASE_SECRET_KEY:
+        return False
+    params = {"select": "heard_from", "firebase_uid": f"eq.{uid}", "limit": "1"}
+    try:
+        async with httpx.AsyncClient(timeout=10) as client:
+            resp = await client.get(f"{s.SUPABASE_URL}/rest/v1/buyers", headers=_headers(), params=params)
+            resp.raise_for_status()
+            rows = resp.json()
+    except httpx.HTTPError as exc:
+        print(f"[buyers] could not read heard_from for {uid}: {exc}")
+        return False
+    return bool(rows) and not rows[0].get("heard_from")
+
+
+async def save_heard_from(uid: str, choice: str) -> bool:
+    s = get_settings()
+    if choice not in HEARD_FROM_CHOICES or not s.SUPABASE_URL or not s.SUPABASE_SECRET_KEY:
+        return False
+    try:
+        async with httpx.AsyncClient(timeout=10) as client:
+            resp = await client.patch(
+                f"{s.SUPABASE_URL}/rest/v1/buyers",
+                headers={**_headers(), "Prefer": "return=minimal"},
+                params={"firebase_uid": f"eq.{uid}"},
+                json={"heard_from": choice, "heard_from_at": datetime.now(timezone.utc).isoformat()},
+            )
+            resp.raise_for_status()
+    except httpx.HTTPError as exc:
+        print(f"[buyers] could not save heard_from for {uid}: {exc}")
+        return False
+    return True
+
+
 async def buyer_profile(uid: str) -> dict:
     """The name and email we already have for this login, so a returning
     shopper is never asked again. Empty when Supabase is off or down: the
@@ -201,6 +272,8 @@ def voucher_sold_event(order: dict, environment: str, attribution: dict | None =
             "referrer_domain": _short(attribution.get("referrer_domain")),
             "landing_page": _short(attribution.get("landing_page")),
             "utm_source": _short(attribution.get("utm_source")),
+            "utm_medium": _short(attribution.get("utm_medium")),
+            "utm_campaign": _short(attribution.get("utm_campaign")),
             "seller_environment": environment,
             "buyer_key": hashlib.sha256(str(uid).encode()).hexdigest()[:16] if uid else None,
         },
@@ -230,13 +303,20 @@ async def save_purchase(order: dict, environment: str, attribution: dict | None 
         "status": order.get("orderStatus"),
         "environment": environment,
     }
+    # Where the visit that made this purchase came from, beside the sale
+    # itself. Left off when unknown (a resent webhook after a restart), so a
+    # resend never blanks a source saved the first time.
+    source = _source_columns(attribution)
+    url = f"{s.SUPABASE_URL}/rest/v1/purchases?on_conflict=hubble_ref"
+    headers = {**_headers(), "Prefer": "resolution=merge-duplicates,return=minimal"}
     try:
         async with httpx.AsyncClient(timeout=10) as client:
-            resp = await client.post(
-                f"{s.SUPABASE_URL}/rest/v1/purchases?on_conflict=hubble_ref",
-                headers={**_headers(), "Prefer": "resolution=merge-duplicates,return=minimal"},
-                json=row,
-            )
+            resp = await client.post(url, headers=headers, json={**row, **source})
+            if resp.status_code == 400 and source:
+                # The source columns are not in the database yet: the sale
+                # itself must still save.
+                print(f"[buyers] purchase {row['hubble_ref']} saved without its source: {resp.text[:200]}")
+                resp = await client.post(url, headers=headers, json=row)
             resp.raise_for_status()
     except httpx.HTTPError as exc:
         print(f"[buyers] could not save purchase {row['hubble_ref']}: {exc}")

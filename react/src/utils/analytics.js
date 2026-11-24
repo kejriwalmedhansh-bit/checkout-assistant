@@ -8,6 +8,7 @@
 import mixpanel from 'mixpanel-browser/dist/mixpanel-with-async-recorder.cjs.js';
 
 import { API_BASE_URL, MIXPANEL_TOKEN } from '@/config';
+import { readShortLink } from '@/seo/shortLinks';
 import { clearAnalyticsStorage, isGranted, onConsentChange } from '@/utils/consent';
 
 const RECORDER_URL = Object.values(
@@ -261,17 +262,28 @@ function prefixed(obj, prefix) {
   return Object.fromEntries(Object.entries(obj).map(([k, v]) => [`${prefix}${k}`, v]));
 }
 
-/** Where this visit came from: campaign tags, referring site, landing page. */
-function currentTouch() {
+/**
+ * Where this visit came from: campaign tags, referring site, landing page.
+ * A short link (getdealo.in/ig/dominos, see seo/shortLinks.js) is read as
+ * the tags it stands for; tags written out in the address win over it.
+ */
+function readTouch() {
   const params = new URLSearchParams(window.location.search);
   const touch = { landing_page: window.location.pathname };
+  const short = readShortLink(window.location.pathname);
+  if (short) {
+    touch.utm_source = short.source;
+    touch.utm_medium = 'short_link';
+    if (short.name) touch.utm_campaign = short.name;
+  }
   for (const key of ATTRIBUTION_PARAMS) {
     const value = params.get(key);
     if (value) touch[key] = value;
   }
   try {
     const ref = document.referrer ? new URL(document.referrer).hostname : '';
-    touch.referrer_domain = ref && ref !== window.location.hostname ? ref : 'direct';
+    const here = window.location.hostname.replace(/^www\./, '');
+    touch.referrer_domain = ref && ref.replace(/^www\./, '') !== here ? ref : 'direct';
   } catch {
     touch.referrer_domain = 'direct';
   }
@@ -282,12 +294,35 @@ function currentTouch() {
  * Where THIS visit came from, read once as the site loads and held only in
  * this page's memory: the site that sent the visitor (google, instagram...),
  * the first page they landed on and any campaign tag. Read once because the
- * landing page stops being the current page the moment they tap anything.
+ * landing page stops being the current page the moment they tap anything,
+ * and because the tags are then tidied out of the address bar (below).
  * Every buy-step event and the sale itself carry it (see soldEventProps), so
  * "which source brings buyers" is a fact on the sale, not a guess from
  * matching counts. Nothing is stored, so it says nothing about the person.
  */
-const VISIT_TOUCH = currentTouch();
+const VISIT_TOUCH = readTouch();
+
+function currentTouch() {
+  return VISIT_TOUCH;
+}
+
+/**
+ * Take the campaign tags out of the address bar once they have been read, so
+ * the address looks like the page it is and a visitor who copies it to a
+ * friend does not pass the tags on (which would count the friend as coming
+ * from the same post). Everything else in the address is left alone.
+ */
+function tidyAddressBar() {
+  try {
+    const url = new URL(window.location.href);
+    const before = url.search;
+    for (const key of ATTRIBUTION_PARAMS) url.searchParams.delete(key);
+    if (url.search === before) return;
+    window.history.replaceState(window.history.state, '', `${url.pathname}${url.search}${url.hash}`);
+  } catch {
+    // The address stays as it was.
+  }
+}
 
 /** This visit's source, in the shape the buy steps and /hubble/session take. */
 export function visitSource() {
@@ -295,6 +330,8 @@ export function visitSource() {
     referrer_domain: VISIT_TOUCH.referrer_domain || null,
     landing_page: VISIT_TOUCH.landing_page || null,
     utm_source: VISIT_TOUCH.utm_source || null,
+    utm_medium: VISIT_TOUCH.utm_medium || null,
+    utm_campaign: VISIT_TOUCH.utm_campaign || null,
   };
 }
 
@@ -464,6 +501,10 @@ if (!isGranted()) {
   countStage('Session Started', currentTouch());
   countStage('Dashboard Opened');
 }
+
+// After the arrival above is sent, and after the SDK (when consented) has
+// started: both have read the address by now.
+tidyAddressBar();
 
 /**
  * The properties every event about a voucher Dealo sells itself carries
