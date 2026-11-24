@@ -289,6 +289,7 @@ function guideBody(g) {
         (sec.p || []).map(p).join('') +
         (sec.ol ? list(sec.ol.map(esc), 'ol') : '') +
         (sec.ul ? list(sec.ul.map(esc)) : '') +
+        (sec.links ? `<p>Read the threads:</p>${list(sec.links.map((l) => `<a href="${l.href}" rel="nofollow noopener">${esc(l.label)}</a>`))}` : '') +
         (sec.table
           ? `<table><thead><tr>${sec.table.cols.map((c) => `<th>${esc(c)}</th>`).join('')}</tr></thead><tbody>${sec.table.rows
               .map((r) => `<tr><td>${link(r.href, r.label)}</td><td>${r.count}</td><td>${esc(r.best)}</td><td>${esc(r.least)}</td></tr>`)
