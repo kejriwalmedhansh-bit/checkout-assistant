@@ -392,9 +392,10 @@ const ROUTES = [
 
 // Short links for posts (src/seo/shortLinks.js): a real file each, so the
 // link answers 200 and a preview (WhatsApp, LinkedIn) shows the page it opens.
-// Every channel's own link, the two channels where previews matter most for
-// every shop page, and each named campaign. Any other /<code>/<name> still
-// opens in a browser; it just has no preview. Canonical points at the page
+// Every channel's own link, every shop page for the channels we post shop
+// links on (Reddit and Quora read a link that answers "not found" as a dead
+// link, even though it opens), and each named campaign. Any other
+// /<code>/<name> still opens in a browser; it just has no preview. Canonical points at the page
 // the link opens, and none of them go in the sitemap.
 const SHOP_BY_SLUG = new Map(SHOP_PAGES.map((s) => [s.slug, s]));
 const shortRoute = (code, name) => {
@@ -406,7 +407,7 @@ const shortRoute = (code, name) => {
     meta: shop ? shopPageMeta(shop) : PAGE_META.home,
   };
 };
-const PREVIEW_CHANNELS = ['ig', 'wa'];
+const PREVIEW_CHANNELS = ['ig', 'wa', 'rd', 'qa', 'in'];
 const SHORT_ROUTES = [
   ...Object.keys(CHANNELS).map((code) => shortRoute(code)),
   ...PREVIEW_CHANNELS.flatMap((code) => SHOP_PAGES.map((s) => shortRoute(code, s.slug))),

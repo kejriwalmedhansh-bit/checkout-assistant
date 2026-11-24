@@ -38,9 +38,16 @@ export const CHANNELS = {
  * link answers properly for link previews (WhatsApp, LinkedIn); a name that
  * is not listed still opens and is still counted. Add one line per new post.
  */
-export const CAMPAIGNS = [];
+export const CAMPAIGNS = [
+  // Instagram: the profile link, the comment-to-DM reply and story stickers.
+  'ig/bio',
+  'ig/dm',
+  'ig/story',
+  // Creators.
+  'c/flightsdealwithshivangi',
+];
 
-const NAME = /^[a-z0-9][a-z0-9-]{0,39}$/;
+const NAME = /^[a-z0-9][a-z0-9_-]{0,39}$/;
 
 /** { code, source, name } for a short-link address, else null. */
 export function readShortLink(pathname) {
