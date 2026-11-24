@@ -24,6 +24,8 @@ least MIN_PCT, or it already had a hand-written page in brandDeals.js.
 
 Run after every voucher refresh (see VOUCHER_REFRESH.md):
     python3 scripts/build_shop_pages.py
+It also runs by itself every morning (.github/workflows/refresh-shop-pages.yml)
+so the rate and the "Checked <date>" on each page are today's.
 """
 from __future__ import annotations
 
@@ -239,6 +241,126 @@ SHOPS: list[tuple[str, str, str, list[str]]] = [
     ("punjab-grill", "Punjab Grill", "punjabgrill.in", []),
     ("bikanervala", "Bikanervala", "bikanervala.com", []),
     ("helios", "Helios", "helioswatchstore.com", []),
+    # Added 24 Nov 2026: ChatGPT sends people straight to a shop page when
+    # they ask "where can I buy a <shop> gift card at a discount" (71 of 81
+    # ChatGPT visits in two weeks landed on one; a Giva buyer asked exactly
+    # that). A shop with no page cannot be the answer, so every well-known
+    # shop Dealo sells at MIN_PCT or more now has one. Still left out:
+    # tiered cards (jewellers' coin/gold/diamond, Times Prime, Taj, ITC,
+    # Marriott), game top-ups, donation cards, "Fixed"/"Offline" copies of a
+    # shop that already has a page, and names nobody searches.
+    ("mainland-china", "Mainland China", "speciality.co.in", []),
+    ("oh-calcutta", "Oh! Calcutta", "speciality.co.in", []),
+    ("tgi-fridays", "TGI Friday's", "tgifridays.com", []),
+    ("cafe-delhi-heights", "Cafe Delhi Heights", "cafedelhiheights.com", []),
+    ("eatsure", "EatSure", "eatsure.com", []),
+    ("behrouz-biryani", "Behrouz Biryani", "behrouzbiryani.com", []),
+    ("faasos", "Faasos", "faasos.com", []),
+    ("ovenstory", "Ovenstory", "ovenstory.in", []),
+    ("sweet-truth", "Sweet Truth", "sweettruth.in", []),
+    ("costa-coffee", "Costa Coffee", "costacoffee.in", []),
+    ("wendys", "Wendy's", "wendys.com", []),
+    ("absolute-barbecues", "Absolute Barbecues", "absolutebarbecues.com", []),
+    ("barbeque-nation", "Barbeque Nation", "barbequenation.com", []),
+    ("beer-cafe", "The Beer Cafe", "beercafe.in", ["Beer Cafe"]),
+    ("tim-hortons", "Tim Hortons", "timhortons.in", []),
+    ("wow-momo", "Wow! Momo", "wowmomo.com", ["Wow Momo"]),
+    ("wow-china", "Wow! China", "wowmomo.com", ["Wow China"]),
+    ("wow-chicken", "Wow! Chicken", "wowmomo.com", ["Wow Chicken"]),
+    ("vaango", "Vaango", "vaango.in", []),
+    ("freshmenu", "FreshMenu", "freshmenu.com", []),
+    ("organic-india", "Organic India", "organicindia.com", []),
+    ("spar-hypermarket", "SPAR Hypermarket", "sparindia.com", ["Spar Hypermart"]),
+    ("reliance-smart-bazaar", "Reliance Smart Bazaar", "relianceretail.com", []),
+    ("aeropostale", "Aeropostale", "aeropostale.com", []),
+    ("call-it-spring", "Call It Spring", "aldoshoes.in", []),
+    ("forever-new", "Forever New", "forevernew.co.in", []),
+    ("hush-puppies", "Hush Puppies", "bata.com", []),
+    ("liberty-shoes", "Liberty Shoes", "libertyshoesonline.com", []),
+    ("pantaloons", "Pantaloons", "pantaloons.com", []),
+    ("aurelia", "Aurelia", "shopforaurelia.com", []),
+    ("campus", "Campus", "campusshoes.com", []),
+    ("fastrack", "Fastrack", "titan.co.in", []),
+    ("neemans", "Neeman's", "neemans.com", ["Neemans"]),
+    ("rangriti", "Rangriti", "rangriti.com", []),
+    ("relaxo", "Relaxo", "relaxofootwear.com", []),
+    ("taneira", "Taneira", "taneira.com", []),
+    ("v-mart", "V-Mart", "vmart.co.in", ["VMart"]),
+    ("new-balance", "New Balance", "newbalance.com", []),
+    ("rareism", "Rareism", "rareism.com", []),
+    ("columbia", "Columbia Sportswear", "columbiasportswear.co.in", ["Columbia"]),
+    ("hidesign", "Hidesign", "hidesign.com", []),
+    ("reliance-trends", "Reliance Trends", "trends.ajio.com", []),
+    ("tasva", "Tasva", "tasva.com", []),
+    ("w-for-woman", "W", "wforwoman.com", []),
+    ("wildcraft", "Wildcraft", "wildcraft.com", []),
+    ("shiv-naresh", "Shiv Naresh", "shivnaresh.in", []),
+    ("libas", "Libas", "libas.in", []),
+    ("myntra-luxe", "Myntra Luxe", "myntra.com", ["Myntra LUXE"]),
+    ("nautica", "Nautica", "nautica.in", []),
+    ("mango", "Mango", "mango.com", []),
+    ("next", "NEXT", "nextdirect.com", []),
+    ("the-bear-house", "The Bear House", "thebearhouse.com", ["Bear House"]),
+    ("hunkemoller", "Hunkemöller", "hunkemoller.in", ["Hunkemoller"]),
+    ("balenciaga", "Balenciaga", "balenciaga.com", ["Balenciaga Luxe Gift Card"]),
+    ("bally", "Bally", "bally.com", ["Bally-Luxe Gift Card"]),
+    ("bottega-veneta", "Bottega Veneta", "bottegaveneta.com", ["Bottega Veneta-Luxe Gift Card"]),
+    ("canali", "Canali", "canali.com", ["Canali-Luxe Gift Card"]),
+    ("charles-tyrwhitt", "Charles Tyrwhitt", "charlestyrwhitt.com", ["Charles Tyrwhitt Luxe Gift Card"]),
+    ("dune-london", "Dune London", "dunelondon.com", ["Dune London-Luxe Gift Card"]),
+    ("emporio-armani", "Emporio Armani", "armani.com", ["Emporio Armani-Luxe Gift Card"]),
+    ("giorgio-armani", "Giorgio Armani", "armani.com", ["Giorgio Armani-Luxe Gift Card"]),
+    ("ea7", "EA7", "armani.com", []),
+    ("jimmy-choo", "Jimmy Choo", "jimmychoo.com", ["Jimmy Choo-Luxe Gift Card"]),
+    ("maje", "Maje", "maje.com", ["Maje Luxe Gift Card"]),
+    ("paul-and-shark", "Paul & Shark", "paulandshark.com", ["Paul & Shark-Luxe Gift Card"]),
+    ("paul-smith", "Paul Smith", "paulsmith.com", []),
+    ("sandro", "Sandro", "sandro-paris.com", ["Sandro-Luxe Gift Card"]),
+    ("scotch-and-soda", "Scotch & Soda", "scotch-soda.com", ["Scotch & Soda-Luxe Gift Card"]),
+    ("tods", "Tod's", "tods.com", ["Tods Luxe Gift Card"]),
+    ("tory-burch", "Tory Burch", "toryburch.com", ["Tory Burch-Luxe Gift Card"]),
+    ("valentino", "Valentino", "valentino.com", ["Valentino Luxe Gift Card"]),
+    ("versace", "Versace", "versace.com", ["Versace-Luxe Gift Card"]),
+    ("ferragamo", "Ferragamo", "ferragamo.com", []),
+    ("g-star-raw", "G-Star RAW", "g-star.com", ["G-Star Raw"]),
+    ("replay", "Replay", "replayjeans.com", []),
+    ("gas-jeans", "GAS", "gasjeans.com", ["Gas-Luxe Gift Card"]),
+    ("adidas-kids", "Adidas Kids", "adidas.co.in", ["Adidas Kids Luxe Gift Card"]),
+    ("inglot", "Inglot", "inglotcosmetics.com", []),
+    ("skinn", "Skinn", "skinn.in", []),
+    ("the-man-company", "The Man Company", "themancompany.com", []),
+    ("tira", "Tira", "tirabeauty.com", []),
+    ("nykaa-man", "Nykaa Man", "nykaaman.com", []),
+    ("lakme-salon", "Lakmé Salon", "lakmesalon.in", []),
+    ("mia-by-tanishq", "Mia by Tanishq", "miabytanishq.com", ["Mia"]),
+    ("the-body-shop", "The Body Shop", "thebodyshop.in", []),
+    ("himalaya", "Himalaya", "himalayawellness.in", []),
+    ("titan-eye-plus", "Titan Eye+", "titaneyeplus.com", []),
+    ("lawrence-and-mayo", "Lawrence & Mayo", "lawrenceandmayo.co.in", []),
+    ("bodycraft", "Bodycraft", "bodycraft.co.in", ["BodyCraft"]),
+    ("truefitt-and-hill", "Truefitt & Hill", "truefittandhill.in", ["TrueFitt & Hill"]),
+    ("black-and-decker", "Black+Decker", "appliancesblackanddecker.in", ["Black + Decker"]),
+    ("cleartrip-hotels", "Cleartrip Hotels", "cleartrip.com/hotels", ["ClearTrip Hotel"]),
+    ("zoomcar", "Zoomcar", "zoomcar.com", ["Zoom Car"]),
+    ("air-india", "Air India", "airindia.com", []),
+    ("klook", "Klook", "klook.com", []),
+    ("sotc", "SOTC", "sotc.in", []),
+    ("porter", "Porter", "porter.in", []),
+    ("district", "District", "district.in", []),
+    ("playo", "Playo", "playo.co", []),
+    ("jiohotstar", "JioHotstar", "jiohotstar.com", []),
+    ("epic-on", "EPIC ON", "epicon.in", ["Epic On"]),
+    ("home-centre", "Home Centre", "homecentre.in", ["Home Center"]),
+    ("le-creuset", "Le Creuset", "lecreuset.co.in", []),
+    ("milton", "Milton", "milton.in", []),
+    ("pigeon", "Pigeon", "stovekraft.com", []),
+    ("prestige", "Prestige", "prestige.com", []),
+    ("villeroy-and-boch", "Villeroy & Boch", "villeroy-boch.com", ["Villeroy & Boch-Luxe Gift Card"]),
+    ("superbottoms", "SuperBottoms", "superbottoms.com", ["Superbottoms"]),
+    ("william-penn", "William Penn", "williampenn.net", []),
+    ("crossword", "Crossword", "crossword.in", []),
+    ("miniklub", "MiniKlub", "miniklub.in", []),
+    ("toscano", "Toscano", "toscano.in", []),
 ]
 
 # slug -> the word people search with ("sonyliv subscription offer",
@@ -247,6 +369,7 @@ SUBSCRIPTIONS = {
     "sonyliv": "subscription", "zee5": "subscription", "amazon-prime": "membership", "swiggy-one": "membership",
     "hoichoi": "subscription", "gaana": "subscription", "lionsgate-play": "subscription", "livemint": "subscription",
     "fitpass": "membership",
+    "jiohotstar": "subscription", "epic-on": "subscription",
 }
 
 SOURCES = [("gyftr", "Gyftr"), ("maximize", "Maximize"), ("buyhatke", "BuyHatke")]
@@ -374,6 +497,7 @@ def main() -> None:
         hubble = dict(zip([s[0] for s in SHOPS], ex.map(lambda s: hubble_rate_for(s[1], s[3]), SHOPS)))
 
     pages = []
+    failed = 0
     for slug, name, website, aliases in SHOPS:
         wanted = {norm(name)} | {norm(a) for a in aliases}
         sellers = []
@@ -385,8 +509,13 @@ def main() -> None:
             if rows:
                 sellers.append(max(rows, key=lambda r: r["pct"]))
         h = hubble.get(slug)
+        # "Checked <date>" is shown on the page and read by Google and
+        # ChatGPT, so it moves only when Dealo's rate was really read today.
+        checked = date.today().isoformat()
         if h and h.get("error"):
             h = previous.get(slug, {}).get("hubble")
+            checked = previous.get(slug, {}).get("checked") or checked
+            failed += 1
             print(f"  {name}: kept last Hubble rate")
         best_partner = max(sellers, key=lambda r: r["pct"]) if sellers else None
         top = max([r["pct"] for r in sellers] + ([h["pct"]] if h else []), default=0)
@@ -408,7 +537,7 @@ def main() -> None:
             "slug": slug,
             "name": name,
             "website": f"https://www.{website}/",
-            "checked": date.today().isoformat(),
+            "checked": checked,
             "hubble": h,
             "sellers": sorted(sellers, key=lambda r: -r["pct"]),
             "best": best,
@@ -423,6 +552,14 @@ def main() -> None:
         })
         print(f"  {name}: dealo {h['pct'] if h else '-'}%  " + "  ".join(f"{r['label']} {r['pct']}%" for r in sellers))
 
+    # The daily refresh (.github/workflows/refresh-shop-pages.yml) runs this
+    # unattended, so a bad day must leave the live pages alone: the server
+    # asleep or down, or a run that would drop a tenth of the pages.
+    if "--force" not in sys.argv:
+        if failed > len(SHOPS) // 4:
+            sys.exit(f"stopped: Dealo's rate could not be read for {failed} of {len(SHOPS)} shops; nothing written")
+        if previous and len(pages) < 0.9 * len(previous):
+            sys.exit(f"stopped: {len(pages)} pages, down from {len(previous)}; nothing written (--force to write anyway)")
     OUT.write_text(json.dumps(pages, indent=2, ensure_ascii=False) + "\n")
     print(f"wrote {len(pages)} shop pages -> {OUT.relative_to(ROOT)}")
 

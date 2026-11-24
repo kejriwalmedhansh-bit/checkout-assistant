@@ -1,0 +1,57 @@
+name: Refresh shop pages
+
+# Every morning (6:00 IST): re-reads Dealo's discount for every shop page
+# (scripts/build_shop_pages.py) and saves the result to main, which rebuilds
+# the website. So the rate and the "Checked <date>" on each /brands/<shop>/
+# page are today's. Google and ChatGPT prefer a page that was checked today
+# for "<shop> gift card discount" questions (24 Nov 2026).
+#
+# Safe to leave alone: the script writes nothing if the server cannot be
+# reached or a tenth of the pages would vanish, and a shop whose rate could
+# not be read keeps its old rate and its old date.
+#
+# No secrets needed: rates come from the public backend, partner rates from
+# the master files already in the repo.
+on:
+  schedule:
+    - cron: "30 0 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: refresh-shop-pages
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Wake the server (it sleeps when idle)
+        run: |
+          for i in $(seq 1 12); do
+            code=$(curl -s -o /dev/null -m 60 -w "%{http_code}" "https://dealo-backend.onrender.com/hubble/brand?merchant=Myntra" || true)
+            [ "$code" = "200" ] && exit 0
+            sleep 15
+          done
+          echo "server did not wake"; exit 1
+      - name: Read today's rates
+        run: python3 scripts/build_shop_pages.py
+      - name: Save to main (rebuilds the website)
+        run: |
+          if git diff --quiet -- react/src/data/shopPages.json; then
+            echo "nothing changed"; exit 0
+          fi
+          git config user.name "dealo-bot"
+          git config user.email "dealo-bot@users.noreply.github.com"
+          git add react/src/data/shopPages.json
+          git commit -m "Shop pages: rates checked $(TZ=Asia/Kolkata date +%-d\ %b\ %Y)"
+          git push origin HEAD:main
