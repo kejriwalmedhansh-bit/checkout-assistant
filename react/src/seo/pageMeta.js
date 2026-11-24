@@ -332,6 +332,15 @@ export function shopFaqs(shop) {
         ? `No. ${shop.name} does not let a gift voucher be combined with other offers; the voucher pays the final price only.`
         : `A gift voucher is store credit, so it pays whatever price is on screen, after any sale or coupon ${shop.name} itself applies.`,
     },
+    // Search Console, 24 Nov 2026: "<shop> gift card offer", "<shop> gift
+    // voucher" and "<shop> voucher" sat on page 2 because the page hardly
+    // used those words. Only asked where there is a rate to answer with.
+    ...(shop.best
+      ? [{
+          q: `Is there any ${shop.name} gift voucher offer today?`,
+          a: `Yes: ${best} (checked ${shop.checked}). There is no coupon code to hunt for; the ${shop.name} gift voucher itself sells for less than its value, and you pay ${shop.name} with it.`,
+        }]
+      : []),
   ];
 }
 
