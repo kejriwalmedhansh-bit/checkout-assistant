@@ -46,6 +46,9 @@ export const CATEGORIES = [
       "punjab-grill",
       "bikanervala",
       "haute-sauce",
+      // added 24 Nov 2026
+      "blinkit",
+      "zepto",
     ],
   },
   {

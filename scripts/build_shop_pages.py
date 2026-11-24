@@ -43,6 +43,9 @@ OUT = ROOT / "react" / "src" / "data" / "shopPages.json"
 API = "https://dealo-backend.onrender.com"
 MIN_PCT = 3.0
 CURATED = {"amazon", "flipkart", "myntra", "croma", "reliance-digital", "ajio"}
+# Owner's call, 24 Nov 2026: these get a page below MIN_PCT because people
+# search for them by name (quick-commerce groceries, about 2%).
+BELOW_MIN_OK = {"zepto", "blinkit"}
 
 # (slug, display name, website for the logo, extra names the sellers list it under). Exact
 # normalized-name matching only, same rule as build_all_brand_deals.py:
@@ -387,7 +390,7 @@ def main() -> None:
             print(f"  {name}: kept last Hubble rate")
         best_partner = max(sellers, key=lambda r: r["pct"]) if sellers else None
         top = max([r["pct"] for r in sellers] + ([h["pct"]] if h else []), default=0)
-        if top < MIN_PCT and slug not in CURATED:
+        if top < MIN_PCT and slug not in CURATED and slug not in BELOW_MIN_OK:
             print(f"  skip {name}: best {top}%")
             continue
         if not sellers and not h:
