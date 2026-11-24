@@ -65,3 +65,11 @@ confirmed. On a healthy day the two agree.
   for the website read the **total** count as "visits", not the unique count.
 - Returning: Insights on **Session Started** with filter
   **is_returning_visitor = true**, grouped by week.
+
+## Short links and buyer source (24 Nov 2026)
+
+- Short links for posts: `getdealo.in/ig`, `/wa`, `/rd`, `/qa`, `/in`, `/yt`, `/fb`, `/x`, `/em`, `/c/<creator>`. A second part (`/ig/dominos`, `/ig/pvr-reel`) opens that shop page when one has the name, otherwise the homepage, and is recorded as the campaign. Defined in `react/src/seo/shortLinks.js`.
+- They arrive in Mixpanel as `utm_source=<channel>`, `utm_medium=short_link`, `utm_campaign=<second part>`, on Session Started and on every buy step and Voucher Sold.
+- Campaign tags are removed from the address bar after they are read, so a forwarded link is clean.
+- Supabase: `buyers.first_utm_source / first_utm_campaign / first_referrer_domain / first_landing_page` (written once, at first login) and the same four without `first_` on `purchases`. `buyers.heard_from` is the buyer's own one-tap answer (event: Heard From Answered).
+- www.getdealo.in counts as production from 24 Nov (PR #165). Before that, ChatGPT visits (which use www) sit under environment=development: read them with `utm_source = chatgpt.com` and no environment filter.

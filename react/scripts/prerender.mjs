@@ -61,6 +61,7 @@ import {
   similarShops,
 } from '../src/seo/categories.js';
 import { buildGuides, guideJsonLd } from '../src/seo/guides.js';
+import { CAMPAIGNS, CHANNELS } from '../src/seo/shortLinks.js';
 
 const HERE = path.dirname(fileURLToPath(import.meta.url));
 const DIST = path.join(HERE, '..', 'dist');
@@ -389,6 +390,35 @@ const ROUTES = [
   })),
 ];
 
+// Short links for posts (src/seo/shortLinks.js): a real file each, so the
+// link answers 200 and a preview (WhatsApp, LinkedIn) shows the page it opens.
+// Every channel's own link, the two channels where previews matter most for
+// every shop page, and each named campaign. Any other /<code>/<name> still
+// opens in a browser; it just has no preview. Canonical points at the page
+// the link opens, and none of them go in the sitemap.
+const SHOP_BY_SLUG = new Map(SHOP_PAGES.map((s) => [s.slug, s]));
+const shortRoute = (code, name) => {
+  const shop = name ? SHOP_BY_SLUG.get(name) : null;
+  return {
+    path: name ? `/${code}/${name}/` : `/${code}/`,
+    sitemap: false,
+    canonical: shop ? `/brands/${shop.slug}/` : '/',
+    meta: shop ? shopPageMeta(shop) : PAGE_META.home,
+  };
+};
+const PREVIEW_CHANNELS = ['ig', 'wa'];
+const SHORT_ROUTES = [
+  ...Object.keys(CHANNELS).map((code) => shortRoute(code)),
+  ...PREVIEW_CHANNELS.flatMap((code) => SHOP_PAGES.map((s) => shortRoute(code, s.slug))),
+  ...CAMPAIGNS.map((c) => shortRoute(...c.split('/'))),
+];
+const TAKEN = new Set(ROUTES.map((r) => r.path));
+for (const r of SHORT_ROUTES) {
+  if (TAKEN.has(r.path)) continue;
+  TAKEN.add(r.path);
+  ROUTES.push(r);
+}
+
 // Deliberately absent: /select and /results. They only mean anything with a
 // live search behind them, so they stay out of the sitemap and out of the
 // crawler's way (robots.txt disallows both).
@@ -424,7 +454,7 @@ const NAV = [
  * its own copy and a page must not carry two FAQ blocks.
  */
 function renderRoute(html, route) {
-  const url = `${SITE_URL}${route.path}`;
+  const url = `${SITE_URL}${route.canonical ?? route.path}`;
   const title = route.meta.title ? `${route.meta.title} — ${SITE_NAME}` : HOME_TITLE;
   const { description } = route.meta;
 
@@ -474,4 +504,4 @@ ${ROUTES.filter((r) => r.sitemap !== false).map(
 await writeFile(path.join(DIST, 'sitemap.xml'), sitemap);
 await writeFile(path.join(DIST, 'llms.txt'), llmsTxt());
 
-console.log(`prerender: wrote ${ROUTES.length} pages (${BUY_PAGES.length} buy pages) + sitemap.xml + llms.txt`);
+console.log(`prerender: wrote ${ROUTES.length} pages (${BUY_PAGES.length} buy pages, ${SHORT_ROUTES.length} short links) + sitemap.xml + llms.txt`);

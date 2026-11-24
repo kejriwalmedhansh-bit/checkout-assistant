@@ -111,6 +111,8 @@ def _remember_attribution(uid: str, body: "SessionRequest") -> None:
         "referrer_domain": body.referrer_domain,
         "landing_page": body.landing_page,
         "utm_source": body.utm_source,
+        "utm_medium": body.utm_medium,
+        "utm_campaign": body.utm_campaign,
     })
 
 
@@ -173,6 +175,14 @@ class SessionRequest(BaseModel):
     referrer_domain: str | None = None
     landing_page: str | None = None
     utm_source: str | None = None
+    # utm_campaign names the post, reel or creator (getdealo.in/ig/<name>).
+    utm_medium: str | None = None
+    utm_campaign: str | None = None
+
+
+def _visit_source(body) -> dict:
+    """The visit's source as sent by the website, for the buyer's record."""
+    return {k: getattr(body, k, None) for k in ("referrer_domain", "landing_page", "utm_source", "utm_medium", "utm_campaign")}
 
 
 @router.post("/session")
@@ -187,10 +197,13 @@ async def session(body: SessionRequest) -> dict:
     name = body.name.strip()[:80] or None
     email = (body.email or "").strip()[:120] or None
     await buyer_service.save_buyer(login["uid"], login["phone"], name, email, body.marketing_optin)
+    await buyer_service.note_first_source(login["uid"], _visit_source(body))
     _remember_attribution(login["uid"], body)
     token = hubble_service.sso_token(login["uid"], login["phone"], name, email)
     return {"url": hubble_service.store_url(found, token), "offer": found,
-            "session": _open_session(login["uid"], found["brand_name"])}
+            "session": _open_session(login["uid"], found["brand_name"]),
+            # True until the buyer has answered "How did you hear about Dealo?"
+            "ask_heard_from": await buyer_service.should_ask_heard_from(login["uid"])}
 
 
 @router.get("/test-home", response_class=HTMLResponse)
@@ -264,6 +277,13 @@ async def latest_order(
 
 class LoginRequest(BaseModel):
     id_token: str
+    # Where this visit came from (see SessionRequest), kept on the buyer's
+    # record the first time we see them.
+    referrer_domain: str | None = None
+    landing_page: str | None = None
+    utm_source: str | None = None
+    utm_medium: str | None = None
+    utm_campaign: str | None = None
 
 
 @router.post("/login")
@@ -278,6 +298,7 @@ async def login(body: LoginRequest) -> dict:
         raise HTTPException(401, str(exc)) from exc
     known = await buyer_service.buyer_profile(login["uid"])
     await buyer_service.save_buyer(login["uid"], login["phone"], None, None, False)
+    await buyer_service.note_first_source(login["uid"], _visit_source(body))
     name = (known.get("name") or "").strip()
     return {"name": name or None, "email": known.get("email") or None, "new": not name}
 
@@ -302,6 +323,24 @@ async def account(body: AccountRequest) -> dict:
     email = (body.email or "").strip()[:120] or None
     await buyer_service.save_buyer(login["uid"], login["phone"], name, email, False)
     return {"ok": True}
+
+
+class HeardFromRequest(BaseModel):
+    id_token: str
+    choice: str
+
+
+@router.post("/heard-from")
+async def heard_from(body: HeardFromRequest) -> dict:
+    """The buyer's one-tap answer to "How did you hear about Dealo?" on the
+    voucher-ready screen. The only way word of mouth ever gets recorded."""
+    if body.choice not in buyer_service.HEARD_FROM_CHOICES:
+        raise HTTPException(422, "unknown choice")
+    try:
+        login = await buyer_service.verify_login(body.id_token)
+    except ValueError as exc:
+        raise HTTPException(401, str(exc)) from exc
+    return {"ok": await buyer_service.save_heard_from(login["uid"], body.choice)}
 
 
 @router.get("/me")

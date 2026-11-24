@@ -29,8 +29,14 @@ export const hubbleApi = {
     return data;
   },
   /** POST /hubble/login -> { name, email, new } — right after the SMS code; new numbers are then asked their name. */
-  login: async (idToken) => {
-    const { data } = await apiClient.post('/hubble/login', { id_token: idToken });
+  login: async (idToken, source = {}) => {
+    // source: where this visit came from (visitSource), kept on the buyer's record the first time.
+    const { data } = await apiClient.post('/hubble/login', { id_token: idToken, ...source });
+    return data;
+  },
+  /** POST /hubble/heard-from -> { ok } — the one-tap answer to "How did you hear about Dealo?". */
+  heardFrom: async (idToken, choice) => {
+    const { data } = await apiClient.post('/hubble/heard-from', { id_token: idToken, choice });
     return data;
   },
   /** POST /hubble/account -> { ok } — logging in from "Your account" without buying. */

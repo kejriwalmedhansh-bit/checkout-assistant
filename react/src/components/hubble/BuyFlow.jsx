@@ -9,6 +9,7 @@ import { getDealoId, soldEventProps, track, visitSource } from '@/utils/analytic
 import { fmt } from '@/utils/format';
 
 import CodeRow from './CodeRow';
+import HeardFrom from './HeardFrom';
 import PhoneLogin from './PhoneLogin';
 import HowToRedeem from './HowToRedeem';
 
@@ -50,11 +51,13 @@ export default function BuyFlow({ offer, merchant, storeLink, price, shopLink, p
   // Which payment screen this is (from /session): the code fetched after
   // paying must be this purchase's, never an earlier one's.
   const session = useRef(null);
+  // The server says when this buyer has not yet told us how they heard of Dealo.
+  const [askHeardFrom, setAskHeardFrom] = useState(false);
 
   const openStore = async (token, buyerName = name) => {
     setBusy(true);
     try {
-      const { url, session: sid } = await hubbleApi.session({
+      const { url, session: sid, ask_heard_from: ask } = await hubbleApi.session({
         id_token: token,
         name: (buyerName || '').trim() || readName(),
         marketing_optin: optin,
@@ -72,6 +75,7 @@ export default function BuyFlow({ offer, merchant, storeLink, price, shopLink, p
         ...visitSource(),
       });
       session.current = sid || null;
+      setAskHeardFrom(Boolean(ask));
       setSignedIn(true);
       track('Hubble Store Opened', ev);
       setStoreUrl(url);
@@ -411,6 +415,7 @@ export default function BuyFlow({ offer, merchant, storeLink, price, shopLink, p
                 </Button>
               )}
               <HowToRedeem card={offer.card} brandName={offer.brand_name} inStore={offer.in_store} placement={placement} />
+              {voucher && askHeardFrom && <HeardFrom ev={ev} />}
               {voucher && (
                 <Text fontSize="12px" color="text2" textAlign="center">
                   Saved on this phone · find it again in{' '}

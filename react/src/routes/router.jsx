@@ -5,6 +5,7 @@ import AppLayout from '@/components/layout/AppLayout';
 import SearchPage from '@/pages/SearchPage';
 import ProductSelectPage from '@/pages/ProductSelectPage';
 import ResultsPage from '@/pages/ResultsPage';
+import { CHANNELS } from '@/seo/shortLinks';
 import { ROUTES } from './paths';
 
 // Everything below is reached by navigating, never on first paint — code-split
@@ -25,6 +26,7 @@ const PrivacyPage = lazy(() => import('@/pages/PrivacyPage'));
 const TermsPage = lazy(() => import('@/pages/TermsPage'));
 const ChatAppsPage = lazy(() => import('@/pages/ChatAppsPage'));
 const BuyPage = lazy(() => import('@/pages/BuyPage'));
+const ShortLinkPage = lazy(() => import('@/pages/ShortLinkPage'));
 const NotFoundPage = lazy(() => import('@/pages/NotFoundPage'));
 
 function lazyPage(Component) {
@@ -55,6 +57,13 @@ export const router = createBrowserRouter([
       { path: ROUTES.terms, element: lazyPage(TermsPage) },
       { path: ROUTES.chatApps, element: lazyPage(ChatAppsPage) },
       { path: ROUTES.buy, element: lazyPage(BuyPage) },
+
+      // Short links for posts: /ig, /ig/dominos, /c/<creator> (seo/shortLinks.js).
+      // Each sends the visitor on to the homepage or a shop page.
+      ...Object.keys(CHANNELS).flatMap((code) => [
+        { path: `/${code}`, element: lazyPage(ShortLinkPage) },
+        { path: `/${code}/:name`, element: lazyPage(ShortLinkPage) },
+      ]),
 
       // Anything else. Kept inside AppLayout so a wrong address still lands
       // in Dealo (sidebar, footer, search) rather than on a bare error page.
