@@ -244,7 +244,9 @@ function subscriptionMeta(shop) {
 export function shopPageMeta(shop) {
   if (isSubscription(shop)) return subscriptionMeta(shop);
   const n = shop.sellers.length;
-  const compare = shop.hubble
+  const compare = showsComparison(shop)
+    ? `Sold by Dealo, with ${n} other seller${n === 1 ? '' : 's'} side by side.`
+    : shop.hubble
     ? 'Sold by Dealo: pay from your bank app, code in seconds.'
     : `Today’s discount from ${n} official seller${n === 1 ? '' : 's'} side by side, cheapest marked.`;
   return {
@@ -256,15 +258,68 @@ export function shopPageMeta(shop) {
     description: `${shop.name} gift card (gift voucher): ${bestLine(shop)}. ${compare} Checked ${shop.checked}.`,
     // "gift card" is the phrase people search; "voucher" stays in the body.
     heading: `${shop.name} gift card discount today`,
-    intro: `${bestLine(shop)}. Buy the voucher, pay at ${shop.name} with it, keep the difference.`,
+    // The answer first, with a rupee figure: the sentence AI answers lift.
+    intro: `${bestLine(shop)}${shownPct(shop) ? `: a ₹1,000 gift card costs ${rupees(1000 * (1 - shownPct(shop) / 100))}` : ''}. Buy the voucher, pay at ${shop.name} with it, keep the difference.`,
   };
 }
 
-/** Owner's call, 3 Nov 2026: where Dealo sells the voucher, the page shows
- * Dealo alone; the partner list appears only for shops Dealo cannot sell. */
-export function shownSellers(shop) {
-  if (shop.hubble) return [{ source: 'dealo', pct: shop.hubble.pct, brand_name: shop.hubble.brand_name }];
-  return [...shop.sellers].sort((a, b) => b.pct - a.pct);
+/** How far another seller may be ahead of Dealo, in points, for a page to
+ * still list the other sellers under Dealo's row. */
+export const COMPARE_WITHIN = 0.5;
+
+/**
+ * Does this page list the other sellers under Dealo's own row?
+ *
+ * Owner's call, 24 Nov 2026 (replaces "Dealo alone" of 3 Nov for these
+ * pages): AI answers and Google quote pages that compare sellers, so a page
+ * shows Gyftr, Maximize and BuyHatke too, but only where Dealo's rate is the
+ * best or within COMPARE_WITHIN of it. Where another seller is clearly
+ * ahead the page stays Dealo alone. Rates only for the others: no link, no
+ * "cheapest" tag. `dealoPct` is the live rate when the page has re-read it.
+ */
+export function showsComparison(shop, dealoPct = shop.hubble?.pct) {
+  if (!dealoPct || isSubscription(shop) || !shop.sellers.length) return false;
+  return Math.max(...shop.sellers.map((r) => r.pct)) - dealoPct <= COMPARE_WITHIN;
+}
+
+/** The rows of the rate table. `dealo` is Dealo's own voucher (live on the
+ * page, the saved one in the prerendered file), or null where Dealo cannot
+ * sell it and the sellers are all there is. */
+export function sellerRows(shop, dealo = shop.hubble) {
+  const others = [...shop.sellers].sort((a, b) => b.pct - a.pct);
+  if (!dealo) return others;
+  const own = { source: 'dealo', pct: dealo.pct, brand_name: dealo.brand_name };
+  return showsComparison(shop, dealo.pct) ? [own, ...others] : [own];
+}
+export const shownSellers = (shop) => sellerRows(shop);
+
+/** "5 Nov 2026" from "2026-11-05": the date beside another seller's rate. */
+export function shortDate(iso) {
+  const [y, m, d] = String(iso || '').split('-').map(Number);
+  if (!y || !m || !d) return '';
+  return `${d} ${['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'][m - 1]} ${y}`;
+}
+
+export const OTHERS_EXPLAINED =
+  'Gyftr, Maximize and BuyHatke are official gift voucher sellers. Dealo re-reads its own rate every day and theirs at each voucher refresh, so each row shows its own date.';
+
+/** What a few round amounts cost on Dealo at this rate, within what the
+ * card allows (Flipkart: up to ₹10,000 a card). */
+export function payExamples(shop, rate) {
+  if (!rate || isSubscription(shop)) return [];
+  const max = shop.hubble?.max_amount || Infinity;
+  const min = shop.hubble?.min_amount || 0;
+  return [1000, 5000, 10000]
+    .filter((face) => face >= min && face <= max)
+    .map((face) => ({ face, pay: face * (1 - rate / 100), save: (face * rate) / 100 }));
+}
+
+/** "Dealo 2% (24 Nov 2026), BuyHatke 2.01% (5 Nov 2026), ...": every rate
+ * on the page in one sentence, each with the day it was read. */
+export function ratesSentence(shop) {
+  return shownSellers(shop)
+    .map((r) => `${SELLER_NAME[r.source]} ${pct(r.pct)}${r.source === 'dealo' ? ` (${shortDate(shop.checked)})` : r.checked ? ` (${shortDate(r.checked)})` : ''}`)
+    .join(', ');
 }
 
 export const DEALO_EXPLAINED = 'Dealo’s own voucher is issued through Hubble, an official gift voucher issuer. Pay from your bank app, the code arrives in seconds, and the shop accepts it like store credit.';
@@ -331,7 +386,9 @@ export function shopFaqs(shop) {
       q: `What is the ${shop.name} gift card discount today?`,
       // People also type "<shop> gift card highest discount". Said only where
       // the page compares sellers; where Dealo sells the card it shows Dealo alone.
-      a: `${!shop.hubble && shop.best ? `The highest discount today among the sellers Dealo checks is ${best}` : best} (checked ${shop.checked}). Rates move; this page is rebuilt with every catalogue refresh and the Dealo rate is checked live when the page opens.`,
+      a: showsComparison(shop)
+        ? `${best} (checked ${shop.checked}). Every seller Dealo checks: ${ratesSentence(shop)}. Rates move; Dealo’s own rate is re-read every day.`
+        : `${!shop.hubble && shop.best ? `The highest discount today among the sellers Dealo checks is ${best}` : best} (checked ${shop.checked}). Rates move; this page is rebuilt with every catalogue refresh and the Dealo rate is checked live when the page opens.`,
     },
     {
       q: `How do I buy a ${shop.name} gift card at a discount?`,

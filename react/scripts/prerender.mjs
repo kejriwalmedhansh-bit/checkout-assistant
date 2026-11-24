@@ -44,6 +44,10 @@ import {
   shopPageMeta,
   shownPct,
   shownSellers,
+  showsComparison,
+  shortDate,
+  payExamples,
+  OTHERS_EXPLAINED,
   whereToRedeemShop,
 } from '../src/seo/pageMeta.js';
 import {
@@ -79,6 +83,8 @@ const { renderStaticPage } = await import(path.join(HERE, '..', 'dist-ssr', 'sta
 const HUBBLE_CATALOGUE = JSON.parse(
   await readFile(path.join(HERE, '..', '..', 'data', 'hubble_catalogue.json'), 'utf8'),
 );
+/** Rupees with paise when there are any: a 2.01% and a 2% card differ by 10 paise. */
+const inr2 = (n) => `₹${n.toLocaleString('en-IN', { minimumFractionDigits: Number.isInteger(Math.round(n * 100) / 100) ? 0 : 2, maximumFractionDigits: 2 })}`;
 const buySlug = (name) => name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
 const BUY_PAGES = [...new Map(HUBBLE_CATALOGUE.map((b) => [buySlug(b.name), b.name])).entries()];
 
@@ -140,16 +146,22 @@ function shopBody(shop) {
   const curated = CURATED.get(shop.slug);
   const rows = shownSellers(shop);
   const top = shop.hubble ? null : rows[0]?.pct;
+  // Dealo with the other sellers under it (see showsComparison): rates and
+  // the day each was read, no link out and no "cheapest" tag.
+  const compare = showsComparison(shop);
   const table =
-    '<table><thead><tr><th>Seller</th><th>Discount today</th></tr></thead><tbody>' +
+    `<table><thead><tr><th>Seller</th><th>Discount</th>${compare ? `<th>${inr(BILL)} gift card costs</th><th>Checked</th>` : ''}</tr></thead><tbody>` +
     rows
       .map((r) => {
-        const name = r.source === 'dealo' ? 'Dealo (sold by Dealo, code in seconds)' : SELLER_NAME[r.source];
-        const href = r.source === 'dealo' ? `/buy/${buySlug(shop.hubble.brand_name || shop.name)}/` : r.url;
-        return `<tr><td>${link(href, name)}${r.pct === top ? ' — cheapest today' : ''}</td><td>${esc(pct(r.pct))} off</td></tr>`;
+        const own = r.source === 'dealo';
+        const name = own ? 'Dealo (sold by Dealo, code in seconds)' : SELLER_NAME[r.source];
+        const who = own ? link(`/buy/${buySlug(shop.hubble.brand_name || shop.name)}/`, name) : compare ? esc(name) : link(r.url, name);
+        const extra = compare ? `<td>${inr2(payOn(r.pct))}</td><td>${esc(shortDate(own ? shop.checked : r.checked))}</td>` : '';
+        return `<tr><td>${who}${r.pct === top ? ' — cheapest today' : ''}</td><td>${esc(pct(r.pct))} off</td>${extra}</tr>`;
       })
       .join('') +
     '</tbody></table>';
+  const examples = shop.hubble ? payExamples(shop, shop.hubble.pct) : [];
   const steps = curated?.steps?.length
     ? curated.steps
     : [
@@ -165,10 +177,12 @@ function shopBody(shop) {
   return [
     head(meta),
     p(`${shop.online ? 'Works online. ' : ''}${shop.offline ? 'Works in store. ' : ''}Checked ${shop.checked}.`),
-    `<h2>${shop.hubble ? 'Today’s rate' : 'Today’s rate, every seller'}</h2>`,
+    `<h2>${compare ? 'Every seller Dealo checks' : shop.hubble ? 'Today’s rate' : 'Today’s rate, every seller'}</h2>`,
     table,
-    rows[0]?.pct > 0 ? p(`Every ${inr(BILL)} you spend at ${shop.name} costs ${inr(payOn(rows[0].pct))} with the gift card.`) : '',
+    rows[0]?.pct > 0 && examples.length < 2 ? p(`Every ${inr(BILL)} you spend at ${shop.name} costs ${inr(payOn(rows[0].pct))} with the gift card.`) : '',
+    examples.length > 1 ? '<h2>What you pay on Dealo</h2>' + list(examples.map((x) => `${inr(x.face)} gift card: you pay ${inr(x.pay)}, you save ${inr(x.save)}`)) : '',
     p(shop.hubble ? 'Issued through Hubble, an official gift voucher issuer. The shop accepts it like store credit.' : SELLERS_EXPLAINED),
+    compare ? p(OTHERS_EXPLAINED) : '',
     '<h2>About this voucher</h2>',
     list([
       `Where to redeem? ${esc(whereToRedeemShop(shop))}`,
