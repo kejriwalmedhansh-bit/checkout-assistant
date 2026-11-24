@@ -99,8 +99,11 @@ function getIsInternalTester() {
 
 const APP_VERSION = import.meta.env.VITE_APP_VERSION || 'dev';
 
+// The site answers on both getdealo.in and www.getdealo.in (ChatGPT links use
+// the www address). Both are the live site; anything else is a test copy.
 function environment() {
-  return window.location.hostname === 'getdealo.in' ? 'production' : 'development';
+  const host = window.location.hostname.replace(/^www\./, '');
+  return host === 'getdealo.in' ? 'production' : 'development';
 }
 
 /**
