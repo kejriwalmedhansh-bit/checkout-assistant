@@ -61,6 +61,27 @@ export default function GuidePage() {
           ))}
           {sec.ol && <Steps items={sec.ol} numbered />}
           {sec.ul && <Steps items={sec.ul} />}
+          {sec.links && (
+            <Box m="0 0 10px">
+              {sec.links.map((l) => (
+                <Text
+                  key={l.href}
+                  as="a"
+                  href={l.href}
+                  target="_blank"
+                  rel="nofollow noopener noreferrer"
+                  display="block"
+                  fontSize="13px"
+                  fontWeight={700}
+                  color="brand"
+                  lineHeight={1.5}
+                  mb="6px"
+                >
+                  {l.label} ↗
+                </Text>
+              ))}
+            </Box>
+          )}
           {sec.table && (
             <Box border="1px solid" borderColor="border" borderRadius="12px" overflow="hidden" mb="10px">
               {sec.table.rows.map((r, i) => (

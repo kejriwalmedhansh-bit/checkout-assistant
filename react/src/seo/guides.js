@@ -31,6 +31,9 @@ const niceDate = (iso) => {
   return y && m && d ? `${d} ${MONTHS[m - 1]} ${y}` : String(iso);
 };
 
+/** When the Reddit threads behind the Reddit guide were last read. */
+const REDDIT_READ = 'November 2026';
+
 const names = (shops) => shops.map((s) => `${s.name} (${pct(shownPct(s))})`).join(', ');
 
 /** Today's figures for the main guide, all counted from shopPages.json. */
@@ -44,6 +47,12 @@ function figures(shopPages) {
     onlineOnly: rated.filter((s) => s.online && !s.offline).length,
     storeOnly: rated.filter((s) => !s.online && s.offline),
     both: rated.filter((s) => s.online && s.offline).length,
+    // What the shops' own rules say, for the Reddit guide.
+    noClub: shopPages.filter((s) => s.canClub === false).length,
+    club: shopPages.filter((s) => s.canClub === true).length,
+    oneCard: shopPages.filter((s) => s.stack === 'One voucher per order').length,
+    singleUse: shopPages.filter((s) => s.multiUse === false).length,
+    multiUse: shopPages.filter((s) => s.multiUse === true).length,
     checked: niceDate(shopPages.map((s) => s.checked).sort().pop()),
     // The year the rates were last checked: turns to 2027 by itself with the first rebuild of January.
     year: String(shopPages.map((s) => s.checked).sort().pop()).slice(0, 4),
@@ -213,6 +222,129 @@ export function buildGuides(shopPages) {
         {
           q: 'Does Dealo handle my money?',
           a: 'No. You pay the gift card seller from your bank app. Dealo never sees your card number, UPI PIN or OTP.',
+        },
+      ],
+    },
+    {
+      // Search Console and Google's suggestions (Nov 2026): the questions end
+      // in "reddit", and AI chats search the same way. This page is an honest
+      // summary of public threads, each one linked. Owner's rules: no seller
+      // is named or ranked; opinions are paraphrased, never quoted at length.
+      slug: 'discounted-gift-cards-india-reddit',
+      title: `Discounted gift cards in India: what Reddit users say (${f.year})`,
+      description: 'What Indian Reddit users say about buying gift cards at a discount: is it a scam, why are they cheaper, and the catches people ran into. With links to the threads.',
+      heading: 'Discounted gift cards in India: what Reddit users say',
+      intro: 'We read the Reddit threads so you do not have to. Six things people keep asking, with links to the threads.',
+      sections: [
+        {
+          h: 'The short answer',
+          p: [
+            'On Indian Reddit the common view is simple. Buying a gift card from an official seller works and saves real money. Buying one from a stranger is how people get cheated. And most bad experiences come from not reading the card’s rules before paying.',
+            `This is Dealo’s own summary of public threads on r/CreditCardsIndia, r/Frugal_Ind, r/IsThisAScamIndia and other Indian subreddits, read in ${REDDIT_READ}. Dealo is not Reddit and Reddit has not approved this page. The opinions belong to the people who posted them; follow the links to read them in full.`,
+          ],
+        },
+        {
+          h: '1. “Is it a scam?”',
+          p: [
+            'The most upvoted answers draw one line: who is selling. When someone posted about a stranger on a marketplace offering Amazon and Flipkart vouchers far below value, the replies were close to unanimous that it was a scam, and that the seller blocks you once the money is sent.',
+            'Another poster who was cheated explained what sat behind a “50% off” offer: the codes had been taken from other people, so they could be cancelled at any time.',
+            'The rule people repeat: if the discount is much bigger than every official seller shows, walk away.',
+          ],
+          links: [
+            { label: 'r/IsThisAScamIndia: a stranger offering discounted Amazon and Flipkart vouchers', href: 'https://www.reddit.com/r/IsThisAScamIndia/comments/1nvadgs/amazonflipkart_discounted_gift_vouchers/' },
+            { label: 'r/IndiaDealsExchange: how a “huge discount” gift card seller operates', href: 'https://www.reddit.com/r/IndiaDealsExchange/comments/1pa9g77/beware_of_gift_card_sellers_offering_huge/' },
+          ],
+        },
+        {
+          h: '2. “Why would anyone sell a card for less than its value?”',
+          p: [
+            'People ask this often, because a real discount with no catch sounds wrong. The answer that gets the most agreement: the shop itself pays for most of the discount. A sold gift card is money the shop has already received, and any balance nobody spends is pure profit for it.',
+            'That is also why the discount differs so much from shop to shop. Big marketplaces do not need to give much. Smaller brands give more to win the order.',
+          ],
+          links: [
+            { label: 'r/CreditCardsIndia: how do gift voucher platforms make money?', href: 'https://www.reddit.com/r/CreditCardsIndia/comments/1q6ldvw/how_do_gift_voucher_platforms_like_maximize_money/' },
+          ],
+        },
+        {
+          h: '3. “Can I use it with a coupon or a bank offer?”',
+          p: [
+            'This is the most common regret. One poster bought a travel gift card for the cashback, then found that paying with it switched off every other offer at checkout, and ended up worse off. The replies: it was in the terms, read them first.',
+            'On adding a bank card offer on top, people point out that the instant discount usually applies only to the part you pay by card, and often needs a minimum card spend. A gift card for the full amount can leave nothing for the bank offer to apply to.',
+            `Dealo’s own data agrees that this varies. Of the ${f.total} shops checked on ${f.checked}, ${f.noClub} do not allow a gift card with other offers and ${f.club} do. Each shop page says which.`,
+          ],
+          links: [
+            { label: 'r/CreditCardsIndia: a gift card that switched off every other offer', href: 'https://www.reddit.com/r/CreditCardsIndia/comments/18ycbnv/beware_of_the_gift_card_offers/' },
+            { label: 'r/CreditCardsIndia: gift card plus a bank card offer at a fashion shop', href: 'https://www.reddit.com/r/CreditCardsIndia/comments/1h7fud0/can_i_combine_gift_voucher_and_credit_card/' },
+          ],
+        },
+        {
+          h: '4. “It would not cover my whole bill”',
+          p: [
+            'A widely read post describes buying several cards at an electronics store counter, only to learn that the bill was split in two and the cards could not be spread across both. Others added their own versions: a cap on how many cards one order accepts, cards that cannot pay for an extended warranty, cards that cannot buy gold or silver.',
+            `What people advise: ask how the bill will be made before you buy the cards, and buy one small card first if you are unsure. In Dealo’s data, ${f.oneCard} of ${f.total} shops accept only one gift card per order, so there you buy a single card for the amount.`,
+          ],
+          links: [
+            { label: 'r/CreditCardsIndia: gift cards and a split bill at an electronics store', href: 'https://www.reddit.com/r/CreditCardsIndia/comments/1k9uumc/double_check_before_buying_gyftr_vouchers/' },
+          ],
+        },
+        {
+          h: '5. “What if I return the order?”',
+          p: [
+            'In a thread recommending gift cards for everyday shopping, the caution that got the most agreement was about returns. Money paid with a gift card usually comes back as store credit, not to your bank. Some people avoid gift cards for clothes for this reason and keep them for food and groceries, where nothing goes back.',
+            'A second point from the same discussions: cards that load into the shop’s wallet and can be spent across several orders cause fewer problems than single-use cards.',
+            `In Dealo’s data, ${f.multiUse} of ${f.total} cards can be spent across several orders and ${f.singleUse} must be used in one go.`,
+          ],
+          links: [
+            { label: 'r/Frugal_Ind: gift cards with discounts, and the returns warning', href: 'https://www.reddit.com/r/Frugal_Ind/comments/1hqdkbr/gift_cards_with_discounts/' },
+          ],
+        },
+        {
+          h: '6. “Is the credit card points maths worth it?”',
+          p: [
+            'Much of the Reddit discussion is about stacking card reward points on top of gift cards. The sums are long, they depend on which card you hold, and a convenience fee often eats part of the gain. One popular reply joked about paying real money in fees to earn it back as points.',
+            'Dealo leaves this out on purpose. Every number on Dealo is the price you pay today, and it is the same whichever bank you use. Points and cashback are never counted.',
+          ],
+          links: [
+            { label: 'r/CreditCardsIndia: does buying gift cards for points still make sense?', href: 'https://www.reddit.com/r/CreditCardsIndia/comments/1osp9vo/does_it_actually_make_sense_to_get_gyftr_cards/' },
+          ],
+        },
+        {
+          h: 'Reddit’s advice in one list',
+          ul: [
+            'Buy from an official seller, never from a person on a marketplace, Telegram or Reddit.',
+            'A discount far above what official sellers show is a warning, not a deal.',
+            'Read what the card cannot be combined with and cannot buy.',
+            'Ask how the bill will be made before buying cards at a store counter.',
+            'Buy the card only when you are about to pay, for the amount you will spend.',
+            'Prefer cards for things you will not return.',
+          ],
+        },
+        {
+          h: 'Biggest gift card discounts today',
+          shops: top.slice(0, 6).map((s) => s.slug),
+        },
+      ],
+      note: 'Disclosure: Dealo sells gift cards itself, issued through Hubble, an official gift card issuer. This page summarises public Reddit threads in Dealo’s own words and links to each one. Reddit is a trademark of Reddit, Inc.; Dealo is not connected to it.',
+      faqs: [
+        {
+          q: 'Is buying discounted gift cards legit, according to Reddit?',
+          a: 'Yes, from official sellers. Reddit users in India buy them routinely. The scam warnings are about individuals selling codes on marketplaces, Telegram or Reddit itself at very large discounts.',
+        },
+        {
+          q: 'Where does Reddit say to buy discounted gift cards in India?',
+          a: 'Threads point to official gift card sellers and issuers, and warn against buying codes from a person. Dealo sells cards issued through Hubble, an official gift card issuer.',
+        },
+        {
+          q: 'Which gift cards do Reddit users find least trouble?',
+          a: 'Cards that load into the shop’s own wallet and can be spent across several orders, such as food delivery and big marketplaces. Single-use cards for one bill draw the most complaints.',
+        },
+        {
+          q: 'What is the most common mistake Reddit users report?',
+          a: 'Not reading the terms: finding out at checkout that the card cannot be combined with another offer, cannot be split across bills, or cannot pay for certain items.',
+        },
+        {
+          q: 'Can I get my money back if I return something bought with a gift card?',
+          a: 'Usually the refund comes back as store credit, not to your bank. Reddit users suggest using gift cards for things you will not return.',
         },
       ],
     },
