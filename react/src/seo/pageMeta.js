@@ -306,9 +306,20 @@ function subscriptionFaqs(shop) {
   return faqs;
 }
 
+/** How long Dealo's own card lasts ("1 year", "6 months"), read from the
+ * card's own terms. Only for cards Dealo sells: partner cards can differ. */
+export function validityOf(shop) {
+  const line = (shop.hubble?.terms || []).find((t) => /valid/i.test(t) && /\d+\s*-?\s*(day|month|year)/i.test(t));
+  const m = line && line.match(/(\d+)\s*-?\s*(day|month|year)/i);
+  if (!m) return null;
+  const n = Number(m[1]);
+  return `${n} ${m[2].toLowerCase()}${n === 1 ? '' : 's'}`;
+}
+
 export function shopFaqs(shop) {
   if (isSubscription(shop)) return subscriptionFaqs(shop);
   const best = shop.best ? bestLine(shop) : 'the rate shown above';
+  const validity = validityOf(shop);
   return [
     {
       q: `Is a discounted ${shop.name} gift card safe?`,
@@ -318,7 +329,9 @@ export function shopFaqs(shop) {
     },
     {
       q: `What is the ${shop.name} gift card discount today?`,
-      a: `${best} (checked ${shop.checked}). Rates move; this page is rebuilt with every catalogue refresh and the Dealo rate is checked live when the page opens.`,
+      // People also type "<shop> gift card highest discount". Said only where
+      // the page compares sellers; where Dealo sells the card it shows Dealo alone.
+      a: `${!shop.hubble && shop.best ? `The highest discount today among the sellers Dealo checks is ${best}` : best} (checked ${shop.checked}). Rates move; this page is rebuilt with every catalogue refresh and the Dealo rate is checked live when the page opens.`,
     },
     {
       q: `How do I buy a ${shop.name} gift card at a discount?`,
@@ -338,7 +351,28 @@ export function shopFaqs(shop) {
     ...(shop.best
       ? [{
           q: `Is there any ${shop.name} gift voucher offer today?`,
-          a: `Yes: ${best} (checked ${shop.checked}). There is no coupon code to hunt for; the ${shop.name} gift voucher itself sells for less than its value, and you pay ${shop.name} with it.`,
+          a: `Yes: ${best} (checked ${shop.checked}). The ${shop.name} gift voucher itself sells for less than its value, and you pay ${shop.name} with it.`,
+        }]
+      : []),
+    // Search Console, 24 Nov 2026: 75 "<shop> coupon code / promo code /
+    // discount code" searches showed Dealo, none clicked. Dealo has no codes,
+    // so the answer says that first, then what it does have.
+    ...(shop.best
+      ? [{
+          q: `Is there a ${shop.name} coupon code or promo code?`,
+          a:
+            `Dealo does not list ${shop.name} coupon codes, promo codes or discount codes. A gift card is another way to pay less, with no code to find: ${best}.` +
+            (shop.canClub === true
+              ? ` If you have a ${shop.name} discount code, apply it first and pay the rest with the gift card.`
+              : shop.canClub === false
+                ? ` ${shop.name} does not accept a gift card together with another offer, so use whichever saves more.`
+                : ''),
+        }]
+      : []),
+    ...(validity
+      ? [{
+          q: `How long is a ${shop.name} gift card valid?`,
+          a: `Dealo’s ${shop.name} gift card comes with ${validity} validity. Buy it when you are about to spend it.`,
         }]
       : []),
   ];
