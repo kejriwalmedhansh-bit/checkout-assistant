@@ -87,6 +87,16 @@ export default function PhoneLogin({ intro, phoneExtra, place, trackProps, onDon
   const token = useRef(null);
   const codeForm = useRef(null);
   const props = { placement: place, ...trackProps };
+  // Once per login screen: a full, valid number was typed. Tells "looked at
+  // the screen and left" apart from "typed a number, then something stopped
+  // them". The number itself is never sent.
+  const typed = useRef(false);
+  useEffect(() => {
+    if (typed.current || !phoneOk(phone)) return;
+    typed.current = true;
+    track('Login Number Entered', props);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [phone]);
 
   const getCode = async () => {
     setError('');
@@ -99,6 +109,8 @@ export default function PhoneLogin({ intro, phoneExtra, place, trackProps, onDon
       return true;
     } catch (err) {
       console.error('[login] send code failed', err?.code, err?.message);
+      // Firebase's own reason (auth/too-many-requests, auth/captcha-check-failed...).
+      track('Login Code Failed', { ...props, reason: String(err?.code || 'unknown').slice(0, 60) });
       setError(err?.code === 'auth/too-many-requests' ? 'Too many tries. Please wait a few minutes.' : "Couldn't send the code. Check the number and try again.");
       return false;
     } finally {
@@ -120,6 +132,7 @@ export default function PhoneLogin({ intro, phoneExtra, place, trackProps, onDon
     try {
       token.current = await confirmCode(confirmation.current, digits);
     } catch {
+      track('Login Code Rejected', props);
       setError('That code didn’t match. Try again.');
       setWrong((n) => n + 1);
       setCode('');

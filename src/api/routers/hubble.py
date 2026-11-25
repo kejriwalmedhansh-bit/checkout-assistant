@@ -99,13 +99,14 @@ _ATTRIBUTION_SECONDS = 6 * 60 * 60
 _attribution: dict[str, tuple[float, dict]] = {}
 
 
-def _remember_attribution(uid: str, body: "SessionRequest") -> None:
+def _remember_attribution(uid: str, body: "SessionRequest", internal: bool = False) -> None:
     now = time.time()
     for stale in [k for k, (t, _) in _attribution.items() if now - t > _ATTRIBUTION_SECONDS]:
         _attribution.pop(stale, None)
     _attribution[uid] = (now, {
         "dealo_id": body.dealo_id,
         "visit_id": body.visit_id,
+        "is_internal_tester": internal,
         "src": body.src,
         "placement": body.placement,
         "merchant": body.merchant,
@@ -202,9 +203,10 @@ async def session(body: SessionRequest) -> dict:
     email = (body.email or "").strip()[:120] or None
     await buyer_service.save_buyer(login["uid"], login["phone"], name, email, body.marketing_optin)
     await buyer_service.note_first_source(login["uid"], _visit_source(body))
-    _remember_attribution(login["uid"], body)
+    internal = buyer_service.is_team_phone(login["phone"])
+    _remember_attribution(login["uid"], body, internal)
     buyer_service.report_buyer_seen(login["uid"], "payment_screen", get_settings().HUBBLE_ENV, _visit_source(body),
-                                    dealo_id=body.dealo_id, visit_id=body.visit_id)
+                                    dealo_id=body.dealo_id, visit_id=body.visit_id, internal=internal)
     token = hubble_service.sso_token(login["uid"], login["phone"], name, email)
     return {"url": hubble_service.store_url(found, token), "offer": found,
             "session": _open_session(login["uid"], found["brand_name"]),
@@ -309,7 +311,8 @@ async def login(body: LoginRequest) -> dict:
     await buyer_service.save_buyer(login["uid"], login["phone"], None, None, False)
     await buyer_service.note_first_source(login["uid"], _visit_source(body))
     buyer_service.report_buyer_seen(login["uid"], "login", get_settings().HUBBLE_ENV, _visit_source(body),
-                                    dealo_id=body.dealo_id, visit_id=body.visit_id)
+                                    dealo_id=body.dealo_id, visit_id=body.visit_id,
+                                    internal=buyer_service.is_team_phone(login["phone"]))
     name = (known.get("name") or "").strip()
     return {"name": name or None, "email": known.get("email") or None, "new": not name}
 

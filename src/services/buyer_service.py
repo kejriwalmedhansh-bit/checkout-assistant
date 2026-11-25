@@ -218,8 +218,15 @@ def _visit_ids(dealo_id: object, visit_id: object) -> tuple[str | None, dict]:
     return None, {}
 
 
+def is_team_phone(phone: object) -> bool:
+    """True when the login belongs to the team (INTERNAL_PHONES, the same
+    list WhatsApp uses), so their test purchases never count as sales."""
+    digits = re.sub(r"\D", "", str(phone or ""))
+    return bool(digits) and analytics_service.is_internal_phone(digits)
+
+
 def buyer_seen_event(uid: str, at: str, environment: str, source: dict | None = None, *,
-                     dealo_id: object = None, visit_id: object = None) -> dict:
+                     dealo_id: object = None, visit_id: object = None, internal: bool = False) -> dict:
     """The Mixpanel event that says "this website visit is this buyer": sent
     when a shopper logs in with their phone or opens the payment screen. It
     is what lets every visit a buyer logs in on be read as one person's,
@@ -233,6 +240,7 @@ def buyer_seen_event(uid: str, at: str, environment: str, source: dict | None = 
             "at": at,
             "buyer_key": buyer_key(uid),
             "seller_environment": environment,
+            "is_internal_tester": bool(internal),
             **_source_columns(source),
             **visit_props,
         },
@@ -240,10 +248,11 @@ def buyer_seen_event(uid: str, at: str, environment: str, source: dict | None = 
 
 
 def report_buyer_seen(uid: str, at: str, environment: str, source: dict | None = None, *,
-                      dealo_id: object = None, visit_id: object = None) -> None:
+                      dealo_id: object = None, visit_id: object = None, internal: bool = False) -> None:
     """Never fails the login or the purchase."""
     try:
-        analytics_service.fire(buyer_seen_event(uid, at, environment, source, dealo_id=dealo_id, visit_id=visit_id))
+        analytics_service.fire(buyer_seen_event(uid, at, environment, source, dealo_id=dealo_id, visit_id=visit_id,
+                                                internal=internal))
     except Exception as exc:  # noqa: BLE001
         print(f"[buyers] could not report buyer seen: {exc}")
 
@@ -324,6 +333,7 @@ def voucher_sold_event(order: dict, environment: str, attribution: dict | None =
             "utm_campaign": _short(attribution.get("utm_campaign")),
             "seller_environment": environment,
             "buyer_key": buyer_key(uid),
+            "is_internal_tester": bool(attribution.get("is_internal_tester")),
             **visit_props,
         },
     )
