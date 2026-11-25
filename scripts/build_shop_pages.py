@@ -361,6 +361,18 @@ SHOPS: list[tuple[str, str, str, list[str]]] = [
     ("crossword", "Crossword", "crossword.in", []),
     ("miniklub", "MiniKlub", "miniklub.in", []),
     ("toscano", "Toscano", "toscano.in", []),
+    # Added 25 Nov 2026: ChatGPT sends people mostly to store-only cards that
+    # few other sites cover (Westside, Charles & Keith). These are well-known
+    # names Dealo sells that are used at the counter. The other name is the
+    # one the card is listed under (checked against the live service).
+    ("taj-hotels", "Taj Hotels", "tajhotels.com", ["Taj Experiences"]),
+    ("itc-hotels", "ITC Hotels", "itchotels.com", []),
+    ("marriott-hotels", "Marriott Hotels", "marriott.com", ["Marriot Hotels", "Marriott Hotels India"]),
+    ("the-leela", "The Leela", "theleela.com", ["Moments by The Leela"]),
+    ("apollo-pharmacy", "Apollo Pharmacy", "apollopharmacy.in", ["Apollo"]),
+    ("o2-spa", "O2 Spa", "o2spa.in", ["O2 Spa Salon"]),
+    ("kalyan-jewellers", "Kalyan Jewellers", "kalyanjewellers.net", []),
+    ("joyalukkas", "Joyalukkas", "joyalukkas.in", []),
 ]
 
 # slug -> the word people search with ("sonyliv subscription offer",
