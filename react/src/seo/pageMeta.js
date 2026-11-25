@@ -241,6 +241,36 @@ function subscriptionMeta(shop) {
   };
 }
 
+/**
+ * The first lines of a shop page: the answer to "<shop> gift card discount",
+ * complete on its own, because AI answers and Google lift the opening lines.
+ *
+ * Rules (owner, 25 Nov 2026: it must never read as filler):
+ * - every sentence states a fact from this shop's own checked data;
+ * - a fact the data does not have is left out, never padded with "not stated";
+ * - no sentence that would read the same on every shop's page.
+ * So the opening differs from shop to shop exactly as the facts differ.
+ */
+export function quickAnswer(shop) {
+  const rate = shownPct(shop);
+  const where =
+    shop.online && shop.offline
+      ? `Use it online or in ${shop.name} stores.`
+      : shop.offline
+      ? `Use it at the counter in ${shop.name} stores; it does not work online.`
+      : `Use it for online orders at ${shop.name}.`;
+  const club =
+    shop.canClub === true
+      ? 'It works on top of a sale price or coupon.'
+      : shop.canClub === false
+      ? 'It cannot be combined with other offers.'
+      : '';
+  const one = shop.stack === 'One voucher per order' ? 'One card per order, so buy one card for the full amount.' : '';
+  return [`${bestLine(shop)}${rate ? `: a ₹1,000 gift card costs ${rupees(1000 * (1 - rate / 100))}` : ''}.`, where, club, one]
+    .filter(Boolean)
+    .join(' ');
+}
+
 export function shopPageMeta(shop) {
   if (isSubscription(shop)) return subscriptionMeta(shop);
   const n = shop.sellers.length;
@@ -259,7 +289,7 @@ export function shopPageMeta(shop) {
     // "gift card" is the phrase people search; "voucher" stays in the body.
     heading: `${shop.name} gift card discount today`,
     // The answer first, with a rupee figure: the sentence AI answers lift.
-    intro: `${bestLine(shop)}${shownPct(shop) ? `: a ₹1,000 gift card costs ${rupees(1000 * (1 - shownPct(shop) / 100))}` : ''}. Buy the voucher, pay at ${shop.name} with it, keep the difference.`,
+    intro: quickAnswer(shop),
   };
 }
 
