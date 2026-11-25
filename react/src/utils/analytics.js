@@ -528,7 +528,7 @@ syncAnalyticsToConsent();
 // than in a component so StrictMode's double-mount can't double-count it.
 if (!isGranted() && !IS_BOT) {
   countStage('Session Started', currentTouch());
-  countStage('Dashboard Opened');
+  countStage('Dashboard Opened', sourceProps());
 }
 
 // After the arrival above is sent, and after the SDK (when consented) has
