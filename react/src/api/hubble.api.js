@@ -30,7 +30,8 @@ export const hubbleApi = {
   },
   /** POST /hubble/login -> { name, email, new } — right after the SMS code; new numbers are then asked their name. */
   login: async (idToken, source = {}) => {
-    // source: where this visit came from (visitSource), kept on the buyer's record the first time.
+    // source: where this visit came from (visitSource), kept on the buyer's record the first time,
+    // plus the visit's own tag (dealo_id or visit_id) so the login joins the visit in Mixpanel.
     const { data } = await apiClient.post('/hubble/login', { id_token: idToken, ...source });
     return data;
   },

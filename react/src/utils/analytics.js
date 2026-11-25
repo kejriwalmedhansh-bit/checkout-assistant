@@ -134,6 +134,34 @@ function environment() {
 const VISIT_ID = `visit:${newId()}`;
 
 /**
+ * The tag this visit's steps are counted under when the visitor hasn't
+ * agreed to be recorded (null when they have: their saved id does the job,
+ * see getDealoId). Sent to our server only when a shopper logs in to buy,
+ * so the sale can be read together with the visit that led to it. Still
+ * never stored: the next visit gets a new one.
+ */
+export function visitId() {
+  return isGranted() ? null : VISIT_ID;
+}
+
+/**
+ * Search engines and other programs that open pages by themselves. They run
+ * the page like a browser would, so each one used to count as a visitor
+ * (25 Nov 2026: 67 "visits" in one hour, one per shop page). Told apart by
+ * what they say about themselves, so a real shopper is never left out.
+ */
+const IS_BOT = (() => {
+  try {
+    if (navigator.webdriver) return true;
+    // Named crawlers end in "bot/" or "bot-" (Googlebot/2.1, AdsBot-Google); a bare
+    // "bot" would also catch real phones (Cubot).
+    return /bot\/|bot-|crawl|spider|headless|lighthouse|pagespeed|prerender|chatgpt-user/i.test(navigator.userAgent || '');
+  } catch {
+    return false;
+  }
+})();
+
+/**
  * Event properties a visitor who hasn't agreed may carry. Everything here is
  * about the page, the search or the deal — words searched, shop, price,
  * saving, voucher rate, which button, which step, where the visit came from.
@@ -487,6 +515,7 @@ function stopMixpanel() {
  * nothing behind but the stage counts, which aren't tied to them.
  */
 export function syncAnalyticsToConsent() {
+  if (IS_BOT) return;
   if (isGranted()) startMixpanel();
   else stopMixpanel();
 }
@@ -497,9 +526,9 @@ syncAnalyticsToConsent();
 // The one event that would otherwise be missed: a visitor who lands and leaves
 // without agreeing still counts as an arrival. Fired at module scope rather
 // than in a component so StrictMode's double-mount can't double-count it.
-if (!isGranted()) {
+if (!isGranted() && !IS_BOT) {
   countStage('Session Started', currentTouch());
-  countStage('Dashboard Opened');
+  countStage('Dashboard Opened', sourceProps());
 }
 
 // After the arrival above is sent, and after the SDK (when consented) has
@@ -531,10 +560,21 @@ export function soldEventProps(offer, { merchant, placement, bestPct, amount, sr
   };
 }
 
-/** Fire-and-forget event tracking. */
+/** This visit's source without the blanks, for stamping onto an event. */
+function sourceProps() {
+  return Object.fromEntries(Object.entries(visitSource()).filter(([, v]) => v !== null));
+}
+
+/**
+ * Fire-and-forget event tracking. Every event carries where the visit came
+ * from (site, landing page, campaign), so searches and deals can be split by
+ * source the same way the buy steps can. Programs are not counted (IS_BOT).
+ */
 export function track(event, props = {}) {
-  if (isGranted()) mixpanel.track(event, props);
-  else countStage(event, props);
+  if (IS_BOT) return;
+  const withSource = { ...sourceProps(), ...props };
+  if (isGranted()) mixpanel.track(event, withSource);
+  else countStage(event, withSource);
 }
 
 // Shop and partner links are built at render time, which can be before the
