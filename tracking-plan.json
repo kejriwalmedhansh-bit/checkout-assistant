@@ -16,7 +16,7 @@
     "surface": "web | whatsapp | extension (server events take the surface of the link that was clicked)",
     "environment": "production | development",
     "app_version": "Git commit (backend, website) or version number (extension) that sent the event",
-    "is_internal_tester": "True for the team's own devices/phones — filter these out of real numbers",
+    "is_internal_tester": "True for the team's own devices/phones — filter these out of real numbers. Website with consent: the device opened ?internal=1 once (remembered). Website without consent: this visit was opened with ?internal=1 (not remembered, use the link each time). Buyer Seen / Voucher Sold: the login's phone is in INTERNAL_PHONES.",
     "dealo_id": "The device id (see identity)",
     "consent": "web: granted | not_granted. Without consent every website event is still sent, stripped to an allow-list of page/deal properties (ANONYMOUS_SAFE_PROPS in react/src/utils/analytics.js), with no IP, no stored id, no replay.",
     "device": "web, without consent only: phone | desktop (consented visits carry Mixpanel's own $device / $os / $browser)",
@@ -231,7 +231,8 @@
         "placement": "journey | shop_card | null",
         "seller_environment": "Hubble sandbox or production (HUBBLE_ENV); filter to production",
         "buyer_key": "one-way hash of the shopper's login id, to count distinct buyers",
-        "visit_id": "without consent: the website visit that opened the payment screen (also the event's distinct_id)"
+        "visit_id": "without consent: the website visit that opened the payment screen (also the event's distinct_id)",
+        "is_internal_tester": "true when the buyer's phone is on the team list (known only when the payment screen was opened on the same server run)"
       }
     },
     "Join Page Viewed": {
@@ -1134,7 +1135,36 @@
         "buyer_key": "one-way hash of the shopper's login id (same as on Voucher Sold)",
         "seller_environment": "Hubble sandbox or production (HUBBLE_ENV); filter to production",
         "utm_source, utm_medium, utm_campaign, referrer_domain, landing_page": "where this visit came from, when known",
-        "visit_id": "without consent: the website visit's id (also the event's distinct_id)"
+        "visit_id": "without consent: the website visit's id (also the event's distinct_id)",
+        "is_internal_tester": "true when the login's phone is on the team list"
+      }
+    },
+    "Login Number Entered": {
+      "description": "A full, valid mobile number was typed on the login screen (once per screen). The number itself is never sent. With Buy Voucher Tapped and Login Code Sent it shows whether people leave before typing or after.",
+      "surfaces": [
+        "web"
+      ],
+      "properties": {
+        "placement": "placement account (Your account) | journey / shop_card (buy flow, plus that flow's voucher properties)"
+      }
+    },
+    "Login Code Failed": {
+      "description": "Dealo could not send the SMS login code (the shopper saw \"Couldn't send the code\").",
+      "surfaces": [
+        "web"
+      ],
+      "properties": {
+        "placement": "placement account (Your account) | journey / shop_card (buy flow, plus that flow's voucher properties)",
+        "reason": "Firebase's error code, e.g. auth/too-many-requests"
+      }
+    },
+    "Login Code Rejected": {
+      "description": "The 6-digit code typed did not match.",
+      "surfaces": [
+        "web"
+      ],
+      "properties": {
+        "placement": "placement account (Your account) | journey / shop_card (buy flow, plus that flow's voucher properties)"
       }
     }
   }

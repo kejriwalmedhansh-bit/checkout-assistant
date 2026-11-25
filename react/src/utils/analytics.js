@@ -145,6 +145,23 @@ export function visitId() {
 }
 
 /**
+ * The team's own visit, when the cookie question hasn't been answered: the
+ * address was opened with ?internal=1 (getdealo.in/?internal=1). Held in
+ * this page's memory only, so nothing is read from or written to the
+ * browser; the link has to be used each time. Without it the team's tests
+ * on the live site were counted as real shoppers (25 Nov 2026: a Tata CLiQ
+ * test read as five lost buyers). With consent, getIsInternalTester
+ * remembers the device instead.
+ */
+const INTERNAL_VISIT = (() => {
+  try {
+    return new URLSearchParams(window.location.search).get('internal') === '1';
+  } catch {
+    return false;
+  }
+})();
+
+/**
  * Search engines and other programs that open pages by themselves. They run
  * the page like a browser would, so each one used to count as a visitor
  * (25 Nov 2026: 67 "visits" in one hour, one per shop page). Told apart by
@@ -257,6 +274,7 @@ function countStage(event, props = {}) {
       distinct_id: VISIT_ID,
       time: Math.floor(Date.now() / 1000),
       consent: 'not_granted',
+      is_internal_tester: INTERNAL_VISIT,
       device: deviceClass(),
       os: osFamily(),
       browser: browserFamily(),

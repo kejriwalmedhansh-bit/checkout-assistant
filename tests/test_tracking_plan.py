@@ -435,3 +435,34 @@ def test_website_skips_crawlers_and_stamps_source_on_every_event():
     # The visit tag leaves the browser only as null once consent is given.
     assert "return isGranted() ? null : VISIT_ID;" in text
 
+
+def test_team_visits_and_team_buyers_are_marked(monkeypatch):
+    """The team's own tests must never read as real shoppers: a visit opened
+    with ?internal=1 says so without anything stored, and a team phone's
+    login and purchase say so from the server."""
+    import asyncio
+
+    from src.api.routers import hubble as hubble_router
+    from src.config import get_settings
+    from src.services import analytics_service, buyer_service
+
+    text = (ROOT / "react/src/utils/analytics.js").read_text()
+    assert "is_internal_tester: INTERNAL_VISIT," in text
+    assert ".get('internal') === '1'" in text
+
+    monkeypatch.setattr(get_settings(), "INTERNAL_PHONES", "919999900000")
+    assert buyer_service.is_team_phone("+919999900000") and not buyer_service.is_team_phone("+919999900001")
+    assert not buyer_service.is_team_phone(None)
+
+    sent: list[dict] = []
+    monkeypatch.setattr(analytics_service, "fire", lambda payload: sent.append(payload))
+    body = hubble_router.SessionRequest(id_token="x", name="A", merchant="Tata CLiQ", price=10000)
+    hubble_router._remember_attribution("u-team", body, True)
+    asyncio.run(buyer_service.save_purchase(_hubble_order(transactionReferenceId="HB-T", userId="u-team"), "production",
+                                            attribution=hubble_router._attribution_for("u-team")))
+    assert sent[0]["properties"]["is_internal_tester"] is True
+    buyer_service.report_buyer_seen("u-team", "login", "production", None, internal=True)
+    assert sent[1]["properties"]["is_internal_tester"] is True
+    buyer_service.report_buyer_seen("u-real", "login", "production", None)
+    assert sent[2]["properties"]["is_internal_tester"] is False
+
