@@ -176,7 +176,8 @@ function shopBody(shop) {
   const club = shop.canClub === true ? 'Yes, it pays the price after sale and coupons' : shop.canClub === false ? 'No, not with other offers' : 'Not stated, treat it as store credit';
   return [
     head(meta),
-    p(`${shop.online ? 'Works online. ' : ''}${shop.offline ? 'Works in store. ' : ''}Checked ${shop.checked}.`),
+    // Where it works is in the opening lines (quickAnswer); not said twice.
+    p(`Checked ${shop.checked}.`),
     `<h2>${compare ? 'Every seller Dealo checks' : shop.hubble ? 'Today’s rate' : 'Today’s rate, every seller'}</h2>`,
     table,
     rows[0]?.pct > 0 && examples.length < 2 ? p(`Every ${inr(BILL)} you spend at ${shop.name} costs ${inr(payOn(rows[0].pct))} with the gift card.`) : '',
