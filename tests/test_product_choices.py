@@ -90,3 +90,15 @@ def test_a_card_whose_dates_have_passed_is_never_a_choice():
 def test_goibibo_still_asks_when_the_general_card_cannot_price_this_order():
     labels = _labels(voucher_check(domain="goibibo.com", price=4000))
     assert any("hotel" in l for l in labels) and any("anything else" in l for l in labels), labels
+
+
+def test_cards_dealo_sells_as_one_card_are_one_choice():
+    """Domino's on Gyftr, Maximize and BuyHatke is one Dealo card: typing
+    "dominos" asked the shopper to pick between three (owner, 25 Nov 2026)."""
+    from src.services import hubble_service, voucher_service
+
+    names = ["DOMINO'S", "Dominos Pizza", "Dominos App Only"]
+    assert len({hubble_service.brand_for(n)["id"] for n in names}) == 1
+    assert voucher_service.product_choices("dominos") == []
+    # The owner's reviewed answers stay: Amazon still asks shopping or Amazon Pay.
+    assert len(voucher_service.product_choices("amazon")) >= 2
