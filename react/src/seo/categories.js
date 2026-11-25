@@ -219,6 +219,9 @@ export const CATEGORIES = [
       "naturals-salon",
       "tattva-spa",
       "boditive",
+      "o2-spa",
+      "kalyan-jewellers",
+      "joyalukkas",
       // added 24 Nov 2026 (a page for every well-known shop Dealo sells)
       "inglot",
       "skinn",
@@ -285,6 +288,10 @@ export const CATEGORIES = [
       "klook",
       "sotc",
       "porter",
+      "taj-hotels",
+      "itc-hotels",
+      "marriott-hotels",
+      "the-leela",
     ],
   },
   {
@@ -384,6 +391,7 @@ export const CATEGORIES = [
       "crossword",
       "miniklub",
       "toscano",
+      "apollo-pharmacy",
     ],
   },
 ];

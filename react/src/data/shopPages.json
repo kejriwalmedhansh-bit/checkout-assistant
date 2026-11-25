@@ -1826,7 +1826,6 @@
         "ONLINE"
       ],
       "cards": [
-        500,
         1000,
         2000,
         2500,
@@ -1834,7 +1833,7 @@
         5000,
         10000
       ],
-      "min_amount": 500,
+      "min_amount": 1000,
       "max_amount": 25000,
       "typed": false,
       "steps": [
@@ -19138,7 +19137,32 @@
     "name": "Rareism",
     "website": "https://www.rareism.com/",
     "checked": "2026-11-25",
-    "hubble": null,
+    "hubble": {
+      "pct": 5.5,
+      "brand_name": "Rareism",
+      "in_store": false,
+      "works": [
+        "ONLINE"
+      ],
+      "cards": [],
+      "min_amount": 100,
+      "max_amount": 10000,
+      "typed": true,
+      "steps": [
+        "Open the app or visit the thehouseofrare.com and add preferred products to your cart.",
+        "At checkout, choose Gyftr E-Pay and enter your gift voucher code. The click add gift voucher.",
+        "Once the voucher is applied successfully. You can see your updated e-pay balance.",
+        "Enter the amount you want to redeem from your available e-pay balance."
+      ],
+      "terms": [
+        "Comes with the validity of 6 months and will be accepted at the listed exclusive retail outlets of The House of Rare, Rare Rabbit, Rareism, Rare Ones, and Rare'Z stores, on The House of Rare website at the houseofrare.com, and on The House of Rare mobile app.",
+        "The Gift card can be clubbed with existing offers.",
+        "The Gift card can be used during EOSS or sale.",
+        "The Gift card can be converted into e-Pay as per the convenience of the holder.",
+        "The Gift card balance cannot be transferred to another e-Pay account, exchanged for cash, or converted into any other form of currency.",
+        "No refunds and no returns on Gift cards, E-Gift cards and E-Gift vouchers."
+      ]
+    },
     "sellers": [
       {
         "source": "gyftr",
@@ -19196,7 +19220,7 @@
       "pct": 12.0
     },
     "online": true,
-    "offline": true,
+    "offline": false,
     "stack": null,
     "steps": [
       "Online – Website / App",
@@ -19213,7 +19237,30 @@
     "name": "Columbia Sportswear",
     "website": "https://www.columbiasportswear.co.in/",
     "checked": "2026-11-25",
-    "hubble": null,
+    "hubble": {
+      "pct": 5.0,
+      "brand_name": "Columbia",
+      "in_store": false,
+      "works": [
+        "ONLINE"
+      ],
+      "cards": [],
+      "min_amount": 100,
+      "max_amount": 10000,
+      "typed": true,
+      "steps": [
+        "Visit: www.columbiasportswear.co.in",
+        "Add the products to your cart.",
+        "Choose the Pay by GyFTR option to pay via Gift Cards."
+      ],
+      "terms": [
+        "Comes with a validity of 6 months and can be redeemed at all the listed retail outlets of Columbia Sports owned by Chogori India Retail Limited (CIRL) and on the Columbia Sports website at http://www.columbiasportswear.co.in.",
+        "Once the GV/GC has been added to the e-Pay, it can be redeemed only at the Columbia Sports Outlet and website.",
+        "The GV/e-Pay balance cannot be transferred to another e-Pay account, exchanged for cash, or converted into any other form of currency.",
+        "The e-Pay balance must be linked to the registered mobile number.",
+        "No refunds and no returns on gift cards, E-gift cards and E-gift vouchers."
+      ]
+    },
     "sellers": [
       {
         "source": "maximize",
@@ -19267,8 +19314,8 @@
       "source": "maximize",
       "pct": 12.75
     },
-    "online": false,
-    "offline": true,
+    "online": true,
+    "offline": false,
     "stack": null,
     "steps": [
       "Share the registered mobile number with the cashier, once products are scanned for invoicing by the cashier. Cashier to inform the available Gift Voucher and its balance.",
@@ -19284,7 +19331,30 @@
     "name": "Hidesign",
     "website": "https://www.hidesign.com/",
     "checked": "2026-11-25",
-    "hubble": null,
+    "hubble": {
+      "pct": 5.0,
+      "brand_name": "Hidesign",
+      "in_store": false,
+      "works": [
+        "OFFLINE",
+        "ONLINE"
+      ],
+      "cards": [],
+      "min_amount": 100,
+      "max_amount": 15000,
+      "typed": true,
+      "steps": [
+        "Visit website : hidesign.com.",
+        "Add the desired products to the cart and go to your cart.",
+        "Proceed to pay and choose the Gift Card option at the payment page. Enter the Gift Card details and complete the payment."
+      ],
+      "terms": [
+        "Comes with 1 year validity",
+        "This e-Gift Card is valid at all participating exclusive Hidesign boutiques and on www.hidesign.com",
+        "This is a one-time use card and any balance will lapse automatically.",
+        "Gift cards, once purchased, cannot be cancelled or refunded."
+      ]
+    },
     "sellers": [
       {
         "source": "maximize",
@@ -19362,7 +19432,7 @@
     },
     "online": true,
     "offline": true,
-    "stack": "One voucher per order",
+    "stack": null,
     "steps": [
       "Visit the website & add product to your cart.",
       "Select the Gift Voucher e-pay options & enter the voucher code.",
@@ -19378,7 +19448,40 @@
     "name": "Reliance Trends",
     "website": "https://www.trends.ajio.com/",
     "checked": "2026-11-25",
-    "hubble": null,
+    "hubble": {
+      "pct": 5.0,
+      "brand_name": "Reliance Trends",
+      "in_store": true,
+      "works": [
+        "OFFLINE"
+      ],
+      "cards": [
+        500,
+        1000,
+        1500,
+        2000,
+        2500,
+        3000,
+        5000,
+        7500,
+        9999
+      ],
+      "min_amount": 500,
+      "max_amount": 10000,
+      "typed": false,
+      "steps": [
+        "Please check the nearest outlet by visiting https://storelocator.ril.com/reliancetrends/",
+        "Select your choice of product",
+        "Share your brand card no. with the cashier at the time of billing & pay the remaining amount by any other payment mode"
+      ],
+      "terms": [
+        "Comes with 6 months validity",
+        "Gift Vouchers can be used at all Listed Outlets at https://storelocator.ril.com/Retail.aspx",
+        "This Gift Voucher can be redeemed only once. Any unused amount will lapse.",
+        "Multiple Gift Vouchers CAN be used in one bill",
+        "Gift Vouchers CANNOT be used online"
+      ]
+    },
     "sellers": [
       {
         "source": "maximize",
@@ -19451,7 +19554,31 @@
     "name": "Tasva",
     "website": "https://www.tasva.com/",
     "checked": "2026-11-25",
-    "hubble": null,
+    "hubble": {
+      "pct": 5.0,
+      "brand_name": "Tasva",
+      "in_store": true,
+      "works": [
+        "OFFLINE"
+      ],
+      "cards": [],
+      "min_amount": 100,
+      "max_amount": 50000,
+      "typed": true,
+      "steps": [
+        "Please check the gift card acceptance  at the store before shopping. To locate the nearest store please visit https://www.tasva.com/store-locator",
+        "Select your choice of product.",
+        "Share your Gift Voucher with the cashier at the time of billing & pay the remaining amount by cash or card if required."
+      ],
+      "terms": [
+        "Comes with the validity of 6 months and it’s redeemable only at the listed stores.",
+        "Do inform the cashier that you plan to use the Gift card to make payments before billing.",
+        "Only the listed Tasva outlets, at its sole discretion, accept the Gift cards. Tasva may add or remove an outlet without giving any prior notice.",
+        "This is a one-time use Gift card. The remaining balance in the Gift card will be forfeited once the card is redeemed. No Credit note/Refund for the unused amount of the Gift card will be given.",
+        "In case the value of the merchandise exceeds the value of the Gift card, the difference must be paid by cash, credit card, or debit card.",
+        "The Gift card can be clubbed with the existing offers."
+      ]
+    },
     "sellers": [
       {
         "source": "gyftr",
@@ -19522,7 +19649,28 @@
     "name": "W",
     "website": "https://www.wforwoman.com/",
     "checked": "2026-11-25",
-    "hubble": null,
+    "hubble": {
+      "pct": 5.0,
+      "brand_name": "W",
+      "in_store": true,
+      "works": [
+        "OFFLINE"
+      ],
+      "cards": [],
+      "min_amount": 250,
+      "max_amount": 5000,
+      "typed": true,
+      "steps": [
+        "To Locate the nearest outlet that accepts this gift voucher Please visit https://stores.wforwoman.com/location/maharashtra",
+        "Select your choice of products",
+        "Share your gift voucher with the cashier at the time of billing & pay the remaining amount by cash or card if required."
+      ],
+      "terms": [
+        "Comes with 6 months validity and is valid in Exclusive Brand Outlets",
+        "Gift Voucher is valid in one transaction only but Multiple cards can be used in one transaction",
+        "Gift cards, once purchased, cannot be cancelled or refunded"
+      ]
+    },
     "sellers": [
       {
         "source": "gyftr",
@@ -19568,7 +19716,33 @@
     "name": "Wildcraft",
     "website": "https://www.wildcraft.com/",
     "checked": "2026-11-25",
-    "hubble": null,
+    "hubble": {
+      "pct": 5.0,
+      "brand_name": "Wildcraft",
+      "in_store": true,
+      "works": [
+        "OFFLINE"
+      ],
+      "cards": [
+        500,
+        1000,
+        2000,
+        2500
+      ],
+      "min_amount": 500,
+      "max_amount": 2500,
+      "typed": false,
+      "steps": [
+        "To locate the nearest outlet please visit https://stores.wildcraft.com/",
+        "Share the registered mobile number with cashier, once products are scanned for invoicing by the cashier",
+        "Cashier to confirm the available Gift Voucher and its balance. Customer to confirm the amount to be used for redemption and proceed further for balance payment, if any Cashier to proceed with invoicing"
+      ],
+      "terms": [
+        "Comes with 6-month validity and would be accepted at WILDCRAFT (company owned) stores only",
+        "Multiple vouchers can be used against one bill and Gift Vouchers can be used during Sale",
+        "Gift cards, once purchased, cannot be cancelled or refunded"
+      ]
+    },
     "sellers": [
       {
         "source": "maximize",
@@ -19640,7 +19814,32 @@
     "name": "Shiv Naresh",
     "website": "https://www.shivnaresh.in/",
     "checked": "2026-11-25",
-    "hubble": null,
+    "hubble": {
+      "pct": 4.5,
+      "brand_name": "Shiv Naresh",
+      "in_store": false,
+      "works": [
+        "ONLINE"
+      ],
+      "cards": [
+        1000,
+        2000
+      ],
+      "min_amount": 1000,
+      "max_amount": 2000,
+      "typed": false,
+      "steps": [
+        "Log in/Register on Shiv Naresh Website",
+        "Choose your product. Add to cart.",
+        "Add your Gift Voucher / Discount code at the checkout or Billing , pay the rest by cash or card. if required."
+      ],
+      "terms": [
+        "Comes with 6 months validity and can be used online only on shivnaresh.in",
+        "Only One Gift Voucher can be used in one bill",
+        "Multiple GV / GCs cannot be clubbed in a single order",
+        "Gift cards, once purchased, cannot be cancelled or refunded"
+      ]
+    },
     "sellers": [
       {
         "source": "buyhatke",
@@ -19664,8 +19863,8 @@
       }
     ],
     "best": {
-      "source": "buyhatke",
-      "pct": 3.26
+      "source": "dealo",
+      "pct": 4.5
     },
     "online": true,
     "offline": false,
@@ -19958,7 +20157,39 @@
     "name": "Mango",
     "website": "https://www.mango.com/",
     "checked": "2026-11-25",
-    "hubble": null,
+    "hubble": {
+      "pct": 3.5,
+      "brand_name": "Mango",
+      "in_store": true,
+      "works": [
+        "OFFLINE"
+      ],
+      "cards": [
+        500,
+        1000,
+        2000,
+        5000,
+        10000
+      ],
+      "min_amount": 500,
+      "max_amount": 10000,
+      "typed": false,
+      "steps": [
+        "To locate the nearest outlet please visit https://shop.mango.com/in/en/stores?msockid=00439da8d18369f72cc38a92d0e76868",
+        "Share the registered mobile number with cashier, once the products are scanned for the invoice by the cashier.",
+        "Inform the cashier available gift voucher and it's balance.",
+        "Inform the cashier an amount to be used for redemption and proceed further for balance payment.",
+        "Cashier to proceed with invoicing."
+      ],
+      "terms": [
+        "Comes with the validity of 6 months and will be accepted at the listed retail stores/outlets.",
+        "The Gift card can be clubbed with the existing offers.",
+        "The Gift card can be converted into e-Pay as per convenience of the holder.",
+        "You are required to add your GV/GC to the e-Pay wallet balance via https://brandpts.com/login before going to the cash counter.",
+        "The GV/e-Pay can be used for all purchases of products and services at the Mango Retail Stores.",
+        "No refunds and no returns on Gift cards, E-gift cards and E-Gift vouchers."
+      ]
+    },
     "sellers": [
       {
         "source": "gyftr",
@@ -20009,8 +20240,8 @@
       }
     ],
     "best": {
-      "source": "gyftr",
-      "pct": 3.0
+      "source": "dealo",
+      "pct": 3.5
     },
     "online": false,
     "offline": true,
@@ -20029,7 +20260,38 @@
     "name": "NEXT",
     "website": "https://www.nextdirect.com/",
     "checked": "2026-11-25",
-    "hubble": null,
+    "hubble": {
+      "pct": 3.5,
+      "brand_name": "NEXT",
+      "in_store": true,
+      "works": [
+        "OFFLINE"
+      ],
+      "cards": [
+        1000,
+        2000,
+        5000,
+        10000
+      ],
+      "min_amount": 1000,
+      "max_amount": 10000,
+      "typed": false,
+      "steps": [
+        "Visit the nearest outlet which accepts gift cards",
+        "Share the registered mobile number with cashier, once the products are scanned for the invoicing by cashier",
+        "Inform the cashier available gift card and balance.",
+        "Customer to confirm the amount to be used for redemption and proceed further for the balance payment, if any.",
+        "Cashier to proceed with invoicing."
+      ],
+      "terms": [
+        "Comes with the validity of 6 months and will be accepted at the listed retail stores/outlets.",
+        "The Gift card can be clubbed with the existing offers.",
+        "The Gft card can be converted into e-Pay as per convenience of the holder.",
+        "The Gift card balance cannot be transferred to another e-Pay account, exchanged for cash, or any other form of currency.",
+        "The e-Pay balance must be linked to the registered mobile number.",
+        "No returns and no refunds on Gift cards, E-Gift cards and E-Gift vouchers."
+      ]
+    },
     "sellers": [
       {
         "source": "gyftr",
@@ -20079,8 +20341,8 @@
       }
     ],
     "best": {
-      "source": "gyftr",
-      "pct": 3.0
+      "source": "dealo",
+      "pct": 3.5
     },
     "online": false,
     "offline": true,
@@ -20099,7 +20361,34 @@
     "name": "The Bear House",
     "website": "https://www.thebearhouse.com/",
     "checked": "2026-11-25",
-    "hubble": null,
+    "hubble": {
+      "pct": 7.0,
+      "brand_name": "Bear House",
+      "in_store": false,
+      "works": [
+        "ONLINE"
+      ],
+      "cards": [],
+      "min_amount": 500,
+      "max_amount": 20000,
+      "typed": true,
+      "steps": [
+        "Visit the Bear house website at https://thebearhouse.com/",
+        "Add the desired products to the cart.",
+        "Proceed to checkout.",
+        "Select Gift Card as the payment option.",
+        "Enter the Gift Card number and PIN.",
+        "Click Redeem to apply the Gift Card."
+      ],
+      "terms": [
+        "Comes with 6 months' validity and can be used on the website https://thebearhouse.com/",
+        "Multiple E-Gift Cards can be used in a single order.",
+        "E-Gift Cards cannot be redeemed for cash or credit and cannot be reloaded.",
+        "If the order value exceeds the E-Gift Card amount, the balance must be paid via Credit Card, Debit Card, Internet Banking, or Cash on Delivery.",
+        "If the order value is less than the E-Gift Card amount, the remaining balance will stay on the same card for future use.",
+        "No returns and no refunds on Gift cards, E-Gift cards and eGift vouchers"
+      ]
+    },
     "sellers": [
       {
         "source": "maximize",
@@ -20167,11 +20456,115 @@
     "canClub": false
   },
   {
+    "slug": "hunkemoller",
+    "name": "Hunkemöller",
+    "website": "https://www.hunkemoller.in/",
+    "checked": "2026-11-25",
+    "hubble": {
+      "pct": 10.0,
+      "brand_name": "Hunkemoller",
+      "in_store": true,
+      "works": [
+        "OFFLINE"
+      ],
+      "cards": [],
+      "min_amount": 1000,
+      "max_amount": 10000,
+      "typed": true,
+      "steps": [
+        "Activate this gift card : SMS ACT [space] [16-Digit Card Number] [space] [CardPin] to 9704200300",
+        "Locate the nearest outlet that accepts this gift voucher.",
+        "Select your choice of products",
+        "Share your gift voucher with the cashier at the time of billing & pay the remaining amount by cash or card if required."
+      ],
+      "terms": [
+        "Valid for 1 year and in-store use only; not redeemable at airport stores",
+        "This is a one-time use giftcard; multiple cards can be used in 1 transaction",
+        "Luxe Gift Card can only be redeemed against full-priced merchandise"
+      ]
+    },
+    "sellers": [],
+    "best": {
+      "source": "dealo",
+      "pct": 10.0
+    },
+    "online": false,
+    "offline": true,
+    "stack": null,
+    "steps": [],
+    "restrictions": [],
+    "multiUse": null,
+    "canClub": null
+  },
+  {
+    "slug": "balenciaga",
+    "name": "Balenciaga",
+    "website": "https://www.balenciaga.com/",
+    "checked": "2026-11-25",
+    "hubble": {
+      "pct": 10.0,
+      "brand_name": "Balenciaga Luxe Gift Card",
+      "in_store": true,
+      "works": [
+        "OFFLINE"
+      ],
+      "cards": [],
+      "min_amount": 1000,
+      "max_amount": 10000,
+      "typed": true,
+      "steps": [
+        "Activate this gift card : SMS ACT [space] [16-Digit Card Number] [space] [CardPin] to 9704200300",
+        "Locate the nearest outlet that accepts this gift voucher.",
+        "Select your choice of products",
+        "Share your gift voucher with the cashier at the time of billing & pay the remaining amount by cash or card if required."
+      ],
+      "terms": [
+        "Valid for 1 year and in-store use only; not redeemable at airport stores",
+        "This is a one-time use giftcard; multiple cards can be used in 1 transaction",
+        "Luxe Gift Card can only be redeemed against full-priced merchandise"
+      ]
+    },
+    "sellers": [],
+    "best": {
+      "source": "dealo",
+      "pct": 10.0
+    },
+    "online": false,
+    "offline": true,
+    "stack": null,
+    "steps": [],
+    "restrictions": [],
+    "multiUse": null,
+    "canClub": null
+  },
+  {
     "slug": "bally",
     "name": "Bally",
     "website": "https://www.bally.com/",
     "checked": "2026-11-25",
-    "hubble": null,
+    "hubble": {
+      "pct": 10.0,
+      "brand_name": "Bally-Luxe Gift Card",
+      "in_store": true,
+      "works": [
+        "OFFLINE"
+      ],
+      "cards": [],
+      "min_amount": 1000,
+      "max_amount": 10000,
+      "typed": true,
+      "steps": [
+        "Activate this gift card : SMS ACT [space] [16-Digit Card Number] [space] [CardPin] to 9704200300",
+        "Locate the nearest outlet that accepts this gift voucher.",
+        "Select your choice of products",
+        "Share your gift voucher with the cashier at the time of billing & pay the remaining amount by cash or card if required."
+      ],
+      "terms": [
+        "Comes with 1 year validity and can only be used in-store",
+        "This is a one time use card and not redeemable at airport stores",
+        "Multiple gift cards can be used against 1 transaction"
+      ]
+    },
     "sellers": [
       {
         "source": "gyftr",
@@ -20194,7 +20587,7 @@
       }
     ],
     "best": {
-      "source": "gyftr",
+      "source": "dealo",
       "pct": 10.0
     },
     "online": false,
@@ -20214,7 +20607,29 @@
     "name": "Bottega Veneta",
     "website": "https://www.bottegaveneta.com/",
     "checked": "2026-11-25",
-    "hubble": null,
+    "hubble": {
+      "pct": 10.0,
+      "brand_name": "Bottega Veneta-Luxe Gift Card",
+      "in_store": true,
+      "works": [
+        "OFFLINE"
+      ],
+      "cards": [],
+      "min_amount": 1000,
+      "max_amount": 10000,
+      "typed": true,
+      "steps": [
+        "Activate this gift card : SMS ACT [space] [16-Digit Card Number] [space] [CardPin] to 9704200300",
+        "Locate the nearest outlet that accepts this gift voucher.",
+        "Select your choice of products",
+        "Share your gift voucher with the cashier at the time of billing & pay the remaining amount by cash or card if required."
+      ],
+      "terms": [
+        "Valid for 1 year and in-store use only; not redeemable at airport stores",
+        "This is a one-time use giftcard; multiple cards can be used in 1 transaction",
+        "Luxe Gift Card can only be redeemed against full-priced merchandise"
+      ]
+    },
     "sellers": [
       {
         "source": "gyftr",
@@ -20238,7 +20653,7 @@
       }
     ],
     "best": {
-      "source": "gyftr",
+      "source": "dealo",
       "pct": 10.0
     },
     "online": false,
@@ -20258,7 +20673,29 @@
     "name": "Canali",
     "website": "https://www.canali.com/",
     "checked": "2026-11-25",
-    "hubble": null,
+    "hubble": {
+      "pct": 10.0,
+      "brand_name": "Canali-Luxe Gift Card",
+      "in_store": true,
+      "works": [
+        "OFFLINE"
+      ],
+      "cards": [],
+      "min_amount": 1000,
+      "max_amount": 10000,
+      "typed": true,
+      "steps": [
+        "Activate this gift card : SMS ACT [space] [16-Digit Card Number] [space] [CardPin] to 9704200300",
+        "Locate the nearest outlet that accepts this gift voucher.",
+        "Select your choice of products",
+        "Share your gift voucher with the cashier at the time of billing & pay the remaining amount by cash or card if required."
+      ],
+      "terms": [
+        "Valid for 1 year and in-store use only; not redeemable at airport stores",
+        "This is a one-time use giftcard; multiple cards can be used in 1 transaction",
+        "Luxe Gift Card can only be redeemed against full-priced merchandise"
+      ]
+    },
     "sellers": [
       {
         "source": "gyftr",
@@ -20282,7 +20719,7 @@
       }
     ],
     "best": {
-      "source": "gyftr",
+      "source": "dealo",
       "pct": 10.0
     },
     "online": false,
@@ -20302,7 +20739,29 @@
     "name": "Charles Tyrwhitt",
     "website": "https://www.charlestyrwhitt.com/",
     "checked": "2026-11-25",
-    "hubble": null,
+    "hubble": {
+      "pct": 10.0,
+      "brand_name": "Charles Tyrwhitt Luxe Gift Card",
+      "in_store": true,
+      "works": [
+        "OFFLINE"
+      ],
+      "cards": [],
+      "min_amount": 1000,
+      "max_amount": 50000,
+      "typed": true,
+      "steps": [
+        "Activate this gift card : SMS ACT [space] [16-Digit Card Number] [space] [CardPin] to 9704200300",
+        "Locate the nearest outlet that accepts this gift voucher.",
+        "Select your choice of products",
+        "Share your gift voucher with the cashier at the time of billing & pay the remaining amount by cash or card if required."
+      ],
+      "terms": [
+        "Valid for 1 year and in-store use only; not redeemable at airport stores",
+        "This is a one-time use giftcard; multiple cards can be used in 1 transaction",
+        "Luxe Gift Card can only be redeemed against full-priced merchandise"
+      ]
+    },
     "sellers": [
       {
         "source": "gyftr",
@@ -20326,7 +20785,7 @@
       }
     ],
     "best": {
-      "source": "gyftr",
+      "source": "dealo",
       "pct": 10.0
     },
     "online": false,
@@ -20387,7 +20846,29 @@
     "name": "Emporio Armani",
     "website": "https://www.armani.com/",
     "checked": "2026-11-25",
-    "hubble": null,
+    "hubble": {
+      "pct": 10.0,
+      "brand_name": "Emporio Armani-Luxe Gift Card",
+      "in_store": true,
+      "works": [
+        "OFFLINE"
+      ],
+      "cards": [],
+      "min_amount": 1000,
+      "max_amount": 10000,
+      "typed": true,
+      "steps": [
+        "Activate this gift card : SMS ACT [space] [16-Digit Card Number] [space] [CardPin] to 9704200300",
+        "Locate the nearest outlet that accepts this gift voucher.",
+        "Select your choice of products",
+        "Share your gift voucher with the cashier at the time of billing & pay the remaining amount by cash or card if required."
+      ],
+      "terms": [
+        "Valid for 1 year and in-store use only; not redeemable at airport stores",
+        "This is a one-time use giftcard; multiple cards can be used in 1 transaction",
+        "Luxe Gift Card can only be redeemed against full-priced merchandise"
+      ]
+    },
     "sellers": [
       {
         "source": "gyftr",
@@ -20411,7 +20892,7 @@
       }
     ],
     "best": {
-      "source": "gyftr",
+      "source": "dealo",
       "pct": 10.0
     },
     "online": false,
@@ -20431,7 +20912,29 @@
     "name": "Giorgio Armani",
     "website": "https://www.armani.com/",
     "checked": "2026-11-25",
-    "hubble": null,
+    "hubble": {
+      "pct": 10.0,
+      "brand_name": "Giorgio Armani-Luxe Gift Card",
+      "in_store": true,
+      "works": [
+        "OFFLINE"
+      ],
+      "cards": [],
+      "min_amount": 1000,
+      "max_amount": 10000,
+      "typed": true,
+      "steps": [
+        "Activate this gift card : SMS ACT [space] [16-Digit Card Number] [space] [CardPin] to 9704200300",
+        "Locate the nearest outlet that accepts this gift voucher.",
+        "Select your choice of products",
+        "Share your gift voucher with the cashier at the time of billing & pay the remaining amount by cash or card if required."
+      ],
+      "terms": [
+        "Valid for 1 year and in-store use only; not redeemable at airport stores",
+        "This is a one-time use giftcard; multiple cards can be used in 1 transaction",
+        "Luxe Gift Card can only be redeemed against full-priced merchandise"
+      ]
+    },
     "sellers": [
       {
         "source": "gyftr",
@@ -20455,7 +20958,7 @@
       }
     ],
     "best": {
-      "source": "gyftr",
+      "source": "dealo",
       "pct": 10.0
     },
     "online": false,
@@ -20471,11 +20974,74 @@
     "canClub": null
   },
   {
+    "slug": "ea7",
+    "name": "EA7",
+    "website": "https://www.armani.com/",
+    "checked": "2026-11-25",
+    "hubble": {
+      "pct": 10.0,
+      "brand_name": "EA7",
+      "in_store": true,
+      "works": [
+        "OFFLINE"
+      ],
+      "cards": [],
+      "min_amount": 1000,
+      "max_amount": 50000,
+      "typed": true,
+      "steps": [
+        "Activate this gift card : SMS ACT [space] [16-Digit Card Number] [space] [CardPin] to 9704200300",
+        "Locate the nearest outlet that accepts this gift voucher.",
+        "Select your choice of products",
+        "Share your gift voucher with the cashier at the time of billing & pay the remaining amount by cash or card if required."
+      ],
+      "terms": [
+        "Valid for 1 year and in-store use only; not redeemable at airport stores",
+        "This is a one-time use giftcard; multiple cards can be used in 1 transaction",
+        "Luxe Gift Card can only be redeemed against full-priced merchandise"
+      ]
+    },
+    "sellers": [],
+    "best": {
+      "source": "dealo",
+      "pct": 10.0
+    },
+    "online": false,
+    "offline": true,
+    "stack": null,
+    "steps": [],
+    "restrictions": [],
+    "multiUse": null,
+    "canClub": null
+  },
+  {
     "slug": "jimmy-choo",
     "name": "Jimmy Choo",
     "website": "https://www.jimmychoo.com/",
     "checked": "2026-11-25",
-    "hubble": null,
+    "hubble": {
+      "pct": 10.0,
+      "brand_name": "Jimmy Choo-Luxe Gift Card",
+      "in_store": true,
+      "works": [
+        "OFFLINE"
+      ],
+      "cards": [],
+      "min_amount": 1000,
+      "max_amount": 10000,
+      "typed": true,
+      "steps": [
+        "Activate this gift card : SMS ACT [space] [16-Digit Card Number] [space] [CardPin] to 9704200300",
+        "Locate the nearest outlet that accepts this gift voucher.",
+        "Select your choice of products",
+        "Share your gift voucher with the cashier at the time of billing & pay the remaining amount by cash or card if required."
+      ],
+      "terms": [
+        "Valid for 1 year and in-store use only; not redeemable at airport stores",
+        "This is a one-time use giftcard; multiple cards can be used in 1 transaction",
+        "Luxe Gift Card can only be redeemed against full-priced merchandise"
+      ]
+    },
     "sellers": [
       {
         "source": "gyftr",
@@ -20499,7 +21065,7 @@
       }
     ],
     "best": {
-      "source": "gyftr",
+      "source": "dealo",
       "pct": 10.0
     },
     "online": false,
@@ -20519,7 +21085,29 @@
     "name": "Maje",
     "website": "https://www.maje.com/",
     "checked": "2026-11-25",
-    "hubble": null,
+    "hubble": {
+      "pct": 10.0,
+      "brand_name": "Maje Luxe Gift Card",
+      "in_store": true,
+      "works": [
+        "OFFLINE"
+      ],
+      "cards": [],
+      "min_amount": 1000,
+      "max_amount": 50000,
+      "typed": true,
+      "steps": [
+        "Activate this gift card : SMS ACT [space] [16-Digit Card Number] [space] [CardPin] to 9704200300",
+        "Locate the nearest outlet that accepts this gift voucher.",
+        "Select your choice of products",
+        "Share your gift voucher with the cashier at the time of billing & pay the remaining amount by cash or card if required."
+      ],
+      "terms": [
+        "Valid for 1 year and in-store use only; not redeemable at airport stores",
+        "This is a one-time use giftcard; multiple cards can be used in 1 transaction",
+        "Luxe Gift Card can only be redeemed against full-priced merchandise"
+      ]
+    },
     "sellers": [
       {
         "source": "gyftr",
@@ -20543,7 +21131,7 @@
       }
     ],
     "best": {
-      "source": "gyftr",
+      "source": "dealo",
       "pct": 10.0
     },
     "online": false,
@@ -20563,7 +21151,29 @@
     "name": "Paul & Shark",
     "website": "https://www.paulandshark.com/",
     "checked": "2026-11-25",
-    "hubble": null,
+    "hubble": {
+      "pct": 10.0,
+      "brand_name": "Paul & Shark-Luxe Gift Card",
+      "in_store": true,
+      "works": [
+        "OFFLINE"
+      ],
+      "cards": [],
+      "min_amount": 1000,
+      "max_amount": 10000,
+      "typed": true,
+      "steps": [
+        "Activate this gift card : SMS ACT [space] [16-Digit Card Number] [space] [CardPin] to 9704200300",
+        "Locate the nearest outlet that accepts this gift voucher.",
+        "Select your choice of products",
+        "Share your gift voucher with the cashier at the time of billing & pay the remaining amount by cash or card if required."
+      ],
+      "terms": [
+        "Valid for 1 year and in-store use only; not redeemable at airport stores",
+        "This is a one-time use giftcard; multiple cards can be used in 1 transaction",
+        "Luxe Gift Card can only be redeemed against full-priced merchandise"
+      ]
+    },
     "sellers": [
       {
         "source": "gyftr",
@@ -20587,7 +21197,7 @@
       }
     ],
     "best": {
-      "source": "gyftr",
+      "source": "dealo",
       "pct": 10.0
     },
     "online": false,
@@ -20603,11 +21213,74 @@
     "canClub": null
   },
   {
+    "slug": "paul-smith",
+    "name": "Paul Smith",
+    "website": "https://www.paulsmith.com/",
+    "checked": "2026-11-25",
+    "hubble": {
+      "pct": 10.0,
+      "brand_name": "Paul Smith",
+      "in_store": true,
+      "works": [
+        "OFFLINE"
+      ],
+      "cards": [],
+      "min_amount": 1000,
+      "max_amount": 10000,
+      "typed": true,
+      "steps": [
+        "Activate this gift card : SMS ACT [space] [16-Digit Card Number] [space] [CardPin] to 9704200300",
+        "Locate the nearest outlet that accepts this gift voucher.",
+        "Select your choice of products",
+        "Share your gift voucher with the cashier at the time of billing & pay the remaining amount by cash or card if required."
+      ],
+      "terms": [
+        "Valid for 1 year and in-store use only; not redeemable at airport stores",
+        "This is a one-time use giftcard; multiple cards can be used in 1 transaction",
+        "Luxe Gift Card can only be redeemed against full-priced merchandise"
+      ]
+    },
+    "sellers": [],
+    "best": {
+      "source": "dealo",
+      "pct": 10.0
+    },
+    "online": false,
+    "offline": true,
+    "stack": null,
+    "steps": [],
+    "restrictions": [],
+    "multiUse": null,
+    "canClub": null
+  },
+  {
     "slug": "sandro",
     "name": "Sandro",
     "website": "https://www.sandro-paris.com/",
     "checked": "2026-11-25",
-    "hubble": null,
+    "hubble": {
+      "pct": 10.0,
+      "brand_name": "Sandro-Luxe Gift Card",
+      "in_store": true,
+      "works": [
+        "OFFLINE"
+      ],
+      "cards": [],
+      "min_amount": 1000,
+      "max_amount": 50000,
+      "typed": true,
+      "steps": [
+        "Activate this gift card : SMS ACT [space] [16-Digit Card Number] [space] [CardPin] to 9704200300",
+        "Locate the nearest outlet that accepts this gift voucher.",
+        "Select your choice of products",
+        "Share your gift voucher with the cashier at the time of billing & pay the remaining amount by cash or card if required."
+      ],
+      "terms": [
+        "Valid for 1 year and in-store use only; not redeemable at airport stores",
+        "This is a one-time use giftcard; multiple cards can be used in 1 transaction",
+        "Luxe Gift Card can only be redeemed against full-priced merchandise"
+      ]
+    },
     "sellers": [
       {
         "source": "gyftr",
@@ -20631,7 +21304,7 @@
       }
     ],
     "best": {
-      "source": "gyftr",
+      "source": "dealo",
       "pct": 10.0
     },
     "online": false,
@@ -20651,7 +21324,29 @@
     "name": "Scotch & Soda",
     "website": "https://www.scotch-soda.com/",
     "checked": "2026-11-25",
-    "hubble": null,
+    "hubble": {
+      "pct": 10.0,
+      "brand_name": "Scotch & Soda-Luxe Gift Card",
+      "in_store": true,
+      "works": [
+        "OFFLINE"
+      ],
+      "cards": [],
+      "min_amount": 1000,
+      "max_amount": 10000,
+      "typed": true,
+      "steps": [
+        "Activate this gift card : SMS ACT [space] [16-Digit Card Number] [space] [CardPin] to 9704200300",
+        "Locate the nearest outlet that accepts this gift voucher.",
+        "Select your choice of products",
+        "Share your gift voucher with the cashier at the time of billing & pay the remaining amount by cash or card if required."
+      ],
+      "terms": [
+        "Valid for 1 year and in-store use only; not redeemable at airport stores",
+        "This is a one-time use giftcard; multiple cards can be used in 1 transaction",
+        "Luxe Gift Card can only be redeemed against full-priced merchandise"
+      ]
+    },
     "sellers": [
       {
         "source": "gyftr",
@@ -20675,7 +21370,7 @@
       }
     ],
     "best": {
-      "source": "gyftr",
+      "source": "dealo",
       "pct": 10.0
     },
     "online": false,
@@ -20695,7 +21390,29 @@
     "name": "Tod's",
     "website": "https://www.tods.com/",
     "checked": "2026-11-25",
-    "hubble": null,
+    "hubble": {
+      "pct": 10.0,
+      "brand_name": "Tods Luxe Gift Card",
+      "in_store": true,
+      "works": [
+        "OFFLINE"
+      ],
+      "cards": [],
+      "min_amount": 1000,
+      "max_amount": 50000,
+      "typed": true,
+      "steps": [
+        "Activate this gift card : SMS ACT [space] [16-Digit Card Number] [space] [CardPin] to 9704200300",
+        "Locate the nearest outlet that accepts this gift voucher.",
+        "Select your choice of products",
+        "Share your gift voucher with the cashier at the time of billing & pay the remaining amount by cash or card if required."
+      ],
+      "terms": [
+        "Valid for 1 year and in-store use only; not redeemable at airport stores",
+        "This is a one-time use giftcard; multiple cards can be used in 1 transaction",
+        "Luxe Gift Card can only be redeemed against full-priced merchandise"
+      ]
+    },
     "sellers": [
       {
         "source": "gyftr",
@@ -20719,7 +21436,7 @@
       }
     ],
     "best": {
-      "source": "gyftr",
+      "source": "dealo",
       "pct": 10.0
     },
     "online": false,
@@ -20739,7 +21456,29 @@
     "name": "Tory Burch",
     "website": "https://www.toryburch.com/",
     "checked": "2026-11-25",
-    "hubble": null,
+    "hubble": {
+      "pct": 10.0,
+      "brand_name": "Tory Burch-Luxe Gift Card",
+      "in_store": true,
+      "works": [
+        "OFFLINE"
+      ],
+      "cards": [],
+      "min_amount": 1000,
+      "max_amount": 50000,
+      "typed": true,
+      "steps": [
+        "Activate this gift card : SMS ACT [space] [16-Digit Card Number] [space] [CardPin] to 9704200300",
+        "Locate the nearest outlet that accepts this gift voucher.",
+        "Select your choice of products",
+        "Share your gift voucher with the cashier at the time of billing & pay the remaining amount by cash or card if required."
+      ],
+      "terms": [
+        "Valid for 1 year and in-store use only; not redeemable at airport stores",
+        "This is a one-time use giftcard; multiple cards can be used in 1 transaction",
+        "Luxe Gift Card can only be redeemed against full-priced merchandise"
+      ]
+    },
     "sellers": [
       {
         "source": "gyftr",
@@ -20763,7 +21502,7 @@
       }
     ],
     "best": {
-      "source": "gyftr",
+      "source": "dealo",
       "pct": 10.0
     },
     "online": false,
@@ -20783,7 +21522,29 @@
     "name": "Valentino",
     "website": "https://www.valentino.com/",
     "checked": "2026-11-25",
-    "hubble": null,
+    "hubble": {
+      "pct": 10.0,
+      "brand_name": "Valentino Luxe Gift Card",
+      "in_store": true,
+      "works": [
+        "OFFLINE"
+      ],
+      "cards": [],
+      "min_amount": 1000,
+      "max_amount": 50000,
+      "typed": true,
+      "steps": [
+        "Activate this gift card : SMS ACT [space] [16-Digit Card Number] [space] [CardPin] to 9704200300",
+        "Locate the nearest outlet that accepts this gift voucher.",
+        "Select your choice of products",
+        "Share your gift voucher with the cashier at the time of billing & pay the remaining amount by cash or card if required."
+      ],
+      "terms": [
+        "Valid for 1 year and in-store use only; not redeemable at airport stores",
+        "This is a one-time use giftcard; multiple cards can be used in 1 transaction",
+        "Luxe Gift Card can only be redeemed against full-priced merchandise"
+      ]
+    },
     "sellers": [
       {
         "source": "gyftr",
@@ -20807,7 +21568,7 @@
       }
     ],
     "best": {
-      "source": "gyftr",
+      "source": "dealo",
       "pct": 10.0
     },
     "online": false,
@@ -20827,7 +21588,29 @@
     "name": "Versace",
     "website": "https://www.versace.com/",
     "checked": "2026-11-25",
-    "hubble": null,
+    "hubble": {
+      "pct": 10.0,
+      "brand_name": "Versace-Luxe Gift Card",
+      "in_store": true,
+      "works": [
+        "OFFLINE"
+      ],
+      "cards": [],
+      "min_amount": 1000,
+      "max_amount": 50000,
+      "typed": true,
+      "steps": [
+        "Activate this gift card : SMS ACT [space] [16-Digit Card Number] [space] [CardPin] to 9704200300",
+        "Locate the nearest outlet that accepts this gift voucher.",
+        "Select your choice of products",
+        "Share your gift voucher with the cashier at the time of billing & pay the remaining amount by cash or card if required."
+      ],
+      "terms": [
+        "Valid for 1 year and in-store use only; not redeemable at airport stores",
+        "This is a one-time use giftcard; multiple cards can be used in 1 transaction",
+        "Luxe Gift Card can only be redeemed against full-priced merchandise"
+      ]
+    },
     "sellers": [
       {
         "source": "gyftr",
@@ -20851,7 +21634,7 @@
       }
     ],
     "best": {
-      "source": "gyftr",
+      "source": "dealo",
       "pct": 10.0
     },
     "online": false,
@@ -20867,11 +21650,156 @@
     "canClub": null
   },
   {
+    "slug": "ferragamo",
+    "name": "Ferragamo",
+    "website": "https://www.ferragamo.com/",
+    "checked": "2026-11-25",
+    "hubble": {
+      "pct": 10.0,
+      "brand_name": "Ferragamo",
+      "in_store": true,
+      "works": [
+        "OFFLINE"
+      ],
+      "cards": [],
+      "min_amount": 1000,
+      "max_amount": 10000,
+      "typed": true,
+      "steps": [
+        "Activate this gift card : SMS ACT [space] [16-Digit Card Number] [space] [CardPin] to 9704200300",
+        "Locate the nearest outlet that accepts this gift voucher.",
+        "Select your choice of products",
+        "Share your gift voucher with the cashier at the time of billing & pay the remaining amount by cash or card if required."
+      ],
+      "terms": [
+        "Valid for 1 year and in-store use only; not redeemable at airport stores",
+        "This is a one-time use giftcard; multiple cards can be used in 1 transaction",
+        "Luxe Gift Card can only be redeemed against full-priced merchandise"
+      ]
+    },
+    "sellers": [],
+    "best": {
+      "source": "dealo",
+      "pct": 10.0
+    },
+    "online": false,
+    "offline": true,
+    "stack": null,
+    "steps": [],
+    "restrictions": [],
+    "multiUse": null,
+    "canClub": null
+  },
+  {
+    "slug": "g-star-raw",
+    "name": "G-Star RAW",
+    "website": "https://www.g-star.com/",
+    "checked": "2026-11-25",
+    "hubble": {
+      "pct": 10.0,
+      "brand_name": "G-Star Raw",
+      "in_store": true,
+      "works": [
+        "OFFLINE"
+      ],
+      "cards": [],
+      "min_amount": 1000,
+      "max_amount": 10000,
+      "typed": true,
+      "steps": [
+        "Activate this gift card : SMS ACT [space] [16-Digit Card Number] [space] [CardPin] to 9704200300",
+        "Locate the nearest outlet that accepts this gift voucher.",
+        "Select your choice of products",
+        "Share your gift voucher with the cashier at the time of billing & pay the remaining amount by cash or card if required."
+      ],
+      "terms": [
+        "Valid for 1 year and in-store use only; not redeemable at airport stores",
+        "This is a one-time use giftcard; multiple cards can be used in 1 transaction",
+        "Luxe Gift Card can only be redeemed against full-priced merchandise"
+      ]
+    },
+    "sellers": [],
+    "best": {
+      "source": "dealo",
+      "pct": 10.0
+    },
+    "online": false,
+    "offline": true,
+    "stack": null,
+    "steps": [],
+    "restrictions": [],
+    "multiUse": null,
+    "canClub": null
+  },
+  {
+    "slug": "replay",
+    "name": "Replay",
+    "website": "https://www.replayjeans.com/",
+    "checked": "2026-11-25",
+    "hubble": {
+      "pct": 10.0,
+      "brand_name": "Replay",
+      "in_store": true,
+      "works": [
+        "OFFLINE"
+      ],
+      "cards": [],
+      "min_amount": 1000,
+      "max_amount": 10000,
+      "typed": true,
+      "steps": [
+        "Activate this gift card : SMS ACT [space] [16-Digit Card Number] [space] [CardPin] to 9704200300",
+        "Locate the nearest outlet that accepts this gift voucher.",
+        "Select your choice of products",
+        "Share your gift voucher with the cashier at the time of billing & pay the remaining amount by cash or card if required."
+      ],
+      "terms": [
+        "Valid for 1 year and in-store use only; not redeemable at airport stores",
+        "This is a one-time use giftcard; multiple cards can be used in 1 transaction",
+        "Luxe Gift Card can only be redeemed against full-priced merchandise"
+      ]
+    },
+    "sellers": [],
+    "best": {
+      "source": "dealo",
+      "pct": 10.0
+    },
+    "online": false,
+    "offline": true,
+    "stack": null,
+    "steps": [],
+    "restrictions": [],
+    "multiUse": null,
+    "canClub": null
+  },
+  {
     "slug": "gas-jeans",
     "name": "GAS",
     "website": "https://www.gasjeans.com/",
     "checked": "2026-11-25",
-    "hubble": null,
+    "hubble": {
+      "pct": 10.0,
+      "brand_name": "Gas-Luxe Gift Card",
+      "in_store": true,
+      "works": [
+        "OFFLINE"
+      ],
+      "cards": [],
+      "min_amount": 1000,
+      "max_amount": 10000,
+      "typed": true,
+      "steps": [
+        "Activate this gift card : SMS ACT [space] [16-Digit Card Number] [space] [CardPin] to 9704200300",
+        "Locate the nearest outlet that accepts this gift voucher.",
+        "Select your choice of products",
+        "Share your gift voucher with the cashier at the time of billing & pay the remaining amount by cash or card if required."
+      ],
+      "terms": [
+        "Valid for 1 year and in-store use only; not redeemable at airport stores",
+        "This is a one-time use giftcard; multiple cards can be used in 1 transaction",
+        "Luxe Gift Card can only be redeemed against full-priced merchandise"
+      ]
+    },
     "sellers": [
       {
         "source": "gyftr",
@@ -20895,10 +21823,10 @@
       }
     ],
     "best": {
-      "source": "gyftr",
+      "source": "dealo",
       "pct": 10.0
     },
-    "online": true,
+    "online": false,
     "offline": true,
     "stack": null,
     "steps": [
@@ -20915,7 +21843,29 @@
     "name": "Adidas Kids",
     "website": "https://www.adidas.co.in/",
     "checked": "2026-11-25",
-    "hubble": null,
+    "hubble": {
+      "pct": 10.0,
+      "brand_name": "Adidas Kids Luxe Gift Card",
+      "in_store": true,
+      "works": [
+        "OFFLINE"
+      ],
+      "cards": [],
+      "min_amount": 1000,
+      "max_amount": 50000,
+      "typed": true,
+      "steps": [
+        "Activate this gift card : SMS ACT [space] [16-Digit Card Number] [space] [CardPin] to 9704200300",
+        "Locate the nearest outlet that accepts this gift voucher.",
+        "Select your choice of products",
+        "Share your gift voucher with the cashier at the time of billing & pay the remaining amount by cash or card if required."
+      ],
+      "terms": [
+        "Valid for 1 year and in-store use only; not redeemable at airport stores",
+        "This is a one-time use giftcard; multiple cards can be used in 1 transaction",
+        "Luxe Gift Card can only be redeemed against full-priced merchandise"
+      ]
+    },
     "sellers": [
       {
         "source": "gyftr",
@@ -20939,7 +21889,7 @@
       }
     ],
     "best": {
-      "source": "gyftr",
+      "source": "dealo",
       "pct": 10.0
     },
     "online": false,
@@ -20959,7 +21909,40 @@
     "name": "Inglot",
     "website": "https://www.inglotcosmetics.com/",
     "checked": "2026-11-25",
-    "hubble": null,
+    "hubble": {
+      "pct": 8.0,
+      "brand_name": "Inglot",
+      "in_store": true,
+      "works": [
+        "OFFLINE"
+      ],
+      "cards": [
+        500,
+        1000,
+        1500,
+        2000,
+        2500,
+        3000,
+        5000,
+        7500,
+        10000
+      ],
+      "min_amount": 500,
+      "max_amount": 10000,
+      "typed": false,
+      "steps": [
+        "Use the outlet locator (find the link in Terms and conditions on previous screen) to locate the nearest outlet that accepts this brand card",
+        "Select your choice of product",
+        "Share your brand card no. with the cashier at the time of billing & pay the remaining amount by any other payment mode"
+      ],
+      "terms": [
+        "Comes with 6-month validity and would be accepted at Aldo, Charles & Keith, Call it Spring, Beverly Hills Polo Club, Inglot, Victoria s Secret, Victoria s Secret beauty , Bath & Body works & R&B stores only",
+        "Gift Voucher/ e-Pay is ACCEPTED at all Listed Outlets (store locator https://www.apparelgroup.in/storelocator/)",
+        "Gift Voucher cannot be used Online.",
+        "Multiple Gift Vouchers CAN be combined & added to the e-Pay balance",
+        "Gift cards, once purchased, cannot be cancelled or refunded"
+      ]
+    },
     "sellers": [
       {
         "source": "maximize",
@@ -21035,7 +22018,35 @@
     "name": "Skinn",
     "website": "https://www.skinn.in/",
     "checked": "2026-11-25",
-    "hubble": null,
+    "hubble": {
+      "pct": 6.0,
+      "brand_name": "Skinn",
+      "in_store": true,
+      "works": [
+        "OFFLINE"
+      ],
+      "cards": [
+        500,
+        1000,
+        1500,
+        2000,
+        5000
+      ],
+      "min_amount": 500,
+      "max_amount": 5000,
+      "typed": false,
+      "steps": [
+        "Locate the nearest outlet that accepts this gift voucher. To locate the nearest outlet please visit https://www.skinn.in/stores",
+        "Select your choice of products",
+        "Share your gift voucher with the cashier at the time of billing & pay the remaining amount by cash or card if required."
+      ],
+      "terms": [
+        "This is a one-time use card and comes with 6 months validity",
+        "Gift Vouchers can be used in-store only and no offers can be clubbed with this card",
+        "See all terms for store locator - can only be used at listed stores",
+        "A maximum of 5 Gift Vouchers can be used in one bill"
+      ]
+    },
     "sellers": [
       {
         "source": "maximize",
@@ -21065,10 +22076,10 @@
       }
     ],
     "best": {
-      "source": "maximize",
-      "pct": 5.0
+      "source": "dealo",
+      "pct": 6.0
     },
-    "online": true,
+    "online": false,
     "offline": true,
     "stack": null,
     "steps": [
@@ -21085,7 +22096,34 @@
     "name": "The Man Company",
     "website": "https://www.themancompany.com/",
     "checked": "2026-11-25",
-    "hubble": null,
+    "hubble": {
+      "pct": 6.0,
+      "brand_name": "The Man Company",
+      "in_store": false,
+      "works": [
+        "ONLINE"
+      ],
+      "cards": [
+        500,
+        1000,
+        2000
+      ],
+      "min_amount": 500,
+      "max_amount": 2000,
+      "typed": false,
+      "steps": [
+        "Visit the the man company website.",
+        "Add the products to your cart.",
+        "Select pay via E/Pay Gift voucher option. You can add vouchers to your Epay balance, and your balance will be shown."
+      ],
+      "terms": [
+        "Comes with the validity of 6 months and will be accepted only on the app or the website through this URL:https://www.themancompany.com/.",
+        "Multiple Gift cards can be combined and added to the e-Pay balance, and the Gift card can be converted into e-Pay at the convenience of the holder.",
+        "The Gift card /e-Pay can be clubbed with discounts/offers on their website.",
+        "The Man Company e-Pay balance must be linked to the registered mobile number.",
+        "No returns and no refunds on Gift cards, E-Gift cards and E-Gift vouchers."
+      ]
+    },
     "sellers": [
       {
         "source": "maximize",
@@ -21173,11 +22211,77 @@
     "canClub": false
   },
   {
+    "slug": "tira",
+    "name": "Tira",
+    "website": "https://www.tirabeauty.com/",
+    "checked": "2026-11-25",
+    "hubble": {
+      "pct": 6.0,
+      "brand_name": "Tira",
+      "in_store": false,
+      "works": [
+        "OFFLINE",
+        "ONLINE"
+      ],
+      "cards": [],
+      "min_amount": 500,
+      "max_amount": 50000,
+      "typed": true,
+      "steps": [
+        "Download Tira App",
+        "Add the products to cart and Select Gift Card in Method Of Payment",
+        "Enter the 16-digit card number and 6-digit Card Pin",
+        "Card will be redeemed",
+        "Pay pending amount using other payment methods. Order will be placed."
+      ],
+      "terms": [
+        "Comes with 1 year validity and is redeemable only on the TIRA BEAUTY Portal and Tira Stores.",
+        "Gift card cannot be clubbed with any offers during the purchase.",
+        "Gift cards, once purchased, cannot be cancelled or refunded"
+      ]
+    },
+    "sellers": [],
+    "best": {
+      "source": "dealo",
+      "pct": 6.0
+    },
+    "online": true,
+    "offline": true,
+    "stack": null,
+    "steps": [],
+    "restrictions": [],
+    "multiUse": null,
+    "canClub": null
+  },
+  {
     "slug": "nykaa-man",
     "name": "Nykaa Man",
     "website": "https://www.nykaaman.com/",
     "checked": "2026-11-25",
-    "hubble": null,
+    "hubble": {
+      "pct": 5.0,
+      "brand_name": "Nykaa Man",
+      "in_store": false,
+      "works": [
+        "OFFLINE",
+        "ONLINE"
+      ],
+      "cards": [],
+      "min_amount": 250,
+      "max_amount": 10000,
+      "typed": true,
+      "steps": [
+        "Go to Nykaa.com and select the items you want to purchase.",
+        "Once you reach our payment page, select the Gift Card payment option.",
+        "Enter your 16-digit Card Code and the corresponding Card PIN and click on apply. The Gift Card amount will be deducted from the payable amount.",
+        "If the amount of your e-Gift Card doesn't cover your order amount, you will be prompted to select an additional payment option."
+      ],
+      "terms": [
+        "Comes with 1 year validity and cannot be used to purchase Gold/Silver Coins, Gold/Silver Bars and Jewellery",
+        "Gift card can be used multiple times",
+        "For offline transaction if the order value is less than the Gift Card amount, Gift Card won’t be applied to the order"
+      ]
+    },
     "sellers": [
       {
         "source": "buyhatke",
@@ -21225,8 +22329,8 @@
       }
     ],
     "best": {
-      "source": "buyhatke",
-      "pct": 4.62
+      "source": "dealo",
+      "pct": 5.0
     },
     "online": true,
     "offline": true,
@@ -21245,11 +22349,73 @@
     "canClub": true
   },
   {
+    "slug": "lakme-salon",
+    "name": "Lakmé Salon",
+    "website": "https://www.lakmesalon.in/",
+    "checked": "2026-11-25",
+    "hubble": {
+      "pct": 4.0,
+      "brand_name": "Lakmé Salon",
+      "in_store": true,
+      "works": [
+        "OFFLINE"
+      ],
+      "cards": [],
+      "min_amount": 750,
+      "max_amount": 25000,
+      "typed": true,
+      "steps": [
+        "Visit the nearest Lakme Salon outlet. To locate the nearest outlet please visit https://salons.lakmesalon.in/",
+        "Inform the cashier about the Gift Card before availing the service.",
+        "Show the Gift Card details to the cashier at the time of billing & pay any balance amount by card or cash."
+      ],
+      "terms": [
+        "Comes with 1-year validity and  can be redeemed only once",
+        "This Gift Card can be redeemed against services at all salons of Lakme Salon Network and only one card can be used per transaction",
+        "If the purchase amount is more than your Gift card value, you may compliment that purchase in any form of payment accepted by Lakme Salon outlets"
+      ]
+    },
+    "sellers": [],
+    "best": {
+      "source": "dealo",
+      "pct": 4.0
+    },
+    "online": false,
+    "offline": true,
+    "stack": null,
+    "steps": [],
+    "restrictions": [],
+    "multiUse": null,
+    "canClub": null
+  },
+  {
     "slug": "mia-by-tanishq",
     "name": "Mia by Tanishq",
     "website": "https://www.miabytanishq.com/",
     "checked": "2026-11-25",
-    "hubble": null,
+    "hubble": {
+      "pct": 4.0,
+      "brand_name": "Mia",
+      "in_store": true,
+      "works": [
+        "OFFLINE"
+      ],
+      "cards": [],
+      "min_amount": 500,
+      "max_amount": 200000,
+      "typed": true,
+      "steps": [
+        "To locate the nearest outlet please visit https://www.miabytanishq.com/en_IN/store-locator/find",
+        "Make your selection and add products to the cart (offline only)",
+        "Cashier will enter the gift card & pin on the payments page",
+        "Proceed to checkout"
+      ],
+      "terms": [
+        "Comes with 6 months validity",
+        "Gift card is valid only on Mia Studded Products at all Mia Showrooms in India",
+        "This is a one-time use card and any unused amount will lapse"
+      ]
+    },
     "sellers": [
       {
         "source": "maximize",
@@ -21298,7 +22464,7 @@
       }
     ],
     "best": {
-      "source": "maximize",
+      "source": "dealo",
       "pct": 4.0
     },
     "online": false,
@@ -21318,7 +22484,40 @@
     "name": "The Body Shop",
     "website": "https://www.thebodyshop.in/",
     "checked": "2026-11-25",
-    "hubble": null,
+    "hubble": {
+      "pct": 4.0,
+      "brand_name": "The Body Shop",
+      "in_store": false,
+      "works": [
+        "OFFLINE",
+        "ONLINE"
+      ],
+      "cards": [
+        500,
+        1000,
+        2000,
+        3000,
+        4000,
+        5000,
+        7500
+      ],
+      "min_amount": 500,
+      "max_amount": 37500,
+      "typed": false,
+      "steps": [
+        "Visit https://www.thebodyshop.in/",
+        "Add products to your cart",
+        "Go to your cart click on Proceed to check out",
+        "Enter your Shipping details.",
+        "Enter voucher code under Apply Gift card section",
+        "Enter PIN"
+      ],
+      "terms": [
+        "Comes with 1 year validity and is redeemable at the Body Shop stores and website in India only",
+        "This is a one-time use Gift Card and needs to be used in full during purchase. Any unused amount will lapse automatically",
+        "Multiple Gift Vouchers can be used in one bill"
+      ]
+    },
     "sellers": [
       {
         "source": "maximize",
@@ -21408,11 +22607,210 @@
     "canClub": true
   },
   {
+    "slug": "himalaya",
+    "name": "Himalaya",
+    "website": "https://www.himalayawellness.in/",
+    "checked": "2026-11-25",
+    "hubble": {
+      "pct": 6.0,
+      "brand_name": "Himalaya",
+      "in_store": true,
+      "works": [
+        "OFFLINE"
+      ],
+      "cards": [
+        500,
+        1000,
+        2000
+      ],
+      "min_amount": 500,
+      "max_amount": 2000,
+      "typed": false,
+      "steps": [
+        "Visit the outlet near you. To locate the nearest outlet please visit https://storelocator.himalayawellness.in/",
+        "Before making the purchase confirm about the acceptance of Gift Card at the store.",
+        "Choose the products you would like to buy.",
+        "Show your Gift Card details to the cashier at the time of billing & pay any balance amount by cash or card."
+      ],
+      "terms": [
+        "Comes with 1 year of validity and only one card can be used per transaction",
+        "This e-gift card is redeemable only once and should be used in full",
+        "This Gift Card can be redeemed only at participating exclusive Himalaya Outlets. For store locator please visit Himalaya website"
+      ]
+    },
+    "sellers": [],
+    "best": {
+      "source": "dealo",
+      "pct": 6.0
+    },
+    "online": false,
+    "offline": true,
+    "stack": null,
+    "steps": [],
+    "restrictions": [],
+    "multiUse": null,
+    "canClub": null
+  },
+  {
+    "slug": "titan-eye-plus",
+    "name": "Titan Eye+",
+    "website": "https://www.titaneyeplus.com/",
+    "checked": "2026-11-25",
+    "hubble": {
+      "pct": 5.0,
+      "brand_name": "Titan Eye+",
+      "in_store": true,
+      "works": [
+        "OFFLINE"
+      ],
+      "cards": [
+        500,
+        1000,
+        2000,
+        10000,
+        15000,
+        20000,
+        25000
+      ],
+      "min_amount": 500,
+      "max_amount": 125000,
+      "typed": false,
+      "steps": [
+        "Visit the outlet near you. To locate the nearest outlet please visit https://www.titaneyeplus.com/stores",
+        "Before making the purchase confirm about the acceptance of Gift Card at the store.",
+        "Choose the products you would like to buy.",
+        "Show your Gift Card details to the cashier at the time of billing & pay any balance amount by cash or card."
+      ],
+      "terms": [
+        "Comes with 6 month validity. This voucher is not applicable on discounted products and cannot be clubbed with any other offer in the store.",
+        "Voucher Partial redemption is not allowed and is redeemable only once.",
+        "No refund or credit note would be issued against unused or partially used voucher.",
+        "This e-gift voucher can be redeemed at all company authorised TITAN EYEPLUS Stores only.",
+        "Multiple e-gift cards (upto 5) can be used against a single transaction.",
+        "E-Gift Cards are normally delivered instantly. But sometimes due to system issues, the delivery can be delayed up-to 24 hours."
+      ]
+    },
+    "sellers": [],
+    "best": {
+      "source": "dealo",
+      "pct": 5.0
+    },
+    "online": false,
+    "offline": true,
+    "stack": null,
+    "steps": [],
+    "restrictions": [],
+    "multiUse": null,
+    "canClub": null
+  },
+  {
+    "slug": "lawrence-and-mayo",
+    "name": "Lawrence & Mayo",
+    "website": "https://www.lawrenceandmayo.co.in/",
+    "checked": "2026-11-25",
+    "hubble": {
+      "pct": 7.0,
+      "brand_name": "Lawrence & Mayo",
+      "in_store": true,
+      "works": [
+        "OFFLINE"
+      ],
+      "cards": [],
+      "min_amount": 100,
+      "max_amount": 20000,
+      "typed": true,
+      "steps": [
+        "Visit the outlet near you.",
+        "Before making the purchase confirm about the acceptance of Gift Card at the store",
+        "Choose the products you would like to buy.",
+        "Show your Gift Card details to the cashier at the time of billing & pay any balance amount by cash or card."
+      ],
+      "terms": [
+        "Comes with 6 months validity and is redeemable for merchandise at our Lawrence & Mayo Retail Stores – Nationwide",
+        "This is a one-time use card and any unused amount will lapse",
+        "Gift cards, once purchased, cannot be cancelled or refunded"
+      ]
+    },
+    "sellers": [],
+    "best": {
+      "source": "dealo",
+      "pct": 7.0
+    },
+    "online": false,
+    "offline": true,
+    "stack": null,
+    "steps": [],
+    "restrictions": [],
+    "multiUse": null,
+    "canClub": null
+  },
+  {
+    "slug": "bodycraft",
+    "name": "Bodycraft",
+    "website": "https://www.bodycraft.co.in/",
+    "checked": "2026-11-25",
+    "hubble": {
+      "pct": 10.0,
+      "brand_name": "BodyCraft",
+      "in_store": true,
+      "works": [
+        "OFFLINE"
+      ],
+      "cards": [],
+      "min_amount": 500,
+      "max_amount": 10000,
+      "typed": true,
+      "steps": [
+        "Visit the nearest Bodycraft outlet. To locate the nearest outlet please visit https://www.bodycraft.com/dealer-locator/",
+        "Inform the cashier about the Gift Card before availing the service.",
+        "Show the Gift Card details to the cashier at the time of billing & pay any balance amount by card or cash."
+      ],
+      "terms": [
+        "Comes with 6 months validity and is valid at all company-owned Bodycraft Spa & Salon outlets",
+        "The E-gift card cannot be used to purchase Products, Memberships, Packages at Bodycraft",
+        "Multiple E-gift cards can be clubbed for redemption"
+      ]
+    },
+    "sellers": [],
+    "best": {
+      "source": "dealo",
+      "pct": 10.0
+    },
+    "online": false,
+    "offline": true,
+    "stack": null,
+    "steps": [],
+    "restrictions": [],
+    "multiUse": null,
+    "canClub": null
+  },
+  {
     "slug": "truefitt-and-hill",
     "name": "Truefitt & Hill",
     "website": "https://www.truefittandhill.in/",
     "checked": "2026-11-25",
-    "hubble": null,
+    "hubble": {
+      "pct": 12.0,
+      "brand_name": "TrueFitt & Hill",
+      "in_store": true,
+      "works": [
+        "OFFLINE"
+      ],
+      "cards": [],
+      "min_amount": 100,
+      "max_amount": 10000,
+      "typed": true,
+      "steps": [
+        "Share the registered mobile number with cashier, once services are scanned for invoicing",
+        "Cashier will confirm the available Gift Voucher and its balance Or share the voucher code with the cashier",
+        "Confirm the amount to be used for redemption and proceed further. You can make the balance payment by any other payment mode."
+      ],
+      "terms": [
+        "Comes with 3 months validity and would be accepted at all TrueFitt & Hill stores (except Indira Nagar, Bengaluru)",
+        "Gift Voucher is only applicable on services and not applicable on TrueFitt & Hill products",
+        "Multiple vouchers can be used against one bill."
+      ]
+    },
     "sellers": [
       {
         "source": "gyftr",
@@ -21459,7 +22857,33 @@
     "name": "Black+Decker",
     "website": "https://www.appliancesblackanddecker.in/",
     "checked": "2026-11-25",
-    "hubble": null,
+    "hubble": {
+      "pct": 4.0,
+      "brand_name": "Black + Decker",
+      "in_store": false,
+      "works": [
+        "ONLINE"
+      ],
+      "cards": [
+        1000,
+        2000
+      ],
+      "min_amount": 1000,
+      "max_amount": 2000,
+      "typed": false,
+      "steps": [
+        "Visit the website and add the product of you choice to your cart.",
+        "To proceed enter the necessary Billing and Shipping Detail",
+        "To checkout enter the Gift Card Code in the Apply Gift Card box and redeem the voucher",
+        "Any remaining payment to be done via other payment tender modes available"
+      ],
+      "terms": [
+        "Comes with 6 months validity and would be acceptable at www.appliancesblackanddecker.in/",
+        "This is a one-time use card and any unused balance will lapse",
+        "A maximum of 10 Gift card can be used in one bill",
+        "Gift cards, once purchased, cannot be cancelled or refunded"
+      ]
+    },
     "sellers": [
       {
         "source": "buyhatke",
@@ -21483,8 +22907,8 @@
       }
     ],
     "best": {
-      "source": "buyhatke",
-      "pct": 3.62
+      "source": "dealo",
+      "pct": 4.0
     },
     "online": true,
     "offline": false,
@@ -21504,7 +22928,28 @@
     "name": "Cleartrip Hotels",
     "website": "https://www.cleartrip.com/hotels/",
     "checked": "2026-11-25",
-    "hubble": null,
+    "hubble": {
+      "pct": 7.5,
+      "brand_name": "ClearTrip Hotel",
+      "in_store": false,
+      "works": [
+        "ONLINE"
+      ],
+      "cards": [],
+      "min_amount": 1,
+      "max_amount": 10000,
+      "typed": true,
+      "steps": [
+        "Visit www.cleartrip.com or app and select your bookings.",
+        "Enter the 16 digit gift card number and pin ( apply coupon or gift card) section.",
+        "Click on make payment and pay balance amount using anoter payment method."
+      ],
+      "terms": [
+        "Comes with 1 year validity. The gift card can be used multiple times.",
+        "Maximum 15 gift cards can be used in 1 single transaction",
+        "Gift Cards cannot be clubbed with any other offer including but not limited to cashbacks, discounts etc. on a particular credit/debit card"
+      ]
+    },
     "sellers": [
       {
         "source": "maximize",
@@ -21599,7 +23044,35 @@
     "name": "Zoomcar",
     "website": "https://www.zoomcar.com/",
     "checked": "2026-11-25",
-    "hubble": null,
+    "hubble": {
+      "pct": 6.5,
+      "brand_name": "Zoom Car",
+      "in_store": false,
+      "works": [
+        "ONLINE"
+      ],
+      "cards": [
+        500,
+        1000,
+        2500,
+        5000
+      ],
+      "min_amount": 500,
+      "max_amount": 5000,
+      "typed": false,
+      "steps": [
+        "Open the zoomcar App, go to zoom cash at the top right corner and click on claim a gift card.",
+        "In select gift partner choose Gyftr enter the voucher code click add and then click continue.",
+        "The amount will be added to zoom cash, multiple vouchers can be added and then click on book a trip."
+      ],
+      "terms": [
+        "Comes with 6 months validity and will be accepted only online on the Zoomcar mobile application.",
+        "This is a one-time use Gift card. Multiple Gift cards can be added to a customer’s account as ZCash, and the balance can be used partially or fully for multiple transactions.",
+        "The Gift card can be used for the purchase of ZCash, which is credited to the Customer’s Zoomcar ZCash wallet upon redemption. A single ZCash shall be equivalent to INR 1 (One Rupee).",
+        "The Gift card can be clubbed with the existing offers.",
+        "No returns and no refunds on Gift cards, E-Gift cards and E-Gift vouchers."
+      ]
+    },
     "sellers": [
       {
         "source": "gyftr",
@@ -21689,7 +23162,31 @@
     "name": "Air India",
     "website": "https://www.airindia.com/",
     "checked": "2026-11-25",
-    "hubble": null,
+    "hubble": {
+      "pct": 5.5,
+      "brand_name": "Air India",
+      "in_store": false,
+      "works": [
+        "ONLINE"
+      ],
+      "cards": [],
+      "min_amount": 2000,
+      "max_amount": 200000,
+      "typed": true,
+      "steps": [
+        "Select the flights you are interested in on the Air India website (https://www.airindia.com/) or Air India mobile app.",
+        "Enter the Gift Card number and pin that you have received",
+        "If the booking amount equals or exceeds the available credit on the Gift Card, the Gift Card will be fully used until it has no remaining value."
+      ],
+      "terms": [
+        "Comes with 1-year validity and is valid only on the Air India website or Air India mobile app",
+        "Multiple Gift Cards (up to a maximum of three (3)) can be combined and used in a single transaction",
+        "A Gift Card can be combined with any offer, such as a discount, cash back, or promotion, offered on Air India’s website, www.airindia.com",
+        "Gift Cards cannot be redeemed through any offline channel, such as airport ticketing centre.",
+        "Gift Cards cannot be redeemed for group travel",
+        "Gift cards, once purchased, cannot be cancelled or refunded"
+      ]
+    },
     "sellers": [
       {
         "source": "gyftr",
@@ -21763,8 +23260,8 @@
       }
     ],
     "best": {
-      "source": "gyftr",
-      "pct": 5.0
+      "source": "dealo",
+      "pct": 5.5
     },
     "online": true,
     "offline": false,
@@ -21783,7 +23280,33 @@
     "name": "Klook",
     "website": "https://www.klook.com/",
     "checked": "2026-11-25",
-    "hubble": null,
+    "hubble": {
+      "pct": 5.0,
+      "brand_name": "Klook",
+      "in_store": false,
+      "works": [
+        "ONLINE"
+      ],
+      "cards": [
+        1000,
+        2000,
+        5000
+      ],
+      "min_amount": 1000,
+      "max_amount": 20000,
+      "typed": false,
+      "steps": [
+        "Visit the website or Klook app and sign up with your mobile number/email id.",
+        "Head to your accounts page and go to promo codes",
+        "Enter your Klook voucher and click Redeem and make the payment"
+      ],
+      "terms": [
+        "This Gift Card will be used on the app or website at www.klook.com",
+        "This is a one-time use Gift Card",
+        "Only one Gift Voucher can be used in one bill.",
+        "This Gift voucher cannot be combined with existing offers on its website or any other promo coded."
+      ]
+    },
     "sellers": [
       {
         "source": "maximize",
@@ -21847,11 +23370,85 @@
     "canClub": false
   },
   {
+    "slug": "sotc",
+    "name": "SOTC",
+    "website": "https://www.sotc.in/",
+    "checked": "2026-11-25",
+    "hubble": {
+      "pct": 4.0,
+      "brand_name": "SOTC",
+      "in_store": true,
+      "works": [
+        "OFFLINE"
+      ],
+      "cards": [],
+      "min_amount": 500,
+      "max_amount": 250000,
+      "typed": true,
+      "steps": [
+        "SOTC Holiday Card is redeemable for purchases at SOTC branches within India",
+        "Customer to present the Emailer which he has received and present at the branches before making the payment. To locate the nearest branch please visit https://www.sotc.in/outlets"
+      ],
+      "terms": [
+        "Comes with 1 year validity and is redeemable for purchases at SOTC branches within India",
+        "This is a one-time use card and any unused balance will lapse and Holiday card cannot be redeemed against group discounted packages",
+        "Purchase of foreign exchange (Personal & Tour Cost), Visa and Insurance services are not allowed through this card",
+        "The above offer cannot be clubbed with any other program/scheme offered by SOTC Travel Limited"
+      ]
+    },
+    "sellers": [],
+    "best": {
+      "source": "dealo",
+      "pct": 4.0
+    },
+    "online": false,
+    "offline": true,
+    "stack": null,
+    "steps": [],
+    "restrictions": [],
+    "multiUse": null,
+    "canClub": null
+  },
+  {
     "slug": "porter",
     "name": "Porter",
     "website": "https://www.porter.in/",
     "checked": "2026-11-25",
-    "hubble": null,
+    "hubble": {
+      "pct": 6.0,
+      "brand_name": "Porter",
+      "in_store": false,
+      "works": [
+        "ONLINE"
+      ],
+      "cards": [
+        1000,
+        2000,
+        3000,
+        4000,
+        5000,
+        6000,
+        7000,
+        8000,
+        9000
+      ],
+      "min_amount": 1000,
+      "max_amount": 50000,
+      "typed": false,
+      "steps": [
+        "Download the Porter app, choose Packers & Movers option, then select ‘Shifting’ service. Enter locations, add items, check price options, and confirm your pick-up slot.",
+        "Go to the Coupons & Offers section, enter your voucher code, and click Apply. The voucher amount will be applied to the bill directly.",
+        "Check your breakup under Payment Summary and pay the remaining amount using any payment mode."
+      ],
+      "terms": [
+        "Comes with a validity of 6 months and can be redeemed only on the Porter app for Packers & Movers services.",
+        "This Gift card is applicable only for Intracity and Intercity House Shifting under Packers & Movers services. It is not valid for the \"Mini Truck with 2 Labour\" category under Packers & Movers, or for booking Trucks, Two-Wheelers, or Enterprise business services on the Porter platform.",
+        "This is a one-time use only Gift card, and it cannot be partially redeemed or revalidated once expired.",
+        "The value of the Gift card redeemed must be less than or equal to the total booking/order value. The Gift card cannot be used for bookings where the Gift card value exceeds the order value.",
+        "Multiple Gift cards cannot be redeemed in a single booking/order.",
+        "The Gift cards CANNOT be clubbed with the existing offers."
+      ]
+    },
     "sellers": [
       {
         "source": "maximize",
@@ -21987,7 +23584,36 @@
     "name": "Playo",
     "website": "https://www.playo.co/",
     "checked": "2026-11-25",
-    "hubble": null,
+    "hubble": {
+      "pct": 4.5,
+      "brand_name": "Playo",
+      "in_store": false,
+      "works": [
+        "ONLINE"
+      ],
+      "cards": [
+        250,
+        500,
+        1000,
+        2000,
+        5000
+      ],
+      "min_amount": 250,
+      "max_amount": 25000,
+      "typed": false,
+      "steps": [
+        "Enter the 16-digit numeric code received via email or phone.",
+        "Click the Redeem Gift Card button which will direct you to a confirmation screen",
+        "Check your balance at any point in the Passbook section of their Playo account..",
+        "To use the Playo Gift Card credits, enable the toggle option against 'Credits' on the Playo checkout page while making a transaction."
+      ],
+      "terms": [
+        "Comes with the validiy of 12 months and will be accepted at https://playo.co/",
+        "Redemption: Vouchers may only be redeemed toward the purchase of eligible services and products on Playo. Purchases are deducted from the redeemer's Vouchers balance. Any unused Vouchers balance will remain associated with the redeemers Vouchers balance account and applied to purchases, in order of earliest expiration date. If a purchase exceeds the redeemers Vouchers balance, the remaining amount must be paid by credit card, net banking or debit card. Vouchers cannot be used to purchase other.",
+        "Limitations: Vouchers, including any unused Vouchers balances, expire one year from the date of purchase of the Vouchers for any Vouchers purchased on Playo, unless defined otherwise in a mutual confirmation between Techmash and the purchaser. For purchase of Vouchers on third party merchants, the expiration period may vary based on the terms set by the third-party merchant from whom you have made the purchase of the Vouchers. Vouchers, once purchased, cannot be cancelled by the purchaser.",
+        "No returns and no refunds on Gift cards, E-Gift cards and E-Gift vouchers."
+      ]
+    },
     "sellers": [
       {
         "source": "maximize",
@@ -22172,11 +23798,87 @@
     "noun": "subscription"
   },
   {
+    "slug": "epic-on",
+    "name": "EPIC ON",
+    "website": "https://www.epicon.in/",
+    "checked": "2026-11-25",
+    "hubble": {
+      "pct": 3.0,
+      "brand_name": "Epic On",
+      "in_store": false,
+      "works": [
+        "ONLINE"
+      ],
+      "cards": [
+        59,
+        159,
+        299,
+        499
+      ],
+      "min_amount": 59,
+      "max_amount": 499,
+      "typed": false,
+      "steps": [
+        "Visit https://www.epicon.in or download the EPIC ON app",
+        "Sign up / log in to EPIC ON app/website",
+        "Click on subscribe now https://www.epicon.in/getSubscription",
+        "Enter the unique promo code in the section below and apply it. Your subscription will be automatically generated",
+        "IOS users can redeem the code only on website"
+      ],
+      "terms": [
+        "Comes with 1 year validity is available only with Enfagrow products and its various combos",
+        "This cards gets you premium subscription service from ‘IN10 MEDIA NETWORK’. Users get access to unlimited premium content on EPIC ON for 1 year",
+        "Gift cards, once purchased, cannot be cancelled or refunded"
+      ]
+    },
+    "sellers": [],
+    "best": {
+      "source": "dealo",
+      "pct": 3.0
+    },
+    "online": true,
+    "offline": false,
+    "stack": null,
+    "steps": [],
+    "restrictions": [],
+    "multiUse": null,
+    "canClub": null,
+    "kind": "subscription",
+    "noun": "subscription"
+  },
+  {
     "slug": "home-centre",
     "name": "Home Centre",
     "website": "https://www.homecentre.in/",
     "checked": "2026-11-25",
-    "hubble": null,
+    "hubble": {
+      "pct": 7.0,
+      "brand_name": "Home Center",
+      "in_store": false,
+      "works": [
+        "ONLINE"
+      ],
+      "cards": [
+        1000,
+        2000,
+        3000,
+        5000
+      ],
+      "min_amount": 1000,
+      "max_amount": 20000,
+      "typed": false,
+      "steps": [
+        "Visit www.homecentre.in/in/en/ on your iOs/android Home centre App & add your desired products in the cart",
+        "Place your order by clicking on the “Buy now” button",
+        "Click on Have a gift card",
+        "Enter you 16 digits gift card no. along with you pin. You can make the balance payment by any other payment methods"
+      ],
+      "terms": [
+        "Comes with 6 month validity",
+        "The gift card can be used multiple times",
+        "E-Gift Cards cannot be redeemed at the physical / brick-and-mortar stores of Lifestyle & Home Centre"
+      ]
+    },
     "sellers": [
       {
         "source": "maximize",
@@ -22249,7 +23951,37 @@
     "name": "Le Creuset",
     "website": "https://www.lecreuset.co.in/",
     "checked": "2026-11-25",
-    "hubble": null,
+    "hubble": {
+      "pct": 7.0,
+      "brand_name": "Le Creuset",
+      "in_store": true,
+      "works": [
+        "OFFLINE"
+      ],
+      "cards": [
+        500,
+        1000
+      ],
+      "min_amount": 500,
+      "max_amount": 1000,
+      "typed": false,
+      "steps": [
+        "The voucher can be redeemed at the following stores",
+        "- Phoenix Palladium, Mumbai",
+        "- Select Citywalk, New Delhi",
+        "- Ambience Mall, Gurgaon",
+        "- Palladium, Chennai (opening by end of September 2026)",
+        "The customer will need to redeem the voucher at the store by showcasing the soft copy of the Gift Coupon."
+      ],
+      "terms": [
+        "One voucher can be redeemed against one bill only at any Le Creuset Store in India.",
+        "Voucher cannot be encashed.",
+        "Strictly no extension of the expiry date from the date of issue will be allowed.",
+        "Not Applicable on online purchases.",
+        "The voucher can only be clubbed with AMEX Gift Vouchers.",
+        "The voucher can be redeemed at the following stores."
+      ]
+    },
     "sellers": [
       {
         "source": "maximize",
@@ -22294,7 +24026,29 @@
     "name": "Milton",
     "website": "https://www.milton.in/",
     "checked": "2026-11-25",
-    "hubble": null,
+    "hubble": {
+      "pct": 7.0,
+      "brand_name": "Milton",
+      "in_store": false,
+      "works": [
+        "ONLINE"
+      ],
+      "cards": [],
+      "min_amount": 500,
+      "max_amount": 50000,
+      "typed": true,
+      "steps": [
+        "This E-Gift Card is redeemable for products and services at https://www.milton.in/",
+        "Goes to checkout and selects gift card tender",
+        "Enters Gift card no and pin and clicks redeem",
+        "Any additional value is paid by customer using other tender modes."
+      ],
+      "terms": [
+        "Comes with 1 year validity and is redeemable for products and services at https://www.milton.in/",
+        "This E- Gift Card can be redeemed multiple times until the value is exhausted.",
+        "Gift cards, once purchased, cannot be cancelled or refunded"
+      ]
+    },
     "sellers": [
       {
         "source": "buyhatke",
@@ -22341,7 +24095,28 @@
     "name": "Pigeon",
     "website": "https://www.stovekraft.com/",
     "checked": "2026-11-25",
-    "hubble": null,
+    "hubble": {
+      "pct": 6.0,
+      "brand_name": "Pigeon",
+      "in_store": true,
+      "works": [
+        "OFFLINE"
+      ],
+      "cards": [],
+      "min_amount": 100,
+      "max_amount": 10000,
+      "typed": true,
+      "steps": [
+        "Visit Stores: https://pigeonstores.stovekraft.com/pigeon/",
+        "Showcase the EGV to the store manager",
+        "Remaining amount apart from EGV amount to be paid to the cashier at the store"
+      ],
+      "terms": [
+        "Comes with 1-year validity and cannot be used Online",
+        "Multiple Gift Vouchers can be combined",
+        "Gift cards, once purchased, cannot be cancelled or refunded"
+      ]
+    },
     "sellers": [
       {
         "source": "gyftr",
@@ -22525,7 +24300,32 @@
     "name": "SuperBottoms",
     "website": "https://www.superbottoms.com/",
     "checked": "2026-11-25",
-    "hubble": null,
+    "hubble": {
+      "pct": 7.0,
+      "brand_name": "Superbottoms",
+      "in_store": false,
+      "works": [
+        "ONLINE"
+      ],
+      "cards": [
+        500,
+        1000
+      ],
+      "min_amount": 500,
+      "max_amount": 1000,
+      "typed": false,
+      "steps": [
+        "Log in to the website.",
+        "Add your favourite products to cart.",
+        "Add your contact details and mention the gift card details in the gift car box and then proceed to checkout."
+      ],
+      "terms": [
+        "Comes with 6 months validity and would be accepted only at https://superbottoms.com/",
+        "Multiple Gift Vouchers cannot be used in one single purchase",
+        "This is a one-time use card and any unused balance will lapse",
+        "Gift cards, once purchased, cannot be cancelled or refunded"
+      ]
+    },
     "sellers": [
       {
         "source": "gyftr",
@@ -22609,7 +24409,34 @@
     "name": "William Penn",
     "website": "https://www.williampenn.net/",
     "checked": "2026-11-25",
-    "hubble": null,
+    "hubble": {
+      "pct": 7.0,
+      "brand_name": "William Penn",
+      "in_store": true,
+      "works": [
+        "OFFLINE"
+      ],
+      "cards": [
+        1000,
+        2000,
+        5000,
+        10000
+      ],
+      "min_amount": 1000,
+      "max_amount": 10000,
+      "typed": false,
+      "steps": [
+        "Use the outlet locator to locate the nearest outlet that accepts this Gift Voucher.",
+        "Select your choice of product.",
+        "Share your Gift Voucher with the cashier at the time of billing & pay the remaining amount by cash or card if required."
+      ],
+      "terms": [
+        "Comes with 6 months validity and would be accepted at listed outlets. For Outlet List, please visit https://www.gyftr.com/william-penn",
+        "Multiple Gift Vouchers can be used in one bill but please note vouchers cannot be redeemed at airport stores.",
+        "This is a one-time use card and any unused balance will lapse",
+        "Gift cards, once purchased, cannot be cancelled or refunded"
+      ]
+    },
     "sellers": [
       {
         "source": "gyftr",
@@ -22677,7 +24504,30 @@
     "name": "Crossword",
     "website": "https://www.crossword.in/",
     "checked": "2026-11-25",
-    "hubble": null,
+    "hubble": {
+      "pct": 3.0,
+      "brand_name": "Crossword",
+      "in_store": false,
+      "works": [
+        "OFFLINE",
+        "ONLINE"
+      ],
+      "cards": [],
+      "min_amount": 250,
+      "max_amount": 2000,
+      "typed": true,
+      "steps": [
+        "Go to crossword.in. Selects the product of choice",
+        "Proceed to the checkout, click on gift card",
+        "Enter the Card number and PIN and click on “Use Gift Card”. The card will be redeemed. In case there is any balance payment to be done, the customer can use the other payment modes."
+      ],
+      "terms": [
+        "Comes with 12 months validity and is redeemed at select Crossword stores across India. Not Valid at Crossword Franchisee Stores.",
+        "This E-Gift Card can be redeemed only once in stores in a single transaction.",
+        "The E-Gift card can be redeemed multiple times on www.crossword.in. But it will get blocked once used in stores.",
+        "Gift cards, once purchased, cannot be cancelled or refunded"
+      ]
+    },
     "sellers": [
       {
         "source": "maximize",
@@ -22766,7 +24616,50 @@
     "name": "MiniKlub",
     "website": "https://www.miniklub.in/",
     "checked": "2026-11-25",
-    "hubble": null,
+    "hubble": {
+      "pct": 13.0,
+      "brand_name": "MiniKlub",
+      "in_store": true,
+      "works": [
+        "OFFLINE"
+      ],
+      "cards": [
+        500,
+        1000,
+        1500,
+        2000,
+        2500,
+        3000,
+        3500,
+        4000,
+        4500,
+        5000,
+        5500,
+        6000,
+        6500,
+        7000,
+        7500,
+        8000,
+        8500,
+        9000,
+        9500,
+        10000
+      ],
+      "min_amount": 500,
+      "max_amount": 10000,
+      "typed": false,
+      "steps": [
+        "Visit the outlet near you. To locate the nearest outlet please visit https://miniklub.in/pages/store-locator",
+        "Before making the purchase confirm about the acceptance of Gift Card at the store.",
+        "Choose the products you wish to buy.",
+        "Show your Gift Card details to the cashier at the time of billing & pay any balance amount by cash or card."
+      ],
+      "terms": [
+        "Comes with 1-year validity",
+        "This is a one-time use card and redeemable at Miniklub online and exclusive stores",
+        "In case the value of the merchandise exceeds the value of the card, the difference shall be paid by the bearer"
+      ]
+    },
     "sellers": [
       {
         "source": "maximize",
@@ -22824,9 +24717,9 @@
       "source": "maximize",
       "pct": 13.25
     },
-    "online": true,
+    "online": false,
     "offline": true,
-    "stack": "One voucher per order",
+    "stack": null,
     "steps": [
       "Visit the outlet near you.",
       "Before making the purchase confirm about the acceptance of Gift Card at the store.",
@@ -22842,7 +24735,28 @@
     "name": "Toscano",
     "website": "https://www.toscano.in/",
     "checked": "2026-11-25",
-    "hubble": null,
+    "hubble": {
+      "pct": 12.0,
+      "brand_name": "Toscano",
+      "in_store": true,
+      "works": [
+        "OFFLINE"
+      ],
+      "cards": [],
+      "min_amount": 999,
+      "max_amount": 30000,
+      "typed": true,
+      "steps": [
+        "Visit the nearest Toscano outlet. To locate the nearest outlet please visit https://www.toscano.co.in/restaurants",
+        "Inform the cashier about the Gift Card before ordering food.",
+        "Show the Gift Card details to the cashier at the time of billing & pay any balance amount by card or cash."
+      ],
+      "terms": [
+        "Comes with 12 month validity and is applicable for Dine-in only",
+        "Valid for one time redemption only",
+        "Valid at all Toscano Restaurants"
+      ]
+    },
     "sellers": [
       {
         "source": "maximize",
@@ -22883,5 +24797,602 @@
     "restrictions": [],
     "multiUse": false,
     "canClub": false
+  },
+  {
+    "slug": "taj-hotels",
+    "name": "Taj Hotels",
+    "website": "https://www.tajhotels.com/",
+    "checked": "2026-11-25",
+    "hubble": {
+      "pct": 11.0,
+      "brand_name": "Taj Experiences",
+      "in_store": true,
+      "works": [
+        "OFFLINE"
+      ],
+      "cards": [],
+      "min_amount": 1000,
+      "max_amount": 25000,
+      "typed": true,
+      "steps": [
+        "Visit taj listed outlets, Taj SeleQtions, Vivanta hotels and Ama Trails & Stays in India. This doesn’t include Ginger hotels",
+        "Select you choice of services. For prepaid room reservations Worldwide, share the card no. & PIN at the reception",
+        "You can make the balance payment by any other payment. A valid card in its original form or email must be presented at the time of availing the service"
+      ],
+      "terms": [
+        "Comes with 1 year validity. The gift card can be used multiple times.",
+        "The cards can be redeemed at Taj, Selections, Vivanta hotels and Ama Trails & Stays in India. This does not include Ginger Hotels.",
+        "For prepaid room reservations at Taj Reservations Worldwide the card number and PIN must be quoted when making the reservation"
+      ]
+    },
+    "sellers": [
+      {
+        "source": "gyftr",
+        "label": "Gyftr",
+        "pct": 14.0,
+        "upi_pct": 14.0,
+        "card_pct": 13.0,
+        "url": "https://www.gyftr.com/taj-hotels",
+        "online": false,
+        "offline": true,
+        "denominations": [
+          1000,
+          2000,
+          2500,
+          3000,
+          5000,
+          10000
+        ],
+        "typed": false,
+        "typed_min": null,
+        "typed_max": null,
+        "stack_limit": null,
+        "value_cap": null,
+        "checked": "2026-11-09"
+      },
+      {
+        "source": "maximize",
+        "label": "Maximize",
+        "pct": 12.0,
+        "upi_pct": 12.0,
+        "card_pct": 10.1,
+        "url": "https://www.maximize.money/gift-cards/Taj%20Experiences/211",
+        "online": false,
+        "offline": true,
+        "denominations": [
+          1000,
+          2000,
+          2500,
+          3000,
+          5000,
+          7500,
+          10000
+        ],
+        "typed": false,
+        "typed_min": null,
+        "typed_max": null,
+        "stack_limit": null,
+        "value_cap": null,
+        "checked": "2026-11-05"
+      }
+    ],
+    "best": {
+      "source": "gyftr",
+      "pct": 14.0
+    },
+    "online": false,
+    "offline": true,
+    "stack": null,
+    "steps": [
+      "Step 1-  -Visit Taj listed outlets Taj, SeleQtions, Vivanta hotels and Ama Trails & Stays in India  -This does not include Ginger Hotels",
+      "Step 2-  -Select your choice of services  -For prepaid room reservations at Taj Reservations Worldwide share the card number and PIN at the reception",
+      "Step 3-  -You can make the balance payment by any other payment mode  -A valid card in its original form or e-mail must be presented at the time of availing a service"
+    ],
+    "restrictions": [],
+    "multiUse": true,
+    "canClub": true
+  },
+  {
+    "slug": "itc-hotels",
+    "name": "ITC Hotels",
+    "website": "https://www.itchotels.com/",
+    "checked": "2026-11-25",
+    "hubble": {
+      "pct": 7.0,
+      "brand_name": "ITC Hotels",
+      "in_store": true,
+      "works": [
+        "OFFLINE"
+      ],
+      "cards": [],
+      "min_amount": 1000,
+      "max_amount": 10000,
+      "typed": true,
+      "steps": [
+        "These are offline-use cards only and need registration as well as activation before use",
+        "To register and activate your Gift Card, please send a SMS from your mobile phone as follows: ACT(space)CardNumber(space)CardPin(space)FirstName(space)LastName to 99639 00600",
+        "At the time of check-out/ settling the invoice, use your e-Gift to redeem it by sharing the 16 digit card number and the OTP received on the registered mobile number"
+      ],
+      "terms": [
+        "Comes with 1-year validity and can only be used offline",
+        "The card is valid for spends towards stays (room & incidental charges), food & beverages, Home deliveries & takeaways, spa services (for resident guests only), Fabelle Boutiques and applicable taxes at any of the participating hotels",
+        "The E-Gift Card can be redeemed at any of the participating ITC Hotels, Welcomhotels, Fortune Hotels & WelcomHeritage Hotels but club ITC Green Points will not be awarded for transaction settled using Gift Cards."
+      ]
+    },
+    "sellers": [
+      {
+        "source": "gyftr",
+        "label": "Gyftr",
+        "pct": 9.0,
+        "upi_pct": 9.0,
+        "card_pct": 7.0,
+        "url": "https://www.gyftr.com/itc-hotels",
+        "online": false,
+        "offline": true,
+        "denominations": [
+          1000,
+          2000,
+          5000,
+          7500,
+          10000
+        ],
+        "typed": false,
+        "typed_min": null,
+        "typed_max": null,
+        "stack_limit": null,
+        "value_cap": null,
+        "checked": "2026-11-09"
+      },
+      {
+        "source": "maximize",
+        "label": "Maximize",
+        "pct": 8.25,
+        "upi_pct": 8.25,
+        "card_pct": 6.35,
+        "url": "https://www.maximize.money/gift-cards/ITC/336",
+        "online": true,
+        "offline": true,
+        "denominations": [
+          1000,
+          1500,
+          2500,
+          5000,
+          10000
+        ],
+        "typed": true,
+        "typed_min": 1000,
+        "typed_max": 10000,
+        "stack_limit": 1,
+        "value_cap": null,
+        "checked": "2026-11-05"
+      }
+    ],
+    "best": {
+      "source": "gyftr",
+      "pct": 9.0
+    },
+    "online": false,
+    "offline": true,
+    "stack": "One voucher per order",
+    "steps": [
+      "To register and activate your ITC Hotels Gift Card, please log into the self-serve application https://bit.ly/itcclaim. You can also send an SMS from your mobile phone as follows: ACT< space>16-DigitCardNumber< space>6DigitPin< space >FirstName< space>LastName to 7506998660. The sending of the said message to the designated mobile number and receipt of due acknowledgement there to shall constitute registration of the User.",
+      "At the time of check-out/ settling the invoice, use your e-Gift to redeem it by sharing the 16-digit card number and the OTP received on the registered mobile number.",
+      "A valid card in its original form must be presented at the time of availing a service. The E-Gift Card can be redeemed at any of the participating ITC Hotels."
+    ],
+    "restrictions": [],
+    "multiUse": false,
+    "canClub": false
+  },
+  {
+    "slug": "marriott-hotels",
+    "name": "Marriott Hotels",
+    "website": "https://www.marriott.com/",
+    "checked": "2026-11-25",
+    "hubble": {
+      "pct": 7.0,
+      "brand_name": "Marriot Hotels",
+      "in_store": true,
+      "works": [
+        "OFFLINE"
+      ],
+      "cards": [],
+      "min_amount": 1000,
+      "max_amount": 10000,
+      "typed": true,
+      "steps": [
+        "Marriott E- Gift card needs to be registered before use. To register and activate your E-Gift Card, please send a SMS from your mobile phone: ACT CardNumber CardPin FirstName LastName to 7045379388.",
+        "The Marriott E-Gift Card will need to be presented via the email that the customer has received at the time of purchase.",
+        "The customer will need to provide the 16-digit E-gift card number & the 6-digit PIN during check in/ out"
+      ],
+      "terms": [
+        "Comes with 1-year validity and can only be used offline",
+        "Eligible purchases do not include advanced purchases, deposits, friends and family rates, payments for meetings, catering or group functions, or any other negotiated rates",
+        "This is a one-time use card and cannot be used outside of India"
+      ]
+    },
+    "sellers": [
+      {
+        "source": "maximize",
+        "label": "Maximize",
+        "pct": 7.75,
+        "upi_pct": 7.75,
+        "card_pct": 5.85,
+        "url": "https://www.maximize.money/gift-cards/Marriott%20Hotels%20India/551",
+        "online": false,
+        "offline": true,
+        "denominations": [
+          2000,
+          5000,
+          10000
+        ],
+        "typed": true,
+        "typed_min": 1000,
+        "typed_max": 10000,
+        "stack_limit": 1,
+        "value_cap": null,
+        "checked": "2026-11-05"
+      }
+    ],
+    "best": {
+      "source": "maximize",
+      "pct": 7.75
+    },
+    "online": false,
+    "offline": true,
+    "stack": "One voucher per order",
+    "steps": [
+      "Register & Activate your card via: SMS: Send ACT <CardNumber> <CardPin> <FirstName> <LastName> to 7045379388",
+      "Web Activation Link can be found here - https://marriotthotelsindiagcbal.qwikcilver.com/QwikCilver/sclp.ssa/welcome.aspx?orgname=Marriott%20Hotels%20India",
+      "Visit any participating Marriott hotel in India.",
+      "Present the original email/SMS gift card at billing."
+    ],
+    "restrictions": [],
+    "multiUse": false,
+    "canClub": false
+  },
+  {
+    "slug": "the-leela",
+    "name": "The Leela",
+    "website": "https://www.theleela.com/",
+    "checked": "2026-11-25",
+    "hubble": {
+      "pct": 7.0,
+      "brand_name": "Moments by The Leela",
+      "in_store": true,
+      "works": [
+        "OFFLINE"
+      ],
+      "cards": [],
+      "min_amount": 5000,
+      "max_amount": 10000,
+      "typed": true,
+      "steps": [
+        "During checkin/ checkout, inform the manager of the gift card & share 16-digit E-gift card number & the 6-digit PIN",
+        "You will receive an OTP, share it with the cashier."
+      ],
+      "terms": [
+        "Comes with 1 year validity and can be redeemed multiple times until value of the Gift Card is exhausted",
+        "Gift card cannot be used and clubbed with other promotional programs and user cannot club more than 1 Gift Card in one order",
+        "The Leela Gift Card is redeemable at the following participating hotels - The Leela Palace Bangalore, Leela Bhartiya City Bangalore, The Leela Palace Chennai, The Leela Palace New Delhi, Leela Ambience Convention Hotel Delhi, Leela Ambience Gurgaon, The Leela Palace Jaipur, The Leela Palace Udaipur, The Leela Gandhinagar"
+      ]
+    },
+    "sellers": [
+      {
+        "source": "maximize",
+        "label": "Maximize",
+        "pct": 10.0,
+        "upi_pct": 10.0,
+        "card_pct": 8.1,
+        "url": "https://www.maximize.money/gift-cards/The%20Leela/1118",
+        "online": false,
+        "offline": true,
+        "denominations": [
+          10000
+        ],
+        "typed": true,
+        "typed_min": 5000,
+        "typed_max": 10000,
+        "stack_limit": 1,
+        "value_cap": null,
+        "checked": "2026-11-05"
+      }
+    ],
+    "best": {
+      "source": "maximize",
+      "pct": 10.0
+    },
+    "online": false,
+    "offline": true,
+    "stack": "One voucher per order",
+    "steps": [
+      "Visit any participating The Leela Hotel.",
+      "Select your preferred experience, including stay, dining, spa, or other eligible services.",
+      "Inform the hotel staff that you wish to redeem a The Leela E-Gift Card.",
+      "Present your E-Gift Card details at the time of billing."
+    ],
+    "restrictions": [],
+    "multiUse": true,
+    "canClub": false
+  },
+  {
+    "slug": "apollo-pharmacy",
+    "name": "Apollo Pharmacy",
+    "website": "https://www.apollopharmacy.in/",
+    "checked": "2026-11-25",
+    "hubble": {
+      "pct": 10.0,
+      "brand_name": "Apollo",
+      "in_store": false,
+      "works": [
+        "OFFLINE",
+        "ONLINE"
+      ],
+      "cards": [
+        250,
+        500,
+        1000,
+        2000,
+        5000
+      ],
+      "min_amount": 250,
+      "max_amount": 5000,
+      "typed": false,
+      "steps": [
+        "Visit the Apollo 24|7 Website or open the mobile app",
+        "Browse and add the required medicines or healthcare products to your cart (except FMCG products)",
+        "Proceed to checkout",
+        "Go to “all coupons and vouchers” section and click on the Gift Voucher, enter your voucher code. If your voucher also has the PIN, please enter that as well",
+        "Click Use Voucher to use the voucher",
+        "Complete the payment. If the voucher covers the full amount, no additional payment is needed. If not, pay the remaining balance via available payment options"
+      ],
+      "terms": [
+        "The Pharma Voucher can be redeemed at both online and offline Apollo Pharmacy stores, Offline: Select Apollo Pharmacy outlets (Apollo-affiliated stores) Online: Apollo 24|7 platform via the mobile app or website",
+        "This voucher is valid for one-time use only and is Non-transferable and non-refundable",
+        "It is not applicable on FMCG products, lab tests, consultations, or insurance plans",
+        "It cannot be combined with other offers, promotional codes, corporate credits Partial redemption is not allowed. If the bill is lower than the voucher amount, the balance will be forfeited"
+      ]
+    },
+    "sellers": [
+      {
+        "source": "gyftr",
+        "label": "Gyftr",
+        "pct": 11.0,
+        "upi_pct": 11.0,
+        "card_pct": 9.5,
+        "url": "https://www.gyftr.com/apollo-pharmacy",
+        "online": true,
+        "offline": true,
+        "denominations": [
+          100,
+          500,
+          1000,
+          2000,
+          2500,
+          5000
+        ],
+        "typed": false,
+        "typed_min": null,
+        "typed_max": null,
+        "stack_limit": 1,
+        "value_cap": null,
+        "checked": "2026-11-09"
+      },
+      {
+        "source": "maximize",
+        "label": "Maximize",
+        "pct": 10.0,
+        "upi_pct": 10.0,
+        "card_pct": 8.1,
+        "url": "https://www.maximize.money/gift-cards/Apollo/1091",
+        "online": true,
+        "offline": true,
+        "denominations": [
+          100,
+          250,
+          500,
+          1000,
+          2000,
+          2500,
+          5000
+        ],
+        "typed": false,
+        "typed_min": null,
+        "typed_max": null,
+        "stack_limit": 1,
+        "value_cap": null,
+        "checked": "2026-11-05"
+      },
+      {
+        "source": "buyhatke",
+        "label": "BuyHatke",
+        "pct": 6.59,
+        "upi_pct": 6.59,
+        "card_pct": null,
+        "url": "https://buyhatke.com/gift-cards/apollo-pharmacy-gift-card",
+        "online": true,
+        "offline": true,
+        "denominations": [
+          250,
+          500,
+          1000,
+          2000,
+          2500,
+          5000
+        ],
+        "typed": false,
+        "typed_min": null,
+        "typed_max": null,
+        "stack_limit": 1,
+        "value_cap": null,
+        "checked": "2026-11-05"
+      }
+    ],
+    "best": {
+      "source": "gyftr",
+      "pct": 11.0
+    },
+    "online": true,
+    "offline": true,
+    "stack": "One voucher per order",
+    "steps": [
+      "Visit the Apollo Pharmacy mobile app and log in to your account. Add the required products to your cart.",
+      "Navigate to the “All Coupons & Vouchers” section and select Gift Voucher. Enter the Gift Voucher code and PIN (if applicable) and click \"Use Voucher\".",
+      "The voucher value will be deducted from the total payable amount. Complete the remaining payment (if any) using the available payment modes.",
+      "Locate a nearby participating outlet, choose your product, share the Gift Voucher at billing, and pay any balance if required."
+    ],
+    "restrictions": [],
+    "multiUse": false,
+    "canClub": false
+  },
+  {
+    "slug": "o2-spa",
+    "name": "O2 Spa",
+    "website": "https://www.o2spa.in/",
+    "checked": "2026-11-25",
+    "hubble": {
+      "pct": 10.0,
+      "brand_name": "O2 Spa Salon",
+      "in_store": true,
+      "works": [
+        "OFFLINE"
+      ],
+      "cards": [],
+      "min_amount": 500,
+      "max_amount": 10000,
+      "typed": true,
+      "steps": [
+        "Visits the outlet and select service/ product",
+        "During payment, share the gift card details with the cashier.",
+        "Pay balance amount using other available payment modes."
+      ],
+      "terms": [
+        "Comes with 6 months validity",
+        "The gift card is valid on O2 Spa outlets; please check the link to locate the store https://www.woohoo.in/o2spa-store-list",
+        "Maximum of five gift cards can be redeemed against a single invoice"
+      ]
+    },
+    "sellers": [],
+    "best": {
+      "source": "dealo",
+      "pct": 10.0
+    },
+    "online": false,
+    "offline": true,
+    "stack": null,
+    "steps": [],
+    "restrictions": [],
+    "multiUse": null,
+    "canClub": null
+  },
+  {
+    "slug": "kalyan-jewellers",
+    "name": "Kalyan Jewellers",
+    "website": "https://www.kalyanjewellers.net/",
+    "checked": "2026-11-25",
+    "hubble": {
+      "pct": 3.5,
+      "brand_name": "Kalyan Jewellers",
+      "in_store": true,
+      "works": [
+        "OFFLINE"
+      ],
+      "cards": [],
+      "min_amount": 2000,
+      "max_amount": 100000,
+      "typed": true,
+      "steps": [
+        "Visit the nearby Kalyan Store. To locate the nearest store please visit https://www.kalyanjewellers.net/store-locator.php",
+        "Select the applicable Kalyan product",
+        "At the Billing Counter, inform the cashier about the choice of making payment using Gift Cards.",
+        "Cashier selects Gift Card as payment mode, submits card details in the system and completes the billing process"
+      ],
+      "terms": [
+        "Comes with 1 year validity. This card can be used only once.",
+        "This gift card is not redeemable on gold & silver coins. Not valid for subscription schemes.",
+        "A maximum of 10 cards can be added in a single bill"
+      ]
+    },
+    "sellers": [],
+    "best": {
+      "source": "dealo",
+      "pct": 3.5
+    },
+    "online": false,
+    "offline": true,
+    "stack": null,
+    "steps": [],
+    "restrictions": [],
+    "multiUse": null,
+    "canClub": null
+  },
+  {
+    "slug": "joyalukkas",
+    "name": "Joyalukkas",
+    "website": "https://www.joyalukkas.in/",
+    "checked": "2026-11-25",
+    "hubble": {
+      "pct": 3.5,
+      "brand_name": "Joyalukkas",
+      "in_store": true,
+      "works": [
+        "OFFLINE"
+      ],
+      "cards": [],
+      "min_amount": 500,
+      "max_amount": 100000,
+      "typed": true,
+      "steps": [
+        "Please check the nearest joyalukkas store by visiting https://www.joyalukkas.in/store-locator",
+        "Select the applicable Joyalukkas product, based on the Gift card type (refer terms & conditions).",
+        "At the Billing Counter, inform the cashier about the choice of making payment using Gift Cards.",
+        "Cashier selects Gift Card as payment mode, submits Gift Card & PIN details in the system and completes the billing process."
+      ],
+      "terms": [
+        "Comes with 1 year validity. Can be used multiple times.",
+        "Multiple gift cards can be used in a single transaction",
+        "Only valid for offline purchases and is not valid for subscription schemes. The gift card can be used for the purchase of any gold and diamond jewellery except gold bullion/coin.",
+        "EGVs issued by Joyalukkas can be redeemed partially and used multiple times on the Joyalukkas India website or mobile app until the full value is exhausted or the card validity expires. However, EGVs cannot be redeemed partially in offline stores."
+      ]
+    },
+    "sellers": [
+      {
+        "source": "buyhatke",
+        "label": "BuyHatke",
+        "pct": 2.01,
+        "upi_pct": 2.01,
+        "card_pct": null,
+        "url": "https://buyhatke.com/gift-cards/joyalukkas-gift-card",
+        "online": true,
+        "offline": false,
+        "denominations": [
+          500,
+          1500,
+          5000,
+          100000
+        ],
+        "typed": false,
+        "typed_min": null,
+        "typed_max": null,
+        "stack_limit": null,
+        "value_cap": 100000.0,
+        "checked": "2026-11-05"
+      }
+    ],
+    "best": {
+      "source": "dealo",
+      "pct": 3.5
+    },
+    "online": false,
+    "offline": true,
+    "stack": null,
+    "steps": [
+      "Walk in-to Joyalukkas store.",
+      "Select the applicable Joyalukkas product, based on the Gift card type (refer terms & conditions).",
+      "At the Billing Counter, inform the cashier about the choice of making payment using Gift Cards.",
+      "Cashier selects Gift Card as payment mode, submits Gift Card & PIN details in the system and completes the billing process."
+    ],
+    "restrictions": [],
+    "multiUse": true,
+    "canClub": null
   }
 ]

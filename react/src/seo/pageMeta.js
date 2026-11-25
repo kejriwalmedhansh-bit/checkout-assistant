@@ -250,18 +250,20 @@ function subscriptionMeta(shop) {
  * - a fact the data does not have is left out, never padded with "not stated";
  * - no sentence that would read the same on every shop's page.
  * So the opening differs from shop to shop exactly as the facts differ.
+ * "In person", not "in stores": the same line must be true of a hotel, a
+ * spa and a shop.
  */
 export function quickAnswer(shop) {
   const rate = shownPct(shop);
   const where =
     shop.online && shop.offline
-      ? `Use it online or in ${shop.name} stores.`
+      ? `Use it online or in person at ${shop.name}.`
       : shop.offline
-      ? `Use it at the counter in ${shop.name} stores; it does not work online.`
+      ? `Use it in person at ${shop.name}; it does not work online.`
       : `Use it for online orders at ${shop.name}.`;
   const club =
     shop.canClub === true
-      ? 'It works on top of a sale price or coupon.'
+      ? 'It can be used together with other offers.'
       : shop.canClub === false
       ? 'It cannot be combined with other offers.'
       : '';
