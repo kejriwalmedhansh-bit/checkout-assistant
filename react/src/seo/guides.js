@@ -10,7 +10,7 @@
  * Read by GuidePage.jsx and scripts/prerender.mjs (relative imports only).
  * Rates come from shopPages.json, so they move with every rebuild.
  */
-import { SITE_NAME, SITE_URL, pct, shownPct } from './pageMeta.js';
+import { SITE_NAME, SITE_URL, isSubscription, pct, shownPct } from './pageMeta.js';
 import { CATEGORIES, categoryShops, inr, payOn } from './categories.js';
 
 const topShops = (shopPages, n) =>
@@ -73,7 +73,40 @@ function figures(shopPages) {
   };
 }
 
+
+/** Black Friday is the day after the fourth Thursday of November. Returns the
+ * day of the month for Black Friday and for the Cyber Monday after it. */
+function blackFriday(year) {
+  const firstDay = new Date(Date.UTC(Number(year), 10, 1)).getUTCDay(); // 0 = Sunday
+  const fri = 1 + ((4 - firstDay + 7) % 7) + 21 + 1;
+  const mon = fri + 3;
+  return { friday: `${fri} November ${year}`, monday: mon <= 30 ? `${mon} November ${year}` : `${mon - 30} December ${year}` };
+}
+
+/** Today's figures for the Black Friday guide: shops whose card works online. */
+function saleFigures(shopPages) {
+  const online = shopPages
+    .filter((s) => s.online && shownPct(s) && !isSubscription(s))
+    .sort((a, b) => shownPct(b) - shownPct(a));
+  const pick = (catSlug, n) => {
+    const cat = CATEGORIES.find((c) => c.slug === catSlug);
+    // Under 3% belongs in "adds very little", not in a "biggest" list.
+    return cat ? online.filter((s) => cat.shops.includes(s.slug) && shownPct(s) >= 3).slice(0, n) : [];
+  };
+  return {
+    online,
+    five: online.filter((s) => shownPct(s) >= 5).length,
+    withOffers: online.filter((s) => s.canClub === true),
+    noOffers: online.filter((s) => s.canClub === false).length,
+    fashion: pick('fashion', 8),
+    electronics: pick('electronics', 8),
+    beauty: pick('beauty-jewellery', 8),
+  };
+}
+
 export function buildGuides(shopPages) {
+  const bf = blackFriday(figures(shopPages).year);
+  const sale = saleFigures(shopPages);
   const ex = example(shopPages);
   const top = topShops(shopPages, 10);
   const f = figures(shopPages);
@@ -345,6 +378,84 @@ export function buildGuides(shopPages) {
         {
           q: 'Can I get my money back if I return something bought with a gift card?',
           a: 'Usually the refund comes back as store credit, not to your bank. Reddit users suggest using gift cards for things you will not return.',
+        },
+      ],
+    },
+    {
+      // Newsjacking (25 Nov 2026): a page tied to Black Friday that other
+      // sites can point to. Nothing here says which shops run a sale or what
+      // their sale prices are: only Dealo's own checked gift card rates. The
+      // dates and the year work themselves out, so the page is right again
+      // next November without an edit.
+      slug: 'black-friday-gift-card-discounts-india',
+      title: `Black Friday ${f.year} India: the extra discount on top at ${sale.online.length} shops`,
+      description: `Pay a Black Friday sale price with the shop's own gift card and it costs less again. Today's gift card discount at ${sale.online.length} Indian online shops, checked ${f.checked}.`,
+      heading: `Black Friday ${f.year} in India: the extra discount on top`,
+      intro: 'The sale price is not the lowest price. Pay it with the shop’s own gift card and you pay less again.',
+      sections: [
+        {
+          h: 'The short answer',
+          p: [
+            `Black Friday is on ${bf.friday} and Cyber Monday on ${bf.monday}. Whatever the sale price is, a discounted gift card for that shop takes a little more off, because you buy the card for less than its value and pay the shop with it.`,
+            `Dealo checked the gift card price at ${sale.online.length} Indian shops whose card works online, on ${f.checked}. At ${sale.five} of them the card costs at least 5% less than its value. Today a ₹5,000 ${ex.shop.name} order paid with a gift card costs ${inr(payOn(ex.rate, 5000))}.`,
+          ],
+        },
+        {
+          h: 'How it works on a sale day',
+          ol: [
+            'Add what you want to the shop’s cart and note the total at the sale price.',
+            'Search the shop on getdealo.in and buy its gift card for that amount. You pay less than the card’s value.',
+            'Go back to the shop’s checkout, choose “gift card” as the payment method and enter the code.',
+          ],
+        },
+        {
+          h: 'Fashion: biggest gift card discounts today',
+          shops: sale.fashion.map((s) => s.slug),
+        },
+        {
+          h: 'Electronics: biggest gift card discounts today',
+          shops: sale.electronics.map((s) => s.slug),
+        },
+        {
+          h: 'Beauty and jewellery: biggest gift card discounts today',
+          shops: sale.beauty.map((s) => s.slug),
+        },
+        {
+          h: 'Check this before you buy the card',
+          p: [
+            `Not every shop lets you use a gift card together with another offer. Of the ${sale.online.length} online shops, ${sale.withOffers.length} say the card works with other offers and ${sale.noOffers} say it does not. The rest do not say. Each shop page shows which.`,
+            'A coupon code or a bank card offer may switch off when you pay with a gift card. If the bank offer is bigger than the gift card discount, take the bank offer.',
+            'A gift card usually cannot be returned or turned back into money, and a refund for a returned order usually comes back as store credit. Buy the card only for an order you are about to place.',
+          ],
+        },
+        {
+          h: 'Where a gift card adds very little',
+          p: [
+            `The biggest shops give the least: ${names(f.low)}. During a big sale, the bank offer on their own payment page is often worth more.`,
+          ],
+        },
+      ],
+      note: `Disclosure: Dealo sells gift cards itself, issued through Hubble, an official gift card issuer. This page shows gift card prices only, read on ${f.checked}. It does not say which shops are running a sale or what their sale prices are. Rates change often, so check the shop’s page before you pay.`,
+      faqs: [
+        {
+          q: 'Can I use a gift card on top of a Black Friday sale price?',
+          a: `At many shops, yes: the gift card is a way to pay, so it pays whatever price the shop shows. Of ${sale.online.length} online shops checked, ${sale.withOffers.length} say the card works with other offers and ${sale.noOffers} say it does not. Check the shop’s page first.`,
+        },
+        {
+          q: `When is Black Friday ${f.year} in India?`,
+          a: `Black Friday is on ${bf.friday}. Cyber Monday is on ${bf.monday}. Many Indian shops start their sales a few days earlier.`,
+        },
+        {
+          q: 'Which shops give the biggest extra discount with a gift card?',
+          a: `Among shops whose card works online, today’s biggest are ${names(sale.online.slice(0, 5))}.`,
+        },
+        {
+          q: 'Is a gift card or a bank card offer better during a sale?',
+          a: 'Compare the two for your order. A gift card discount is the same on any amount and with any bank. A bank offer is often bigger but has a minimum spend and a cap, and may not work together with a gift card.',
+        },
+        {
+          q: 'Do gift card discounts go up on Black Friday?',
+          a: `Not as a rule. Gift card prices change through the year for their own reasons. The numbers on this page are the prices on ${f.checked}.`,
         },
       ],
     },
