@@ -18,6 +18,7 @@ from ..category_classifier import classify_product, restriction_mentions_categor
 from ..repositories import buyhatke_repository, maximize_repository, voucher_repository
 from ..repositories import platform_rules_repository as platform_rules
 from ..repositories._brand_matching import find_matches
+from . import hubble_service
 
 # Maps the caller-facing payment_method argument to the keys used in the
 # discounts dict of gyftr_master.json / maximize_master.json. "card" means
@@ -2200,9 +2201,17 @@ def product_choices(shop_label: str, price: float | None = None) -> list[dict]:
         # it takes its group's reviewed answer rather than an automatic name.
         reviewed = review.get(deal["brand_name"]) or next(
             (review[c["name"]] for c in cards if c["name"] in review and not review[c["name"]].get("hide")), {})
+        # Partner cards Dealo itself sells as one and the same card are one
+        # choice too: Domino's on Gyftr, Maximize and BuyHatke are all
+        # Dealo's "Dominos", every screen swaps each for Dealo's card, and
+        # the shopper was asked to pick between identical buttons (owner,
+        # 25 Nov 2026). A card the owner has reviewed keeps the owner's
+        # answer (Amazon: shopping voucher or Amazon Pay).
+        own = None if reviewed else (
+            hubble_service.brand_for(deal["brand_name"]) or hubble_service.brand_for(deal["brand_name"], in_store=True))
         choices.append({
             **deal,
-            "_same": reviewed.get("same"),
+            "_same": reviewed.get("same") or (f"dealo:{own['id']}" if own else None),
             # The website this voucher is for, when the shop runs two (AJIO
             # and AJIO Luxe): the extension then needn't ask at all.
             "choice_host": reviewed.get("host"),
