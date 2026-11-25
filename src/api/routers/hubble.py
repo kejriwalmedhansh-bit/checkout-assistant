@@ -105,6 +105,7 @@ def _remember_attribution(uid: str, body: "SessionRequest") -> None:
         _attribution.pop(stale, None)
     _attribution[uid] = (now, {
         "dealo_id": body.dealo_id,
+        "visit_id": body.visit_id,
         "src": body.src,
         "placement": body.placement,
         "merchant": body.merchant,
@@ -167,6 +168,9 @@ class SessionRequest(BaseModel):
     # Analytics only (see _attribution): the visitor's anonymous Mixpanel id
     # when they agreed to cookies, and the buy link's src / page placement.
     dealo_id: str | None = None
+    # Without consent: the visit's in-memory tag (visit:<random>), the id its
+    # website events are counted under. Lets the sale join that one visit.
+    visit_id: str | None = None
     src: str | None = None
     placement: str | None = None
     # Where the visit came from: the site that sent the shopper, the first
@@ -199,6 +203,8 @@ async def session(body: SessionRequest) -> dict:
     await buyer_service.save_buyer(login["uid"], login["phone"], name, email, body.marketing_optin)
     await buyer_service.note_first_source(login["uid"], _visit_source(body))
     _remember_attribution(login["uid"], body)
+    buyer_service.report_buyer_seen(login["uid"], "payment_screen", get_settings().HUBBLE_ENV, _visit_source(body),
+                                    dealo_id=body.dealo_id, visit_id=body.visit_id)
     token = hubble_service.sso_token(login["uid"], login["phone"], name, email)
     return {"url": hubble_service.store_url(found, token), "offer": found,
             "session": _open_session(login["uid"], found["brand_name"]),
@@ -284,6 +290,9 @@ class LoginRequest(BaseModel):
     utm_source: str | None = None
     utm_medium: str | None = None
     utm_campaign: str | None = None
+    # The visit's own tag (see SessionRequest), so the login joins the visit.
+    dealo_id: str | None = None
+    visit_id: str | None = None
 
 
 @router.post("/login")
@@ -299,6 +308,8 @@ async def login(body: LoginRequest) -> dict:
     known = await buyer_service.buyer_profile(login["uid"])
     await buyer_service.save_buyer(login["uid"], login["phone"], None, None, False)
     await buyer_service.note_first_source(login["uid"], _visit_source(body))
+    buyer_service.report_buyer_seen(login["uid"], "login", get_settings().HUBBLE_ENV, _visit_source(body),
+                                    dealo_id=body.dealo_id, visit_id=body.visit_id)
     name = (known.get("name") or "").strip()
     return {"name": name or None, "email": known.get("email") or None, "new": not name}
 

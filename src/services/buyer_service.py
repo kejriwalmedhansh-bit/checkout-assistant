@@ -196,6 +196,56 @@ async def buyer_profile(uid: str) -> dict:
 
 
 _DEALO_ID = re.compile(r"^[A-Za-z0-9_-]{8,64}$")
+# The website's in-memory visit tag (analytics.js VISIT_ID).
+_VISIT_ID = re.compile(r"^visit:[A-Za-z0-9-]{8,64}$")
+
+
+def buyer_key(uid: object) -> str | None:
+    """The buyer as Mixpanel knows them: a one-way hash of the login id."""
+    return hashlib.sha256(str(uid).encode()).hexdigest()[:16] if uid else None
+
+
+def _visit_ids(dealo_id: object, visit_id: object) -> tuple[str | None, dict]:
+    """Which website visit a server event belongs to. A shopper who agreed
+    to cookies has a saved id (dealo_id); one who didn't has only the visit's
+    in-memory tag, which is the id that visit's website events were counted
+    under. Returns (device id for build_event, extra properties). Junk from
+    outside is dropped, leaving the event anonymous as before."""
+    if dealo_id and _DEALO_ID.match(str(dealo_id)):
+        return str(dealo_id), {}
+    if visit_id and _VISIT_ID.match(str(visit_id)):
+        return None, {"distinct_id": str(visit_id), "visit_id": str(visit_id)}
+    return None, {}
+
+
+def buyer_seen_event(uid: str, at: str, environment: str, source: dict | None = None, *,
+                     dealo_id: object = None, visit_id: object = None) -> dict:
+    """The Mixpanel event that says "this website visit is this buyer": sent
+    when a shopper logs in with their phone or opens the payment screen. It
+    is what lets every visit a buyer logs in on be read as one person's,
+    without anything saved in their browser. No name, no phone number."""
+    device_id, visit_props = _visit_ids(dealo_id, visit_id)
+    return analytics_service.build_event(
+        "Buyer Seen",
+        surface="web",
+        device_id=device_id,
+        properties={
+            "at": at,
+            "buyer_key": buyer_key(uid),
+            "seller_environment": environment,
+            **_source_columns(source),
+            **visit_props,
+        },
+    )
+
+
+def report_buyer_seen(uid: str, at: str, environment: str, source: dict | None = None, *,
+                      dealo_id: object = None, visit_id: object = None) -> None:
+    """Never fails the login or the purchase."""
+    try:
+        analytics_service.fire(buyer_seen_event(uid, at, environment, source, dealo_id=dealo_id, visit_id=visit_id))
+    except Exception as exc:  # noqa: BLE001
+        print(f"[buyers] could not report buyer seen: {exc}")
 
 
 async def purchases_for(uid: str, environment: str) -> list[dict]:
@@ -252,9 +302,7 @@ def voucher_sold_event(order: dict, environment: str, attribution: dict | None =
     pct = round(discount / amount * 100, 2) if amount and discount is not None else None
     uid = order.get("userId")
     attribution = attribution or {}
-    dealo_id = attribution.get("dealo_id")
-    if dealo_id and not _DEALO_ID.match(str(dealo_id)):
-        dealo_id = None
+    dealo_id, visit_props = _visit_ids(attribution.get("dealo_id"), attribution.get("visit_id"))
     return analytics_service.build_event(
         "Voucher Sold",
         surface="web",
@@ -275,7 +323,8 @@ def voucher_sold_event(order: dict, environment: str, attribution: dict | None =
             "utm_medium": _short(attribution.get("utm_medium")),
             "utm_campaign": _short(attribution.get("utm_campaign")),
             "seller_environment": environment,
-            "buyer_key": hashlib.sha256(str(uid).encode()).hexdigest()[:16] if uid else None,
+            "buyer_key": buyer_key(uid),
+            **visit_props,
         },
     )
 

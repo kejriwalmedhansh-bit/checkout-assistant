@@ -5,7 +5,7 @@ import { I } from '@/components/common/icons';
 import { hubbleApi } from '@/api/hubble.api';
 import { currentUser, idToken } from '@/lib/firebase';
 import { markPending, readBuyerName as readName, saveOrder, setSignedIn, setVouchersOpen } from '@/lib/myVouchers';
-import { getDealoId, soldEventProps, track, visitSource } from '@/utils/analytics';
+import { getDealoId, soldEventProps, track, visitId, visitSource } from '@/utils/analytics';
 import { fmt } from '@/utils/format';
 
 import CodeRow from './CodeRow';
@@ -68,6 +68,9 @@ export default function BuyFlow({ offer, merchant, storeLink, price, shopLink, p
         // So the sale Hubble reports later can be joined to this visit and
         // to the link that brought the shopper (null without consent).
         dealo_id: getDealoId(),
+        // Without consent: this visit's in-memory tag, so the sale still
+        // joins the visit that led to it (never stored, see visitId).
+        visit_id: visitId(),
         src: src || null,
         placement: placement || null,
         // Where the visit came from (google, instagram, a shop page...), so

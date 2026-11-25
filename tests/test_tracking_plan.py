@@ -389,3 +389,49 @@ def test_voucher_sold_says_which_source_brought_the_buyer(monkeypatch):
     asyncio.run(buyer_service.save_purchase(_hubble_order(transactionReferenceId="HB-OLD", userId="u-old"), "production",
                                             attribution=hubble_router._attribution_for("u-old")))
     assert sent[1]["properties"]["referrer_domain"] is None
+
+
+def test_sale_and_login_join_a_visit_without_consent(monkeypatch):
+    """A shopper who never answered the cookie question has no saved id, only
+    the visit's in-memory tag. The sale and the login are counted under that
+    same tag, so the sale is read together with the visit that led to it."""
+    import asyncio
+
+    from src.api.routers import hubble as hubble_router
+    from src.services import analytics_service, buyer_service
+
+    sent: list[dict] = []
+    monkeypatch.setattr(analytics_service, "fire", lambda payload: sent.append(payload))
+    visit = "visit:3f2c1a9e-aaaa-4bbb-8ccc-123456789abc"
+    body = hubble_router.SessionRequest(id_token="x", name="A", merchant="Myntra", price=1000, visit_id=visit,
+                                        landing_page="/brands/myntra/", referrer_domain="www.google.com")
+    hubble_router._remember_attribution("u-visit", body)
+    asyncio.run(buyer_service.save_purchase(_hubble_order(transactionReferenceId="HB-V", userId="u-visit"), "production",
+                                            attribution=hubble_router._attribution_for("u-visit")))
+    sold = sent[0]["properties"]
+    assert sold["distinct_id"] == visit and sold["visit_id"] == visit and "$device_id" not in sold
+
+    buyer_service.report_buyer_seen("u-visit", "login", "production", {"landing_page": "/brands/myntra/"}, visit_id=visit)
+    seen = sent[1]
+    assert seen["event"] == "Buyer Seen" and seen["properties"]["distinct_id"] == visit
+    assert seen["properties"]["buyer_key"] == sold["buyer_key"] and seen["properties"]["at"] == "login"
+    assert seen["properties"]["landing_page"] == "/brands/myntra/"
+    assert not ({"phone", "name", "email"} & set(seen["properties"]))
+
+    # A saved id (consent given) wins over the visit tag; junk leaves the event anonymous.
+    buyer_service.report_buyer_seen("u-visit", "login", "production", None,
+                                    dealo_id="3f2c1a9e-aaaa-4bbb-8ccc-123456789abc", visit_id=visit)
+    assert sent[2]["properties"]["distinct_id"].startswith("$device:") and "visit_id" not in sent[2]["properties"]
+    buyer_service.report_buyer_seen("u-visit", "login", "production", None, visit_id="visit:<script>")
+    assert sent[3]["properties"]["distinct_id"] == "anonymous"
+
+
+def test_website_skips_crawlers_and_stamps_source_on_every_event():
+    text = (ROOT / "react/src/utils/analytics.js").read_text()
+    # Programs are never counted, and never start the recorder.
+    assert "if (IS_BOT) return;" in text and "!isGranted() && !IS_BOT" in text
+    # The source goes on through track(), so no event can forget it.
+    assert "const withSource = { ...sourceProps(), ...props };" in text
+    # The visit tag leaves the browser only as null once consent is given.
+    assert "return isGranted() ? null : VISIT_ID;" in text
+

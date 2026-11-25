@@ -145,7 +145,7 @@ export default function PrivacyPage() {
         <br />
         <br />
         If you haven’t agreed, none of that happens: no identifier is saved, no replay, no address or location,
-        nothing that ties a search to you. What’s kept is each step of the visit with facts about the page rather
+        nothing that ties a search to you (unless you log in to buy a voucher — see below). What’s kept is each step of the visit with facts about the page rather
         than the person — the page opened, the words searched (a pasted link cut down to the shop and page, without
         the tracking codes after the “?”), the shop, price and saving shown, which button was pressed, and which
         site or campaign link the visit came from — plus opening a store or voucher link, which our server counts
@@ -197,6 +197,13 @@ export default function PrivacyPage() {
             holds it in memory for up to 30 minutes for that screen and then forgets it; we never store codes.
           </li>
         </List>
+        When you log in to buy, we also note which visit the login belongs to, so we can see what led to a
+        purchase — the page you arrived on, what you searched and which steps you took in that visit. This holds
+        even if you haven’t agreed to be recorded, and it is the one case where a visit is tied to a buyer: it
+        uses a scrambled code in place of your name or number, covers only visits in which you log in, and still
+        saves nothing extra in your browser.
+        <br />
+        <br />
         Your browser keeps you signed in on this device so a second purchase needs no new code; signing out of the
         browser’s site data for getdealo.in removes that.
 

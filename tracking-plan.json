@@ -9,7 +9,8 @@
   "identity": {
     "$device_id": "Anonymous id. Website: the visitor's dealo_user_id (only after consent); without consent every event is sent under a random per-visit id (visit:<random>) that lives only in page memory, so one visit's steps line up but two visits never do. Extension: an id created at install. WhatsApp: wa-<scrambled phone>. Also sent as dealo_id.",
     "$user_id": "A known person. Only WhatsApp has one: wa:<phone>. An event carrying both ids joins every earlier event of that device to the person.",
-    "links": "Website -> WhatsApp: the bot's pre-filled message carries (ref <website id>) and the bot fires Identity Linked. Every shop link carries the device id as affiliate subid, so purchases come back already attributed."
+    "links": "Website -> WhatsApp: the bot's pre-filled message carries (ref <website id>) and the bot fires Identity Linked. Every shop link carries the device id as affiliate subid, so purchases come back already attributed.",
+    "visit_id": "Website, without consent: the per-visit id (visit:<random>). Sent to the server only when the shopper logs in or opens the payment screen, so Buyer Seen and Voucher Sold are counted under the same id as that visit's own steps. Never stored in the browser."
   },
   "common_properties": {
     "surface": "web | whatsapp | extension (server events take the surface of the link that was clicked)",
@@ -20,7 +21,8 @@
     "consent": "web: granted | not_granted. Without consent every website event is still sent, stripped to an allow-list of page/deal properties (ANONYMOUS_SAFE_PROPS in react/src/utils/analytics.js), with no IP, no stored id, no replay.",
     "device": "web, without consent only: phone | desktop (consented visits carry Mixpanel's own $device / $os / $browser)",
     "os": "web, without consent only: iOS | Android | Windows | macOS | ChromeOS | Linux | other (family only, no version)",
-    "browser": "web, without consent only: Chrome | Safari | Firefox | Edge | Samsung Internet | Opera | other (family only, no version)"
+    "browser": "web, without consent only: Chrome | Safari | Firefox | Edge | Samsung Internet | Opera | other (family only, no version)",
+    "landing_page, referrer_domain, utm_source, utm_medium, utm_campaign": "web: where the visit came from, on every website event (not only Session Started and the buy steps), so searches and deals can be split by source"
   },
   "events": {
     "Dealo Voucher Shown": {
@@ -214,7 +216,7 @@
       }
     },
     "Voucher Sold": {
-      "description": "Hubble's webhook confirmed a completed order; sent by the backend from buyer_service.save_purchase, once per order (a retried webhook is deduplicated). THE number: vouchers actually bought through Dealo. Carries no codes, PINs or phone numbers. Joined to the shopper's visit ($device_id) and buy link when the payment screen was opened in the last 6 hours on the same server.",
+      "description": "Hubble's webhook confirmed a completed order; sent by the backend from buyer_service.save_purchase, once per order (a retried webhook is deduplicated). THE number: vouchers actually bought through Dealo. Carries no codes, PINs or phone numbers. Joined to the shopper's visit ($device_id with consent, the visit's own id without) and buy link when the payment screen was opened in the last 6 hours on the same server.",
       "surfaces": [
         "server"
       ],
@@ -228,7 +230,8 @@
         "src": "buy link that brought the shopper: wa | ext | chat | link | null",
         "placement": "journey | shop_card | null",
         "seller_environment": "Hubble sandbox or production (HUBBLE_ENV); filter to production",
-        "buyer_key": "one-way hash of the shopper's login id, to count distinct buyers"
+        "buyer_key": "one-way hash of the shopper's login id, to count distinct buyers",
+        "visit_id": "without consent: the website visit that opened the payment screen (also the event's distinct_id)"
       }
     },
     "Join Page Viewed": {
@@ -1119,6 +1122,19 @@
         "choice": "google | chatgpt | instagram | friend | other",
         "merchant, brand, amount, discount_pct, placement, src": "the purchase just made (see soldEventProps)",
         "referrer_domain, landing_page, utm_source, utm_medium, utm_campaign": "where the visit came from, to compare with the answer"
+      }
+    },
+    "Buyer Seen": {
+      "description": "A shopper logged in with their phone, or opened the payment screen; sent by the backend (buyer_service.report_buyer_seen). Says which buyer a website visit belongs to, so one buyer's visits can be read together: counted under the visit's own id ($device_id with consent, visit:<random> without). No name or phone number.",
+      "surfaces": [
+        "server"
+      ],
+      "properties": {
+        "at": "login | payment_screen",
+        "buyer_key": "one-way hash of the shopper's login id (same as on Voucher Sold)",
+        "seller_environment": "Hubble sandbox or production (HUBBLE_ENV); filter to production",
+        "utm_source, utm_medium, utm_campaign, referrer_domain, landing_page": "where this visit came from, when known",
+        "visit_id": "without consent: the website visit's id (also the event's distinct_id)"
       }
     }
   }
