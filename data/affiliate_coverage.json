@@ -1,4 +1,8 @@
 {
+  "AJIO": {
+    "inrdeals_campaign_type": "cps",
+    "network": "inrdeals"
+  },
   "APOLLO DIAGNOSTICS": {
     "network": "none"
   },
@@ -141,7 +145,8 @@
     "network": "none"
   },
   "Croma": {
-    "network": "cuelinks"
+    "inrdeals_campaign_type": "cps",
+    "network": "inrdeals"
   },
   "Crossword": {
     "network": "none"
@@ -238,7 +243,8 @@
     "network": "cuelinks"
   },
   "Flipkart": {
-    "network": "none"
+    "inrdeals_campaign_type": "cps",
+    "network": "inrdeals"
   },
   "FlixBus": {
     "network": "none"
@@ -469,7 +475,8 @@
     "network": "cuelinks"
   },
   "Netmeds": {
-    "network": "none"
+    "inrdeals_campaign_type": "cps",
+    "network": "inrdeals"
   },
   "Nintendo Shop": {
     "network": "none"
@@ -550,7 +557,8 @@
     "network": "inrdeals"
   },
   "Reliance Jio Mart": {
-    "network": "none"
+    "inrdeals_campaign_type": "cps",
+    "network": "inrdeals"
   },
   "Renee Cosmetics": {
     "network": "none"
