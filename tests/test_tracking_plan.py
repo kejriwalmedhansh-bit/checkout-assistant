@@ -153,7 +153,9 @@ def test_go_stamps_ids_and_logs_click(client):
 
 def test_go_without_consent_is_anonymous(client):
     r = client.get("/go", params={"url": "https://www.croma.com/p/1"}, headers={"user-agent": "Mozilla/5.0"})
-    assert _qs(r.headers["location"])["subid"] == "anon"
+    # No id of the person goes out: only this one click's own random id.
+    q = _qs(r.headers["location"])
+    assert q["subid"] == "c_" + q["subid2"]
     props = client.sent[0]["properties"]
     assert props["distinct_id"] == "anonymous" and "$device_id" not in props and "ip" not in props
 

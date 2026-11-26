@@ -89,6 +89,9 @@ def normalize(network: str, raw: dict) -> dict | None:
     device_id = _first(raw, "sub_id", "subid", "sub_id1", "subid1", "aff_sub", "aff_sub1")
     click_id = _first(raw, "sub_id2", "subid2", "aff_sub2")
     surface = _first(raw, "sub_id3", "subid3", "aff_sub3")
+    # A visitor without a device id is tagged c_<click id> (redirect.py).
+    if isinstance(device_id, str) and re.fullmatch(r"c_[0-9a-f]{16}", device_id):
+        click_id, device_id = click_id or device_id[2:], None
     return {
         "network": network,
         "transaction_id": str(tx_id),

@@ -108,6 +108,10 @@ class Settings(BaseSettings):
     # INRDeals account manager; username is the INRDeals login id.
     INRDEALS_API_TOKEN: str = ""
     INRDEALS_USERNAME: str = ""
+    # Postback (src/api/routers/affiliate_postback.py): a long random word we
+    # choose and paste into the postback address on INRDeals' dashboard, so
+    # nobody else can report a fake sale. Empty = the receiver is switched off.
+    INRDEALS_POSTBACK_KEY: str = ""
 
     # --- ChatGPT plugin directory (added 2026-10-01) ---
     # The token OpenAI's submission page issues to prove we own the /mcp host.

@@ -14,7 +14,7 @@ from typing import Any
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from .api.routers import cards, chat_app, conversations, health, hubble, redirect, search, voucher_check, vouchers, whatsapp
+from .api.routers import affiliate_postback, cards, chat_app, conversations, health, hubble, redirect, search, voucher_check, vouchers, whatsapp
 from .config import get_settings
 
 
@@ -59,6 +59,7 @@ def create_app() -> FastAPI:
     app.include_router(whatsapp.router)
     app.include_router(health.router)
     app.include_router(redirect.router)
+    app.include_router(affiliate_postback.router)
     app.include_router(conversations.router)
     app.include_router(voucher_check.router)
     app.include_router(chat_app.router)
