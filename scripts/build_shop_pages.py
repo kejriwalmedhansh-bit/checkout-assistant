@@ -50,7 +50,12 @@ MIN_PCT = 3.0
 CURATED = {"amazon", "flipkart", "myntra", "croma", "reliance-digital", "ajio"}
 # Owner's call, 24 Nov 2026: these get a page below MIN_PCT because people
 # search for them by name (quick-commerce groceries, about 2%).
-BELOW_MIN_OK = {"zepto", "blinkit"}
+BELOW_MIN_OK = {"zepto", "blinkit", "amazon-pay", "jiomart"}
+# 26 Nov 2026, from Karan's keyword list (Google India, searches a month):
+# "amazon pay gift card discount" 720, "google play gift card discount" 480,
+# "jiomart gift card discount" 260, and no page for any of them. Amazon Pay
+# and JioMart are about 1% on Dealo, so they are named above. Google Play is
+# not sold by Dealo; its page lists the two sellers that do.
 
 # (slug, display name, website for the logo, extra names the sellers list it under). Exact
 # normalized-name matching only, same rule as build_all_brand_deals.py:
@@ -62,7 +67,12 @@ SHOPS: list[tuple[str, str, str, list[str]]] = [
     ("nykaa-fashion", "Nykaa Fashion", "nykaafashion.com", []),
     ("zomato", "Zomato", "zomato.com", []),
     ("swiggy", "Swiggy", "swiggy.com", []),
-    ("amazon", "Amazon", "amazon.in", ["Amazon Pay", "Amazon Shopping"]),
+    ("amazon", "Amazon", "amazon.in", ["Amazon Shopping"]),
+    # Its own page: the Amazon Pay card tops up Amazon Pay balance, a
+    # different card from the Amazon shopping voucher above.
+    ("amazon-pay", "Amazon Pay", "amazon.in", []),
+    ("jiomart", "JioMart", "jiomart.com", ["Jio Mart", "Reliance Jio Mart"]),
+    ("google-play", "Google Play", "play.google.com", []),
     ("flipkart", "Flipkart", "flipkart.com", []),
     ("croma", "Croma", "croma.com", []),
     ("reliance-digital", "Reliance Digital", "reliancedigital.in", []),

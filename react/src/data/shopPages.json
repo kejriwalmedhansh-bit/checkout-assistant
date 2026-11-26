@@ -875,6 +875,270 @@
     }
   },
   {
+    "slug": "amazon-pay",
+    "name": "Amazon Pay",
+    "website": "https://www.amazon.in/",
+    "checked": "2026-11-26",
+    "hubble": {
+      "pct": 1.0,
+      "brand_name": "Amazon Pay",
+      "in_store": false,
+      "works": [
+        "OFFLINE",
+        "ONLINE"
+      ],
+      "cards": [],
+      "min_amount": 10,
+      "max_amount": 10000,
+      "typed": true,
+      "steps": [
+        "To add Gift Card to your Amazon account, please go to  www.amazon.in/addgiftcard",
+        "Enter the Gift Card Code and click on Add gift card to balance"
+      ],
+      "terms": [
+        "Comes with 1 year validity",
+        "Max. ₹ 15,000 worth of virtual cards can be generated per calendar month",
+        "If a purchase exceeds the redeemer’s Gift Card balance, the remaining amount must be paid with a credit card, net banking, or debit card"
+      ]
+    },
+    "sellers": [],
+    "best": {
+      "source": "dealo",
+      "pct": 1.0
+    },
+    "online": true,
+    "offline": true,
+    "stack": null,
+    "steps": [
+      "Sign in to your account on Amazon.",
+      "Go to Amazon Pay Balance from the account menu.",
+      "Click Add Gift Card to Balance.",
+      "Enter your gift card voucher code in the redemption box."
+    ],
+    "restrictions": [],
+    "multiUse": null,
+    "canClub": null,
+    "history": {
+      "dealo": {
+        "2026-11-26": 1.0
+      }
+    }
+  },
+  {
+    "slug": "jiomart",
+    "name": "JioMart",
+    "website": "https://www.jiomart.com/",
+    "checked": "2026-11-26",
+    "hubble": {
+      "pct": 1.0,
+      "brand_name": "Jio Mart",
+      "in_store": false,
+      "works": [
+        "ONLINE"
+      ],
+      "cards": [],
+      "min_amount": 250,
+      "max_amount": 2000,
+      "typed": true,
+      "steps": [
+        "Download JioMart App and log in or visit the Website.",
+        "Select the product and services that you want to buy",
+        "On payment page select Add gift card option",
+        "Add the gift card pin (Not card number) and pay the outstanding amount by any other method"
+      ],
+      "terms": [
+        "Comes with 12 months validity and is can be redeemed at the JioMart online platform in India",
+        "This GV cannot be used on 3P products (Third party products listed on Jio Mart Platform)",
+        "This Gift Voucher is not valid on purchase of Gold/Silver Coins and fine jewellery",
+        "Multiple vouchers cannot be used in one transaction",
+        "This is a one-time use card and any unused balance will lapse",
+        "Gift cards, once purchased, cannot be cancelled or refunded"
+      ]
+    },
+    "sellers": [
+      {
+        "source": "maximize",
+        "label": "Maximize",
+        "pct": 0.75,
+        "upi_pct": 0.75,
+        "card_pct": 0.0,
+        "url": "https://www.maximize.money/gift-cards/RelianceJioMart/212",
+        "online": true,
+        "offline": false,
+        "denominations": [
+          250,
+          500,
+          1000,
+          2000
+        ],
+        "typed": false,
+        "typed_min": null,
+        "typed_max": null,
+        "stack_limit": 1,
+        "value_cap": null,
+        "checked": "2026-11-05"
+      },
+      {
+        "source": "buyhatke",
+        "label": "BuyHatke",
+        "pct": 0.64,
+        "upi_pct": 0.64,
+        "card_pct": null,
+        "url": "https://buyhatke.com/gift-cards/jio-mart-gift-card",
+        "online": true,
+        "offline": false,
+        "denominations": [
+          500,
+          1000
+        ],
+        "typed": false,
+        "typed_min": null,
+        "typed_max": null,
+        "stack_limit": 1,
+        "value_cap": 2000.0,
+        "checked": "2026-11-05"
+      },
+      {
+        "source": "gyftr",
+        "label": "Gyftr",
+        "pct": 0.5,
+        "upi_pct": 0.5,
+        "card_pct": 0.0,
+        "url": "https://www.gyftr.com/reliance-jio-mart",
+        "online": true,
+        "offline": false,
+        "denominations": [
+          250,
+          750,
+          1000,
+          1500
+        ],
+        "typed": false,
+        "typed_min": null,
+        "typed_max": null,
+        "stack_limit": 1,
+        "value_cap": null,
+        "checked": "2026-11-09"
+      }
+    ],
+    "best": {
+      "source": "dealo",
+      "pct": 1.0
+    },
+    "online": true,
+    "offline": false,
+    "stack": "One voucher per order",
+    "steps": [
+      "Download the JioMart application on your mobile",
+      "Select the products of your choice and add to cart",
+      "Move to checkout page and select Add Gift Card/ Voucher Code",
+      "Enter the 16 digit voucher code and redeem the voucher"
+    ],
+    "restrictions": [],
+    "multiUse": false,
+    "canClub": false,
+    "history": {
+      "dealo": {
+        "2026-11-26": 1.0
+      },
+      "maximize": {
+        "2026-10-19": 0.75
+      },
+      "buyhatke": {
+        "2026-08-13": 0.62,
+        "2026-08-20": 0.74,
+        "2026-10-19": 0.64
+      },
+      "gyftr": {
+        "2026-08-26": 0.5
+      }
+    }
+  },
+  {
+    "slug": "google-play",
+    "name": "Google Play",
+    "website": "https://www.play.google.com/",
+    "checked": "2026-11-26",
+    "hubble": null,
+    "sellers": [
+      {
+        "source": "maximize",
+        "label": "Maximize",
+        "pct": 3.25,
+        "upi_pct": 3.25,
+        "card_pct": 1.35,
+        "url": "https://www.maximize.money/gift-cards/GooglePlay/1311",
+        "online": true,
+        "offline": false,
+        "denominations": [
+          100,
+          200,
+          300,
+          400,
+          500,
+          1000,
+          5000
+        ],
+        "typed": false,
+        "typed_min": null,
+        "typed_max": null,
+        "stack_limit": null,
+        "value_cap": null,
+        "checked": "2026-11-05"
+      },
+      {
+        "source": "buyhatke",
+        "label": "BuyHatke",
+        "pct": 2.26,
+        "upi_pct": 2.26,
+        "card_pct": null,
+        "url": "https://buyhatke.com/gift-cards/google-play-gift-card",
+        "online": true,
+        "offline": false,
+        "denominations": [
+          100,
+          200,
+          300,
+          400,
+          500,
+          1000,
+          5000
+        ],
+        "typed": false,
+        "typed_min": null,
+        "typed_max": null,
+        "stack_limit": 10,
+        "value_cap": 1000.0,
+        "checked": "2026-11-05"
+      }
+    ],
+    "best": {
+      "source": "maximize",
+      "pct": 3.25
+    },
+    "online": true,
+    "offline": false,
+    "stack": "Yes, up to 10 in one order",
+    "steps": [
+      "Open the Google Play Store on your device.",
+      "Go to 'Redeem' under the account menu.",
+      "Enter the Gift Card code and click 'Redeem.'",
+      "The balance will be added to your account for future purchases."
+    ],
+    "restrictions": [],
+    "multiUse": true,
+    "canClub": null,
+    "history": {
+      "maximize": {
+        "2026-10-19": 3.25
+      },
+      "buyhatke": {
+        "2026-08-20": 0.88,
+        "2026-11-05": 2.26
+      }
+    }
+  },
+  {
     "slug": "flipkart",
     "name": "Flipkart",
     "website": "https://www.flipkart.com/",
@@ -2077,14 +2341,16 @@
         "ONLINE"
       ],
       "cards": [
+        500,
         1000,
         2000,
+        2500,
         3000,
         5000,
         10000
       ],
-      "min_amount": 1000,
-      "max_amount": 25000,
+      "min_amount": 500,
+      "max_amount": 10000,
       "typed": false,
       "steps": [
         "Go to Blinkit App",
@@ -2094,12 +2360,10 @@
         "Enter the 16 digit card number and 6 digit pin and tap on claim"
       ],
       "terms": [
-        "Comes with the validity of 6 months and will be accepted only online on the Blinkit mobile application.",
-        "This is a one-time use GV/GC. Once the GV/GC is added to the Blinkit Wallet, you can partially redeem the balance as per your convenience.",
-        "The Gift card redemptions are limited to Rs 25,000 per user, per calendar month.",
-        "The Gift card can be clubbed with the existing offers.",
-        "The Gift card can be redeemed only towards the purchase of eligible products on the Blinkit Platform. It cannot be used to buy other Gift Cards or Vouchers.",
-        "Multiple Gift cards can be used against one bill."
+        "Comes with 12 months validity",
+        "Gift card redemptions are limited to ₹25,000 per user within a calendar month",
+        "Multiple Gift Cards can be clubbed in a single order of purchase",
+        "Gift cards, once purchased, cannot be cancelled or refunded"
       ]
     },
     "sellers": [
