@@ -22,6 +22,8 @@ client = TestClient(app, follow_redirects=False)
     "https://www.ajio.com/p/469123",
     "https://www.croma.com/some-tv/p/301234",
     "https://www.myntra.com/shoes/123/buy",
+    "https://www.shopsy.in/some-kurta/p/itm9",
+    "https://dl.flipkart.com/s/AbC12",
 ])
 def test_shop_link_goes_through_inrdeals(shop_url):
     r = client.get("/go", params={"url": shop_url, "surface": "web"})

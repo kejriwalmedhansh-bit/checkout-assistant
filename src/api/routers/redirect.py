@@ -30,7 +30,7 @@ from fastapi.responses import RedirectResponse
 
 from ...config import get_settings
 from ..rate_limit import client_ip
-from ...constants import CUELINKS_BASE, INRDEALS_BASE, OUTBOUND_ALLOWED_HOSTS
+from ...constants import CUELINKS_BASE, INRDEALS_BASE, INRDEALS_EXTRA_HOSTS, OUTBOUND_ALLOWED_HOSTS
 from ...repositories.affiliate_coverage_repository import network_for_brand
 from ...repositories.domain_brand_repository import brand_for_domain
 from ...repositories import maximize_repository
@@ -103,6 +103,8 @@ async def go(
 
     brand = brand_for_domain(parsed.netloc)
     coverage = network_for_brand(brand) if brand else None
+    if parsed.netloc.lower().removeprefix("www.") in INRDEALS_EXTRA_HOSTS:
+        coverage = {"network": "inrdeals", "inrdeals_campaign_type": "cps"}
 
     if coverage and coverage.get("network") == "inrdeals":
         network = "inrdeals"
