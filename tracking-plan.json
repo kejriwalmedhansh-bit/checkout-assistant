@@ -382,6 +382,8 @@
         "shop_domain": "Shop website",
         "shop_url": "Exact page opened",
         "network": "cuelinks | inrdeals",
+        "can_earn": "True when that network has a live campaign for the shop. False = the link is wrapped but no sale on it can pay",
+        "journey": "voucher (link sat on a buy-a-voucher step) | no_voucher (price list or buy-direct step) | other",
         "is_bot": "A link-preview bot, not a person — exclude from funnels",
         "referrer": "Page the click came from"
       }

@@ -468,3 +468,11 @@ def test_team_visits_and_team_buyers_are_marked(monkeypatch):
     buyer_service.report_buyer_seen("u-real", "login", "production", None)
     assert sent[2]["properties"]["is_internal_tester"] is False
 
+
+
+def test_go_marks_paying_links_and_the_journey(client):
+    for url, ctx in [("https://www.myntra.com/x", "price_list"), ("https://www.sathya.store/x", "redeem_step")]:
+        client.get("/go", params={"url": url, "ctx": ctx}, headers={"user-agent": "Mozilla/5.0"})
+    paying, not_paying = (e["properties"] for e in client.sent[-2:])
+    assert (paying["can_earn"], paying["journey"]) == (True, "no_voucher")
+    assert (not_paying["can_earn"], not_paying["journey"]) == (False, "voucher")
