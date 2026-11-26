@@ -49,7 +49,7 @@ export default function TutorialVideoModal({ onClose }) {
       >
         <Box bg="surface" borderRadius="20px" overflow="hidden" boxShadow="0 40px 80px rgba(0,0,0,.4)" position="relative">
           <Box
-            as="button"
+            className="dealo-press" as="button"
             type="button"
             aria-label="Close"
             onClick={onClose}

@@ -88,6 +88,7 @@ export default function GuidePage() {
               {sec.table.rows.map((r, i) => (
                 <Box
                   key={r.label}
+                  className="dealo-press"
                   as={RouterLink}
                   to={r.href}
                   display="block"

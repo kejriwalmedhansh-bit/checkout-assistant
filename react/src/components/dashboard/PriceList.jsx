@@ -211,7 +211,7 @@ export default function PriceList({ shops, onPickGiftCard, afterFirst = null, mi
                 <Flex align="center" gap="6px" ml={`${sz.logo + 10}px`} mt="6px" flexWrap="wrap">
                 <Text as="span" fontFamily="mono" fontSize={`${sz.small + 0.5}px`} color="text2">{fmt(s.listPrice)}</Text>
                 <Box
-                  as="button"
+                  className="dealo-press" as="button"
                   type="button"
                   onClick={() => {
                     track('Clicked Price List Gift Card', { merchant: s.merchant, saving: gc });

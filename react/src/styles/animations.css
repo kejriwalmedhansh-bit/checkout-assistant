@@ -60,3 +60,23 @@
 .dealo-spin {
   animation: dealoSpin 0.6s linear infinite;
 }
+
+/* Press feedback for tappable cards, rows and tiles that are not a <Button>
+   (the Button theme has its own): they sink a little under the finger, so a
+   tap is felt before the next screen arrives. Most Dealo visitors are on
+   phones, where there is no hover to say "this is tappable".
+   Add className="dealo-press" to the tappable element. Cards are big, so
+   the scale is slight; text links do not get it. */
+.dealo-press {
+  transition: transform 150ms cubic-bezier(0.23, 1, 0.32, 1);
+  -webkit-tap-highlight-color: transparent;
+}
+.dealo-press:active {
+  transform: scale(0.98);
+}
+@media (prefers-reduced-motion: reduce) {
+  .dealo-press:active {
+    transform: none;
+    opacity: 0.85;
+  }
+}

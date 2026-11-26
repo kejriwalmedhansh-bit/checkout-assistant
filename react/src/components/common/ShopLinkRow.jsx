@@ -43,7 +43,7 @@ export function ShopLinkRow({ shop }) {
   const rate = shownPct(shop);
   return (
     <Flex
-      as={RouterLink}
+      className="dealo-press" as={RouterLink}
       to={`${ROUTES.brandFor(shop.slug)}/`}
       align="center"
       gap="10px"

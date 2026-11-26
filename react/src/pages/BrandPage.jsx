@@ -84,7 +84,7 @@ function Fold({ title, children }) {
   const [open, setOpen] = useState(false);
   return (
     <Box border="1px solid" borderColor="border" borderRadius="14px" mb="10px" overflow="hidden">
-      <Flex as="button" type="button" onClick={() => setOpen((o) => !o)} w="100%" align="center" justify="space-between" px="14px" py="12px" bg="surface2" fontSize="14px" fontWeight={700} textAlign="left">
+      <Flex className="dealo-press" as="button" type="button" onClick={() => setOpen((o) => !o)} w="100%" align="center" justify="space-between" px="14px" py="12px" bg="surface2" fontSize="14px" fontWeight={700} textAlign="left">
         {title}
         <Box color="text2" transform={open ? 'rotate(180deg)' : 'none'} transition="transform .15s">
           <I.chevDown size={16} />
@@ -169,7 +169,7 @@ function SellerRow({ shop, seller, cheapest, plain = false, lead = false }) {
   if (isDealo) {
     return (
       <Box
-        as={RouterLink}
+        className="dealo-press" as={RouterLink}
         to={`${ROUTES.buyFor(buySlug(seller.brand_name || shop.name))}?src=page`}
         onClick={() => track('Clicked Brand Voucher Link', { brand: shop.name, source: 'dealo', pct: seller.pct, placement: 'brand-page' })}
         {...common}
@@ -180,7 +180,7 @@ function SellerRow({ shop, seller, cheapest, plain = false, lead = false }) {
   }
   return (
     <Box
-      as="a"
+      className="dealo-press" as="a"
       href={outboundLink(seller.url, 'voucher_site', 'brand_page')}
       target="_blank"
       rel="noopener noreferrer"

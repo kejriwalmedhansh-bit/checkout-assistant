@@ -84,7 +84,7 @@ export default function ProductQuickView({ products, index, onIndexChange, onSel
       >
         <Box bg="surface" borderRadius="20px" overflow="hidden" boxShadow="0 40px 80px rgba(0,0,0,.4)" position="relative">
           <Box
-            as="button"
+            className="dealo-press" as="button"
             type="button"
             aria-label="Close"
             onClick={onClose}
@@ -215,7 +215,7 @@ export default function ProductQuickView({ products, index, onIndexChange, onSel
                 </Text>
               )}
               <Flex
-                as="button"
+                className="dealo-press" as="button"
                 type="button"
                 onClick={() => onSelect(token, title, price, source, thumbnail)}
                 align="center"

@@ -42,7 +42,7 @@ export default function CategoryPage() {
         {CATEGORIES.filter((c) => c.slug !== cat.slug).map((c) => (
           <Text
             key={c.slug}
-            as={RouterLink}
+            className="dealo-press" as={RouterLink}
             to={`${ROUTES.categoryFor(c.slug)}/`}
             px="12px"
             py="6px"
