@@ -377,7 +377,7 @@ export default function JourneyRow({
               <Text>{hintText}</Text>
               {hintDetail && (
                 <Box
-                  as="button"
+                  className="dealo-press" as="button"
                   type="button"
                   onClick={() => setDetailOpen((o) => !o)}
                   aria-expanded={detailOpen}
@@ -412,7 +412,7 @@ export default function JourneyRow({
             )}
           </Box>
           <Box
-            as="button"
+            className="dealo-press" as="button"
             type="button"
             onClick={onHideHint}
             flex="0 0 auto"

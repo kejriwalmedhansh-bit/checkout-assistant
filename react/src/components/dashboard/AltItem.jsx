@@ -15,7 +15,7 @@ export default function AltItem({ alt, onSelect, isSelected }) {
 
   return (
     <Card
-      as="button"
+      className="dealo-press" as="button"
       type="button"
       onClick={() => onSelect(alt)}
       w="100%"

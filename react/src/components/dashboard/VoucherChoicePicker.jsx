@@ -93,7 +93,7 @@ export default function VoucherChoicePicker({ choices, query }) {
 
       {chosen ? (
         <Flex
-          as="button"
+          className="dealo-press" as="button"
           type="button"
           onClick={() => setPicked(null)}
           aria-expanded={false}
@@ -121,7 +121,7 @@ export default function VoucherChoicePicker({ choices, query }) {
         <Grid templateColumns="repeat(2, minmax(0, 1fr))" gap="10px" role="group" aria-label={`${shop} voucher types`}>
           {choices.map((c, i) => (
             <Flex
-              as="button"
+              className="dealo-press" as="button"
               type="button"
               key={`${c.brand_name}-${c.voucher_source}`}
               onClick={() => pick(i)}

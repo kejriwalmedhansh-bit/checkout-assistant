@@ -212,7 +212,7 @@ export default function VoucherFacts({ card, brandName, placement }) {
 
       {rules > 0 && (
         <Flex
-          as="button"
+          className="dealo-press" as="button"
           type="button"
           onClick={openSheet}
           w="100%"

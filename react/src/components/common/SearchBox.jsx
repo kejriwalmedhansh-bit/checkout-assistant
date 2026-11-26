@@ -168,7 +168,7 @@ export default function SearchBox({
         <InputRightElement h={h} w={rightElementW} gap="2px" justifyContent="flex-end" pr="7px">
           {value && (
             <Box
-              as="button"
+              className="dealo-press" as="button"
               type="button"
               onClick={clear}
               aria-label="Clear search"
@@ -186,7 +186,7 @@ export default function SearchBox({
             </Box>
           )}
           <Box
-            as="button"
+            className="dealo-press" as="button"
             type="button"
             onClick={paste}
             aria-label="Paste from clipboard"

@@ -278,7 +278,7 @@ export default function ProductSelectPage() {
 function PageButton({ active, disabled, children, ...rest }) {
   return (
     <Flex
-      as="button"
+      className="dealo-press" as="button"
       type="button"
       disabled={disabled}
       minW="34px"

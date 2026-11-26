@@ -17,7 +17,7 @@ export default function InfoNote({ short, full, fontSize = '12.5px', color = 'te
           {short}
         </Text>
         <Box
-          as="button"
+          className="dealo-press" as="button"
           type="button"
           onClick={() => setOpen((o) => !o)}
           aria-expanded={open}

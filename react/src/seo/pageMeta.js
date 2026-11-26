@@ -235,7 +235,7 @@ function subscriptionMeta(shop) {
     // People type "<name> subscription offer" and "<name> subscription
     // discount"; the title carries one, the heading the other.
     title: rate ? `${shop.name} ${noun} offer: ${pct(rate)} off today` : `${shop.name} ${noun} offer today`,
-    description: `${shop.name} ${noun}: ${bestLine(shop)}${plan ? `, ${plan}` : ''}. ${shop.hubble ? 'Sold by Dealo: pay from your bank app, code in seconds.' : 'Today’s rate from official sellers.'} Checked ${shop.checked}.`,
+    description: `${shop.name} ${noun}: ${bestLine(shop)}${plan ? `, ${plan}` : ''}. ${shop.hubble ? 'Sold by Dealo: pay from your bank app, code in seconds.' : 'Today’s rate from official sellers.'} Checked ${shortDate(shop.checked)}.`,
     heading: `${shop.name} ${noun} discount today`,
     intro: `${bestLine(shop)}. Buy the voucher for the plan you want, then redeem the code on ${shop.name}.`,
   };
@@ -287,7 +287,7 @@ export function shopPageMeta(shop) {
     // title uses their words and today's rate (the same one the page shows).
     title: shownPct(shop) ? `${shop.name} gift card discount: ${pct(shownPct(shop))} off today` : `${shop.name} gift card discount today`,
     // Kept short so Google shows the "Checked" date instead of cutting it off.
-    description: `${shop.name} gift card (gift voucher): ${bestLine(shop)}. ${compare} Checked ${shop.checked}.`,
+    description: `${shop.name} gift card (gift voucher): ${bestLine(shop)}. ${compare} Checked ${shortDate(shop.checked)}.`,
     // "gift card" is the phrase people search; "voucher" stays in the body.
     heading: `${shop.name} gift card discount today`,
     // The answer first, with a rupee figure: the sentence AI answers lift.
@@ -330,6 +330,35 @@ export function shortDate(iso) {
   const [y, m, d] = String(iso || '').split('-').map(Number);
   if (!y || !m || !d) return '';
   return `${d} ${['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'][m - 1]} ${y}`;
+}
+
+/**
+ * How this shop's discount has moved, for the sellers the page shows:
+ * [{source, points: [[isoDate, pct], ...]}], oldest first. Built by
+ * scripts/shop_rate_history.py from every reading Dealo has saved; a point
+ * is a day the rate was first read at a new value.
+ *
+ * Why (26 Nov 2026): it is the one part of a shop page no other page has.
+ * Shown only when some rate has actually moved; "unchanged since" would be
+ * the same line on every page.
+ */
+const HISTORY_POINTS = 5;
+export function rateHistory(shop, rows = shownSellers(shop)) {
+  const lines = rows
+    .map((r) => ({ source: r.source, points: Object.entries(shop.history?.[r.source] || {}).slice(-HISTORY_POINTS) }))
+    .filter((l) => l.points.length);
+  return lines.some((l) => l.points.length > 1) ? lines : [];
+}
+/** "17% from 2 Jul 2026, 15% from 28 Sep 2026" or "16% since 3 Nov 2026". */
+export function historyText(points) {
+  if (points.length === 1) return `${pct(points[0][1])} since ${shortDate(points[0][0])}`;
+  return points.map(([day, rate]) => `${pct(rate)} from ${shortDate(day)}`).join(', ');
+}
+export const HISTORY_EXPLAINED = 'Each date is the day Dealo first read that rate.';
+
+/** The card's own terms, word for word, minus what "Not valid for" already says. */
+export function cardTerms(shop, hubble = shop.hubble) {
+  return (hubble?.terms || []).filter((t) => !shop.restrictions.includes(t));
 }
 
 export const OTHERS_EXPLAINED =
@@ -375,7 +404,7 @@ function subscriptionFaqs(shop) {
     },
     {
       q: `What is the ${shop.name} ${noun} discount today?`,
-      a: `${best} (checked ${shop.checked}). Rates move; this page is rebuilt with every catalogue refresh and the Dealo rate is checked live when the page opens.`,
+      a: `${best} (checked ${shortDate(shop.checked)}).`,
     },
     {
       q: `How do I get a ${shop.name} ${noun} at a discount?`,
@@ -419,8 +448,8 @@ export function shopFaqs(shop) {
       // People also type "<shop> gift card highest discount". Said only where
       // the page compares sellers; where Dealo sells the card it shows Dealo alone.
       a: showsComparison(shop)
-        ? `${best} (checked ${shop.checked}). Every seller Dealo checks: ${ratesSentence(shop)}. Rates move; Dealo’s own rate is re-read every day.`
-        : `${!shop.hubble && shop.best ? `The highest discount today among the sellers Dealo checks is ${best}` : best} (checked ${shop.checked}). Rates move; this page is rebuilt with every catalogue refresh and the Dealo rate is checked live when the page opens.`,
+        ? `${best} (checked ${shortDate(shop.checked)}). Every seller Dealo checks: ${ratesSentence(shop)}.`
+        : `${!shop.hubble && shop.best ? `The highest discount today among the sellers Dealo checks is ${best}` : best} (checked ${shortDate(shop.checked)}).`,
     },
     {
       q: `How do I buy a ${shop.name} gift card at a discount?`,
@@ -440,7 +469,7 @@ export function shopFaqs(shop) {
     ...(shop.best
       ? [{
           q: `Is there any ${shop.name} gift voucher offer today?`,
-          a: `Yes: ${best} (checked ${shop.checked}). The ${shop.name} gift voucher itself sells for less than its value, and you pay ${shop.name} with it.`,
+          a: `Yes: ${best} (checked ${shortDate(shop.checked)}). The ${shop.name} gift voucher itself sells for less than its value, and you pay ${shop.name} with it.`,
         }]
       : []),
     // Search Console, 24 Nov 2026: 75 "<shop> coupon code / promo code /

@@ -8,6 +8,7 @@ import { useJsonLd } from '@/hooks/useJsonLd';
 import { usePageTitle } from '@/hooks/usePageTitle';
 import { CATEGORIES, categoryBySlug, categoryJsonLd, categoryMeta, categoryShops } from '@/seo/categories';
 import { ROUTES } from '@/routes/paths';
+import { shortDate } from '@/seo/pageMeta';
 
 /**
  * /gift-cards/<slug>/ — every shop page of one kind (food, fashion, travel…),
@@ -30,7 +31,7 @@ export default function CategoryPage() {
       <ShopGrid shops={shops} />
       {checked && (
         <Text fontSize="11.5px" color="text3" mt="10px">
-          Rates checked {checked}. Each shop page shows today’s rate when you open it.
+          Rates checked {shortDate(checked)}. Each shop page shows today’s rate when you open it.
         </Text>
       )}
 
@@ -41,7 +42,7 @@ export default function CategoryPage() {
         {CATEGORIES.filter((c) => c.slug !== cat.slug).map((c) => (
           <Text
             key={c.slug}
-            as={RouterLink}
+            className="dealo-press" as={RouterLink}
             to={`${ROUTES.categoryFor(c.slug)}/`}
             px="12px"
             py="6px"

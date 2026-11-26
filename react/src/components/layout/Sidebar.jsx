@@ -109,7 +109,7 @@ function SidebarFooterItem({ icon: Icon, label, onClick, href, isExternal, onNav
 
   return (
     <Box
-      as="button"
+      className="dealo-press" as="button"
       type="button"
       onClick={() => {
         onClick?.();
@@ -186,7 +186,7 @@ function NavItem({ to, end, icon: Ico, label, onNavigate, collapsed }) {
 
   return (
     <Link
-      as={RouterLink}
+      className="dealo-press" as={RouterLink}
       to={to}
       onClick={onNavigate}
       position="relative"

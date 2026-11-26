@@ -48,6 +48,10 @@ import {
   shortDate,
   payExamples,
   OTHERS_EXPLAINED,
+  HISTORY_EXPLAINED,
+  cardTerms,
+  historyText,
+  rateHistory,
   whereToRedeemShop,
 } from '../src/seo/pageMeta.js';
 import {
@@ -124,7 +128,7 @@ function subscriptionBody(shop, meta, table) {
   const terms = shop.hubble?.terms || [];
   return [
     head(meta),
-    p(`Checked ${shop.checked}.`),
+    p(`Checked ${shortDate(shop.checked)}.`),
     `<h2>${shop.hubble ? 'Today’s rate' : 'Today’s rate, every seller'}</h2>`,
     table,
     plans.length ? '<h2>What each plan costs today</h2>' + list(plans.map((x) => `${inr(x.face)} plan: you pay ${inr(x.pay)}`)) : '',
@@ -172,12 +176,14 @@ function shopBody(shop) {
         ...(shop.hubble?.steps?.length ? shop.hubble.steps : shop.steps.length ? shop.steps.slice(0, 2) : [`Pay at ${shop.name} with the voucher code and keep the difference.`]),
       ];
   if (isSubscription(shop)) return subscriptionBody(shop, meta, table);
-  const multi = shop.multiUse === true ? 'Multi-use, spend it across orders' : shop.multiUse === false ? 'Must use the full value in one go' : 'Not stated by the shop';
+  const history = rateHistory(shop);
+  const terms = cardTerms(shop);
+  const multi = typeof shop.multiUse === 'string' ? shop.multiUse : shop.multiUse === true ? 'Multi-use, spend it across orders' : shop.multiUse === false ? 'Must use the full value in one go' : 'Not stated by the shop';
   const club = shop.canClub === true ? 'Yes, it pays the price after sale and coupons' : shop.canClub === false ? 'No, not with other offers' : 'Not stated, treat it as store credit';
   return [
     head(meta),
     // Where it works is in the opening lines (quickAnswer); not said twice.
-    p(`Checked ${shop.checked}.`),
+    p(`Checked ${shortDate(shop.checked)}.`),
     `<h2>${compare ? 'Every seller Dealo checks' : shop.hubble ? 'Today’s rate' : 'Today’s rate, every seller'}</h2>`,
     table,
     rows[0]?.pct > 0 && examples.length < 2 ? p(`Every ${inr(BILL)} you spend at ${shop.name} costs ${inr(payOn(rows[0].pct))} with the gift card.`) : '',
@@ -193,9 +199,15 @@ function shopBody(shop) {
       ...(shop.stack ? [`Several vouchers in one order? ${esc(shop.stack)}`] : []),
       ...(shop.restrictions.length ? [`Not valid for: ${esc(shop.restrictions.join(' · '))}`] : []),
     ]),
+    history.length
+      ? `<h2>How the ${esc(shop.name)} gift card discount has moved</h2>` +
+        list(history.map((l) => `${esc(SELLER_NAME[l.source])}: ${esc(historyText(l.points))}`)) +
+        p(HISTORY_EXPLAINED)
+      : '',
     '<h2>How to redeem</h2>',
     list(steps.map(esc), 'ol'),
     p(curated?.notes),
+    terms.length ? '<h2>The card’s terms, word for word</h2>' + list(terms.map(esc)) : '',
     '<h2>Questions people ask</h2>',
     shopFaqs(shop).map((f) => `<h3>${esc(f.q)}</h3>${p(f.a)}`).join(''),
     similarBlock(shop),
@@ -251,7 +263,7 @@ function llmsTxt() {
   const shops = [...SHOP_PAGES]
     .filter((s) => shownPct(s))
     .sort((a, b) => a.name.localeCompare(b.name))
-    .map((s) => `- [${s.name} ${shopNoun(s)} discount](${SITE_URL}/brands/${s.slug}/): ${pct(shownPct(s))} off${s.hubble ? ', sold by Dealo' : ''} (checked ${s.checked})`);
+    .map((s) => `- [${s.name} ${shopNoun(s)} discount](${SITE_URL}/brands/${s.slug}/): ${pct(shownPct(s))} off${s.hubble ? ', sold by Dealo' : ''} (checked ${shortDate(s.checked)})`);
   return `# Dealo
 
 > Dealo (getdealo.in) shows the cheapest way to pay at Indian shops. Many shops' own gift cards (gift vouchers) sell below face value; buying one and paying with it at checkout is a direct discount anyone can use, with no coupon or bank card needed. Each shop page says whether the card also works on sale prices. Free, no login. Covers Myntra, Nykaa, AJIO, Tata CLiQ, Lifestyle, MakeMyTrip, PVR and 800+ shops.
@@ -310,7 +322,7 @@ function guideBody(g) {
               .map((r) => `<tr><td>${link(r.href, r.label)}</td><td>${r.count}</td><td>${esc(r.best)}</td><td>${esc(r.least)}</td></tr>`)
               .join('')}</tbody></table>`
           : '') +
-        (sec.shops ? list(sec.shops.map((sl) => BY_SLUG.get(sl)).filter(Boolean).map(shopItem)) + p(`Rates checked ${LAST_CHECKED}.`) : ''),
+        (sec.shops ? list(sec.shops.map((sl) => BY_SLUG.get(sl)).filter(Boolean).map(shopItem)) + p(`Rates checked ${shortDate(LAST_CHECKED)}.`) : ''),
     ),
     '<h2>Questions people ask</h2>',
     g.faqs.map((f) => `<h3>${esc(f.q)}</h3>${p(f.a)}`).join(''),

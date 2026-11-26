@@ -10,7 +10,7 @@ function BankTile({ choice, on, onToggle }) {
   const [failed, setFailed] = useState(false);
   return (
     <Flex
-      as="button"
+      className="dealo-press" as="button"
       type="button"
       aria-pressed={on}
       onClick={onToggle}

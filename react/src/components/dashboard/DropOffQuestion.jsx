@@ -85,7 +85,7 @@ function rememberAsked() {
 function CloseButton({ onClick, label }) {
   return (
     <Box
-      as="button"
+      className="dealo-press" as="button"
       type="button"
       onClick={onClick}
       aria-label={label}
@@ -295,7 +295,7 @@ export default function DropOffQuestion({ merchant, hasVoucher }) {
                 <motion.div key="pill" layout="position" {...fade}>
                   <Flex align="center" h="44px" whiteSpace="nowrap">
                     <Box
-                      as="button"
+                      className="dealo-press" as="button"
                       type="button"
                       onClick={expand}
                       display="flex"
@@ -393,7 +393,7 @@ export default function DropOffQuestion({ merchant, hasVoucher }) {
                         _hover={{ borderColor: faint(35) }}
                       />
                       <Box
-                        as="button"
+                        className="dealo-press" as="button"
                         type="button"
                         onClick={sendNote}
                         flex="0 0 auto"
