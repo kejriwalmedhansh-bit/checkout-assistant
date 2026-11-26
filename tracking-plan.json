@@ -422,7 +422,7 @@
       }
     },
     "Purchase Recorded": {
-      "description": "An affiliate network reported a sale from one of our shop links. Sent by scripts/sync_affiliate_purchases.py, timed at the sale date.",
+      "description": "An affiliate network reported a sale from one of our shop links. Sent by scripts/sync_affiliate_purchases.py, and at once by INRDeals' postback (src/api/routers/affiliate_postback.py); both use the same fixed id, so one sale is one event. Timed at the sale date.",
       "surfaces": [
         "server"
       ],

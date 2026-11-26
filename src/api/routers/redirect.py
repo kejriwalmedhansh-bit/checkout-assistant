@@ -3,7 +3,8 @@
 /go   a shop link. Wrapped for commission (Cuelinks, or INRDeals where
       data/affiliate_coverage.json says so), stamped with our own ids so a
       sale the network reports later can be matched back to the person and
-      the click: subid = the person's device id, subid2 = click id,
+      the click: subid = the person's device id (c_<click id> when they have
+      none), subid2 = click id,
       subid3 = surface. Routing through our own domain also hides the
       third-party tracking hop behind a domain users already trust.
 /out  a voucher-partner or card-application link. Not an affiliate link,
@@ -95,7 +96,10 @@ async def go(
     settings = get_settings()
     surface, did, props = _context(request, surface, did, ctx)
     click_id = uuid.uuid4().hex[:16]
-    subid = did or "anon"
+    # INRDeals hands back only this first tag on a sale. A visitor with no
+    # device id (most of the website) would all come back as "anon", so tag
+    # those with the click instead: c_<click id> finds the exact click.
+    subid = did or f"c_{click_id}"
 
     brand = brand_for_domain(parsed.netloc)
     coverage = network_for_brand(brand) if brand else None

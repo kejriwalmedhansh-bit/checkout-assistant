@@ -1,9 +1,18 @@
 {
+  "109F": {
+    "network": "none"
+  },
   "AJIO": {
     "inrdeals_campaign_type": "cps",
     "network": "inrdeals"
   },
   "APOLLO DIAGNOSTICS": {
+    "network": "none"
+  },
+  "AZA Fashions": {
+    "network": "none"
+  },
+  "Absolute Barbecues (Custom)": {
     "network": "none"
   },
   "Adani Meet and Greet": {
@@ -12,22 +21,34 @@
   "Adventra": {
     "network": "none"
   },
+  "Aeropostale BAGLINE": {
+    "network": "none"
+  },
   "Air India": {
-    "network": "cuelinks"
+    "inrdeals_campaign_type": "cps",
+    "network": "inrdeals"
   },
   "Airtel Xstream": {
     "network": "none"
   },
-  "Ajio Luxe": {
-    "inrdeals_campaign_type": "cps",
-    "network": "inrdeals"
-  },
   "Aliste": {
+    "network": "none"
+  },
+  "Amala Earth": {
     "network": "none"
   },
   "Amazon": {
     "inrdeals_campaign_type": "cps",
     "network": "inrdeals"
+  },
+  "American Eagle": {
+    "network": "none"
+  },
+  "Anita Dongre": {
+    "network": "none"
+  },
+  "Apollo Diagnostics": {
+    "network": "none"
   },
   "Apollo Pharmacy": {
     "network": "none"
@@ -38,7 +59,7 @@
   "AppyHigh Prime": {
     "network": "none"
   },
-  "Archies Gallery": {
+  "Archies": {
     "network": "none"
   },
   "Armani Exchange-Luxe Gift Card": {
@@ -50,18 +71,18 @@
   "Auric": {
     "network": "none"
   },
-  "BAGLINE": {
-    "inrdeals_campaign_type": "cps",
-    "network": "inrdeals"
-  },
   "BGMI": {
     "network": "none"
   },
   "BIBA": {
-    "network": "cuelinks"
+    "inrdeals_campaign_type": "cps",
+    "network": "inrdeals"
   },
   "Bakingo": {
     "network": "none"
+  },
+  "Bear House": {
+    "network": "cuelinks"
   },
   "Behrouz Biryani": {
     "network": "none"
@@ -76,6 +97,9 @@
   "Birkenstock": {
     "network": "none"
   },
+  "Black Decker": {
+    "network": "none"
+  },
   "Blaupunkt": {
     "network": "none"
   },
@@ -83,6 +107,12 @@
     "network": "none"
   },
   "Blissclub": {
+    "network": "none"
+  },
+  "Blue Tokai Coffee": {
+    "network": "none"
+  },
+  "Bluestone": {
     "network": "none"
   },
   "Boat": {
@@ -113,14 +143,25 @@
   "CLAYCO": {
     "network": "none"
   },
+  "Cafe Coffee Day": {
+    "network": "none"
+  },
   "Campus": {
-    "inrdeals_campaign_type": "cps",
-    "network": "inrdeals"
+    "network": "cuelinks"
+  },
+  "Campus Sutra": {
+    "network": "none"
   },
   "Candere Gold Coin": {
     "network": "none"
   },
+  "CaratLane": {
+    "network": "none"
+  },
   "Cello": {
+    "network": "none"
+  },
+  "Chicco": {
     "network": "none"
   },
   "Cinepolis": {
@@ -135,13 +176,22 @@
   "Cleartrip": {
     "network": "cuelinks"
   },
+  "Cloud tailor": {
+    "network": "none"
+  },
   "Clovia": {
-    "network": "cuelinks"
+    "network": "none"
   },
   "Cordelia": {
     "network": "none"
   },
+  "Corseca": {
+    "network": "none"
+  },
   "Cosmopolitan India": {
+    "network": "none"
+  },
+  "Cosmus": {
     "network": "none"
   },
   "Croma": {
@@ -152,6 +202,9 @@
     "network": "none"
   },
   "Cult": {
+    "network": "none"
+  },
+  "DANUBE BUILDMART": {
     "network": "none"
   },
   "DOMINO'S": {
@@ -166,6 +219,9 @@
   "Daily Objects": {
     "network": "none"
   },
+  "DeVagabond": {
+    "network": "none"
+  },
   "Decathlon": {
     "network": "cuelinks"
   },
@@ -175,7 +231,7 @@
   "Discord": {
     "network": "none"
   },
-  "Discovery Plus": {
+  "Discovery": {
     "network": "none"
   },
   "District": {
@@ -187,11 +243,14 @@
   "Donatekart": {
     "network": "none"
   },
-  "EA Sports": {
+  "EA SPORTS FC 26": {
+    "network": "none"
+  },
+  "ET Prime": {
     "network": "none"
   },
   "EaseMyTrip": {
-    "network": "none"
+    "network": "cuelinks"
   },
   "EatSure": {
     "network": "none"
@@ -205,6 +264,9 @@
   "Elver": {
     "inrdeals_campaign_type": "cps",
     "network": "inrdeals"
+  },
+  "Epic On 1 Year Plan": {
+    "network": "none"
   },
   "Estele": {
     "network": "none"
@@ -239,8 +301,11 @@
   "Ferns N Petals": {
     "network": "none"
   },
-  "FirstCry": {
-    "network": "cuelinks"
+  "Finusmart": {
+    "network": "none"
+  },
+  "First Cry": {
+    "network": "none"
   },
   "Flipkart": {
     "inrdeals_campaign_type": "cps",
@@ -251,6 +316,9 @@
   },
   "Flower Aura": {
     "network": "cuelinks"
+  },
+  "Forever New": {
+    "network": "none"
   },
   "Foxtale": {
     "network": "none"
@@ -264,20 +332,29 @@
   "FreshMenu": {
     "network": "none"
   },
+  "Future World Apple": {
+    "network": "none"
+  },
   "GAS-Luxe Gift Card": {
+    "network": "none"
+  },
+  "GIVA Silver Coin": {
     "network": "none"
   },
   "Gaana": {
     "network": "none"
   },
-  "Giva-Silver Coin": {
+  "Gas-Luxe": {
     "network": "none"
   },
-  "GoIbibo Hotel": {
+  "Global Desi": {
     "network": "none"
   },
-  "GyFTR PAY": {
+  "GoBaby Travel": {
     "network": "none"
+  },
+  "Goibibo": {
+    "network": "cuelinks"
   },
   "HP Pay": {
     "network": "none"
@@ -289,6 +366,9 @@
     "inrdeals_campaign_type": "cps",
     "network": "inrdeals"
   },
+  "Haute Sauce": {
+    "network": "none"
+  },
   "Headout": {
     "network": "none"
   },
@@ -297,9 +377,6 @@
     "network": "inrdeals"
   },
   "Healthians": {
-    "network": "none"
-  },
-  "Helios": {
     "network": "none"
   },
   "Hidesign": {
@@ -311,14 +388,23 @@
   "Hoichoi": {
     "network": "none"
   },
-  "Home Centre": {
+  "Home": {
+    "network": "none"
+  },
+  "Home Centre Online": {
     "network": "none"
   },
   "Hoora": {
     "network": "none"
   },
+  "HopInTown Plus": {
+    "network": "none"
+  },
   "Hopscotch": {
     "network": "none"
+  },
+  "House of Vaaree": {
+    "network": "cuelinks"
   },
   "Hunkemoller- Luxe Gift Card": {
     "network": "none"
@@ -333,9 +419,15 @@
     "network": "none"
   },
   "IRCTC": {
-    "network": "cuelinks"
+    "network": "none"
   },
   "Ikea": {
+    "network": "none"
+  },
+  "Imagine Apple Premium": {
+    "network": "none"
+  },
+  "Innovist": {
     "network": "none"
   },
   "Instafab Plus": {
@@ -354,6 +446,9 @@
     "inrdeals_campaign_type": "cps",
     "network": "inrdeals"
   },
+  "Jos Alukkas Coin": {
+    "network": "none"
+  },
   "Just Lil Things": {
     "network": "none"
   },
@@ -363,10 +458,17 @@
   "KFC": {
     "network": "none"
   },
-  "Kama Ayurveda": {
-    "network": "cuelinks"
+  "Kalyan Diamond": {
+    "network": "none"
   },
-  "Ketan Diamonds Gold Coin": {
+  "Kama Ayurveda": {
+    "inrdeals_campaign_type": "cps",
+    "network": "inrdeals"
+  },
+  "Ketan Diamonds - Gold Coin": {
+    "network": "none"
+  },
+  "Kiehl s": {
     "network": "none"
   },
   "Kimirica": {
@@ -378,15 +480,27 @@
   "LENSKART": {
     "network": "none"
   },
+  "LOCCITANE": {
+    "network": "none"
+  },
+  "LUZO - Salons, Spas, Clinics": {
+    "network": "none"
+  },
+  "Leaf Studios": {
+    "network": "none"
+  },
+  "Lee": {
+    "network": "none"
+  },
+  "Lego": {
+    "network": "none"
+  },
   "Levis": {
     "network": "cuelinks"
   },
   "Libas": {
     "inrdeals_campaign_type": "cps",
     "network": "inrdeals"
-  },
-  "Liberty Offline": {
-    "network": "none"
   },
   "Liberty Online": {
     "network": "none"
@@ -406,16 +520,10 @@
   "Lohono Stays": {
     "network": "none"
   },
-  "Luzo": {
+  "Love Beauty Planet": {
     "network": "none"
   },
-  "MAX": {
-    "network": "none"
-  },
-  "MS Xbox Game Pass Ultimate": {
-    "network": "none"
-  },
-  "MUJI- Luxe Gift Card": {
+  "MXPlayer": {
     "network": "none"
   },
   "MakeMyTrip": {
@@ -427,7 +535,7 @@
   "Mamaearth": {
     "network": "none"
   },
-  "Manyavar": {
+  "Maple": {
     "network": "none"
   },
   "Marks & Spencer": {
@@ -435,6 +543,12 @@
     "network": "inrdeals"
   },
   "Matrix": {
+    "network": "none"
+  },
+  "Max Fashion": {
+    "network": "none"
+  },
+  "McDonalds": {
     "network": "none"
   },
   "Me N Moms": {
@@ -449,6 +563,12 @@
   "Milkbasket": {
     "network": "none"
   },
+  "Milton": {
+    "network": "cuelinks"
+  },
+  "Minecraft Minecoins": {
+    "network": "none"
+  },
   "Minus30": {
     "network": "cuelinks"
   },
@@ -458,10 +578,19 @@
   "Moba Legends 5v5": {
     "network": "none"
   },
+  "Modern Bazaar": {
+    "network": "none"
+  },
+  "Mokobara": {
+    "network": "none"
+  },
   "Mothercare-Luxe Gift Card": {
     "network": "none"
   },
   "Muscle%20Blaze": {
+    "network": "none"
+  },
+  "Muthoot Gold": {
     "network": "none"
   },
   "Myntra": {
@@ -471,14 +600,21 @@
   "Nat Habit": {
     "network": "none"
   },
-  "Neemans": {
-    "network": "cuelinks"
+  "Natures Basket": {
+    "network": "none"
+  },
+  "Neeman's": {
+    "inrdeals_campaign_type": "cps",
+    "network": "inrdeals"
   },
   "Netmeds": {
     "inrdeals_campaign_type": "cps",
     "network": "inrdeals"
   },
-  "Nintendo Shop": {
+  "Nilkamal Homes": {
+    "network": "none"
+  },
+  "Nintendo": {
     "network": "none"
   },
   "Nua Woman": {
@@ -488,19 +624,43 @@
     "inrdeals_campaign_type": "cps",
     "network": "inrdeals"
   },
+  "Nykaa Fashion": {
+    "network": "none"
+  },
   "Nykaa Man": {
     "network": "none"
   },
   "OLA CABS": {
     "network": "none"
   },
-  "Oven Story": {
+  "OTTplay": {
     "network": "none"
   },
-  "PVR": {
+  "Oberoi Hotels Resorts": {
+    "network": "none"
+  },
+  "Origin Nutrition": {
+    "network": "none"
+  },
+  "Ornaz": {
+    "network": "none"
+  },
+  "Ovenstory": {
+    "network": "none"
+  },
+  "PC Chandra Gold Coin": {
+    "network": "none"
+  },
+  "PCJ Diamond": {
+    "network": "none"
+  },
+  "PVR INOX": {
     "network": "none"
   },
   "Palmonas": {
+    "network": "cuelinks"
+  },
+  "Pantaloons (4 Hr Wait)": {
     "network": "cuelinks"
   },
   "Pepperfry": {
@@ -513,7 +673,19 @@
   "PhonePe": {
     "network": "none"
   },
+  "Photojaanic": {
+    "network": "none"
+  },
+  "PinePerksRupayPrime-WH": {
+    "network": "none"
+  },
+  "Pixel Go": {
+    "network": "none"
+  },
   "Pizza Hut": {
+    "network": "none"
+  },
+  "Playstation": {
     "network": "none"
   },
   "Points for Good": {
@@ -528,7 +700,10 @@
   "Prestige": {
     "network": "none"
   },
-  "Pure Home + Living": {
+  "Prestige Smart Kitchen": {
+    "network": "none"
+  },
+  "Pure Home & Living": {
     "network": "none"
   },
   "Quick Heal": {
@@ -543,18 +718,14 @@
   "Rangriti": {
     "network": "none"
   },
+  "Ray Ban": {
+    "network": "none"
+  },
   "Razer Gold": {
     "network": "none"
   },
-  "Razorpay Money Bill": {
-    "network": "cuelinks"
-  },
   "Reader's Digest": {
     "network": "none"
-  },
-  "Reliance Digital": {
-    "inrdeals_campaign_type": "cps",
-    "network": "inrdeals"
   },
   "Reliance Jio Mart": {
     "inrdeals_campaign_type": "cps",
@@ -563,10 +734,10 @@
   "Renee Cosmetics": {
     "network": "none"
   },
-  "Resonate Router UPS": {
+  "Rentomojo": {
     "network": "none"
   },
-  "Riot League of Legends 415": {
+  "Resonate Router UPS": {
     "network": "none"
   },
   "Roblox": {
@@ -575,14 +746,26 @@
   "SSUNSU": {
     "network": "none"
   },
+  "SUPA": {
+    "network": "none"
+  },
   "SWISS BEAUTY": {
     "inrdeals_campaign_type": "cps",
     "network": "inrdeals"
+  },
+  "Salty": {
+    "network": "cuelinks"
+  },
+  "Samsonite": {
+    "network": "none"
   },
   "Satya Paul- Luxe Gift Card": {
     "network": "none"
   },
   "Seniority": {
+    "network": "none"
+  },
+  "Shell (1 Day Wait)": {
     "network": "none"
   },
   "ShemarooMe": {
@@ -591,10 +774,16 @@
   "Shiv Naresh": {
     "network": "none"
   },
+  "Shiva Organic": {
+    "network": "none"
+  },
   "Shoppers Stop": {
     "network": "none"
   },
   "Shopy Vision": {
+    "network": "none"
+  },
+  "Simple": {
     "network": "none"
   },
   "Skechers": {
@@ -606,33 +795,46 @@
   "Smile Foundation": {
     "network": "none"
   },
+  "Snapdeal 500": {
+    "network": "none"
+  },
   "Snitch": {
     "network": "none"
   },
   "Soch": {
-    "inrdeals_campaign_type": "cps",
-    "network": "inrdeals"
-  },
-  "Sony Playstation": {
     "network": "none"
+  },
+  "Solara": {
+    "network": "cuelinks"
   },
   "SonyLiv": {
     "network": "none"
   },
   "Soulflower": {
-    "inrdeals_campaign_type": "cps",
-    "network": "inrdeals"
+    "network": "cuelinks"
   },
   "Speedo": {
     "network": "none"
   },
+  "SpiceJet": {
+    "network": "none"
+  },
   "Spotify": {
+    "network": "none"
+  },
+  "Sri Jagdamba Pearls": {
+    "network": "none"
+  },
+  "Starbucks": {
     "network": "none"
   },
   "StayVista": {
     "network": "none"
   },
   "Steam Wallet": {
+    "network": "none"
+  },
+  "Sterling Holidays": {
     "network": "none"
   },
   "Steve Madden-Luxe Gift Card": {
@@ -647,10 +849,13 @@
   "Surat Diamond": {
     "network": "none"
   },
+  "Svenklas": {
+    "network": "none"
+  },
   "Sweet Truth": {
     "network": "none"
   },
-  "Swiggy Instamart": {
+  "Swiggy Money Voucher": {
     "network": "none"
   },
   "TATA CLiQ": {
@@ -662,22 +867,44 @@
   "TUMI- Luxe Gift Card": {
     "network": "none"
   },
-  "Tattva Spa": {
+  "Taj Hotels": {
     "network": "none"
   },
-  "The Bear House": {
+  "Tanishq Gold Coin": {
     "network": "cuelinks"
+  },
+  "Tattva Spa": {
+    "network": "none"
   },
   "The Body Shop": {
     "network": "none"
   },
+  "The Collective": {
+    "network": "none"
+  },
   "The Man Company": {
+    "network": "cuelinks"
+  },
+  "The Postcard Hotels": {
+    "network": "none"
+  },
+  "The Reading Habit": {
     "network": "none"
   },
   "The Skin Story": {
     "network": "none"
   },
+  "Things2Do": {
+    "network": "none"
+  },
+  "Times Prime Lite": {
+    "inrdeals_campaign_type": "cpa",
+    "network": "inrdeals"
+  },
   "Tinder": {
+    "network": "none"
+  },
+  "Tira Beauty": {
     "network": "none"
   },
   "TripXOXO": {
@@ -687,6 +914,9 @@
     "network": "none"
   },
   "Typsy Beauty": {
+    "network": "none"
+  },
+  "Tzaro": {
     "network": "none"
   },
   "UBER": {
@@ -700,16 +930,31 @@
     "inrdeals_campaign_type": "cps",
     "network": "inrdeals"
   },
+  "Urban Space": {
+    "network": "none"
+  },
+  "V Mart (Custom)": {
+    "network": "none"
+  },
+  "VROTT": {
+    "network": "none"
+  },
   "Valorant": {
+    "network": "none"
+  },
+  "Vaya": {
     "network": "none"
   },
   "Veridicus": {
     "network": "none"
   },
-  "Vijay Sales": {
-    "network": "cuelinks"
-  },
   "Vinci Botanicals": {
+    "network": "none"
+  },
+  "Vinzberry": {
+    "network": "none"
+  },
+  "Vitamin Haat": {
     "network": "none"
   },
   "WEST ELM- Luxe Gift Card": {
@@ -727,10 +972,29 @@
   "What's Up Wellness": {
     "network": "none"
   },
+  "Woggles": {
+    "network": "none"
+  },
+  "Wonderchef": {
+    "inrdeals_campaign_type": "cps",
+    "network": "inrdeals"
+  },
   "Woodland": {
     "network": "none"
   },
+  "World of Titan": {
+    "network": "none"
+  },
+  "Wrangler": {
+    "network": "none"
+  },
   "Wynk Music": {
+    "network": "none"
+  },
+  "Xbox Premium Game Pass": {
+    "network": "none"
+  },
+  "Xfused": {
     "network": "none"
   },
   "Yalla Ludo": {
@@ -746,7 +1010,7 @@
   "Zepto": {
     "network": "none"
   },
-  "Zomato Gift Card": {
+  "Zomato": {
     "network": "none"
   },
   "Zoomcar": {
@@ -754,5 +1018,8 @@
   },
   "Zouk": {
     "network": "cuelinks"
+  },
+  "myUpchar Medicines": {
+    "network": "none"
   }
 }

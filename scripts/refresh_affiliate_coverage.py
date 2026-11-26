@@ -64,6 +64,11 @@ BAD_INRDEALS_MATCHES = {"royal sundaram insurance", "hdfc pixel card"}
 # carry, which would be a dead link for the shopper, so test before adding:
 #   curl -s -o /dev/null -w "%{http_code} %{redirect_url}" \
 #     "https://inr.deals/track?id=<publisher id>&campaign=cps&url=<shop url>"
+# Brands the name-matching pairs with the wrong INRDeals campaign. Checked by
+# opening the link on 26 Nov 2026: ET Prime answers 403 (a dead link for the
+# shopper); Home and Me N Moms pass through with no tracking at all.
+INRDEALS_NEVER = {"ET Prime", "Home", "Me N Moms"}
+
 INRDEALS_VERIFIED_LIVE = {
     "AJIO": "cps",
     "Croma": "cps",
@@ -153,7 +158,9 @@ def build() -> dict[str, dict]:
         inr = _fuzzy_find(brand, inr_by_norm, BAD_INRDEALS_MATCHES)
 
         cue_live = bool(cue) and cue.get("access_status") == "open"
-        inr_live = bool(inr) and inr.get("status", "").upper() == "ACTIVE"
+        inr_live = (
+            bool(inr) and inr.get("status", "").upper() == "ACTIVE" and brand not in INRDEALS_NEVER
+        )
 
         if cue_live and inr_live:
             cue_pct = float(cue["payout"]) if cue.get("payout_currency") == "%" else None
