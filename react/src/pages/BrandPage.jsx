@@ -78,23 +78,25 @@ function FactRow({ icon, q, a }) {
 }
 
 /** A section folded behind its heading, the way Maximize keeps "How to
- * redeem" and the terms off the first screen. Open by default on wide
- * screens is not needed: the crawler reads the prerendered copy. */
+ * redeem" and the terms off the first screen.
+ *
+ * The text stays on the page while the box is closed, only hidden from view.
+ * Google reads the page after our JavaScript has run, not just the prerendered
+ * copy, and on 26 Nov 2026 that left it 354 of a shop page's 812 words: the
+ * rate history, the steps, the terms and every question were missing. */
 function Fold({ title, children }) {
   const [open, setOpen] = useState(false);
   return (
     <Box border="1px solid" borderColor="border" borderRadius="14px" mb="10px" overflow="hidden">
-      <Flex className="dealo-press" as="button" type="button" onClick={() => setOpen((o) => !o)} w="100%" align="center" justify="space-between" px="14px" py="12px" bg="surface2" fontSize="14px" fontWeight={700} textAlign="left">
+      <Flex className="dealo-press" as="button" type="button" aria-expanded={open} onClick={() => setOpen((o) => !o)} w="100%" align="center" justify="space-between" px="14px" py="12px" bg="surface2" fontSize="14px" fontWeight={700} textAlign="left">
         {title}
         <Box color="text2" transform={open ? 'rotate(180deg)' : 'none'} transition="transform .15s">
           <I.chevDown size={16} />
         </Box>
       </Flex>
-      {open && (
-        <Box px="14px" py="12px">
-          {children}
-        </Box>
-      )}
+      <Box px="14px" py="12px" display={open ? 'block' : 'none'}>
+        {children}
+      </Box>
     </Box>
   );
 }

@@ -388,8 +388,10 @@ export function buildGuides(shopPages) {
       // dates and the year work themselves out, so the page is right again
       // next November without an edit.
       slug: 'black-friday-gift-card-discounts-india',
-      title: `Black Friday ${f.year} India: the extra discount on top at ${sale.online.length} shops`,
-      description: `Pay a Black Friday sale price with the shop's own gift card and it costs less again. Today's gift card discount at ${sale.online.length} Indian online shops, checked ${f.checked}.`,
+      // Search Console, 26 Nov 2026: shown for "black friday gift card deals"
+      // at position 4 with no clicks. The title now uses those words.
+      title: `Black Friday gift card deals ${f.year} India: ${sale.online.length} shops`,
+      description: `A ₹5,000 ${ex.shop.name} order costs ${inr(payOn(ex.rate, 5000))} paid with the shop's gift card, on top of the Black Friday price. ${sale.online.length} Indian online shops, checked ${f.checked}.`,
       heading: `Black Friday ${f.year} in India: the extra discount on top`,
       intro: 'The sale price is not the lowest price. Pay it with the shop’s own gift card and you pay less again.',
       sections: [

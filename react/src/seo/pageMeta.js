@@ -39,16 +39,16 @@ export const PAGE_META = {
     intro: 'Same product end to end, so you can see exactly what happens at each step.',
   },
   about: {
-    title: 'About',
+    title: 'About Dealo: what it is, who runs it, how it stays free',
     description:
-      'Dealo is a pre-checkout tool that finds the cheapest legitimate way to buy something online in India, by stacking discounted Gift Vouchers with cashback cards.',
+      'Dealo shows the cheapest way to pay at 800+ Indian shops: the shop’s own gift card, bought for less. Who runs it, how it makes money and what it never asks for.',
     heading: 'About Dealo',
     intro: 'The smartest way to buy — same product, less money out.',
   },
   contact: {
-    title: 'Contact',
+    title: 'Contact Dealo: WhatsApp and email support',
     description:
-      'Reach the Dealo team by WhatsApp or email — search support, feedback, and questions about how Gift Voucher deals work.',
+      'Reach Dealo by WhatsApp or email: a gift card code that is not working, a wrong price, a shop we are missing, or a request to delete your data.',
     heading: 'Contact',
     intro: 'Have a question, found a bug, or want to talk to us? Here’s how to reach Dealo.',
   },
@@ -234,7 +234,10 @@ function subscriptionMeta(shop) {
   return {
     // People type "<name> subscription offer" and "<name> subscription
     // discount"; the title carries one, the heading the other.
-    title: rate ? `${shop.name} ${noun} offer: ${pct(rate)} off today` : `${shop.name} ${noun} offer today`,
+    // Half off or more reads as too good to be true as a bare percentage
+    // (Swiggy One, 26 Nov 2026: 130 showings, 1 click), so those lead with
+    // the price instead.
+    title: rate >= 50 && plan ? `${shop.name} ${noun} offer: ${plan} today` : rate ? `${shop.name} ${noun} offer: ${pct(rate)} off today` : `${shop.name} ${noun} offer today`,
     description: `${shop.name} ${noun}: ${bestLine(shop)}${plan ? `, ${plan}` : ''}. ${shop.hubble ? 'Sold by Dealo: pay from your bank app, code in seconds.' : 'Today’s rate from official sellers.'} Checked ${shortDate(shop.checked)}.`,
     heading: `${shop.name} ${noun} discount today`,
     intro: `${bestLine(shop)}. Buy the voucher for the plan you want, then redeem the code on ${shop.name}.`,
@@ -273,6 +276,13 @@ export function quickAnswer(shop) {
     .join(' ');
 }
 
+function shopDescription(shop, compare) {
+  const rate = shownPct(shop);
+  const line = (cost) => `${shop.name} gift card (gift voucher): ${bestLine(shop)}${cost}. ${compare} Checked ${shortDate(shop.checked)}.`;
+  const withCost = rate ? line(`, so a ₹1,000 card costs ${rupees(1000 * (1 - rate / 100))}`) : '';
+  return withCost && withCost.length <= 158 ? withCost : line('');
+}
+
 export function shopPageMeta(shop) {
   if (isSubscription(shop)) return subscriptionMeta(shop);
   const n = shop.sellers.length;
@@ -287,7 +297,8 @@ export function shopPageMeta(shop) {
     // title uses their words and today's rate (the same one the page shows).
     title: shownPct(shop) ? `${shop.name} gift card discount: ${pct(shownPct(shop))} off today` : `${shop.name} gift card discount today`,
     // Kept short so Google shows the "Checked" date instead of cutting it off.
-    description: `${shop.name} gift card (gift voucher): ${bestLine(shop)}. ${compare} Checked ${shortDate(shop.checked)}.`,
+    // The rupee figure goes in only when the whole line still fits.
+    description: shopDescription(shop, compare),
     // "gift card" is the phrase people search; "voucher" stays in the body.
     heading: `${shop.name} gift card discount today`,
     // The answer first, with a rupee figure: the sentence AI answers lift.
