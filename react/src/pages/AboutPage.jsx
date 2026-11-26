@@ -24,24 +24,44 @@ export default function AboutPage() {
   usePageTitle(PAGE_META.about.title, PAGE_META.about.description);
 
   return (
-    <InfoPageShell title="About Dealo" subtitle="The smartest way to buy — same product, less money out.">
+    <InfoPageShell title="About Dealo" subtitle="The cheapest way to pay at the shop you already use.">
       <Section title="What Dealo does">
-        Paste a product link or describe what you want to buy, and Dealo checks the cheapest legitimate way to
-        actually pay for it — usually a discounted <b>Gift Voucher</b> from the store’s official voucher partner,
-        sometimes combined with a cashback card. You still buy from the real store, on the real store’s website. We
-        just find the cheapest legitimate way to pay for it.
+        Type a shop or a product, or paste a product link, and Dealo shows the cheapest way to pay for it. Most
+        often that is the shop’s own <b>gift card</b>, bought for less than its value. You pay the shop with the
+        gift card code, like store credit, and keep the difference. You still buy from the real shop, on its own
+        website or app.
       </Section>
 
-      <Section title="Why it works">
-        Big stores sell Gift Vouchers through official partners at a small discount to encourage upfront spending.
-        Buy the voucher, add it to your account as store credit, then check out normally — same store, same product,
-        lower total. It’s real store credit, not a workaround, and Dealo never touches your card details or your
-        money at any point.
+      <Section title="Why a gift card costs less">
+        Shops sell their gift cards through official issuers at a discount, because it brings them money up front.
+        A ₹1,000 card can cost ₹900 to ₹980 depending on the shop. Dealo reads these prices for 800+ Indian shops
+        and shows today’s figure with the date it was checked. Cashback is never counted as a saving, because it
+        may or may not arrive later.
       </Section>
 
-      <Section title="What Dealo isn’t">
-        Dealo is not a cashback platform, a coupon site, or a credit card company. We don’t sell anything ourselves —
-        we point you to the cheapest legitimate way to pay, and you complete the purchase directly with the store.
+      <Section title="Where the gift cards come from">
+        Dealo sells many gift cards itself. They are issued through Hubble, an official gift voucher issuer: you
+        pay from your bank app and the code arrives in seconds. For other shops Dealo points you to Gyftr, Maximize
+        or BuyHatke, which are official gift voucher sellers, and shows their prices side by side.
+      </Section>
+
+      <Section title="How Dealo stays free">
+        Dealo is free to use and needs no login to search. When you click through to a shop, that link may be an
+        affiliate link, so the shop may pay Dealo a small commission if you buy. It never changes the price you
+        pay, and it never changes which option Dealo shows first: the lowest price always comes first.
+      </Section>
+
+      <Section title="What Dealo never asks for">
+        Dealo never asks for your card number, UPI PIN or bank OTP. Payments for gift cards sold by Dealo happen
+        in your own bank app.
+      </Section>
+
+      <Section title="Who runs it">
+        Dealo is built in India by Medhansh Kejriwal. Questions, a wrong price or a code that is not working:{' '}
+        <ChakraLink as={RouterLink} to={ROUTES.contact} fontWeight={700} textDecoration="underline" textUnderlineOffset="2px">
+          contact us
+        </ChakraLink>
+        .
       </Section>
 
       <Flex align="center" gap="10px" p="14px 16px" borderRadius="14px" bg="brandSoft" mt="8px">

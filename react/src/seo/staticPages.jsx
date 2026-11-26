@@ -12,12 +12,14 @@ import { ChakraProvider } from '@chakra-ui/react';
 import { renderToStaticMarkup } from 'react-dom/server';
 import { MemoryRouter } from 'react-router-dom';
 
+import AboutPage from '@/pages/AboutPage';
 import ChatAppsPage from '@/pages/ChatAppsPage';
 import PrivacyPage from '@/pages/PrivacyPage';
 import TermsPage from '@/pages/TermsPage';
 import theme from '@/theme';
 
 const PAGES = {
+  '/about/': AboutPage,
   '/privacy/': PrivacyPage,
   '/terms/': TermsPage,
   '/chatgpt-claude/': ChatAppsPage,

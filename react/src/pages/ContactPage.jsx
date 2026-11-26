@@ -68,6 +68,16 @@ export default function ContactPage() {
         />
       </Flex>
 
+      <Text as="h2" m="0 0 8px" fontSize="16px" fontWeight={800} letterSpacing="-.01em">
+        What to write to us about
+      </Text>
+      <Box as="ul" m="0 0 20px" pl="18px" fontSize="14px" color="text2" lineHeight={1.65}>
+        <li>A gift card code that is not working. Send the shop name and the amount.</li>
+        <li>A price on Dealo that does not match what the seller shows.</li>
+        <li>A shop you want that Dealo does not have yet.</li>
+        <li>A request to see or delete the data Dealo holds about you.</li>
+      </Box>
+
       <Text fontSize="12.5px" color="text3" lineHeight={1.6}>
         Looking to use Dealo on WhatsApp instead of the website?{' '}
         <ChakraLink

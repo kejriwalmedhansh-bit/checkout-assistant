@@ -400,8 +400,21 @@ const ROUTES = [
     jsonLd: shopJsonLd(shop),
     body: () => shopBody(shop),
   })),
-  { path: '/about/', changefreq: 'yearly', priority: '0.4', meta: PAGE_META.about },
-  { path: '/contact/', changefreq: 'yearly', priority: '0.4', meta: PAGE_META.contact },
+  { path: '/about/', changefreq: 'yearly', priority: '0.4', meta: PAGE_META.about, body: () => renderStaticPage('/about/') },
+  { path: '/contact/', changefreq: 'yearly', priority: '0.4', meta: PAGE_META.contact, 
+    // Written out here, not rendered from ContactPage: that page loads the
+    // analytics code, which needs a browser. Keep in step with ContactPage.jsx.
+    body: () =>
+      head(PAGE_META.contact) +
+      list(['WhatsApp support: +91 96744 00021', `Email support: ${link('mailto:medhansh@getdealo.in', 'medhansh@getdealo.in')}`]) +
+      '<h2>What to write to us about</h2>' +
+      list([
+        'A gift card code that is not working. Send the shop name and the amount.',
+        'A price on Dealo that does not match what the seller shows.',
+        'A shop you want that Dealo does not have yet.',
+        'A request to see or delete the data Dealo holds about you.',
+      ]),
+  },
   { path: '/join/', changefreq: 'monthly', priority: '0.4', meta: PAGE_META.join },
   { path: '/privacy/', changefreq: 'yearly', priority: '0.2', meta: PAGE_META.privacy, body: () => renderStaticPage('/privacy/') },
   { path: '/terms/', changefreq: 'yearly', priority: '0.2', meta: PAGE_META.terms, body: () => renderStaticPage('/terms/') },
