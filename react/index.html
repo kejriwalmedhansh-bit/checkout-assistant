@@ -115,10 +115,49 @@
     -->
     <style>
       html { background-color: #FAFAF7; }
+
+      /*
+        First-second screen. Every built page carries a plain-text copy of
+        itself inside #root for search engines (scripts/prerender.mjs). The
+        app bundle takes about a second to arrive, and until it did, visitors
+        watched that unstyled text flash up first. #boot-splash sits on top of
+        it: the cream canvas and the Dealo logo, nothing else. It lives inside
+        #root, so createRoot() removes it together with the plain text on the
+        first render and no code has to take it down.
+
+        The text underneath is untouched (not display:none), so crawlers read
+        exactly what they read before. Two safety nets so the splash can never
+        strand anyone: with JavaScript off, the noscript rule below drops it;
+        if the bundle fails or stalls, it fades out after 10 seconds and the
+        plain page with its working links is what's left.
+      */
+      #boot-splash {
+        position: fixed;
+        inset: 0;
+        z-index: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #FAFAF7;
+        animation: boot-splash-giveup 0.3s 10s forwards;
+      }
+      @keyframes boot-splash-giveup {
+        to { opacity: 0; visibility: hidden; }
+      }
+      /* The app fades in over the splash instead of snapping (main.jsx adds the class once, at boot). */
+      #root.app-in { animation: app-in 0.28s ease-out; }
+      @keyframes app-in {
+        from { opacity: 0; }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        #root.app-in { animation: none; }
+      }
     </style>
+    <noscript><style>#boot-splash { display: none; }</style></noscript>
   </head>
   <body>
-    <div id="root"></div>
+    <!-- The logo is drawn as shapes (letters outlined from Hanken Grotesk 800), so it never waits on the font file. Same lockup as components/common/Logo.jsx. -->
+    <div id="root"><div id="boot-splash"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 3593 1000" width="122" height="34" role="img" aria-label="Dealo"><g transform="translate(0 50) scale(14.0625)" fill="none"><circle cx="15" cy="49" r="5.5" stroke="#16202B" stroke-width="5"/><path d="M15 39.5C15 26 49 38 49 23" stroke="#16202B" stroke-width="7" stroke-dasharray="8.5 6.5"/><circle cx="49" cy="17" r="7.5" fill="#C1712F"/></g><g transform="translate(1160 848)"><path fill="#1F3A5F" d="M240 10Q176 10 130 -23Q83 -57 59 -115Q35 -173 35 -247Q35 -329 62 -386Q90 -443 137 -473Q184 -503 240 -503Q278 -503 311 -488Q345 -472 370 -438Q394 -405 402 -350L376 -364V-697H513V0H376V-127L406 -149Q394 -85 367 -51Q340 -16 307 -3Q274 10 240 10ZM281 -116Q314 -116 338 -132Q362 -148 375 -177Q388 -207 388 -247Q388 -287 375 -316Q362 -345 338 -362Q314 -378 281 -378Q248 -378 223 -362Q199 -346 185 -317Q172 -288 172 -247Q172 -206 185 -177Q199 -147 223 -131Q248 -116 281 -116ZM832 10Q766 10 719 -11Q671 -32 642 -68Q612 -104 598 -150Q585 -195 585 -244Q585 -291 598 -337Q612 -383 640 -421Q668 -458 714 -481Q760 -503 824 -503Q881 -503 925 -484Q968 -464 997 -430Q1026 -395 1041 -348Q1055 -301 1055 -247Q1055 -238 1055 -226Q1054 -214 1052 -199H722Q728 -153 761 -131Q794 -108 840 -108Q877 -108 914 -121Q951 -134 979 -158L1042 -62Q1005 -36 974 -20Q942 -4 908 3Q875 10 832 10ZM920 -268Q922 -276 924 -284Q925 -292 925 -299Q925 -319 918 -336Q910 -352 897 -364Q884 -376 866 -383Q848 -389 826 -389Q791 -389 769 -376Q746 -362 735 -342Q723 -322 720 -301H966ZM1442 0 1432 -66V-312Q1432 -352 1405 -370Q1379 -388 1337 -388Q1298 -388 1256 -373Q1213 -358 1183 -334L1119 -429Q1175 -470 1230 -486Q1285 -503 1349 -503Q1452 -503 1510 -452Q1568 -401 1568 -312V0ZM1299 10Q1245 10 1202 -10Q1159 -30 1134 -68Q1109 -105 1109 -154Q1109 -197 1127 -228Q1145 -259 1175 -276Q1199 -290 1229 -296Q1259 -302 1292 -302H1443V-201H1312Q1298 -201 1286 -198Q1274 -196 1264 -189Q1256 -183 1251 -174Q1247 -165 1247 -154Q1247 -129 1267 -115Q1286 -100 1319 -100Q1350 -100 1376 -113Q1401 -126 1416 -149Q1432 -172 1432 -201L1464 -126Q1448 -74 1421 -44Q1395 -15 1363 -2Q1332 10 1299 10ZM1777 10Q1725 10 1690 -21Q1655 -53 1655 -122V-697H1792V-149Q1792 -131 1801 -124Q1810 -116 1824 -116Q1833 -116 1841 -118Q1849 -120 1858 -122V-5Q1836 3 1815 7Q1794 10 1777 10Z"/><path fill="#C1712F" d="M2148 10Q2076 10 2019 -23Q1962 -56 1929 -115Q1897 -173 1897 -247Q1897 -322 1929 -380Q1962 -438 2019 -470Q2075 -503 2148 -503Q2220 -503 2276 -471Q2333 -438 2365 -380Q2398 -322 2398 -247Q2398 -173 2366 -115Q2333 -56 2277 -23Q2220 10 2148 10ZM2148 -110Q2184 -110 2209 -126Q2234 -142 2247 -173Q2260 -204 2260 -247Q2260 -291 2247 -321Q2234 -351 2209 -367Q2184 -383 2148 -383Q2112 -383 2086 -367Q2061 -351 2048 -321Q2034 -291 2034 -247Q2034 -204 2048 -173Q2061 -142 2086 -126Q2112 -110 2148 -110Z"/></g></svg></div></div>
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>

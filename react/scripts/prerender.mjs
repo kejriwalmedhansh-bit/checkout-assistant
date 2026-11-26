@@ -489,8 +489,8 @@ const NAV = [
  * which never runs the JS at all) sees only what's in the file as served.
  *
  * The body goes inside #root, so createRoot() replaces it on first render —
- * visitors see the app, and at most a moment of this plain text on a slow
- * connection instead of a blank screen. The JSON-LD blocks are tagged
+ * visitors see the app. While the bundle loads, the #boot-splash logo
+ * screen from index.html covers this plain text, so people never see it. The JSON-LD blocks are tagged
  * data-prerendered and removed by main.jsx on boot, because useJsonLd adds
  * its own copy and a page must not carry two FAQ blocks.
  */
@@ -520,8 +520,11 @@ function renderRoute(html, route) {
     '<div data-prerendered style="max-width:600px;margin:0 auto;padding:56px 16px;' +
     'font-family:system-ui,sans-serif;color:#16202B;line-height:1.55">' +
     `${nav}${body}</div>`;
-  if (!out.includes('<div id="root"></div>')) throw new Error('prerender: index.html has no empty #root');
-  return out.replace('<div id="root"></div>', `<div id="root">${block}</div>`);
+  // After the first-second splash (index.html), which covers this text until
+  // the app boots. createRoot() then replaces both.
+  const ROOT_END = '</svg></div></div>';
+  if (out.split(ROOT_END).length !== 2) throw new Error('prerender: index.html #root should hold only the boot splash');
+  return out.replace(ROOT_END, `</svg></div>${block}</div>`);
 }
 
 for (const route of ROUTES) {
