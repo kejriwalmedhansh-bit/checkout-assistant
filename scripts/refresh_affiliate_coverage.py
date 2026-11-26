@@ -56,6 +56,22 @@ BAD_CUELINKS_MATCHES = {
 }
 BAD_INRDEALS_MATCHES = {"royal sundaram insurance", "hdfc pixel card"}
 
+# Shops where an INRDeals link was opened by hand and seen to pass through a
+# tracker carrying our publisher id, although the CSV snapshot is too old to
+# list them as ACTIVE. Used only when Cuelinks has no open campaign for the
+# shop (26 Nov 2026: Cuelinks rejected Flipkart and AJIO, and no longer lists
+# Croma, Netmeds or JioMart). INRDeals answers 403 for a shop it doesn't
+# carry, which would be a dead link for the shopper, so test before adding:
+#   curl -s -o /dev/null -w "%{http_code} %{redirect_url}" \
+#     "https://inr.deals/track?id=<publisher id>&campaign=cps&url=<shop url>"
+INRDEALS_VERIFIED_LIVE = {
+    "AJIO": "cps",
+    "Croma": "cps",
+    "Flipkart": "cps",
+    "Netmeds": "cps",
+    "Reliance Jio Mart": "cps",
+}
+
 
 def _norm(s: str) -> str:
     s = s.lower()
@@ -156,10 +172,16 @@ def build() -> dict[str, dict]:
         else:
             network = "none"
 
+        verified_type = INRDEALS_VERIFIED_LIVE.get(brand)
+        if verified_type and not cue_live:
+            network = "inrdeals"
+
         counts[network] += 1
         entry = {"network": network}
         if network == "inrdeals":
-            entry["inrdeals_campaign_type"] = inr["campaign_type"].lower()
+            entry["inrdeals_campaign_type"] = (
+                inr["campaign_type"].lower() if inr_live else verified_type
+            )
         coverage[brand] = entry
 
     return coverage, counts
