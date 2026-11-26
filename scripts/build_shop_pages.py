@@ -40,6 +40,9 @@ from pathlib import Path
 from urllib.parse import quote
 
 ROOT = Path(__file__).resolve().parent.parent
+sys.path.insert(0, str(ROOT / "scripts"))
+from shop_rate_history import add_history  # noqa: E402
+
 DATA = ROOT / "data"
 OUT = ROOT / "react" / "src" / "data" / "shopPages.json"
 API = "https://dealo-backend.onrender.com"
@@ -480,6 +483,25 @@ def hubble_rate_for(name: str, aliases: list[str]) -> dict | None:
     return found
 
 
+# Multi-use or single-use, where Dealo sells the card and the card's own
+# terms say something different from the partner listings pick_terms() reads.
+# Each one read by hand from the card's terms on 26 Nov 2026 (26 pages said
+# the opposite of the card they sell: Westside said "multi-use", the card
+# says "one-time use and any unused balance will lapse"). True = spend it
+# across orders, False = one go, a string = the card's own split.
+# Blinkit is left alone: "one-time use" there means adding it to the Blinkit
+# wallet once; the balance is then spent across orders.
+DEALO_CARD_USE = {
+    **{slug: False for slug in (
+        "westside", "biba", "bakingo", "marks-and-spencer", "blissclub", "kama-ayurveda", "wonderchef",
+        "tattva-spa", "hoora", "estele", "cello", "cafe-delhi-heights", "absolute-barbecues", "barbeque-nation",
+        "wow-momo", "wow-china", "wow-chicken", "hidesign", "tasva", "skinn", "the-body-shop",
+    )},
+    **{slug: True for slug in ("croma", "bigbasket", "third-wave-coffee")},
+    "pvr": "Multiple times online, once in person",
+}
+
+
 def pick_terms(brands: list[dict]) -> dict:
     """Fine print from whichever seller states it; sellers agree far more
     often than they differ, and a stated value beats a blank."""
@@ -541,6 +563,8 @@ def main() -> None:
             print(f"  skip {name}: no seller")
             continue
         terms = pick_terms(matched_brands)
+        if h and slug in DEALO_CARD_USE:
+            terms["multiUse"] = DEALO_CARD_USE[slug]
         limits = [int(r["stack_limit"]) for r in sellers if r.get("stack_limit")]
         stack = None
         # Where Dealo sells the voucher the page describes Dealo's card, so a
@@ -579,6 +603,8 @@ def main() -> None:
             sys.exit(f"stopped: Dealo's rate could not be read for {failed} of {len(SHOPS)} shops; nothing written")
         if previous and len(pages) < 0.9 * len(previous):
             sys.exit(f"stopped: {len(pages)} pages, down from {len(previous)}; nothing written (--force to write anyway)")
+    # How each seller's rate has moved for this shop (scripts/shop_rate_history.py).
+    add_history(pages, previous)
     OUT.write_text(json.dumps(pages, indent=2, ensure_ascii=False) + "\n")
     print(f"wrote {len(pages)} shop pages -> {OUT.relative_to(ROOT)}")
 

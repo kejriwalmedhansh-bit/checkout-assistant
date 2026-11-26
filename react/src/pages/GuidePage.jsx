@@ -8,6 +8,7 @@ import { useJsonLd } from '@/hooks/useJsonLd';
 import { usePageTitle } from '@/hooks/usePageTitle';
 import { buildGuides, guideJsonLd } from '@/seo/guides';
 import { ROUTES } from '@/routes/paths';
+import { shortDate } from '@/seo/pageMeta';
 
 const GUIDES = buildGuides(SHOP_PAGES);
 const SHOP_BY_SLUG = new Map(SHOP_PAGES.map((s) => [s.slug, s]));
@@ -114,7 +115,7 @@ export default function GuidePage() {
             <>
               <ShopGrid shops={sec.shops.map((sl) => SHOP_BY_SLUG.get(sl)).filter(Boolean)} />
               <Text fontSize="11.5px" color="text3" mt="8px">
-                Rates checked {CHECKED}.{' '}
+                Rates checked {shortDate(CHECKED)}.{' '}
                 <Text as={RouterLink} to={`${ROUTES.brands}/`} color="brand" fontWeight={700}>
                   See all shops →
                 </Text>

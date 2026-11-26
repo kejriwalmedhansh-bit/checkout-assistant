@@ -12,13 +12,16 @@ import { useJsonLd } from '@/hooks/useJsonLd';
 import { usePageTitle } from '@/hooks/usePageTitle';
 import { BILL, categoryOf, inr, moreHeading, payOn, similarShops } from '@/seo/categories';
 import {
+  HISTORY_EXPLAINED,
   OTHERS_EXPLAINED,
   SELLER_NAME,
   SELLERS_EXPLAINED,
+  cardTerms,
   isSubscription,
   payExamples,
   pct,
   planPrices,
+  rateHistory,
   sellerRows,
   shortDate,
   showsComparison,
@@ -238,6 +241,10 @@ export default function BrandPage() {
   const plans = planPrices(shop, hubble?.pct);
   const subSteps = hubble?.steps?.length ? hubble.steps : shop.steps;
   const subTerms = hubble?.terms || [];
+  // This shop's own rate history and the card's own terms: the parts of the
+  // page no other shop's page has (see rateHistory in seo/pageMeta.js).
+  const history = sub ? [] : rateHistory(shop, rows);
+  const terms = sub ? [] : cardTerms(shop, hubble);
   const steps = sub
     ? [hubble ? 'Tap Dealo above and pick the plan amount.' : 'Pick the seller above with the best rate.', ...(subSteps.length ? subSteps : [`Redeem the code on ${shop.name}.`])]
     : curated?.steps?.length
@@ -257,7 +264,7 @@ export default function BrandPage() {
         <Flex gap="8px" flexWrap="wrap">
           {shop.online && !sub && <Badge>Works online</Badge>}
           {shop.offline && <Badge>Works in store</Badge>}
-          <Badge>Checked {shop.checked}</Badge>
+          <Badge>Checked {shortDate(shop.checked)}</Badge>
         </Flex>
       </Flex>
 
@@ -334,7 +341,7 @@ export default function BrandPage() {
         <FactRow
           icon={<I.doc size={15} />}
           q="Multi-use or single-use?"
-          a={shop.multiUse === true ? 'Multi-use, spend it across orders' : shop.multiUse === false ? 'Must use the full value in one go' : 'Not stated by the shop'}
+          a={typeof shop.multiUse === 'string' ? shop.multiUse : shop.multiUse === true ? 'Multi-use, spend it across orders' : shop.multiUse === false ? 'Must use the full value in one go' : 'Not stated by the shop'}
         />
         <FactRow
           icon={<I.check size={15} />}
@@ -345,6 +352,32 @@ export default function BrandPage() {
         {shop.restrictions.length > 0 && <FactRow icon={<I.alert size={15} />} q="Not valid for" a={shop.restrictions.join(' · ')} />}
       </Box>
 
+      {history.length > 0 && (
+        <Fold title="How the rate has moved">
+          {history.map((l) => (
+            <Box key={l.source} mb="10px">
+              <Text m={0} fontSize="13px" fontWeight={700}>
+                {SELLER_NAME[l.source]}
+              </Text>
+              <Flex gap="6px" flexWrap="wrap" mt="4px">
+                {l.points.map(([day, rate], i) => (
+                  <Box key={day} px="9px" py="5px" borderRadius="10px" bg="surface2" border="1px solid" borderColor={i === l.points.length - 1 ? 'borderStrong' : 'border'}>
+                    <Text m={0} fontSize="13px" fontWeight={800} fontFamily="mono">
+                      {pct(rate)}
+                    </Text>
+                    <Text m={0} fontSize="11px" color="text2">
+                      {l.points.length === 1 ? 'since' : 'from'} {shortDate(day)}
+                    </Text>
+                  </Box>
+                ))}
+              </Flex>
+            </Box>
+          ))}
+          <Text m={0} fontSize="12px" color="text2">
+            {HISTORY_EXPLAINED}
+          </Text>
+        </Fold>
+      )}
       <Fold title="How to redeem">
         {steps.map((st, i) => (
           <Flex key={st} align="flex-start" gap="10px" mb="8px">
@@ -362,6 +395,15 @@ export default function BrandPage() {
           </Text>
         )}
       </Fold>
+      {terms.length > 0 && (
+        <Fold title="The card’s terms, word for word">
+          {terms.map((t) => (
+            <Text key={t} fontSize="12.5px" color="text2" lineHeight={1.55} mb="8px">
+              {t}
+            </Text>
+          ))}
+        </Fold>
+      )}
       <Fold title="Questions people ask">
         {faqs.map((f) => (
           <Box key={f.q} mb="12px">

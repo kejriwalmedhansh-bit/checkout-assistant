@@ -124,7 +124,25 @@
       "This E-Gift Card cannot be used to purchase other gift cards"
     ],
     "multiUse": true,
-    "canClub": true
+    "canClub": true,
+    "history": {
+      "dealo": {
+        "2026-11-03": 4.0
+      },
+      "buyhatke": {
+        "2026-08-13": 4.26,
+        "2026-08-20": 3.29,
+        "2026-09-04": 4.26,
+        "2026-09-28": 3.62
+      },
+      "maximize": {
+        "2026-10-19": 3.5
+      },
+      "gyftr": {
+        "2026-07-02": 2.5,
+        "2026-08-26": 3.0
+      }
+    }
   },
   {
     "slug": "ajio",
@@ -247,7 +265,24 @@
       "E-Gift Card is not applicable for H&M branded products"
     ],
     "multiUse": false,
-    "canClub": false
+    "canClub": false,
+    "history": {
+      "dealo": {
+        "2026-11-18": 7.0
+      },
+      "maximize": {
+        "2026-07-26": 7.0
+      },
+      "buyhatke": {
+        "2026-08-13": 6.38,
+        "2026-08-20": 6.13,
+        "2026-09-04": 6.38,
+        "2026-10-19": 6.26
+      },
+      "gyftr": {
+        "2026-07-02": 5.0
+      }
+    }
   },
   {
     "slug": "nykaa",
@@ -370,7 +405,24 @@
       "other gift cards"
     ],
     "multiUse": true,
-    "canClub": true
+    "canClub": true,
+    "history": {
+      "dealo": {
+        "2026-11-03": 5.0
+      },
+      "gyftr": {
+        "2026-07-02": 5.0,
+        "2026-11-09": 6.5
+      },
+      "maximize": {
+        "2026-10-19": 6.25
+      },
+      "buyhatke": {
+        "2026-08-13": 4.88,
+        "2026-08-20": 5.38,
+        "2026-10-19": 5.26
+      }
+    }
   },
   {
     "slug": "nykaa-fashion",
@@ -495,7 +547,23 @@
       "This Gift Card cannot be used to purchase other gift cards"
     ],
     "multiUse": true,
-    "canClub": true
+    "canClub": true,
+    "history": {
+      "dealo": {
+        "2026-11-03": 5.0
+      },
+      "maximize": {
+        "2026-07-26": 6.0
+      },
+      "buyhatke": {
+        "2026-08-13": 4.87,
+        "2026-08-20": 4.74,
+        "2026-10-19": 5.01
+      },
+      "gyftr": {
+        "2026-07-02": 4.0
+      }
+    }
   },
   {
     "slug": "zomato",
@@ -588,7 +656,19 @@
     ],
     "restrictions": [],
     "multiUse": true,
-    "canClub": true
+    "canClub": true,
+    "history": {
+      "dealo": {
+        "2026-11-03": 4.0
+      },
+      "gyftr": {
+        "2026-07-02": 2.0,
+        "2026-11-09": 4.0
+      },
+      "maximize": {
+        "2026-10-19": 3.5
+      }
+    }
   },
   {
     "slug": "swiggy",
@@ -653,7 +733,12 @@
     "steps": [],
     "restrictions": [],
     "multiUse": null,
-    "canClub": null
+    "canClub": null,
+    "history": {
+      "dealo": {
+        "2026-11-03": 3.0
+      }
+    }
   },
   {
     "slug": "amazon",
@@ -770,7 +855,24 @@
       "digital content like e-books, video games"
     ],
     "multiUse": true,
-    "canClub": true
+    "canClub": true,
+    "history": {
+      "dealo": {
+        "2026-11-03": 1.5
+      },
+      "gyftr": {
+        "2026-07-02": 1.0,
+        "2026-08-26": 1.25,
+        "2026-09-18": 1.75
+      },
+      "buyhatke": {
+        "2026-08-20": 1.68,
+        "2026-10-19": 1.56
+      },
+      "maximize": {
+        "2026-07-26": 1.25
+      }
+    }
   },
   {
     "slug": "flipkart",
@@ -890,7 +992,29 @@
       "other Flipkart Gift Cards or Flipkart First subscriptions"
     ],
     "multiUse": true,
-    "canClub": true
+    "canClub": true,
+    "history": {
+      "dealo": {
+        "2026-11-03": 2.0
+      },
+      "buyhatke": {
+        "2026-08-13": 1.53,
+        "2026-08-20": 1.94,
+        "2026-09-28": 2.13,
+        "2026-10-19": 2.01
+      },
+      "maximize": {
+        "2026-07-26": 1.25,
+        "2026-09-28": 1.75
+      },
+      "gyftr": {
+        "2026-07-02": 1.5,
+        "2026-09-18": 1.25,
+        "2026-09-28": 1.5,
+        "2026-10-19": 2.0,
+        "2026-11-09": 1.5
+      }
+    }
   },
   {
     "slug": "croma",
@@ -1009,8 +1133,25 @@
       "1. Login to your account or Sign up as a new user 2. Add products to cart. Review cart and proceed to checkout. Add or review shipping & contact information 3. Proceed to payment 4. Select Gift Card Voucher option and choose voucher. Enter the voucher number and apply for availing the discount for the face value of the voucher"
     ],
     "restrictions": [],
-    "multiUse": false,
-    "canClub": true
+    "multiUse": true,
+    "canClub": true,
+    "history": {
+      "dealo": {
+        "2026-11-03": 2.0
+      },
+      "gyftr": {
+        "2026-07-02": 2.0,
+        "2026-08-26": 3.0
+      },
+      "maximize": {
+        "2026-07-26": 2.55,
+        "2026-08-27": 3.0
+      },
+      "buyhatke": {
+        "2026-08-13": 2.08,
+        "2026-10-19": 1.96
+      }
+    }
   },
   {
     "slug": "reliance-digital",
@@ -1060,7 +1201,12 @@
     ],
     "restrictions": [],
     "multiUse": false,
-    "canClub": false
+    "canClub": false,
+    "history": {
+      "gyftr": {
+        "2026-08-26": 0.5
+      }
+    }
   },
   {
     "slug": "makemytrip",
@@ -1157,7 +1303,21 @@
     ],
     "restrictions": [],
     "multiUse": true,
-    "canClub": false
+    "canClub": false,
+    "history": {
+      "dealo": {
+        "2026-11-03": 6.25
+      },
+      "buyhatke": {
+        "2026-08-13": 5.89,
+        "2026-08-20": 6.64,
+        "2026-09-28": 6.49,
+        "2026-10-19": 6.39
+      },
+      "maximize": {
+        "2026-10-19": 5.5
+      }
+    }
   },
   {
     "slug": "yatra",
@@ -1256,7 +1416,19 @@
     ],
     "restrictions": [],
     "multiUse": false,
-    "canClub": false
+    "canClub": false,
+    "history": {
+      "dealo": {
+        "2026-11-03": 5.0
+      },
+      "maximize": {
+        "2026-07-26": 5.25
+      },
+      "buyhatke": {
+        "2026-08-13": 4.38,
+        "2026-10-19": 4.26
+      }
+    }
   },
   {
     "slug": "cleartrip",
@@ -1378,7 +1550,25 @@
       "other Gift Cards and can’t be redeemed for Cash or Credit"
     ],
     "multiUse": true,
-    "canClub": false
+    "canClub": false,
+    "history": {
+      "dealo": {
+        "2026-11-03": 8.0
+      },
+      "gyftr": {
+        "2026-07-02": 6.5,
+        "2026-10-19": 8.0
+      },
+      "maximize": {
+        "2026-07-26": 6.75,
+        "2026-10-19": 7.0
+      },
+      "buyhatke": {
+        "2026-08-13": 5.21,
+        "2026-08-20": 6.27,
+        "2026-10-19": 6.17
+      }
+    }
   },
   {
     "slug": "pvr",
@@ -1498,8 +1688,27 @@
     "restrictions": [
       "the ‘APP100’ coupon code"
     ],
-    "multiUse": false,
-    "canClub": true
+    "multiUse": "Multiple times online, once in person",
+    "canClub": true,
+    "history": {
+      "dealo": {
+        "2026-11-09": 10.0
+      },
+      "buyhatke": {
+        "2026-09-28": 21.13,
+        "2026-10-19": 21.01
+      },
+      "gyftr": {
+        "2026-07-02": 18.0,
+        "2026-08-26": 16.0
+      },
+      "maximize": {
+        "2026-07-26": 24.0,
+        "2026-08-27": 20.5,
+        "2026-09-28": 6.0,
+        "2026-11-05": 10.0
+      }
+    }
   },
   {
     "slug": "bookmyshow",
@@ -1575,7 +1784,16 @@
       "Gift Voucher cannot be used to purchase another Gift Card"
     ],
     "multiUse": true,
-    "canClub": false
+    "canClub": false,
+    "history": {
+      "dealo": {
+        "2026-11-03": 2.0
+      },
+      "maximize": {
+        "2026-07-26": 3.75,
+        "2026-08-27": 4.0
+      }
+    }
   },
   {
     "slug": "uber",
@@ -1687,7 +1905,23 @@
     ],
     "restrictions": [],
     "multiUse": true,
-    "canClub": false
+    "canClub": false,
+    "history": {
+      "dealo": {
+        "2026-11-03": 4.0
+      },
+      "maximize": {
+        "2026-10-19": 4.0
+      },
+      "buyhatke": {
+        "2026-08-13": 2.13,
+        "2026-08-20": 3.13,
+        "2026-10-19": 3.01
+      },
+      "gyftr": {
+        "2026-07-02": 3.0
+      }
+    }
   },
   {
     "slug": "bigbasket",
@@ -1810,8 +2044,24 @@
       "Purchases of any product from the electronics category",
       "such other categories"
     ],
-    "multiUse": false,
-    "canClub": true
+    "multiUse": true,
+    "canClub": true,
+    "history": {
+      "dealo": {
+        "2026-11-03": 2.75
+      },
+      "gyftr": {
+        "2026-07-02": 3.0
+      },
+      "maximize": {
+        "2026-10-19": 3.0
+      },
+      "buyhatke": {
+        "2026-08-13": 2.73,
+        "2026-09-04": 3.08,
+        "2026-10-19": 2.61
+      }
+    }
   },
   {
     "slug": "blinkit",
@@ -1941,7 +2191,24 @@
     ],
     "restrictions": [],
     "multiUse": true,
-    "canClub": false
+    "canClub": false,
+    "history": {
+      "dealo": {
+        "2026-11-24": 2.0
+      },
+      "maximize": {
+        "2026-07-26": 2.75
+      },
+      "gyftr": {
+        "2026-08-05": 2.5
+      },
+      "buyhatke": {
+        "2026-08-13": 2.08,
+        "2026-08-20": 2.23,
+        "2026-09-28": 1.38,
+        "2026-10-19": 2.16
+      }
+    }
   },
   {
     "slug": "zepto",
@@ -2032,7 +2299,21 @@
     ],
     "restrictions": [],
     "multiUse": true,
-    "canClub": false
+    "canClub": false,
+    "history": {
+      "gyftr": {
+        "2026-10-19": 2.0
+      },
+      "maximize": {
+        "2026-07-26": 1.25,
+        "2026-09-04": 1.1,
+        "2026-10-19": 0.75
+      },
+      "buyhatke": {
+        "2026-08-20": 0.74,
+        "2026-10-19": 0.64
+      }
+    }
   },
   {
     "slug": "tata-cliq",
@@ -2168,7 +2449,27 @@
       "Not applicable on purchase of bullions"
     ],
     "multiUse": true,
-    "canClub": true
+    "canClub": true,
+    "history": {
+      "dealo": {
+        "2026-11-03": 9.0
+      },
+      "gyftr": {
+        "2026-07-02": 9.0,
+        "2026-08-26": 10.0
+      },
+      "maximize": {
+        "2026-10-19": 10.0
+      },
+      "buyhatke": {
+        "2026-08-13": 5.88,
+        "2026-08-20": 4.88,
+        "2026-09-04": 9.14,
+        "2026-09-28": 5.88,
+        "2026-10-19": 8.76,
+        "2026-11-05": 9.76
+      }
+    }
   },
   {
     "slug": "pepperfry",
@@ -2260,7 +2561,19 @@
     ],
     "restrictions": [],
     "multiUse": true,
-    "canClub": true
+    "canClub": true,
+    "history": {
+      "dealo": {
+        "2026-11-03": 3.0
+      },
+      "maximize": {
+        "2026-07-26": 6.75
+      },
+      "buyhatke": {
+        "2026-08-13": 5.73,
+        "2026-10-19": 5.61
+      }
+    }
   },
   {
     "slug": "ikea",
@@ -2360,7 +2673,20 @@
     ],
     "restrictions": [],
     "multiUse": true,
-    "canClub": true
+    "canClub": true,
+    "history": {
+      "dealo": {
+        "2026-11-03": 6.0
+      },
+      "maximize": {
+        "2026-10-19": 5.0
+      },
+      "buyhatke": {
+        "2026-08-13": 4.88,
+        "2026-09-04": 4.99,
+        "2026-10-19": 4.87
+      }
+    }
   },
   {
     "slug": "urban-ladder",
@@ -2461,7 +2787,19 @@
     ],
     "restrictions": [],
     "multiUse": true,
-    "canClub": false
+    "canClub": false,
+    "history": {
+      "dealo": {
+        "2026-11-03": 4.0
+      },
+      "maximize": {
+        "2026-07-26": 6.0
+      },
+      "buyhatke": {
+        "2026-08-13": 1.13,
+        "2026-10-19": 1.01
+      }
+    }
   },
   {
     "slug": "dominos",
@@ -2578,7 +2916,28 @@
     ],
     "restrictions": [],
     "multiUse": true,
-    "canClub": true
+    "canClub": true,
+    "history": {
+      "dealo": {
+        "2026-11-03": 16.0
+      },
+      "gyftr": {
+        "2026-07-02": 17.0,
+        "2026-09-28": 15.0,
+        "2026-10-19": 12.0
+      },
+      "maximize": {
+        "2026-07-26": 18.0,
+        "2026-10-19": 12.0
+      },
+      "buyhatke": {
+        "2026-08-13": 17.58,
+        "2026-08-20": 14.88,
+        "2026-09-04": 16.88,
+        "2026-10-19": 16.77,
+        "2026-11-05": 12.0
+      }
+    }
   },
   {
     "slug": "pizza-hut",
@@ -2706,7 +3065,24 @@
     ],
     "restrictions": [],
     "multiUse": false,
-    "canClub": null
+    "canClub": null,
+    "history": {
+      "dealo": {
+        "2026-11-03": 7.0
+      },
+      "maximize": {
+        "2026-10-19": 11.0
+      },
+      "buyhatke": {
+        "2026-08-13": 8.89,
+        "2026-08-20": 6.13,
+        "2026-09-04": 9.89,
+        "2026-10-19": 9.76
+      },
+      "gyftr": {
+        "2026-07-02": 8.5
+      }
+    }
   },
   {
     "slug": "kfc",
@@ -2832,7 +3208,22 @@
     ],
     "restrictions": [],
     "multiUse": false,
-    "canClub": null
+    "canClub": null,
+    "history": {
+      "dealo": {
+        "2026-11-03": 6.0
+      },
+      "maximize": {
+        "2026-10-19": 6.25
+      },
+      "buyhatke": {
+        "2026-08-13": 5.88,
+        "2026-10-19": 5.76
+      },
+      "gyftr": {
+        "2026-07-02": 3.0
+      }
+    }
   },
   {
     "slug": "subway",
@@ -2927,7 +3318,20 @@
     ],
     "restrictions": [],
     "multiUse": true,
-    "canClub": true
+    "canClub": true,
+    "history": {
+      "dealo": {
+        "2026-11-03": 8.0
+      },
+      "maximize": {
+        "2026-07-26": 10.75,
+        "2026-09-04": 11.0
+      },
+      "gyftr": {
+        "2026-07-02": 25.0,
+        "2026-09-18": 7.0
+      }
+    }
   },
   {
     "slug": "starbucks",
@@ -3046,7 +3450,23 @@
     ],
     "restrictions": [],
     "multiUse": true,
-    "canClub": false
+    "canClub": false,
+    "history": {
+      "dealo": {
+        "2026-11-09": 7.0
+      },
+      "maximize": {
+        "2026-07-26": 8.75
+      },
+      "gyftr": {
+        "2026-07-02": 8.0
+      },
+      "buyhatke": {
+        "2026-09-28": 4.88,
+        "2026-10-19": 5.26,
+        "2026-11-05": 5.76
+      }
+    }
   },
   {
     "slug": "lifestyle",
@@ -3162,7 +3582,26 @@
     ],
     "restrictions": [],
     "multiUse": true,
-    "canClub": true
+    "canClub": true,
+    "history": {
+      "dealo": {
+        "2026-11-03": 8.0
+      },
+      "maximize": {
+        "2026-07-26": 9.25
+      },
+      "gyftr": {
+        "2026-07-02": 8.0
+      },
+      "buyhatke": {
+        "2026-08-13": 6.69,
+        "2026-08-20": 4.99,
+        "2026-09-04": 6.99,
+        "2026-09-28": 6.69,
+        "2026-10-19": 6.59,
+        "2026-11-05": 6.84
+      }
+    }
   },
   {
     "slug": "westside",
@@ -3211,8 +3650,13 @@
       "food courts & cafes within the Westside Store",
       "GV cannot be redeemed during online purchase"
     ],
-    "multiUse": true,
-    "canClub": false
+    "multiUse": false,
+    "canClub": false,
+    "history": {
+      "dealo": {
+        "2026-11-18": 10.0
+      }
+    }
   },
   {
     "slug": "decathlon",
@@ -3336,7 +3780,23 @@
     ],
     "restrictions": [],
     "multiUse": true,
-    "canClub": true
+    "canClub": true,
+    "history": {
+      "dealo": {
+        "2026-11-03": 4.0
+      },
+      "maximize": {
+        "2026-07-26": 4.0,
+        "2026-10-19": 4.25
+      },
+      "gyftr": {
+        "2026-07-02": 4.0
+      },
+      "buyhatke": {
+        "2026-08-13": 3.78,
+        "2026-08-20": 4.0
+      }
+    }
   },
   {
     "slug": "puma",
@@ -3408,7 +3868,18 @@
     ],
     "restrictions": [],
     "multiUse": false,
-    "canClub": true
+    "canClub": true,
+    "history": {
+      "dealo": {
+        "2026-11-03": 11.0
+      },
+      "gyftr": {
+        "2026-07-02": 11.0
+      },
+      "maximize": {
+        "2026-07-26": 10.75
+      }
+    }
   },
   {
     "slug": "skechers",
@@ -3527,7 +3998,23 @@
     ],
     "restrictions": [],
     "multiUse": true,
-    "canClub": false
+    "canClub": false,
+    "history": {
+      "dealo": {
+        "2026-11-03": 10.0
+      },
+      "maximize": {
+        "2026-07-26": 11.75
+      },
+      "gyftr": {
+        "2026-07-02": 10.0
+      },
+      "buyhatke": {
+        "2026-08-13": 9.73,
+        "2026-09-28": 9.89,
+        "2026-10-19": 9.76
+      }
+    }
   },
   {
     "slug": "bata",
@@ -3626,7 +4113,18 @@
     ],
     "restrictions": [],
     "multiUse": true,
-    "canClub": false
+    "canClub": false,
+    "history": {
+      "dealo": {
+        "2026-11-03": 7.0
+      },
+      "maximize": {
+        "2026-10-19": 10.25
+      },
+      "gyftr": {
+        "2026-07-02": 7.0
+      }
+    }
   },
   {
     "slug": "lenskart",
@@ -3760,7 +4258,21 @@
     ],
     "restrictions": [],
     "multiUse": true,
-    "canClub": true
+    "canClub": true,
+    "history": {
+      "dealo": {
+        "2026-11-03": 10.0
+      },
+      "buyhatke": {
+        "2026-10-19": 13.51
+      },
+      "maximize": {
+        "2026-10-19": 13.0
+      },
+      "gyftr": {
+        "2026-07-02": 10.0
+      }
+    }
   },
   {
     "slug": "boat",
@@ -3851,7 +4363,20 @@
     ],
     "restrictions": [],
     "multiUse": true,
-    "canClub": true
+    "canClub": true,
+    "history": {
+      "dealo": {
+        "2026-11-03": 6.0
+      },
+      "maximize": {
+        "2026-07-26": 7.0
+      },
+      "buyhatke": {
+        "2026-08-13": 4.74,
+        "2026-08-20": 6.13,
+        "2026-10-19": 6.01
+      }
+    }
   },
   {
     "slug": "titan",
@@ -3923,7 +4448,15 @@
     ],
     "restrictions": [],
     "multiUse": true,
-    "canClub": false
+    "canClub": false,
+    "history": {
+      "gyftr": {
+        "2026-07-02": 8.0
+      },
+      "maximize": {
+        "2026-07-26": 8.0
+      }
+    }
   },
   {
     "slug": "firstcry",
@@ -4061,7 +4594,24 @@
     ],
     "restrictions": [],
     "multiUse": true,
-    "canClub": false
+    "canClub": false,
+    "history": {
+      "dealo": {
+        "2026-11-03": 6.0
+      },
+      "maximize": {
+        "2026-07-26": 6.75
+      },
+      "gyftr": {
+        "2026-08-05": 5.0,
+        "2026-08-26": 6.5
+      },
+      "buyhatke": {
+        "2026-08-13": 5.63,
+        "2026-08-20": 5.38,
+        "2026-11-05": 5.51
+      }
+    }
   },
   {
     "slug": "netmeds",
@@ -4178,7 +4728,23 @@
     ],
     "restrictions": [],
     "multiUse": true,
-    "canClub": false
+    "canClub": false,
+    "history": {
+      "dealo": {
+        "2026-11-03": 8.0
+      },
+      "maximize": {
+        "2026-07-26": 16.0
+      },
+      "buyhatke": {
+        "2026-08-20": 7.55,
+        "2026-09-04": 15.14,
+        "2026-10-19": 15.04
+      },
+      "gyftr": {
+        "2026-07-02": 10.0
+      }
+    }
   },
   {
     "slug": "jockey",
@@ -4224,7 +4790,14 @@
     ],
     "restrictions": [],
     "multiUse": true,
-    "canClub": null
+    "canClub": null,
+    "history": {
+      "buyhatke": {
+        "2026-08-13": 13.38,
+        "2026-08-20": 13.63,
+        "2026-10-19": 13.51
+      }
+    }
   },
   {
     "slug": "frido",
@@ -4345,7 +4918,24 @@
     ],
     "restrictions": [],
     "multiUse": true,
-    "canClub": false
+    "canClub": false,
+    "history": {
+      "dealo": {
+        "2026-11-10": 8.0
+      },
+      "maximize": {
+        "2026-07-26": 15.25,
+        "2026-08-27": 16.25
+      },
+      "gyftr": {
+        "2026-07-02": 14.0
+      },
+      "buyhatke": {
+        "2026-08-13": 12.64,
+        "2026-08-20": 13.92,
+        "2026-10-19": 12.54
+      }
+    }
   },
   {
     "slug": "dailyobjects",
@@ -4459,7 +5049,25 @@
     ],
     "restrictions": [],
     "multiUse": false,
-    "canClub": true
+    "canClub": true,
+    "history": {
+      "dealo": {
+        "2026-11-10": 10.0
+      },
+      "maximize": {
+        "2026-07-26": 16.75
+      },
+      "gyftr": {
+        "2026-07-02": 14.0,
+        "2026-08-26": 15.0,
+        "2026-10-19": 13.0
+      },
+      "buyhatke": {
+        "2026-08-13": 17.88,
+        "2026-08-20": 11.88,
+        "2026-10-19": 11.76
+      }
+    }
   },
   {
     "slug": "beyoung",
@@ -4574,7 +5182,24 @@
     ],
     "restrictions": [],
     "multiUse": true,
-    "canClub": false
+    "canClub": false,
+    "history": {
+      "dealo": {
+        "2026-11-10": 13.0
+      },
+      "gyftr": {
+        "2026-07-02": 23.0
+      },
+      "maximize": {
+        "2026-07-26": 23.0
+      },
+      "buyhatke": {
+        "2026-08-13": 21.64,
+        "2026-08-20": 20.18,
+        "2026-09-04": 20.29,
+        "2026-10-19": 20.19
+      }
+    }
   },
   {
     "slug": "ixigo",
@@ -4696,7 +5321,22 @@
     ],
     "restrictions": [],
     "multiUse": false,
-    "canClub": false
+    "canClub": false,
+    "history": {
+      "dealo": {
+        "2026-11-10": 5.0
+      },
+      "gyftr": {
+        "2026-07-02": 8.5
+      },
+      "maximize": {
+        "2026-10-19": 8.5
+      },
+      "buyhatke": {
+        "2026-08-13": 7.98,
+        "2026-10-19": 7.86
+      }
+    }
   },
   {
     "slug": "third-wave-coffee",
@@ -4788,8 +5428,20 @@
       "Enter your gift card code and pin number"
     ],
     "restrictions": [],
-    "multiUse": false,
-    "canClub": false
+    "multiUse": true,
+    "canClub": false,
+    "history": {
+      "dealo": {
+        "2026-11-10": 8.0
+      },
+      "buyhatke": {
+        "2026-08-13": 10.38,
+        "2026-10-19": 10.26
+      },
+      "maximize": {
+        "2026-10-19": 10.25
+      }
+    }
   },
   {
     "slug": "philips",
@@ -4908,7 +5560,22 @@
     ],
     "restrictions": [],
     "multiUse": true,
-    "canClub": null
+    "canClub": null,
+    "history": {
+      "dealo": {
+        "2026-11-10": 6.0
+      },
+      "gyftr": {
+        "2026-07-02": 10.0
+      },
+      "maximize": {
+        "2026-10-19": 9.75
+      },
+      "buyhatke": {
+        "2026-08-13": 8.39,
+        "2026-10-19": 8.29
+      }
+    }
   },
   {
     "slug": "birkenstock",
@@ -5001,7 +5668,19 @@
     ],
     "restrictions": [],
     "multiUse": true,
-    "canClub": false
+    "canClub": false,
+    "history": {
+      "dealo": {
+        "2026-11-10": 10.0
+      },
+      "maximize": {
+        "2026-07-26": 10.0
+      },
+      "buyhatke": {
+        "2026-08-13": 8.89,
+        "2026-10-19": 8.76
+      }
+    }
   },
   {
     "slug": "goibibo",
@@ -5072,7 +5751,16 @@
     ],
     "restrictions": [],
     "multiUse": true,
-    "canClub": null
+    "canClub": null,
+    "history": {
+      "dealo": {
+        "2026-11-10": 5.0
+      },
+      "buyhatke": {
+        "2026-08-20": 4.99,
+        "2026-10-19": 4.89
+      }
+    }
   },
   {
     "slug": "easemytrip",
@@ -5173,7 +5861,19 @@
     ],
     "restrictions": [],
     "multiUse": true,
-    "canClub": false
+    "canClub": false,
+    "history": {
+      "dealo": {
+        "2026-11-10": 6.0
+      },
+      "maximize": {
+        "2026-07-26": 7.25
+      },
+      "buyhatke": {
+        "2026-08-13": 5.88,
+        "2026-10-19": 5.76
+      }
+    }
   },
   {
     "slug": "woodland",
@@ -5293,7 +5993,22 @@
     ],
     "restrictions": [],
     "multiUse": true,
-    "canClub": null
+    "canClub": null,
+    "history": {
+      "dealo": {
+        "2026-11-10": 9.0
+      },
+      "maximize": {
+        "2026-10-19": 10.75
+      },
+      "buyhatke": {
+        "2026-08-13": 10.23,
+        "2026-10-19": 10.11
+      },
+      "gyftr": {
+        "2026-07-02": 10.0
+      }
+    }
   },
   {
     "slug": "giva",
@@ -5337,7 +6052,12 @@
     "steps": [],
     "restrictions": [],
     "multiUse": null,
-    "canClub": null
+    "canClub": null,
+    "history": {
+      "dealo": {
+        "2026-11-10": 12.0
+      }
+    }
   },
   {
     "slug": "mokobara",
@@ -5427,7 +6147,19 @@
       "This E-Gift Card cannot be used to purchase other gift cards"
     ],
     "multiUse": true,
-    "canClub": false
+    "canClub": false,
+    "history": {
+      "dealo": {
+        "2026-11-10": 7.0
+      },
+      "maximize": {
+        "2026-07-26": 8.0
+      },
+      "buyhatke": {
+        "2026-08-13": 7.64,
+        "2026-10-19": 7.51
+      }
+    }
   },
   {
     "slug": "snitch",
@@ -5532,7 +6264,18 @@
     ],
     "restrictions": [],
     "multiUse": true,
-    "canClub": false
+    "canClub": false,
+    "history": {
+      "dealo": {
+        "2026-11-10": 6.5
+      },
+      "maximize": {
+        "2026-10-19": 7.5
+      },
+      "gyftr": {
+        "2026-08-05": 7.0
+      }
+    }
   },
   {
     "slug": "max-fashion",
@@ -5625,7 +6368,18 @@
     ],
     "restrictions": [],
     "multiUse": true,
-    "canClub": null
+    "canClub": null,
+    "history": {
+      "dealo": {
+        "2026-11-10": 9.0
+      },
+      "gyftr": {
+        "2026-07-02": 9.0
+      },
+      "buyhatke": {
+        "2026-11-05": 7.44
+      }
+    }
   },
   {
     "slug": "biba",
@@ -5715,8 +6469,21 @@
       "Select \"Pay with GyFTR\" option & enter your voucher details."
     ],
     "restrictions": [],
-    "multiUse": true,
-    "canClub": null
+    "multiUse": false,
+    "canClub": null,
+    "history": {
+      "dealo": {
+        "2026-11-10": 6.0
+      },
+      "buyhatke": {
+        "2026-08-13": 12.88,
+        "2026-09-28": 6.88,
+        "2026-10-19": 10.26
+      },
+      "gyftr": {
+        "2026-07-02": 8.0
+      }
+    }
   },
   {
     "slug": "nykaa-luxe",
@@ -5786,7 +6553,16 @@
     ],
     "restrictions": [],
     "multiUse": true,
-    "canClub": null
+    "canClub": null,
+    "history": {
+      "dealo": {
+        "2026-11-18": 6.0
+      },
+      "buyhatke": {
+        "2026-08-20": 4.99,
+        "2026-10-19": 4.89
+      }
+    }
   },
   {
     "slug": "tata-cliq-luxury",
@@ -5921,7 +6697,25 @@
       "Gift Cards cannot be used to purchase other gift cards"
     ],
     "multiUse": true,
-    "canClub": true
+    "canClub": true,
+    "history": {
+      "dealo": {
+        "2026-11-18": 10.0
+      },
+      "gyftr": {
+        "2026-07-02": 9.5,
+        "2026-09-28": 10.0
+      },
+      "maximize": {
+        "2026-10-19": 10.0
+      },
+      "buyhatke": {
+        "2026-08-13": 4.51,
+        "2026-08-20": 7.77,
+        "2026-09-04": 8.52,
+        "2026-10-19": 8.4
+      }
+    }
   },
   {
     "slug": "cinepolis",
@@ -6050,7 +6844,23 @@
     ],
     "restrictions": [],
     "multiUse": true,
-    "canClub": false
+    "canClub": false,
+    "history": {
+      "dealo": {
+        "2026-11-18": 25.0
+      },
+      "maximize": {
+        "2026-10-19": 25.0
+      },
+      "buyhatke": {
+        "2026-08-13": 10.88,
+        "2026-09-28": 22.38,
+        "2026-10-19": 22.26
+      },
+      "gyftr": {
+        "2026-08-05": 14.0
+      }
+    }
   },
   {
     "slug": "duroflex",
@@ -6170,7 +6980,24 @@
     ],
     "restrictions": [],
     "multiUse": true,
-    "canClub": false
+    "canClub": false,
+    "history": {
+      "dealo": {
+        "2026-11-18": 9.0
+      },
+      "gyftr": {
+        "2026-07-02": 11.0
+      },
+      "maximize": {
+        "2026-07-26": 10.25
+      },
+      "buyhatke": {
+        "2026-08-13": 8.39,
+        "2026-09-04": 9.24,
+        "2026-10-19": 9.14,
+        "2026-11-05": 8.29
+      }
+    }
   },
   {
     "slug": "archies",
@@ -6254,7 +7081,16 @@
     ],
     "restrictions": [],
     "multiUse": true,
-    "canClub": null
+    "canClub": null,
+    "history": {
+      "dealo": {
+        "2026-11-18": 13.0
+      },
+      "buyhatke": {
+        "2026-08-13": 9.89,
+        "2026-10-19": 9.76
+      }
+    }
   },
   {
     "slug": "hamleys",
@@ -6295,7 +7131,12 @@
     "steps": [],
     "restrictions": [],
     "multiUse": null,
-    "canClub": null
+    "canClub": null,
+    "history": {
+      "dealo": {
+        "2026-11-18": 10.0
+      }
+    }
   },
   {
     "slug": "ajio-luxe",
@@ -6411,7 +7252,23 @@
       "The Gift Card cannot be used to purchase other Gift Cards"
     ],
     "multiUse": false,
-    "canClub": false
+    "canClub": false,
+    "history": {
+      "dealo": {
+        "2026-11-18": 6.5
+      },
+      "maximize": {
+        "2026-07-26": 7.0
+      },
+      "buyhatke": {
+        "2026-08-13": 3.78,
+        "2026-08-20": 4.99,
+        "2026-10-19": 4.89
+      },
+      "gyftr": {
+        "2026-07-02": 3.0
+      }
+    }
   },
   {
     "slug": "eazydiner",
@@ -6504,7 +7361,21 @@
     ],
     "restrictions": [],
     "multiUse": false,
-    "canClub": null
+    "canClub": null,
+    "history": {
+      "dealo": {
+        "2026-11-23": 15.0
+      },
+      "buyhatke": {
+        "2026-08-13": 16.04,
+        "2026-08-20": 16.89,
+        "2026-10-19": 15.1
+      },
+      "gyftr": {
+        "2026-07-02": 19.0,
+        "2026-09-28": 15.0
+      }
+    }
   },
   {
     "slug": "bakingo",
@@ -6574,8 +7445,16 @@
       "Now enter the Gift Voucher Code in the ‘Enter Coupon Code’ section and click on ‘APPLY’ to redeem the Bakingo Gift Voucher and enjoy the savings!"
     ],
     "restrictions": [],
-    "multiUse": true,
-    "canClub": false
+    "multiUse": false,
+    "canClub": false,
+    "history": {
+      "dealo": {
+        "2026-11-23": 10.0
+      },
+      "gyftr": {
+        "2026-07-02": 20.0
+      }
+    }
   },
   {
     "slug": "blue-tokai",
@@ -6649,7 +7528,17 @@
     ],
     "restrictions": [],
     "multiUse": true,
-    "canClub": null
+    "canClub": null,
+    "history": {
+      "dealo": {
+        "2026-11-23": 10.0
+      },
+      "buyhatke": {
+        "2026-08-13": 13.58,
+        "2026-08-20": 13.63,
+        "2026-10-19": 13.51
+      }
+    }
   },
   {
     "slug": "baskin-robbins",
@@ -6743,7 +7632,18 @@
     ],
     "restrictions": [],
     "multiUse": true,
-    "canClub": false
+    "canClub": false,
+    "history": {
+      "dealo": {
+        "2026-11-23": 10.0
+      },
+      "gyftr": {
+        "2026-07-02": 17.0
+      },
+      "maximize": {
+        "2026-07-26": 12.0
+      }
+    }
   },
   {
     "slug": "cafe-coffee-day",
@@ -6836,7 +7736,19 @@
     ],
     "restrictions": [],
     "multiUse": true,
-    "canClub": null
+    "canClub": null,
+    "history": {
+      "dealo": {
+        "2026-11-23": 10.0
+      },
+      "maximize": {
+        "2026-10-19": 11.75
+      },
+      "buyhatke": {
+        "2026-08-13": 11.73,
+        "2026-10-19": 11.61
+      }
+    }
   },
   {
     "slug": "makemytrip-hotels",
@@ -6936,7 +7848,20 @@
     ],
     "restrictions": [],
     "multiUse": true,
-    "canClub": false
+    "canClub": false,
+    "history": {
+      "dealo": {
+        "2026-11-23": 13.0
+      },
+      "buyhatke": {
+        "2026-08-13": 8.39,
+        "2026-08-20": 12.89,
+        "2026-10-19": 12.79
+      },
+      "maximize": {
+        "2026-07-26": 10.25
+      }
+    }
   },
   {
     "slug": "goibibo-hotels",
@@ -7034,7 +7959,20 @@
     ],
     "restrictions": [],
     "multiUse": true,
-    "canClub": false
+    "canClub": false,
+    "history": {
+      "dealo": {
+        "2026-11-23": 12.0
+      },
+      "buyhatke": {
+        "2026-08-13": 8.89,
+        "2026-08-20": 13.63,
+        "2026-10-19": 13.51
+      },
+      "maximize": {
+        "2026-07-26": 10.25
+      }
+    }
   },
   {
     "slug": "igp",
@@ -7149,7 +8087,24 @@
     ],
     "restrictions": [],
     "multiUse": false,
-    "canClub": null
+    "canClub": null,
+    "history": {
+      "dealo": {
+        "2026-11-23": 13.0
+      },
+      "gyftr": {
+        "2026-07-02": 18.0
+      },
+      "buyhatke": {
+        "2026-08-13": 14.88,
+        "2026-08-20": 13.88,
+        "2026-09-04": 14.88,
+        "2026-10-19": 14.76
+      },
+      "maximize": {
+        "2026-10-19": 14.75
+      }
+    }
   },
   {
     "slug": "ferns-n-petals",
@@ -7263,7 +8218,24 @@
     ],
     "restrictions": [],
     "multiUse": false,
-    "canClub": false
+    "canClub": false,
+    "history": {
+      "dealo": {
+        "2026-11-23": 10.0
+      },
+      "buyhatke": {
+        "2026-08-13": 9.89,
+        "2026-08-20": 15.73,
+        "2026-10-19": 15.61
+      },
+      "maximize": {
+        "2026-07-26": 15.0
+      },
+      "gyftr": {
+        "2026-07-02": 18.0,
+        "2026-10-19": 13.0
+      }
+    }
   },
   {
     "slug": "rare-rabbit",
@@ -7372,7 +8344,20 @@
     ],
     "restrictions": [],
     "multiUse": false,
-    "canClub": null
+    "canClub": null,
+    "history": {
+      "dealo": {
+        "2026-11-23": 8.0
+      },
+      "gyftr": {
+        "2026-09-28": 9.0,
+        "2026-11-09": 12.0
+      },
+      "maximize": {
+        "2026-10-19": 9.0,
+        "2026-11-05": 11.0
+      }
+    }
   },
   {
     "slug": "marks-and-spencer",
@@ -7440,8 +8425,16 @@
       "Manually add vouchers, view them under \"My Vouchers,\" redeem the desired amount, and pay any remaining balance."
     ],
     "restrictions": [],
-    "multiUse": true,
-    "canClub": null
+    "multiUse": false,
+    "canClub": null,
+    "history": {
+      "dealo": {
+        "2026-11-23": 9.0
+      },
+      "gyftr": {
+        "2026-07-02": 10.0
+      }
+    }
   },
   {
     "slug": "blissclub",
@@ -7556,8 +8549,27 @@
       "For offline redemption, users are required to add their GV/GC to their e-Pay wallet balance via https://brandpts.com/login before going to the cash counter."
     ],
     "restrictions": [],
-    "multiUse": true,
-    "canClub": true
+    "multiUse": false,
+    "canClub": true,
+    "history": {
+      "dealo": {
+        "2026-11-23": 10.0
+      },
+      "maximize": {
+        "2026-07-26": 14.25,
+        "2026-08-27": 18.0
+      },
+      "gyftr": {
+        "2026-07-02": 19.0,
+        "2026-09-04": 17.0
+      },
+      "buyhatke": {
+        "2026-08-13": 16.39,
+        "2026-08-20": 15.19,
+        "2026-09-04": 15.64,
+        "2026-10-19": 15.54
+      }
+    }
   },
   {
     "slug": "freecultr",
@@ -7664,7 +8676,24 @@
     ],
     "restrictions": [],
     "multiUse": false,
-    "canClub": false
+    "canClub": false,
+    "history": {
+      "dealo": {
+        "2026-11-23": 15.0
+      },
+      "buyhatke": {
+        "2026-08-13": 17.88,
+        "2026-09-04": 20.73,
+        "2026-09-28": 21.88,
+        "2026-10-19": 21.76
+      },
+      "maximize": {
+        "2026-07-26": 21.0
+      },
+      "gyftr": {
+        "2026-07-02": 20.0
+      }
+    }
   },
   {
     "slug": "foxtale",
@@ -7793,7 +8822,24 @@
     ],
     "restrictions": [],
     "multiUse": true,
-    "canClub": false
+    "canClub": false,
+    "history": {
+      "dealo": {
+        "2026-11-23": 12.0
+      },
+      "buyhatke": {
+        "2026-08-13": 20.88,
+        "2026-08-20": 19.63,
+        "2026-09-04": 20.88,
+        "2026-10-19": 20.76
+      },
+      "gyftr": {
+        "2026-07-02": 20.0
+      },
+      "maximize": {
+        "2026-07-26": 17.75
+      }
+    }
   },
   {
     "slug": "kama-ayurveda",
@@ -7862,8 +8908,17 @@
       "Use the outlet locator, select your product, share the Gift Voucher at billing, and pay any balance if needed. Share your registered mobile number at checkout to view available gift voucher balance, confirm the redemption amount, and complete payment (if any) while the cashier proceeds with invoicing."
     ],
     "restrictions": [],
-    "multiUse": true,
-    "canClub": null
+    "multiUse": false,
+    "canClub": null,
+    "history": {
+      "dealo": {
+        "2026-11-23": 8.0
+      },
+      "buyhatke": {
+        "2026-08-13": 10.88,
+        "2026-10-19": 10.76
+      }
+    }
   },
   {
     "slug": "ray-ban",
@@ -7954,7 +9009,19 @@
     ],
     "restrictions": [],
     "multiUse": false,
-    "canClub": null
+    "canClub": null,
+    "history": {
+      "dealo": {
+        "2026-11-23": 8.0
+      },
+      "maximize": {
+        "2026-10-19": 8.5
+      },
+      "buyhatke": {
+        "2026-08-13": 7.39,
+        "2026-10-19": 7.76
+      }
+    }
   },
   {
     "slug": "wonderchef",
@@ -8075,8 +9142,24 @@
       "Confirm the amount to be used for redemption and proceed further. -You can make the balance payment by any other payment mode."
     ],
     "restrictions": [],
-    "multiUse": true,
-    "canClub": false
+    "multiUse": false,
+    "canClub": false,
+    "history": {
+      "dealo": {
+        "2026-11-23": 10.0
+      },
+      "maximize": {
+        "2026-07-26": 13.25
+      },
+      "buyhatke": {
+        "2026-08-13": 11.88,
+        "2026-08-20": 12.63,
+        "2026-10-19": 12.51
+      },
+      "gyftr": {
+        "2026-07-02": 12.0
+      }
+    }
   },
   {
     "slug": "healthians",
@@ -8193,7 +9276,21 @@
     ],
     "restrictions": [],
     "multiUse": true,
-    "canClub": true
+    "canClub": true,
+    "history": {
+      "dealo": {
+        "2026-11-23": 15.0
+      },
+      "maximize": {
+        "2026-10-19": 18.75
+      },
+      "buyhatke": {
+        "2026-11-05": 17.02
+      },
+      "gyftr": {
+        "2026-07-02": 15.0
+      }
+    }
   },
   {
     "slug": "sonyliv",
@@ -8316,7 +9413,22 @@
     "multiUse": false,
     "canClub": false,
     "kind": "subscription",
-    "noun": "subscription"
+    "noun": "subscription",
+    "history": {
+      "dealo": {
+        "2026-11-23": 20.0
+      },
+      "buyhatke": {
+        "2026-08-20": 29.64,
+        "2026-10-19": 29.54
+      },
+      "gyftr": {
+        "2026-07-02": 20.0
+      },
+      "maximize": {
+        "2026-10-19": 20.0
+      }
+    }
   },
   {
     "slug": "zee5",
@@ -8436,7 +9548,25 @@
     "multiUse": false,
     "canClub": false,
     "kind": "subscription",
-    "noun": "subscription"
+    "noun": "subscription",
+    "history": {
+      "dealo": {
+        "2026-11-23": 17.0
+      },
+      "gyftr": {
+        "2026-07-02": 23.0
+      },
+      "maximize": {
+        "2026-10-19": 22.5
+      },
+      "buyhatke": {
+        "2026-08-13": 18.59,
+        "2026-08-20": 20.72,
+        "2026-09-04": 21.09,
+        "2026-09-28": 21.19,
+        "2026-10-19": 19.25
+      }
+    }
   },
   {
     "slug": "amazon-prime",
@@ -8503,7 +9633,18 @@
     "multiUse": false,
     "canClub": null,
     "kind": "subscription",
-    "noun": "membership"
+    "noun": "membership",
+    "history": {
+      "dealo": {
+        "2026-11-23": 15.0
+      },
+      "buyhatke": {
+        "2026-08-13": 15.19,
+        "2026-09-28": 15.27,
+        "2026-10-19": 15.18,
+        "2026-11-05": 14.68
+      }
+    }
   },
   {
     "slug": "swiggy-one",
@@ -8548,7 +9689,12 @@
     "multiUse": null,
     "canClub": null,
     "kind": "subscription",
-    "noun": "membership"
+    "noun": "membership",
+    "history": {
+      "dealo": {
+        "2026-11-23": 77.9
+      }
+    }
   },
   {
     "slug": "hoichoi",
@@ -8636,7 +9782,21 @@
     "multiUse": false,
     "canClub": false,
     "kind": "subscription",
-    "noun": "subscription"
+    "noun": "subscription",
+    "history": {
+      "dealo": {
+        "2026-11-23": 17.0
+      },
+      "maximize": {
+        "2026-10-19": 17.25
+      },
+      "buyhatke": {
+        "2026-08-13": 15.19,
+        "2026-08-20": 15.07,
+        "2026-09-04": 15.19,
+        "2026-10-19": 15.1
+      }
+    }
   },
   {
     "slug": "gaana",
@@ -8731,7 +9891,19 @@
     "multiUse": true,
     "canClub": false,
     "kind": "subscription",
-    "noun": "subscription"
+    "noun": "subscription",
+    "history": {
+      "dealo": {
+        "2026-11-23": 15.0
+      },
+      "gyftr": {
+        "2026-07-02": 16.0
+      },
+      "buyhatke": {
+        "2026-08-13": 15.28,
+        "2026-10-19": 12.54
+      }
+    }
   },
   {
     "slug": "lionsgate-play",
@@ -8846,7 +10018,23 @@
     "multiUse": false,
     "canClub": false,
     "kind": "subscription",
-    "noun": "subscription"
+    "noun": "subscription",
+    "history": {
+      "dealo": {
+        "2026-11-23": 13.0
+      },
+      "gyftr": {
+        "2026-07-02": 23.0
+      },
+      "maximize": {
+        "2026-07-26": 21.0
+      },
+      "buyhatke": {
+        "2026-08-13": 18.47,
+        "2026-09-28": 19.64,
+        "2026-10-19": 19.54
+      }
+    }
   },
   {
     "slug": "livemint",
@@ -8918,7 +10106,17 @@
     "multiUse": false,
     "canClub": true,
     "kind": "subscription",
-    "noun": "subscription"
+    "noun": "subscription",
+    "history": {
+      "dealo": {
+        "2026-11-23": 60.0
+      },
+      "buyhatke": {
+        "2026-08-13": 12.88,
+        "2026-08-20": 58.88,
+        "2026-10-19": 58.76
+      }
+    }
   },
   {
     "slug": "fitpass",
@@ -9028,7 +10226,24 @@
     "multiUse": false,
     "canClub": true,
     "kind": "subscription",
-    "noun": "membership"
+    "noun": "membership",
+    "history": {
+      "dealo": {
+        "2026-11-23": 15.0
+      },
+      "buyhatke": {
+        "2026-08-13": 20.73,
+        "2026-09-04": 21.88,
+        "2026-10-19": 21.76
+      },
+      "maximize": {
+        "2026-07-26": 20.5
+      },
+      "gyftr": {
+        "2026-07-02": 22.0,
+        "2026-11-09": 15.0
+      }
+    }
   },
   {
     "slug": "nua",
@@ -9125,7 +10340,20 @@
     ],
     "restrictions": [],
     "multiUse": true,
-    "canClub": false
+    "canClub": false,
+    "history": {
+      "dealo": {
+        "2026-11-23": 23.0
+      },
+      "maximize": {
+        "2026-07-26": 26.75
+      },
+      "buyhatke": {
+        "2026-08-13": 23.78,
+        "2026-10-19": 23.68,
+        "2026-11-05": 19.35
+      }
+    }
   },
   {
     "slug": "auric",
@@ -9216,7 +10444,20 @@
     ],
     "restrictions": [],
     "multiUse": false,
-    "canClub": false
+    "canClub": false,
+    "history": {
+      "dealo": {
+        "2026-11-23": 20.0
+      },
+      "maximize": {
+        "2026-07-26": 36.75
+      },
+      "buyhatke": {
+        "2026-08-13": 36.73,
+        "2026-10-19": 36.61,
+        "2026-11-05": 34.76
+      }
+    }
   },
   {
     "slug": "just-lil-things",
@@ -9304,7 +10545,19 @@
     ],
     "restrictions": [],
     "multiUse": false,
-    "canClub": false
+    "canClub": false,
+    "history": {
+      "dealo": {
+        "2026-11-23": 22.0
+      },
+      "maximize": {
+        "2026-07-26": 22.0
+      },
+      "buyhatke": {
+        "2026-08-13": 18.88,
+        "2026-10-19": 18.77
+      }
+    }
   },
   {
     "slug": "shiva-organic",
@@ -9393,7 +10646,19 @@
     ],
     "restrictions": [],
     "multiUse": true,
-    "canClub": null
+    "canClub": null,
+    "history": {
+      "dealo": {
+        "2026-11-23": 19.0
+      },
+      "buyhatke": {
+        "2026-08-20": 16.89,
+        "2026-10-19": 16.8
+      },
+      "gyftr": {
+        "2026-07-02": 16.0
+      }
+    }
   },
   {
     "slug": "hammer",
@@ -9509,7 +10774,23 @@
     ],
     "restrictions": [],
     "multiUse": true,
-    "canClub": false
+    "canClub": false,
+    "history": {
+      "dealo": {
+        "2026-11-23": 15.0
+      },
+      "gyftr": {
+        "2026-07-02": 25.0
+      },
+      "maximize": {
+        "2026-07-26": 24.0
+      },
+      "buyhatke": {
+        "2026-08-13": 23.73,
+        "2026-09-04": 23.88,
+        "2026-10-19": 23.76
+      }
+    }
   },
   {
     "slug": "kimirica",
@@ -9630,7 +10911,24 @@
     ],
     "restrictions": [],
     "multiUse": true,
-    "canClub": true
+    "canClub": true,
+    "history": {
+      "dealo": {
+        "2026-11-23": 15.0
+      },
+      "gyftr": {
+        "2026-07-02": 17.0
+      },
+      "maximize": {
+        "2026-07-26": 14.75
+      },
+      "buyhatke": {
+        "2026-08-13": 13.37,
+        "2026-08-20": 13.53,
+        "2026-09-28": 13.49,
+        "2026-10-19": 13.39
+      }
+    }
   },
   {
     "slug": "photojaanic",
@@ -9706,7 +11004,16 @@
     ],
     "restrictions": [],
     "multiUse": false,
-    "canClub": null
+    "canClub": null,
+    "history": {
+      "dealo": {
+        "2026-11-23": 15.0
+      },
+      "buyhatke": {
+        "2026-08-13": 15.88,
+        "2026-10-19": 15.77
+      }
+    }
   },
   {
     "slug": "sri-jagdamba-pearls",
@@ -9780,7 +11087,16 @@
     ],
     "restrictions": [],
     "multiUse": false,
-    "canClub": null
+    "canClub": null,
+    "history": {
+      "dealo": {
+        "2026-11-23": 15.0
+      },
+      "buyhatke": {
+        "2026-08-20": 14.34,
+        "2026-10-19": 14.25
+      }
+    }
   },
   {
     "slug": "tattva-spa",
@@ -9891,8 +11207,24 @@
       "Proceed to checkout & Select \"Pay with GyFTR\""
     ],
     "restrictions": [],
-    "multiUse": true,
-    "canClub": false
+    "multiUse": false,
+    "canClub": false,
+    "history": {
+      "dealo": {
+        "2026-11-23": 15.0
+      },
+      "maximize": {
+        "2026-07-26": 16.75
+      },
+      "gyftr": {
+        "2026-07-02": 15.0
+      },
+      "buyhatke": {
+        "2026-08-13": 16.73,
+        "2026-10-19": 16.61,
+        "2026-11-05": 14.76
+      }
+    }
   },
   {
     "slug": "soulflower",
@@ -10016,7 +11348,23 @@
     ],
     "restrictions": [],
     "multiUse": true,
-    "canClub": true
+    "canClub": true,
+    "history": {
+      "dealo": {
+        "2026-11-23": 14.5
+      },
+      "gyftr": {
+        "2026-07-02": 17.0
+      },
+      "maximize": {
+        "2026-07-26": 15.75
+      },
+      "buyhatke": {
+        "2026-08-20": 12.64,
+        "2026-09-28": 14.34,
+        "2026-10-19": 14.25
+      }
+    }
   },
   {
     "slug": "hoora",
@@ -10111,8 +11459,20 @@
       "Once the voucher is applied, review the payment summary and tap Pay Now to complete the booking."
     ],
     "restrictions": [],
-    "multiUse": true,
-    "canClub": null
+    "multiUse": false,
+    "canClub": null,
+    "history": {
+      "dealo": {
+        "2026-11-23": 14.0
+      },
+      "gyftr": {
+        "2026-08-05": 16.0
+      },
+      "buyhatke": {
+        "2026-09-28": 12.64,
+        "2026-10-19": 12.54
+      }
+    }
   },
   {
     "slug": "typsy-beauty",
@@ -10210,7 +11570,20 @@
     ],
     "restrictions": [],
     "multiUse": true,
-    "canClub": null
+    "canClub": null,
+    "history": {
+      "dealo": {
+        "2026-11-23": 14.0
+      },
+      "gyftr": {
+        "2026-07-02": 18.0
+      },
+      "buyhatke": {
+        "2026-08-20": 12.64,
+        "2026-09-28": 16.89,
+        "2026-10-19": 16.8
+      }
+    }
   },
   {
     "slug": "apollo-diagnostics",
@@ -10303,7 +11676,20 @@
     ],
     "restrictions": [],
     "multiUse": false,
-    "canClub": false
+    "canClub": false,
+    "history": {
+      "dealo": {
+        "2026-11-23": 13.0
+      },
+      "maximize": {
+        "2026-07-26": 12.25
+      },
+      "buyhatke": {
+        "2026-08-13": 9.98,
+        "2026-09-28": 12.12,
+        "2026-10-19": 12.01
+      }
+    }
   },
   {
     "slug": "nat-habit",
@@ -10395,7 +11781,21 @@
     ],
     "restrictions": [],
     "multiUse": true,
-    "canClub": true
+    "canClub": true,
+    "history": {
+      "dealo": {
+        "2026-11-23": 13.0
+      },
+      "gyftr": {
+        "2026-07-02": 22.0
+      },
+      "buyhatke": {
+        "2026-08-13": 21.14,
+        "2026-08-20": 11.79,
+        "2026-09-04": 21.14,
+        "2026-10-19": 21.05
+      }
+    }
   },
   {
     "slug": "soch",
@@ -10512,7 +11912,24 @@
     ],
     "restrictions": [],
     "multiUse": true,
-    "canClub": true
+    "canClub": true,
+    "history": {
+      "dealo": {
+        "2026-11-23": 12.5
+      },
+      "maximize": {
+        "2026-10-19": 11.25
+      },
+      "buyhatke": {
+        "2026-08-13": 10.88,
+        "2026-10-19": 10.76
+      },
+      "gyftr": {
+        "2026-07-02": 5.0,
+        "2026-08-26": 12.0,
+        "2026-09-04": 8.0
+      }
+    }
   },
   {
     "slug": "flower-aura",
@@ -10626,7 +12043,24 @@
     ],
     "restrictions": [],
     "multiUse": false,
-    "canClub": false
+    "canClub": false,
+    "history": {
+      "dealo": {
+        "2026-11-23": 12.0
+      },
+      "gyftr": {
+        "2026-07-02": 20.0
+      },
+      "buyhatke": {
+        "2026-08-13": 18.88,
+        "2026-08-20": 13.73,
+        "2026-09-04": 18.88,
+        "2026-10-19": 18.77
+      },
+      "maximize": {
+        "2026-07-26": 14.0
+      }
+    }
   },
   {
     "slug": "miraggio",
@@ -10723,7 +12157,20 @@
     ],
     "restrictions": [],
     "multiUse": true,
-    "canClub": false
+    "canClub": false,
+    "history": {
+      "dealo": {
+        "2026-11-23": 12.0
+      },
+      "maximize": {
+        "2026-07-26": 13.25
+      },
+      "buyhatke": {
+        "2026-08-20": 10.09,
+        "2026-09-28": 10.53,
+        "2026-10-19": 10.42
+      }
+    }
   },
   {
     "slug": "speedo",
@@ -10839,7 +12286,23 @@
     ],
     "restrictions": [],
     "multiUse": false,
-    "canClub": true
+    "canClub": true,
+    "history": {
+      "dealo": {
+        "2026-11-23": 12.0
+      },
+      "maximize": {
+        "2026-07-26": 13.25
+      },
+      "gyftr": {
+        "2026-07-02": 13.0
+      },
+      "buyhatke": {
+        "2026-08-13": 11.88,
+        "2026-09-28": 10.88,
+        "2026-10-19": 10.76
+      }
+    }
   },
   {
     "slug": "wellbeing-nutrition",
@@ -10960,7 +12423,22 @@
     ],
     "restrictions": [],
     "multiUse": true,
-    "canClub": true
+    "canClub": true,
+    "history": {
+      "dealo": {
+        "2026-11-23": 12.0
+      },
+      "gyftr": {
+        "2026-07-02": 14.0
+      },
+      "maximize": {
+        "2026-07-26": 13.25
+      },
+      "buyhatke": {
+        "2026-08-13": 11.37,
+        "2026-10-19": 11.27
+      }
+    }
   },
   {
     "slug": "cgh-earth",
@@ -11025,7 +12503,15 @@
     ],
     "restrictions": [],
     "multiUse": true,
-    "canClub": false
+    "canClub": false,
+    "history": {
+      "dealo": {
+        "2026-11-23": 11.0
+      },
+      "maximize": {
+        "2026-07-26": 12.75
+      }
+    }
   },
   {
     "slug": "chicco",
@@ -11120,7 +12606,19 @@
     ],
     "restrictions": [],
     "multiUse": true,
-    "canClub": null
+    "canClub": null,
+    "history": {
+      "dealo": {
+        "2026-11-23": 11.0
+      },
+      "maximize": {
+        "2026-10-19": 12.75
+      },
+      "buyhatke": {
+        "2026-08-20": 10.09,
+        "2026-10-19": 9.99
+      }
+    }
   },
   {
     "slug": "kalki",
@@ -11244,7 +12742,23 @@
     ],
     "restrictions": [],
     "multiUse": true,
-    "canClub": null
+    "canClub": null,
+    "history": {
+      "dealo": {
+        "2026-11-23": 11.0
+      },
+      "gyftr": {
+        "2026-07-02": 13.0
+      },
+      "maximize": {
+        "2026-10-19": 13.0
+      },
+      "buyhatke": {
+        "2026-08-20": 11.16,
+        "2026-10-19": 11.05,
+        "2026-11-05": 10.84
+      }
+    }
   },
   {
     "slug": "tego",
@@ -11334,7 +12848,21 @@
       "where required by law"
     ],
     "multiUse": false,
-    "canClub": false
+    "canClub": false,
+    "history": {
+      "dealo": {
+        "2026-11-23": 11.0
+      },
+      "buyhatke": {
+        "2026-08-13": 16.88,
+        "2026-08-20": 9.89,
+        "2026-09-04": 16.88,
+        "2026-10-19": 16.77
+      },
+      "maximize": {
+        "2026-07-26": 15.75
+      }
+    }
   },
   {
     "slug": "boditive",
@@ -11422,7 +12950,19 @@
     ],
     "restrictions": [],
     "multiUse": false,
-    "canClub": false
+    "canClub": false,
+    "history": {
+      "dealo": {
+        "2026-11-23": 10.0
+      },
+      "maximize": {
+        "2026-07-26": 12.75
+      },
+      "buyhatke": {
+        "2026-08-20": 8.39,
+        "2026-10-19": 8.29
+      }
+    }
   },
   {
     "slug": "cosmus",
@@ -11497,7 +13037,16 @@
     ],
     "restrictions": [],
     "multiUse": false,
-    "canClub": null
+    "canClub": null,
+    "history": {
+      "dealo": {
+        "2026-11-23": 10.0
+      },
+      "buyhatke": {
+        "2026-08-13": 10.88,
+        "2026-10-19": 10.76
+      }
+    }
   },
   {
     "slug": "estele",
@@ -11590,8 +13139,22 @@
       "Add the Gift card codes as many as 5 can be used and if any balance payment is needed use Razorpay to pay the balance. (Note: The gift cards retain unspent value for a period of 1 year, i.e if you use 700 out of a 1000 INR Gift card you retain 300 INR for next order)"
     ],
     "restrictions": [],
-    "multiUse": true,
-    "canClub": false
+    "multiUse": false,
+    "canClub": false,
+    "history": {
+      "dealo": {
+        "2026-11-23": 10.0
+      },
+      "maximize": {
+        "2026-07-26": 20.0
+      },
+      "buyhatke": {
+        "2026-08-13": 18.88,
+        "2026-08-20": 20.73,
+        "2026-10-19": 20.61,
+        "2026-11-05": 18.77
+      }
+    }
   },
   {
     "slug": "femmella",
@@ -11703,7 +13266,23 @@
     ],
     "restrictions": [],
     "multiUse": true,
-    "canClub": true
+    "canClub": true,
+    "history": {
+      "dealo": {
+        "2026-11-23": 10.0
+      },
+      "gyftr": {
+        "2026-07-02": 14.0
+      },
+      "maximize": {
+        "2026-07-26": 13.75
+      },
+      "buyhatke": {
+        "2026-08-13": 13.73,
+        "2026-10-19": 13.61,
+        "2026-11-05": 7.26
+      }
+    }
   },
   {
     "slug": "ornaz",
@@ -11770,7 +13349,16 @@
     ],
     "restrictions": [],
     "multiUse": true,
-    "canClub": null
+    "canClub": null,
+    "history": {
+      "dealo": {
+        "2026-11-23": 10.0
+      },
+      "buyhatke": {
+        "2026-08-13": 9.89,
+        "2026-10-19": 9.76
+      }
+    }
   },
   {
     "slug": "vitamin-haat",
@@ -11840,7 +13428,16 @@
     ],
     "restrictions": [],
     "multiUse": false,
-    "canClub": null
+    "canClub": null,
+    "history": {
+      "dealo": {
+        "2026-11-23": 10.0
+      },
+      "buyhatke": {
+        "2026-08-13": 10.88,
+        "2026-10-19": 10.76
+      }
+    }
   },
   {
     "slug": "whats-up-wellness",
@@ -11931,7 +13528,19 @@
     ],
     "restrictions": [],
     "multiUse": true,
-    "canClub": null
+    "canClub": null,
+    "history": {
+      "dealo": {
+        "2026-11-23": 10.0
+      },
+      "gyftr": {
+        "2026-08-05": 15.0
+      },
+      "buyhatke": {
+        "2026-09-28": 9.24,
+        "2026-10-19": 9.14
+      }
+    }
   },
   {
     "slug": "fabhotels",
@@ -12023,7 +13632,21 @@
     ],
     "restrictions": [],
     "multiUse": false,
-    "canClub": true
+    "canClub": true,
+    "history": {
+      "dealo": {
+        "2026-11-23": 9.0
+      },
+      "gyftr": {
+        "2026-07-02": 10.0
+      },
+      "buyhatke": {
+        "2026-08-13": 10.09,
+        "2026-08-20": 8.39,
+        "2026-09-04": 10.09,
+        "2026-10-19": 9.99
+      }
+    }
   },
   {
     "slug": "skullcandy",
@@ -12135,7 +13758,23 @@
     ],
     "restrictions": [],
     "multiUse": true,
-    "canClub": false
+    "canClub": false,
+    "history": {
+      "dealo": {
+        "2026-11-23": 9.0
+      },
+      "maximize": {
+        "2026-07-26": 17.5
+      },
+      "buyhatke": {
+        "2026-08-13": 17.73,
+        "2026-10-19": 17.61,
+        "2026-11-05": 16.77
+      },
+      "gyftr": {
+        "2026-07-02": 10.0
+      }
+    }
   },
   {
     "slug": "cello",
@@ -12249,8 +13888,23 @@
       "Choose the \"Pay via e-Pay/Gift Vouchers\" option and enter your voucher code."
     ],
     "restrictions": [],
-    "multiUse": true,
-    "canClub": null
+    "multiUse": false,
+    "canClub": null,
+    "history": {
+      "dealo": {
+        "2026-11-23": 8.0
+      },
+      "maximize": {
+        "2026-10-19": 14.0
+      },
+      "buyhatke": {
+        "2026-08-13": 13.63,
+        "2026-10-19": 13.51
+      },
+      "gyftr": {
+        "2026-07-02": 13.0
+      }
+    }
   },
   {
     "slug": "cordelia-cruises",
@@ -12377,7 +14031,23 @@
     ],
     "restrictions": [],
     "multiUse": true,
-    "canClub": true
+    "canClub": true,
+    "history": {
+      "dealo": {
+        "2026-11-23": 8.0
+      },
+      "gyftr": {
+        "2026-07-02": 13.0
+      },
+      "maximize": {
+        "2026-07-26": 12.0,
+        "2026-08-27": 13.0
+      },
+      "buyhatke": {
+        "2026-09-28": 7.55,
+        "2026-10-19": 7.44
+      }
+    }
   },
   {
     "slug": "lohono-stays",
@@ -12500,7 +14170,23 @@
     ],
     "restrictions": [],
     "multiUse": true,
-    "canClub": true
+    "canClub": true,
+    "history": {
+      "dealo": {
+        "2026-11-23": 8.0
+      },
+      "gyftr": {
+        "2026-07-02": 11.0
+      },
+      "maximize": {
+        "2026-07-26": 10.75
+      },
+      "buyhatke": {
+        "2026-08-13": 9.47,
+        "2026-10-19": 9.35,
+        "2026-11-05": 7.44
+      }
+    }
   },
   {
     "slug": "me-n-moms",
@@ -12616,7 +14302,24 @@
     ],
     "restrictions": [],
     "multiUse": true,
-    "canClub": true
+    "canClub": true,
+    "history": {
+      "dealo": {
+        "2026-11-23": 8.0
+      },
+      "gyftr": {
+        "2026-07-02": 11.0
+      },
+      "maximize": {
+        "2026-07-26": 9.75
+      },
+      "buyhatke": {
+        "2026-08-13": 9.13,
+        "2026-09-28": 9.24,
+        "2026-10-19": 9.14,
+        "2026-11-05": 8.29
+      }
+    }
   },
   {
     "slug": "haute-sauce",
@@ -12686,7 +14389,16 @@
     ],
     "restrictions": [],
     "multiUse": true,
-    "canClub": true
+    "canClub": true,
+    "history": {
+      "dealo": {
+        "2026-11-23": 8.0
+      },
+      "buyhatke": {
+        "2026-08-20": 6.69,
+        "2026-10-19": 6.59
+      }
+    }
   },
   {
     "slug": "french-accent",
@@ -12756,7 +14468,16 @@
     ],
     "restrictions": [],
     "multiUse": true,
-    "canClub": true
+    "canClub": true,
+    "history": {
+      "dealo": {
+        "2026-11-23": 8.0
+      },
+      "buyhatke": {
+        "2026-08-20": 6.69,
+        "2026-10-19": 6.59
+      }
+    }
   },
   {
     "slug": "cloud-tailor",
@@ -12825,7 +14546,16 @@
     ],
     "restrictions": [],
     "multiUse": null,
-    "canClub": null
+    "canClub": null,
+    "history": {
+      "dealo": {
+        "2026-11-23": 8.0
+      },
+      "buyhatke": {
+        "2026-08-13": 7.39,
+        "2026-10-19": 7.26
+      }
+    }
   },
   {
     "slug": "mediwheel",
@@ -12916,7 +14646,20 @@
     ],
     "restrictions": [],
     "multiUse": false,
-    "canClub": true
+    "canClub": true,
+    "history": {
+      "dealo": {
+        "2026-11-23": 15.0
+      },
+      "gyftr": {
+        "2026-07-02": 22.0
+      },
+      "buyhatke": {
+        "2026-08-13": 16.88,
+        "2026-09-04": 21.88,
+        "2026-10-19": 21.76
+      }
+    }
   },
   {
     "slug": "pure-home-living",
@@ -13009,7 +14752,21 @@
     ],
     "restrictions": [],
     "multiUse": true,
-    "canClub": null
+    "canClub": null,
+    "history": {
+      "dealo": {
+        "2026-11-23": 9.0
+      },
+      "gyftr": {
+        "2026-07-02": 10.0
+      },
+      "buyhatke": {
+        "2026-08-13": 8.27,
+        "2026-08-20": 12.43,
+        "2026-09-28": 8.39,
+        "2026-10-19": 8.29
+      }
+    }
   },
   {
     "slug": "at-home",
@@ -13081,7 +14838,16 @@
     ],
     "restrictions": [],
     "multiUse": false,
-    "canClub": null
+    "canClub": null,
+    "history": {
+      "dealo": {
+        "2026-11-23": 8.0
+      },
+      "buyhatke": {
+        "2026-08-13": 6.88,
+        "2026-10-19": 6.76
+      }
+    }
   },
   {
     "slug": "ixigo-hotels",
@@ -13145,7 +14911,15 @@
     "steps": [],
     "restrictions": [],
     "multiUse": false,
-    "canClub": null
+    "canClub": null,
+    "history": {
+      "dealo": {
+        "2026-11-23": 11.0
+      },
+      "buyhatke": {
+        "2026-11-05": 9.99
+      }
+    }
   },
   {
     "slug": "makemytrip-holidays",
@@ -13216,7 +14990,16 @@
     ],
     "restrictions": [],
     "multiUse": null,
-    "canClub": null
+    "canClub": null,
+    "history": {
+      "dealo": {
+        "2026-11-23": 11.0
+      },
+      "buyhatke": {
+        "2026-08-20": 11.28,
+        "2026-10-19": 11.43
+      }
+    }
   },
   {
     "slug": "yatra-hotels",
@@ -13286,7 +15069,16 @@
     ],
     "restrictions": [],
     "multiUse": null,
-    "canClub": null
+    "canClub": null,
+    "history": {
+      "dealo": {
+        "2026-11-23": 10.0
+      },
+      "buyhatke": {
+        "2026-08-20": 8.39,
+        "2026-10-19": 8.29
+      }
+    }
   },
   {
     "slug": "easemytrip-hotels",
@@ -13379,7 +15171,19 @@
     ],
     "restrictions": [],
     "multiUse": true,
-    "canClub": false
+    "canClub": false,
+    "history": {
+      "dealo": {
+        "2026-11-23": 9.0
+      },
+      "maximize": {
+        "2026-07-26": 10.0
+      },
+      "buyhatke": {
+        "2026-08-13": 9.04,
+        "2026-10-19": 8.93
+      }
+    }
   },
   {
     "slug": "sterling-holidays",
@@ -13421,7 +15225,12 @@
     "steps": [],
     "restrictions": [],
     "multiUse": null,
-    "canClub": null
+    "canClub": null,
+    "history": {
+      "dealo": {
+        "2026-11-23": 10.0
+      }
+    }
   },
   {
     "slug": "bath-and-body-works",
@@ -13504,7 +15313,15 @@
     ],
     "restrictions": [],
     "multiUse": true,
-    "canClub": null
+    "canClub": null,
+    "history": {
+      "dealo": {
+        "2026-11-23": 8.0
+      },
+      "gyftr": {
+        "2026-07-02": 10.0
+      }
+    }
   },
   {
     "slug": "victorias-secret",
@@ -13634,7 +15451,22 @@
     ],
     "restrictions": [],
     "multiUse": true,
-    "canClub": true
+    "canClub": true,
+    "history": {
+      "dealo": {
+        "2026-11-23": 8.0
+      },
+      "maximize": {
+        "2026-07-26": 11.75
+      },
+      "buyhatke": {
+        "2026-09-28": 11.79,
+        "2026-10-19": 11.69
+      },
+      "gyftr": {
+        "2026-07-02": 10.0
+      }
+    }
   },
   {
     "slug": "aldo",
@@ -13743,7 +15575,18 @@
     ],
     "restrictions": [],
     "multiUse": true,
-    "canClub": true
+    "canClub": true,
+    "history": {
+      "dealo": {
+        "2026-11-23": 8.0
+      },
+      "maximize": {
+        "2026-07-26": 11.75
+      },
+      "gyftr": {
+        "2026-07-02": 10.0
+      }
+    }
   },
   {
     "slug": "charles-and-keith",
@@ -13826,7 +15669,15 @@
     ],
     "restrictions": [],
     "multiUse": true,
-    "canClub": null
+    "canClub": null,
+    "history": {
+      "dealo": {
+        "2026-11-23": 8.0
+      },
+      "gyftr": {
+        "2026-07-02": 10.0
+      }
+    }
   },
   {
     "slug": "superdry",
@@ -13892,7 +15743,16 @@
     ],
     "restrictions": [],
     "multiUse": false,
-    "canClub": null
+    "canClub": null,
+    "history": {
+      "dealo": {
+        "2026-11-23": 10.0
+      },
+      "gyftr": {
+        "2026-07-02": 13.0,
+        "2026-09-28": 10.0
+      }
+    }
   },
   {
     "slug": "steve-madden",
@@ -13958,7 +15818,15 @@
     ],
     "restrictions": [],
     "multiUse": false,
-    "canClub": null
+    "canClub": null,
+    "history": {
+      "dealo": {
+        "2026-11-23": 10.0
+      },
+      "gyftr": {
+        "2026-08-26": 10.0
+      }
+    }
   },
   {
     "slug": "diesel",
@@ -14024,7 +15892,15 @@
     ],
     "restrictions": [],
     "multiUse": false,
-    "canClub": null
+    "canClub": null,
+    "history": {
+      "dealo": {
+        "2026-11-23": 10.0
+      },
+      "gyftr": {
+        "2026-07-02": 10.0
+      }
+    }
   },
   {
     "slug": "armani-exchange",
@@ -14069,7 +15945,12 @@
     ],
     "restrictions": [],
     "multiUse": false,
-    "canClub": null
+    "canClub": null,
+    "history": {
+      "dealo": {
+        "2026-11-23": 10.0
+      }
+    }
   },
   {
     "slug": "michael-kors",
@@ -14135,7 +16016,15 @@
     ],
     "restrictions": [],
     "multiUse": false,
-    "canClub": null
+    "canClub": null,
+    "history": {
+      "dealo": {
+        "2026-11-23": 10.0
+      },
+      "gyftr": {
+        "2026-09-04": 10.0
+      }
+    }
   },
   {
     "slug": "coach",
@@ -14202,7 +16091,15 @@
     ],
     "restrictions": [],
     "multiUse": false,
-    "canClub": null
+    "canClub": null,
+    "history": {
+      "dealo": {
+        "2026-11-23": 10.0
+      },
+      "maximize": {
+        "2026-10-19": 10.0
+      }
+    }
   },
   {
     "slug": "hugo-boss",
@@ -14268,7 +16165,15 @@
     ],
     "restrictions": [],
     "multiUse": false,
-    "canClub": null
+    "canClub": null,
+    "history": {
+      "dealo": {
+        "2026-11-23": 10.0
+      },
+      "gyftr": {
+        "2026-08-26": 10.0
+      }
+    }
   },
   {
     "slug": "kate-spade",
@@ -14334,7 +16239,15 @@
     ],
     "restrictions": [],
     "multiUse": false,
-    "canClub": null
+    "canClub": null,
+    "history": {
+      "dealo": {
+        "2026-11-23": 10.0
+      },
+      "gyftr": {
+        "2026-08-26": 10.0
+      }
+    }
   },
   {
     "slug": "tumi",
@@ -14375,7 +16288,12 @@
     "steps": [],
     "restrictions": [],
     "multiUse": null,
-    "canClub": null
+    "canClub": null,
+    "history": {
+      "dealo": {
+        "2026-11-23": 10.0
+      }
+    }
   },
   {
     "slug": "brooks-brothers",
@@ -14441,7 +16359,15 @@
     ],
     "restrictions": [],
     "multiUse": false,
-    "canClub": null
+    "canClub": null,
+    "history": {
+      "dealo": {
+        "2026-11-23": 10.0
+      },
+      "gyftr": {
+        "2026-10-19": 10.0
+      }
+    }
   },
   {
     "slug": "ritu-kumar",
@@ -14507,7 +16433,15 @@
     ],
     "restrictions": [],
     "multiUse": false,
-    "canClub": null
+    "canClub": null,
+    "history": {
+      "dealo": {
+        "2026-11-23": 10.0
+      },
+      "gyftr": {
+        "2026-08-26": 10.0
+      }
+    }
   },
   {
     "slug": "satya-paul",
@@ -14572,7 +16506,15 @@
     ],
     "restrictions": [],
     "multiUse": false,
-    "canClub": null
+    "canClub": null,
+    "history": {
+      "dealo": {
+        "2026-11-23": 10.0
+      },
+      "gyftr": {
+        "2026-10-19": 10.0
+      }
+    }
   },
   {
     "slug": "mothercare",
@@ -14638,7 +16580,15 @@
     ],
     "restrictions": [],
     "multiUse": false,
-    "canClub": null
+    "canClub": null,
+    "history": {
+      "dealo": {
+        "2026-11-23": 10.0
+      },
+      "gyftr": {
+        "2026-10-19": 10.0
+      }
+    }
   },
   {
     "slug": "pottery-barn",
@@ -14703,7 +16653,15 @@
     ],
     "restrictions": [],
     "multiUse": false,
-    "canClub": null
+    "canClub": null,
+    "history": {
+      "dealo": {
+        "2026-11-23": 10.0
+      },
+      "gyftr": {
+        "2026-08-26": 10.0
+      }
+    }
   },
   {
     "slug": "west-elm",
@@ -14769,7 +16727,15 @@
     ],
     "restrictions": [],
     "multiUse": false,
-    "canClub": null
+    "canClub": null,
+    "history": {
+      "dealo": {
+        "2026-11-23": 10.0
+      },
+      "gyftr": {
+        "2026-08-26": 10.0
+      }
+    }
   },
   {
     "slug": "muji",
@@ -14835,7 +16801,15 @@
     ],
     "restrictions": [],
     "multiUse": false,
-    "canClub": null
+    "canClub": null,
+    "history": {
+      "dealo": {
+        "2026-11-23": 10.0
+      },
+      "gyftr": {
+        "2026-08-26": 10.0
+      }
+    }
   },
   {
     "slug": "sunglass-hut",
@@ -14876,7 +16850,12 @@
     "steps": [],
     "restrictions": [],
     "multiUse": null,
-    "canClub": null
+    "canClub": null,
+    "history": {
+      "dealo": {
+        "2026-11-23": 10.0
+      }
+    }
   },
   {
     "slug": "health-and-glow",
@@ -14944,7 +16923,15 @@
     ],
     "restrictions": [],
     "multiUse": true,
-    "canClub": null
+    "canClub": null,
+    "history": {
+      "dealo": {
+        "2026-11-23": 8.0
+      },
+      "gyftr": {
+        "2026-08-05": 8.0
+      }
+    }
   },
   {
     "slug": "indian-terrain",
@@ -15014,7 +17001,15 @@
     ],
     "restrictions": [],
     "multiUse": false,
-    "canClub": false
+    "canClub": false,
+    "history": {
+      "dealo": {
+        "2026-11-23": 10.0
+      },
+      "maximize": {
+        "2026-07-26": 13.25
+      }
+    }
   },
   {
     "slug": "linen-club",
@@ -15085,7 +17080,15 @@
     ],
     "restrictions": [],
     "multiUse": false,
-    "canClub": false
+    "canClub": false,
+    "history": {
+      "dealo": {
+        "2026-11-23": 8.0
+      },
+      "maximize": {
+        "2026-07-26": 10.25
+      }
+    }
   },
   {
     "slug": "raymond",
@@ -15177,7 +17180,18 @@
     ],
     "restrictions": [],
     "multiUse": true,
-    "canClub": false
+    "canClub": false,
+    "history": {
+      "dealo": {
+        "2026-11-23": 8.0
+      },
+      "maximize": {
+        "2026-07-26": 10.25
+      },
+      "gyftr": {
+        "2026-07-02": 10.0
+      }
+    }
   },
   {
     "slug": "chumbak",
@@ -15269,7 +17283,18 @@
     ],
     "restrictions": [],
     "multiUse": true,
-    "canClub": false
+    "canClub": false,
+    "history": {
+      "dealo": {
+        "2026-11-23": 10.0
+      },
+      "gyftr": {
+        "2026-07-02": 13.0
+      },
+      "maximize": {
+        "2026-07-26": 13.0
+      }
+    }
   },
   {
     "slug": "naturals-salon",
@@ -15318,7 +17343,12 @@
     "steps": [],
     "restrictions": [],
     "multiUse": null,
-    "canClub": null
+    "canClub": null,
+    "history": {
+      "dealo": {
+        "2026-11-23": 16.0
+      }
+    }
   },
   {
     "slug": "timezone",
@@ -15406,7 +17436,19 @@
     ],
     "restrictions": [],
     "multiUse": false,
-    "canClub": false
+    "canClub": false,
+    "history": {
+      "dealo": {
+        "2026-11-23": 8.0
+      },
+      "maximize": {
+        "2026-07-26": 13.25
+      },
+      "buyhatke": {
+        "2026-08-13": 12.13,
+        "2026-10-19": 12.01
+      }
+    }
   },
   {
     "slug": "punjab-grill",
@@ -15479,7 +17521,15 @@
     ],
     "restrictions": [],
     "multiUse": false,
-    "canClub": false
+    "canClub": false,
+    "history": {
+      "dealo": {
+        "2026-11-23": 8.0
+      },
+      "maximize": {
+        "2026-07-26": 8.5
+      }
+    }
   },
   {
     "slug": "bikanervala",
@@ -15555,7 +17605,15 @@
     ],
     "restrictions": [],
     "multiUse": false,
-    "canClub": false
+    "canClub": false,
+    "history": {
+      "dealo": {
+        "2026-11-23": 10.0
+      },
+      "maximize": {
+        "2026-07-26": 13.0
+      }
+    }
   },
   {
     "slug": "helios",
@@ -15650,7 +17708,18 @@
     ],
     "restrictions": [],
     "multiUse": false,
-    "canClub": null
+    "canClub": null,
+    "history": {
+      "dealo": {
+        "2026-11-23": 8.0
+      },
+      "maximize": {
+        "2026-10-19": 8.0
+      },
+      "gyftr": {
+        "2026-07-02": 5.0
+      }
+    }
   },
   {
     "slug": "mainland-china",
@@ -15749,7 +17818,18 @@
     ],
     "restrictions": [],
     "multiUse": false,
-    "canClub": false
+    "canClub": false,
+    "history": {
+      "dealo": {
+        "2026-11-24": 8.0
+      },
+      "maximize": {
+        "2026-10-19": 13.0
+      },
+      "gyftr": {
+        "2026-07-02": 10.0
+      }
+    }
   },
   {
     "slug": "oh-calcutta",
@@ -15849,7 +17929,18 @@
     ],
     "restrictions": [],
     "multiUse": false,
-    "canClub": false
+    "canClub": false,
+    "history": {
+      "dealo": {
+        "2026-11-24": 8.0
+      },
+      "maximize": {
+        "2026-07-26": 13.25
+      },
+      "gyftr": {
+        "2026-07-02": 10.0
+      }
+    }
   },
   {
     "slug": "tgi-fridays",
@@ -15889,7 +17980,12 @@
     "steps": [],
     "restrictions": [],
     "multiUse": null,
-    "canClub": null
+    "canClub": null,
+    "history": {
+      "dealo": {
+        "2026-11-24": 8.0
+      }
+    }
   },
   {
     "slug": "cafe-delhi-heights",
@@ -15979,8 +18075,20 @@
       "Provide the Gift Voucher to the cashier at the time of billing & pay the remaining amount by card or cash if any."
     ],
     "restrictions": [],
-    "multiUse": true,
-    "canClub": false
+    "multiUse": false,
+    "canClub": false,
+    "history": {
+      "dealo": {
+        "2026-11-24": 8.0
+      },
+      "gyftr": {
+        "2026-07-02": 8.0,
+        "2026-09-18": 12.0
+      },
+      "maximize": {
+        "2026-10-19": 10.0
+      }
+    }
   },
   {
     "slug": "eatsure",
@@ -16093,7 +18201,27 @@
     ],
     "restrictions": [],
     "multiUse": true,
-    "canClub": true
+    "canClub": true,
+    "history": {
+      "dealo": {
+        "2026-11-24": 7.5
+      },
+      "gyftr": {
+        "2026-07-02": 12.0,
+        "2026-10-19": 10.0
+      },
+      "maximize": {
+        "2026-07-26": 10.0
+      },
+      "buyhatke": {
+        "2026-08-13": 9.39,
+        "2026-08-20": 9.28,
+        "2026-09-04": 9.39,
+        "2026-09-28": 9.24,
+        "2026-10-19": 9.14,
+        "2026-11-05": 9.01
+      }
+    }
   },
   {
     "slug": "behrouz-biryani",
@@ -16208,7 +18336,26 @@
     ],
     "restrictions": [],
     "multiUse": true,
-    "canClub": false
+    "canClub": false,
+    "history": {
+      "dealo": {
+        "2026-11-24": 7.0
+      },
+      "maximize": {
+        "2026-07-26": 10.25
+      },
+      "gyftr": {
+        "2026-07-02": 12.0,
+        "2026-10-19": 10.0
+      },
+      "buyhatke": {
+        "2026-08-13": 9.39,
+        "2026-08-20": 9.28,
+        "2026-09-04": 9.39,
+        "2026-09-28": 9.24,
+        "2026-10-19": 9.14
+      }
+    }
   },
   {
     "slug": "faasos",
@@ -16323,7 +18470,25 @@
     ],
     "restrictions": [],
     "multiUse": true,
-    "canClub": true
+    "canClub": true,
+    "history": {
+      "dealo": {
+        "2026-11-24": 7.0
+      },
+      "gyftr": {
+        "2026-07-02": 10.0
+      },
+      "maximize": {
+        "2026-07-26": 10.0
+      },
+      "buyhatke": {
+        "2026-08-13": 9.39,
+        "2026-08-20": 9.32,
+        "2026-09-04": 9.39,
+        "2026-09-28": 8.89,
+        "2026-10-19": 9.14
+      }
+    }
   },
   {
     "slug": "ovenstory",
@@ -16439,7 +18604,24 @@
     ],
     "restrictions": [],
     "multiUse": true,
-    "canClub": true
+    "canClub": true,
+    "history": {
+      "dealo": {
+        "2026-11-24": 7.0
+      },
+      "gyftr": {
+        "2026-07-02": 12.0,
+        "2026-10-19": 10.0
+      },
+      "maximize": {
+        "2026-09-04": 9.75
+      },
+      "buyhatke": {
+        "2026-08-13": 9.39,
+        "2026-09-28": 9.24,
+        "2026-10-19": 9.14
+      }
+    }
   },
   {
     "slug": "sweet-truth",
@@ -16553,7 +18735,25 @@
     ],
     "restrictions": [],
     "multiUse": true,
-    "canClub": true
+    "canClub": true,
+    "history": {
+      "dealo": {
+        "2026-11-24": 7.0
+      },
+      "maximize": {
+        "2026-07-26": 10.75
+      },
+      "gyftr": {
+        "2026-07-02": 12.0,
+        "2026-10-19": 10.0
+      },
+      "buyhatke": {
+        "2026-08-13": 9.55,
+        "2026-09-28": 9.59,
+        "2026-10-19": 9.49,
+        "2026-11-05": 9.14
+      }
+    }
   },
   {
     "slug": "costa-coffee",
@@ -16648,7 +18848,18 @@
     ],
     "restrictions": [],
     "multiUse": false,
-    "canClub": false
+    "canClub": false,
+    "history": {
+      "dealo": {
+        "2026-11-24": 7.0
+      },
+      "maximize": {
+        "2026-10-19": 8.0
+      },
+      "gyftr": {
+        "2026-07-02": 3.0
+      }
+    }
   },
   {
     "slug": "wendys",
@@ -16762,7 +18973,24 @@
     ],
     "restrictions": [],
     "multiUse": true,
-    "canClub": true
+    "canClub": true,
+    "history": {
+      "dealo": {
+        "2026-11-24": 7.0
+      },
+      "gyftr": {
+        "2026-07-02": 12.0,
+        "2026-10-19": 10.0
+      },
+      "maximize": {
+        "2026-07-26": 10.0
+      },
+      "buyhatke": {
+        "2026-08-13": 9.28,
+        "2026-09-28": 9.24,
+        "2026-10-19": 9.14
+      }
+    }
   },
   {
     "slug": "absolute-barbecues",
@@ -16827,8 +19055,16 @@
       "The cashier will proceed with the final invoicing."
     ],
     "restrictions": [],
-    "multiUse": true,
-    "canClub": true
+    "multiUse": false,
+    "canClub": true,
+    "history": {
+      "dealo": {
+        "2026-11-24": 6.0
+      },
+      "maximize": {
+        "2026-07-26": 10.0
+      }
+    }
   },
   {
     "slug": "barbeque-nation",
@@ -16918,8 +19154,19 @@
     "restrictions": [
       "Kolhapur"
     ],
-    "multiUse": true,
-    "canClub": true
+    "multiUse": false,
+    "canClub": true,
+    "history": {
+      "dealo": {
+        "2026-11-24": 6.0
+      },
+      "maximize": {
+        "2026-07-26": 8.25
+      },
+      "gyftr": {
+        "2026-07-02": 5.0
+      }
+    }
   },
   {
     "slug": "beer-cafe",
@@ -17018,7 +19265,18 @@
     ],
     "restrictions": [],
     "multiUse": true,
-    "canClub": false
+    "canClub": false,
+    "history": {
+      "dealo": {
+        "2026-11-24": 6.0
+      },
+      "maximize": {
+        "2026-10-19": 7.75
+      },
+      "gyftr": {
+        "2026-07-02": 5.0
+      }
+    }
   },
   {
     "slug": "tim-hortons",
@@ -17105,7 +19363,18 @@
     ],
     "restrictions": [],
     "multiUse": true,
-    "canClub": true
+    "canClub": true,
+    "history": {
+      "dealo": {
+        "2026-11-24": 6.0
+      },
+      "gyftr": {
+        "2026-07-02": 8.0
+      },
+      "maximize": {
+        "2026-07-26": 7.5
+      }
+    }
   },
   {
     "slug": "wow-momo",
@@ -17178,8 +19447,16 @@
       "The cashier will check your Wow! e-Pay balance and redeem it against your bill with an OTP."
     ],
     "restrictions": [],
-    "multiUse": true,
-    "canClub": true
+    "multiUse": false,
+    "canClub": true,
+    "history": {
+      "dealo": {
+        "2026-11-24": 6.0
+      },
+      "gyftr": {
+        "2026-07-02": 9.0
+      }
+    }
   },
   {
     "slug": "wow-china",
@@ -17277,8 +19554,19 @@
       "The cashier will check your Wow! e-Pay balance and redeem it against your bill with an OTP."
     ],
     "restrictions": [],
-    "multiUse": true,
-    "canClub": true
+    "multiUse": false,
+    "canClub": true,
+    "history": {
+      "dealo": {
+        "2026-11-24": 6.0
+      },
+      "maximize": {
+        "2026-11-05": 10.0
+      },
+      "gyftr": {
+        "2026-07-02": 9.0
+      }
+    }
   },
   {
     "slug": "wow-chicken",
@@ -17371,8 +19659,20 @@
       "The cashier will check your Wow! e-Pay balance and redeem it against your bill with an OTP."
     ],
     "restrictions": [],
-    "multiUse": true,
-    "canClub": true
+    "multiUse": false,
+    "canClub": true,
+    "history": {
+      "dealo": {
+        "2026-11-24": 6.0
+      },
+      "gyftr": {
+        "2026-07-02": 9.0
+      },
+      "buyhatke": {
+        "2026-09-28": 8.39,
+        "2026-10-19": 8.29
+      }
+    }
   },
   {
     "slug": "vaango",
@@ -17453,7 +19753,15 @@
     ],
     "restrictions": [],
     "multiUse": true,
-    "canClub": false
+    "canClub": false,
+    "history": {
+      "dealo": {
+        "2026-11-24": 7.0
+      },
+      "maximize": {
+        "2026-07-26": 8.75
+      }
+    }
   },
   {
     "slug": "freshmenu",
@@ -17554,7 +19862,19 @@
     ],
     "restrictions": [],
     "multiUse": true,
-    "canClub": false
+    "canClub": false,
+    "history": {
+      "dealo": {
+        "2026-11-24": 3.0
+      },
+      "maximize": {
+        "2026-07-26": 3.75
+      },
+      "buyhatke": {
+        "2026-08-13": 3.24,
+        "2026-10-19": 3.12
+      }
+    }
   },
   {
     "slug": "organic-india",
@@ -17643,7 +19963,18 @@
     ],
     "restrictions": [],
     "multiUse": true,
-    "canClub": false
+    "canClub": false,
+    "history": {
+      "dealo": {
+        "2026-11-24": 6.0
+      },
+      "maximize": {
+        "2026-07-26": 10.25
+      },
+      "gyftr": {
+        "2026-07-02": 10.0
+      }
+    }
   },
   {
     "slug": "spar-hypermarket",
@@ -17689,7 +20020,12 @@
     "steps": [],
     "restrictions": [],
     "multiUse": null,
-    "canClub": null
+    "canClub": null,
+    "history": {
+      "dealo": {
+        "2026-11-24": 4.5
+      }
+    }
   },
   {
     "slug": "reliance-smart-bazaar",
@@ -17795,7 +20131,20 @@
     ],
     "restrictions": [],
     "multiUse": false,
-    "canClub": null
+    "canClub": null,
+    "history": {
+      "dealo": {
+        "2026-11-24": 3.0
+      },
+      "gyftr": {
+        "2026-07-02": 1.25,
+        "2026-08-26": 1.0,
+        "2026-11-09": 4.0
+      },
+      "maximize": {
+        "2026-10-19": 3.5
+      }
+    }
   },
   {
     "slug": "aeropostale",
@@ -17836,7 +20185,12 @@
     "steps": [],
     "restrictions": [],
     "multiUse": null,
-    "canClub": null
+    "canClub": null,
+    "history": {
+      "dealo": {
+        "2026-11-24": 8.0
+      }
+    }
   },
   {
     "slug": "call-it-spring",
@@ -17945,7 +20299,18 @@
     ],
     "restrictions": [],
     "multiUse": true,
-    "canClub": true
+    "canClub": true,
+    "history": {
+      "dealo": {
+        "2026-11-24": 8.0
+      },
+      "maximize": {
+        "2026-07-26": 11.75
+      },
+      "gyftr": {
+        "2026-07-02": 10.0
+      }
+    }
   },
   {
     "slug": "forever-new",
@@ -18039,7 +20404,20 @@
     ],
     "restrictions": [],
     "multiUse": false,
-    "canClub": false
+    "canClub": false,
+    "history": {
+      "dealo": {
+        "2026-11-24": 7.0
+      },
+      "maximize": {
+        "2026-07-26": 8.75
+      },
+      "buyhatke": {
+        "2026-08-13": 7.89,
+        "2026-09-28": 7.39,
+        "2026-10-19": 7.26
+      }
+    }
   },
   {
     "slug": "hush-puppies",
@@ -18141,7 +20519,19 @@
     ],
     "restrictions": [],
     "multiUse": true,
-    "canClub": true
+    "canClub": true,
+    "history": {
+      "dealo": {
+        "2026-11-24": 7.0
+      },
+      "maximize": {
+        "2026-07-26": 7.0,
+        "2026-08-27": 10.0
+      },
+      "gyftr": {
+        "2026-07-02": 7.0
+      }
+    }
   },
   {
     "slug": "liberty-shoes",
@@ -18187,7 +20577,12 @@
     "steps": [],
     "restrictions": [],
     "multiUse": null,
-    "canClub": null
+    "canClub": null,
+    "history": {
+      "dealo": {
+        "2026-11-24": 6.0
+      }
+    }
   },
   {
     "slug": "pantaloons",
@@ -18281,7 +20676,18 @@
     ],
     "restrictions": [],
     "multiUse": false,
-    "canClub": true
+    "canClub": true,
+    "history": {
+      "dealo": {
+        "2026-11-24": 7.0
+      },
+      "maximize": {
+        "2026-07-26": 7.75
+      },
+      "gyftr": {
+        "2026-07-02": 7.0
+      }
+    }
   },
   {
     "slug": "aurelia",
@@ -18372,7 +20778,18 @@
     ],
     "restrictions": [],
     "multiUse": false,
-    "canClub": false
+    "canClub": false,
+    "history": {
+      "dealo": {
+        "2026-11-24": 6.0
+      },
+      "maximize": {
+        "2026-07-26": 11.0
+      },
+      "gyftr": {
+        "2026-07-02": 9.0
+      }
+    }
   },
   {
     "slug": "campus",
@@ -18484,7 +20901,23 @@
     ],
     "restrictions": [],
     "multiUse": true,
-    "canClub": false
+    "canClub": false,
+    "history": {
+      "dealo": {
+        "2026-11-24": 6.0
+      },
+      "gyftr": {
+        "2026-07-02": 10.0,
+        "2026-08-26": 14.0
+      },
+      "maximize": {
+        "2026-07-26": 12.75
+      },
+      "buyhatke": {
+        "2026-08-13": 11.38,
+        "2026-10-19": 11.26
+      }
+    }
   },
   {
     "slug": "fastrack",
@@ -18579,7 +21012,18 @@
     ],
     "restrictions": [],
     "multiUse": false,
-    "canClub": false
+    "canClub": false,
+    "history": {
+      "dealo": {
+        "2026-11-24": 6.0
+      },
+      "gyftr": {
+        "2026-07-02": 8.0
+      },
+      "maximize": {
+        "2026-07-26": 8.0
+      }
+    }
   },
   {
     "slug": "neemans",
@@ -18693,7 +21137,22 @@
     ],
     "restrictions": [],
     "multiUse": true,
-    "canClub": true
+    "canClub": true,
+    "history": {
+      "dealo": {
+        "2026-11-24": 6.0
+      },
+      "gyftr": {
+        "2026-07-02": 10.0
+      },
+      "maximize": {
+        "2026-07-26": 10.0
+      },
+      "buyhatke": {
+        "2026-08-13": 9.13,
+        "2026-10-19": 9.01
+      }
+    }
   },
   {
     "slug": "rangriti",
@@ -18817,7 +21276,24 @@
     ],
     "restrictions": [],
     "multiUse": true,
-    "canClub": false
+    "canClub": false,
+    "history": {
+      "dealo": {
+        "2026-11-24": 6.0
+      },
+      "buyhatke": {
+        "2026-08-13": 6.59,
+        "2026-08-20": 6.48,
+        "2026-09-04": 6.73,
+        "2026-10-19": 9.57
+      },
+      "gyftr": {
+        "2026-07-02": 8.0
+      },
+      "maximize": {
+        "2026-07-26": 7.5
+      }
+    }
   },
   {
     "slug": "relaxo",
@@ -18914,7 +21390,18 @@
     ],
     "restrictions": [],
     "multiUse": true,
-    "canClub": true
+    "canClub": true,
+    "history": {
+      "dealo": {
+        "2026-11-24": 6.0
+      },
+      "gyftr": {
+        "2026-07-02": 8.0
+      },
+      "maximize": {
+        "2026-07-26": 8.0
+      }
+    }
   },
   {
     "slug": "taneira",
@@ -19007,7 +21494,18 @@
     ],
     "restrictions": [],
     "multiUse": true,
-    "canClub": false
+    "canClub": false,
+    "history": {
+      "dealo": {
+        "2026-11-24": 6.0
+      },
+      "gyftr": {
+        "2026-07-02": 8.0
+      },
+      "maximize": {
+        "2026-07-26": 8.0
+      }
+    }
   },
   {
     "slug": "v-mart",
@@ -19080,7 +21578,15 @@
     ],
     "restrictions": [],
     "multiUse": true,
-    "canClub": false
+    "canClub": false,
+    "history": {
+      "dealo": {
+        "2026-11-24": 6.0
+      },
+      "maximize": {
+        "2026-07-26": 9.25
+      }
+    }
   },
   {
     "slug": "new-balance",
@@ -19130,7 +21636,12 @@
     "steps": [],
     "restrictions": [],
     "multiUse": null,
-    "canClub": null
+    "canClub": null,
+    "history": {
+      "dealo": {
+        "2026-11-24": 5.5
+      }
+    }
   },
   {
     "slug": "rareism",
@@ -19230,7 +21741,20 @@
     ],
     "restrictions": [],
     "multiUse": false,
-    "canClub": null
+    "canClub": null,
+    "history": {
+      "dealo": {
+        "2026-11-24": 5.5
+      },
+      "gyftr": {
+        "2026-09-28": 9.0,
+        "2026-11-09": 12.0
+      },
+      "maximize": {
+        "2026-10-19": 9.0,
+        "2026-11-05": 11.0
+      }
+    }
   },
   {
     "slug": "columbia",
@@ -19324,7 +21848,19 @@
     ],
     "restrictions": [],
     "multiUse": true,
-    "canClub": true
+    "canClub": true,
+    "history": {
+      "dealo": {
+        "2026-11-24": 5.0
+      },
+      "maximize": {
+        "2026-07-26": 12.75
+      },
+      "gyftr": {
+        "2026-07-02": 13.0,
+        "2026-09-18": 11.0
+      }
+    }
   },
   {
     "slug": "hidesign",
@@ -19440,8 +21976,24 @@
       "Use the outlet locator, select your product, share the Gift Voucher at billing, and pay any balance if needed."
     ],
     "restrictions": [],
-    "multiUse": true,
-    "canClub": false
+    "multiUse": false,
+    "canClub": false,
+    "history": {
+      "dealo": {
+        "2026-11-24": 5.0
+      },
+      "maximize": {
+        "2026-07-26": 13.0
+      },
+      "buyhatke": {
+        "2026-08-13": 12.38,
+        "2026-09-28": 11.88,
+        "2026-10-19": 11.76
+      },
+      "gyftr": {
+        "2026-07-02": 6.0
+      }
+    }
   },
   {
     "slug": "reliance-trends",
@@ -19547,7 +22099,18 @@
     ],
     "restrictions": [],
     "multiUse": false,
-    "canClub": true
+    "canClub": true,
+    "history": {
+      "dealo": {
+        "2026-11-24": 5.0
+      },
+      "maximize": {
+        "2026-07-26": 5.5
+      },
+      "gyftr": {
+        "2026-07-02": 5.0
+      }
+    }
   },
   {
     "slug": "tasva",
@@ -19641,8 +22204,19 @@
       "Share your Gift Voucher with the cashier at the time of billing & pay the remaining amount by cash or card if required."
     ],
     "restrictions": [],
-    "multiUse": true,
-    "canClub": true
+    "multiUse": false,
+    "canClub": true,
+    "history": {
+      "dealo": {
+        "2026-11-24": 5.0
+      },
+      "gyftr": {
+        "2026-08-05": 7.0
+      },
+      "maximize": {
+        "2026-07-26": 6.25
+      }
+    }
   },
   {
     "slug": "w-for-woman",
@@ -19709,7 +22283,15 @@
     ],
     "restrictions": [],
     "multiUse": false,
-    "canClub": true
+    "canClub": true,
+    "history": {
+      "dealo": {
+        "2026-11-24": 5.0
+      },
+      "gyftr": {
+        "2026-07-02": 9.0
+      }
+    }
   },
   {
     "slug": "wildcraft",
@@ -19807,7 +22389,18 @@
     ],
     "restrictions": [],
     "multiUse": true,
-    "canClub": false
+    "canClub": false,
+    "history": {
+      "dealo": {
+        "2026-11-24": 5.0
+      },
+      "maximize": {
+        "2026-07-26": 8.5
+      },
+      "gyftr": {
+        "2026-07-02": 7.0
+      }
+    }
   },
   {
     "slug": "shiv-naresh",
@@ -19878,7 +22471,16 @@
       "other gift cards"
     ],
     "multiUse": true,
-    "canClub": null
+    "canClub": null,
+    "history": {
+      "dealo": {
+        "2026-11-24": 4.5
+      },
+      "buyhatke": {
+        "2026-08-13": 3.38,
+        "2026-10-19": 3.26
+      }
+    }
   },
   {
     "slug": "libas",
@@ -19980,7 +22582,18 @@
     ],
     "restrictions": [],
     "multiUse": true,
-    "canClub": null
+    "canClub": null,
+    "history": {
+      "dealo": {
+        "2026-11-24": 4.0
+      },
+      "gyftr": {
+        "2026-08-26": 8.0
+      },
+      "maximize": {
+        "2026-10-19": 8.0
+      }
+    }
   },
   {
     "slug": "myntra-luxe",
@@ -20054,7 +22667,17 @@
       "This Gift Card cannot be used to purchase other gift cards"
     ],
     "multiUse": true,
-    "canClub": null
+    "canClub": null,
+    "history": {
+      "dealo": {
+        "2026-11-24": 4.0
+      },
+      "buyhatke": {
+        "2026-08-13": 5.0,
+        "2026-09-28": 2.87,
+        "2026-10-19": 2.77
+      }
+    }
   },
   {
     "slug": "nautica",
@@ -20150,7 +22773,19 @@
     ],
     "restrictions": [],
     "multiUse": true,
-    "canClub": true
+    "canClub": true,
+    "history": {
+      "dealo": {
+        "2026-11-24": 4.0
+      },
+      "maximize": {
+        "2026-07-26": 5.0
+      },
+      "gyftr": {
+        "2026-07-02": 3.5,
+        "2026-08-26": 3.0
+      }
+    }
   },
   {
     "slug": "mango",
@@ -20253,7 +22888,19 @@
     ],
     "restrictions": [],
     "multiUse": true,
-    "canClub": true
+    "canClub": true,
+    "history": {
+      "dealo": {
+        "2026-11-24": 3.5
+      },
+      "gyftr": {
+        "2026-07-02": 6.0,
+        "2026-08-26": 3.0
+      },
+      "maximize": {
+        "2026-08-27": 3.0
+      }
+    }
   },
   {
     "slug": "next",
@@ -20354,7 +23001,19 @@
     ],
     "restrictions": [],
     "multiUse": true,
-    "canClub": true
+    "canClub": true,
+    "history": {
+      "dealo": {
+        "2026-11-24": 3.5
+      },
+      "gyftr": {
+        "2026-07-02": 6.0,
+        "2026-08-26": 3.0
+      },
+      "maximize": {
+        "2026-08-27": 3.0
+      }
+    }
   },
   {
     "slug": "the-bear-house",
@@ -20453,7 +23112,19 @@
       "This E-Gift Card cannot be used to purchase other gift cards"
     ],
     "multiUse": false,
-    "canClub": false
+    "canClub": false,
+    "history": {
+      "dealo": {
+        "2026-11-24": 7.0
+      },
+      "maximize": {
+        "2026-07-26": 8.25
+      },
+      "buyhatke": {
+        "2026-08-13": 7.42,
+        "2026-10-19": 7.31
+      }
+    }
   },
   {
     "slug": "hunkemoller",
@@ -20494,7 +23165,12 @@
     "steps": [],
     "restrictions": [],
     "multiUse": null,
-    "canClub": null
+    "canClub": null,
+    "history": {
+      "dealo": {
+        "2026-11-24": 10.0
+      }
+    }
   },
   {
     "slug": "balenciaga",
@@ -20535,7 +23211,12 @@
     "steps": [],
     "restrictions": [],
     "multiUse": null,
-    "canClub": null
+    "canClub": null,
+    "history": {
+      "dealo": {
+        "2026-11-24": 10.0
+      }
+    }
   },
   {
     "slug": "bally",
@@ -20600,7 +23281,15 @@
     ],
     "restrictions": [],
     "multiUse": false,
-    "canClub": null
+    "canClub": null,
+    "history": {
+      "dealo": {
+        "2026-11-24": 10.0
+      },
+      "gyftr": {
+        "2026-08-26": 10.0
+      }
+    }
   },
   {
     "slug": "bottega-veneta",
@@ -20666,7 +23355,15 @@
     ],
     "restrictions": [],
     "multiUse": false,
-    "canClub": null
+    "canClub": null,
+    "history": {
+      "dealo": {
+        "2026-11-24": 10.0
+      },
+      "gyftr": {
+        "2026-07-02": 10.0
+      }
+    }
   },
   {
     "slug": "canali",
@@ -20732,7 +23429,15 @@
     ],
     "restrictions": [],
     "multiUse": false,
-    "canClub": null
+    "canClub": null,
+    "history": {
+      "dealo": {
+        "2026-11-24": 10.0
+      },
+      "gyftr": {
+        "2026-08-26": 10.0
+      }
+    }
   },
   {
     "slug": "charles-tyrwhitt",
@@ -20798,7 +23503,15 @@
     ],
     "restrictions": [],
     "multiUse": false,
-    "canClub": null
+    "canClub": null,
+    "history": {
+      "dealo": {
+        "2026-11-24": 10.0
+      },
+      "gyftr": {
+        "2026-08-26": 10.0
+      }
+    }
   },
   {
     "slug": "dune-london",
@@ -20839,7 +23552,12 @@
     "steps": [],
     "restrictions": [],
     "multiUse": null,
-    "canClub": null
+    "canClub": null,
+    "history": {
+      "dealo": {
+        "2026-11-24": 10.0
+      }
+    }
   },
   {
     "slug": "emporio-armani",
@@ -20905,7 +23623,15 @@
     ],
     "restrictions": [],
     "multiUse": false,
-    "canClub": null
+    "canClub": null,
+    "history": {
+      "dealo": {
+        "2026-11-24": 10.0
+      },
+      "gyftr": {
+        "2026-08-26": 10.0
+      }
+    }
   },
   {
     "slug": "giorgio-armani",
@@ -20971,7 +23697,15 @@
     ],
     "restrictions": [],
     "multiUse": false,
-    "canClub": null
+    "canClub": null,
+    "history": {
+      "dealo": {
+        "2026-11-24": 10.0
+      },
+      "gyftr": {
+        "2026-08-26": 10.0
+      }
+    }
   },
   {
     "slug": "ea7",
@@ -21012,7 +23746,12 @@
     "steps": [],
     "restrictions": [],
     "multiUse": null,
-    "canClub": null
+    "canClub": null,
+    "history": {
+      "dealo": {
+        "2026-11-24": 10.0
+      }
+    }
   },
   {
     "slug": "jimmy-choo",
@@ -21078,7 +23817,15 @@
     ],
     "restrictions": [],
     "multiUse": false,
-    "canClub": null
+    "canClub": null,
+    "history": {
+      "dealo": {
+        "2026-11-24": 10.0
+      },
+      "gyftr": {
+        "2026-08-26": 10.0
+      }
+    }
   },
   {
     "slug": "maje",
@@ -21144,7 +23891,15 @@
     ],
     "restrictions": [],
     "multiUse": false,
-    "canClub": null
+    "canClub": null,
+    "history": {
+      "dealo": {
+        "2026-11-24": 10.0
+      },
+      "gyftr": {
+        "2026-10-19": 10.0
+      }
+    }
   },
   {
     "slug": "paul-and-shark",
@@ -21210,7 +23965,15 @@
     ],
     "restrictions": [],
     "multiUse": false,
-    "canClub": null
+    "canClub": null,
+    "history": {
+      "dealo": {
+        "2026-11-24": 10.0
+      },
+      "gyftr": {
+        "2026-08-26": 10.0
+      }
+    }
   },
   {
     "slug": "paul-smith",
@@ -21251,7 +24014,12 @@
     "steps": [],
     "restrictions": [],
     "multiUse": null,
-    "canClub": null
+    "canClub": null,
+    "history": {
+      "dealo": {
+        "2026-11-24": 10.0
+      }
+    }
   },
   {
     "slug": "sandro",
@@ -21317,7 +24085,15 @@
     ],
     "restrictions": [],
     "multiUse": false,
-    "canClub": null
+    "canClub": null,
+    "history": {
+      "dealo": {
+        "2026-11-24": 10.0
+      },
+      "gyftr": {
+        "2026-08-26": 10.0
+      }
+    }
   },
   {
     "slug": "scotch-and-soda",
@@ -21383,7 +24159,15 @@
     ],
     "restrictions": [],
     "multiUse": false,
-    "canClub": null
+    "canClub": null,
+    "history": {
+      "dealo": {
+        "2026-11-24": 10.0
+      },
+      "gyftr": {
+        "2026-10-19": 10.0
+      }
+    }
   },
   {
     "slug": "tods",
@@ -21449,7 +24233,15 @@
     ],
     "restrictions": [],
     "multiUse": false,
-    "canClub": null
+    "canClub": null,
+    "history": {
+      "dealo": {
+        "2026-11-24": 10.0
+      },
+      "gyftr": {
+        "2026-08-26": 10.0
+      }
+    }
   },
   {
     "slug": "tory-burch",
@@ -21515,7 +24307,15 @@
     ],
     "restrictions": [],
     "multiUse": false,
-    "canClub": null
+    "canClub": null,
+    "history": {
+      "dealo": {
+        "2026-11-24": 10.0
+      },
+      "gyftr": {
+        "2026-08-26": 10.0
+      }
+    }
   },
   {
     "slug": "valentino",
@@ -21581,7 +24381,15 @@
     ],
     "restrictions": [],
     "multiUse": false,
-    "canClub": null
+    "canClub": null,
+    "history": {
+      "dealo": {
+        "2026-11-24": 10.0
+      },
+      "gyftr": {
+        "2026-08-26": 10.0
+      }
+    }
   },
   {
     "slug": "versace",
@@ -21647,7 +24455,15 @@
     ],
     "restrictions": [],
     "multiUse": false,
-    "canClub": null
+    "canClub": null,
+    "history": {
+      "dealo": {
+        "2026-11-24": 10.0
+      },
+      "gyftr": {
+        "2026-10-19": 10.0
+      }
+    }
   },
   {
     "slug": "ferragamo",
@@ -21688,7 +24504,12 @@
     "steps": [],
     "restrictions": [],
     "multiUse": null,
-    "canClub": null
+    "canClub": null,
+    "history": {
+      "dealo": {
+        "2026-11-24": 10.0
+      }
+    }
   },
   {
     "slug": "g-star-raw",
@@ -21729,7 +24550,12 @@
     "steps": [],
     "restrictions": [],
     "multiUse": null,
-    "canClub": null
+    "canClub": null,
+    "history": {
+      "dealo": {
+        "2026-11-24": 10.0
+      }
+    }
   },
   {
     "slug": "replay",
@@ -21770,7 +24596,12 @@
     "steps": [],
     "restrictions": [],
     "multiUse": null,
-    "canClub": null
+    "canClub": null,
+    "history": {
+      "dealo": {
+        "2026-11-24": 10.0
+      }
+    }
   },
   {
     "slug": "gas-jeans",
@@ -21836,7 +24667,15 @@
     ],
     "restrictions": [],
     "multiUse": false,
-    "canClub": null
+    "canClub": null,
+    "history": {
+      "dealo": {
+        "2026-11-24": 10.0
+      },
+      "gyftr": {
+        "2026-10-19": 10.0
+      }
+    }
   },
   {
     "slug": "adidas-kids",
@@ -21902,7 +24741,15 @@
     ],
     "restrictions": [],
     "multiUse": false,
-    "canClub": null
+    "canClub": null,
+    "history": {
+      "dealo": {
+        "2026-11-24": 10.0
+      },
+      "gyftr": {
+        "2026-07-02": 10.0
+      }
+    }
   },
   {
     "slug": "inglot",
@@ -22011,7 +24858,18 @@
     ],
     "restrictions": [],
     "multiUse": true,
-    "canClub": true
+    "canClub": true,
+    "history": {
+      "dealo": {
+        "2026-11-24": 8.0
+      },
+      "maximize": {
+        "2026-07-26": 11.75
+      },
+      "gyftr": {
+        "2026-07-02": 10.0
+      }
+    }
   },
   {
     "slug": "skinn",
@@ -22088,8 +24946,16 @@
       "-Share your Gift Voucher with the cashier at the time of billing & pay the remaining amount by cash or card if required."
     ],
     "restrictions": [],
-    "multiUse": true,
-    "canClub": false
+    "multiUse": false,
+    "canClub": false,
+    "history": {
+      "dealo": {
+        "2026-11-24": 6.0
+      },
+      "maximize": {
+        "2026-10-19": 5.0
+      }
+    }
   },
   {
     "slug": "the-man-company",
@@ -22208,7 +25074,22 @@
     ],
     "restrictions": [],
     "multiUse": true,
-    "canClub": false
+    "canClub": false,
+    "history": {
+      "dealo": {
+        "2026-11-24": 6.0
+      },
+      "maximize": {
+        "2026-07-26": 16.75
+      },
+      "gyftr": {
+        "2026-07-02": 16.0
+      },
+      "buyhatke": {
+        "2026-08-13": 14.34,
+        "2026-10-19": 14.25
+      }
+    }
   },
   {
     "slug": "tira",
@@ -22251,7 +25132,12 @@
     "steps": [],
     "restrictions": [],
     "multiUse": null,
-    "canClub": null
+    "canClub": null,
+    "history": {
+      "dealo": {
+        "2026-11-24": 6.0
+      }
+    }
   },
   {
     "slug": "nykaa-man",
@@ -22346,7 +25232,20 @@
       "This E - Gift Card cannot be used to purchase other gift cards"
     ],
     "multiUse": true,
-    "canClub": true
+    "canClub": true,
+    "history": {
+      "dealo": {
+        "2026-11-24": 5.0
+      },
+      "buyhatke": {
+        "2026-08-13": 5.13,
+        "2026-09-04": 4.74,
+        "2026-10-19": 4.62
+      },
+      "gyftr": {
+        "2026-07-02": 4.0
+      }
+    }
   },
   {
     "slug": "lakme-salon",
@@ -22386,7 +25285,12 @@
     "steps": [],
     "restrictions": [],
     "multiUse": null,
-    "canClub": null
+    "canClub": null,
+    "history": {
+      "dealo": {
+        "2026-11-24": 4.0
+      }
+    }
   },
   {
     "slug": "mia-by-tanishq",
@@ -22477,7 +25381,18 @@
     ],
     "restrictions": [],
     "multiUse": false,
-    "canClub": false
+    "canClub": false,
+    "history": {
+      "dealo": {
+        "2026-11-24": 4.0
+      },
+      "maximize": {
+        "2026-07-26": 4.0
+      },
+      "gyftr": {
+        "2026-08-26": 3.5
+      }
+    }
   },
   {
     "slug": "the-body-shop",
@@ -22603,8 +25518,23 @@
       "Visit the listed outlet and show the Gift Card to the cashier before billing."
     ],
     "restrictions": [],
-    "multiUse": true,
-    "canClub": true
+    "multiUse": false,
+    "canClub": true,
+    "history": {
+      "dealo": {
+        "2026-11-24": 4.0
+      },
+      "maximize": {
+        "2026-07-26": 5.0
+      },
+      "buyhatke": {
+        "2026-08-13": 4.13,
+        "2026-10-19": 4.01
+      },
+      "gyftr": {
+        "2026-07-02": 3.0
+      }
+    }
   },
   {
     "slug": "himalaya",
@@ -22649,7 +25579,12 @@
     "steps": [],
     "restrictions": [],
     "multiUse": null,
-    "canClub": null
+    "canClub": null,
+    "history": {
+      "dealo": {
+        "2026-11-24": 6.0
+      }
+    }
   },
   {
     "slug": "titan-eye-plus",
@@ -22701,7 +25636,12 @@
     "steps": [],
     "restrictions": [],
     "multiUse": null,
-    "canClub": null
+    "canClub": null,
+    "history": {
+      "dealo": {
+        "2026-11-24": 5.0
+      }
+    }
   },
   {
     "slug": "lawrence-and-mayo",
@@ -22742,7 +25682,12 @@
     "steps": [],
     "restrictions": [],
     "multiUse": null,
-    "canClub": null
+    "canClub": null,
+    "history": {
+      "dealo": {
+        "2026-11-24": 7.0
+      }
+    }
   },
   {
     "slug": "bodycraft",
@@ -22782,7 +25727,12 @@
     "steps": [],
     "restrictions": [],
     "multiUse": null,
-    "canClub": null
+    "canClub": null,
+    "history": {
+      "dealo": {
+        "2026-11-24": 10.0
+      }
+    }
   },
   {
     "slug": "truefitt-and-hill",
@@ -22850,7 +25800,15 @@
     ],
     "restrictions": [],
     "multiUse": false,
-    "canClub": true
+    "canClub": true,
+    "history": {
+      "dealo": {
+        "2026-11-24": 12.0
+      },
+      "gyftr": {
+        "2026-07-02": 20.0
+      }
+    }
   },
   {
     "slug": "black-and-decker",
@@ -22921,7 +25879,16 @@
     ],
     "restrictions": [],
     "multiUse": false,
-    "canClub": null
+    "canClub": null,
+    "history": {
+      "dealo": {
+        "2026-11-24": 4.0
+      },
+      "buyhatke": {
+        "2026-08-20": 3.72,
+        "2026-10-19": 3.62
+      }
+    }
   },
   {
     "slug": "cleartrip-hotels",
@@ -23037,7 +26004,24 @@
       "other Gift Cards and can’t be redeemed for Cash or Credit"
     ],
     "multiUse": true,
-    "canClub": false
+    "canClub": false,
+    "history": {
+      "dealo": {
+        "2026-11-24": 7.5
+      },
+      "maximize": {
+        "2026-10-19": 7.75
+      },
+      "gyftr": {
+        "2026-07-02": 17.0,
+        "2026-08-26": 7.0
+      },
+      "buyhatke": {
+        "2026-09-28": 6.81,
+        "2026-10-19": 6.7,
+        "2026-11-05": 5.95
+      }
+    }
   },
   {
     "slug": "zoomcar",
@@ -23155,7 +26139,22 @@
     ],
     "restrictions": [],
     "multiUse": false,
-    "canClub": true
+    "canClub": true,
+    "history": {
+      "dealo": {
+        "2026-11-24": 6.5
+      },
+      "gyftr": {
+        "2026-07-02": 10.0
+      },
+      "maximize": {
+        "2026-07-26": 9.75
+      },
+      "buyhatke": {
+        "2026-09-28": 8.39,
+        "2026-10-19": 8.29
+      }
+    }
   },
   {
     "slug": "air-india",
@@ -23273,7 +26272,22 @@
     ],
     "restrictions": [],
     "multiUse": true,
-    "canClub": true
+    "canClub": true,
+    "history": {
+      "dealo": {
+        "2026-11-24": 5.5
+      },
+      "gyftr": {
+        "2026-07-02": 5.0
+      },
+      "maximize": {
+        "2026-07-26": 5.0
+      },
+      "buyhatke": {
+        "2026-08-20": 4.13,
+        "2026-10-19": 4.01
+      }
+    }
   },
   {
     "slug": "klook",
@@ -23367,7 +26381,20 @@
     ],
     "restrictions": [],
     "multiUse": false,
-    "canClub": false
+    "canClub": false,
+    "history": {
+      "dealo": {
+        "2026-11-24": 5.0
+      },
+      "maximize": {
+        "2026-10-19": 8.25
+      },
+      "buyhatke": {
+        "2026-08-13": 7.42,
+        "2026-10-19": 5.74,
+        "2026-11-05": 4.89
+      }
+    }
   },
   {
     "slug": "sotc",
@@ -23407,7 +26434,12 @@
     "steps": [],
     "restrictions": [],
     "multiUse": null,
-    "canClub": null
+    "canClub": null,
+    "history": {
+      "dealo": {
+        "2026-11-24": 4.0
+      }
+    }
   },
   {
     "slug": "porter",
@@ -23487,7 +26519,16 @@
     ],
     "restrictions": [],
     "multiUse": false,
-    "canClub": false
+    "canClub": false,
+    "history": {
+      "dealo": {
+        "2026-11-24": 6.0
+      },
+      "maximize": {
+        "2026-07-26": 7.75,
+        "2026-08-27": 10.75
+      }
+    }
   },
   {
     "slug": "district",
@@ -23577,7 +26618,17 @@
     ],
     "restrictions": [],
     "multiUse": true,
-    "canClub": false
+    "canClub": false,
+    "history": {
+      "dealo": {
+        "2026-11-24": 4.0
+      },
+      "buyhatke": {
+        "2026-08-13": 3.68,
+        "2026-09-28": 3.74,
+        "2026-10-19": 3.62
+      }
+    }
   },
   {
     "slug": "playo",
@@ -23677,7 +26728,18 @@
     ],
     "restrictions": [],
     "multiUse": true,
-    "canClub": null
+    "canClub": null,
+    "history": {
+      "dealo": {
+        "2026-11-24": 4.5
+      },
+      "maximize": {
+        "2026-10-19": 5.25
+      },
+      "buyhatke": {
+        "2026-11-05": 4.47
+      }
+    }
   },
   {
     "slug": "jiohotstar",
@@ -23795,7 +26857,22 @@
     "multiUse": false,
     "canClub": false,
     "kind": "subscription",
-    "noun": "subscription"
+    "noun": "subscription",
+    "history": {
+      "dealo": {
+        "2026-11-24": 7.5
+      },
+      "maximize": {
+        "2026-07-26": 7.75
+      },
+      "buyhatke": {
+        "2026-08-20": 7.85,
+        "2026-10-19": 7.74
+      },
+      "gyftr": {
+        "2026-07-02": 7.0
+      }
+    }
   },
   {
     "slug": "epic-on",
@@ -23844,7 +26921,12 @@
     "multiUse": null,
     "canClub": null,
     "kind": "subscription",
-    "noun": "subscription"
+    "noun": "subscription",
+    "history": {
+      "dealo": {
+        "2026-11-24": 3.0
+      }
+    }
   },
   {
     "slug": "home-centre",
@@ -23944,7 +27026,18 @@
     ],
     "restrictions": [],
     "multiUse": true,
-    "canClub": null
+    "canClub": null,
+    "history": {
+      "dealo": {
+        "2026-11-24": 7.0
+      },
+      "maximize": {
+        "2026-10-19": 8.5
+      },
+      "gyftr": {
+        "2026-08-05": 8.0
+      }
+    }
   },
   {
     "slug": "le-creuset",
@@ -24019,7 +27112,15 @@
     ],
     "restrictions": [],
     "multiUse": false,
-    "canClub": false
+    "canClub": false,
+    "history": {
+      "dealo": {
+        "2026-11-24": 7.0
+      },
+      "maximize": {
+        "2026-07-26": 8.25
+      }
+    }
   },
   {
     "slug": "milton",
@@ -24088,7 +27189,17 @@
     ],
     "restrictions": [],
     "multiUse": true,
-    "canClub": null
+    "canClub": null,
+    "history": {
+      "dealo": {
+        "2026-11-24": 7.0
+      },
+      "buyhatke": {
+        "2026-08-20": 6.69,
+        "2026-09-28": 7.55,
+        "2026-10-19": 7.44
+      }
+    }
   },
   {
     "slug": "pigeon",
@@ -24179,7 +27290,18 @@
     ],
     "restrictions": [],
     "multiUse": true,
-    "canClub": null
+    "canClub": null,
+    "history": {
+      "dealo": {
+        "2026-11-24": 6.0
+      },
+      "gyftr": {
+        "2026-07-02": 10.0
+      },
+      "maximize": {
+        "2026-10-19": 9.75
+      }
+    }
   },
   {
     "slug": "prestige",
@@ -24252,7 +27374,16 @@
     ],
     "restrictions": [],
     "multiUse": true,
-    "canClub": true
+    "canClub": true,
+    "history": {
+      "dealo": {
+        "2026-11-24": 10.0
+      },
+      "buyhatke": {
+        "2026-08-13": 9.39,
+        "2026-10-19": 9.29
+      }
+    }
   },
   {
     "slug": "villeroy-and-boch",
@@ -24293,7 +27424,12 @@
     "steps": [],
     "restrictions": [],
     "multiUse": null,
-    "canClub": null
+    "canClub": null,
+    "history": {
+      "dealo": {
+        "2026-11-24": 10.0
+      }
+    }
   },
   {
     "slug": "superbottoms",
@@ -24402,7 +27538,23 @@
     ],
     "restrictions": [],
     "multiUse": false,
-    "canClub": true
+    "canClub": true,
+    "history": {
+      "dealo": {
+        "2026-11-24": 7.0
+      },
+      "gyftr": {
+        "2026-07-02": 15.0
+      },
+      "maximize": {
+        "2026-07-26": 14.0
+      },
+      "buyhatke": {
+        "2026-08-13": 12.79,
+        "2026-09-28": 12.02,
+        "2026-10-19": 12.69
+      }
+    }
   },
   {
     "slug": "william-penn",
@@ -24497,7 +27649,20 @@
     ],
     "restrictions": [],
     "multiUse": false,
-    "canClub": true
+    "canClub": true,
+    "history": {
+      "dealo": {
+        "2026-11-24": 7.0
+      },
+      "gyftr": {
+        "2026-07-02": 6.0,
+        "2026-09-18": 10.0
+      },
+      "maximize": {
+        "2026-07-26": 6.75,
+        "2026-08-27": 9.25
+      }
+    }
   },
   {
     "slug": "crossword",
@@ -24609,7 +27774,22 @@
     ],
     "restrictions": [],
     "multiUse": true,
-    "canClub": false
+    "canClub": false,
+    "history": {
+      "dealo": {
+        "2026-11-24": 3.0
+      },
+      "maximize": {
+        "2026-07-26": 8.25
+      },
+      "gyftr": {
+        "2026-07-02": 8.0
+      },
+      "buyhatke": {
+        "2026-08-20": 6.38,
+        "2026-10-19": 6.26
+      }
+    }
   },
   {
     "slug": "miniklub",
@@ -24728,7 +27908,19 @@
     ],
     "restrictions": [],
     "multiUse": false,
-    "canClub": null
+    "canClub": null,
+    "history": {
+      "dealo": {
+        "2026-11-24": 13.0
+      },
+      "maximize": {
+        "2026-11-05": 13.25
+      },
+      "buyhatke": {
+        "2026-08-13": 11.88,
+        "2026-10-19": 11.76
+      }
+    }
   },
   {
     "slug": "toscano",
@@ -24796,7 +27988,15 @@
     ],
     "restrictions": [],
     "multiUse": false,
-    "canClub": false
+    "canClub": false,
+    "history": {
+      "dealo": {
+        "2026-11-24": 12.0
+      },
+      "maximize": {
+        "2026-07-26": 13.0
+      }
+    }
   },
   {
     "slug": "taj-hotels",
@@ -24890,7 +28090,20 @@
     ],
     "restrictions": [],
     "multiUse": true,
-    "canClub": true
+    "canClub": true,
+    "history": {
+      "dealo": {
+        "2026-11-25": 11.0
+      },
+      "gyftr": {
+        "2026-07-02": 13.0,
+        "2026-09-28": 14.0
+      },
+      "maximize": {
+        "2026-07-26": 11.75,
+        "2026-08-27": 12.0
+      }
+    }
   },
   {
     "slug": "itc-hotels",
@@ -24981,7 +28194,18 @@
     ],
     "restrictions": [],
     "multiUse": false,
-    "canClub": false
+    "canClub": false,
+    "history": {
+      "dealo": {
+        "2026-11-25": 7.0
+      },
+      "gyftr": {
+        "2026-07-02": 9.0
+      },
+      "maximize": {
+        "2026-10-19": 8.25
+      }
+    }
   },
   {
     "slug": "marriott-hotels",
@@ -25048,7 +28272,15 @@
     ],
     "restrictions": [],
     "multiUse": false,
-    "canClub": false
+    "canClub": false,
+    "history": {
+      "dealo": {
+        "2026-11-25": 7.0
+      },
+      "maximize": {
+        "2026-07-26": 7.75
+      }
+    }
   },
   {
     "slug": "the-leela",
@@ -25112,7 +28344,15 @@
     ],
     "restrictions": [],
     "multiUse": true,
-    "canClub": false
+    "canClub": false,
+    "history": {
+      "dealo": {
+        "2026-11-25": 7.0
+      },
+      "maximize": {
+        "2026-07-26": 10.0
+      }
+    }
   },
   {
     "slug": "apollo-pharmacy",
@@ -25242,7 +28482,22 @@
     ],
     "restrictions": [],
     "multiUse": false,
-    "canClub": false
+    "canClub": false,
+    "history": {
+      "dealo": {
+        "2026-11-25": 10.0
+      },
+      "gyftr": {
+        "2026-07-02": 11.0
+      },
+      "maximize": {
+        "2026-10-19": 10.0
+      },
+      "buyhatke": {
+        "2026-09-28": 6.69,
+        "2026-10-19": 6.59
+      }
+    }
   },
   {
     "slug": "o2-spa",
@@ -25282,7 +28537,12 @@
     "steps": [],
     "restrictions": [],
     "multiUse": null,
-    "canClub": null
+    "canClub": null,
+    "history": {
+      "dealo": {
+        "2026-11-25": 10.0
+      }
+    }
   },
   {
     "slug": "kalyan-jewellers",
@@ -25323,7 +28583,12 @@
     "steps": [],
     "restrictions": [],
     "multiUse": null,
-    "canClub": null
+    "canClub": null,
+    "history": {
+      "dealo": {
+        "2026-11-25": 3.5
+      }
+    }
   },
   {
     "slug": "joyalukkas",
@@ -25393,6 +28658,15 @@
     ],
     "restrictions": [],
     "multiUse": true,
-    "canClub": null
+    "canClub": null,
+    "history": {
+      "dealo": {
+        "2026-11-25": 3.5
+      },
+      "buyhatke": {
+        "2026-08-13": 2.13,
+        "2026-10-19": 2.01
+      }
+    }
   }
 ]
