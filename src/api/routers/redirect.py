@@ -47,6 +47,15 @@ _BOT_UA_RE = re.compile(
 )
 
 
+# Where the link sat tells us whether the shopper was sent to buy a voucher
+# first. Voucher-paid orders mostly earn no commission, so the two are counted
+# apart. product_card (the product's own link) can be either.
+_JOURNEY = {
+    "check_page_step": "voucher", "redeem_step": "voucher", "hubble_done": "voucher",
+    "price_list": "no_voucher", "direct_buy_step": "no_voucher",
+}
+
+
 def _clean(value: str | None, pattern: re.Pattern) -> str | None:
     return value if value and pattern.match(value) else None
 
@@ -106,6 +115,9 @@ async def go(
     if parsed.netloc.lower().removeprefix("www.") in INRDEALS_EXTRA_HOSTS:
         coverage = {"network": "inrdeals", "inrdeals_campaign_type": "cps"}
 
+    # True when the link goes out through a network that has a live campaign
+    # for this shop. False = wrapped by Cuelinks out of habit, cannot earn.
+    can_earn = bool(coverage) and coverage.get("network") in ("inrdeals", "cuelinks")
     if coverage and coverage.get("network") == "inrdeals":
         network = "inrdeals"
         target = INRDEALS_BASE.format(
@@ -131,6 +143,8 @@ async def go(
             "shop_domain": parsed.netloc.lower(),
             "shop_url": url[:500],
             "network": network,
+            "can_earn": can_earn,
+            "journey": _JOURNEY.get(props["ctx"], "other"),
         },
     ))
     return RedirectResponse(target, status_code=302)
