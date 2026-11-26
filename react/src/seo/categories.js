@@ -49,6 +49,7 @@ export const CATEGORIES = [
       // added 24 Nov 2026
       "blinkit",
       "zepto",
+      "jiomart",
       // added 24 Nov 2026 (a page for every well-known shop Dealo sells)
       "mainland-china",
       "oh-calcutta",
@@ -244,6 +245,8 @@ export const CATEGORIES = [
     short: "Electronics",
     shops: [
       "amazon",
+      "amazon-pay",
+      "google-play",
       "flipkart",
       "croma",
       "reliance-digital",

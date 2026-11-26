@@ -475,11 +475,14 @@ export function shopFaqs(shop) {
     // Search Console, 24 Nov 2026: 75 "<shop> coupon code / promo code /
     // discount code" searches showed Dealo, none clicked. Dealo has no codes,
     // so the answer says that first, then what it does have.
+    // 26 Nov 2026: "<shop> discount voucher" is searched far more than
+    // "gift card discount" (Swiggy 27,100 a month, Croma 6,600: Karan's
+    // keyword list) and means either a code or a voucher, so it is asked here.
     ...(shop.best
       ? [{
-          q: `Is there a ${shop.name} coupon code or promo code?`,
+          q: `Is there a ${shop.name} coupon code, promo code or discount voucher?`,
           a:
-            `Dealo does not list ${shop.name} coupon codes, promo codes or discount codes. A gift card is another way to pay less, with no code to find: ${best}.` +
+            `Dealo does not list ${shop.name} coupon codes, promo codes or discount codes. The ${shop.name} gift card is the discount voucher here: it sells for less than its value and there is no code to find. ${best.replace(/^./, (c) => c.toUpperCase())}.` +
             (shop.canClub === true
               ? ` If you have a ${shop.name} discount code, apply it first and pay the rest with the gift card.`
               : shop.canClub === false
