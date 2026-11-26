@@ -41,6 +41,12 @@ INRDEALS_BASE = "https://inr.deals/track?id={publisher_id}&src=dealo-backend&cam
 # links), matched with subdomains. Anything else is refused so /out can't be
 # used as an open redirect. tests/test_tracking_plan.py checks every voucher
 # and card link in data/ and react/src/data/ is covered.
+# Shop websites that are not in data/domain_brand_map.json (that file lists
+# only shops with a voucher) but that INRDeals pays on. Each was opened by
+# hand on 26 Nov 2026 and seen to pass through a tracker; INRDeals answers 403
+# for a website it doesn't carry, so test before adding one.
+INRDEALS_EXTRA_HOSTS = ("shopsy.in", "dl.flipkart.com")
+
 OUTBOUND_ALLOWED_HOSTS = ("gyftr.com", "maximize.money", "buyhatke.com", "bitli.in")
 
 # --- L1 merchant guards (ported from pipeline.py) ---
