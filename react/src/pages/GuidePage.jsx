@@ -8,7 +8,7 @@ import { useJsonLd } from '@/hooks/useJsonLd';
 import { usePageTitle } from '@/hooks/usePageTitle';
 import { buildGuides, guideJsonLd } from '@/seo/guides';
 import { ROUTES } from '@/routes/paths';
-import { shortDate } from '@/seo/pageMeta';
+import { pct, shortDate } from '@/seo/pageMeta';
 
 const GUIDES = buildGuides(SHOP_PAGES);
 const SHOP_BY_SLUG = new Map(SHOP_PAGES.map((s) => [s.slug, s]));
@@ -39,6 +39,131 @@ function Steps({ items, numbered }) {
         </Text>
       ))}
     </Box>
+  );
+}
+
+const TONE = { up: 'green', down: 'danger', same: 'borderStrong' };
+
+/** One bar cut into "went up / the same / went down", to scale. */
+function SplitBar({ up, same, down, h = '14px' }) {
+  const parts = [['up', up], ['same', same], ['down', down]].filter(([, n]) => n > 0);
+  return (
+    <Flex h={h} gap="2px" borderRadius="pill" overflow="hidden" role="img" aria-label={`${up} went up, ${same} stayed the same, ${down} went down`}>
+      {parts.map(([dir, n]) => (
+        <Box key={dir} flex={n} minW="2px" bg={TONE[dir]} />
+      ))}
+    </Flex>
+  );
+}
+
+/** The shop's best rate over time as a small stepped line: it only moves on a day we read a new rate. */
+function RateLine({ points, dir, from, to }) {
+  const W = 84;
+  const H = 26;
+  const PAD = 3;
+  const t = (iso) => Date.parse(iso);
+  const span = t(to) - t(from) || 1;
+  const rates = points.map(([, r]) => r);
+  const lo = Math.min(...rates);
+  const range = Math.max(...rates) - lo || 1;
+  const x = (iso) => (PAD + ((W - 2 * PAD) * (t(iso) - t(from))) / span).toFixed(1);
+  const y = (r) => (H - PAD - ((H - 2 * PAD) * (r - lo)) / range).toFixed(1);
+  const d =
+    `M${x(points[0][0])},${y(points[0][1])}` +
+    points.slice(1).map(([day, r]) => ` H${x(day)} V${y(r)}`).join('') +
+    ` H${x(to)}`;
+  const stroke = `var(--chakra-colors-${TONE[dir]})`;
+  return (
+    <svg viewBox={`0 0 ${W} ${H}`} width={W} height={H} aria-hidden="true" style={{ flexShrink: 0 }}>
+      <path d={d} fill="none" stroke={stroke} strokeWidth="1.6" strokeLinejoin="round" />
+      <circle cx={x(to)} cy={y(points[points.length - 1][1])} r="2.6" fill={stroke} />
+    </svg>
+  );
+}
+
+/** Shops whose discount moved: name, the line, then "was → now" and the change. Each row opens the shop's page. */
+function Movers({ rows }) {
+  const from = rows.map((r) => r.points[0][0]).sort()[0];
+  const to = rows.map((r) => r.lastRead).sort().pop();
+  return (
+    <Box border="1px solid" borderColor="border" borderRadius="12px" overflow="hidden" bg="surface" mb="10px">
+      {rows.map((r, i) => (
+        <Flex
+          key={r.slug}
+          className="dealo-press"
+          as={RouterLink}
+          to={`${ROUTES.brands}/${r.slug}/`}
+          align="center"
+          gap="10px"
+          p="10px 12px"
+          borderTop={i ? '1px solid' : 'none'}
+          borderColor="border"
+          _hover={{ textDecoration: 'none', bg: 'surface2' }}
+        >
+          <Box flex="1" minW={0}>
+            <Text m={0} fontSize="14px" fontWeight={700}>
+              {r.name}
+            </Text>
+            <Text m={0} fontSize="11.5px" color="text3">
+              {r.cat}
+            </Text>
+            {r.dealo && (
+              <Text as="span" display="inline-block" mt="3px" px="8px" py="1px" borderRadius="pill" bg="brandSoft" color="brand" fontSize="11px" fontWeight={700}>
+                {pct(r.dealo)} on Dealo today
+              </Text>
+            )}
+          </Box>
+          <RateLine points={r.points} dir={r.dir} from={from} to={to} />
+          <Box textAlign="right" fontFamily="mono" flexShrink={0} sx={{ fontVariantNumeric: 'tabular-nums' }}>
+            <Text m={0} fontSize="13px">
+              <Text as="span" color="text3">
+                {pct(r.was)} →{' '}
+              </Text>
+              <Text as="span" fontWeight={700}>
+                {pct(r.now)}
+              </Text>
+            </Text>
+            <Text m={0} fontSize="11px" fontWeight={700} color={TONE[r.dir]}>
+              {r.diff > 0 ? '+' : '−'}
+              {pct(Math.abs(r.diff)).replace('%', '')} pts
+            </Text>
+          </Box>
+        </Flex>
+      ))}
+    </Box>
+  );
+}
+
+/** Up / same / down for each type of shop; the bar's length is how many shops that type has. */
+function TypeBars({ cats }) {
+  const most = Math.max(...cats.map((c) => c.total));
+  return (
+    <Flex direction="column" gap="12px" mb="10px">
+      {cats.map((c) => (
+        <Box key={c.name}>
+          <Flex justify="space-between" align="baseline" gap="8px">
+            <Text m={0} fontSize="14px" fontWeight={700}>
+              {c.name}
+            </Text>
+            <Text m={0} fontSize="12px" color="text3">
+              {c.total} shops
+            </Text>
+          </Flex>
+          <Box w={`${Math.max(18, (100 * c.total) / most)}%`} my="4px">
+            <SplitBar up={c.up} same={c.same} down={c.down} h="8px" />
+          </Box>
+          <Flex gap="12px" fontSize="12px" fontFamily="mono" color="text2">
+            <Text as="span" color="green">
+              {c.up} up
+            </Text>
+            <Text as="span">{c.same} same</Text>
+            <Text as="span" color="danger">
+              {c.down} down
+            </Text>
+          </Flex>
+        </Box>
+      ))}
+    </Flex>
   );
 }
 
@@ -81,6 +206,39 @@ export default function GuidePage() {
                   {l.label} ↗
                 </Text>
               ))}
+            </Box>
+          )}
+          {sec.split && (
+            <Box mb="10px">
+              <SplitBar {...sec.split} />
+              <Flex mt="10px" gap="8px">
+                {[
+                  ['up', 'went up'],
+                  ['same', 'stayed the same'],
+                  ['down', 'went down'],
+                ].map(([dir, label]) => (
+                  <Box key={dir} flex="1">
+                    <Text m={0} fontFamily="mono" fontSize="24px" fontWeight={700} lineHeight={1.1} color={dir === 'same' ? 'text' : TONE[dir]}>
+                      {sec.split[dir]}
+                    </Text>
+                    <Text m={0} fontSize="12px" fontWeight={600} color="text2">
+                      {label}
+                    </Text>
+                  </Box>
+                ))}
+              </Flex>
+            </Box>
+          )}
+          {sec.movers && <Movers rows={sec.movers} />}
+          {sec.cats && <TypeBars cats={sec.cats} />}
+          {sec.cite && (
+            <Box border="1px dashed" borderColor="brass" bg="brassSoft" borderRadius="12px" p="12px" mb="10px">
+              <Text m={0} fontSize="13px" lineHeight={1.55}>
+                <Text as="span" fontWeight={800}>
+                  Writing about gift cards?{' '}
+                </Text>
+                {sec.cite}
+              </Text>
             </Box>
           )}
           {sec.table && (
