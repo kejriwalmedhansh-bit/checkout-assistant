@@ -3,7 +3,7 @@
     "slug": "myntra",
     "name": "Myntra",
     "website": "https://www.myntra.com/",
-    "checked": "2026-11-26",
+    "checked": "2026-11-27",
     "hubble": {
       "pct": 4.0,
       "brand_name": "Myntra",
@@ -148,7 +148,7 @@
     "slug": "ajio",
     "name": "AJIO",
     "website": "https://www.ajio.com/",
-    "checked": "2026-11-26",
+    "checked": "2026-11-27",
     "hubble": {
       "pct": 7.0,
       "brand_name": "AJIO",
@@ -288,7 +288,7 @@
     "slug": "nykaa",
     "name": "Nykaa",
     "website": "https://www.nykaa.com/",
-    "checked": "2026-11-26",
+    "checked": "2026-11-27",
     "hubble": {
       "pct": 5.0,
       "brand_name": "Nykaa",
@@ -428,7 +428,7 @@
     "slug": "nykaa-fashion",
     "name": "Nykaa Fashion",
     "website": "https://www.nykaafashion.com/",
-    "checked": "2026-11-26",
+    "checked": "2026-11-27",
     "hubble": {
       "pct": 5.0,
       "brand_name": "Nykaa Fashion",
@@ -569,7 +569,7 @@
     "slug": "zomato",
     "name": "Zomato",
     "website": "https://www.zomato.com/",
-    "checked": "2026-11-26",
+    "checked": "2026-11-27",
     "hubble": {
       "pct": 4.0,
       "brand_name": "Zomato",
@@ -674,7 +674,7 @@
     "slug": "swiggy",
     "name": "Swiggy",
     "website": "https://www.swiggy.com/",
-    "checked": "2026-11-26",
+    "checked": "2026-11-27",
     "hubble": {
       "pct": 3.0,
       "brand_name": "Swiggy",
@@ -744,7 +744,7 @@
     "slug": "amazon",
     "name": "Amazon",
     "website": "https://www.amazon.in/",
-    "checked": "2026-11-26",
+    "checked": "2026-11-27",
     "hubble": {
       "pct": 1.5,
       "brand_name": "Amazon shopping",
@@ -878,9 +878,9 @@
     "slug": "amazon-pay",
     "name": "Amazon Pay",
     "website": "https://www.amazon.in/",
-    "checked": "2026-11-26",
+    "checked": "2026-11-27",
     "hubble": {
-      "pct": 1.0,
+      "pct": 1.25,
       "brand_name": "Amazon Pay",
       "in_store": false,
       "works": [
@@ -904,7 +904,7 @@
     "sellers": [],
     "best": {
       "source": "dealo",
-      "pct": 1.0
+      "pct": 1.25
     },
     "online": true,
     "offline": true,
@@ -920,7 +920,8 @@
     "canClub": null,
     "history": {
       "dealo": {
-        "2026-11-26": 1.0
+        "2026-11-26": 1.0,
+        "2026-11-27": 1.25
       }
     }
   },
@@ -928,7 +929,7 @@
     "slug": "jiomart",
     "name": "JioMart",
     "website": "https://www.jiomart.com/",
-    "checked": "2026-11-26",
+    "checked": "2026-11-27",
     "hubble": {
       "pct": 1.0,
       "brand_name": "Jio Mart",
@@ -1058,7 +1059,7 @@
     "slug": "google-play",
     "name": "Google Play",
     "website": "https://www.play.google.com/",
-    "checked": "2026-11-26",
+    "checked": "2026-11-27",
     "hubble": null,
     "sellers": [
       {
@@ -1142,7 +1143,7 @@
     "slug": "flipkart",
     "name": "Flipkart",
     "website": "https://www.flipkart.com/",
-    "checked": "2026-11-26",
+    "checked": "2026-11-27",
     "hubble": {
       "pct": 2.0,
       "brand_name": "Flipkart",
@@ -1284,7 +1285,7 @@
     "slug": "croma",
     "name": "Croma",
     "website": "https://www.croma.com/",
-    "checked": "2026-11-26",
+    "checked": "2026-11-27",
     "hubble": {
       "pct": 2.0,
       "brand_name": "Croma",
@@ -1421,7 +1422,7 @@
     "slug": "reliance-digital",
     "name": "Reliance Digital",
     "website": "https://www.reliancedigital.in/",
-    "checked": "2026-11-26",
+    "checked": "2026-11-27",
     "hubble": null,
     "sellers": [
       {
@@ -1476,7 +1477,7 @@
     "slug": "makemytrip",
     "name": "MakeMyTrip",
     "website": "https://www.makemytrip.com/",
-    "checked": "2026-11-26",
+    "checked": "2026-11-27",
     "hubble": {
       "pct": 6.25,
       "brand_name": "MakeMyTrip",
@@ -1587,7 +1588,7 @@
     "slug": "yatra",
     "name": "Yatra",
     "website": "https://www.yatra.com/",
-    "checked": "2026-11-26",
+    "checked": "2026-11-27",
     "hubble": {
       "pct": 5.0,
       "brand_name": "Yatra",
@@ -1698,7 +1699,7 @@
     "slug": "cleartrip",
     "name": "Cleartrip",
     "website": "https://www.cleartrip.com/",
-    "checked": "2026-11-26",
+    "checked": "2026-11-27",
     "hubble": {
       "pct": 8.0,
       "brand_name": "Cleartrip",
@@ -1838,7 +1839,7 @@
     "slug": "pvr",
     "name": "PVR",
     "website": "https://www.pvrcinemas.com/",
-    "checked": "2026-11-26",
+    "checked": "2026-11-27",
     "hubble": {
       "pct": 19.0,
       "brand_name": "PVR",
@@ -1979,7 +1980,7 @@
     "slug": "bookmyshow",
     "name": "BookMyShow",
     "website": "https://www.bookmyshow.com/",
-    "checked": "2026-11-26",
+    "checked": "2026-11-27",
     "hubble": {
       "pct": 2.0,
       "brand_name": "BookMyShow",
@@ -2064,7 +2065,7 @@
     "slug": "uber",
     "name": "Uber",
     "website": "https://www.uber.com/",
-    "checked": "2026-11-26",
+    "checked": "2026-11-27",
     "hubble": {
       "pct": 4.0,
       "brand_name": "Uber.",
@@ -2192,7 +2193,7 @@
     "slug": "bigbasket",
     "name": "BigBasket",
     "website": "https://www.bigbasket.com/",
-    "checked": "2026-11-26",
+    "checked": "2026-11-27",
     "hubble": {
       "pct": 2.75,
       "brand_name": "BigBasket",
@@ -2332,7 +2333,7 @@
     "slug": "blinkit",
     "name": "Blinkit",
     "website": "https://www.blinkit.com/",
-    "checked": "2026-11-26",
+    "checked": "2026-11-27",
     "hubble": {
       "pct": 2.0,
       "brand_name": "Blinkit",
@@ -2478,7 +2479,7 @@
     "slug": "zepto",
     "name": "Zepto",
     "website": "https://www.zeptonow.com/",
-    "checked": "2026-11-26",
+    "checked": "2026-11-27",
     "hubble": null,
     "sellers": [
       {
@@ -2583,7 +2584,7 @@
     "slug": "tata-cliq",
     "name": "Tata CLiQ",
     "website": "https://www.tatacliq.com/",
-    "checked": "2026-11-26",
+    "checked": "2026-11-27",
     "hubble": {
       "pct": 9.0,
       "brand_name": "Tata Cliq",
@@ -2739,7 +2740,7 @@
     "slug": "pepperfry",
     "name": "Pepperfry",
     "website": "https://www.pepperfry.com/",
-    "checked": "2026-11-26",
+    "checked": "2026-11-27",
     "hubble": {
       "pct": 3.0,
       "brand_name": "Pepperfry",
@@ -2843,7 +2844,7 @@
     "slug": "ikea",
     "name": "IKEA",
     "website": "https://www.ikea.com/",
-    "checked": "2026-11-26",
+    "checked": "2026-11-27",
     "hubble": {
       "pct": 6.0,
       "brand_name": "IKEA",
@@ -2956,7 +2957,7 @@
     "slug": "urban-ladder",
     "name": "Urban Ladder",
     "website": "https://www.urbanladder.com/",
-    "checked": "2026-11-26",
+    "checked": "2026-11-27",
     "hubble": {
       "pct": 4.0,
       "brand_name": "Urban Ladder",
@@ -3069,7 +3070,7 @@
     "slug": "dominos",
     "name": "Domino's",
     "website": "https://www.dominos.co.in/",
-    "checked": "2026-11-26",
+    "checked": "2026-11-27",
     "hubble": {
       "pct": 16.0,
       "brand_name": "Dominos",
@@ -3207,7 +3208,7 @@
     "slug": "pizza-hut",
     "name": "Pizza Hut",
     "website": "https://www.pizzahut.co.in/",
-    "checked": "2026-11-26",
+    "checked": "2026-11-27",
     "hubble": {
       "pct": 7.0,
       "brand_name": "Pizza Hut",
@@ -3352,7 +3353,7 @@
     "slug": "kfc",
     "name": "KFC",
     "website": "https://www.online.kfc.co.in/",
-    "checked": "2026-11-26",
+    "checked": "2026-11-27",
     "hubble": {
       "pct": 6.0,
       "brand_name": "KFC",
@@ -3493,7 +3494,7 @@
     "slug": "subway",
     "name": "Subway",
     "website": "https://www.subway.com/",
-    "checked": "2026-11-26",
+    "checked": "2026-11-27",
     "hubble": {
       "pct": 8.0,
       "brand_name": "Subway",
@@ -3601,7 +3602,7 @@
     "slug": "starbucks",
     "name": "Starbucks",
     "website": "https://www.starbucks.in/",
-    "checked": "2026-11-26",
+    "checked": "2026-11-27",
     "hubble": {
       "pct": 7.0,
       "brand_name": "Starbucks",
@@ -3736,7 +3737,7 @@
     "slug": "lifestyle",
     "name": "Lifestyle",
     "website": "https://www.lifestylestores.com/",
-    "checked": "2026-11-26",
+    "checked": "2026-11-27",
     "hubble": {
       "pct": 8.0,
       "brand_name": "Lifestyle",
@@ -3871,7 +3872,7 @@
     "slug": "westside",
     "name": "Westside",
     "website": "https://www.westside.com/",
-    "checked": "2026-11-26",
+    "checked": "2026-11-27",
     "hubble": {
       "pct": 10.0,
       "brand_name": "Westside",
@@ -3926,7 +3927,7 @@
     "slug": "decathlon",
     "name": "Decathlon",
     "website": "https://www.decathlon.in/",
-    "checked": "2026-11-26",
+    "checked": "2026-11-27",
     "hubble": {
       "pct": 4.0,
       "brand_name": "Decathlon",
@@ -4066,7 +4067,7 @@
     "slug": "puma",
     "name": "PUMA",
     "website": "https://www.in.puma.com/",
-    "checked": "2026-11-26",
+    "checked": "2026-11-27",
     "hubble": null,
     "sellers": [
       {
@@ -4149,7 +4150,7 @@
     "slug": "skechers",
     "name": "Skechers",
     "website": "https://www.skechers.in/",
-    "checked": "2026-11-26",
+    "checked": "2026-11-27",
     "hubble": {
       "pct": 10.0,
       "brand_name": "Skechers",
@@ -4284,7 +4285,7 @@
     "slug": "bata",
     "name": "Bata",
     "website": "https://www.bata.in/",
-    "checked": "2026-11-26",
+    "checked": "2026-11-27",
     "hubble": {
       "pct": 7.0,
       "brand_name": "Bata",
@@ -4394,7 +4395,7 @@
     "slug": "lenskart",
     "name": "Lenskart",
     "website": "https://www.lenskart.com/",
-    "checked": "2026-11-26",
+    "checked": "2026-11-27",
     "hubble": {
       "pct": 10.0,
       "brand_name": "Lenskart",
@@ -4542,7 +4543,7 @@
     "slug": "boat",
     "name": "boAt",
     "website": "https://www.boat-lifestyle.com/",
-    "checked": "2026-11-26",
+    "checked": "2026-11-27",
     "hubble": {
       "pct": 6.0,
       "brand_name": "Boat",
@@ -4646,7 +4647,7 @@
     "slug": "titan",
     "name": "Titan",
     "website": "https://www.titan.co.in/",
-    "checked": "2026-11-26",
+    "checked": "2026-11-27",
     "hubble": null,
     "sellers": [
       {
@@ -4726,7 +4727,7 @@
     "slug": "firstcry",
     "name": "FirstCry",
     "website": "https://www.firstcry.com/",
-    "checked": "2026-11-26",
+    "checked": "2026-11-27",
     "hubble": {
       "pct": 6.0,
       "brand_name": "Firstcry",
@@ -4881,7 +4882,7 @@
     "slug": "netmeds",
     "name": "Netmeds",
     "website": "https://www.netmeds.com/",
-    "checked": "2026-11-26",
+    "checked": "2026-11-27",
     "hubble": {
       "pct": 8.0,
       "brand_name": "Netmeds",
@@ -5014,7 +5015,7 @@
     "slug": "jockey",
     "name": "Jockey",
     "website": "https://www.jockey.in/",
-    "checked": "2026-11-26",
+    "checked": "2026-11-27",
     "hubble": null,
     "sellers": [
       {
@@ -5067,7 +5068,7 @@
     "slug": "frido",
     "name": "Frido",
     "website": "https://www.myfrido.com/",
-    "checked": "2026-11-26",
+    "checked": "2026-11-27",
     "hubble": {
       "pct": 8.0,
       "brand_name": "Frido",
@@ -5205,7 +5206,7 @@
     "slug": "dailyobjects",
     "name": "DailyObjects",
     "website": "https://www.dailyobjects.com/",
-    "checked": "2026-11-26",
+    "checked": "2026-11-27",
     "hubble": {
       "pct": 10.0,
       "brand_name": "Daily Objects",
@@ -5337,7 +5338,7 @@
     "slug": "beyoung",
     "name": "Beyoung",
     "website": "https://www.beyoung.in/",
-    "checked": "2026-11-26",
+    "checked": "2026-11-27",
     "hubble": {
       "pct": 13.0,
       "brand_name": "Beyoung",
@@ -5469,7 +5470,7 @@
     "slug": "ixigo",
     "name": "Ixigo",
     "website": "https://www.ixigo.com/",
-    "checked": "2026-11-26",
+    "checked": "2026-11-27",
     "hubble": {
       "pct": 5.0,
       "brand_name": "Ixigo",
@@ -5606,7 +5607,7 @@
     "slug": "third-wave-coffee",
     "name": "Third Wave Coffee",
     "website": "https://www.thirdwavecoffee.in/",
-    "checked": "2026-11-26",
+    "checked": "2026-11-27",
     "hubble": {
       "pct": 8.0,
       "brand_name": "Third Wave Coffee",
@@ -5711,7 +5712,7 @@
     "slug": "philips",
     "name": "Philips",
     "website": "https://www.philips.co.in/",
-    "checked": "2026-11-26",
+    "checked": "2026-11-27",
     "hubble": {
       "pct": 6.0,
       "brand_name": "Philips",
@@ -5845,7 +5846,7 @@
     "slug": "birkenstock",
     "name": "Birkenstock",
     "website": "https://www.birkenstock.com/in/",
-    "checked": "2026-11-26",
+    "checked": "2026-11-27",
     "hubble": {
       "pct": 10.0,
       "brand_name": "Birkenstock",
@@ -5950,7 +5951,7 @@
     "slug": "goibibo",
     "name": "Goibibo",
     "website": "https://www.goibibo.com/",
-    "checked": "2026-11-26",
+    "checked": "2026-11-27",
     "hubble": {
       "pct": 5.0,
       "brand_name": "Goibibo",
@@ -6030,7 +6031,7 @@
     "slug": "easemytrip",
     "name": "EaseMyTrip",
     "website": "https://www.easemytrip.com/",
-    "checked": "2026-11-26",
+    "checked": "2026-11-27",
     "hubble": {
       "pct": 6.0,
       "brand_name": "EaseMyTrip",
@@ -6143,7 +6144,7 @@
     "slug": "woodland",
     "name": "Woodland",
     "website": "https://www.woodlandworldwide.com/",
-    "checked": "2026-11-26",
+    "checked": "2026-11-27",
     "hubble": {
       "pct": 9.0,
       "brand_name": "Woodland",
@@ -6278,7 +6279,7 @@
     "slug": "giva",
     "name": "GIVA",
     "website": "https://www.giva.co/",
-    "checked": "2026-11-26",
+    "checked": "2026-11-27",
     "hubble": {
       "pct": 12.0,
       "brand_name": "Giva",
@@ -6327,7 +6328,7 @@
     "slug": "mokobara",
     "name": "Mokobara",
     "website": "https://www.mokobara.com/",
-    "checked": "2026-11-26",
+    "checked": "2026-11-27",
     "hubble": {
       "pct": 7.0,
       "brand_name": "Mokobara",
@@ -6429,7 +6430,7 @@
     "slug": "snitch",
     "name": "Snitch",
     "website": "https://www.snitch.co.in/",
-    "checked": "2026-11-26",
+    "checked": "2026-11-27",
     "hubble": {
       "pct": 6.5,
       "brand_name": "Snitch",
@@ -6545,7 +6546,7 @@
     "slug": "max-fashion",
     "name": "Max Fashion",
     "website": "https://www.maxfashion.in/",
-    "checked": "2026-11-26",
+    "checked": "2026-11-27",
     "hubble": {
       "pct": 9.0,
       "brand_name": "Max Fashion",
@@ -6649,7 +6650,7 @@
     "slug": "biba",
     "name": "BIBA",
     "website": "https://www.biba.in/",
-    "checked": "2026-11-26",
+    "checked": "2026-11-27",
     "hubble": {
       "pct": 6.0,
       "brand_name": "BIBA",
@@ -6753,7 +6754,7 @@
     "slug": "nykaa-luxe",
     "name": "Nykaa Luxe",
     "website": "https://www.nykaa.com/luxe/",
-    "checked": "2026-11-26",
+    "checked": "2026-11-27",
     "hubble": {
       "pct": 6.0,
       "brand_name": "Nykaa LUXE",
@@ -6832,7 +6833,7 @@
     "slug": "tata-cliq-luxury",
     "name": "Tata CLiQ Luxury",
     "website": "https://www.luxury.tatacliq.com/",
-    "checked": "2026-11-26",
+    "checked": "2026-11-27",
     "hubble": {
       "pct": 10.0,
       "brand_name": "Tata Cliq Luxury",
@@ -6985,7 +6986,7 @@
     "slug": "cinepolis",
     "name": "Cinepolis",
     "website": "https://www.cinepolisindia.com/",
-    "checked": "2026-11-26",
+    "checked": "2026-11-27",
     "hubble": {
       "pct": 25.0,
       "brand_name": "Cinepolis",
@@ -7130,7 +7131,7 @@
     "slug": "duroflex",
     "name": "Duroflex",
     "website": "https://www.duroflexworld.com/",
-    "checked": "2026-11-26",
+    "checked": "2026-11-27",
     "hubble": {
       "pct": 9.0,
       "brand_name": "Duroflex",
@@ -7267,7 +7268,7 @@
     "slug": "archies",
     "name": "Archies",
     "website": "https://www.archiesonline.com/",
-    "checked": "2026-11-26",
+    "checked": "2026-11-27",
     "hubble": {
       "pct": 13.0,
       "brand_name": "Archies",
@@ -7360,7 +7361,7 @@
     "slug": "hamleys",
     "name": "Hamleys",
     "website": "https://www.hamleys.in/",
-    "checked": "2026-11-26",
+    "checked": "2026-11-27",
     "hubble": {
       "pct": 10.0,
       "brand_name": "Hamleys-Luxe Gift Card",
@@ -7406,7 +7407,7 @@
     "slug": "ajio-luxe",
     "name": "AJIO Luxe",
     "website": "https://www.luxe.ajio.com/",
-    "checked": "2026-11-26",
+    "checked": "2026-11-27",
     "hubble": {
       "pct": 6.5,
       "brand_name": "AJIO LUXE",
@@ -7538,7 +7539,7 @@
     "slug": "eazydiner",
     "name": "EazyDiner",
     "website": "https://www.eazydiner.com/",
-    "checked": "2026-11-26",
+    "checked": "2026-11-27",
     "hubble": {
       "pct": 15.0,
       "brand_name": "EazyDiner",
@@ -7645,7 +7646,7 @@
     "slug": "bakingo",
     "name": "Bakingo",
     "website": "https://www.bakingo.com/",
-    "checked": "2026-11-26",
+    "checked": "2026-11-27",
     "hubble": {
       "pct": 10.0,
       "brand_name": "Bakingo",
@@ -7724,7 +7725,7 @@
     "slug": "blue-tokai",
     "name": "Blue Tokai",
     "website": "https://www.bluetokaicoffee.com/",
-    "checked": "2026-11-26",
+    "checked": "2026-11-27",
     "hubble": {
       "pct": 10.0,
       "brand_name": "Blue Tokai",
@@ -7808,7 +7809,7 @@
     "slug": "baskin-robbins",
     "name": "Baskin Robbins",
     "website": "https://www.baskinrobbinsindia.com/",
-    "checked": "2026-11-26",
+    "checked": "2026-11-27",
     "hubble": {
       "pct": 10.0,
       "brand_name": "Baskin Robbins",
@@ -7913,7 +7914,7 @@
     "slug": "cafe-coffee-day",
     "name": "Cafe Coffee Day",
     "website": "https://www.cafecoffeeday.com/",
-    "checked": "2026-11-26",
+    "checked": "2026-11-27",
     "hubble": {
       "pct": 10.0,
       "brand_name": "Cafe Coffee Day",
@@ -8018,7 +8019,7 @@
     "slug": "makemytrip-hotels",
     "name": "MakeMyTrip Hotels",
     "website": "https://www.makemytrip.com/hotels/",
-    "checked": "2026-11-26",
+    "checked": "2026-11-27",
     "hubble": {
       "pct": 13.0,
       "brand_name": "MakeMyTrip Hotel",
@@ -8131,7 +8132,7 @@
     "slug": "goibibo-hotels",
     "name": "Goibibo Hotels",
     "website": "https://www.goibibo.com/hotels/",
-    "checked": "2026-11-26",
+    "checked": "2026-11-27",
     "hubble": {
       "pct": 12.0,
       "brand_name": "Goibibo Hotel",
@@ -8242,7 +8243,7 @@
     "slug": "igp",
     "name": "IGP",
     "website": "https://www.igp.com/",
-    "checked": "2026-11-26",
+    "checked": "2026-11-27",
     "hubble": {
       "pct": 13.0,
       "brand_name": "IGP",
@@ -8374,7 +8375,7 @@
     "slug": "ferns-n-petals",
     "name": "Ferns N Petals",
     "website": "https://www.fnp.com/",
-    "checked": "2026-11-26",
+    "checked": "2026-11-27",
     "hubble": {
       "pct": 10.0,
       "brand_name": "Ferns N Petals",
@@ -8505,7 +8506,7 @@
     "slug": "rare-rabbit",
     "name": "Rare Rabbit",
     "website": "https://www.thehouseofrare.com/",
-    "checked": "2026-11-26",
+    "checked": "2026-11-27",
     "hubble": {
       "pct": 8.0,
       "brand_name": "Rare Rabbit",
@@ -8627,7 +8628,7 @@
     "slug": "marks-and-spencer",
     "name": "Marks & Spencer",
     "website": "https://www.marksandspencer.in/",
-    "checked": "2026-11-26",
+    "checked": "2026-11-27",
     "hubble": {
       "pct": 9.0,
       "brand_name": "Marks & Spencer",
@@ -8704,7 +8705,7 @@
     "slug": "blissclub",
     "name": "Blissclub",
     "website": "https://www.blissclub.com/",
-    "checked": "2026-11-26",
+    "checked": "2026-11-27",
     "hubble": {
       "pct": 10.0,
       "brand_name": "Blissclub",
@@ -8839,7 +8840,7 @@
     "slug": "freecultr",
     "name": "Freecultr",
     "website": "https://www.freecultr.com/",
-    "checked": "2026-11-26",
+    "checked": "2026-11-27",
     "hubble": {
       "pct": 15.0,
       "brand_name": "Freecultr",
@@ -8963,7 +8964,7 @@
     "slug": "foxtale",
     "name": "Foxtale",
     "website": "https://www.foxtale.in/",
-    "checked": "2026-11-26",
+    "checked": "2026-11-27",
     "hubble": {
       "pct": 12.0,
       "brand_name": "Foxtale",
@@ -9109,7 +9110,7 @@
     "slug": "kama-ayurveda",
     "name": "Kama Ayurveda",
     "website": "https://www.kamaayurveda.in/",
-    "checked": "2026-11-26",
+    "checked": "2026-11-27",
     "hubble": {
       "pct": 8.0,
       "brand_name": "Kama Ayurveda",
@@ -9188,7 +9189,7 @@
     "slug": "ray-ban",
     "name": "Ray-Ban",
     "website": "https://www.ray-ban.com/",
-    "checked": "2026-11-26",
+    "checked": "2026-11-27",
     "hubble": {
       "pct": 8.0,
       "brand_name": "Ray-Ban",
@@ -9291,7 +9292,7 @@
     "slug": "wonderchef",
     "name": "Wonderchef",
     "website": "https://www.wonderchef.com/",
-    "checked": "2026-11-26",
+    "checked": "2026-11-27",
     "hubble": {
       "pct": 10.0,
       "brand_name": "Wonderchef",
@@ -9429,7 +9430,7 @@
     "slug": "healthians",
     "name": "Healthians",
     "website": "https://www.healthians.com/",
-    "checked": "2026-11-26",
+    "checked": "2026-11-27",
     "hubble": {
       "pct": 15.0,
       "brand_name": "Healthians",
@@ -9560,7 +9561,7 @@
     "slug": "sonyliv",
     "name": "SonyLIV",
     "website": "https://www.sonyliv.com/",
-    "checked": "2026-11-26",
+    "checked": "2026-11-27",
     "hubble": {
       "pct": 20.0,
       "brand_name": "SonyLiv",
@@ -9698,7 +9699,7 @@
     "slug": "zee5",
     "name": "ZEE5",
     "website": "https://www.zee5.com/",
-    "checked": "2026-11-26",
+    "checked": "2026-11-27",
     "hubble": {
       "pct": 17.0,
       "brand_name": "ZEE5",
@@ -9836,7 +9837,7 @@
     "slug": "amazon-prime",
     "name": "Amazon Prime",
     "website": "https://www.primevideo.com/",
-    "checked": "2026-11-26",
+    "checked": "2026-11-27",
     "hubble": {
       "pct": 15.0,
       "brand_name": "Amazon Prime",
@@ -9914,7 +9915,7 @@
     "slug": "swiggy-one",
     "name": "Swiggy One",
     "website": "https://www.swiggy.com/",
-    "checked": "2026-11-26",
+    "checked": "2026-11-27",
     "hubble": {
       "pct": 77.9,
       "brand_name": "Swiggy One",
@@ -9964,7 +9965,7 @@
     "slug": "hoichoi",
     "name": "Hoichoi",
     "website": "https://www.hoichoi.tv/",
-    "checked": "2026-11-26",
+    "checked": "2026-11-27",
     "hubble": {
       "pct": 17.0,
       "brand_name": "Hoichoi",
@@ -10066,7 +10067,7 @@
     "slug": "gaana",
     "name": "Gaana",
     "website": "https://www.gaana.com/",
-    "checked": "2026-11-26",
+    "checked": "2026-11-27",
     "hubble": {
       "pct": 15.0,
       "brand_name": "Gaana",
@@ -10173,7 +10174,7 @@
     "slug": "lionsgate-play",
     "name": "Lionsgate Play",
     "website": "https://www.lionsgateplay.com/",
-    "checked": "2026-11-26",
+    "checked": "2026-11-27",
     "hubble": {
       "pct": 13.0,
       "brand_name": "Lionsgate Play",
@@ -10304,7 +10305,7 @@
     "slug": "livemint",
     "name": "Mint",
     "website": "https://www.livemint.com/",
-    "checked": "2026-11-26",
+    "checked": "2026-11-27",
     "hubble": {
       "pct": 60.0,
       "brand_name": "Live Mint",
@@ -10386,7 +10387,7 @@
     "slug": "fitpass",
     "name": "FITPASS",
     "website": "https://www.fitpass.co.in/",
-    "checked": "2026-11-26",
+    "checked": "2026-11-27",
     "hubble": {
       "pct": 15.0,
       "brand_name": "FitPass",
@@ -10513,7 +10514,7 @@
     "slug": "nua",
     "name": "Nua",
     "website": "https://www.nuawoman.com/",
-    "checked": "2026-11-26",
+    "checked": "2026-11-27",
     "hubble": {
       "pct": 23.0,
       "brand_name": "Nua Women",
@@ -10623,7 +10624,7 @@
     "slug": "auric",
     "name": "Auric",
     "website": "https://www.theauric.com/",
-    "checked": "2026-11-26",
+    "checked": "2026-11-27",
     "hubble": {
       "pct": 20.0,
       "brand_name": "Auric",
@@ -10727,7 +10728,7 @@
     "slug": "just-lil-things",
     "name": "Just Lil Things",
     "website": "https://www.justlilthings.in/",
-    "checked": "2026-11-26",
+    "checked": "2026-11-27",
     "hubble": {
       "pct": 22.0,
       "brand_name": "Just Lil Things",
@@ -10827,7 +10828,7 @@
     "slug": "shiva-organic",
     "name": "Shiva Organic",
     "website": "https://www.shivaorganic.com/",
-    "checked": "2026-11-26",
+    "checked": "2026-11-27",
     "hubble": {
       "pct": 19.0,
       "brand_name": "Shiva Organic",
@@ -10928,7 +10929,7 @@
     "slug": "hammer",
     "name": "Hammer",
     "website": "https://www.hammeronline.in/",
-    "checked": "2026-11-26",
+    "checked": "2026-11-27",
     "hubble": {
       "pct": 15.0,
       "brand_name": "Hammer",
@@ -11060,7 +11061,7 @@
     "slug": "kimirica",
     "name": "Kimirica",
     "website": "https://www.kimirica.shop/",
-    "checked": "2026-11-26",
+    "checked": "2026-11-27",
     "hubble": {
       "pct": 15.0,
       "brand_name": "Kimirica",
@@ -11198,7 +11199,7 @@
     "slug": "photojaanic",
     "name": "Photojaanic",
     "website": "https://www.photojaanic.com/",
-    "checked": "2026-11-26",
+    "checked": "2026-11-27",
     "hubble": {
       "pct": 15.0,
       "brand_name": "Photojaanic",
@@ -11283,7 +11284,7 @@
     "slug": "sri-jagdamba-pearls",
     "name": "Sri Jagdamba Pearls",
     "website": "https://www.jpearls.com/",
-    "checked": "2026-11-26",
+    "checked": "2026-11-27",
     "hubble": {
       "pct": 15.0,
       "brand_name": "Sri Jagdamba Pearls",
@@ -11366,7 +11367,7 @@
     "slug": "tattva-spa",
     "name": "Tattva Spa",
     "website": "https://www.tattvaspa.com/",
-    "checked": "2026-11-26",
+    "checked": "2026-11-27",
     "hubble": {
       "pct": 15.0,
       "brand_name": "Tattva Spa",
@@ -11494,7 +11495,7 @@
     "slug": "soulflower",
     "name": "Soulflower",
     "website": "https://www.soulflower.in/",
-    "checked": "2026-11-26",
+    "checked": "2026-11-27",
     "hubble": {
       "pct": 14.5,
       "brand_name": "Soulflower",
@@ -11634,7 +11635,7 @@
     "slug": "hoora",
     "name": "Hoora",
     "website": "https://www.hoora.in/",
-    "checked": "2026-11-26",
+    "checked": "2026-11-27",
     "hubble": {
       "pct": 14.0,
       "brand_name": "Hoora",
@@ -11742,7 +11743,7 @@
     "slug": "typsy-beauty",
     "name": "Typsy Beauty",
     "website": "https://www.typsybeauty.com/",
-    "checked": "2026-11-26",
+    "checked": "2026-11-27",
     "hubble": {
       "pct": 14.0,
       "brand_name": "Typsy Beauty",
@@ -11853,7 +11854,7 @@
     "slug": "apollo-diagnostics",
     "name": "Apollo Diagnostics",
     "website": "https://www.apollo247.com/",
-    "checked": "2026-11-26",
+    "checked": "2026-11-27",
     "hubble": {
       "pct": 13.0,
       "brand_name": "Apollo Diagnostics",
@@ -11959,7 +11960,7 @@
     "slug": "nat-habit",
     "name": "Nat Habit",
     "website": "https://www.nathabit.in/",
-    "checked": "2026-11-26",
+    "checked": "2026-11-27",
     "hubble": {
       "pct": 13.0,
       "brand_name": "Nat Habit",
@@ -12065,7 +12066,7 @@
     "slug": "soch",
     "name": "Soch",
     "website": "https://www.soch.com/",
-    "checked": "2026-11-26",
+    "checked": "2026-11-27",
     "hubble": {
       "pct": 12.5,
       "brand_name": "SOCH",
@@ -12199,7 +12200,7 @@
     "slug": "flower-aura",
     "name": "FlowerAura",
     "website": "https://www.floweraura.com/",
-    "checked": "2026-11-26",
+    "checked": "2026-11-27",
     "hubble": {
       "pct": 12.0,
       "brand_name": "Flower Aura",
@@ -12330,7 +12331,7 @@
     "slug": "miraggio",
     "name": "Miraggio",
     "website": "https://www.miraggiolife.com/",
-    "checked": "2026-11-26",
+    "checked": "2026-11-27",
     "hubble": {
       "pct": 12.0,
       "brand_name": "Miraggio",
@@ -12440,7 +12441,7 @@
     "slug": "speedo",
     "name": "Speedo",
     "website": "https://www.speedo.com/",
-    "checked": "2026-11-26",
+    "checked": "2026-11-27",
     "hubble": {
       "pct": 12.0,
       "brand_name": "Speedo",
@@ -12572,7 +12573,7 @@
     "slug": "wellbeing-nutrition",
     "name": "Wellbeing Nutrition",
     "website": "https://www.wellbeingnutrition.com/",
-    "checked": "2026-11-26",
+    "checked": "2026-11-27",
     "hubble": {
       "pct": 12.0,
       "brand_name": "Wellbeing Nutrition",
@@ -12708,7 +12709,7 @@
     "slug": "cgh-earth",
     "name": "CGH Earth",
     "website": "https://www.cghearth.com/",
-    "checked": "2026-11-26",
+    "checked": "2026-11-27",
     "hubble": {
       "pct": 11.0,
       "brand_name": "CGH Earth",
@@ -12781,7 +12782,7 @@
     "slug": "chicco",
     "name": "Chicco",
     "website": "https://www.chicco.in/",
-    "checked": "2026-11-26",
+    "checked": "2026-11-27",
     "hubble": {
       "pct": 11.0,
       "brand_name": "Chicco",
@@ -12888,7 +12889,7 @@
     "slug": "kalki",
     "name": "Kalki",
     "website": "https://www.kalkifashion.com/",
-    "checked": "2026-11-26",
+    "checked": "2026-11-27",
     "hubble": {
       "pct": 11.0,
       "brand_name": "Kalki",
@@ -13028,7 +13029,7 @@
     "slug": "tego",
     "name": "TEGO",
     "website": "https://www.tego.fit/",
-    "checked": "2026-11-26",
+    "checked": "2026-11-27",
     "hubble": {
       "pct": 11.0,
       "brand_name": "TEGO",
@@ -13132,7 +13133,7 @@
     "slug": "boditive",
     "name": "Boditive",
     "website": "https://www.boditive.com/",
-    "checked": "2026-11-26",
+    "checked": "2026-11-27",
     "hubble": {
       "pct": 10.0,
       "brand_name": "Boditive",
@@ -13232,7 +13233,7 @@
     "slug": "cosmus",
     "name": "Cosmus",
     "website": "https://www.cosmus.in/",
-    "checked": "2026-11-26",
+    "checked": "2026-11-27",
     "hubble": {
       "pct": 10.0,
       "brand_name": "Cosmus",
@@ -13316,7 +13317,7 @@
     "slug": "estele",
     "name": "Estele",
     "website": "https://www.estele.co/",
-    "checked": "2026-11-26",
+    "checked": "2026-11-27",
     "hubble": {
       "pct": 10.0,
       "brand_name": "Estele",
@@ -13424,7 +13425,7 @@
     "slug": "femmella",
     "name": "Femmella",
     "website": "https://www.femmella.com/",
-    "checked": "2026-11-26",
+    "checked": "2026-11-27",
     "hubble": {
       "pct": 10.0,
       "brand_name": "Femmella",
@@ -13552,7 +13553,7 @@
     "slug": "ornaz",
     "name": "Ornaz",
     "website": "https://www.ornaz.com/",
-    "checked": "2026-11-26",
+    "checked": "2026-11-27",
     "hubble": {
       "pct": 10.0,
       "brand_name": "Ornaz",
@@ -13628,7 +13629,7 @@
     "slug": "vitamin-haat",
     "name": "Vitamin Haat",
     "website": "https://www.vitaminhaat.com/",
-    "checked": "2026-11-26",
+    "checked": "2026-11-27",
     "hubble": {
       "pct": 10.0,
       "brand_name": "Vitamin Haat",
@@ -13707,7 +13708,7 @@
     "slug": "whats-up-wellness",
     "name": "What's Up Wellness",
     "website": "https://www.whatsupwellness.in/",
-    "checked": "2026-11-26",
+    "checked": "2026-11-27",
     "hubble": {
       "pct": 10.0,
       "brand_name": "What's Up Wellness",
@@ -13810,7 +13811,7 @@
     "slug": "fabhotels",
     "name": "FabHotels",
     "website": "https://www.fabhotels.com/",
-    "checked": "2026-11-26",
+    "checked": "2026-11-27",
     "hubble": {
       "pct": 9.0,
       "brand_name": "Fab Hotels",
@@ -13916,7 +13917,7 @@
     "slug": "skullcandy",
     "name": "Skullcandy",
     "website": "https://www.skullcandy.in/",
-    "checked": "2026-11-26",
+    "checked": "2026-11-27",
     "hubble": {
       "pct": 9.0,
       "brand_name": "Skullcandy",
@@ -14044,7 +14045,7 @@
     "slug": "cello",
     "name": "Cello",
     "website": "https://www.celloworld.com/",
-    "checked": "2026-11-26",
+    "checked": "2026-11-27",
     "hubble": {
       "pct": 8.0,
       "brand_name": "Cello",
@@ -14174,7 +14175,7 @@
     "slug": "cordelia-cruises",
     "name": "Cordelia Cruises",
     "website": "https://www.cordeliacruises.com/",
-    "checked": "2026-11-26",
+    "checked": "2026-11-27",
     "hubble": {
       "pct": 8.0,
       "brand_name": "Cordelia",
@@ -14317,7 +14318,7 @@
     "slug": "lohono-stays",
     "name": "Lohono Stays",
     "website": "https://www.lohono.com/",
-    "checked": "2026-11-26",
+    "checked": "2026-11-27",
     "hubble": {
       "pct": 8.0,
       "brand_name": "Lohono Stays",
@@ -14456,7 +14457,7 @@
     "slug": "me-n-moms",
     "name": "Me N Moms",
     "website": "https://www.menmoms.in/",
-    "checked": "2026-11-26",
+    "checked": "2026-11-27",
     "hubble": {
       "pct": 8.0,
       "brand_name": "Me N Moms",
@@ -14589,7 +14590,7 @@
     "slug": "haute-sauce",
     "name": "Haute Sauce",
     "website": "https://www.buyhautesauce.com/",
-    "checked": "2026-11-26",
+    "checked": "2026-11-27",
     "hubble": {
       "pct": 8.0,
       "brand_name": "Haute Sauce",
@@ -14668,7 +14669,7 @@
     "slug": "french-accent",
     "name": "French Accent",
     "website": "https://www.getfrenchaccent.com/",
-    "checked": "2026-11-26",
+    "checked": "2026-11-27",
     "hubble": {
       "pct": 8.0,
       "brand_name": "French Accent",
@@ -14747,7 +14748,7 @@
     "slug": "cloud-tailor",
     "name": "Cloud Tailor",
     "website": "https://www.cloudtailor.in/",
-    "checked": "2026-11-26",
+    "checked": "2026-11-27",
     "hubble": {
       "pct": 8.0,
       "brand_name": "Cloud tailor",
@@ -14825,7 +14826,7 @@
     "slug": "mediwheel",
     "name": "Mediwheel",
     "website": "https://www.mediwheel.in/",
-    "checked": "2026-11-26",
+    "checked": "2026-11-27",
     "hubble": {
       "pct": 15.0,
       "brand_name": "Mediwheel",
@@ -14929,7 +14930,7 @@
     "slug": "pure-home-living",
     "name": "Pure Home + Living",
     "website": "https://www.purehomeandliving.com/",
-    "checked": "2026-11-26",
+    "checked": "2026-11-27",
     "hubble": {
       "pct": 9.0,
       "brand_name": "Pure Home+Living",
@@ -15036,7 +15037,7 @@
     "slug": "at-home",
     "name": "@home",
     "website": "https://www.at-home.co.in/",
-    "checked": "2026-11-26",
+    "checked": "2026-11-27",
     "hubble": {
       "pct": 8.0,
       "brand_name": "@Home",
@@ -15117,7 +15118,7 @@
     "slug": "ixigo-hotels",
     "name": "Ixigo Hotels",
     "website": "https://www.ixigo.com/hotels/",
-    "checked": "2026-11-26",
+    "checked": "2026-11-27",
     "hubble": {
       "pct": 11.0,
       "brand_name": "Ixigo Hotels",
@@ -15189,7 +15190,7 @@
     "slug": "makemytrip-holidays",
     "name": "MakeMyTrip Holidays",
     "website": "https://www.makemytrip.com/holidays-india/",
-    "checked": "2026-11-26",
+    "checked": "2026-11-27",
     "hubble": {
       "pct": 11.0,
       "brand_name": "MakeMyTrip Holidays",
@@ -15269,7 +15270,7 @@
     "slug": "yatra-hotels",
     "name": "Yatra Hotels & Holidays",
     "website": "https://www.yatra.com/hotels/",
-    "checked": "2026-11-26",
+    "checked": "2026-11-27",
     "hubble": {
       "pct": 10.0,
       "brand_name": "Yatra Hotels & Holidays",
@@ -15348,7 +15349,7 @@
     "slug": "easemytrip-hotels",
     "name": "EaseMyTrip Hotels",
     "website": "https://www.easemytrip.com/hotels/",
-    "checked": "2026-11-26",
+    "checked": "2026-11-27",
     "hubble": {
       "pct": 9.0,
       "brand_name": "EaseMyTrip Hotel",
@@ -15453,7 +15454,7 @@
     "slug": "sterling-holidays",
     "name": "Sterling Holiday Resorts",
     "website": "https://www.sterlingholidays.com/",
-    "checked": "2026-11-26",
+    "checked": "2026-11-27",
     "hubble": {
       "pct": 10.0,
       "brand_name": "Sterling Holiday Resorts",
@@ -15500,7 +15501,7 @@
     "slug": "bath-and-body-works",
     "name": "Bath & Body Works",
     "website": "https://www.bathandbodyworks.in/",
-    "checked": "2026-11-26",
+    "checked": "2026-11-27",
     "hubble": {
       "pct": 8.0,
       "brand_name": "Bath & Body Works",
@@ -15591,7 +15592,7 @@
     "slug": "victorias-secret",
     "name": "Victoria's Secret",
     "website": "https://www.victoriassecret.in/",
-    "checked": "2026-11-26",
+    "checked": "2026-11-27",
     "hubble": {
       "pct": 8.0,
       "brand_name": "Victoria's Secret",
@@ -15601,7 +15602,8 @@
       ],
       "cards": [
         500,
-        2000,
+        1000,
+        1500,
         7500
       ],
       "min_amount": 500,
@@ -15734,7 +15736,7 @@
     "slug": "aldo",
     "name": "ALDO",
     "website": "https://www.aldoshoes.in/",
-    "checked": "2026-11-26",
+    "checked": "2026-11-27",
     "hubble": {
       "pct": 8.0,
       "brand_name": "ALDO",
@@ -15854,7 +15856,7 @@
     "slug": "charles-and-keith",
     "name": "Charles & Keith",
     "website": "https://www.charleskeith.in/",
-    "checked": "2026-11-26",
+    "checked": "2026-11-27",
     "hubble": {
       "pct": 8.0,
       "brand_name": "CHARLES & KEITH",
@@ -15945,7 +15947,7 @@
     "slug": "superdry",
     "name": "Superdry",
     "website": "https://www.superdry.in/",
-    "checked": "2026-11-26",
+    "checked": "2026-11-27",
     "hubble": {
       "pct": 10.0,
       "brand_name": "Superdry-Luxe Gift Card",
@@ -16020,7 +16022,7 @@
     "slug": "steve-madden",
     "name": "Steve Madden",
     "website": "https://www.stevemadden.in/",
-    "checked": "2026-11-26",
+    "checked": "2026-11-27",
     "hubble": {
       "pct": 10.0,
       "brand_name": "Steve Madden-Luxe Gift Card",
@@ -16094,7 +16096,7 @@
     "slug": "diesel",
     "name": "Diesel",
     "website": "https://www.dieselindia.com/",
-    "checked": "2026-11-26",
+    "checked": "2026-11-27",
     "hubble": {
       "pct": 10.0,
       "brand_name": "DIESEL-Luxe Gift Card",
@@ -16168,7 +16170,7 @@
     "slug": "armani-exchange",
     "name": "Armani Exchange",
     "website": "https://www.armaniexchange.in/",
-    "checked": "2026-11-26",
+    "checked": "2026-11-27",
     "hubble": {
       "pct": 10.0,
       "brand_name": "Armani Exchange-Luxe Gift Card",
@@ -16218,7 +16220,7 @@
     "slug": "michael-kors",
     "name": "Michael Kors",
     "website": "https://www.michaelkors.com/",
-    "checked": "2026-11-26",
+    "checked": "2026-11-27",
     "hubble": {
       "pct": 10.0,
       "brand_name": "Michael Kors-Luxe Gift Card",
@@ -16292,7 +16294,7 @@
     "slug": "coach",
     "name": "Coach",
     "website": "https://www.coach.com/",
-    "checked": "2026-11-26",
+    "checked": "2026-11-27",
     "hubble": {
       "pct": 10.0,
       "brand_name": "Coach-Luxe Gift Card",
@@ -16367,7 +16369,7 @@
     "slug": "hugo-boss",
     "name": "Hugo Boss",
     "website": "https://www.hugoboss.com/",
-    "checked": "2026-11-26",
+    "checked": "2026-11-27",
     "hubble": {
       "pct": 10.0,
       "brand_name": "Hugo Boss-Luxe Gift Card",
@@ -16441,7 +16443,7 @@
     "slug": "kate-spade",
     "name": "Kate Spade",
     "website": "https://www.katespade.com/",
-    "checked": "2026-11-26",
+    "checked": "2026-11-27",
     "hubble": {
       "pct": 10.0,
       "brand_name": "Kate Spade-Luxe Gift Card",
@@ -16515,7 +16517,7 @@
     "slug": "tumi",
     "name": "Tumi",
     "website": "https://www.tumi.in/",
-    "checked": "2026-11-26",
+    "checked": "2026-11-27",
     "hubble": {
       "pct": 10.0,
       "brand_name": "Tumi-Luxe Brand Card",
@@ -16561,7 +16563,7 @@
     "slug": "brooks-brothers",
     "name": "Brooks Brothers",
     "website": "https://www.brooksbrothers.in/",
-    "checked": "2026-11-26",
+    "checked": "2026-11-27",
     "hubble": {
       "pct": 10.0,
       "brand_name": "Brooks Brothers-Luxe Gift Card",
@@ -16635,7 +16637,7 @@
     "slug": "ritu-kumar",
     "name": "Ritu Kumar",
     "website": "https://www.ritukumar.com/",
-    "checked": "2026-11-26",
+    "checked": "2026-11-27",
     "hubble": {
       "pct": 10.0,
       "brand_name": "Ritu Kumar-Luxe Gift Card",
@@ -16709,7 +16711,7 @@
     "slug": "satya-paul",
     "name": "Satya Paul",
     "website": "https://www.satyapaul.com/",
-    "checked": "2026-11-26",
+    "checked": "2026-11-27",
     "hubble": {
       "pct": 10.0,
       "brand_name": "Satya Paul-Luxe Gift Card",
@@ -16782,7 +16784,7 @@
     "slug": "mothercare",
     "name": "Mothercare",
     "website": "https://www.mothercare.in/",
-    "checked": "2026-11-26",
+    "checked": "2026-11-27",
     "hubble": {
       "pct": 10.0,
       "brand_name": "Mothercare-Luxe Gift Card",
@@ -16856,7 +16858,7 @@
     "slug": "pottery-barn",
     "name": "Pottery Barn",
     "website": "https://www.potterybarn.in/",
-    "checked": "2026-11-26",
+    "checked": "2026-11-27",
     "hubble": {
       "pct": 10.0,
       "brand_name": "Pottery Barn Luxe Gift Card",
@@ -16929,7 +16931,7 @@
     "slug": "west-elm",
     "name": "West Elm",
     "website": "https://www.westelm.in/",
-    "checked": "2026-11-26",
+    "checked": "2026-11-27",
     "hubble": {
       "pct": 10.0,
       "brand_name": "West Elm Luxe Gift Card",
@@ -17003,7 +17005,7 @@
     "slug": "muji",
     "name": "Muji",
     "website": "https://www.muji.com/",
-    "checked": "2026-11-26",
+    "checked": "2026-11-27",
     "hubble": {
       "pct": 10.0,
       "brand_name": "Muji Luxe Gift Card",
@@ -17077,7 +17079,7 @@
     "slug": "sunglass-hut",
     "name": "Sunglass Hut",
     "website": "https://www.sunglasshut.com/",
-    "checked": "2026-11-26",
+    "checked": "2026-11-27",
     "hubble": {
       "pct": 10.0,
       "brand_name": "Sunglass Hut",
@@ -17123,7 +17125,7 @@
     "slug": "health-and-glow",
     "name": "Health & Glow",
     "website": "https://www.healthandglow.com/",
-    "checked": "2026-11-26",
+    "checked": "2026-11-27",
     "hubble": {
       "pct": 8.0,
       "brand_name": "Health & Glow",
@@ -17199,7 +17201,7 @@
     "slug": "indian-terrain",
     "name": "Indian Terrain",
     "website": "https://www.indianterrain.com/",
-    "checked": "2026-11-26",
+    "checked": "2026-11-27",
     "hubble": {
       "pct": 10.0,
       "brand_name": "Indian Terrain",
@@ -17277,7 +17279,7 @@
     "slug": "linen-club",
     "name": "Linen Club",
     "website": "https://www.linenclub.com/",
-    "checked": "2026-11-26",
+    "checked": "2026-11-27",
     "hubble": {
       "pct": 8.0,
       "brand_name": "Linen Club",
@@ -17356,7 +17358,7 @@
     "slug": "raymond",
     "name": "The Raymond Shop",
     "website": "https://www.myraymond.com/",
-    "checked": "2026-11-26",
+    "checked": "2026-11-27",
     "hubble": {
       "pct": 8.0,
       "brand_name": "The Raymond Shop",
@@ -17459,7 +17461,7 @@
     "slug": "chumbak",
     "name": "Chumbak",
     "website": "https://www.chumbak.com/",
-    "checked": "2026-11-26",
+    "checked": "2026-11-27",
     "hubble": {
       "pct": 10.0,
       "brand_name": "Chumbak",
@@ -17562,7 +17564,7 @@
     "slug": "naturals-salon",
     "name": "Naturals Salon",
     "website": "https://www.naturals.in/",
-    "checked": "2026-11-26",
+    "checked": "2026-11-27",
     "hubble": {
       "pct": 16.0,
       "brand_name": "Naturals Salons",
@@ -17616,7 +17618,7 @@
     "slug": "timezone",
     "name": "Timezone",
     "website": "https://www.timezonegames.com/",
-    "checked": "2026-11-26",
+    "checked": "2026-11-27",
     "hubble": {
       "pct": 8.0,
       "brand_name": "TimeZone",
@@ -17716,7 +17718,7 @@
     "slug": "punjab-grill",
     "name": "Punjab Grill",
     "website": "https://www.punjabgrill.in/",
-    "checked": "2026-11-26",
+    "checked": "2026-11-27",
     "hubble": {
       "pct": 8.0,
       "brand_name": "Punjab Grill",
@@ -17797,7 +17799,7 @@
     "slug": "bikanervala",
     "name": "Bikanervala",
     "website": "https://www.bikanervala.com/",
-    "checked": "2026-11-26",
+    "checked": "2026-11-27",
     "hubble": {
       "pct": 10.0,
       "brand_name": "Bikanervala",
@@ -17881,7 +17883,7 @@
     "slug": "helios",
     "name": "Helios",
     "website": "https://www.helioswatchstore.com/",
-    "checked": "2026-11-26",
+    "checked": "2026-11-27",
     "hubble": {
       "pct": 8.0,
       "brand_name": "Helios",
@@ -17987,7 +17989,7 @@
     "slug": "mainland-china",
     "name": "Mainland China",
     "website": "https://www.speciality.co.in/",
-    "checked": "2026-11-26",
+    "checked": "2026-11-27",
     "hubble": {
       "pct": 8.0,
       "brand_name": "Mainland China",
@@ -18097,7 +18099,7 @@
     "slug": "oh-calcutta",
     "name": "Oh! Calcutta",
     "website": "https://www.speciality.co.in/",
-    "checked": "2026-11-26",
+    "checked": "2026-11-27",
     "hubble": {
       "pct": 8.0,
       "brand_name": "Oh! Calcutta",
@@ -18208,7 +18210,7 @@
     "slug": "tgi-fridays",
     "name": "TGI Friday's",
     "website": "https://www.tgifridays.com/",
-    "checked": "2026-11-26",
+    "checked": "2026-11-27",
     "hubble": {
       "pct": 8.0,
       "brand_name": "TGI Friday's",
@@ -18253,7 +18255,7 @@
     "slug": "cafe-delhi-heights",
     "name": "Cafe Delhi Heights",
     "website": "https://www.cafedelhiheights.com/",
-    "checked": "2026-11-26",
+    "checked": "2026-11-27",
     "hubble": {
       "pct": 8.0,
       "brand_name": "Cafe Delhi Heights",
@@ -18356,7 +18358,7 @@
     "slug": "eatsure",
     "name": "EatSure",
     "website": "https://www.eatsure.com/",
-    "checked": "2026-11-26",
+    "checked": "2026-11-27",
     "hubble": {
       "pct": 7.5,
       "brand_name": "EatSure",
@@ -18489,7 +18491,7 @@
     "slug": "behrouz-biryani",
     "name": "Behrouz Biryani",
     "website": "https://www.behrouzbiryani.com/",
-    "checked": "2026-11-26",
+    "checked": "2026-11-27",
     "hubble": {
       "pct": 7.0,
       "brand_name": "Behrouz Biryani",
@@ -18623,7 +18625,7 @@
     "slug": "faasos",
     "name": "Faasos",
     "website": "https://www.faasos.com/",
-    "checked": "2026-11-26",
+    "checked": "2026-11-27",
     "hubble": {
       "pct": 7.0,
       "brand_name": "Faasos",
@@ -18756,7 +18758,7 @@
     "slug": "ovenstory",
     "name": "Ovenstory",
     "website": "https://www.ovenstory.in/",
-    "checked": "2026-11-26",
+    "checked": "2026-11-27",
     "hubble": {
       "pct": 7.0,
       "brand_name": "Ovenstory",
@@ -18889,7 +18891,7 @@
     "slug": "sweet-truth",
     "name": "Sweet Truth",
     "website": "https://www.sweettruth.in/",
-    "checked": "2026-11-26",
+    "checked": "2026-11-27",
     "hubble": {
       "pct": 7.0,
       "brand_name": "Sweet Truth",
@@ -19021,7 +19023,7 @@
     "slug": "costa-coffee",
     "name": "Costa Coffee",
     "website": "https://www.costacoffee.in/",
-    "checked": "2026-11-26",
+    "checked": "2026-11-27",
     "hubble": {
       "pct": 7.0,
       "brand_name": "Costa Coffee",
@@ -19127,7 +19129,7 @@
     "slug": "wendys",
     "name": "Wendy's",
     "website": "https://www.wendys.com/",
-    "checked": "2026-11-26",
+    "checked": "2026-11-27",
     "hubble": {
       "pct": 7.0,
       "brand_name": "Wendy's",
@@ -19258,7 +19260,7 @@
     "slug": "absolute-barbecues",
     "name": "Absolute Barbecues",
     "website": "https://www.absolutebarbecues.com/",
-    "checked": "2026-11-26",
+    "checked": "2026-11-27",
     "hubble": {
       "pct": 6.0,
       "brand_name": "Absolute Barbecues",
@@ -19332,7 +19334,7 @@
     "slug": "barbeque-nation",
     "name": "Barbeque Nation",
     "website": "https://www.barbequenation.com/",
-    "checked": "2026-11-26",
+    "checked": "2026-11-27",
     "hubble": {
       "pct": 6.0,
       "brand_name": "Barbeque Nation",
@@ -19434,7 +19436,7 @@
     "slug": "beer-cafe",
     "name": "The Beer Cafe",
     "website": "https://www.beercafe.in/",
-    "checked": "2026-11-26",
+    "checked": "2026-11-27",
     "hubble": {
       "pct": 6.0,
       "brand_name": "Beer Cafe",
@@ -19544,7 +19546,7 @@
     "slug": "tim-hortons",
     "name": "Tim Hortons",
     "website": "https://www.timhortons.in/",
-    "checked": "2026-11-26",
+    "checked": "2026-11-27",
     "hubble": {
       "pct": 6.0,
       "brand_name": "Tim Hortons",
@@ -19642,7 +19644,7 @@
     "slug": "wow-momo",
     "name": "Wow! Momo",
     "website": "https://www.wowmomo.com/",
-    "checked": "2026-11-26",
+    "checked": "2026-11-27",
     "hubble": {
       "pct": 6.0,
       "brand_name": "Wow Momo",
@@ -19724,7 +19726,7 @@
     "slug": "wow-china",
     "name": "Wow! China",
     "website": "https://www.wowmomo.com/",
-    "checked": "2026-11-26",
+    "checked": "2026-11-27",
     "hubble": {
       "pct": 6.0,
       "brand_name": "Wow China",
@@ -19834,7 +19836,7 @@
     "slug": "wow-chicken",
     "name": "Wow! Chicken",
     "website": "https://www.wowmomo.com/",
-    "checked": "2026-11-26",
+    "checked": "2026-11-27",
     "hubble": {
       "pct": 6.0,
       "brand_name": "Wow Chicken",
@@ -19940,7 +19942,7 @@
     "slug": "vaango",
     "name": "Vaango",
     "website": "https://www.vaango.in/",
-    "checked": "2026-11-26",
+    "checked": "2026-11-27",
     "hubble": {
       "pct": 7.0,
       "brand_name": "Vaango",
@@ -20029,7 +20031,7 @@
     "slug": "freshmenu",
     "name": "FreshMenu",
     "website": "https://www.freshmenu.com/",
-    "checked": "2026-11-26",
+    "checked": "2026-11-27",
     "hubble": {
       "pct": 3.0,
       "brand_name": "FreshMenu",
@@ -20142,7 +20144,7 @@
     "slug": "organic-india",
     "name": "Organic India",
     "website": "https://www.organicindia.com/",
-    "checked": "2026-11-26",
+    "checked": "2026-11-27",
     "hubble": {
       "pct": 6.0,
       "brand_name": "Organic India",
@@ -20242,7 +20244,7 @@
     "slug": "spar-hypermarket",
     "name": "SPAR Hypermarket",
     "website": "https://www.sparindia.com/",
-    "checked": "2026-11-26",
+    "checked": "2026-11-27",
     "hubble": {
       "pct": 4.5,
       "brand_name": "Spar Hypermart",
@@ -20293,7 +20295,7 @@
     "slug": "reliance-smart-bazaar",
     "name": "Reliance Smart Bazaar",
     "website": "https://www.relianceretail.com/",
-    "checked": "2026-11-26",
+    "checked": "2026-11-27",
     "hubble": {
       "pct": 3.0,
       "brand_name": "Reliance Smart Bazaar",
@@ -20412,7 +20414,7 @@
     "slug": "aeropostale",
     "name": "Aeropostale",
     "website": "https://www.aeropostale.com/",
-    "checked": "2026-11-26",
+    "checked": "2026-11-27",
     "hubble": {
       "pct": 8.0,
       "brand_name": "Aeropostale",
@@ -20458,7 +20460,7 @@
     "slug": "call-it-spring",
     "name": "Call It Spring",
     "website": "https://www.aldoshoes.in/",
-    "checked": "2026-11-26",
+    "checked": "2026-11-27",
     "hubble": {
       "pct": 8.0,
       "brand_name": "Call It Spring",
@@ -20578,7 +20580,7 @@
     "slug": "forever-new",
     "name": "Forever New",
     "website": "https://www.forevernew.co.in/",
-    "checked": "2026-11-26",
+    "checked": "2026-11-27",
     "hubble": {
       "pct": 7.0,
       "brand_name": "Forever New",
@@ -20685,7 +20687,7 @@
     "slug": "hush-puppies",
     "name": "Hush Puppies",
     "website": "https://www.bata.com/",
-    "checked": "2026-11-26",
+    "checked": "2026-11-27",
     "hubble": {
       "pct": 7.0,
       "brand_name": "Hush Puppies",
@@ -20799,7 +20801,7 @@
     "slug": "liberty-shoes",
     "name": "Liberty Shoes",
     "website": "https://www.libertyshoesonline.com/",
-    "checked": "2026-11-26",
+    "checked": "2026-11-27",
     "hubble": {
       "pct": 6.0,
       "brand_name": "Liberty Shoes",
@@ -20850,7 +20852,7 @@
     "slug": "pantaloons",
     "name": "Pantaloons",
     "website": "https://www.pantaloons.com/",
-    "checked": "2026-11-26",
+    "checked": "2026-11-27",
     "hubble": {
       "pct": 7.0,
       "brand_name": "Pantaloons",
@@ -20955,7 +20957,7 @@
     "slug": "aurelia",
     "name": "Aurelia",
     "website": "https://www.shopforaurelia.com/",
-    "checked": "2026-11-26",
+    "checked": "2026-11-27",
     "hubble": {
       "pct": 6.0,
       "brand_name": "Aurelia",
@@ -21057,7 +21059,7 @@
     "slug": "campus",
     "name": "Campus",
     "website": "https://www.campusshoes.com/",
-    "checked": "2026-11-26",
+    "checked": "2026-11-27",
     "hubble": {
       "pct": 6.0,
       "brand_name": "Campus",
@@ -21185,7 +21187,7 @@
     "slug": "fastrack",
     "name": "Fastrack",
     "website": "https://www.titan.co.in/",
-    "checked": "2026-11-26",
+    "checked": "2026-11-27",
     "hubble": {
       "pct": 6.0,
       "brand_name": "Fastrack",
@@ -21291,7 +21293,7 @@
     "slug": "neemans",
     "name": "Neeman's",
     "website": "https://www.neemans.com/",
-    "checked": "2026-11-26",
+    "checked": "2026-11-27",
     "hubble": {
       "pct": 6.0,
       "brand_name": "Neemans",
@@ -21420,7 +21422,7 @@
     "slug": "rangriti",
     "name": "Rangriti",
     "website": "https://www.rangriti.com/",
-    "checked": "2026-11-26",
+    "checked": "2026-11-27",
     "hubble": {
       "pct": 6.0,
       "brand_name": "Rangriti",
@@ -21561,7 +21563,7 @@
     "slug": "relaxo",
     "name": "Relaxo",
     "website": "https://www.relaxofootwear.com/",
-    "checked": "2026-11-26",
+    "checked": "2026-11-27",
     "hubble": {
       "pct": 6.0,
       "brand_name": "Relaxo",
@@ -21669,7 +21671,7 @@
     "slug": "taneira",
     "name": "Taneira",
     "website": "https://www.taneira.com/",
-    "checked": "2026-11-26",
+    "checked": "2026-11-27",
     "hubble": {
       "pct": 6.0,
       "brand_name": "Taneira",
@@ -21773,7 +21775,7 @@
     "slug": "v-mart",
     "name": "V-Mart",
     "website": "https://www.vmart.co.in/",
-    "checked": "2026-11-26",
+    "checked": "2026-11-27",
     "hubble": {
       "pct": 6.0,
       "brand_name": "VMart",
@@ -21854,7 +21856,7 @@
     "slug": "new-balance",
     "name": "New Balance",
     "website": "https://www.newbalance.com/",
-    "checked": "2026-11-26",
+    "checked": "2026-11-27",
     "hubble": {
       "pct": 5.5,
       "brand_name": "New Balance",
@@ -21909,7 +21911,7 @@
     "slug": "rareism",
     "name": "Rareism",
     "website": "https://www.rareism.com/",
-    "checked": "2026-11-26",
+    "checked": "2026-11-27",
     "hubble": {
       "pct": 5.5,
       "brand_name": "Rareism",
@@ -22022,7 +22024,7 @@
     "slug": "columbia",
     "name": "Columbia Sportswear",
     "website": "https://www.columbiasportswear.co.in/",
-    "checked": "2026-11-26",
+    "checked": "2026-11-27",
     "hubble": {
       "pct": 5.0,
       "brand_name": "Columbia",
@@ -22128,7 +22130,7 @@
     "slug": "hidesign",
     "name": "Hidesign",
     "website": "https://www.hidesign.com/",
-    "checked": "2026-11-26",
+    "checked": "2026-11-27",
     "hubble": {
       "pct": 5.0,
       "brand_name": "Hidesign",
@@ -22261,7 +22263,7 @@
     "slug": "reliance-trends",
     "name": "Reliance Trends",
     "website": "https://www.trends.ajio.com/",
-    "checked": "2026-11-26",
+    "checked": "2026-11-27",
     "hubble": {
       "pct": 5.0,
       "brand_name": "Reliance Trends",
@@ -22378,7 +22380,7 @@
     "slug": "tasva",
     "name": "Tasva",
     "website": "https://www.tasva.com/",
-    "checked": "2026-11-26",
+    "checked": "2026-11-27",
     "hubble": {
       "pct": 5.0,
       "brand_name": "Tasva",
@@ -22484,7 +22486,7 @@
     "slug": "w-for-woman",
     "name": "W",
     "website": "https://www.wforwoman.com/",
-    "checked": "2026-11-26",
+    "checked": "2026-11-27",
     "hubble": {
       "pct": 5.0,
       "brand_name": "W",
@@ -22559,7 +22561,7 @@
     "slug": "wildcraft",
     "name": "Wildcraft",
     "website": "https://www.wildcraft.com/",
-    "checked": "2026-11-26",
+    "checked": "2026-11-27",
     "hubble": {
       "pct": 5.0,
       "brand_name": "Wildcraft",
@@ -22668,7 +22670,7 @@
     "slug": "shiv-naresh",
     "name": "Shiv Naresh",
     "website": "https://www.shivnaresh.in/",
-    "checked": "2026-11-26",
+    "checked": "2026-11-27",
     "hubble": {
       "pct": 4.5,
       "brand_name": "Shiv Naresh",
@@ -22748,7 +22750,7 @@
     "slug": "libas",
     "name": "Libas",
     "website": "https://www.libas.in/",
-    "checked": "2026-11-26",
+    "checked": "2026-11-27",
     "hubble": {
       "pct": 4.0,
       "brand_name": "Libas",
@@ -22861,7 +22863,7 @@
     "slug": "myntra-luxe",
     "name": "Myntra Luxe",
     "website": "https://www.myntra.com/",
-    "checked": "2026-11-26",
+    "checked": "2026-11-27",
     "hubble": {
       "pct": 4.0,
       "brand_name": "Myntra LUXE",
@@ -22945,7 +22947,7 @@
     "slug": "nautica",
     "name": "Nautica",
     "website": "https://www.nautica.in/",
-    "checked": "2026-11-26",
+    "checked": "2026-11-27",
     "hubble": {
       "pct": 4.0,
       "brand_name": "Nautica",
@@ -23053,40 +23055,8 @@
     "slug": "mango",
     "name": "Mango",
     "website": "https://www.mango.com/",
-    "checked": "2026-11-26",
-    "hubble": {
-      "pct": 3.5,
-      "brand_name": "Mango",
-      "in_store": true,
-      "works": [
-        "OFFLINE"
-      ],
-      "cards": [
-        500,
-        1000,
-        2000,
-        5000,
-        10000
-      ],
-      "min_amount": 500,
-      "max_amount": 10000,
-      "typed": false,
-      "steps": [
-        "To locate the nearest outlet please visit https://shop.mango.com/in/en/stores?msockid=00439da8d18369f72cc38a92d0e76868",
-        "Share the registered mobile number with cashier, once the products are scanned for the invoice by the cashier.",
-        "Inform the cashier available gift voucher and it's balance.",
-        "Inform the cashier an amount to be used for redemption and proceed further for balance payment.",
-        "Cashier to proceed with invoicing."
-      ],
-      "terms": [
-        "Comes with the validity of 6 months and will be accepted at the listed retail stores/outlets.",
-        "The Gift card can be clubbed with the existing offers.",
-        "The Gift card can be converted into e-Pay as per convenience of the holder.",
-        "You are required to add your GV/GC to the e-Pay wallet balance via https://brandpts.com/login before going to the cash counter.",
-        "The GV/e-Pay can be used for all purchases of products and services at the Mango Retail Stores.",
-        "No refunds and no returns on Gift cards, E-gift cards and E-Gift vouchers."
-      ]
-    },
+    "checked": "2026-11-27",
+    "hubble": null,
     "sellers": [
       {
         "source": "gyftr",
@@ -23137,8 +23107,8 @@
       }
     ],
     "best": {
-      "source": "dealo",
-      "pct": 3.5
+      "source": "gyftr",
+      "pct": 3.0
     },
     "online": false,
     "offline": true,
@@ -23168,39 +23138,8 @@
     "slug": "next",
     "name": "NEXT",
     "website": "https://www.nextdirect.com/",
-    "checked": "2026-11-26",
-    "hubble": {
-      "pct": 3.5,
-      "brand_name": "NEXT",
-      "in_store": true,
-      "works": [
-        "OFFLINE"
-      ],
-      "cards": [
-        1000,
-        2000,
-        5000,
-        10000
-      ],
-      "min_amount": 1000,
-      "max_amount": 10000,
-      "typed": false,
-      "steps": [
-        "Visit the nearest outlet which accepts gift cards",
-        "Share the registered mobile number with cashier, once the products are scanned for the invoicing by cashier",
-        "Inform the cashier available gift card and balance.",
-        "Customer to confirm the amount to be used for redemption and proceed further for the balance payment, if any.",
-        "Cashier to proceed with invoicing."
-      ],
-      "terms": [
-        "Comes with the validity of 6 months and will be accepted at the listed retail stores/outlets.",
-        "The Gift card can be clubbed with the existing offers.",
-        "The Gft card can be converted into e-Pay as per convenience of the holder.",
-        "The Gift card balance cannot be transferred to another e-Pay account, exchanged for cash, or any other form of currency.",
-        "The e-Pay balance must be linked to the registered mobile number.",
-        "No returns and no refunds on Gift cards, E-Gift cards and E-Gift vouchers."
-      ]
-    },
+    "checked": "2026-11-27",
+    "hubble": null,
     "sellers": [
       {
         "source": "gyftr",
@@ -23250,8 +23189,8 @@
       }
     ],
     "best": {
-      "source": "dealo",
-      "pct": 3.5
+      "source": "gyftr",
+      "pct": 3.0
     },
     "online": false,
     "offline": true,
@@ -23281,35 +23220,8 @@
     "slug": "the-bear-house",
     "name": "The Bear House",
     "website": "https://www.thebearhouse.com/",
-    "checked": "2026-11-26",
-    "hubble": {
-      "pct": 7.0,
-      "brand_name": "Bear House",
-      "in_store": false,
-      "works": [
-        "ONLINE"
-      ],
-      "cards": [],
-      "min_amount": 500,
-      "max_amount": 20000,
-      "typed": true,
-      "steps": [
-        "Visit the Bear house website at https://thebearhouse.com/",
-        "Add the desired products to the cart.",
-        "Proceed to checkout.",
-        "Select Gift Card as the payment option.",
-        "Enter the Gift Card number and PIN.",
-        "Click Redeem to apply the Gift Card."
-      ],
-      "terms": [
-        "Comes with 6 months' validity and can be used on the website https://thebearhouse.com/",
-        "Multiple E-Gift Cards can be used in a single order.",
-        "E-Gift Cards cannot be redeemed for cash or credit and cannot be reloaded.",
-        "If the order value exceeds the E-Gift Card amount, the balance must be paid via Credit Card, Debit Card, Internet Banking, or Cash on Delivery.",
-        "If the order value is less than the E-Gift Card amount, the remaining balance will stay on the same card for future use.",
-        "No returns and no refunds on Gift cards, E-Gift cards and eGift vouchers"
-      ]
-    },
+    "checked": "2026-11-27",
+    "hubble": null,
     "sellers": [
       {
         "source": "maximize",
@@ -23389,125 +23301,11 @@
     }
   },
   {
-    "slug": "hunkemoller",
-    "name": "Hunkemöller",
-    "website": "https://www.hunkemoller.in/",
-    "checked": "2026-11-26",
-    "hubble": {
-      "pct": 10.0,
-      "brand_name": "Hunkemoller",
-      "in_store": true,
-      "works": [
-        "OFFLINE"
-      ],
-      "cards": [],
-      "min_amount": 1000,
-      "max_amount": 10000,
-      "typed": true,
-      "steps": [
-        "Activate this gift card : SMS ACT [space] [16-Digit Card Number] [space] [CardPin] to 9704200300",
-        "Locate the nearest outlet that accepts this gift voucher.",
-        "Select your choice of products",
-        "Share your gift voucher with the cashier at the time of billing & pay the remaining amount by cash or card if required."
-      ],
-      "terms": [
-        "Valid for 1 year and in-store use only; not redeemable at airport stores",
-        "This is a one-time use giftcard; multiple cards can be used in 1 transaction",
-        "Luxe Gift Card can only be redeemed against full-priced merchandise"
-      ]
-    },
-    "sellers": [],
-    "best": {
-      "source": "dealo",
-      "pct": 10.0
-    },
-    "online": false,
-    "offline": true,
-    "stack": null,
-    "steps": [],
-    "restrictions": [],
-    "multiUse": null,
-    "canClub": null,
-    "history": {
-      "dealo": {
-        "2026-11-24": 10.0
-      }
-    }
-  },
-  {
-    "slug": "balenciaga",
-    "name": "Balenciaga",
-    "website": "https://www.balenciaga.com/",
-    "checked": "2026-11-26",
-    "hubble": {
-      "pct": 10.0,
-      "brand_name": "Balenciaga Luxe Gift Card",
-      "in_store": true,
-      "works": [
-        "OFFLINE"
-      ],
-      "cards": [],
-      "min_amount": 1000,
-      "max_amount": 10000,
-      "typed": true,
-      "steps": [
-        "Activate this gift card : SMS ACT [space] [16-Digit Card Number] [space] [CardPin] to 9704200300",
-        "Locate the nearest outlet that accepts this gift voucher.",
-        "Select your choice of products",
-        "Share your gift voucher with the cashier at the time of billing & pay the remaining amount by cash or card if required."
-      ],
-      "terms": [
-        "Valid for 1 year and in-store use only; not redeemable at airport stores",
-        "This is a one-time use giftcard; multiple cards can be used in 1 transaction",
-        "Luxe Gift Card can only be redeemed against full-priced merchandise"
-      ]
-    },
-    "sellers": [],
-    "best": {
-      "source": "dealo",
-      "pct": 10.0
-    },
-    "online": false,
-    "offline": true,
-    "stack": null,
-    "steps": [],
-    "restrictions": [],
-    "multiUse": null,
-    "canClub": null,
-    "history": {
-      "dealo": {
-        "2026-11-24": 10.0
-      }
-    }
-  },
-  {
     "slug": "bally",
     "name": "Bally",
     "website": "https://www.bally.com/",
-    "checked": "2026-11-26",
-    "hubble": {
-      "pct": 10.0,
-      "brand_name": "Bally-Luxe Gift Card",
-      "in_store": true,
-      "works": [
-        "OFFLINE"
-      ],
-      "cards": [],
-      "min_amount": 1000,
-      "max_amount": 10000,
-      "typed": true,
-      "steps": [
-        "Activate this gift card : SMS ACT [space] [16-Digit Card Number] [space] [CardPin] to 9704200300",
-        "Locate the nearest outlet that accepts this gift voucher.",
-        "Select your choice of products",
-        "Share your gift voucher with the cashier at the time of billing & pay the remaining amount by cash or card if required."
-      ],
-      "terms": [
-        "Comes with 1 year validity and can only be used in-store",
-        "This is a one time use card and not redeemable at airport stores",
-        "Multiple gift cards can be used against 1 transaction"
-      ]
-    },
+    "checked": "2026-11-27",
+    "hubble": null,
     "sellers": [
       {
         "source": "gyftr",
@@ -23530,7 +23328,7 @@
       }
     ],
     "best": {
-      "source": "dealo",
+      "source": "gyftr",
       "pct": 10.0
     },
     "online": false,
@@ -23557,30 +23355,8 @@
     "slug": "bottega-veneta",
     "name": "Bottega Veneta",
     "website": "https://www.bottegaveneta.com/",
-    "checked": "2026-11-26",
-    "hubble": {
-      "pct": 10.0,
-      "brand_name": "Bottega Veneta-Luxe Gift Card",
-      "in_store": true,
-      "works": [
-        "OFFLINE"
-      ],
-      "cards": [],
-      "min_amount": 1000,
-      "max_amount": 10000,
-      "typed": true,
-      "steps": [
-        "Activate this gift card : SMS ACT [space] [16-Digit Card Number] [space] [CardPin] to 9704200300",
-        "Locate the nearest outlet that accepts this gift voucher.",
-        "Select your choice of products",
-        "Share your gift voucher with the cashier at the time of billing & pay the remaining amount by cash or card if required."
-      ],
-      "terms": [
-        "Valid for 1 year and in-store use only; not redeemable at airport stores",
-        "This is a one-time use giftcard; multiple cards can be used in 1 transaction",
-        "Luxe Gift Card can only be redeemed against full-priced merchandise"
-      ]
-    },
+    "checked": "2026-11-27",
+    "hubble": null,
     "sellers": [
       {
         "source": "gyftr",
@@ -23604,7 +23380,7 @@
       }
     ],
     "best": {
-      "source": "dealo",
+      "source": "gyftr",
       "pct": 10.0
     },
     "online": false,
@@ -23631,30 +23407,8 @@
     "slug": "canali",
     "name": "Canali",
     "website": "https://www.canali.com/",
-    "checked": "2026-11-26",
-    "hubble": {
-      "pct": 10.0,
-      "brand_name": "Canali-Luxe Gift Card",
-      "in_store": true,
-      "works": [
-        "OFFLINE"
-      ],
-      "cards": [],
-      "min_amount": 1000,
-      "max_amount": 10000,
-      "typed": true,
-      "steps": [
-        "Activate this gift card : SMS ACT [space] [16-Digit Card Number] [space] [CardPin] to 9704200300",
-        "Locate the nearest outlet that accepts this gift voucher.",
-        "Select your choice of products",
-        "Share your gift voucher with the cashier at the time of billing & pay the remaining amount by cash or card if required."
-      ],
-      "terms": [
-        "Valid for 1 year and in-store use only; not redeemable at airport stores",
-        "This is a one-time use giftcard; multiple cards can be used in 1 transaction",
-        "Luxe Gift Card can only be redeemed against full-priced merchandise"
-      ]
-    },
+    "checked": "2026-11-27",
+    "hubble": null,
     "sellers": [
       {
         "source": "gyftr",
@@ -23678,7 +23432,7 @@
       }
     ],
     "best": {
-      "source": "dealo",
+      "source": "gyftr",
       "pct": 10.0
     },
     "online": false,
@@ -23705,30 +23459,8 @@
     "slug": "charles-tyrwhitt",
     "name": "Charles Tyrwhitt",
     "website": "https://www.charlestyrwhitt.com/",
-    "checked": "2026-11-26",
-    "hubble": {
-      "pct": 10.0,
-      "brand_name": "Charles Tyrwhitt Luxe Gift Card",
-      "in_store": true,
-      "works": [
-        "OFFLINE"
-      ],
-      "cards": [],
-      "min_amount": 1000,
-      "max_amount": 50000,
-      "typed": true,
-      "steps": [
-        "Activate this gift card : SMS ACT [space] [16-Digit Card Number] [space] [CardPin] to 9704200300",
-        "Locate the nearest outlet that accepts this gift voucher.",
-        "Select your choice of products",
-        "Share your gift voucher with the cashier at the time of billing & pay the remaining amount by cash or card if required."
-      ],
-      "terms": [
-        "Valid for 1 year and in-store use only; not redeemable at airport stores",
-        "This is a one-time use giftcard; multiple cards can be used in 1 transaction",
-        "Luxe Gift Card can only be redeemed against full-priced merchandise"
-      ]
-    },
+    "checked": "2026-11-27",
+    "hubble": null,
     "sellers": [
       {
         "source": "gyftr",
@@ -23752,7 +23484,7 @@
       }
     ],
     "best": {
-      "source": "dealo",
+      "source": "gyftr",
       "pct": 10.0
     },
     "online": false,
@@ -23776,79 +23508,11 @@
     }
   },
   {
-    "slug": "dune-london",
-    "name": "Dune London",
-    "website": "https://www.dunelondon.com/",
-    "checked": "2026-11-26",
-    "hubble": {
-      "pct": 10.0,
-      "brand_name": "Dune London-Luxe Gift Card",
-      "in_store": true,
-      "works": [
-        "OFFLINE"
-      ],
-      "cards": [],
-      "min_amount": 1000,
-      "max_amount": 10000,
-      "typed": true,
-      "steps": [
-        "Activate this gift card : SMS ACT [space] [16-Digit Card Number] [space] [CardPin] to 9704200300",
-        "Locate the nearest outlet that accepts this gift voucher.",
-        "Select your choice of products",
-        "Share your gift voucher with the cashier at the time of billing & pay the remaining amount by cash or card if required."
-      ],
-      "terms": [
-        "Valid for 1 year and in-store use only; not redeemable at airport stores",
-        "This is a one-time use giftcard; multiple cards can be used in 1 transaction",
-        "Luxe Gift Card can only be redeemed against full-priced merchandise"
-      ]
-    },
-    "sellers": [],
-    "best": {
-      "source": "dealo",
-      "pct": 10.0
-    },
-    "online": false,
-    "offline": true,
-    "stack": null,
-    "steps": [],
-    "restrictions": [],
-    "multiUse": null,
-    "canClub": null,
-    "history": {
-      "dealo": {
-        "2026-11-24": 10.0
-      }
-    }
-  },
-  {
     "slug": "emporio-armani",
     "name": "Emporio Armani",
     "website": "https://www.armani.com/",
-    "checked": "2026-11-26",
-    "hubble": {
-      "pct": 10.0,
-      "brand_name": "Emporio Armani-Luxe Gift Card",
-      "in_store": true,
-      "works": [
-        "OFFLINE"
-      ],
-      "cards": [],
-      "min_amount": 1000,
-      "max_amount": 10000,
-      "typed": true,
-      "steps": [
-        "Activate this gift card : SMS ACT [space] [16-Digit Card Number] [space] [CardPin] to 9704200300",
-        "Locate the nearest outlet that accepts this gift voucher.",
-        "Select your choice of products",
-        "Share your gift voucher with the cashier at the time of billing & pay the remaining amount by cash or card if required."
-      ],
-      "terms": [
-        "Valid for 1 year and in-store use only; not redeemable at airport stores",
-        "This is a one-time use giftcard; multiple cards can be used in 1 transaction",
-        "Luxe Gift Card can only be redeemed against full-priced merchandise"
-      ]
-    },
+    "checked": "2026-11-27",
+    "hubble": null,
     "sellers": [
       {
         "source": "gyftr",
@@ -23872,7 +23536,7 @@
       }
     ],
     "best": {
-      "source": "dealo",
+      "source": "gyftr",
       "pct": 10.0
     },
     "online": false,
@@ -23899,30 +23563,8 @@
     "slug": "giorgio-armani",
     "name": "Giorgio Armani",
     "website": "https://www.armani.com/",
-    "checked": "2026-11-26",
-    "hubble": {
-      "pct": 10.0,
-      "brand_name": "Giorgio Armani-Luxe Gift Card",
-      "in_store": true,
-      "works": [
-        "OFFLINE"
-      ],
-      "cards": [],
-      "min_amount": 1000,
-      "max_amount": 10000,
-      "typed": true,
-      "steps": [
-        "Activate this gift card : SMS ACT [space] [16-Digit Card Number] [space] [CardPin] to 9704200300",
-        "Locate the nearest outlet that accepts this gift voucher.",
-        "Select your choice of products",
-        "Share your gift voucher with the cashier at the time of billing & pay the remaining amount by cash or card if required."
-      ],
-      "terms": [
-        "Valid for 1 year and in-store use only; not redeemable at airport stores",
-        "This is a one-time use giftcard; multiple cards can be used in 1 transaction",
-        "Luxe Gift Card can only be redeemed against full-priced merchandise"
-      ]
-    },
+    "checked": "2026-11-27",
+    "hubble": null,
     "sellers": [
       {
         "source": "gyftr",
@@ -23946,7 +23588,7 @@
       }
     ],
     "best": {
-      "source": "dealo",
+      "source": "gyftr",
       "pct": 10.0
     },
     "online": false,
@@ -23970,79 +23612,11 @@
     }
   },
   {
-    "slug": "ea7",
-    "name": "EA7",
-    "website": "https://www.armani.com/",
-    "checked": "2026-11-26",
-    "hubble": {
-      "pct": 10.0,
-      "brand_name": "EA7",
-      "in_store": true,
-      "works": [
-        "OFFLINE"
-      ],
-      "cards": [],
-      "min_amount": 1000,
-      "max_amount": 50000,
-      "typed": true,
-      "steps": [
-        "Activate this gift card : SMS ACT [space] [16-Digit Card Number] [space] [CardPin] to 9704200300",
-        "Locate the nearest outlet that accepts this gift voucher.",
-        "Select your choice of products",
-        "Share your gift voucher with the cashier at the time of billing & pay the remaining amount by cash or card if required."
-      ],
-      "terms": [
-        "Valid for 1 year and in-store use only; not redeemable at airport stores",
-        "This is a one-time use giftcard; multiple cards can be used in 1 transaction",
-        "Luxe Gift Card can only be redeemed against full-priced merchandise"
-      ]
-    },
-    "sellers": [],
-    "best": {
-      "source": "dealo",
-      "pct": 10.0
-    },
-    "online": false,
-    "offline": true,
-    "stack": null,
-    "steps": [],
-    "restrictions": [],
-    "multiUse": null,
-    "canClub": null,
-    "history": {
-      "dealo": {
-        "2026-11-24": 10.0
-      }
-    }
-  },
-  {
     "slug": "jimmy-choo",
     "name": "Jimmy Choo",
     "website": "https://www.jimmychoo.com/",
-    "checked": "2026-11-26",
-    "hubble": {
-      "pct": 10.0,
-      "brand_name": "Jimmy Choo-Luxe Gift Card",
-      "in_store": true,
-      "works": [
-        "OFFLINE"
-      ],
-      "cards": [],
-      "min_amount": 1000,
-      "max_amount": 10000,
-      "typed": true,
-      "steps": [
-        "Activate this gift card : SMS ACT [space] [16-Digit Card Number] [space] [CardPin] to 9704200300",
-        "Locate the nearest outlet that accepts this gift voucher.",
-        "Select your choice of products",
-        "Share your gift voucher with the cashier at the time of billing & pay the remaining amount by cash or card if required."
-      ],
-      "terms": [
-        "Valid for 1 year and in-store use only; not redeemable at airport stores",
-        "This is a one-time use giftcard; multiple cards can be used in 1 transaction",
-        "Luxe Gift Card can only be redeemed against full-priced merchandise"
-      ]
-    },
+    "checked": "2026-11-27",
+    "hubble": null,
     "sellers": [
       {
         "source": "gyftr",
@@ -24066,7 +23640,7 @@
       }
     ],
     "best": {
-      "source": "dealo",
+      "source": "gyftr",
       "pct": 10.0
     },
     "online": false,
@@ -24093,30 +23667,8 @@
     "slug": "maje",
     "name": "Maje",
     "website": "https://www.maje.com/",
-    "checked": "2026-11-26",
-    "hubble": {
-      "pct": 10.0,
-      "brand_name": "Maje Luxe Gift Card",
-      "in_store": true,
-      "works": [
-        "OFFLINE"
-      ],
-      "cards": [],
-      "min_amount": 1000,
-      "max_amount": 50000,
-      "typed": true,
-      "steps": [
-        "Activate this gift card : SMS ACT [space] [16-Digit Card Number] [space] [CardPin] to 9704200300",
-        "Locate the nearest outlet that accepts this gift voucher.",
-        "Select your choice of products",
-        "Share your gift voucher with the cashier at the time of billing & pay the remaining amount by cash or card if required."
-      ],
-      "terms": [
-        "Valid for 1 year and in-store use only; not redeemable at airport stores",
-        "This is a one-time use giftcard; multiple cards can be used in 1 transaction",
-        "Luxe Gift Card can only be redeemed against full-priced merchandise"
-      ]
-    },
+    "checked": "2026-11-27",
+    "hubble": null,
     "sellers": [
       {
         "source": "gyftr",
@@ -24140,7 +23692,7 @@
       }
     ],
     "best": {
-      "source": "dealo",
+      "source": "gyftr",
       "pct": 10.0
     },
     "online": false,
@@ -24167,30 +23719,8 @@
     "slug": "paul-and-shark",
     "name": "Paul & Shark",
     "website": "https://www.paulandshark.com/",
-    "checked": "2026-11-26",
-    "hubble": {
-      "pct": 10.0,
-      "brand_name": "Paul & Shark-Luxe Gift Card",
-      "in_store": true,
-      "works": [
-        "OFFLINE"
-      ],
-      "cards": [],
-      "min_amount": 1000,
-      "max_amount": 10000,
-      "typed": true,
-      "steps": [
-        "Activate this gift card : SMS ACT [space] [16-Digit Card Number] [space] [CardPin] to 9704200300",
-        "Locate the nearest outlet that accepts this gift voucher.",
-        "Select your choice of products",
-        "Share your gift voucher with the cashier at the time of billing & pay the remaining amount by cash or card if required."
-      ],
-      "terms": [
-        "Valid for 1 year and in-store use only; not redeemable at airport stores",
-        "This is a one-time use giftcard; multiple cards can be used in 1 transaction",
-        "Luxe Gift Card can only be redeemed against full-priced merchandise"
-      ]
-    },
+    "checked": "2026-11-27",
+    "hubble": null,
     "sellers": [
       {
         "source": "gyftr",
@@ -24214,7 +23744,7 @@
       }
     ],
     "best": {
-      "source": "dealo",
+      "source": "gyftr",
       "pct": 10.0
     },
     "online": false,
@@ -24238,79 +23768,11 @@
     }
   },
   {
-    "slug": "paul-smith",
-    "name": "Paul Smith",
-    "website": "https://www.paulsmith.com/",
-    "checked": "2026-11-26",
-    "hubble": {
-      "pct": 10.0,
-      "brand_name": "Paul Smith",
-      "in_store": true,
-      "works": [
-        "OFFLINE"
-      ],
-      "cards": [],
-      "min_amount": 1000,
-      "max_amount": 10000,
-      "typed": true,
-      "steps": [
-        "Activate this gift card : SMS ACT [space] [16-Digit Card Number] [space] [CardPin] to 9704200300",
-        "Locate the nearest outlet that accepts this gift voucher.",
-        "Select your choice of products",
-        "Share your gift voucher with the cashier at the time of billing & pay the remaining amount by cash or card if required."
-      ],
-      "terms": [
-        "Valid for 1 year and in-store use only; not redeemable at airport stores",
-        "This is a one-time use giftcard; multiple cards can be used in 1 transaction",
-        "Luxe Gift Card can only be redeemed against full-priced merchandise"
-      ]
-    },
-    "sellers": [],
-    "best": {
-      "source": "dealo",
-      "pct": 10.0
-    },
-    "online": false,
-    "offline": true,
-    "stack": null,
-    "steps": [],
-    "restrictions": [],
-    "multiUse": null,
-    "canClub": null,
-    "history": {
-      "dealo": {
-        "2026-11-24": 10.0
-      }
-    }
-  },
-  {
     "slug": "sandro",
     "name": "Sandro",
     "website": "https://www.sandro-paris.com/",
-    "checked": "2026-11-26",
-    "hubble": {
-      "pct": 10.0,
-      "brand_name": "Sandro-Luxe Gift Card",
-      "in_store": true,
-      "works": [
-        "OFFLINE"
-      ],
-      "cards": [],
-      "min_amount": 1000,
-      "max_amount": 50000,
-      "typed": true,
-      "steps": [
-        "Activate this gift card : SMS ACT [space] [16-Digit Card Number] [space] [CardPin] to 9704200300",
-        "Locate the nearest outlet that accepts this gift voucher.",
-        "Select your choice of products",
-        "Share your gift voucher with the cashier at the time of billing & pay the remaining amount by cash or card if required."
-      ],
-      "terms": [
-        "Valid for 1 year and in-store use only; not redeemable at airport stores",
-        "This is a one-time use giftcard; multiple cards can be used in 1 transaction",
-        "Luxe Gift Card can only be redeemed against full-priced merchandise"
-      ]
-    },
+    "checked": "2026-11-27",
+    "hubble": null,
     "sellers": [
       {
         "source": "gyftr",
@@ -24334,7 +23796,7 @@
       }
     ],
     "best": {
-      "source": "dealo",
+      "source": "gyftr",
       "pct": 10.0
     },
     "online": false,
@@ -24361,30 +23823,8 @@
     "slug": "scotch-and-soda",
     "name": "Scotch & Soda",
     "website": "https://www.scotch-soda.com/",
-    "checked": "2026-11-26",
-    "hubble": {
-      "pct": 10.0,
-      "brand_name": "Scotch & Soda-Luxe Gift Card",
-      "in_store": true,
-      "works": [
-        "OFFLINE"
-      ],
-      "cards": [],
-      "min_amount": 1000,
-      "max_amount": 10000,
-      "typed": true,
-      "steps": [
-        "Activate this gift card : SMS ACT [space] [16-Digit Card Number] [space] [CardPin] to 9704200300",
-        "Locate the nearest outlet that accepts this gift voucher.",
-        "Select your choice of products",
-        "Share your gift voucher with the cashier at the time of billing & pay the remaining amount by cash or card if required."
-      ],
-      "terms": [
-        "Valid for 1 year and in-store use only; not redeemable at airport stores",
-        "This is a one-time use giftcard; multiple cards can be used in 1 transaction",
-        "Luxe Gift Card can only be redeemed against full-priced merchandise"
-      ]
-    },
+    "checked": "2026-11-27",
+    "hubble": null,
     "sellers": [
       {
         "source": "gyftr",
@@ -24408,7 +23848,7 @@
       }
     ],
     "best": {
-      "source": "dealo",
+      "source": "gyftr",
       "pct": 10.0
     },
     "online": false,
@@ -24435,30 +23875,8 @@
     "slug": "tods",
     "name": "Tod's",
     "website": "https://www.tods.com/",
-    "checked": "2026-11-26",
-    "hubble": {
-      "pct": 10.0,
-      "brand_name": "Tods Luxe Gift Card",
-      "in_store": true,
-      "works": [
-        "OFFLINE"
-      ],
-      "cards": [],
-      "min_amount": 1000,
-      "max_amount": 50000,
-      "typed": true,
-      "steps": [
-        "Activate this gift card : SMS ACT [space] [16-Digit Card Number] [space] [CardPin] to 9704200300",
-        "Locate the nearest outlet that accepts this gift voucher.",
-        "Select your choice of products",
-        "Share your gift voucher with the cashier at the time of billing & pay the remaining amount by cash or card if required."
-      ],
-      "terms": [
-        "Valid for 1 year and in-store use only; not redeemable at airport stores",
-        "This is a one-time use giftcard; multiple cards can be used in 1 transaction",
-        "Luxe Gift Card can only be redeemed against full-priced merchandise"
-      ]
-    },
+    "checked": "2026-11-27",
+    "hubble": null,
     "sellers": [
       {
         "source": "gyftr",
@@ -24482,7 +23900,7 @@
       }
     ],
     "best": {
-      "source": "dealo",
+      "source": "gyftr",
       "pct": 10.0
     },
     "online": false,
@@ -24509,30 +23927,8 @@
     "slug": "tory-burch",
     "name": "Tory Burch",
     "website": "https://www.toryburch.com/",
-    "checked": "2026-11-26",
-    "hubble": {
-      "pct": 10.0,
-      "brand_name": "Tory Burch-Luxe Gift Card",
-      "in_store": true,
-      "works": [
-        "OFFLINE"
-      ],
-      "cards": [],
-      "min_amount": 1000,
-      "max_amount": 50000,
-      "typed": true,
-      "steps": [
-        "Activate this gift card : SMS ACT [space] [16-Digit Card Number] [space] [CardPin] to 9704200300",
-        "Locate the nearest outlet that accepts this gift voucher.",
-        "Select your choice of products",
-        "Share your gift voucher with the cashier at the time of billing & pay the remaining amount by cash or card if required."
-      ],
-      "terms": [
-        "Valid for 1 year and in-store use only; not redeemable at airport stores",
-        "This is a one-time use giftcard; multiple cards can be used in 1 transaction",
-        "Luxe Gift Card can only be redeemed against full-priced merchandise"
-      ]
-    },
+    "checked": "2026-11-27",
+    "hubble": null,
     "sellers": [
       {
         "source": "gyftr",
@@ -24556,7 +23952,7 @@
       }
     ],
     "best": {
-      "source": "dealo",
+      "source": "gyftr",
       "pct": 10.0
     },
     "online": false,
@@ -24583,30 +23979,8 @@
     "slug": "valentino",
     "name": "Valentino",
     "website": "https://www.valentino.com/",
-    "checked": "2026-11-26",
-    "hubble": {
-      "pct": 10.0,
-      "brand_name": "Valentino Luxe Gift Card",
-      "in_store": true,
-      "works": [
-        "OFFLINE"
-      ],
-      "cards": [],
-      "min_amount": 1000,
-      "max_amount": 50000,
-      "typed": true,
-      "steps": [
-        "Activate this gift card : SMS ACT [space] [16-Digit Card Number] [space] [CardPin] to 9704200300",
-        "Locate the nearest outlet that accepts this gift voucher.",
-        "Select your choice of products",
-        "Share your gift voucher with the cashier at the time of billing & pay the remaining amount by cash or card if required."
-      ],
-      "terms": [
-        "Valid for 1 year and in-store use only; not redeemable at airport stores",
-        "This is a one-time use giftcard; multiple cards can be used in 1 transaction",
-        "Luxe Gift Card can only be redeemed against full-priced merchandise"
-      ]
-    },
+    "checked": "2026-11-27",
+    "hubble": null,
     "sellers": [
       {
         "source": "gyftr",
@@ -24630,7 +24004,7 @@
       }
     ],
     "best": {
-      "source": "dealo",
+      "source": "gyftr",
       "pct": 10.0
     },
     "online": false,
@@ -24657,30 +24031,8 @@
     "slug": "versace",
     "name": "Versace",
     "website": "https://www.versace.com/",
-    "checked": "2026-11-26",
-    "hubble": {
-      "pct": 10.0,
-      "brand_name": "Versace-Luxe Gift Card",
-      "in_store": true,
-      "works": [
-        "OFFLINE"
-      ],
-      "cards": [],
-      "min_amount": 1000,
-      "max_amount": 50000,
-      "typed": true,
-      "steps": [
-        "Activate this gift card : SMS ACT [space] [16-Digit Card Number] [space] [CardPin] to 9704200300",
-        "Locate the nearest outlet that accepts this gift voucher.",
-        "Select your choice of products",
-        "Share your gift voucher with the cashier at the time of billing & pay the remaining amount by cash or card if required."
-      ],
-      "terms": [
-        "Valid for 1 year and in-store use only; not redeemable at airport stores",
-        "This is a one-time use giftcard; multiple cards can be used in 1 transaction",
-        "Luxe Gift Card can only be redeemed against full-priced merchandise"
-      ]
-    },
+    "checked": "2026-11-27",
+    "hubble": null,
     "sellers": [
       {
         "source": "gyftr",
@@ -24704,7 +24056,7 @@
       }
     ],
     "best": {
-      "source": "dealo",
+      "source": "gyftr",
       "pct": 10.0
     },
     "online": false,
@@ -24728,171 +24080,11 @@
     }
   },
   {
-    "slug": "ferragamo",
-    "name": "Ferragamo",
-    "website": "https://www.ferragamo.com/",
-    "checked": "2026-11-26",
-    "hubble": {
-      "pct": 10.0,
-      "brand_name": "Ferragamo",
-      "in_store": true,
-      "works": [
-        "OFFLINE"
-      ],
-      "cards": [],
-      "min_amount": 1000,
-      "max_amount": 10000,
-      "typed": true,
-      "steps": [
-        "Activate this gift card : SMS ACT [space] [16-Digit Card Number] [space] [CardPin] to 9704200300",
-        "Locate the nearest outlet that accepts this gift voucher.",
-        "Select your choice of products",
-        "Share your gift voucher with the cashier at the time of billing & pay the remaining amount by cash or card if required."
-      ],
-      "terms": [
-        "Valid for 1 year and in-store use only; not redeemable at airport stores",
-        "This is a one-time use giftcard; multiple cards can be used in 1 transaction",
-        "Luxe Gift Card can only be redeemed against full-priced merchandise"
-      ]
-    },
-    "sellers": [],
-    "best": {
-      "source": "dealo",
-      "pct": 10.0
-    },
-    "online": false,
-    "offline": true,
-    "stack": null,
-    "steps": [],
-    "restrictions": [],
-    "multiUse": null,
-    "canClub": null,
-    "history": {
-      "dealo": {
-        "2026-11-24": 10.0
-      }
-    }
-  },
-  {
-    "slug": "g-star-raw",
-    "name": "G-Star RAW",
-    "website": "https://www.g-star.com/",
-    "checked": "2026-11-26",
-    "hubble": {
-      "pct": 10.0,
-      "brand_name": "G-Star Raw",
-      "in_store": true,
-      "works": [
-        "OFFLINE"
-      ],
-      "cards": [],
-      "min_amount": 1000,
-      "max_amount": 10000,
-      "typed": true,
-      "steps": [
-        "Activate this gift card : SMS ACT [space] [16-Digit Card Number] [space] [CardPin] to 9704200300",
-        "Locate the nearest outlet that accepts this gift voucher.",
-        "Select your choice of products",
-        "Share your gift voucher with the cashier at the time of billing & pay the remaining amount by cash or card if required."
-      ],
-      "terms": [
-        "Valid for 1 year and in-store use only; not redeemable at airport stores",
-        "This is a one-time use giftcard; multiple cards can be used in 1 transaction",
-        "Luxe Gift Card can only be redeemed against full-priced merchandise"
-      ]
-    },
-    "sellers": [],
-    "best": {
-      "source": "dealo",
-      "pct": 10.0
-    },
-    "online": false,
-    "offline": true,
-    "stack": null,
-    "steps": [],
-    "restrictions": [],
-    "multiUse": null,
-    "canClub": null,
-    "history": {
-      "dealo": {
-        "2026-11-24": 10.0
-      }
-    }
-  },
-  {
-    "slug": "replay",
-    "name": "Replay",
-    "website": "https://www.replayjeans.com/",
-    "checked": "2026-11-26",
-    "hubble": {
-      "pct": 10.0,
-      "brand_name": "Replay",
-      "in_store": true,
-      "works": [
-        "OFFLINE"
-      ],
-      "cards": [],
-      "min_amount": 1000,
-      "max_amount": 10000,
-      "typed": true,
-      "steps": [
-        "Activate this gift card : SMS ACT [space] [16-Digit Card Number] [space] [CardPin] to 9704200300",
-        "Locate the nearest outlet that accepts this gift voucher.",
-        "Select your choice of products",
-        "Share your gift voucher with the cashier at the time of billing & pay the remaining amount by cash or card if required."
-      ],
-      "terms": [
-        "Valid for 1 year and in-store use only; not redeemable at airport stores",
-        "This is a one-time use giftcard; multiple cards can be used in 1 transaction",
-        "Luxe Gift Card can only be redeemed against full-priced merchandise"
-      ]
-    },
-    "sellers": [],
-    "best": {
-      "source": "dealo",
-      "pct": 10.0
-    },
-    "online": false,
-    "offline": true,
-    "stack": null,
-    "steps": [],
-    "restrictions": [],
-    "multiUse": null,
-    "canClub": null,
-    "history": {
-      "dealo": {
-        "2026-11-24": 10.0
-      }
-    }
-  },
-  {
     "slug": "gas-jeans",
     "name": "GAS",
     "website": "https://www.gasjeans.com/",
-    "checked": "2026-11-26",
-    "hubble": {
-      "pct": 10.0,
-      "brand_name": "Gas-Luxe Gift Card",
-      "in_store": true,
-      "works": [
-        "OFFLINE"
-      ],
-      "cards": [],
-      "min_amount": 1000,
-      "max_amount": 10000,
-      "typed": true,
-      "steps": [
-        "Activate this gift card : SMS ACT [space] [16-Digit Card Number] [space] [CardPin] to 9704200300",
-        "Locate the nearest outlet that accepts this gift voucher.",
-        "Select your choice of products",
-        "Share your gift voucher with the cashier at the time of billing & pay the remaining amount by cash or card if required."
-      ],
-      "terms": [
-        "Valid for 1 year and in-store use only; not redeemable at airport stores",
-        "This is a one-time use giftcard; multiple cards can be used in 1 transaction",
-        "Luxe Gift Card can only be redeemed against full-priced merchandise"
-      ]
-    },
+    "checked": "2026-11-27",
+    "hubble": null,
     "sellers": [
       {
         "source": "gyftr",
@@ -24916,10 +24108,10 @@
       }
     ],
     "best": {
-      "source": "dealo",
+      "source": "gyftr",
       "pct": 10.0
     },
-    "online": false,
+    "online": true,
     "offline": true,
     "stack": null,
     "steps": [
@@ -24943,30 +24135,8 @@
     "slug": "adidas-kids",
     "name": "Adidas Kids",
     "website": "https://www.adidas.co.in/",
-    "checked": "2026-11-26",
-    "hubble": {
-      "pct": 10.0,
-      "brand_name": "Adidas Kids Luxe Gift Card",
-      "in_store": true,
-      "works": [
-        "OFFLINE"
-      ],
-      "cards": [],
-      "min_amount": 1000,
-      "max_amount": 50000,
-      "typed": true,
-      "steps": [
-        "Activate this gift card : SMS ACT [space] [16-Digit Card Number] [space] [CardPin] to 9704200300",
-        "Locate the nearest outlet that accepts this gift voucher.",
-        "Select your choice of products",
-        "Share your gift voucher with the cashier at the time of billing & pay the remaining amount by cash or card if required."
-      ],
-      "terms": [
-        "Valid for 1 year and in-store use only; not redeemable at airport stores",
-        "This is a one-time use giftcard; multiple cards can be used in 1 transaction",
-        "Luxe Gift Card can only be redeemed against full-priced merchandise"
-      ]
-    },
+    "checked": "2026-11-27",
+    "hubble": null,
     "sellers": [
       {
         "source": "gyftr",
@@ -24990,7 +24160,7 @@
       }
     ],
     "best": {
-      "source": "dealo",
+      "source": "gyftr",
       "pct": 10.0
     },
     "online": false,
@@ -25017,41 +24187,8 @@
     "slug": "inglot",
     "name": "Inglot",
     "website": "https://www.inglotcosmetics.com/",
-    "checked": "2026-11-26",
-    "hubble": {
-      "pct": 8.0,
-      "brand_name": "Inglot",
-      "in_store": true,
-      "works": [
-        "OFFLINE"
-      ],
-      "cards": [
-        500,
-        1000,
-        1500,
-        2000,
-        2500,
-        3000,
-        5000,
-        7500,
-        10000
-      ],
-      "min_amount": 500,
-      "max_amount": 10000,
-      "typed": false,
-      "steps": [
-        "Use the outlet locator (find the link in Terms and conditions on previous screen) to locate the nearest outlet that accepts this brand card",
-        "Select your choice of product",
-        "Share your brand card no. with the cashier at the time of billing & pay the remaining amount by any other payment mode"
-      ],
-      "terms": [
-        "Comes with 6-month validity and would be accepted at Aldo, Charles & Keith, Call it Spring, Beverly Hills Polo Club, Inglot, Victoria s Secret, Victoria s Secret beauty , Bath & Body works & R&B stores only",
-        "Gift Voucher/ e-Pay is ACCEPTED at all Listed Outlets (store locator https://www.apparelgroup.in/storelocator/)",
-        "Gift Voucher cannot be used Online.",
-        "Multiple Gift Vouchers CAN be combined & added to the e-Pay balance",
-        "Gift cards, once purchased, cannot be cancelled or refunded"
-      ]
-    },
+    "checked": "2026-11-27",
+    "hubble": null,
     "sellers": [
       {
         "source": "maximize",
@@ -25137,36 +24274,8 @@
     "slug": "skinn",
     "name": "Skinn",
     "website": "https://www.skinn.in/",
-    "checked": "2026-11-26",
-    "hubble": {
-      "pct": 6.0,
-      "brand_name": "Skinn",
-      "in_store": true,
-      "works": [
-        "OFFLINE"
-      ],
-      "cards": [
-        500,
-        1000,
-        1500,
-        2000,
-        5000
-      ],
-      "min_amount": 500,
-      "max_amount": 5000,
-      "typed": false,
-      "steps": [
-        "Locate the nearest outlet that accepts this gift voucher. To locate the nearest outlet please visit https://www.skinn.in/stores",
-        "Select your choice of products",
-        "Share your gift voucher with the cashier at the time of billing & pay the remaining amount by cash or card if required."
-      ],
-      "terms": [
-        "This is a one-time use card and comes with 6 months validity",
-        "Gift Vouchers can be used in-store only and no offers can be clubbed with this card",
-        "See all terms for store locator - can only be used at listed stores",
-        "A maximum of 5 Gift Vouchers can be used in one bill"
-      ]
-    },
+    "checked": "2026-11-27",
+    "hubble": null,
     "sellers": [
       {
         "source": "maximize",
@@ -25196,10 +24305,10 @@
       }
     ],
     "best": {
-      "source": "dealo",
-      "pct": 6.0
+      "source": "maximize",
+      "pct": 5.0
     },
-    "online": false,
+    "online": true,
     "offline": true,
     "stack": null,
     "steps": [
@@ -25208,7 +24317,7 @@
       "-Share your Gift Voucher with the cashier at the time of billing & pay the remaining amount by cash or card if required."
     ],
     "restrictions": [],
-    "multiUse": false,
+    "multiUse": true,
     "canClub": false,
     "history": {
       "dealo": {
@@ -25223,35 +24332,8 @@
     "slug": "the-man-company",
     "name": "The Man Company",
     "website": "https://www.themancompany.com/",
-    "checked": "2026-11-26",
-    "hubble": {
-      "pct": 6.0,
-      "brand_name": "The Man Company",
-      "in_store": false,
-      "works": [
-        "ONLINE"
-      ],
-      "cards": [
-        500,
-        1000,
-        2000
-      ],
-      "min_amount": 500,
-      "max_amount": 2000,
-      "typed": false,
-      "steps": [
-        "Visit the the man company website.",
-        "Add the products to your cart.",
-        "Select pay via E/Pay Gift voucher option. You can add vouchers to your Epay balance, and your balance will be shown."
-      ],
-      "terms": [
-        "Comes with the validity of 6 months and will be accepted only on the app or the website through this URL:https://www.themancompany.com/.",
-        "Multiple Gift cards can be combined and added to the e-Pay balance, and the Gift card can be converted into e-Pay at the convenience of the holder.",
-        "The Gift card /e-Pay can be clubbed with discounts/offers on their website.",
-        "The Man Company e-Pay balance must be linked to the registered mobile number.",
-        "No returns and no refunds on Gift cards, E-Gift cards and E-Gift vouchers."
-      ]
-    },
+    "checked": "2026-11-27",
+    "hubble": null,
     "sellers": [
       {
         "source": "maximize",
@@ -25354,82 +24436,11 @@
     }
   },
   {
-    "slug": "tira",
-    "name": "Tira",
-    "website": "https://www.tirabeauty.com/",
-    "checked": "2026-11-26",
-    "hubble": {
-      "pct": 6.0,
-      "brand_name": "Tira",
-      "in_store": false,
-      "works": [
-        "OFFLINE",
-        "ONLINE"
-      ],
-      "cards": [],
-      "min_amount": 500,
-      "max_amount": 50000,
-      "typed": true,
-      "steps": [
-        "Download Tira App",
-        "Add the products to cart and Select Gift Card in Method Of Payment",
-        "Enter the 16-digit card number and 6-digit Card Pin",
-        "Card will be redeemed",
-        "Pay pending amount using other payment methods. Order will be placed."
-      ],
-      "terms": [
-        "Comes with 1 year validity and is redeemable only on the TIRA BEAUTY Portal and Tira Stores.",
-        "Gift card cannot be clubbed with any offers during the purchase.",
-        "Gift cards, once purchased, cannot be cancelled or refunded"
-      ]
-    },
-    "sellers": [],
-    "best": {
-      "source": "dealo",
-      "pct": 6.0
-    },
-    "online": true,
-    "offline": true,
-    "stack": null,
-    "steps": [],
-    "restrictions": [],
-    "multiUse": null,
-    "canClub": null,
-    "history": {
-      "dealo": {
-        "2026-11-24": 6.0
-      }
-    }
-  },
-  {
     "slug": "nykaa-man",
     "name": "Nykaa Man",
     "website": "https://www.nykaaman.com/",
-    "checked": "2026-11-26",
-    "hubble": {
-      "pct": 5.0,
-      "brand_name": "Nykaa Man",
-      "in_store": false,
-      "works": [
-        "OFFLINE",
-        "ONLINE"
-      ],
-      "cards": [],
-      "min_amount": 250,
-      "max_amount": 10000,
-      "typed": true,
-      "steps": [
-        "Go to Nykaa.com and select the items you want to purchase.",
-        "Once you reach our payment page, select the Gift Card payment option.",
-        "Enter your 16-digit Card Code and the corresponding Card PIN and click on apply. The Gift Card amount will be deducted from the payable amount.",
-        "If the amount of your e-Gift Card doesn't cover your order amount, you will be prompted to select an additional payment option."
-      ],
-      "terms": [
-        "Comes with 1 year validity and cannot be used to purchase Gold/Silver Coins, Gold/Silver Bars and Jewellery",
-        "Gift card can be used multiple times",
-        "For offline transaction if the order value is less than the Gift Card amount, Gift Card won’t be applied to the order"
-      ]
-    },
+    "checked": "2026-11-27",
+    "hubble": null,
     "sellers": [
       {
         "source": "buyhatke",
@@ -25477,8 +24488,8 @@
       }
     ],
     "best": {
-      "source": "dealo",
-      "pct": 5.0
+      "source": "buyhatke",
+      "pct": 4.62
     },
     "online": true,
     "offline": true,
@@ -25510,78 +24521,11 @@
     }
   },
   {
-    "slug": "lakme-salon",
-    "name": "Lakmé Salon",
-    "website": "https://www.lakmesalon.in/",
-    "checked": "2026-11-26",
-    "hubble": {
-      "pct": 4.0,
-      "brand_name": "Lakmé Salon",
-      "in_store": true,
-      "works": [
-        "OFFLINE"
-      ],
-      "cards": [],
-      "min_amount": 750,
-      "max_amount": 25000,
-      "typed": true,
-      "steps": [
-        "Visit the nearest Lakme Salon outlet. To locate the nearest outlet please visit https://salons.lakmesalon.in/",
-        "Inform the cashier about the Gift Card before availing the service.",
-        "Show the Gift Card details to the cashier at the time of billing & pay any balance amount by card or cash."
-      ],
-      "terms": [
-        "Comes with 1-year validity and  can be redeemed only once",
-        "This Gift Card can be redeemed against services at all salons of Lakme Salon Network and only one card can be used per transaction",
-        "If the purchase amount is more than your Gift card value, you may compliment that purchase in any form of payment accepted by Lakme Salon outlets"
-      ]
-    },
-    "sellers": [],
-    "best": {
-      "source": "dealo",
-      "pct": 4.0
-    },
-    "online": false,
-    "offline": true,
-    "stack": null,
-    "steps": [],
-    "restrictions": [],
-    "multiUse": null,
-    "canClub": null,
-    "history": {
-      "dealo": {
-        "2026-11-24": 4.0
-      }
-    }
-  },
-  {
     "slug": "mia-by-tanishq",
     "name": "Mia by Tanishq",
     "website": "https://www.miabytanishq.com/",
-    "checked": "2026-11-26",
-    "hubble": {
-      "pct": 4.0,
-      "brand_name": "Mia",
-      "in_store": true,
-      "works": [
-        "OFFLINE"
-      ],
-      "cards": [],
-      "min_amount": 500,
-      "max_amount": 200000,
-      "typed": true,
-      "steps": [
-        "To locate the nearest outlet please visit https://www.miabytanishq.com/en_IN/store-locator/find",
-        "Make your selection and add products to the cart (offline only)",
-        "Cashier will enter the gift card & pin on the payments page",
-        "Proceed to checkout"
-      ],
-      "terms": [
-        "Comes with 6 months validity",
-        "Gift card is valid only on Mia Studded Products at all Mia Showrooms in India",
-        "This is a one-time use card and any unused amount will lapse"
-      ]
-    },
+    "checked": "2026-11-27",
+    "hubble": null,
     "sellers": [
       {
         "source": "maximize",
@@ -25630,7 +24574,7 @@
       }
     ],
     "best": {
-      "source": "dealo",
+      "source": "maximize",
       "pct": 4.0
     },
     "online": false,
@@ -25660,41 +24604,8 @@
     "slug": "the-body-shop",
     "name": "The Body Shop",
     "website": "https://www.thebodyshop.in/",
-    "checked": "2026-11-26",
-    "hubble": {
-      "pct": 4.0,
-      "brand_name": "The Body Shop",
-      "in_store": false,
-      "works": [
-        "OFFLINE",
-        "ONLINE"
-      ],
-      "cards": [
-        500,
-        1000,
-        2000,
-        3000,
-        4000,
-        5000,
-        7500
-      ],
-      "min_amount": 500,
-      "max_amount": 37500,
-      "typed": false,
-      "steps": [
-        "Visit https://www.thebodyshop.in/",
-        "Add products to your cart",
-        "Go to your cart click on Proceed to check out",
-        "Enter your Shipping details.",
-        "Enter voucher code under Apply Gift card section",
-        "Enter PIN"
-      ],
-      "terms": [
-        "Comes with 1 year validity and is redeemable at the Body Shop stores and website in India only",
-        "This is a one-time use Gift Card and needs to be used in full during purchase. Any unused amount will lapse automatically",
-        "Multiple Gift Vouchers can be used in one bill"
-      ]
-    },
+    "checked": "2026-11-27",
+    "hubble": null,
     "sellers": [
       {
         "source": "maximize",
@@ -25780,7 +24691,7 @@
       "Visit the listed outlet and show the Gift Card to the cashier before billing."
     ],
     "restrictions": [],
-    "multiUse": false,
+    "multiUse": true,
     "canClub": true,
     "history": {
       "dealo": {
@@ -25799,230 +24710,11 @@
     }
   },
   {
-    "slug": "himalaya",
-    "name": "Himalaya",
-    "website": "https://www.himalayawellness.in/",
-    "checked": "2026-11-26",
-    "hubble": {
-      "pct": 6.0,
-      "brand_name": "Himalaya",
-      "in_store": true,
-      "works": [
-        "OFFLINE"
-      ],
-      "cards": [
-        500,
-        1000,
-        2000
-      ],
-      "min_amount": 500,
-      "max_amount": 2000,
-      "typed": false,
-      "steps": [
-        "Visit the outlet near you. To locate the nearest outlet please visit https://storelocator.himalayawellness.in/",
-        "Before making the purchase confirm about the acceptance of Gift Card at the store.",
-        "Choose the products you would like to buy.",
-        "Show your Gift Card details to the cashier at the time of billing & pay any balance amount by cash or card."
-      ],
-      "terms": [
-        "Comes with 1 year of validity and only one card can be used per transaction",
-        "This e-gift card is redeemable only once and should be used in full",
-        "This Gift Card can be redeemed only at participating exclusive Himalaya Outlets. For store locator please visit Himalaya website"
-      ]
-    },
-    "sellers": [],
-    "best": {
-      "source": "dealo",
-      "pct": 6.0
-    },
-    "online": false,
-    "offline": true,
-    "stack": null,
-    "steps": [],
-    "restrictions": [],
-    "multiUse": null,
-    "canClub": null,
-    "history": {
-      "dealo": {
-        "2026-11-24": 6.0
-      }
-    }
-  },
-  {
-    "slug": "titan-eye-plus",
-    "name": "Titan Eye+",
-    "website": "https://www.titaneyeplus.com/",
-    "checked": "2026-11-26",
-    "hubble": {
-      "pct": 5.0,
-      "brand_name": "Titan Eye+",
-      "in_store": true,
-      "works": [
-        "OFFLINE"
-      ],
-      "cards": [
-        500,
-        1000,
-        2000,
-        10000,
-        15000,
-        20000,
-        25000
-      ],
-      "min_amount": 500,
-      "max_amount": 125000,
-      "typed": false,
-      "steps": [
-        "Visit the outlet near you. To locate the nearest outlet please visit https://www.titaneyeplus.com/stores",
-        "Before making the purchase confirm about the acceptance of Gift Card at the store.",
-        "Choose the products you would like to buy.",
-        "Show your Gift Card details to the cashier at the time of billing & pay any balance amount by cash or card."
-      ],
-      "terms": [
-        "Comes with 6 month validity. This voucher is not applicable on discounted products and cannot be clubbed with any other offer in the store.",
-        "Voucher Partial redemption is not allowed and is redeemable only once.",
-        "No refund or credit note would be issued against unused or partially used voucher.",
-        "This e-gift voucher can be redeemed at all company authorised TITAN EYEPLUS Stores only.",
-        "Multiple e-gift cards (upto 5) can be used against a single transaction.",
-        "E-Gift Cards are normally delivered instantly. But sometimes due to system issues, the delivery can be delayed up-to 24 hours."
-      ]
-    },
-    "sellers": [],
-    "best": {
-      "source": "dealo",
-      "pct": 5.0
-    },
-    "online": false,
-    "offline": true,
-    "stack": null,
-    "steps": [],
-    "restrictions": [],
-    "multiUse": null,
-    "canClub": null,
-    "history": {
-      "dealo": {
-        "2026-11-24": 5.0
-      }
-    }
-  },
-  {
-    "slug": "lawrence-and-mayo",
-    "name": "Lawrence & Mayo",
-    "website": "https://www.lawrenceandmayo.co.in/",
-    "checked": "2026-11-26",
-    "hubble": {
-      "pct": 7.0,
-      "brand_name": "Lawrence & Mayo",
-      "in_store": true,
-      "works": [
-        "OFFLINE"
-      ],
-      "cards": [],
-      "min_amount": 100,
-      "max_amount": 20000,
-      "typed": true,
-      "steps": [
-        "Visit the outlet near you.",
-        "Before making the purchase confirm about the acceptance of Gift Card at the store",
-        "Choose the products you would like to buy.",
-        "Show your Gift Card details to the cashier at the time of billing & pay any balance amount by cash or card."
-      ],
-      "terms": [
-        "Comes with 6 months validity and is redeemable for merchandise at our Lawrence & Mayo Retail Stores – Nationwide",
-        "This is a one-time use card and any unused amount will lapse",
-        "Gift cards, once purchased, cannot be cancelled or refunded"
-      ]
-    },
-    "sellers": [],
-    "best": {
-      "source": "dealo",
-      "pct": 7.0
-    },
-    "online": false,
-    "offline": true,
-    "stack": null,
-    "steps": [],
-    "restrictions": [],
-    "multiUse": null,
-    "canClub": null,
-    "history": {
-      "dealo": {
-        "2026-11-24": 7.0
-      }
-    }
-  },
-  {
-    "slug": "bodycraft",
-    "name": "Bodycraft",
-    "website": "https://www.bodycraft.co.in/",
-    "checked": "2026-11-26",
-    "hubble": {
-      "pct": 10.0,
-      "brand_name": "BodyCraft",
-      "in_store": true,
-      "works": [
-        "OFFLINE"
-      ],
-      "cards": [],
-      "min_amount": 500,
-      "max_amount": 10000,
-      "typed": true,
-      "steps": [
-        "Visit the nearest Bodycraft outlet. To locate the nearest outlet please visit https://www.bodycraft.com/dealer-locator/",
-        "Inform the cashier about the Gift Card before availing the service.",
-        "Show the Gift Card details to the cashier at the time of billing & pay any balance amount by card or cash."
-      ],
-      "terms": [
-        "Comes with 6 months validity and is valid at all company-owned Bodycraft Spa & Salon outlets",
-        "The E-gift card cannot be used to purchase Products, Memberships, Packages at Bodycraft",
-        "Multiple E-gift cards can be clubbed for redemption"
-      ]
-    },
-    "sellers": [],
-    "best": {
-      "source": "dealo",
-      "pct": 10.0
-    },
-    "online": false,
-    "offline": true,
-    "stack": null,
-    "steps": [],
-    "restrictions": [],
-    "multiUse": null,
-    "canClub": null,
-    "history": {
-      "dealo": {
-        "2026-11-24": 10.0
-      }
-    }
-  },
-  {
     "slug": "truefitt-and-hill",
     "name": "Truefitt & Hill",
     "website": "https://www.truefittandhill.in/",
-    "checked": "2026-11-26",
-    "hubble": {
-      "pct": 12.0,
-      "brand_name": "TrueFitt & Hill",
-      "in_store": true,
-      "works": [
-        "OFFLINE"
-      ],
-      "cards": [],
-      "min_amount": 100,
-      "max_amount": 10000,
-      "typed": true,
-      "steps": [
-        "Share the registered mobile number with cashier, once services are scanned for invoicing",
-        "Cashier will confirm the available Gift Voucher and its balance Or share the voucher code with the cashier",
-        "Confirm the amount to be used for redemption and proceed further. You can make the balance payment by any other payment mode."
-      ],
-      "terms": [
-        "Comes with 3 months validity and would be accepted at all TrueFitt & Hill stores (except Indira Nagar, Bengaluru)",
-        "Gift Voucher is only applicable on services and not applicable on TrueFitt & Hill products",
-        "Multiple vouchers can be used against one bill."
-      ]
-    },
+    "checked": "2026-11-27",
+    "hubble": null,
     "sellers": [
       {
         "source": "gyftr",
@@ -26076,34 +24768,8 @@
     "slug": "black-and-decker",
     "name": "Black+Decker",
     "website": "https://www.appliancesblackanddecker.in/",
-    "checked": "2026-11-26",
-    "hubble": {
-      "pct": 4.0,
-      "brand_name": "Black + Decker",
-      "in_store": false,
-      "works": [
-        "ONLINE"
-      ],
-      "cards": [
-        1000,
-        2000
-      ],
-      "min_amount": 1000,
-      "max_amount": 2000,
-      "typed": false,
-      "steps": [
-        "Visit the website and add the product of you choice to your cart.",
-        "To proceed enter the necessary Billing and Shipping Detail",
-        "To checkout enter the Gift Card Code in the Apply Gift Card box and redeem the voucher",
-        "Any remaining payment to be done via other payment tender modes available"
-      ],
-      "terms": [
-        "Comes with 6 months validity and would be acceptable at www.appliancesblackanddecker.in/",
-        "This is a one-time use card and any unused balance will lapse",
-        "A maximum of 10 Gift card can be used in one bill",
-        "Gift cards, once purchased, cannot be cancelled or refunded"
-      ]
-    },
+    "checked": "2026-11-27",
+    "hubble": null,
     "sellers": [
       {
         "source": "buyhatke",
@@ -26127,8 +24793,8 @@
       }
     ],
     "best": {
-      "source": "dealo",
-      "pct": 4.0
+      "source": "buyhatke",
+      "pct": 3.62
     },
     "online": true,
     "offline": false,
@@ -26156,29 +24822,8 @@
     "slug": "cleartrip-hotels",
     "name": "Cleartrip Hotels",
     "website": "https://www.cleartrip.com/hotels/",
-    "checked": "2026-11-26",
-    "hubble": {
-      "pct": 7.5,
-      "brand_name": "ClearTrip Hotel",
-      "in_store": false,
-      "works": [
-        "ONLINE"
-      ],
-      "cards": [],
-      "min_amount": 1,
-      "max_amount": 10000,
-      "typed": true,
-      "steps": [
-        "Visit www.cleartrip.com or app and select your bookings.",
-        "Enter the 16 digit gift card number and pin ( apply coupon or gift card) section.",
-        "Click on make payment and pay balance amount using anoter payment method."
-      ],
-      "terms": [
-        "Comes with 1 year validity. The gift card can be used multiple times.",
-        "Maximum 15 gift cards can be used in 1 single transaction",
-        "Gift Cards cannot be clubbed with any other offer including but not limited to cashbacks, discounts etc. on a particular credit/debit card"
-      ]
-    },
+    "checked": "2026-11-27",
+    "hubble": null,
     "sellers": [
       {
         "source": "maximize",
@@ -26289,36 +24934,8 @@
     "slug": "zoomcar",
     "name": "Zoomcar",
     "website": "https://www.zoomcar.com/",
-    "checked": "2026-11-26",
-    "hubble": {
-      "pct": 6.5,
-      "brand_name": "Zoom Car",
-      "in_store": false,
-      "works": [
-        "ONLINE"
-      ],
-      "cards": [
-        500,
-        1000,
-        2500,
-        5000
-      ],
-      "min_amount": 500,
-      "max_amount": 5000,
-      "typed": false,
-      "steps": [
-        "Open the zoomcar App, go to zoom cash at the top right corner and click on claim a gift card.",
-        "In select gift partner choose Gyftr enter the voucher code click add and then click continue.",
-        "The amount will be added to zoom cash, multiple vouchers can be added and then click on book a trip."
-      ],
-      "terms": [
-        "Comes with 6 months validity and will be accepted only online on the Zoomcar mobile application.",
-        "This is a one-time use Gift card. Multiple Gift cards can be added to a customer’s account as ZCash, and the balance can be used partially or fully for multiple transactions.",
-        "The Gift card can be used for the purchase of ZCash, which is credited to the Customer’s Zoomcar ZCash wallet upon redemption. A single ZCash shall be equivalent to INR 1 (One Rupee).",
-        "The Gift card can be clubbed with the existing offers.",
-        "No returns and no refunds on Gift cards, E-Gift cards and E-Gift vouchers."
-      ]
-    },
+    "checked": "2026-11-27",
+    "hubble": null,
     "sellers": [
       {
         "source": "gyftr",
@@ -26422,32 +25039,8 @@
     "slug": "air-india",
     "name": "Air India",
     "website": "https://www.airindia.com/",
-    "checked": "2026-11-26",
-    "hubble": {
-      "pct": 5.5,
-      "brand_name": "Air India",
-      "in_store": false,
-      "works": [
-        "ONLINE"
-      ],
-      "cards": [],
-      "min_amount": 2000,
-      "max_amount": 200000,
-      "typed": true,
-      "steps": [
-        "Select the flights you are interested in on the Air India website (https://www.airindia.com/) or Air India mobile app.",
-        "Enter the Gift Card number and pin that you have received",
-        "If the booking amount equals or exceeds the available credit on the Gift Card, the Gift Card will be fully used until it has no remaining value."
-      ],
-      "terms": [
-        "Comes with 1-year validity and is valid only on the Air India website or Air India mobile app",
-        "Multiple Gift Cards (up to a maximum of three (3)) can be combined and used in a single transaction",
-        "A Gift Card can be combined with any offer, such as a discount, cash back, or promotion, offered on Air India’s website, www.airindia.com",
-        "Gift Cards cannot be redeemed through any offline channel, such as airport ticketing centre.",
-        "Gift Cards cannot be redeemed for group travel",
-        "Gift cards, once purchased, cannot be cancelled or refunded"
-      ]
-    },
+    "checked": "2026-11-27",
+    "hubble": null,
     "sellers": [
       {
         "source": "gyftr",
@@ -26521,8 +25114,8 @@
       }
     ],
     "best": {
-      "source": "dealo",
-      "pct": 5.5
+      "source": "gyftr",
+      "pct": 5.0
     },
     "online": true,
     "offline": false,
@@ -26555,34 +25148,8 @@
     "slug": "klook",
     "name": "Klook",
     "website": "https://www.klook.com/",
-    "checked": "2026-11-26",
-    "hubble": {
-      "pct": 5.0,
-      "brand_name": "Klook",
-      "in_store": false,
-      "works": [
-        "ONLINE"
-      ],
-      "cards": [
-        1000,
-        2000,
-        5000
-      ],
-      "min_amount": 1000,
-      "max_amount": 20000,
-      "typed": false,
-      "steps": [
-        "Visit the website or Klook app and sign up with your mobile number/email id.",
-        "Head to your accounts page and go to promo codes",
-        "Enter your Klook voucher and click Redeem and make the payment"
-      ],
-      "terms": [
-        "This Gift Card will be used on the app or website at www.klook.com",
-        "This is a one-time use Gift Card",
-        "Only one Gift Voucher can be used in one bill.",
-        "This Gift voucher cannot be combined with existing offers on its website or any other promo coded."
-      ]
-    },
+    "checked": "2026-11-27",
+    "hubble": null,
     "sellers": [
       {
         "source": "maximize",
@@ -26659,92 +25226,11 @@
     }
   },
   {
-    "slug": "sotc",
-    "name": "SOTC",
-    "website": "https://www.sotc.in/",
-    "checked": "2026-11-26",
-    "hubble": {
-      "pct": 4.0,
-      "brand_name": "SOTC",
-      "in_store": true,
-      "works": [
-        "OFFLINE"
-      ],
-      "cards": [],
-      "min_amount": 500,
-      "max_amount": 250000,
-      "typed": true,
-      "steps": [
-        "SOTC Holiday Card is redeemable for purchases at SOTC branches within India",
-        "Customer to present the Emailer which he has received and present at the branches before making the payment. To locate the nearest branch please visit https://www.sotc.in/outlets"
-      ],
-      "terms": [
-        "Comes with 1 year validity and is redeemable for purchases at SOTC branches within India",
-        "This is a one-time use card and any unused balance will lapse and Holiday card cannot be redeemed against group discounted packages",
-        "Purchase of foreign exchange (Personal & Tour Cost), Visa and Insurance services are not allowed through this card",
-        "The above offer cannot be clubbed with any other program/scheme offered by SOTC Travel Limited"
-      ]
-    },
-    "sellers": [],
-    "best": {
-      "source": "dealo",
-      "pct": 4.0
-    },
-    "online": false,
-    "offline": true,
-    "stack": null,
-    "steps": [],
-    "restrictions": [],
-    "multiUse": null,
-    "canClub": null,
-    "history": {
-      "dealo": {
-        "2026-11-24": 4.0
-      }
-    }
-  },
-  {
     "slug": "porter",
     "name": "Porter",
     "website": "https://www.porter.in/",
-    "checked": "2026-11-26",
-    "hubble": {
-      "pct": 6.0,
-      "brand_name": "Porter",
-      "in_store": false,
-      "works": [
-        "ONLINE"
-      ],
-      "cards": [
-        1000,
-        2000,
-        2500,
-        3000,
-        4000,
-        5000,
-        6000,
-        7000,
-        8000,
-        9000,
-        10000
-      ],
-      "min_amount": 1000,
-      "max_amount": 50000,
-      "typed": false,
-      "steps": [
-        "Download the Porter app, choose Packers & Movers option, then select ‘Shifting’ service. Enter locations, add items, check price options, and confirm your pick-up slot.",
-        "Go to the Coupons & Offers section, enter your voucher code, and click Apply. The voucher amount will be applied to the bill directly.",
-        "Check your breakup under Payment Summary and pay the remaining amount using any payment mode."
-      ],
-      "terms": [
-        "Comes with a validity of 6 months and can be redeemed only on the Porter app for Packers & Movers services.",
-        "This Gift card is applicable only for Intracity and Intercity House Shifting under Packers & Movers services. It is not valid for the \"Mini Truck with 2 Labour\" category under Packers & Movers, or for booking Trucks, Two-Wheelers, or Enterprise business services on the Porter platform.",
-        "This is a one-time use only Gift card, and it cannot be partially redeemed or revalidated once expired.",
-        "The value of the Gift card redeemed must be less than or equal to the total booking/order value. The Gift card cannot be used for bookings where the Gift card value exceeds the order value.",
-        "Multiple Gift cards cannot be redeemed in a single booking/order.",
-        "The Gift cards CANNOT be clubbed with the existing offers."
-      ]
-    },
+    "checked": "2026-11-27",
+    "hubble": null,
     "sellers": [
       {
         "source": "maximize",
@@ -26798,47 +25284,8 @@
     "slug": "district",
     "name": "District",
     "website": "https://www.district.in/",
-    "checked": "2026-11-26",
-    "hubble": {
-      "pct": 4.0,
-      "brand_name": "District",
-      "in_store": false,
-      "works": [
-        "ONLINE"
-      ],
-      "cards": [
-        100,
-        500,
-        1000,
-        1500,
-        2000,
-        2500,
-        3000,
-        3500,
-        4000,
-        4500,
-        5000,
-        6000,
-        7000,
-        8000,
-        9000,
-        10000
-      ],
-      "min_amount": 100,
-      "max_amount": 10000,
-      "typed": false,
-      "steps": [
-        "Open the District App",
-        "Go to My Profile",
-        "Click on Claim Gift Card",
-        "Enter the 16- digit card number and the 6 - digit pin",
-        "Tap Claim"
-      ],
-      "terms": [
-        "Comes with 12 months validity and is redeemable only on District website and app.",
-        "Gift cards, once purchased, cannot be cancelled or refunded"
-      ]
-    },
+    "checked": "2026-11-27",
+    "hubble": null,
     "sellers": [
       {
         "source": "buyhatke",
@@ -26868,8 +25315,8 @@
       }
     ],
     "best": {
-      "source": "dealo",
-      "pct": 4.0
+      "source": "buyhatke",
+      "pct": 3.62
     },
     "online": true,
     "offline": false,
@@ -26898,37 +25345,8 @@
     "slug": "playo",
     "name": "Playo",
     "website": "https://www.playo.co/",
-    "checked": "2026-11-26",
-    "hubble": {
-      "pct": 4.5,
-      "brand_name": "Playo",
-      "in_store": false,
-      "works": [
-        "ONLINE"
-      ],
-      "cards": [
-        250,
-        500,
-        1000,
-        2000,
-        5000
-      ],
-      "min_amount": 250,
-      "max_amount": 25000,
-      "typed": false,
-      "steps": [
-        "Enter the 16-digit numeric code received via email or phone.",
-        "Click the Redeem Gift Card button which will direct you to a confirmation screen",
-        "Check your balance at any point in the Passbook section of their Playo account..",
-        "To use the Playo Gift Card credits, enable the toggle option against 'Credits' on the Playo checkout page while making a transaction."
-      ],
-      "terms": [
-        "Comes with the validiy of 12 months and will be accepted at https://playo.co/",
-        "Redemption: Vouchers may only be redeemed toward the purchase of eligible services and products on Playo. Purchases are deducted from the redeemer's Vouchers balance. Any unused Vouchers balance will remain associated with the redeemers Vouchers balance account and applied to purchases, in order of earliest expiration date. If a purchase exceeds the redeemers Vouchers balance, the remaining amount must be paid by credit card, net banking or debit card. Vouchers cannot be used to purchase other.",
-        "Limitations: Vouchers, including any unused Vouchers balances, expire one year from the date of purchase of the Vouchers for any Vouchers purchased on Playo, unless defined otherwise in a mutual confirmation between Techmash and the purchaser. For purchase of Vouchers on third party merchants, the expiration period may vary based on the terms set by the third-party merchant from whom you have made the purchase of the Vouchers. Vouchers, once purchased, cannot be cancelled by the purchaser.",
-        "No returns and no refunds on Gift cards, E-Gift cards and E-Gift vouchers."
-      ]
-    },
+    "checked": "2026-11-27",
+    "hubble": null,
     "sellers": [
       {
         "source": "maximize",
@@ -27009,35 +25427,8 @@
     "slug": "jiohotstar",
     "name": "JioHotstar",
     "website": "https://www.jiohotstar.com/",
-    "checked": "2026-11-26",
-    "hubble": {
-      "pct": 7.5,
-      "brand_name": "JioHotstar",
-      "in_store": false,
-      "works": [
-        "ONLINE"
-      ],
-      "cards": [
-        499,
-        1099,
-        2199
-      ],
-      "min_amount": 499,
-      "max_amount": 2199,
-      "typed": false,
-      "steps": [
-        "Visit https://www.jiohotstar.com/in/redeem on your phone or computer browser and log in using your mobile number",
-        "You will receive an OTP on the same number for verification",
-        "Enter OTP and click on Continue",
-        "Enter the Voucher code in the 'Enter a Promo Code' section and click on 'APPLY'",
-        "Login to the JioHotstar app with the same number to enjoy your subscription"
-      ],
-      "terms": [
-        "Comes with 3 months validity and can only be used at https://www.jiohotstar.com/in/redeem",
-        "Only 1 Gift Voucher can be used in one transaction",
-        "This is a one-time use gift card and cannot be used/clubbed with an existing subscription/offer"
-      ]
-    },
+    "checked": "2026-11-27",
+    "hubble": null,
     "sellers": [
       {
         "source": "maximize",
@@ -27111,7 +25502,7 @@
     },
     "online": true,
     "offline": false,
-    "stack": null,
+    "stack": "One voucher per order",
     "steps": [
       "Visit https://www.jiohotstar.com/in/redeem on your phone or computer browser and log in with your phone number.",
       "You’ll receive an OTP on the same number for verification.",
@@ -27139,92 +25530,11 @@
     }
   },
   {
-    "slug": "epic-on",
-    "name": "EPIC ON",
-    "website": "https://www.epicon.in/",
-    "checked": "2026-11-26",
-    "hubble": {
-      "pct": 3.0,
-      "brand_name": "Epic On",
-      "in_store": false,
-      "works": [
-        "ONLINE"
-      ],
-      "cards": [
-        59,
-        159,
-        299,
-        499
-      ],
-      "min_amount": 59,
-      "max_amount": 499,
-      "typed": false,
-      "steps": [
-        "Visit https://www.epicon.in or download the EPIC ON app",
-        "Sign up / log in to EPIC ON app/website",
-        "Click on subscribe now https://www.epicon.in/getSubscription",
-        "Enter the unique promo code in the section below and apply it. Your subscription will be automatically generated",
-        "IOS users can redeem the code only on website"
-      ],
-      "terms": [
-        "Comes with 1 year validity is available only with Enfagrow products and its various combos",
-        "This cards gets you premium subscription service from ‘IN10 MEDIA NETWORK’. Users get access to unlimited premium content on EPIC ON for 1 year",
-        "Gift cards, once purchased, cannot be cancelled or refunded"
-      ]
-    },
-    "sellers": [],
-    "best": {
-      "source": "dealo",
-      "pct": 3.0
-    },
-    "online": true,
-    "offline": false,
-    "stack": null,
-    "steps": [],
-    "restrictions": [],
-    "multiUse": null,
-    "canClub": null,
-    "kind": "subscription",
-    "noun": "subscription",
-    "history": {
-      "dealo": {
-        "2026-11-24": 3.0
-      }
-    }
-  },
-  {
     "slug": "home-centre",
     "name": "Home Centre",
     "website": "https://www.homecentre.in/",
-    "checked": "2026-11-26",
-    "hubble": {
-      "pct": 7.0,
-      "brand_name": "Home Center",
-      "in_store": false,
-      "works": [
-        "ONLINE"
-      ],
-      "cards": [
-        1000,
-        2000,
-        3000,
-        5000
-      ],
-      "min_amount": 1000,
-      "max_amount": 20000,
-      "typed": false,
-      "steps": [
-        "Visit www.homecentre.in/in/en/ on your iOs/android Home centre App & add your desired products in the cart",
-        "Place your order by clicking on the “Buy now” button",
-        "Click on Have a gift card",
-        "Enter you 16 digits gift card no. along with you pin. You can make the balance payment by any other payment methods"
-      ],
-      "terms": [
-        "Comes with 6 month validity",
-        "The gift card can be used multiple times",
-        "E-Gift Cards cannot be redeemed at the physical / brick-and-mortar stores of Lifestyle & Home Centre"
-      ]
-    },
+    "checked": "2026-11-27",
+    "hubble": null,
     "sellers": [
       {
         "source": "maximize",
@@ -27307,38 +25617,8 @@
     "slug": "le-creuset",
     "name": "Le Creuset",
     "website": "https://www.lecreuset.co.in/",
-    "checked": "2026-11-26",
-    "hubble": {
-      "pct": 7.0,
-      "brand_name": "Le Creuset",
-      "in_store": true,
-      "works": [
-        "OFFLINE"
-      ],
-      "cards": [
-        500,
-        1000
-      ],
-      "min_amount": 500,
-      "max_amount": 1000,
-      "typed": false,
-      "steps": [
-        "The voucher can be redeemed at the following stores",
-        "- Phoenix Palladium, Mumbai",
-        "- Select Citywalk, New Delhi",
-        "- Ambience Mall, Gurgaon",
-        "- Palladium, Chennai (opening by end of September 2026)",
-        "The customer will need to redeem the voucher at the store by showcasing the soft copy of the Gift Coupon."
-      ],
-      "terms": [
-        "One voucher can be redeemed against one bill only at any Le Creuset Store in India.",
-        "Voucher cannot be encashed.",
-        "Strictly no extension of the expiry date from the date of issue will be allowed.",
-        "Not Applicable on online purchases.",
-        "The voucher can only be clubbed with AMEX Gift Vouchers.",
-        "The voucher can be redeemed at the following stores."
-      ]
-    },
+    "checked": "2026-11-27",
+    "hubble": null,
     "sellers": [
       {
         "source": "maximize",
@@ -27390,30 +25670,8 @@
     "slug": "milton",
     "name": "Milton",
     "website": "https://www.milton.in/",
-    "checked": "2026-11-26",
-    "hubble": {
-      "pct": 7.0,
-      "brand_name": "Milton",
-      "in_store": false,
-      "works": [
-        "ONLINE"
-      ],
-      "cards": [],
-      "min_amount": 500,
-      "max_amount": 50000,
-      "typed": true,
-      "steps": [
-        "This E-Gift Card is redeemable for products and services at https://www.milton.in/",
-        "Goes to checkout and selects gift card tender",
-        "Enters Gift card no and pin and clicks redeem",
-        "Any additional value is paid by customer using other tender modes."
-      ],
-      "terms": [
-        "Comes with 1 year validity and is redeemable for products and services at https://www.milton.in/",
-        "This E- Gift Card can be redeemed multiple times until the value is exhausted.",
-        "Gift cards, once purchased, cannot be cancelled or refunded"
-      ]
-    },
+    "checked": "2026-11-27",
+    "hubble": null,
     "sellers": [
       {
         "source": "buyhatke",
@@ -27469,29 +25727,8 @@
     "slug": "pigeon",
     "name": "Pigeon",
     "website": "https://www.stovekraft.com/",
-    "checked": "2026-11-26",
-    "hubble": {
-      "pct": 6.0,
-      "brand_name": "Pigeon",
-      "in_store": true,
-      "works": [
-        "OFFLINE"
-      ],
-      "cards": [],
-      "min_amount": 100,
-      "max_amount": 10000,
-      "typed": true,
-      "steps": [
-        "Visit Stores: https://pigeonstores.stovekraft.com/pigeon/",
-        "Showcase the EGV to the store manager",
-        "Remaining amount apart from EGV amount to be paid to the cashier at the store"
-      ],
-      "terms": [
-        "Comes with 1-year validity and cannot be used Online",
-        "Multiple Gift Vouchers can be combined",
-        "Gift cards, once purchased, cannot be cancelled or refunded"
-      ]
-    },
+    "checked": "2026-11-27",
+    "hubble": null,
     "sellers": [
       {
         "source": "gyftr",
@@ -27571,33 +25808,8 @@
     "slug": "prestige",
     "name": "Prestige",
     "website": "https://www.prestige.com/",
-    "checked": "2026-11-26",
-    "hubble": {
-      "pct": 10.0,
-      "brand_name": "Prestige",
-      "in_store": false,
-      "works": [
-        "OFFLINE",
-        "ONLINE"
-      ],
-      "cards": [],
-      "min_amount": 100,
-      "max_amount": 10000,
-      "typed": true,
-      "steps": [
-        "Visit the prestige website.",
-        "Select the product of your choice and add to the cart and proceed to checkout",
-        "Log in via mobile number to use the gift card powered by vouchagram. Use your gift card balance, or add the gift card details manually.",
-        "Enter the amount that you want to use and proceed with paying the rest with cc/dc/nb"
-      ],
-      "terms": [
-        "Comes with 6 months validity and would only be accepted at listed Prestige Xclusive Stores and on the Prestige Website https://shop.ttkprestige.com/.",
-        "The GV/e-Pay can be used during sale periods.",
-        "Prestige GV/e-Pay cannot be redeemed on specific block-out dates. Prestige may add or delete any date at its sole discretion.",
-        "Once the GV/GC has been added to the e-Pay, it can be redeemed only at the Prestige website and not at any listed outlet.",
-        "No refunds and no returns on Gift cards, E-Gift cards and E-Gift vouchers."
-      ]
-    },
+    "checked": "2026-11-27",
+    "hubble": null,
     "sellers": [
       {
         "source": "buyhatke",
@@ -27625,11 +25837,11 @@
       }
     ],
     "best": {
-      "source": "dealo",
-      "pct": 10.0
+      "source": "buyhatke",
+      "pct": 9.29
     },
     "online": true,
-    "offline": true,
+    "offline": false,
     "stack": null,
     "steps": [
       "Select products of your choice, add to cart. Proceed to checkout.",
@@ -27650,82 +25862,11 @@
     }
   },
   {
-    "slug": "villeroy-and-boch",
-    "name": "Villeroy & Boch",
-    "website": "https://www.villeroy-boch.com/",
-    "checked": "2026-11-26",
-    "hubble": {
-      "pct": 10.0,
-      "brand_name": "Villeroy & Boch-Luxe Gift Card",
-      "in_store": true,
-      "works": [
-        "OFFLINE"
-      ],
-      "cards": [],
-      "min_amount": 1000,
-      "max_amount": 10000,
-      "typed": true,
-      "steps": [
-        "Activate this gift card : SMS ACT [space] [16-Digit Card Number] [space] [CardPin] to 9704200300",
-        "Locate the nearest outlet that accepts this gift voucher.",
-        "Select your choice of products",
-        "Share your gift voucher with the cashier at the time of billing & pay the remaining amount by cash or card if required."
-      ],
-      "terms": [
-        "Valid for 1 year and in-store use only; not redeemable at airport stores",
-        "This is a one-time use giftcard; multiple cards can be used in 1 transaction",
-        "Luxe Gift Card can only be redeemed against full-priced merchandise"
-      ]
-    },
-    "sellers": [],
-    "best": {
-      "source": "dealo",
-      "pct": 10.0
-    },
-    "online": false,
-    "offline": true,
-    "stack": null,
-    "steps": [],
-    "restrictions": [],
-    "multiUse": null,
-    "canClub": null,
-    "history": {
-      "dealo": {
-        "2026-11-24": 10.0
-      }
-    }
-  },
-  {
     "slug": "superbottoms",
     "name": "SuperBottoms",
     "website": "https://www.superbottoms.com/",
-    "checked": "2026-11-26",
-    "hubble": {
-      "pct": 7.0,
-      "brand_name": "Superbottoms",
-      "in_store": false,
-      "works": [
-        "ONLINE"
-      ],
-      "cards": [
-        500,
-        1000
-      ],
-      "min_amount": 500,
-      "max_amount": 1000,
-      "typed": false,
-      "steps": [
-        "Log in to the website.",
-        "Add your favourite products to cart.",
-        "Add your contact details and mention the gift card details in the gift car box and then proceed to checkout."
-      ],
-      "terms": [
-        "Comes with 6 months validity and would be accepted only at https://superbottoms.com/",
-        "Multiple Gift Vouchers cannot be used in one single purchase",
-        "This is a one-time use card and any unused balance will lapse",
-        "Gift cards, once purchased, cannot be cancelled or refunded"
-      ]
-    },
+    "checked": "2026-11-27",
+    "hubble": null,
     "sellers": [
       {
         "source": "gyftr",
@@ -27824,35 +25965,8 @@
     "slug": "william-penn",
     "name": "William Penn",
     "website": "https://www.williampenn.net/",
-    "checked": "2026-11-26",
-    "hubble": {
-      "pct": 7.0,
-      "brand_name": "William Penn",
-      "in_store": true,
-      "works": [
-        "OFFLINE"
-      ],
-      "cards": [
-        1000,
-        2000,
-        5000,
-        10000
-      ],
-      "min_amount": 1000,
-      "max_amount": 10000,
-      "typed": false,
-      "steps": [
-        "Use the outlet locator to locate the nearest outlet that accepts this Gift Voucher.",
-        "Select your choice of product.",
-        "Share your Gift Voucher with the cashier at the time of billing & pay the remaining amount by cash or card if required."
-      ],
-      "terms": [
-        "Comes with 6 months validity and would be accepted at listed outlets. For Outlet List, please visit https://www.gyftr.com/william-penn",
-        "Multiple Gift Vouchers can be used in one bill but please note vouchers cannot be redeemed at airport stores.",
-        "This is a one-time use card and any unused balance will lapse",
-        "Gift cards, once purchased, cannot be cancelled or refunded"
-      ]
-    },
+    "checked": "2026-11-27",
+    "hubble": null,
     "sellers": [
       {
         "source": "gyftr",
@@ -27932,31 +26046,8 @@
     "slug": "crossword",
     "name": "Crossword",
     "website": "https://www.crossword.in/",
-    "checked": "2026-11-26",
-    "hubble": {
-      "pct": 3.0,
-      "brand_name": "Crossword",
-      "in_store": false,
-      "works": [
-        "OFFLINE",
-        "ONLINE"
-      ],
-      "cards": [],
-      "min_amount": 250,
-      "max_amount": 2000,
-      "typed": true,
-      "steps": [
-        "Go to crossword.in. Selects the product of choice",
-        "Proceed to the checkout, click on gift card",
-        "Enter the Card number and PIN and click on “Use Gift Card”. The card will be redeemed. In case there is any balance payment to be done, the customer can use the other payment modes."
-      ],
-      "terms": [
-        "Comes with 12 months validity and is redeemed at select Crossword stores across India. Not Valid at Crossword Franchisee Stores.",
-        "This E-Gift Card can be redeemed only once in stores in a single transaction.",
-        "The E-Gift card can be redeemed multiple times on www.crossword.in. But it will get blocked once used in stores.",
-        "Gift cards, once purchased, cannot be cancelled or refunded"
-      ]
-    },
+    "checked": "2026-11-27",
+    "hubble": null,
     "sellers": [
       {
         "source": "maximize",
@@ -28059,51 +26150,8 @@
     "slug": "miniklub",
     "name": "MiniKlub",
     "website": "https://www.miniklub.in/",
-    "checked": "2026-11-26",
-    "hubble": {
-      "pct": 13.0,
-      "brand_name": "MiniKlub",
-      "in_store": true,
-      "works": [
-        "OFFLINE"
-      ],
-      "cards": [
-        500,
-        1000,
-        1500,
-        2000,
-        2500,
-        3000,
-        3500,
-        4000,
-        4500,
-        5000,
-        5500,
-        6000,
-        6500,
-        7000,
-        7500,
-        8000,
-        8500,
-        9000,
-        9500,
-        10000
-      ],
-      "min_amount": 500,
-      "max_amount": 10000,
-      "typed": false,
-      "steps": [
-        "Visit the outlet near you. To locate the nearest outlet please visit https://miniklub.in/pages/store-locator",
-        "Before making the purchase confirm about the acceptance of Gift Card at the store.",
-        "Choose the products you wish to buy.",
-        "Show your Gift Card details to the cashier at the time of billing & pay any balance amount by cash or card."
-      ],
-      "terms": [
-        "Comes with 1-year validity",
-        "This is a one-time use card and redeemable at Miniklub online and exclusive stores",
-        "In case the value of the merchandise exceeds the value of the card, the difference shall be paid by the bearer"
-      ]
-    },
+    "checked": "2026-11-27",
+    "hubble": null,
     "sellers": [
       {
         "source": "maximize",
@@ -28161,9 +26209,9 @@
       "source": "maximize",
       "pct": 13.25
     },
-    "online": false,
+    "online": true,
     "offline": true,
-    "stack": null,
+    "stack": "One voucher per order",
     "steps": [
       "Visit the outlet near you.",
       "Before making the purchase confirm about the acceptance of Gift Card at the store.",
@@ -28190,29 +26238,8 @@
     "slug": "toscano",
     "name": "Toscano",
     "website": "https://www.toscano.in/",
-    "checked": "2026-11-26",
-    "hubble": {
-      "pct": 12.0,
-      "brand_name": "Toscano",
-      "in_store": true,
-      "works": [
-        "OFFLINE"
-      ],
-      "cards": [],
-      "min_amount": 999,
-      "max_amount": 30000,
-      "typed": true,
-      "steps": [
-        "Visit the nearest Toscano outlet. To locate the nearest outlet please visit https://www.toscano.co.in/restaurants",
-        "Inform the cashier about the Gift Card before ordering food.",
-        "Show the Gift Card details to the cashier at the time of billing & pay any balance amount by card or cash."
-      ],
-      "terms": [
-        "Comes with 12 month validity and is applicable for Dine-in only",
-        "Valid for one time redemption only",
-        "Valid at all Toscano Restaurants"
-      ]
-    },
+    "checked": "2026-11-27",
+    "hubble": null,
     "sellers": [
       {
         "source": "maximize",
@@ -28266,29 +26293,8 @@
     "slug": "taj-hotels",
     "name": "Taj Hotels",
     "website": "https://www.tajhotels.com/",
-    "checked": "2026-11-26",
-    "hubble": {
-      "pct": 11.0,
-      "brand_name": "Taj Experiences",
-      "in_store": true,
-      "works": [
-        "OFFLINE"
-      ],
-      "cards": [],
-      "min_amount": 1000,
-      "max_amount": 25000,
-      "typed": true,
-      "steps": [
-        "Visit taj listed outlets, Taj SeleQtions, Vivanta hotels and Ama Trails & Stays in India. This doesn’t include Ginger hotels",
-        "Select you choice of services. For prepaid room reservations Worldwide, share the card no. & PIN at the reception",
-        "You can make the balance payment by any other payment. A valid card in its original form or email must be presented at the time of availing the service"
-      ],
-      "terms": [
-        "Comes with 1 year validity. The gift card can be used multiple times.",
-        "The cards can be redeemed at Taj, Selections, Vivanta hotels and Ama Trails & Stays in India. This does not include Ginger Hotels.",
-        "For prepaid room reservations at Taj Reservations Worldwide the card number and PIN must be quoted when making the reservation"
-      ]
-    },
+    "checked": "2026-11-27",
+    "hubble": null,
     "sellers": [
       {
         "source": "gyftr",
@@ -28373,29 +26379,8 @@
     "slug": "itc-hotels",
     "name": "ITC Hotels",
     "website": "https://www.itchotels.com/",
-    "checked": "2026-11-26",
-    "hubble": {
-      "pct": 7.0,
-      "brand_name": "ITC Hotels",
-      "in_store": true,
-      "works": [
-        "OFFLINE"
-      ],
-      "cards": [],
-      "min_amount": 1000,
-      "max_amount": 10000,
-      "typed": true,
-      "steps": [
-        "These are offline-use cards only and need registration as well as activation before use",
-        "To register and activate your Gift Card, please send a SMS from your mobile phone as follows: ACT(space)CardNumber(space)CardPin(space)FirstName(space)LastName to 99639 00600",
-        "At the time of check-out/ settling the invoice, use your e-Gift to redeem it by sharing the 16 digit card number and the OTP received on the registered mobile number"
-      ],
-      "terms": [
-        "Comes with 1-year validity and can only be used offline",
-        "The card is valid for spends towards stays (room & incidental charges), food & beverages, Home deliveries & takeaways, spa services (for resident guests only), Fabelle Boutiques and applicable taxes at any of the participating hotels",
-        "The E-Gift Card can be redeemed at any of the participating ITC Hotels, Welcomhotels, Fortune Hotels & WelcomHeritage Hotels but club ITC Green Points will not be awarded for transaction settled using Gift Cards."
-      ]
-    },
+    "checked": "2026-11-27",
+    "hubble": null,
     "sellers": [
       {
         "source": "gyftr",
@@ -28448,7 +26433,7 @@
       "source": "gyftr",
       "pct": 9.0
     },
-    "online": false,
+    "online": true,
     "offline": true,
     "stack": "One voucher per order",
     "steps": [
@@ -28475,29 +26460,8 @@
     "slug": "marriott-hotels",
     "name": "Marriott Hotels",
     "website": "https://www.marriott.com/",
-    "checked": "2026-11-26",
-    "hubble": {
-      "pct": 7.0,
-      "brand_name": "Marriot Hotels",
-      "in_store": true,
-      "works": [
-        "OFFLINE"
-      ],
-      "cards": [],
-      "min_amount": 1000,
-      "max_amount": 10000,
-      "typed": true,
-      "steps": [
-        "Marriott E- Gift card needs to be registered before use. To register and activate your E-Gift Card, please send a SMS from your mobile phone: ACT CardNumber CardPin FirstName LastName to 7045379388.",
-        "The Marriott E-Gift Card will need to be presented via the email that the customer has received at the time of purchase.",
-        "The customer will need to provide the 16-digit E-gift card number & the 6-digit PIN during check in/ out"
-      ],
-      "terms": [
-        "Comes with 1-year validity and can only be used offline",
-        "Eligible purchases do not include advanced purchases, deposits, friends and family rates, payments for meetings, catering or group functions, or any other negotiated rates",
-        "This is a one-time use card and cannot be used outside of India"
-      ]
-    },
+    "checked": "2026-11-27",
+    "hubble": null,
     "sellers": [
       {
         "source": "maximize",
@@ -28550,28 +26514,8 @@
     "slug": "the-leela",
     "name": "The Leela",
     "website": "https://www.theleela.com/",
-    "checked": "2026-11-26",
-    "hubble": {
-      "pct": 7.0,
-      "brand_name": "Moments by The Leela",
-      "in_store": true,
-      "works": [
-        "OFFLINE"
-      ],
-      "cards": [],
-      "min_amount": 5000,
-      "max_amount": 10000,
-      "typed": true,
-      "steps": [
-        "During checkin/ checkout, inform the manager of the gift card & share 16-digit E-gift card number & the 6-digit PIN",
-        "You will receive an OTP, share it with the cashier."
-      ],
-      "terms": [
-        "Comes with 1 year validity and can be redeemed multiple times until value of the Gift Card is exhausted",
-        "Gift card cannot be used and clubbed with other promotional programs and user cannot club more than 1 Gift Card in one order",
-        "The Leela Gift Card is redeemable at the following participating hotels - The Leela Palace Bangalore, Leela Bhartiya City Bangalore, The Leela Palace Chennai, The Leela Palace New Delhi, Leela Ambience Convention Hotel Delhi, Leela Ambience Gurgaon, The Leela Palace Jaipur, The Leela Palace Udaipur, The Leela Gandhinagar"
-      ]
-    },
+    "checked": "2026-11-27",
+    "hubble": null,
     "sellers": [
       {
         "source": "maximize",
@@ -28622,40 +26566,8 @@
     "slug": "apollo-pharmacy",
     "name": "Apollo Pharmacy",
     "website": "https://www.apollopharmacy.in/",
-    "checked": "2026-11-26",
-    "hubble": {
-      "pct": 10.0,
-      "brand_name": "Apollo",
-      "in_store": false,
-      "works": [
-        "OFFLINE",
-        "ONLINE"
-      ],
-      "cards": [
-        250,
-        500,
-        1000,
-        2000,
-        5000
-      ],
-      "min_amount": 250,
-      "max_amount": 5000,
-      "typed": false,
-      "steps": [
-        "Visit the Apollo 24|7 Website or open the mobile app",
-        "Browse and add the required medicines or healthcare products to your cart (except FMCG products)",
-        "Proceed to checkout",
-        "Go to “all coupons and vouchers” section and click on the Gift Voucher, enter your voucher code. If your voucher also has the PIN, please enter that as well",
-        "Click Use Voucher to use the voucher",
-        "Complete the payment. If the voucher covers the full amount, no additional payment is needed. If not, pay the remaining balance via available payment options"
-      ],
-      "terms": [
-        "The Pharma Voucher can be redeemed at both online and offline Apollo Pharmacy stores, Offline: Select Apollo Pharmacy outlets (Apollo-affiliated stores) Online: Apollo 24|7 platform via the mobile app or website",
-        "This voucher is valid for one-time use only and is Non-transferable and non-refundable",
-        "It is not applicable on FMCG products, lab tests, consultations, or insurance plans",
-        "It cannot be combined with other offers, promotional codes, corporate credits Partial redemption is not allowed. If the bill is lower than the voucher amount, the balance will be forfeited"
-      ]
-    },
+    "checked": "2026-11-27",
+    "hubble": null,
     "sellers": [
       {
         "source": "gyftr",
@@ -28760,176 +26672,6 @@
       "buyhatke": {
         "2026-09-28": 6.69,
         "2026-10-19": 6.59
-      }
-    }
-  },
-  {
-    "slug": "o2-spa",
-    "name": "O2 Spa",
-    "website": "https://www.o2spa.in/",
-    "checked": "2026-11-26",
-    "hubble": {
-      "pct": 10.0,
-      "brand_name": "O2 Spa Salon",
-      "in_store": true,
-      "works": [
-        "OFFLINE"
-      ],
-      "cards": [],
-      "min_amount": 500,
-      "max_amount": 10000,
-      "typed": true,
-      "steps": [
-        "Visits the outlet and select service/ product",
-        "During payment, share the gift card details with the cashier.",
-        "Pay balance amount using other available payment modes."
-      ],
-      "terms": [
-        "Comes with 6 months validity",
-        "The gift card is valid on O2 Spa outlets; please check the link to locate the store https://www.woohoo.in/o2spa-store-list",
-        "Maximum of five gift cards can be redeemed against a single invoice"
-      ]
-    },
-    "sellers": [],
-    "best": {
-      "source": "dealo",
-      "pct": 10.0
-    },
-    "online": false,
-    "offline": true,
-    "stack": null,
-    "steps": [],
-    "restrictions": [],
-    "multiUse": null,
-    "canClub": null,
-    "history": {
-      "dealo": {
-        "2026-11-25": 10.0
-      }
-    }
-  },
-  {
-    "slug": "kalyan-jewellers",
-    "name": "Kalyan Jewellers",
-    "website": "https://www.kalyanjewellers.net/",
-    "checked": "2026-11-26",
-    "hubble": {
-      "pct": 3.5,
-      "brand_name": "Kalyan Jewellers",
-      "in_store": true,
-      "works": [
-        "OFFLINE"
-      ],
-      "cards": [],
-      "min_amount": 2000,
-      "max_amount": 100000,
-      "typed": true,
-      "steps": [
-        "Visit the nearby Kalyan Store. To locate the nearest store please visit https://www.kalyanjewellers.net/store-locator.php",
-        "Select the applicable Kalyan product",
-        "At the Billing Counter, inform the cashier about the choice of making payment using Gift Cards.",
-        "Cashier selects Gift Card as payment mode, submits card details in the system and completes the billing process"
-      ],
-      "terms": [
-        "Comes with 1 year validity. This card can be used only once.",
-        "This gift card is not redeemable on gold & silver coins. Not valid for subscription schemes.",
-        "A maximum of 10 cards can be added in a single bill"
-      ]
-    },
-    "sellers": [],
-    "best": {
-      "source": "dealo",
-      "pct": 3.5
-    },
-    "online": false,
-    "offline": true,
-    "stack": null,
-    "steps": [],
-    "restrictions": [],
-    "multiUse": null,
-    "canClub": null,
-    "history": {
-      "dealo": {
-        "2026-11-25": 3.5
-      }
-    }
-  },
-  {
-    "slug": "joyalukkas",
-    "name": "Joyalukkas",
-    "website": "https://www.joyalukkas.in/",
-    "checked": "2026-11-26",
-    "hubble": {
-      "pct": 3.5,
-      "brand_name": "Joyalukkas",
-      "in_store": true,
-      "works": [
-        "OFFLINE"
-      ],
-      "cards": [],
-      "min_amount": 500,
-      "max_amount": 100000,
-      "typed": true,
-      "steps": [
-        "Please check the nearest joyalukkas store by visiting https://www.joyalukkas.in/store-locator",
-        "Select the applicable Joyalukkas product, based on the Gift card type (refer terms & conditions).",
-        "At the Billing Counter, inform the cashier about the choice of making payment using Gift Cards.",
-        "Cashier selects Gift Card as payment mode, submits Gift Card & PIN details in the system and completes the billing process."
-      ],
-      "terms": [
-        "Comes with 1 year validity. Can be used multiple times.",
-        "Multiple gift cards can be used in a single transaction",
-        "Only valid for offline purchases and is not valid for subscription schemes. The gift card can be used for the purchase of any gold and diamond jewellery except gold bullion/coin.",
-        "EGVs issued by Joyalukkas can be redeemed partially and used multiple times on the Joyalukkas India website or mobile app until the full value is exhausted or the card validity expires. However, EGVs cannot be redeemed partially in offline stores."
-      ]
-    },
-    "sellers": [
-      {
-        "source": "buyhatke",
-        "label": "BuyHatke",
-        "pct": 2.01,
-        "upi_pct": 2.01,
-        "card_pct": null,
-        "url": "https://buyhatke.com/gift-cards/joyalukkas-gift-card",
-        "online": true,
-        "offline": false,
-        "denominations": [
-          500,
-          1500,
-          5000,
-          100000
-        ],
-        "typed": false,
-        "typed_min": null,
-        "typed_max": null,
-        "stack_limit": null,
-        "value_cap": 100000.0,
-        "checked": "2026-11-05"
-      }
-    ],
-    "best": {
-      "source": "dealo",
-      "pct": 3.5
-    },
-    "online": false,
-    "offline": true,
-    "stack": null,
-    "steps": [
-      "Walk in-to Joyalukkas store.",
-      "Select the applicable Joyalukkas product, based on the Gift card type (refer terms & conditions).",
-      "At the Billing Counter, inform the cashier about the choice of making payment using Gift Cards.",
-      "Cashier selects Gift Card as payment mode, submits Gift Card & PIN details in the system and completes the billing process."
-    ],
-    "restrictions": [],
-    "multiUse": true,
-    "canClub": null,
-    "history": {
-      "dealo": {
-        "2026-11-25": 3.5
-      },
-      "buyhatke": {
-        "2026-08-13": 2.13,
-        "2026-10-19": 2.01
       }
     }
   }
