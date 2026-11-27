@@ -2,6 +2,7 @@ import { Flex } from '@chakra-ui/react';
 
 import { I } from '@/components/common/icons';
 import InfoNote from '@/components/common/InfoNote';
+import { useUiStore } from '@/store/uiStore';
 import { voucherSourceName } from '@/utils/voucherSource';
 
 /**
@@ -16,11 +17,15 @@ import { voucherSourceName } from '@/utils/voucherSource';
  * visual weight as the voucher/cart/pay steps above it. Renders nothing when
  * the route has no voucher, or when `skipVoucher` means Journey isn't
  * routing the shopper through the voucher this visit — there are no terms
- * to skim for a purchase they're not making.
+ * to skim for a purchase they're not making. Also nothing when the voucher
+ * on show is Dealo's own: this line used to send the shopper to "Maximize's
+ * terms" under a voucher Maximize isn't selling (27 Nov 2026), and the
+ * Dealo card already carries the shop's own rules right above.
  */
 export default function HowToSteps({ rec, skipVoucher = false }) {
+  const dealoVoucher = useUiStore((s) => s.hubbleOffer);
   const v = skipVoucher ? null : rec.voucher || null;
-  if (!v) return null;
+  if (!v || dealoVoucher) return null;
   const sourceLabel = voucherSourceName(v.voucher_source);
 
   return (

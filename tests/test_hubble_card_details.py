@@ -122,3 +122,11 @@ def test_both_ways_of_using_the_card_are_returned():
     p = product(["Comes with 1 year validity"], ways=(("ONLINE", ["web step"]), ("OFFLINE", ["Show the code"])))
     card = h.card_details(p, "Zzshop", in_store=False)
     assert card["ways"] == {"store": ["Show the code"], "online": ["web step"]}
+
+
+def test_formatting_marks_never_reach_the_shopper():
+    p = product(["Valid for <b>1 year</b> &amp; no refunds"], ways=(("ONLINE", ["Go to My Account and then <b>Ajio Wallet</b>."]),))
+    card = h.card_details(p, "X", in_store=False)
+    assert card["terms"] == ["Valid for 1 year & no refunds"]
+    assert card["steps"] == ["Go to My Account and then Ajio Wallet."]
+    assert card["ways"]["online"] == card["steps"]

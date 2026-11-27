@@ -106,3 +106,7 @@ export function tidyTitle(title) {
   }
   return t.replace(/\s+1\s*(unit|pc|pcs|piece)\.?$/i, '');
 }
+
+// Hubble's text sometimes carries formatting marks ("<b>Ajio Wallet</b>");
+// the shopper should only ever see the words.
+export const noTags = (t) => String(t ?? '').replace(/<\/?[a-z][^<>]*>/gi, '');

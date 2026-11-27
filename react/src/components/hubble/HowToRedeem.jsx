@@ -4,6 +4,7 @@ import { Box, Button, Flex, Portal, Text } from '@chakra-ui/react';
 import { I } from '@/components/common/icons';
 import { hubbleApi } from '@/api/hubble.api';
 import { track } from '@/utils/analytics';
+import { noTags } from '@/utils/format';
 
 /**
  * "How to redeem": a button that opens the shop's own steps, word for word
@@ -31,7 +32,7 @@ const KEY = [
 ];
 
 const tidy = (t) =>
-  String(t)
+  noTags(t)
     .replace(/https?:\/\/(?:www\.)?([^/\s]+)\S*/g, '$1')
     .replace(/\bwww\./g, '')
     .replace(/^\s*[-•]\s*/, '')

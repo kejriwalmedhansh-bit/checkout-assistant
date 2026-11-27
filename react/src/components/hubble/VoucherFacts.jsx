@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 
 import { I } from '@/components/common/icons';
 import { track } from '@/utils/analytics';
+import { noTags } from '@/utils/format';
 
 import HowToRedeem from './HowToRedeem';
 
@@ -129,7 +130,7 @@ function Sheet({ card, brandName, modes, onClose }) {
           <Box as="ol" pl="18px" fontSize="13px" lineHeight={1.45} color="text">
             {card.terms.map((t) => (
               <Box as="li" key={t} mt="6px">
-                {t}
+                {noTags(t)}
               </Box>
             ))}
           </Box>
@@ -142,7 +143,7 @@ function Sheet({ card, brandName, modes, onClose }) {
             <Box as="ol" pl="18px" fontSize="13px" lineHeight={1.45} color="text2">
               {how.map((t) => (
                 <Box as="li" key={t} mt="4px">
-                  {t}
+                  {noTags(t)}
                 </Box>
               ))}
             </Box>
