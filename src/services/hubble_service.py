@@ -15,6 +15,7 @@ and how much, and tells Hubble who the shopper is. Three jobs live here:
 from __future__ import annotations
 
 import asyncio
+import html
 import json
 import math
 import re
@@ -466,6 +467,15 @@ def _notes() -> dict[str, list[dict]]:
     return {k: v for k, v in json.loads(_NOTES.read_text()).items() if not k.startswith("_")}
 
 
+_TAG = re.compile(r"</?[a-zA-Z][^<>]*>")
+
+
+def _plain(text: str) -> str:
+    """Hubble's text with its formatting marks taken out ("Go to <b>Ajio
+    Wallet</b>" was shown to shoppers with the marks in it, 27 Nov 2026)."""
+    return re.sub(r"\s{2,}", " ", html.unescape(_TAG.sub("", text or ""))).strip()
+
+
 def card_details(product: dict, brand_name: str, in_store: bool) -> dict:
     """What the Dealo voucher card shows besides the price, all from Hubble's
     own terms: an icon row of plain facts, the hand-picked things it can't
@@ -474,13 +484,13 @@ def card_details(product: dict, brand_name: str, in_store: bool) -> dict:
     the shopper will use it (shown after buying when there is no direct
     add-voucher link)."""
     meta = product.get("voucherProductMetadata") or {}
-    terms = [t.strip(" -") for t in meta.get("conditions") or [] if t and t.strip(" -")]
+    terms = [t for t in (_plain(c).strip(" -") for c in meta.get("conditions") or [] if c) if t]
     ways = meta.get("howToUseSteps") or []
     modes = {(w.get("retailMode") or "").upper() for w in ways}
     want = ("OFFLINE",) if in_store else ("ONLINE", "APP")
     def hints(modes_wanted: tuple[str, ...]) -> list[str]:
         way = next((w for w in ways if (w.get("retailMode") or "").upper() in modes_wanted), None)
-        return [h for h in ((way or {}).get("howToUseHints") or {}).get("hints") or [] if h]
+        return [h for h in (_plain(x) for x in ((way or {}).get("howToUseHints") or {}).get("hints") or [] if x) if h]
 
     steps = hints(want)
     # Both ways of using the card, for the In store / Online switch.
