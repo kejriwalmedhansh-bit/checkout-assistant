@@ -19,6 +19,7 @@ const COLUMNS = [
     links: [
       { to: `${ROUTES.guideFor('buy-gift-cards-at-discount')}/`, label: 'Buy gift cards at a discount' },
       { to: `${ROUTES.guideFor('is-it-safe-to-buy-discounted-gift-cards')}/`, label: 'Is it safe?' },
+      { to: `${ROUTES.guideFor('gift-card-discount-changes-india')}/`, label: 'How discounts change' },
     ],
   },
   {

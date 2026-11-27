@@ -317,6 +317,12 @@ function guideBody(g) {
         (sec.ol ? list(sec.ol.map(esc), 'ol') : '') +
         (sec.ul ? list(sec.ul.map(esc)) : '') +
         (sec.links ? `<p>Read the threads:</p>${list(sec.links.map((l) => `<a href="${l.href}" rel="nofollow noopener">${esc(l.label)}</a>`))}` : '') +
+        (sec.split ? p(`${sec.split.up} went up, ${sec.split.same} stayed the same and ${sec.split.down} went down.`) : '') +
+        (sec.movers
+          ? list(sec.movers.map((r) => `${link(`/brands/${r.slug}/`, r.name)} (${esc(r.cat)}): ${pct(r.was)} to ${pct(r.now)}${r.dealo ? `. ${pct(r.dealo)} on Dealo today` : ''}`))
+          : '') +
+        (sec.cats ? list(sec.cats.map((c) => esc(`${c.name}, ${c.total} shops: ${c.up} up, ${c.same} the same, ${c.down} down`))) : '') +
+        (sec.cite ? p(`Writing about gift cards? ${sec.cite}`) : '') +
         (sec.table
           ? `<table><thead><tr>${sec.table.cols.map((c) => `<th>${esc(c)}</th>`).join('')}</tr></thead><tbody>${sec.table.rows
               .map((r) => `<tr><td>${link(r.href, r.label)}</td><td>${r.count}</td><td>${esc(r.best)}</td><td>${esc(r.least)}</td></tr>`)

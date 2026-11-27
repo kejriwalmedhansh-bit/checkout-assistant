@@ -12,6 +12,7 @@
  */
 import { SITE_NAME, SITE_URL, isSubscription, pct, shownPct } from './pageMeta.js';
 import { CATEGORIES, categoryShops, inr, payOn } from './categories.js';
+import { MIN_MOVE, rateChanges } from './rateChanges.js';
 
 const topShops = (shopPages, n) =>
   [...shopPages].filter((s) => shownPct(s)).sort((a, b) => shownPct(b) - shownPct(a)).slice(0, n);
@@ -101,6 +102,92 @@ function saleFigures(shopPages) {
     fashion: pick('fashion', 8),
     electronics: pick('electronics', 8),
     beauty: pick('beauty-jewellery', 8),
+  };
+}
+
+/** "2026-11-09" → "November". */
+const monthOf = (iso) => MONTHS[Number(String(iso).split('-')[1]) - 1];
+
+/**
+ * /guides/gift-card-discount-changes-india/: how the discounts moved since
+ * the end of August. Every sentence is counted from rateChanges(), so it
+ * stays true when the prices are re-read; none of it names a seller.
+ */
+function changesGuide(shopPages) {
+  const c = rateChanges(shopPages);
+  const year = String(c.lastDay).slice(0, 4);
+  const span = `August to ${monthOf(c.lastDay)} ${year}`;
+  const last = niceDate(c.lastDay);
+  const rise = c.rises[0];
+  const fall = c.falls[0];
+  const moved = (cat) => cat.up + cat.down;
+  const sells = (cat) => cat.name.toLowerCase();
+  return {
+    slug: 'gift-card-discount-changes-india',
+    title: `How gift card discounts in India changed: ${span}`,
+    description: `We tracked the gift card discount at ${c.total} Indian shops from ${span}. ${c.same} did not move, ${c.up} went up and ${c.down} went down.`,
+    heading: `How gift card discounts in India changed: ${span}`,
+    intro: `We’ve been writing down what gift cards sell for at ${c.total} shops since ${monthOf(c.firstDay)}. This is what happened to those discounts between the end of August and ${last}.`,
+    sections: [
+      {
+        h: 'The short version',
+        p: [
+          `If a shop’s gift card was ${pct(c.typical)} off in August, it is very likely still ${pct(c.typical)} off. ${c.same} of the ${c.total} didn’t move at all.`,
+        ],
+        split: { up: c.up, same: c.same, down: c.down },
+      },
+      rise && {
+        h: 'Biggest rises',
+        p: [`${rise.name} is the one that stands out. It was ${pct(rise.was)} off in August and is ${pct(rise.now)} off now.`],
+        movers: c.rises,
+      },
+      fall && {
+        h: 'Biggest falls',
+        p: [
+          `${c.mostFalls.name} took the most knocks: ${c.mostFalls.down} of the ${c.down} shops that fell are ${sells(c.mostFalls)} shops. ${fall.name} dropped the furthest, from ${pct(fall.was)} to ${pct(fall.now)}.`,
+        ],
+        movers: c.falls,
+      },
+      {
+        h: 'By type of shop',
+        p: [
+          c.jumpy.name === c.biggest.name
+            ? `${c.jumpy.name} moved the most. ${moved(c.jumpy)} of its ${c.jumpy.total} shops changed.`
+            : `${c.jumpy.name} was the jumpy one. ${moved(c.jumpy)} of its ${c.jumpy.total} shops changed. In ${sells(c.biggest)} it was ${moved(c.biggest)} of ${c.biggest.total}.`,
+        ],
+        cats: c.byCat,
+      },
+      {
+        h: 'How we got these numbers',
+        ul: [
+          `We look up what each shop’s gift card sells for and note the date. This page uses ${c.checks} of those checks, from ${niceDate(c.firstDay)} to ${last}.`,
+          'A shop’s number is the best discount we found for it among the sellers we follow.',
+          'We compare like with like. A seller only counts for a shop if we already had its price in August, so a seller we began reading later can’t make a discount look like it rose.',
+          `A change only counts if it is ${MIN_MOVE === 0.5 ? 'half a point' : `${MIN_MOVE} points`} or more. A move from 10% to 10.2% doesn’t.`,
+          'Our own prices aren’t in the up and down count. We only began noting them in November, so we can’t say what they were in August. Where Dealo is cheaper today, the shop has a blue tag.',
+        ],
+        cite: 'Use any number here. A link back lets your readers check the dates for themselves.',
+      },
+    ].filter(Boolean),
+    note: `Disclosure: Dealo sells gift cards itself, issued through Hubble, an official gift card issuer. Other sellers’ prices on this page were last read on ${last}. Rates change, so check the shop’s page before you pay.`,
+    faqs: [
+      {
+        q: 'Do gift card discounts in India change often?',
+        a: `Not often. Between the end of August and ${last}, ${c.same} of the ${c.total} shops we follow stayed within half a point of where they were. ${c.up} went up and ${c.down} went down.`,
+      },
+      rise && {
+        q: 'Which gift card discount went up the most?',
+        a: `${rise.name}. Its gift card was ${pct(rise.was)} off at the end of August and ${pct(rise.now)} off on ${last}.`,
+      },
+      fall && {
+        q: 'Which gift card discount fell the most?',
+        a: `${fall.name}. Its gift card was ${pct(fall.was)} off at the end of August and ${pct(fall.now)} off on ${last}.`,
+      },
+      {
+        q: 'Is it worth waiting for a better gift card discount?',
+        a: `Usually not. Most discounts stay where they are for months: ${c.same} of ${c.total} did over this period.`,
+      },
+    ].filter(Boolean),
   };
 }
 
@@ -461,6 +548,7 @@ export function buildGuides(shopPages) {
         },
       ],
     },
+    changesGuide(shopPages),
   ];
 }
 
